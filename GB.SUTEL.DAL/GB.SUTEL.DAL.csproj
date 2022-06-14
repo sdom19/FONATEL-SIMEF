@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3548F570-BB86-47FA-AD42-CB491214EAC6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GB.SUTEL.DAL</RootNamespace>
+    <AssemblyName>GB.SUTEL.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.BulkInsert, Version=6.0.3.10, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework6.BulkInsert.6.0.3.10\lib\net45\EntityFramework.BulkInsert.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.MappingAPI">
+      <HintPath>..\packages\EntityFramework.MappingAPI.6.1.0.9\lib\net45\EntityFramework.MappingAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Omu.ValueInjecter">
+      <HintPath>..\packages\valueinjecter.2.3.3\lib\net35\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.Protocols" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Communication\SutelAD.cs" />
+    <Compile Include="Communication\WSHelper.cs" />
+    <Compile Include="Communication\WSHelperAsync.cs" />
+    <Compile Include="ExternalDA.cs" />
+    <Compile Include="FormCumplimientoPorcen\FormCumplimientoPorcenDA.cs" />
+    <Compile Include="FuenteExterna\FuenteExternaDA.cs" />
+    <Compile Include="FuenteExterna\IndicadorExternoDA.cs" />
+    <Compile Include="FuenteExterna\PeriodicidadDA.cs" />
+    <Compile Include="FuenteExterna\RegionIndicadorExternoDA.cs" />
+    <Compile Include="FuenteExterna\RegistroIndicadorExternoDA.cs" />
+    <Compile Include="FuenteExterna\ZonaIndicadorExternoDA.cs" />
+    <Compile Include="IMaintainable.cs" />
+    <Compile Include="LocalContextualizer.cs" />
+    <Compile Include="Maintainable1.cs" />
+    <Compile Include="Mantenimientos\AgrupacionAD.cs" />
+    <Compile Include="Mantenimientos\AgrupacionDetalleAD.cs" />
+    <Compile Include="Mantenimientos\ConstructorAD.cs" />
+    <Compile Include="Mantenimientos\IndicadorAD.cs" />
+    <Compile Include="Mantenimientos\IndicadorCruzadoDA.cs" />
+    <Compile Include="Mantenimientos\IndicadorUITAD.cs" />
+    <Compile Include="Mantenimientos\FrecuenciaAD.cs" />
+    <Compile Include="Mantenimientos\CriterioAD.cs" />
+    <Compile Include="Mantenimientos\DireccionAD.cs" />
+    <Compile Include="Mantenimientos\DetalleAgrupacionAD.cs" />
+    <Compile Include="Mantenimientos\ServicioIndicadorDA.cs" />
+    <Compile Include="Mantenimientos\SolicitudIndicadorAD.cs" />
+    <Compile Include="Mantenimientos\NivelAD.cs" />
+    <Compile Include="Mantenimientos\OperadorDA.cs" />
+    <Compile Include="Mantenimientos\ServicioAD.cs" />
+    <Compile Include="Mantenimientos\TipoIndicadorAD.cs" />
+    <Compile Include="Mantenimientos\TipoNivelDetalleAD.cs" />
+    <Compile Include="Mantenimientos\TipoValorAD.cs" />
+    <Compile Include="ModeloIndicadores.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloIndicadores.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModeloIndicadores.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloIndicadores.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Proceso\BitacoraIndicadorInternoAD.cs" />
+    <Compile Include="Proceso\EspectroAD.cs" />
+    <Compile Include="Proceso\RegistroIndicadorInternoAD.cs" />
+    <Compile Include="Seguridad\AccionDA.cs" />
+    <Compile Include="Seguridad\BinnacleDA.cs" />
+    <Compile Include="Seguridad\PantallaDA.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seguridad\RolAccionPantallaDA.cs" />
+    <Compile Include="Seguridad\RolDA.cs" />
+    <Compile Include="Seguridad\UsersDA.cs" />
+    <Compile Include="Service References\ServiceReference1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Umbrales\UmbralesPesosRelativosAD.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="bin\Debug\ClassLibraryDatasoft.dll.config" />
+    <None Include="bin\Debug\EntityFramework.BulkInsert.dll.config" />
+    <None Include="bin\Debug\GB.SUTEL.DAL.dll.config" />
+    <None Include="bin\Debug\GB.SUTEL.Entities.dll.config" />
+    <None Include="bin\Debug\GB.SUTEL.ExceptionHandler.dll.config" />
+    <None Include="bin\Debug\GB.SUTEL.Shared.dll.config" />
+    <None Include="bin\Release\GB.SUTEL.DAL.dll.config" />
+    <EntityDeploy Include="ModeloIndicadores.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModeloIndicadores.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModeloIndicadores.edmx.diagram">
+      <DependentUpon>ModeloIndicadores.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Service References\ServiceReference1\GB.SUTEL.DAL.ServiceReference1.CompositeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\GB.SUTEL.DAL.ServiceReference1.ResultMessageOfFacade_SampleEntity7cgKGpEZ.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\Service1.wsdl" />
+    <None Include="Service References\ServiceReference1\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\Service11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\Service12.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\Service13.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReference1\Service14.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GB.SUTEL.Entities\GB.SUTEL.Entities.csproj">
+      <Project>{8b30812d-4414-4c62-9a34-fd80220c0029}</Project>
+      <Name>GB.SUTEL.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.ExceptionHandler\GB.SUTEL.ExceptionHandler.csproj">
+      <Project>{997cc335-deac-49a5-9482-7b5c54db1ecd}</Project>
+      <Name>GB.SUTEL.ExceptionHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.Shared\GB.SUTEL.Shared.csproj">
+      <Project>{9b33f131-e6cb-4fb0-916e-ff696437c928}</Project>
+      <Name>GB.SUTEL.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReference1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\Service1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReference1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\ClassLibraryDatasoft.dll" />
+    <Content Include="bin\Debug\ClassLibraryDatasoft.pdb" />
+    <Content Include="bin\Debug\EntityFramework.BulkInsert.dll" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.MappingAPI.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\GB.SUTEL.DAL.dll" />
+    <Content Include="bin\Debug\GB.SUTEL.DAL.pdb" />
+    <Content Include="bin\Debug\GB.SUTEL.Entities.dll" />
+    <Content Include="bin\Debug\GB.SUTEL.Entities.pdb" />
+    <Content Include="bin\Debug\GB.SUTEL.ExceptionHandler.dll" />
+    <Content Include="bin\Debug\GB.SUTEL.ExceptionHandler.pdb" />
+    <Content Include="bin\Debug\GB.SUTEL.Shared.dll" />
+    <Content Include="bin\Debug\GB.SUTEL.Shared.pdb" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\Omu.ValueInjecter.dll" />
+    <Content Include="bin\Debug\Omu.ValueInjecter.xml" />
+    <Content Include="bin\Release\EntityFramework.BulkInsert.dll" />
+    <Content Include="bin\Release\EntityFramework.BulkInsert.pdb" />
+    <Content Include="bin\Release\EntityFramework.dll" />
+    <Content Include="bin\Release\EntityFramework.MappingAPI.dll" />
+    <Content Include="bin\Release\EntityFramework.MappingAPI.pdb" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Release\EntityFramework.xml" />
+    <Content Include="bin\Release\GB.SUTEL.DAL.dll" />
+    <Content Include="bin\Release\GB.SUTEL.DAL.pdb" />
+    <Content Include="bin\Release\GB.SUTEL.Entities.dll" />
+    <Content Include="bin\Release\GB.SUTEL.Entities.pdb" />
+    <Content Include="bin\Release\GB.SUTEL.ExceptionHandler.dll" />
+    <Content Include="bin\Release\GB.SUTEL.ExceptionHandler.pdb" />
+    <Content Include="bin\Release\GB.SUTEL.Shared.dll" />
+    <Content Include="bin\Release\GB.SUTEL.Shared.pdb" />
+    <Content Include="bin\Release\Newtonsoft.Json.dll" />
+    <Content Include="bin\Release\Newtonsoft.Json.xml" />
+    <Content Include="bin\Release\Omu.ValueInjecter.dll" />
+    <Content Include="bin\Release\Omu.ValueInjecter.xml" />
+    <Content Include="ModeloIndicadores.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModeloIndicadores.edmx</DependentUpon>
+      <LastGenOutput>ModeloIndicadores.Context.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

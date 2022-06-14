@@ -1,0 +1,134 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.Frecuencia>>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Mantenimientos/Frecuencia.js")"></script>
+}
+
+
+
+<table class="display" style="margin:0;" data-table-grid="true" data-tabla-ajax-url="/Frecuencia/Buscar">
+
+    <thead>
+        <tr>
+
+            <th>
+                Nombre
+            </th>
+
+            <th>
+                Cantidad de Meses
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model.Item1.Count() > 0)
+        {
+
+            foreach (var item in Model.Item1)
+            {
+                if (item != null)
+                {
+                    <tr>
+
+                        <td data-toggle="modal" data-target="#modalEditarFrecuencia"
+                            data-select="true"
+                            data-json-selected='{"IdFrecuencia":" @item.IdFrecuencia ", "txtFrecuencia": " @item.NombreFrecuencia", "txtCantidadMeses": " @item.CantidadMeses"}'>
+                            @Html.DisplayFor(modelIten => item.NombreFrecuencia)
+                        </td>
+
+                        <td data-toggle="modal" data-target="#modalEditarFrecuencia" align="right"
+                            data-select="true"
+                            data-json-selected='{"IdFrecuencia":" @item.IdFrecuencia ", "txtFrecuencia": " @item.NombreFrecuencia", "txtCantidadMeses": " @item.CantidadMeses"}'>
+                            @Html.DisplayFor(modelIten => item.CantidadMeses)
+                        </td>
+
+
+                        <td>
+
+
+                            @if (GB.SUTEL.UI.Helpers.rolValidation.ValidateScreenFunctions(this.Context, "Frecuencia", "Eliminar"))
+                            {
+                                <button type="button" class="btn btn-danger myDelete" data-toggle="modal" data-target="#modalEliminarFrecuencia"
+                                        data-select="true" data-json-selected='{"ItemEliminar":" @item.IdFrecuencia "}'>
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                            }
+
+
+                        </td>
+                    </tr>}
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td width="1%" colspan="3">
+                <form id="frmFiltrarFrecuencia" method="post"
+                      action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tableFrecuencia"
+                      data-ajax-message="Cargando datos...">
+                    @if (ViewBag.TerminosBusqueda != null)
+                    {
+                        <input placeholder="Frecuencia" name="NombreFrecuencia" value="@ViewBag.TerminosBusqueda" />
+                    }
+                    else
+                    {
+                        <input placeholder="Frecuencia" name="NombreFrecuencia" value="" />
+                    }
+                    <button type="submit" style="display:none">Buscar</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript">
+
+
+    $(document).ready(
+        function () {
+            AjaxifyMyForm("frmFiltrarFrecuencia",
+            function (data) {
+                data = "<div id='vistaFreciencia'>" + data + "</div>";
+
+                var $form = $(data);
+
+                $("#vistaFreciencia").replaceWith(data);
+            },
+            function (error) {
+
+            }, 10000);
+
+
+        }
+
+
+        );
+
+
+    $('#frmFiltrarFrecuencia').submit(function (event) {
+        event.preventDefault(); 
+    });
+
+    $('#frmFiltrarFrecuencia input').keyup(function (event) {
+        if (event.keyCode === 13) {
+            $('#frmFiltrarFrecuencia').submit();
+        }
+    });
+
+    if (typeof initDataGrid !== 'undefined') {
+        $('table[data-table-grid="true"]').ready(initDataGrid);
+    }
+</script>
+
+

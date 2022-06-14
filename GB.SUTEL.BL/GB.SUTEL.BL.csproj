@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E8ED21F4-13AE-4B54-B9C5-1FF6EBC26EB9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GB.SUTEL.BL</RootNamespace>
+    <AssemblyName>GB.SUTEL.BL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML">
+      <HintPath>..\packages\ClosedXML.0.76.0\lib\net40-client\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="MMLib.Core">
+      <HintPath>..\packages\MMLib.Extensions.1.0.10.13\lib\MMLib.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MMLib.Extensions">
+      <HintPath>..\packages\MMLib.Extensions.1.0.10.13\lib\MMLib.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormCumplimientoPorcen\FormCumplimientoPorcenBL.cs" />
+    <Compile Include="FuenteExternas\RegistroIndicadorExternoBL.cs" />
+    <Compile Include="FuenteExternas\IndicadorExternoBL.cs" />
+    <Compile Include="FuenteExternas\ZonaIndicadorExternoBL.cs" />
+    <Compile Include="FuenteExternas\RegionIndicadorExternoBL.cs" />
+    <Compile Include="FuenteExternas\PeriodicidadBL.cs" />
+    <Compile Include="FuenteExternas\FuenteExternaBL.cs" />
+    <Compile Include="LocalContextualizer.cs" />
+    <Compile Include="Mantenimientos\AgrupacionBL.cs" />
+    <Compile Include="Mantenimientos\ConstructorBL.cs" />
+    <Compile Include="Mantenimientos\DetalleAgrupacionBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\ServicioIndicadorBL.cs" />
+    <Compile Include="Mantenimientos\IndicadorBL.cs" />
+    <Compile Include="Mantenimientos\IndicadorCruzadoBL.cs" />
+    <Compile Include="Mantenimientos\IndicadorUITBL.cs" />
+    <Compile Include="Mantenimientos\FrecuenciaBL.cs" />
+    <Compile Include="Mantenimientos\CriterioBL.cs" />
+    <Compile Include="Mantenimientos\DireccionBL.cs" />
+    <Compile Include="Mantenimientos\RegistroIndicadorBL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Mantenimientos\SolicitudIndicadorBL.cs" />
+    <Compile Include="Mantenimientos\NivelBL.cs" />
+    <Compile Include="Mantenimientos\OperadorBL.cs" />
+    <Compile Include="Mantenimientos\ServicioBL.cs" />
+    <Compile Include="Mantenimientos\TipoIndicadorBL.cs" />
+    <Compile Include="Mantenimientos\TipoNivelDetalleBL.cs" />
+    <Compile Include="Mantenimientos\TipoValorBL.cs" />
+    <Compile Include="Proceso\BitacoraIndicadorInternoBL.cs" />
+    <Compile Include="Proceso\EspectroBL.cs" />
+    <Compile Include="Proceso\RegistroIndicadorInternoBL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seguridad\AccesoPermisosBL.cs" />
+    <Compile Include="Seguridad\ADEntryBL.cs" />
+    <Compile Include="Seguridad\BitacoraBL.cs" />
+    <Compile Include="Seguridad\PantallaBL.cs" />
+    <Compile Include="Seguridad\RolBL.cs" />
+    <Compile Include="Seguridad\UsersBL.cs" />
+    <Compile Include="UmbralesPesosRelativos\UmbralesPesosRelativosBL.cs" />
+    <Compile Include="Utilidades.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GB.SUTEL.DAL\GB.SUTEL.DAL.csproj">
+      <Project>{3548f570-bb86-47fa-ad42-cb491214eac6}</Project>
+      <Name>GB.SUTEL.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.Entities\GB.SUTEL.Entities.csproj">
+      <Project>{8b30812d-4414-4c62-9a34-fd80220c0029}</Project>
+      <Name>GB.SUTEL.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.ExceptionHandler\GB.SUTEL.ExceptionHandler.csproj">
+      <Project>{997cc335-deac-49a5-9482-7b5c54db1ecd}</Project>
+      <Name>GB.SUTEL.ExceptionHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.Resources\GB.SUTEL.Resources.csproj">
+      <Project>{9787195d-ff3f-44e5-bf82-8dbde1ccd952}</Project>
+      <Name>GB.SUTEL.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.Shared\GB.SUTEL.Shared.csproj">
+      <Project>{9b33f131-e6cb-4fb0-916e-ff696437c928}</Project>
+      <Name>GB.SUTEL.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Release\ClosedXML.dll" />
+    <Content Include="bin\Release\ClosedXML.xml" />
+    <Content Include="bin\Release\DocumentFormat.OpenXml.dll" />
+    <Content Include="bin\Release\EntityFramework.BulkInsert.dll" />
+    <Content Include="bin\Release\EntityFramework.BulkInsert.pdb" />
+    <Content Include="bin\Release\EntityFramework.dll" />
+    <Content Include="bin\Release\EntityFramework.xml" />
+    <Content Include="bin\Release\en\GB.SUTEL.Resources.resources.dll" />
+    <Content Include="bin\Release\EPPlus.dll" />
+    <Content Include="bin\Release\GB.SUTEL.BL.dll" />
+    <Content Include="bin\Release\GB.SUTEL.BL.pdb" />
+    <Content Include="bin\Release\GB.SUTEL.DAL.dll" />
+    <Content Include="bin\Release\GB.SUTEL.DAL.pdb" />
+    <Content Include="bin\Release\GB.SUTEL.Entities.dll" />
+    <Content Include="bin\Release\GB.SUTEL.Entities.pdb" />
+    <Content Include="bin\Release\GB.SUTEL.ExceptionHandler.dll" />
+    <Content Include="bin\Release\GB.SUTEL.ExceptionHandler.pdb" />
+    <Content Include="bin\Release\GB.SUTEL.Resources.dll" />
+    <Content Include="bin\Release\GB.SUTEL.Resources.pdb" />
+    <Content Include="bin\Release\GB.SUTEL.Shared.dll" />
+    <Content Include="bin\Release\GB.SUTEL.Shared.pdb" />
+    <Content Include="bin\Release\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="bin\Release\MMLib.Core.dll" />
+    <Content Include="bin\Release\MMLib.Core.pdb" />
+    <Content Include="bin\Release\MMLib.Core.xml" />
+    <Content Include="bin\Release\MMLib.Extensions.dll" />
+    <Content Include="bin\Release\MMLib.Extensions.pdb" />
+    <Content Include="bin\Release\MMLib.Extensions.xml" />
+    <Content Include="bin\Release\Newtonsoft.Json.dll" />
+    <Content Include="bin\Release\Newtonsoft.Json.xml" />
+    <Content Include="bin\Release\NPOI.dll" />
+    <Content Include="bin\Release\NPOI.OOXML.dll" />
+    <Content Include="bin\Release\NPOI.OOXML.xml" />
+    <Content Include="bin\Release\NPOI.OpenXml4Net.dll" />
+    <Content Include="bin\Release\NPOI.OpenXml4Net.xml" />
+    <Content Include="bin\Release\NPOI.OpenXmlFormats.dll" />
+    <Content Include="bin\Release\NPOI.xml" />
+    <Content Include="bin\Release\Omu.ValueInjecter.dll" />
+    <Content Include="bin\Release\Omu.ValueInjecter.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\en\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

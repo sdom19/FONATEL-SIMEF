@@ -1,0 +1,54 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.Rol>, GB.SUTEL.Entities.Rol, List<GB.SUTEL.Entities.PANTALLAMENU>, List<GB.SUTEL.Entities.Accion>>
+@using GB.SUTEL.UI.Helpers;
+
+
+<h4>Mantenimiento de Roles</h4>
+<hr />
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Roles", "Crear"))
+    {
+<p>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCrearRol">
+        Nuevo
+    </button>
+</p>
+}
+
+@*<form id="form3" method="post"
+      action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tableRol"
+      data-ajax-message="Cargando datos desde index...">
+
+    <input type="search" name="searchTerm" />
+    <input type="submit" value="Search" />
+
+</form>*@
+
+<div id="tableRol">
+    @Html.Action("_table")
+</div>
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Roles", "Crear"))
+    {
+
+    @Html.Partial("Crear", Model.Item2)
+    
+}
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Roles", "Eliminar"))
+{
+
+    @Html.Partial("Eliminar", Model.Item2)
+
+}    
+    
+@Html.Partial("Permisos", Tuple.Create(Model.Item2, Model.Item3, Model.Item4))
+@Html.Partial("Editar", Model.Item2)
+
+<script>
+    function onSuccessCreate() {
+        var formId = "frmFilterRol";
+        $("#" + formId)[0].reset();
+        $("#" + formId).submit();
+    }
+</script>

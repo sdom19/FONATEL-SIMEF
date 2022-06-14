@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="InternalError" xml:space="preserve">
+    <value>Ha ocurrido un error interno, contacte a soporte técnico y brinde el siguiente error: {0}</value>
+  </data>
+  <data name="sample_error" xml:space="preserve">
+    <value>¡Oh no! Hemos encontrado un error</value>
+  </data>
+  <data name="UsuarioDuplicado" xml:space="preserve">
+    <value>Usuario duplicado.</value>
+  </data>
+  <data name="Agrupacion_ConDetalle" xml:space="preserve">
+    <value>La agrupación cuenta con detalles agrupación asociados, por lo que no podrá borrarse.</value>
+  </data>
+  <data name="RegistroDuplicado" xml:space="preserve">
+    <value>El valor introducido ya esta registrado. Por favor, indroduzca un nuevo valor.</value>
+  </data>
+  <data name="IndicadorUIT_ConIndicadores" xml:space="preserve">
+    <value>El indicador cuenta con indicadores asociados, por lo que no podrá eliminarse.</value>
+  </data>
+  <data name="InvalidCredencials" xml:space="preserve">
+    <value>Credenciales inválidas.</value>
+  </data>
+  <data name="NombreDuplicado" xml:space="preserve">
+    <value>El nombre se encuentra duplicado.</value>
+  </data>
+  <data name="DuplicatedField" xml:space="preserve">
+    <value>El campo {0} se encuentra duplicado.</value>
+  </data>
+  <data name="DuplicatedFields" xml:space="preserve">
+    <value>Los campos {0} se encuentran duplicados.</value>
+  </data>
+  <data name="Constructor_IndicadorRequerido" xml:space="preserve">
+    <value>Debe seleccionar un Indicador.</value>
+  </data>
+  <data name="DuplicatedRegistry" xml:space="preserve">
+    <value>El registro se encuentra duplicado.</value>
+  </data>
+  <data name="CouldntSaveAll" xml:space="preserve">
+    <value>No se pudieron guardar todos los registros.</value>
+  </data>
+  <data name="IndicadoresSinSeleccionar" xml:space="preserve">
+    <value>Por favor seleccione al menos un indicador.</value>
+  </data>
+  <data name="IndicadoreCruzados1" xml:space="preserve">
+    <value>Debe seleccionar al menos un indicador interno al cual relacionar indicadores internos o externos.</value>
+  </data>
+  <data name="IndicadoreCruzados2" xml:space="preserve">
+    <value>Debe seleccionar al menos un indicador interno o externo para relacionar.</value>
+  </data>
+  <data name="IndicadoreCruzados3" xml:space="preserve">
+    <value>Aún no ha seleccionado ningún indicador. Por favor realice una relación entre los indicadores.</value>
+  </data>
+  <data name="Constructor_IndicadorDuplicado" xml:space="preserve">
+    <value>El indicador ya se encuentra registrado con la misma frecuencia y desglose. Por favor, seleccione otra frecuencia o desglose para este indicador.</value>
+  </data>
+  <data name="Constructor_EnSolicitud" xml:space="preserve">
+    <value>El constructor fue agregado a una solicitud para el operador, por lo que no podrá eliminarse.</value>
+  </data>
+  <data name="Constructor_FrecuenciaDesglose" xml:space="preserve">
+    <value>La frecuencia debe ser mayor que el desglose.</value>
+  </data>
+  <data name="InternalErrorUI" xml:space="preserve">
+    <value>Ocurrio un error inesperado al cargar los datos de {0}. Por favor intente más tarde o contacte al administrador del sistema.</value>
+  </data>
+  <data name="CantDeleteUser" xml:space="preserve">
+    <value>Este usuario no se puede eliminar.</value>
+  </data>
+  <data name="Constructor_ClonarErrorAlgunos" xml:space="preserve">
+    <value>Los operadores seleccionados que no coincidieron con los detalles agrupación del operador seleccionado son:</value>
+  </data>
+  <data name="Constructor_ClonarErrorTodos" xml:space="preserve">
+    <value>Los operadores seleccionados no coinciden en todos los detalles agrupación del operador seleccionado. Por favor, revise que los detalles agrupación coincidan y proceda  de nuevo a realizar esta acción.</value>
+  </data>
+  <data name="PasswordReset" xml:space="preserve">
+    <value>Usted ha fallado el intento de ingreso 3 veces, la clave de este usuario  ha sido reiniciada. Por favor revise su correo e ingrese con la nueva contraseña temporal.</value>
+  </data>
+  <data name="RegistroIndicador_ExcelOperador" xml:space="preserve">
+    <value>La solicitud para subir el excel no corresponde al usuario registrado al sistema.</value>
+  </data>
+  <data name="RegistroIndicador_SolicitudEnviada" xml:space="preserve">
+    <value>El registro del excel en la solicitud seleccionada, ya fue llevado a cabo. </value>
+  </data>
+  <data name="RegistroIndicador_SolicitudInexistente" xml:space="preserve">
+    <value>La solicitud que corresponde el excel seleccionado no existe.</value>
+  </data>
+  <data name="RegistroIndicador_SolicitudVigencia" xml:space="preserve">
+    <value>La vigencia para subir el excel ya vencio. Favor, comunicarse con el administrador del sistema.</value>
+  </data>
+  <data name="RegistroIndicador_IncopatibleExcel" xml:space="preserve">
+    <value>El excel cargado no es compatible. Favor, llenar el excel que se descarga del sistema y luego proceda a cargarlo. &lt;p&gt;-Recuerde que no puede cambiar la extensión del archivo excel.</value>
+  </data>
+  <data name="UnselectedItemsIndicadores" xml:space="preserve">
+    <value>Debe seleccionar al menos un indicador.</value>
+  </data>
+  <data name="RegistroIndicador_ExcelImcompletoIndicadores" xml:space="preserve">
+    <value>El excel esta incompleto. No contiene  todos los indicadores solicitados. Por favor, revise el excel para descargar con el que se esta subiendo al sistema.</value>
+  </data>
+  <data name="RegistroIndicador_ExcelNoPerteneceOperador" xml:space="preserve">
+    <value>El excel seleccionado no pertenece al operador. Por favor, suba el excel que le corresponde.</value>
+  </data>
+  <data name="RegistroIndicador_ExcelNoSolicitud" xml:space="preserve">
+    <value>El excel seleccionado no pertenece a la solicitud marcada.  Por favor, seleccione la solicitud y proceda a subir el excel.</value>
+  </data>
+  <data name="RegistroIndicador_ExcelSolicitudActualizada" xml:space="preserve">
+    <value>La solicitud que corresponde al excel no se pudo actualizar. Por favor, vuelva intertar subir  el excel.</value>
+  </data>
+  <data name="Constructor_EnSolicitudEditar" xml:space="preserve">
+    <value>El constructor fue agregado a una solicitud para el operador, por lo que no podrá editarse.</value>
+  </data>
+  <data name="Solicitud_Borrar" xml:space="preserve">
+    <value>La solicitud no se puede borrar, ya que la fecha inicial es igual o menor a la fecha  actual.</value>
+  </data>
+  <data name="Solicitud_solicitudIniciada" xml:space="preserve">
+    <value>La solicitud solo podrá ser de consulta, esta no está vigente para modificar dada las fechas seleccionadas.</value>
+  </data>
+  <data name="ModificarIndicador_AdventenciaValor" xml:space="preserve">
+    <value>El valor a digitar debe estar entre</value>
+  </data>
+  <data name="ModificarIndicador_Valor" xml:space="preserve">
+    <value>El nuevo valor está vacio. Por favor, digite el valor correcto.</value>
+  </data>
+  <data name="ModificarIndicador_Justificacion" xml:space="preserve">
+    <value>La justificación es requerida. Por favor, digitela.</value>
+  </data>
+  <data name="ModificarIndicador_idCriterio" xml:space="preserve">
+    <value>Debe seleccionar un criterio.</value>
+  </data>
+  <data name="ModificarIndicador_idDesglose" xml:space="preserve">
+    <value>Debe seleccionar un desglose.</value>
+  </data>
+  <data name="ModificarIndicador_idDireccion" xml:space="preserve">
+    <value>Debe seleccionar una dirección.</value>
+  </data>
+  <data name="ModificarIndicador_idFrecuencia" xml:space="preserve">
+    <value>Debe seleccionar una frecuencia.</value>
+  </data>
+  <data name="ModificarIndicador_idIndicador" xml:space="preserve">
+    <value>Debe seleccionar un indicador.</value>
+  </data>
+  <data name="ModificarIndicador_idOperador" xml:space="preserve">
+    <value>Debe seleccionar un operador.</value>
+  </data>
+  <data name="ModificarIndicador_idServicio" xml:space="preserve">
+    <value>Debe seleccionar un servicio.</value>
+  </data>
+  <data name="ModificarIndicador_solicitudes" xml:space="preserve">
+    <value>Los filtros  seleccionados no produjeron solicitudes que coincidan. Por favor, reviselos y vuelva a consultar</value>
+  </data>
+  <data name="DatosInsuficientes" xml:space="preserve">
+    <value>No hay suficientes datos para calcular la regla estadística.</value>
+  </data>
+  <data name="Formatoexcel" xml:space="preserve">
+    <value>Formato incorrecto verifique su excel.  </value>
+  </data>
+  <data name="ErrorEnvíoObservaciones" xml:space="preserve">
+    <value>Error en el envío de observaciones '{0}'</value>
+  </data>
+  <data name="FormatoNumericoEnteroIncorrecto" xml:space="preserve">
+    <value>El valor {0} no es de tipo entero</value>
+  </data>
+  <data name="DetalleAgrupacion_IncopatibleExcel" xml:space="preserve">
+    <value>El excel cargado no es compatible. Favor, llenar el excel que se descarga del sistema y luego proceda a cargarlo. &lt;p&gt;-Recuerde que no puede cambiar la extensión del archivo excel.</value>
+  </data>
+  <data name="DetalleAgrupacionExcelVacio" xml:space="preserve">
+    <value>La plantilla no contiene datos.</value>
+  </data>
+  <data name="DetalleAgrupacionExcelColumnas" xml:space="preserve">
+    <value>La plantilla no contiene las columnas correctamente.</value>
+  </data>
+  <data name="DetalleAgrupacionExcelExtension" xml:space="preserve">
+    <value>La plantilla no contiene la extensión correcta.</value>
+  </data>
+  <data name="DetalleAgrupacionFormatoAgrupacion" xml:space="preserve">
+    <value>Las siguientes agrupaciones no tienen el formato correcto: </value>
+  </data>
+  <data name="DetalleAgrupacionDuplicado" xml:space="preserve">
+    <value>Los siguientes detalles de agrupación están duplicados: </value>
+  </data>
+  <data name="DetalleAgrupacionAgru" xml:space="preserve">
+    <value>Las siguientes agrupaciones no existen: </value>
+  </data>
+  <data name="DetalleAgrupacionOpe" xml:space="preserve">
+    <value>Los siguientes operadores no existen: </value>
+  </data>
+</root>

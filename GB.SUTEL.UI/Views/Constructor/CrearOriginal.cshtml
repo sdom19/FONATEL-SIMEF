@@ -1,0 +1,428 @@
+﻿@model GB.SUTEL.UI.Models.ConstructorViewModel
+@using GB.SUTEL.Entities
+
+<h4>@GB.SUTEL.Resources.EtiquetasMantenimiento.ttlAdministracionConstrutor</h4>
+<h5>@GB.SUTEL.Resources.EtiquetasMantenimiento.ttlNuevo</h5>
+
+<script type="text/javascript">
+  
+    var operadoresClonar = [];
+</script>
+
+
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div id="constructorTab" role="tabpanel">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#indicador" aria-controls="indicador" role="tab" data-toggle="tab">Indicador</a></li>
+        <li role="presentation" class="hidden" id="divTabCriterio"><a href="#criterio" aria-controls="criterio" role="tab" data-toggle="tab">Criterios</a></li>
+
+
+    </ul>
+
+    <!-- Tab panes -->
+    <div>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="indicador">
+                <form id="formCreate" method="post"
+                      action="@Url.Action("Crear")" data-ajax="true"
+                      data-ajax-message="Guardando datos...">
+                    <br />
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true)
+                       
+
+                            <div class="form-group">
+                                @Html.Label("Dirección", new { @id = "txtDireccion", @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+
+
+                                    @Html.DropDownListFor(model => model.constructor.IdDireccion,
+                                      new SelectList(Model.listaDireccion,
+                            "IdDireccion", "Nombre"),
+                                                                        "Seleccione", new { @id = "ddlDireccion", @class = "form-control" })
+
+                                    @Html.ValidationMessageFor(model => model.constructor.IdDireccion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="divIndicador">
+                                @Html.Label("Indicador", new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <div class="input-group" style="width:350px;">
+                                        @Html.TextAreaFor(model => model.constructor.Indicador.NombreIndicador, new { @class = "form-control", @placeholder = "Indicador", @id = "nombreIndicadorCrear", disabled = true, @cols = "100", @rows = "3" })
+                                        @Html.HiddenFor(model => model.constructor.IdIndicador, new { @id = "IdIndicadorCrear" })
+                                        @Html.HiddenFor(model => model.constructor.IdConstructor, new { @id = "IdConstructor" })
+                                        @Html.HiddenFor(model => model.constructor.IdDireccion, new { @id = "IdDireccion" })
+                                      
+
+
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary glyphicon glyphicon-search" type="button" title="Buscar indicador"
+                                                    data-toggle="modal" data-target="#modalSeleccionarIndicador" id="btnBuscarIndicador"></button>
+                                        </span>
+                                        @Html.ValidationMessageFor(model => model.constructor.IdIndicador, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.constructor.IdFrecuencia, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.constructor.IdFrecuencia,
+                                             new SelectList(Model.listaFrecuencia,
+                                          "IdFrecuencia", "NombreFrecuencia"),
+                                                               "Seleccione", new { @class = "form-control" })
+
+                                    @Html.ValidationMessageFor(model => model.constructor.IdFrecuencia, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.constructor.IdDesglose, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.constructor.IdDesglose,
+                                             new SelectList(Model.listaFrecuencia,
+                                          "IdFrecuencia", "NombreFrecuencia"),
+                                                               "Seleccione", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.constructor.IdDesglose, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                </form>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="criterio">
+
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="divEditarCriterio">
+
+                                    Agregar criterio 
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <div class="form-horizontal ">
+                                    
+                                    <div class="form-group  col-lg-4">
+                                        @Html.LabelFor(model => model.criterio.IdCriterio, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+
+                                            <div class="input-group" style="width:350px;" id="divCriterio">
+                                                @Html.TextAreaFor(model => model.idCriterio, new { @class = "form-control", @placeholder = "Criterio", @id = "nombreCriterio", disabled = true, @cols = "100", @rows = "3" })
+                                                @Html.HiddenFor(model => model.nombreCriterio, new { @id = "IdCriterio" })
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary glyphicon glyphicon-search" type="button" data-toggle="modal" id="btnBuscarCriterio" title="Búsqueda del Criterio que llevará en el Detalle de Agrupación"
+                                                            data-target="#modalSeleccionarCriterio"></button>
+                                                </span>
+                                            </div>
+
+
+                                            @Html.ValidationMessageFor(model => model.criterio.IdCriterio)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.criterio.Ayuda, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-4">
+                                            <div class="input-group" style="width:400px;">
+                                                @Html.TextAreaFor(model => model.criterio.Ayuda, new { @class = "form-control", @placeholder = "Ayuda", @cols = "100", @rows = "3", @id = "txtAyuda", @maxlength = "250",@onkeypress="ValidarCaracteres(this,250);", @onkeyup="ValidarCaracteres(this,250);"  })
+
+                                                @Html.ValidationMessageFor(model => model.criterio.Ayuda)
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" id="divPrincipalAgregarDetalleAgrupacion">Agregar Detalle Agrupación</div>
+                                        <div class="panel-body">
+                                           <br />
+                                            <br />
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    @Html.Label("Operador", new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        <div class="input-group" style="width:350px;" id="divOperador">
+                                                            @Html.TextAreaFor(model => model.nombreOperador, new { @class = "form-control", @placeholder = "Operador", @id = "nombreOperador", disabled = true, @cols = "100", @rows = "3", onchange="ResetReglaEstadisticaControls()" })
+                                                            @Html.HiddenFor(model => model.idOperador, new { @id = "IdOperador" })
+
+
+
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-primary glyphicon glyphicon-search" type="button" data-toggle="modal" id="btnBuscarOperador"
+                                                                        data-target="#modalSeleccionarOperador" title="Búsqueda del Operador para asociar al Detalle de Agrupación."></button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <br />
+                                               
+                                                <table>
+                                                    <tr>
+                                                        <td style=" width :70%; ">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">Detalle Agrupación Asociados</div>
+                                                                <div class="panel-body" style=" height: 720px;width:100%; overflow: scroll;">
+                                                                    <div id="jstreeDetalleAgrupacion">
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td style=" width :30%; ">
+                                                            <div class="panel panel-default" style=" width:100%;">
+                                                                <div id="divPnDetalle" class="panel-heading">Agregar Detalle Agrupación</div>
+                                                                <div class="panel-body" style="width: 100%; height: 720px; overflow-y: scroll;">
+                                                                    <div id="divDetalleAgrupacionCrear">
+                                                                        @Html.Action("_detalleAgrupacionCrear")
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            <br/>
+                                            <button type="button" class="btn btn-success" onclick="btnGuardarArbolDetalleAgrupacion();" id="btnAgregarArbolDetalleOperador" title="Guardar Detalle Agrupación">Guardar Detalle Agrupación</button>
+                                            <button type="button" class="btn btn-success hidden" onclick="functGuardarEdicionArbolDetalleAgrupacion();" id="btnGuardarEdicionArbolDetalleOperador" title="Guardar Edición Detalle Agrupación">Guardar Edición Detalle Agrupación</button>
+                                            <button type="button" class="btn btn-danger hidden" onclick="functCancelarEdicionArbolDetalleAgrupacion();" id="btnCancelarEdicionArbolDetalleOperador" title="Cancelar">Cancelar</button>
+
+                                            </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <h5>Detalles Agrupación por Operador Asociados al Criterio</h5>
+                                    <div id="divDetalleAgrupacionOperador">
+                                        @Html.Action("_tablaDetalleAgrupacionOperador")
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <button type="button" class="btn btn-success" onclick="btnAgregarCriterio();" id="btnAgregarCriterioConstructor" title="Guardar Criterio">Guardar Criterio</button>
+                                    <button type="button" class="btn btn-success hidden" onclick="funGuardarEditarCriterio();" id="btnGuardarEditarCriterioConstructor" title="Guardar Edición de Criterio">Guardar Edición de Criterio</button>
+                                    <button type="button" class="btn btn-danger hidden" onclick="funCancelarEditarCriterio();" id="btnCancelarCriterioConstructor" title="Cancelar">Cancelar</button>
+                                    <br />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="divListaCriteriosSeleccionados">
+                                    Criterios Seleccionados
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <div id="divCriteriosSeleccionados">
+                                    @Html.Action("_tablaCriterioConstructor")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+
+        </div>
+
+        <div class="alert alert-danger" hidden role="alert" id="divMensajeErroCrearConstructor">
+            <strong>Error!</strong>
+            <div id="idMensajeErrorCuerpoConstructor"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <input type="submit" value="Crear" class="btn btn-success" alt="Crear" title="Crear" onclick="functCrear();" />
+                <button type="button" class="btn btn-danger " onclick="gLlamadaControles('@Url.Action("Index", "Constructor")', '');" title="Cancelar">Cancelar</button>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="divMensaje">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Mensaje</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensaje">
+                <p>One fine body…</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" title="Aceptar">Aceptar</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div class="modal fade" id="modalSeleccionarIndicador">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Seleccionar Indicador</h4>
+            </div>
+            <div class="modal-body" id="contenidoSeleccionarIndicador">
+                <div id="tablaIndicador">
+                    @Html.Action("_tablaIndicador")
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div class="modal fade" id="modalSeleccionarDetalleAgrupacion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Seleccionar Detalle Agrupación</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeDetalleAgrupacion">
+                <div id="tablaDetalleAgrupacion">
+                    @Html.Action("_tablaDetalleAgrupacion")
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modalSeleccionarCriterio">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Seleccionar Criterio</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeCriterio">
+                <div id="tablaCriterio">
+                    @Html.Action("_tablaCriterio")
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modalSeleccionarOperador">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Seleccionar Operador</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeOperador">
+                <div id="tablaOperador">
+                    @Html.Action("_tablaOperador")
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modalSeleccionarClonarOperador">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Seleccionar los operadores a copiar</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeOperadorClonar">
+                <div id="tablaOperadorClonar">
+                    @Html.Action("_tablaOperadorClonar")
+                </div>
+                <div>
+                    @Html.Hidden("idOperadorClonar" )
+                </div>
+            </div>
+            <div class="alert alert-danger" hidden role="alert" id="divMensajeErrorClonar">
+                <strong>Error!</strong>
+                <div id="idMensajeErrorCuerpoClonar"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-offset-2 col-md-10">
+                    
+                    <button type="button" class="btn btn-success" title="Clonar" onclick="functClonarDetalleAgrupacion();">Clonar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" title="Cancelar">Cancelar</button>
+
+
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="BorrarRama" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensajeB"></h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeB">
+                <p>One fine body…</p>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-success" title="Aceptar" onclick="functEliminarRama();">Aceptar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" title="Cancelar">Cancelar</button>
+                </div>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div>
+    @Html.Partial("_detalleAgrupacionEliminar", new ConstructorCriterioDetalleAgrupacion())
+</div>
+<div>
+    @Html.Partial("_criterioEliminar", new ConstructorCriterio())
+</div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/Mantenimientos/Constructor/ConstructorGeneral.js")
+    @Scripts.Render("~/Scripts/Mantenimientos/Constructor/ConstructorCrear.js")
+   
+    @*@Scripts.Render("~/Scripts/Mantenimientos/Constructor/ConstructorCheckBox.js")*@
+
+    @Scripts.Render("~/Scripts/jsUtilidad.js")
+}
+

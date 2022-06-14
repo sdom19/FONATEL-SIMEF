@@ -1,0 +1,588 @@
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\BotDetect.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\BotDetect.Web.Mvc.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\EF6.BulkInsert.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\System.Web.Mvc.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\ClassLibraryDatasoft.pdb
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll.config
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\Omu.ValueInjecter.xml
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+C:\Users\Andre Mc kenzie\Downloads\SUTEL\SitelMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\BotDetect.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\BotDetect.Web.Mvc.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\EF6.BulkInsert.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\System.Web.Http.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\System.Web.Http.WebHost.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\System.Web.Mvc.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\Microsoft.SqlServer.Types.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\System.Net.Http.Formatting.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\ClassLibraryDatasoft.pdb
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll.config
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\System.Web.Http.xml
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\System.Web.Http.WebHost.xml
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\System.Net.Http.Formatting.xml
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\Omu.ValueInjecter.xml
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+C:\Users\jose.molina\Desktop\Revision de Ana\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\BotDetect.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\BotDetect.Web.Mvc.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\EF6.BulkInsert.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\System.Web.Http.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\System.Web.Http.WebHost.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\System.Web.Mvc.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\Microsoft.SqlServer.Types.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\System.Net.Http.Formatting.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\ClassLibraryDatasoft.pdb
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll.config
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\System.Web.Http.xml
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\System.Web.Http.WebHost.xml
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\System.Net.Http.Formatting.xml
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\Omu.ValueInjecter.xml
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+K:\Desarrollo\SUTEL2020\Revision de Ana ultimo codigo entregado por la sutel el 11 de junio del 2020\SITELMerge\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\BotDetect.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\BotDetect.Web.Mvc.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\EF6.BulkInsert.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Http.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Http.WebHost.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Mvc.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\System.Net.Http.Formatting.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\ClassLibraryDatasoft.pdb
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll.config
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Http.xml
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Http.WebHost.xml
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\System.Net.Http.Formatting.xml
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+K:\Desarrollo\SUTEL\Sitel\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\BotDetect.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\BotDetect.Web.Mvc.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\EF6.BulkInsert.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Mvc.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\System.Net.Http.Formatting.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\ClassLibraryDatasoft.pdb
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll.config
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Http.xml
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Http.WebHost.xml
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\System.Net.Http.Formatting.xml
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+C:\Users\Michael Hernández\Downloads\MAIN_SITEL (1)\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\BotDetect.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\BotDetect.Web.Mvc.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\EF6.BulkInsert.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Mvc.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\ClassLibraryDatasoft.pdb
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\ClassLibraryDatasoft.dll.config
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+C:\Users\Michael Hernández\Desktop\SitelP\MAIN_SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Web.Http.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Web.Http.WebHost.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Net.Http.Formatting.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Web.Http.xml
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Web.Http.WebHost.xml
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Net.Http.Formatting.xml
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+K:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\Microsoft.SqlServer.Types.dll
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+C:\SUTEL\SitelP\MAYOR_DEV5\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\System.Net.Http.Formatting.dll
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\System.Web.Http.xml
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\System.Web.Http.WebHost.xml
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+C:\SUTEL\SitelP\MAYOR_DEV2\GB.SUTEL.UI\bin\System.Net.Http.Formatting.xml
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Net.Http.Formatting.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Web.Http.xml
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Web.Http.WebHost.xml
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\System.Net.Http.Formatting.xml
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+D:\Proyectos\SUTEL\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV2\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\System.Net.Http.Formatting.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\System.Web.Http.xml
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\System.Web.Http.WebHost.xml
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1\GB.SUTEL.UI\bin\System.Net.Http.Formatting.xml
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\System.Net.Http.Formatting.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\System.Web.Http.xml
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\System.Web.Http.WebHost.xml
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\System.Net.Http.Formatting.xml
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb-DEV1-version nelson\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\System.Net.Http.Formatting.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\System.Web.Http.xml
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\System.Web.Http.WebHost.xml
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\System.Net.Http.Formatting.xml
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\System.Net.Http.Formatting.dll
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.pdb
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll.config
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.pdb
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll.config
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.pdb
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll.config
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\System.Web.Http.xml
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\System.Web.Http.WebHost.xml
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\System.Web.Mvc.xml
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\System.Net.Http.Formatting.xml
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csprojAssemblyReference.cache
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
+C:\Users\michael.hernandez\Desktop\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb

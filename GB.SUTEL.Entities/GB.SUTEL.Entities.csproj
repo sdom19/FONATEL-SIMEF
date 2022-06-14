@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8B30812D-4414-4C62-9A34-FD80220C0029}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GB.SUTEL.Entities</RootNamespace>
+    <AssemblyName>GB.SUTEL.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EF6.BulkInsert, Version=6.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EF6.BulkInsert.6.1.0.1\lib\net45\EF6.BulkInsert.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.BulkInsert, Version=0.0.0.0, Culture=neutral, PublicKeyToken=19f9d7d4cc76b670, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFrameworkDbModelStore.BulkInsert.1.5\lib\Net45\EntityFramework.BulkInsert.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.MappingAPI, Version=6.1.0.9, Culture=neutral, PublicKeyToken=7ee2e825d201459e, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.MappingAPI.6.1.0.9\lib\net45\EntityFramework.MappingAPI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accion.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Agrupacion.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArchivoBandaAngostaCsv.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArchivoCsv.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArchivoExcel.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArchivoIMTFijasCsv.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArchivoMif.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArchivoTelevisionDigitalCsv.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Bitacora.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraArchivosMifCsv.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraExcepcion.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraIndicador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraParametrizacionIndicador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraSync.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Canton.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Constructor.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConstructorCriterio.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConstructorCriterioDetalleAgrupacion.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CoordenadasArchivoMif.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CorreosEquipoIndicadores.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Criterio.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomModels\ReglaEstadistica\ReglaGenericaModel.cs" />
+    <Compile Include="DetalleAgrupacion.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleAgrupacionNEW.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleArchivoCsv.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleArchivoIMTFijasCsv.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleArchivoTelevisionDigitalCsv.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleBandaAngostaCsv.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleIndicadorCruzado.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleRegistroIndicador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Direccion.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Distrito.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\ConfirmaDescargaWebDto.cs" />
+    <Compile Include="DTO\DetalleAgrupacionesPorOperadorDto.cs" />
+    <Compile Include="DTO\ListaIDDto.cs" />
+    <Compile Include="DTO\SelectDto.cs" />
+    <Compile Include="DTO\SolicitudConstructorDto.cs" />
+    <Compile Include="DTO\Zona.cs" />
+    <Compile Include="EjecucionMotor.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Espectro\ArchivoCsvModel.cs" />
+    <Compile Include="Espectro\ArchivoMifModel.cs" />
+    <Compile Include="EstadoSolicitud.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fn_Split_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FormCumplimientoPorcen\EjecucionMotorEnti.cs" />
+    <Compile Include="FormCumplimientoPorcen\FacReglasReport.cs" />
+    <Compile Include="FormCumplimientoPorcen\FormCumplimeintoPorcenEnti.cs" />
+    <Compile Include="Frecuencia.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FuenteExterna.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Genero.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Indicador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IndicadorCruzado.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IndicadorExterno.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IndicadorUIT.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InformacionArchivoCsv.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InidicadorUmbralPeso.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogFormulas.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\EntityDisplays.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityDisplays.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\EntityErrors.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityErrors.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\FuenteExterna\REGISTROINDICADOREXTERNO_metadata - Copy.cs" />
+    <Compile Include="Metadata\FuenteExterna\INDICADOREXTERNO_metadata.cs" />
+    <Compile Include="Metadata\FuenteExterna\ZONAINDICADOREXTERNO_metadata.cs" />
+    <Compile Include="Metadata\FuenteExterna\REGIONINDICADOREXTERNO_metadata.cs" />
+    <Compile Include="Metadata\FuenteExterna\PERIODICIDAD_metadata.cs" />
+    <Compile Include="Metadata\FuenteExterna\FUENTEEXTERNA_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\Agrupacion_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\ConstructorCriterio_Metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\Constructor_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\DetalleAgrupacion_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\IndicadorCruzado\INDICADORCRUZADO_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\IndicadorUIT_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\Indicador_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\Frecuencia_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\Criterio_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\SolicitudIndicador_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\Operador_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\Nivel_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\Regla_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\Servicio_metadata.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Metadata\Mantenimientos\TipoIndicador_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\TipoNivelDetalle_metadata.cs" />
+    <Compile Include="Metadata\Mantenimientos\TipoValor_metadata.cs" />
+    <Compile Include="Metadata\Seguridad_metadata.cs" />
+    <Compile Include="Metadata\Web_SampleEntity_metadata.cs" />
+    <Compile Include="ModeloIndicadores.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nivel.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NivelDetalleReglaEstadistica.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Operador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OperadorSync.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pantalla.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PANTALLAMENU.cs" />
+    <Compile Include="ParametroIndicador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ParametrosGenerales.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ParamFormulas.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_ConstructorModificar_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_EjecucionMotor_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_EneviarCorreoUsuario_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_ExtraerCantoXprovincia_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_ExtraerDistritoXCanton_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_ExtraerGenero_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_ExtraerSolicitudesPendientes_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_GetCriteriosXIndicador_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_getDetalleAgrupacionesPorOperador_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_GetIndicadorXservicio_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_getListaIndicadoresSolicitud_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_getListaIndicadoresXSolicitud_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_getOperadoresDetalleAgrupacionPorIdConstructorAndIdCriterio_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_getValoresRegistradosPorOperador_Canton_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_getValoresRegistradosPorOperador_Genero_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_getValoresRegistradosPorOperador_Provincia_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_getValoresReglaEstadisticaConNivelDetalle_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_ListadoModificacionMasiva_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_MetodosIndicarXServicio_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_ParamFormulasTrans_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_RptBitacora_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_RptDetalleAgrupacionPorAgrupacion_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_RptIndicadoresPorOperador_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_RptIndicadoresPorServicio_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_RptTiposIndicadorPorServicio_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pa_SolicitudesPorParametros_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Periodicidad.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provincia.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegionIndicadorExterno.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegistroIndicador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegistroIndicadorExterno.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Regla.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Rol.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RolAccionPantalla.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SemaforoFormularioWEB.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Servicio.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServicioDefinicion.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServicioIndicador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServicioOperador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudConstructor.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudGeneral.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudIndicador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudOperador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEMPDetalleRegistroIndicador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEMPRegistroIndicador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoIndicador.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoIndicadorServicio.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoNivelDetalle.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoValor.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trimestre.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UmbralesPesosRelativos\ServiIndicadorEnti.cs" />
+    <Compile Include="UmbralesPesosRelativos\UmbralesPesosRelativosEnti.cs" />
+    <Compile Include="Usuario.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioLogin.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilidades\CDetalleAgrupacionEquivalencia.cs" />
+    <Compile Include="Utilidades\CMes.cs" />
+    <Compile Include="Utilidades\DetalleAgrupacionSP.cs" />
+    <Compile Include="Utilidades\CDetalleAgrupacion.cs" />
+    <Compile Include="Utilidades\JSONResult.cs" />
+    <Compile Include="Utilidades\Respuesta.cs" />
+    <Compile Include="Utilidades\TipoErrores.cs" />
+    <Compile Include="Utilidades\UsuarioAD.cs" />
+    <Compile Include="Utilidades\Utilities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Web_SampleEntity.cs" />
+    <Compile Include="ZonaIndicadorExterno.cs">
+      <DependentUpon>ModeloIndicadores.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Metadata\EntityDisplays.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EntityDisplays.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Metadata\EntityErrors.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EntityErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="obj\Debug\GB.SUTEL.Entities.Metadata.EntityDisplays.resources" />
+    <EmbeddedResource Include="obj\Debug\GB.SUTEL.Entities.Metadata.EntityErrors.resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Metadata\Seguridad\USUARIO_metadata.cs" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\GB.SUTEL.Entities.csproj.GenerateResource.Cache" />
+    <None Include="obj\Debug\GB.SUTEL.Entities.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\GB.SUTEL.Entities.csproj.GenerateResource.Cache" />
+    <None Include="obj\Release\GB.SUTEL.Entities.csprojResolveAssemblyReference.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GB.SUTEL.Resources\GB.SUTEL.Resources.csproj">
+      <Project>{9787195d-ff3f-44e5-bf82-8dbde1ccd952}</Project>
+      <Name>GB.SUTEL.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModeloIndicadores.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModeloIndicadores.cs</LastGenOutput>
+    </Content>
+    <Content Include="obj\Debug\GB.SUTEL.Entities.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\TempPE\Metadata.EntityDisplays.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Metadata.EntityErrors.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\ModeloIndicadores.cs.dll" />
+    <Content Include="obj\Release\GB.SUTEL.Entities.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\GB.SUTEL.Entities.dll" />
+    <Content Include="obj\Release\GB.SUTEL.Entities.pdb" />
+    <Content Include="obj\Release\TempPE\Metadata.EntityDisplays.Designer.cs.dll" />
+    <Content Include="obj\Release\TempPE\Metadata.EntityErrors.Designer.cs.dll" />
+    <Content Include="obj\Release\TempPE\ModeloIndicadores.cs.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

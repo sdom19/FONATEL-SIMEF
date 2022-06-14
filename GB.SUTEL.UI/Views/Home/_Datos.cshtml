@@ -1,0 +1,49 @@
+﻿@model IEnumerable<GB.SUTEL.Entities.Nivel>
+
+<div id="partialViewContent">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="display" data-table-grid="true">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdNivel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescNivel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Borrado)
+            </th>
+            <th></th>
+        </tr>
+        @if (Model == null || Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="4">No se encontraron datos</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdNivel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescNivel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Borrado)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

@@ -1,0 +1,108 @@
+﻿@model List<GB.SUTEL.Entities.IndicadorExterno>
+@using GB.SUTEL.UI.Helpers;
+@{
+    bool editar = rolValidation.ValidateScreenFunctions(this.Context, "Indicador Externo", "Editar");
+    bool eliminar = rolValidation.ValidateScreenFunctions(this.Context, "Indicador Externo", "Eliminar");
+}
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error</span>
+    </div>
+}
+@if (!rolValidation.ValidateScreenFunctions(this.Context, "Indicador Externo", "Consultar"))
+{
+    <div class="alert alert-warning" role="alert">
+        @GB.SUTEL.Resources.Resources.SinPermisosIndex
+    </div>
+}
+else
+{
+    <form id="formFilter" method="post" action="@Url.Action("_table")" data-ajax="true" data-ajax-message="Cargando datos desde index...">
+        @Html.AntiForgeryToken()
+        <table class="display" cellspacing="0" data-table-grid="true">
+            <thead>
+                <tr>
+                    <th width="1%">Id</th>
+                    <th width="1%">Fuente</th>
+                    <th width="1%">Indicador</th>
+                    @if (eliminar)
+                    {
+                        <th width="1%" class="no-sort" style="min-width:40px;"></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+
+                            @if (editar)
+                            {
+                                <td onclick="editRedirect('@Url.Action("Editar","IndicadorExterno")','@item.IdIndicadorExterno')"
+                                    title='@GB.SUTEL.Resources.Resources.btnTooltipEditar'>
+                                    @item.IdIndicadorExterno
+                                </td>
+                                <td onclick="editRedirect('@Url.Action("Editar","IndicadorExterno")','@item.IdIndicadorExterno')"
+                                    title='@GB.SUTEL.Resources.Resources.btnTooltipEditar'>
+                                    @item.FuenteExterna.NombreFuenteExterna
+                                </td>
+                                <td onclick="editRedirect('@Url.Action("Editar", "IndicadorExterno")','@item.IdIndicadorExterno')"
+                                    title='@GB.SUTEL.Resources.Resources.btnTooltipEditar'>
+                                    @item.Nombre
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @item.IdIndicadorExterno
+                                </td>
+                                <td>
+                                    @item.FuenteExterna.NombreFuenteExterna
+                                </td>
+                                <td>
+                                    @item.Nombre
+                                </td>
+                            }
+                            @if (eliminar)
+                            {
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm btnEliminar" aria-label="Left Align" data-toggle="modal" data-target="#modalEliminar"
+                                            data-select="true" title='@GB.SUTEL.Resources.Resources.btnTooltipEliminar'
+                                            data-json-selected='{"id":"@item.IdIndicadorExterno","NOMBREELIMINAR":"@item.Nombre"}'>
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="4" style="text-align:center">@GB.SUTEL.Resources.Resources.TablaVacia</td></tr>
+                }
+
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td>
+                        <input placeholder="Id" name="IdIndicadorExterno" value="@(ViewBag.searchTerm[2] == null ? "" : ViewBag.searchTerm[2])" />
+                    </td>
+                    <td>
+                        <input placeholder="Fuente" name="nombreFuente" value="@(ViewBag.searchTerm[0] == null ? "" : ViewBag.searchTerm[0])" />
+                    </td>
+                    <td>
+                        <input placeholder="Indicador" name="nombreIndicador" value="@(ViewBag.searchTerm[1] == null ? "" : ViewBag.searchTerm[1])" />
+                    </td>
+                    @if (eliminar)
+                    {
+                        <td></td>
+                    }
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+}

@@ -1,0 +1,12 @@
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\bin\Debug\GB.SUTEL.ExceptionHandler.dll.config
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\bin\Debug\GB.SUTEL.ExceptionHandler.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.csprojAssemblyReference.cache
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.csproj.CoreCompileInputs.cache
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\bin\Debug\GB.SUTEL.ExceptionHandler.dll.config
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\bin\Debug\GB.SUTEL.ExceptionHandler.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.csproj.CoreCompileInputs.cache
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SUTEL.ExceptionHandler\bin\Debug\GB.SUTEL.ExceptionHandler.pdb

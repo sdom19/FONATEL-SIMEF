@@ -1,0 +1,89 @@
+﻿@model GB.SUTEL.Entities.IndicadorUIT
+@using GB.SUTEL.UI.Helpers;
+
+
+<form id="formEditar" method="post"
+      action="@Url.Action("_EditarIndicadorUIT")" data-ajax="true" data-ajax-target="#partialViewContent"
+      data-ajax-message="Cargando datos desde index...">
+    <div class="modal fade" id="modalEditarIndicadorUIT">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Editar Indicador UIT</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DescIndicadorUIT, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.DescIndicadorUIT, new { htmlAttributes = new { @class = "form-control", @id = "txtIDNombreIndicadorUITEditar" } })
+                                @Html.HiddenFor(model => model.IdIndicadorUIT, new { @id = "IDIndicadorUITEditar" })
+                                @Html.ValidationMessageFor(model => model.DescIndicadorUIT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="alert alert-danger" hidden role="alert" id="divMensajeErrorEditarIndicadorUIT">
+                            <strong>Error!</strong>
+                            <div id="idMensajeErrorEditarIndicadorUIT"></div>
+                        </div>
+
+                        <div class="modal-footer">
+                            @if (rolValidation.ValidateScreenFunctions(this.Context, "Indicador UIT", "Editar"))
+{
+                <input type="submit" value="Guadar Cambios" class="btn btn-success" alt="Guadar Cambios" title="Guadar Cambios" />
+}
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" title="Cancelar">Cancelar</button>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        function onSuccess(data) {
+
+            data = JSON.parse(data);
+
+            if (data.ok == "True") {
+                $("#modalEditarIndicadorUIT").modal('hide');
+                // esperar y volver a ejecutar el refresh de la tabla por AJAX
+                //setTimeout(function () {
+                $("#frmFiltroIndicadorUIT")[0].reset();
+                $("#frmFiltroIndicadorUIT").submit();
+
+                addSuccess({ msg: "La información se actualizó con éxito." })
+                //}, 500);
+            } else {
+                $("#divMensajeErrorEditarIndicadorUIT").show();
+                $("#idMensajeErrorEditarIndicadorUIT").html(data.strMensaje);
+
+            }
+        }
+        function onFailure(error) {
+            showError(error.responseText);
+        }
+        // pasa el id del form de crear
+        // pasa la función a ejecutar si todo está bien
+        // pasa la función a ejecutar si hay errores
+        AjaxifyMyForm("formEditar",
+            onSuccess,
+            onFailure);
+    });
+
+    function showError(msg) {
+        $("#divMensajeErrorEditarIndicadorUIT").show();
+        $("#idMensajeErrorEditarIndicadorUIT").html(msg);
+    }
+
+</script>

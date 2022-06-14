@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>GB.SUTEL.DataBaseProject</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{4d8c65a2-840d-4176-ae9b-145992486d1b}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>GB.SUTEL.DataBaseProject</RootNamespace>
+    <AssemblyName>GB.SUTEL.DataBaseProject</AssemblyName>
+    <ModelCollation>3082,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <DefaultCollation>Modern_Spanish_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- Default to the v10.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\ZonaIndicadorExterno.sql" />
+    <Build Include="dbo\Tables\UsuarioLogin.sql" />
+    <Build Include="dbo\Tables\Usuario.sql" />
+    <Build Include="dbo\Tables\Trimestre.sql" />
+    <Build Include="dbo\Tables\TipoValor.sql" />
+    <Build Include="dbo\Tables\TipoNivelDetalle.sql" />
+    <Build Include="dbo\Tables\TipoIndicadorServicio.sql" />
+    <Build Include="dbo\Tables\TipoIndicador.sql" />
+    <Build Include="dbo\Tables\TemporalDetalle.sql" />
+    <Build Include="dbo\Tables\SolicitudOperador.sql" />
+    <Build Include="dbo\Tables\SolicitudIndicador.sql" />
+    <Build Include="dbo\Tables\SolicitudGeneral.sql" />
+    <Build Include="dbo\Tables\SolicitudConstructor.sql" />
+    <Build Include="dbo\Tables\ServicioOperador.sql" />
+    <Build Include="dbo\Tables\ServicioIndicador.sql" />
+    <Build Include="dbo\Tables\ServicioDefinicion.sql" />
+    <Build Include="dbo\Tables\Servicio.sql" />
+    <Build Include="dbo\Tables\RolUsuario.sql" />
+    <Build Include="dbo\Tables\RolAccionPantalla.sql" />
+    <Build Include="dbo\Tables\Rol.sql" />
+    <Build Include="dbo\Tables\Regla.sql" />
+    <Build Include="dbo\Tables\RegistroIndicadorExterno.sql" />
+    <Build Include="dbo\Tables\RegistroIndicador.sql" />
+    <Build Include="dbo\Tables\RegionIndicadorExterno.sql" />
+    <Build Include="dbo\Tables\Provincia.sql" />
+    <Build Include="dbo\Tables\Periodicidad.sql" />
+    <Build Include="dbo\Tables\ParamFormulas.sql" />
+    <Build Include="dbo\Tables\ParametrosGenerales.sql" />
+    <Build Include="dbo\Tables\ParametroIndicador.sql" />
+    <Build Include="dbo\Tables\Pantalla.sql" />
+    <Build Include="dbo\Tables\OperadorSync.sql" />
+    <Build Include="dbo\Tables\Operador.sql" />
+    <Build Include="dbo\Tables\NivelDetalleReglaEstadistica.sql" />
+    <Build Include="dbo\Tables\Nivel.sql" />
+    <Build Include="dbo\Tables\LogFormulas.sql" />
+    <Build Include="dbo\Tables\InidicadorUmbralPeso.sql" />
+    <Build Include="dbo\Tables\InformacionArchivoCsv.sql" />
+    <Build Include="dbo\Tables\IndicadorUIT.sql" />
+    <Build Include="dbo\Tables\IndicadorIndicadorUIT.sql" />
+    <Build Include="dbo\Tables\IndicadorExterno.sql" />
+    <Build Include="dbo\Tables\IndicadorDireccion.sql" />
+    <Build Include="dbo\Tables\IndicadorCruzado.sql" />
+    <Build Include="dbo\Tables\Indicador.sql" />
+    <Build Include="dbo\Tables\Genero.sql" />
+    <Build Include="dbo\Tables\FuenteExterna.sql" />
+    <Build Include="dbo\Tables\Frecuencia.sql" />
+    <Build Include="dbo\Tables\EstadoSolicitud.sql" />
+    <Build Include="dbo\Tables\EjecucionMotor.sql" />
+    <Build Include="dbo\Tables\Distrito.sql" />
+    <Build Include="dbo\Tables\Direccion.sql" />
+    <Build Include="dbo\Tables\DetalleRegistroIndicador.sql" />
+    <Build Include="dbo\Tables\DetalleIndicadorCruzado.sql" />
+    <Build Include="dbo\Tables\DetalleArchivoCsv.sql" />
+    <Build Include="dbo\Tables\DetalleAgrupacionNEW.sql" />
+    <Build Include="dbo\Tables\DetalleAgrupacion.sql" />
+    <Build Include="dbo\Tables\Criterio.sql" />
+    <Build Include="dbo\Tables\CorreosEquipoIndicadores.sql" />
+    <Build Include="dbo\Tables\CoordenadasArchivoMif.sql" />
+    <Build Include="dbo\Tables\ConstructorCriterioDetalleAgrupacion.sql" />
+    <Build Include="dbo\Tables\ConstructorCriterio.sql" />
+    <Build Include="dbo\Tables\Constructor.sql" />
+    <Build Include="dbo\Tables\Canton.sql" />
+    <Build Include="dbo\Tables\BitacoraSync.sql" />
+    <Build Include="dbo\Tables\BitacoraParametrizacionIndicador.sql" />
+    <Build Include="dbo\Tables\BitacoraIndicador.sql" />
+    <Build Include="dbo\Tables\BitacoraExcepcion.sql" />
+    <Build Include="dbo\Tables\BitacoraArchivosMifCsv.sql" />
+    <Build Include="dbo\Tables\Bitacora.sql" />
+    <Build Include="dbo\Tables\ArchivoMif.sql" />
+    <Build Include="dbo\Tables\ArchivoExcel.sql" />
+    <Build Include="dbo\Tables\ArchivoCsv.sql" />
+    <Build Include="dbo\Tables\Agrupacion.sql" />
+    <Build Include="dbo\Tables\Accion.sql" />
+    <Build Include="dbo\Functions\getFormatoNumerico.sql" />
+    <Build Include="dbo\Functions\fn_Split.sql" />
+    <Build Include="dbo\Stored Procedures\pa_SolicitudesVencidas.sql" />
+    <Build Include="dbo\Stored Procedures\pa_SolicitudesPorParametros.sql" />
+    <Build Include="dbo\Stored Procedures\pa_SolicitudConstructorActualizar.sql" />
+    <Build Include="dbo\Stored Procedures\pa_SendEmail.sql" />
+    <Build Include="dbo\Stored Procedures\pa_RptTiposIndicadorPorServicio.sql" />
+    <Build Include="dbo\Stored Procedures\pa_RptIndicadoresPorServicio.sql" />
+    <Build Include="dbo\Stored Procedures\pa_RptIndicadoresPorOperador.sql" />
+    <Build Include="dbo\Stored Procedures\pa_RptDetalleAgrupacionPorAgrupacion.sql" />
+    <Build Include="dbo\Stored Procedures\pa_RptBitacora.sql" />
+    <Build Include="dbo\Stored Procedures\pa_RegistrarExcepcion.sql" />
+    <Build Include="dbo\Stored Procedures\pa_ParamFormulasTrans.sql" />
+    <Build Include="dbo\Stored Procedures\pa_MetodosIndicarXServicio.sql" />
+    <Build Include="dbo\Stored Procedures\pa_LogErrores.sql" />
+    <Build Include="dbo\Stored Procedures\pa_InsertarUsuario.sql" />
+    <Build Include="dbo\Stored Procedures\pa_InsertarSolicitudArchivoExcel.sql" />
+    <Build Include="dbo\Stored Procedures\pa_InsertarDetalleArchivoCsv.sql" />
+    <Build Include="dbo\Stored Procedures\pa_InsertarArchivoExcel.sql" />
+    <Build Include="dbo\Stored Procedures\pa_getValoresReglaEstadisticaConNivelDetalle.sql" />
+    <Build Include="dbo\Stored Procedures\pa_getValoresRegistradosPorOperador_SinDetalleNivel.sql" />
+    <Build Include="dbo\Stored Procedures\pa_getValoresRegistradosPorOperador_Provincia.sql" />
+    <Build Include="dbo\Stored Procedures\pa_getValoresRegistradosPorOperador_Genero.sql" />
+    <Build Include="dbo\Stored Procedures\pa_getValoresRegistradosPorOperador_Canton.sql" />
+    <Build Include="dbo\Stored Procedures\pa_getOperadoresDetalleAgrupacionPorIdConstructorAndIdCriterio.sql" />
+    <Build Include="dbo\Stored Procedures\pa_getNombreIndicadorByIdSolicitudConstructor.sql" />
+    <Build Include="dbo\Stored Procedures\pa_getListaIndicadoresXSolicitud.sql" />
+    <Build Include="dbo\Stored Procedures\pa_getListaIndicadoresSolicitud.sql" />
+    <Build Include="dbo\Stored Procedures\pa_GetIndicadorXservicio.sql" />
+    <Build Include="dbo\Stored Procedures\pa_getDetalleAgrupacionesPorOperador.sql" />
+    <Build Include="dbo\Stored Procedures\pa_GetCriteriosXIndicador.sql" />
+    <Build Include="dbo\Stored Procedures\pa_ExtraerSolicitudesPendientes.sql" />
+    <Build Include="dbo\Stored Procedures\pa_ExtraerGenero.sql" />
+    <Build Include="dbo\Stored Procedures\pa_ExtraerDistritoXCanton.sql" />
+    <Build Include="dbo\Stored Procedures\pa_ExtraerCantoXprovincia.sql" />
+    <Build Include="dbo\Stored Procedures\pa_Envio_Notificaciones.sql" />
+    <Build Include="dbo\Stored Procedures\pa_EneviarCorreoUsuario.sql" />
+    <Build Include="dbo\Stored Procedures\pa_EliminarReglaEstadistica.sql" />
+    <Build Include="dbo\Stored Procedures\pa_EliminarDetallesdeAgrupacionporOperador.sql" />
+    <Build Include="dbo\Stored Procedures\pa_EliminarDetallesdeAgrupacion.sql" />
+    <Build Include="dbo\Stored Procedures\pa_EliminarConstructorCriterio.sql" />
+    <Build Include="dbo\Stored Procedures\pa_EliminadoFisicoDetalleAgrupacion.sql" />
+    <Build Include="dbo\Stored Procedures\pa_EjecucionMotor.sql" />
+    <Build Include="dbo\Stored Procedures\pa_EditarIdConstructorDetallePadreporOperador.sql" />
+    <Build Include="dbo\Stored Procedures\pa_EditarIdConstructorDetallePadre.sql" />
+    <Build Include="dbo\Stored Procedures\pa_DescripcionHexadecimal.sql" />
+    <Build Include="dbo\Stored Procedures\pa_DescargarArchivoExcel.sql" />
+    <Build Include="dbo\Stored Procedures\pa_ConsultarDetalleRegistroIndicador.sql" />
+    <Build Include="dbo\Stored Procedures\pa_ConstructorModificar.sql" />
+    <Build Include="dbo\Stored Procedures\pa_ClonarConstructor.sql" />
+    <Build Include="dbo\Stored Procedures\pa_ClonarArbol.sql" />
+    <Build Include="dbo\Stored Procedures\pa_EnviarNotificacionesGeneral.sql" />
+    <Build Include="dbo\Tables\DetalleArchivoTelevisionDigitalCsv.sql" />
+    <Build Include="dbo\Tables\ArchivoTelevisionDigitalCsv.sql" />
+  </ItemGroup>
+</Project>

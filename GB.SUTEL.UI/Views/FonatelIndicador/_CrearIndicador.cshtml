@@ -1,0 +1,114 @@
+﻿<h2>Indicadores</h2>
+<br />
+<form>
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            <div class="justify-content-center">
+
+                <div class="form-group row">
+                    <label for="txtDescripcion" class="col-sm-3 col-form-label">Descripción</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" id="txtDescripcion" placeholder="Descripción de categoria"></textarea>
+                        <small id="DescripcionHelp" class="form-text text-muted">La Descripción es requerido</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtCodigo" class="col-sm-3 col-form-label">Código</label>
+                    <div class="col-lg-9">
+                        <input type="text" aria-label="Código de categoria" class="form-control" id="txtCodigo" placeholder="Código">
+                        <small id="CodigoHelp" class="form-text text-muted">El Código es requerido</small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtNombre" class="col-sm-3 col-form-label">Nombre</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtNombre"  placeholder="Nombre">
+                        <small id="nombreHelp" class="form-text text-muted">El nombre es requerido</small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="ddlTipo" class="col-sm-3 col-form-label ">Tipo</label>
+                    <div class="col-sm-9">
+                        <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlTipo">
+                            <option></option>
+                            <option value="1">gestión</option>
+                            <option value="2">cumplimiento de meta</option>
+                            <option value="3">beneficiarios</option>
+                            <option value="3">financieros</option>
+                            <option value="3">evaluación</option>
+                            <option value="3">percepción</option>
+                        </select>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#modalTipo" title="Agregar Tipo" alt="Agregar Detalle"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i></button>
+                        <br />
+                        <small id="TipoHelp" class="form-text text-muted">El tipo es requerido</small>
+                    </div>
+                </div>
+
+
+            </div>
+            </div>
+        <div class="col-lg-6 col-sm-12">
+            <div class="form-group row">
+                <label for="ddlClasificacion" class="col-sm-3 col-form-label ">Clasificación</label>
+                <div class="col-sm-9">
+                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlClasificacion">
+                        <option></option>
+                        <option value="1">Entrada</option>
+                        <option value="2">Salida</option>
+                        <option value="3">Entrada/salida</option>
+                    </select>
+                    <br />
+                    <small id="TipoHelp" class="form-text text-muted">La Clasificación es requerido</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="ddlGrupo" class="col-sm-3 col-form-label ">Grupo</label>
+                <div class="col-sm-9">
+                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlGrupo">
+                        <option></option>
+                        <option value="1">Programa 1</option>
+                        <option value="2">Programa 2</option>
+                        <option value="3">Programa 3</option>
+                    </select>
+                    <button class="btn btn-success" data-toggle="modal" data-target="#modalGrupo" title="Agregar Tipo" alt="Agregar Detalle"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i></button>
+                    <br />
+                    <small id="TipoHelp" class="form-text text-muted">El Grupo es requerido</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="txtVariableDato" class="col-sm-3 col-form-label">Variable Dato</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="txtVariableDato"  placeholder="Variable Dato">
+                    <small id="VariableDatoHelp" class="form-text text-muted">La Variable Dato es requerido</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="txtNota" class="col-sm-3 col-form-label">Notas</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" id="txtNota" placeholder="Notas"></textarea>
+                    <small id="NotaHelp" class="form-text text-muted">La Notas es requerido</small>
+                </div>
+            </div>
+
+        </div>
+          
+        </div>
+        <div class="Row">
+            <div class="col-sm-12">
+            
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="submit" class="btn btn-danger">Cancelar</button>
+                    </div>
+      
+            </div>
+        </div>
+</form>
+
+
+

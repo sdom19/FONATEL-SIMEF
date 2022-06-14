@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="69ecc3583bad4acd9b891250c20002f4" Name="Diagram1">
+        <EntityTypeShape EntityType="SITELModel.Accion" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Agrupacion" Width="1.5" PointX="9" PointY="49.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ArchivoBandaAngostaCsv" Width="1.5" PointX="11.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ArchivoCsv" Width="1.5" PointX="11.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ArchivoExcel" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ArchivoIMTFijasCsv" Width="1.5" PointX="13.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ArchivoMif" Width="1.5" PointX="16.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ArchivoTelevisionDigitalCsv" Width="1.5" PointX="16.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Bitacora" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.BitacoraArchivosMifCsv" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.BitacoraExcepcion" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.BitacoraIndicador" Width="1.5" PointX="18" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.BitacoraParametrizacionIndicador" Width="1.5" PointX="8.25" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Canton" Width="1.5" PointX="13.5" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Constructor" Width="1.5" PointX="3" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ConstructorCriterio" Width="1.5" PointX="11.25" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ConstructorCriterioDetalleAgrupacion" Width="1.5" PointX="13.5" PointY="47.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.CoordenadasArchivoMif" Width="1.5" PointX="19" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.CorreosEquipoIndicadores" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Criterio" Width="1.5" PointX="6" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.DetalleAgrupacion" Width="1.5" PointX="11.25" PointY="48.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.DetalleArchivoCsv" Width="1.5" PointX="14" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.DetalleArchivoIMTFijasCsv" Width="1.5" PointX="16" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.DetalleArchivoTelevisionDigitalCsv" Width="1.5" PointX="19" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.DetalleBandaAngostaCsv" Width="1.5" PointX="14" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.DetalleIndicadorCruzado" Width="1.5" PointX="11.25" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.DetalleRegistroIndicador" Width="1.5" PointX="15.75" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Direccion" Width="1.5" PointX="0.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Distrito" Width="1.5" PointX="15.75" PointY="34.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.EjecucionMotor" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.EstadoSolicitud" Width="1.5" PointX="9" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Frecuencia" Width="1.5" PointX="0.75" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.FuenteExterna" Width="1.5" PointX="6.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Genero" Width="1.5" PointX="13.5" PointY="34.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Indicador" Width="1.5" PointX="6" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.IndicadorCruzado" Width="1.5" PointX="9" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.IndicadorExterno" Width="1.5" PointX="9" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.IndicadorUIT" Width="1.5" PointX="3.75" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.InformacionArchivoCsv" Width="1.5" PointX="14" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.InidicadorUmbralPeso" Width="1.5" PointX="8.25" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.LogFormulas" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Nivel" Width="1.5" PointX="17.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.NivelDetalleReglaEstadistica" Width="1.5" PointX="15.75" PointY="48.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Operador" Width="1.5" PointX="9" PointY="37.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.OperadorSync" Width="1.5" PointX="18.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Pantalla" Width="1.5" PointX="16" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ParametroIndicador" Width="1.5" PointX="8.25" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ParametrosGenerales" Width="1.5" PointX="18.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ParamFormulas" Width="1.5" PointX="8.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Periodicidad" Width="1.5" PointX="13.5" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Provincia" Width="1.5" PointX="11.25" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.RegionIndicadorExterno" Width="1.5" PointX="13.5" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.RegistroIndicador" Width="1.5" PointX="13.5" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.RegistroIndicadorExterno" Width="1.5" PointX="15.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Regla" Width="1.5" PointX="15.75" PointY="52.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Rol" Width="1.5" PointX="9" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.RolAccionPantalla" Width="1.5" PointX="18.25" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.SemaforoFormularioWEB" Width="1.5" PointX="19.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Servicio" Width="1.5" PointX="6" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ServicioDefinicion" Width="1.5" PointX="8.25" PointY="34.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ServicioIndicador" Width="1.5" PointX="11.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ServicioOperador" Width="1.5" PointX="16.25" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.SolicitudConstructor" Width="1.5" PointX="11.25" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.SolicitudGeneral" Width="1.5" PointX="13.5" PointY="40.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.SolicitudIndicador" Width="1.5" PointX="6" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.SolicitudOperador" Width="1.5" PointX="15.75" PointY="42.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.sysdiagrams" Width="1.5" PointX="19.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.TEMPDetalleRegistroIndicador" Width="1.5" PointX="20.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.TEMPRegistroIndicador" Width="1.5" PointX="21.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.TipoIndicador" Width="1.5" PointX="3.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.TipoIndicadorServicio" Width="1.5" PointX="11.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.TipoNivelDetalle" Width="1.5" PointX="13.5" PointY="54.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.TipoValor" Width="1.5" PointX="6.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Trimestre" Width="1.5" PointX="13.5" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.Usuario" Width="1.5" PointX="11.25" PointY="41.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.UsuarioLogin" Width="1.5" PointX="13.5" PointY="37.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.ZonaIndicadorExterno" Width="1.5" PointX="13.5" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.BitacoraSync" Width="1.5" PointX="21.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITELModel.DetalleAgrupacionNEW" Width="1.5" PointX="21.75" PointY="14.75" IsExpanded="true" />
+        <AssociationConnector Association="SITELModel.FK_BITACORA_ACCION" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_BitacoraArchivosMifCsv_Accion" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_ROLACCIO_REFERENCE_ACCION" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DETALLEA_REFERENCE_AGRUPACI" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK__DetalleBa__IdArc__33408412" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DetalleArchivoCsv_ArchivoCsv" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_InformacionArchivoCsv_ArchivoCsv" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK__DetalleAr__IdArc__2E7BCEF5" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_CoordenadasArchivoMif_ArchivoMif" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FkDetalleArchivoDigitalArchivo" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_BITACORA_REFERENCE_DETALLER" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_BITACORA_REFERENCE_USUARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_BitacoraParametrizacionIndicadores_Indicador" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_BitacoraParametrizacionIndicadores_Servicio" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_CANTON_REFERENCE_PROVINCI" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DETALLER_REFERENCE_CANTON" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DISTRITO_REFERENCE_CANTON" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_REGISTRO_REFERENCE_CANTON" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_CONSTRUC_REFERENCE_CONSTRUC" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_CONSTRUC_REFERENCE_DIRECCIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_CONSTRUC_REFERENCE_FRECUENC" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_CONSTRUC_REFERENCE_FRECUENC2" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_CONSTRUC_REFERENCE_INDICADO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SOLICITU_REFERENCIA_CONSTRUCTOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_CONSTRUC_REFERENCE_CRITERIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_CONSTRUC_REFERENCE_CONSTRUC2" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DETALLER_REFERENCE_CONSTRUC" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_REGLA_REFERENCE_CONSTRUC" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_ReglaEstadistica_ConstructorCriterioDetalleAgrupacion" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SOLICITU" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK__CRITERIO__IDINDI__0D7A0286" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_CRITERIO_REFERENCE_DIRECCIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DETALLEA_REFERENCE_OPERADOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK__DetalleIn__IdInd__0C50D423" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DETALLEI_REFERENCE_INDICADO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DETALLEI_REFERENCE_INDICADO2" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DETALLEI_REFERENCE_INDICADO4" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DETALLER_REFERENCE_GENERO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DETALLER_REFERENCE_PROVINCI" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DETALLER_REFERENCE_REGISTRO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_DETALLER_REFERENCE_TIPOVALO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SOLICITU_REFERENCE_DIRECCIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SOLICITU_REFERENCE_ESTADOSO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SOLICITU_REFERENCE_FRECUENC" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_INDICADO_REFERENCE_FUENTEEX" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_REGISTRO_REFERENCE_GENERO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK__Inidicado__IdInd__19FFD4FC" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK__ParamForm__IdInd__1DD065E0" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK__ServicioD__IdInd__670A40DB" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_INDICADO_REFERENCE_TIPOINDI" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_ParametroIndicador_Indicador" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SERVICIOINDICADOR_INDICADOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK__RegistroI__IdInd__0B5CAFEA" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_INDICADO_REFERENCE_TIPOVALO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_NivelDetalleReglaEstadistica_TipoNivelDetalle" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SERVICIOOPERADOR_OPERADOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SOLICITU_REFERENCE_OPERADOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_USUARIO_REFERENCE_OPERADOR" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_ROLACCIO_REFERENCE_PANTALLA" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK__ParamForm__IdSer__1EC48A19" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_REGISTRO_REFERENCE_PERIODIC" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_REGISTRO_REFERENCE_REGIONIN" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_REGISTRO_REFERENCE_SOLICITU" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_REGISTRO_REFERENCE_USUARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_REGISTRO_REFERENCE_TRIMESTR" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_REGISTRO_REFERENCE_ZONAINDI" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_ROLACCIO_REFERENCE_ROL" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SERVICIOINDICADOR_SERVICIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SERVICIOOPERADOR_SERVICIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SOLICITU_REFERENCE_SERVICIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_TIPOINDI_REFERENCE_SERVICIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_SOLICITU_REFERENCE_SOLICITU" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_Solicitud" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_Usuario_Respuesta" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_TIPOINDI_REFERENCE_TIPOINDI" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.FK_USUARIOLOGIN_USUARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.IndicadorDireccion" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.IndicadorIndicadorUIT" ManuallyRouted="false" />
+        <AssociationConnector Association="SITELModel.RolUsuario" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

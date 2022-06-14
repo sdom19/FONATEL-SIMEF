@@ -1,0 +1,17 @@
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\bin\Debug\netstandard2.0\GB.SIMEF.DAL.deps.json
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\bin\Debug\netstandard2.0\GB.SIMEF.DAL.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\bin\Debug\netstandard2.0\GB.SIMEF.DAL.pdb
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\obj\Debug\netstandard2.0\GB.SIMEF.DAL.csprojAssemblyReference.cache
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\obj\Debug\netstandard2.0\GB.SIMEF.DAL.AssemblyInfoInputs.cache
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\obj\Debug\netstandard2.0\GB.SIMEF.DAL.AssemblyInfo.cs
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\obj\Debug\netstandard2.0\GB.SIMEF.DAL.csproj.CoreCompileInputs.cache
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\obj\Debug\netstandard2.0\GB.SIMEF.DAL.dll
+C:\SUTEL\SitelP\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\obj\Debug\netstandard2.0\GB.SIMEF.DAL.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\bin\Debug\netstandard2.0\GB.SIMEF.DAL.deps.json
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\bin\Debug\netstandard2.0\GB.SIMEF.DAL.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\bin\Debug\netstandard2.0\GB.SIMEF.DAL.pdb
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\obj\Debug\netstandard2.0\GB.SIMEF.DAL.AssemblyInfoInputs.cache
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\obj\Debug\netstandard2.0\GB.SIMEF.DAL.AssemblyInfo.cs
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\obj\Debug\netstandard2.0\GB.SIMEF.DAL.csproj.CoreCompileInputs.cache
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\obj\Debug\netstandard2.0\GB.SIMEF.DAL.dll
+C:\Users\michael.hernandez\Desktop\QA_EVOLUTIVOS_MAYOR_FormularioWeb\GB.SIMEF.DAL\obj\Debug\netstandard2.0\GB.SIMEF.DAL.pdb
