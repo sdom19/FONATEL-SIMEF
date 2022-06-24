@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<div class="container body-content">
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                <li class="breadcrumb-item active"><a href="/Fonatel/RelacionCategoria/index">Lista Atributos de Validación</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Crear Relaciones entre Categorías</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+
+            @Html.Partial("_CrearRelacionCategoria")
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $("#TablaRelacionCategoria").DataTable({
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Buscar"
+            }
+        });
+
+        $('.listasDesplegables').select2({
+            placeholder: "Seleccione"
+        });
+
+
+    });
+
+    $(document).on("click", ".btnEliminar", function () {
+    });
+
+</script>
+

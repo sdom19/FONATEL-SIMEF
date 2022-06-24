@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<div class="container body-content">
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Lista de Solicitudes de Información</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Lista de Solicitudes de Información</h2>
+      
+        </div>
+        <div class="col-lg-12 mt-4">
+            <a class="btn-lg btn-success" data-toggle="tooltip" data-placement="top" title="Crear" alt="Crear" href="/Fonatel/SolicitudFonatel/Create">Crear</a>
+        </div>
+      
+        <div class="col-lg-12 mt-4 ">
+
+
+           
+            @Html.Partial("_TablaSolicitudes")
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $("#TablaRelacionCategoria").DataTable({
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Buscar"
+            }
+        });
+
+        $('.listasDesplegables').select2({
+            placeholder: "Seleccione"
+        });
+
+
+    });
+
+    $(document).on("click", ".btnEliminar", function () {
+    });
+
+</script>
+

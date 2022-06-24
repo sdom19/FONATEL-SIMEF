@@ -1,0 +1,91 @@
+﻿<input class="hidden" type="file" id="InpAgregarCSV" accept=".csv">
+
+<table id="TableCategoriaDesagregacion" class="datatable">
+    <thead>
+        <tr>
+            <th scope="col" style="width:10%">Código</th>
+            <th scope="col" style="width:40%">Nombre</th>
+            <th scope="col"  style="width:10%">Cantidad</th>
+            <th scope="col" style="width:10%">Estado</th>
+            <th scope="col" class="text-center" style="width:10%">Detalle</th>
+            <th scope="col" class="text-center" style="width:20%">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">Cat1-1</th>
+            <td>Codigo Torre</td>
+            <td class="text-justify text-center">800/800</td>
+            <td>Activo</td>
+
+            <td class="text-center">
+                <strong>N/A</strong>  
+            </td>
+
+            <td class="text-center">
+                @* <a class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Agregar Detalle" alt="Agregar Detalle" href="/Fonatel/CategoriasDesagregacion/Detalle/1"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i></a>*@
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn btn-primary "><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></button>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn btn-default btnEliminar"><i class="glyphicon glyphicon-off" aria-hidden="true"></i></button>
+                <button type="button" data-toggle="modal" data-target="#modalClonarCategoria"  title="Clonar" class="btn btn-info"><i class="fa fa-clone" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Cat2-1</th>
+            <td>Proyecto</td>
+            <td class="text-justify text-center">30/29</td>
+            <td>En Proceso</td>
+            <td class="text-center">
+                <button name="BtnAgregarCSV" type="button" data-toggle="tooltip" data-placement="top" title="Agregar Detalle" class="btn btn-success"><i class="fa fa-upload" aria-hidden="true"></i></button>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Descargar Plantilla" class="btn btn-purple"><i class="fa fa-download" aria-hidden="true"></i></button>
+            </td>
+            <td class="text-center">
+                
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn btn-primary"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></button>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn btn-orange btnEliminar"><i class="glyphicon glyphicon-off" aria-hidden="true"></i></button>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn btn-info"><i class="fa fa-clone" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Cat3-1</th>
+            <td>Región</td>
+            <td class="text-justify text-center">6/6</td>
+            <td>Inactivo</td>
+            <td class="text-center">
+                <button name="BtnAgregarCSV" type="button" data-toggle="tooltip" data-placement="top" title="Agregar Detalle" class="btn btn-success"><i class="fa fa-upload" aria-hidden="true"></i></button>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Descargar Plantilla" class="btn btn-purple"><i class="fa fa-download" aria-hidden="true"></i></button>
+            </td>
+            <td class="text-center">
+               
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn btn-primary"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></button>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn btn-orange btnEliminar"><i class="glyphicon glyphicon-off" aria-hidden="true"></i></button>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn btn-info"><i class="fa fa-clone" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Cat3-2</th>
+            <td>Provincia</td>
+            <td class="text-justify text-center">7/0</td>
+            <td>Inactivo</td>
+            <td class="text-center">
+                <button name="BtnAgregarCSV" type="button" data-toggle="tooltip" data-placement="top" title="Agregar Detalle" class="btn btn-success"><i class="fa fa-upload" aria-hidden="true"></i></button>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Descargar Plantilla" class="btn btn-purple"><i class="fa fa-download" aria-hidden="true"></i></button>
+            </td>
+            <td class="text-center">
+                
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn btn-primary"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></button>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Activar" class="btn btn-default btnEliminar"><i class="glyphicon glyphicon-off" aria-hidden="true"></i></button>
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn btn-info"><i class="fa fa-clone" aria-hidden="true"></i></button>
+
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
+<script type="text/javascript">
+
+    $(document).on('click', 'button[name=BtnAgregarCSV]',  function(){
+        $("#InpAgregarCSV").click();       
+    });
+
+</script>

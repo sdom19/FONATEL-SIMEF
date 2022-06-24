@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<div class="container body-content">
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                <li class="breadcrumb-item active"><a href="/Fonatel/FonatelIndicador/index">Lista de Indicadores</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Crear Indicador</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-12">
+
+            @Html.Partial("_CrearIndicador")
+
+            @Html.Partial("_ModalTipoIndicador")
+
+            @Html.Partial("_ModalGrupoIndicador")
+        </div>
+    </div>
+
+</div>
+
+
