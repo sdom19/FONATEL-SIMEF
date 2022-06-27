@@ -29,21 +29,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GB.SUTEL.BL", "GB.SUTEL.BL\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 Diagrams", "0 Diagrams", "{BEF79A6A-D5D4-4627-BEFB-43BCA7DE71C8}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GB.SUTEL.DataBaseProject", "GB.SUTEL.DataBaseProject\GB.SUTEL.DataBaseProject.sqlproj", "{4D8C65A2-840D-4176-AE9B-145992486D1B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 Generador Archivo Excel", "4 Generador Archivo Excel", "{6041DD63-4F60-42C8-9FE1-DDF366FEC053}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SutelSolution", "SutelSolution\SutelSolution.csproj", "{E3D24C0E-DABB-455F-B993-C4EFAD26A1C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GB.SUTEL.Reglas", "GB.SUTEL.Reglas\GB.SUTEL.Reglas.csproj", "{32572116-EEDA-4A10-8C65-52F02B7D8070}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GB.SIMEF.BL", "GB.SIMEF.BL\GB.SIMEF.BL.csproj", "{8ABDC389-3F57-47F7-A33B-054215ABA986}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GB.SIMEF.BL", "GB.SIMEF.BL\GB.SIMEF.BL.csproj", "{8ABDC389-3F57-47F7-A33B-054215ABA986}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GB.SIMEF.DAL", "GB.SIMEF.DAL\GB.SIMEF.DAL.csproj", "{1490EBAB-E8D5-4E57-99B9-C54DD5E976D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GB.SIMEF.DAL", "GB.SIMEF.DAL\GB.SIMEF.DAL.csproj", "{1490EBAB-E8D5-4E57-99B9-C54DD5E976D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GB.SIMEF.Shared", "GB.SIMEF.Shared\GB.SIMEF.Shared.csproj", "{F8264E3C-14CE-4FF3-840B-56FA83E4232B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GB.SIMEF.Shared", "GB.SIMEF.Shared\GB.SIMEF.Shared.csproj", "{F8264E3C-14CE-4FF3-840B-56FA83E4232B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GB.SIMEF.Resources", "GB.SIMEF.Resources\GB.SIMEF.Resources.csproj", "{3C87589F-6B46-4F62-AB6D-5118197F12EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GB.SIMEF.Resources", "GB.SIMEF.Resources\GB.SIMEF.Resources.csproj", "{3C87589F-6B46-4F62-AB6D-5118197F12EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,12 +77,6 @@ Global
 		{E8ED21F4-13AE-4B54-B9C5-1FF6EBC26EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8ED21F4-13AE-4B54-B9C5-1FF6EBC26EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8ED21F4-13AE-4B54-B9C5-1FF6EBC26EB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D8C65A2-840D-4176-AE9B-145992486D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D8C65A2-840D-4176-AE9B-145992486D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D8C65A2-840D-4176-AE9B-145992486D1B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{4D8C65A2-840D-4176-AE9B-145992486D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D8C65A2-840D-4176-AE9B-145992486D1B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D8C65A2-840D-4176-AE9B-145992486D1B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{E3D24C0E-DABB-455F-B993-C4EFAD26A1C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E3D24C0E-DABB-455F-B993-C4EFAD26A1C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3D24C0E-DABB-455F-B993-C4EFAD26A1C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -125,7 +117,6 @@ Global
 		{9787195D-FF3F-44E5-BF82-8DBDE1CCD952} = {2943DDA1-3F0A-4C8A-ABDD-8B943EA0D128}
 		{4ABBEE62-489B-47FC-B932-48F0C40B3F70} = {2943DDA1-3F0A-4C8A-ABDD-8B943EA0D128}
 		{E8ED21F4-13AE-4B54-B9C5-1FF6EBC26EB9} = {74E3071F-CD68-4CC8-AA6B-7B4D4D6FA679}
-		{4D8C65A2-840D-4176-AE9B-145992486D1B} = {A52D001C-4BF4-4B7F-82C4-61BDA4C8974F}
 		{E3D24C0E-DABB-455F-B993-C4EFAD26A1C5} = {6041DD63-4F60-42C8-9FE1-DDF366FEC053}
 		{32572116-EEDA-4A10-8C65-52F02B7D8070} = {74E3071F-CD68-4CC8-AA6B-7B4D4D6FA679}
 		{8ABDC389-3F57-47F7-A33B-054215ABA986} = {74E3071F-CD68-4CC8-AA6B-7B4D4D6FA679}
@@ -135,64 +126,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD906248-CBDD-4EF7-B5B0-4D5C31E62DD1}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://grupobabel.visualstudio.com/
-		SccProjectUniqueName0 = GB.SUTEL.Shared\\GB.SUTEL.Shared.csproj
-		SccProjectTopLevelParentUniqueName0 = GB.SUTEL.sln
-		SccProjectName0 = GB.SUTEL.Shared
-		SccAuxPath0 = https://grupobabel.visualstudio.com
-		SccLocalPath0 = GB.SUTEL.Shared
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName1 = GB.SUTEL.ExceptionHandler\\GB.SUTEL.ExceptionHandler.csproj
-		SccProjectTopLevelParentUniqueName1 = GB.SUTEL.sln
-		SccProjectName1 = GB.SUTEL.ExceptionHandler
-		SccAuxPath1 = https://grupobabel.visualstudio.com
-		SccLocalPath1 = GB.SUTEL.ExceptionHandler
-		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName2 = GB.SUTEL.DAL\\GB.SUTEL.DAL.csproj
-		SccProjectTopLevelParentUniqueName2 = GB.SUTEL.sln
-		SccProjectName2 = GB.SUTEL.DAL
-		SccAuxPath2 = https://grupobabel.visualstudio.com
-		SccLocalPath2 = GB.SUTEL.DAL
-		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName3 = GB.SUTEL.Entities\\GB.SUTEL.Entities.csproj
-		SccProjectTopLevelParentUniqueName3 = GB.SUTEL.sln
-		SccProjectName3 = GB.SUTEL.Entities
-		SccAuxPath3 = https://grupobabel.visualstudio.com
-		SccLocalPath3 = GB.SUTEL.Entities
-		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName4 = GB.SUTEL.Resources\\GB.SUTEL.Resources.csproj
-		SccProjectTopLevelParentUniqueName4 = GB.SUTEL.sln
-		SccProjectName4 = GB.SUTEL.Resources
-		SccAuxPath4 = https://grupobabel.visualstudio.com
-		SccLocalPath4 = GB.SUTEL.Resources
-		SccProvider4 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName5 = GB.SUTEL.BL\\GB.SUTEL.BL.csproj
-		SccProjectTopLevelParentUniqueName5 = GB.SUTEL.sln
-		SccProjectName5 = GB.SUTEL.BL
-		SccAuxPath5 = https://grupobabel.visualstudio.com
-		SccLocalPath5 = GB.SUTEL.BL
-		SccProvider5 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName6 = SutelSolution\\SutelSolution.csproj
-		SccProjectTopLevelParentUniqueName6 = GB.SUTEL.sln
-		SccProjectName6 = SutelSolution
-		SccAuxPath6 = https://grupobabel.visualstudio.com
-		SccLocalPath6 = SutelSolution
-		SccProvider6 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName7 = GB.SUTEL.UI\\GB.SUTEL.UI.csproj
-		SccProjectTopLevelParentUniqueName7 = GB.SUTEL.sln
-		SccProjectName7 = GB.SUTEL.UI
-		SccAuxPath7 = https://grupobabel.visualstudio.com
-		SccLocalPath7 = GB.SUTEL.UI
-		SccProvider7 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName8 = GB.SUTEL.DataBaseProject\\GB.SUTEL.DataBaseProject.sqlproj
-		SccProjectTopLevelParentUniqueName8 = GB.SUTEL.sln
-		SccProjectName8 = GB.SUTEL.DataBaseProject
-		SccAuxPath8 = https://grupobabel.visualstudio.com
-		SccLocalPath8 = GB.SUTEL.DataBaseProject
-		SccProvider8 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 	EndGlobalSection
 EndGlobal

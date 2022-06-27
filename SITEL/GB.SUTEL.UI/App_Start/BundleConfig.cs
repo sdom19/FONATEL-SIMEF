@@ -61,7 +61,7 @@ namespace GB.SUTEL.UI
                       "~/Content/Site.css",
                       "~/Content/structure.scss",
                       "~/Content/jsTree/themes/default/style.min.css",
-                      "~/Content/DataTables-1.10.5/media/css/jquery.dataTables.min.css",
+                      "~/Content/DataTables-1.10.5/media/css/jquery.dataTables.css",
                       "~/Content/Select2.min.css",
                       "~/Content/calendar.css"));
             BundleTable.EnableOptimizations = true;

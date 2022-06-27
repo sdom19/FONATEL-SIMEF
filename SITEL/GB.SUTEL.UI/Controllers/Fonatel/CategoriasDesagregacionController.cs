@@ -24,7 +24,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             return View();
         }

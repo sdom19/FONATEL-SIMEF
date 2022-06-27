@@ -24,7 +24,7 @@ $(document).ready(function () {
             }
         }
     });
-
+    $(".dataTables_wrapper .dataTables_filter").append("<span><i class='fa fa-search'></i></span>");
     $('.listasDesplegables').select2({
         placeholder: "Seleccione"
     });

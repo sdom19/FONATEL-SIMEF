@@ -1665,7 +1665,6 @@
     <Content Include="Views\SolicitudFonatel\Detalle.cshtml" />
     <Content Include="Views\SolicitudFonatel\Index.cshtml" />
     <Content Include="Views\FonatelIndicador\Create.cshtml" />
-    <Content Include="Views\CategoriasDesagregacion\_ClonarCategoria.cshtml" />
     <Content Include="Views\ReglasValidacion\Index.cshtml" />
     <Content Include="Views\ReglasValidacion\_ClonarCategoria.cshtml" />
     <Content Include="Views\ReglasValidacion\_CrearRegla.cshtml" />
@@ -1677,7 +1676,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Archivos\Insertar\" />
     <Folder Include="Content\Archivos\Reemplazar\" />
-    <Folder Include="Images\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\" />
     <Folder Include="Recursos\ConvertToOldExcel\" />
