@@ -63,7 +63,8 @@ namespace GB.SUTEL.UI
                       "~/Content/jsTree/themes/default/style.min.css",
                       "~/Content/DataTables-1.10.5/media/css/jquery.dataTables.css",
                       "~/Content/Select2.min.css",
-                      "~/Content/calendar.css"));
+                      "~/Content/calendar.css",
+                      "~/Content/Fonatel/CustomBootstrap.css"));
             BundleTable.EnableOptimizations = true;
         }
     }

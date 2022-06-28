@@ -12,7 +12,7 @@ $(document).ready(function () {
             "lengthMenu": "Mostrar _MENU_ Entradas",
             "loadingRecords": "Cargando...",
             "processing": "Procesando...",
-            "search": "Buscar:",
+            "search": "",
             "searchPlaceholder": "Buscar",
             "zeroRecords": "Sin resultados encontrados",
 
@@ -24,7 +24,6 @@ $(document).ready(function () {
             }
         }
     });
-    $(".dataTables_wrapper .dataTables_filter").append("<span><i class='fa fa-search'></i></span>");
     $('.listasDesplegables').select2({
         placeholder: "Seleccione"
     });

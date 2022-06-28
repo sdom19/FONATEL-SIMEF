@@ -1,0 +1,54 @@
+﻿
+.btn-icon-base {
+    opacity: 1;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    transition: 0.15s;
+}
+
+.btn-icon-base:hover {
+    opacity:0.6;
+}
+
+.btn-add {
+    background-image: url("../../Images/icon-add.svg");
+}
+
+.btn-edit {
+    background-image: url("../../Images/icon-edit.svg");
+}
+
+.btn-delete {
+    background-image: url("../../Images/icon-delete.svg");
+}
+
+.btn-clone {
+    background-image: url("../../Images/icon-clone.svg");
+}
+
+.btn-download {
+    background-image: url("../../Images/icon-download.svg");
+}
+
+.btn-upload {
+    background-image: url("../../Images/icon-upload.svg");
+}
+
+.btn-power-off {
+    background-image: url("../../Images/icon-power-off.svg");
+}
+
+.btn-power-on {
+    background-image: url("../../Images/icon-power-on.svg");
+}
+input[type="search"] {
+    width: 100%;
+    padding: 9px 40px 9px 4px;
+    background: transparent url("../../Images/icon-search.svg") no-repeat 96% center;
+}
+
