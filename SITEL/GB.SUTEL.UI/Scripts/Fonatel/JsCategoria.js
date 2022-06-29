@@ -6,8 +6,11 @@
         "divRangoMinimoCategoria": "#divRangoMinimaCategoria",
         "divRangoMaximaCategoria":"#divRangoMaximaCategoria",
         "ddlTipoDetalle": "#ddlTipoDetalleCategoria",
-        "btnEliminar": ".btnEliminar",
-        "btnGuardar": "#btnGuardarCategoria"
+        "btnGuardar": "#btnGuardarCategoria",
+        "btnEditar": "#TableCategoriaDesagregacion tbody tr td .btn-edit",
+        "btnDesactivar": "#TableCategoriaDesagregacion tbody tr td .btn-power-off",
+        "btnActivar": "#TableCategoriaDesagregacion tbody tr td .btn-power-on",
+        "btnClonar": "#TableCategoriaDesagregacion tbody tr td .btn-clone"
     },
     "Variables":{
         "TipoFecha": 4,
@@ -46,16 +49,30 @@ $(document).on("change", JsCategoria.Controles.ddlTipoDetalle, function () {
     JsCategoria.Metodos.HabilitarControlesTipoCategoria(selected);
 });
 
-$(document).on("click", JsCategoria.Controles.btnEliminar, function () {
-    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Cambiar el Estado de la Categoría?")
+
+$(document).on("click", JsCategoria.Controles.btnEditar, function () {
+    let id = $(this).val();
+    window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id=" + id;
+});
+
+
+$(document).on("click", JsCategoria.Controles.btnDesactivar, function () {
+    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Activar la Categoría?")
+        .then((result) => {
+            if (result.isConfirmed) {
+                jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Activada");
+            }
+        });
+});
+
+$(document).on("click", JsCategoria.Controles.btnActivar, function () {
+    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Desactivar la Categoría?")
         .then((result) => {
             if (result.isConfirmed) {
                 jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Desactivada");
             }
         });
 });
-
-
 
 
 $(document).on("click", JsCategoria.Controles.btnGuardar, function (e) {
@@ -65,6 +82,17 @@ $(document).on("click", JsCategoria.Controles.btnGuardar, function (e) {
         .then((result) => {
             if (result.isConfirmed) {
                 jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Agregada");
+            }
+        });
+});
+
+
+$(document).on("click", JsCategoria.Controles.btnClonar, function () {
+    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Clonar la Categoría?")
+        .then((result) => {
+            if (result.isConfirmed) {
+                let id = 1;
+                window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id=" + id;
             }
         });
 });
