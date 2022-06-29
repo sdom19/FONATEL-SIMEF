@@ -52,3 +52,56 @@ input[type="search"] {
     background: transparent url("../../Images/icon-search.svg") no-repeat 96% center;
 }
 
+ .breadcrumb {
+    padding: 8px 15px;
+    margin-bottom: 20px;
+    list-style: none;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.breadcrumb > li {
+     display: inline-block;
+}
+
+.breadcrumb > li + li:before {
+    padding: 0 5px;
+    color: #cccccc;
+    content: "/\00a0";
+}
+
+.breadcrumb > .active {
+     color: #999999;
+}
+
+
+.btn{
+     border-radius:10px!important;
+ }
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.mt-1 {
+    margin-top: 0.25rem !important;
+}
+
+.mt-2 {
+    margin-top: 0.5rem !important;
+}
+
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+
+.mt-5 {
+    margin-top: 3rem !important;
+}
+
+.mt-auto {
+    margin-top: auto !important;
+}

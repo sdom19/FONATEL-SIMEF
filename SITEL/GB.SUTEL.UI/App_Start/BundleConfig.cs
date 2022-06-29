@@ -56,7 +56,7 @@ namespace GB.SUTEL.UI
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
                       "~/Content/pnotify.custom.min.css",
                       "~/Content/Site.css",
                       "~/Content/structure.scss",
