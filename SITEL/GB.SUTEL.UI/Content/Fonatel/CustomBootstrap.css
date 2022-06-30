@@ -1,4 +1,17 @@
-﻿
+﻿:root {
+    --green-fonatel: #5B9150;
+    --purple-fonatel: #7A3DAB;
+    --blue-fonatel: #1A5EAB;
+    --light-1-blue-fonatel: #00B3E6;
+    --light-2-blue-fonatel: #EDF1F7;
+    --orange-fonatel: #F58A3B;
+}
+
+.text-primary-simef {
+    color: #005fbf;
+}
+
+
 .btn-icon-base {
     opacity: 1;
     width: 20px;
@@ -46,8 +59,19 @@
 .btn-power-on {
     background-image: url("../../Images/icon-power-on.svg");
 }
+
+.btn-yes {
+    content: url("../../Images/icon-power-on.svg");
+}
+
+.btn-cancel {
+    background-image: url("../../Images/icon-cancel.svg");
+}
+
+
+
 input[type="search"] {
-    width: 100%;
+    /*width: 100%;*/
     padding: 9px 40px 9px 4px;
     background: transparent url("../../Images/icon-search.svg") no-repeat 96% center;
 }
@@ -111,4 +135,50 @@ input[type="search"] {
 }
 .body-content {
     padding-top: 15px !important
+}
+.dataTables_length select {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    padding-right: 2.5rem;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.dataTables_length select:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.table-responsive{
+    border:none!important;
+}
+
+
+table.dataTable thead tr {
+    background: var(--blue-fonatel);
+    color: #fff;
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+    background: var(--light-2-blue-fonatel);
+}
+
+.pagination > .active > a,
+.pagination > .active > span, .pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus, .pagination > .active > span:focus {
+    background: var(--blue-fonatel);
+    color: #fff;
+}
+.textarea{
+    max-height:200px!important;
 }

@@ -12,8 +12,8 @@ $(document).ready(function () {
             "lengthMenu": "Mostrar _MENU_ Entradas",
             "loadingRecords": "Cargando...",
             "processing": "Procesando...",
-            "search": "",
-            "searchPlaceholder": "Buscar",
+            "search": "Buscar:",
+            "searchPlaceholder": "",
             "zeroRecords": "Sin resultados encontrados",
 
             "paginate": {

@@ -1,0 +1,52 @@
+﻿:root {
+    --gray-modal: #F6F8FD;
+}
+
+.alertify .ajs-header {
+    color: #fff!important;
+    background-color: #1a5eab!important;
+    border-radius:0px!important;
+}
+.alertify .ajs-dialog {
+    border-radius: 0px 0px 28px 28px!important;
+    background-color: var(--gray-modal);
+}
+.question-icon{
+    content:url("../../Images/question.svg");
+}
+.warning-icon {
+    content: url("../../Images/warning.svg");
+}
+
+.success-icon {
+    content: url("../../Images/success.svg");
+}
+.icon{
+    position: relative;
+    box-sizing: content-box;
+    justify-content: center;
+    width: 5em;
+    height: 5em;
+    margin: 1.25em auto 1.875em;
+    border: .25em solid transparent;
+    border-radius: 50%;
+    font-family: inherit;
+    line-height: 5em;
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.alertify .ajs-dialog {
+    max-width: 450px !important;
+    border: 0px;
+}
+.alertify .ajs-footer .ajs-buttons.ajs-primary {
+    text-align: center !important;
+}
+
+.alertify .ajs-footer {
+    border-radius: 0px 0px 28px 28px !important;
+    background-color: var(--gray-modal);
+}

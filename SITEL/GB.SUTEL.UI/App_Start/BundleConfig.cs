@@ -20,7 +20,8 @@ namespace GB.SUTEL.UI
                  "~/Scripts/jsDatepickerES.js",
                  "~/Scripts/Select2.min.js",
                  "~/Scripts/sweetalert2.min.js",
-                "~/Scripts/jquery-ui.js"));
+                "~/Scripts/jquery-ui.js",
+                "~/Scripts/alertifyjs/alertify.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/internalAjax").Include(
                 "~/Scripts/reusableComponents.js"));
@@ -32,7 +33,8 @@ namespace GB.SUTEL.UI
              "~/Scripts/Fonatel/JsMensaje.js",
              "~/Scripts/Fonatel/JsCategoria.js",
              "~/Scripts/Fonatel/JsRelacionCategoria.js",
-              "~/Scripts/Fonatel/JsUtilidades.js"));
+              "~/Scripts/Fonatel/JsUtilidades.js",
+              "~/Scripts/Fonatel/JsReglas.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/internalSelectRowGrid").Include(
                 "~/Scripts/selectRowGrid.js",
@@ -40,14 +42,11 @@ namespace GB.SUTEL.UI
             bundles.Add(new ScriptBundle("~/bundles/internal").Include(
                 "~/Scripts/reusableComponents.js",
                 "~/Scripts/selectRowGrid.js",
-               // "~/Content/DataTables-1.10.5/media/js/jquery.dataTables.min.js",
-               "~/Content/DataTables/dataTables.min.js",
-                 "~/Content/jsTree/jstree.min.js",
+                "~/Scripts/DataTables/datatables.js",
+                "~/Content/jsTree/jstree.min.js",
                 "~/Scripts/main.js"));
             bundles.Add(new ScriptBundle("~/bundles/funcionalidadesExtra").Include(
                "~/Scripts/Mantenimientos/Constructor/ConstructorCrear.js"));
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -61,10 +60,13 @@ namespace GB.SUTEL.UI
                       "~/Content/Site.css",
                       "~/Content/structure.scss",
                       "~/Content/jsTree/themes/default/style.min.css",
-                      "~/Content/DataTables-1.10.5/media/css/jquery.dataTables.css",
+                      "~/Content/DataTables/datatables.min.css",
                       "~/Content/Select2.min.css",
                       "~/Content/calendar.css",
-                      "~/Content/Fonatel/CustomBootstrap.css"));
+                      "~/Content/Fonatel/CustomBootstrap.css",
+                      "~/Content/alertifyjs/alertify.min.css",
+                      "~/Content/alertifyjs/bootstrap.min.css",
+                       "~/Content/alertifyjs/CustomAlertify.css"));
             BundleTable.EnableOptimizations = true;
         }
     }

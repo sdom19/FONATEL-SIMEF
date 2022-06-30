@@ -3,85 +3,89 @@
 <form class="mt-5">
     <div class="row">
         <div class="col-lg-6">
-            <div class="justify-content-center">
-
-
                 <div class="form-group row">
-                    <label for="txtDescripcionRegla" class="col-sm-4 col-form-label">Descripción</label>
+                    <label for="txtNombre" class="col-sm-4 col-form-label">Nombre</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="txtDescripcionRegla" placeholder="Descripción de categoria">
-                        <small id="DescripcionReglaHelp" class="form-text text-danger">El Descripción es requerido</small>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="txtCodigoRegla" class="col-sm-4 col-form-label">Código</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="txtCodigoRegla" placeholder="Código">
-                        <small id="CodigoReglaHelp" class="form-text text-danger">El Código es requerido</small>
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label for="txtNombreRegla" class="col-sm-4 col-form-label">Nombre</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="txtNombreRegla" placeholder="Nombre">
-                        <small id="NombreReglaHelp" class="form-text text-danger">El Nombrees requerido</small>
+                        <input type="text" class="form-control" id="txtNombre" placeholder="Nombre de Regla">
+                        <small id="nombreHelp" class="form-text text-danger">El nombre es requerido</small>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="ddlTipoRegla" class="col-sm-4 col-form-label ">Tipo de Regla</label>
+                    <label for="txtCodigo" class="col-sm-4 col-form-label">Código</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="txtCodigo" placeholder="Codigo">
+                        <small id="CodigoHelp" class="form-text text-danger">El Código es requerido</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="ddlTipoRegla" class="col-sm-4 col-form-label ">Tipo Regla</label>
                     <div class="col-sm-8">
                         <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlTipoRegla">
                             <option></option>
-                            <option value="1">Cambio Mensual</option>
-                            <option value="2">Contra otro Indicador</option>
-                            <option value="3">Constante</option>
-                            <option value="4">Atributos Validos</option>
-                            <option value="5">Actualización Secuencial</option>
+                            <option value="1">Fórmula cambio mensual</option>
+                            <option value="2">Fórmula contra otro indicador</option>
+                            <option value="3">Fórmula contra constante</option>
+                            <option value="4">Fórmula contra atributos válidos</option>
+                            <option value="5">Fórmula actualización secuencial</option>
                         </select>
                         <br />
-                        <small id="TipoReglaHelp" class="form-text text-danger">El tipo Regla es requerida</small>
+                        <small id="TipoReglaHelp" class="form-text text-danger">El tipo es requerido</small>
                     </div>
                 </div>
-
-            </div>
         </div>
         <div class="col-lg-6">
-
             <div class="form-group row">
-                <label for="ddlIndicador" class="col-sm-4 col-form-label ">Tipo de Regla</label>
+                <label for="ddlIndicadorRegla" class="col-sm-4 col-form-label">Indicador</label>
                 <div class="col-sm-8">
-                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlIndicador">
+                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlIndicadorRegla">
                         <option></option>
                         <option value="1">Torres Según Estado</option>
-                        <option value="2">Hogares Benificiados</option>
-                        <option value="3">Dispositivos Entregados</option>
+                        <option value="2">CPSP conectados</option>
+                        <option value="3">Hogares Benificiados</option>
+                        <option value="4">Dispositivos entregados</option>
                     </select>
                     <br />
-                    <small id="IndicadorHelp" class="form-text text-danger">El Indicador es requerida</small>
+                    <small id="TipoIndicadorHelp" class="form-text text-danger">El Indicador es requerido</small>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="ddlVariable" class="col-sm-4 col-form-label ">Variable Dato</label>
+                <label for="ddlOperadorRegla" class="col-sm-4 col-form-label">Operador</label>
                 <div class="col-sm-8">
-                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlVariable">
+                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlOperadorRegla">
                         <option></option>
-                        <option value="1">Cantidad de Suscripciones</option>
-                        <option value="2">Cantidad Torres</option>
-
+                        <option value="1">igual</option>
+                        <option value="2">menor que</option>
+                        <option value="3">mayor que</option>
+                        <option value="4">menor o igual que</option>
+                        <option value="5">mayor o igual que</option>
+                        <option value="6">diferente</option>
                     </select>
                     <br />
-                    <small id="VariableHelp" class="form-text text-danger">La Variable Dato es requerida</small>
+                    <small id="OperadorHelp" class="form-text text-danger">El Indicador es requerido</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="txtDescripcionRegla" class="col-sm-4 col-form-label">Descrpción</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control textarea" id="txtDescripcionRegla" placeholder="Descripción"></textarea>
+                    <small id="DescripcionReglaHelp" class="form-text text-danger">La Descripción es requerido</small>
+                </div>
+            </div>
+
+            <div class="form-group row hidden" id="divContraOtroIndicador">
+                <label for="txtFechaMinimaRegla" class="col-sm-4 col-form-label">Fecha Inicio</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" id="txtFechaMinimaRegla" placeholder="Fecha de Inicio">
+                    <small id="FechaMinimaReglaHelp" class="form-text text-danger">La Fecha Inicio es requerida</small>
                 </div>
             </div>
         </div>
 
     </div>
     <div class="Row">
-        <div class="col-lg-12 text-center">
-            <button id="btnGuardarCategoria"  class="btn btn-success">Guardar</button>
+        <div class="col-sm-12 text-center">
+            <button id="btnGuardarRegla"  class="btn btn-success">Guardar</button>
             <button type="submit" class="btn btn-danger">Cancelar</button>
         </div>
     </div>
