@@ -32,7 +32,6 @@
             $(JsReglas.Controles.divFormulaContraConstante).addClass("hidden");
             $(JsReglas.Controles.divFormulaContraAtributosValido).addClass("hidden");
             $(JsReglas.Controles.divFormulaActualizacionSecuencial).addClass("hidden");
-
             switch (selected) {
                 case JsReglas.Variables.FormulaCambioMensual:
                     $(JsReglas.Controles.divFormulaCambioMensual).removeClass("hidden");
@@ -48,12 +47,9 @@
                     break;
                 case JsReglas.Variables.FormulaActualizacionSecuencial:
                     $(JsReglas.Controles.divFormulaActualizacionSecuencial).removeClass("hidden");
-
+                    break;
                 default:
-            }
-          
-
-            
+            }     
         }
     }
 
