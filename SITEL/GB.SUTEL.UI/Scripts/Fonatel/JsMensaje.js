@@ -1,6 +1,7 @@
 ﻿jsMensajes = {
     "Variables": {
         "MensajeAgregar": "Agregar Registro",
+        "MensajeEstado": "Cambio de Estado",
         "MensajeClonar": "Clonar Registro",
         "MensajeEliminar": "Eliminar Registro",
         "MensajeConfirmacion": "Proceso Exitoso",
@@ -51,15 +52,12 @@
         },
 
         "CambiarEstadoRegistro": function (mensaje) {
-            return Swal.fire({
-                icon: 'warning',
-                title: 'Cambio de Estado',
-                html: '<strong>' + mensaje + '</strong>',
-                showDenyButton: true,
-                confirmButtonText: 'SI',
-                confirmButtonColor: '#5B9150',
-                denyButtonText: 'NO',
-            });
+            let alertifyObject = alertify.confirm(jsMensajes.Variables.MensajeEstado, 'Confirm Message', function () { }, function () { })
+                .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
+                .set({ 'modal': true, 'closable': false })
+            alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
+
+            return alertifyObject;
         },
 
         "Error": function (mensaje) {

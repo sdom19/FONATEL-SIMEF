@@ -68,36 +68,46 @@ $(document).on("click", JsCategoria.Controles.btnAddCategoria, function () {
 
 $(document).on("click", JsCategoria.Controles.btnDesactivarCategoria, function () {
     jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Activar la Categoría?")
-        .then((result) => {
-            if (result.isConfirmed) {
-                jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Activada");
-            }
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Activada")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
         });
 });
 
 $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
-    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Desactivar la Categoría?");
+    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Desactivar la Categoría?")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Desactivada")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+        });
 });
 
 
 
 $(document).on("click", JsCategoria.Controles.btnRemoveCategoriaDetalle, function () {
-    jsMensajes.Metodos.EliminarRegistro("¿Desea Eliminar el Detalle?");
+    let id = 1;
+    jsMensajes.Metodos.EliminarRegistro("¿Desea Eliminar el Detalle?")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.ConfirmaRegistro("El Detalle ha sido Eliminado")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/Detalle?id="+id });
+        });
 });
 
 $(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) {
     e.preventDefault();
 
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Categoría?");
+    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Categoría?")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Creada")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+        });
 });
 
 
 $(document).on("click", JsCategoria.Controles.btnClonarCategoria, function () {
-    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Clonar la Categoría?")
-        .then((result) => {
-            if (result.isConfirmed) {
-                let id = 1;
-                window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id=" + id;
-            }
+    jsMensajes.Metodos.ClonarRegistro("¿Desea Clonar la Categoría?")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Clonada")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
         });
 });
