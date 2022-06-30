@@ -1,22 +1,21 @@
 ﻿
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Indicadores";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
 <div class="container body-content">
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Lista de Indicador</li>
+                <li class="breadcrumb-item active" aria-current="page">Indicador</li>
             </ol>
         </nav>
     </div>
-    <h2 class="text-primary text-center">Lista de Indicadores</h2>
+    <h2 class="text-primary text-center">Indicadores</h2>
     <div class="row mt-4">
         <div class="col-lg-12">
-            <a class="btn-lg btn-success" data-toggle="tooltip" data-placement="top" title="Crear" alt="Crear" href="/Fonatel/FonatelIndicador/Create">Crear</a>
+            <a class="btn-lg btn-success" data-toggle="tooltip" data-placement="top" title="Crear" alt="Crear" href="/Fonatel/IndicadorFonatel/Create">Crear</a>
         </div>
         <div class="col-lg-12 mt-4">
             @Html.Partial("_TablaIndicador")

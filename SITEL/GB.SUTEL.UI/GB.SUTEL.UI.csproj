@@ -257,7 +257,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EspectroController.cs" />
     <Compile Include="Controllers\Fonatel\CategoriasDesagregacionController.cs" />
-    <Compile Include="Controllers\Fonatel\FonatelIndicadorController.cs" />
+    <Compile Include="Controllers\Fonatel\IndicadorFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\FuentesController.cs" />
     <Compile Include="Controllers\Fonatel\ReglasValidacionController.cs" />
     <Compile Include="Controllers\Fonatel\RelacionCategoriaController.cs" />
@@ -629,6 +629,7 @@
     <Content Include="Scripts\DataTables\scroller.bootstrap.js" />
     <Content Include="Scripts\DataTables\scroller.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\vfs_fonts.js" />
+    <Content Include="Scripts\Fonatel\JsIndicador.js" />
     <Content Include="Scripts\Fonatel\JsReglas.js" />
     <Content Include="Scripts\Fonatel\JsRelacionCategoria.js" />
     <Content Include="Scripts\Fonatel\JsCategoria.js" />
@@ -1269,11 +1270,11 @@
     <Content Include="Views\CategoriasDesagregacion\_CrearDetalle.cshtml" />
     <Content Include="Views\CategoriasDesagregacion\_TablaCategoriaDesagregacion.cshtml" />
     <Content Include="Views\CategoriasDesagregacion\_TablaDetalleDesagregacion.cshtml" />
-    <Content Include="Views\FonatelIndicador\Index.cshtml" />
-    <Content Include="Views\FonatelIndicador\_CrearIndicador.cshtml" />
-    <Content Include="Views\FonatelIndicador\_ModalGrupoIndicador.cshtml" />
-    <Content Include="Views\FonatelIndicador\_ModalTipoIndicador.cshtml" />
-    <Content Include="Views\FonatelIndicador\_TablaIndicador.cshtml" />
+    <Content Include="Views\IndicadorFonatel\Index.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_CrearIndicador.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_ModalGrupoIndicador.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_ModalTipoIndicador.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_TablaIndicador.cshtml" />
     <Content Include="Views\RelacionCategoria\Detalle.cshtml" />
     <Content Include="Views\RelacionCategoria\Index.cshtml" />
     <Content Include="Views\RelacionCategoria\_CrearDetalle.cshtml" />
@@ -1296,14 +1297,17 @@
     <Content Include="Views\SolicitudFonatel\Create.cshtml" />
     <Content Include="Views\SolicitudFonatel\Detalle.cshtml" />
     <Content Include="Views\SolicitudFonatel\Index.cshtml" />
-    <Content Include="Views\FonatelIndicador\Create.cshtml" />
+    <Content Include="Views\IndicadorFonatel\Create.cshtml" />
     <Content Include="Views\ReglasValidacion\Index.cshtml" />
     <Content Include="Views\ReglasValidacion\_CrearRegla.cshtml" />
-    <Content Include="Views\ReglasValidacion\_CrearDetalle.cshtml" />
     <Content Include="Views\ReglasValidacion\_TablaRegla.cshtml" />
     <Content Include="Views\ReglasValidacion\_TablaDetalleDesagregacion.cshtml" />
     <Content Include="Views\ReglasValidacion\Create.cshtml" />
     <Content Include="Views\ReglasValidacion\Detalle.cshtml" />
+    <Content Include="Views\IndicadorFonatel\DetalleVariables.cshtml" />
+    <Content Include="Views\IndicadorFonatel\Categorias.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_CrearVariable.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_TablaDetalleVariable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

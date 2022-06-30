@@ -182,3 +182,8 @@ table.dataTable tbody tr:nth-child(odd) {
 .textarea{
     max-height:200px!important;
 }
+
+label {
+    color: #355CAB!important;
+    font-size:14px!important;
+}

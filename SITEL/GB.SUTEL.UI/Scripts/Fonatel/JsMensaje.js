@@ -9,9 +9,9 @@
         "ContentSuccess": (mensaje) => { return "<div class='text-center'><div class='icon success-icon'></div> <strong>" + mensaje + "</strong></div>" },
         "ContentQuestion": (mensaje) => { return "<div class='text-center'><div class='icon question-icon'></div> <strong>" + mensaje + "</strong></div>" },
         "ContentQuestionStatus": (mensaje) => { return "<div class='text-center'><div class='icon warning-icon'></div> <strong>" + mensaje + "</strong></div>" },
-        "btnlisto": "<i class='glyphicon glyphicon-ok' aria-hidden='true' ></i > Listo",
-        "btnyes": "<i class='glyphicon glyphicon-ok' aria-hidden='true' ></i > SI",
-        "btnno": "<i class='glyphicon glyphicon-remove' aria-hidden='true' ></i > NO"
+        "btnlisto": "ACEPTAR",
+        "btnyes": "SI",
+        "btnno": "NO"
 
     },
     "Metodos": {
@@ -78,8 +78,8 @@
 
 $(function () {
     alertify.defaults.transition = "slide";
-    alertify.defaults.theme.ok = "btn btn-success";
-    alertify.defaults.theme.cancel = "btn btn-danger";
+    alertify.defaults.theme.ok = "btn btn-success success-icon-btn btn-base-icon";
+    alertify.defaults.theme.cancel = "btn btn-danger cancel-icon-btn btn-base-icon";
     alertify.defaults.theme.input = "form-control";
 
 })

@@ -105,9 +105,9 @@ $(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) 
 
 
 $(document).on("click", JsCategoria.Controles.btnClonarCategoria, function () {
+    let id = 1;
     jsMensajes.Metodos.ClonarRegistro("¿Desea Clonar la Categoría?")
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Clonada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+             window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id="+id
         });
 });

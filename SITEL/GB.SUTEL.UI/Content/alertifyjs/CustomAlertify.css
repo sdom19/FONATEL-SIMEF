@@ -18,9 +18,10 @@
     content: url("../../Images/warning.svg");
 }
 
-.success-icon {
+.success-icon:before {
     content: url("../../Images/success.svg");
 }
+
 .icon{
     position: relative;
     box-sizing: content-box;
@@ -50,3 +51,4 @@
     border-radius: 0px 0px 28px 28px !important;
     background-color: var(--gray-modal);
 }
+

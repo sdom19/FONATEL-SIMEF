@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
-    public class FonatelIndicadorController : Controller
+    public class IndicadorFonatelController : Controller
     {
         // GET: CategoriasDesagregacion
 
@@ -19,6 +19,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         // GET: CategoriasDesagregacion/Details/5
         [HttpGet]
         public ActionResult Detalle(int id)
+        {
+            return View();
+        }
+
+
+
+        [HttpGet]
+        public ActionResult DetalleVariables(int id)
         {
             return View();
         }
