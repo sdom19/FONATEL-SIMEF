@@ -1,56 +1,65 @@
-﻿<table id="TablaRelacionCategoria">
-    <thead>
-        <tr>
-            <th scope="col" style="width:10%">Código</th>
-            <th scope="col" style="width:25%">Nombre</th>
-            <th scope="col" style="width:25%">Fuente</th>
-            <th scope="col" style="width:20%">Formulario Web</th>
-            <th scope="col" class="text-center" style="width:20%">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">Sol1-1</th>
-            <td>Estado Mensual</td>
-            <td>Unidad de Gestión 1</td>
-            <td>FormP1-1</td>
-            <td class="text-center">
+﻿
+<div class="table-responsive">
 
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn btn-primary"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btnEliminar"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn btn-info"><i class="fa fa-clone" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Enviar" class="btn btn-warning"><i class="fa fa-send" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Programar Envío" class="btn btn-success"><i class="fa fa-calendar" aria-hidden="true"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Sol1-3</th>
-            <td>Estado Mensual</td>
-            <td>Unidad de Gestión 2</td>
-            <td>FormP1-2</td>
-            <td class="text-center">
+    <table id="TablaSolicitud" class="datatable_simef dataTable table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Fuente</th>
+                <th>Formulario Web</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Sol1-1</th>
+                <td>Estado Mensual</td>
+                <td>Unidad de Gestión 1</td>
+                <td>FormP1-1</td>
+                <td>Activo</td>
+                <td>
 
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn btn-primary"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btnEliminar"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn btn-info"><i class="fa fa-clone" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Enviar" class="btn btn-warning"><i class="fa fa-send" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Programar Envío" class="btn btn-success"><i class="fa fa-calendar" aria-hidden="true"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Sol1-2</th>
-            <td>Estado Mensual</td>
-            <td>Unidad de Gestión 3</td>
-            <td>FormP1-3</td>
-            <td class="text-center">
+                    <button type="button" data-toggle="tooltip" data-placement="top" value="5" title="Editar" class="btn-icon-base btn-edit"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn-icon-base btn-clone"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn-icon-base btn-power-on"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Programar Envío" class="btn btn-success"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <th>Sol1-3</th>
+                <td>Estado Mensual</td>
+                <td>Unidad de Gestión 2</td>
+                <td>FormP1-2</td>
+                <td>Desactivado</td>
+                <td>
 
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn btn-primary"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn btn-danger btnEliminar"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn btn-info"><i class="fa fa-clone" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Enviar" class="btn btn-warning"><i class="fa fa-send" aria-hidden="true"></i></button>
-                <button type="button" data-toggle="tooltip" data-placement="top" title="Programar Envío" class="btn btn-success"><i class="fa fa-calendar" aria-hidden="true"></i></button>
-            </td>
-        </tr>
-    </tbody>
+                    <button type="button" data-toggle="tooltip" data-placement="top" value="5" title="Editar" class="btn-icon-base btn-edit"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn-icon-base btn-clone"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Activar" class="btn-icon-base btn-power-off"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Programar Envío" class="btn btn-success"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Sol1-2</th>
+                <td>Estado Mensual</td>
+                <td>Unidad de Gestión 3</td>
+                <td>FormP1-3</td>
+                <td>Activado</td>
+                <td>
 
-</table>
+                    <button type="button" data-toggle="tooltip" data-placement="top" value="5" title="Editar" class="btn-icon-base btn-edit"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn-icon-base btn-clone"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Activar" class="btn-icon-base btn-power-off"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Programar Envío" class="btn btn-success"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>

@@ -9,13 +9,17 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                <li class="breadcrumb-item active"><a href="/Fonatel/RelacionCategoria/index">Lista de Solicitudes de Información</a></li>
+                <li class="breadcrumb-item active"><a href="/Fonatel/RelacionCategoria/index">Solicitudes de Información</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Crear Solicitud</li>
             </ol>
         </nav>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+
+        <div class="col-sm-12">
+            <h2 class="text-primary text-center">Crear Solicitud</h2>
+        </div>
+        <div class="col-sm-12">
 
             @Html.Partial("_CrearSolicitud")
         </div>
@@ -23,26 +27,5 @@
 
 </div>
 
-<script type="text/javascript">
 
-
-    $(document).ready(function () {
-        $("#TablaRelacionCategoria").DataTable({
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Buscar"
-            }
-        });
-
-        $('.listasDesplegables').select2({
-            placeholder: "Seleccione"
-        });
-
-
-    });
-
-    $(document).on("click", ".btnEliminar", function () {
-    });
-
-</script>
 

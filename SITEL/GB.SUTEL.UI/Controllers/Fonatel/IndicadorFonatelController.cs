@@ -32,6 +32,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
+        public ActionResult DetalleCategoria(int id)
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Create()
         {

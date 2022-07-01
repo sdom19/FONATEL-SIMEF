@@ -1,6 +1,25 @@
 ﻿
 $(document).ready(function () {
     $(".datatable_simef").DataTable({
+        dom: 'lBfrtip',
+        buttons: [
+            {
+                extend: 'excel',
+                text: '<i class="fa fa-file-excel-o" style="color:green;"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend: 'pdf',
+                text: '<i class="fa fa-file-pdf-o" style="color:brown;"></i>',
+                titleAttr: 'PDF'
+            },
+            {
+                extend: 'print',
+                text: '<i class="fa fa-print" style="color:black;"></i>',
+                titleAttr: 'Imprimir'
+
+            }
+        ],
         language: {
             "decimal": "",
             "emptyTable": "No hay información",

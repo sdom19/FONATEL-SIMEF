@@ -1,0 +1,55 @@
+﻿<h2 class="text-primary text-center" >Detalle Categoría de Desagregación</h2>
+
+<br />
+<form>
+    <div class="row">
+
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group row">
+                <label for="ddlCategoriaIndicador" class="col-sm-4 col-form-label ">Categoría</label>
+                <div class="col-sm-8">
+                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlCategoriaIndicador">
+                        <option></option>
+                        <option value="1">Provincia</option>
+                        <option value="2">Cantón</option>
+
+                    </select>
+                    <br />
+                    <small id="ddlCategoriaHelp" class="form-text text-danger">La Variable es Requerida</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group row">
+                    <label for="ddlCategoriaDetalleIndicador" class="col-sm-4 col-form-label ">Detalle</label>
+                    <div class="col-sm-8">
+                        <select class="form-control required listasDesplegables" multiple aria-label="Default select example" id="ddlCategoriaDetalleIndicador">
+                            <option></option>
+                            <option value="1">San jose</option>
+                            <option value="2">Limón</option>
+                            <option value="2">Cartago</option>
+
+                            <option value="1">Guanacaste</option>
+                            <option value="2">Heredía</option>
+                            <option value="2">Puntarenas</option>
+                        </select>
+                        <br />
+                        <small id="ddlCategoriaDetalleHelp" class="form-text text-danger">El Detalle es Requerido</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12 text-center">
+
+            <button type="submit" id="btnGuardarVariable" class="btn btn-success">Guardar</button>
+            <button type="submit" class="btn btn-danger">Cancelar</button>
+
+        </div>
+    </div>
+</form>

@@ -35,7 +35,8 @@ namespace GB.SUTEL.UI
              "~/Scripts/Fonatel/JsRelacionCategoria.js",
               "~/Scripts/Fonatel/JsUtilidades.js",
               "~/Scripts/Fonatel/JsReglas.js",
-              "~/Scripts/Fonatel/JsIndicador.js"));
+              "~/Scripts/Fonatel/JsIndicador.js",
+              "~/Scripts/Fonatel/JsSolicitud.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/internalSelectRowGrid").Include(
                 "~/Scripts/selectRowGrid.js",
@@ -43,9 +44,16 @@ namespace GB.SUTEL.UI
             bundles.Add(new ScriptBundle("~/bundles/internal").Include(
                 "~/Scripts/reusableComponents.js",
                 "~/Scripts/selectRowGrid.js",
-                "~/Scripts/DataTables/datatables.js",
+                "~/Scripts/DataTables/datatables.min.js",
                 "~/Content/jsTree/jstree.min.js",
-                "~/Scripts/main.js"));
+                "~/Scripts/main.js",
+                "~/Scripts/DataTables/pdfmake.min.js",
+                "~/Scripts/DataTables/scroller.bootstrap.min.js",
+                  "~/Scripts/DataTables/dataTables.scroller.min.js",
+                  "~/Scripts/DataTables/dataTables.jszip.min.js",
+                  "~/Scripts/DataTables/vfs_fonts.js"
+
+                ));
             bundles.Add(new ScriptBundle("~/bundles/funcionalidadesExtra").Include(
                "~/Scripts/Mantenimientos/Constructor/ConstructorCrear.js"));
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -67,7 +75,9 @@ namespace GB.SUTEL.UI
                       "~/Content/Fonatel/CustomBootstrap.css",
                       "~/Content/alertifyjs/alertify.min.css",
                       "~/Content/alertifyjs/bootstrap.min.css",
-                       "~/Content/alertifyjs/CustomAlertify.css"));
+                       "~/Content/alertifyjs/CustomAlertify.css",
+                        "~/Content/DataTables/buttons.bootstrap5.min.css",
+                        "~/Content/DataTables/scroller.bootstrap5.min.css"));
             BundleTable.EnableOptimizations = true;
         }
     }

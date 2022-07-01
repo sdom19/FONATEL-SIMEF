@@ -256,6 +256,7 @@
     <Compile Include="Controllers\ConstructorController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EspectroController.cs" />
+    <Compile Include="Controllers\Fonatel\BitacoraFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\CategoriasDesagregacionController.cs" />
     <Compile Include="Controllers\Fonatel\IndicadorFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\FuentesController.cs" />
@@ -631,6 +632,7 @@
     <Content Include="Scripts\DataTables\vfs_fonts.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />
     <Content Include="Scripts\Fonatel\JsReglas.js" />
+    <Content Include="Scripts\Fonatel\JsSolicitud.js" />
     <Content Include="Scripts\Fonatel\JsRelacionCategoria.js" />
     <Content Include="Scripts\Fonatel\JsCategoria.js" />
     <Content Include="Scripts\Fonatel\JsMensaje.js" />
@@ -1308,6 +1310,12 @@
     <Content Include="Views\IndicadorFonatel\Categorias.cshtml" />
     <Content Include="Views\IndicadorFonatel\_CrearVariable.cshtml" />
     <Content Include="Views\IndicadorFonatel\_TablaDetalleVariable.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_CrearCategoria.cshtml" />
+    <Content Include="Views\IndicadorFonatel\DetalleCategoria.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_TablaDetalleCategoria.cshtml" />
+    <Content Include="Views\BitacoraFonatel\Index.cshtml" />
+    <Content Include="Views\BitacoraFonatel\_TablaBitacora.cshtml" />
+    <Content Include="Views\BitacoraFonatel\_BusquedaBitacora.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

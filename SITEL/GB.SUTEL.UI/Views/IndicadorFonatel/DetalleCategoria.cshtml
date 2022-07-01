@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Variables";
+    ViewBag.Title = "Categorías";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,18 +10,18 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="/IndicadorFonatel">Indicadores</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Varibles</li>
+                <li class="breadcrumb-item"><a href="/FonatelIndicador">Indicadores</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Categorías</li>
             </ol>
         </nav>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            @Html.Partial("_CrearVariable")
+            @Html.Partial("_CrearCategoria")
         </div>
         <div class="col-lg-12 mt-4">
-            @Html.Partial("_TablaDetalleVariable")
+            @Html.Partial("_TablaDetalleCategoria")
         </div>
     </div>
 
