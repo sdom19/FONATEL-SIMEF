@@ -20,6 +20,9 @@ $(document).ready(function () {
 
             }
         ],
+        columnDefs: [
+            { "className": "dt-center", "targets": "_all" }
+        ],
         language: {
             "decimal": "",
             "emptyTable": "No hay información",

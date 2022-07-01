@@ -31,6 +31,9 @@
 .btn-add {
     background-image: url("../../Images/icon-add.svg");
 }
+.btn-calendar {
+    background-image: url("../../Images/icon-calendar.svg");
+}
 
 .btn-edit {
     background-image: url("../../Images/icon-edit.svg");
@@ -213,3 +216,16 @@ table.dataTable tbody tr:nth-child(odd) {
 .textarea{
     max-height:200px!important;
 }
+
+label {
+    letter-spacing: 0px;
+    color: #365CAB;
+    opacity: 1;
+    text-align: left;
+}
+
+.modal-simef .modal-header {
+    background: var(--blue-fonatel);
+    color: #fff;
+}
+

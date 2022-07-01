@@ -2,37 +2,39 @@
 
 <form>
     <div class="row mt-4">
-        <div class="col-sm-12">
+        <div class="col-md-4 col-sm-12">
             <div class="justify-content-center">
                 <div class="form-group row">
-                    <label for="txtDescripcion" class="col-sm-2 col-form-label">Descripción</label>
-                    <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="txtDescripcion"  placeholder="Descripción">
-                        <small id="DescripcionHelp" class="form-text text-muted">La Descripción es requerida</small>
+                    <label for="txtDescripcion" class="col-sm-12 col-form-label">Descripción</label>
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" id="txtDescripcion" placeholder="Descripción">
+                        <small id="DescripcionHelp" class="form-text text-danger">La Descripción es requerida</small>
                     </div>
                 </div>
+            </div>
+         </div>
+            <div class="col-md-4 col-sm-12">
                 <div class="form-group row">
-                    <label for="txtFuente" class="col-sm-2 col-form-label">Código</label>
-                    <div class="col-sm-10">
-                        <input type="text"  class="form-control" id="txtFuente" placeholder="Fuente">
-                        <small id="FuenteHelp" class="form-text text-muted">El Fuente es requerida</small>
+                    <label for="txtFuente" class="col-sm-12 col-form-label">Código</label>
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" id="txtFuente" placeholder="Fuente">
+                        <small id="FuenteHelp" class="form-text text-danger">El Fuente es requerida</small>
                     </div>
                 </div>
-
+             </div>
+            <div class="col-md-4 col-sm-12">
                 <div class="form-group row">
-                    <label for="txtCantidad" class="col-sm-2 col-form-label">Cantidad de Destinatarios</label>
-                    <div class="col-sm-10">
+                    <label for="txtCantidad" class="col-sm-12 col-form-label">Cantidad de Destinatarios</label>
+                    <div class="col-sm-12">
                         <input type="text" class="form-control" id="txtCantidad" placeholder="Cantidad de Destinatarios">
-                        <small id="CantidadDetalleHelp" class="form-text text-muted">La Cantidad de Destinatarios es Requerida</small>
+                        <small id="CantidadDetalleHelp" class="form-text text-danger">La Cantidad de Destinatarios es Requerida</small>
                     </div>
                 </div>
             </div>
         </div>
-
-    </div>
     <div class="row">
-        <div class="col-sm-12 col-sm-offset-2">
-            <button type="submit" class="btn btn-success">Guardar</button>
+        <div class="col-sm-12 text-center">
+            <button type="submit" id="btnGuardarFuente" class="btn btn-success">Guardar</button>
             <button type="submit" class="btn btn-danger">Cancelar</button>
         </div>
     </div>

@@ -931,6 +931,7 @@
     <Content Include="Scripts\editor.bootstrap.min.js" />
     <Content Include="Scripts\Espectro.js" />
     <Content Include="Scripts\Espectro\Espectro.js" />
+    <Content Include="Scripts\Fonatel\JsFuentes.js" />
     <Content Include="Scripts\Fonatel\JsUtilidades.js" />
     <Content Include="Scripts\Formulas\FormulasCumplimiento.js" />
     <Content Include="Scripts\FuenteExterna\IndicadorExterno\CreateEdit.js" />
@@ -1294,7 +1295,6 @@
     <Content Include="Views\Fuentes\Index.cshtml" />
     <Content Include="Views\SolicitudFonatel\_CrearDetalle.cshtml" />
     <Content Include="Views\SolicitudFonatel\_CrearSolicitud.cshtml" />
-    <Content Include="Views\SolicitudFonatel\_TablaDetalleRelacionCategoria.cshtml" />
     <Content Include="Views\SolicitudFonatel\_TablaSolicitudes.cshtml" />
     <Content Include="Views\SolicitudFonatel\Create.cshtml" />
     <Content Include="Views\SolicitudFonatel\Detalle.cshtml" />
@@ -1316,6 +1316,7 @@
     <Content Include="Views\BitacoraFonatel\Index.cshtml" />
     <Content Include="Views\BitacoraFonatel\_TablaBitacora.cshtml" />
     <Content Include="Views\BitacoraFonatel\_BusquedaBitacora.cshtml" />
+    <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
