@@ -31,8 +31,17 @@
 .btn-add {
     background-image: url("../../Images/icon-add.svg");
 }
+
+.btn-sent {
+    background-image: url("../../Images/icon-sent.svg");
+}
+
 .btn-calendar {
     background-image: url("../../Images/icon-calendar.svg");
+}
+
+.btn-calendar-disabled {
+    background-image: url("../../Images/icon-calendar-disabled.svg");
 }
 
 .btn-edit {
@@ -213,19 +222,21 @@ table.dataTable tbody tr:nth-child(odd) {
     background: var(--blue-fonatel);
     color: #fff;
 }
-.textarea{
-    max-height:200px!important;
+.text-area {
+    max-height: 300px !important;
+    resize: both;
 }
 
-label {
-    letter-spacing: 0px;
-    color: #365CAB;
-    opacity: 1;
-    text-align: left;
-}
+
 
 .modal-simef .modal-header {
     background: var(--blue-fonatel);
     color: #fff;
+}
+
+.select2-container {
+    width: 100% !important;
+    padding: 0;
+    max-width:280px!important;
 }
 

@@ -2,72 +2,53 @@
 
 <form class="mt-5">
     <div class="row">
-        <div class="col-lg-6 col-sm-12">
-            <div>
+        <div class="col-lg-4 col-sm-12">
 
-                <div class="form-group row">
-                    <label for="txtDescripcion" class="col-sm-12 col-form-label">Descripción</label>
-                    <div class="col-sm-12">
-                        <textarea class="form-control" id="txtDescripcion" placeholder="Descripción de categoria"></textarea>
-                        <small id="DescripcionHelp" class="form-text text-danger">La Descripción es requerido</small>
-                    </div>
+            <div class="form-group row">
+                <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
+                <div class="col-sm-12">
+                    <input type="text" aria-label="Código de categoria" class="form-control" id="txtCodigo" placeholder="Código">
+                    <small id="CodigoHelp" class="form-text hidden">El Código es requerido</small>
                 </div>
-                <div class="form-group row">
-                    <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
-                    <div class="col-sm-12">
-                        <input type="text" aria-label="Código de categoria" class="form-control" id="txtCodigo" placeholder="Código">
-                        <small id="CodigoHelp" class="form-text text-danger">El Código es requerido</small>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="txtNombre" class="col-sm-12 col-form-label">Nombre</label>
-                    <div class="col-sm-12">
-                        <input type="text" class="form-control" id="txtNombre" placeholder="Nombre">
-                        <small id="nombreHelp" class="form-text text-danger">El nombre es requerido</small>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="ddlTipo" class="col-sm-12 col-form-label">Tipo</label>
-                    <div class="col-sm-12">
-                        <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlTipo">
-                            <option></option>
-                            <option value="1">gestión</option>
-                            <option value="2">cumplimiento de meta</option>
-                            <option value="3">beneficiarios</option>
-                            <option value="3">financieros</option>
-                            <option value="3">evaluación</option>
-                            <option value="3">percepción</option>
-                        </select>
-                        <button class="btn-icon-base btn-add" data-toggle="modal" data-target="#modalTipo" title="Agregar Tipo" alt="Agregar Detalle"></button>
-                        <br />
-                        <small id="TipoHelp" class="form-text text-danger">El tipo es requerido</small>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="ddlClasificacion" class="col-sm-12 col-form-label ">Clasificación</label>
-                    <div class="col-sm-12">
-                        <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlClasificacion">
-                            <option></option>
-                            <option value="1">Entrada</option>
-                            <option value="2">Salida</option>
-                            <option value="3">Entrada/salida</option>
-                        </select>
-                        <br />
-                        <small id="TipoHelp" class="form-text text-danger">La Clasificación es requerido</small>
-                    </div>
-                </div>
-
-                
-
-
             </div>
-          </div>
-        <div class="col-lg-6 col-sm-12">
 
+            <div class="form-group row">
+                <label for="txtNombre" class="col-sm-12 col-form-label">Nombre</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" id="txtNombre" placeholder="Nombre">
+                    <small id="nombreHelp" class="form-text hidden">El nombre es requerido</small>
+                </div>
+            </div>
 
+            <div class="form-group row">
+                <label for="ddlTipo" class="col-sm-12 col-form-label">Tipo</label>
+                <div class="col-sm-12">
+                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlTipo">
+                        <option></option>
+                        <option value="1">gestión</option>
+                        <option value="2">cumplimiento de meta</option>
+                        <option value="3">beneficiarios</option>
+                        <option value="3">financieros</option>
+                        <option value="3">evaluación</option>
+                        <option value="3">percepción</option>
+                    </select>
+                    <button class="btn-icon-base btn-add" data-toggle="modal" data-target="#modalTipo" title="Agregar Tipo" alt="Agregar Detalle"></button>
+                    <br />
+                    <small id="TipoHelp" class="form-text hidden">El tipo es requerido</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="txtFuenteIndicador" class="col-sm-12 col-form-label">Fuentes</label>
+                <div class="col-sm-12">
+                    <textarea class="form-control text-area" id="txtFuenteIndicador" placeholder="Notas"></textarea>
+                    <small id="txtFuenteIndicadorHelp" class="form-text hidden">La Notas es requerido</small>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
             <div class="form-group row">
                 <label for="ddlGrupo" class="col-sm-12 col-form-label ">Grupo</label>
                 <div class="col-sm-12">
@@ -78,34 +59,10 @@
                         <option value="3">Programa 3</option>
                     </select>
                     <button class="btn-icon-base btn-add" data-toggle="modal" data-target="#modalGrupo" title="Agregar Tipo" alt="Agregar Detalle"></button>
-                    <br />
-                    <small id="TipoHelp" class="form-text text-danger">El Grupo es requerido</small>
+                    <small id="TipoHelp" class="form-text hidden">El Grupo es requerido</small>
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label for="txtNota" class="col-sm-12 col-form-label">Notas</label>
-                <div class="col-sm-12">
-                    <textarea class="form-control text-area" id="txtNota" placeholder="Notas"></textarea>
-                    <small id="NotaHelp" class="form-text text-danger">La Notas es requerido</small>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="txtCantidadVariableDatosIndicador" class="col-sm-12 col-form-label">Cantidad de Variables Dato</label>
-                <div class="col-sm-12">
-                    <input type="text" class="form-control solo_numeros" id="txtCantidadVariableDatosIndicador" placeholder="Cantidad de Variable Dato">
-                    <small id="CantidadVariableDatosIndicadorHelp" class="form-text text-danger">La Cantidad de Variable Dato es requerida</small>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="txtCantidadCategoriaIndicador" class="col-sm-12 col-form-label">Cantidad de Categorías de Desagregación</label>
-                <div class="col-sm-12">
-                    <input type="text" class="form-control solo_numeros" id="txtCantidadCategoriaIndicador" placeholder="Cantidad de Variable Dato">
-                    <small id="CantidadCategoriaIndicadorHelp" class="form-text text-danger">La Cantidad de Categorías de Desagregación es requerida</small>
-                </div>
-            </div>
 
             <div class="form-group row">
                 <label for="ddlTipoMedida" class="col-sm-12 col-form-label ">Tipo de Medida</label>
@@ -116,21 +73,84 @@
                         <option value="2">Cuantitativo</option>
                     </select>
                     <br />
-                    <small id="ddlTipoMedidaHelp" class="form-text text-danger">El Tipo Medida es requerida</small>
+                    <small id="ddlTipoMedidaHelp" class="form-text hidden">El Tipo Medida es requerida</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="ddlClasificacion" class="col-sm-12 col-form-label ">Clasificación</label>
+                <div class="col-sm-12">
+                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlClasificacion">
+                        <option></option>
+                        <option value="1">Entrada</option>
+                        <option value="2">Salida</option>
+                        <option value="3">Entrada/salida</option>
+                    </select>
+                    <br />
+                    <small id="TipoHelp" class="form-text hidden">La Clasificación es requerido</small>
+                </div>
+            </div>
+                <div class="form-group row">
+                    <label for="txtNota" class="col-sm-12 col-form-label">Notas</label>
+                    <div class="col-sm-12">
+                        <textarea class="form-control text-area" id="txtNota" placeholder="Notas"></textarea>
+                        <small id="NotaHelp" class="form-text hidden">La Notas es requerido</small>
+                    </div>
+                </div>
+        </div>
+        <div class="col-lg-4 col-sm-12">
+
+
+            <div class="form-group row">
+                <label for="txtCantidadVariableDatosIndicador" class="col-sm-12 col-form-label">Cantidad de Variables Dato</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control solo_numeros" id="txtCantidadVariableDatosIndicador" placeholder="Cantidad de Variable Dato">
+                    <small id="CantidadVariableDatosIndicadorHelp" class="form-text hidden">La Cantidad de Variable Dato es requerida</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="txtCantidadCategoriaIndicador" class="col-sm-12 col-form-label">Cantidad de Categorías de Desagregación</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control solo_numeros" id="txtCantidadCategoriaIndicador" placeholder="Cantidad de Variable Dato">
+                    <small id="CantidadCategoriaIndicadorHelp" class="form-text hidden">La Cantidad de Categorías es requerida</small>
                 </div>
             </div>
 
 
+            <div class="form-group row">
+                <label for="ddlUsoIndicador" class="col-sm-12 col-form-label ">Uso</label>
+                <div class="col-sm-12">
+                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlUsoIndicador">
+                        <option></option>
+                        <option value="1">Interno</option>
+                        <option value="2">Externo</option>
+                    </select>
+                    <br />
+                    <small id="ddlUsoIndicadorHelp" class="form-text hidden">La Uso es requerido</small>
+                </div>
+            </div>
+
+                <div class="form-group row">
+                    <label for="txtDescripcion" class="col-sm-12 col-form-label">Descripción</label>
+                    <div class="col-sm-12">
+                        <textarea class="form-control text-area" id="txtDescripcion" placeholder="Descripción de categoria"></textarea>
+                        <small id="DescripcionHelp" class="form-text hidden">La Descripción es requerido</small>
+                    </div>
+                </div>
+
+
+
         </div>
-          
-        </div>
-        <div class="Row">
+
+    </div>
+        <div class="row">
             <div class="col-sm-12">
-            
-                    <div class="text-center">
-                        <button type="submit" id="btnGuardarIndicador" class="btn btn-success">Guardar</button>
-                        <button type="submit" id="btnCancelarIndicador" class="btn btn-danger">Cancelar</button>
-                    </div>    
+
+                <div class="text-center">
+                    <button type="submit" id="btnGuardarIndicador" class="btn btn-success">Guardar</button>
+                    <button type="submit" id="btnCancelarIndicador" class="btn btn-danger">Cancelar</button>
+                </div>
             </div>
         </div>
 </form>

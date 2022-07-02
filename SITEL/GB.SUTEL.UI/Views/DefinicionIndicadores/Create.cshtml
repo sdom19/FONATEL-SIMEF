@@ -1,6 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "Fuentes";
+﻿@{
+    ViewBag.Title = "Definición";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
@@ -9,22 +8,20 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Fuentes</li>
+                <li class="breadcrumb-item active"><a href="/Fonatel/DefinicionIndicadores/index">Definiciones</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Crear Definición</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="text-primary text-center">Fuentes</h2>
+            <h2 class="text-primary text-center">Definición</h2>
             <hr />
         </div>
         <div class="col-lg-12 mt-5">
-            <a class="btn-lg btn-success" data-toggle="tooltip" data-placement="top" title="Crear" alt="Crear" href="/Fonatel/Fuentes/Create">Crear</a>
-        </div>
-        <div class="col-lg-12 mt-5">
-            @Html.Partial("_TablaFuentes")
+
+            @Html.Partial("_CreateDefinicion")
         </div>
     </div>
 
 </div>
-

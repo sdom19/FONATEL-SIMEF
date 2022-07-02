@@ -257,6 +257,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EspectroController.cs" />
     <Compile Include="Controllers\Fonatel\BitacoraFonatelController.cs" />
+    <Compile Include="Controllers\Fonatel\DefinicionIndicadoresController.cs" />
     <Compile Include="Controllers\Fonatel\CategoriasDesagregacionController.cs" />
     <Compile Include="Controllers\Fonatel\IndicadorFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\FuentesController.cs" />
@@ -598,6 +599,7 @@
     <Content Include="Content\Images\sort_desc.png" />
     <Content Include="Content\Images\sort_desc_disabled.png" />
     <Content Include="Images\icon-add.svg" />
+    <Content Include="Images\icon-calendar.svg" />
     <Content Include="Images\icon-clone.svg" />
     <Content Include="Images\icon-delete.svg" />
     <Content Include="Images\icon-download.svg" />
@@ -605,6 +607,7 @@
     <Content Include="Images\icon-power-off.svg" />
     <Content Include="Images\icon-power-on.svg" />
     <Content Include="Images\icon-search.svg" />
+    <Content Include="Images\icon-sent.svg" />
     <Content Include="Images\icon-upload.svg" />
     <Content Include="Images\question.svg" />
     <Content Include="Images\sort_asc.png" />
@@ -1307,7 +1310,6 @@
     <Content Include="Views\ReglasValidacion\Create.cshtml" />
     <Content Include="Views\ReglasValidacion\Detalle.cshtml" />
     <Content Include="Views\IndicadorFonatel\DetalleVariables.cshtml" />
-    <Content Include="Views\IndicadorFonatel\Categorias.cshtml" />
     <Content Include="Views\IndicadorFonatel\_CrearVariable.cshtml" />
     <Content Include="Views\IndicadorFonatel\_TablaDetalleVariable.cshtml" />
     <Content Include="Views\IndicadorFonatel\_CrearCategoria.cshtml" />
@@ -1316,6 +1318,11 @@
     <Content Include="Views\BitacoraFonatel\Index.cshtml" />
     <Content Include="Views\BitacoraFonatel\_TablaBitacora.cshtml" />
     <Content Include="Views\BitacoraFonatel\_BusquedaBitacora.cshtml" />
+    <Content Include="Views\DefinicionIndicadores\Index.cshtml" />
+    <Content Include="Views\DefinicionIndicadores\_TablaIndicadores.cshtml" />
+    <Content Include="Views\DefinicionIndicadores\Detalle.cshtml" />
+    <Content Include="Views\DefinicionIndicadores\_CreateDefinicion.cshtml" />
+    <Content Include="Views\DefinicionIndicadores\Create.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>

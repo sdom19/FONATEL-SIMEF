@@ -78,7 +78,8 @@ namespace GB.SUTEL.UI
                       "~/Content/alertifyjs/bootstrap.min.css",
                        "~/Content/alertifyjs/CustomAlertify.css",
                         "~/Content/DataTables/buttons.bootstrap5.min.css",
-                        "~/Content/DataTables/scroller.bootstrap5.min.css"));
+                        "~/Content/DataTables/scroller.bootstrap5.min.css",
+                        "~/Content/font-awesome.min.css"));
             BundleTable.EnableOptimizations = true;
         }
     }

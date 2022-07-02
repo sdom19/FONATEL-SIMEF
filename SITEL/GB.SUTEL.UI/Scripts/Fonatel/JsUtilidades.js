@@ -11,7 +11,8 @@ $(document).ready(function () {
             {
                 extend: 'pdf',
                 text: '<i class="fa fa-file-pdf-o" style="color:brown;"></i>',
-                titleAttr: 'PDF'
+                titleAttr: 'PDF',
+
             },
             {
                 extend: 'print',
@@ -23,6 +24,7 @@ $(document).ready(function () {
         columnDefs: [
             { "className": "dt-center", "targets": "_all" }
         ],
+
         language: {
             "decimal": "",
             "emptyTable": "No hay información",
@@ -47,7 +49,9 @@ $(document).ready(function () {
         }
     });
     $('.listasDesplegables').select2({
-        placeholder: "Seleccione"
+        placeholder: "Seleccione",
+ 
+
     });
 });
 
