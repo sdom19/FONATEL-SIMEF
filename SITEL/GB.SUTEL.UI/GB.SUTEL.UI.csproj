@@ -1320,11 +1320,9 @@
     <Content Include="Views\Fuentes\Create.cshtml" />
     <Content Include="Views\Fuentes\Detalle.cshtml" />
     <Content Include="Views\Fuentes\Index.cshtml" />
-    <Content Include="Views\SolicitudFonatel\_CrearDetalle.cshtml" />
     <Content Include="Views\SolicitudFonatel\_CrearSolicitud.cshtml" />
     <Content Include="Views\SolicitudFonatel\_TablaSolicitudes.cshtml" />
     <Content Include="Views\SolicitudFonatel\Create.cshtml" />
-    <Content Include="Views\SolicitudFonatel\Detalle.cshtml" />
     <Content Include="Views\SolicitudFonatel\Index.cshtml" />
     <Content Include="Views\IndicadorFonatel\Create.cshtml" />
     <Content Include="Views\ReglasValidacion\Index.cshtml" />
@@ -1342,7 +1340,6 @@
     <Content Include="Views\BitacoraFonatel\_BusquedaBitacora.cshtml" />
     <Content Include="Views\DefinicionIndicadores\Index.cshtml" />
     <Content Include="Views\DefinicionIndicadores\_TablaIndicadores.cshtml" />
-    <Content Include="Views\DefinicionIndicadores\Detalle.cshtml" />
     <Content Include="Views\DefinicionIndicadores\_CreateDefinicion.cshtml" />
     <Content Include="Views\DefinicionIndicadores\Create.cshtml" />
     <Content Include="Views\RegistroIndicador\_tableFonatel.cshtml" />

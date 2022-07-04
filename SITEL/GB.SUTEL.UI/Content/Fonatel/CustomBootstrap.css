@@ -54,14 +54,14 @@
     background-color: var(--blue-fonatel);
 }
 
-.btn-success-fonatel:hover,
-.btn-success-fonatel:focus,
-.btn-error-fonatel:hover,
-.btn-error-fonatel:focus,
-.btn-info-fonatel:hover,
-.btn-info-fonatel:focus {
-    color: #ffffff;
-}
+    .btn-success-fonatel:hover,
+    .btn-success-fonatel:focus,
+    .btn-error-fonatel:hover,
+    .btn-error-fonatel:focus,
+    .btn-info-fonatel:hover,
+    .btn-info-fonatel:focus {
+        color: #ffffff;
+    }
 
 .btn-icon-base {
     opacity: 1;
@@ -85,6 +85,18 @@
 .btn-calendar {
     background-image: url("../../Images/icon-calendar.svg");
 }
+
+
+.btn-sent {
+    background-image: url("../../Images/icon-sent.svg");
+}
+.btn-calendar-disabled {
+    background-image: url("../../Images/icon-calendar-disabled.svg");
+}
+.btn-home {
+    background-image: url("../../Images/icon-home.svg");
+}
+
 
 .btn-edit {
     background-image: url("../../Images/icon-edit.svg");
@@ -251,7 +263,7 @@
     max-height:200px!important;
 }
 
-.modal-simef .modal-header {
+.modal-fonatel .modal-header {
     background: var(--blue-fonatel);
     color: #fff;
 }
