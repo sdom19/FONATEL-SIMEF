@@ -1,0 +1,81 @@
+﻿
+
+
+<form>
+    <div class="row mt-5">
+        <div class="col-lg-6 col-md-12">
+            <div class="justify-content-center">
+
+
+             
+                <div class="form-group row">
+                    <label for="txtCodigoFormulario" class="col-sm-4 col-form-label">Código</label>
+                    <div class="col-sm-8">
+                        <input type="text" aria-label="Código de categoria" class="form-control" id="txtCodigoFormulario" placeholder="Código">
+                        <small id="txtCodigoFormularioHelp" class="form-text text-danger">El Código es Requerido</small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtNombreFormulario" class="col-sm-4 col-form-label">Nombre</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="txtNombreFormulario" placeholder="Nombre">
+                        <small id="txtNombreFormularioHelp" class="form-text text-danger">El Nombre es Requerido</small>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="justify-content-center">
+
+
+                <div class="form-group row">
+                    <label for="ddlFrecuencia" class="col-sm-4 col-form-label ">Frecuencia</label>
+                    <div class="col-sm-8">
+                        <select class="form-control required listasDesplegables" id="ddlFrecuencia">
+                            <option></option>
+                            <option>Quisenal</option>
+                            <option>Mensual</option>
+                            <option>Semanal</option>
+                        </select>
+                        <br />
+                        <small id="ddlFrecuenciaHelp" class="form-text text-danger">La Frecuencia es Requerida</small>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="txtCantidadIndicadoresFormulario" class="col-sm-4 col-form-label">Cantidad de Indicadores</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control solo_numeros" id="txtCantidadIndicadoresFormulario" placeholder="Cantidad de Indicadores">
+                        <small id="txtCantidadIndicadoresFormularioHelp" class="form-text text-danger">La Cantidad de Indicadores es Requerida</small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <label for="txtDescripcionFormulario" class="col-sm-4 col-form-label">Descripción</label>
+                <div class="col-sm-8">
+                    <textarea id="txtDescripcionFormulario" class="text-area" placeholder="Mensaje"></textarea>
+                    <br />
+                    <small id="txtDescripcionFormularioHelp" class="form-text text-danger">La Descripción es Requerido</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-12 text-center">
+
+            <button type="submit" id="btnGuardarSolicitud" class="btn btn-success">Guardar</button>
+            <button type="submit" class="btn btn-danger">Cancelar</button>
+
+        </div>
+    </div>
+</form>
+

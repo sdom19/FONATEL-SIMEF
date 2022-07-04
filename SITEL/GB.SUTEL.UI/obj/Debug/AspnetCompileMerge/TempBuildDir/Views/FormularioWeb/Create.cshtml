@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<div class="container body-content">
+
+
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="step_navigation_Formulario">
+                <ul class='nav nav-wizard'>
+
+                    <li class='active'><a href='#step1' data-toggle="tab">Formulario</a></li>
+
+                    <li><a href='#step2' data-toggle="tab">Indicadores</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                        <li class="breadcrumb-item active"><a href="/Fonatel/FormularioWeb/index">Formularios Web</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Crear Formulario Web</li>
+                    </ol>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="formulario_web">
+        <div class="row contenedor" id="step1">
+
+            <div class="col-sm-12">
+                <h2 class="text-primary text-center">Crear Formulario Web</h2>
+                <hr />
+            </div>
+            <div class="col-sm-12">
+                @Html.Partial("_CrearFormulario")
+            </div>
+        </div>
+
+        <div class="row hidden contenedor" id="step2">
+            <div class="col-sm-12">
+                <h2 class="text-primary text-center">Agregar Indicadores al Formulario</h2>
+                <hr />
+            </div>
+            <div class="col-sm-12">
+                @Html.Partial("_CrearIndicador");
+            </div>
+
+            <div class="col-sm-12 mt-4">
+                @Html.Partial("_TablaIndicador");
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+

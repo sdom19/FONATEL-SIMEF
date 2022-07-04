@@ -1,0 +1,33 @@
+﻿@using GB.SUTEL.Entities
+
+@model Tuple<List<GB.SUTEL.Entities.IndicadorUIT>, GB.SUTEL.Entities.IndicadorUIT>
+
+<h4>@GB.SUTEL.Resources.EtiquetasMantenimiento.ttlAdministracionIndicadorUIT</h4>
+
+<p>
+
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCrearIndicadorUIT">Nuevo</button>
+    <div id="tablaIndicadorUIT">
+        @Html.Action("_table")
+    </div>
+    @if (Model != null && Model.Item2 != null)
+    {
+        @Html.Partial("_CrearIndicadorUIT", Model.Item2)
+        @Html.Partial("_EditarIndicadorUIT", Model.Item2)
+        @Html.Partial("_EliminarIndicadorUIT", Model.Item2)
+    }
+    else
+    {
+
+        @Html.Partial("_CrearIndicadorUIT", new Agrupacion())
+        @Html.Partial("_EditarIndicadorUIT", new Agrupacion())
+        @Html.Partial("_EliminarIndicadorUIT", new Agrupacion())
+    }
+
+    <script>
+    function onSuccessCreate() {
+        var formId = "frmFiltroIndicadorUIT";
+        $("#" + formId)[0].reset();
+        $("#" + formId).submit();
+    }
+    </script>

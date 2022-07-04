@@ -1,0 +1,278 @@
+﻿@model GB.SUTEL.UI.Models.ConstructorViewModel
+@using GB.SUTEL.Entities
+
+
+<h4>@GB.SUTEL.Resources.EtiquetasMantenimiento.ttlAdministracionConstrutor</h4>
+
+
+
+<script type="text/javascript">
+
+    var operadoresClonar = [];
+    var Idcriterio = "";
+</script>
+
+@if (@ViewBag.Error != null)
+{
+    <div class="alert alert-warning" role="alert">
+        <strong>Alerta!</strong> @ViewBag.Error
+    </div>
+}
+@if (@TempData["Error"] != null)
+{
+    <div class="alert alert-warning" role="alert">
+        <strong>Alerta!</strong> @TempData["Error"]
+    </div>
+}
+
+@if (@TempData["Success"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <strong>Informativo!</strong> @TempData["Success"]
+    </div>
+}
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div >
+
+    <!-- Nav tabs -->
+
+    <ul class="nav nav-tabs">
+        <li><a href="Editar?id=@Model.constructor.IdConstructor">Indicador</a></li>
+        <li role="presentation" class="active"><a href="#criterio" aria-controls="criterio" role="tab" data-toggle="tab">Criterios</a></li>
+        <li><a onclick="funcMostrarMensajeCOperadores();">Operadores</a></li>
+        <li><a onclick="funcMostrarMensajeCArbol();">Árbol</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div>
+  
+        <div class="tab-content">
+            <h3><small>Agregar nuevo criterio</small> </h3>
+            <div role="tabpanel" id="criterio" class="tab-pane active">
+                <div class="panel-body">
+
+                    <div class="form-horizontal">
+                        <form method="post"
+                              action="@Url.Action("EditarCriterio")">
+                            <div class="form-group col-lg-4">
+                                @Html.LabelFor(model => model.criterio.IdCriterio, new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+
+                                    <div class="input-group" style="width:350px;" id="divCriterio">
+                                        @Html.TextAreaFor(model => model.idCriterio, new { @class = "form-control", @placeholder = "Criterio", @id = "nombreCriterio", disabled = true, @cols = "100", @rows = "3" })
+                                        @Html.HiddenFor(model => model.nombreCriterio, new { @id = "IdCriterio" })
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary glyphicon glyphicon-search" type="button" data-toggle="modal" id="btnBuscarCriterio"
+                                                    data-target="#modalSeleccionarCriterio" title="Búsqueda del Criterio que llevará en el Detalle de Agrupación"></button>
+                                        </span>
+                                    </div>
+
+
+                                    @Html.ValidationMessageFor(model => model.criterio.IdCriterio)
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                @Html.LabelFor(model => model.criterio.Ayuda, new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    <div class="input-group" style="width:400px;" id="45">
+                                        @Html.TextAreaFor(model => model.criterio.Ayuda, new { @class = "form-control", @placeholder = "Ayuda", @cols = "100", @rows = "3", @id = "txtAyuda", @maxlength = "2500", @onkeypress = "ValidarCaracteres(this,2500);", @onkeyup = "ValidarCaracteres(this,2500);", style = "max-width: 361px;"})
+                                        @Html.HiddenFor(model => model.constructor.IdConstructor, new { @class = "form-control", @id = "idconstructor" })
+                                        </br>
+                                        @Html.ValidationMessageFor(model => model.criterio.Ayuda, null, new { @class = "label label-warning" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                 @if(@ViewBag.Error == null) {
+                                    <input type="submit" value="Agregar o Modificar" class="btn btn-success" alt="Crear" title="Permite Crear un criterio o modificar la ayuda" />
+                                 }
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    </br>
+                    </br>
+                
+                    <h3><small>Editar Criterio</small></h3>
+                            <div id="divCriteriosSeleccionados">
+                                @Html.Action("_tablaCriterioConstructorEditar")
+                            </div>
+                </div>
+                </div>           
+        </div>
+
+        <div class="alert alert-danger" hidden role="alert" id="divMensajeErroCrearConstructor">
+            <strong>Error!</strong>
+            <div id="idMensajeErrorCuerpoConstructor"></div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="divMensaje">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Mensaje</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensaje">
+                <p>One fine body…</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" title="Aceptar">Aceptar</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modalSeleccionarIndicador">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Seleccionar Indicador</h4>
+            </div>
+            <div class="modal-body" id="contenidoSeleccionarIndicador">
+                <div id="tablaIndicador">
+                    @Html.Action("_tablaIndicador")
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modalSeleccionarDetalleAgrupacion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Seleccionar Detalle Agrupación</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeDetalleAgrupacion">
+                <div id="tablaDetalleAgrupacion">
+                    @Html.Action("_tablaDetalleAgrupacion")
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modalSeleccionarCriterio">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Seleccionar Criterio</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeCriterio">
+                <div id="tablaCriterio">
+                    @Html.Action("_tablaCriterioEditar")
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modalSeleccionarOperador">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Seleccionar Operador</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeOperador">
+                <div id="tablaOperador">
+                    @Html.Action("_tablaOperador")
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modalSeleccionarClonarOperador">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Seleccionar los operadores a copiar</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeOperadorClonar">
+                <div id="tablaOperadorClonar">
+                    @Html.Action("_tablaOperadorClonar")
+                </div>
+                <div>
+                    @Html.Hidden("idOperadorClonar")
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-offset-2 col-md-10">
+
+                    <button type="button" class="btn btn-success" title="Clonar" onclick="functClonarDetalleAgrupacion();">Clonar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" title="Cancelar">Cancelar</button>
+
+
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+
+</div><!-- /.modal -->
+
+<div class="modal fade" id="BorrarRama">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensajeB"></h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeB">
+                <p>One fine body…</p>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-success" title="Aceptar" onclick="functEliminarRama();">Aceptar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" title="Cancelar">Cancelar</button>
+                </div>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div>
+    @Html.Partial("_detalleAgrupacionEliminar", new ConstructorCriterioDetalleAgrupacion())
+</div>
+@*<div>
+    @Html.Partial("_criterioEliminar", new ConstructorCriterio())
+</div>*@
+<div>
+    @Html.Partial("_criterioEliminarEditar", new ConstructorCriterio())
+</div>
+
+@section scripts{
+  
+    @Scripts.Render("~/Scripts/Mantenimientos/Constructor/ConstructorEditarCriterio.js")
+    @Scripts.Render("~/Scripts/Mantenimientos/Constructor/ConstructorGeneral.js")
+    @Scripts.Render("~/Scripts/jsUtilidad.js")
+   
+}
+
+
+
+

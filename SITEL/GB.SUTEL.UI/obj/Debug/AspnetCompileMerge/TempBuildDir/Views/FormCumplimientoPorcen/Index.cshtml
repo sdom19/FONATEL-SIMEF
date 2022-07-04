@@ -1,0 +1,458 @@
+﻿@model GB.SUTEL.UI.Models.FormCumplimeintoPorcenControViewMdel
+@{
+    ViewBag.Title = "Fórmulas de Porcentaje y Cumplimiento";
+}
+
+<style>
+
+    .TexFormula
+    {
+        padding: 0% !important;
+        overflow: hidden;
+        margin: 0px;
+        height: 100% !important;
+        width: 231px;
+        margin: 1%;
+        font-size: 12px !important;
+    }
+.col-lg-10-new {
+    width: 84.333333% !important;
+        
+}
+    .LefIndicar {
+        margin-left: 4px;
+    margin-right: 4px;
+    }
+
+    .bottostyle {
+        border-bottom: 2px;
+    border-bottom-color: #006faf;
+    border-bottom-style: inset;
+    padding-bottom: 28px;
+    }
+
+    .topStye{
+        text-align: -webkit-right;
+    border-top-color: beige;
+    border-top-style: inset;
+    }
+    .form-control {
+        display: block;
+        width: 100%;
+        height: 40px !important;
+        padding: 6px 12px !important;
+            border-radius: 0px !important;
+    }
+    .Constante {
+        font-weight: 900;
+        border-top:1px;
+        border-color:white;
+        border-style: outset;
+    }
+        .Constante:hover {
+            cursor:pointer;
+        }
+    .centerdivfrom 
+    {
+        padding-left: 14.5% !important;
+    }
+    .glyphicon {
+        color:#0368c5;
+    }
+    .control-formula
+    {
+        line-height: 1.8 !important;
+        border: transparent !important;
+        background: transparent !important;
+    }
+    .divgray {
+        background:#e0dede;
+    }
+    .resultadogrid
+     {
+        position: relative;
+        min-height: 1px;
+       padding-right: 0px; 
+       padding-left: 0px;
+
+    }
+    hr
+    {
+            border-top: 1px solid #048fde !important;
+    }
+    .table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+    padding: 4px !important;
+    line-height: 1.428571429;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+}
+    .divblue {
+        background: #048fde;
+        color: white;
+        font-weight: 500;
+
+    }
+    table.dataTable tbody th, table.dataTable tbody td {
+        padding: 3px 6px !important;
+        font-size: 12px !important;
+    }
+
+    table.dataTable thead th, table.dataTable thead td {
+        padding: 3px 13px !important;
+        border-bottom: 1px solid #111;
+        font-size: 14px !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        color: #fbf8f8 !important;
+        border: 1px solid #0671ae !important;
+        background-color: #fff !important;
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #dcdcdc));
+        background: -webkit-linear-gradient(top, #fff 0%, #dcdcdc 100%) !important;
+        background: -moz-linear-gradient(top, #fff 0%, #dcdcdc 100%) !important;
+        background: -ms-linear-gradient(top, #fff 0%, #dcdcdc 100%) !important;
+        background: -o-linear-gradient(top, #fff 0%, #dcdcdc 100%) !important;
+        background: linear-gradient(to bottom, #0071bc 0%, #0071bc 100%) !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        box-sizing: border-box;
+        display: inline-block;
+        min-width: 1.5em;
+        padding: 0.5em 1em;
+        margin-left: 2px;
+        text-align: center;
+        text-decoration: none !important;
+        cursor: pointer;
+        *cursor: hand;
+        color: #333 !important;
+        border: 1px solid transparent;
+    }
+
+    textarea {
+        padding: 2px 5px !important;
+        font-size: 17px !important;
+        max-width: 100% !important;
+        resize:none;
+    }
+
+    .btn-sm {
+        background: transparent !important;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 0px 3.5px !important;
+    }
+    .spanico {
+         color: #0368c5 !important;
+         font-size: 15px !important;
+    }
+</style>
+
+<link href="~/Content/bootstrap-select.min.css" rel="stylesheet" />
+<div class="col-lg-12">
+
+<h4>Fórmulas de Porcentaje y Cumplimiento</h4>
+</div>
+
+<div class="container">
+    <div class="alert alert-success alert-dismissible fade in" id="Confirmacion">
+
+    </div>
+    <div class="col-lg-12 text-center">
+       
+        <form>
+
+            <div class="col-lg-12">
+                <div class="form-group row col-lg-4 bottostyle">
+                    <table>
+                        <tr>
+                            <td class="divblue" style="width:194px">Dirección</td>
+                            <td>@Html.DropDownList("CobmDireccion", (SelectList)ViewBag.LisDireccion, new { @class = "form-control" })</td>
+                        </tr>
+                    </table>
+                    @*<div class="col-sm-10">
+                <label for="inputPassword" class="col-form-label">Dirección</label>
+                @Html.DropDownList("CobmDireccion", (SelectList)ViewBag.LisDireccion, new { @class = "form-control" })
+            </div>*@
+                </div>
+
+                <div class="form-group row row col-lg-4 LefIndicar bottostyle">
+                    <table>
+                        <tr>
+                            <td class="divblue" style="width:194px">Servicios</td>
+                            <td>@Html.DropDownList("CombServicios", (SelectList)ViewBag.LisServicios, new { @class = "form-control" })</td>
+                        </tr>
+                    </table>
+
+                    @*<div class="col-sm-10">
+                <label for="inputPassword" class="col-form-label">Servicios</label>
+                @Html.DropDownList("CombServicios", (SelectList)ViewBag.LisServicios, new { @class = "form-control" })
+            </div>*@
+
+                </div>
+                <div class="form-group row col-lg-4 bottostyle">
+                    <table>
+                        <tr>
+                            <td class="divblue" style="width:194px">Indicadores</td>
+                            <td>
+                                <select id="CombIndicadores" class="form-control">
+                                    <option data-subtext="">Seleccione</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    @*<div class="col-sm-10 text-left">
+                <label for="inputPassword" class="col-form-label">Indicadores</label>
+                <select id="CombIndicadores" class="form-control">
+                    <option data-subtext="">Seleccione</option>
+                </select>
+            </div>*@
+
+                </div>
+              </div>
+    
+
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class=" col-lg-8 divblue text-center criterios">
+                    <h4 class="text-left">Criterios</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2"></div>
+                    <div class="col-lg-8 resultadogrid" id="ResultLisCriterio">
+
+                    </div>
+            </div>
+
+                @*<div class="col-lg-12">
+                    <div class="col-lg-2">
+                    </div>
+                    
+                    <div class="col-lg-12">
+                        <div class="col-lg-1">
+                        </div>
+                        <div class="col-lg-10 col-lg-10-new resultadogrid centerdivfrom" id="ResultLisCriterio">
+
+                        </div>
+
+                    </div>
+
+                </div>*@
+                <div class="col-lg-12 centerdivfrom">
+                    <div class="col-lg-6 text-left">
+                        <div class="col-lg-8 divblue">
+                            <h4 class="text-leftThe">Fórmula Porcentaje</h4>
+                        </div>
+
+                        <div class="col-lg-8 divgray text-center formulaPocentaje">
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnSumar" value="+"><span class="glyphicon glyphicon-plus"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnRestar"><span class="glyphicon glyphicon-minus"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnMultiplicar"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnDividir"><span class="spanico">/</span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="Btndleft" title=""><span class="spanico">(</span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="btnright" title=""><span class="spanico">)</span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnConstante" title="Click para agregar constante numerica"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnReset" title="Borrar Fórmula"><span class="glyphicon glyphicon-refresh"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnRemoverItem" title="Remover item de fórmula"><span class="glyphicon glyphicon-trash"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnVerformula" title="Mostrar Fórmula"><span class="	glyphicon glyphicon-eye-open"></span></button>
+
+                        </div>
+                        <br />
+                        <div class="col-lg-12">
+                            @*<div class="form-group col-lg-8 text-left" id="TxtFormulaPorcentajes">*@
+                            <div class="form-group col-lg-8 text-left">
+                                <textarea class="form-control rounded-0 control-formula" id="TxtFormulaPorcentajes" rows="2" cols="50" readonly style="height: 100% !important;width: 231px;  margin: 1%;font-size: 11.5px !important;padding: 0% !important;    font-weight: bold;"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-6 text-left">
+                        <div class="col-lg-8 divblue">
+                            <h4 class="text-leftThe">Fórmula de Cumplimiento</h4>
+                        </div>
+                        <div class="col-lg-8 divgray text-center formulaCumplimiento">
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnSi"><span class="spanico">Si</span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnSumarCumpli" value="+"><span class="glyphicon glyphicon-plus"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnRestarCumpli"><span class="glyphicon glyphicon-minus"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnMultiplicarCumpli"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnDividirCumpli"><span class="spanico">/</span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtndleftCumpli" title=""><span class="spanico">(</span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnrightCumpli" title=""><span class="spanico">)</span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnMayor"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnMenor"><span class="glyphicon glyphicon-chevron-right"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnMayorque"><span class="spanico">>=</span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnMenorque"><span class="spanico"><=</span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnSeparador"><span class="spanico">;</span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnConstanteCumpli" title="Click para agregar constante numerica"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnResetCumpli" title="Borrar Fórmula"><span class="glyphicon glyphicon-refresh"></span></button>
+                            <button type="button" class="btn btn-outline-dark btn-sm" id="BtnRemoverItemCumpli" title="Remover item de fórmula"><span class="glyphicon glyphicon-trash"></span></button>
+                            @*<button type="button" class="btn btn-outline-dark btn-sm" id="BtnVerformulaCumpli" title="Mostrar Fórmula"><span class="	glyphicon glyphicon-eye-open"></span></button>*@
+                            @*<button type="button" class="btn btn-outline-dark btn-sm btn-danger" id="BtnFP" title="Borrar Formula"><span class="spanico">FP</span></button>*@
+                            @*<button type="button" class="btn btn-outline-dark btn-sm" id="BtnConstante" title="Ckick Agregar constate numerica"><span class="glyphicon glyphicon-pencil"></span></button>*@
+                            @*<button type="button" class="btn btn-outline-dark btn-sm" id="BtnReset" title="Borrar constante"><span class="glyphicon glyphicon-trash"></span></button>*@
+
+                        </div>
+                        <div class="col-lg-8 divgray text-center">
+                            <div class="col-lg-4 divgray text-center Constante" id="FP" title="Fórmula de Porcentaje">
+                                <h6>FP</h6>
+                            </div>
+                            <div class="col-lg-4 divgray text-center Constante" id="UM" title="Umbral">
+                                <h6>UM</h6>
+                            </div>
+                            <div class="col-lg-4 divgray text-center Constante" id="PS" title="Factor Rigurosidad">
+                                <h6>FR</h6>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="col-lg-12">
+                            <br />
+                            <div class="form-group col-lg-8">
+                                @*<p id="TxtFormulaCumplimiento" class="text-left"></p>*@
+                                <textarea class="form-control rounded-0 control-formula" id="TxtFormulaCumplimiento" rows="2" cols="50" readonly style=" padding: 0% !important; overflow: hidden; margin: 0px; height: 100% !important; width: 231px; margin: 1%; font-size: 12px !important;    font-weight: bold;"></textarea>
+                            </div>
+
+                            <div class="form-group col-lg-8 ParamIf">
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-sm-2 col-form-label">Condición</label>
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" value="" id="inputCondicion" readonly style="font-size:9px">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-search-input" class="col-sm-1 col-form-label">V</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" value="" id="inputVerdadero" readonly style="font-size:9px">
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input type="checkbox" id="CheckV">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="example-email-input" class="col-sm-1 col-form-label">F</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" value="" id="inputFalso" readonly style="font-size:9px">
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input type="checkbox" id="CheckF">
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="btn-cargar">Cargar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+</form>
+    </div>
+ </div>
+<div class="row">
+    <div class="col-lg-2"></div>
+        <div class="col-lg-4">
+            <table>
+                <tr>
+                    <td class="divgray " style="width:194px">Usuario de Última Modificación</td>
+                    <td divblue" style="color:white;background-color:#006faf; width:160px;height: 52px;"><p id="Usuario"></p></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <table>
+                <tr>
+                    <td class="divgray " style="width:194px">Fecha de Última Modificación</td>
+                    <td divblue" style="color:white;background-color:#006faf; width:160px;height: 52px;"><p id="FechaMod"></p></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+@*<div class="col-lg-12">
+    <div class="col-lg-6" style="text-align: -webkit-right;">
+       
+        <table>
+            <tr>
+                <td class="divgray " style="width:194px">Usuario de Última Modificación</td>
+                <td divblue" style="color:white;background-color:#006faf; width:145px;height: 52px;"><p id="Usuario"></p></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-lg-6" style="">
+        <table>
+            <tr>
+                <td class="divgray " style="width:184px">Fecha de Última Modificación</td>
+                <td divblue" style="color:white;background-color:#006faf; width:130px"><p id="FechaMod"></p></td>
+            </tr>
+        </table>
+    </div>
+    </div>*@
+
+<div class="col-lg-12 text-left">
+    <hr />
+    <button type="button" class="btn btn-success" id="btn-Enviar">Guardar</button>
+    @*<button type="button" class="btn btn-danger">Cancelar</button>*@
+</div>
+@* Mensaje de confirmacion *@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea gurdar la información suministrada?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="modal-btn-si">Si</button>
+                <button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal de constante -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Fórmulas de porcentaje y cumplimiento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 id="LabelIndicador"></h3>
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-4 col-form-label">Constante</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="TxtConstante" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="BtnGuardar">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalFormula" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Fórmulas de porcentaje y cumplimiento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 id="Formula"></h5>
+             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Formulas/FormulasCumplimiento.js"></script>
+<script src="~/Scripts/jquery.numeric.js"></script>

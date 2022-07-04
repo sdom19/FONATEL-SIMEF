@@ -1,0 +1,189 @@
+﻿@model GB.SUTEL.UI.Models.ConstructorViewModel
+@using GB.SUTEL.Entities
+
+
+<h4>@GB.SUTEL.Resources.EtiquetasMantenimiento.ttlAdministracionConstrutor</h4>
+
+
+<script type="text/javascript">
+</script>
+@if (@ViewBag.Error != null)
+{
+    <div class="alert alert-warning" role="alert">
+        <strong>Alerta!</strong> @ViewBag.Error
+    </div>
+}
+
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li><a href="Editar?id=@Model.constructor.IdConstructor">Indicador</a></li>
+        <li><a href="EditarCriterio?id=@Model.constructor.IdConstructor">Criterio</a></li>
+        <li><a href="EditarOperador?id=@Model.constructor.IdConstructor&idcriterio=@Model.idCriterio">Operadores</a></li>
+        <li role="presentation" class="active"><a href="#arbol" aria-controls="criterio" role="tab" data-toggle="tab">Árbol</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div id="containing-div">
+        <div class="tab-content">
+
+            <div role="tabpanel" id="arbol" class="tab-pane active">
+
+                <div>
+                    </br>
+                    </br>
+                    <div>
+                                         
+                            <div>
+
+                                <br />
+                                <br />
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        @Html.Label("Operador", new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <div class="input-group" style="width:350px;" id="divOperador">
+                                                @Html.TextAreaFor(model => model.nombreOperador, new { @class = "form-control", @placeholder = "Operador", @id = "nombreOperador", disabled = true, @cols = "100", @rows = "3", onchange = "ResetReglaEstadisticaControls()" })
+                                                @Html.HiddenFor(model => model.idOperador, new { @id = "IdOperador" })
+
+                                                <span class="input-group-btn">
+                                                    @*<button class="btn btn-primary glyphicon glyphicon-search" type="button" data-toggle="modal" id="btnBuscarOperador" title="Búsqueda del Operador para asociar al Detalle de Agrupación."
+                                                            data-target="#modalSeleccionarOperador"></button>*@
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+
+                                <table>
+                                    <tr>
+                                        <td width=80% >
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">Detalle Agrupación Asociados</div>
+                                                <div class="panel-body" style=" height: 720px;width:100%; overflow: scroll;">
+                                                    <div id="jstreeDetalleAgrupacion">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width=20% >
+                                            <div class="panel panel-default" style=" width:100%;">
+                                                <div id="divPnDetalle" class="panel-heading">Agregar Detalle Agrupación</div>
+                                                <div class="panel-body" style="width: 100%; height: 720px; overflow-y: scroll;">
+                                                    <div id="divDetalleAgrupacionCrear">
+                                                        @Html.Action("_detalleAgrupacionCrear")
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                                @*<button type="button" class="btn btn-success" onclick="btnGuardarArbolDetalleAgrupacion();" id="btnAgregarArbolDetalleOperador" title="Guardar Detalle    Agrupación">Guardar Detalle Agrupación</button>*@
+                                @if(@ViewBag.Error == null) {
+                                <button type="button" class="btn btn-success hidden" onclick="functGuardarEditarArbolDetalleAgrupacion();" id="btnGuardarEdicionArbolDetalleOperador" title="Guardar Edición Detalle Agrupación">Guardar Edición Detalle Agrupación</button>
+                                }
+                                <button type="button" class="btn btn-danger hidden" onclick="functCancelarEditarArbolDetalleAgrupacion();" id="btnCancelarEdicionArbolDetalleOperador" title="Cancelar">Cancelar</button>
+
+                            </div>
+                        
+                        <br />
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="alert alert-danger" hidden role="alert" id="divMensajeErroCrearConstructor">
+            <strong>Error!</strong>
+            <div id="idMensajeErrorCuerpoConstructor"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="divMensaje">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Mensaje</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensaje">
+                <p>One fine body…</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" title="Aceptar">Aceptar</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div class="modal fade" id="modalSeleccionarDetalleAgrupacion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Seleccionar Detalle Agrupación</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeDetalleAgrupacion">
+                <div id="tablaDetalleAgrupacion">
+                    @Html.Action("_tablaDetalleAgrupacion")
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+<div class="modal fade" id="BorrarRama">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensajeB"></h4>
+            </div>
+            <div class="modal-body" id="contenidoMensajeB">
+                <p>One fine body…</p>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="button" class="btn btn-success" title="Aceptar" onclick="functEliminarRama();">Aceptar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" title="Cancelar">Cancelar</button>
+                </div>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div>
+    @Html.Partial("_criterioEliminar", new ConstructorCriterio())
+</div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/Mantenimientos/Constructor/ConstructorEditar.js")
+    @Scripts.Render("~/Scripts/Mantenimientos/Constructor/ConstructorGeneral.js")
+    @Scripts.Render("~/Scripts/jsUtilidad.js")
+}
+

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>@ViewBag.Title</title>
+    <!--<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />-->
+    @Styles.Render("~/Content/css")
+    <!--<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>-->
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+
+
+</head>
+<body>
+    <ul id="toastStack"></ul>
+    <div id="divLoading">
+        <p>Loading...</p>
+    </div>
+
+    @Html.Partial("header/_header")
+
+    <div class="container body-content mt-3">
+        @RenderBody()
+        <hr />
+    </div>
+    <div id="globalOk">
+        <ul>
+        </ul>
+    </div>
+    <script>
+        noDataInTableMsg = "@GB.SUTEL.Resources.Resources.noDataInTableMsg";
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/internal")
+    @Scripts.Render("~/bundles/Fonatel")
+    @Html.Partial("footer/_footer")
+
+    @RenderSection("scripts", required: false)
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalSessionOut">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                    <h4 class="modal-title" id="tituloMensajeS"></h4>
+                </div>
+                <div class="modal-body">
+                    <center><h4>La sesión finalizará en:</h4></center>
+                    <center>
+                        <div id="contenidoMensajeS" style="font-size: 40px; color: #0071BC; background: #FFFFFF; height:40%; width: 40%; padding: 5%; border-radius: 100px; border-color:#0071BC; border-style: solid;">
+                            <center><p>…</p></center>
+                        </div>
+                    </center>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</body>
+</html>
+
+
+@* Se usa para tomar el tiempo de cierre de sesión desde el web config*@
+
+@{ var time = System.Configuration.ConfigurationManager.AppSettings["TiempoDeCierreDeSesion"];     }
+
+@{ var funcionArrastrar = System.Configuration.ConfigurationManager.AppSettings["FunciondeArrastre"];     }
+
+<script>
+
+    var dragFunction=@funcionArrastrar;
+    var globalTimeSessionExpire = @time;
+
+</script>

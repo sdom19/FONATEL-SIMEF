@@ -1,0 +1,114 @@
+﻿@model List<GB.SUTEL.Entities.Operador>
+@using GB.SUTEL.UI.Helpers;
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+} 
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Operador", "Consultar"))
+{
+<form id="frmFiltroOperador" method="post"
+                      action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tablaOperador"
+                      data-ajax-message="Cargando datos...">
+<table class="display" cellspacing="0" data-table-grid="true">
+    <thead>
+        <tr>
+            <th>
+                Código
+            </th>
+            <th>
+                Operador
+            </th>
+            <th>
+                Estado
+            </th>
+
+        </tr>
+    </thead>
+    <tfoot>
+
+        <tr>
+
+            <td>
+
+                <input placeholder="Código" name="IdOperador" value="@ViewBag.searchTerm.IdOperador" />
+            </td>
+            <td colspan="2">
+                <input placeholder="Operador" name="NombreOperador" value="@ViewBag.searchTerm.NombreOperador"  />
+                <button type="submit" class="hidden">Submit</button>
+
+            </td>
+        </tr>
+    </tfoot>
+    <tbody>
+
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdOperador)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreOperador)
+                    </td>
+                    <td>
+                        @if (item.Estado != null && item.Estado)
+                        {
+                            @Html.Label("Activa")
+                        }
+                        else
+                        {
+                            @Html.Label("Inactiva")
+                        }
+                    </td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="3">No se encontraron datos</td></tr>
+        }
+    </tbody>
+
+</table>   </form>
+} else
+{
+    <div class="alert alert-info" role="alert">
+        No tiene permisos para consultar.
+    </div>
+}
+<script type="text/javascript">
+
+
+    $(document).ready(
+        function () {
+            AjaxifyMyForm("frmFiltroOperador",
+            function (data) {
+                data = "<div id='tablaOperador'>" + data + "</div>";
+
+                var $form = $(data);
+                $("#tablaOperador").replaceWith(data);
+            },
+            function (error) {
+
+            });
+        });
+
+
+    if (typeof initDataGrid !== 'undefined') {
+        $('table[data-table-grid="true"]').ready(initDataGrid);
+    }
+
+    $('#frmFiltroOperador input').keyup(function (event) {
+        if (event.keyCode === 13) {
+            $('#frmFiltroOperador').submit();
+        }
+    });
+
+</script>

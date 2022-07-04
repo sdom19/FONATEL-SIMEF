@@ -1,0 +1,35 @@
+﻿@model GB.SUTEL.Entities.FuenteExterna
+
+<form id="formCreate" method="post" action="@Url.Action("Crear")" data-ajax="true" data-ajax-message="Guardando..." data-ajax-message-default="Crear">
+    @Html.AntiForgeryToken()
+    <div class="modal fade" id="modalCrear">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Crear Fuente Externa</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NombreFuenteExterna, new { @class = "col-md-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.EditorFor(model => model.NombreFuenteExterna, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre" } })
+                                @Html.ValidationMessageFor(model => model.NombreFuenteExterna, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="alert alert-danger" hidden role="alert" name="error">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">                    
+                    <input type="submit" value="Crear" class="btn btn-success" title='@GB.SUTEL.Resources.Resources.btnTooltipGuardar' />
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" title='@GB.SUTEL.Resources.Resources.btnTooltipCancelar'>Cancelar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</form>

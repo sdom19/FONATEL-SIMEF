@@ -1,0 +1,128 @@
+﻿<script type="text/javascript">
+
+    for (var i = 0; i < allTipoIndicadoresNuevo.length; i++) {
+        $("#checkTipoIndicadorNuevo_" + allTipoIndicadoresNuevo[i]).prop('checked', true);
+    }
+</script>
+
+
+
+@model GB.SUTEL.UI.Models.ServicioViewModels
+@using GB.SUTEL.UI.Helpers;
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+   
+    <table class="display" data-table-grid="true" style="width:60%" data-table-grid-display-rows="4">
+    <thead>
+        <tr>
+            <th style="width:5%" class="no-sort"></th>
+            <th style="width:95%">
+                @Html.DisplayNameFor(model => model.listadoTipoIndicador.First().DesTipoInd)
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.listadoTipoIndicador)
+        {
+            <tr>
+                <td style="width:5% !important">
+
+                    <input type="checkbox" value="@item.IdTipoInd" id="checkTipoIndicadorNuevo_@item.IdTipoInd" onchange="AgregarNuevoIndicador(@item.IdTipoInd)" />
+
+                </td>
+                <td style="width:95% !important">
+                    @Html.DisplayFor(modelItem => item.DesTipoInd)
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+
+                <form id="frmFilterTipoIndicadorNuevo" method="post"
+                      action="@Url.Action("_tableTipoIndicadores")" data-ajax="true" data-ajax-target="#tableTipoIndicadorNuevo"
+                      data-ajax-message="Cargando datos...">
+
+                    <input placeholder="Tipo Indicador" name="TipoIndicador" value="@ViewBag.searchTipoIndicador" id="txtSubmitBuscaTipoIndicadorNuevo" />
+                    <input type="submit" style="display:none" />
+                </form>
+            </td>
+
+        </tr>
+    </tfoot>
+</table>
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(
+        function () {
+            AjaxifyMyForm("frmFilterTipoIndicadorNuevo",
+            function (data) {
+                
+                data = "<div id='tableTipoIndicadorNuevo'>" + data + "</div>";
+
+                var $form = $(data);
+                $("#tableTipoIndicadorNuevo").replaceWith(data);                
+            },
+            function (error) {
+
+            }, 10000);
+
+
+        });
+        //Consulta permisos de roles por usuario
+
+        if (typeof initDataGrid !== 'undefined') {
+            $('table[data-table-grid="true"]').ready(initDataGrid);
+        }
+
+        $('#frmFilterTipoIndicadorNuevo').submit(function (event) {
+            event.preventDefault(); // stop the actual submit
+            // ajax code goes here to submit data
+        });
+
+        $('#frmFilterTipoIndicadorNuevo input').keyup(function (event) {
+            if (event.keyCode === 13) {
+                $('#frmFilterTipoIndicadorNuevo').submit();
+            }
+        });
+
+
+        //#############################################################
+        //Funcion se ejecuta al seleccionar un Indicador
+        function AgregarNuevoIndicador(id) {
+
+            var element = $("#checkTipoIndicadorNuevo_" + id);
+            var valueChecked = element.prop('checked');
+
+            var inList = false;
+            var indexArray = null;
+            for (var i = 0; i < allTipoIndicadoresNuevo.length; i++) {
+                if (allTipoIndicadoresNuevo[i] == id) {
+                    inList = true;
+                    indexArray = i;
+                    break;
+                }
+            }
+            if (!inList && valueChecked) {
+                allTipoIndicadoresNuevo.push(id);
+            }
+            else {
+                if (inList && !valueChecked) {
+                    allTipoIndicadoresNuevo.splice(indexArray, 1);
+                }
+            }
+        };
+
+    
+    </script>

@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<div class="container body-content">
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                <li class="breadcrumb-item active"><a href="/Fonatel/SolicitudFonatel/index">Solicitudes de Información</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Crear Solicitud</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-12">
+            <h2 class="text-primary text-center">Crear Solicitud</h2>
+        </div>
+        <div class="col-sm-12">
+
+            @Html.Partial("_CrearSolicitud")
+        </div>
+    </div>
+
+</div>
+
+
+

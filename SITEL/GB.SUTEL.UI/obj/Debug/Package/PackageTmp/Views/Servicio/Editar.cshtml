@@ -1,0 +1,175 @@
+﻿<script type="text/javascript">
+
+
+    var allIndicadoresEditar = [];
+
+    var dataPorServicio;
+</script>
+
+@model GB.SUTEL.UI.Models.ServicioViewModels
+@using GB.SUTEL.UI.Helpers;
+
+
+
+
+<div class="modal fade" id="modalEditarServicio">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar Servicio</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+
+                        @Html.LabelFor(model => model.itemServicio.DesServicio, new { @class = "col-md-3 control-label", @for = "txtIDNombreServicioEditar" })
+                        <div class="col-sm-9">
+                            @Html.HiddenFor(model => model.itemServicio.IdServicio, new { @id = "IDServicioEditar" })
+                            @Html.EditorFor(model => model.itemServicio.DesServicio, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre", @id = "txtIDNombreServicioEditar" } })
+                            </br>@Html.ValidationMessageFor(model => model.itemServicio.DesServicio, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- TIPOS DE INDICADORES -->
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Tipos de Indicadores</div>
+                            <div class="panel-body">
+                                <div id="tableTipoIndicadorEditar">
+                                    @Html.Partial("_tableTipoIndicadoresEditar")
+                                </div>
+                            </div>
+                        </div>
+                        <!-- TIPOS DE INDICADORES -->
+                    </div>
+
+                    <div class="alert alert-danger col-sm-9" hidden role="alert" id="divMensajeErroEditarServicio">
+                        <strong>Error!</strong> El nombre ya existe.
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <form method="post" id="formEditarServicio">
+
+                    @if (rolValidation.ValidateScreenFunctions(this.Context, "Servicios", "Editar"))
+                    {
+
+                        <input type="button" id="btnEnviarEditar" value="Guardar Cambios" class="btn btn-success" />
+
+                    }
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                   
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script type="text/javascript">
+    //##############################
+    $("#btnEnviarEditar").click(function (e) {
+        $("#formEditarServicio").submit();
+    });
+
+    $("#formEditarServicio").submit(function (e) {
+
+        if (!$("#formEditarServicio").valid()) {
+            return false;
+        }
+
+        // extrae los atributos del form
+        var txtNombreServicio = $("#txtIDNombreServicioEditar").val();
+        var IdServicioEditar = $("#IDServicioEditar").val();
+
+        var json = {
+            "IdServicio": IdServicioEditar,
+            "txtIDNombreServicioEditar": txtNombreServicio,
+            "indicadores": allIndicadoresEditar
+        }
+
+        var options = {
+            type: "post",
+            dataType: "json",
+            url: "/Servicio/Editar",
+            data: { "data": json },
+            success: function (data) {
+                if (data.ok == "True") {
+                    $("#modalEditarServicio").modal('hide');
+
+                    addSuccess({ msg: data.strMensaje });
+
+                    $("#frmFilterServicio")[0].reset();
+                    $("#frmFilterServicio").submit();
+                } else {
+
+                }
+            },
+            error: function (error) {
+
+            }
+        };
+
+        $.ajax(options);
+
+        e.preventDefault();
+    });
+
+
+
+    //##############################
+    /* Determina comportamiento al hacer submit */
+    $(document).ready(function () {
+        AjaxifyMyForm("frmFilterTipoIndicadorEditar",
+   function (data) {
+       data = "<div id='tableTipoIndicadorEditar'>" + data + "</div>";
+
+       var $form = $(data);
+       $("#tableTipoIndicadorEditar").replaceWith(data);
+   }, function (error) {
+       alert(error);
+   });
+
+        $('#frmFilterTipoIndicadorEditar input').keyup(function (event) {
+            if (event.keyCode === 13) {
+                $('#frmFilterTipoIndicadorEditar').submit();
+            }
+        });
+
+        function onSuccessEditarServicio(data) {
+
+            data = JSON.parse(data);
+
+            if (data.ok === "True") {
+                $("#modalEditarServicio").modal('hide');
+                addSuccess({ msg: "La información se actualizó con éxito" });
+                $("#frmFilterServicio")[0].reset();
+                $("#frmFilterServicio").submit();
+
+            } else {
+                $("#divMensajeErroEditarServicio").show();
+            }
+        }
+        function onFailureEditarServicio(error) {
+
+        }
+        // pasa el id del form de crear
+        // pasa la función a ejecutar si todo está bien
+        // pasa la función a ejecutar si hay errores
+        AjaxifyMyForm("formEditarServicio",
+            onSuccessEditarServicio,
+            onFailureEditarServicio);
+    });
+
+
+
+
+
+</script>

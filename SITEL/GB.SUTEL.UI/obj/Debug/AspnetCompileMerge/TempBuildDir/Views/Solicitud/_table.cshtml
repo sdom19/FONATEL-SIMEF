@@ -1,0 +1,467 @@
+﻿<script type="text/javascript">
+
+    var ValoresNotificar = [];
+
+</script>
+
+@model GB.SUTEL.UI.Models.SolicitudViewModels
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+@section Scripts
+{
+    <script src=@Url.Content("~/Content/sweetalert2-7.32.2/package/dist/sweetalert2.min.js")></script>
+    <script src="@Url.Content("~/Scripts/Mantenimientos/Solicitud.js")"></script>
+
+}
+
+
+
+<table class="display" data-table-grid="true" >
+    <thead>
+        <tr>
+            <th>
+                Envio Multiple
+
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.itemSolicitudIndicador.DescFormulario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemSolicitudIndicador.FechaInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemSolicitudIndicador.FechaFin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemSolicitudIndicador.IdDireccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemSolicitudIndicador.Activo)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.itemSolicitudIndicador.FormularioWeb)*@
+                Formulario
+            </th>
+
+            <th></th>
+            <th>@Html.DisplayNameFor(model => model.itemSolicitudIndicador.IdServicio)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model != null && Model.listadoSolicitudes != null)
+        {
+            foreach (var item in Model.listadoSolicitudes)
+            {
+
+                <tr>
+                    <td style="width:5px">
+
+                        <input type="checkbox" value="@item.IdSolicitudIndicador" id="checkIndicador_@(@item.IdSolicitudIndicador)" />
+                    </td>
+
+                    <td data-toggle="modal" data-target="#modalEditarSolicitud"
+                        data-select="true" onclick="hrefEditarSolicitud('@item.IdSolicitudIndicador');"
+                        data-json-selected='{"Id":" @item.IdSolicitudIndicador"}'>
+                        @Html.DisplayFor(modelIten => item.DescFormulario)
+                    </td>
+                    <td data-toggle="modal" data-target="#modalEditarSolicitud"
+                        data-select="true" onclick="hrefEditarSolicitud('@item.IdSolicitudIndicador');"
+                        data-json-selected='{"Id":" @item.IdSolicitudIndicador "}'>
+                        @Html.DisplayFor(modelIten => item.FechaInicio)
+                    </td>
+                    <td data-toggle="modal" data-target="#modalEditarSolicitud"
+                        data-select="true" onclick="hrefEditarSolicitud('@item.IdSolicitudIndicador');"
+                        data-json-selected='{"Id":" @item.IdSolicitudIndicador "}'>
+                        @Html.DisplayFor(modelIten => item.FechaFin)
+                    </td>
+                    <td data-toggle="modal" data-target="#modalEditarSolicitud"
+                        data-select="true" onclick="hrefEditarSolicitud('@item.IdSolicitudIndicador');"
+                        data-json-selected='{"Id":" @item.IdSolicitudIndicador "}'>
+                        @Html.DisplayFor(modelIten => item.Direccion.Nombre)
+
+                    </td>
+                    <td data-toggle="modal" data-target="#modalEditarSolicitud"
+                        data-select="true" onclick="hrefEditarSolicitud('@item.IdSolicitudIndicador');"
+                        data-json-selected='{"Id":" @item.IdSolicitudIndicador "}'>
+                        @if (item.Activo.ToString() == "1")
+                        {
+                            <span>Activo</span>
+                        }
+                        else
+                        {
+                            <span>
+                                Pendiente
+                            </span>
+                        }
+
+
+                    </td>
+                    <td data-toggle="modal" data-target="#modalEditarSolicitud"
+                        data-select="true" onclick="hrefEditarSolicitud('@item.IdSolicitudIndicador');"
+                        data-json-selected='{"Id":" @item.IdSolicitudIndicador "}'>
+                        @if (item.FormularioWeb == 1)
+                        {
+                            <span>Formulario Web</span>
+                        }
+                        else if (item.FormularioWeb == 0)
+                        {
+                            <span>
+                                Formulario Excel
+                            </span>
+                        }
+                        else  
+                        {
+                            <span>
+                                Formulario Mixto
+                            </span>
+                        }
+
+
+                    </td>
+
+                    <td>
+
+                        <div class="form-inline">
+
+                            <button type="button" class="btn btn-success" data-target="#modalNotificarSolicitud" data-select="true"
+                                    data-json-selected='{"ItemNotificar":" @item.IdSolicitudIndicador "}' data-tooltip="true" title="Enviar Notificación" data-toggle="modal" data-placement="left">
+                                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                            </button>
+
+                            <button type="button" class="btn btn-danger myDelete" data-toggle="modal" data-target="#modalEliminarSolicitud" data-select="true" onclick="hrefEliminarSolicitud('@item.IdSolicitudIndicador');"
+                                    data-json-selected='{"ItemEliminar":" @item.IdSolicitudIndicador "}' data-tooltip="true" title="Eliminar Solicitud de Indicador">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+
+
+                            @if (item.FormularioWeb ==1 || item.FormularioWeb == 3)
+                            {
+
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalConfirmaDescargaWeb" onclick="hrefConfirmaDescargaWeb('@item.IdSolicitudIndicador');"
+                                        data-select="true" data-tooltip="true" data-json-selected='{"IDSolicitudIndicador":"@item.IdSolicitudIndicador"}' title="Descargar Previsualizacón Archivo Web" data-placement="right">
+                                    <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
+                                </button>
+                            }
+                            @if(item.FormularioWeb == 0 || item.FormularioWeb == 3)
+                            {
+
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRegistroIndicadoresDescargarPre"
+                                        data-select="true" data-tooltip="true" data-json-selected='{"IDSolicitudIndicador":"@item.IdSolicitudIndicador"}' title="Descargar Previsualizacón Archivo Excel" data-placement="right">
+                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                </button>
+                            }
+
+                            <button type="button" class="btn btn-success" data-target="#modalActualizarFecha" data-select="true"
+                                    data-json-selected='{"ItemActualizar":" @item.IdSolicitudIndicador "}' data-tooltip="true" title="Actualizar fechas" data-toggle="modal" data-placement="left">
+                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEditarFormularioWeb" data-select="true" onclick="hrefEditarFormularioWeb('@item.IdSolicitudIndicador');"
+                                    data-json-selected='{"ItemEditar":" @item.IdSolicitudIndicador "}'data-tooltip="true" title="Actualizar tipo de formulario">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </td>
+                    <td data-toggle="modal" data-target="#modalEditarSolicitud"
+                        data-select="true" onclick="hrefEditarSolicitud('@item.IdSolicitudIndicador');"
+                        data-json-selected='{"Id":" @item.IdSolicitudIndicador"}'>
+                        @Html.DisplayFor(modelItem => @item.Servicio.DesServicio)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td width="1%" colspan="9">
+                <form id="frmFiltrarSolicitudes" method="post"
+                      action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tableSolicitudes"
+                      data-ajax-message="Cargando datos...">
+                    @if (ViewBag.TerminosBusqueda != null)
+                    {
+
+                        @*<input placeholder="Formulario" name="DescFormulario" value="@ViewBag.TerminosBusquedaDESCFORMULARIO" />*@
+                        @Html.TextBoxFor(m => m.FiltroFormulario, new { placeholder = "Formulario", name = "DescFormulario", value = "@ViewBag.TerminosBusquedaDESCFORMULARIO" })
+
+                        @*<input placeholder="Fecha Inicio" id="FechaInicio" name="FechaInicio" value="@ViewBag.TerminosBusquedaFECHAINICIO" />*@
+                        @Html.TextBoxFor(m => m.FiltroInicioPeriodo, new { placeholder = "Fecha Inicio", id = "FechaInicio", name = "FechaInicio", value = "@ViewBag.TerminosBusquedaFECHAINICIO" })
+
+                        @*<input type="text" placeholder="Fecha Fin" id="FechaFin" name="FechaFin" value="@ViewBag.TerminosBusquedaFECHAFIN" />*@
+                        @Html.TextBoxFor(m => m.FiltroFinPeriodo, new { placeholder = "Fecha Fin", id = "FechaFin", name = "FechaFin", value = "@ViewBag.TerminosBusquedaFECHAFIN" })
+
+                        @*<select name="" id="lstServicios" multiple="multiple" hidden="hidden" data-select="true">
+                                @if (ViewBag.Servicios != null)
+                                {
+                                    foreach (var item in ViewBag.Servicios)
+                                    {
+                                        <option value='@item.Value'> @item.Text</option>
+                                    }
+                                }
+                            </select>*@
+                        @Html.DropDownListFor(m => m.ServicioSeleccionados, new SelectList(Model.listadoServicios, "IdServicio", "DesServicio"), new { id = "lstServicios", name = "Servicios", multiple = "multiple", hidden = "hidden" })
+
+
+
+                        // <span>Activo </span>
+                        @*if (ViewBag.TerminosBusquedaACTIVO.ToString() == "1")
+                            {
+                                // Html.CheckBox("Activo", true);
+                                <select id="Activo" name="Activo">
+                                    <option value="0">Estado</option>
+                                    <option value="true" selected="selected">Activo</option>
+                                    <option value="false">Pendiente</option>
+                                </select>
+                            }
+                            else if (ViewBag.TerminosBusquedaACTIVO.ToString() == "2")
+                            {
+                                //Html.CheckBox("Activo", false);
+                                <select id="Activo" name="Activo">
+                                    <option value="0">Estado</option>
+                                    <option value="true">Activo</option>
+                                    <option value="false" selected="selected">Pendiente</option>
+                                </select>
+                            }
+                            else
+                            {
+                                <select id="Activo" name="Activo">
+                                    <option value="0" selected="selected">Estado</option>
+                                    <option value="true">Activo</option>
+                                    <option value="false">Pendiente</option>
+                                </select>
+                            }*@
+
+                    }
+                    else
+                    {
+                        @*<input placeholder="Formulario" name="DescFormulario" value="@ViewBag.TerminosBusquedaDESCFORMULARIO" />*@
+                        @Html.TextBoxFor(m => m.FiltroFormulario, new { placeholder = "Formulario", name = "DescFormulario", value = "@ViewBag.TerminosBusquedaDESCFORMULARIO" })
+
+                        @*<input placeholder="Fecha Inicio" id="FechaInicio" name="FechaInicio" value="@ViewBag.TerminosBusquedaFECHAINICIO" />*@
+                        @Html.TextBoxFor(m => m.FiltroInicioPeriodo, new { placeholder = "Fecha Inicio", id = "FechaInicio", name = "FechaInicio", value = "@ViewBag.TerminosBusquedaFECHAINICIO" })
+
+                        @*<input placeholder="Fecha Fin" id="FechaFin" name="FechaFin" value="@ViewBag.TerminosBusquedaFECHAFIN" />*@
+                        @Html.TextBoxFor(m => m.FiltroFinPeriodo, new { placeholder = "Fecha Fin", id = "FechaFin", name = "FechaFin", value = "@ViewBag.TerminosBusquedaFECHAFIN" })
+
+                        @Html.DropDownListFor(m => m.ServicioSeleccionados, new SelectList(Model.listadoServicios, "IdServicio", "DesServicio"), new { id = "lstServicios", name = "Servicios", multiple = "multiple", hidden = "hidden" })
+
+                        @*<select id="lstServicios" name="Servicios" multiple="multiple" hidden="hidden">
+                            @if (ViewBag.Servicios != null)
+                            {
+                                @foreach (var item in ViewBag.Servicios)
+                                {
+                                    <option value='@item.Value'> @item.Text</option>
+                                }
+                             }
+                                                </select>*@
+
+                    }
+                    <button type="submit" style="display:none">Buscar</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+<input type="hidden" id="SolicitudesNotificar" name="SolicitudesNotificar" />
+<script type="text/javascript">
+
+    $(document).ready(
+
+        function () {
+
+            $('#lstServicios').multiselect({
+                includeSelectAllOption: true,
+                //enableFiltering: true,
+                nonSelectedText: 'Sin Seleccionar',
+                /*                       onChange:  function(option, checked, select){
+                    if (checked)
+                        SeleccionServicios.push($(option).val());
+               },
+                          else
+                    {
+                        var temp = SeleccionServicios;
+                        SeleccionServicios = [];
+                        if (temp && temp.length > 0){
+                            SeleccionServicios = temp.filter(function(valor, indice, arreglo) {return valor != $(option).val();});
+                        }
+
+                    }
+
+                */
+                //checkboxName: function (option) {
+                //    return 'multiselect[]';
+                //}
+                onDropdownHidden: function (event) {
+                    $('#frmFiltrarSolicitudes').submit();
+                }
+            });
+
+
+            //$('#lstServicios').multiselect("SelectAll", true);
+
+            AjaxifyMyForm("frmFiltrarSolicitudes",
+                function (data) {
+                    data = "<div id='vistaSolicitudes'>" + data + "</div>";
+
+                    var $form = $(data);
+
+                    $("#vistaSolicitudes").replaceWith(data);
+                    $(".modal-backdrop").remove();
+                },
+                function (error) {
+                    $(".modal-backdrop").remove();
+                }, 10000);
+
+            if (typeof initDataGrid !== 'undefined') {
+                $('table[data-table-grid="true"]').ready(initDataGrid);
+            }
+
+            $('#frmFiltrarSolicitudes input').keyup(function (event) {
+                if (event.keyCode === 13) {
+                    $('#frmFiltrarSolicitudes').submit();
+                }
+            });
+        });
+
+    function hrefEditarSolicitud(id) {
+        window.location = "/Solicitud/Editar?id=" + id;
+    }
+    function hrefEliminarSolicitud(id) {
+        cargaOperadoresxSolicitud(id);
+    }
+    function hrefEditarFormularioWeb(id) {
+        cargaOperadoresxSolicitudTipoFormulario(id);
+        cargaFormularioWebxSolicitudTipoFormulario(id);
+
+    }
+    function hrefConfirmaDescargaWeb(id) {
+        cargaConstructorPorIndicador(id);
+
+    }
+
+    $(function () {
+        $("#FechaInicio").datepicker();
+        $("#FechaFin").datepicker();
+    });
+
+    $('[type=checkbox]').click(function () {
+        var checkbox = $(this);
+        var valueChecked = checkbox.prop('checked');
+
+        var inList = false;
+        var indexArray = null;
+
+        for (var i = 0; i < ValoresNotificar.length; i++) {
+            if (ValoresNotificar[i] == $(checkbox).val()) {
+                inList = true;
+                indexArray = i;
+                break;
+            }
+        }
+
+        //
+        if (!inList && valueChecked) {
+            ValoresNotificar.push($(checkbox).val());
+        }
+        else {
+            if (inList && !valueChecked) {
+                ValoresNotificar.splice(indexArray, 1);
+            }
+        }
+
+        if (ValoresNotificar.length > 0) {
+            $('.botonNotificar').removeAttr('disabled');
+        } else {
+            $('.botonNotificar').attr("disabled", "disabled");
+        }
+
+    });
+
+    //$('.botonNotificar').click(function () {
+    //    //alert(ValoresNotificar);
+    //    var json = {
+    //        "IdsIndicador": ValoresNotificar
+    //    }
+
+    //    var options = {
+    //        type: "post",
+    //        dataType: "json",
+    //        url: "/Solicitud/NotificarMultiple",
+    //        data: { "data": json },
+    //        success: function (data) {
+    //            if (data.ok == "True") {
+    //                alert('listo');
+    //            }
+    //        },
+    //        error: function (error) {
+
+    //        }
+    //    };
+
+    //    $.ajax(options);
+    //});
+    $("body").delegate("#FechaInicioAc", "focusin", function () {
+
+        $(this).datepicker({
+            dateFormat: 'dd/mm/yy',
+            minDate: 0,
+            beforeShow: function (textbox, instance) {
+                instance.dpDiv.css({
+                    marginTop: (-textbox.offsetHeight) + 'px',
+                    marginLeft: textbox.offsetWidth + 'px'
+                });
+            },
+            onClose: function (selectedDate) {
+                /*  $("body").delegate("#FechaFinAc", "focusin", function () {
+                       $(this).datepicker("option", "minDate", selectedDate);
+                   });*/
+            }
+        });
+    });
+
+    $("body").delegate("#FechaFinAc", "focusin", function () {
+
+        $(this).datepicker({
+            dateFormat: 'dd/mm/yy',
+            minDate: 0,
+            beforeShow: function (textbox, instance) {
+                instance.dpDiv.css({
+                    marginTop: (-textbox.offsetHeight) + 'px',
+                    marginLeft: textbox.offsetWidth + 'px'
+                });
+            }
+        });
+    });
+
+    function checkSupportForInputTypeDate() {
+        jQuery.validator.methods.date = function (value, element) {
+            if (value) {
+                try {
+                    value = value.replace(/\//g, "-");
+                    //var val = Date.parse(value, 'd/M/yyyy');
+                    //if (isNaN(val)) return false;
+                    //var result = value.match(/^dd?-dd?-dd$/);;
+                    //return result;
+                    var date = $.datepicker.parseDate('dd-mm-yy', value);
+                    //$.datepicker.parseDate('dd-mm-yyyy', value);
+                } catch (ex) {
+                    $(element).val('');
+
+                    return false;
+                }
+            }
+            return true;
+        };
+    }
+    $(document).ready(function () {
+        checkSupportForInputTypeDate();
+
+    });
+</script>

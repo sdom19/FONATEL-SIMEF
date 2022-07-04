@@ -1,0 +1,276 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.SolicitudIndicador>, GB.SUTEL.Entities.Operador, List<GB.SUTEL.Entities.SolicitudConstructor>>
+
+@using GB.SUTEL.UI.Helpers;
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+
+
+<form id="frmFiltroServiciosCalidadWeb" method="post"
+      action="@Url.Action("_tableCalidadWeb")" data-ajax="true" data-ajax-target="#tableRegistroIndicadoresSolicitudCalidadWeb"
+      data-ajax-message="Cargando datos...">
+
+    <div class="flex mt-1 mb-1">
+        <input type="text" name="IdOperador" value="@Model.Item2.IdOperador" style="display:none" />
+        @Html.DropDownList("idServicioCalidad", (List<SelectListItem>)ViewBag.ServicioList, "--- Seleccione un servicio ---", new { @class = "form-control", id = "CmbServiciosCalidad", style = "display:none", @onchange = "sendSubmitCalidadWeb()" })
+        <input id="btnSubmitCalidadWeb" type="submit" value="Filtrar" class="btn btn-primary" style="display:none" />
+        @if (ViewBag.ServicioList != null)
+        {
+            var control = 0;
+            var Orden = 0;
+            var clase = "";
+
+
+            foreach (var item in ViewBag.ServicioList)
+            {
+                if (item.Value == "3")
+                {
+                    clase = "btn btn-primary btn-lg";
+                }
+                if (item.Value == "4")
+                {
+                    clase = "btn btn-info btn-lg";
+                }
+                if (item.Value == "5")
+                {
+                    clase = "btn btn-warning btn-lg";
+                }
+                if (item.Value == "6")
+                {
+                    clase = "btn btn-danger btn-lg";
+                }
+                if (item.Value == "7")
+                {
+                    clase = "btn btn-success btn-lg";
+                }
+
+                control++;
+                <div class="colform-horizontal">
+                    <button type="button" id="@control" value="@item.Value" name="idServicio" class="@clase" aria-label="Left Align" onclick="CambiarCalidadWeb(@control)">
+                        <span>
+                            @item.Text
+                        </span>
+
+                    </button>
+                </div>
+
+            }
+
+        }
+    </div>
+
+</form>
+
+@if (ViewBag.ServicioList.Count > 0)
+{
+    if (rolValidation.ValidateScreenFunctions(this.Context, "Registro Indicadores", "Consultar"))
+    {
+        <table id="tableCalidadWeb" class="display" cellspacing="0" data-table-grid="true">
+            <thead>
+                <tr style="width:200px">
+                    <th width="2%">Nombre del Formulario Web</th>
+                    <th width="1%">Tiempo de Entrega</th>
+                    <th width="1%">Fecha Inicial</th>
+                    <th width="1%">Fecha Final</th>
+                    <th width="1%">Llenado web</th>
+                    <th width="1%">Guardado Preliminar</th>
+                    <th width="1%">Carga Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Item1 != null)
+                {
+                    foreach (var item in Model.Item1)
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DescFormulario)
+
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Frecuencia.NombreFrecuencia)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaInicio)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaFin)
+                            </td>
+
+
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmaDescargaWeb" onclick="hrefConfirmaDescargaWeb('@item.IdSolicitudIndicador');"
+                                        data-select="true" data-tooltip="true" data-json-selected='{"IDSolicitudIndicador":"@item.IdSolicitudIndicador"}' title="Llenado web" data-placement="right">
+                                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                                </button>
+                            </td>
+
+                            <td id="tdDescarga" condition="true" class="tdDescarga">
+                                @{GB.SUTEL.Entities.SolicitudConstructor value = Model.Item3.Where(x => x.IdSolicitudIndicador == item.IdSolicitudIndicador).FirstOrDefault();}
+                                @if (value != null)
+                                {
+                                    if (value.IdSemaforo == 2 || value.IdSemaforo == 3)
+                                    {
+                                        <button type="button" id="Descarga" class="btn btn-success" aria-label="Left Align"
+                                                data-select="true" data-tooltip="true" data-placement="left">
+                                            <span>SI</span>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" id="Descarga" class="btn btn-primary" aria-label="Left Align"
+                                                data-select="true" data-tooltip="true" data-placement="left">
+                                            <span>NO</span>
+                                        </button>
+                                    }
+                                }
+                                else
+                                {
+                                    <button type="button" id="Descarga" class="btn btn-primary" aria-label="Left Align"
+                                            data-select="true" data-tooltip="true" data-placement="left">
+                                        <span>NO</span>
+                                    </button>
+                                }
+                                @*@foreach (var Estado in Model.Item3)
+                                    {
+                                        if (Estado.IdSolicitudIndicador == item.IdSolicitudIndicador)
+                                        {
+
+                                            if (Estado.Descarga == true)
+                                            {
+                                                <button type="button" id="Descarga" class="btn btn-success" aria-label="Left Align"
+                                                        data-select="true" data-tooltip="true" data-placement="left" title="Archivo Descargado">
+                                                    <span>SI</span>
+                                                </button>break;
+                                            }
+                                            else
+                                            {
+                                                <button type="button" id="Descarga" class="btn btn-primary" aria-label="Left Align"
+                                                        data-select="true" data-tooltip="true" data-placement="left" title="Pendiente descarga">
+                                                    <span>NO</span>
+                                                </button>break;
+                                            }
+
+                                        }
+                                    }*@
+                                @*<button type="button" class="btn btn-success">
+                                        <span>NO</span>
+                                    </button>*@
+                            </td>
+
+                            <td id="@item.IdSolicitudIndicador" condition="true" class="tdCarga">
+                                @{GB.SUTEL.Entities.SolicitudConstructor value2 = Model.Item3.Where(x => x.IdSolicitudIndicador == item.IdSolicitudIndicador).FirstOrDefault();}
+                                @if (value != null)
+                                {
+                                    if (value2.IdEstado == 4)
+                                    {
+                                        <button type="button" id="Descarga" class="btn btn-success" aria-label="Left Align"
+                                                data-select="true" data-tooltip="true" data-placement="left">
+                                            <span>SI</span>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" id="Descarga" class="btn btn-primary" aria-label="Left Align"
+                                                data-select="true" data-tooltip="true" data-placement="left">
+                                            <span>NO</span>
+                                        </button>
+                                    }
+                                }
+                                else
+                                {
+                                    <button type="button" id="Descarga" class="btn btn-primary" aria-label="Left Align"
+                                            data-select="true" data-tooltip="true" data-placement="left">
+                                        <span>NO</span>
+                                    </button>
+                                }
+                                @*@foreach (var item2 in item.SolicitudConstructor)
+                                    {
+                                        if (item2.IdSolicitudIndicador == item.IdSolicitudIndicador && item2.IdOperador == Model.Item2.IdOperador)
+                                        {
+                                            if (item2.IdEstado == 4)
+                                            {
+                                                <button type="button" id="Descarga" class="btn btn-success" aria-label="Left Align"
+                                                        data-select="true" data-tooltip="true" data-placement="left" title="Archivo Cargado">
+                                                    <span>SI</span>
+                                                </button> break;
+                                            }
+                                            else
+                                            {
+                                                <button type="button" id="Descarga" class="btn btn-primary" aria-label="Left Align"
+                                                        data-select="true" data-tooltip="true" data-placement="left" title="Pendiente de Carga">
+                                                    <span>NO</span>
+                                                </button>break;
+
+                                            }
+
+                                        }
+                                    }*@
+
+                                @*<button type="button" class="btn btn-primary">
+                                        <span>NO</span>
+                                    </button>*@
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td width="1%" colspan="7">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">
+            No tiene permisos para consultar.
+        </div>
+    }
+ }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            AjaxifyMyForm("frmFiltroServiciosCalidadWeb",
+                function (data) {
+                    data = "<div id='tableRegistroIndicadoresSolicitudCalidadWeb'>" + data + "</div>";
+
+                    var $form = $(data);
+                    $("#tableRegistroIndicadoresSolicitudCalidadWeb").replaceWith(data);
+                },
+                function (error) {
+
+                });
+            $("#divMensajeError").hide();
+        });
+
+        if (typeof initDataGrid !== 'undefined') {
+
+            $('table[data-table-grid="true"]').ready(initDataGrid);
+        }
+
+        function sendSubmitCalidadWeb() {
+            document.getElementById("btnSubmitCalidadWeb").click();
+        };
+
+        function hrefConfirmaDescargaWeb(id) {
+            cargaConstructorPorIndicador(id);
+        }
+        function CambiarCalidadWeb(id) {
+            document.getElementById("CmbServiciosCalidad").selectedIndex = id;
+            document.getElementById("btnSubmitCalidadWeb").click();
+        };
+
+    </script>
