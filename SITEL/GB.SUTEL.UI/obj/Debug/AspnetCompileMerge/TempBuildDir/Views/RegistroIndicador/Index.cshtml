@@ -1,0 +1,56 @@
+﻿@model GB.SUTEL.Entities.Operador
+
+
+<h4>Registro de Indicadores</h4>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active tabMercados"><a href="#Mercados" aria-controls="Mercados" role="tab" data-toggle="tab">Mercados</a></li>
+    <li role="presentation" class="desactive tabCalidad"><a href="#Calidad" aria-controls="Calidad" role="tab" data-toggle="tab">Calidad</a></li>
+</ul>
+
+<div class="tab-content">
+   @* <input id="ActualizarActivo" type="submit"  class="btn btn-primary" onclick="Actualizar()" style="display:block" />*@
+    <div role="tabpanel" class="tab-pane active" id="Mercados">
+        <div id="tableRegistroIndicadoresSolicitudMercado">
+            @Html.Action("_tableMercado", Model)
+        </div>
+        <div id="tableRegistroIndicadoresSolicitudMercadoWeb">
+            @Html.Action("_tableMercadoWeb", Model)
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="Calidad">
+        <div id="tableRegistroIndicadoresSolicitudCalidad">
+            @Html.Action("_tableCalidad", Model)
+        </div>
+        <div id="tableRegistroIndicadoresSolicitudCalidadWeb">
+            @Html.Action("_tableCalidadWeb", Model)
+        </div>
+    </div>
+</div>
+
+@Html.HiddenFor(model => model.IdOperador, new { @id = "IdOperadorRegistroIndicador" })
+
+@Html.Partial("ConfirmaDescargaExcel")
+@Html.Partial("ConfirmaDescargaWeb")
+@Html.Partial("Ayuda")
+@Html.Partial("Mensaje")
+@Html.Partial("Importar")
+<script>
+import { win32 } from "path";
+
+    function onSuccessCreate() {
+        var formId = "frmFilterRegistroIndicadoresSolicitud";
+        $("#" + formId)[0].reset();
+        $("#" + formId).submit();
+        
+    }
+   
+   </script>
+@section scripts{
+    @Scripts.Render("~/Scripts/Proceso/RegistroIndicador/ImportarExcel.js")
+    @Scripts.Render("~/Scripts/Mantenimientos/Solicitud.js")
+    <script>
+            RequiredMessage = "@GB.SUTEL.Entities.Metadata.EntityErrors.Requerido";
+    </script>
+}

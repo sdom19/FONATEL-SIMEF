@@ -1,0 +1,79 @@
+﻿@model GB.SUTEL.Entities.IndicadorExterno
+@using GB.SUTEL.Entities.Metadata;
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+else
+{
+    <h4>Crear Indicador Externo</h4>
+    <hr />
+    <form id="formCreate" method="post"
+          action="@Url.Action("Crear")" data-ajax="true" data-ajax-message="Guardando..." data-ajax-message-default="Crear">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-horizontal container">
+            @*Id*@
+            <div class="form-group tipoExterno">
+            @Html.LabelFor(model => model.IdIndicadorExterno, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdIndicadorExterno, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="text-danger field-validation-error" hidden data-valmsg-for="NameRepeated" data-valmsg-replace="true">El id ya existe.</span>
+                @Html.ValidationMessageFor(model => model.IdIndicadorExterno, "", new { @class = "text-danger" })
+            </div>
+            </div>
+            @*Fuente*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdFuenteExterna, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IdFuenteExterna", new SelectList(ViewBag.FuentesExternas, "IdFuenteExterna", "NombreFuenteExterna"),
+                     "Seleccione", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdFuenteExterna, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*Nombre*@
+            <div class="form-group tipoExterno">
+                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    <span class="text-danger field-validation-error" hidden data-valmsg-for="NameRepeated" data-valmsg-replace="true">@GB.SUTEL.Shared.ErrorTemplate.NombreDuplicado</span>
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*Descripción*@
+            <div class="form-group tipoExterno">
+                @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @* Tipo Valor *@
+            @*<div class="form-group tipoExterno">
+                @Html.LabelFor(model => model.IdTipoValor, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IdTipoValor", new SelectList(ViewBag.TipoValores, "IdTipoValor", "Descripcion"), "Seleccione",
+                htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdTipoValor, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            @*Error*@
+            <div class="form-group">
+                <div class="alert alert-danger" hidden role="alert" name="error">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Crear" class="btn btn-success" title='@GB.SUTEL.Resources.Resources.btnTooltipGuardar' />
+                    @Html.ActionLink("Cancelar", "Index", "IndicadorExterno", null, new { @class = "btn btn-danger" ,title=GB.SUTEL.Resources.Resources.btnTooltipCancelar})
+                </div>
+            </div>
+        </div>
+    </form>
+}
+@section scripts{
+    @Scripts.Render("~/Scripts/FuenteExterna/IndicadorExterno/CreateEdit.js")
+}

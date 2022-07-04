@@ -1,0 +1,166 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.Criterio>, GB.SUTEL.Entities.Criterio>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Mantenimientos/Criterio.js")"></script>
+}
+
+
+
+<table class="display" data-table-grid="true">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2.IdCriterio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item2.DescCriterio)
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th>
+                Indicador
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model != null && Model.Item1 != null)
+        {
+            if (GB.SUTEL.UI.Helpers.rolValidation.ValidateScreenFunctions(this.Context, "Criterios", "Eliminar"))
+            {
+                foreach (var item in Model.Item1)
+                {
+
+                    <tr>
+                        <td data-toggle="modal" data-target="#modalEditarCriterio"
+                            data-select="true" onclick="cargarEditar('@item.IdDireccion','@item.IdIndicador')"
+                            data-json-selected='{"IdCriterio":" @item.IdCriterio ", "txtCodigo":" @item.IdCriterio ", "txtNombreCriterio": " @item.DescCriterio", "IdDireccionEditar":"@item.IdDireccion " , "IdIndicadorEditar":"@item.IdIndicador"}'>
+                            @Html.DisplayFor(modelIten => item.IdCriterio)
+                        </td>
+                        <td data-toggle="modal" data-target="#modalEditarCriterio"
+                            data-select="true" onclick="cargarEditar('@item.IdDireccion','@item.IdIndicador')"
+                            data-json-selected='{"IdCriterio":" @item.IdCriterio ", "txtCodigo":" @item.IdCriterio ", "txtNombreCriterio": " @item.DescCriterio", "IdDireccionEditar":"@item.IdDireccion ", "IdIndicadorEditar":"@item.IdIndicador" }'>
+                            @Html.DisplayFor(modelIten => item.DescCriterio)
+                        </td>
+                        <td data-toggle="modal" data-target="#modalEditarCriterio"
+                            data-select="true" onclick="cargarEditar('@item.IdDireccion','@item.IdIndicador')"
+                            data-json-selected='{"IdCriterio":" @item.IdCriterio ", "txtCodigo":" @item.IdCriterio ", "txtNombreCriterio": " @item.DescCriterio", "IdDireccionEditar":"@item.IdDireccion " , "IdIndicadorEditar":"@item.IdIndicador"}'>
+                            @Html.DisplayFor(modelIten => item.Direccion.Nombre)
+
+                        </td>
+                        <td data-toggle="modal" data-target="#modalEditarCriterio"
+                            data-select="true" onclick="cargarEditar('@item.IdDireccion','@item.IdIndicador')"
+                            data-json-selected='{"IdCriterio":" @item.IdCriterio ", "txtCodigo":" @item.IdCriterio ", "txtNombreCriterio": " @item.DescCriterio", "IdDireccionEditar":"@item.IdDireccion " , "IdIndicadorEditar":"@item.IdIndicador"}'>
+                            @Html.DisplayFor(modelIten => item.Indicador.NombreIndicador)
+
+                        </td>
+                        <td>
+
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminarCriterio" data-select="true" data-json-selected='{"ItemEliminar":" @item.IdCriterio "}'>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+
+
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                foreach (var item in Model.Item1)
+                {
+
+                    <tr>
+                        <td data-toggle="modal" data-target="#modalEditarCriterio"
+                            data-select="true"
+                            data-json-selected='{"IdCriterio":" @item.IdCriterio ", "txtCodigo":" @item.IdCriterio ", "txtNombreCriterio": " @item.DescCriterio", "IdDireccion":"@item.IdDireccion " }'>
+                            @Html.DisplayFor(modelIten => item.IdCriterio)
+                        </td>
+                        <td data-toggle="modal" data-target="#modalEditarCriterio"
+                            data-select="true"
+                            data-json-selected='{"IdCriterio":" @item.IdCriterio ", "txtCodigo":" @item.IdCriterio ", "txtNombreCriterio": " @item.DescCriterio", "IdDireccion":"@item.IdDireccion " }'>
+                            @Html.DisplayFor(modelIten => item.DescCriterio)
+                        </td>
+                        <td data-toggle="modal" data-target="#modalEditarCriterio"
+                            data-select="true"
+                            data-json-selected='{"IdCriterio":" @item.IdCriterio ", "txtCodigo":" @item.IdCriterio ", "txtNombreCriterio": " @item.DescCriterio", "IdDireccion":"@item.IdDireccion " }'>
+                            @Html.DisplayFor(modelIten => item.Direccion.Nombre)
+
+                        </td>
+                        <td data-toggle="modal" data-target="#modalEditarCriterio"
+                            data-select="true"
+                            data-json-selected='{"IdCriterio":" @item.IdCriterio ", "txtCodigo":" @item.IdCriterio ", "txtNombreCriterio": " @item.DescCriterio", "IdDireccion":"@item.IdDireccion " }'>
+                            @Html.DisplayFor(modelIten => item.Indicador.NombreIndicador)
+
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+            }
+
+
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td width="1%" colspan="5">
+                <form id="frmFiltrarCriterio" method="post"
+                      action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tableCriterio"
+                      data-ajax-message="Cargando datos...">
+                    @if (ViewBag.TerminosBusqueda != null)
+                    {
+
+                        <input placeholder="Código" name="IdCriterio" value="@(ViewBag.TerminosBusqueda.IdCriterio)" />
+                        
+                        <input placeholder="Descripción" name="DescCriterio" value="@ViewBag.TerminosBusqueda.DescCriterio" />
+                        <input placeholder="Dirección" name="Direccion.Nombre" value="@ViewBag.TerminosBusqueda.Direccion.Nombre" />
+                        <input placeholder="Indicador" name="Indicador.NombreIndicador" value="@ViewBag.TerminosBusqueda.Indicador.NombreIndicador" />
+                    }
+                    else
+                    {
+                        <input placeholder="Código" name="IdCriterio" value="" />
+                        
+                        <input placeholder="Descripción" name="DescCriterio" value="" />
+                         <input placeholder="Dirección" name="Direccion.Nombre" value=""/>
+                        <input placeholder="Indicador" name="Indicador.NombreIndicador" value="" />
+                    }
+                    <button type="submit" style="display:none">Buscar</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript">
+
+
+    $(document).ready(
+        function () {
+            AjaxifyMyForm("frmFiltrarCriterio",
+            function (data) {
+                data = "<div id='vistaCriterios'>" + data + "</div>";
+
+                var $form = $(data);
+
+                $("#vistaCriterios").replaceWith(data);
+            },
+            function (error) {
+
+            }, 10000);
+        });
+
+    $('table[data-table-grid="true"]').ready(initDataGrid);
+</script>
+
+
+

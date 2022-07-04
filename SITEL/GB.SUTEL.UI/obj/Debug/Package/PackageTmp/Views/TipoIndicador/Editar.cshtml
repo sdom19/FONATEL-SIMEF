@@ -1,0 +1,81 @@
+﻿@model GB.SUTEL.Entities.TipoIndicador
+@using GB.SUTEL.UI.Helpers;
+
+<form method="post" id="formEditarTipoIndicador"
+      action="@Url.Action("Editar")" data-ajax="true"
+      data-ajax-message="Cargando datos..." data-ajax-onsuccess="onsuccessAjaxEditarTipoIndicador">
+
+    <div class="modal fade" id="modalEditarTipoIndicador">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Editar Tipo Indicador</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-horizontal">
+                        
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.DesTipoInd, new { @class = "col-md-3 control-label", @for = "txtIDNombreTipoIndicadorEditar" })
+                            <div class="col-sm-9">
+                                @Html.HiddenFor(model => model.IdTipoInd, new { @id = "IDTipoIndicadorEditar" })
+                                @Html.EditorFor(model => model.DesTipoInd, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre", @id = "txtIDNombreTipoIndicadorEditar" } })
+                                </br>@Html.ValidationMessageFor(model => model.DesTipoInd, "", new { @class = "text-danger" })
+
+                                </br>
+                                <div class="alert alert-danger col-sm-9" hidden role="alert" id="divMensajeErroEditarTipoIndicador">
+                                    <strong>Error!</strong> El nombre ya existe.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    @if (rolValidation.ValidateScreenFunctions(this.Context, "Tipo Indicador", "Editar"))
+                    {
+                        <input type="submit" value="Guardar Cambios" class="btn btn-success" />
+                    }   
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>                                    
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</form>
+<script type="text/javascript">
+
+    /* Determina comportamiento al hacer submit */
+    $(document).ready(function () {
+
+        function onSuccessEditarTipoIndicador(data) {
+
+            data = JSON.parse(data);
+
+            if (data.ok === "True") {
+                $("#modalEditarTipoIndicador").modal('hide');
+                addSuccess({ msg: "La información se actualizó con éxito" });
+                $("#frmFilterTipoIndicador")[0].reset();
+                $("#frmFilterTipoIndicador").submit();
+
+            } else {
+                $("#divMensajeErroEditarTipoIndicador").show();
+            }
+        }
+        function onFailureEditarTipoIndicador(error) {
+
+        }
+        // pasa el id del form de crear
+        // pasa la función a ejecutar si todo está bien
+        // pasa la función a ejecutar si hay errores
+        AjaxifyMyForm("formEditarTipoIndicador",
+            onSuccessEditarTipoIndicador,
+            onFailureEditarTipoIndicador);
+    });
+</script>

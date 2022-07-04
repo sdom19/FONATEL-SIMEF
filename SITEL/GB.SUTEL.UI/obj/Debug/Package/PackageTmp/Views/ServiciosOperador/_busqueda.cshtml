@@ -1,0 +1,153 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.Operador>, List<GB.SUTEL.Entities.Servicio>>
+<table class="display" data-table-grid="true">
+
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Item1.First().NombreOperador)
+            </th>
+
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.Item1)
+        {
+            <tr>
+
+                <td data-toggle="modal" data-target="#"
+                    data-select="true" onclick="Aviso();"
+                    data-json-selected='{"IdOperadorGuardar":" @item.IdOperador ", "IdOperadorBuscar" : "@item.IdOperador"}'>
+                    @Html.DisplayFor(modelIten => item.NombreOperador)
+
+                    <!--######################################-->
+                    <button style="display:none" type="submit" class="btn btn-primary" aria-label="Left Align"
+                            data-select="true" id="butCargaServicios" name="butCargaServicios" data-json-selected='{"IdOperadorGuardar":" @item.IdOperador ", "IdOperadorBuscar" : "@item.IdOperador"}'>
+
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    </button>
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td width="1%">
+
+                <input placeholder="Nombre" name="NombreOperador" id="NombreOperador" value="@ViewBag.searchTerm_NOMBREOPERADOR" style="margin-left: 10%" />
+                <button type="button" id="btnBuscarOperadores" hidden>Submit</button>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+@*modal para cambio de operadores*@
+<div class="modal fade" id="modalContinuar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Aviso</h4>
+            </div>
+            <div class="modal-body">
+                <p>Debe de asociar el o los servicios seleccionados antes de elegir otro operador. ¿Desea continuar?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="modalSi" class="btn btn-default" data-dismiss="modal">Sí</button>
+                <button type="button" id="modalNo" class="btn btn-primary" data-dismiss="modal">No</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+@*</form>*@
+
+<script type="text/javascript">
+   
+    //##############################
+    $("#btnBuscarOperadores").click(function () {
+        //$("#formCrearServicio").submit();
+        var txtNombreOperador = $("#NombreOperador").val();
+
+
+        var json = {
+            "NombreOperador": txtNombreOperador
+        }
+
+        var options = {
+            type: "post",
+            dataType: "json",
+            url: "/ServiciosOperador/_busqueda",
+            data: { "data": json },
+            success: function (data) {
+                if (data.ok == "True") {
+                    data = "<div id='tablaOperadores'>" + data + "</div>";
+
+                    var $form = $(data);
+
+                    $("#tablaOperadores").replaceWith(data);
+
+                    if (typeof initDataGrid !== 'undefined') {
+                        $('table[data-table-grid="true"]').ready(initDataGrid);
+
+                    }
+
+                    //se quitan todos los check
+                    $('[type=checkbox]').each(function (index) {
+                        var checkbox = this;
+                        $(checkbox).prop('checked', false);
+                    });
+                    $('.modal-backdrop').remove();
+                    //initTable();
+                } else {
+
+                }
+            },
+            error: function (xhr, status, error) {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        data = "<div id='tablaOperadores'>" + xhr.responseText + "</div>";
+
+                        var $form = $(data);
+
+                        $("#tablaOperadores").replaceWith(data);
+
+                        if (typeof initDataGrid !== 'undefined') {
+                            $('table[data-table-grid="true"]').ready(initDataGrid);
+
+                        }
+
+                        //se quitan todos los check
+                        $('[type=checkbox]').each(function (index) {
+                            var checkbox = this;
+                            $(checkbox).prop('checked', false);
+                        });
+
+                        $('.modal-backdrop').remove();
+                        //initTable();
+                    } else {
+                    }
+                }
+            }
+        };
+
+        $.ajax(options);
+    });
+
+
+    $('#ConsultarServicios input').keyup(function (event) {
+        if (event.keyCode === 13) {
+
+            $("#btnBuscarOperadores").click();
+            return false;
+
+        }
+    });
+
+</script>

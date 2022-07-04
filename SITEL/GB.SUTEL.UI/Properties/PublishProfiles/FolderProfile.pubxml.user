@@ -10,19 +10,19 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
-      <publishTime>10/29/2021 13:32:47</publishTime>
+      <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>05/03/2022 12:48:06</publishTime>
+      <publishTime>07/03/2022 21:26:09</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>05/03/2022 12:48:06</publishTime>
+      <publishTime>07/03/2022 21:26:08</publishTime>
     </File>
     <File Include="bin/BotDetect.dll">
-      <publishTime>10/29/2021 13:32:47</publishTime>
+      <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/BotDetect.Web.Mvc.dll">
-      <publishTime>10/29/2021 13:32:47</publishTime>
+      <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/ClassLibraryDatasoft.dll">
       <publishTime>03/24/2020 14:35:45</publishTime>
@@ -34,220 +34,229 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/24/2020 14:35:45</publishTime>
     </File>
     <File Include="bin/ClosedXML.dll">
-      <publishTime>10/29/2021 13:32:47</publishTime>
+      <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/DocumentFormat.OpenXml.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/EF6.BulkInsert.dll">
-      <publishTime>10/29/2021 13:32:47</publishTime>
+      <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/en/GB.SUTEL.Resources.resources.dll">
-      <publishTime>04/27/2022 12:07:35</publishTime>
+      <publishTime>06/14/2022 17:17:21</publishTime>
     </File>
     <File Include="bin/EntityFramework.BulkInsert.dll">
-      <publishTime>10/29/2021 13:32:47</publishTime>
+      <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
-      <publishTime>10/29/2021 13:32:47</publishTime>
+      <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/EntityFramework.MappingAPI.dll">
-      <publishTime>10/29/2021 13:32:47</publishTime>
+      <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
-      <publishTime>10/29/2021 13:32:47</publishTime>
+      <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/EPPlus.dll">
-      <publishTime>10/29/2021 13:32:47</publishTime>
+      <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.BL.dll">
-      <publishTime>05/03/2022 12:11:52</publishTime>
+      <publishTime>06/29/2022 12:47:09</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.BL.pdb">
-      <publishTime>05/03/2022 12:11:52</publishTime>
+      <publishTime>06/29/2022 12:47:09</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.DAL.dll">
-      <publishTime>05/03/2022 12:11:51</publishTime>
+      <publishTime>06/28/2022 11:07:59</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.DAL.dll.config">
-      <publishTime>10/29/2021 13:32:28</publishTime>
+      <publishTime>06/14/2022 16:47:15</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.DAL.pdb">
-      <publishTime>05/03/2022 12:11:51</publishTime>
+      <publishTime>06/28/2022 11:07:59</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.Entities.dll">
-      <publishTime>04/27/2022 12:07:35</publishTime>
+      <publishTime>06/28/2022 11:05:37</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.Entities.dll.config">
-      <publishTime>10/29/2021 13:32:36</publishTime>
+      <publishTime>06/14/2022 16:47:23</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.Entities.pdb">
-      <publishTime>04/27/2022 12:07:35</publishTime>
+      <publishTime>06/28/2022 11:05:37</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.ExceptionHandler.dll">
-      <publishTime>04/27/2022 12:07:35</publishTime>
+      <publishTime>06/14/2022 17:17:10</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.ExceptionHandler.dll.config">
-      <publishTime>10/29/2021 13:32:38</publishTime>
+      <publishTime>06/14/2022 16:47:24</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.ExceptionHandler.pdb">
-      <publishTime>04/27/2022 12:07:35</publishTime>
+      <publishTime>06/14/2022 17:17:10</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.Resources.dll">
-      <publishTime>04/27/2022 12:07:35</publishTime>
+      <publishTime>06/14/2022 17:17:12</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.Resources.dll.config">
-      <publishTime>10/29/2021 13:32:42</publishTime>
+      <publishTime>06/14/2022 16:47:28</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.Resources.pdb">
-      <publishTime>04/27/2022 12:07:35</publishTime>
+      <publishTime>06/14/2022 17:17:12</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.Shared.dll">
-      <publishTime>04/27/2022 12:07:35</publishTime>
+      <publishTime>06/14/2022 20:47:22</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.Shared.dll.config">
-      <publishTime>10/29/2021 13:32:45</publishTime>
+      <publishTime>06/14/2022 16:47:30</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.Shared.pdb">
-      <publishTime>04/27/2022 12:07:35</publishTime>
+      <publishTime>06/14/2022 20:47:22</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.UI.dll">
-      <publishTime>05/03/2022 12:11:55</publishTime>
+      <publishTime>07/03/2022 20:58:47</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.UI.pdb">
-      <publishTime>05/03/2022 12:11:55</publishTime>
+      <publishTime>07/03/2022 20:58:47</publishTime>
     </File>
     <File Include="bin/ICSharpCode.SharpZipLib.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Security.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Security.Facebook.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Security.Google.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Security.MicrosoftAccount.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Security.Twitter.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.ReportViewer.Common.dll">
-      <publishTime>10/29/2021 13:32:51</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/Microsoft.ReportViewer.ProcessingObjectModel.DLL">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.ReportViewer.WebForms.DLL">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/MMLib.Core.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/MMLib.Extensions.dll">
-      <publishTime>10/29/2021 13:32:48</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/NPOI.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/NPOI.OOXML.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/NPOI.OpenXml4Net.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/NPOI.OpenXmlFormats.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/Omu.ValueInjecter.dll">
-      <publishTime>10/29/2021 13:32:29</publishTime>
+      <publishTime>06/14/2022 16:47:16</publishTime>
     </File>
     <File Include="bin/Owin.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:45</publishTime>
     </File>
     <File Include="bin/ReCaptcha.Mvc5.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/System.Web.Http.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/System.Web.Http.WebHost.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/System.Web.Mvc.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/System.Web.Optimization.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Deployment.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Razor.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="Content/32px.png">
-      <publishTime>10/29/2021 13:32:49</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
+    </File>
+    <File Include="Content/alertifyjs/alertify.min.css">
+      <publishTime>06/28/2022 11:08:00</publishTime>
+    </File>
+    <File Include="Content/alertifyjs/bootstrap.min.css">
+      <publishTime>06/29/2022 16:50:44</publishTime>
+    </File>
+    <File Include="Content/alertifyjs/CustomAlertify.css">
+      <publishTime>06/30/2022 14:20:56</publishTime>
     </File>
     <File Include="Content/ArchivoBrochure/Brochure SITEL.PDF">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/14/2022 16:47:47</publishTime>
     </File>
     <File Include="Content/bootstrap-select.min.css">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
-      <publishTime>02/14/2022 09:57:00</publishTime>
+      <publishTime>06/29/2022 15:56:00</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/29/2022 14:32:25</publishTime>
     </File>
     <File Include="Content/calendar.css">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="Content/DataTables-1.10.5/bower.json">
       <publishTime>10/29/2021 13:32:52</publishTime>
@@ -1323,6 +1332,15 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <File Include="Content/DataTables/Buttons-1.5.4/swf/flashExport.swf">
       <publishTime>10/29/2021 13:32:51</publishTime>
     </File>
+    <File Include="Content/DataTables/buttons.bootstrap5.css">
+      <publishTime>06/28/2022 11:08:00</publishTime>
+    </File>
+    <File Include="Content/DataTables/buttons.bootstrap5.min.css">
+      <publishTime>06/28/2022 11:08:00</publishTime>
+    </File>
+    <File Include="Content/DataTables/CustomTable.css">
+      <publishTime>06/28/2022 12:13:27</publishTime>
+    </File>
     <File Include="Content/DataTables/DataTables-1.10.18/css/dataTables.bootstrap.css">
       <publishTime>10/29/2021 13:32:51</publishTime>
     </File>
@@ -1411,13 +1429,13 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>10/29/2021 13:32:52</publishTime>
     </File>
     <File Include="Content/DataTables/datatables.css">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/28/2022 11:08:00</publishTime>
     </File>
     <File Include="Content/DataTables/datatables.js">
       <publishTime>10/29/2021 13:32:50</publishTime>
     </File>
     <File Include="Content/DataTables/datatables.min.css">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/28/2022 11:08:00</publishTime>
     </File>
     <File Include="Content/DataTables/datatables.min.js">
       <publishTime>10/29/2021 13:32:50</publishTime>
@@ -1494,2198 +1512,2564 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <File Include="Content/DataTables/Responsive-2.2.2/js/responsive.semanticui.min.js">
       <publishTime>10/29/2021 13:32:52</publishTime>
     </File>
+    <File Include="Content/DataTables/scroller.bootstrap.css">
+      <publishTime>06/28/2022 11:08:00</publishTime>
+    </File>
+    <File Include="Content/DataTables/scroller.bootstrap.min.css">
+      <publishTime>06/28/2022 11:08:00</publishTime>
+    </File>
+    <File Include="Content/DataTables/scroller.bootstrap5.css">
+      <publishTime>06/28/2022 11:08:00</publishTime>
+    </File>
+    <File Include="Content/DataTables/scroller.bootstrap5.min.css">
+      <publishTime>06/28/2022 11:08:00</publishTime>
+    </File>
     <File Include="Content/datepicker-master/.babelrc">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/.browserslistrc">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/.commitlintrc">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/.editorconfig">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/.eslintrc">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/.gitattributes">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/.gitignore">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/.huskyrc">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/.lintstagedrc">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/.travis.yml">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/CHANGELOG.md">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/dist/datepicker.common.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/dist/datepicker.css">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/dist/datepicker.esm.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/dist/datepicker.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/dist/datepicker.min.css">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/dist/datepicker.min.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/css/datepicker.css">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/css/main.css">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/index.html">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.ca-ES.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.cs-CZ.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.da-DK.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.de-DE.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.el-GR.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.en-GB.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.en-US.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.es-ES.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.fi-FI.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.fr-FR.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.hu-HU.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.is-IS.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.it-IT.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.ja-JP.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.ko-KR.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.lt-LT.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.lv-LV.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.nb-NO.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.nl-NL.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.oc-FR.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.pl-PL.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.pt-BR.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.ru-RU.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.sk-SK.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.sv-SE.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.th-TH.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.tr-TR.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.ug-CN.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.vi-VN.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/datepicker.zh-CN.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/docs/js/main.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/examples/datepicker-in-modal.html">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.ca-ES.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.cs-CZ.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.da-DK.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.de-DE.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.el-GR.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.en-GB.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.en-US.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.es-ES.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.fi-FI.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.fr-FR.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.hu-HU.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.is-IS.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.it-IT.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.ja-JP.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.km-KH.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.ko-KR.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.lt-LT.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.lv-LV.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.nb-NO.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.nl-NL.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.oc-FR.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.pl-PL.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.pt-BR.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:56</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.ru-RU.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.sk-SK.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.sv-SE.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.th-TH.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.tr-TR.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.ug-CN.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.vi-VN.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/i18n/datepicker.zh-CN.js">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/LICENSE">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/package-lock.json">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/package.json">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/postcss.config.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/README.md">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/rollup.config.js">
-      <publishTime>10/29/2021 13:32:59</publishTime>
+      <publishTime>06/14/2022 16:47:55</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/css/datepicker.css">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/css/datepicker.scss">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/index.css">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/index.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/index.scss">
-      <publishTime>10/29/2021 13:33:00</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/js/constants.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/js/datepicker.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/js/defaults.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/js/handlers.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/js/index.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/js/methods.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/js/render.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/src/js/utilities.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/css/main.css">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/events/hide.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/events/pick.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/events/show.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/index.html">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/js/main.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/destroy.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/formatDate.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/getDate.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/getDayName.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/getMonthName.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/hide.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/parseDate.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/pick.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/reset.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/setDate.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/setEndDate.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/setStartDate.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/show.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/methods/update.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/options/autoHide.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/options/autoPick.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/options/autoShow.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/options/date.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/options/endDate.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/options/filter.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/options/format.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/options/inline.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/options/startDate.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/datepicker-master/test/options/startView.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/Division.png">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/.gitignore">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:57</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/bower.json">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/dist/css/demo.css">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/dist/css/dropify.css">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/dist/css/dropify.min.css">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/dist/fonts/dropify.eot">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/dist/fonts/dropify.svg">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/dist/fonts/dropify.ttf">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/dist/fonts/dropify.woff">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/dist/js/dropify.js">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/dist/js/dropify.min.js">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/gulpfile.js">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/index.html">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/LICENCE.md">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/package.json">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/README.md">
-      <publishTime>10/29/2021 13:33:01</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/fonts/dropify.eot">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/fonts/dropify.svg">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/fonts/dropify.ttf">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/fonts/dropify.woff">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/images/cover.jpg">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/images/test-image-1.jpg">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/images/test-image-2.jpg">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/js/dropify.js">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/sass/demo.scss">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/sass/demo/helpers/_grid.scss">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/sass/demo/helpers/_mixins.scss">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/sass/demo/helpers/_shortcuts.scss">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/sass/demo/_grid.scss">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/sass/demo/_normalize.scss">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/sass/demo/_reset.scss">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/sass/demo/_typo.scss">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/sass/demo/_variables.scss">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/sass/dropify.scss">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/dropify-master/dropify-master/src/sass/_dropify-font.scss">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
+    </File>
+    <File Include="Content/Fonatel/CustomBootstrap.css">
+      <publishTime>07/01/2022 18:45:00</publishTime>
+    </File>
+    <File Include="Content/Fonatel/StepComponent.css">
+      <publishTime>07/02/2022 17:34:37</publishTime>
     </File>
     <File Include="Content/font-awesome.css">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="Content/font-awesome.min.css">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
+    </File>
+    <File Include="Content/Images/back_disabled.png">
+      <publishTime>06/23/2022 18:30:46</publishTime>
+    </File>
+    <File Include="Content/Images/back_enabled.png">
+      <publishTime>06/23/2022 18:30:46</publishTime>
+    </File>
+    <File Include="Content/Images/back_enabled_hover.png">
+      <publishTime>06/23/2022 18:30:46</publishTime>
     </File>
     <File Include="Content/Images/check.png">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/Images/close.png">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
+    </File>
+    <File Include="Content/Images/favicon.ico">
+      <publishTime>06/23/2022 18:30:46</publishTime>
     </File>
     <File Include="Content/Images/footer/direccion.png">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/Images/footer/telefono.png">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
+    </File>
+    <File Include="Content/Images/forward_disabled.png">
+      <publishTime>06/23/2022 18:30:46</publishTime>
+    </File>
+    <File Include="Content/Images/forward_enabled.png">
+      <publishTime>06/23/2022 18:30:46</publishTime>
+    </File>
+    <File Include="Content/Images/forward_enabled_hover.png">
+      <publishTime>06/23/2022 18:30:46</publishTime>
     </File>
     <File Include="Content/Images/header/arrowdown.png">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/Images/header/background.jpg">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/Images/header/backgroundTwo.png">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/Images/header/blue_gradient.png">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/Images/header/header-blue-white.jpg">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/Images/logos/logo-Sutel_03.png">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/Images/logos/logo-Sutel_07.png">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Images/logos/logo-Sutel_11.png">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Images/logos/logo-Sutel_11_3.png">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Images/logos/logo-Sutel_Onl.png">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
+    </File>
+    <File Include="Content/Images/sort_asc.png">
+      <publishTime>06/23/2022 18:30:46</publishTime>
+    </File>
+    <File Include="Content/Images/sort_asc_disabled.png">
+      <publishTime>06/23/2022 18:30:46</publishTime>
+    </File>
+    <File Include="Content/Images/sort_both.png">
+      <publishTime>06/23/2022 18:30:46</publishTime>
+    </File>
+    <File Include="Content/Images/sort_desc.png">
+      <publishTime>06/23/2022 18:30:46</publishTime>
+    </File>
+    <File Include="Content/Images/sort_desc_disabled.png">
+      <publishTime>06/23/2022 18:30:46</publishTime>
     </File>
     <File Include="Content/InputFile/css/fileinput.css">
-      <publishTime>10/29/2021 13:33:02</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/InputFile/css/fileinput.min.css">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/InputFile/js/fileinput.js">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/InputFile/js/fileinput.min.js">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/jstree.js">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/jstree.min.js">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/themes/default-dark/32px.png">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/themes/default-dark/40px.png">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/themes/default-dark/style.css">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/themes/default-dark/style.min.css">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/themes/default-dark/throbber.gif">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/themes/default/32px.png">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/themes/default/40px.png">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/themes/default/style.css">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/themes/default/style.min.css">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/themes/default/throbber.gif">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/jstree.js">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/jstree.min.js">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/themes/default-dark/32px.png">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/themes/default-dark/40px.png">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/themes/default-dark/style.css">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/themes/default-dark/style.min.css">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/themes/default-dark/throbber.gif">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/themes/default/32px.png">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/themes/default/40px.png">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/themes/default/style.css">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/themes/default/style.min.css">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/jsTree/Version3.3.0/themes/default/throbber.gif">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Login/source.css">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Mantenimiento.css">
-      <publishTime>02/14/2022 10:02:30</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="Content/Material.css">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/.eslintrc.js">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/.gitattributes">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/.gitignore">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/CHANGELOG.md">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/dist/css/mstepper.css">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/dist/css/mstepper.min.css">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/dist/js/mstepper.js">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/dist/js/mstepper.min.js">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/css/mstepper.css">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/css/mstepper.min.css">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/css/prism.css">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/css/style.css">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/icon.psd">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/apple-touch-icon-114x114.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/apple-touch-icon-120x120.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/apple-touch-icon-144x144.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/apple-touch-icon-152x152.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/apple-touch-icon-57x57.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/apple-touch-icon-60x60.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/apple-touch-icon-72x72.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/apple-touch-icon-76x76.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/favicon-128.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/favicon-16x16.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/favicon-196x196.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/favicon-32x32.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/favicon-96x96.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/favicon.ico">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/mstile-144x144.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/mstile-150x150.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/mstile-310x310.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/favicon/mstile-70x70.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/small_demo.gif">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/x256.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/images/x512.png">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/index.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/js/mstepper.js">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/js/mstepper.min.js">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/docs/js/prism.js">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/gulpfile.js">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/LICENSE">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/package.json">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/README.md">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/favicon.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/footer.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/head.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/hero.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/navbar.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/scripts.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/api/components/addremovesteps.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/api/components/commonlinear.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/api/components/events.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/api/components/feedback.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/api/components/getsteps.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/api/components/navigate.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/api/components/resetstepper.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/api/components/wrongstep.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/api/index.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/changelog.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/credits.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/demos/components/custom-validate.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/demos/components/feedback.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/demos/components/horizontal.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/demos/components/linear.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/demos/components/non-linear.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/demos/components/parallel.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/demos/index.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/donations.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/explanation.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/getting_started.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/installing.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/options/components/form_and_inputs.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/options/components/form_validation.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/options/components/horizontal_vertical.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/options/components/initialization.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/options/components/linear_nonlinear.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/options/components/step_labels.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/options/index.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/prerequisites.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/components/usage.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sections/index.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/components/sidenav.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/html_docs/index.html">
-      <publishTime>10/29/2021 13:33:04</publishTime>
+      <publishTime>06/14/2022 16:48:00</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/js/mstepper.js">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/js/polyfills.js">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/scss/components/_defaults.scss">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/scss/components/_feedback-loader.scss">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/scss/components/_horizontal-stepper.scss">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/scss/components/_inside-card-fix.scss">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/scss/components/_validate-js-fix.scss">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/scss/components/_variables.scss">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/scss/components/_vertical-stepper.scss">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/src/scss/mstepper.scss">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Materialize-stepper-master/yarn.lock">
-      <publishTime>10/29/2021 13:33:03</publishTime>
+      <publishTime>06/14/2022 16:47:59</publishTime>
     </File>
     <File Include="Content/Plantillas/notificaciones.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/Plantillas/notificacionesCierre.html">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/pnotify.custom.min.css">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="Content/Select2.min.css">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>02/14/2022 11:05:11</publishTime>
+      <publishTime>06/29/2022 12:47:09</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/CHANGELOG.md">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/dist/sweetalert2.all.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/dist/sweetalert2.all.min.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/dist/sweetalert2.css">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/23/2022 17:13:13</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/dist/sweetalert2.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/dist/sweetalert2.min.css">
       <publishTime>10/29/2021 13:33:06</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/dist/sweetalert2.min.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/LICENSE">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/package.json">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/README.md">
-      <publishTime>10/29/2021 13:33:05</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/animations.scss">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/constants.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/enhancers.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/enhancers/withGlobalDefaults.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/enhancers/withNoNewKeyword.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/extensions.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/extensions/withNoNewKeyword.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/globalState.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/instanceMethods.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:01</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/instanceMethods/enable-disable-elements.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/instanceMethods/getInput.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/instanceMethods/hideLoading.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/instanceMethods/progress-steps.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/instanceMethods/show-reset-validation-error.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/instanceMethods/_main.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/mixins.scss">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/privateProps.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/staticMethods.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/staticMethods/adaptInputValidator.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/staticMethods/argsToParams.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/staticMethods/close.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/staticMethods/dom.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/staticMethods/fire.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/staticMethods/mixin.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/staticMethods/queue.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/staticMethods/showLoading.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/staticMethods/timer.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/SweetAlert.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/sweetalert2.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/sweetalert2.scss">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/23/2022 17:33:33</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/toasts.scss">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/aria.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/classes.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/defaultInputValidators.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/DismissReason.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/animationEndEvent.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/domUtils.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/getters.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/index.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/init.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/measureScrollbar.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/parseHtmlToContainer.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/renderers/index.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/renderers/renderActions.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/renderers/renderContent.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/renderers/renderIcon.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/renderers/renderImage.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/renderers/renderProgressSteps.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/dom/renderers/renderTitle.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/ieFix.js">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/iosFix.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/isNodeEnv.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/openPopup.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/params.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/scrollbarFix.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/setParameters.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/Symbol.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/Timer.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/utils.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/utils/WeakMap.js">
-      <publishTime>10/29/2021 13:33:07</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/sweetalert2-7.32.2/package/src/variables.scss">
-      <publishTime>10/29/2021 13:33:06</publishTime>
+      <publishTime>06/14/2022 16:48:02</publishTime>
     </File>
     <File Include="Content/Umbrales.css">
-      <publishTime>10/29/2021 13:32:50</publishTime>
+      <publishTime>06/14/2022 16:47:46</publishTime>
     </File>
     <File Include="favicon.ico">
-      <publishTime>10/29/2021 13:32:45</publishTime>
+      <publishTime>06/14/2022 16:47:42</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.ttf">
-      <publishTime>10/29/2021 13:33:08</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.woff">
-      <publishTime>10/29/2021 13:33:08</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.woff2">
-      <publishTime>10/29/2021 13:33:08</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
-      <publishTime>10/29/2021 13:33:08</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.svg">
-      <publishTime>10/29/2021 13:33:08</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.ttf">
-      <publishTime>10/29/2021 13:33:08</publishTime>
+      <publishTime>06/14/2022 16:48:03</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.woff">
-      <publishTime>10/29/2021 13:33:08</publishTime>
+      <publishTime>06/14/2022 16:48:04</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>06/24/2021 22:47:35</publishTime>
     </File>
+    <File Include="Images/icon-add.svg">
+      <publishTime>06/28/2022 14:31:15</publishTime>
+    </File>
+    <File Include="Images/icon-calendar.svg">
+      <publishTime>07/01/2022 08:08:58</publishTime>
+    </File>
+    <File Include="Images/icon-clone.svg">
+      <publishTime>06/28/2022 14:31:15</publishTime>
+    </File>
+    <File Include="Images/icon-delete.svg">
+      <publishTime>06/28/2022 14:31:15</publishTime>
+    </File>
+    <File Include="Images/icon-download.svg">
+      <publishTime>06/28/2022 14:31:15</publishTime>
+    </File>
+    <File Include="Images/icon-edit.svg">
+      <publishTime>06/28/2022 14:31:15</publishTime>
+    </File>
+    <File Include="Images/icon-power-off.svg">
+      <publishTime>06/28/2022 14:31:15</publishTime>
+    </File>
+    <File Include="Images/icon-power-on.svg">
+      <publishTime>06/28/2022 14:31:15</publishTime>
+    </File>
+    <File Include="Images/icon-search.svg">
+      <publishTime>06/29/2022 12:47:09</publishTime>
+    </File>
+    <File Include="Images/icon-sent.svg">
+      <publishTime>07/01/2022 12:26:30</publishTime>
+    </File>
+    <File Include="Images/icon-upload.svg">
+      <publishTime>06/28/2022 14:31:15</publishTime>
+    </File>
+    <File Include="Images/question.svg">
+      <publishTime>06/28/2022 14:31:15</publishTime>
+    </File>
+    <File Include="Images/sort_asc.png">
+      <publishTime>06/24/2022 15:00:44</publishTime>
+    </File>
+    <File Include="Images/sort_asc_disabled.png">
+      <publishTime>06/24/2022 15:00:44</publishTime>
+    </File>
+    <File Include="Images/sort_both.png">
+      <publishTime>06/24/2022 15:00:44</publishTime>
+    </File>
+    <File Include="Images/sort_desc.png">
+      <publishTime>06/24/2022 15:00:44</publishTime>
+    </File>
+    <File Include="Images/sort_desc_disabled.png">
+      <publishTime>06/24/2022 15:00:44</publishTime>
+    </File>
+    <File Include="Images/success.svg">
+      <publishTime>06/30/2022 13:30:28</publishTime>
+    </File>
+    <File Include="Images/warning.svg">
+      <publishTime>06/28/2022 14:31:15</publishTime>
+    </File>
     <File Include="packages.config">
-      <publishTime>10/29/2021 13:32:45</publishTime>
+      <publishTime>06/14/2022 16:47:42</publishTime>
     </File>
     <File Include="Paginas/Reportes/ReporteBitacora.aspx">
-      <publishTime>10/29/2021 13:33:09</publishTime>
+      <publishTime>06/14/2022 16:48:05</publishTime>
     </File>
     <File Include="Paginas/Reportes/ReporteDetalleAgrupacionPorAgrupacion.aspx">
-      <publishTime>10/29/2021 13:33:09</publishTime>
+      <publishTime>06/14/2022 16:48:05</publishTime>
     </File>
     <File Include="Paginas/Reportes/ReporteIndicadorPorOperador.aspx">
-      <publishTime>10/29/2021 13:33:09</publishTime>
+      <publishTime>06/14/2022 16:48:05</publishTime>
     </File>
     <File Include="Paginas/Reportes/ReporteIndicadorPorServicio.aspx">
-      <publishTime>10/29/2021 13:33:09</publishTime>
+      <publishTime>06/14/2022 16:48:05</publishTime>
     </File>
     <File Include="Paginas/Reportes/ReporteTipoIndicadorServicio.aspx">
-      <publishTime>10/29/2021 13:33:09</publishTime>
+      <publishTime>06/14/2022 16:48:05</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>05/03/2022 12:47:51</publishTime>
+      <publishTime>07/03/2022 21:25:33</publishTime>
     </File>
     <File Include="Recursos/Imagenes/Indicadores.jpg">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:05</publishTime>
     </File>
     <File Include="Recursos/Imagenes/mision_vision_03.png">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:05</publishTime>
     </File>
     <File Include="Recursos/Imagenes/sitel1.jpg">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:05</publishTime>
     </File>
     <File Include="Recursos/Imagenes/sitel2.jpg">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Recursos/Imagenes/sitel3.jpg">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Referencias/EPPlus.dll">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Referencias/ReCaptcha.Mvc5.dll">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
+    </File>
+    <File Include="Scripts/alertifyjs/alertify.js">
+      <publishTime>06/28/2022 11:08:00</publishTime>
+    </File>
+    <File Include="Scripts/alertifyjs/alertify.min.js">
+      <publishTime>06/28/2022 11:08:00</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/dataTables.bootstrap.min.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/dataTables.editor.min.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/dataTables.select.min.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/dataTables.bootstrap.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/dataTables.bootstrap.min.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/datatables.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/datatables.min.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/dataTables.scroller.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/dataTables.scroller.min.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/jszip.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/jszip.min.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/pdfmake.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/pdfmake.min.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/scroller.bootstrap.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/scroller.bootstrap.min.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
+    </File>
+    <File Include="Scripts/DataTables/vfs_fonts.js">
+      <publishTime>06/29/2022 12:59:11</publishTime>
     </File>
     <File Include="Scripts/editor.bootstrap.min.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/Espectro.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/Espectro/Espectro.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
+    </File>
+    <File Include="Scripts/Fonatel/JsCategoria.js">
+      <publishTime>06/30/2022 08:26:39</publishTime>
+    </File>
+    <File Include="Scripts/Fonatel/JsFormularios.js">
+      <publishTime>07/03/2022 20:58:36</publishTime>
+    </File>
+    <File Include="Scripts/Fonatel/JsFuentes.js">
+      <publishTime>07/01/2022 10:55:50</publishTime>
+    </File>
+    <File Include="Scripts/Fonatel/JsIndicador.js">
+      <publishTime>07/02/2022 18:02:05</publishTime>
+    </File>
+    <File Include="Scripts/Fonatel/JsMensaje.js">
+      <publishTime>06/30/2022 14:30:42</publishTime>
+    </File>
+    <File Include="Scripts/Fonatel/JsPublicar.js">
+      <publishTime>07/02/2022 22:31:55</publishTime>
+    </File>
+    <File Include="Scripts/Fonatel/JsReglas.js">
+      <publishTime>06/30/2022 07:36:02</publishTime>
+    </File>
+    <File Include="Scripts/Fonatel/JsRelacionCategoria.js">
+      <publishTime>06/30/2022 06:01:46</publishTime>
+    </File>
+    <File Include="Scripts/Fonatel/JsSolicitud.js">
+      <publishTime>07/03/2022 15:46:27</publishTime>
+    </File>
+    <File Include="Scripts/Fonatel/JsUtilidades.js">
+      <publishTime>07/02/2022 09:29:17</publishTime>
     </File>
     <File Include="Scripts/Formulas/FormulasCumplimiento.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/FuenteExterna/IndicadorExterno/autoLoad.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/FuenteExterna/IndicadorExterno/CreateEdit.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/FuenteExterna/IndicadorExterno/functions.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/FuenteExterna/IndicadorExterno/generate.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.min.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.min.map">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery-1.12.4.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery-ui.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery-ui.min.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery.dataTables.min.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery.maskedinput.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery.numeric.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery.unobtrusive-ajax.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery.unobtrusive-ajax.min.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.min.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.unobtrusive.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.unobtrusive.min.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jsDatepickerES.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jsEliminarSolicitud.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/jsUtilidad.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/Login/jquery.capslockstate.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Login/source.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/main.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/Constructor/ConstructorCrear.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/Constructor/ConstructorEditar.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/Constructor/ConstructorEditarCriterio.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/Constructor/ConstructorGeneral.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/Criterio.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/DetalleAgrupacion.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/Frecuencia.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/IndicadorCruzado/CreateEdit.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/IndicadorCruzado/Edit.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/Nivel.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/ServicioIndicador/Create.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/ServicioIndicador/Edit.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/ServicioIndicador/source.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/serviciosOperador.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/Solicitud.js">
-      <publishTime>05/03/2022 11:04:23</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Mantenimientos/source.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.6.2.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/Moment.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/Multiselect/bootstrap-multiselect.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Multiselect/multiselect.min.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/notifications.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/pnotify.custom.min.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/Proceso/configuracionServicios.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Proceso/ModificacionRegistroIndicador/jsModificacionMasiva.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Proceso/ModificacionRegistroIndicador/jsModificarRegistroIndicadorInterno.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Proceso/RegistroIndicador/ImportarExcel.js">
-      <publishTime>02/14/2022 08:21:57</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/respond.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/respond.min.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/reusableComponents.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/ScriptMantenimiento.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/Seguridad/CambiarClave/source.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Seguridad/Usuarios/Create.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Seguridad/Usuarios/Edit.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Seguridad/Usuarios/source.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/Select2.min.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/selectRowGrid.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Scripts/sweetalert2.min.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/23/2022 17:23:19</publishTime>
     </File>
     <File Include="Scripts/UmbralPesoRelativo/UmbralPesoRelativo.js">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>10/29/2021 13:33:10</publishTime>
+      <publishTime>06/14/2022 16:48:06</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Views/Account/ExternalLoginFailure.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Views/Account/ForgotPassword.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Views/Account/ForgotPasswordConfirmation.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Views/Account/ResetPasswordConfirmation.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Views/Account/SendCode.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Account/VerifyCode.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Views/Agrupacion/CrearAgrupacion.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Agrupacion/EditarAgrupacion.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Agrupacion/EliminarAgrupacion.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Agrupacion/Index.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Agrupacion/_table.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
+    </File>
+    <File Include="Views/BitacoraFonatel/Index.cshtml">
+      <publishTime>06/30/2022 20:12:53</publishTime>
+    </File>
+    <File Include="Views/BitacoraFonatel/_BusquedaBitacora.cshtml">
+      <publishTime>06/30/2022 20:11:32</publishTime>
+    </File>
+    <File Include="Views/BitacoraFonatel/_TablaBitacora.cshtml">
+      <publishTime>06/30/2022 19:09:33</publishTime>
     </File>
     <File Include="Views/CambiarClave/Index.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
+    </File>
+    <File Include="Views/CategoriasDesagregacion/Create.cshtml">
+      <publishTime>07/01/2022 22:35:12</publishTime>
+    </File>
+    <File Include="Views/CategoriasDesagregacion/Detalle.cshtml">
+      <publishTime>06/30/2022 13:11:24</publishTime>
+    </File>
+    <File Include="Views/CategoriasDesagregacion/Index.cshtml">
+      <publishTime>07/01/2022 16:44:13</publishTime>
+    </File>
+    <File Include="Views/CategoriasDesagregacion/_CrearCategoria.cshtml">
+      <publishTime>06/29/2022 18:10:11</publishTime>
+    </File>
+    <File Include="Views/CategoriasDesagregacion/_CrearDetalle.cshtml">
+      <publishTime>06/29/2022 18:59:04</publishTime>
+    </File>
+    <File Include="Views/CategoriasDesagregacion/_TablaCategoriaDesagregacion.cshtml">
+      <publishTime>07/01/2022 16:44:13</publishTime>
+    </File>
+    <File Include="Views/CategoriasDesagregacion/_TablaDetalleDesagregacion.cshtml">
+      <publishTime>06/29/2022 20:34:47</publishTime>
     </File>
     <File Include="Views/ConfiguracionServicios/Index.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/ConfiguracionServicios/_Servicios.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/Clonar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/CrearArbol.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/EditarArbol.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/EditarCriterio.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/EditarOperador.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/Eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/Index.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_criterioEliminar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_criterioEliminarEditar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_detalleAgrupacionCrear.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_detalleAgrupacionEliminar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_detalleAgrupacionEliminarEditar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaCriterio.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaCriterioConstructor.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaCriterioConstructorEditar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaCriterioEditar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaDetalleAgrupacion.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaDetalleAgrupacionOperador.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaDetalleAgrupacionOperadorEditar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaIndicador.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaOperador.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaOperadorClonar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaOperadorClonarEditar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_tablaOperadorEditar.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Constructor/_table.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Criterio/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Criterio/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Criterio/Eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Criterio/Index.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Criterio/_table.cshtml">
-      <publishTime>10/29/2021 13:33:12</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
+    </File>
+    <File Include="Views/DefinicionIndicadores/Create.cshtml">
+      <publishTime>07/01/2022 22:57:32</publishTime>
+    </File>
+    <File Include="Views/DefinicionIndicadores/Detalle.cshtml">
+      <publishTime>07/01/2022 20:30:09</publishTime>
+    </File>
+    <File Include="Views/DefinicionIndicadores/Index.cshtml">
+      <publishTime>07/01/2022 21:25:26</publishTime>
+    </File>
+    <File Include="Views/DefinicionIndicadores/_CreateDefinicion.cshtml">
+      <publishTime>07/02/2022 13:32:15</publishTime>
+    </File>
+    <File Include="Views/DefinicionIndicadores/_TablaIndicadores.cshtml">
+      <publishTime>07/01/2022 21:31:58</publishTime>
     </File>
     <File Include="Views/DetalleAgrupacion/CargarExcel.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/DetalleAgrupacion/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/DetalleAgrupacion/DescargarExcel.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/DetalleAgrupacion/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/DetalleAgrupacion/Eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/DetalleAgrupacion/Error.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/DetalleAgrupacion/Index.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/DetalleAgrupacion/_table.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:08</publishTime>
     </File>
     <File Include="Views/Emails/notificacionCargarArchivo.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Emails/notificaciones.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Emails/notificacionSendmail.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Emails/PasswordChanged.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Emails/UserCreated.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Emails/UserCreatedFromActiveDirectory.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Emails/VerificarServicios.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Emails/_ViewStart.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Error/Error404.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Espectro/Details.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Espectro/Espectro.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/FormCumplimientoPorcen/EjecutarFormulas.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/FormCumplimientoPorcen/Index.cshtml">
-      <publishTime>02/14/2022 09:58:51</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
+    </File>
+    <File Include="Views/FormularioWeb/Create.cshtml">
+      <publishTime>07/03/2022 21:13:36</publishTime>
+    </File>
+    <File Include="Views/FormularioWeb/Index.cshtml">
+      <publishTime>07/03/2022 20:58:36</publishTime>
+    </File>
+    <File Include="Views/FormularioWeb/_CrearFormulario.cshtml">
+      <publishTime>07/03/2022 15:19:42</publishTime>
+    </File>
+    <File Include="Views/FormularioWeb/_CrearIndicador.cshtml">
+      <publishTime>07/03/2022 21:19:12</publishTime>
+    </File>
+    <File Include="Views/FormularioWeb/_TablaFormularios.cshtml">
+      <publishTime>07/02/2022 23:05:03</publishTime>
+    </File>
+    <File Include="Views/FormularioWeb/_TablaIndicador.cshtml">
+      <publishTime>07/03/2022 21:22:06</publishTime>
     </File>
     <File Include="Views/Frecuencia/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Frecuencia/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Frecuencia/Eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Frecuencia/Index.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Frecuencia/_table.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/FuenteExterna/Index.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/FuenteExterna/_crear.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/FuenteExterna/_editar.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/FuenteExterna/_eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/FuenteExterna/_table.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
+    </File>
+    <File Include="Views/Fuentes/Create.cshtml">
+      <publishTime>07/01/2022 21:44:33</publishTime>
+    </File>
+    <File Include="Views/Fuentes/Detalle.cshtml">
+      <publishTime>07/01/2022 21:44:33</publishTime>
+    </File>
+    <File Include="Views/Fuentes/Index.cshtml">
+      <publishTime>07/01/2022 21:44:33</publishTime>
+    </File>
+    <File Include="Views/Fuentes/_CrearDetalle.cshtml">
+      <publishTime>07/01/2022 11:58:32</publishTime>
+    </File>
+    <File Include="Views/Fuentes/_CrearFuente.cshtml">
+      <publishTime>07/01/2022 21:44:33</publishTime>
+    </File>
+    <File Include="Views/Fuentes/_TablaDetalleFuentes.cshtml">
+      <publishTime>06/30/2022 21:40:29</publishTime>
+    </File>
+    <File Include="Views/Fuentes/_TablaFuentes.cshtml">
+      <publishTime>06/30/2022 21:42:47</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Home/_Datos.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Indicador/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Indicador/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Indicador/Eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Indicador/Index.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Indicador/_table.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Indicador/_tableDireccion.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Indicador/_tableIndicadoresUIT.cshtml">
-      <publishTime>10/29/2021 13:33:13</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/IndicadorCruzado/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/IndicadorCruzado/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/IndicadorCruzado/Index.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/IndicadorCruzado/_eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/IndicadorCruzado/_table.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/IndicadorCruzado/_tableIndicadores.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/IndicadorCruzado/_tableIndicadoresExternos.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/IndicadorCruzado/_tableIndicadoresInternos.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/IndicadorExterno/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/IndicadorExterno/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/IndicadorExterno/Index.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/IndicadorExterno/_eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/IndicadorExterno/_table.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
+    </File>
+    <File Include="Views/IndicadorFonatel/Create.cshtml">
+      <publishTime>07/02/2022 17:20:06</publishTime>
+    </File>
+    <File Include="Views/IndicadorFonatel/Index.cshtml">
+      <publishTime>07/01/2022 16:52:09</publishTime>
+    </File>
+    <File Include="Views/IndicadorFonatel/_CrearCategoria.cshtml">
+      <publishTime>07/01/2022 16:19:18</publishTime>
+    </File>
+    <File Include="Views/IndicadorFonatel/_CrearIndicador.cshtml">
+      <publishTime>07/02/2022 17:50:42</publishTime>
+    </File>
+    <File Include="Views/IndicadorFonatel/_CrearVariable.cshtml">
+      <publishTime>06/30/2022 16:37:33</publishTime>
+    </File>
+    <File Include="Views/IndicadorFonatel/_ModalGrupoIndicador.cshtml">
+      <publishTime>06/22/2022 12:12:30</publishTime>
+    </File>
+    <File Include="Views/IndicadorFonatel/_ModalTipoIndicador.cshtml">
+      <publishTime>06/22/2022 12:12:30</publishTime>
+    </File>
+    <File Include="Views/IndicadorFonatel/_TablaDetalleCategoria.cshtml">
+      <publishTime>07/01/2022 16:27:57</publishTime>
+    </File>
+    <File Include="Views/IndicadorFonatel/_TablaDetalleVariable.cshtml">
+      <publishTime>07/01/2022 16:27:57</publishTime>
+    </File>
+    <File Include="Views/IndicadorFonatel/_TablaIndicador.cshtml">
+      <publishTime>07/03/2022 21:21:30</publishTime>
     </File>
     <File Include="Views/IndicadorUIT/Index.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/IndicadorUIT/_CrearIndicadorUIT.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/IndicadorUIT/_EditarIndicadorUIT.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/IndicadorUIT/_EliminarIndicadorUIT.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/IndicadorUIT/_table.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/IndicadorUmbral/Index.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Login/_ResetPassword.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Manage/ChangePassword.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Manage/Index.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Manage/ManageLogins.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Manage/SetPassword.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Mantenimiento/DefinicionIndicadores.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Mantenimiento/ParametrosIndicadores.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Mantenimiento/Reporte.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/ModificionRegistroIndicadorInterno/ConfirmaDescargaExcel.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/ModificionRegistroIndicadorInterno/Error.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/ModificionRegistroIndicadorInterno/ErrorData.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/ModificionRegistroIndicadorInterno/Importar.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/ModificionRegistroIndicadorInterno/Index.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/ModificionRegistroIndicadorInterno/_tablaIndicador.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/ModificionRegistroIndicadorInterno/_tablaOperador.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/ModificionRegistroIndicadorInterno/_tablaSolicitudIndicador.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Nivel/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Nivel/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Nivel/Eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Nivel/Index.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Nivel/_table.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Operador/Index.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Operador/_table.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/PANTALLA/Create.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/PANTALLA/Delete.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/PANTALLA/Details.cshtml">
-      <publishTime>10/29/2021 13:33:14</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/PANTALLA/Edit.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/PANTALLA/Index.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Periodicidad/Index.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Periodicidad/_crear.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Periodicidad/_editar.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Periodicidad/_eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/Periodicidad/_table.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:10</publishTime>
+    </File>
+    <File Include="Views/PublicacionIndicadores/Index.cshtml">
+      <publishTime>07/02/2022 22:12:41</publishTime>
+    </File>
+    <File Include="Views/PublicacionIndicadores/_TablaIndicadores.cshtml">
+      <publishTime>07/02/2022 22:27:03</publishTime>
     </File>
     <File Include="Views/RegionIndicadorExterno/Index.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegionIndicadorExterno/_crear.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegionIndicadorExterno/_editar.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegionIndicadorExterno/_eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegionIndicadorExterno/_table.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/ConfirmaDescargaExcel.cshtml">
-      <publishTime>02/14/2022 08:21:57</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/ConfirmaDescargaWeb.cshtml">
-      <publishTime>02/14/2022 08:21:57</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/Error.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/ErrorData.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/ErrorDescargaBrochure.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/Importar.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/Index.cshtml">
-      <publishTime>02/14/2022 08:21:57</publishTime>
+      <publishTime>07/02/2022 21:44:20</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/_tableCalidad.cshtml">
-      <publishTime>01/20/2022 11:31:14</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/_tableCalidadWeb.cshtml">
-      <publishTime>01/20/2022 11:31:14</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
+    </File>
+    <File Include="Views/RegistroIndicador/_tableFonatel.cshtml">
+      <publishTime>07/02/2022 21:42:18</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/_tableMercado.cshtml">
-      <publishTime>02/14/2022 08:21:57</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/_tableMercadoWeb.cshtml">
-      <publishTime>03/03/2022 09:19:33</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicador/_tableTemp.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicadorExterno/CargaAutomatica.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicadorExterno/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicadorExterno/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicadorExterno/GenerarPlantilla.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicadorExterno/Index.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicadorExterno/_eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicadorExterno/_preview.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicadorExterno/_table.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/RegistroIndicadorExterno/_tableIndicadoresExternos.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
+    </File>
+    <File Include="Views/ReglasValidacion/Create.cshtml">
+      <publishTime>06/30/2022 08:39:38</publishTime>
+    </File>
+    <File Include="Views/ReglasValidacion/Detalle.cshtml">
+      <publishTime>06/29/2022 21:03:04</publishTime>
+    </File>
+    <File Include="Views/ReglasValidacion/Index.cshtml">
+      <publishTime>06/30/2022 08:39:38</publishTime>
+    </File>
+    <File Include="Views/ReglasValidacion/_CrearRegla.cshtml">
+      <publishTime>06/30/2022 07:41:26</publishTime>
+    </File>
+    <File Include="Views/ReglasValidacion/_TablaDetalleDesagregacion.cshtml">
+      <publishTime>06/29/2022 21:03:04</publishTime>
+    </File>
+    <File Include="Views/ReglasValidacion/_TablaRegla.cshtml">
+      <publishTime>06/29/2022 21:18:36</publishTime>
+    </File>
+    <File Include="Views/RelacionCategoria/Create.cshtml">
+      <publishTime>06/30/2022 08:32:33</publishTime>
+    </File>
+    <File Include="Views/RelacionCategoria/Detalle.cshtml">
+      <publishTime>06/30/2022 08:36:42</publishTime>
+    </File>
+    <File Include="Views/RelacionCategoria/Index.cshtml">
+      <publishTime>06/30/2022 08:32:33</publishTime>
+    </File>
+    <File Include="Views/RelacionCategoria/_CrearDetalle.cshtml">
+      <publishTime>06/30/2022 08:36:42</publishTime>
+    </File>
+    <File Include="Views/RelacionCategoria/_CrearRelacionCategoria.cshtml">
+      <publishTime>06/30/2022 08:36:17</publishTime>
+    </File>
+    <File Include="Views/RelacionCategoria/_TablaDetalleRelacionCategoria.cshtml">
+      <publishTime>06/29/2022 20:34:47</publishTime>
+    </File>
+    <File Include="Views/RelacionCategoria/_TablaRelacionCategoria.cshtml">
+      <publishTime>06/29/2022 20:25:14</publishTime>
     </File>
     <File Include="Views/Reporte/index.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Reporte/_ReporteBitacora.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Reporte/_ReporteDetalleAgrupacionPorAgrupacion.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Reporte/_ReporteIndicadorPorOperador.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Reporte/_ReporteIndicadorPorServicio.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Reporte/_ReporteTipoIndicadorServicio.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Rol/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Rol/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Rol/Eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Rol/Index.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Rol/Permisos.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Rol/_table.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Servicio/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Servicio/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Servicio/Eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Servicio/Index.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Servicio/_table.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Servicio/_tableTipoIndicadores.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/Servicio/_tableTipoIndicadoresEditar.cshtml">
-      <publishTime>10/29/2021 13:33:15</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/ServicioIndicador/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/ServicioIndicador/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/ServicioIndicador/Index.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/ServicioIndicador/_eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/ServicioIndicador/_table.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/ServicioIndicador/_tableIndicadores.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:11</publishTime>
     </File>
     <File Include="Views/ServiciosOperador/Index.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/ServiciosOperador/_busqueda.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Shared/footer/_footer.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Shared/header/_header.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/28/2022 20:34:46</publishTime>
     </File>
     <File Include="Views/Shared/header/_infoUser.cshtml">
-      <publishTime>02/14/2022 08:21:57</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Shared/header/_logo.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/28/2022 18:57:41</publishTime>
     </File>
     <File Include="Views/Shared/header/_menu.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>07/02/2022 22:54:54</publishTime>
     </File>
     <File Include="Views/Shared/Lockout.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/29/2022 15:05:17</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/ConfirmaDescargaExcel.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/ConfirmaDescargaWeb.cshtml">
-      <publishTime>02/14/2022 08:21:58</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/Editar0.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/EditarFormularioWeb.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/Eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/Fechas.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/Index.cshtml">
-      <publishTime>11/13/2021 10:24:46</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/Indicadores.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/IndicadoresEditar.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/Notificar.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/NotificarMultiple.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Solicitud/_table.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
+    </File>
+    <File Include="Views/SolicitudFonatel/Create.cshtml">
+      <publishTime>07/01/2022 08:30:38</publishTime>
+    </File>
+    <File Include="Views/SolicitudFonatel/Detalle.cshtml">
+      <publishTime>07/01/2022 11:03:45</publishTime>
+    </File>
+    <File Include="Views/SolicitudFonatel/Index.cshtml">
+      <publishTime>07/01/2022 17:12:55</publishTime>
+    </File>
+    <File Include="Views/SolicitudFonatel/_CrearDetalle.cshtml">
+      <publishTime>06/17/2022 10:19:44</publishTime>
+    </File>
+    <File Include="Views/SolicitudFonatel/_CrearSolicitud.cshtml">
+      <publishTime>07/03/2022 15:43:04</publishTime>
+    </File>
+    <File Include="Views/SolicitudFonatel/_TablaSolicitudes.cshtml">
+      <publishTime>07/01/2022 18:25:38</publishTime>
     </File>
     <File Include="Views/SolicitudGenerals/Create.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/SolicitudGenerals/Edit.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/SolicitudGenerals/Index.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/SolicitudOperadors/Index.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/TipoIndicador/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/TipoIndicador/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:17</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/TipoIndicador/Eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/TipoIndicador/Index.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/TipoIndicador/_table.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Usuarios/Crear.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Usuarios/Editar.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Usuarios/Index.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Usuarios/_eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Usuarios/_roles.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Usuarios/_table.cshtml">
-      <publishTime>10/29/2021 13:33:16</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/Web.config">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Views/ZonaIndicadorExterno/Index.cshtml">
-      <publishTime>10/29/2021 13:33:17</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/ZonaIndicadorExterno/_crear.cshtml">
-      <publishTime>10/29/2021 13:33:17</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/ZonaIndicadorExterno/_editar.cshtml">
-      <publishTime>10/29/2021 13:33:17</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/ZonaIndicadorExterno/_eliminar.cshtml">
-      <publishTime>10/29/2021 13:33:17</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/ZonaIndicadorExterno/_table.cshtml">
-      <publishTime>10/29/2021 13:33:17</publishTime>
+      <publishTime>06/14/2022 16:48:12</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
-      <publishTime>10/29/2021 13:33:11</publishTime>
+      <publishTime>06/14/2022 16:48:07</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/28/2022 08:13:58</publishTime>
+      <publishTime>07/03/2022 21:25:29</publishTime>
     </File>
   </ItemGroup>
 </Project>

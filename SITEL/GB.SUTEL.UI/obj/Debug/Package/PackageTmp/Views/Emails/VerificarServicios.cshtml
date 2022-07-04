@@ -1,0 +1,122 @@
+@model Tuple<List<GB.SUTEL.Entities.Servicio>, List<GB.SUTEL.Entities.Operador>,List<GB.SUTEL.Entities.ServicioOperador>>
+
+    <!DOCTYPE HTML>
+    <html>
+    <head>
+        <style>
+            body {
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+            p {
+                font-family: "Times New Roman";
+                font-size: 20px;
+            }
+
+            .tg {
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+
+            .tg td {
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                padding: 10px 5px;
+                border-style: solid;
+                border-width: 1px;
+                overflow: hidden;
+                word-break: normal;
+            }
+
+            .tg th {
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                font-weight: normal;
+                padding: 10px 5px;
+                border-style: solid;
+                border-width: 1px;
+                overflow: hidden;
+                word-break: normal;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="../Images/logos/logo-Sutel_11_3.png" style="max-height: 55px;" />
+        <table style="border-collapse:collapse; background-color:#eeeeee; word-wrap:break-word; width:100%!important;line-height:100%!important ">
+            <tbody>
+                <tr>
+                    <td style="font-family:Helvetica,Arial,sans-serif; font-size:12px; color:#000; padding:25px 35px 25px 35px;">
+                        <table style="border-collapse:collapse; width:100%;background-color:#fff;">
+                            <tr>
+                                <td style="font-family:Helvetica,Arial,sans-serif;   font-size:15px;padding:
+15px 5px 5px 15px; color:#0072c6;  text-decoration:none; border:0; text-align:left">
+                                    <b>Sistema de Indicadores de Telecomunicaciones (SITEL)</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;padding-top:25px;padding-left:15px;">                                    
+                                    Se informa que el Operador: @Model.Item2[0].NombreOperador, confirmó que, de los servicios autorizados, comercializa los que se detallan a continuación: <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;padding-bottom:15px;padding-top:15px;padding-left:15px;">
+                                    <table class="tg">
+                                        <thead>
+                                            <tr>
+                                                <th class="tg-031e" style="background:#084B8A; color:white;">
+                                                    Servicios
+                                                </th>
+                                                <th class="tg-031e" style="background:#084B8A; color:white;">
+                                                    Confirmados
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Item1)
+                                            {
+                                                <tr style="vertical-align:top; border-spacing: 1px; ">
+                                                    <td class="tg-s6z2">@item.DesServicio</td>
+                                                    <td>
+                                                        @foreach (var item2 in Model.Item3)
+                                                        {
+                                                            if (item2.IdeServicio == item.IdServicio && item2.Verificar == true)
+                                                            {
+                                                                <center>
+                                                                    <span style="text-align:center">&#10004;</span>
+                                                                </center>
+                                                            }
+
+                                                        }
+                                                    </td>
+
+
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>                            
+                            <tr>
+                                <td style="text-align:left;padding-left:15px;font-size:11px;">
+                                    <hr>
+                                    Por favor, no responder a este correo ya que no es monitoreado.
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;padding-left:15px;font-size:11px;">
+
+                                    Cualquier duda o consulta diríjase al correo:<a>sitel@sutel.go.cr</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

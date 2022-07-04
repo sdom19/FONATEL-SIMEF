@@ -1,0 +1,99 @@
+﻿<div class="modal fade" id="modalRegistroIndicadoresImportar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Carga de Archivo Excel</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+
+                        <div class="col-sm-12">
+                            @if (ViewBag.Error != null)
+                            {
+                                <div class="alert alert-danger">
+                                    @ViewBag.Error
+                                </div>
+                            }
+
+                            <form id="formUpload" method="post" action="@Url.Action("ImportarExcel")"
+                                  data-ajax="true" data-ajax-message="Guardando..." data-ajax-message-default="@GB.SUTEL.Resources.Resources.btnCargaRegsitro">
+                                @Html.AntiForgeryToken()
+                                <div>
+
+                                    @GB.SUTEL.Resources.Resources.RegistroIndicador_msjUsuarioCargaExel
+
+                                </div>
+                                <div class="form-group mt-3">
+                                    @Html.Label("Seleccionar archivo excel", new { @class = "col-md-5" })
+                                    <div class="col-md-7">
+                                        <input type="file" name="file" id="file" class="" />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <input type="hidden" id="IDSolicitudIndicadorImportar" name="IDSolicitudIndicadorImportar" value="">
+                                    <input type="hidden" id="IdOperador" name="IdOperador" value="">
+
+                                </div>
+                                @*Error*@
+                                <div class="form-group">
+                                    <div class="alert alert-danger" hidden role="alert" name="error">
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <input type="submit" value="@GB.SUTEL.Resources.Resources.btnCargaArchivo" class="btn btn-success" title="@GB.SUTEL.Resources.Resources.btnCargaArchivo" alt="@GB.SUTEL.Resources.Resources.btnCargaArchivo">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal" title="Salir">Cancelar</button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<script>
+
+   /* $('#formUpload').submit(
+        function () {
+            debugger;
+            var IdSolicitud = $("#IDSolicitudIndicadorImportar").val();
+            var IdOperador = $("#IdOperador").val();
+
+            $.ajax({
+                type: 'POST',
+                url: "http://localhost:64745/Solicitud/actualizarEstadoCarga/?idSolicitud=" + IdSolicitud + "&idOperador=" + IdOperador,
+                beforeSend: function () {
+                    console.log('Enviando estado...')
+                },
+                success: function (response) {
+                    console.log("Se a cambiado correctamente el estado de no cargado a cargado")
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+                //timeout: 10000
+
+            });
+            location.reload();
+        }*/
+
+</script>
+
+
+@section scripts{
+    @Scripts.Render("~/Scripts/Proceso/RegistroIndicador/ImportarExcel.js")
+
+    <script>
+        RequiredMessage = "@GB.SUTEL.Entities.Metadata.EntityErrors.Requerido";
+    </script>
+}

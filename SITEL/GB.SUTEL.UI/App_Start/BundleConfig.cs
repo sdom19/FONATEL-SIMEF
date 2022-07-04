@@ -37,7 +37,9 @@ namespace GB.SUTEL.UI
               "~/Scripts/Fonatel/JsReglas.js",
               "~/Scripts/Fonatel/JsIndicador.js",
               "~/Scripts/Fonatel/JsSolicitud.js",
-              "~/Scripts/Fonatel/JsFuentes.js"));
+              "~/Scripts/Fonatel/JsFuentes.js",
+              "~/Scripts/Fonatel/JsPublicar.js",
+              "~/Scripts/Fonatel/JsFormularios.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/internalSelectRowGrid").Include(
                 "~/Scripts/selectRowGrid.js",
@@ -74,11 +76,13 @@ namespace GB.SUTEL.UI
                       "~/Content/Select2.min.css",
                       "~/Content/calendar.css",
                       "~/Content/Fonatel/CustomBootstrap.css",
+                        "~/Content/Fonatel/StepComponent.css",
                       "~/Content/alertifyjs/alertify.min.css",
                       "~/Content/alertifyjs/bootstrap.min.css",
                        "~/Content/alertifyjs/CustomAlertify.css",
                         "~/Content/DataTables/buttons.bootstrap5.min.css",
-                        "~/Content/DataTables/scroller.bootstrap5.min.css"));
+                        "~/Content/DataTables/scroller.bootstrap5.min.css",
+                        "~/Content/font-awesome.min.css"));
             BundleTable.EnableOptimizations = true;
         }
     }

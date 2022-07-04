@@ -1,0 +1,121 @@
+﻿@model GB.SUTEL.UI.Models.NivelViewModels
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Mantenimientos/Nivel.js")"></script>
+}
+
+
+
+<table class="display" data-table-grid="true" data-tabla-ajax-url="/Nivel/Buscar">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.itemNivel.IdNivel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemNivel.DescNivel)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model != null && Model.listadoNiveles != null)
+        {
+            foreach (var item in Model.listadoNiveles)
+            {
+                <tr>
+                    <td data-toggle="modal" data-target="#modalEditarNivel"
+                        data-select="true"
+                        data-json-selected='{"IdNivel":" @item.IdNivel ", "txtNombreNivel": " @item.DescNivel"}'>
+                        @Html.DisplayFor(modelIten => item.IdNivel)
+                    </td>
+                    <td data-toggle="modal" data-target="#modalEditarNivel"
+                        data-select="true"
+                        data-json-selected='{"IdNivel":" @item.IdNivel ", "txtNombreNivel": " @item.DescNivel"}'>
+                        @Html.DisplayFor(modelIten => item.DescNivel)
+                    </td>
+
+                    <td>
+
+
+                        @if (GB.SUTEL.UI.Helpers.rolValidation.ValidateScreenFunctions(this.Context, "Nivel", "Eliminar"))
+                        {
+                            <button type="button" class="btn btn-danger myDelete" data-toggle="modal" data-target="#modalEliminarNivel" data-select="true"
+                                    data-json-selected='{"ItemEliminar":" @item.IdNivel "}'>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+
+                        }
+
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td width="1%" colspan="3">
+                <form id="frmFiltrarNivel" method="post"
+                      action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tableNivel"
+                      data-ajax-message="Cargando datos...">
+                    @if (ViewBag.TerminosBusqueda != null)
+                    {
+
+                        <input placeholder="Código" name="IdNivel" value="@(ViewBag.TerminosBusqueda.IdNivel == 0 ? "" : ViewBag.TerminosBusqueda.IdNivel)" />
+
+                        <input placeholder="Descripción" name="DescNivel" value="@ViewBag.TerminosBusqueda.DescNivel" />
+                    }
+                    else
+                    {
+                        <input placeholder="Código" name="IdNivel" value="" />
+
+                        <input placeholder="Descripción" name="DescNivel" value="" />
+                    }
+                    <button type="submit" style="display:none">Buscar</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript">
+
+
+    $(document).ready(
+        function () {
+            AjaxifyMyForm("frmFiltrarNivel",
+            function (data) {
+                data = "<div id='vistaNiveles'>" + data + "</div>";
+
+                var $form = $(data);
+
+                $("#vistaNiveles").replaceWith(data);
+            },
+            function (error) {
+
+            }, 10000);
+
+            if (typeof initDataGrid !== 'undefined') {
+                $('table[data-table-grid="true"]').ready(initDataGrid);
+            }
+
+            $('#frmFiltrarNivel input').keyup(function (event) {
+                if (event.keyCode === 13) {
+                    $('#frmFiltrarNivel').submit();
+                }
+            });
+        });
+
+
+</script>
+
+

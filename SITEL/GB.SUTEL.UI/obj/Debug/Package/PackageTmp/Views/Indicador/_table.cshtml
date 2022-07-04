@@ -1,0 +1,135 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.Indicador>, GB.SUTEL.Entities.Indicador, List<GB.SUTEL.Entities.TipoIndicador>>
+@using GB.SUTEL.UI.Helpers;
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Indicador", "Consultar"))
+{
+<table class="display" cellspacing="0" data-table-grid="true">
+    <thead>
+        <tr>
+            <th width="1%">Id</th>
+            <th width="1%">Nombre</th>
+            <th width="1%">Tipo Indicador</th>
+            <th width="1%">Dirección</th>
+            <th width="1%" class="no-sort" style="min-width:40px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Item1)
+        {
+            <tr>                
+                <td data-toggle="modal" data-target="#modalEditarIndicador"
+                    data-select="true" onclick="hrefEditarIndicador('@item.IdIndicador.Trim()');"
+                    data-json-selected='{"IDIndicadorEditar":" @item.IdIndicador ", "txtIDNombreIndicadorEditar": "@item.NombreIndicador" , "slttipoindicadoreditarindicador" : "@item.IdTipoInd" ,"txtEditarDescripcionIndicador" : "@item.DescIndicador" }'>
+                    @Html.DisplayFor(modelItem => item.IdIndicador)
+                </td>
+
+                <td data-toggle="modal" data-target="#modalEditarIndicador"
+                    data-select="true" onclick="hrefEditarIndicador('@item.IdIndicador.Trim()');"
+                    data-json-selected='{"IDIndicadorEditar":" @item.IdIndicador ", "txtIDNombreIndicadorEditar": "@item.NombreIndicador", "slttipoindicadoreditarindicador" : "@item.IdTipoInd" ,"txtEditarDescripcionIndicador" : "@item.DescIndicador" }'>
+                    @Html.DisplayFor(modelItem => item.NombreIndicador)
+                </td>
+
+                <td data-toggle="modal" data-target="#modalEditarIndicador"
+                    data-select="true" onclick="hrefEditarIndicador('@item.IdIndicador.Trim()');"
+                    data-json-selected='{"IDIndicadorEditar":" @item.IdIndicador ", "txtIDNombreIndicadorEditar": "@item.NombreIndicador", "slttipoindicadoreditarindicador" : "@item.IdTipoInd" ,"txtEditarDescripcionIndicador" : "@item.DescIndicador" }'>
+                    @Html.DisplayFor(modelItem => item.TipoIndicador.DesTipoInd)
+                </td>
+
+                <td data-toggle="modal" data-target="#modalEditarIndicador"
+                    data-select="true" onclick="hrefEditarIndicador('@item.IdIndicador.Trim()');"
+                    data-json-selected='{"IDIndicadorEditar":" @item.IdIndicador ", "txtIDNombreIndicadorEditar": "@item.NombreIndicador", "slttipoindicadoreditarindicador" : "@item.IdTipoInd" ,"txtEditarDescripcionIndicador" : "@item.DescIndicador" }'>
+                                        
+                    @if (item.Direccion.Count > 0)
+                    {
+                        var last = item.Direccion.Last();
+                        foreach (var itemDireccion in item.Direccion)
+                        {                                                        
+                            if (itemDireccion != last)
+                            {
+                                @(string.Concat(@itemDireccion.Nombre.Trim(),", "));
+                            }
+                            else
+                            {
+                                @itemDireccion.Nombre.Trim()
+                            }
+                         
+                        }                        
+                    }
+                                        
+                </td>
+
+                <td>
+                    @if (rolValidation.ValidateScreenFunctions(this.Context, "Indicador", "Eliminar"))
+                    { 
+                    <button type="button" class="btn btn-danger btn-sm" aria-label="Left Align" data-toggle="modal" data-target="#modalEliminarIndicador"
+                            data-select="true"
+                            data-json-selected='{"IDIndicadorEliminar":" @item.IdIndicador.Trim() "}'>
+
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td width="1%" colspan="5">
+                <form id="frmFilterIndicador" method="post"
+                      action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tableIndicador"
+                      data-ajax-message="Cargando datos...">
+                    <input placeholder="Id" name="IdIndicador" value="@ViewBag.searchTerm.IdIndicador" />
+
+                    <input placeholder="Nombre" name="NombreIndicador" value="@ViewBag.searchTerm.NombreIndicador" style="margin-left: 10%" />
+                    <input placeholder="Tipo Indicador" name="TipoIndicador.DesTipoInd" value="@ViewBag.searchTerm.TipoIndicador.DesTipoInd" style="margin-left: 10%" />
+                    <button type="submit" class="hidden">Submit</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+}
+ 
+<script type="text/javascript">
+
+    $(document).ready(
+        function () {
+            AjaxifyMyForm("frmFilterIndicador",
+            function (data) {
+                data = "<div id='tableIndicador'>" + data + "</div>";
+
+                var $form = $(data);
+                $("#tableIndicador").replaceWith(data);
+            },
+            function (error) {
+
+            }, 10000);
+     });
+    //Consulta permisos de roles por usuario
+    if (typeof initDataGrid !== 'undefined') {
+        $('table[data-table-grid="true"]').ready(initDataGrid);
+    }  
+
+    $('#frmFilterIndicador').submit(function (event) {
+        event.preventDefault(); // stop the actual submit
+        // ajax code goes here to submit data
+    });
+
+    $('#frmFilterIndicador input').keyup(function (event) {
+        if(event.keyCode === 13){
+            $('#frmFilterIndicador').submit();
+        }
+    });
+  
+    function hrefEditarIndicador(id)
+    {        
+        window.location = "/Indicador/Editar?id="+id;
+    }
+</script>

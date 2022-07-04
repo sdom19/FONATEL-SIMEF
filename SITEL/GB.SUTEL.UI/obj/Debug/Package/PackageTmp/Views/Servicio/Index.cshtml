@@ -1,0 +1,32 @@
+﻿@*@model Tuple<List<GB.SUTEL.Entities.Servicio>, GB.SUTEL.Entities.Servicio>*@
+@model Tuple<List<GB.SUTEL.Entities.Servicio>, GB.SUTEL.UI.Models.ServicioViewModels>
+@using GB.SUTEL.UI.Helpers;
+
+<h4>Mantenimiento de Servicios</h4>
+<hr />
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Servicios", "Crear"))
+{
+    <p>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCrearServicio" id="btnMainNuevoServicio">
+            Nuevo
+        </button>
+    </p>
+}
+
+<div id="tableServicio">
+    @Html.Action("_table")
+</div>
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Servicios", "Crear"))
+{
+    @Html.Partial("Crear", Model.Item2)
+}
+
+@Html.Partial("Editar", Model.Item2)
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Servicios", "Eliminar"))
+{
+    @Html.Partial("Eliminar", Model.Item2)
+}      

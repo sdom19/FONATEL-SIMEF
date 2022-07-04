@@ -1,0 +1,31 @@
+﻿@using GB.SUTEL.UI.Helpers;
+
+<h4>Mantenimiento de Periodicidad</h4>
+<hr>
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Periodicidad", "Crear"))
+{
+    <p>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCrear">
+            Nuevo
+        </button>
+    </p>
+}
+<div id="tabla">
+    @Html.Action("_table")
+</div>
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Periodicidad", "Crear"))
+{
+    @Html.Partial("_crear");
+}
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Periodicidad", "Editar"))
+{
+    @Html.Partial("_editar");
+}
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Periodicidad", "Eliminar"))
+{
+    @Html.Partial("_eliminar");
+}
+@section scripts{
+    @Scripts.Render("~/Scripts/Mantenimientos/source.js")
+}

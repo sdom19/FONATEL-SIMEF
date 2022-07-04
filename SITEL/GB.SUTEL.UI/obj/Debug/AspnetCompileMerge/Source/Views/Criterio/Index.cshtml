@@ -1,0 +1,33 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.Criterio>, GB.SUTEL.Entities.Criterio>
+
+@{
+    ViewBag.Title = "Mantenimiento de Criterios";
+}
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Mantenimientos/Criterio.js")"></script>
+}
+<h4>Mantenimiento de Criterios</h4>
+
+<br />
+
+@if (GB.SUTEL.UI.Helpers.rolValidation.ValidateScreenFunctions(this.Context, "Criterios", "Crear"))
+{
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCrearCriterio">Nuevo</button><p></p>
+}
+
+@if (GB.SUTEL.UI.Helpers.rolValidation.ValidateScreenFunctions(this.Context, "Criterios", "Consultar"))
+{
+<div id="vistaCriterios">
+    @{Html.RenderPartial("_table");}
+</div>
+}
+@{Html.RenderPartial("Crear", Model.Item2);}
+@{Html.RenderPartial("Eliminar", Model.Item2);}
+
+@if (GB.SUTEL.UI.Helpers.rolValidation.ValidateScreenFunctions(this.Context, "Criterios", "Editar"))
+{
+    {Html.RenderPartial("Editar", Model.Item2);}
+
+
+}

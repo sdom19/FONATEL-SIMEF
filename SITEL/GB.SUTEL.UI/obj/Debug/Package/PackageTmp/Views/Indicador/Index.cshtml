@@ -1,0 +1,45 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.Indicador>, GB.SUTEL.Entities.Indicador, List<GB.SUTEL.Entities.TipoIndicador>>
+@using GB.SUTEL.UI.Helpers;
+
+<h4>Mantenimiento de Indicadores</h4>
+<hr />
+
+    @if (rolValidation.ValidateScreenFunctions(this.Context, "Indicador", "Crear"))
+    {
+         <p>
+        <!-- Button trigger modal -->            
+        <a class="btn btn-success" href="/Indicador/Crear" role="button">Nuevo</a>
+         </p>
+    }   
+
+    <div id="tableIndicador">
+        @Html.Action("_table")
+    </div>
+            
+    @if (rolValidation.ValidateScreenFunctions(this.Context, "Indicador", "Eliminar"))
+    {
+        @Html.Partial("Eliminar", Model.Item2)
+    }
+
+    @if (ViewBag.mostrarMensajeGuardo)
+    {
+        <script type="text/javascript">  
+            setTimeout(function () { 
+                addSuccess({ msg: "La información se guardó con éxito" });
+                window.history.replaceState("","","/Indicador/");
+            }, 500);            
+       </script>
+    } 
+   
+    @if (ViewBag.mostrarMensajeActualizo)
+    {
+        <script type="text/javascript">             
+            setTimeout(function () {
+                addSuccess({ msg: "La información se actualizó con éxito" });
+                window.history.replaceState("", "", "/Indicador/");
+            },500);
+       </script>
+    }
+    
+    
+    

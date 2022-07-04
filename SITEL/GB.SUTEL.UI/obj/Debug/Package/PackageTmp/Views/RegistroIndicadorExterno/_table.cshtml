@@ -1,0 +1,136 @@
+﻿@model List<GB.SUTEL.Entities.RegistroIndicadorExterno>
+@using GB.SUTEL.UI.Helpers;
+@{
+    bool editar = rolValidation.ValidateScreenFunctions(this.Context, "Registro Indicador Externo", "Editar");
+    bool eliminar = rolValidation.ValidateScreenFunctions(this.Context, "Registro Indicador Externo", "Eliminar");
+}
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error</span>
+    </div>
+}
+@if (!rolValidation.ValidateScreenFunctions(this.Context, "Registro Indicador Externo", "Consultar"))
+{
+    <div class="alert alert-warning" role="alert">
+        @GB.SUTEL.Resources.Resources.SinPermisosIndex
+    </div>
+}
+else
+{
+    <form id="formFilter" method="post" action="@Url.Action("_table")" data-ajax="true" data-ajax-message="Cargando datos desde index...">
+        @Html.AntiForgeryToken()
+        <table class="display" cellspacing="0" data-table-grid="true">
+            <thead>
+                <tr>
+                    <th width="1%">Fuente</th>
+                    <th width="1%">Indicador</th>
+                    <th width="1%">Valor</th>
+                    <th width="1%">A&ntilde;o</th>
+                    <th width="1%">Zona</th>
+                    <th width="1%">Cant&oacute;n</th>
+                    @if (eliminar)
+                    {
+                        <th width="1%" class="no-sort" style="min-width:40px;"></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+
+                            @if (editar)
+                            {
+
+                                <td onclick="editRedirect('@Url.Action("Editar", "RegistroIndicadorExterno")','@item.IdRegistroIndicadorExterno')">
+                                    @item.IndicadorExterno.FuenteExterna.NombreFuenteExterna
+                                </td>
+                                <td onclick="editRedirect('@Url.Action("Editar", "RegistroIndicadorExterno")','@item.IdRegistroIndicadorExterno')">
+                                    @item.IndicadorExterno.Nombre
+                                </td>
+                                <td onclick="editRedirect('@Url.Action("Editar", "RegistroIndicadorExterno")','@item.IdRegistroIndicadorExterno')">
+                                    @item.ValorIndicador.ToString().Replace(",", ".")
+                                </td>
+                                <td onclick="editRedirect('@Url.Action("Editar", "RegistroIndicadorExterno")','@item.IdRegistroIndicadorExterno')">
+                                    @item.Anno
+                                </td>
+                                <td onclick="editRedirect('@Url.Action("Editar", "RegistroIndicadorExterno")','@item.IdRegistroIndicadorExterno')">
+                                    @item.ZonaIndicadorExterno.DescZonaIndicadorExterno
+                                </td>
+                                <td onclick="editRedirect('@Url.Action("Editar", "RegistroIndicadorExterno")','@item.IdRegistroIndicadorExterno')">
+                                    @item.Canton.Nombre
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @item.IndicadorExterno.FuenteExterna.NombreFuenteExterna
+                                </td>
+                                <td>
+                                    @item.IndicadorExterno.Nombre
+                                </td>
+                                <td>
+                                    @item.ValorIndicador.ToString().Replace(",",".")
+                                </td>
+                                <td>
+                                    @item.Anno
+                                </td>
+                                <td>
+                                    @item.ZonaIndicadorExterno.DescZonaIndicadorExterno
+                                </td>
+                                <td>
+                                    @item.RegionIndicadorExterno.DescRegionIndicadorExterno
+                                </td>
+                            }
+                            @if (eliminar)
+                            {
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm btnEliminar" aria-label="Left Align" data-toggle="modal" data-target="#modalEliminar"
+                                            data-select="true"
+                                            data-json-selected='{"id":"@item.IdRegistroIndicadorExterno","NOMBREELIMINAR":"@item.IndicadorExterno.FuenteExterna.NombreFuenteExterna"}'>
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="3" style="text-align:center">@GB.SUTEL.Resources.Resources.TablaVacia</td></tr>
+                }
+
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td>
+                        <input placeholder="Fuente" name="fuente" value="@(ViewBag.searchTerm[0] == null ? "" : ViewBag.searchTerm[0])" />
+                    </td>
+                    <td>
+                        <input placeholder="Indicador" name="indicador" value="@(ViewBag.searchTerm[1] == null ? "" : ViewBag.searchTerm[1])" />
+                    </td>
+                    <td>
+                        <input placeholder="Valor" name="valor" value="@(ViewBag.searchTerm[2] == null ? "" : ViewBag.searchTerm[2])" />
+                    </td>
+                    <td>
+                        <input placeholder="Año" name="anno" value="@(ViewBag.searchTerm[3] == null ? "" : ViewBag.searchTerm[3])" />
+                    </td>
+                    <td>
+                        <input placeholder="Zona" name="zona" value="@(ViewBag.searchTerm[4] == null ? "" : ViewBag.searchTerm[4])" />
+                    </td>
+                    <td>
+                        <input placeholder="Cantón" name="region" value="@(ViewBag.searchTerm[5] == null ? "" : ViewBag.searchTerm[5])" />
+                    </td>
+                    @if (eliminar)
+                    {
+                        <td></td>
+                    }
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+}

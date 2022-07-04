@@ -1,0 +1,133 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.Servicio>, GB.SUTEL.Entities.Servicio>
+@using GB.SUTEL.UI.Helpers;
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Servicios", "Consultar"))
+{
+    <table class="display" cellspacing="0" data-table-grid="true">
+        <thead>
+            <tr>
+                <th width="1%">Id</th>
+                <th width="1%">Nombre</th>
+                <th width="1%" class="no-sort" style="min-width:40px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Item1)
+            {
+                <tr>
+
+                    <td data-target="#modalEditarServicio" data-toggle="modal" data-select="true"
+                        onclick="hrefEditarServicio('@item.IdServicio');"
+                        data-json-selected='{"IDServicioEditar":" @item.IdServicio ", "txtIDNombreServicioEditar": "@item.DesServicio"}'>
+                        @Html.DisplayFor(modelItem => item.IdServicio)
+                    </td>
+                    <td data-toggle="modal" data-target="#modalEditarServicio"
+                        onclick="hrefEditarServicio('@item.IdServicio');"
+                        data-select="true"
+                        data-json-selected='{"IDServicioEditar":" @item.IdServicio ", "txtIDNombreServicioEditar": "@item.DesServicio"}'>
+                        @Html.DisplayFor(modelItem => item.DesServicio)
+                    </td>
+
+                    <td>
+                        @if (rolValidation.ValidateScreenFunctions(this.Context, "Servicios", "Eliminar"))
+                        {
+                            <button type="button" class="btn btn-danger btn-sm" aria-label="Left Align" data-toggle="modal" data-target="#modalEliminarServicio"
+                                    data-select="true"
+                                    data-json-selected='{"IDServicioEliminar":" @item.IdServicio "}'>
+
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td width="1%" colspan="3">
+                    <form id="frmFilterServicio" method="post"
+                          action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tableServicio"
+                          data-ajax-message="Cargando datos...">
+                        <input placeholder="Id" name="IdServicio" value="@(ViewBag.searchTerm.IdServicio == 0 ? "" : ViewBag.searchTerm.IdServicio)" />
+
+                        <input placeholder="Nombre" name="DesServicio" value="@ViewBag.searchTerm.DesServicio" style="margin-left: 10%" />
+                        <button type="submit" hidden>Submit</button>
+                    </form>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        No tiene permisos para consultar.
+    </div>
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(
+    function () {
+        AjaxifyMyForm("frmFilterServicio",
+        function (data) {
+            data = "<div id='tableServicio'>" + data + "</div>";
+
+            var $form = $(data);
+            $("#tableServicio").replaceWith(data);
+        },
+        function (error) {
+
+        }, 10000);
+    });
+    //Consulta permisos de roles por usuario
+
+    if (typeof initDataGrid !== 'undefined') {
+        $('table[data-table-grid="true"]').ready(initDataGrid);
+    }
+
+    $('#frmFilterServicio').submit(function (event) {
+        event.preventDefault(); // stop the actual submit
+        // ajax code goes here to submit data
+    });
+
+    $('#frmFilterServicio input').keyup(function (event) {
+        if (event.keyCode === 13) {
+            $('#frmFilterServicio').submit();
+        }
+    });
+
+    function hrefEditarServicio(idServicio) {
+        var options = {
+            type: "post",
+            dataType: "json",
+            url: "/Servicio/ConsultarParaEditar",
+            data: { "data": idServicio },
+            success: function (data) {                
+                if (data.ok == "True") {
+                    $("#frmFilterTipoIndicadorEditar")[0].reset();
+                    $("#txtSubmitBuscaTipoIndicadorEditar").val("");
+                    $("#frmFilterTipoIndicadorEditar").submit();
+                    loadIndicador(data);
+                } 
+            },
+            error: function (error) {
+                alert('no exito');
+            }
+        };
+
+        $.ajax(options);
+
+    }
+
+
+</script>

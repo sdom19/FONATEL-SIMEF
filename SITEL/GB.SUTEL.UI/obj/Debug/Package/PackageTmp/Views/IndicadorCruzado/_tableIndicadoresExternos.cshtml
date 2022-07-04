@@ -1,0 +1,42 @@
+@model List<GB.SUTEL.Entities.IndicadorExterno>
+@using GB.SUTEL.UI.Helpers;
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error</span>
+    </div>
+}
+    <form hidden method="post" action="@Url.Action("_tableIndicadoresExternos")" data-ajax="true" data-ajax-message="Cargando datos desde index...">
+    @Html.AntiForgeryToken()
+    <table class="display" cellspacing="0" data-table-grid="true">
+        <thead>
+            <tr>
+                <th class="no-sort"></th>
+                <th width="100%">Indicador</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model!=null){
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input name="INDICADORES" id="IEd @item.IdIndicadorExterno" data-id="@item.IdIndicadorExterno" type="checkbox" />
+                        </td>
+                        <td><label for="IEd @item.IdIndicadorExterno">@item.Nombre</label></td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <input type="hidden" name="searchid" value="@(ViewBag.searchTerm[1] == null ? "" : ViewBag.searchTerm[1])" />
+                </td>
+                <td>
+                    <input placeholder="Indicador" name="Nombre" value="@(ViewBag.searchTerm[0] == null ? "" : ViewBag.searchTerm[0])" />
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>
