@@ -256,6 +256,8 @@
     <Compile Include="Controllers\ConstructorController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EspectroController.cs" />
+    <Compile Include="Controllers\Fonatel\FormularioWebController.cs" />
+    <Compile Include="Controllers\Fonatel\PublicacionIndicadoresController.cs" />
     <Compile Include="Controllers\Fonatel\BitacoraFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\DefinicionIndicadoresController.cs" />
     <Compile Include="Controllers\Fonatel\CategoriasDesagregacionController.cs" />
@@ -586,6 +588,7 @@
     <Content Include="Content\dropify-master\dropify-master\src\images\test-image-2.jpg" />
     <Content Include="Content\dropify-master\dropify-master\src\js\dropify.js" />
     <Content Include="Content\Fonatel\CustomBootstrap.css" />
+    <Content Include="Content\Fonatel\StepComponent.css" />
     <Content Include="Content\Images\back_disabled.png" />
     <Content Include="Content\Images\back_enabled.png" />
     <Content Include="Content\Images\back_enabled_hover.png" />
@@ -635,6 +638,8 @@
     <Content Include="Scripts\DataTables\vfs_fonts.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />
     <Content Include="Scripts\Fonatel\JsReglas.js" />
+    <Content Include="Scripts\Fonatel\JsPublicar.js" />
+    <Content Include="Scripts\Fonatel\JsFormularios.js" />
     <Content Include="Scripts\Fonatel\JsSolicitud.js" />
     <Content Include="Scripts\Fonatel\JsRelacionCategoria.js" />
     <Content Include="Scripts\Fonatel\JsCategoria.js" />
@@ -1309,11 +1314,9 @@
     <Content Include="Views\ReglasValidacion\_TablaDetalleDesagregacion.cshtml" />
     <Content Include="Views\ReglasValidacion\Create.cshtml" />
     <Content Include="Views\ReglasValidacion\Detalle.cshtml" />
-    <Content Include="Views\IndicadorFonatel\DetalleVariables.cshtml" />
     <Content Include="Views\IndicadorFonatel\_CrearVariable.cshtml" />
     <Content Include="Views\IndicadorFonatel\_TablaDetalleVariable.cshtml" />
     <Content Include="Views\IndicadorFonatel\_CrearCategoria.cshtml" />
-    <Content Include="Views\IndicadorFonatel\DetalleCategoria.cshtml" />
     <Content Include="Views\IndicadorFonatel\_TablaDetalleCategoria.cshtml" />
     <Content Include="Views\BitacoraFonatel\Index.cshtml" />
     <Content Include="Views\BitacoraFonatel\_TablaBitacora.cshtml" />
@@ -1323,6 +1326,15 @@
     <Content Include="Views\DefinicionIndicadores\Detalle.cshtml" />
     <Content Include="Views\DefinicionIndicadores\_CreateDefinicion.cshtml" />
     <Content Include="Views\DefinicionIndicadores\Create.cshtml" />
+    <Content Include="Views\RegistroIndicador\_tableFonatel.cshtml" />
+    <Content Include="Views\PublicacionIndicadores\Index.cshtml" />
+    <Content Include="Views\PublicacionIndicadores\_TablaIndicadores.cshtml" />
+    <Content Include="Views\FormularioWeb\Index.cshtml" />
+    <Content Include="Views\FormularioWeb\_CrearFormulario.cshtml" />
+    <Content Include="Views\FormularioWeb\Create.cshtml" />
+    <Content Include="Views\FormularioWeb\_TablaFormularios.cshtml" />
+    <Content Include="Views\FormularioWeb\_CrearIndicador.cshtml" />
+    <Content Include="Views\FormularioWeb\_TablaIndicador.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>

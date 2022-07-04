@@ -53,7 +53,24 @@ $(document).ready(function () {
  
 
     });
+
+    $('.nav-tabs > li a[title]').tooltip();
+
+    //Wizard
+
+
 });
+
+
+$('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+
+    var $target = $(e.target);
+
+    if ($target.parent().hasClass('disabled')) {
+        return false;
+    }
+});
+
 
 
 $(document).on("keypress",'.solo_numeros', function (e) {

@@ -9,10 +9,11 @@
         "btnEnvioSolicitud": "#TablaSolicitud tbody tr td .btn-calendar",
         "btnEliminarProgramacion": "#TablaSolicitud tbody tr td .btn-calendar-disabled",
         "btnsent": "#TablaSolicitud tbody tr td .btn-sent",
-
+        "btnGuardarSolicitud":"#btnGuardarSolicitud",
         "btnDesactivadoSolicitud": "#TablaSolicitud tbody tr td .btn-power-off",
         "btnActivadoSolicitud": "#TablaSolicitud tbody tr td .btn-power-on",
-        "btnGuardar": "#btnGuardarSolicitud",
+        "btnGuardarEnvio": "#btnGuardarSolicitudEnvio",
+        "btnCancelarEnvio": "#btnCancelarSolicitudEnvio",
         "modalEnvio":"#modalEnvio"
     },
     "Variables":{
@@ -47,11 +48,20 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function 
 });
 
 
-$(document).on("click", JsSolicitud.Controles.btnGuardar, function (e) {
+$(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Programación a las Solicitud?")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.ConfirmaRegistro("La Programación a Sido Creada")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+        });
+});
+
+$(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Solicitud?")
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Solicitud ha Sido Creada")
+            jsMensajes.Metodos.ConfirmaRegistro("La Solicitud a Sido Creada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });
@@ -96,4 +106,9 @@ $(document).on("click", JsSolicitud.Controles.btnActivadoSolicitud, function (e)
 
 $(document).on("click", JsSolicitud.Controles.btnEnvioSolicitud, function () {
     $(JsSolicitud.Controles.modalEnvio).modal('show');
+});
+
+
+$(document).on("click", JsSolicitud.Controles.btnCancelarEnvio, function () {
+    $(JsSolicitud.Controles.modalEnvio).modal('hide');
 });

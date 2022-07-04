@@ -1,19 +1,17 @@
 ﻿    JsIndicador= {
         "Controles": {
-
-
-
+            "btnstep": ".step_navigation_indicador .nav li a",
+            "divContenedor":".contenedor",
             "btnGuardarIndicador": "#btnGuardarIndicador",
-
-         "btnGuardarVariable": "#btnGuardarVariable",
-        "btnEditarIndicador": "#TableIndicador tbody tr td .btn-edit",
-        "btnDesactivarIndicador": "#TableIndicador tbody tr td .btn-power-off",
-        "btnActivarIndicador": "#TableIndicador tbody tr td .btn-power-on",
-        "btnEliminarIndicador": "#TableIndicador tbody tr td .btn-delete",
-        "btnClonarIndicador": "#TableIndicador tbody tr td .btn-clone",
-        "btnAddIndicadorVariable": "#TableIndicador tbody tr td .variable",
-        "btnAddIndicadorCategoria": "#TableIndicador tbody tr td .categoria",
-        "btnEliminarVariable":"#TableDetalleVariable tbody tr td .btn-delete"
+            "btnGuardarVariable": "#btnGuardarVariable",
+            "btnEditarIndicador": "#TableIndicador tbody tr td .btn-edit",
+            "btnDesactivarIndicador": "#TableIndicador tbody tr td .btn-power-off",
+            "btnActivarIndicador": "#TableIndicador tbody tr td .btn-power-on",
+            "btnEliminarIndicador": "#TableIndicador tbody tr td .btn-delete",
+            "btnClonarIndicador": "#TableIndicador tbody tr td .btn-clone",
+            "btnAddIndicadorVariable": "#TableIndicador tbody tr td .variable",
+            "btnAddIndicadorCategoria": "#TableIndicador tbody tr td .categoria",
+            "btnEliminarVariable":"#TableDetalleVariable tbody tr td .btn-delete"
 
 
 
@@ -27,6 +25,16 @@
     }
 
 }
+
+
+
+
+$(document).on("click", JsIndicador.Controles.btnstep, function () {
+    let div = $(this).attr("href");
+    $(JsIndicador.Controles.divContenedor).addClass('hidden');
+    $(div).removeClass('hidden');
+});
+
 
 
 
@@ -94,11 +102,13 @@ $(document).on("click", JsIndicador.Controles.btnActivarIndicador, function () {
 $(document).on("click", JsIndicador.Controles.btnGuardarIndicador, function (e) {
     e.preventDefault();
 
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar el Indicador?")
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("El Indicador ha sido Creado")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
-        });
+    $('#titleee a').trigger('click');
+
+    //jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar el Indicador?")
+    //    .set('onok', function (closeEvent) {
+    //        jsMensajes.Metodos.ConfirmaRegistro("El Indicador ha sido Creado")
+    //            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
+    //    });
 });
 
 
