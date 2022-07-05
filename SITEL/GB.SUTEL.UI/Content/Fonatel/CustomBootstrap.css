@@ -10,11 +10,10 @@
     --light-2-blue-fonatel: #EDF1F7;
     --orange-fonatel: #F58A3B;
     --red-fonatel: #FF0007;
-}
 
-.fonatel-theme * {
-    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
-    font-style: normal;
+    --blue-fonatel-rgb-60: rgb(26 94 171 / 60%);
+
+    --default-border-color: #cccccc
 }
 
 .page-title-fonatel {
@@ -26,6 +25,25 @@
 .text-primary-simef {
     color: #005fbf;
 }
+
+.nav {
+    width: 100% !important;
+}
+
+.body-content {
+    padding-top: 15px !important
+}
+
+.modal-fonatel .modal-header {
+    background: var(--blue-fonatel);
+    color: #fff;
+}
+
+/*
+    ===============================================================
+                            Buttons
+    ===============================================================
+*/
 
 .btn-fonatel {
     letter-spacing: 0.13px;
@@ -82,21 +100,22 @@
 .btn-add {
     background-image: url("../../Images/icon-add.svg");
 }
+
 .btn-calendar {
     background-image: url("../../Images/icon-calendar.svg");
 }
 
-
 .btn-sent {
     background-image: url("../../Images/icon-sent.svg");
 }
+
 .btn-calendar-disabled {
     background-image: url("../../Images/icon-calendar-disabled.svg");
 }
+
 .btn-home {
     background-image: url("../../Images/icon-home.svg");
 }
-
 
 .btn-edit {
     background-image: url("../../Images/icon-edit.svg");
@@ -134,11 +153,11 @@
     background-image: url("../../Images/icon-cancel.svg");
 }
 
-/*input[type="search"] {*/
-    /*width: 100%;*/
-    /*padding: 9px 40px 9px 4px;
-    background: transparent url("../../Images/icon-search.svg") no-repeat 96% center;
-}*/
+/*
+    ===============================================================
+                            Breadcrumb
+    ===============================================================
+*/
 
  .breadcrumb {
     padding: 8px 15px;
@@ -152,15 +171,21 @@
      display: inline-block;
 }
 
-.breadcrumb > li + li:before {
-    padding: 0 5px;
-    color: #cccccc;
-    content: "/\00a0";
-}
+    .breadcrumb > li + li:before {
+        padding: 0 5px;
+        color: var(--default-border-color);
+        content: "/\00a0";
+    }
 
 .breadcrumb > .active {
      color: #999999;
 }
+
+/*
+    ===============================================================
+                            Margins
+    ===============================================================
+*/
 
 .mt-0 {
     margin-top: 0 !important;
@@ -190,12 +215,11 @@
     margin-top: auto !important;
 }
 
-.nav{
-    width:100%!important;
-}
-.body-content {
-    padding-top: 15px !important
-}
+/*
+    ===============================================================
+                            Table
+    ===============================================================
+*/
 
 .table-wrapper-fonatel .dataTables_length select {
     padding: 6px 12px;
@@ -205,7 +229,7 @@
     color: #555555;
     vertical-align: middle;
     background-color: var(--light-2-blue-fonatel);
-    border: 1px solid #cccccc;
+    border: 1px solid var(--default-border-color);
     border-radius: 9px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -213,15 +237,21 @@
     transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
-    .table-wrapper-fonatel .dataTables_length select:focus {
-        border-color: #66afe9;
-        outline: 0;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-    }
+.table-wrapper-fonatel .dataTables_length label,
+.table-wrapper-fonatel .dataTables_filter label,
+.table-wrapper-fonatel .dataTables_info {
+    font-weight: bold !important;
+}
+
+.table-wrapper-fonatel .dataTables_length select:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
 
 .table-wrapper-fonatel .dataTables_filter input {
-    padding: 9px 40px 9px 4px;
+    padding: 9px 35px 9px 10px;
     border-radius: 9px;
     background: transparent url("../../Images/icon-search.svg") no-repeat 96% center;
     background-color: var(--light-2-blue-fonatel);
@@ -234,6 +264,7 @@
 .table-wrapper-fonatel table.table-bordered.dataTable tbody th,
 .table-wrapper-fonatel table.table-bordered.dataTable tbody td {
     border-bottom-width: 0;
+    font-weight: normal;
 }
 
 .table-wrapper-fonatel table.table-bordered.dataTable th,
@@ -259,12 +290,70 @@
     color: #fff;
 }
 
-.textarea {
-    max-height:200px!important;
+/*
+    ===============================================================
+                            Inputs/Forms
+    ===============================================================
+*/
+
+.form-control-fonatel,                                                              /* Inputs de texto */
+.form-control-fonatel-textarea,
+.text-input-wrapper-btn-add input,                                                  /* Inputs de texto + botón de modal */
+.select2-btn-add-wrapper .select2-container--default .select2-selection--single,    /* Input Select2 + boton de modal */
+.select2-wrapper .select2-container--default .select2-selection--single {           /* Input Select2 individual */
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 5px 5px 0px 0px;
 }
 
-.modal-fonatel .modal-header {
-    background: var(--blue-fonatel);
-    color: #fff;
+    .form-control-fonatel:focus,
+    .form-control-fonatel-textarea:focus,
+    .text-input-wrapper-btn-add input:focus {
+        border-color: var(--blue-fonatel);
+        -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px var(--blue-fonatel-rgb-60);
+        box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px var(--blue-fonatel-rgb-60);
+    }
+
+.form-control-fonatel-textarea {
+    resize: vertical;
+    max-width: initial;
+    max-height: none;
 }
 
+.text-input-wrapper-btn-add {
+    display: inline-flex;
+}
+
+.select2-btn-add-wrapper {
+    display: flex;
+}
+
+    .text-input-wrapper-btn-add .btn-icon-base,
+    .select2-btn-add-wrapper .btn-icon-base {
+        margin-top: 4.5px;
+        margin-bottom: 4.5px;
+        width: 25px;
+        height: 25px;
+    }
+
+    .select2-btn-add-wrapper .select2.select2-container.select2-container--default {
+        max-width: 239px;
+        width: 100% !important;
+    }
+
+    .select2-btn-add-wrapper .select2-container--default .select2-selection--single,
+    .select2-wrapper .select2-container--default .select2-selection--single {
+        padding: 2.5px 6px 6px 6px;
+        height: 34px;
+        position: relative;
+        border: 1px solid var(--default-border-color);
+    }
+
+        .select2-btn-add-wrapper .select2-container--default .select2-selection--single:first-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+.select2-wrapper .select2.select2-container.select2-container--default {
+    width: 100% !important;
+    max-width: 280px;
+}
