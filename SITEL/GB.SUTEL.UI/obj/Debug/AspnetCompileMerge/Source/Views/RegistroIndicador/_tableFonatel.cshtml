@@ -1,217 +1,47 @@
-﻿@model Tuple<List<GB.SUTEL.Entities.SolicitudIndicador>, GB.SUTEL.Entities.Operador, List<GB.SUTEL.Entities.ArchivoExcel>>
+﻿
 
-@using GB.SUTEL.UI.Helpers;
 
-@if (ViewBag.Error != null)
-{
-    <div class="alert-danger">
-        <span>@ViewBag.Error.Id</span>
-        <span>@ViewBag.Error.Message</span>
-    </div>
-}
+<div class="table-responsive">
+    <table id="TableRegistroIndicadorFonatel" class="dataTable datatable_simef table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nombre de Formulario</th>
+                <th scope="col">Solicitud</th>
+                <th scope="col">Fecha Inicial</th>
+                <th scope="col">Fecha Final</th>
+                <th scope="col">Fuente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Estado Programa 1</th>
+                <td>SOL1-1</td>
+                <td>20/03/2021</td>
+                <td>20/04/2021</td>
+                <td>Fuente 1</td>
+            </tr>
+            <tr>
+                <th scope="row">Estado Programa 2</th>
+                <td>SOL1-3</td>
+                <td>20/03/2021</td>
+                <td>20/04/2021</td>
+                <td>Fuente 2</td>
+            </tr>
+            <tr>
+                <th scope="row">Estado Programa 4</th>
+                <td>SOL1-4</td>
+                <td>20/03/2021</td>
+                <td>20/04/2021</td>
+                <td>Fuente 3</td>
+            </tr>
+        </tbody>
 
-<form id="frmFiltroServiciosCalidad" method="post"
-      action="@Url.Action("_tableCalidad")" data-ajax="true" data-ajax-target="#tableRegistroIndicadoresSolicitudCalidad"
-      data-ajax-message="Cargando datos...">
+    </table>
+</div>
 
-    <div class="flex mt-1 mb-1">
-        <input type="text" name="IdOperador" value="@Model.Item2.IdOperador" style="display:none" />
-        @Html.DropDownList("idServicioCalidad", (List<SelectListItem>)ViewBag.ServicioList, "--- Seleccione un servicio ---", new { @class = "form-control", id = "CmbCalidad", style = "display:none", @onchange = "sendSubmitCalidad()" })
-        <input id="btnSubmitCalidad" type="submit" value="Filtrar" class="btn btn-primary" style="display:none" />
-        @if (ViewBag.ServicioList != null)
-        {
-            var Orden = 0;
-            var clase = "";
-            var control = 0;
 
-            foreach (var item in ViewBag.ServicioList)
-            {
-                Orden.Equals(@item.Value);
 
-                if (item.Value == "8")
-                {
-                    clase = "btn btn-primary btn-lg";
-                }
-                if (item.Value == "9")
-                {
-                    clase = "btn btn-info btn-lg";
-                }
-                if (item.Value == "10")
-                {
-                    clase = "btn btn-warning btn-lg";
-                }
-                if (item.Value == "14")
-                {
-                    clase = "btn btn-danger btn-lg";
-                }
-                if (item.Value == "15")
-                {
-                    clase = "btn btn-success btn-lg";
-                }
-                control++;
-                <div class="colform-horizontal">
-                    <button type="button" id="@control" value="@item.Value" name="idServicio" class="@clase" aria-label="Left Align" onclick="cambiarCalidad(@control)">
-                        <span>
-                            @item.Text
-                        </span>
-                    </button>
-                </div>
-            }
-        }
-    </div>
-    <h4 id="detalleservicioM"></h4>
 
-</form>
-@if (ViewBag.ServicioList.Count > 0)
-{
-    if (rolValidation.ValidateScreenFunctions(this.Context, "Registro Indicadores", "Consultar"))
-    {
-        <table class="display" cellspacing="0" data-table-grid="true">
-            <thead>
-                <tr style="width:200px">
-                    <th width="2%">Nombre del Formulario Excel</th>
-                    <th width="1%">Tiempo de Entrega</th>
-                    <th width="1%">Fecha Inicial</th>
-                    <th width="1%">Fecha Final</th>
-                    <th class="no-sort" style="min-width:40px;"></th>
-                    <th width="1%">Descargado</th>
-                    <th width="1%">Cargado</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Item1 != null)
-                {
-                    foreach (var item in Model.Item1)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DescFormulario)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Frecuencia.NombreFrecuencia)
-                            </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FechaInicio)
-                            </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FechaFin)
-                            </td>
 
-                            <td>
-                                <button type="button" class="btn btn-primary" aria-label="Left Align" data-toggle="modal" data-target="#modalRegistroIndicadoresDescargar"
-                                        data-select="true" data-tooltip="true" data-placement="left" title="Descargar Archivo Excel"
-                                        data-json-selected='{"IDSolicitudIndicador":" @item.IdSolicitudIndicador", "txtNombreFile":"@item.DescFormulario", "IdOperador":"@Model.Item2.IdOperador"}'>
-
-                                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-                                </button>
-
-                                <button type="button" class="btn btn-success" aria-label="Left Align" data-toggle="modal" data-target="#modalRegistroIndicadoresImportar"
-                                        data-select="true" data-tooltip="true" data-placement="left" title="Subir Archivo Excel"
-                                        data-json-selected='{"IDSolicitudIndicadorImportar":" @item.IdSolicitudIndicador ", "IdOperador":"@Model.Item2.IdOperador"}'>
-
-                                    <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
-                                </button>
-                            </td>
-
-                            <td id="tdDescarga" condition="true" class="tdDescarga">
-                                @foreach (var Estado in Model.Item3)
-                                {
-                                    if (Estado.IdSolicitudIndicador == item.IdSolicitudIndicador)
-                                    {
-
-                                        if (Estado.Descarga == true)
-                                        {
-                                            <button type="button" id="Descarga" class="btn btn-success" aria-label="Left Align"
-                                                    data-select="true" data-tooltip="true" data-placement="left" title="Archivo Descargado">
-                                                <span>SI</span>
-                                            </button>break;
-                                        }
-                                        else
-                                        {
-                                            <button type="button" id="Descarga" class="btn btn-primary" aria-label="Left Align"
-                                                    data-select="true" data-tooltip="true" data-placement="left" title="Pendiente descarga">
-                                                <span>NO</span>
-                                            </button>break;
-                                        }
-
-                                    }
-                                }
-                            </td>
-
-                            <td id="@item.IdSolicitudIndicador" condition="true" class="tdCarga">
-                                @foreach (var item2 in item.SolicitudConstructor)
-                                {
-                                    if (item2.IdSolicitudIndicador == item.IdSolicitudIndicador && item2.IdOperador == Model.Item2.IdOperador)
-                                    {
-                                        if (item2.IdEstado == 4)
-                                        {
-                                            <button type="button" id="Descarga" class="btn btn-success" aria-label="Left Align"
-                                                    data-select="true" data-tooltip="true" data-placement="left" title="Archivo Cargado">
-                                                <span>SI</span>
-                                            </button> break;
-                                        }
-                                        else
-                                        {
-                                            <button type="button" id="Descarga" class="btn btn-primary" aria-label="Left Align"
-                                                    data-select="true" data-tooltip="true" data-placement="left" title="Pendiente de Carga">
-                                                <span>NO</span>
-                                            </button>break;
-
-                                        }
-
-                                    }
-                                }
-                            </td>
-
-                        </tr>
-                    }
-                }
-            </tbody>
-
-            <tfoot>
-                <tr>
-                    <td width="1%" colspan="7">
-                    </td>
-                </tr>
-            </tfoot>
-
-        </table>
-    }
-    else
-    {
-        <div class="alert alert-info" role="alert">
-            No tiene permisos para consultar.
-        </div>
-    }
-}
-    <script type="text/javascript">
-        $(document).ready(
-            function () {
-                AjaxifyMyForm("frmFiltroServiciosCalidad",
-                    function (data) {
-                        data = "<div id='tableRegistroIndicadoresSolicitudCalidad'>" + data + "</div>";
-
-                        var $form = $(data);
-                        $("#tableRegistroIndicadoresSolicitudCalidad").replaceWith(data);
-                    },
-                    function (error) {
-
-                    });
-                $("#divMensajeError").hide();
-            });
-
-        if (typeof initDataGrid !== 'undefined') {
-            $('table[data-table-grid="true"]').ready(initDataGrid);
-        }
-
-        function sendSubmitCalidad() {
-            document.getElementById("btnSubmitCalidad").click();
-        };
-        function cambiarCalidad(id) {
-            document.getElementById("CmbCalidad").selectedIndex = id;
-            document.getElementById("btnSubmitCalidad").click();
-            //document.getElementById("detalleservicioM").textContent =  "Solicitudes del Servicio" + document.getElementById("CmbServiciosMercados")
-        };
-    </script>

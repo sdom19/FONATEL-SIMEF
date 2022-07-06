@@ -3,42 +3,44 @@
     <div class="row">
 
 
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+
             <div class="form-group row">
-                <label for="ddlVariableIndicador" class="col-sm-12  col-form-label ">Variable</label>
-                <div class="col-sm-8">
+                <label for="ddlVariableIndicador" class="col-sm-12 col-form-label">Variable</label>
+                <div class="col-sm-12">
                     <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlVariableIndicador">
                         <option></option>
-                        <option value="1">Cantidad de torres</option>
-                        <option value="2">Estado de torres</option>
-
+                        <option value="1">Estado de Torres</option>
+                        <option value="2">Cantidad Torres</option>
                     </select>
                     <br />
-                    <small id="ddlVariableHelp" class="form-text text-danger">La Variable es Requerida</small>
+                    <small id="ddlVariableIndicadorHelp" class="form-text hidden">El tipo es requerido</small>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="txtNombreVariable" class="col-sm-12  col-form-label">Nombre</label>
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" id="txtNombreVariable" placeholder="Nombre">
-                    <small id="txtNombreVariableHelp" class="form-text text-danger">El Nombre es requerido</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-sm-12">
             <div class="form-group row">
                 <label for="txtDescripcionVariable" class="col-sm-12  col-form-label">Descripción</label>
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                     <textarea class="form-control textarea" maxlength="2000" id="txtDescripcionVariable" placeholder="Descripción"></textarea>
                     <small id="txtDescripcionVariableHelp" class="form-text text-danger">El Código es Requerido</small>
                 </div>
             </div>
         </div>
 
+        <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+
+            <div class="form-group row">
+                <label for="txtNombreVariable" class="col-sm-12  col-form-label">Nombre</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" id="txtNombreVariable" placeholder="Nombre">
+                    <small id="txtNombreVariableHelp" class="form-text text-danger">El Nombre es requerido</small>
+                </div>
+            </div>
+        
+        </div>
+
 
     </div>
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-lg-12 text-center">
 
             <button type="submit" id="btnGuardarVariable" class="btn btn-fonatel btn-success-fonatel">Guardar</button>

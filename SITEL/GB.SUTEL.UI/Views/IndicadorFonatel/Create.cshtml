@@ -5,25 +5,12 @@
 }
 <div class="container body-content">
     <div class="row">
-        <div class="col-sm-12 col-md-7">
-            <div class="step_navigation_indicador">
-                <ul class='nav nav-wizard'>
-
-                    <li class='active'><a href='#step1' data-toggle="tab">Indicador</a></li>
-
-                    <li><a href='#step2' data-toggle="tab">Variables</a></li>
-
-                    <li><a href='#step3' data-toggle="tab">Categorías</a></li>
-
-                </ul>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-5">
+        <div class="col-sm-12">
             <div class="text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                        <li class="breadcrumb-item active"><a href="/Fonatel/IndicadorFonatel/index">Indicadores</a></li>
+                        <li class="breadcrumb-item active"><a href="@Url.Action( "create","IndicadorFonatel")">Indicadores</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Crear Indicador</li>
                     </ol>
                 </nav>
@@ -32,11 +19,32 @@
         </div>
     </div>
 
+    <div class="stepwizard col-sm-offset-3">
+        <div class="stepwizard-row setup-panel step_navigation_indicador ">
+            <div class="stepwizard-step">
+                <p>Indicador</p>
+                <a href="#step-1" type="button" class="btn btn-circle btn-info-fonatel ">1</a>
+
+            </div>
+            <div class="stepwizard-step">
+                <p>Variables</p>
+                <a href="#step-2" type="button" class="btn btn-circle btn-default">2</a>
+
+            </div>
+            <div class="stepwizard-step">
+                <p>Categorías</p>
+                <a href="#step-3" type="button" class="btn btn-circle btn-default">3</a>
+
+            </div>
+        </div>
+    </div>
 
 
 
-    <div class="row">
-        <div class="col-lg-12 contenedor" id="step1">
+
+
+    <div class="row mt-5">
+        <div class="col-lg-12 contenedor" id="step-1">
             <div class="row">
                 <div class="col-lg-12">
                     <h2 class="page-title-fonatel text-center">Crear Indicador</h2>
@@ -53,7 +61,7 @@
 
         </div>
 
-        <div class="col-lg-12 hidden contenedor" id="step2">
+        <div class="col-lg-12 hidden contenedor" id="step-2">
             <div class="row">
                 <div class="col-lg-12">
                     <h2 class="page-title-fonatel text-center">Detalle Variables</h2>
@@ -65,11 +73,18 @@
                 <div class="col-lg-12">
                     @Html.Partial("_TablaDetalleVariable")
                 </div>
+
+                <div class="col-lg-12 text-center">
+                    <button type="submit" id="btnAtrasVariable" class="btn btn-fonatel btn-info-fonatel">Atras</button>
+                    <button type="submit" id="btnSiguienteVariable" class="btn btn-fonatel btn-info-fonatel">Siguiente</button>
+
+                </div>
+                </div>
             </div>
 
         </div>
 
-        <div class="col-lg-12 hidden contenedor" id="step3">
+        <div class="col-lg-12 hidden contenedor" id="step-3">
             <div class="row">
                 <div class="col-lg-12">
                     <h2 class="page-title-fonatel text-center">Detalle Categoría</h2>
@@ -81,10 +96,16 @@
                 <div class="col-lg-12">
                     @Html.Partial("_TablaDetalleCategoria")
                 </div>
+
+                <div class="col-lg-12 text-center">
+                    <button type="submit" id="btnAtrasCategoria" class="btn btn-fonatel btn-info-fonatel">Atras</button>
+                    <button type="submit" id="btnSiguienteCategoria" class="btn btn-fonatel btn-info-fonatel">Finalizar</button>
+
+                </div>
             </div>
         </div>
     </div>
 
-</div>
+
 
 

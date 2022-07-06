@@ -265,6 +265,7 @@
     <Compile Include="Controllers\Fonatel\FuentesController.cs" />
     <Compile Include="Controllers\Fonatel\ReglasValidacionController.cs" />
     <Compile Include="Controllers\Fonatel\RelacionCategoriaController.cs" />
+    <Compile Include="Controllers\Fonatel\HistoricoController.cs" />
     <Compile Include="Controllers\Fonatel\SolicitudFonatelController.cs" />
     <Compile Include="Controllers\FormCumplimientoPorcenController.cs" />
     <Compile Include="Controllers\IndicadorUmbralController.cs" />
@@ -603,15 +604,18 @@
     <Content Include="Content\Images\sort_desc.png" />
     <Content Include="Content\Images\sort_desc_disabled.png" />
     <Content Include="Images\icon-add.svg" />
+    <Content Include="Images\icon-calendar-disabled.svg" />
     <Content Include="Images\icon-calendar.svg" />
     <Content Include="Images\icon-clone.svg" />
     <Content Include="Images\icon-delete.svg" />
     <Content Include="Images\icon-download.svg" />
     <Content Include="Images\icon-edit.svg" />
+    <Content Include="Images\icon-home.svg" />
     <Content Include="Images\icon-power-off.svg" />
     <Content Include="Images\icon-power-on.svg" />
     <Content Include="Images\icon-search.svg" />
     <Content Include="Images\icon-sent.svg" />
+    <Content Include="Images\icon-success.svg" />
     <Content Include="Images\icon-upload.svg" />
     <Content Include="Images\question.svg" />
     <Content Include="Images\sort_asc.png" />
@@ -637,6 +641,7 @@
     <Content Include="Scripts\DataTables\scroller.bootstrap.js" />
     <Content Include="Scripts\DataTables\scroller.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\vfs_fonts.js" />
+    <Content Include="Scripts\Fonatel\JsDefiniciones.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />
     <Content Include="Scripts\Fonatel\JsReglas.js" />
     <Content Include="Scripts\Fonatel\JsPublicar.js" />
@@ -1321,7 +1326,7 @@
     <Content Include="Views\Fuentes\Detalle.cshtml" />
     <Content Include="Views\Fuentes\Index.cshtml" />
     <Content Include="Views\SolicitudFonatel\_CrearSolicitud.cshtml" />
-    <Content Include="Views\SolicitudFonatel\_TablaSolicitudes.cshtml" />
+    <Content Include="Views\SolicitudFonatel\_TablaSolicitud.cshtml" />
     <Content Include="Views\SolicitudFonatel\Create.cshtml" />
     <Content Include="Views\SolicitudFonatel\Index.cshtml" />
     <Content Include="Views\IndicadorFonatel\Create.cshtml" />
@@ -1351,6 +1356,16 @@
     <Content Include="Views\FormularioWeb\_TablaFormularios.cshtml" />
     <Content Include="Views\FormularioWeb\_CrearIndicador.cshtml" />
     <Content Include="Views\FormularioWeb\_TablaIndicador.cshtml" />
+    <Content Include="Views\FormularioWeb\_ModalTipoIndicador.cshtml" />
+    <Content Include="Views\Historico\Index.cshtml" />
+    <Content Include="Views\Historico\Detalle.cshtml" />
+    <Content Include="Views\Historico\Create.cshtml" />
+    <Content Include="Views\Historico\_TablaDetalleDesagregacion.cshtml" />
+    <Content Include="Views\Historico\_TablaCategoriaDesagregacion.cshtml" />
+    <Content Include="Views\Historico\_CrearDetalle.cshtml" />
+    <Content Include="Views\Historico\_CrearCategoria.cshtml" />
+    <Content Include="Views\ReglasValidacion\_CrearTipoRegla.cshtml" />
+    <Content Include="Views\ReglasValidacion\_TablaDetalleVariable.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>

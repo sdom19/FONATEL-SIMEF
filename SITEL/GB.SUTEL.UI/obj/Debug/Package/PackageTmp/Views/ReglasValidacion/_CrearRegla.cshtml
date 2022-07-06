@@ -1,42 +1,27 @@
-﻿<h2 class="text-primary text-center">Crear Regla de Validación</h2>
+﻿
 
 <form class="mt-5">
     <div class="row">
-        <div class="col-lg-6">
-                <div class="form-group row">
-                    <label for="txtNombre" class="col-sm-4 col-form-label">Nombre</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="txtNombre" placeholder="Nombre de Regla">
-                        <small id="nombreHelp" class="form-text text-danger">El nombre es requerido</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="txtCodigo" class="col-sm-4 col-form-label">Código</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="txtCodigo" placeholder="Codigo">
-                        <small id="CodigoHelp" class="form-text text-danger">El Código es requerido</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="ddlTipoRegla" class="col-sm-4 col-form-label ">Tipo Regla</label>
-                    <div class="col-sm-8">
-                        <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlTipoRegla">
-                            <option></option>
-                            <option value="1">Fórmula cambio mensual</option>
-                            <option value="2">Fórmula contra otro indicador</option>
-                            <option value="3">Fórmula contra constante</option>
-                            <option value="4">Fórmula contra atributos válidos</option>
-                            <option value="5">Fórmula actualización secuencial</option>
-                        </select>
-                        <br />
-                        <small id="TipoReglaHelp" class="form-text text-danger">El tipo es requerido</small>
-                    </div>
-                </div>
-        </div>
-        <div class="col-lg-6">
+        <div class="col-md-4 col-sm-12 col-md-offset-2 col-sm-offset-0">
             <div class="form-group row">
-                <label for="ddlIndicadorRegla" class="col-sm-4 col-form-label">Indicador</label>
-                <div class="col-sm-8">
+                <label for="txtNombre" class="col-sm-12 col-form-label">Nombre</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" id="txtNombre" placeholder="Nombre de Regla">
+                    <small id="nombreHelp" class="form-text text-danger">El nombre es requerido</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" id="txtCodigo" placeholder="Codigo">
+                    <small id="CodigoHelp" class="form-text text-danger">El Código es requerido</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+            <div class="form-group row">
+                <label for="ddlIndicadorRegla" class="col-sm-12 col-form-label">Indicador</label>
+                <div class="col-sm-12">
                     <select class="form-control required listasDesplegables" id="ddlIndicadorRegla">
                         <option></option>
                         <option value="1">Torres Según Estado</option>
@@ -48,57 +33,26 @@
                     <small id="TipoIndicadorHelp" class="form-text text-danger">El Indicador es requerido</small>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="ddlOperadorRegla" class="col-sm-4 col-form-label">Operador</label>
-                <div class="col-sm-8">
-                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlOperadorRegla">
-                        <option></option>
-                        <option value="1">igual</option>
-                        <option value="2">menor que</option>
-                        <option value="3">mayor que</option>
-                        <option value="4">menor o igual que</option>
-                        <option value="5">mayor o igual que</option>
-                        <option value="6">diferente</option>
-                    </select>
-                    <br />
-                    <small id="OperadorHelp" class="form-text text-danger">El Indicador es requerido</small>
-                </div>
-            </div>
 
             <div class="form-group row">
-                <label for="txtDescripcionRegla" class="col-sm-4 col-form-label">Descrpción</label>
-                <div class="col-sm-8">
+                <label for="txtDescripcionRegla" class="col-sm-12 col-form-label">Descrpción</label>
+                <div class="col-sm-12">
                     <textarea class="form-control textarea" id="txtDescripcionRegla" placeholder="Descripción"></textarea>
                     <small id="DescripcionReglaHelp" class="form-text text-danger">La Descripción es requerido</small>
                 </div>
             </div>
 
-           
-        </div>
-    </div>
-    <div class="Row">
-        <div class="col-sm-12">
-            <div class="hidden" id="divFormulaCambioMensual">
-                Fórmula cambio mensual
-            </div>
-            <div class="hidden" id="divFormulaContraIndicador">
-                Fórmula contra otro indicador
-            </div>
-            <div class="hidden" id="divFormulaContraConstante">
-                Fórmula contra constante
-            </div>
-            <div class="hidden" id="divFormulaContraAtributosValido">
-                Fórmula contra atributos válidos
-            </div>
-            <div class="hidden" id="divFormulaActualizacionSecuencial">
-                Fórmula actualización secuencial
-            </div>
 
         </div>
-        <div class="col-sm-12 text-center mt-3">
-            <button id="btnGuardarRegla" class="btn btn-success">Guardar</button>
-            <button type="submit" class="btn btn-danger">Cancelar</button>
+
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-center mt-5">
+            <button id="btnGuardarRegla" class="btn btn-fonatel btn-success-fonatel">Guardar</button>
+            <button type="submit" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
         </div>
     </div>
+
 </form>
 

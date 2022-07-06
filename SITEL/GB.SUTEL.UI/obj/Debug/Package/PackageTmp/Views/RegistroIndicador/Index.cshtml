@@ -7,10 +7,11 @@
 <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active tabMercados"><a href="#Mercados" aria-controls="Mercados" role="tab" data-toggle="tab">Mercados</a></li>
     <li role="presentation" class="desactive tabCalidad"><a href="#Calidad" aria-controls="Calidad" role="tab" data-toggle="tab">Calidad</a></li>
+    <li role="presentation" class="desactive tabCalidad"><a href="#Fonatel" aria-controls="Calidad" role="tab" data-toggle="tab">Fonatel</a></li>
 </ul>
 
 <div class="tab-content">
-   @* <input id="ActualizarActivo" type="submit"  class="btn btn-primary" onclick="Actualizar()" style="display:block" />*@
+    @* <input id="ActualizarActivo" type="submit"  class="btn btn-primary" onclick="Actualizar()" style="display:block" />*@
     <div role="tabpanel" class="tab-pane active" id="Mercados">
         <div id="tableRegistroIndicadoresSolicitudMercado">
             @Html.Action("_tableMercado", Model)
@@ -25,6 +26,11 @@
         </div>
         <div id="tableRegistroIndicadoresSolicitudCalidadWeb">
             @Html.Action("_tableCalidadWeb", Model)
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="Fonatel">
+        <div id="tableRegistroIndicadoresSolicitudCalidadWeb">
+            @Html.Partial("_tableFonatel");
         </div>
     </div>
 </div>
