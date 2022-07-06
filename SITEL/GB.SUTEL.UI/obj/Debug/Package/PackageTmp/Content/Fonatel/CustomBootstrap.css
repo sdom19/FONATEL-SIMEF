@@ -1,16 +1,67 @@
-﻿:root {
+﻿/* 
+    root font-size: 10 pixel.
+*/
+
+:root {
     --green-fonatel: #5B9150;
     --purple-fonatel: #7A3DAB;
     --blue-fonatel: #1A5EAB;
     --light-1-blue-fonatel: #00B3E6;
     --light-2-blue-fonatel: #EDF1F7;
     --orange-fonatel: #F58A3B;
+    --red-fonatel: #FF0007;
+}
+
+.fonatel-theme * {
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    font-style: normal;
+}
+
+.page-title-fonatel {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--blue-fonatel);
 }
 
 .text-primary-simef {
     color: #005fbf;
 }
 
+.btn-fonatel {
+    letter-spacing: 0.13px;
+    font-weight: bold;
+    font-size: 1.4rem; /* 14px */
+    text-transform: uppercase;
+    padding: 8px 20px 8px 20px;
+    border-radius: 9px !important;
+    min-width: 130px;
+    /*-webkit-transition: 0.15s;
+    transition: 0.15s;*/
+}
+
+.btn-success-fonatel {
+    color: #ffffff;
+    background-color: var(--green-fonatel);
+}
+
+.btn-error-fonatel {
+    color: #ffffff;
+    background-color: var(--red-fonatel);
+}
+
+.btn-info-fonatel {
+    color: #ffffff;
+    background-color: var(--blue-fonatel);
+}
+
+    .btn-success-fonatel:hover,
+    .btn-success-fonatel:focus,
+    .btn-error-fonatel:hover,
+    .btn-error-fonatel:focus,
+    .btn-info-fonatel:hover,
+    .btn-info-fonatel:focus {
+        color: #ffffff;
+    }
 
 .btn-icon-base {
     opacity: 1;
@@ -31,18 +82,21 @@
 .btn-add {
     background-image: url("../../Images/icon-add.svg");
 }
-
-.btn-sent {
-    background-image: url("../../Images/icon-sent.svg");
-}
-
 .btn-calendar {
     background-image: url("../../Images/icon-calendar.svg");
 }
 
+
+.btn-sent {
+    background-image: url("../../Images/icon-sent.svg");
+}
 .btn-calendar-disabled {
     background-image: url("../../Images/icon-calendar-disabled.svg");
 }
+.btn-home {
+    background-image: url("../../Images/icon-home.svg");
+}
+
 
 .btn-edit {
     background-image: url("../../Images/icon-edit.svg");
@@ -80,44 +134,11 @@
     background-image: url("../../Images/icon-cancel.svg");
 }
 
-
-
-.btn-success-fonatel {
-    color: #ffffff;
-    background-color: var(--green-fonatel);
-}
-
-    .btn-success-fonatel:hover,
-    .btn-success-fonatel:focus,
-    .btn-success-fonatel:active,
-    .btn-success-fonatel.active,
-    .open .dropdown-toggle.btn-success-fonatel {
-        color: var(--green-fonatel);
-        background-color: white;
-        border-color: var(--green-fonatel);
-    }
-
-.btn-error-fonatel {
-    color: #ffffff;
-    background-color: var(--red-fonatel);
-}
-
-    .btn-error-fonatel:hover,
-    .btn-error-fonatel:focus,
-    .btn-error-fonatel:active,
-    .btn-error-fonatel.active,
-    .open .dropdown-toggle.btn-error-fonatel {
-        color: var(--red-fonatel);
-        background-color: white;
-        border-color: var(--red-fonatel);
-    }
-
-
-input[type="search"] {
+/*input[type="search"] {*/
     /*width: 100%;*/
-    padding: 9px 40px 9px 4px;
+    /*padding: 9px 40px 9px 4px;
     background: transparent url("../../Images/icon-search.svg") no-repeat 96% center;
-}
+}*/
 
  .breadcrumb {
     padding: 8px 15px;
@@ -141,10 +162,6 @@ input[type="search"] {
      color: #999999;
 }
 
-
-.btn{
-     border-radius:10px!important;
- }
 .mt-0 {
     margin-top: 0 !important;
 }
@@ -179,64 +196,75 @@ input[type="search"] {
 .body-content {
     padding-top: 15px !important
 }
-.dataTables_length select {
+
+.table-wrapper-fonatel .dataTables_length select {
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.428571429;
     padding-right: 2.5rem;
     color: #555555;
     vertical-align: middle;
-    background-color: #ffffff;
+    background-color: var(--light-2-blue-fonatel);
     border: 1px solid #cccccc;
-    border-radius: 4px;
+    border-radius: 9px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
     transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
-.dataTables_length select:focus {
-    border-color: #66afe9;
-    outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
-.table-responsive{
-    border:none!important;
+    .table-wrapper-fonatel .dataTables_length select:focus {
+        border-color: #66afe9;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    }
+
+.table-wrapper-fonatel .dataTables_filter input {
+    padding: 9px 40px 9px 4px;
+    border-radius: 9px;
+    background: transparent url("../../Images/icon-search.svg") no-repeat 96% center;
+    background-color: var(--light-2-blue-fonatel);
 }
 
+.table-responsive {
+    border: none !important;
+}
 
-table.dataTable thead tr {
+.table-wrapper-fonatel table.table-bordered.dataTable tbody th,
+.table-wrapper-fonatel table.table-bordered.dataTable tbody td {
+    border-bottom-width: 0;
+}
+
+.table-wrapper-fonatel table.table-bordered.dataTable th,
+.table-wrapper-fonatel table.table-bordered.dataTable td {
+    border-left-width: 0 !important;
+}
+
+.table-wrapper-fonatel table.dataTable thead tr {
     background: var(--blue-fonatel);
     color: #fff;
+    height: 43px;
 }
 
-table.dataTable tbody tr:nth-child(odd) {
+.table-wrapper-fonatel table.dataTable tbody tr:nth-child(odd) {
     background: var(--light-2-blue-fonatel);
 }
 
-.pagination > .active > a,
-.pagination > .active > span, .pagination > .active > a:hover,
-.pagination > .active > span:hover,
-.pagination > .active > a:focus, .pagination > .active > span:focus {
-    background: var(--blue-fonatel);
-    color: #fff;
-}
-.text-area {
-    max-height: 300px !important;
-    resize: both;
-}
-
-
-
-.modal-simef .modal-header {
+.table-wrapper-fonatel .pagination > .active > a,
+.table-wrapper-fonatel .pagination > .active > span, .pagination > .active > a:hover,
+.table-wrapper-fonatel .pagination > .active > span:hover,
+.table-wrapper-fonatel .pagination > .active > a:focus, .pagination > .active > span:focus {
     background: var(--blue-fonatel);
     color: #fff;
 }
 
-.select2-container {
-    width: 100% !important;
-    padding: 0;
-    max-width:280px!important;
+.textarea {
+    max-height:200px!important;
+}
+
+.modal-fonatel .modal-header {
+    background: var(--blue-fonatel);
+    color: #fff;
 }
 

@@ -268,3 +268,16 @@
     color: #fff;
 }
 
+
+
+
+
+.select2 {
+    max-width: 280px;
+    width: 90% !important;
+    max-height: 35px;
+}
+
+.datatable_simef_modal{
+    width:100%;
+}

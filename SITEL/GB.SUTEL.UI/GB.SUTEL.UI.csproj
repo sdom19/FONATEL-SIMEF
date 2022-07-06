@@ -265,6 +265,7 @@
     <Compile Include="Controllers\Fonatel\FuentesController.cs" />
     <Compile Include="Controllers\Fonatel\ReglasValidacionController.cs" />
     <Compile Include="Controllers\Fonatel\RelacionCategoriaController.cs" />
+    <Compile Include="Controllers\Fonatel\HistoricoController.cs" />
     <Compile Include="Controllers\Fonatel\SolicitudFonatelController.cs" />
     <Compile Include="Controllers\FormCumplimientoPorcenController.cs" />
     <Compile Include="Controllers\IndicadorUmbralController.cs" />
@@ -637,6 +638,7 @@
     <Content Include="Scripts\DataTables\scroller.bootstrap.js" />
     <Content Include="Scripts\DataTables\scroller.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\vfs_fonts.js" />
+    <Content Include="Scripts\Fonatel\JsDefiniciones.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />
     <Content Include="Scripts\Fonatel\JsReglas.js" />
     <Content Include="Scripts\Fonatel\JsPublicar.js" />
@@ -1351,6 +1353,16 @@
     <Content Include="Views\FormularioWeb\_TablaFormularios.cshtml" />
     <Content Include="Views\FormularioWeb\_CrearIndicador.cshtml" />
     <Content Include="Views\FormularioWeb\_TablaIndicador.cshtml" />
+    <Content Include="Views\FormularioWeb\_ModalTipoIndicador.cshtml" />
+    <Content Include="Views\Historico\Index.cshtml" />
+    <Content Include="Views\Historico\Detalle.cshtml" />
+    <Content Include="Views\Historico\Create.cshtml" />
+    <Content Include="Views\Historico\_TablaDetalleDesagregacion.cshtml" />
+    <Content Include="Views\Historico\_TablaCategoriaDesagregacion.cshtml" />
+    <Content Include="Views\Historico\_CrearDetalle.cshtml" />
+    <Content Include="Views\Historico\_CrearCategoria.cshtml" />
+    <Content Include="Views\ReglasValidacion\_CrearTipoRegla.cshtml" />
+    <Content Include="Views\ReglasValidacion\_TablaDetalleVariable.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>

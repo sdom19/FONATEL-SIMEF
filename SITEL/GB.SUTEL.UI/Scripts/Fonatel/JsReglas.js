@@ -1,6 +1,6 @@
 ﻿    JsReglas= {
     "Controles": {
-
+         "btnstep": ".step_navigation_reglas .nav li a",
         "ddlTipoRegla": "#ddlTipoRegla",
         "btnGuardarRegla": "#btnGuardarRegla",
         "btnEditarRegla": "#TableReglaDesagregacion tbody tr td .btn-edit",
@@ -12,30 +12,29 @@
         "divFormulaContraIndicador":"#divFormulaContraIndicador",
         "divFormulaContraConstante":"#divFormulaContraConstante",
         "divFormulaContraAtributosValido": "#divFormulaContraAtributosValido",
-        "divFormulaActualizacionSecuencial":"#divFormulaActualizacionSecuencial"
-
-
-
-    },
+        "divFormulaActualizacionSecuencial": "#divFormulaActualizacionSecuencial",
+         "divContenedor":".contenedor_regla",
+     },
     "Variables":{
         "FormulaCambioMensual":"1",
         "FormulaContraIndicador":"2",
         "FormulaContraConstante":"3",
         "FormulaContraAtributosValido":"4",
-        "FormulaActualizacionSecuencial":"5"
+        "FormulaActualizacionSecuencial": "5",
     },
 
-    "Metodos": {
-        "HabilitarControlesTipoRegla": function (selected) {
+        "Metodos": {
+            "SeleccionarStep": function (div) {
+                $(JsReglas.Controles.divContenedor).addClass('hidden');
+                $(div).removeClass('hidden');
+            },
+            "HabilitarControlesTipoRegla": function (selected) {
             $(JsReglas.Controles.divFormulaCambioMensual).addClass("hidden");
             $(JsReglas.Controles.divFormulaContraIndicador).addClass("hidden");
             $(JsReglas.Controles.divFormulaContraConstante).addClass("hidden");
             $(JsReglas.Controles.divFormulaContraAtributosValido).addClass("hidden");
             $(JsReglas.Controles.divFormulaActualizacionSecuencial).addClass("hidden");
             switch (selected) {
-                case JsReglas.Variables.FormulaCambioMensual:
-                    $(JsReglas.Controles.divFormulaCambioMensual).removeClass("hidden");
-                    break;
                 case JsReglas.Variables.FormulaContraIndicador:
                     $(JsReglas.Controles.divFormulaContraIndicador).removeClass("hidden");
                     break;
@@ -45,21 +44,12 @@
                 case JsReglas.Variables.FormulaContraAtributosValido:
                     $(JsReglas.Controles.divFormulaContraAtributosValido).removeClass("hidden");
                     break;
-                case JsReglas.Variables.FormulaActualizacionSecuencial:
-                    $(JsReglas.Controles.divFormulaActualizacionSecuencial).removeClass("hidden");
-                    break;
                 default:
             }     
         }
     }
-
 }
-$(document).on("change", JsReglas.Controles.ddlTipoRegla, function () {
-    var selected = $(this).val();
 
- 
-    JsReglas.Metodos.HabilitarControlesTipoRegla(selected);
-});
 
 
 $(document).on("click", JsReglas.Controles.btnEditarRegla, function () {
@@ -69,18 +59,15 @@ $(document).on("click", JsReglas.Controles.btnEditarRegla, function () {
 
 
 
-
-
-
-
-
-
 $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Regla de Validación?")
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.ConfirmaRegistro("La Regla ha Sido Agregada de Manera Correcta")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/ReglasValidacion/index"});
+                .set('onok', function (closeEvent) {
+                    let div = "#step2";
+                    JsReglas.Metodos.SeleccionarStep(div);
+                });
         });
 });
 
@@ -99,4 +86,15 @@ $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {
             jsMensajes.Metodos.ConfirmaRegistro("La Regla ha Sido Eliminada de Manera Correcta")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/ReglasValidacion/index" });
         });
+});
+
+
+$(document).on("click", JsReglas.Controles.btnstep, function () {
+    let div = $(this).attr("href");
+    JsReglas.Metodos.SeleccionarStep(div);
+});
+
+$(document).on("change", JsReglas.Controles.ddlTipoRegla, function () {
+    var selected = $(this).val();
+    JsReglas.Metodos.HabilitarControlesTipoRegla(selected);
 });

@@ -1,0 +1,66 @@
+﻿/* 
+    Google source: https://fonts.google.com/specimen/Source+Sans+Pro
+    Files generated in https://www.creativefabrica.com/webfont-generator 
+*/
+
+/*
+    font-weight:
+        normal	Standard weight. Equivalent of 400.
+        bold	Bold weight. Equivalent of 700.
+        bolder	Bolder than the inherited font weight.
+        lighter	Lighter than the inherited font weight.
+*/
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url('SourceSansPro-Regular.woff2') format('woff2'), 
+        url('SourceSansPro-Regular.woff') format('woff'), 
+        url('SourceSansPro-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 200;
+    src: url('SourceSansPro-Light.woff2') format('woff2'),
+        url('SourceSansPro-Light.woff') format('woff'),
+        url('SourceSansPro-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: italic;
+    font-weight: 200;
+    src: url('SourceSansPro-LightItalic.woff2') format('woff2'), 
+        url('SourceSansPro-LightItalic.woff') format('woff'), 
+        url('SourceSansPro-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: italic;
+    font-weight: 400;
+    src: url('SourceSansPro-Italic.woff2') format('woff2'), 
+        url('SourceSansPro-Italic.woff') format('woff'), 
+        url('SourceSansPro-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 700;
+    src: url('SourceSansPro-Bold.woff2') format('woff2'),
+        url('SourceSansPro-Bold.woff') format('woff'), 
+        url('SourceSansPro-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: italic;
+    font-weight: bold;
+    src: url('SourceSansPro-BoldItalic.woff2') format('woff2'),
+        url('SourceSansPro-BoldItalic.woff') format('woff'),
+        url('SourceSansPro-BoldItalic.ttf') format('truetype');
+}

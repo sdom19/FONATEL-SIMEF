@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container body-content">
-
     <div class="row">
         <div class="col-sm-12 col-md-7">
             <div class="step_navigation_indicador">
@@ -38,18 +37,32 @@
 
     <div class="row">
         <div class="col-lg-12 contenedor" id="step1">
-            @Html.Partial("_CrearIndicador")
-            @Html.Partial("_ModalTipoIndicador")
-            @Html.Partial("_ModalGrupoIndicador")
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-title-fonatel text-center">Crear Indicador</h2>
+                    <hr />
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_CrearIndicador")
+                    @Html.Partial("_ModalTipoIndicador")
+                    @Html.Partial("_ModalGrupoIndicador")
+                </div>
+            </div>
+
+
+
         </div>
 
         <div class="col-lg-12 hidden contenedor" id="step2">
-
             <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-title-fonatel text-center">Detalle Variables</h2>
+                    <hr />
+                </div>
                 <div class="col-lg-12">
                     @Html.Partial("_CrearVariable")
                 </div>
-                <div class="col-lg-12 mt-4">
+                <div class="col-lg-12">
                     @Html.Partial("_TablaDetalleVariable")
                 </div>
             </div>
@@ -59,9 +72,13 @@
         <div class="col-lg-12 hidden contenedor" id="step3">
             <div class="row">
                 <div class="col-lg-12">
+                    <h2 class="page-title-fonatel text-center">Detalle Categoría</h2>
+                    <hr />
+                </div>
+                <div class="col-lg-12">
                     @Html.Partial("_CrearCategoria")
                 </div>
-                <div class="col-lg-12 mt-4">
+                <div class="col-lg-12">
                     @Html.Partial("_TablaDetalleCategoria")
                 </div>
             </div>

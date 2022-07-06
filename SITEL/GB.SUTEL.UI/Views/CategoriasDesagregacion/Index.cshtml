@@ -4,13 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/Fonatel/fonts/SourceSansPro/SourceSansPro.css" rel="stylesheet" />
 
-<div class="container body-content fonatel-theme">
+
+<div class="container body-content">
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action( "index","Home")">Inicio</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Categoría Desagregación</li>
             </ol>
         </nav>
@@ -21,7 +21,7 @@
             <hr />
         </div>
         <div class="col-lg-12 mt-4">
-            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="Crear" alt="Crear" href="/Fonatel/CategoriasDesagregacion/Create">Crear</a>
+            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="Crear" alt="Crear" href="@Url.Action( "create","CategoriasDesagregacion")"  >Crear</a>
         </div>
         <div class="col-lg-12 mt-4">
             @Html.Partial("_TablaCategoriaDesagregacion")
