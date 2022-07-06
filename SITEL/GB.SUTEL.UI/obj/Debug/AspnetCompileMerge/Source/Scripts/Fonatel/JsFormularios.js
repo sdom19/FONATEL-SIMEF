@@ -1,6 +1,6 @@
 ﻿JsFormulario= {
     "Controles": {
-        "btnstep": ".step_navigation_Formulario .nav li a",
+        "btnstep": ".step_navigation_Formulario div",
         "btnAgregarFormulario": "#TablaFormulario tbody tr td .btn-add",
         "btnEditarFormulario": "#TablaFormulario tbody tr td .btn-edit",
         "btnDeleteFormulario": "#TablaFormulario tbody tr td .btn-delete",
@@ -8,7 +8,9 @@
         "btnDesactivadoFormulario": "#TablaFormulario tbody tr td .btn-power-off",
         "btnActivadoFormulario": "#TablaFormulario tbody tr td .btn-power-on",
         "btnGuardar": "#btnGuardarFormulario",
-        "divContenedor": "#formulario_web .contenedor",
+        "divContenedor": ".contenedor_formulario",
+        "btnAtrasFormularioRegla": "#btnAtrasFormularioRegla",
+        "btnGuardarFormularioCompleto":"#btnGuardarFormularioCompleto"
     },
     "Variables":{
 
@@ -21,7 +23,9 @@
 }
 
 $(document).on("click", JsFormulario.Controles.btnstep, function () {
-    let div = $(this).attr("href");
+    $(JsFormulario.Controles.btnstep).children("a").addClass('btn-default').removeClass('btn-info-fonatel');
+    $(this).children("a").addClass('btn-info-fonatel').removeClass('btn-default');
+    let div = $(this).children("a").attr("href");
     $(JsFormulario.Controles.divContenedor).addClass('hidden');
     $(div).removeClass('hidden');
 });
@@ -42,10 +46,10 @@ $(document).on("click", JsFormulario.Controles.btnCloneFormulario, function () {
 
 $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Formulario?")
+    jsMensajes.Metodos.EliminarRegistro("¿Desea Agregar el Formulario?")
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Formulario ha Sido Creada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+            jsMensajes.Metodos.ConfirmaRegistro("El formulario ha sido Creado")
+                .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click'); });
         });
 });
 
@@ -79,3 +83,20 @@ $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (
         });
 });
 
+
+
+
+$(document).on("click", JsFormulario.Controles.btnAtrasFormularioRegla, function (e) {
+    e.preventDefault();
+    $("a[href='#step-1']").trigger('click');
+});
+
+
+$(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.AgregarRegistro("¿Desea Guardar el Formulario?")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.ConfirmaRegistro("La Formulario ha Sido Completado")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+        });
+});

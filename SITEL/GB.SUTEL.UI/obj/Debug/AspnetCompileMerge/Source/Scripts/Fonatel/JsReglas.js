@@ -1,6 +1,6 @@
 ﻿    JsReglas= {
     "Controles": {
-         "btnstep": ".step_navigation_reglas .nav li a",
+         "btnstep": ".step_navigation_Regla div",
         "ddlTipoRegla": "#ddlTipoRegla",
         "btnGuardarRegla": "#btnGuardarRegla",
         "btnEditarRegla": "#TableReglaDesagregacion tbody tr td .btn-edit",
@@ -13,7 +13,11 @@
         "divFormulaContraConstante":"#divFormulaContraConstante",
         "divFormulaContraAtributosValido": "#divFormulaContraAtributosValido",
         "divFormulaActualizacionSecuencial": "#divFormulaActualizacionSecuencial",
-         "divContenedor":".contenedor_regla",
+         "divContenedor": ".contenedor_regla",
+            "btnAtrasRegla": "#btnAtrasTipoRegla",
+            "btnSiguienteTipoSiguiente": "#btnSiguienteTipoSiguiente",
+            "btnGuardarReglaTipo": "#btnGuardarReglaTipo",
+      
      },
     "Variables":{
         "FormulaCambioMensual":"1",
@@ -65,8 +69,20 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.ConfirmaRegistro("La Regla ha Sido Agregada de Manera Correcta")
                 .set('onok', function (closeEvent) {
-                    let div = "#step2";
-                    JsReglas.Metodos.SeleccionarStep(div);
+                    $("a[href='#step-2']").trigger('click');
+                });
+        });
+});
+
+
+
+$(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar el Tipo de Regla?")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.ConfirmaRegistro("Se ha Configurado una regla a la Variable")
+                .set('onok', function (closeEvent) {
+               
                 });
         });
 });
@@ -90,11 +106,34 @@ $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {
 
 
 $(document).on("click", JsReglas.Controles.btnstep, function () {
-    let div = $(this).attr("href");
-    JsReglas.Metodos.SeleccionarStep(div);
+
+    $(JsReglas.Controles.btnstep).children("a").addClass('btn-default').removeClass('btn-info-fonatel');
+    $(this).children("a").addClass('btn-info-fonatel').removeClass('btn-default');
+    let div = $(this).children("a").attr("href");
+    $(JsReglas.Controles.divContenedor).addClass('hidden');
+    $(div).removeClass('hidden');
 });
 
 $(document).on("change", JsReglas.Controles.ddlTipoRegla, function () {
     var selected = $(this).val();
     JsReglas.Metodos.HabilitarControlesTipoRegla(selected);
 });
+
+$(document).on("click", JsReglas.Controles.btnAtrasRegla, function (e) {
+    e.preventDefault();
+   $("a[href='#step-1']").trigger('click');
+});
+
+
+
+$(document).on("click", JsReglas.Controles.btnSiguienteTipoSiguiente, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Regla de Validación?")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.ConfirmaRegistro("La Regla ha Sido Agregada de Manera Correcta")
+                .set('onok', function (closeEvent) {
+                    window.location.href = "/Fonatel/ReglasValidacion/index"
+                });
+        });
+});
+
