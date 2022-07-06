@@ -19,7 +19,7 @@
 }
 
 .success-icon:before {
-    content: url("../../Images/success.svg");
+    content: url("../../Images/icon-success.svg");
 }
 
 .icon{

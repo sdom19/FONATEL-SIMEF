@@ -3,28 +3,53 @@
     ViewBag.Title = "Reglas de Validación";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
 <div class="container body-content">
-    <div class="text-right">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                <li class="breadcrumb-item active"><a href="/Fonatel/ReglasValidacion/index">Reglas de Validación</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Crear Regla de Validación</li>
-            </ol>
-        </nav>
-    </div>
     <div class="row">
-        <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Crear Regla de Validación</h2>
-            <hr />
+        <div class="col-sm-12 col-md-7">
+            <div class="step_navigation_reglas">
+                <ul class='nav nav-wizard'>
+                    <li class='active'><a href='#step1' data-toggle="tab">Regla de Validación</a></li>
+                    <li><a href='#step2' data-toggle="tab">Tipo de Regla</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="col-lg-12">
-            @Html.Partial("_CrearRegla")
-        </div>
-        <div class="col-lg-12">
-            @Html.Partial("_CrearTipoRegla")
+        <div class="col-sm-12 col-md-5">
+            <div class="text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                        <li class="breadcrumb-item active"><a href="/Fonatel/ReglasValidacion/index">Reglas de Validación</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Crear Regla de Validación</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
+        <div class="row">
+         
+            <div class="col-lg-12 contenedor_regla" id="step1">
+                <div class="col-lg-12">
+                    <h2 class="page-title-fonatel text-center">Crear Regla de Validación</h2>
+                    <hr />
+                </div>
+                @Html.Partial("_CrearRegla")
+            </div>
+            <div class="col-lg-12 hidden contenedor_regla" id="step2">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="page-title-fonatel text-center">Agregar Tipo Regla de Validación</h2>
+                        <hr />
+                    </div>
+                    <div class="col-sm-12">
+                        @Html.Partial("_CrearTipoRegla")
+                    </div>
+                    <div class="col-sm-12 mt-5">
+                        @Html.Partial("_TablaDetalleVariable")
+                    </div>
 
-</div>
+                </div>
+               
+            </div>
+        </div>
+
+    </div>
