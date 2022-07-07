@@ -9,23 +9,23 @@
                 <div class="form-group row">
                     <label for="txtNombre" class="col-sm-12 col-form-label">Nombre</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="txtNombre" placeholder="Nombre de Categoría">
-                        <small id="nombreHelp" class="form-text text-danger">El Nombre es Requerido</small>
+                        <input type="text" class="form-control form-control-fonatel " id="txtNombre" placeholder="Nombre de Categoría">
+                        <small id="nombreHelp" class="form-text form-text-danger-fonatel">El Nombre es Requerido</small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
                     <div class="col-lg-8">
-                        <input type="text" aria-label="Código de categoria" class="form-control" id="txtCodigo" placeholder="Código">
-                        <small id="CodigoHelp" class="form-text text-danger">El Código es Requerido</small>
+                        <input type="text" aria-label="Código de categoria" class="form-control form-control-fonatel " id="txtCodigo" placeholder="Código">
+                        <small id="CodigoHelp" class="form-text form-text-danger-fonatel">El Código es Requerido</small>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="txtCantidad" class="col-sm-12 col-form-label">Cantidad Atributos</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="TxtCantidad" placeholder="Cantidad Atributos">
-                        <small id="CantidadHelp" class="form-text text-danger">La Cantidad Atributos es Requerida</small>
+                        <input type="text" class="form-control form-control-fonatel " id="TxtCantidad" placeholder="Cantidad Atributos">
+                        <small id="CantidadHelp" class="form-text form-text-danger-fonatel">La Cantidad Atributos es Requerida</small>
                     </div>
                 </div>
             </div>
@@ -34,11 +34,12 @@
                 <div class="form-group row">
                     <label for="ddlCategoriaId" class="col-sm-12 col-form-label ">Categoría ID</label>
                     <div class="col-sm-12">
-                        <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlCategoriaId">
-                            <option></option>
-                        </select>
-                        <br />
-                        <small id="TipoCategoriaHelp" class="form-text text-danger">El Tipo es Requerido</small>
+                        <div class="select2-wrapper">
+                            <select class="listasDesplegables" aria-label="Default select example" id="ddlCategoriaId">
+                                <option></option>
+                            </select>
+                        </div>
+                        <small id="TipoCategoriaHelp" class="form-text form-text-danger-fonatel">El Tipo es Requerido</small>
                     </div>
                 </div>
 
@@ -46,11 +47,12 @@
                 <div class="form-group row">
                     <label for="ddlDetalleDesagregacionId" class="col-sm-12 col-form-label ">Detalle Desagregación ID</label>
                     <div class="col-sm-12">
-                        <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlDetalleDesagregacionId">
-                            <option></option>
-                        </select>
-                        <br />
-                        <small id="DetalleDesagregacionIDHelp" class="form-text text-danger">El Detalle Desagregación ID es Requerido</small>
+                        <div class="select2-wrapper">
+                            <select class="form-control form-control-fonatel  required listasDesplegables" aria-label="Default select example" id="ddlDetalleDesagregacionId">
+                                <option></option>
+                            </select>
+                        </div>   
+                        <small id="DetalleDesagregacionIDHelp" class="form-text form-text-danger-fonatel">El Detalle Desagregación ID es Requerido</small>
                     </div>
                 </div>
         </div>

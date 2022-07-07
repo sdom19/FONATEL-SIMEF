@@ -8,22 +8,23 @@
             <div class="form-group row">
                 <label for="ddlVariableIndicador" class="col-sm-12 col-form-label">Variable</label>
                 <div class="col-sm-12">
-                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlVariableIndicador">
-                        <option></option>
-                        <option value="1">Estado de Torres</option>
-                        <option value="2">Cantidad Torres</option>
-                    </select>
-                    <br />
-                    <small id="ddlVariableIndicadorHelp" class="form-text hidden">El tipo es requerido</small>
+                    <div class="select2-wrapper">
+                        <select class="listasDesplegables" aria-label="Default select example" id="ddlVariableIndicador">
+                            <option></option>
+                            <option value="1">Estado de Torres</option>
+                            <option value="2">Cantidad Torres</option>
+                        </select>
+                    </div>
+                    <small id="ddlVariableIndicadorHelp" class="form-text form-text-danger-fonatel">El tipo es requerido</small>
                 </div>
             </div>
-            <div class="form-group row">
+            <acdiv class="form-group row">
                 <label for="txtDescripcionVariable" class="col-sm-12  col-form-label">Descripción</label>
                 <div class="col-sm-12">
-                    <textarea class="form-control textarea" maxlength="2000" id="txtDescripcionVariable" placeholder="Descripción"></textarea>
-                    <small id="txtDescripcionVariableHelp" class="form-text text-danger">El Código es Requerido</small>
+                    <textarea class="form-control form-control-fonatel " maxlength="2000" id="txtDescripcionVariable" placeholder="Descripción"></textarea>
+                    <small id="txtDescripcionVariableHelp" class="form-text form-text-danger-fonatel">El Código es Requerido</small>
                 </div>
-            </div>
+            </acdiv>
         </div>
 
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
@@ -31,8 +32,8 @@
             <div class="form-group row">
                 <label for="txtNombreVariable" class="col-sm-12  col-form-label">Nombre</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" id="txtNombreVariable" placeholder="Nombre">
-                    <small id="txtNombreVariableHelp" class="form-text text-danger">El Nombre es requerido</small>
+                    <input type="text" class="form-control form-control-fonatel " id="txtNombreVariable" placeholder="Nombre">
+                    <small id="txtNombreVariableHelp" class="form-text form-text-danger-fonatel">El Nombre es requerido</small>
                 </div>
             </div>
         

@@ -4,23 +4,20 @@
 <form>
     <div class="row">
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
-            <div class="justify-content-center">
-
-
-             
+            <div class="justify-content-center">     
                 <div class="form-group row">
-                    <label for="txtCodigoFormulario" class="col-sm-4 col-form-label">Código</label>
-                    <div class="col-sm-8">
-                        <input type="text" aria-label="Código de categoria" class="form-control" id="txtCodigoFormulario" placeholder="Código">
-                        <small id="txtCodigoFormularioHelp" class="form-text text-danger">El Código es Requerido</small>
+                    <label for="txtCodigoFormulario" class="col-sm-12 col-form-label">Código</label>
+                    <div class="col-sm-12">
+                        <input type="text" aria-label="Código de categoria" class="form-control form-control-fonatel  " id="txtCodigoFormulario" placeholder="Código">
+                        <small id="txtCodigoFormularioHelp" class="form-text form-text-danger-fonatel">El Código es Requerido</small>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="txtNombreFormulario" class="col-sm-4 col-form-label">Nombre</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="txtNombreFormulario" placeholder="Nombre">
-                        <small id="txtNombreFormularioHelp" class="form-text text-danger">El Nombre es Requerido</small>
+                    <label for="txtNombreFormulario" class="col-sm-12 col-form-label">Nombre</label>
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-fonatel  " id="txtNombreFormulario" placeholder="Nombre">
+                        <small id="txtNombreFormularioHelp" class="form-text form-text-danger-fonatel">El Nombre es Requerido</small>
                     </div>
                 </div>
 
@@ -28,28 +25,29 @@
           </div>
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
             <div class="justify-content-center">
-
+             
 
                 <div class="form-group row">
-                    <label for="ddlFrecuencia" class="col-sm-4 col-form-label ">Frecuencia</label>
-                    <div class="col-sm-8">
-                        <select class="form-control required listasDesplegables" id="ddlFrecuencia">
-                            <option></option>
-                            <option>Quisenal</option>
-                            <option>Mensual</option>
-                            <option>Semanal</option>
-                        </select>
-                        <br />
-                        <small id="ddlFrecuenciaHelp" class="form-text text-danger">La Frecuencia es Requerida</small>
+                    <label for="ddlFrecuencia" class="col-sm-12 col-form-label ">Frecuencia</label>
+                    <div class="col-sm-12">
+                        <div class="select2-wrapper">
+                            <select class="listasDesplegables" id="ddlFrecuencia">
+                                <option></option>
+                                <option>Quisenal</option>
+                                <option>Mensual</option>
+                                <option>Semanal</option>
+                            </select>
+                        </div>                       
+                        <small id="ddlFrecuenciaHelp" class="form-text form-text-danger-fonatel">La Frecuencia es Requerida</small>
                     </div>
                 </div>
 
 
                 <div class="form-group row">
-                    <label for="txtCantidadIndicadoresFormulario" class="col-sm-4 col-form-label">Cantidad de Indicadores</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control solo_numeros" id="txtCantidadIndicadoresFormulario" placeholder="Cantidad de Indicadores">
-                        <small id="txtCantidadIndicadoresFormularioHelp" class="form-text text-danger">La Cantidad de Indicadores es Requerida</small>
+                    <label for="txtCantidadIndicadoresFormulario" class="col-sm-12 col-form-label">Cantidad de Indicadores</label>
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-fonatel   solo_numeros" id="txtCantidadIndicadoresFormulario" placeholder="Cantidad de Indicadores">
+                        <small id="txtCantidadIndicadoresFormularioHelp" class="form-text form-text-danger-fonatel">La Cantidad de Indicadores es Requerida</small>
                     </div>
                 </div>
 
@@ -59,11 +57,10 @@
     <div class="row">
         <div class="col-md-11 col-md-offset-1 col-sm-12 col-sm-offset-0">
             <div class="form-group row">
-                <label for="txtDescripcionFormulario" class="col-sm-4 col-form-label">Descripción</label>
-                <div class="col-sm-8">
-                    <textarea id="txtDescripcionFormulario" class="text-area" placeholder="Mensaje"></textarea>
-                    <br />
-                    <small id="txtDescripcionFormularioHelp" class="form-text text-danger">La Descripción es Requerido</small>
+                <label for="txtDescripcionFormulario" class="col-sm-12 col-form-label">Descripción</label>
+                <div class="col-sm-12">
+                    <textarea id="txtDescripcionFormulario" class="form-control form-control-fonatel" placeholder="Mensaje"></textarea>
+                    <small id="txtDescripcionFormularioHelp" class="form-text form-text-danger-fonatel">La Descripción es Requerido</small>
                 </div>
             </div>
         </div>
