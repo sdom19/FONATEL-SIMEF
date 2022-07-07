@@ -13,10 +13,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>06/14/2022 16:47:44</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>07/06/2022 12:07:30</publishTime>
+      <publishTime>07/06/2022 19:50:27</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>07/06/2022 12:07:30</publishTime>
+      <publishTime>07/06/2022 19:50:27</publishTime>
     </File>
     <File Include="bin/BotDetect.dll">
       <publishTime>06/14/2022 16:47:44</publishTime>
@@ -112,10 +112,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>06/14/2022 20:47:22</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.UI.dll">
-      <publishTime>07/06/2022 11:20:27</publishTime>
+      <publishTime>07/06/2022 14:54:47</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.UI.pdb">
-      <publishTime>07/06/2022 11:20:27</publishTime>
+      <publishTime>07/06/2022 14:54:47</publishTime>
     </File>
     <File Include="bin/ICSharpCode.SharpZipLib.dll">
       <publishTime>06/14/2022 16:47:45</publishTime>
@@ -2032,7 +2032,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>06/14/2022 16:47:58</publishTime>
     </File>
     <File Include="Content/Fonatel/CustomBootstrap.css">
-      <publishTime>07/05/2022 18:45:58</publishTime>
+      <publishTime>07/06/2022 18:39:28</publishTime>
     </File>
     <File Include="Content/Fonatel/fonts/SourceSansPro/SourceSansPro-Bold.ttf">
       <publishTime>07/04/2022 14:31:21</publishTime>
@@ -2809,7 +2809,16 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>06/24/2021 22:47:35</publishTime>
     </File>
     <File Include="Images/icon-add.svg">
-      <publishTime>06/28/2022 14:31:15</publishTime>
+      <publishTime>07/06/2022 14:48:36</publishTime>
+    </File>
+    <File Include="Images/icon-arrow-down-table.svg">
+      <publishTime>07/06/2022 14:48:36</publishTime>
+    </File>
+    <File Include="Images/icon-arrow-down.svg">
+      <publishTime>07/06/2022 14:48:36</publishTime>
+    </File>
+    <File Include="Images/icon-arrow-up-table.svg">
+      <publishTime>07/06/2022 14:48:36</publishTime>
     </File>
     <File Include="Images/icon-calendar-disabled.svg">
       <publishTime>07/01/2022 18:16:54</publishTime>
@@ -2818,10 +2827,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/01/2022 08:08:58</publishTime>
     </File>
     <File Include="Images/icon-clone.svg">
-      <publishTime>06/28/2022 14:31:15</publishTime>
+      <publishTime>07/06/2022 14:48:36</publishTime>
     </File>
     <File Include="Images/icon-delete.svg">
-      <publishTime>06/28/2022 14:31:15</publishTime>
+      <publishTime>07/06/2022 14:48:36</publishTime>
     </File>
     <File Include="Images/icon-download.svg">
       <publishTime>06/28/2022 14:31:15</publishTime>
@@ -2833,10 +2842,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/04/2022 13:46:40</publishTime>
     </File>
     <File Include="Images/icon-power-off.svg">
-      <publishTime>06/28/2022 14:31:15</publishTime>
+      <publishTime>07/06/2022 14:48:36</publishTime>
     </File>
     <File Include="Images/icon-power-on.svg">
-      <publishTime>06/28/2022 14:31:15</publishTime>
+      <publishTime>07/06/2022 14:48:36</publishTime>
     </File>
     <File Include="Images/icon-search.svg">
       <publishTime>06/29/2022 12:47:09</publishTime>
@@ -2848,7 +2857,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/05/2022 19:05:51</publishTime>
     </File>
     <File Include="Images/icon-upload.svg">
-      <publishTime>06/28/2022 14:31:15</publishTime>
+      <publishTime>07/06/2022 14:48:36</publishTime>
     </File>
     <File Include="Images/question.svg">
       <publishTime>06/28/2022 14:31:15</publishTime>
@@ -2893,7 +2902,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>06/14/2022 16:48:05</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>07/06/2022 12:07:19</publishTime>
+      <publishTime>07/06/2022 19:50:12</publishTime>
     </File>
     <File Include="Recursos/Imagenes/Indicadores.jpg">
       <publishTime>06/14/2022 16:48:05</publishTime>
@@ -2995,10 +3004,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/06/2022 10:19:42</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsFuentes.js">
-      <publishTime>07/01/2022 10:55:50</publishTime>
+      <publishTime>07/06/2022 18:15:34</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsIndicador.js">
-      <publishTime>07/06/2022 09:20:52</publishTime>
+      <publishTime>07/06/2022 17:29:09</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsMensaje.js">
       <publishTime>06/30/2022 14:30:42</publishTime>
@@ -3016,7 +3025,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/03/2022 15:46:27</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsUtilidades.js">
-      <publishTime>07/05/2022 18:10:50</publishTime>
+      <publishTime>07/06/2022 18:49:23</publishTime>
     </File>
     <File Include="Scripts/Formulas/FormulasCumplimiento.js">
       <publishTime>06/14/2022 16:48:07</publishTime>
@@ -3271,7 +3280,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/04/2022 16:25:56</publishTime>
     </File>
     <File Include="Views/BitacoraFonatel/_BusquedaBitacora.cshtml">
-      <publishTime>07/04/2022 16:24:27</publishTime>
+      <publishTime>07/06/2022 19:36:34</publishTime>
     </File>
     <File Include="Views/BitacoraFonatel/_TablaBitacora.cshtml">
       <publishTime>07/04/2022 16:22:20</publishTime>
@@ -3289,10 +3298,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/05/2022 14:43:09</publishTime>
     </File>
     <File Include="Views/CategoriasDesagregacion/_CrearCategoria.cshtml">
-      <publishTime>07/04/2022 16:57:09</publishTime>
+      <publishTime>07/06/2022 14:58:24</publishTime>
     </File>
     <File Include="Views/CategoriasDesagregacion/_CrearDetalle.cshtml">
-      <publishTime>07/04/2022 17:01:09</publishTime>
+      <publishTime>07/06/2022 15:02:31</publishTime>
     </File>
     <File Include="Views/CategoriasDesagregacion/_TablaCategoriaDesagregacion.cshtml">
       <publishTime>07/06/2022 11:55:48</publishTime>
@@ -3409,10 +3418,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/01/2022 20:30:09</publishTime>
     </File>
     <File Include="Views/DefinicionIndicadores/Index.cshtml">
-      <publishTime>07/04/2022 20:56:26</publishTime>
+      <publishTime>07/06/2022 19:38:37</publishTime>
     </File>
     <File Include="Views/DefinicionIndicadores/_CreateDefinicion.cshtml">
-      <publishTime>07/04/2022 21:03:14</publishTime>
+      <publishTime>07/06/2022 19:29:53</publishTime>
     </File>
     <File Include="Views/DefinicionIndicadores/_TablaIndicadores.cshtml">
       <publishTime>07/04/2022 20:58:35</publishTime>
@@ -3487,10 +3496,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/04/2022 16:16:09</publishTime>
     </File>
     <File Include="Views/FormularioWeb/_CrearFormulario.cshtml">
-      <publishTime>07/06/2022 09:53:08</publishTime>
+      <publishTime>07/06/2022 19:07:04</publishTime>
     </File>
     <File Include="Views/FormularioWeb/_CrearIndicador.cshtml">
-      <publishTime>07/06/2022 11:02:44</publishTime>
+      <publishTime>07/06/2022 19:12:59</publishTime>
     </File>
     <File Include="Views/FormularioWeb/_ModalTipoIndicador.cshtml">
       <publishTime>07/04/2022 20:49:27</publishTime>
@@ -3532,7 +3541,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>06/14/2022 16:48:09</publishTime>
     </File>
     <File Include="Views/Fuentes/Create.cshtml">
-      <publishTime>07/04/2022 15:55:20</publishTime>
+      <publishTime>07/06/2022 18:14:14</publishTime>
     </File>
     <File Include="Views/Fuentes/Detalle.cshtml">
       <publishTime>07/04/2022 15:51:55</publishTime>
@@ -3541,10 +3550,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/04/2022 15:54:01</publishTime>
     </File>
     <File Include="Views/Fuentes/_CrearDetalle.cshtml">
-      <publishTime>07/04/2022 17:02:37</publishTime>
+      <publishTime>07/06/2022 18:12:20</publishTime>
     </File>
     <File Include="Views/Fuentes/_CrearFuente.cshtml">
-      <publishTime>07/04/2022 17:02:37</publishTime>
+      <publishTime>07/06/2022 17:33:08</publishTime>
     </File>
     <File Include="Views/Fuentes/_TablaDetalleFuentes.cshtml">
       <publishTime>07/04/2022 15:47:49</publishTime>
@@ -3646,25 +3655,25 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/IndicadorFonatel/Create.cshtml">
-      <publishTime>07/06/2022 11:02:46</publishTime>
+      <publishTime>07/06/2022 17:48:04</publishTime>
     </File>
     <File Include="Views/IndicadorFonatel/Index.cshtml">
       <publishTime>07/05/2022 15:02:46</publishTime>
     </File>
     <File Include="Views/IndicadorFonatel/_CrearCategoria.cshtml">
-      <publishTime>07/06/2022 08:59:01</publishTime>
+      <publishTime>07/06/2022 16:32:37</publishTime>
     </File>
     <File Include="Views/IndicadorFonatel/_CrearIndicador.cshtml">
-      <publishTime>07/06/2022 08:41:26</publishTime>
+      <publishTime>07/06/2022 16:32:37</publishTime>
     </File>
     <File Include="Views/IndicadorFonatel/_CrearVariable.cshtml">
-      <publishTime>07/06/2022 08:43:59</publishTime>
+      <publishTime>07/06/2022 17:29:09</publishTime>
     </File>
     <File Include="Views/IndicadorFonatel/_ModalGrupoIndicador.cshtml">
-      <publishTime>07/05/2022 18:26:22</publishTime>
+      <publishTime>07/06/2022 18:48:12</publishTime>
     </File>
     <File Include="Views/IndicadorFonatel/_ModalTipoIndicador.cshtml">
-      <publishTime>07/05/2022 18:26:22</publishTime>
+      <publishTime>07/06/2022 18:48:12</publishTime>
     </File>
     <File Include="Views/IndicadorFonatel/_TablaDetalleCategoria.cshtml">
       <publishTime>07/04/2022 15:29:43</publishTime>
@@ -3802,7 +3811,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>06/14/2022 16:48:10</publishTime>
     </File>
     <File Include="Views/PublicacionIndicadores/Index.cshtml">
-      <publishTime>07/05/2022 08:31:05</publishTime>
+      <publishTime>07/06/2022 19:31:56</publishTime>
     </File>
     <File Include="Views/PublicacionIndicadores/_TablaIndicadores.cshtml">
       <publishTime>07/04/2022 16:34:26</publishTime>
@@ -3898,10 +3907,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/05/2022 15:45:02</publishTime>
     </File>
     <File Include="Views/ReglasValidacion/_CrearRegla.cshtml">
-      <publishTime>07/05/2022 17:54:13</publishTime>
+      <publishTime>07/06/2022 19:02:14</publishTime>
     </File>
     <File Include="Views/ReglasValidacion/_CrearTipoRegla.cshtml">
-      <publishTime>07/05/2022 18:56:35</publishTime>
+      <publishTime>07/06/2022 18:55:26</publishTime>
     </File>
     <File Include="Views/ReglasValidacion/_TablaDetalleDesagregacion.cshtml">
       <publishTime>07/04/2022 16:11:03</publishTime>
@@ -3922,10 +3931,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/06/2022 12:02:36</publishTime>
     </File>
     <File Include="Views/RelacionCategoria/_CrearDetalle.cshtml">
-      <publishTime>07/04/2022 17:01:09</publishTime>
+      <publishTime>07/06/2022 15:09:09</publishTime>
     </File>
     <File Include="Views/RelacionCategoria/_CrearRelacionCategoria.cshtml">
-      <publishTime>07/05/2022 08:38:39</publishTime>
+      <publishTime>07/06/2022 15:09:09</publishTime>
     </File>
     <File Include="Views/RelacionCategoria/_TablaDetalleRelacionCategoria.cshtml">
       <publishTime>07/06/2022 12:06:36</publishTime>
@@ -4096,7 +4105,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>06/17/2022 10:19:44</publishTime>
     </File>
     <File Include="Views/SolicitudFonatel/_CrearSolicitud.cshtml">
-      <publishTime>07/04/2022 17:04:58</publishTime>
+      <publishTime>07/06/2022 18:31:14</publishTime>
     </File>
     <File Include="Views/SolicitudFonatel/_TablaSolicitud.cshtml">
       <publishTime>07/04/2022 16:07:27</publishTime>

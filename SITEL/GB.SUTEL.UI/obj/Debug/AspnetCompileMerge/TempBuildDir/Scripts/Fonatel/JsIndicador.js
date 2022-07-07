@@ -88,7 +88,7 @@ $(document).on("click", JsIndicador.Controles.btnEliminarVariable, function () {
     jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Eliminar la Variable?")
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.ConfirmaRegistro("La Variable ha sido Eliminada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/DetalleVariables?id="+id });
+                .set('onok', function (closeEvent) {  });
         });
 });
 

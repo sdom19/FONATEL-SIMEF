@@ -7,21 +7,24 @@
             <div class="form-group row">
                 <label for="ddlIndicadorFormulario" class="col-sm-12 col-form-label ">Indicador</label>
                 <div class="col-sm-12">
-                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlIndicadorFormulario">
-                        <option></option>
-                        <option value="1">IP1Tor Torres según estado</option>
-                        <option value="2">IP1CPSP CPSP Conectados</option>
-                        <option value="2">IP2Hog Hogares Beneficiarios</option>
-                    </select>
-                    <br />
-                    <small id="ddlIndicadorFormularioHelp" class="form-text text-danger">La Variable es Requerida</small>
+                    <div class="select2-wrapper">
+                        <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlIndicadorFormulario">
+                            <option></option>
+                            <option value="1">IP1Tor Torres según estado</option>
+                            <option value="2">IP1CPSP CPSP Conectados</option>
+                            <option value="2">IP2Hog Hogares Beneficiarios</option>
+                        </select>
+                    </div>
+                   
+             
+                    <small id="ddlIndicadorFormularioHelp" class="form-text form-text-danger-fonatel">La Variable es Requerida</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="txtNotasEncargadoFormlulario" class="col-sm-12 col-form-label">Notas del Encargado</label>
                 <div class="col-sm-12">
-                    <textarea class="form-control text-area" id="txtNotasEncargadoFormlulario" placeholder="Notas"></textarea>
-                    <small id="txtNotasEncargadoFormlularioHelp" class="form-text hidden">La Notas es requerido</small>
+                    <textarea class="form-control form-control-fonatel" id="txtNotasEncargadoFormlulario" placeholder="Notas"></textarea>
+                    <small id="txtNotasEncargadoFormlularioHelp" class="form-text">La Notas es requerido</small>
                 </div>
             </div>
 
@@ -31,15 +34,15 @@
             <div class="form-group row">
                 <label for="txtTituloHoja" class="col-sm-12 col-form-label">Título de Hola</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" id="txtNombreVariable" placeholder="Nombre">
-                    <small id="txtNombreVariableHelp" class="form-text text-danger">El Nombre es requerido</small>
+                    <input type="text" class="form-control form-control-fonatel" id="txtNombreVariable" placeholder="Nombre">
+                    <small id="txtNombreVariableHelp" class="form-text form-text-danger-fonatel">El Nombre es requerido</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="txtNotasInformanteFormlulario" class="col-sm-12 col-form-label">Notas del Informante</label>
                 <div class="col-sm-12">
-                    <textarea class="form-control text-area" id="txtNotasInformanteFormlulario" placeholder="Notas"></textarea>
-                    <small id="txtNotasInformanteFormlularioHelp" class="form-text hidden">La Notas es requerido</small>
+                    <textarea class="form-control form-control-fonatel" id="txtNotasInformanteFormlulario" placeholder="Notas"></textarea>
+                    <small id="txtNotasInformanteFormlularioHelp" class="form-text">La Notas es requerido</small>
                 </div>
             </div>
 
