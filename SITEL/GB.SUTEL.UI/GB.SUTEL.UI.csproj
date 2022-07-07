@@ -1369,6 +1369,7 @@
     <Content Include="Views\Historico\_CrearCategoria.cshtml" />
     <Content Include="Views\ReglasValidacion\_CrearTipoRegla.cshtml" />
     <Content Include="Views\ReglasValidacion\_TablaDetalleVariable.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_ModalUnidadEstudio.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
