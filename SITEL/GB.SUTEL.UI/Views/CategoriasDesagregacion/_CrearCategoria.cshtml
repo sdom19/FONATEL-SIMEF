@@ -7,15 +7,15 @@
                 <div class="form-group row">
                     <label for="txtNombre" class="col-sm-12 col-form-label">Nombre</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="txtNombre" placeholder="Nombre de categoria">
-                        <small id="nombreHelp" class="form-text text-danger">El nombre es requerido</small>
+                        <input type="text" class="form-control form-control-fonatel" id="txtNombre" placeholder="Nombre de categoria">
+                        <small id="nombreHelp" class="form-text  form-text-danger-fonatel">El nombre es requerido</small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="txtCodigo" placeholder="Codigo">
-                        <small id="CodigoHelp" class="form-text text-danger">El Código es requerido</small>
+                        <input type="text" class="form-control form-control-fonatel" id="txtCodigo" placeholder="Codigo">
+                        <small id="CodigoHelp" class="form-text form-text-danger-fonatel">El Código es requerido</small>
                     </div>
                 </div>
 
@@ -24,14 +24,15 @@
                 <div class="form-group row">
                     <label for="ddlTipoCategoria" class="col-sm-12 col-form-label ">Tipo Categoria</label>
                     <div class="col-sm-12">
-                        <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlTipoCategoria">
-                            <option></option>
-                            <option value="1">id único</option>
-                            <option value="2">atributo</option>
-                            <option value="3">actualizable</option>
-                        </select>
-                        <br />
-                        <small id="TipoCategoriaHelp" class="form-text text-danger">El tipo es requerido</small>
+                        <div class="select2-wrapper">
+                            <select class="listasDesplegables" aria-label="Default select example" id="ddlTipoCategoria">
+                                <option></option>
+                                <option value="1">id único</option>
+                                <option value="2">atributo</option>
+                                <option value="3">actualizable</option>
+                            </select>
+                        </div>
+                        <small id="TipoCategoriaHelp" class="form-text  form-text-danger-fonatel">El tipo es requerido</small>
                     </div>
                 </div>
 
@@ -42,22 +43,23 @@
             <div class="form-group row">
                 <label for="ddlTipoDetalleCategoria" class="col-sm-12 col-form-label">Tipo Detalle</label>
                 <div class="col-sm-12">
-                    <select class="form-control required listasDesplegables" aria-label="Default select example" id="ddlTipoDetalleCategoria">
-                        <option></option>
-                        <option value="1">numérico</option>
-                        <option value="2">alfanumérico</option>
-                        <option value="3">texto</option>
-                        <option value="4">fecha</option>
-                    </select>
-                    <br />
-                    <small id="TipoCategoriaHelp" class="form-text text-danger">El detalle es requerido</small>
+                    <div class="select2-wrapper">
+                        <select class="listasDesplegables" aria-label="Default select example" id="ddlTipoDetalleCategoria">
+                            <option></option>
+                            <option value="1">numérico</option>
+                            <option value="2">alfanumérico</option>
+                            <option value="3">texto</option>
+                            <option value="4">fecha</option>
+                        </select>
+                        </div>
+                        <small id="TipoCategoriaHelp" class="form-text  form-text-danger-fonatel">El detalle es requerido</small>
+                    </div>
                 </div>
-            </div>
             <div class="form-group row hidden" id="divCantidadDetalleCategoria">
                 <label for="txtCantidadDetalleCategoria" class="col-sm-12 col-form-label">Cantidad Detalle</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control solo_numeros" id="txtCantidadDetalleCategoria" placeholder="Cantidad Detalle">
-                    <small id="CantidadDetalleCategoriaHelp" class="form-text text-danger">La Cantidad de Detalle es Requerida</small>
+                    <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadDetalleCategoria" placeholder="Cantidad Detalle">
+                    <small id="CantidadDetalleCategoriaHelp" class="form-text  form-text-danger-fonatel">La Cantidad de Detalle es Requerida</small>
                 </div>
             </div>
 
@@ -68,8 +70,8 @@
             <div class="form-group row hidden" id="divFechaMinimaCategoria">
                 <label for="txtFechaMinimaCategoria" class="col-sm-12 col-form-label">Fecha Inicio</label>
                 <div class="col-sm-12">
-                    <input type="date" class="form-control" id="txtFechaMinimaCategoria" placeholder="Fecha de Inicio">
-                    <small id="FechaMinimaCategoriaHelp" class="form-text text-danger">La Fecha Inicio es requerida</small>
+                    <input type="date" class="form-control form-control-fonatel" id="txtFechaMinimaCategoria" placeholder="Fecha de Inicio">
+                    <small id="FechaMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel">La Fecha Inicio es requerida</small>
                 </div>
             </div>
 
@@ -77,8 +79,8 @@
             <div class="form-group row hidden" id="divFechaMaximaCategoria">
                 <label for="txtFechaMaximaCategoria" class="col-sm-12 col-form-label">Fecha Final</label>
                 <div class="col-sm-12">
-                    <input type="date" class="form-control" id="txtFechaMaximaCategoria" placeholder="Fecha de Fin">
-                    <small id="FechaMaximaCategoriaHelp" class="form-text text-danger">La Fecha Fin es requerida</small>
+                    <input type="date" class="form-control form-control-fonatel" id="txtFechaMaximaCategoria" placeholder="Fecha de Fin">
+                    <small id="FechaMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel">La Fecha Fin es requerida</small>
                 </div>
             </div>
 
@@ -87,8 +89,8 @@
             <div class="form-group row hidden" id="divRangoMinimaCategoria">
                 <label for="txtRangoMinimaCategoria" class="col-sm-12 col-form-label">Valor Mínimo</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control solo_numeros" id="txtRangoMinimaCategoria" placeholder="Rango de Inicio">
-                    <small id="RangoMinimaCategoriaHelp" class="form-text text-danger">El Valor Minimo es Requerido</small>
+                    <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtRangoMinimaCategoria" placeholder="Rango de Inicio">
+                    <small id="RangoMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel">El Valor Minimo es Requerido</small>
                 </div>
             </div>
 
@@ -96,8 +98,8 @@
             <div class="form-group row hidden" id="divRangoMaximaCategoria">
                 <label for="txtRangoMaximaCategoria" class="col-sm-12 col-form-label">Valor Máximo</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control solo_numeros" id="txtRangoMaximaCategoria" placeholder="Valor Máximo">
-                    <small id="RangoMaximaCategoriaHelp" class="form-text text-danger">El Valor Máximo es Requerido</small>
+                    <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtRangoMaximaCategoria" placeholder="Valor Máximo">
+                    <small id="RangoMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel">El Valor Máximo es Requerido</small>
                 </div>
             </div>
 
