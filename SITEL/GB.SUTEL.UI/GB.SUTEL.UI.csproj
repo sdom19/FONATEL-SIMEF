@@ -444,7 +444,6 @@
     <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\32px.png" />
     <Content Include="Content\alertifyjs\alertify.min.css" />
-    <Content Include="Content\alertifyjs\CustomAlertify.css" />
     <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -610,6 +609,7 @@
     <Content Include="Images\icon-arrow-up-table.svg" />
     <Content Include="Images\icon-calendar.svg" />
     <Content Include="Images\icon-clone.svg" />
+    <Content Include="Images\icon-close.svg" />
     <Content Include="Images\icon-delete.svg" />
     <Content Include="Images\icon-download.svg" />
     <Content Include="Images\icon-edit.svg" />
