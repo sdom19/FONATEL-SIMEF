@@ -2,6 +2,7 @@
     "Controles": {
         
         "btnEditarDefiniciones": "#TablaDefiniciones tbody tr td .btn-edit",
+        "btnAddDefiniciones": "#TablaDefiniciones tbody tr td .btn-add",
         "btnDeleteDefiniciones": "#TablaDefiniciones tbody tr td .btn-delete",
         "btnCloneDefiniciones": "#TablaDefiniciones tbody tr td .btn-clone",
         "btnGuardar": "#btnGuardarDefiniciones",
@@ -16,7 +17,9 @@
 
 }
 
-
+$(document).on("click", JsDefiniciones.Controles.btnAddDefiniciones, function () {
+    window.location.href = "/Fonatel/DefinicionIndicadores/Create";
+});
 
 
 $(document).on("click", JsDefiniciones.Controles.btnEditarDefiniciones, function () {

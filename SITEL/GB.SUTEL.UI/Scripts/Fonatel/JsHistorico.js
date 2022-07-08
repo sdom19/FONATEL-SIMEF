@@ -1,0 +1,18 @@
+﻿    JsHistorico= {
+        "Controles": {
+            
+
+    },
+    "Variables":{
+
+    },
+
+    "Metodos": {
+
+    }
+
+}
+
+
+
+

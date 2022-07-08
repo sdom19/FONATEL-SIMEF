@@ -2,6 +2,8 @@
 
 //Función para buscar indicadores filtrados
 function buscarIndicadores() {
+
+
     //Cargar loader
     $('#loader').show();
     $("#DivTable").hide();
