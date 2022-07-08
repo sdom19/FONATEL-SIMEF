@@ -645,6 +645,7 @@
     <Content Include="Scripts\DataTables\scroller.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\vfs_fonts.js" />
     <Content Include="Scripts\Fonatel\JsDefiniciones.js" />
+    <Content Include="Scripts\Fonatel\JsHistorico.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />
     <Content Include="Scripts\Fonatel\JsReglas.js" />
     <Content Include="Scripts\Fonatel\JsPublicar.js" />
@@ -1360,15 +1361,12 @@
     <Content Include="Views\FormularioWeb\_CrearIndicador.cshtml" />
     <Content Include="Views\FormularioWeb\_TablaIndicador.cshtml" />
     <Content Include="Views\FormularioWeb\_ModalTipoIndicador.cshtml" />
-    <Content Include="Views\Historico\Index.cshtml" />
-    <Content Include="Views\Historico\Detalle.cshtml" />
-    <Content Include="Views\Historico\Create.cshtml" />
-    <Content Include="Views\Historico\_TablaDetalleDesagregacion.cshtml" />
-    <Content Include="Views\Historico\_TablaCategoriaDesagregacion.cshtml" />
-    <Content Include="Views\Historico\_CrearDetalle.cshtml" />
-    <Content Include="Views\Historico\_CrearCategoria.cshtml" />
+    <Content Include="Views\Shared\Fonatel\_ModalHistorico.cshtml" />
     <Content Include="Views\ReglasValidacion\_CrearTipoRegla.cshtml" />
     <Content Include="Views\ReglasValidacion\_TablaDetalleVariable.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_ModalUnidadEstudio.cshtml" />
+    <Content Include="Views\RegistroIndicador\Ayuda.cshtml" />
+    <Content Include="Views\RegistroIndicador\Mensaje.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1380,6 +1378,7 @@
     <Folder Include="Recursos\ConvertToOldExcel\" />
     <Folder Include="Views\Agrupacion\NewFolder1\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Historico\" />
     <Folder Include="Views\Seguridad\Rol\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
