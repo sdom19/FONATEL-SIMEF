@@ -1,7 +1,7 @@
 ﻿    JsIndicador= {
         "Controles": {
             "btnstep": ".step_navigation_indicador div",
-            "divContenedor": ".contenedor",
+            "divContenedor": ".stepwizard-content-container",
             "btnGuardarIndicador": "#btnGuardarIndicador",
             "btnGuardarVariable": "#btnGuardarVariable",
             "btnGuardarCategoria": "#btnGuardarCategoria",
@@ -33,10 +33,21 @@
 
 
 
-$(document).on("click", JsIndicador.Controles.btnstep, function () {
+$(document).on("click", JsIndicador.Controles.btnstep, function (e) {
+    $(JsIndicador.Controles.btnstep).removeClass('active');
+    $(this).addClass('active');
+    let selected = $(this);
 
-    $(JsIndicador.Controles.btnstep).children("a").addClass('btn-default').removeClass('btn-info-fonatel');
-    $(this).children("a").addClass('btn-info-fonatel').removeClass('btn-default');
+    $(this).siblings().each(function () {
+        if ($(this).attr("data-step") < selected.attr("data-step")) {
+            $(this).addClass('active');
+        }
+        else {
+            $(this).removeClass('active');
+        }
+    });
+    
+    e.preventDefault();
     let div = $(this).children("a").attr("href");
     $(JsIndicador.Controles.divContenedor).addClass('hidden');
     $(div).removeClass('hidden');
@@ -182,4 +193,8 @@ $(document).on("click", JsIndicador.Controles.btnClonarIndicador, function () {
         .set('onok', function (closeEvent) {
              window.location.href = "/Fonatel/IndicadorFonatel/Create?id="+id
         });
+});
+
+$(document).ready(function () {
+    $(".stepwizard-step[data-step='0']").trigger('click');
 });
