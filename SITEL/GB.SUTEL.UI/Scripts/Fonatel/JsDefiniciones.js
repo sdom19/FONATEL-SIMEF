@@ -39,17 +39,17 @@ $(document).on("click", JsDefiniciones.Controles.btnCloneDefiniciones, function 
 
 $(document).on("click", JsDefiniciones.Controles.btnGuardar, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Definicion?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Definicion?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Definición ha Sido Creada")
+            jsMensajes.Metodos.OkAlertModal("La Definición ha Sido Creada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/DefinicionIndicadores/index" });
         });
 });
 
 $(document).on("click", JsDefiniciones.Controles.btnDeleteDefiniciones, function (e) {
-    jsMensajes.Metodos.EliminarRegistro("¿Desea Elimina la Definición? ")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Elimina la Definición?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("El Definición ha sido Eliminada")
+            jsMensajes.Metodos.OkAlertModal("El Definición ha sido Eliminada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/DefinicionIndicadores/index" });
         });
 });

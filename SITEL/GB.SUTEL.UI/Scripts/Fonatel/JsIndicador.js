@@ -33,25 +33,6 @@
 
 
 
-$(document).on("click", JsIndicador.Controles.btnstep, function (e) {
-    $(JsIndicador.Controles.btnstep).removeClass('active');
-    $(this).addClass('active');
-    let selected = $(this);
-
-    $(this).siblings().each(function () {
-        if ($(this).attr("data-step") < selected.attr("data-step")) {
-            $(this).addClass('active');
-        }
-        else {
-            $(this).removeClass('active');
-        }
-    });
-    
-    e.preventDefault();
-    let div = $(this).children("a").attr("href");
-    $(JsIndicador.Controles.divContenedor).addClass('hidden');
-    $(div).removeClass('hidden');
-});
 
 
 
@@ -77,18 +58,18 @@ $(document).on("click", JsIndicador.Controles.btnAddIndicadorVariable, function 
 
 
 $(document).on("click", JsIndicador.Controles.btnDesactivarIndicador, function () {
-    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Activar el Indicador?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Activar el Indicador?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("El Indicador ha sido Activado")
+            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido Activado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
         });
 });
 
 
 $(document).on("click", JsIndicador.Controles.btnEliminarIndicador, function () {
-    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Eliminar el Indicador?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Eliminar el Indicador?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("El Indicador ha sido Eliminado")
+            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido Eliminado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
         });
 });
@@ -96,9 +77,9 @@ $(document).on("click", JsIndicador.Controles.btnEliminarIndicador, function () 
 
 $(document).on("click", JsIndicador.Controles.btnEliminarVariable, function () {
     let id = 1;
-    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Eliminar la Variable?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Eliminar la Variable?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Variable ha sido Eliminada")
+            jsMensajes.Metodos.OkAlertModal("La Variable ha sido Eliminada")
                 .set('onok', function (closeEvent) {  });
         });
 });
@@ -107,9 +88,9 @@ $(document).on("click", JsIndicador.Controles.btnEliminarVariable, function () {
 
 
 $(document).on("click", JsIndicador.Controles.btnActivarIndicador, function () {
-    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Desactivar el Indicadores?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Desactivar el Indicadores?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Desactivada")
+            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido Desactivada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
         });
 });
@@ -119,7 +100,7 @@ $(document).on("click", JsIndicador.Controles.btnActivarIndicador, function () {
 
 $(document).on("click", JsIndicador.Controles.btnGuardarIndicador, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar el Indicador?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar el Indicador?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             $("a[href='#step-2']").trigger('click');
         });
@@ -144,9 +125,9 @@ $(document).on("click", JsIndicador.Controles.btnAtrasVariable, function (e) {
 
 $(document).on("click", JsIndicador.Controles.btnSiguienteCategoria, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Guardar el Indicador?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Guardar el Indicador?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Indicador ha sido Agregado")
+            jsMensajes.Metodos.OkAlertModal("La Indicador ha sido Agregado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
         });
 
@@ -169,9 +150,9 @@ $(document).on("click", JsIndicador.Controles.btnAtrasCategoria, function (e) {
 $(document).on("click", JsIndicador.Controles.btnGuardarVariable, function (e) {
     e.preventDefault();
 
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Variable?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Variable?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Variable ha sido Creada")
+            jsMensajes.Metodos.OkAlertModal("La Variable ha sido Creada")
                 .set('onok', function (closeEvent) { });
         });
 });
@@ -179,9 +160,9 @@ $(document).on("click", JsIndicador.Controles.btnGuardarVariable, function (e) {
 $(document).on("click", JsIndicador.Controles.btnGuardarCategoria, function (e) {
     e.preventDefault();
 
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Categoría?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Creada")
+            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido Creada")
                 .set('onok', function (closeEvent) { });
         });
 });
@@ -189,12 +170,9 @@ $(document).on("click", JsIndicador.Controles.btnGuardarCategoria, function (e) 
 
 $(document).on("click", JsIndicador.Controles.btnClonarIndicador, function () {
     let id = 1;
-    jsMensajes.Metodos.ClonarRegistro("¿Desea Clonar el Indicador?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Clonar el Indicador?", jsMensajes.Variables.actionType.clonar)
         .set('onok', function (closeEvent) {
              window.location.href = "/Fonatel/IndicadorFonatel/Create?id="+id
         });
 });
 
-$(document).ready(function () {
-    $(".stepwizard-step[data-step='0']").trigger('click');
-});

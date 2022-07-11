@@ -40,3 +40,17 @@ C:\Users\michael.hernandez\Documents\Sutel\FONATEL\SITEL\GB.SUTEL.Shared\obj\Deb
 C:\Users\michael.hernandez\Documents\Sutel\FONATEL\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.csproj.CopyComplete
 C:\Users\michael.hernandez\Documents\Sutel\FONATEL\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.dll
 C:\Users\michael.hernandez\Documents\Sutel\FONATEL\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.pdb
+C:\Fonatel\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.Shared.dll.config
+C:\Fonatel\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.Shared.dll
+C:\Fonatel\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.Shared.pdb
+C:\Fonatel\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.ExceptionHandler.dll
+C:\Fonatel\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.ExceptionHandler.pdb
+C:\Fonatel\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.ExceptionHandler.dll.config
+C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.csprojAssemblyReference.cache
+C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.ErrorTemplate.resources
+C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.Logica.resources
+C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.csproj.GenerateResource.cache
+C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.csproj.CoreCompileInputs.cache
+C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.csproj.CopyComplete
+C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.dll
+C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.pdb

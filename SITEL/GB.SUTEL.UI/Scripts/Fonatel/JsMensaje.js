@@ -41,7 +41,7 @@
 
 
 
-        "ConfirmaRegistro": function (mensaje) {
+        "OkAlertModal": function (mensaje) {
             let alertifyObject = alertify.alert(jsMensajes.Variables.MensajeConfirmacion, "")
                 .set('label', jsMensajes.Variables.btnlisto )
                 .set({ 'modal': true, 'closable': false })

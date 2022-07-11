@@ -256,6 +256,7 @@
     <Compile Include="Controllers\ConstructorController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EspectroController.cs" />
+    <Compile Include="Controllers\Fonatel\RegistroIndicadorFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\FormularioWebController.cs" />
     <Compile Include="Controllers\Fonatel\PublicacionIndicadoresController.cs" />
     <Compile Include="Controllers\Fonatel\BitacoraFonatelController.cs" />
@@ -968,6 +969,7 @@
     <Content Include="Scripts\Espectro.js" />
     <Content Include="Scripts\Espectro\Espectro.js" />
     <Content Include="Scripts\Fonatel\JsFuentes.js" />
+    <Content Include="Scripts\Fonatel\JsStepper.js" />
     <Content Include="Scripts\Fonatel\JsUtilidades.js" />
     <Content Include="Scripts\Formulas\FormulasCumplimiento.js" />
     <Content Include="Scripts\FuenteExterna\IndicadorExterno\CreateEdit.js" />
@@ -1367,6 +1369,7 @@
     <Content Include="Views\IndicadorFonatel\_ModalUnidadEstudio.cshtml" />
     <Content Include="Views\RegistroIndicador\Ayuda.cshtml" />
     <Content Include="Views\RegistroIndicador\Mensaje.cshtml" />
+    <Content Include="Views\RegistroIndicadorFonatel\index.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
