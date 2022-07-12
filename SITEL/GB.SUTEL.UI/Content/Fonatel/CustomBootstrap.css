@@ -7,6 +7,7 @@
     --light-1-green-fonatel: #7CB342;
     --purple-fonatel: #7A3DAB;
     --blue-fonatel: #1A5EAB;
+    --blue-2-fonatel: #007588;
     --light-1-blue-fonatel: #00B3E6;
     --light-2-blue-fonatel: #EDF1F7;
     --orange-fonatel: #F58A3B;
@@ -18,6 +19,8 @@
     --default-border-color: #cccccc;
 
     --default-stepper-btn-circle: #BDBDBD;
+
+    --default-input-length: 280px;
 }
 
 .page-title-fonatel {
@@ -70,6 +73,8 @@
             color: black;
             -webkit-transition: 0.15s;
             transition: 0.15s;
+            border: 1px solid var(--light-1-blue-fonatel);
+            border-bottom-width: 0px;
         }
 
         .nav-tabs-fonatel > li.active > a,
@@ -110,9 +115,14 @@
     background-color: var(--green-fonatel);
 }
 
-.btn-success-2-fonatel {
+/*.btn-success-2-fonatel {
     color: #ffffff;
     background-color: var(--light-1-green-fonatel);
+}*/
+
+.btn-next-fonatel {
+    color: #ffffff;
+    background-color: var(--blue-2-fonatel);
 }
 
 .btn-error-fonatel {
@@ -127,8 +137,8 @@
 
     .btn-success-fonatel:hover,
     .btn-success-fonatel:focus,
-    .btn-success-2-fonatel:hover,
-    .btn-success-2-fonatel:focus,
+    .btn-next-fonatel:hover,
+    .btn-next-fonatel:focus,
     .btn-error-fonatel:hover,
     .btn-error-fonatel:focus,
     .btn-info-fonatel:hover,
@@ -484,6 +494,12 @@ textarea.form-control-fonatel {
     background-image: url("../../Images/icon-calendar.svg")
 }
 
+.form-group.center {
+    max-width: var(--default-input-length);
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .text-input-wrapper-btn {
     display: inline-flex;
 }
@@ -513,10 +529,9 @@ textarea.form-control-fonatel {
         border: 1px solid var(--default-border-color);
     }
 
-.select2-wrapper .select2.select2-container.select2-container--default
 /*.select2-btn-wrapper .select2.select2-container.select2-container--default*/ 
-{
-    max-width: 280px;
+.select2-wrapper .select2.select2-container.select2-container--default {
+    max-width: var(--default-input-length);
     width: 100% !important;
 }
 
