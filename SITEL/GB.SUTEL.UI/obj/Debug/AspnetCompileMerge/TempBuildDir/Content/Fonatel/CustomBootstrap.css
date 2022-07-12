@@ -3,7 +3,7 @@
 */
 
 :root {
-    --green-fonatel: #5B9150;
+    --green-fonatel: #55924E;
     --light-1-green-fonatel: #7CB342;
     --purple-fonatel: #7A3DAB;
     --blue-fonatel: #1A5EAB;
@@ -11,10 +11,13 @@
     --light-2-blue-fonatel: #EDF1F7;
     --orange-fonatel: #F58A3B;
     --red-fonatel: #FF0007;
+    --gray-fonatel: #F6F8FD;
 
     --blue-fonatel-rgb-60: rgb(26 94 171 / 60%);
 
-    --default-border-color: #cccccc
+    --default-border-color: #cccccc;
+
+    --default-stepper-btn-circle: #BDBDBD;
 }
 
 .page-title-fonatel {
@@ -33,11 +36,6 @@
 
 .body-content {
     padding-top: 15px !important
-}
-
-.modal-fonatel .modal-header {
-    background: var(--blue-fonatel);
-    color: #fff;
 }
 
 .form-text-danger-fonatel {
@@ -274,6 +272,7 @@
 }
 
 .table-wrapper-fonatel .dataTables_filter input {
+    width: calc(100% - 60px) !important;
     padding: 9px 35px 9px 10px;
     border-radius: 9px;
     background: transparent url("../../Images/icon-search.svg") no-repeat 96% center;
@@ -373,6 +372,38 @@
 .table-wrapper-fonatel table.dataTable thead > tr > td.sorting_asc:before,
 .table-wrapper-fonatel table.dataTable thead > tr > td.sorting_desc:after {
     opacity: 1;
+}
+
+.table-wrapper-fonatel table.table-bordered.dataTable thead tr:first-child th,
+.table-wrapper-fonatel table.table-bordered.dataTable thead tr:first-child td {
+    border-top: 0px;
+}
+
+.table-wrapper-fonatel .top-position,
+.table-wrapper-fonatel .bottom-position {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.table-wrapper-fonatel .bottom-position {
+    align-items: flex-start;
+}
+
+.table-wrapper-fonatel div.dt-buttons {
+    margin-bottom: 1em;
+}
+
+@media screen and (max-width: 597px) {
+    .table-wrapper-fonatel .top-position {
+        display: list-item;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .table-wrapper-fonatel .bottom-position {
+        display: block;
+    }
 }
 
 /*
@@ -480,10 +511,81 @@ textarea.form-control-fonatel {
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
     background-color: var(--blue-fonatel);
 }
-.datatable_simef_modal {
-    width: 80%;
+
+/*
+    ===============================================================
+                           Alertify/Modal
+    ===============================================================
+*/
+
+.modal-fonatel .modal-content {
+    border-radius: 0px 0px 28px 28px;
 }
-    .modal-fonatel .modal-header {
-        background: var(--blue-fonatel);
-        color: #fff;
+
+.modal-fonatel .modal-header,
+.alertify .ajs-header {
+    height: 43px;
+    padding: 9px 24px !important;
+    color: #fff !important;
+    background-color: #1a5eab !important;
+    border-radius: 0px !important;
+}
+
+    .modal-fonatel .modal-header .modal-title {
+        font-size: 1.8rem;
     }
+
+.alertify .ajs-commands {
+    margin-top: -18px !important;
+}
+
+    .modal-fonatel .modal-header .close,
+    .alertify .ajs-commands button.ajs-close {
+        background-image: url("../../Images/icon-close.svg") !important;
+    }
+
+    .modal-fonatel .modal-header .close {
+        width: 30px;
+        height: 30px;
+        margin-top: -4px;
+        opacity: 1;
+    }
+
+.alertify .ajs-dialog {
+    border-radius: 0px 0px 28px 28px !important;
+    background-color: var(--gray-fonatel) !important;
+    max-width: 450px !important;
+    border: 0px !important;
+}
+
+.alertify .ajs-content {
+    font-size: 1.8rem;
+}
+
+.alertify .icon {
+    width: 57px;
+    height: 57px;
+    margin: 12.5px auto 23.75px;
+}
+
+.alertify .ajs-footer .ajs-buttons.ajs-primary {
+    text-align: center !important;
+}
+
+.alertify .ajs-footer {
+    border-radius: 0px 0px 28px 28px !important;
+    background-color: var(--gray-fonatel) !important;
+    border-top: 0px !important;
+}
+
+.question-icon {
+    content: url("../../Images/question.svg");
+}
+
+.warning-icon {
+    content: url("../../Images/warning.svg");
+}
+
+.success-icon:before {
+    content: url("../../Images/icon-success.svg");
+}

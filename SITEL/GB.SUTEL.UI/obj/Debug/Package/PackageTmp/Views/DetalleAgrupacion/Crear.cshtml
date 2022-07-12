@@ -1,0 +1,65 @@
+﻿@model GB.SUTEL.UI.Models.DetalleAgrupacionViewModels
+
+
+<form id="formCreate" method="post" 
+      data-ajax="true" action="@Url.Action("Crear")" 
+      data-ajax-message="Guardando Detalle Agrupación...">
+   
+
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="modal fade" id="modalCrearDetalle">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Crear Detalle Agrupación</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.itemDetalleAgrupacion.IdAgrupacion, new { @class = "col-md-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.DropDownListFor(model => model.itemDetalleAgrupacion.IdAgrupacion, (List<SelectListItem>)ViewBag.listaAgrupaciones, new { @class = "form-control", style = "width:100%" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.itemDetalleAgrupacion.IdAgrupacion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.itemDetalleAgrupacion.IdOperador, new { @class = "col-md-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.DropDownListFor(model => model.itemDetalleAgrupacion.IdOperador, (List<SelectListItem>)ViewBag.listaOperadores, new { @class = "form-control", style = "width:100%" })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.itemDetalleAgrupacion.IdOperador, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.itemDetalleAgrupacion.DescDetalleAgrupacion, new { @class = "col-md-3 control-label" })
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.itemDetalleAgrupacion.DescDetalleAgrupacion, new { htmlAttributes = new { @class = "form-control" } })
+                                    <br />
+                                    @Html.ValidationMessageFor(model => model.itemDetalleAgrupacion.DescDetalleAgrupacion, "", new { @class = "text-danger" })
+                                </div>
+                               
+                            </div>
+                            <br />
+                            <div class="alert alert-danger hidden" role="alert" id="divMensajeErrorNuevoDetalle">
+                                <span id="MyerrorMensaje"></span>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Crear" class="btn btn-success" alt="Crear" title="Crear" />
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" title="Cancelar">Cancelar</button>                        
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+    </form>

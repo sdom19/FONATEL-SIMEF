@@ -51,15 +51,16 @@
                           <option></option>
                           <option value="1">Fórmula cambio mensual</option>
                           <option value="2">Fórmula contra otro indicador</option>
+                          <option value="2">Producto de una Fórmula de Cálculo</option>
                           <option value="3">Fórmula contra constante</option>
                           <option value="4">Fórmula contra atributos válidos</option>
                           <option value="5">Fórmula actualización secuencial</option>
                       </select>
-                    </div>
-                      <small id="TipoReglaHelp" class="form-text form-text-danger-fonatel">El tipo es requerido</small>
                   </div>
-
+                  <small id="TipoReglaHelp" class="form-text form-text-danger-fonatel">El tipo es requerido</small>
               </div>
+
+          </div>
 
           <div class="hidden" id="divFormulaContraConstante">
               <div class="form-group row">
@@ -83,10 +84,10 @@
                               <option value="3">Hogares Benificiados</option>
                               <option value="4">Dispositivos entregados</option>
                           </select>
-                        </div>
-                          <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
                       </div>
+                      <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
                   </div>
+              </div>
 
 
               <div class="form-group row">
@@ -98,14 +99,33 @@
                               <option value="1">Cantidad Torres</option>
                               <option value="2">Estado de Torres</option>
                           </select>
-                          </div>
-                          <small id="ddlVariableComparacionReglaHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
                       </div>
+                      <small id="ddlVariableComparacionReglaHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
                   </div>
+              </div>
           </div>
 
 
           <div class="hidden" id="divFormulaContraAtributosValido">
+
+
+              <div class="form-group row">
+                  <label for="ddlAtributosValidosCategoriaRegla" class="col-sm-12 col-form-label">Categoría ID</label>
+                  <div class="col-sm-12">
+                      <div class="select2-wrapper">
+                          <select class="listasDesplegables" id="ddlAtributosValidosCategoriaRegla">
+                              <option></option>
+                              <option value="1">CAT-1</option>
+                              <option value="2">CAT-2</option>
+                              <option value="2">CAT-3</option>
+                          </select>
+                      </div>
+                      <small id="ddlAtributosValidosCategoriaReglaHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
+                  </div>
+              </div>
+
+
+
               <div class="form-group row">
                   <label for="ddlAtributosValidosRegla" class="col-sm-12 col-form-label">Atributos Validos</label>
                   <div class="col-sm-12">
@@ -117,16 +137,31 @@
                               <option value="2">limon</option>
                               <option value="2">Puntarena</option>
                           </select>
-                          </div>
-                          <small id="ddlAtributosValidosReglaHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
                       </div>
+                      <small id="ddlAtributosValidosReglaHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
                   </div>
+              </div>
+          </div>
+
+          <div class="hidden" id="divFormulaActualizacionSecuencial">
+
+              <div class="form-group row">
+                  <label for="ddlCategoriaActualizableRegla" class="col-sm-12 col-form-label">Categoría Actualizable</label>
+                  <div class="col-sm-12">
+                      <div class="select2-wrapper">
+                          <select multiple class="listasDesplegables" id="ddlCategoriaActualizableRegla">
+                              <option></option>
+                              <option value="1">Estado de Torres</option>
+                          </select>
+                      </div>
+                      <small id="ddlCategoriaActualizableReglaHelp" class="form-text form-text-danger-fonatel">La Categoría Actualizable es Requerida</small>
+                  </div>
+              </div>
           </div>
 
 
-
+          </div>
       </div>
-  </div>
    <div class="row">
         <div class="col-sm-12 text-center mt-5">
             <button id="btnGuardarReglaTipo" class="btn btn-fonatel btn-success-fonatel">Guardar</button>

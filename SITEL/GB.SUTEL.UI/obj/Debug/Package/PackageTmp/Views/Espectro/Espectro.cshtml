@@ -1,0 +1,435 @@
+﻿@{
+    //ViewBag.Title = "Espectro";
+}
+
+<link href="~/Content/InputFile/css/fileinput.min.css" rel="stylesheet" />
+<link href="~/Content/InputFile/css/fileinput.css" rel="stylesheet" />
+
+<script src="~/Content/InputFile/js/fileinput.min.js"></script>
+<script src="~/Content/InputFile/js/fileinput.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $("#divdelete").hide();
+
+        $("#Buttondiv").click(function () {
+            $("#divdelete").slideToggle();
+        });
+
+        showModal = function () {
+
+            $('#modalReemplazar').modal('show');
+        }
+
+        $(".darkScreen").fadeOut(100, function () {
+            $(this).remove();
+        });
+
+        var file = document.getElementById("file");
+
+        file.onchange = function (event) {
+
+
+            if (file.files.length > 0) {
+
+                fileList = file.files;
+
+                if (fileList.length > 0) {
+
+
+                    var contadorDeBytes = 0;
+
+                    for (var i = 0 ; i < fileList.length ; i++) {
+
+                        contadorDeBytes += fileList[i].size;
+                    }
+
+                    if ((contadorDeBytes / 1024 / 1024) > 80) {
+
+                        $('#alrtExcesoDeTamano').show();
+                        $('#btnSubir').prop("disabled", true);
+
+                    } else {
+
+                        $('#alrtExcesoDeTamano').hide();
+                        $('#btnSubir').prop("disabled", false);
+
+                    }
+                } else {
+
+                    $('#btnSubir').prop("disabled", true);
+
+                }
+            } else {
+
+                for (var i = 0 ; i < fileList.length ; i++) {
+
+                    file.files = fileList;
+                }
+
+            }
+        }
+
+        //--------------------confirma la existencia del Archivo que se va eliminar------------------------------------//
+        $("#buttonEliminar").click(function (e) {
+            var nombreArchivoEliminar = $("#txtArchivoDelete").val();
+
+            debugger;
+            if (nombreArchivoEliminar == "") {
+                data = "<div id='Mmensaje'>Por favor digite un nombre.</div>";
+                $("#Mmensaje").replaceWith(data);
+                $('#modalMensajeD').modal('show');
+                return null;
+            }
+
+
+
+            var json = {
+                "NombredelArchivo": nombreArchivoEliminar,
+            };
+
+            var options = {
+                type: "post",
+                dataType: "json",
+                data: { "data": json },
+                url: "/Espectro/ExistenciaDelArchivo",
+                success: function (data) {
+                    debugger;
+
+                    if (data.ok === "True") {
+                        data = "<div class='col-sm-9' id='mensaje'>" + data.strMensaje + "</div>";
+
+                        $("#mensaje").replaceWith(data);
+
+                        $('#modalMsjDelete').modal('show');
+
+                    } else {
+
+                        //$("#titulo").replaceWith("Advertencia");
+
+                        data = "<div class='col-sm-9' id='Mmensaje'>" + data.strMensaje + "</div>";
+                        $("#Mmensaje").replaceWith(data);
+                        $('#modalMensajeD').modal('show');
+
+                    }
+                },
+                error: function (xhr, status, error) {
+                    debugger;
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+
+                            //$("#titulo").replaceWith("Error!!");
+                            var data = "<div class='col-sm-9' id='Mmensaje'>" + xhr.responseText + "</div>";
+                            $("#Mmensaje").replaceWith(data);
+                            $('#modalMensajeD').modal('show');
+
+                        }
+                    }
+                }
+            };
+
+            $.ajax(options);
+            e.preventDefault();
+        });
+
+        //--------------------Eliminar el Archivo-----------------------------------------//
+        $("#btnEliminar").click(function (e) {
+            debugger;
+            var nombreArchivoEliminar = $("#txtArchivoDelete").val();
+            $('#modalMsjDelete').modal('hide');
+
+            var json = {
+                "NombredelArchivo": nombreArchivoEliminar,
+            };
+            spiner();
+            var options = {
+                type: "post",
+                dataType: "json",
+                data: { "data": json },
+                url: "/Espectro/EliminarArchivo",
+                success: function (data) {
+                    debugger;
+                    $(".darkScreen").fadeOut(100);
+                    if (data.ok === "True") {
+
+                        data = "<div class='col-sm-9' id='Mmensaje'>" + data.strMensaje + "</div>";
+
+                        //$("#titulo").replaceWith("Eliminado");
+
+                        $("#Mmensaje").replaceWith(data);
+                        var nombreArchivoEliminar = $("#txtArchivoDelete").val("");
+                        $('#modalMensajeD').modal('show');
+
+                    } else {
+
+
+                        data = "<div  class='col-sm-9' id='Mmensaje'>" + data.strMensaje + "</div>";
+                        //$("#titulo").replaceWith("Error");
+                        $("#Mmensaje").replaceWith(data);
+                        var nombreArchivoEliminar = $("#txtArchivoDelete").val("");
+                        $('#modalMensajeD').modal('show');
+
+                    }
+                },
+                error: function (xhr, status, error) {
+                    debugger;
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            var data = "<div class='col-sm-9' id='Mmensaje'>" + xhr.responseText + "</div>";
+
+                            //$("#titulo").replaceWith("Mensaje");
+                            $("#Mmensaje").replaceWith(data);
+                            var nombreArchivoEliminar = $("#txtArchivoDelete").val("");
+                            $('#modalMensajeD').modal('show');
+
+                        }
+                    }
+                }
+            };
+
+            $.ajax(options);
+            e.preventDefault();
+        });
+
+    });
+
+    //------------------------------------------------------
+
+
+
+</script>
+
+<div class="Row">
+
+    <h4 class="col-lg-10 col-md-10"> @GB.SUTEL.Resources.Mensajes.TituloPantallaEspectro</h4>
+
+    <!--  <h5 class="col-lg-2 col-md-2"> Brochure disponible <a onclick="descargarBrochure()">aquí</a>  </h5>-->
+
+</div>
+
+
+<div class="alert alert-danger" id="alrtExcesoDeTamano" hidden>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Error!</strong> @GB.SUTEL.Resources.Mensajes.CapacidadMaximaExcedida
+</div>
+
+
+
+
+
+
+
+
+
+@using (Html.BeginForm("Create", "Espectro", System.Web.Mvc.FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="Row" style=" margin-top: 3.5%;">
+
+        <div class="col-lg-10 col-lg-offset-1 " style="height: 450px; background-color: #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; ">
+            <h5>@GB.SUTEL.Resources.Mensajes.TiposPermitidos</h5>
+
+            <div class="container contFile">
+
+                <div class=" form-group" id="divContender" style=" margin-left: 0%;">
+                    <input id="file" name="fileList" type="file" class="file" multiple=true data-preview-file-type="any" accept=".csv , .mif">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    @* MODAL MESSAGE START *@
+
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="modalMsjEspere">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Subir archivos</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-sm-9">
+
+                            @GB.SUTEL.Resources.Mensajes.PreguntaConfirmarCarga
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-toggle="tooltip" title="Cancelar carga de archivos" data-dismiss="modal">Cancelar</button>
+                    <button onclick="spiner()" data-toggle="tooltip" title="Aceptar carga de archivos" type="submit" class="btn btn-success">Subir</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    @* MODAL MESSAGE END *@
+
+
+
+}
+
+@* MODAL MESSAGE START *@
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="modalMsjDelete">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Eliminar archivo</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-sm-9" id="mensaje">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button data-toggle="tooltip" title="Aceptar eliminar archivo" type="button" class="btn btn-success" id="btnEliminar">Eliminar</button>
+                <button type="button" class="btn btn-danger" data-toggle="tooltip" title="Cancelar eliminar archivo" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@* MODAL MESSAGE END *@
+
+
+</br>
+</br>
+<!--Es eL DIV QUE CONTIENE CONTIENE EL CAMPO DE TEXTO Y EL BOTON ELIMINAR-->
+<div class="col-lg-10 col-lg-offset-1 " style=" height: 60px; background-color: #3472bb; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; " id="Buttondiv">
+    <div class="row">
+        <div class="col-md-8">
+
+            <h3 id="buttonh3" style="color:white;">Eliminar Archivo</h3>
+
+        </div>
+        <div class="col-md-4">
+            </br>
+            <img src="../Content/Images/header/arrowdown.png" align="right">
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="divdelete" class="col-lg-10 col-lg-offset-1 " style="height: 150px; background-color: #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; ">
+    </br>
+    </br>
+    <form class="form-horizontal">
+        
+        <input type='file' id="getFile" style="display:none">
+        <div class="form-group">
+
+            <label class="col-sm-5 control-label" for="formGroupInputLarge">Nombre del Archivo</label>
+
+            <input class="col-sm-5 form-control" type="text" id="txtArchivoDelete" placeholder="Digite el Nombre del Archivo a Eliminar" maxlength="100">
+            <input type="file" id="selectedFile" style="display: none;" multiple=false accept=".csv , .mif" />
+ 
+            <!-- Indicates a dangerous or potentially negative action -->
+            &nbsp;
+            <button type="button" class="btn btn-danger" data-toggle="tooltip" title="Eliminar archivo" id="buttonEliminar">Eliminar</button>
+
+            <input type="button" id="btnBuscarEliminar" class="btn btn-primary" value="Buscar" />
+
+
+
+        </div>
+    </form>
+</div>
+</br>
+</br>
+</br>
+</br>
+@* MODAL MESSAGE START *@
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="modalMensajeD">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="titulo">Mensaje</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-sm-9" id="Mmensaje">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-toggle="tooltip" title="Salir de la alerta" data-dismiss="modal">Salir</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@* MODAL MESSAGE END *@
+
+
+
+
+<script>
+
+    $(function () {
+
+        $("body").append("<div class='darkScreen' hidden><div class='img-waiter'></div></div>");
+
+    });
+
+    $("#btnBuscarEliminar").click(function () {
+        document.getElementById('selectedFile').click();
+        
+    });
+
+
+    $(document).on('change', '#selectedFile', function () {
+        var fullPath = document.getElementById('selectedFile').value;
+        if (fullPath) {
+            var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+            var filename = fullPath.substring(startIndex);
+            if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                filename = filename.substring(1);
+            }
+            $("#txtArchivoDelete").val(filename);
+        }
+    });
+
+    function mostrarModal() {
+
+        $('#modalMsjEspere').modal('show');
+
+    }
+
+    function spiner() {
+
+        $(".darkScreen").fadeIn(100);
+    }
+
+</script>
+
+<style>
+    .contFile {
+        position: absolute;
+        width: 95%;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+    hr {
+        display: none;
+    }
+</style>
+
+<script src="~/Scripts/Proceso/Espectro/Espectro.js"></script>

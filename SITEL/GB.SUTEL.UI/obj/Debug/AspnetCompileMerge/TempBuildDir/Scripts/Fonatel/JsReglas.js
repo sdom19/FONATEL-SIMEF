@@ -1,6 +1,6 @@
 ﻿    JsReglas= {
     "Controles": {
-         "btnstep": ".step_navigation_Regla div",
+
         "ddlTipoRegla": "#ddlTipoRegla",
         "btnGuardarRegla": "#btnGuardarRegla",
         "btnEditarRegla": "#TableReglaDesagregacion tbody tr td .btn-edit",
@@ -48,6 +48,9 @@
                 case JsReglas.Variables.FormulaContraAtributosValido:
                     $(JsReglas.Controles.divFormulaContraAtributosValido).removeClass("hidden");
                     break;
+                case JsReglas.Variables.FormulaActualizacionSecuencial:
+                    $(JsReglas.Controles.divFormulaActualizacionSecuencial).removeClass("hidden");
+                    break;
                 default:
             }     
         }
@@ -61,13 +64,24 @@ $(document).on("click", JsReglas.Controles.btnEditarRegla, function () {
     window.location.href = "/Fonatel/ReglasValidacion/Create?id=" + id;
 });
 
+$(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar el Tipo de Regla?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("Se ha Configurado una regla a la Variable")
+                .set('onok', function (closeEvent) {
+               
+                });
+        });
+});
+
 
 
 $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Regla de Validación?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Regla?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Regla ha Sido Agregada de Manera Correcta")
+            jsMensajes.Metodos.OkAlertModal("Se ha Configurado una regla a la Variable")
                 .set('onok', function (closeEvent) {
                     $("a[href='#step-2']").trigger('click');
                 });
@@ -76,43 +90,26 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
 
 
 
-$(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
-    e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar el Tipo de Regla?")
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("Se ha Configurado una regla a la Variable")
-                .set('onok', function (closeEvent) {
-               
-                });
-        });
-});
 
 
 $(document).on("click", JsReglas.Controles.btnClonarRegla, function () {
     let id = 1;
-    jsMensajes.Metodos.ClonarRegistro("¿Desea Clonar la Regla?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Clonar la Regla?", jsMensajes.Variables.actionType.clonar )
         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/ReglasValidacion/Create?id=" + id});
 });
 
 
 
 $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {
-    jsMensajes.Metodos.EliminarRegistro("¿Desea Eliminar la Regla?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Eliminar la Regla?",jsMensajes.Variables. actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Regla ha Sido Eliminada de Manera Correcta")
+            jsMensajes.Metodos.OkAlertModal("La Regla ha Sido Eliminada de Manera Correcta")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/ReglasValidacion/index" });
         });
 });
 
 
-$(document).on("click", JsReglas.Controles.btnstep, function () {
 
-    $(JsReglas.Controles.btnstep).children("a").addClass('btn-default').removeClass('btn-info-fonatel');
-    $(this).children("a").addClass('btn-info-fonatel').removeClass('btn-default');
-    let div = $(this).children("a").attr("href");
-    $(JsReglas.Controles.divContenedor).addClass('hidden');
-    $(div).removeClass('hidden');
-});
 
 $(document).on("change", JsReglas.Controles.ddlTipoRegla, function () {
     var selected = $(this).val();
@@ -128,9 +125,9 @@ $(document).on("click", JsReglas.Controles.btnAtrasRegla, function (e) {
 
 $(document).on("click", JsReglas.Controles.btnSiguienteTipoSiguiente, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Regla de Validación?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Regla ha Sido Agregada de Manera Correcta")
+            jsMensajes.Metodos.OkAlertModal("La Regla ha Sido Agregada de Manera Correcta")
                 .set('onok', function (closeEvent) {
                     window.location.href = "/Fonatel/ReglasValidacion/index"
                 });

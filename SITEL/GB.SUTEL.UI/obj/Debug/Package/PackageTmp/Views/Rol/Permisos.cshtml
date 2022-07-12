@@ -1,0 +1,174 @@
+﻿@model Tuple<GB.SUTEL.Entities.Rol, List<GB.SUTEL.Entities.PANTALLAMENU>, List<GB.SUTEL.Entities.Accion>>
+
+
+<form id="formAccesosPermisos" method="post">
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalPermisosRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Registro de Permisos</h4>
+                </div>
+                <div class="modal-body">
+
+                    <center>
+                        <h4>
+                            @Html.HiddenFor(model => Model.Item1.IdRol, new { @id = "IDPermisosRol" })
+                            <div id="txtNombrePermisosRol"></div>
+                        </h4>
+                    </center>
+                    <div class="row">
+                        <div class="col-xs-7" style="margin:5px">
+                            <h4>Pantallas:</h4>
+                            <select size="10" class="form-control" id="sltPantallasPermisos">
+                                @foreach (var Padre in Model.Item2)
+                                {
+                                    <optgroup label="@Padre.TITULO">
+                                        @foreach (var hijo in Padre.PANTALLAS)
+                                        {
+                                            <option value="@hijo.IdPantalla">@hijo.Nombre</option>
+                                        }
+                                    </optgroup>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-xs-4" hidden style="margin: 5px; max-height: 230px;" id="divOpcionesAccionPermisos">
+                            <h4>Acciones:</h4>
+                            <div>
+
+                                @foreach (var item in Model.Item3)
+                                {
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="@item.IdAccion" id="chkAccion_@item.IdAccion" onclick="setPermisosTemp(@item.IdAccion)">
+                                            @item.Nombre
+                                        </label>
+                                    </div>                                    
+                                }                                                               
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnGuardarCambiosRolPermisos" class="btn btn-success">Guardar Cambios</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<script type="text/javascript">
+
+    var listadoPermisosPorRol = [];
+
+    function consultaPermisosPorRol(idRol) {
+        listadoPermisosPorRol = [];
+
+        $("#divOpcionesAccionPermisos").hide();        
+        $("#sltPantallasPermisos").val(null);        
+        var idRol = idRol;
+
+        $.ajax({
+            "dataType": 'json',
+            "cache" : false,
+            "type": "POST",
+            "url": "/Rol/ConsultaPermisosPorRol",
+            "data": "idRol=" + idRol,
+            "success": function (JSONdata) {
+                listadoPermisosPorRol = JSONdata.data;
+            }
+        });
+    };
+
+    $("#sltPantallasPermisos").change(function () {
+
+        var valueSelect = $("#sltPantallasPermisos").val();
+        if (valueSelect === null) {
+            return false;
+        }
+
+        $("#divOpcionesAccionPermisos").show();
+        $('#modalPermisosRol input[type="checkbox"]').prop('checked', false);
+        var idAccion = null;
+        for (var i = 0; i < listadoPermisosPorRol.length; i++) {
+            if (listadoPermisosPorRol[i].IdPantalla == valueSelect) {
+                idAccion = listadoPermisosPorRol[i].IdAccion;
+                $('#chkAccion_' + idAccion).prop('checked', true);
+            }
+        }
+    });
+
+    function setPermisosTemp(idAccion) {
+
+        var valueSelect = $("#sltPantallasPermisos").val();
+        var IDRol = $("#IDPermisosRol").val();
+        var valueChk = $("#chkAccion_" + idAccion).prop('checked');
+
+        var inAllList = false;
+        var inList = false;
+        var newElement = null;
+        for (var i = 0; i < listadoPermisosPorRol.length; i++) {
+            inAllList = true;
+            if (listadoPermisosPorRol[i].IdPantalla == valueSelect) {
+                inList = true;
+                if (valueChk && idAccion != listadoPermisosPorRol[i].IdAccion) {
+                    newElement = JSON.parse('{"IdPantalla" : ' + valueSelect + ', "IdAccion" : ' + idAccion + ', "IdRol" : ' + IDRol + '}');
+                    listadoPermisosPorRol.push(newElement);
+                    break;
+                }
+                else {
+                    if (!valueChk && listadoPermisosPorRol[i].IdAccion == idAccion) {
+                        listadoPermisosPorRol.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+
+        if ((listadoPermisosPorRol.length === 0 && !inAllList) || !inList) {
+            newElement = JSON.parse('{"IdPantalla" : ' + valueSelect + ', "IdAccion" : ' + idAccion + ', "IdRol" : ' + IDRol + '}');
+            listadoPermisosPorRol.push(newElement);
+        }
+    };
+
+    $("#formAccesosPermisos").submit(function (e) {
+        $('#btnGuardarCambiosRolPermisos').attr('disabled', 'disabled');
+        $('#btnGuardarCambiosRolPermisos').text('Actualizando Permisos...'); 
+        var idRol = $("#IDPermisosRol").val();
+
+        var json = {
+            "idRol": idRol,
+            "count": listadoPermisosPorRol.length,
+            "Permisos": listadoPermisosPorRol
+        }
+
+        var options = {
+            "dataType": 'json',
+            "type": "POST",
+            "url": "Rol/ActualizarPermisos",
+            "data": json,
+            "success": function (JSONdata) {
+                $("#modalPermisosRol").modal('hide');
+                addSuccess({ msg: "La información se agregó con éxito" });
+                $('#btnGuardarCambiosRolPermisos').removeAttr('disabled');
+                $('#btnGuardarCambiosRolPermisos').text('Guardar Cambios');
+            },
+            "error": function (error) {
+                $("#modalPermisosRol").modal('hide');
+                $('#btnGuardarCambiosRolPermisos').removeAttr('disabled');
+                $('#btnGuardarCambiosRolPermisos').text('Guardar Cambios'); 
+            }
+        };
+
+        $.ajax(options);
+        e.preventDefault();
+    });
+
+</script>

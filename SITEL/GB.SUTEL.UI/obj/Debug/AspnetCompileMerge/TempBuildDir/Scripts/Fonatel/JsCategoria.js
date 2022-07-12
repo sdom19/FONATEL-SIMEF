@@ -12,7 +12,8 @@
         "btnActivarCategoria": "#TableCategoriaDesagregacion tbody tr td .btn-power-on",
         "btnClonarCategoria": "#TableCategoriaDesagregacion tbody tr td .btn-clone",
         "btnAddCategoria": "#TableCategoriaDesagregacion tbody tr td .btn-add",
-            "btnRemoveCategoriaDetalle": "#TableCategoriaDesagregacionDetalle tbody tr td .btn-delete"
+            "btnRemoveCategoriaDetalle": "#TableCategoriaDesagregacionDetalle tbody tr td .btn-delete",
+            "btnGuardarDetalleCategoria":"#btnGuardarDetalleCategoria"
     },
     "Variables":{
         "TipoFecha": 4,
@@ -67,17 +68,17 @@ $(document).on("click", JsCategoria.Controles.btnAddCategoria, function () {
 
 
 $(document).on("click", JsCategoria.Controles.btnDesactivarCategoria, function () {
-    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Activar la Categoría?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Activar la Categoría?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Activada")
+            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido Activada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
         });
 });
 
 $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
-    jsMensajes.Metodos.CambiarEstadoRegistro("¿Desea Desactivar la Categoría?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Desactivar la Categoría?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Desactivada")
+            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido Desactivada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
         });
 });
@@ -86,9 +87,9 @@ $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
 
 $(document).on("click", JsCategoria.Controles.btnRemoveCategoriaDetalle, function () {
     let id = 1;
-    jsMensajes.Metodos.EliminarRegistro("¿Desea Eliminar el Detalle?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("El Detalle ha sido Eliminado")
+            jsMensajes.Metodos.OkAlertModal("El Detalle ha sido Eliminado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/Detalle?id="+id });
         });
 });
@@ -96,17 +97,32 @@ $(document).on("click", JsCategoria.Controles.btnRemoveCategoriaDetalle, functio
 $(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) {
     e.preventDefault();
 
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Categoría?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Categoría ha sido Creada")
+            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido Creada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
         });
 });
 
 
+
+$(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, function (e) {
+    e.preventDefault();
+
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("La Detalle ha sido agregado")
+                .set('onok', function (closeEvent) {  });
+        });
+});
+
+
+
+
+
 $(document).on("click", JsCategoria.Controles.btnClonarCategoria, function () {
     let id = 1;
-    jsMensajes.Metodos.ClonarRegistro("¿Desea Clonar la Categoría?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Clonar la Categoría?", jsMensajes.Variables.actionType.clonar)
         .set('onok', function (closeEvent) {
              window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id="+id
         });

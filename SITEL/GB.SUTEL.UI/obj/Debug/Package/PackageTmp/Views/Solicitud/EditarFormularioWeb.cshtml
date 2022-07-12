@@ -1,0 +1,93 @@
+﻿@model GB.SUTEL.UI.Models.SolicitudViewModels
+
+
+<form id="formEditarFormularioWeb" method="post"
+      data-ajax-message="Editando Formulario Web...">
+    @Html.Hidden("ItemEditar", "", new { @id = "ItemEditar" })
+
+    <div class="modal fade" id="modalEditarFormularioWeb">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Editar Formulario Web</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+                        <div class="form-group">
+
+                            <div class="col-md-10">
+                                <p>Seleccione el operador que desea actualizar</p>
+                                <br />
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="txtOperadorNombreDescarga" class="col-sm-4 control-label">Operador</label>
+                                <div class="col-sm-8">
+                                    <select id="ddlOperadorSolicitud" class="form-control" style="width: 100%" multiple="multiple"></select>
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="col-sm-6">
+                                <br />
+                                <div class="form-check mt-1">
+                                    <input class="form-check-input" type="radio" name="radioFormularioWebGroup" id="radioFormularioWeb">
+                                    <label class="form-check-label" for="radioFormularioWeb">
+                                        Formulario web
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radioFormularioWebGroup" id="radioFormularioExcel" checked>
+                                    <label class="form-check-label" for="radioFormularioExcel">
+                                        Formulario excel
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <br />
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" value="false" id="checkEditarOperadores">
+                                    <label class="form-check-label" for="checkEditarOperadores">Aplicar esta actualización a todos los operadores</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="alert alert-danger hidden" role="alert" id="divMensajeErrorEditarFormularioWeb">
+                            <div id="errorMensajeEditarFormularioWeb"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" onclick="geek()" id="mySubmit" value="Guardar" class="btn btn-success" data-tooltip="true" title="Confirmar actualización" />
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" data-tooltip="true" title="Cancelar acción de editar">Cancelar</button>
+                        <input id="btnSubmit" type="submit" value="Filtrar" class="btn btn-primary" style="display:none" />
+                    </div>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</form>
+
+<script>
+    function geek() {
+        var mensaje = "";
+        if (document.getElementById("checkEditarOperadores").checked) {
+            mensaje = "Desea aplicar esta actualización a todos los operadores"
+        }
+        else {
+            var conceptName = $('#ddlOperadorSolicitud').find(":selected").text();
+            console.log(conceptName);
+
+            mensaje = "Desea aplicar esta actualización a los operadores:\ " + conceptName;
+        }
+        var respuesta = confirm(mensaje);
+        if (respuesta == true) {
+            document.getElementById("btnSubmit").click();
+        }
+    }
+</script>
+

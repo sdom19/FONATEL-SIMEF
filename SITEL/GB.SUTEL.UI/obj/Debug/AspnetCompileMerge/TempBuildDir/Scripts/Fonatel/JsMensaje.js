@@ -11,7 +11,13 @@
         "ContentQuestionStatus": (mensaje) => { return "<div class='text-center'><div class='icon warning-icon'></div> <strong>" + mensaje + "</strong></div>" },
         "btnlisto": "ACEPTAR",
         "btnyes": "SI",
-        "btnno": "NO"
+        "btnno": "NO",
+        "actionType": {
+            agregar: 0,
+            clonar: 1,
+            eliminar: 2,
+            estado: 3
+        }
 
     },
     "Metodos": {
@@ -35,8 +41,8 @@
 
 
 
-        "ConfirmaRegistro": function (mensaje) {
-            let alertifyObject = alertify.alert(jsMensajes.Variables.MensajeConfirmacion, "", function () { })
+        "OkAlertModal": function (mensaje) {
+            let alertifyObject = alertify.alert(jsMensajes.Variables.MensajeConfirmacion, "")
                 .set('label', jsMensajes.Variables.btnlisto )
                 .set({ 'modal': true, 'closable': false })
             alertifyObject.setContent(jsMensajes.Variables.ContentSuccess(mensaje));
@@ -60,6 +66,37 @@
             return alertifyObject;
         },
 
+        "ConfirmYesOrNoModal": function (mensaje, actionType) {
+            let _question = "Atención!";
+            if (actionType == jsMensajes.Variables.actionType.agregar) {
+                _question = jsMensajes.Variables.MensajeAgregar;
+            }
+            else if (actionType == jsMensajes.Variables.actionType.clonar) {
+                _question = jsMensajes.Variables.MensajeClonar;
+            }
+            else if (actionType == jsMensajes.Variables.actionType.eliminar) {
+                _question = jsMensajes.Variables.MensajeEliminar;
+            }
+            else if (actionType == jsMensajes.Variables.actionType.estado) {
+                _question = jsMensajes.Variables.MensajeEstado;
+            }
+
+            let alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })
+                .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
+                .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
+            alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
+
+            return alertifyObject;
+        },
+
+        "OkAlertModal": function (mensaje) {
+            let alertifyObject = alertify.alert(jsMensajes.Variables.MensajeConfirmacion, "")
+                .set('label', jsMensajes.Variables.btnlisto)
+                .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
+            alertifyObject.setContent(jsMensajes.Variables.ContentSuccess(mensaje));
+            return alertifyObject;
+        },
+
         "Error": function (mensaje) {
             return Swal.fire({
                 icon: 'error',
@@ -77,9 +114,9 @@
 
 
 $(function () {
-    alertify.defaults.transition = "slide";
-    alertify.defaults.theme.ok = "btn btn-success success-icon-btn btn-base-icon";
-    alertify.defaults.theme.cancel = "btn btn-danger cancel-icon-btn btn-base-icon";
+    alertify.defaults.transition = "";
+    alertify.defaults.theme.ok = "btn btn-fonatel btn-success-fonatel"; //"btn btn-success success-icon-btn btn-base-icon";
+    alertify.defaults.theme.cancel = "btn btn-fonatel btn-error-fonatel";
     alertify.defaults.theme.input = "form-control";
 
 })

@@ -1,0 +1,123 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.Rol>, GB.SUTEL.Entities.Rol, List<GB.SUTEL.Entities.PANTALLAMENU>, List<GB.SUTEL.Entities.Accion>>
+@using GB.SUTEL.UI.Helpers;
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Roles", "Consultar"))
+{ 
+<table class="display" cellspacing="0" data-table-grid="true">
+    <thead>
+        <tr>
+            <th width="1%">Id</th>
+            <th width="1%">Nombre</th>
+            <th width="1%" class="no-sort" style="min-width:40px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Item1 != null)
+        {
+            foreach (var item in Model.Item1)
+            {
+                <tr>
+                    <td data-toggle="modal" data-target="#modalEditarRol"
+                        data-select="true"
+                        data-json-selected='{"IDRolEditar":" @item.IdRol ", "txtIDNombreRolEditar": "@item.NombreRol"}'>
+                        @Html.DisplayFor(modelItem => item.IdRol)
+                    </td>
+                    <td data-toggle="modal" data-target="#modalEditarRol"
+                        data-select="true"
+                        data-json-selected='{"IDRolEditar":" @item.IdRol ", "txtIDNombreRolEditar": "@item.NombreRol"}'>
+                        @Html.DisplayFor(modelItem => item.NombreRol)
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm" aria-label="Left Align" data-toggle="modal" data-target="#modalPermisosRol"
+                                data-select="true" onclick="consultaPermisosPorRol(@item.IdRol)"
+                                data-json-selected='{"IDPermisosRol":" @item.IdRol" , "txtNombrePermisosRol": "@item.NombreRol "}'>
+
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </button>
+
+                        @if (rolValidation.ValidateScreenFunctions(this.Context, "Roles", "Eliminar"))
+                        { 
+                        <button type="button" class="btn btn-danger btn-sm" aria-label="Left Align" data-toggle="modal" data-target="#modalEliminarRol"
+                                data-select="true"
+                                data-json-selected='{"IDRolEliminar":" @item.IdRol "}'>
+
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                        }
+                    </td>
+                </tr>
+            }
+        }@*
+                else
+                {
+                    <tr><td colspan="3">No se encontraron datos</td></tr>
+                }*@
+
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td width="1%" colspan="3">
+                <form id="frmFilterRol" method="post"
+                      action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tableRol"
+                      data-ajax-message="Cargando datos desde index...">
+                    <input placeholder="Id" name="IdRol" value="@(ViewBag.searchTerm.IdRol == 0 ? "" : ViewBag.searchTerm.IdRol)" />
+                    <in />
+                    <input placeholder="Nombre" name="NombreRol" value="@ViewBag.searchTerm.NombreRol" style="margin-left: 10%" />
+                    <button type="submit"  class="hidden">Submit</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+
+</table>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        No tiene permisos para consultar.
+    </div>
+}
+
+<script type="text/javascript">
+    //Consulta permisos de roles por usuario
+
+    $(document).ready(
+        function () {
+            AjaxifyMyForm("frmFilterRol",
+            function (data) {
+                data = "<div id='tableRol'>" + data + "</div>";
+
+                var $form = $(data);
+                console.log(data);
+                $("#tableRol").replaceWith(data);
+            },
+            function (error) {
+
+            }, 10000);
+        });       
+
+    if (typeof initDataGrid !== 'undefined') {
+        $('table[data-table-grid="true"]').ready(initDataGrid);
+    }  
+
+    $('#frmFilterRol input').keyup(function (event) {
+        if(event.keyCode === 13){
+            $('#frmFilterRol').submit();
+        }
+    });
+
+    $('#frmFilterRol').submit(function (event) {
+        event.preventDefault(); // stop the actual submit
+        // ajax code goes here to submit data
+    });    
+</script>

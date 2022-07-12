@@ -1,0 +1,139 @@
+﻿@model GB.SUTEL.UI.Models.UmbralesPesosRelativosViewModel
+@{
+    ViewBag.Title = "Umbrales y Pesos Relativos";
+}
+
+<h5>Calidad - Umbrales y Pesos Relativos</h5>
+<style>
+
+   </style>
+<div class="container">
+    <div class="alert alert-success alert-dismissible fade in" id="Confirmacion">
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-md-5" >
+                <table class="bottostyle">
+                    <tr>
+                        <td class="divblue" style="width:100px">Dirección</td>
+                        <td style="width:20em">@Html.DropDownList("CobmDireccion", (SelectList)ViewBag.LisDireccion, new { @class = "form-control" })</td>
+                    </tr>
+                </table>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-md-5">
+                <table class="bottostyle">
+                    <tr>
+                        <td class="divblue" style="width:100px">Servicios</td>
+                        <td style="width:20em">@Html.DropDownList("CombServicios", (SelectList)ViewBag.LisServicios, new { @class = "form-control" })</td>
+                    </tr>
+                </table>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+
+
+        @*<div class="col-lg-12 text-left">
+                <button type="button" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger">Cancelar</button>
+            </div>*@
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-4 filtros">
+            Fecha de Modificación
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4 filtros">
+            Usuario de Modificación
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-4 FechaMarco">
+            <div class="form-group col-sm-6">
+                <label for="email">Fecha Inicial</label>
+                <input type="date" class="form-control" id="fechaInic" style="font-size: 13px;"/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label for="email">Fecha Final</label>
+                <input type="date" class="form-control" id="fechaFin" style="font-size: 13px;" />
+            </div>
+            <button type="button" class="btn btn-success" id="BtnAplicar">Aplicar</button>
+        </div>
+
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4 FechaMarco">
+            <div class="form-group col-sm-12">
+                <label for="email"></label>
+                <input type="text" class="form-control" id="InputUsuarios" readonly />
+            </div>
+            <button type="button" class="btn btn-success" id="BtnAplicarUsuario" style=" padding-top: 10px;">Aplicar</button>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 1%">
+        <div class="col-md-1"></div>
+        <div class="col-md-12" style="background-color: #0b9ef1;"><h4 class="text-leftThe text-left" style="padding: 6px; color: white">Indicadores</h4></div>
+    </div>
+    <div class="row" style="margin-top: 1%">
+        <div id="ResultLisInidicarServicio" class="table-responsive col-md-12"></div>
+    </div>
+</div>
+
+
+        
+        
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Calidad – Umbrales y Pesos Relativos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning alert-dismissible fade in" id="MensajeError">
+
+                        </div>
+                        <h3 id="LabelIndicador"></h3>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-6 col-form-label">Umbral</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="TxtUmbral" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-6 col-form-label">Peso Relativo</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="TxtPeso" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="BtnGuardar" onclick="spiner()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <link href="~/Content/Umbrales.css" rel="stylesheet" />
+        <script src="~/Scripts/UmbralPesoRelativo/UmbralPesoRelativo.js"></script>
+        <script src="~/Scripts/jquery.numeric.js"></script>
+        
+        @*@section scripts{
+
+                @Scripts.Render("/Scripts/UmbalPesoRelativo/UmbralPesoRelativo.js")
+            }*@

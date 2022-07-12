@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Categoría de Desagregación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container body-content">
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action( "index","Home")">Inicio</a></li>
+                <li class="breadcrumb-item active"><a href="@Url.Action( "index","CategoriasDesagregacion")">Categorías de Desagregación</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Crear Categoría de Desagregación</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-12">
+            <h2 class="page-title-fonatel text-center">Crear Categoría de Desagregación</h2>
+            <hr />
+
+        </div>
+
+        <div class="col-lg-12">
+
+            @Html.Partial("_CrearCategoria")
+        </div>
+    </div>
+
+</div>
