@@ -8,7 +8,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class RegistroIndicadorFonatelController  : Controller
     {
-        // GET: CategoriasDesagregacion
+        // GET: RegistroIndicadorFonatel
 
         [HttpGet]
         public ActionResult Index()
@@ -16,7 +16,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View();
         }
 
-        // GET: CategoriasDesagregacion/Details/5
+        // GET: RegistroIndicadorFonatel/Details/5
         [HttpGet]
         public ActionResult Detalle(int id)
         {
