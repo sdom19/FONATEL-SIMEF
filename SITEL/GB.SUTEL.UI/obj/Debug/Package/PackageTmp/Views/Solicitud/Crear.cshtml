@@ -1,0 +1,779 @@
+﻿<script type="text/javascript">
+
+    var allIndicadores = [];
+    var arrayDeOperadoresSeleccionados = [];
+</script>
+
+@model GB.SUTEL.UI.Models.SolicitudViewModels
+
+<div class="form-horizontal">
+
+    <h4>Crear Solicitud</h4>
+    <hr />
+
+    <div id="alertaNoCriterios"
+         class="alert alert-danger"
+         style="display:none;"
+         role="alert">
+
+        <strong> Alerta! </strong>
+        <p id="alertText"></p>
+    </div>
+
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active tabSolicitud"><a href="#solicitudindicador" aria-controls="solicitudindicador" role="tab" data-toggle="tab">Solicitud</a></li>
+        <li role="presentation" class="tabIndicadores hidden"><a href="#indicadores" aria-controls="indicadores" role="tab" data-toggle="tab">Indicadores</a></li>
+
+
+    </ul>
+
+    <!-- Tab panes -->
+    <div>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="solicitudindicador">
+                <br />
+
+                <form id="formCrearSolicitud" method="post">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.itemSolicitudIndicador.DescFormulario, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.itemSolicitudIndicador.DescFormulario, new { @Id = "txtDESCFORMULARIO", @class = "form-control" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.itemSolicitudIndicador.DescFormulario, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*  *@
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.itemSolicitudIndicador.FechaInicio, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.itemSolicitudIndicador.FechaInicio, "{0:dd/MM/yyyy}", new { @Id = "FechaInicio", @class = "form-control datefield", @readonly = "readonly" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.itemSolicitudIndicador.FechaInicio, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.itemSolicitudIndicador.FechaFin, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.itemSolicitudIndicador.FechaFin, "{0:dd/MM/yyyy}", new { @Id = "FechaFin", @class = "form-control datefield", @readonly = "readonly" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.itemSolicitudIndicador.FechaFin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.itemSolicitudIndicador.IdServicio, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.itemSolicitudIndicador.IdServicio, (List<SelectListItem>)ViewBag.listaServicios, new { @Id = "txtIDSERVICIO", @class = "form-control", style = "width:100%" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.itemSolicitudIndicador.IdServicio, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.itemSolicitudIndicador.IdDireccion, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.itemSolicitudIndicador.IdDireccion, (List<SelectListItem>)ViewBag.listaDirecciones, new { @Id = "cmdIDDIRECCION", @class = "form-control", style = "width:100%" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.itemSolicitudIndicador.IdDireccion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.itemSolicitudIndicador.IdFrecuencia, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.itemSolicitudIndicador.IdFrecuencia, (List<SelectListItem>)ViewBag.listaFrecuencias, new { @Id = "cmdIDFRECUENCIA", @class = "form-control", style = "width:100%", @onchange = "ddlFrecuenciaChange(this.selectedIndex)" })
+                            <br />
+                            @Html.ValidationMessageFor(model => model.itemSolicitudIndicador.IdFrecuencia, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    @*Select detalle Frecuencia Semestral*@
+
+                    @{
+
+                        List<SelectListItem> listItemsDetalleSemestral = new List<SelectListItem>();
+
+                        listItemsDetalleSemestral.Add(new SelectListItem { Text = "<Seleccione>", Value = "-1", Selected = true });
+
+                        listItemsDetalleSemestral.Add(new SelectListItem { Text = "l semestre", Value = "06" });
+
+                        listItemsDetalleSemestral.Add(new SelectListItem { Text = "ll semestre", Value = "12" });
+
+                    }
+
+                    <div class="form-group hidden " id="divSemestral">
+
+                        @Html.Label("Detalle Frecuencia", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("slctDetalleSemestral", listItemsDetalleSemestral, new { @Id = "slctDetalleSemestral", @class = "form-control", style = "width:100%", onchange = "slctDetalleFrecuenciaChange(this)" })
+                            <br />
+                        </div>
+
+                    </div>
+
+
+                    @*Select detalle Frecuencia Cuatrimestral*@
+
+                    @{
+
+                        List<SelectListItem> listItemsCuatrimestral = new List<SelectListItem>();
+
+                        listItemsCuatrimestral.Add(new SelectListItem { Text = "<Seleccione>", Value = "-1", Selected = true });
+
+                        listItemsCuatrimestral.Add(new SelectListItem { Text = "enero, febrero, marzo y abril", Value = "04" });
+
+                        listItemsCuatrimestral.Add(new SelectListItem { Text = "mayo, junio, julio y agosto", Value = "08" });
+
+                        listItemsCuatrimestral.Add(new SelectListItem { Text = "septiembre, octubre, noviembre y diciembre", Value = "12" });
+
+                    }
+
+                    <div class="form-group hidden" id="divCuatrimestral">
+                        @Html.Label("Detalle Frecuencia", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("slctDetalleCuatrimestral", listItemsCuatrimestral, new { @Id = "slctDetalleCuatrimestral", @class = "form-control", style = "width:100%", onchange = "slctDetalleFrecuenciaChange(this)" })
+                            <br />
+                        </div>
+                    </div>
+
+
+                    @*Select detalle Frecuencia Cuatrimestral*@
+
+                    @{
+
+                        List<SelectListItem> listItemsTrimestral = new List<SelectListItem>();
+
+                        listItemsTrimestral.Add(new SelectListItem { Text = "<Seleccione>", Value = "-1", Selected = true });
+
+                        listItemsTrimestral.Add(new SelectListItem { Text = "l Trimestre", Value = "03" });
+
+                        listItemsTrimestral.Add(new SelectListItem { Text = "ll Trimestre", Value = "06" });
+
+                        listItemsTrimestral.Add(new SelectListItem { Text = "lll Trimestre", Value = "09" });
+
+                        listItemsTrimestral.Add(new SelectListItem { Text = "lV Trimestre", Value = "12" });
+
+
+
+                    }
+
+                    <div class="form-group hidden" id="divTrimestral">
+                        @Html.Label("Detalle Frecuencia", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("slctDetalleTrimestral", listItemsTrimestral, new { @Id = "slctDetalleTrimestral", @class = "form-control", style = "width:100%", onchange = "slctDetalleFrecuenciaChange(this)" })
+                            <br />
+                        </div>
+                    </div>
+
+
+
+                    @*Select detalle Frecuencia Cuatrimestral*@
+
+                    @{
+
+                        List<SelectListItem> listItemsBimensual = new List<SelectListItem>();
+
+                        listItemsBimensual.Add(new SelectListItem { Text = "<Seleccione>", Value = "-1", Selected = true });
+
+                        listItemsBimensual.Add(new SelectListItem { Text = "enero y febrero", Value = "02" });
+
+                        listItemsBimensual.Add(new SelectListItem { Text = "marzo y abril", Value = "04" });
+
+                        listItemsBimensual.Add(new SelectListItem { Text = "mayo y junio", Value = "06" });
+
+                        listItemsBimensual.Add(new SelectListItem { Text = "julio y agosto", Value = "08" });
+
+                        listItemsBimensual.Add(new SelectListItem { Text = "septiembre y octubre", Value = "10" });
+
+                        listItemsBimensual.Add(new SelectListItem { Text = "noviembre y diciembre", Value = "12" });
+
+
+
+                    }
+
+                    <div class="form-group hidden " id="divBimensual">
+                        @Html.Label("Detalle Frecuencia", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("slctDetalleBimensual", listItemsBimensual, new { @Id = "slctDetalleBimensual", @class = "form-control", style = "width:100%", onchange = "slctDetalleFrecuenciaChange(this)" })
+                            <br />
+                        </div>
+                    </div>
+
+
+
+                    @*Select detalle Frecuencia Cuatrimestral*@
+
+                    @{
+
+                        List<SelectListItem> listItemsMensual = new List<SelectListItem>();
+
+                        listItemsMensual.Add(new SelectListItem { Text = "<Seleccione>", Value = "-1", Selected = true });
+
+                        listItemsMensual.Add(new SelectListItem { Text = "enero", Value = "01" });
+
+                        listItemsMensual.Add(new SelectListItem { Text = " febrero", Value = "02" });
+
+                        listItemsMensual.Add(new SelectListItem { Text = "marzo", Value = "03" });
+
+                        listItemsMensual.Add(new SelectListItem { Text = "abril", Value = "04" });
+
+                        listItemsMensual.Add(new SelectListItem { Text = "mayo", Value = "05" });
+
+                        listItemsMensual.Add(new SelectListItem { Text = "junio", Value = "06" });
+
+                        listItemsMensual.Add(new SelectListItem { Text = "julio", Value = "07" });
+
+                        listItemsMensual.Add(new SelectListItem { Text = "agosto", Value = "08" });
+
+                        listItemsMensual.Add(new SelectListItem { Text = "septiembre", Value = "09" });
+
+                        listItemsMensual.Add(new SelectListItem { Text = "octubre", Value = "10" });
+
+                        listItemsMensual.Add(new SelectListItem { Text = "noviembre", Value = "11" });
+
+                        listItemsMensual.Add(new SelectListItem { Text = "diciembre", Value = "12" });
+
+
+
+                    }
+
+                    <div class="form-group hidden " id="divMensual">
+                        @Html.Label("Detalle Frecuencia", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("slctDetalleMensual", listItemsMensual, new { @Id = "slctDetalleMensual", @class = "form-control", style = "width:100%", onchange = "slctDetalleFrecuenciaChange(this)" })
+                            <br />
+                        </div>
+                    </div>
+
+
+                    @*Select Año*@
+
+                    @{
+
+                        int annoActual = DateTime.Now.Year;
+                        int annoMinimo = annoActual - 17;
+
+                        List<SelectListItem> listItemsAnnos = new List<SelectListItem>();
+
+                        listItemsAnnos.Add(new SelectListItem { Text = "<Seleccione>", Value = "-1", Selected = true });
+
+                        while (annoActual > annoMinimo)
+                        {
+
+                            listItemsAnnos.Add(new SelectListItem { Text = annoActual.ToString(), Value = annoActual.ToString() });
+
+                            annoActual--;
+                        }
+
+                    }
+
+                    <div class="form-group">
+                        @Html.Label("Año", new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("slctAnno", listItemsAnnos, new { @Id = "slctAnno", @class = "form-control", style = "width:100%", onchange = "slctAnnoChange(this)" })
+                            <br />
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.itemSolicitudIndicador.Activo, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBox("Activo", true)
+                                </label>
+                            </div>
+                            <br />
+                            @Html.ValidationMessageFor(model => model.itemSolicitudIndicador.Activo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Salida Tipo</label>
+                        <div class="col-md-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radioCrearFormularioWebGroup" id="radioCrearFormularioWeb">
+                                <label class="form-check-label" for="radioCrearFormularioWeb">
+                                   Formulario Web
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radioCrearFormularioWebGroup" id="radioCrearFormularioExcel" checked>
+                                <label class="form-check-label" for="radioCrearFormularioExcel">
+                                   Plantilla Excel
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <br />
+                    <div class="alert alert-danger hidden" role="alert" id="divMensajeErrorCrearSolicitud">
+                        <span id="MyerrorMensajeTabIndicadores"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            @if (GB.SUTEL.UI.Helpers.rolValidation.ValidateScreenFunctions(this.Context, "Solicitud", "Crear"))
+                            {
+                                <button type="button" class="btn btn-success" id="btnGuardarNuevaSolicitud" data-tooltip="true" title="Crear registro solicitud">Crear</button>
+                            }
+                            <a class="btn btn-danger" href="/Solicitud" role="button" data-tooltip="true" title="Cancelar el registro de solicitud">Cancelar</a>
+                        </div>
+                    </div>
+
+
+
+
+
+                </form>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="indicadores">
+                <div id="vistaOperadores">
+                    @{Html.RenderPartial("Indicadores", new Tuple<List<GB.SUTEL.Entities.Operador>, GB.SUTEL.UI.Models.SolicitudViewModels>(new List<GB.SUTEL.Entities.Operador>(), new GB.SUTEL.UI.Models.SolicitudViewModels()));}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#FechaInicio").datepicker({
+            dateFormat: 'dd/mm/yy',
+            minDate: 0,
+            beforeShow: function (textbox, instance) {
+                instance.dpDiv.css({
+                    marginTop: (-textbox.offsetHeight) + 'px',
+                    marginLeft: textbox.offsetWidth + 'px'
+                });
+            },
+            onClose: function (selectedDate) {
+                $("#FechaFin").datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $("#FechaFin").datepicker({
+            dateFormat: 'dd/mm/yy',
+            beforeShow: function (textbox, instance) {
+                instance.dpDiv.css({
+                    marginTop: (-textbox.offsetHeight) + 'px',
+                    marginLeft: textbox.offsetWidth + 'px'
+                });
+            }
+        });
+        $("body").append("<div class='darkScreen' hidden><div class='img-waiter'></div></div>");
+    });
+
+
+    $("#btnGuardarNuevaSolicitud").click(function (e) {
+        $("#formCrearSolicitud").submit();
+
+    });
+
+    $(".tabIndicadores").click(function (e) {
+        var servicio = $("#txtIDSERVICIO").val();
+        var direccion = $("#cmdIDDIRECCION").val();
+        var frecuencia = $("#cmdIDFRECUENCIA").val();
+        var idIndicador = $("#hiddenIDSOLICITUDINDICADOR").val();
+        var nombreOperador = $("#filtrarOperador").val();
+        var json = {
+            "IdServicio": servicio,
+            "IdDireccion": direccion,
+            "IdFrecuencia": frecuencia,
+            "IdIndicador": idIndicador,
+            "NombreOperador": nombreOperador
+        };
+
+        var options = {
+            type: "post",
+            dataType: "json",
+            data: { "data": json },
+            url: "/Solicitud/Indicadores",
+            success: function (data) {
+
+                if (data.ok === "True") {
+                    data = "<div id='vistaOperadores'>" + data + "</div>";
+
+                    var $form = $(data);
+
+                    $("#vistaOperadores").replaceWith(data);
+
+                    $('table[data-table-grid="true"]').ready(initDataGrid);
+                    initTable();
+                }
+            },
+            error: function (xhr, status, error) {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        var data = "<div id='vistaOperadores'>" + xhr.responseText + "</div>";
+
+                        var $form = $(data);
+
+                        $("#vistaOperadores").replaceWith(data);
+
+                        $('table[data-table-grid="true"]').ready(initDataGrid);
+                        initTable();
+                    }
+                }
+            }
+        };
+
+        $.ajax(options);
+        e.preventDefault();
+
+    });
+
+
+
+
+    $("#formCrearSolicitud").submit(function (e) {
+
+        if (!$("#formCrearSolicitud").valid()) {
+            return false;
+        }
+
+        $(".darkScreen").fadeIn(100);
+        // extrae los atributos del form
+        var descripcion = $("#txtDESCFORMULARIO").val();
+        var fechaInicio = $("#FechaInicio").val();
+        var fechaFinal = $("#FechaFin").val();
+        var servicio = $("#txtIDSERVICIO").val();
+        var direccion = $("#cmdIDDIRECCION").val();
+        var frecuencia = $("#cmdIDFRECUENCIA").val();
+        var activo = $("#Activo").val();
+        var formularioWeb = document.getElementById('radioCrearFormularioWeb').checked;
+        var anno = AnnoDatosExcel;
+        var ultimoMes = UltimoMes;
+
+        //debugger;
+        var json = {
+            "descFormulario": descripcion,
+            "fechaInicio": fechaInicio,
+            "fechaFinal": fechaFinal,
+            "idServicio": servicio,
+            "idDireccion": direccion,
+            "idFrecuencia": frecuencia,
+            "activo": activo,
+            "formularioWeb": formularioWeb,
+            "annoDatosExcel": anno,
+            "ultimoMes": ultimoMes
+        };
+
+
+        var options = {
+            type: "post",
+            dataType: "json",
+            url: "/Solicitud/Crear",
+            data: { "data": json },
+            success: function (data) {
+                if (data.ok === "True") {
+                    // window.location = "/Solicitud?e=true";
+                    addSuccess({ msg: data.strMensaje });
+                    $(".tabIndicadores").removeClass("hidden");
+                    $("#divMensajeErrorCrearSolicitud").addClass("hidden");
+                    $("#hiddenIDSOLICITUDINDICADOR").val(data.data.IdSolicitudIndicador);
+                    $("#solicitudindicador").removeClass('active');
+                    $("#indicadores").addClass('active');
+
+
+                    $(".tabSolicitud").removeClass('active');
+                    $(".tabIndicadores").addClass('active');
+                    $(".tabIndicadores").click();
+
+                } else {
+                    $("#divMensajeErrorCrearSolicitud").removeClass("hidden");
+                    $("#divMensajeErrorCrearSolicitud").removeAttr('style');
+                    $("#MyerrorMensajeTabIndicadores").text(data.strMensaje);
+                }
+                $(".darkScreen").fadeOut(100, function () {
+                    $(this).remove();
+                });
+
+
+
+            },
+            error: function (error) {
+                window.location = "/Solicitud?e=1";
+            }
+
+
+        };
+
+        $.ajax(options);
+        e.preventDefault();
+
+    });
+
+    //###############################################################
+    function funcFiltrarOperador(event) {
+
+        if (event.keyCode === 13) {
+            var servicio = $("#txtIDSERVICIO").val();
+            var direccion = $("#cmdIDDIRECCION").val();
+            var frecuencia = $("#cmdIDFRECUENCIA").val();
+            var idIndicador = $("#hiddenIDSOLICITUDINDICADOR").val();
+            var nombreOperador = $("#filtrarOperador").val();
+
+            var json = {
+                "IdServicio": servicio,
+                "IdDireccion": direccion,
+                "IdFrecuencia": frecuencia,
+                "IdIndicador": idIndicador,
+                "NombreOperador": nombreOperador
+            };
+
+
+            //var options = {
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                data: { "data": json },
+                url: "/Solicitud/Indicadores",
+                async: false,
+                success: function (data) {
+                    if (data.ok === "True") {
+
+                        data = "<div id='vistaOperadores'>" + data + "</div>";
+
+                        var $form = $(data);
+
+                        $("#vistaOperadores").replaceWith(data);
+                        alert('I am success 2');
+                        $('table[data-table-grid="true"]').ready(initDataGrid);
+                        initTable();
+                        CargaBotonesOperadores();
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+
+                            var data = "<div id='vistaOperadores'>" + xhr.responseText + "</div>";
+                            var $form = $(data);
+                            $("#vistaOperadores").replaceWith(data);
+                            $('table[data-table-grid="true"]').ready(initDataGrid);
+                            initTable();
+                            CargaBotonesOperadores();
+
+
+                        }
+
+                    }
+
+                },
+
+
+            });
+
+
+        }
+
+    }
+
+    //#############################################################
+    //Funcion se ejecuta al seleccionar numero de orden
+    /// Metodo creador Diego Navarrete
+    /// modificado 10/03/2016
+    function OnOrderChange(input, id) {
+
+        //debugger;
+
+        var value = input.value;
+
+        if (value < 0) {
+            var valueOrden = $("#ordenIndicador_" + id).val("");
+            $("#checkIndicador_" + id).prop("disabled", true);
+            return false;
+        }
+
+        if (!value.indexOf('.') == -1 || value == "" || value % 1 != 0) {
+            var valueOrden = $("#ordenIndicador_" + id).val("");
+            $("#checkIndicador_" + id).prop("disabled", true);
+            return false;
+        }
+
+        if (value == "" || value == null) {
+
+            $("#checkIndicador_" + id).prop("disabled", true);
+            //   alert("Entro cuando  deschekear");
+            for (var i = 0; i < allIndicadores.length; i++) {
+
+                if (allIndicadores[i].split("|")[0] == id) {
+                    allIndicadores.splice(i, 1);
+                    $("#checkIndicador_" + id).prop("checked", false);
+                    break;
+                }
+            }
+
+
+        } else {
+            //   alert("Entro cuando  deschekear");
+            $("#checkIndicador_" + id).prop("disabled", false);
+
+            for (var i = 0; i < allIndicadores.length; i++) {
+                if (allIndicadores[i].split("|")[0] == id) {
+                    var valueOrden = $("#ordenIndicador_" + id).val();
+                    allIndicadores[i] = allIndicadores[i].split("|")[0] + "|" + valueOrden;
+                    break;
+                }
+            }
+        }
+    }
+
+    //#############################################################
+    //Funcion se ejecuta al seleccionar un Indicador
+    // Modificado por Digo Navarrete
+    //10/03/2016
+    function AgregarNuevoIndicador(id) {
+        //debugger;
+        var element = $("#checkIndicador_" + id);
+        // var elementOperador = $("#IdOperadorSeleccionado").val();
+        var valueChecked = element.prop('checked');
+        var valueOrden = $("#ordenIndicador_" + id).val();
+        if (valueChecked && valueOrden != null && valueOrden != "") {
+
+            var inList = false;
+            var indexArray = null;
+            for (var i = 0; i < allIndicadores.length; i++) {
+
+                if (allIndicadores[i].split("|")[0] == id) {
+                    inList = true;
+                    indexArray = i;
+                    // alert("Orden" + i);
+                    break;
+                }
+            }
+            if (!inList && valueChecked && valueOrden != "" && valueOrden != null) {
+                allIndicadores.push(id + '|' + valueOrden);
+
+            }
+
+        } else {
+
+            var inList = false;
+            var indexArray = null;
+            for (var i = 0; i < allIndicadores.length; i++) {
+
+                if (allIndicadores[i].split("|")[0] == id) {
+                    inList = true;
+                    indexArray = i;
+                    break;
+                }
+            }
+            if (inList && !valueChecked) {
+                allIndicadores.splice(indexArray, 1);
+                var valueOrden = $("#ordenIndicador_" + id).val("");
+                //   $("#checkIndicador_" + id).prop("disabled", true);
+            }
+
+        }
+        console.log(allIndicadores.lengt);
+    };
+
+    function ddlFrecuenciaChange(idItemSelected) {
+
+        $("#divBimensual").addClass('hidden');
+        $("#divCuatrimestral").addClass('hidden');
+        $("#divMensual").addClass('hidden');
+        $("#divSemestral").addClass('hidden');
+        $("#divTrimestral").addClass('hidden');
+
+
+        switch (idItemSelected) {
+            case 1: //Anual
+                UltimoMes = -2;
+
+                break;
+
+            case 2: //Bimensual
+                $("#divBimensual").removeClass('hidden');
+                break;
+
+            case 3: //Cuatrimestral
+                $("#divCuatrimestral").removeClass('hidden');
+
+                break;
+
+            case 4: //Mensual
+                $("#divMensual").removeClass('hidden');
+                break;
+
+            case 5: //Semestral
+                $("#divSemestral").removeClass('hidden');
+                break;
+
+            case 6: //Trimestral
+                $("#divTrimestral").removeClass('hidden');
+                break;
+
+            default:
+
+
+
+
+        }
+
+    }
+
+    function checkSupportForInputTypeDate() {
+        jQuery.validator.methods.date = function (value, element) {
+            if (value) {
+                try {
+                    value = value.replace(/\//g, "-");
+                    //var val = Date.parse(value, 'd/M/yyyy');
+                    //if (isNaN(val)) return false;
+                    //var result = value.match(/^dd?-dd?-dd$/);;
+                    //return result;
+                    var date = $.datepicker.parseDate('dd-mm-yy', value);
+                    //$.datepicker.parseDate('dd-mm-yyyy', value);
+                } catch (ex) {
+                    $(element).val('');
+
+                    return false;
+                }
+            }
+            return true;
+        };
+    }
+    $(document).ready(function () {
+        checkSupportForInputTypeDate();
+
+    });
+
+
+    var AnnoDatosExcel = -1;
+    var UltimoMes = -1;
+
+    function slctAnnoChange(select) {
+
+        AnnoDatosExcel = select.options[select.selectedIndex].value;
+    }
+
+
+    function slctDetalleFrecuenciaChange(select) {
+
+        //debugger;
+        UltimoMes = select.options[select.selectedIndex].value;
+
+    }
+
+
+</script>
+

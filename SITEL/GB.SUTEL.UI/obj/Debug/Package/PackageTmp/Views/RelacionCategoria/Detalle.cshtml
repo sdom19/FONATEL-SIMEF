@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Detalle Relaciones entre Categorías";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container body-content">
+
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="/RelacionCategoria">Relaciones entre Categorías</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detalle de Relaciones entre Categorías</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row">
+        <div>
+            <h2 class="page-title-fonatel text-center">Detalle de Relaciones entre Categorías</h2>
+            <hr />
+        </div>
+        <div class="col-lg-12">
+            @Html.Partial("_CrearDetalle")
+        </div>
+        <div class="col-lg-12 ">
+            <br />
+            @Html.Partial("_TablaDetalleRelacionCategoria")
+        </div>
+    </div>
+
+</div>
+

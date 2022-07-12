@@ -1,18 +1,28 @@
 ﻿
+
 @{
-    Layout = null;
+    ViewBag.Title = "Reglas de Validación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>View</title>
-</head>
-<body>
-    <div> 
-        <h2>sjkadjkas</h2>
+
+
+<div class="form-group row">
+    <label for="ddlOperadorRegla" class="col-sm-12 col-form-label">Operador</label>
+    <div class="col-sm-12">
+        <div class="select2-wrapper">
+            <select class="form-control form-control-fonatel   required listasDesplegables" aria-label="Default select example" id="ddlOperadorRegla">
+                <option value="0"></option>
+                <option value="1">igual</option>
+                <option value="2">menor que</option>
+                <option value="3">mayor que</option>
+                <option value="4">menor o igual que</option>
+                <option value="5">mayor o igual que</option>
+                <option value="6">diferente</option>
+            </select>
+        </div>
+
+        <small id="OperadorHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
     </div>
-</body>
-</html>
+</div>

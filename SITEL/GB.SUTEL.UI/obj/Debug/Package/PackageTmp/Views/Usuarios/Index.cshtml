@@ -1,0 +1,23 @@
+﻿@model List<GB.SUTEL.Entities.Rol>
+@using GB.SUTEL.UI.Helpers;
+<h4>Mantenimiento de Usuarios</h4>
+<hr>
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Usuarios", "Crear")) { 
+<p>    
+    @Html.ActionLink("Nuevo", "Crear", "Usuarios", null, new { @class = "btn btn-success" })
+</p>
+}
+<div id="tablaUsuarios">
+    @Html.Action("_table")
+</div>
+
+@Html.Partial("_roles", Model)
+@Html.Partial("_eliminar")
+@*@Html.Partial("Crear", Model.Item2)
+    @Html.Partial("Editar", Model.Item2)
+    @Html.Partial("Permisos", Tuple.Create(Model.Item2, Model.Item3, Model.Item4))*@
+
+
+@section scripts{
+    @Scripts.Render("~/Scripts/Seguridad/Usuarios/source.js")
+}

@@ -7,7 +7,8 @@
         "btnAddFuente": "#TableFuentes tbody tr td .btn-add",
         "divContenedor": ".divContenedor_fuentes",
         "btnGuardarDestinatario": "#btnGuardarDestinatario",
-        "btnGuardarFuentesCompleto":"#btnGuardarFuentesCompleto"
+        "btnGuardarFuentesCompleto": "#btnGuardarFuentesCompleto",
+        "btnAtrasFuentes":"#btnAtrasFuentes"
     },
     "Variables": {
 
@@ -21,9 +22,9 @@
 
 $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Fuente?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Fuente?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Fuente ha Sido Agregada de Manera Correcta")
+            jsMensajes.Metodos.OkAlertModal("La Fuente ha Sido Agregada de Manera Correcta")
                 .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click'); });
         });
 });
@@ -31,9 +32,9 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
 
 $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Fuente?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Fuente?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Fuente ha Sido Agregada de Manera Correcta")
+            jsMensajes.Metodos.OkAlertModal("La Fuente ha Sido Agregada de Manera Correcta")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });
         });
 });
@@ -41,31 +42,22 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function 
 
 $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar el Destinatario a la Fuente?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar el Destinatario a la Fuente?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("El Destinatario ha Sido Agregado")
+            jsMensajes.Metodos.OkAlertModal("El Destinatario ha Sido Agregado")
                 .set('onok', function (closeEvent) { });
         });
 });
 
-
-
-
-
 $(document).on("click", JsFuentes.Controles.btnBorrarFuente, function () {
-    jsMensajes.Metodos.EliminarRegistro("¿Desea Eliminar la Fuente?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Eliminar la Fuente?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Fuente ha Sido Eliminada de Manera Correcta")
+            jsMensajes.Metodos.OkAlertModal("La Fuente ha Sido Eliminada de Manera Correcta")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });
         });
 });
 
-
-$(document).on("click", JsFuentes.Controles.btnstep, function () {
-
-    $(JsFuentes.Controles.btnstep).children("a").addClass('btn-default').removeClass('btn-info-fonatel');
-    $(this).children("a").addClass('btn-info-fonatel').removeClass('btn-default');
-    let div = $(this).children("a").attr("href");
-    $(JsFuentes.Controles.divContenedor).addClass('hidden');
-    $(div).removeClass('hidden');
+$(document).on("click", JsFuentes.Controles.btnAtrasFuentes, function (e) {
+    e.preventDefault();
+    $("a[href='#step-1']").trigger('click');
 });

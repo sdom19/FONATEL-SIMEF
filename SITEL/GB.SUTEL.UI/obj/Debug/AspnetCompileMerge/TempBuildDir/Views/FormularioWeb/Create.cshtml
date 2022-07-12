@@ -4,70 +4,71 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="row">
+    <div class="col-sm-12">
+        <div class="text-right">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                    <li class="breadcrumb-item active"><a href="/Fonatel/FormularioWeb/index">Formularios Web</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Crear Formulario Web</li>
+                </ol>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="stepwizard col-sm-offset-3">
+    <div class="stepwizard-row setup-panel step_navigation_indicador">
+        <div class="stepwizard-step" data-step="0">
+            <p>Formulario</p>
+            <a href="#step-1" type="button" class="btn btn-circle">1</a>
+
+        </div>
+        <div class="stepwizard-step" data-step="1">
+            <p>Indicadores</p>
+            <a href="#step-2" type="button" class="btn btn-circle">2</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="stepwizard-content-container hidden" id="step-1">
     <div class="row">
         <div class="col-sm-12">
-            <div class="text-right">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                        <li class="breadcrumb-item active"><a href="/Fonatel/FormularioWeb/index">Formularios Web</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Crear Formulario Web</li>
-                    </ol>
-                </nav>
-            </div>
-
+            <h2 class="page-title-fonatel text-center">Crear Formulario Web</h2>
+            <hr />
+        </div>
+        <div class="col-sm-12">
+            @Html.Partial("_CrearFormulario")
         </div>
     </div>
+</div>
 
-    <div class="stepwizard col-sm-offset-3">
-        <div class="stepwizard-row setup-panel step_navigation_Formulario">
-            <div class="stepwizard-step">
-                <p>Formulario</p>
-                <a href="#step-1" type="button" class="btn btn-circle btn-info-fonatel ">1</a>
+<div class="stepwizard-content-container hidden" id="step-2">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="page-title-fonatel text-center">Agregar Indicadores al Formulario</h2>
+            <hr />
+        </div>
+        <div class="col-sm-12">
+            @Html.Partial("_CrearIndicador")
+        </div>
+        <div class="col-sm-12 mt-4">
+            @Html.Partial("_TablaIndicador")
+        </div>
 
-            </div>
-            <div class="stepwizard-step">
-                <p>Indicadores</p>
-                <a href="#step-2" type="button" class="btn btn-circle btn-default">2</a>
-            </div>
+        <div class="col-sm-12 text-center">
+            <button type="submit" id="btnAtrasFormularioRegla" class="btn btn-fonatel btn-info-fonatel">Atras</button>
+            <button type="submit" id="btnGuardarFormularioCompleto" class="btn btn-fonatel btn-info-fonatel">Finalizar</button>
         </div>
     </div>
-
-
-
-
-
-    <div class="contenedor_formulario" id="step-1">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 class="page-title-fonatel text-center">Crear Formulario Web</h2>
-                <hr />
-            </div>
-            <div class="col-sm-12">
-                @Html.Partial("_CrearFormulario")
-            </div>
-        </div>       
-    </div>
-
-     <div class="hidden contenedor_formulario" id="step-2">
-         <div class="row">
-             <div class="col-sm-12">
-                 <h2 class="page-title-fonatel text-center">Agregar Indicadores al Formulario</h2>
-                 <hr />
-             </div>
-             <div class="col-sm-12">
-                 @Html.Partial("_CrearIndicador")
-             </div>
-             <div class="col-sm-12 mt-4">
-                 @Html.Partial("_TablaIndicador")
-             </div>
-
-             <div class="col-sm-12 text-center">
-                 <button type="submit" id="btnAtrasFormularioRegla" class="btn btn-fonatel btn-info-fonatel">Atras</button>
-                 <button type="submit" id="btnGuardarFormularioCompleto" class="btn btn-fonatel btn-info-fonatel">Finalizar</button>
-             </div>
-         </div>
-       </div>
+</div>
 
 
 

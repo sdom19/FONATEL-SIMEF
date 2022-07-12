@@ -40,9 +40,9 @@ $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
 
 $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function () {
 
-    jsMensajes.Metodos.EliminarRegistro("¿Desea Eliminar la Programación?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Eliminar la Programación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Prgramación ha Sido Eliminada")
+            jsMensajes.Metodos.OkAlertModal("La Prgramación ha Sido Eliminada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });
@@ -50,26 +50,26 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function 
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Programación a las Solicitud?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Programación a las Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Programación a Sido Creada")
+            jsMensajes.Metodos.OkAlertModal("La Programación a Sido Creada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Solicitud?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Solicitud a Sido Creada")
+            jsMensajes.Metodos.OkAlertModal("La Solicitud a Sido Creada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });
 
 $(document).on("click", JsSolicitud.Controles.btnDeleteSolicitud, function (e) {
-    jsMensajes.Metodos.EliminarRegistro("¿Desea Elimina la Relación?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Elimina la Relación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("El Relación ha sido Eliminado")
+            jsMensajes.Metodos.OkAlertModal("El Relación ha sido Eliminado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });
@@ -77,9 +77,9 @@ $(document).on("click", JsSolicitud.Controles.btnDeleteSolicitud, function (e) {
 
 
 $(document).on("click", JsSolicitud.Controles.btnsent, function (e) {
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Enviar la Solicitud?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Enviar la Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Solicitud ha sido enviada")
+            jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido enviada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });
@@ -88,18 +88,18 @@ $(document).on("click", JsSolicitud.Controles.btnsent, function (e) {
 
 $(document).on("click", JsSolicitud.Controles.btnDesactivadoSolicitud, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Activar la Solicitud?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Activar la Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Solicitud ha Sido Activada")
+            jsMensajes.Metodos.OkAlertModal("La Solicitud ha Sido Activada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });
 
 $(document).on("click", JsSolicitud.Controles.btnActivadoSolicitud, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.AgregarRegistro("¿Desea Desactivar la Solicitud?")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Desactivar la Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.ConfirmaRegistro("La Solicitud ha Sido Desactivado")
+            jsMensajes.Metodos.OkAlertModal("La Solicitud ha Sido Desactivado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });

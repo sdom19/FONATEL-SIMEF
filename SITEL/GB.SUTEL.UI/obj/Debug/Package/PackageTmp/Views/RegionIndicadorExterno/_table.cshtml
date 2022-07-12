@@ -1,0 +1,87 @@
+﻿@model List<GB.SUTEL.Entities.RegionIndicadorExterno>
+@using GB.SUTEL.UI.Helpers;
+@{
+    //bool editar = rolValidation.ValidateScreenFunctions(this.Context, "Periodicidad", "Editar");
+    bool eliminar = rolValidation.ValidateScreenFunctions(this.Context, "Region Indicador Externo", "Eliminar");
+}
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error</span>
+    </div>
+}
+
+
+@if (!rolValidation.ValidateScreenFunctions(this.Context, "Region Indicador Externo", "Consultar"))
+{
+    <div class="alert alert-warning" role="alert">
+        @GB.SUTEL.Resources.Resources.SinPermisosIndex
+    </div>
+}
+else
+{
+    <form id="formFilter" method="post" action="@Url.Action("_table")" data-ajax="true" data-ajax-message="Cargando datos desde index...">
+        @Html.AntiForgeryToken()
+        <table class="display" cellspacing="0" data-table-grid="true">
+            <thead>
+                <tr>
+                    <th width="1%">Id</th>
+                    <th width="1%">Descripción</th>
+                    @if (eliminar)
+                    {
+                        <th width="1%" class="no-sort" style="min-width:40px;"></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td data-toggle="modal" data-target="#modalEditar" data-select="true"
+                                data-json-selected='{"ID":"@item.IdRegionIndicadorExterno", "NOMBREEDITAR": "@item.DescRegionIndicadorExterno"}'>
+                                @item.IdRegionIndicadorExterno
+                            </td>
+                            <td data-toggle="modal" data-target="#modalEditar" data-select="true"
+                                data-json-selected='{"ID":"@item.IdRegionIndicadorExterno", "NOMBREEDITAR": "@item.DescRegionIndicadorExterno"}'>
+                                @item.DescRegionIndicadorExterno
+                            </td>
+
+                            @if (eliminar)
+                            {
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm btnEliminar" aria-label="Left Align" data-toggle="modal" data-target="#modalEliminar"
+                                            data-select="true"
+                                            data-json-selected='{"id":"@item.IdRegionIndicadorExterno","NOMBREELIMINAR":"@item.DescRegionIndicadorExterno"}'>
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="3">No se encontraron datos</td></tr>
+                }
+
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td>
+                        <input placeholder="Id" name="IdRegionIndicadorExterno" value="@(ViewBag.searchTerm.IdRegionIndicadorExterno == 0 ? "" : ViewBag.searchTerm.IdRegionIndicadorExterno)" />
+                    </td>
+                    <td>
+                        <input placeholder="Descripción" name="DescRegionIndicadorExterno" value="@(ViewBag.searchTerm.DescRegionIndicadorExterno == null ? "" : ViewBag.searchTerm.DescRegionIndicadorExterno)" />
+                    </td>
+                    @if (eliminar)
+                    {
+                        <td></td>
+                    }
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+}

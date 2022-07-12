@@ -266,7 +266,7 @@
     <Compile Include="Controllers\Fonatel\FuentesController.cs" />
     <Compile Include="Controllers\Fonatel\ReglasValidacionController.cs" />
     <Compile Include="Controllers\Fonatel\RelacionCategoriaController.cs" />
-    <Compile Include="Controllers\Fonatel\HistoricoController.cs" />
+    <Compile Include="Controllers\Fonatel\HistoricoFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\SolicitudFonatelController.cs" />
     <Compile Include="Controllers\FormCumplimientoPorcenController.cs" />
     <Compile Include="Controllers\IndicadorUmbralController.cs" />
@@ -1363,7 +1363,7 @@
     <Content Include="Views\FormularioWeb\_CrearIndicador.cshtml" />
     <Content Include="Views\FormularioWeb\_TablaIndicador.cshtml" />
     <Content Include="Views\FormularioWeb\_ModalTipoIndicador.cshtml" />
-    <Content Include="Views\Shared\Fonatel\_ModalHistorico.cshtml" />
+    <Content Include="Views\HistoricoFonatel\index.cshtml" />
     <Content Include="Views\ReglasValidacion\_CrearTipoRegla.cshtml" />
     <Content Include="Views\ReglasValidacion\_TablaDetalleVariable.cshtml" />
     <Content Include="Views\IndicadorFonatel\_ModalUnidadEstudio.cshtml" />
@@ -1381,7 +1381,6 @@
     <Folder Include="Recursos\ConvertToOldExcel\" />
     <Folder Include="Views\Agrupacion\NewFolder1\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Historico\" />
     <Folder Include="Views\Seguridad\Rol\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
