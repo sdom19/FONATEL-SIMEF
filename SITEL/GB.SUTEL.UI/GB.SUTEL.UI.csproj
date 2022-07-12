@@ -1392,6 +1392,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GB.SIMEF.Resources\GB.SIMEF.Resources.csproj">
+      <Project>{3c87589f-6b46-4f62-ab6d-5118197f12ec}</Project>
+      <Name>GB.SIMEF.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GB.SUTEL.BL\GB.SUTEL.BL.csproj">
       <Project>{e8ed21f4-13ae-4b54-b9c5-1ff6ebc26eb9}</Project>
       <Name>GB.SUTEL.BL</Name>
