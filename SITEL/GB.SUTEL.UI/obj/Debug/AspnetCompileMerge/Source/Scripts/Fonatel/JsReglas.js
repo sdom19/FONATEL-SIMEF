@@ -1,22 +1,25 @@
 ﻿    JsReglas= {
     "Controles": {
-
-        "ddlTipoRegla": "#ddlTipoRegla",
-        "btnGuardarRegla": "#btnGuardarRegla",
-        "btnEditarRegla": "#TableReglaDesagregacion tbody tr td .btn-edit",
-        "btnClonarRegla": "#TableReglaDesagregacion tbody tr td .btn-clone",
-        "btnBorrarRegla": "#TableReglaDesagregacion tbody tr td .btn-delete",
-        "btnAddRegla": "#TableReglaDesagregacion tbody tr td .btn-add",
-        "btnRemoveReglaDetalle": "#TableReglaDesagregacionDetalle tbody tr td .btn-delete",
-        "divFormulaCambioMensual":"#divFormulaCambioMensual",
-        "divFormulaContraIndicador":"#divFormulaContraIndicador",
-        "divFormulaContraConstante":"#divFormulaContraConstante",
-        "divFormulaContraAtributosValido": "#divFormulaContraAtributosValido",
-        "divFormulaActualizacionSecuencial": "#divFormulaActualizacionSecuencial",
-         "divContenedor": ".contenedor_regla",
+            "ddlVariableRegla":"#ddlVariableRegla",
+            "ddlTipoRegla": "#ddlTipoRegla",
+            "btnGuardarRegla": "#btnGuardarRegla",
+            "btnEditarRegla": "#TableReglaDesagregacion tbody tr td .btn-edit",
+            "btnClonarRegla": "#TableReglaDesagregacion tbody tr td .btn-clone",
+            "btnBorrarRegla": "#TableReglaDesagregacion tbody tr td .btn-delete",
+            "btnAddRegla": "#TableReglaDesagregacion tbody tr td .btn-add",
+            "btnRemoveReglaDetalle": "#TableReglaDesagregacionDetalle tbody tr td .btn-delete",
+            "divFormulaCambioMensual":"#divFormulaCambioMensual",
+            "divFormulaContraIndicador": "#divFormulaContraIndicador",
+            "divFormulaContraIndicadorSalida": "#divFormulaContraIndicadorSalida",
+            "divFormulaContraIndicadorEntradaSalida": "#divFormulaContraIndicadorEntradaSalida",
+            "divFormulaContraConstante":"#divFormulaContraConstante",
+            "divFormulaContraAtributosValido": "#divFormulaContraAtributosValido",
+            "divFormulaActualizacionSecuencial": "#divFormulaActualizacionSecuencial",
+            "divContenedor": ".contenedor_regla",
             "btnAtrasRegla": "#btnAtrasTipoRegla",
             "btnSiguienteTipoSiguiente": "#btnSiguienteTipoSiguiente",
             "btnGuardarReglaTipo": "#btnGuardarReglaTipo",
+            "ddlVariableRegla":"#ddlVariableRegla"
       
      },
     "Variables":{
@@ -25,6 +28,8 @@
         "FormulaContraConstante":"3",
         "FormulaContraAtributosValido":"4",
         "FormulaActualizacionSecuencial": "5",
+        "FormulaContraIndicadorSalida": "6",
+        "FormulaContraIndicadorEntradaSalida": "7",
     },
 
         "Metodos": {
@@ -33,11 +38,15 @@
                 $(div).removeClass('hidden');
             },
             "HabilitarControlesTipoRegla": function (selected) {
-            $(JsReglas.Controles.divFormulaCambioMensual).addClass("hidden");
-            $(JsReglas.Controles.divFormulaContraIndicador).addClass("hidden");
-            $(JsReglas.Controles.divFormulaContraConstante).addClass("hidden");
-            $(JsReglas.Controles.divFormulaContraAtributosValido).addClass("hidden");
-            $(JsReglas.Controles.divFormulaActualizacionSecuencial).addClass("hidden");
+                $(JsReglas.Controles.divFormulaCambioMensual).addClass("hidden");
+                $(JsReglas.Controles.divFormulaContraIndicador).addClass("hidden");
+                $(JsReglas.Controles.divFormulaContraConstante).addClass("hidden");
+                $(JsReglas.Controles.divFormulaContraAtributosValido).addClass("hidden");
+                $(JsReglas.Controles.ddlVariableRegla).prop("disabled", false);
+                $(JsReglas.Controles.divFormulaActualizacionSecuencial).addClass("hidden");
+                $(JsReglas.Controles.divFormulaContraIndicadorSalida).addClass("hidden");
+                $(JsReglas.Controles.divFormulaContraIndicadorEntradaSalida).addClass("hidden");
+
             switch (selected) {
                 case JsReglas.Variables.FormulaContraIndicador:
                     $(JsReglas.Controles.divFormulaContraIndicador).removeClass("hidden");
@@ -47,10 +56,21 @@
                     break;
                 case JsReglas.Variables.FormulaContraAtributosValido:
                     $(JsReglas.Controles.divFormulaContraAtributosValido).removeClass("hidden");
+                    $(JsReglas.Controles.ddlVariableRegla).val('...').change();
+                    $(JsReglas.Controles.ddlVariableRegla).prop("disabled", true);
                     break;
                 case JsReglas.Variables.FormulaActualizacionSecuencial:
                     $(JsReglas.Controles.divFormulaActualizacionSecuencial).removeClass("hidden");
                     break;
+
+                case JsReglas.Variables.FormulaContraIndicadorSalida:
+                    $(JsReglas.Controles.divFormulaContraIndicadorSalida).removeClass("hidden");
+                    break;
+
+                case JsReglas.Variables.FormulaContraIndicadorEntradaSalida:
+                    $(JsReglas.Controles.divFormulaContraIndicador).removeClass("hidden");
+                    break;
+
                 default:
             }     
         }
