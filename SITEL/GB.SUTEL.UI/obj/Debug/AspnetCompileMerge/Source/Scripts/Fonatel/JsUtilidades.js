@@ -33,8 +33,7 @@ $(document).ready(function () {
 
 
     $(".datatable_simef").DataTable({
-        //"dom": '<"top"lBf>rt<"bottom"ip><"clear">',
-        "dom": '<"top-position"<"subtop"Bl>f>rt<"bottom-position"ip><"clear">',
+        "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
         buttons: [
             {
                 extend: 'excel',
