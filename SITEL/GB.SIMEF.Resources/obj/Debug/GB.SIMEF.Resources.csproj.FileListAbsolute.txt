@@ -1,0 +1,9 @@
+C:\Users\jose.navarro\source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\bin\Debug\GB.SIMEF.Resources.dll
+C:\Users\jose.navarro\source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\bin\Debug\GB.SIMEF.Resources.pdb
+C:\Users\jose.navarro\source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.csproj.AssemblyReference.cache
+C:\Users\jose.navarro\source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.Etiquetas.resources
+C:\Users\jose.navarro\source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.VistaCrearDefinicionEtiquetas.resources
+C:\Users\jose.navarro\source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.csproj.GenerateResource.cache
+C:\Users\jose.navarro\source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.csproj.CoreCompileInputs.cache
+C:\Users\jose.navarro\source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.dll
+C:\Users\jose.navarro\source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.pdb

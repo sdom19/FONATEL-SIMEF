@@ -117,28 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BotonCancelar" xml:space="preserve">
-    <value>Cancelar</value>
+  <data name="LabelCodigo" xml:space="preserve">
+    <value>Código</value>
   </data>
-  <data name="BotonDescarga" xml:space="preserve">
-    <value>Descargar</value>
+  <data name="LabelDefinicion" xml:space="preserve">
+    <value>Definición</value>
   </data>
-  <data name="BotonEliminar" xml:space="preserve">
-    <value>Eliminar</value>
+  <data name="LabelDirección" xml:space="preserve">
+    <value>Dirección</value>
   </data>
-  <data name="BotonGuardar" xml:space="preserve">
-    <value>Guardar</value>
+  <data name="LabelFuenteDefinicion" xml:space="preserve">
+    <value>Fuente</value>
   </data>
-  <data name="CampoRequerido" xml:space="preserve">
-    <value>Campo requerido</value>
+  <data name="LabelNombreDefinicion" xml:space="preserve">
+    <value>Nombre</value>
   </data>
-  <data name="InputHistoricoCodigo" xml:space="preserve">
-    <value>Código de Tabla</value>
+  <data name="LabelNotasDefinicion" xml:space="preserve">
+    <value>Notas</value>
   </data>
-  <data name="InputHistoricoTabla" xml:space="preserve">
-    <value>Nombre Tabla</value>
+  <data name="LabelServicioDefinicion" xml:space="preserve">
+    <value>Servicio</value>
   </data>
-  <data name="TituloVistaHistoricoFonatel" xml:space="preserve">
-    <value>Histórico de Fonatel</value>
+  <data name="Titulo" xml:space="preserve">
+    <value>Crear Definición</value>
   </data>
 </root>

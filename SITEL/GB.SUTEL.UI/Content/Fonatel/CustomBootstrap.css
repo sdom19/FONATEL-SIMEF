@@ -135,6 +135,11 @@
     background-color: var(--blue-fonatel);
 }
 
+.btn-warning-fonatel {
+    color: #ffffff;
+    background-color: var(--orange-fonatel);
+}
+
     .btn-success-fonatel:hover,
     .btn-success-fonatel:focus,
     .btn-next-fonatel:hover,
@@ -142,7 +147,9 @@
     .btn-error-fonatel:hover,
     .btn-error-fonatel:focus,
     .btn-info-fonatel:hover,
-    .btn-info-fonatel:focus {
+    .btn-info-fonatel:focus,
+    .btn-warning-fonatel:hover,
+    .btn-warning-fonatel:focus {
         color: #ffffff;
     }
 
