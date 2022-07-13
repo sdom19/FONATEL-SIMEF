@@ -4,9 +4,25 @@
 }
 
 <div class="container body-content">
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Registro de Indicador</li>
+            </ol>
+        </nav>
+    </div>
+
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="form-group">
+        <div class="col-lg-12">
+            <h2 class="page-title-fonatel text-center">Registro de Indicador</h2>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group center">
                 <label for="ddlSolicitud" class="col-form-label">Solicitud</label>
                 <div class="select2-wrapper">
                     <select class="listasDesplegables" aria-label="Default select example" id="ddlSolicitud">
@@ -16,11 +32,11 @@
                         <option value="2">Cartago</option>
                     </select>
                 </div>
-                <small id="CodigoHelp" class="form-text form-text-danger-fonatel">El Código es requerido</small>
+                <small id="CodigoHelp" class="form-text form-text-danger-fonatel">Campo requerido</small>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="form-group">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group center">
                 <label for="dllFormulario" class="col-form-label">Formulario</label>
                 <div class="select2-wrapper">
                     <select class="listasDesplegables" aria-label="Default select example" id="dllFormulario">
@@ -30,13 +46,13 @@
                         <option value="2">Cartago</option>
                     </select>
                 </div>
-                <small id="CodigoHelp" class="form-text form-text-danger-fonatel">El Código es requerido</small>
+                <small id="CodigoHelp" class="form-text form-text-danger-fonatel">Campo requerido</small>
             </div>
 
         </div>
     </div>
 
-    <ul class="nav nav-tabs nav-tabs-fonatel">
+    <ul class="nav nav-tabs nav-tabs-fonatel mt-4">
         <li class="active"><a data-toggle="tab" href="#menu0">P4 extendido</a></li>
         <li><a data-toggle="tab" href="#menu1">P4 Usuario</a></li>
         <li><a data-toggle="tab" href="#menu2">P2-Jefas y menores M43</a></li>
