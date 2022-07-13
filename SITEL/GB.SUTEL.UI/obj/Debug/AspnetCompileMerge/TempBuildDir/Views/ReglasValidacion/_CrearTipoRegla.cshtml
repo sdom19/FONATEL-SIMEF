@@ -41,8 +41,6 @@
 
       <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
 
-
-
           <div class="form-group row">
               <label for="ddlTipoRegla" class="col-sm-12 col-form-label ">Tipo Regla</label>
               <div class="col-sm-12">
@@ -50,8 +48,9 @@
                       <select class="listasDesplegables" aria-label="Default select example" id="ddlTipoRegla">
                           <option></option>
                           <option value="1">Fórmula cambio mensual</option>
-                          <option value="2">Fórmula contra otro indicador</option>
-                          <option value="2">Producto de una Fórmula de Cálculo</option>
+                          <option value="2">Fórmula contra otro indicador Entrada</option>
+                          <option value="6">Fórmula contra otro indicador Salida</option>
+                          <option value="7">Fórmula contra otro indicador Entrada/Salida</option>
                           <option value="3">Fórmula contra constante</option>
                           <option value="4">Fórmula contra atributos válidos</option>
                           <option value="5">Fórmula actualización secuencial</option>
@@ -104,8 +103,6 @@
                   </div>
               </div>
           </div>
-
-
           <div class="hidden" id="divFormulaContraAtributosValido">
 
 
@@ -132,24 +129,22 @@
                       <div class="select2-wrapper">
                           <select multiple class="listasDesplegables" id="ddlAtributosValidosRegla">
                               <option></option>
-                              <option value="1">San jose</option>
-                              <option value="2">Heredia</option>
-                              <option value="2">limon</option>
-                              <option value="2">Puntarena</option>
+                              <option value="1">Provincia</option>
+                              <option value="2">Cantón</option>
+                              <option value="2">Distrito</option>
                           </select>
                       </div>
                       <small id="ddlAtributosValidosReglaHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
                   </div>
               </div>
           </div>
-
           <div class="hidden" id="divFormulaActualizacionSecuencial">
 
               <div class="form-group row">
                   <label for="ddlCategoriaActualizableRegla" class="col-sm-12 col-form-label">Categoría Actualizable</label>
                   <div class="col-sm-12">
                       <div class="select2-wrapper">
-                          <select multiple class="listasDesplegables" id="ddlCategoriaActualizableRegla">
+                          <select class="listasDesplegables" id="ddlCategoriaActualizableRegla">
                               <option></option>
                               <option value="1">Estado de Torres</option>
                           </select>
@@ -158,9 +153,24 @@
                   </div>
               </div>
           </div>
-
-
+          <div class="hidden" id="divFormulaContraIndicadorSalida">
+              <div class="form-group row">
+                  <label for="ddlIndicadorSalidaRegla" class="col-sm-12 col-form-label">Indicador de Salida</label>
+                  <div class="col-sm-12">
+                      <div class="select2-wrapper">
+                          <select class="listasDesplegables" id="ddlIndicadorSalidaRegla">
+                              <option></option>
+                              <option value="1">Cálculo de Torres Pendientes</option>
+                          </select>
+                      </div>
+                      <small id="ddlIndicadorSalidaReglaHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
+                  </div>
+              </div>
           </div>
+
+
+
+      </div>
       </div>
    <div class="row">
         <div class="col-sm-12 text-center mt-5">

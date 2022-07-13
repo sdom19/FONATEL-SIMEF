@@ -1,29 +1,25 @@
-﻿@using GB.SIMEF.Resources;
-
-@{
+﻿@{
     ViewBag.Title = "Histórico Fonatel";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 <div class="container body-content">
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="@Url.Action( "index","Home")">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@Etiquetas.TituloHistoricoFonatel</li>
+                <li class="breadcrumb-item active" aria-current="page">Histórico de Fonatel</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center"></h2>
+            <h2 class="page-title-fonatel text-center">Histórico de Fonatel</h2>
             <hr />
         </div>
         <div class="col-lg-12">
             <div class="row">
                 <div class=" col-md-4 col-sm-10 col-sm-offset-2 col-md-offset-2">
-                    <label for="ddlNombreHistorico" class="col-sm-12 col-form-label ">@Etiquetas.InputHistoricoTabla</label>
+                    <label for="ddlNombreHistorico" class="col-sm-12 col-form-label ">Nombre de Tabla</label>
                     <div class="col-sm-12">
                         <div class="select2-wrapper">
                             <select class=" listasDesplegables" aria-label="Default select example" id="ddlNombreHistorico">
@@ -39,7 +35,7 @@
                 <div class=" col-md-6 col-sm-10 col-sm-offset-2 col-md-offset-0">
 
 
-                    <label for="ddlCodigoHistorico" class="col-sm-12 col-form-label ">@Etiquetas.InputHistoricoCodigo</label>
+                    <label for="ddlCodigoHistorico" class="col-sm-12 col-form-label ">Código de Tabla</label>
                     <div class="col-sm-12">
                         <div class="select2-wrapper">
                             <select class=" listasDesplegables" aria-label="Default select example" id="ddlCodigoHistorico">
@@ -57,8 +53,8 @@
         <div class="col-md-12">
             <div class="modal-footer text-center">
                 <div class="text-center">
-                    <button id="btnDescargarHistorico" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonDescarga</button>
-                    <button id="btnCancelarHistorico" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">@Etiquetas.BotonCancelar</button>
+                    <button id="btnDescargarHistorico" class="btn btn-fonatel btn-success-fonatel">Descargar</button>
+                    <button  id="btnCancelarHistorico" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">Cancelar</button>
                 </div>
 
             </div>

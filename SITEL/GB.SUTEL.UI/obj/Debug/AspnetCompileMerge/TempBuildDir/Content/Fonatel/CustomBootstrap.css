@@ -40,12 +40,46 @@
 
 .form-text-danger-fonatel {
     display: inline-block;
-    margin: 5px 0px 0px 13px;
+    margin: 5px 0px 0px 15px;
     font-size: 1.4rem;
     font-style: italic;
     letter-spacing: 0.13px;
     color: var(--red-fonatel);
 }
+
+/*
+    ===============================================================
+                         Navigation Bar
+    ===============================================================
+*/
+
+.nav-tabs-fonatel {
+    overflow: auto;
+    white-space: nowrap;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .nav-tabs-fonatel > li {
+        float: none;
+        margin-bottom: 0px;
+        display: inline-block;
+    }
+
+        .nav-tabs-fonatel > li a {
+            color: black;
+            -webkit-transition: 0.15s;
+            transition: 0.15s;
+        }
+
+        .nav-tabs-fonatel > li.active > a,
+        .nav-tabs-fonatel > li.active > a:hover,
+        .nav-tabs-fonatel > li.active > a:focus {
+            color: white;
+            font-weight: bold;
+            background-color: var(--blue-fonatel);
+        }
+
 
 /*
     ===============================================================
@@ -242,6 +276,10 @@
     ===============================================================
 */
 
+.table-wrapper-fonatel table {
+    width: 99.9%; /* hace posible ocultar el scroll cuando la tabla abarca la justa longitud */
+}
+
 .table-wrapper-fonatel .dataTables_length select {
     padding: 6px 12px;
     font-size: 14px;
@@ -404,6 +442,13 @@
     .table-wrapper-fonatel .bottom-position {
         display: block;
     }
+}
+
+.table-wrapper-fonatel .content-table {
+    overflow: auto;
+    position: relative;
+    border: 0px;
+    width: 100%;
 }
 
 /*
