@@ -22,14 +22,14 @@ namespace GB.SIMEF.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Etiquetas {
+    public class VistaCrearDefinicionEtiquetas {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Etiquetas() {
+        internal VistaCrearDefinicionEtiquetas() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace GB.SIMEF.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GB.SIMEF.Resources.Etiquetas", typeof(Etiquetas).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GB.SIMEF.Resources.VistaCrearDefinicionEtiquetas", typeof(VistaCrearDefinicionEtiquetas).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,74 +61,74 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancelar.
+        ///   Looks up a localized string similar to Código.
         /// </summary>
-        public static string BotonCancelar {
+        public static string LabelCodigo {
             get {
-                return ResourceManager.GetString("BotonCancelar", resourceCulture);
+                return ResourceManager.GetString("LabelCodigo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Descargar.
+        ///   Looks up a localized string similar to Definición.
         /// </summary>
-        public static string BotonDescarga {
+        public static string LabelDefinicion {
             get {
-                return ResourceManager.GetString("BotonDescarga", resourceCulture);
+                return ResourceManager.GetString("LabelDefinicion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eliminar.
+        ///   Looks up a localized string similar to Dirección.
         /// </summary>
-        public static string BotonEliminar {
+        public static string LabelDirección {
             get {
-                return ResourceManager.GetString("BotonEliminar", resourceCulture);
+                return ResourceManager.GetString("LabelDirección", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Guardar.
+        ///   Looks up a localized string similar to Fuente.
         /// </summary>
-        public static string BotonGuardar {
+        public static string LabelFuenteDefinicion {
             get {
-                return ResourceManager.GetString("BotonGuardar", resourceCulture);
+                return ResourceManager.GetString("LabelFuenteDefinicion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Campo requerido.
+        ///   Looks up a localized string similar to Nombre.
         /// </summary>
-        public static string CampoRequerido {
+        public static string LabelNombreDefinicion {
             get {
-                return ResourceManager.GetString("CampoRequerido", resourceCulture);
+                return ResourceManager.GetString("LabelNombreDefinicion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Código de Tabla.
+        ///   Looks up a localized string similar to Notas.
         /// </summary>
-        public static string InputHistoricoCodigo {
+        public static string LabelNotasDefinicion {
             get {
-                return ResourceManager.GetString("InputHistoricoCodigo", resourceCulture);
+                return ResourceManager.GetString("LabelNotasDefinicion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nombre Tabla.
+        ///   Looks up a localized string similar to Servicio.
         /// </summary>
-        public static string InputHistoricoTabla {
+        public static string LabelServicioDefinicion {
             get {
-                return ResourceManager.GetString("InputHistoricoTabla", resourceCulture);
+                return ResourceManager.GetString("LabelServicioDefinicion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Histórico de Fonatel.
+        ///   Looks up a localized string similar to Crear Definición.
         /// </summary>
-        public static string TituloVistaHistoricoFonatel {
+        public static string Titulo {
             get {
-                return ResourceManager.GetString("TituloVistaHistoricoFonatel", resourceCulture);
+                return ResourceManager.GetString("Titulo", resourceCulture);
             }
         }
     }

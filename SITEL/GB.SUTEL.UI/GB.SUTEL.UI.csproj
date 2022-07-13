@@ -1393,7 +1393,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GB.SIMEF.Resources\GB.SIMEF.Resources.csproj">
-      <Project>{3c87589f-6b46-4f62-ab6d-5118197f12ec}</Project>
+      <Project>{93f172d6-f11b-41d1-bd43-afad2f43d314}</Project>
       <Name>GB.SIMEF.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\GB.SUTEL.BL\GB.SUTEL.BL.csproj">
