@@ -653,6 +653,7 @@
     <Content Include="Scripts\Fonatel\JsReglas.js" />
     <Content Include="Scripts\Fonatel\JsPublicar.js" />
     <Content Include="Scripts\Fonatel\JsFormularios.js" />
+    <Content Include="Scripts\Fonatel\JsRegistroIndicadores.js" />
     <Content Include="Scripts\Fonatel\JsSolicitud.js" />
     <Content Include="Scripts\Fonatel\JsRelacionCategoria.js" />
     <Content Include="Scripts\Fonatel\JsCategoria.js" />
@@ -1355,7 +1356,7 @@
     <Content Include="Views\DefinicionIndicadores\_TablaIndicadores.cshtml" />
     <Content Include="Views\DefinicionIndicadores\_CreateDefinicion.cshtml" />
     <Content Include="Views\DefinicionIndicadores\Create.cshtml" />
-    <Content Include="Views\RegistroIndicador\_tableFonatel.cshtml" />
+    <Content Include="Views\RegistroIndicadorFonatel\_tableFonatel.cshtml" />
     <Content Include="Views\PublicacionIndicadores\Index.cshtml" />
     <Content Include="Views\PublicacionIndicadores\_TablaIndicadores.cshtml" />
     <Content Include="Views\FormularioWeb\Index.cshtml" />
@@ -1371,12 +1372,14 @@
     <Content Include="Views\IndicadorFonatel\_ModalUnidadEstudio.cshtml" />
     <Content Include="Views\RegistroIndicador\Ayuda.cshtml" />
     <Content Include="Views\RegistroIndicador\Mensaje.cshtml" />
-    <Content Include="Views\RegistroIndicadorFonatel\index.cshtml" />
+    <Content Include="Views\RegistroIndicadorFonatel\Create.cshtml" />
     <Content Include="Views\FormulaCalculo\Create.cshtml" />
     <Content Include="Views\FormulaCalculo\Index.cshtml" />
-    <Content Include="Views\FormulaCalculo\_CrearDetalle.cshtml" />
     <Content Include="Views\FormulaCalculo\_CrearFormula.cshtml" />
     <Content Include="Views\FormulaCalculo\_TablaFormulas.cshtml" />
+    <Content Include="Views\RegistroIndicadorFonatel\Index.cshtml" />
+    <Content Include="Views\FormulaCalculo\_GestionFormulas.cshtml" />
+    <Content Include="Views\FormulaCalculo\_tablaIndicadores.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
