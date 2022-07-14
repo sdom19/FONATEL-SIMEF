@@ -61,11 +61,38 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Atras.
+        /// </summary>
+        public static string BotonAtras {
+            get {
+                return ResourceManager.GetString("BotonAtras", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buscar.
+        /// </summary>
+        public static string BotonBuscar {
+            get {
+                return ResourceManager.GetString("BotonBuscar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancelar.
         /// </summary>
         public static string BotonCancelar {
             get {
                 return ResourceManager.GetString("BotonCancelar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crear.
+        /// </summary>
+        public static string BotonCrear {
+            get {
+                return ResourceManager.GetString("BotonCrear", resourceCulture);
             }
         }
         
@@ -88,11 +115,29 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finalizar.
+        /// </summary>
+        public static string BotonFinalizar {
+            get {
+                return ResourceManager.GetString("BotonFinalizar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Guardar.
         /// </summary>
         public static string BotonGuardar {
             get {
                 return ResourceManager.GetString("BotonGuardar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Siguiente.
+        /// </summary>
+        public static string BotonSiguiente {
+            get {
+                return ResourceManager.GetString("BotonSiguiente", resourceCulture);
             }
         }
         
@@ -120,6 +165,15 @@ namespace GB.SIMEF.Resources {
         public static string InputHistoricoTabla {
             get {
                 return ResourceManager.GetString("InputHistoricoTabla", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inicio.
+        /// </summary>
+        public static string LabelInicio {
+            get {
+                return ResourceManager.GetString("LabelInicio", resourceCulture);
             }
         }
         

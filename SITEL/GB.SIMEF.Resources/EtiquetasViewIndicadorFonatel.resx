@@ -117,28 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LabelCodigo" xml:space="preserve">
+  <data name="CrearCategoria_LabelCategoriaIndicador" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="CrearCategoria_LabelDetalleIndicador" xml:space="preserve">
+    <value>Detalle</value>
+  </data>
+  <data name="CrearIndicador_LabelCantidadCategoriaIndicador" xml:space="preserve">
+    <value>Cantidad de Categorías de Desagregación</value>
+  </data>
+  <data name="CrearIndicador_LabelCantidadVariableDatosIndicador" xml:space="preserve">
+    <value>Cantidad de Variables Dato</value>
+  </data>
+  <data name="CrearIndicador_LabelClasificacion" xml:space="preserve">
+    <value>Clasificación</value>
+  </data>
+  <data name="CrearIndicador_LabelCodigo" xml:space="preserve">
     <value>Código</value>
   </data>
-  <data name="LabelDefinicion" xml:space="preserve">
-    <value>Definición</value>
+  <data name="CrearIndicador_LabelDescripcion" xml:space="preserve">
+    <value>Descripción</value>
   </data>
-  <data name="LabelDirección" xml:space="preserve">
-    <value>Dirección</value>
+  <data name="CrearIndicador_LabelFrecuencias" xml:space="preserve">
+    <value>Frecuencias</value>
   </data>
-  <data name="LabelFuenteDefinicion" xml:space="preserve">
-    <value>Fuente</value>
+  <data name="CrearIndicador_LabelFuenteIndicador" xml:space="preserve">
+    <value>Fuentes</value>
   </data>
-  <data name="LabelNombreDefinicion" xml:space="preserve">
+  <data name="CrearIndicador_LabelGrupo" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="CrearIndicador_LabelNombre" xml:space="preserve">
     <value>Nombre</value>
   </data>
-  <data name="LabelNotasDefinicion" xml:space="preserve">
+  <data name="CrearIndicador_LabelNotas" xml:space="preserve">
     <value>Notas</value>
   </data>
-  <data name="LabelServicioDefinicion" xml:space="preserve">
-    <value>Servicio</value>
+  <data name="CrearIndicador_LabelSolicitud" xml:space="preserve">
+    <value>Solicitud</value>
   </data>
-  <data name="Titulo" xml:space="preserve">
-    <value>Crear Definición</value>
+  <data name="CrearIndicador_LabelTipo" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="CrearIndicador_LabelTipoMedida" xml:space="preserve">
+    <value>Tipo de Medida</value>
+  </data>
+  <data name="CrearIndicador_LabelUnidadEstudio" xml:space="preserve">
+    <value>Unidad de Estudio</value>
+  </data>
+  <data name="CrearIndicador_LabelUsoIndicador" xml:space="preserve">
+    <value>Uso</value>
+  </data>
+  <data name="CrearIndicador_TextAreaDescripcionPlaceholder" xml:space="preserve">
+    <value>Descripción de categoria</value>
+  </data>
+  <data name="CrearVariable_LabelDescripcionVariable" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="CrearVariable_LabelNombreVariable" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="CrearVariable_LabelVariableIndicador" xml:space="preserve">
+    <value>Variable</value>
+  </data>
+  <data name="LabelStepperCategorias" xml:space="preserve">
+    <value>Categorías</value>
+  </data>
+  <data name="LabelStepperIndicador" xml:space="preserve">
+    <value>Indicador</value>
+  </data>
+  <data name="LabelStepperVariables" xml:space="preserve">
+    <value>Variables</value>
+  </data>
+  <data name="TituloAgregarCategoria" xml:space="preserve">
+    <value>Agregar Categoría</value>
+  </data>
+  <data name="TituloCrearIndicador" xml:space="preserve">
+    <value>Crear Indicador</value>
+  </data>
+  <data name="TituloCrearVariable" xml:space="preserve">
+    <value>Agregar Variable Dato</value>
+  </data>
+  <data name="TituloIndex" xml:space="preserve">
+    <value>Indicadores</value>
   </data>
 </root>
