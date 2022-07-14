@@ -1,4 +1,5 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
   <div class="row">
       <div class="col-md-4 col-sm-12 col-md-offset-2 col-sm-offset-0">
 
@@ -12,7 +13,7 @@
                           <option value="2">Estado de Torres</option>
                       </select>
                      </div>
-                      <small id="VariableHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
+                  <small id="VariableHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                   </div>
               </div>
 
@@ -33,7 +34,7 @@
                       </select>
                   </div>
              
-                  <small id="OperadorHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
+                  <small id="OperadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
               </div>
           </div>
 
@@ -56,7 +57,7 @@
                           <option value="5">Fórmula actualización secuencial</option>
                       </select>
                   </div>
-                  <small id="TipoReglaHelp" class="form-text form-text-danger-fonatel">El tipo es requerido</small>
+                  <small id="TipoReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
               </div>
 
           </div>
@@ -66,7 +67,7 @@
                   <label for="txtConstanteRegla" class="col-sm-12 col-form-label">Valor Constante</label>
                   <div class="col-sm-12">
                       <input type="text" class="form-control form-control-fonatel  " id="txtConstanteRegla" placeholder="Constante">
-                      <small id="txtConstanteReglaHelp" class="form-text form-text-danger-fonatel">El Valor Constante es requerido</small>
+                      <small id="txtConstanteReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                   </div>
               </div>
           </div>
@@ -84,7 +85,7 @@
                               <option value="4">Dispositivos entregados</option>
                           </select>
                       </div>
-                      <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
+                      <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                   </div>
               </div>
 
@@ -99,7 +100,7 @@
                               <option value="2">Estado de Torres</option>
                           </select>
                       </div>
-                      <small id="ddlVariableComparacionReglaHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
+                      <small id="ddlVariableComparacionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                   </div>
               </div>
           </div>
@@ -117,7 +118,7 @@
                               <option value="2">CAT-3</option>
                           </select>
                       </div>
-                      <small id="ddlAtributosValidosCategoriaReglaHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
+                      <small id="ddlAtributosValidosCategoriaReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                   </div>
               </div>
 
@@ -134,7 +135,7 @@
                               <option value="2">Distrito</option>
                           </select>
                       </div>
-                      <small id="ddlAtributosValidosReglaHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
+                      <small id="ddlAtributosValidosReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                   </div>
               </div>
           </div>
@@ -149,7 +150,7 @@
                               <option value="1">Estado de Torres</option>
                           </select>
                       </div>
-                      <small id="ddlCategoriaActualizableReglaHelp" class="form-text form-text-danger-fonatel">La Categoría Actualizable es Requerida</small>
+                      <small id="ddlCategoriaActualizableReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                   </div>
               </div>
           </div>
@@ -163,7 +164,7 @@
                               <option value="1">Cálculo de Torres Pendientes</option>
                           </select>
                       </div>
-                      <small id="ddlIndicadorSalidaReglaHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
+                      <small id="ddlIndicadorSalidaReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                   </div>
               </div>
           </div>
@@ -174,8 +175,8 @@
       </div>
    <div class="row">
         <div class="col-sm-12 text-center mt-5">
-            <button id="btnGuardarReglaTipo" class="btn btn-fonatel btn-success-fonatel">Guardar</button>
-            <button type="submit" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
+            <button id="btnGuardarReglaTipo" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
         </div>
     </div>
 

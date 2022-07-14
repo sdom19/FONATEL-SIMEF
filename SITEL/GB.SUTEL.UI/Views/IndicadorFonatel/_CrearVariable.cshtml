@@ -1,10 +1,11 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 <form>
     <div class="row">
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
 
             <div class="form-group row">
-                <label for="ddlVariableIndicador" class="col-sm-12 col-form-label">Variable</label>
+                <label for="ddlVariableIndicador" class="col-sm-12 col-form-label">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelVariableIndicador</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
                         <select class="listasDesplegables" aria-label="Default select example" id="ddlVariableIndicador">
@@ -13,14 +14,14 @@
                             <option value="2">Cantidad Torres</option>
                         </select>
                     </div>
-                    <small id="ddlVariableIndicadorHelp" class="form-text form-text-danger-fonatel">El tipo es requerido</small>
+                    <small id="ddlVariableIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
             <acdiv class="form-group row">
-                <label for="txtDescripcionVariable" class="col-sm-12  col-form-label">Descripción</label>
+                <label for="txtDescripcionVariable" class="col-sm-12  col-form-label">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable</label>
                 <div class="col-sm-12">
-                    <textarea class="form-control form-control-fonatel " maxlength="2000" id="txtDescripcionVariable" placeholder="Descripción"></textarea>
-                    <small id="txtDescripcionVariableHelp" class="form-text form-text-danger-fonatel">El Código es Requerido</small>
+                    <textarea class="form-control form-control-fonatel " maxlength="2000" id="txtDescripcionVariable" placeholder="@EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable"></textarea>
+                    <small id="txtDescripcionVariableHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </acdiv>
         </div>
@@ -28,13 +29,13 @@
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
 
             <div class="form-group row">
-                <label for="txtNombreVariable" class="col-sm-12  col-form-label">Nombre</label>
+                <label for="txtNombreVariable" class="col-sm-12  col-form-label">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control form-control-fonatel " id="txtNombreVariable" placeholder="Nombre">
-                    <small id="txtNombreVariableHelp" class="form-text form-text-danger-fonatel">El Nombre es requerido</small>
+                    <input type="text" class="form-control form-control-fonatel " id="txtNombreVariable" placeholder="@EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable">
+                    <small id="txtNombreVariableHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
-        
+
         </div>
 
 
@@ -42,9 +43,9 @@
     <div class="row mt-5">
         <div class="col-lg-12 text-center">
 
-            <button type="submit" id="btnGuardarVariable" class="btn btn-fonatel btn-success-fonatel">Guardar</button>
-            <button id="btnSiguienteVariable" class="btn btn-fonatel btn-next-fonatel">Siguiente</button>
-            <button type="submit" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
+            <button type="submit" id="btnGuardarVariable" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button id="btnSiguienteVariable" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+            <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
 
         </div>
     </div>

@@ -1,4 +1,4 @@
-﻿
+﻿@using GB.SIMEF.Resources;
 
 <form>
     <div class="row">
@@ -8,14 +8,14 @@
                     <label for="txtNombre" class="col-sm-12 col-form-label">Nombre</label>
                     <div class="col-sm-12">
                         <input type="text" class="form-control form-control-fonatel" id="txtNombre" placeholder="Nombre de categoria">
-                        <small id="nombreHelp" class="form-text  form-text-danger-fonatel">El nombre es requerido</small>
+                        <small id="nombreHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
                     <div class="col-sm-12">
                         <input type="text" class="form-control form-control-fonatel" id="txtCodigo" placeholder="Codigo">
-                        <small id="CodigoHelp" class="form-text form-text-danger-fonatel">El Código es requerido</small>
+                        <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
                                 <option value="3">actualizable</option>
                             </select>
                         </div>
-                        <small id="TipoCategoriaHelp" class="form-text  form-text-danger-fonatel">El tipo es requerido</small>
+                        <small id="TipoCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -52,14 +52,14 @@
                             <option value="4">fecha</option>
                         </select>
                         </div>
-                        <small id="TipoCategoriaHelp" class="form-text  form-text-danger-fonatel">El detalle es requerido</small>
+                    <small id="TipoCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
             <div class="form-group row hidden" id="divCantidadDetalleCategoria">
                 <label for="txtCantidadDetalleCategoria" class="col-sm-12 col-form-label">Cantidad Detalle</label>
                 <div class="col-sm-12">
                     <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadDetalleCategoria" placeholder="Cantidad Detalle">
-                    <small id="CantidadDetalleCategoriaHelp" class="form-text  form-text-danger-fonatel">La Cantidad de Detalle es Requerida</small>
+                    <small id="CantidadDetalleCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
@@ -71,7 +71,7 @@
                 <label for="txtFechaMinimaCategoria" class="col-sm-12 col-form-label">Fecha Inicio</label>
                 <div class="col-sm-12">
                     <input type="date" class="form-control form-control-fonatel" id="txtFechaMinimaCategoria" placeholder="Fecha de Inicio">
-                    <small id="FechaMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel">La Fecha Inicio es requerida</small>
+                    <small id="FechaMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
@@ -80,7 +80,7 @@
                 <label for="txtFechaMaximaCategoria" class="col-sm-12 col-form-label">Fecha Final</label>
                 <div class="col-sm-12">
                     <input type="date" class="form-control form-control-fonatel" id="txtFechaMaximaCategoria" placeholder="Fecha de Fin">
-                    <small id="FechaMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel">La Fecha Fin es requerida</small>
+                    <small id="FechaMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
@@ -90,7 +90,7 @@
                 <label for="txtRangoMinimaCategoria" class="col-sm-12 col-form-label">Valor Mínimo</label>
                 <div class="col-sm-12">
                     <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtRangoMinimaCategoria" placeholder="Rango de Inicio">
-                    <small id="RangoMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel">El Valor Minimo es Requerido</small>
+                    <small id="RangoMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
@@ -99,7 +99,7 @@
                 <label for="txtRangoMaximaCategoria" class="col-sm-12 col-form-label">Valor Máximo</label>
                 <div class="col-sm-12">
                     <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtRangoMaximaCategoria" placeholder="Valor Máximo">
-                    <small id="RangoMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel">El Valor Máximo es Requerido</small>
+                    <small id="RangoMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
@@ -109,8 +109,8 @@
     </div>
     <div class="row mt-5">
         <div class="col-sm-12 text-center">
-            <button id="btnGuardarCategoria"  class="btn btn-fonatel btn-success-fonatel">Guardar</button>
-            <button type="submit" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
+            <button id="btnGuardarCategoria"  class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
         </div>
     </div>
 </form>
