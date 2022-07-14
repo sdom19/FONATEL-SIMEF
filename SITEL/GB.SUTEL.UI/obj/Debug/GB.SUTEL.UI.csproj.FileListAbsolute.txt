@@ -647,3 +647,5 @@ C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cach
 C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
 C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Resources.dll
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Resources.pdb

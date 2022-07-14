@@ -1,0 +1,72 @@
+﻿
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="text-right">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item active"><a href='@Html.Action( "Index","FormulaCalculo")'>Fórmulas de Cálculo</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Crear Fórmula de Cálculo</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="stepwizard col-sm-offset-3">
+    <div class="stepwizard-row setup-panel step_navigation_indicador">
+        <div class="stepwizard-step" data-step="0">
+            <p>Indicardor</p>
+            <a href="#step-1" type="button" class="btn btn-circle">1</a>
+
+        </div>
+        <div class="stepwizard-step" data-step="1">
+            <p>Fórmula</p>
+            <a href="#step-2" type="button" class="btn btn-circle">2</a>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row stepwizard-content-container hidden" id="step-1">
+    <div class="col-lg-12">
+        <h2 class="page-title-fonatel text-center">Crear Fórmula de Cálculo</h2>
+        <hr />
+    </div>
+    <div class="col-lg-12">
+
+        @Html.Partial("_CrearFormula")
+    </div>
+</div>
+
+
+
+<div class="row stepwizard-content-container hidden" id="step-2">
+    <div>
+        <h2 class="page-title-fonatel text-center">Agregar Destinatario</h2>
+        <hr />
+    </div>
+    <div class="col-lg-12">
+    
+    </div>
+    <div class="col-lg-12">
+      
+    </div>
+
+    <div class="col-sm-12 text-center">
+        <button type="submit" id="btnAtrasFuentes" class="btn btn-fonatel btn-info-fonatel">Atras</button>
+        <button type="submit" id="btnGuardarFuentesCompleto" class="btn btn-fonatel btn-info-fonatel">Finalizar</button>
+    </div>
+</div>
+
+
+
+

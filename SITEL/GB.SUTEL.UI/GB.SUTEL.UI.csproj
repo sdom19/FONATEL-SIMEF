@@ -267,6 +267,7 @@
     <Compile Include="Controllers\Fonatel\ReglasValidacionController.cs" />
     <Compile Include="Controllers\Fonatel\RelacionCategoriaController.cs" />
     <Compile Include="Controllers\Fonatel\HistoricoFonatelController.cs" />
+    <Compile Include="Controllers\Fonatel\FormulaCalculoController.cs" />
     <Compile Include="Controllers\Fonatel\SolicitudFonatelController.cs" />
     <Compile Include="Controllers\FormCumplimientoPorcenController.cs" />
     <Compile Include="Controllers\IndicadorUmbralController.cs" />
@@ -621,6 +622,7 @@
     <Content Include="Images\icon-sent.svg" />
     <Content Include="Images\icon-success.svg" />
     <Content Include="Images\icon-upload.svg" />
+    <Content Include="Images\icon-view.svg" />
     <Content Include="Images\question.svg" />
     <Content Include="Images\sort_asc.png" />
     <Content Include="Images\sort_asc_disabled.png" />
@@ -1370,6 +1372,11 @@
     <Content Include="Views\RegistroIndicador\Ayuda.cshtml" />
     <Content Include="Views\RegistroIndicador\Mensaje.cshtml" />
     <Content Include="Views\RegistroIndicadorFonatel\index.cshtml" />
+    <Content Include="Views\FormulaCalculo\Create.cshtml" />
+    <Content Include="Views\FormulaCalculo\Index.cshtml" />
+    <Content Include="Views\FormulaCalculo\_CrearDetalle.cshtml" />
+    <Content Include="Views\FormulaCalculo\_CrearFormula.cshtml" />
+    <Content Include="Views\FormulaCalculo\_TablaFormulas.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>

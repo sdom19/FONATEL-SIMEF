@@ -197,6 +197,10 @@
     background-image: url("../../Images/icon-delete.svg");
 }
 
+.btn-view {
+    background-image: url("../../Images/icon-view.svg");
+}
+
 .btn-clone {
     background-image: url("../../Images/icon-clone.svg");
 }

@@ -45,7 +45,6 @@ C:\Fonatel\SITEL\GB.SUTEL.Resources\bin\Debug\GB.SUTEL.Resources.dll.config
 C:\Fonatel\SITEL\GB.SUTEL.Resources\bin\Debug\GB.SUTEL.Resources.dll
 C:\Fonatel\SITEL\GB.SUTEL.Resources\bin\Debug\GB.SUTEL.Resources.pdb
 C:\Fonatel\SITEL\GB.SUTEL.Resources\bin\Debug\en\GB.SUTEL.Resources.resources.dll
-C:\Fonatel\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.csprojAssemblyReference.cache
 C:\Fonatel\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.EtiquetasBotones.resources
 C:\Fonatel\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.EtiquetasMantenimiento.resources
 C:\Fonatel\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.Mensajes.resources

@@ -1,0 +1,103 @@
+﻿@using GB.SIMEF.Resources
+
+<form>
+    <div class="row">
+        <div class="col-md-4 col-sm-10 col-md-offset-2 col-sm-offset-2">
+            <div class="form-group row">
+                <label for="txtCodigoFormula" class="col-sm-12 col-form-label">Código</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control form-control-fonatel " id="txtCodigoFormula" placeholder="Código">
+                    <small id="txtCodigoFormulaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="ddlIndicadorFormulario" class="col-sm-12 col-form-label ">Indicador de Salida</label>
+                <div class="col-sm-12">
+                    <div class="select2-wrapper">
+                        <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlIndicadorFormulario">
+                            <option></option>
+                            <option value="1">IP1Tor Torres según estado</option>
+                            <option value="2">IP1CPSP CPSP Conectados</option>
+                            <option value="2">IP2Hog Hogares Beneficiarios</option>
+                        </select>
+                    </div>
+
+
+                    <small id="ddlIndicadorFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group row">
+                <label for="ddlVariableFormulario" class="col-sm-12 col-form-label ">Variable-Dato</label>
+                <div class="col-sm-12">
+                    <div class="select2-wrapper">
+                        <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlVariableFormulario">
+                            <option></option>
+                            <option value="1">Torres según estado</option>>
+                        </select>
+                    </div>
+
+
+                    <small id="ddlVariableFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6 col-sm-10 col-md-offset-0 col-sm-offset-2">
+            <div class="form-group row">
+                <label for="txtNombreFormula" class="col-sm-12 col-form-label">Nombre</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control form-control-fonatel " id="txtNombreFormula" placeholder="Nombre">
+                    <small id="txtNombreFormulaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="ddlFrecuenciaFormulario" class="col-sm-12 col-form-label ">Frecuencia</label>
+                <div class="col-sm-12">
+                    <div class="select2-wrapper">
+                        <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlFrecuenciaFormulario">
+                            <option></option>
+                            <option value="1">Mensual</option>
+                            <option value="2">Trimestral</option>
+                        </select>
+                    </div>
+
+
+                    <small id="ddlFrecuenciaFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+        <div class="col-md-10  col-md-offset-2">
+            <div class="form-group row">
+                <label for="txtDescripcionFormula" class="col-sm-12 col-form-label">Descripción</label>
+                <div class="col-sm-10">
+                    <textarea id="txtDescripcionFormula" class="form-control form-control-fonatel" placeholder="Descripción"></textarea>
+                    <small id="txtDescripcionFormulaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                </div>
+            </div>
+        </div>
+
+        </div>
+        <div class="row mt-5">
+            <div class="col-sm-12 text-center">
+                <button type="submit" id="btnGuardarFuente" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+                <button type="submit" id="btnGuardarFuente" class="btn btn-fonatel btn-next-fonatel">Siguiente</button>
+                <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
+            </div>
+        </div>
+</form>
+
