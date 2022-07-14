@@ -1,17 +1,17 @@
-﻿
+﻿@using GB.SIMEF.Resources;
 
 <form >
     <div class="row">
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
                 <div class="form-group row">
-                    <label for="txtCodigoDefinicion" class="col-sm-12  col-form-label">Código</label>
+                    <label for="txtCodigoDefinicion" class="col-sm-12  col-form-label">@EtiquetasViewDefinicionIndicadores.LabelCodigo</label>
                     <div class="col-sm-12 ">
                         <input type="text" class="form-control form-control-fonatel disabled" id="txtCodigoDefinicion" value="FON1-1">
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="txtDireccionDefinicion" class="col-sm-12  col-form-label">Direccion</label>
+                    <label for="txtDireccionDefinicion" class="col-sm-12  col-form-label">@EtiquetasViewDefinicionIndicadores.LabelDirección</label>
                     <div class="col-sm-12 ">
                         <input type="text" class="form-control form-control-fonatel disabled" id="txtDireccionDefinicion" value="Fonatel">
                     </div>
@@ -19,22 +19,18 @@
         </div>
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
 
-
             <div class="form-group row">
-                <label for="txtNombreDefinicion" class="col-sm-12  col-form-label">Nombre</label>
+                <label for="txtNombreDefinicion" class="col-sm-12  col-form-label">@EtiquetasViewDefinicionIndicadores.LabelNombreDefinicion</label>
                 <div class="col-sm-12 ">
                     <input type="text" class="form-control form-control-fonatel disabled" id="txtNombreDefinicion" value="CPSP Conectado">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="txtServicioDefinicion" class="col-sm-12  col-form-label">Servicio</label>
+                <label for="txtServicioDefinicion" class="col-sm-12  col-form-label">@EtiquetasViewDefinicionIndicadores.LabelServicioDefinicion</label>
                 <div class="col-sm-12 ">
                     <input type="text" class="form-control form-control-fonatel disabled" id="txtServicioDefinicion" value="General">
                 </div>
             </div>
-
-          
-
 
       </div>
 
@@ -42,30 +38,30 @@
             <div class="col-sm-10 col-sm-offset-0 col-md-10 col-md-offset-1">
                 <div class="form-group row">
 
-                    <label for="txtDefinicion" class="col-sm-12 col-form-label">Definición</label>
+                    <label for="txtDefinicion" class="col-sm-12 col-form-label">@EtiquetasViewDefinicionIndicadores.LabelDefinicion</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control form-control-fonatel " id="txtDefinicion" placeholder="Definición"></textarea>
-                        <small id="txtDefinicionHelp" class="form-text form-text-danger-fonatel">La Definición es Requerida</small>
+                        <textarea class="form-control form-control-fonatel " id="txtDefinicion" placeholder="@EtiquetasViewDefinicionIndicadores.LabelDefinicion"></textarea>
+                        <small id="txtDefinicionHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
             </div>
             <div class="col-sm-10 col-sm-offset-0 col-md-10 col-md-offset-1">
                 <div class="form-group row">
-                    <label for="txtFuenteDefinicion" class="col-sm-12 col-form-label">Fuente</label>
+                    <label for="txtFuenteDefinicion" class="col-sm-12 col-form-label">@EtiquetasViewDefinicionIndicadores.LabelFuenteDefinicion</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control form-control-fonatel " id="txtFuenteDefinicion" placeholder="Definición"></textarea>
+                        <textarea class="form-control form-control-fonatel " id="txtFuenteDefinicion" placeholder="@EtiquetasViewDefinicionIndicadores.LabelFuenteDefinicion"></textarea>
 
-                        <small id="txtFuenteDefinicionHelp" class="form-text form-text-danger-fonatel">La Definición es Requerida</small>
+                        <small id="txtFuenteDefinicionHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
             </div>
             <div class="col-sm-10 col-sm-offset-0 col-md-10 col-md-offset-1">
                 <div class="form-group row">
-                    <label for="txtNotasDefinicion" class="col-sm-12 col-form-label">Notas</label>
+                    <label for="txtNotasDefinicion" class="col-sm-12 col-form-label">@EtiquetasViewDefinicionIndicadores.LabelNotasDefinicion</label>
                     <div class="col-sm-12">
-                        <textarea class="form-control form-control-fonatel  " id="txtNotasDefinicion" placeholder="Definición"></textarea>
+                        <textarea class="form-control form-control-fonatel  " id="txtNotasDefinicion" placeholder="@EtiquetasViewDefinicionIndicadores.LabelNotasDefinicion"></textarea>
 
-                        <small id="txtNotasDefinicionHelp" class="form-text form-text-danger-fonatel">La Definición es Requerida</small>
+                        <small id="txtNotasDefinicionHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
             </div>
@@ -73,8 +69,8 @@
       </div>
     <div class="row">
         <div class="col-sm-12 text-center">
-            <button id="btnGuardarDefiniciones"  class="btn btn-fonatel btn-success-fonatel">Guardar</button>
-            <button type="submit" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
+            <button id="btnGuardarDefiniciones" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
         </div>
     </div>
 </form>

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using GB.SIMEF.Resources;
+
+@{
     ViewBag.Title = "RegistroIndicadorFonatel";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -7,15 +9,15 @@
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Registro de Indicador</li>
+                <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detalle Registro de Indicador</li>
             </ol>
         </nav>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Registro de Indicador</h2>
+            <h2 class="page-title-fonatel text-center">Detalle Registro de Indicador</h2>
             <hr />
         </div>
     </div>
@@ -32,7 +34,7 @@
                         <option value="2">Cartago</option>
                     </select>
                 </div>
-                <small id="CodigoHelp" class="form-text form-text-danger-fonatel">Campo requerido</small>
+                <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -46,7 +48,7 @@
                         <option value="2">Cartago</option>
                     </select>
                 </div>
-                <small id="CodigoHelp" class="form-text form-text-danger-fonatel">Campo requerido</small>
+                <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
 
         </div>

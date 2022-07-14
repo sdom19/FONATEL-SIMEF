@@ -1,4 +1,6 @@
-﻿<div class="modal fade modal-fonatel" data-backdrop="static" id="modalUnidadEstudio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+﻿@using GB.SIMEF.Resources;
+
+<div class="modal fade modal-fonatel" data-backdrop="static" id="modalUnidadEstudio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-fonatel" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,13 +15,13 @@
                             <label for="txtUnidadEstudioIndicador" class="col-sm-12 col-form-label">Unidad de Estudio</label>
                             <div class="col-sm-12">
                                 <input type="text" aria-label="Tipo" class="form-control form-control-fonatel" id="txtUnidadEstudioIndicador" placeholder="Unidad de Estudio">
-                                <small id="txtUnidadEstudioIndicadorHelp" class="form-text form-text-danger-fonatel">La Unidad de Estudio Requerida</small>
+                                <small id="txtUnidadEstudioIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-fonatel btn-success-fonatel">Guardar</button>
-                        <button type="submit" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+                        <button type="submit" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">@Etiquetas.BotonCancelar</button>
                     </div>
                 </div>
             </div>

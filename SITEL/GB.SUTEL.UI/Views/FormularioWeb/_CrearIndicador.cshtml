@@ -1,4 +1,5 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 <form>
     <div class="row">
 
@@ -17,14 +18,14 @@
                     </div>
                    
              
-                    <small id="ddlIndicadorFormularioHelp" class="form-text form-text-danger-fonatel">La Variable es Requerida</small>
+                    <small id="ddlIndicadorFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="txtNotasEncargadoFormlulario" class="col-sm-12 col-form-label">Notas del Encargado</label>
                 <div class="col-sm-12">
                     <textarea class="form-control form-control-fonatel" id="txtNotasEncargadoFormlulario" placeholder="Notas"></textarea>
-                    <small id="txtNotasEncargadoFormlularioHelp" class="form-text">La Notas es requerido</small>
+                    <small id="txtNotasEncargadoFormlularioHelp" class="form-text">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
@@ -35,14 +36,14 @@
                 <label for="txtTituloHoja" class="col-sm-12 col-form-label">Título de Hola</label>
                 <div class="col-sm-12">
                     <input type="text" class="form-control form-control-fonatel" id="txtNombreVariable" placeholder="Nombre">
-                    <small id="txtNombreVariableHelp" class="form-text form-text-danger-fonatel">El Nombre es requerido</small>
+                    <small id="txtNombreVariableHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="txtNotasInformanteFormlulario" class="col-sm-12 col-form-label">Notas del Informante</label>
                 <div class="col-sm-12">
                     <textarea class="form-control form-control-fonatel" id="txtNotasInformanteFormlulario" placeholder="Notas"></textarea>
-                    <small id="txtNotasInformanteFormlularioHelp" class="form-text">La Notas es requerido</small>
+                    <small id="txtNotasInformanteFormlularioHelp" class="form-text">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
@@ -54,8 +55,8 @@
     <div class="row mt-4">
         <div class="col-lg-12 text-center">
 
-            <button type="submit" id="btnGuardarVariable" class="btn btn-fonatel btn-success-fonatel">Guardar</button>
-            <button type="submit" class="btn btn-fonatel btn-danger">Cancelar</button>
+            <button type="submit" id="btnGuardarVariable" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="submit" class="btn btn-fonatel btn-danger">@Etiquetas.BotonCancelar</button>
 
         </div>
     </div>

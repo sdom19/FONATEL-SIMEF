@@ -1,5 +1,4 @@
-﻿
-
+﻿@using GB.SIMEF.Resources;
 
 <form>
     <div class="row mt-5">
@@ -12,7 +11,7 @@
                     <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
                     <div class="col-sm-12">
                         <input type="text" aria-label="Código de categoria" class="form-control form-control-fonatel  " id="txtCodigo" placeholder="Código">
-                        <small id="CodigoHelp" class="form-text form-text-danger-fonatel">El Código es Requerido</small>
+                        <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -20,7 +19,7 @@
                     <label for="txtNombre" class="col-sm-12 col-form-label">Nombre</label>
                     <div class="col-sm-12">
                         <input type="text" class="form-control form-control-fonatel  " id="txtNombre" placeholder="Nombre">
-                        <small id="nombreHelp" class="form-text form-text-danger-fonatel">El Nombre es Requerido</small>
+                        <small id="nombreHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -28,7 +27,7 @@
                     <label for="txtFechaInicio" class="col-sm-12 col-form-label">Fecha de Inicio</label>
                     <div class="col-sm-12">
                         <input type="date" class="form-control form-control-fonatel  " id="TxtFechaInicio">
-                        <small id="FechaInicioHelp" class="form-text form-text-danger-fonatel">La Fecha Inicio es Requerida</small>
+                        <small id="FechaInicioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -45,7 +44,7 @@
                                 <option>Abril</option>
                             </select>
                         </div>
-                        <small id="ddlMesSolicitudHelp" class="form-text form-text-danger-fonatel">Seleccione el Mes</small>
+                        <small id="ddlMesSolicitudHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -66,7 +65,7 @@
                                 <option>Fuentes 3</option>
                             </select>
                         </div>
-                        <small id="FuentesHelp" class="form-text form-text-danger-fonatel">Seleccione una Fuente de la Lista</small>
+                        <small id="FuentesHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -83,7 +82,7 @@
                                 <option>Formulario 3</option>
                             </select>
                         </div>
-                        <small id="FormulariosHelp" class="form-text form-text-danger-fonatel">Seleccione un Formulario</small>
+                        <small id="FormulariosHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -91,7 +90,7 @@
                     <label for="txtFechaFin" class="col-sm-12 col-form-label">Fecha Final</label>
                     <div class="col-sm-12">
                         <input type="date" class="form-control form-control-fonatel  " id="TxtFechaFin">
-                        <small id="FechaFinHelp" class="form-text form-text-danger-fonatel">La Fecha Final es Requerida</small>
+                        <small id="FechaFinHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -110,7 +109,7 @@
                                 <option>2022</option>
                             </select>
                         </div>
-                        <small id="ddlAnoSolicitudHelp" class="form-text form-text-danger-fonatel">Seleccione el Año</small>
+                        <small id="ddlAnoSolicitudHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -122,7 +121,7 @@
                 <label for="txtMensajeSolicitud" class="col-sm-12 col-form-label">Mensaje</label>
                 <div class="col-sm-12">
                     <textarea id="txtMensajeSolicitud" class="form-control form-control-fonatel" placeholder="Mensaje"></textarea>
-                    <small id="txtMensajeSolicitudHelp" class="form-text form-text-danger-fonatel">El Mensaje es Requerido</small>
+                    <small id="txtMensajeSolicitudHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -131,8 +130,8 @@
 
         <div class="col-lg-12 text-center">
 
-            <button type="submit" id="btnGuardarSolicitud" class="btn btn-fonatel btn-success-fonatel">Siguiente</button>
-            <button type="submit" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
+            <button type="submit" id="btnGuardarSolicitud" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
 
         </div>
     </div>

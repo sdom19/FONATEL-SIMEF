@@ -1,4 +1,5 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 @{
     ViewBag.Title = "Reglas de Validación";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,7 +10,7 @@
             <div class="text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="#">@Etiquetas.LabelInicio</a></li>
                         <li class="breadcrumb-item active"><a href="/Fonatel/ReglasValidacion/index">Reglas de Validación</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Crear Regla de Validación</li>
                     </ol>
@@ -55,8 +56,7 @@
                     @Html.Partial("_TablaDetalleVariable")
                 </div>
                 <div class="col-sm-12 text-center">
-                    <button type="submit" id="btnAtrasTipoRegla" class="btn btn-fonatel btn-info-fonatel">Atras</button>
-                    <button type="submit" id="btnSiguienteTipoSiguiente" class="btn btn-fonatel btn-info-fonatel">Finalizar</button>
+                    <button type="submit" id="btnSiguienteTipoSiguiente" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
                 </div>
 
             </div>

@@ -1,26 +1,27 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 <form>
     <div class="row">
         <div class="col-lg-4 col-sm-12">
 
             <div class="form-group row">
-                <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
+                <label for="txtCodigo" class="col-sm-12 col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo</label>
                 <div class="col-sm-12">
-                    <input type="text" aria-label="Código de categoria" class="form-control form-control-fonatel " id="txtCodigo" placeholder="Código">
-                    <small id="CodigoHelp" class="form-text form-text-danger-fonatel">El Código es requerido</small>
+                    <input type="text" aria-label="Código de categoria" class="form-control form-control-fonatel " id="txtCodigo" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo">
+                    <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="txtNombre" class="col-sm-12 col-form-label">Nombre</label>
+                <label for="txtNombre" class="col-sm-12 col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control form-control-fonatel " id="txtNombre" placeholder="Nombre">
-                    <small id="nombreHelp" class="form-text form-text-danger-fonatel">El nombre es requerido</small>
+                    <input type="text" class="form-control form-control-fonatel " id="txtNombre" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre">
+                    <small id="nombreHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="ddlTipo" class="col-sm-12 col-form-label">Tipo</label>
+                <label for="ddlTipo" class="col-sm-12 col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo</label>
                 <div class="col-sm-12">
                     <div class="select2-btn-wrapper">
                         <select class="listasDesplegables" aria-label="Default select example" id="ddlTipo">
@@ -34,14 +35,12 @@
                         </select>
                         <button class="btn-icon-base btn-add" data-toggle="modal" data-target="#modalTipo" title="Agregar Tipo" alt="Agregar Detalle"></button>
                     </div>
-
-
-                    <small id="TipoHelp" class="form-text form-text-danger-fonatel">El tipo es requerido</small>
+                    <small id="TipoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="ddlFrecuencias" class="col-sm-12 col-form-label ">Frecuencias</label>
+                <label for="ddlFrecuencias" class="col-sm-12 col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFrecuencias</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
                         <select class="listasDesplegables" aria-label="Default select example" id="ddlFrecuencias">
@@ -50,7 +49,7 @@
                             <option value="2">Trimestral</option>
                         </select>
                     </div>
-                    <small id="FrecuenciasHelp" class="form-text form-text-danger-fonatel">La Uso es requerido</small>
+                    <small id="FrecuenciasHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -59,7 +58,7 @@
 
 
             <div class="form-group row">
-                <label for="ddlClasificacion" class="col-sm-12 col-form-label ">Clasificación</label>
+                <label for="ddlClasificacion" class="col-sm-12 col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelClasificacion</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
                         <select class="listasDesplegables" aria-label="Default select example" id="ddlClasificacion">
@@ -70,12 +69,12 @@
                         </select>
                     </div>
 
-                    <small id="TipoHelp" class="form-text form-text-danger-fonatel">La Clasificación es requerido</small>
+                    <small id="TipoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="ddlTipoMedida" class="col-sm-12 col-form-label ">Tipo de Medida</label>
+                <label for="ddlTipoMedida" class="col-sm-12 col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipoMedida</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
                         <select class="listasDesplegables" aria-label="Default select example" id="ddlTipoMedida">
@@ -84,12 +83,12 @@
                             <option value="2">Cuantitativo</option>
                         </select>
                     </div>
-                    <small id="ddlTipoMedidaHelp" class="form-text form-text-danger-fonatel">El Tipo Medida es requerida</small>
+                    <small id="ddlTipoMedidaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="ddlGrupo" class="col-sm-12 col-form-label ">Grupo</label>
+                <label for="ddlGrupo" class="col-sm-12 col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelGrupo</label>
                 <div class="col-sm-12">
                     <div class="select2-btn-wrapper">
                         <select class=" listasDesplegables" aria-label="Default select example" id="ddlGrupo">
@@ -100,12 +99,12 @@
                         </select>
                         <button class="btn-icon-base btn-add" data-toggle="modal" data-target="#modalGrupo" title="Agregar Tipo" alt="Agregar Detalle"></button>
                     </div>
-                    <small id="TipoHelp" class="form-text form-text-danger-fonatel">El Grupo es requerido</small>
+                    <small id="TipoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="ddlUsoIndicador" class="col-sm-12 col-form-label ">Uso</label>
+                <label for="ddlUsoIndicador" class="col-sm-12 col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUsoIndicador</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
                         <select class="listasDesplegables" aria-label="Default select example" id="ddlUsoIndicador">
@@ -114,7 +113,7 @@
                             <option value="2">Externo</option>
                         </select>
                     </div>
-                    <small id="ddlUsoIndicadorHelp" class="form-text form-text-danger-fonatel">La Uso es requerido</small>
+                    <small id="ddlUsoIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
@@ -123,25 +122,25 @@
 
 
             <div class="form-group row">
-                <label for="txtCantidadVariableDatosIndicador" class="col-sm-12 col-form-label">Cantidad de Variables Dato</label>
+                <label for="txtCantidadVariableDatosIndicador" class="col-sm-12 col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control form-control-fonatel  solo_numeros" id="txtCantidadVariableDatosIndicador" placeholder="Cantidad de Variable Dato">
-                    <small id="CantidadVariableDatosIndicadorHelp" class="form-text form-text-danger-fonatel">La Cantidad de Variable Dato es requerida</small>
+                    <input type="text" class="form-control form-control-fonatel  solo_numeros" id="txtCantidadVariableDatosIndicador" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador">
+                    <small id="CantidadVariableDatosIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="txtCantidadCategoriaIndicador" class="col-sm-12 col-form-label">Cantidad de Categorías de Desagregación</label>
+                <label for="txtCantidadCategoriaIndicador" class="col-sm-12 col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control form-control-fonatel  solo_numeros" id="txtCantidadCategoriaIndicador" placeholder="Cantidad de Variable Dato">
-                    <small id="CantidadCategoriaIndicadorHelp" class="form-text form-text-danger-fonatel">La Cantidad de Categorías es requerida</small>
+                    <input type="text" class="form-control form-control-fonatel  solo_numeros" id="txtCantidadCategoriaIndicador" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador">
+                    <small id="CantidadCategoriaIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
 
 
             <div class="form-group row">
-                <label for="ddlUnidadEstudio" class="col-sm-12 col-form-label ">Unidad de Estudio</label>
+                <label for="ddlUnidadEstudio" class="col-sm-12 col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio</label>
                 <div class="col-sm-12">
                     <div class="select2-btn-wrapper">
                         <select class="listasDesplegables" aria-label="Default select example" id="ddlUnidadEstudio">
@@ -151,13 +150,13 @@
                         </select>
                         <button class="btn-icon-base btn-add" data-toggle="modal" data-target="#modalUnidadEstudio" title="Agregar Tipo" alt="Agregar Detalle"></button>
                     </div>
-                    <small id="ddlUnidadEstudioHelp" class="form-text form-text-danger-fonatel">El Grupo es requerido</small>
+                    <small id="ddlUnidadEstudioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
 
             <div class="form-group row">
-                <label for="ddlSolicitudSolicitud" class="col-sm-12 col-form-label ">Solicitud</label>
+                <label for="ddlSolicitudSolicitud" class="col-sm-12 col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelSolicitud</label>
                 <div class="select2-wrapper">
                     <div class="col-sm-12">
                         <select class="listasDesplegables" id="ddlSolicitudSolicitud">
@@ -177,20 +176,20 @@
     <div class="row">
         <div class="col-md-4 col-sm-12">
             <div class="form-group row">
-                <label for="txtFuenteIndicador" class="col-sm-12 col-form-label">Fuentes</label>
+                <label for="txtFuenteIndicador" class="col-sm-12 col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador</label>
                 <div class="col-sm-12">
-                    <textarea class="form-control form-control-fonatel" id="txtFuenteIndicador" placeholder="Notas"></textarea>
-                    <small id="txtFuenteIndicadorHelp" class="form-text form-text-danger-fonatel">La Notas es requerido</small>
+                    <textarea class="form-control form-control-fonatel" id="txtFuenteIndicador" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador"></textarea>
+                    <small id="txtFuenteIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4 col-sm-12">
             <div class="form-group row">
-                <label for="txtNota" class="col-sm-12 col-form-label">Notas</label>
+                <label for="txtNota" class="col-sm-12 col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas</label>
                 <div class="col-sm-12">
-                    <textarea class="form-control form-control-fonatel  text-area" id="txtNota" placeholder="Notas"></textarea>
-                    <small id="NotaHelp" class="form-text form-text-danger-fonatel">La Notas es requerido</small>
+                    <textarea class="form-control form-control-fonatel  text-area" id="txtNota" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas"></textarea>
+                    <small id="NotaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -198,10 +197,10 @@
         <div class="col-md-4 col-sm-12">
 
             <div class="form-group row">
-                <label for="txtDescripcion" class="col-sm-12 col-form-label">Descripción</label>
+                <label for="txtDescripcion" class="col-sm-12 col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelDescripcion</label>
                 <div class="col-sm-12">
-                    <textarea class="form-control form-control-fonatel" id="txtDescripcion" placeholder="Descripción de categoria"></textarea>
-                    <small id="DescripcionHelp" class="form-text form-text-danger-fonatel">La Descripción es requerido</small>
+                    <textarea class="form-control form-control-fonatel" id="txtDescripcion" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_TextAreaDescripcionPlaceholder"></textarea>
+                    <small id="DescripcionHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -210,9 +209,9 @@
             <div class="col-sm-12">
 
                 <div class="text-center">
-                    <button type="submit" id="btnGuardarIndicador" class="btn btn-fonatel btn-success-fonatel">Guardar</button>
-                    <button type="submit" id="btnGuardarIndicador" class="btn btn-fonatel btn-next-fonatel">Siguiente</button>
-                    <button type="submit" id="btnCancelarIndicador" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
+                    <button type="submit" id="btnGuardarIndicador" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+                    <button type="submit" id="btnGuardarIndicador" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+                    <button type="submit" id="btnCancelarIndicador" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
                 </div>
             </div>
         </div>

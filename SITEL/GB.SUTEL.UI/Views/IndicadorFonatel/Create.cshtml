@@ -1,4 +1,5 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 @{
     ViewBag.Title = "Crear Indicadores";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,9 +10,9 @@
             <div class="text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                        <li class="breadcrumb-item active"><a href="@Url.Action( "create","IndicadorFonatel")">Indicadores</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Crear Indicador</li>
+                        <li class="breadcrumb-item"><a href="#">@Etiquetas.LabelInicio</a></li>
+                        <li class="breadcrumb-item active"><a href="@Url.Action( "create","IndicadorFonatel")">@EtiquetasViewIndicadorFonatel.TituloIndex</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewIndicadorFonatel.TituloCrearIndicador</li>
                     </ol>
                 </nav>
             </div>
@@ -22,17 +23,17 @@
     <div class="stepwizard col-sm-offset-3">
         <div class="stepwizard-row setup-panel step_navigation_indicador">
             <div class="stepwizard-step" data-step="0">
-                <p>Indicador</p>
+                <p>@EtiquetasViewIndicadorFonatel.LabelStepperIndicador</p>
                 <a href="#step-1" type="button" class="btn btn-circle">1</a>
 
             </div>
             <div class="stepwizard-step" data-step="1">
-                <p>Variables</p>
+                <p>@EtiquetasViewIndicadorFonatel.LabelStepperVariables</p>
                 <a href="#step-2" type="button" class="btn btn-circle">2</a>
 
             </div>
             <div class="stepwizard-step" data-step="2">
-                <p>Categorías</p>
+                <p>@EtiquetasViewIndicadorFonatel.LabelStepperCategorias</p>
                 <a href="#step-3" type="button" class="btn btn-circle">3</a>
 
             </div>
@@ -47,7 +48,7 @@
         <div class="col-lg-12 stepwizard-content-container hidden" id="step-1">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="page-title-fonatel text-center">Crear Indicador</h2>
+                    <h2 class="page-title-fonatel text-center">@EtiquetasViewIndicadorFonatel.TituloCrearIndicador</h2>
                     <hr />
                 </div>
                 <div class="col-lg-12">
@@ -65,7 +66,7 @@
         <div class="col-lg-12 stepwizard-content-container hidden" id="step-2">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="page-title-fonatel text-center">Agregar Variable Dato</h2>
+                    <h2 class="page-title-fonatel text-center">@EtiquetasViewIndicadorFonatel.TituloCrearVariable</h2>
                     <hr />
                 </div>
                 <div class="col-lg-12">
@@ -76,36 +77,36 @@
                 </div>
 
                 @*<div class="col-lg-12 text-center">
-                    <button type="submit" id="btnAtrasVariable" class="btn btn-fonatel btn-info-fonatel">Atras</button>
-                    <button type="submit" id="btnSiguienteVariable" class="btn btn-fonatel btn-info-fonatel">Siguiente</button>
+                        <button type="submit" id="btnAtrasVariable" class="btn btn-fonatel btn-info-fonatel">Atras</button>
+                        <button type="submit" id="btnSiguienteVariable" class="btn btn-fonatel btn-info-fonatel">Siguiente</button>
 
-                </div>*@
+                    </div>*@
             </div>
         </div>
 
-        </div>
+    </div>
 
-        <div class="col-lg-12 stepwizard-content-container hidden " id="step-3">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="page-title-fonatel text-center">Agregar Categoría</h2>
-                    <hr />
-                </div>
-                <div class="col-lg-12">
-                    @Html.Partial("_CrearCategoria")
-                </div>
-                <div class="col-lg-12">
-                    @Html.Partial("_TablaDetalleCategoria")
-                </div>
+    <div class="col-lg-12 stepwizard-content-container hidden " id="step-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-title-fonatel text-center">@EtiquetasViewIndicadorFonatel.TituloAgregarCategoria</h2>
+                <hr />
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_CrearCategoria")
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_TablaDetalleCategoria")
+            </div>
 
-                <div class="col-lg-12 text-center">
-                    @*<button type="submit" id="btnAtrasCategoria" class="btn btn-fonatel btn-info-fonatel">Atras</button>*@
-                    <button type="submit" id="btnSiguienteCategoria" class="btn btn-fonatel btn-info-fonatel">Finalizar</button>
+            <div class="col-lg-12 text-center">
+                @*<button type="submit" id="btnAtrasCategoria" class="btn btn-fonatel btn-info-fonatel">Atras</button>*@
+                <button type="submit" id="btnSiguienteCategoria" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
 
-                </div>
             </div>
         </div>
     </div>
+</div>
 
 
 

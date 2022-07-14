@@ -1,4 +1,4 @@
-﻿
+﻿@using GB.SIMEF.Resources;
 
 <form>
     <div class="row">
@@ -7,7 +7,7 @@
                     <label for="txtFuente" class="col-sm-12 col-form-label">Fuente</label>
                     <div class="col-sm-12">
                         <input type="text" class="form-control form-control-fonatel " id="txtFuente" placeholder="Fuente">
-                        <small id="FuenteHelp" class="form-text form-text-danger-fonatel">El Fuente es requerida</small>
+                        <small id="FuenteHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
              </div>
@@ -16,15 +16,16 @@
                     <label for="txtCantidad" class="col-sm-12 col-form-label">Cantidad de Destinatarios</label>
                     <div class="col-sm-12">
                         <input type="text" class="form-control form-control-fonatel " id="txtCantidad" placeholder="Cantidad de Destinatarios">
-                        <small id="CantidadDetalleHelp" class="form-text form-text-danger-fonatel">La Cantidad de Destinatarios es Requerida</small>
+                        <small id="CantidadDetalleHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
             </div>
         </div>
     <div class="row mt-5">
         <div class="col-sm-12 text-center">
-            <button type="submit" id="btnGuardarFuente" class="btn btn-fonatel btn-success-fonatel">Guardar</button>
-            <button type="submit" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
+            <button type="submit" id="btnGuardarFuente" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="submit" id="btnGuardarFuente" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+            <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
         </div>
     </div>
 </form>

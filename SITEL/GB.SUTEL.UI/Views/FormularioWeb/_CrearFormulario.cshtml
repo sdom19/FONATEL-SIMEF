@@ -1,4 +1,4 @@
-﻿
+﻿@using GB.SIMEF.Resources;
 
 
 <form>
@@ -9,7 +9,7 @@
                     <label for="txtCodigoFormulario" class="col-sm-12 col-form-label">Código</label>
                     <div class="col-sm-12">
                         <input type="text" aria-label="Código de categoria" class="form-control form-control-fonatel  " id="txtCodigoFormulario" placeholder="Código">
-                        <small id="txtCodigoFormularioHelp" class="form-text form-text-danger-fonatel">El Código es Requerido</small>
+                        <small id="txtCodigoFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -17,7 +17,7 @@
                     <label for="txtNombreFormulario" class="col-sm-12 col-form-label">Nombre</label>
                     <div class="col-sm-12">
                         <input type="text" class="form-control form-control-fonatel  " id="txtNombreFormulario" placeholder="Nombre">
-                        <small id="txtNombreFormularioHelp" class="form-text form-text-danger-fonatel">El Nombre es Requerido</small>
+                        <small id="txtNombreFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
                                 <option>Semanal</option>
                             </select>
                         </div>                       
-                        <small id="ddlFrecuenciaHelp" class="form-text form-text-danger-fonatel">La Frecuencia es Requerida</small>
+                        <small id="ddlFrecuenciaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                     <label for="txtCantidadIndicadoresFormulario" class="col-sm-12 col-form-label">Cantidad de Indicadores</label>
                     <div class="col-sm-12">
                         <input type="text" class="form-control form-control-fonatel   solo_numeros" id="txtCantidadIndicadoresFormulario" placeholder="Cantidad de Indicadores">
-                        <small id="txtCantidadIndicadoresFormularioHelp" class="form-text form-text-danger-fonatel">La Cantidad de Indicadores es Requerida</small>
+                        <small id="txtCantidadIndicadoresFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
@@ -60,7 +60,7 @@
                 <label for="txtDescripcionFormulario" class="col-sm-12 col-form-label">Descripción</label>
                 <div class="col-sm-12">
                     <textarea id="txtDescripcionFormulario" class="form-control form-control-fonatel" placeholder="Mensaje"></textarea>
-                    <small id="txtDescripcionFormularioHelp" class="form-text form-text-danger-fonatel">La Descripción es Requerido</small>
+                    <small id="txtDescripcionFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -69,8 +69,8 @@
 
         <div class="col-lg-12 text-center">
 
-            <button type="submit" id="btnGuardarFormulario" class="btn btn-fonatel  btn-success-fonatel">Guardar</button>
-            <button type="submit" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
+            <button type="submit" id="btnGuardarFormulario" class="btn btn-fonatel  btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
 
         </div>
     </div>

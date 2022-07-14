@@ -1,4 +1,4 @@
-﻿
+﻿@using GB.SIMEF.Resources;
 
 <form class="mt-5">
     <div class="row">
@@ -8,7 +8,7 @@
                 <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
                 <div class="col-sm-12">
                     <input type="text" class="form-control form-control-fonatel" id="txtCodigo" placeholder="Codigo">
-                    <small id="CodigoHelp" class="form-text form-text-danger-fonatel">El Código es requerido</small>
+                    <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
                 <label for="txtNombre" class="col-sm-12 col-form-label">Nombre</label>
                 <div class="col-sm-12">
                     <input type="text" class="form-control form-control-fonatel" id="txtNombre" placeholder="Nombre de Regla">
-                    <small id="nombreHelp" class="form-text form-text-danger-fonatel">El nombre es requerido</small>
+                    <small id="nombreHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
                     </div>
 
 
-                    <small id="TipoIndicadorHelp" class="form-text form-text-danger-fonatel">El Indicador es requerido</small>
+                    <small id="TipoIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -51,15 +51,15 @@
                 <label for="txtDescripcionRegla" class="col-sm-12 col-form-label">Descrpción</label>
                 <div class="col-sm-12">
                     <textarea class="form-control form-control-fonatel textarea" id="txtDescripcionRegla" placeholder="Descripción"></textarea>
-                    <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">La Descripción es requerido</small>
+                    <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12 text-center mt-5">
-            <button id="btnGuardarRegla" class="btn btn-fonatel btn-success-fonatel">Siguiente</button>
-            <button type="submit" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
+            <button id="btnGuardarRegla" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+            <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
         </div>
     </div>
 

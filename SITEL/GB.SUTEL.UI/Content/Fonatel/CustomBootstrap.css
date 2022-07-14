@@ -476,8 +476,8 @@
 
 .form-control-fonatel,                                                              /* Inputs de texto */
 .text-input-wrapper-btn input,                                                      /* Inputs de texto + botón de modal */
-.select2-btn-wrapper .select2-container--default .select2-selection--single,        /* Input Select2 + boton de modal */
-.select2-wrapper .select2-container--default .select2-selection--single {           /* Input Select2 individual */
+.select2-btn-wrapper .select2-container--default .select2-selection,        /* Input Select2 + boton de modal */
+.select2-wrapper .select2-container--default .select2-selection {           /* Input Select2 individual */
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 5px 5px 0px 0px;
 }
@@ -528,8 +528,8 @@ textarea.form-control-fonatel {
         width: 100% !important;
     }
 
-    .select2-btn-wrapper .select2-container--default .select2-selection--single,
-    .select2-wrapper .select2-container--default .select2-selection--single {
+    .select2-btn-wrapper .select2-container--default .select2-selection,
+    .select2-wrapper .select2-container--default .select2-selection {
         padding: 2.5px 6px 6px 6px;
         height: 34px;
         position: relative;
@@ -547,8 +547,8 @@ textarea.form-control-fonatel {
     transform: rotate(180deg) !important;
 }
 
-.select2-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow,
-.select2-btn-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
+.select2-wrapper .select2-container--default .select2-selection .select2-selection__arrow,
+.select2-btn-wrapper .select2-container--default .select2-selection .select2-selection__arrow {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -561,8 +561,8 @@ textarea.form-control-fonatel {
     /*transition: transform 0.2s ease-in-out;*/
 }
 
-    .select2-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow b,
-    .select2-btn-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow b {
+    .select2-wrapper .select2-container--default .select2-selection .select2-selection__arrow b,
+    .select2-btn-wrapper .select2-container--default .select2-selection .select2-selection__arrow b {
         height: 18px !important;
         width: 18px !important;
         border: none !important;
@@ -574,10 +574,17 @@ textarea.form-control-fonatel {
         background-size: contain;
     }
 
+/* select disabled */
+.select2-wrapper .select2-container--default.select2-container--disabled .select2-selection {
+    opacity: 0.6;
+    background-color: lightgrey;
+}
+
 /*No existe un wrapper*/
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
     background-color: var(--blue-fonatel);
 }
+
 
 /*
     ===============================================================

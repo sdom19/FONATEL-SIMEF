@@ -1,4 +1,6 @@
-﻿<div class="modal fade modal-fonatel" data-backdrop="static" id="modalEnvio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+﻿@using GB.SIMEF.Resources;
+
+<div class="modal fade modal-fonatel" data-backdrop="static" id="modalEnvio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-fonatel" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,63 +8,52 @@
                 <h5 class="modal-title">Programar Envío Automático</h5>
 
             </div>
-            <div class="modal-body col-sm-offset-2">
+            <div class="modal-body">
+                <input type="hidden" id="idSolicitudProgramacion" name="custId" value="">
 
-                <div class="form-group row">
-                    <label for="txtSolicitudModal" class="col-sm-12 col-form-label ">Soliciud</label>
-                    <div class="col-sm-12">
-                        <input type="text" class="form-control form-control-fonatel   disabled" id="txtSolicitudModal" value="SOL-1.1">
-                    </div>
+                <div class="form-group center">
+                    <label for="txtSolicitudModal" class="col-form-label">Soliciud</label>
+                    <input type="text" class="form-control form-control-fonatel disabled" id="txtSolicitudModal" value="SOL-1.1">
                 </div>
 
-                <div class="form-group row">
-                    <label for="ddlFrecuencia" class="col-sm-12 col-form-label ">Frecuencía</label>
-                   
-                    <div class="col-sm-12">
-                        <div class="select2-wrapper">
-                            <select class="listasDesplegables" id="ddlFormularios">
-                                <option></option>
-                                <option>Mensual</option>
-                                <option>Trimestral</option>
-                                <option>Anual</option>
-                            </select>
-                        </div>
-
-                        <small id="ddlFrecuenciaHelp" class="form-text text-danger">Seleccione una Fecuencía</small>
+                <div class="form-group center">
+                    <label for="ddlFrecuencia" class="col-form-label">Frecuencía</label>
+                    <div class="select2-wrapper">
+                        <select class="listasDesplegables" id="ddlFormularios">
+                            <option></option>
+                            <option>Mensual</option>
+                            <option>Trimestral</option>
+                            <option>Anual</option>
+                        </select>
                     </div>
+                    <small id="ddlFrecuenciaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
 
-                <div class="form-group row">
-                    <label for="txtRepeticionesSolicitudes" class="col-sm-12 col-form-label">Cantidad de Repeticiones</label>
-                    <div class="col-sm-12">
-                        <input type="text" class="form-control form-control-fonatel   solo_numeros" id="txtRepeticionesSolicitudes" placeholder="Nombre">
-                        <small id="txtRepeticionesSolicitudesHelp" class="form-text text-danger">La Cantidad de Repeticiones es Requerida</small>
-                    </div>
+                <div class="form-group center">
+                    <label for="txtCantidadRepeticiones" class="col-form-label">Cantidad de Repeticiones</label>
+                    <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadRepeticiones" placeholder="Cantidad de Repeticiones">
+                    <small id="txtRepeticionesSolicitudesHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
 
-                <div class="form-group row">
-                    <label for="txtFechaInicioCiclo" class="col-sm-12 col-form-label">Fecha de Envío</label>
-                    <div class="col-sm-12">
-                        <input type="date" class="form-control form-control-fonatel  " id="TxtFechaFin">
-                        <small id="txtFechaEnvioSolicitudHelp" class="form-text text-danger">La Fecha de Envío es Requerida</small>
-                    </div>
+                <div class="form-group center">
+                    <label for="txtFechaEnvio" class="col-form-label">Fecha de Envío</label>
+                    <input type="date" class="form-control form-control-fonatel" id="txtFechaEnvio">
+                    <small id="txtFechaEnvioSolicitudHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
 
 
-                <div class="form-group row">
-                    <label for="txtFechaEnvioSolicitud" class="col-sm-12 col-form-label">Fecha de Envío</label>
-                    <div class="col-sm-12">
-                        <input type="date" class="form-control form-control-fonatel  " id="TxtFechaFin">
-                        <small id="txtFechaEnvioSolicitudHelp" class="form-text text-danger">La Fecha de Envío es Requerida</small>
-                    </div>
+                <div class="form-group center">
+                    <label for="txtFechaInicioCiclo" class="col-form-label">Fecha Inicio del Ciclo</label>
+                    <input type="date" class="form-control form-control-fonatel" id="txtFechaInicioCiclo">
+                    <small id="txtFechaEnvioSolicitudHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
 
             </div>
             <div class="modal-footer">
                 <div class="text-center">
-
-                    <button type="submit" id="btnGuardarSolicitudEnvio" class="btn btn-fonatel btn-success-fonatel">Guardar</button>
-                    <button type="submit" id="btnCancelarSolicitudEnvio" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
+                    <button type="submit" id="btnGuardarSolicitudEnvio" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+                    <button type="submit" id="btnEliminarSolicituProgramardEnvio" class="btn btn-fonatel btn-warning-fonatel">@Etiquetas.BotonEliminar</button>
+                    <button type="submit" id="btnCancelarSolicitudEnvio" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
                 </div>
             </div>
         </div>
