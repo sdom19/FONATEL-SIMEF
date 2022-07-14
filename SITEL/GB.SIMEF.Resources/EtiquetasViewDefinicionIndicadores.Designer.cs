@@ -22,14 +22,14 @@ namespace GB.SIMEF.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class VistaCrearDefinicionEtiquetas {
+    public class EtiquetasViewDefinicionIndicadores {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal VistaCrearDefinicionEtiquetas() {
+        internal EtiquetasViewDefinicionIndicadores() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace GB.SIMEF.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GB.SIMEF.Resources.VistaCrearDefinicionEtiquetas", typeof(VistaCrearDefinicionEtiquetas).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GB.SIMEF.Resources.EtiquetasViewDefinicionIndicadores", typeof(EtiquetasViewDefinicionIndicadores).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -126,9 +126,18 @@ namespace GB.SIMEF.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Crear Definición.
         /// </summary>
-        public static string Titulo {
+        public static string TituloCreate {
             get {
-                return ResourceManager.GetString("Titulo", resourceCulture);
+                return ResourceManager.GetString("TituloCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Definición de Indicadores.
+        /// </summary>
+        public static string TituloIndex {
+            get {
+                return ResourceManager.GetString("TituloIndex", resourceCulture);
             }
         }
     }

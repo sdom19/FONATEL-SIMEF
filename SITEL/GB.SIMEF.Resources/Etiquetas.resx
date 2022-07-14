@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BotonAtras" xml:space="preserve">
+    <value>Atras</value>
+  </data>
+  <data name="BotonBuscar" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
   <data name="BotonCancelar" xml:space="preserve">
     <value>Cancelar</value>
+  </data>
+  <data name="BotonCrear" xml:space="preserve">
+    <value>Crear</value>
   </data>
   <data name="BotonDescarga" xml:space="preserve">
     <value>Descargar</value>
@@ -126,8 +135,14 @@
   <data name="BotonEliminar" xml:space="preserve">
     <value>Eliminar</value>
   </data>
+  <data name="BotonFinalizar" xml:space="preserve">
+    <value>Finalizar</value>
+  </data>
   <data name="BotonGuardar" xml:space="preserve">
     <value>Guardar</value>
+  </data>
+  <data name="BotonSiguiente" xml:space="preserve">
+    <value>Siguiente</value>
   </data>
   <data name="CampoRequerido" xml:space="preserve">
     <value>Campo requerido</value>

@@ -46,11 +46,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Etiquetas.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VistaCrearDefinicionEtiquetas.Designer.cs">
+    <Compile Include="EtiquetasViewIndicadorFonatel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VistaCrearDefinicionEtiquetas.resx</DependentUpon>
+      <DependentUpon>EtiquetasViewIndicadorFonatel.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EtiquetasViewDefinicionIndicadores.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewDefinicionIndicadores.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -58,10 +63,14 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Etiquetas.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="VistaCrearDefinicionEtiquetas.resx">
+    <EmbeddedResource Include="EtiquetasViewDefinicionIndicadores.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>VistaCrearDefinicionEtiquetas.Designer.cs</LastGenOutput>
+      <LastGenOutput>EtiquetasViewDefinicionIndicadores.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewIndicadorFonatel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewIndicadorFonatel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
