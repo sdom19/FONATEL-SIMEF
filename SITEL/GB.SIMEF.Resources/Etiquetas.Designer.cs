@@ -61,7 +61,25 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Cancelar.
+        ///   Looks up a localized string similar to Atras.
+        /// </summary>
+        public static string BotonAtras {
+            get {
+                return ResourceManager.GetString("BotonAtras", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buscar.
+        /// </summary>
+        public static string BotonBuscar {
+            get {
+                return ResourceManager.GetString("BotonBuscar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancelar.
         /// </summary>
         public static string BotonCancelar {
             get {
@@ -70,7 +88,16 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Descargar.
+        ///   Looks up a localized string similar to Crear.
+        /// </summary>
+        public static string BotonCrear {
+            get {
+                return ResourceManager.GetString("BotonCrear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descargar.
         /// </summary>
         public static string BotonDescarga {
             get {
@@ -88,7 +115,16 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Guardar.
+        ///   Looks up a localized string similar to Finalizar.
+        /// </summary>
+        public static string BotonFinalizar {
+            get {
+                return ResourceManager.GetString("BotonFinalizar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guardar.
         /// </summary>
         public static string BotonGuardar {
             get {
@@ -97,7 +133,16 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Campo requerido.
+        ///   Looks up a localized string similar to Siguiente.
+        /// </summary>
+        public static string BotonSiguiente {
+            get {
+                return ResourceManager.GetString("BotonSiguiente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Campo requerido.
         /// </summary>
         public static string CampoRequerido {
             get {
@@ -124,7 +169,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Inicio.
+        ///   Looks up a localized string similar to Inicio.
         /// </summary>
         public static string LabelInicio {
             get {
@@ -133,7 +178,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Histórico de Fonatel.
+        ///   Looks up a localized string similar to Histórico de Fonatel.
         /// </summary>
         public static string TituloVistaHistoricoFonatel {
             get {
