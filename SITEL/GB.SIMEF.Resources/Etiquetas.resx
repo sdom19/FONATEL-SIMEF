@@ -138,6 +138,9 @@
   <data name="InputHistoricoTabla" xml:space="preserve">
     <value>Nombre Tabla</value>
   </data>
+  <data name="LabelInicio" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
   <data name="TituloVistaHistoricoFonatel" xml:space="preserve">
     <value>Histórico de Fonatel</value>
   </data>
