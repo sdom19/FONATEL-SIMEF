@@ -256,6 +256,7 @@
     <Compile Include="Controllers\ConstructorController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EspectroController.cs" />
+    <Compile Include="Controllers\Fonatel\DescargaFormularioController.cs" />
     <Compile Include="Controllers\Fonatel\RegistroIndicadorFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\FormularioWebController.cs" />
     <Compile Include="Controllers\Fonatel\PublicacionIndicadoresController.cs" />
@@ -648,6 +649,7 @@
     <Content Include="Scripts\DataTables\scroller.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\vfs_fonts.js" />
     <Content Include="Scripts\Fonatel\JsDefiniciones.js" />
+    <Content Include="Scripts\Fonatel\JsDescargaFormularioWeb.js" />
     <Content Include="Scripts\Fonatel\JsHistorico.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />
     <Content Include="Scripts\Fonatel\JsReglas.js" />
@@ -1380,6 +1382,9 @@
     <Content Include="Views\RegistroIndicadorFonatel\Index.cshtml" />
     <Content Include="Views\FormulaCalculo\_GestionFormulas.cshtml" />
     <Content Include="Views\FormulaCalculo\_tablaIndicadores.cshtml" />
+    <Content Include="Views\DescargaFormulario\Index.cshtml" />
+    <Content Include="Views\DescargaFormulario\_BusquedaFormulario - Copia.cshtml" />
+    <Content Include="Views\DescargaFormulario\_BusquedaFormulario.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>

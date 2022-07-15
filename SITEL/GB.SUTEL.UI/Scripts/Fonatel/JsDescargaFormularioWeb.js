@@ -17,12 +17,19 @@
 
 
 $(document).on("click", JsDescargaFormularioWeb.Controles.btndescarga, function () {
-    debugger;
-    $("#divLoading").fadeIn();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Descargar el Formulario", null ,"Descargar Registro")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido Descargado")
+                .set('onok', function (closeEvent) { window.location.href = "/" });
+        });
 });
 
 
 $(document).on("click", JsDescargaFormularioWeb.Controles.btnCancela, function () {
-    window.location.href = "/DescargaFormulario/Create";
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Descargar el Formulario", null, "Descargar Registro")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido Descargado")
+                .set('onok', function (closeEvent) { window.location.href = "/" });
+        })
 });
 
