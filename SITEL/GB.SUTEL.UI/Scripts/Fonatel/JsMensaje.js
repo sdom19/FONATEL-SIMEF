@@ -16,26 +16,12 @@
             agregar: 0,
             clonar: 1,
             eliminar: 2,
-            estado: 3
+            estado: 3,
+
         }
 
     },
     "Metodos": {
-        "AgregarRegistro": function (mensaje) {
-            let alertifyObject = alertify.confirm(jsMensajes.Variables.MensajeAgregar, 'Confirm Message', function () {}, function () {})
-                .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
-                .set({ 'modal': true, 'closable': false })
-            alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
-            return alertifyObject;
-        },
-
-        "ClonarRegistro": function (mensaje) {
-            let alertifyObject = alertify.confirm(jsMensajes.Variables.MensajeClonar, 'Confirm Message', function () { }, function () { })
-                .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
-                .set({ 'modal': true, 'closable': false })
-            alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
-            return alertifyObject;
-        },
 
 
 
@@ -46,23 +32,6 @@
                 .set('label', jsMensajes.Variables.btnlisto )
                 .set({ 'modal': true, 'closable': false })
             alertifyObject.setContent(jsMensajes.Variables.ContentSuccess(mensaje));
-            return alertifyObject;
-        },
-        "EliminarRegistro": function (mensaje) {
-            let alertifyObject = alertify.confirm(jsMensajes.Variables.MensajeEliminar, 'Confirm Message', function () { }, function () { })
-                .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
-                .set({ 'modal': true, 'closable': false })
-            alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
-
-            return alertifyObject;
-        },
-
-        "CambiarEstadoRegistro": function (mensaje) {
-            let alertifyObject = alertify.confirm(jsMensajes.Variables.MensajeEstado, 'Confirm Message', function () { }, function () { })
-                .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
-                .set({ 'modal': true, 'closable': false })
-            alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
-
             return alertifyObject;
         },
 
@@ -108,18 +77,6 @@
                 .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
             alertifyObject.setContent(jsMensajes.Variables.ContentSuccess(mensaje));
             return alertifyObject;
-        },
-
-        "Error": function (mensaje) {
-            return Swal.fire({
-                icon: 'error',
-                title: 'Se Produjo un Error',
-                html: '<strong>' + mensaje + '</strong>',
-                showDenyButton: true,
-                confirmButtonText: 'SI',
-                confirmButtonColor: '#5B9150',
-                denyButtonText: 'NO',
-            });
         },
 
     }

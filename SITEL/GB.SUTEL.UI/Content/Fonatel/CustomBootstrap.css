@@ -660,6 +660,10 @@ textarea.form-control-fonatel {
     border: 0px !important;
 }
 
+    .alertify .ajs-dialog .ajs-primary.ajs-buttons .ajs-button {
+        min-width: 96px;
+    }
+
 .alertify .ajs-content {
     font-size: 1.8rem;
 }
