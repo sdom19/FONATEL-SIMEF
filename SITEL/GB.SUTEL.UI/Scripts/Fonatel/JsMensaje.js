@@ -66,19 +66,32 @@
             return alertifyObject;
         },
 
-        "ConfirmYesOrNoModal": function (mensaje, actionType) {
+        /**
+         * Función que permite mostrar un modal de confirmación, incluye las acciones de Si y No, 
+         * un título que puede ser customizado o bien utilizar uno genérico, y por último un mensaje a preguntar
+         * @param {any} mensaje
+         * @param {any} actionType
+         * @param {any} customTitleMessage - OPTIONAL
+         */
+        "ConfirmYesOrNoModal": function (mensaje, actionType, customTitleMessage = null) {
             let _question = "Atención!";
-            if (actionType == jsMensajes.Variables.actionType.agregar) {
-                _question = jsMensajes.Variables.MensajeAgregar;
+
+            if (customTitleMessage == null) { // titulo de mensaje generico?
+                if (actionType == jsMensajes.Variables.actionType.agregar) { // se busca por medio del actionType
+                    _question = jsMensajes.Variables.MensajeAgregar;
+                }
+                else if (actionType == jsMensajes.Variables.actionType.clonar) {
+                    _question = jsMensajes.Variables.MensajeClonar;
+                }
+                else if (actionType == jsMensajes.Variables.actionType.eliminar) {
+                    _question = jsMensajes.Variables.MensajeEliminar;
+                }
+                else if (actionType == jsMensajes.Variables.actionType.estado) {
+                    _question = jsMensajes.Variables.MensajeEstado;
+                }
             }
-            else if (actionType == jsMensajes.Variables.actionType.clonar) {
-                _question = jsMensajes.Variables.MensajeClonar;
-            }
-            else if (actionType == jsMensajes.Variables.actionType.eliminar) {
-                _question = jsMensajes.Variables.MensajeEliminar;
-            }
-            else if (actionType == jsMensajes.Variables.actionType.estado) {
-                _question = jsMensajes.Variables.MensajeEstado;
+            else {
+                _question = customTitleMessage;
             }
 
             let alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BotonAtras" xml:space="preserve">
-    <value>Atras</value>
+    <value>Atrás</value>
   </data>
   <data name="BotonBuscar" xml:space="preserve">
     <value>Buscar</value>
@@ -147,16 +147,7 @@
   <data name="CampoRequerido" xml:space="preserve">
     <value>Campo requerido</value>
   </data>
-  <data name="InputHistoricoCodigo" xml:space="preserve">
-    <value>Código de Tabla</value>
-  </data>
-  <data name="InputHistoricoTabla" xml:space="preserve">
-    <value>Nombre Tabla</value>
-  </data>
   <data name="LabelInicio" xml:space="preserve">
     <value>Inicio</value>
-  </data>
-  <data name="TituloVistaHistoricoFonatel" xml:space="preserve">
-    <value>Histórico de Fonatel</value>
   </data>
 </root>
