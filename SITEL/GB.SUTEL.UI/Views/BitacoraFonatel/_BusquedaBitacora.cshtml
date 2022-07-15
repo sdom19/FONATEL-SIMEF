@@ -1,27 +1,21 @@
-﻿
-
-
+﻿@using GB.SIMEF.Resources;
 
 <div class="row">
-    <div class="col-sm-9 col-sm-offset-3 col-md-4 col-md-offset-2">
+    <div class="col-lg-6 col-md-6 col-sm-6">
 
-        <div class="form-group row">
-            <label for="txtFechaMinimaBitacora" class="col-sm-12 col-form-label">Fecha Inicio</label>
-            <div class="col-sm-12">
-                <input type="date" class="form-control form-control-fonatel " id="txtFechaMinimaBitacora" placeholder="Fecha de Inicio">
-            </div>
+        <div class="form-group center">
+            <label for="txtFechaMinimaBitacora" class="col-form-label">Fecha Inicio</label>
+            <input type="date" class="form-control form-control-fonatel " id="txtFechaMinimaBitacora" placeholder="Fecha de Inicio">
         </div>
     </div>
-    <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-0">
-        <div class="form-group row">
-            <label for="txtFechaMaximaBitacora" class="col-sm-12 col-form-label">Fecha Final</label>
-            <div class="col-sm-12">
-                <input type="date" class="form-control form-control-fonatel " id="txtFechaMaximaBitacora" placeholder="Fecha de Fin">
-            </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="form-group center">
+            <label for="txtFechaMaximaBitacora" class="col-form-label">Fecha Final</label>
+            <input type="date" class="form-control form-control-fonatel " id="txtFechaMaximaBitacora" placeholder="Fecha de Fin">
         </div>
     </div>
-    <div class="col-sm-12 text-center">
-        <button type="submit" id="btnBuscarBitacora" class="btn btn-fonatel btn-info-fonatel">Buscar</button>
+    <div class="col-sm-12 text-center mt-4">
+        <button type="submit" id="btnBuscarBitacora" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonBuscar</button>
     </div>
 </div>
 

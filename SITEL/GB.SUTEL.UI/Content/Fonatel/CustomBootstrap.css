@@ -5,7 +5,7 @@
 :root {
     --green-fonatel: #55924E;
     --light-1-green-fonatel: #7CB342;
-    --purple-fonatel: #7A3DAB;
+    --purple-fonatel: #7A3CAA;
     --blue-fonatel: #1A5EAB;
     --blue-2-fonatel: #007588;
     --light-1-blue-fonatel: #00B3E6;
@@ -110,6 +110,23 @@
         box-shadow: inset 0 0 5px #000000;*/
     }
 
+    .btn-fonatel.btn-goback {
+        display: inline-flex;
+        min-width: auto;
+        font-size: 1.8rem;
+        background-color: transparent;
+        text-transform: capitalize;
+        padding: 4px 12px;
+    }
+
+        .btn-fonatel.btn-goback span {
+            height: 23px;
+            width: 20px;
+            background-image: url("../../Images/icon-arrow-back.svg");
+            background-repeat: no-repeat;
+            /*background-size: cover;*/
+        }
+
 .btn-success-fonatel {
     color: #ffffff;
     background-color: var(--green-fonatel);
@@ -140,18 +157,25 @@
     background-color: var(--orange-fonatel);
 }
 
-    .btn-success-fonatel:hover,
-    .btn-success-fonatel:focus,
-    .btn-next-fonatel:hover,
-    .btn-next-fonatel:focus,
-    .btn-error-fonatel:hover,
-    .btn-error-fonatel:focus,
-    .btn-info-fonatel:hover,
-    .btn-info-fonatel:focus,
-    .btn-warning-fonatel:hover,
-    .btn-warning-fonatel:focus {
-        color: #ffffff;
-    }
+.btn-purple-fonatel {
+    color: #ffffff;
+    background-color: var(--purple-fonatel);
+}
+
+.btn-success-fonatel:hover,
+.btn-success-fonatel:focus,
+.btn-next-fonatel:hover,
+.btn-next-fonatel:focus,
+.btn-error-fonatel:hover,
+.btn-error-fonatel:focus,
+.btn-info-fonatel:hover,
+.btn-info-fonatel:focus,
+.btn-warning-fonatel:hover,
+.btn-warning-fonatel:focus,
+.btn-purple-fonatel:hover,
+.btn-purple-fonatel:focus {
+    color: #ffffff;
+}
 
 .btn-icon-base {
     opacity: 1;

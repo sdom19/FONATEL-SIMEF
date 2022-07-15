@@ -1,4 +1,5 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 @{
     ViewBag.Title = "Bitácora";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,18 +9,17 @@
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">bitácora</li>
+                <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Reporte de Bitácora</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h2 class="page-title-fonatel text-center">Bitácora</h2>
+            <h2 class="page-title-fonatel text-center">Reporte de Bitácora</h2>
             <hr />
         </div>
         <div class="col-sm-12 mt-5">
-
             @Html.Partial("_BusquedaBitacora")
 
         </div>
