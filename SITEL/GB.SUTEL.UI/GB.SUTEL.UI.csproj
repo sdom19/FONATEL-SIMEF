@@ -653,6 +653,7 @@
     <Content Include="Scripts\Fonatel\JsDescargaFormularioWeb.js" />
     <Content Include="Scripts\Fonatel\JsHistorico.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />
+    <Content Include="Scripts\Fonatel\JsFormulasCalculo.js" />
     <Content Include="Scripts\Fonatel\JsReglas.js" />
     <Content Include="Scripts\Fonatel\JsPublicar.js" />
     <Content Include="Scripts\Fonatel\JsFormularios.js" />
