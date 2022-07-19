@@ -24,7 +24,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-sm-12">
             <div class="form-group">
                 <label for="txtCantidadRegistroIndicador" class="col-sm-12 col-form-label">Cantidad de Filas</label>
                 <div class="col-sm-12">
@@ -33,21 +33,24 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label for="txtDescripcionRegla" class="col-form-label">Descrpción</label>
                     <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Descripción"></textarea>
                     <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label for="txtDescripcionRegla" class="col-form-label">Descrpción</label>
-                    <textarea class="form-control form-control-fonatel textarea" id="txtDescripcionRegla" placeholder="Descripción"></textarea>
-                    <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                    <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Descripción"></textarea>
+
                 </div>
             </div>
+        </div>
+
+        <div class="col-sm-12">
 
         </div>
     </div>
@@ -63,6 +66,13 @@
         <li><a data-toggle="tab" href="#menu1">Indicador 7</a></li>
         <li><a data-toggle="tab" href="#menu2">Indicador 8</a></li>
     </ul>
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <button id="btnGuardarCategoria" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonDescarga</button>
+            <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCargar</button>
+        </div>
+    </div>
 
     <div class="tab-content">
         <div id="menu0" class="tab-pane fade in active">

@@ -17,7 +17,7 @@
         "btnCancelarEnvio": "#btnCancelarSolicitudEnvio",
         "modalEnvio": "#modalEnvio",
         "idSolicitudProgramacion": "#idSolicitudProgramacion",
-
+        "ddldiaSolicitudModal":"#ddldiaSolicitudModal",
         "txtCantidadRepeticiones": "#txtCantidadRepeticiones",
         "txtFechaEnvio": "#txtFechaEnvio",
         "txtFechaInicioCiclo": "#txtFechaInicioCiclo",
@@ -25,11 +25,17 @@
         "txtCampoRequerido": ".form-text-danger-fonatel"
     },
     "Variables":{
-
+        "CantidadMaxDias": 28
     },
 
     "Metodos": {
-   
+        "CargarDiasMesCombo": function () {
+            let html = "<option></option>";
+            for (var i = 1; i <= JsSolicitud.Variables.CantidadMaxDias; i++) {
+                html = html+"<option>" + i + "</option>";
+            }
+            $(JsSolicitud.Controles.ddldiaSolicitudModal).html(html);
+        }
     }
 
 }
