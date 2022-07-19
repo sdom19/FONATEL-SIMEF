@@ -1388,6 +1388,7 @@
     <Content Include="Views\DescargaFormulario\_BusquedaFormulario - Copia.cshtml" />
     <Content Include="Views\DescargaFormulario\_BusquedaFormulario.cshtml" />
     <Content Include="Views\FormulaCalculo\_ModalDetalleAgregacion.cshtml" />
+    <Content Include="Views\FormulaCalculo\_FormulaCalculo.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>

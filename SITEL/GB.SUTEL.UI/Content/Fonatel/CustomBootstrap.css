@@ -13,13 +13,10 @@
     --orange-fonatel: #F58A3B;
     --red-fonatel: #FF0007;
     --gray-fonatel: #F6F8FD;
-
+    --gray-fonatel-footer: #E0E0E0;
     --blue-fonatel-rgb-60: rgb(26 94 171 / 60%);
-
     --default-border-color: #cccccc;
-
     --default-stepper-btn-circle: #BDBDBD;
-
     --default-input-length: 280px;
 }
 
@@ -201,12 +198,16 @@
     background-image: url("../../Images/icon-calendar.svg");
 }
 
+.btn-calendar-disabled {
+    background-image: url("../../Images/icon-calendar-disabled.svg");
+}
+
 .btn-sent {
     background-image: url("../../Images/icon-sent.svg");
 }
 
-.btn-calendar-disabled {
-    background-image: url("../../Images/icon-calendar-disabled.svg");
+.btn-sent-disabled {
+    background-image: url("../../Images/icon-sent-disabled.svg");
 }
 
 .btn-home {
@@ -494,6 +495,10 @@
     position: relative;
     border: 0px;
     width: 100%;
+}
+
+.table-wrapper-fonatel table tfoot {
+    background-color: var(--gray-fonatel-footer) !important;
 }
 
 /*
