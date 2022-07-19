@@ -6,10 +6,10 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group row">
-                    <label for="ddlDireccionFormula" class="col-sm-12 col-form-label">Dirección</label>
+                    <label for="ddlFuenteIndicador" class="col-sm-12 col-form-label">Fuente Indicador</label>
                     <div class="col-sm-12">
                         <div class="select2-wrapper">
-                            <select class=" listasDesplegables" id="ddlDireccionFormula">
+                            <select class=" listasDesplegables" id="ddlFuenteIndicador">
                                 <option></option>
                                 <option value="1">FONATEL</option>
                                 <option value="2">MERCADOS</option>
@@ -20,9 +20,9 @@
                 </div>
             </div>
 
-            <div name="divDireccionFonatel" class="col-sm-4">
+            <div name="divDireccionFonatel" class="col-sm-4" style="display: none;">
                 <div class="form-group row">
-                    <label for="ddlGrupoFonatel" class="col-sm-12 col-form-label">GRUPO</label>
+                    <label for="ddlGrupoFonatel" class="col-sm-12 col-form-label">Grupo</label>
                     <div class="col-sm-12">
                         <div class="select2-wrapper">
                             <select class=" listasDesplegables" id="ddlGrupoFonatel">
@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <div name="divDireccionFonatel" class="col-sm-4">
+            <div name="divDireccionFonatel" class="col-sm-4" style="display: none;">
                 <div class="form-group row">
                     <label for="ddlClasificacionFonatel" class="col-sm-12 col-form-label">Clasificación</label>
                     <div class="col-sm-12">
@@ -52,11 +52,44 @@
                 </div>
             </div>
 
+            <div name="divDireccionFonatel" class="col-sm-4" style="display: none;">
+                <div class="form-group row">
+                    <label for="ddlTipoFonatel" class="col-sm-12 col-form-label">Tipo Indicador</label>
+                    <div class="col-sm-12">
+                        <div class="select2-wrapper">
+                            <select class=" listasDesplegables" id="ddlTipoFonatel">
+                                <option></option>
+                                <option value="1">Entrada</option>
+                                <option value="2">Salida</option>
+                                <option value="3">Entrada/salida</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div name="divDireccionFonatel" class="col-sm-4" style="display: none;">
+                <div class="form-group row">
+                    <label for="ddlIndicador" class="col-sm-12 col-form-label">Indicador</label>
+                    <div class="col-sm-12">
+                        <div class="select2-wrapper">
+                            <select class=" listasDesplegables" id="ddlIndicador">
+                                <option></option>
+                                <option value="1">Indicador 1</option>
+                                <option value="1">Indicador 2</option>
+                                <option value="1">Indicador 3</option>
+                                <option value="1">Indicador 4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <div class="col-sm-12 text-center mt-4">
-        <button type="submit" id="btnAtrasFuentes" class="btn btn-fonatel btn-info-fonatel">Atras</button>
-        <button type="submit" id="btnGuardarFuentesCompleto" class="btn btn-fonatel btn-info-fonatel">Finalizar</button>
+        <button type="submit" id="btnAtrasFuentes" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonAtras</button>
+        <button type="submit" id="btnGuardarFuentesCompleto" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
     </div>
 </div>
