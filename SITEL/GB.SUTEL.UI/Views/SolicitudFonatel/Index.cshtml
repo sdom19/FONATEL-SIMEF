@@ -31,4 +31,19 @@
 
 </div>
 
+<div id="loading" class="loading">
+    <div id="loadingcontent">
+        <p id="loadingspinner">
+            <span class="spinner-border text-primary-simef"role="status" aria-hidden="true"></span>
+        </p>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".loading").fadeIn();
+        JsSolicitud.Metodos.CargarDiasMesCombo();
+
+    });
+
+</script>
 

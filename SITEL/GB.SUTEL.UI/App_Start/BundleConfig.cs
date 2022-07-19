@@ -83,6 +83,7 @@ namespace GB.SUTEL.UI
                       "~/Content/calendar.css",
                       "~/Content/Fonatel/CustomBootstrap.css",
                         "~/Content/Fonatel/StepComponent.css",
+                         "~/Content/Fonatel/Spinner.css",
                       "~/Content/alertifyjs/alertify.min.css",
                       "~/Content/alertifyjs/bootstrap.min.css",
                        "~/Content/alertifyjs/CustomAlertify.css",

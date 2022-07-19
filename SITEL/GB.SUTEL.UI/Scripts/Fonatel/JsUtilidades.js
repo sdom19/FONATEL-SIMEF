@@ -2,6 +2,11 @@
 $(document).ready(function () {
 
 
+
+
+
+
+
     $(".datatable_simef_modal").DataTable({
         language: {
             "decimal": "",
@@ -86,8 +91,8 @@ $(document).ready(function () {
                 .every(function () {
                     var column = this;
 
-                    if ($(column.footer()).hasClass("mostrar_fotter")) {
-                        var select = $('<select class="form-control" ><option value="">Seleccione</option></select>')
+                    if ($(column.footer()).hasClass("select2-wrapper")) {
+                        var select = $('<select><option value="">Todos</option></select>')
                             .appendTo($(column.footer()).empty())
                             .on('change', function () {
                                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -108,8 +113,13 @@ $(document).ready(function () {
     $('.listasDesplegables').select2({
         placeholder: "Seleccione",
         width: 'resolve' 
-
     });
+
+
+    $('.table-wrapper-fonatel table tfoot th select').select2({
+        width: 'resolve'
+    });
+
 
     $('.nav-tabs > li a[title]').tooltip();
 
