@@ -1383,10 +1383,12 @@
     <Content Include="Views\FormulaCalculo\_TablaFormulas.cshtml" />
     <Content Include="Views\RegistroIndicadorFonatel\Index.cshtml" />
     <Content Include="Views\FormulaCalculo\_GestionFormulas.cshtml" />
-    <Content Include="Views\FormulaCalculo\_tablaIndicadores.cshtml" />
+    <Content Include="Views\FormulaCalculo\_TablaIndicadores.cshtml" />
     <Content Include="Views\DescargaFormulario\Index.cshtml" />
     <Content Include="Views\DescargaFormulario\_BusquedaFormulario - Copia.cshtml" />
     <Content Include="Views\DescargaFormulario\_BusquedaFormulario.cshtml" />
+    <Content Include="Views\FormulaCalculo\_ModalDetalleAgregacion.cshtml" />
+    <Content Include="Views\FormulaCalculo\_FormulaCalculo.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
