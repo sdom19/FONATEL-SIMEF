@@ -256,7 +256,6 @@
     <Compile Include="Controllers\ConstructorController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EspectroController.cs" />
-    <Compile Include="Controllers\Fonatel\EditarFormulario.cs" />
     <Compile Include="Controllers\Fonatel\DescargaFormularioController.cs" />
     <Compile Include="Controllers\Fonatel\RegistroIndicadorFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\FormularioWebController.cs" />
@@ -592,7 +591,6 @@
     <Content Include="Content\dropify-master\dropify-master\src\images\test-image-2.jpg" />
     <Content Include="Content\dropify-master\dropify-master\src\js\dropify.js" />
     <Content Include="Content\Fonatel\CustomBootstrap.css" />
-    <Content Include="Content\Fonatel\Spinner.css" />
     <Content Include="Content\Fonatel\StepComponent.css" />
     <Content Include="Content\Fonatel\fonts\SourceSansPro\SourceSansPro.css" />
     <Content Include="Content\Images\back_disabled.png" />
@@ -1385,13 +1383,12 @@
     <Content Include="Views\FormulaCalculo\_TablaFormulas.cshtml" />
     <Content Include="Views\RegistroIndicadorFonatel\Index.cshtml" />
     <Content Include="Views\FormulaCalculo\_GestionFormulas.cshtml" />
-    <Content Include="Views\FormulaCalculo\_tablaIndicadores.cshtml" />
+    <Content Include="Views\FormulaCalculo\_TablaIndicadores.cshtml" />
     <Content Include="Views\DescargaFormulario\Index.cshtml" />
     <Content Include="Views\DescargaFormulario\_BusquedaFormulario - Copia.cshtml" />
     <Content Include="Views\DescargaFormulario\_BusquedaFormulario.cshtml" />
-    <Content Include="Views\EditarFormulario\_BusquedaFormulario.cshtml" />
-    <Content Include="Views\EditarFormulario\_ModalEditarFormulario.cshtml" />
-    <Content Include="Views\EditarFormulario\Index.cshtml" />
+    <Content Include="Views\FormulaCalculo\_ModalDetalleAgregacion.cshtml" />
+    <Content Include="Views\FormulaCalculo\_FormulaCalculo.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1403,6 +1400,7 @@
     <Folder Include="Recursos\ConvertToOldExcel\" />
     <Folder Include="Views\Agrupacion\NewFolder1\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\EditarFormulario\" />
     <Folder Include="Views\Seguridad\Rol\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>

@@ -1,0 +1,60 @@
+﻿<style>
+
+    /*
+        ==============================================================
+        LOS ESTILOS SON TEMPORALES, MOVER A UN ARCHIVO POR APARTE
+        ==============================================================
+    */
+
+    .divFormulaCalculo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .divFormulaCalculo div:nth-child(1) {
+        border-radius: 10px 10px 0px 0px;
+        color: white;
+        background-color: var(--blue-fonatel);
+    }
+
+    .divFormulaCalculo div:nth-child(2) {
+        padding: 10px;
+        background-color: var(--gray-fonatel);
+    }
+
+    .divFormulaCalculo div:nth-child(3) {
+        font-weight: bold;
+    }
+
+    @@media (max-width: 920px) {
+        .divFormulaCalculo div {
+            width: 100%;
+        }
+    }
+
+</style>
+
+<div class="row divFormulaCalculo">
+    <div class="col-lg-8 col-md-8 col-sm-12  text-center">
+        <h4 class="text-leftThe">Fórmula Porcentaje</h4>
+    </div>
+
+    <div class="col-lg-8 col-md-8 col-sm-12 text-center">
+        <button type="button" class="btn btn-outline-dark btn-sm" id="BtnCalendar"><span class="glyphicon glyphicon-calendar"></span></button>
+        <button type="button" class="btn btn-outline-dark btn-sm" id="BtnSumar" value="+"><span class="glyphicon glyphicon-plus"></span></button>
+        <button type="button" class="btn btn-outline-dark btn-sm" id="BtnRestar"><span class="glyphicon glyphicon-minus"></span></button>
+        <button type="button" class="btn btn-outline-dark btn-sm" id="BtnMultiplicar"><span class="glyphicon glyphicon-remove"></span></button>
+        <button type="button" class="btn btn-outline-dark btn-sm" id="BtnDividir"><span class="spanico">/</span></button>
+        <button type="button" class="btn btn-outline-dark btn-sm" id="Btndleft" title=""><span class="spanico">(</span></button>
+        <button type="button" class="btn btn-outline-dark btn-sm" id="btnright" title=""><span class="spanico">)</span></button>
+        <button type="button" class="btn btn-outline-dark btn-sm" id="BtnConstante" title="Click para agregar constante numerica"><span class="glyphicon glyphicon-plus-sign"></span></button>
+        <button type="button" class="btn btn-outline-dark btn-sm" id="BtnReset" title="Borrar Fórmula"><span class="glyphicon glyphicon-refresh"></span></button>
+        <button type="button" class="btn btn-outline-dark btn-sm" id="BtnRemoverItem" title="Remover item de fórmula"><span class="glyphicon glyphicon-trash"></span></button>
+        <button type="button" class="btn btn-outline-dark btn-sm" id="BtnVerformula" title="Mostrar Fórmula"><span class="    glyphicon glyphicon-floppy-disk"></span></button>
+
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-12 text-center">
+        FTRB01-1 + FTRB01-2
+    </div>
+</div>
