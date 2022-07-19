@@ -25,31 +25,28 @@
 
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="form-group center">
-                <label for="ddlSolicitud" class="col-form-label">Solicitud</label>
-                <div class="select2-wrapper">
-                    <select class="listasDesplegables" aria-label="Default select example" id="ddlSolicitud">
-                        <option></option>
-                        <option value="1">San jose</option>
-                        <option value="2">Limón</option>
-                        <option value="2">Cartago</option>
-                    </select>
+            <div class="form-group">
+                <label for="txtCantidadRegistroIndicador" class="col-sm-12 col-form-label">Cantidad de Filas</label>
+                <div class="col-sm-12">
+                    <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadRegistroIndicador" placeholder="Cantidad de Filas">
+                    <small id="txtCantidadRegistroIndicadorHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
-                <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="form-group center">
-                <label for="dllFormulario" class="col-form-label">Formulario</label>
-                <div class="select2-wrapper">
-                    <select class="listasDesplegables" aria-label="Default select example" id="dllFormulario">
-                        <option></option>
-                        <option value="1">San jose</option>
-                        <option value="2">Limón</option>
-                        <option value="2">Cartago</option>
-                    </select>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    <label for="txtDescripcionRegla" class="col-form-label">Descrpción</label>
+                    <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Descripción"></textarea>
+                    <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
-                <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    <label for="txtDescripcionRegla" class="col-form-label">Descrpción</label>
+                    <textarea class="form-control form-control-fonatel textarea" id="txtDescripcionRegla" placeholder="Descripción"></textarea>
+                    <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                </div>
             </div>
 
         </div>
