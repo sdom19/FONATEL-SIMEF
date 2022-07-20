@@ -12,20 +12,20 @@
         align-items: center;
     }
 
-    .divFormulaCalculo div:nth-child(1) {
-        border-radius: 10px 10px 0px 0px;
-        color: white;
-        background-color: var(--blue-fonatel);
-    }
+        .divFormulaCalculo .titulo {
+            border-radius: 10px 10px 0px 0px;
+            color: white;
+            background-color: var(--blue-fonatel);
+        }
 
-    .divFormulaCalculo div:nth-child(2) {
-        padding: 10px;
-        background-color: var(--gray-fonatel);
-    }
+        .divFormulaCalculo .controles {
+            padding: 10px;
+            background-color: var(--gray-fonatel);
+        }
 
-    .divFormulaCalculo div:nth-child(3) {
-        font-weight: bold;
-    }
+        .divFormulaCalculo .formula {
+            font-weight: bold;
+        }
 
     @@media (max-width: 920px) {
         .divFormulaCalculo div {
@@ -36,11 +36,11 @@
 </style>
 
 <div class="row divFormulaCalculo">
-    <div class="col-lg-8 col-md-8 col-sm-12  text-center">
+    <div class="titulo col-lg-8 col-md-8 col-sm-12 text-center">
         <h4 class="text-leftThe">Fórmula Porcentaje</h4>
     </div>
 
-    <div class="col-lg-8 col-md-8 col-sm-12 text-center">
+    <div class="controles col-lg-8 col-md-8 col-sm-12 text-center">
         <button type="button" class="btn btn-outline-dark btn-sm" id="BtnCalendar"><span class="glyphicon glyphicon-calendar"></span></button>
         <button type="button" class="btn btn-outline-dark btn-sm" id="BtnSumar" value="+"><span class="glyphicon glyphicon-plus"></span></button>
         <button type="button" class="btn btn-outline-dark btn-sm" id="BtnRestar"><span class="glyphicon glyphicon-minus"></span></button>
@@ -54,7 +54,7 @@
         <button type="button" class="btn btn-outline-dark btn-sm" id="BtnVerformula" title="Mostrar Fórmula"><span class="    glyphicon glyphicon-floppy-disk"></span></button>
 
     </div>
-    <div class="col-lg-8 col-md-8 col-sm-12 text-center">
+    <div class="formula col-lg-8 col-md-8 col-sm-12 text-center">
         FTRB01-1 + FTRB01-2
     </div>
 </div>
