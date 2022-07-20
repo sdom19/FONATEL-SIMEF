@@ -20,10 +20,13 @@
                 <td>Gestión</td>
                 <td>SI</td>
                 <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Agregar" class="btn-icon-base btn-add"></button>
+                    <button type="button" data-toggle="tooltip" disabled  data-placement="top" title="Agregar" class="btn-icon-base btn-add"></button>
 
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn-icon-base btn-clone"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Visualizar Detalle" class="btn-icon-base btn-home"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
 
-                  
 
 
                 </td>
@@ -35,11 +38,12 @@
                 <td>Cumplimiento</td>
                 <td>NO</td>
                 <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit"></button>
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Agregar" class="btn-icon-base btn-add"></button>
 
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn-icon-base btn-clone"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Visualizar Detalle" class="btn-icon-base btn-home"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
+                    <button type="button" data-toggle="tooltip" disabled data-placement="top" title="Editar" class="btn-icon-base btn-edit"></button>
+                    <button type="button" data-toggle="tooltip" disabled  data-placement="top" title="Clonar" class="btn-icon-base btn-clone"></button>
+                    <button type="button" data-toggle="tooltip" disabled  data-placement="top" title="Visualizar Detalle" class="btn-icon-base btn-home"></button>
+                    <button type="button" data-toggle="tooltip" disabled  data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
                 </td>
             </tr>
             <tr>
@@ -47,16 +51,30 @@
                 <td>Hogares Beneficiarios</td>
                 <td>Programa 2</td>
                 <td>Beneficiario</td>
-                <td>NO</td>
+                <td>SI</td>
                 <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit"></button>
+                    <button type="button" data-toggle="tooltip" disabled data-placement="top" title="Agregar" class="btn-icon-base btn-add"></button>
 
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit"></button>
                     <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn-icon-base btn-clone"></button>
                     <button type="button" data-toggle="tooltip" data-placement="top" title="Visualizar Detalle" class="btn-icon-base btn-home"></button>
                     <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
                 </td>
             </tr>
         </tbody>
+
+
+        <tfoot>
+            <tr>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th></th>
+            </tr>
+
+        </tfoot>
 
     </table>
 </div>
