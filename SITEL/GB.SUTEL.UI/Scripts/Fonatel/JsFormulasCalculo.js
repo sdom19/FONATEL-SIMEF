@@ -60,7 +60,7 @@ $(document).on("change", JsFormulasCalculo.Controles.ddlFuenteIndicador, functio
         $(JsFormulasCalculo.Controles.divCategoria_ModalDetalle).css("display", "block");
         $(JsFormulasCalculo.Controles.divCriterio_ModalDetalle).css("display", "none");
     }
-    else if (optionSelected == "2" || optionSelected == "3") {
+    else if (optionSelected != "1") {
         $(JsFormulasCalculo.Controles.divGrupo).css("display", "block");
         $(JsFormulasCalculo.Controles.divServicio).css("display", "block");
         $(JsFormulasCalculo.Controles.divClasificacion).css("display", "none");

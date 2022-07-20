@@ -3,6 +3,7 @@
     position: relative;
     table-layout: fixed;
     width: 50%;
+    margin: 0px auto;
 }
 
 .stepwizard-step button[disabled] {
