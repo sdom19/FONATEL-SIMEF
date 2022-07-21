@@ -99,6 +99,7 @@
                 });
         },
     });
+
     $('.listasDesplegables').select2({
         placeholder: "Seleccione",
         width: 'resolve' 
