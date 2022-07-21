@@ -1,6 +1,6 @@
 ﻿JsDescargaFormularioWeb= {
     "Controles": {
-        "btndescarga": "#btnDescargaFormularioWeb",
+        "btndescarga": "#TablaDescargaRegistroIndicador tbody tr td .btn-download",
         "btnCancela": "#btnCancelaFormularioWeb"
     },
     "Variables": {

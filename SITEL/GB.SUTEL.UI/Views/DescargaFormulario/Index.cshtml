@@ -1,6 +1,6 @@
 ﻿@using GB.SIMEF.Resources;
 @{
-    ViewBag.Title = "Bitácora";
+    ViewBag.Title = "Editar Formulario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
@@ -9,20 +9,17 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Descarga de Formulario</li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewFormulario.DescargaFormulario</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h2 class="page-title-fonatel text-center">Descarga de Formulario</h2>
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewFormulario.EditarFormulario</h2>
             <hr />
         </div>
         <div class="col-sm-12 mt-5">
-
-            @Html.Partial("_BusquedaFormulario")
-
+            @Html.Partial("_tableFonatel")
         </div>
     </div>
-
 </div>

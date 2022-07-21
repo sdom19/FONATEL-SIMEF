@@ -46,6 +46,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Etiquetas.resx</DependentUpon>
     </Compile>
+    <Compile Include="EtiquetasViewFormulario.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewFormulario.resx</DependentUpon>
+    </Compile>
     <Compile Include="EtiquetasViewIndicadorFonatel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -67,6 +72,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewDefinicionIndicadores.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewFormulario.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewFormulario.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="EtiquetasViewIndicadorFonatel.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
