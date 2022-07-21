@@ -1393,6 +1393,7 @@
     <Content Include="Views\EditarFormulario\Index.cshtml" />
     <Content Include="Views\EditarFormulario\_BusquedaFormulario.cshtml" />
     <Content Include="Views\EditarFormulario\_ModalEditarFormulario.cshtml" />
+    <Content Include="Views\FormulaCalculo\_ModalFechaFormulaCalculo.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>

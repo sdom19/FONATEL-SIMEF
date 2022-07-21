@@ -8,6 +8,7 @@
     --purple-fonatel: #7A3CAA;
     --blue-fonatel: #1A5EAB;
     --blue-2-fonatel: #007588;
+    --light-1-blue-2-fonatel: #4098a6;
     --light-1-blue-fonatel: #00B3E6;
     --light-2-blue-fonatel: #EDF1F7;
     --orange-fonatel: #F58A3B;
@@ -465,6 +466,11 @@
 .table-wrapper-fonatel table.table-bordered.dataTable thead tr:first-child td {
     border-top: 0px;
 }
+
+.table-wrapper-fonatel table.table-bordered.dataTable thead tr:first-child th.highlighted {
+    background-color: var(--light-1-blue-2-fonatel);
+}
+
 
 .table-wrapper-fonatel .top-position,
 .table-wrapper-fonatel .bottom-position {

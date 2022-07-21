@@ -2,12 +2,13 @@
     "Controles": {
         "ddlFuenteIndicador": "#ddlFuenteIndicador",
         "modalFormulaDetalleAgregacion": "#modalFormulaDetalleAgregacion",
+        "modalFechaFormulaCalculo": "#modalFechaFormulaCalculo",
         "btnAgregarDetalleAgregacion": "#btnAgregarDetalleAgregacion",
         "btnEliminarDetalleAgregacion": "#btnEliminarDetalleAgregacion",
         "radioCategoriaDesagregacion": "#radioCategoriaDesagregacion",
         "radioTotal": "#radioTotal",
         "divInputCategoriaDesagregacion": "#divInputCategoriaDesagregacion",
-        "divInputDetalleCategoriaDesagregacion": "#divInputDetalleCategoriaDesagregacion",
+        //"divInputDetalleCategoriaDesagregacion": "#divInputDetalleCategoriaDesagregacion",
         "divGrupo": "#divGrupo",
         "divClasificacion": "#divClasificacion",
         "divTipoIndicador": "#divTipoIndicador",
@@ -17,7 +18,12 @@
         "btnAtrasGestionFormula": "#btnAtrasGestionFormula",
         "btnGuardarFormulaCalculo": "#btnGuardarFormulaCalculo",
         "btnFinalizarFormulaCalculo": "#btnFinalizarFormulaCalculo",
+        "btnGuardarGestionFormulaCalculo": "#btnGuardarGestionFormulaCalculo",
+        "btnCancelarGestionFormulaCalculo": "#btnCancelarGestionFormulaCalculo",
 
+        "btnCalendarFormula": "#btnCalendarFormula",
+
+        //Modal detalle
         "columnaDetalleTabla": "#columnaDetalleTabla",
         "titulo_modalDetalleFormulaCalculo": "#titulo_modalDetalleFormulaCalculo",
         "divCriterio_ModalDetalle": "#divCriterio_ModalDetalle",
@@ -26,8 +32,14 @@
         "btnEliminar_modalDetalle": "#btnEliminar_modalDetalle",
         "ddlCategoria_ModalDetalle": "#ddlCategoria_ModalDetalle",
         "ddlDetalle_ModalDetalle": "#ddlDetalle_ModalDetalle",
-        "ddlCriterio_ModalDetalle": "#ddlCriterio_ModalDetalle"
+        "ddlCriterio_ModalDetalle": "#ddlCriterio_ModalDetalle",
 
+        //Modal Fechas - Formula de cálculo
+        "radioManual_modalFechaFormula": "#radioManual_modalFechaFormula",
+        "radioCategoriaDesagregacion_modalFechaFormula": "#radioCategoriaDesagregacion_modalFechaFormula",
+        "divTxtFechaInicio_modalFechaFormula": "#divTxtFechaInicio_modalFechaFormula",
+        "divTxtFechaFinal_modalFechaFormula": "#divTxtFechaFinal_modalFechaFormula",
+        "divDdlCategoriasTipoFecha_modalFechaFormula": "#divDdlCategoriasTipoFecha_modalFechaFormula"
     },
     "Variables": {
         "Direccion": {
@@ -99,12 +111,10 @@ $(document).on("click", JsFormulasCalculo.Controles.btnEliminarDetalleAgregacion
 
 $(document).on("change", JsFormulasCalculo.Controles.radioCategoriaDesagregacion, function () {
     $(JsFormulasCalculo.Controles.divInputCategoriaDesagregacion).css("display", "block");
-    $(JsFormulasCalculo.Controles.divInputDetalleCategoriaDesagregacion).css("display", "block");
 });
 
 $(document).on("change", JsFormulasCalculo.Controles.radioTotal, function () {
     $(JsFormulasCalculo.Controles.divInputCategoriaDesagregacion).css("display", "none");
-    $(JsFormulasCalculo.Controles.divInputDetalleCategoriaDesagregacion).css("display", "none");
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnAtrasGestionFormula, function (e) {
@@ -132,4 +142,40 @@ $(document).on("click", JsFormulasCalculo.Controles.btnFinalizarFormulaCalculo, 
                     window.location.href = "/Fonatel/FormulaCalculo/Index"
                 });
         });
+});
+
+$(document).on("click", JsFormulasCalculo.Controles.btnGuardarGestionFormulaCalculo, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Guardar fórmula de cálculo?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("La fórmula ha sido guardada correctamente.")
+                .set('onok', function (closeEvent) {
+                    window.location.href = "/Fonatel/FormulaCalculo/Index"
+                });
+        });
+});
+
+$(document).on("click", JsFormulasCalculo.Controles.btnCancelarGestionFormulaCalculo, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+
+        });
+});
+
+
+$(document).on("click", JsFormulasCalculo.Controles.btnCalendarFormula, function (e) {
+    $(JsFormulasCalculo.Controles.modalFechaFormulaCalculo).modal('show');
+});
+
+$(document).on("click", JsFormulasCalculo.Controles.radioManual_modalFechaFormula, function () {
+    $(JsFormulasCalculo.Controles.divTxtFechaInicio_modalFechaFormula).css("display", "block");
+    $(JsFormulasCalculo.Controles.divTxtFechaFinal_modalFechaFormula).css("display", "block");
+    $(JsFormulasCalculo.Controles.divDdlCategoriasTipoFecha_modalFechaFormula).css("display", "none");
+});
+
+$(document).on("click", JsFormulasCalculo.Controles.radioCategoriaDesagregacion_modalFechaFormula, function () {
+    $(JsFormulasCalculo.Controles.divTxtFechaInicio_modalFechaFormula).css("display", "none");
+    $(JsFormulasCalculo.Controles.divTxtFechaFinal_modalFechaFormula).css("display", "none");
+    $(JsFormulasCalculo.Controles.divDdlCategoriasTipoFecha_modalFechaFormula).css("display", "block");
 });
