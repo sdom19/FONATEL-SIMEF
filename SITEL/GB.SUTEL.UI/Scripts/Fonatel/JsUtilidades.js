@@ -1,11 +1,4 @@
-﻿
-$(document).ready(function () {
-
-
-
-
-
-
+﻿$(document).ready(function () {
 
     $(".datatable_simef_modal").DataTable({
         language: {
@@ -32,10 +25,6 @@ $(document).ready(function () {
         },
        
     });
-
-
-
-
 
 
     $(".datatable_simef").DataTable({
