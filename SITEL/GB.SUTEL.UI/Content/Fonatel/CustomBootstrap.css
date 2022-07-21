@@ -11,6 +11,7 @@
     --blue-2-fonatel-rgb-75: rgb(0 117 136 / 75%);
     --blue-2-fonatel-rgb-50: rgb(0 117 136 / 50%);
     --blue-2-fonatel-rgb-25: rgb(0 117 136 / 25%);
+    --light-1-blue-2-fonatel: #4098a6;
     --light-1-blue-fonatel: #00B3E6;
     --light-2-blue-fonatel: #EDF1F7;
     --orange-fonatel: #F58A3B;
@@ -468,6 +469,11 @@
 .table-wrapper-fonatel table.table-bordered.dataTable thead tr:first-child td {
     border-top: 0px;
 }
+
+.table-wrapper-fonatel table.table-bordered.dataTable thead tr:first-child th.highlighted {
+    background-color: var(--light-1-blue-2-fonatel);
+}
+
 
 .table-wrapper-fonatel .top-position,
 .table-wrapper-fonatel .bottom-position {

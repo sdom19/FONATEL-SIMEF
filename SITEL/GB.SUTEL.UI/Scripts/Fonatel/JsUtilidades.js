@@ -1,11 +1,4 @@
-﻿
-$(document).ready(function () {
-
-
-
-
-
-
+﻿$(document).ready(function () {
 
     $(".datatable_simef_modal").DataTable({
         language: {
@@ -32,10 +25,6 @@ $(document).ready(function () {
         },
        
     });
-
-
-
-
 
 
     $(".datatable_simef").DataTable({
@@ -110,6 +99,7 @@ $(document).ready(function () {
                 });
         },
     });
+
     $('.listasDesplegables').select2({
         placeholder: "Seleccione",
         width: 'resolve' 
