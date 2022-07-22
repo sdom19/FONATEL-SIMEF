@@ -1,5 +1,9 @@
 ﻿JsFormulasCalculo = {
     "Controles": {
+
+
+    
+
         "ddlFuenteIndicador": "#ddlFuenteIndicador",
         "modalFormulaDetalleAgregacion": "#modalFormulaDetalleAgregacion",
         "modalFechaFormulaCalculo": "#modalFechaFormulaCalculo",
@@ -35,17 +39,23 @@
         "ddlCriterio_ModalDetalle": "#ddlCriterio_ModalDetalle",
 
         //Modal Fechas - Formula de cálculo
-        "radioManual_modalFechaFormula": "#radioManual_modalFechaFormula",
-        "radioCategoriaDesagregacion_modalFechaFormula": "#radioCategoriaDesagregacion_modalFechaFormula",
-        "divTxtFechaInicio_modalFechaFormula": "#divTxtFechaInicio_modalFechaFormula",
-        "divTxtFechaFinal_modalFechaFormula": "#divTxtFechaFinal_modalFechaFormula",
-        "divDdlCategoriasTipoFecha_modalFechaFormula": "#divDdlCategoriasTipoFecha_modalFechaFormula"
+        "ddlTipoFechaFinalModalFechaFormula": "#ddlTipoFechaFinalModalFechaFormula",
+        "ddlTipoFechaInicioModalFechaFormula": "#ddlTipoFechaInicioModalFechaFormula",
+        "divFechaInicioFormulaCalculo":"#divFechaInicioFormulaCalculo",
+        "divCategoriaFechaInicioFormulaCalculo": "#divCategoriaFechaInicioFormulaCalculo",
+        "divFechaFinalFormulaCalculo": "#divFechaFinalFormulaCalculo",
+        "divCategoriaFechaFinalFormulaCalculo": "#divCategoriaFechaFinalFormulaCalculo"
     },
     "Variables": {
         "Direccion": {
             "FONATEL": 1,
             "MERCADOS": 2,
             "CALIDAD":3
+        },
+        "FECHAS": {
+            "ACTUAL": "3",
+            "CATEGORIA":"2",
+            "FECHA": "1"
         }
         
     },
@@ -55,6 +65,49 @@
     }
 
 }
+
+$(document).on("change", JsFormulasCalculo.Controles.radioCategoriaDesagregacion, function () {
+    $(JsFormulasCalculo.Controles.divInputCategoriaDesagregacion).css("display", "block");
+});
+
+
+$(document).on("change", JsFormulasCalculo.Controles.ddlTipoFechaInicioModalFechaFormula, function () {
+    $(JsFormulasCalculo.Controles.divCategoriaFechaInicioFormulaCalculo).addClass("hidden");
+    $(JsFormulasCalculo.Controles.divFechaInicioFormulaCalculo).addClass("hidden");
+
+    let option = $(this).val();
+
+    switch (option) {
+
+        case JsFormulasCalculo.Variables.FECHAS.FECHA:
+            $(JsFormulasCalculo.Controles.divFechaInicioFormulaCalculo).removeClass("hidden");
+            break
+        case JsFormulasCalculo.Variables.FECHAS.CATEGORIA:
+            $(JsFormulasCalculo.Controles.divCategoriaFechaInicioFormulaCalculo).removeClass("hidden");
+            break;
+        default:
+    }
+});
+
+
+$(document).on("change", JsFormulasCalculo.Controles.ddlTipoFechaFinalModalFechaFormula, function () {
+    $(JsFormulasCalculo.Controles.divFechaFinalFormulaCalculo).addClass("hidden");
+    $(JsFormulasCalculo.Controles.divCategoriaFechaFinalFormulaCalculo).addClass("hidden");
+    let option = $(this).val();
+
+    switch (option) {
+
+        case JsFormulasCalculo.Variables.FECHAS.FECHA:
+            $(JsFormulasCalculo.Controles.divFechaFinalFormulaCalculo).removeClass("hidden");
+            break
+        case JsFormulasCalculo.Variables.FECHAS.CATEGORIA:
+            $(JsFormulasCalculo.Controles.divCategoriaFechaFinalFormulaCalculo).removeClass("hidden");
+            break;
+        default:
+    }
+});
+
+
 
 $(document).on("change", JsFormulasCalculo.Controles.ddlFuenteIndicador, function () {
     let optionSelected = $(this).select2('data')[0].id;
@@ -109,12 +162,13 @@ $(document).on("click", JsFormulasCalculo.Controles.btnEliminarDetalleAgregacion
 });
 
 
-$(document).on("change", JsFormulasCalculo.Controles.radioCategoriaDesagregacion, function () {
-    $(JsFormulasCalculo.Controles.divInputCategoriaDesagregacion).css("display", "block");
-});
+
+
+
+
 
 $(document).on("change", JsFormulasCalculo.Controles.radioTotal, function () {
-    $(JsFormulasCalculo.Controles.divInputCategoriaDesagregacion).css("display", "none");
+   
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnAtrasGestionFormula, function (e) {
