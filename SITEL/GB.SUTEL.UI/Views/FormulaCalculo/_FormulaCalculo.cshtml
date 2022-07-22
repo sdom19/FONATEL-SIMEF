@@ -6,7 +6,7 @@
         ==============================================================
     */
 
-    .divFormulaCalculo {
+    /*.divFormulaCalculo {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -20,7 +20,7 @@
 
         .divFormulaCalculo .controles {
             padding: 10px;
-            background-color: var(--gray-fonatel);
+            background-color: var(--light-2-blue-fonatel);
         }
 
         .divFormulaCalculo .formula {
@@ -31,37 +31,56 @@
         .divFormulaCalculo div {
             width: 100%;
         }
-    }
+    }*/
 
 </style>
 
-<div class="row divFormulaCalculo">
-    @Html.Partial("_ModalFechaFormulaCalculo")
+@Html.Partial("_ModalFechaFormulaCalculo")
 
-    <div class="titulo col-lg-8 col-md-8 col-sm-12 text-center">
-        <h4 class="text-leftThe">Fórmula Porcentaje</h4>
+<div class="row divFormulaCalculo text-center">
+
+    <div class="col-lg-7 col-md-9">
+        <div class="row">
+            <div class="col text-center">
+                <h4 class="text-leftThe">Fórmula Porcentaje</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <button type="button" id="btnCalendarFormula" class="btn-icon-base-bg btn-white btn-calendar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Calendario"></button>
+                <button type="button" id="btnSumarFormula" class="btn-icon-base-bg btn-white btn-addition" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sumar"></button>
+                <button type="button" id="btnRestarFormula" class="btn-icon-base-bg btn-white btn-subtraction" data-toggle="tooltip" data-placement="top" title="" data-original-title="Restar"></button>
+                <button type="button" id="btnMultiplicarFormula" class="btn-icon-base-bg btn-white btn-multiplication" data-toggle="tooltip" data-placement="top" title="" data-original-title="Multiplicar"></button>
+                <button type="button" id="btnDividirFormula" class="btn-icon-base-bg btn-white btn-division" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dividir"></button>
+                <button type="button" id="btnMenorQueFormula" class="btn-icon-base-bg btn-white btn-less-than" data-toggle="tooltip" data-placement="top" title="" data-original-title="Menor que"></button>
+                <button type="button" id="btnMayorQueFormula" class="btn-icon-base-bg btn-white btn-greater-than" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mayor que"></button>
+                <button type="button" id="btnMenorIgualQueFormula" class="btn-icon-base-bg btn-white btn-less-than-or-equal-to" data-toggle="tooltip" data-placement="top" title="" data-original-title="Menor o igual que"></button>
+                <button type="button" id="btnMayorIgualQueFormula" class="btn-icon-base-bg btn-white btn-greater-than-or-equal-to" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mayor o igual que"></button>
+                <button type="button" id="btnIgualQueFormula" class="btn-icon-base-bg btn-white btn-equal-to" data-toggle="tooltip" data-placement="top" title="" data-original-title="Igual que"></button>
+                <button type="button" id="btnLeftFormula" class="btn-icon-base-bg btn-white btn-parentheses-open" data-toggle="tooltip" data-placement="top" title="" data-original-title="Paréntesis abierto"></button>
+                <button type="button" id="btnRightFormula" class="btn-icon-base-bg btn-white btn-parentheses-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Paréntesis cerrado"></button>
+                <button type="button" id="btnConstanteFormula" class="btn-icon-base-bg btn-white btn-numberic-constants" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click para agregar constante numerica"></button>
+            </div>
+        </div>
     </div>
 
-    <div class="controles col-lg-8 col-md-8 col-sm-12 text-center">
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnCalendarFormula"><span class="glyphicon glyphicon-calendar"></span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnSumarFormula" value="+"><span class="glyphicon glyphicon-plus"></span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnRestarFormula"><span class="glyphicon glyphicon-minus"></span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnMultiplicarFormula"><span class="glyphicon glyphicon-remove"></span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnDividirFormula"><span class="spanico">/</span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnMenorQueFormula"><span class="spanico"><</span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnMayorFormula"><span class="spanico">></span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnMenorIgualQueFormula"><span class="spanico"><=</span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnMayorIgualQueFormula"><span class="spanico">>=</span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnIgualQueFormula"><span class="spanico">=</span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btndleftFormula" title=""><span class="spanico">(</span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnrightFormula" title=""><span class="spanico">)</span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnConstanteFormula" title="Click para agregar constante numerica"><span class="glyphicon glyphicon-plus-sign"></span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnResetFormula" title="Borrar Fórmula"><span class="glyphicon glyphicon-refresh"></span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnRemoverItemFormula" title="Remover item de fórmula"><span class="glyphicon glyphicon-trash"></span></button>
-        <button type="button" class="btn btn-outline-dark btn-sm" id="btnVerformulaFormula" title="Mostrar Fórmula"><span class="    glyphicon glyphicon-floppy-disk"></span></button>
-
+    <div class="col-lg-2 col-md-2">
+        <div class="row">
+            <div class="col text-center">
+                <h4 class="text-leftThe">Acciones</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <button type="button" id="btnResetFormula" class="btn-icon-base-bg btn-white btn-reload" data-toggle="tooltip" data-placement="top" title="" data-original-title="Borrar Fórmula"></button>
+                <button type="button" id="btnRemoverItemFormula" class="btn-icon-base-bg btn-white btn-delete" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remover item de fórmula"></button>
+            </div>
+        </div>
     </div>
-    <div class="formula col-lg-8 col-md-8 col-sm-12 text-center">
-        FTRB01-1 + FTRB01-2
+
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 text-center">
+            FTRB01-1 + FTRB01-2
+        </div>
     </div>
 </div>

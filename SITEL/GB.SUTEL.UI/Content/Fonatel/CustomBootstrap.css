@@ -100,16 +100,7 @@
     padding: 8px 20px 8px 20px;
     border-radius: 9px !important;
     min-width: 130px;
-    /*-webkit-transition: 0.15s;
-    transition: 0.15s;*/
 }
-
-    .btn-fonatel:hover,
-    .btn-fonatel:focus {
-        /*-moz-box-shadow: inset 0 0 5px #000000;
-        -webkit-box-shadow: inset 0 0 5px #000000;
-        box-shadow: inset 0 0 5px #000000;*/
-    }
 
     .btn-fonatel.btn-goback {
         display: inline-flex;
@@ -132,11 +123,6 @@
     color: #ffffff;
     background-color: var(--green-fonatel);
 }
-
-/*.btn-success-2-fonatel {
-    color: #ffffff;
-    background-color: var(--light-1-green-fonatel);
-}*/
 
 .btn-next-fonatel {
     color: #ffffff;
@@ -163,30 +149,25 @@
     background-color: var(--purple-fonatel);
 }
 
-.btn-success-fonatel:hover,
-.btn-success-fonatel:focus,
-.btn-next-fonatel:hover,
-.btn-next-fonatel:focus,
-.btn-error-fonatel:hover,
-.btn-error-fonatel:focus,
-.btn-info-fonatel:hover,
-.btn-info-fonatel:focus,
-.btn-warning-fonatel:hover,
-.btn-warning-fonatel:focus,
-.btn-purple-fonatel:hover,
-.btn-purple-fonatel:focus {
+.btn-success-fonatel:hover, .btn-success-fonatel:focus,
+.btn-next-fonatel:hover, .btn-next-fonatel:focus,
+.btn-error-fonatel:hover, .btn-error-fonatel:focus,
+.btn-info-fonatel:hover, .btn-info-fonatel:focus,
+.btn-warning-fonatel:hover, .btn-warning-fonatel:focus,
+.btn-purple-fonatel:hover, .btn-purple-fonatel:focus {
     color: #ffffff;
 }
-
+/*
 .btn-icon-base {
     opacity: 1;
-    width: 20px;
-    height: 20px;
-    margin: 10px;
+    width: 22px;
+    height: 22px;
+    margin: 8px;
     border: none;
     background-size: contain;
     background-repeat: no-repeat;
     background-color: transparent;
+    background-position: center;
     transition: 0.15s;
 }
 
@@ -259,6 +240,231 @@
 
 .btn-cancel {
     background-image: url("../../Images/icon-cancel.svg");
+}
+
+.btn-addition {
+    background-image: url("../../Images/icon-math-addition.svg");
+}
+
+.btn-division {
+    background-image: url("../../Images/icon-math-division.svg");
+}
+
+.btn-multiplication {
+    background-image: url("../../Images/icon-math-multiplication.svg");
+}
+
+.btn-parentheses-close {
+    background-image: url("../../Images/icon-math-parentheses-close.svg");
+}
+
+.btn-parentheses-open {
+    background-image: url("../../Images/icon-math-parentheses-open.svg");
+}
+
+.btn-subtraction {
+    background-image: url("../../Images/icon-math-subtraction.svg");
+}
+
+.btn-less-than {
+    background-image: url("../../Images/icon-less-than.svg");
+}
+
+.btn-greater-than {
+    background-image: url("../../Images/icon-greater-than.svg");
+}
+
+.btn-less-than-or-equal-to {
+    background-image: url("../../Images/icon-less-than-or-equal-to.svg");
+}
+
+.btn-greater-than-or-equal-to {
+    background-image: url("../../Images/icon-greater-than-or-equal-to.svg");
+}
+
+.btn-equal-to {
+    background-image: url("../../Images/icon-equal-to.svg");
+}
+
+.btn-numberic-constants {
+    background-image: url("../../Images/icon-number-constants.svg");
+}
+
+.btn-reload {
+    background-image: url("../../Images/icon-reload.svg");
+}
+
+.btn-save {
+    background-image: url("../../Images/icon-save.svg");
+}
+*/
+
+.btn-icon-base {
+    width: 22px;
+    height: 22px;
+    padding: 0px;
+    margin: 8px;
+}
+
+.btn-icon-base-bg { /* igual a la clase de arriba pero con la opción de incrustar un fondo como si fuera un botón */
+    width: 33px;
+    height: 33px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 6px;
+}
+
+.btn-icon-base,
+.btn-icon-base-bg {
+    border: none;
+    transition: 0.15s;
+    background-color: transparent;
+}
+
+    .btn-icon-base:hover,
+    .btn-icon-base-bg:hover {
+        opacity: 0.6;
+    }
+
+    .btn-icon-base[disabled],
+    .btn-icon-base-bg[disabled] {
+        opacity: 0.5;
+    }
+
+    .btn-icon-base-bg:before,
+    .btn-icon-base:before {
+        display: block;
+        height: 22px;
+        width: 22px;
+        content: ' ';
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: center;
+    }
+
+    .btn-icon-base-bg.btn-white {
+        background-color: white;
+    }
+
+.btn-add:before {
+    background-image: url("../../Images/icon-add.svg");
+}
+
+.btn-calendar:before {
+    background-image: url("../../Images/icon-calendar.svg");
+}
+
+.btn-calendar-disabled:before {
+    background-image: url("../../Images/icon-calendar-disabled.svg");
+}
+
+.btn-sent:before {
+    background-image: url("../../Images/icon-sent.svg");
+}
+
+.btn-sent-disabled:before {
+    background-image: url("../../Images/icon-sent-disabled.svg");
+}
+
+.btn-home:before {
+    background-image: url("../../Images/icon-home.svg");
+}
+
+.btn-edit:before {
+    background-image: url("../../Images/icon-edit.svg");
+}
+
+.btn-delete:before {
+    background-image: url("../../Images/icon-delete.svg");
+}
+
+.btn-view:before {
+    background-image: url("../../Images/icon-view.svg");
+}
+
+.btn-clone:before {
+    background-image: url("../../Images/icon-clone.svg");
+}
+
+.btn-download:before {
+    background-image: url("../../Images/icon-download.svg");
+}
+
+.btn-upload:before {
+    background-image: url("../../Images/icon-upload.svg");
+}
+
+.btn-power-off:before {
+    background-image: url("../../Images/icon-power-off.svg");
+}
+
+.btn-power-on:before {
+    background-image: url("../../Images/icon-power-on.svg");
+}
+
+.btn-yes:before {
+    background-image: url("../../Images/icon-power-on.svg");
+}
+
+.btn-cancel:before {
+    background-image: url("../../Images/icon-cancel.svg");
+}
+
+.btn-addition:before {
+    background-image: url("../../Images/icon-math-addition.svg");
+}
+
+.btn-division:before {
+    background-image: url("../../Images/icon-math-division.svg");
+}
+
+.btn-multiplication:before {
+    background-image: url("../../Images/icon-math-multiplication.svg");
+}
+
+.btn-parentheses-close:before {
+    background-image: url("../../Images/icon-math-parentheses-close.svg");
+}
+
+.btn-parentheses-open:before {
+    background-image: url("../../Images/icon-math-parentheses-open.svg");
+}
+
+.btn-subtraction:before {
+    background-image: url("../../Images/icon-math-subtraction.svg");
+}
+
+.btn-less-than:before {
+    background-image: url("../../Images/icon-less-than.svg");
+}
+
+.btn-greater-than:before {
+    background-image: url("../../Images/icon-greater-than.svg");
+}
+
+.btn-less-than-or-equal-to:before {
+    background-image: url("../../Images/icon-less-than-or-equal-to.svg");
+}
+
+.btn-greater-than-or-equal-to:before {
+    background-image: url("../../Images/icon-greater-than-or-equal-to.svg");
+}
+
+.btn-equal-to:before {
+    background-image: url("../../Images/icon-equal-to.svg");
+}
+
+.btn-numberic-constants:before {
+    background-image: url("../../Images/icon-number-constants.svg");
+}
+
+.btn-reload:before {
+    background-image: url("../../Images/icon-reload.svg");
+}
+
+.btn-save:before {
+    background-image: url("../../Images/icon-save.svg");
 }
 
 /*
@@ -579,6 +785,10 @@ textarea.form-control-fonatel {
         height: 34px;
         position: relative;
         border: 1px solid var(--default-border-color);
+    }
+
+    .select2-wrapper .select2-container--default .select2-selection--multiple {
+        height: auto;
     }
 
 /*.select2-btn-wrapper .select2.select2-container.select2-container--default*/ 
