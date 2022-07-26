@@ -44,7 +44,6 @@ namespace GB.SUTEL.UI
               "~/Scripts/Fonatel/JsStepper.js",
                "~/Scripts/Fonatel/JsHistorico.js",
                "~/Scripts/Fonatel/JsRegistroIndicadores.js",
-               "~/Scripts/Fonatel/JsDescargaFormularioWeb.js",
                  "~/Scripts/Fonatel/JsEditarFormularioWeb.js",
                "~/Scripts/Fonatel/JsFormulasCalculo.js"));
 

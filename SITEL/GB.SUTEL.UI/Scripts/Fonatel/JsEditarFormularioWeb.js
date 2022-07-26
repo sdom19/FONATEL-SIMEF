@@ -1,6 +1,8 @@
 ﻿JsEditarFormularioWeb= {
     "Controles": {
         "btnBuscar": "#TablaEditarRegistroIndicador tbody tr td .btn-edit",
+        "btndescarga": "#TablaEditarRegistroIndicador tbody tr td .btn-download",
+        "btnCancela": "#btnCancelaFormularioWeb"
     },
     "Variables": {
    
@@ -13,10 +15,21 @@
 
 }
 
-$(document).on("click", JsEditarFormularioWeb.Controles.btnBuscar, function () {
-    alert("SADKSA");
+$(document).on("click", JsEditarFormularioWeb.Controles.btndescarga, function () {
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Descargar el Formulario", null, "Descargar Registro")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido Descargado")
+                .set('onok', function (closeEvent) { window.location.href = "/" });
+        });
+});
 
-    //window.location.href = "/EditarFormulario/index";
+
+$(document).on("click", JsEditarFormularioWeb.Controles.btnCancela, function () {
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Descargar el Formulario", null, "Descargar Registro")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido Descargado")
+                .set('onok', function (closeEvent) { window.location.href = "/" });
+        })
 });
 
 

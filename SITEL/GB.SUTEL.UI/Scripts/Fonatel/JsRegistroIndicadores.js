@@ -6,7 +6,10 @@
         "tabActivoRegistroIndicador": "div.tab-pane.active",
         "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
         "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
+        "btnDescargarPlantillaRegistro": "#btnDescargarPlantillaRegistro",
+        "fileCargaRegistro":"#fileCargaRegistro",
 
+        "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
         "ControlListaCategorias": (id, option) => `<div class="select2-wrapper">
                                                     <select class="listasDesplegables" id = "${id}" >
                                                     <option></option>${option}</select ></div >`
@@ -28,6 +31,22 @@
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnllenadoweb, function () {
     let id = 1;
     window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create?id=" + id;
+});
+
+
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro, function () {
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Descargar el Formulario", null, "Descargar Registro")
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido Descargado")
+               
+        });
+});
+
+
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargaPlantillaRegistro, function () {
+  
+
+   
 });
 
 /*
