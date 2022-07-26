@@ -2,6 +2,7 @@
     "Controles": {
         "btnstep": ".step_navigation_fuentes div",
         "btnGuardarFuente": "#btnGuardarFuente",
+        "btnSiguienteFuente":"#btnSiguienteFuente",
         "btnEditarFuente": "#TableFuentes tbody tr td .btn-edit",
         "btnBorrarFuente": "#TableFuentes tbody tr td .btn-delete",
         "btnAddFuente": "#TableFuentes tbody tr td .btn-add",
@@ -22,12 +23,18 @@
 
 $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Fuente?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para la Fuente?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Fuente ha Sido Agregada de Manera Correcta")
-                .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click'); });
+                .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click');  });
         });
 });
+
+
+$(document).on("click", JsFuentes.Controles.btnSiguienteFuente, function (e) {
+    $("a[href='#step-2']").trigger('click');
+});
+
 
 
 $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function (e) {

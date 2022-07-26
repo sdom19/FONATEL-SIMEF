@@ -3,6 +3,7 @@
             "ddlVariableRegla":"#ddlVariableRegla",
             "ddlTipoRegla": "#ddlTipoRegla",
             "btnGuardarRegla": "#btnGuardarRegla",
+            "btnSiguienteRegla":"#btnSiguienteRegla",
             "btnEditarRegla": "#TableReglaDesagregacion tbody tr td .btn-edit",
             "btnClonarRegla": "#TableReglaDesagregacion tbody tr td .btn-clone",
             "btnBorrarRegla": "#TableReglaDesagregacion tbody tr td .btn-delete",
@@ -99,7 +100,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
 
 $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Regla?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("Se ha Configurado una regla a la Variable")
                 .set('onok', function (closeEvent) {
@@ -108,6 +109,12 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
         });
 });
 
+
+$(document).on("click", JsReglas.Controles.btnSiguienteRegla, function (e) {
+    e.preventDefault();
+    $("a[href='#step-2']").trigger('click');
+
+});
 
 
 

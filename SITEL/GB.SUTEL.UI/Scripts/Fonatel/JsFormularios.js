@@ -3,6 +3,7 @@
         "btnAgregarFormulario": "#TablaFormulario tbody tr td .btn-add",
         "btnEditarFormulario": "#TablaFormulario tbody tr td .btn-edit",
         "btnDeleteFormulario": "#TablaFormulario tbody tr td .btn-delete",
+        "btnSiguienteFormulario":"#btnSiguienteFormulario",
         "btnCloneFormulario": "#TablaFormulario tbody tr td .btn-clone",
         "btnDesactivadoFormulario": "#TablaFormulario tbody tr td .btn-power-off",
         "btnActivadoFormulario": "#TablaFormulario tbody tr td .btn-power-on",
@@ -38,12 +39,20 @@ $(document).on("click", JsFormulario.Controles.btnCloneFormulario, function () {
 
 $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar el Formulario?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("El formulario ha sido Creado")
                 .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click'); });
         });
 });
+
+
+
+$(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, function (e) {
+    e.preventDefault();
+    $("a[href='#step-2']").trigger('click');
+});
+
 
 $(document).on("click", JsFormulario.Controles.btnDeleteFormulario, function (e) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Elimina el Formulario?", jsMensajes.Variables.actionType.eliminar)
