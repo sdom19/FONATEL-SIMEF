@@ -1,45 +1,69 @@
 ﻿<style>
 
     /*
-        ==============================================================
-        LOS ESTILOS SON TEMPORALES, MOVER A UN ARCHIVO POR APARTE
-        ==============================================================
+        =====================================================================================
+        ESTOS ESTILOS NO DEBEN IR AQUI, MOVER A UN ARCHIVO POR APARTE EXCLUSIVO A LA PANTALLA
+        =====================================================================================
     */
 
-    /*.divFormulaCalculo {
+    .divFormulaCalculo {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-flow: row wrap;
+        justify-content: center;
+        flex-direction: row;
     }
 
-        .divFormulaCalculo .titulo {
-            border-radius: 10px 10px 0px 0px;
-            color: white;
-            background-color: var(--blue-fonatel);
+        .divFormulaCalculo .operaciones,
+        .divFormulaCalculo .acciones {
+            padding-left: 0px;
+            padding-right: 0px;
         }
 
-        .divFormulaCalculo .controles {
-            padding: 10px;
-            background-color: var(--light-2-blue-fonatel);
-        }
+            .divFormulaCalculo .operaciones .row:nth-child(1),
+            .divFormulaCalculo .acciones .row:nth-child(1) {
+                background-color: var(--blue-fonatel);
+                color: white;
+            }
+
+            .divFormulaCalculo .operaciones .row:nth-child(2),
+            .divFormulaCalculo .acciones .row:nth-child(2) {
+                border-style: solid;
+                border-color: #707070;
+                background-color: var(--light-2-blue-fonatel);
+            }
+
+            .divFormulaCalculo .operaciones .row:nth-child(1) {
+                border-right-width: 1px;
+                border-right-style: solid;
+                border-radius: 15px 0 0 0;
+            }
+
+            .divFormulaCalculo .acciones .row:nth-child(1) {
+                border-radius: 0 15px 0 0;
+            }
+
+            .divFormulaCalculo .operaciones .row:nth-child(2) {
+                border-width: 0 0 1px 1px;
+            }
+
+            .divFormulaCalculo .acciones .row:nth-child(2) {
+                border-width: 0 1px 1px 0;
+                height: calc(100% - 39.5px);
+            }
 
         .divFormulaCalculo .formula {
-            font-weight: bold;
-        }
-
-    @@media (max-width: 920px) {
-        .divFormulaCalculo div {
             width: 100%;
+            font-weight: 700;
         }
-    }*/
 
 </style>
 
 @Html.Partial("_ModalFechaFormulaCalculo")
 
-<div class="row divFormulaCalculo text-center">
 
-    <div class="col-lg-7 col-md-9">
+<div class="row divFormulaCalculo">
+
+    <div class="operaciones col-lg-7 col-md-9 col-md-9 col-xs-9">
         <div class="row">
             <div class="col text-center">
                 <h4 class="text-leftThe">Fórmula Porcentaje</h4>
@@ -48,10 +72,10 @@
         <div class="row">
             <div class="col text-center">
                 <button type="button" id="btnCalendarFormula" class="btn-icon-base-bg btn-white btn-calendar" data-toggle="tooltip" data-placement="top" title="" data-original-title="Calendario"></button>
-                <button type="button" id="btnSumarFormula" class="btn-icon-base-bg btn-white btn-addition" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sumar"></button>
-                <button type="button" id="btnRestarFormula" class="btn-icon-base-bg btn-white btn-subtraction" data-toggle="tooltip" data-placement="top" title="" data-original-title="Restar"></button>
-                <button type="button" id="btnMultiplicarFormula" class="btn-icon-base-bg btn-white btn-multiplication" data-toggle="tooltip" data-placement="top" title="" data-original-title="Multiplicar"></button>
-                <button type="button" id="btnDividirFormula" class="btn-icon-base-bg btn-white btn-division" data-toggle="tooltip" data-placement="top" title="" data-original-title="Dividir"></button>
+                <button type="button" id="btnSumarFormula" class="btn-icon-base-bg btn-white btn-addition" data-toggle="tooltip" data-placement="top" title="" data-original-title="Suma"></button>
+                <button type="button" id="btnRestarFormula" class="btn-icon-base-bg btn-white btn-subtraction" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resta"></button>
+                <button type="button" id="btnMultiplicarFormula" class="btn-icon-base-bg btn-white btn-multiplication" data-toggle="tooltip" data-placement="top" title="" data-original-title="Miltiplicación"></button>
+                <button type="button" id="btnDividirFormula" class="btn-icon-base-bg btn-white btn-division" data-toggle="tooltip" data-placement="top" title="" data-original-title="División"></button>
                 <button type="button" id="btnMenorQueFormula" class="btn-icon-base-bg btn-white btn-less-than" data-toggle="tooltip" data-placement="top" title="" data-original-title="Menor que"></button>
                 <button type="button" id="btnMayorQueFormula" class="btn-icon-base-bg btn-white btn-greater-than" data-toggle="tooltip" data-placement="top" title="" data-original-title="Mayor que"></button>
                 <button type="button" id="btnMenorIgualQueFormula" class="btn-icon-base-bg btn-white btn-less-than-or-equal-to" data-toggle="tooltip" data-placement="top" title="" data-original-title="Menor o igual que"></button>
@@ -64,7 +88,7 @@
         </div>
     </div>
 
-    <div class="col-lg-2 col-md-2">
+    <div class="acciones col-lg-2 col-md-2 col-sm-3 col-xs-3">
         <div class="row">
             <div class="col text-center">
                 <h4 class="text-leftThe">Acciones</h4>
@@ -78,9 +102,11 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-12 text-center">
-            FTRB01-1 + FTRB01-2
-        </div>
+
+    <div class="formula col-lg-9 col-md-11 col-sm-12 mt-4 mb-1 text-center">
+        FTRB01-1 + FTRB01-2
     </div>
+
 </div>
+    
+
