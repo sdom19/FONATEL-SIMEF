@@ -653,6 +653,7 @@
     <Content Include="Scripts\DataTables\vfs_fonts.js" />
     <Content Include="Scripts\Fonatel\JsDefiniciones.js" />
     <Content Include="Scripts\Fonatel\JsDescargaFormularioWeb.js" />
+    <Content Include="Scripts\Fonatel\JsEditarFormularioWeb.js" />
     <Content Include="Scripts\Fonatel\JsHistorico.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />
     <Content Include="Scripts\Fonatel\JsFormulasCalculo.js" />
@@ -1387,14 +1388,13 @@
     <Content Include="Views\FormulaCalculo\_GestionFormulas.cshtml" />
     <Content Include="Views\FormulaCalculo\_TablaIndicadores.cshtml" />
     <Content Include="Views\DescargaFormulario\Index.cshtml" />
-    <Content Include="Views\DescargaFormulario\_BusquedaFormulario - Copia.cshtml" />
-    <Content Include="Views\DescargaFormulario\_BusquedaFormulario.cshtml" />
     <Content Include="Views\FormulaCalculo\_ModalDetalleAgregacion.cshtml" />
     <Content Include="Views\FormulaCalculo\_FormulaCalculo.cshtml" />
     <Content Include="Views\EditarFormulario\Index.cshtml" />
-    <Content Include="Views\EditarFormulario\_BusquedaFormulario.cshtml" />
     <Content Include="Views\EditarFormulario\_ModalEditarFormulario.cshtml" />
     <Content Include="Views\FormulaCalculo\_ModalFechaFormulaCalculo.cshtml" />
+    <Content Include="Views\DescargaFormulario\_tableFonatel.cshtml" />
+    <Content Include="Views\EditarFormulario\_tableFonatel.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
