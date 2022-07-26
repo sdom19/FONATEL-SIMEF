@@ -3,6 +3,7 @@
             "btnstep": ".step_navigation_indicador div",
             "divContenedor": ".stepwizard-content-container",
             "btnGuardarIndicador": "#btnGuardarIndicador",
+            "btnSiguienteIndicador":"#btnSiguienteIndicador",
             "btnGuardarVariable": "#btnGuardarVariable",
             "btnGuardarCategoria": "#btnGuardarCategoria",
             "btnEditarIndicador": "#TableIndicador tbody tr td .btn-edit",
@@ -100,10 +101,17 @@ $(document).on("click", JsIndicador.Controles.btnActivarIndicador, function () {
 
 $(document).on("click", JsIndicador.Controles.btnGuardarIndicador, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar el Indicador?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial del Indicador", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             $("a[href='#step-2']").trigger('click');
         });
+});
+
+
+
+$(document).on("click", JsIndicador.Controles.btnSiguienteIndicador, function (e) {
+    e.preventDefault();
+    $("a[href='#step-2']").trigger('click');
 });
 
 

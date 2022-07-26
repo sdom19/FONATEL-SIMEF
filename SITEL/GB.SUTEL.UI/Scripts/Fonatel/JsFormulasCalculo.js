@@ -34,6 +34,7 @@
         "divCategoria_ModalDetalle": "#divCategoria_ModalDetalle",
         "btnGuardar_modalDetalle": "#btnGuardar_modalDetalle",
         "btnEliminar_modalDetalle": "#btnEliminar_modalDetalle",
+        "btnSiguienteFormulaCalculo":"#btnSiguienteFormulaCalculo",
         "ddlCategoria_ModalDetalle": "#ddlCategoria_ModalDetalle",
         "ddlDetalle_ModalDetalle": "#ddlDetalle_ModalDetalle",
         "ddlCriterio_ModalDetalle": "#ddlCriterio_ModalDetalle",
@@ -178,13 +179,19 @@ $(document).on("click", JsFormulasCalculo.Controles.btnAtrasGestionFormula, func
 
 $(document).on("click", JsFormulasCalculo.Controles.btnGuardarFormulaCalculo, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la fórmula de cálculo?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para la Fórmula de Cálculo?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La fórmula ha sido agregada correctamente.")
                 .set('onok', function (closeEvent) {
                     $("a[href='#step-2']").trigger('click');
                 });
         });
+});
+
+
+$(document).on("click", JsFormulasCalculo.Controles.btnSiguienteFormulaCalculo, function (e) {
+    e.preventDefault();
+    $("a[href='#step-2']").trigger('click');
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnFinalizarFormulaCalculo, function (e) {
