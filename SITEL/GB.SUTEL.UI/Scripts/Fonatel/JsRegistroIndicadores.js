@@ -10,9 +10,11 @@
         "fileCargaRegistro":"#fileCargaRegistro",
 
         "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
-        "ControlListaCategorias": (id, option) => `<div class="select2-wrapper">
-                                                    <select class="listasDesplegables" id = "${id}" >
-                                                    <option></option>${option}</select ></div >`
+        "InputSelect2": (id, option) => `<div class="select2-wrapper">
+                                                    <select class="listasDesplegables" id="${id}" >
+                                                    <option></option>${option}</select ></div >`,
+        "InputDate": id => `<input type="date" class="form-control form-control-fonatel" id="${id}">`,
+        "InputText": (id, placeholder) => `<input type="text" aria-label="${placeholder}" class="form-control form-control-fonatel" id="${id}" placeholder="${placeholder}" style="min-width:150px;">`
 
     },
     "Variables": {
@@ -69,10 +71,18 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
                     if ($(this).attr('class').includes("highlighted")) {
                         listaColumnasVariablesDato.push(1);
                     }
+                    else if ($(this).attr('class').includes("name-col")) {
+                        listaColumnasVariablesDato.push(
+                            jsRegistroIndicadorFonatel.Controles.InputText(`inputText-${tabActual}-${x}-${index}`, "Nombre"));
+                    }
+                    else if ($(this).attr('class').includes("date-col")) {
+                        listaColumnasVariablesDato.push(
+                            jsRegistroIndicadorFonatel.Controles.InputDate(`inputDate-${tabActual}-${x}-${index}`));
+                    }
                     else {
                         listaColumnasVariablesDato.push(
-                            jsRegistroIndicadorFonatel.Controles.ControlListaCategorias(
-                                `ddlTabla-${tabActual}-${x}-${index}`,
+                            jsRegistroIndicadorFonatel.Controles.InputSelect2(
+                                `inputSelect-${tabActual}-${x}-${index}`,
                                 '<option value="1">Opción 1</option><option value="2">Opción 2</option>'));
                     }
                 });
