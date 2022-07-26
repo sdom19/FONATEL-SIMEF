@@ -1,6 +1,7 @@
 ﻿jsMensajes = {
     "Variables": {
         "MensajeAgregar": "Agregar Registro",
+        "MensajeCancelar": "Cancelar Registro",
         "MensajeEstado": "Cambio de Estado",
         "MensajeClonar": "Clonar Registro",
         "MensajeEliminar": "Eliminar Registro",
@@ -17,7 +18,7 @@
             clonar: 1,
             eliminar: 2,
             estado: 3,
-
+            cancelar:4
         }
 
     },
@@ -57,6 +58,9 @@
                 }
                 else if (actionType == jsMensajes.Variables.actionType.estado) {
                     _question = jsMensajes.Variables.MensajeEstado;
+                }
+                else if (actionType == jsMensajes.Variables.actionType.cancelar) { // se busca por medio del actionType
+                    _question = jsMensajes.Variables.MensajeCancelar;
                 }
             }
             else {

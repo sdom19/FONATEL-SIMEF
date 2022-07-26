@@ -9,7 +9,8 @@
         "divContenedor": ".divContenedor_fuentes",
         "btnGuardarDestinatario": "#btnGuardarDestinatario",
         "btnGuardarFuentesCompleto": "#btnGuardarFuentesCompleto",
-        "btnAtrasFuentes":"#btnAtrasFuentes"
+        "btnAtrasFuentes": "#btnAtrasFuentes",
+        "btnCancelar": "#btnCancelarFuente"
     },
     "Variables": {
 
@@ -21,17 +22,27 @@
 
 }
 
+$(document).on("click", JsFuentes.Controles.btnCancelar, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            window.location.href = "/Fonatel/Fuentes/Index";
+        });
+});
+
+
 $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para la Fuente?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Fuente ha Sido Agregada de Manera Correcta")
+            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido creada")
                 .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click');  });
         });
 });
 
 
 $(document).on("click", JsFuentes.Controles.btnSiguienteFuente, function (e) {
+    e.preventDefault();
     $("a[href='#step-2']").trigger('click');
 });
 
@@ -39,9 +50,9 @@ $(document).on("click", JsFuentes.Controles.btnSiguienteFuente, function (e) {
 
 $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Fuente?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Fuente?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Fuente ha Sido Agregada de Manera Correcta")
+            jsMensajes.Metodos.OkAlertModal("La Fuente ha sido creada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });
         });
 });
@@ -49,15 +60,15 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function 
 
 $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar el Destinatario a la Fuente?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el Destinatario a la Fuente?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Destinatario ha Sido Agregado")
+            jsMensajes.Metodos.OkAlertModal("El Destinatario ha sido creado")
                 .set('onok', function (closeEvent) { });
         });
 });
 
 $(document).on("click", JsFuentes.Controles.btnBorrarFuente, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Eliminar la Fuente?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Fuente?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Fuente ha Sido Eliminada de Manera Correcta")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });

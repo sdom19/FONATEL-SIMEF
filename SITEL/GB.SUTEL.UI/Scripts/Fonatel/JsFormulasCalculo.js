@@ -24,7 +24,7 @@
         "btnFinalizarFormulaCalculo": "#btnFinalizarFormulaCalculo",
         "btnGuardarGestionFormulaCalculo": "#btnGuardarGestionFormulaCalculo",
         "btnCancelarGestionFormulaCalculo": "#btnCancelarGestionFormulaCalculo",
-
+        "btnCancelar": "#btnCancelarFormula",
         "btnCalendarFormula": "#btnCalendarFormula",
 
         //Modal detalle
@@ -66,7 +66,13 @@
     }
 
 }
-
+$(document).on("click", JsFormulasCalculo.Controles.btnCancelar, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            window.location.href = "/Fonatel/FormulaCalculo/Index";
+        });
+});
 $(document).on("change", JsFormulasCalculo.Controles.radioCategoriaDesagregacion, function () {
     $(JsFormulasCalculo.Controles.divInputCategoriaDesagregacion).css("display", "block");
 });
@@ -181,7 +187,7 @@ $(document).on("click", JsFormulasCalculo.Controles.btnGuardarFormulaCalculo, fu
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para la Fórmula de Cálculo?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La fórmula ha sido agregada correctamente.")
+            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido creada")
                 .set('onok', function (closeEvent) {
                     $("a[href='#step-2']").trigger('click');
                 });
@@ -196,7 +202,7 @@ $(document).on("click", JsFormulasCalculo.Controles.btnSiguienteFormulaCalculo, 
 
 $(document).on("click", JsFormulasCalculo.Controles.btnFinalizarFormulaCalculo, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la fórmula de cálculo?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la fórmula de cálculo?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La fórmula ha sido agregada correctamente.")
                 .set('onok', function (closeEvent) {

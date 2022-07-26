@@ -4,7 +4,7 @@
 
 //$(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
 //    e.preventDefault();
-//    jsMensajes.Metodos.AgregarRegistro("¿Desea Agregar la Regla de Validación?")
+//    jsMensajes.Metodos.AgregarRegistro("¿Desea agregar  la Regla de Validación?")
 //        .set('onok', function (closeEvent) {
 //            jsMensajes.Metodos.OkAlertModal("La Regla ha Sido Agregada de Manera Correcta")
 //                .set('onok', function (closeEvent) {
