@@ -9,7 +9,10 @@
         "btnEditarRelacion": "#TablaRelacionCategoria tbody tr td .btn-edit",
         "btnDeleteRelacion": "#TablaRelacionCategoria tbody tr td .btn-delete",
         "btnEliminarDetalleRelacion": "#TablaDetalleRelacionCategoria tbody tr td .btn-delete",
-        "btnGuardarDetalle":"#btnGuardarDetalle"
+        "btnGuardarDetalle": "#btnGuardarDetalle",
+
+        "btnAgregarDetalle": "#btnAgregarDetalle",
+        "inputFileAgregarDetalle": "#inputFileAgregarDetalle"
     },
     "Variables":{
 
@@ -82,4 +85,8 @@ $(document).on("click", JsRelacion.Controles.btnDeleteRelacion, function (e) {
             jsMensajes.Metodos.OkAlertModal("La relación ha sido eliminado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
         });
+});
+
+$(document).on("click", JsRelacion.Controles.btnAgregarDetalle, function (e) {
+    $(JsRelacion.Controles.inputFileAgregarDetalle).click();
 });
