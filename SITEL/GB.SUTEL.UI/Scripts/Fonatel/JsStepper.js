@@ -6,7 +6,7 @@
 //    e.preventDefault();
 //    jsMensajes.Metodos.AgregarRegistro("¿Desea agregar  la Regla de Validación?")
 //        .set('onok', function (closeEvent) {
-//            jsMensajes.Metodos.OkAlertModal("La Regla ha Sido Agregada de Manera Correcta")
+//            jsMensajes.Metodos.OkAlertModal("La Regla ha sido agregada ")
 //                .set('onok', function (closeEvent) {
 //                    $("a[href='#step-2']").trigger('click');
 //                });

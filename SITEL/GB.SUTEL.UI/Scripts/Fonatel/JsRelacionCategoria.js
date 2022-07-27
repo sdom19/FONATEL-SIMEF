@@ -3,7 +3,7 @@
 
         "btnEliminar": ".btnEliminarRelacion",
         "btnGuardar": "#btnGuardarRelacion",
-        "btnCancelar": "btnCancelarRelacion",
+        "btnCancelar": "#btnCancelarRelacion",
         "btnCancelarDetalle":"#btnCancelarDetalle",
         "btnAgregarRelacion": "#TablaRelacionCategoria tbody tr td .btn-add",
         "btnEditarRelacion": "#TablaRelacionCategoria tbody tr td .btn-edit",
@@ -79,7 +79,7 @@ $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, functio
 $(document).on("click", JsRelacion.Controles.btnDeleteRelacion, function (e) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina la Relación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Relación ha sido eliminado")
+            jsMensajes.Metodos.OkAlertModal("La relación ha sido eliminado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
         });
 });

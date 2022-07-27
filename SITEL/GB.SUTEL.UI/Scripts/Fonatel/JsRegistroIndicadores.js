@@ -8,7 +8,9 @@
         "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
         "btnDescargarPlantillaRegistro": "#btnDescargarPlantillaRegistro",
         "fileCargaRegistro":"#fileCargaRegistro",
-
+        "btnCancelar": "#btnCancelarRegistroIndicador",
+        "btnGuardar": "#btnGuardarRegistroIndicador",
+        "btnCarga": "#btnCargaRegistroIndicador",
         "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
         "InputSelect2": (id, option) => `<div class="select2-wrapper">
                                                     <select class="listasDesplegables" id="${id}" >
@@ -30,6 +32,40 @@
 
 }
 
+
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCancelar, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            window.location.href = "/Fonatel/RegistroIndicadorFonatel/Index";
+        });
+});
+
+
+
+
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardar, function (e) {
+    e.preventDefault();
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RegistroIndicadorFonatel/Index";});
+        });
+});
+
+
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCarga, function (e) {
+    e.preventDefault();
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga de la información?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("La carga de información ha sido completada")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RegistroIndicadorFonatel/Index"; });
+        });
+});
+
+
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnllenadoweb, function () {
     let id = 1;
     window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create?id=" + id;
@@ -37,9 +73,9 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnllenadoweb, func
 
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Descargar el Formulario", null, "Descargar Registro")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido Descargado")
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
                
         });
 });

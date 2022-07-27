@@ -26,9 +26,9 @@ $(document).on("click", JsHistorico.Controles.btnCancelarHistorico, function (e)
 
 $(document).on("click", JsHistorico.Controles.btnDescargarHistorico, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Generar el Reporte?", "", "Generar Registro")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea generar el Reporte?", "", "Generar Registro")
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El reporte ha sido generado")
+            jsMensajes.Metodos.OkAlertModal("El Reporte ha sido generado")
                 .set('onok', function (closeEvent) { window.location.href = "/" });
         });
 

@@ -21,7 +21,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Gestión Registro de Indicador</h2>
+            <h2 class="page-title-fonatel text-center">Estado Programa 1</h2>
             <hr />
         </div>
     </div>
@@ -56,23 +56,23 @@
                 <div class="col-sm-12 mt-4">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="txtDescripcionRegla" class="col-form-label">Descripción</label>
-                            <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Descripción"></textarea>
+                            <label for="txtDescripcionRegla" class="col-form-label">Notas del Encargado</label>
+                            <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Notas"></textarea>
                             <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="txtDescripcionRegla" class="col-form-label">Descripción</label>
-                            <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Descripción"></textarea>
+                            <label for="txtDescripcionRegla" class="col-form-label">Notas del Informante</label>
+                            <textarea class="form-control form-control-fonatel textarea" id="txtDescripcionRegla" placeholder="Notas"></textarea>
 
                         </div>
                     </div>
                 </div>
 
                 <div class="col-sm-12 text-center mb-2" style="display: flow-root;">
-                    <button id="btnDescargarPlantillaRegistro" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
-                    <button id="btnCargarPlantillaRegistro" class="btn btn-fonatel btn-success-fonatel">Cargar plantilla</button>
+                    <button id="btnDescargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Descargar" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
+                    <button id="btnCargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-success-fonatel">Cargar plantilla</button>
                 </div>
             </div>
 
@@ -101,9 +101,9 @@
 
             <div class="row mt-4">
                 <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
-                    <button type="submit" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-                    <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
+                    <button type="submit" id="btnValidarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Validar" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
+                    <button type="submit" id="btnGuardarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Guardar" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+                    <button type="submit" id="btnCancelarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
                 </div>
 
                 <div class="col-sm-12 text-center mb-2" style="display: flow-root;">
-                    <button id="btnGuardarCategoria" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
+                    <button id="btnGuardarCategoría" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
                     <button type="submit" class="btn btn-fonatel btn-success-fonatel">Cargar plantilla</button>
                 </div>
             </div>
@@ -173,9 +173,9 @@
 
             <div class="row mt-4">
                 <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
-                    <button type="submit" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-                    <button type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
+                    <button type="submit"  id="btnValidarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Validar" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
+                    <button type="submit" id="btnGuardarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Guardar" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+                    <button type="submit" id="btnCancelarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
                 </div>
             </div>
         </div>
@@ -186,7 +186,7 @@
 
     <div class="row mt-4">
         <div class="col-sm-12 text-center">
-            <button type="submit" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonCargar</button>
+            <button type="submit" id="btnCargaRegistroIndicador" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonCargar</button>
         </div>
     </div>
 </div>

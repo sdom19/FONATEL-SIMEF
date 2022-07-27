@@ -97,7 +97,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el Tipo de Regla?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("Se ha configurado una regla a la Variable")
+            jsMensajes.Metodos.OkAlertModal("El Tipo de Regla ha sido agregado")
                 .set('onok', function (closeEvent) {
                
                 });
@@ -138,7 +138,7 @@ $(document).on("click", JsReglas.Controles.btnClonarRegla, function () {
 $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Regla?",jsMensajes.Variables. actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Regla ha Sido Eliminada de Manera Correcta")
+            jsMensajes.Metodos.OkAlertModal("La Regla ha sido eliminada ")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/ReglasValidacion/index" });
         });
 });
@@ -162,7 +162,7 @@ $(document).on("click", JsReglas.Controles.btnSiguienteTipoSiguiente, function (
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Regla ha Sido Agregada de Manera Correcta")
+            jsMensajes.Metodos.OkAlertModal("La Regla ha sido agregada ")
                 .set('onok', function (closeEvent) {
                     window.location.href = "/Fonatel/ReglasValidacion/index"
                 });
