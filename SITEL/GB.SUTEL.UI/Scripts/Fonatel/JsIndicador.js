@@ -83,7 +83,7 @@ $(document).on("click", JsIndicador.Controles.btnEliminarVariable, function () {
     let id = 1;
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Variable?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Variable ha sido Eliminada")
+            jsMensajes.Metodos.OkAlertModal("La Variable ha sido eliminada")
                 .set('onok', function (closeEvent) {  });
         });
 });

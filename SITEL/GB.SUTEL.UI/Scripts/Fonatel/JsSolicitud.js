@@ -145,7 +145,7 @@ $(document).on("click", JsSolicitud.Controles.btnEnvioSolicitud, function () {
 $(document).on("click", JsSolicitud.Controles.btnEliminarSolicituProgramardEnvio, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Programación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Programación ha Sido Eliminada")
+            jsMensajes.Metodos.OkAlertModal("La Programación ha sido eliminada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });

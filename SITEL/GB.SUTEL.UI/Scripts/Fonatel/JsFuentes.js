@@ -70,7 +70,7 @@ $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e)
 $(document).on("click", JsFuentes.Controles.btnBorrarFuente, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Fuente?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Fuente ha Sido Eliminada de Manera Correcta")
+            jsMensajes.Metodos.OkAlertModal("La Fuente ha sido eliminada ")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });
         });
 });

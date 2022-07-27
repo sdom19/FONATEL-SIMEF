@@ -175,7 +175,7 @@ $(document).on("click", JsFormulasCalculo.Controles.btnEliminarDetalleAgregacion
 
 
 $(document).on("change", JsFormulasCalculo.Controles.radioTotal, function () {
-   
+    $(JsFormulasCalculo.Controles.divInputCategoríaDesagregacion).css("display", "none");
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnAtrasGestionFormula, function (e) {
