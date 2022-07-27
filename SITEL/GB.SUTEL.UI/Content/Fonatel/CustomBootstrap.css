@@ -14,7 +14,7 @@
     --light-1-blue-2-fonatel: #4098a6;
     --light-1-blue-fonatel: #00B3E6;
     --light-2-blue-fonatel: #EDF1F7;
-    --orange-fonatel: #F58A3B;
+    --orange-fonatel: #D8691E;
     --red-fonatel: #FF0007;
     --gray-fonatel: #F6F8FD;
     --gray-fonatel-footer: #E0E0E0;
@@ -158,147 +158,6 @@
 .btn-purple-fonatel:hover, .btn-purple-fonatel:focus {
     color: #ffffff;
 }
-/*
-.btn-icon-base {
-    opacity: 1;
-    width: 22px;
-    height: 22px;
-    margin: 8px;
-    border: none;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    background-position: center;
-    transition: 0.15s;
-}
-
-.btn-icon-base:hover {
-    opacity:0.6;
-}
-    .btn-icon-base[disabled] {
-        opacity: 0.5;
-    }
-
-.btn-add {
-    background-image: url("../../Images/icon-add.svg");
-}
-
-.btn-calendar {
-    background-image: url("../../Images/icon-calendar.svg");
-}
-
-.btn-calendar-disabled {
-    background-image: url("../../Images/icon-calendar-disabled.svg");
-}
-
-.btn-sent {
-    background-image: url("../../Images/icon-sent.svg");
-}
-
-.btn-sent-disabled {
-    background-image: url("../../Images/icon-sent-disabled.svg");
-}
-
-.btn-home {
-    background-image: url("../../Images/icon-home.svg");
-}
-
-.btn-edit {
-    background-image: url("../../Images/icon-edit.svg");
-}
-
-.btn-delete {
-    background-image: url("../../Images/icon-delete.svg");
-}
-
-.btn-view {
-    background-image: url("../../Images/icon-view.svg");
-}
-
-.btn-clone {
-    background-image: url("../../Images/icon-clone.svg");
-}
-
-.btn-download {
-    background-image: url("../../Images/icon-download.svg");
-}
-
-.btn-upload {
-    background-image: url("../../Images/icon-upload.svg");
-}
-
-.btn-power-off {
-    background-image: url("../../Images/icon-power-off.svg");
-}
-
-.btn-power-on {
-    background-image: url("../../Images/icon-power-on.svg");
-}
-
-.btn-yes {
-    content: url("../../Images/icon-power-on.svg");
-}
-
-.btn-cancel {
-    background-image: url("../../Images/icon-cancel.svg");
-}
-
-.btn-addition {
-    background-image: url("../../Images/icon-math-addition.svg");
-}
-
-.btn-division {
-    background-image: url("../../Images/icon-math-division.svg");
-}
-
-.btn-multiplication {
-    background-image: url("../../Images/icon-math-multiplication.svg");
-}
-
-.btn-parentheses-close {
-    background-image: url("../../Images/icon-math-parentheses-close.svg");
-}
-
-.btn-parentheses-open {
-    background-image: url("../../Images/icon-math-parentheses-open.svg");
-}
-
-.btn-subtraction {
-    background-image: url("../../Images/icon-math-subtraction.svg");
-}
-
-.btn-less-than {
-    background-image: url("../../Images/icon-less-than.svg");
-}
-
-.btn-greater-than {
-    background-image: url("../../Images/icon-greater-than.svg");
-}
-
-.btn-less-than-or-equal-to {
-    background-image: url("../../Images/icon-less-than-or-equal-to.svg");
-}
-
-.btn-greater-than-or-equal-to {
-    background-image: url("../../Images/icon-greater-than-or-equal-to.svg");
-}
-
-.btn-equal-to {
-    background-image: url("../../Images/icon-equal-to.svg");
-}
-
-.btn-numberic-constants {
-    background-image: url("../../Images/icon-number-constants.svg");
-}
-
-.btn-reload {
-    background-image: url("../../Images/icon-reload.svg");
-}
-
-.btn-save {
-    background-image: url("../../Images/icon-save.svg");
-}
-*/
 
 .btn-icon-base {
     width: 22px;
@@ -466,6 +325,14 @@
 
 .btn-save:before {
     background-image: url("../../Images/icon-save.svg");
+}
+
+.btn-touch:before {
+    background-image: url("../../Images/icon-touch.svg")
+}
+
+.btn-touch-disabled:before {
+    background-image: url("../../Images/icon-touch-disabled.svg")
 }
 
 /*

@@ -637,8 +637,11 @@
     <Content Include="Images\icon-reload.svg" />
     <Content Include="Images\icon-save.svg" />
     <Content Include="Images\icon-search.svg" />
+    <Content Include="Images\icon-sent-disabled.svg" />
     <Content Include="Images\icon-sent.svg" />
     <Content Include="Images\icon-success.svg" />
+    <Content Include="Images\icon-touch-disabled.svg" />
+    <Content Include="Images\icon-touch.svg" />
     <Content Include="Images\icon-upload.svg" />
     <Content Include="Images\icon-view.svg" />
     <Content Include="Images\question.svg" />
