@@ -77,9 +77,9 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function 
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Programación a las Solicitud?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la programación a las solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Programación a Sido Creada")
+            jsMensajes.Metodos.OkAlertModal("La Programación a sido creada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });
@@ -88,7 +88,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Solicitud a Sido Creada")
+            jsMensajes.Metodos.OkAlertModal("La Solicitud a sido creada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });

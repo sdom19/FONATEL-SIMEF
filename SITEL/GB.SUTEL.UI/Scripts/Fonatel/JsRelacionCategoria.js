@@ -3,7 +3,7 @@
 
         "btnEliminar": ".btnEliminarRelacion",
         "btnGuardar": "#btnGuardarRelacion",
-        "btnCancelar": "btnCancelarRelacion",
+        "btnCancelar": "#btnCancelarRelacion",
         "btnCancelarDetalle":"#btnCancelarDetalle",
         "btnAgregarRelacion": "#TablaRelacionCategoria tbody tr td .btn-add",
         "btnEditarRelacion": "#TablaRelacionCategoria tbody tr td .btn-edit",
