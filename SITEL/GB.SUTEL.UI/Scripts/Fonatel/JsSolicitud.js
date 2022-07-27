@@ -102,7 +102,7 @@ $(document).on("click", JsSolicitud.Controles.btnDeleteSolicitud, function (e) {
 });
 
 $(document).on("click", JsSolicitud.Controles.btnsent, function (e) {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Enviar la Solicitud?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Enviar la Solicitud?", null, "Enviar Registro")
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido enviada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
