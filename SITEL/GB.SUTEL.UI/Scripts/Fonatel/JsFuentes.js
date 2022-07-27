@@ -35,7 +35,7 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para la Fuente?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido creada")
+            jsMensajes.Metodos.OkAlertModal("La Fuente ha sido creada")
                 .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click');  });
         });
 });
@@ -60,9 +60,9 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function 
 
 $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el Destinatario a la Fuente?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el destinatario a la Fuente?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Destinatario ha sido creado")
+            jsMensajes.Metodos.OkAlertModal("El destinatario ha sido creado")
                 .set('onok', function (closeEvent) { });
         });
 });
