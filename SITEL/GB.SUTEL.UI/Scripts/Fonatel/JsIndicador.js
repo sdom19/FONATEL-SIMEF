@@ -3,6 +3,7 @@
             "btnstep": ".step_navigation_indicador div",
             "divContenedor": ".stepwizard-content-container",
             "btnGuardarIndicador": "#btnGuardarIndicador",
+            "btnFinalizar":"#btnFinalizarIndicador",
             "btnSiguienteIndicador":"#btnSiguienteIndicador",
             "btnGuardarVariable": "#btnGuardarVariable",
             "btnGuardarCategoría": "#btnGuardarCategoría",
@@ -41,6 +42,19 @@ $(document).on("click", JsIndicador.Controles.btnCancelar, function (e) {
         });
 });
 
+
+
+$(document).on("click", JsIndicador.Controles.btnFinalizar, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido agregado")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
+        });
+});
+
+
+
 $(document).on("click", JsIndicador.Controles.btnEditarIndicador, function () {
     let id = $(this).val();
     window.location.href = "/Fonatel/IndicadorFonatel/Create?id=" + id;
@@ -62,9 +76,9 @@ $(document).on("click", JsIndicador.Controles.btnAddIndicadorVariable, function 
 
 
 $(document).on("click", JsIndicador.Controles.btnDesactivarIndicador, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar el Indicador?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Indicador?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido activado")
+            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido desactivado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
         });
 });
@@ -92,9 +106,9 @@ $(document).on("click", JsIndicador.Controles.btnEliminarVariable, function () {
 
 
 $(document).on("click", JsIndicador.Controles.btnActivarIndicador, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Indicadores?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar el Indicador?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Indicador ha sido Desactivado")
+            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido activado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
         });
 });
@@ -106,7 +120,10 @@ $(document).on("click", JsIndicador.Controles.btnGuardarIndicador, function (e) 
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial del Indicador?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            $("a[href='#step-2']").trigger('click');
+
+            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
+                .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click'); });
+            
         });
 });
 
@@ -161,9 +178,9 @@ $(document).on("click", JsIndicador.Controles.btnAtrasCategoría, function (e) {
 $(document).on("click", JsIndicador.Controles.btnGuardarVariable, function (e) {
     e.preventDefault();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Variable?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Variable ha sido creada")
+            jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
                 .set('onok', function (closeEvent) { });
         });
 });
@@ -173,7 +190,7 @@ $(document).on("click", JsIndicador.Controles.btnGuardarCategoría, function (e)
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido creada")
+            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido agregada")
                 .set('onok', function (closeEvent) { });
         });
 });

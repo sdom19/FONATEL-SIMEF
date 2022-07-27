@@ -97,7 +97,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el Tipo de Regla?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("Se ha configurado una regla a la Variable")
+            jsMensajes.Metodos.OkAlertModal("El Tipo de Regla ha sido agregado")
                 .set('onok', function (closeEvent) {
                
                 });

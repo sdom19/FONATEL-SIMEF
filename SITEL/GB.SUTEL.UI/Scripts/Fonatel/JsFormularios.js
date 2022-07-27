@@ -9,6 +9,7 @@
         "btnActivadoFormulario": "#TablaFormulario tbody tr td .btn-power-on",
         "btnGuardar": "#btnGuardarFormulario",
         "btnCancelar": "#btnCancelarFormulario",
+        "btnGuardarIndicador":"#btnGuardarIndicadorFormulario",
         "divContenedor": ".contenedor_formulario",
         "btnAtrasFormularioRegla": "#btnAtrasFormularioRegla",
         "btnGuardarFormularioCompleto":"#btnGuardarFormularioCompleto"
@@ -32,6 +33,18 @@ $(document).on("click", JsFormulario.Controles.btnCancelar, function (e) {
 });
 
 
+
+$(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido agregado")
+                .set('onok', function (closeEvent) { });
+            });
+       
+});
+
+
 $(document).on("click", JsFormulario.Controles.btnEditarFormulario, function () {
     let id = 1;
     window.location.href = "/Fonatel/FormularioWeb/Create?id=" + id;
@@ -48,7 +61,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El formulario ha sido creado")
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido creado")
                 .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click'); });
         });
 });
@@ -104,7 +117,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, fun
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Formulario ha Sido Completado")
+            jsMensajes.Metodos.OkAlertModal("La Formulario ha sido creado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
         });
 });

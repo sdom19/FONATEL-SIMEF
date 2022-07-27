@@ -38,7 +38,11 @@
         "ddlCategoría_ModalDetalle": "#ddlCategoría_ModalDetalle",
         "ddlDetalle_ModalDetalle": "#ddlDetalle_ModalDetalle",
         "ddlCriterio_ModalDetalle": "#ddlCriterio_ModalDetalle",
-
+        "btnEliminarFormula": "#Tablaformulasdetalle tbody tr td .btn-delete",
+        "btnActivarFormula": "#Tablaformulasdetalle tbody tr td .btn-power-on",
+        "btnEditFormula": "#Tablaformulasdetalle tbody tr td .btn-edit",
+        "btnCloneFormula": "#Tablaformulasdetalle tbody tr td .btn-clone",
+        "btnDesactivarFormula": "#Tablaformulasdetalle tbody tr td .btn-power-off",
         //Modal Fechas - Formula de cálculo
         "ddlTipoFechaFinalModalFechaFormula": "#ddlTipoFechaFinalModalFechaFormula",
         "ddlTipoFechaInicioModalFechaFormula": "#ddlTipoFechaInicioModalFechaFormula",
@@ -73,6 +77,65 @@ $(document).on("click", JsFormulasCalculo.Controles.btnCancelar, function (e) {
             window.location.href = "/Fonatel/FormulaCalculo/Index";
         });
 });
+
+
+$(document).on("click", JsFormulasCalculo.Controles.btnEliminarFormula, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Fórmula?", jsMensajes.Variables.actionType.eliminar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido eliminada")
+                .set('onok', function (closeEvent) {
+                    window.location.href = "/Fonatel/FormulaCalculo/Index";
+                });       
+        });
+});
+
+
+
+$(document).on("click", JsFormulasCalculo.Controles.btnDesactivarFormula, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Fórmula?", jsMensajes.Variables.actionType.estado)
+        .set('onok', function (closeEvent) {
+
+            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido activada")
+                .set('onok', function (closeEvent) {
+                    window.location.href = "/Fonatel/FormulaCalculo/Index";
+                });
+        });
+});
+
+
+
+
+$(document).on("click", JsFormulasCalculo.Controles.btnCloneFormula, function () {
+    let id = 1
+    window.location.href = "/Fonatel/FormulaCalculo/Create?id=" + id;
+});
+
+
+$(document).on("click", JsFormulasCalculo.Controles.btnEditFormula, function () {
+    let id = 1
+    window.location.href = "/Fonatel/FormulaCalculo/Create?id=" + id;
+});
+
+
+
+
+
+$(document).on("click", JsFormulasCalculo.Controles.btnActivarFormula, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Fórmula?", jsMensajes.Variables.actionType.estado)
+        .set('onok', function (closeEvent) {
+
+            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido desactivada")
+                .set('onok', function (closeEvent) {
+                    window.location.href = "/Fonatel/FormulaCalculo/Index";
+                });
+        });
+});
+
+
+
 $(document).on("change", JsFormulasCalculo.Controles.radioCategoríaDesagregacion, function () {
     $(JsFormulasCalculo.Controles.divInputCategoríaDesagregacion).css("display", "block");
 });
@@ -202,9 +265,9 @@ $(document).on("click", JsFormulasCalculo.Controles.btnSiguienteFormulaCalculo, 
 
 $(document).on("click", JsFormulasCalculo.Controles.btnFinalizarFormulaCalculo, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la fórmula de cálculo?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Fórmula de Cálculo?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La fórmula ha sido agregada correctamente.")
+            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido agregada")
                 .set('onok', function (closeEvent) {
                     window.location.href = "/Fonatel/FormulaCalculo/Index"
                 });

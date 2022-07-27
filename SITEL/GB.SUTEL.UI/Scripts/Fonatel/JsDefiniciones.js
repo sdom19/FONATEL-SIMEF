@@ -58,7 +58,7 @@ $(document).on("click", JsDefiniciones.Controles.btnGuardar, function (e) {
 $(document).on("click", JsDefiniciones.Controles.btnDeleteDefiniciones, function (e) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina la Definición?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Definición ha sido eliminada")
+            jsMensajes.Metodos.OkAlertModal("La Definición ha sido eliminada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/DefinicionIndicadores/index" });
         });
 });
