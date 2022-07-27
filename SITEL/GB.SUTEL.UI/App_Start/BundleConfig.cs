@@ -45,7 +45,8 @@ namespace GB.SUTEL.UI
                "~/Scripts/Fonatel/JsHistorico.js",
                "~/Scripts/Fonatel/JsRegistroIndicadores.js",
                  "~/Scripts/Fonatel/JsEditarFormularioWeb.js",
-               "~/Scripts/Fonatel/JsFormulasCalculo.js"));
+               "~/Scripts/Fonatel/JsFormulasCalculo.js",
+               "~/Scripts/Fonatel/JsBitacoraFonatel.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/internalSelectRowGrid").Include(
                 "~/Scripts/selectRowGrid.js",

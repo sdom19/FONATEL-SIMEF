@@ -665,6 +665,7 @@
     <Content Include="Scripts\DataTables\scroller.bootstrap.js" />
     <Content Include="Scripts\DataTables\scroller.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\vfs_fonts.js" />
+    <Content Include="Scripts\Fonatel\JsBitacoraFonatel.js" />
     <Content Include="Scripts\Fonatel\JsDefiniciones.js" />
     <Content Include="Scripts\Fonatel\JsDescargaFormularioWeb.js" />
     <Content Include="Scripts\Fonatel\JsEditarFormularioWeb.js" />

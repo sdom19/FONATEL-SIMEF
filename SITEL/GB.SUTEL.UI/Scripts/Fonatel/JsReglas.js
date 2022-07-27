@@ -3,6 +3,7 @@
             "ddlVariableRegla":"#ddlVariableRegla",
             "ddlTipoRegla": "#ddlTipoRegla",
             "btnGuardarRegla": "#btnGuardarRegla",
+            "btnCancelar":"#btnCancelarRegla",
             "btnSiguienteRegla":"#btnSiguienteRegla",
             "btnEditarRegla": "#TableReglaDesagregacion tbody tr td .btn-edit",
             "btnClonarRegla": "#TableReglaDesagregacion tbody tr td .btn-clone",
@@ -78,6 +79,13 @@
     }
 }
 
+$(document).on("click", JsReglas.Controles.btnCancelar, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            window.location.href = "/Fonatel/ReglasValidacion/Index";
+        });
+});
 
 
 $(document).on("click", JsReglas.Controles.btnEditarRegla, function () {
@@ -87,9 +95,9 @@ $(document).on("click", JsReglas.Controles.btnEditarRegla, function () {
 
 $(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar el Tipo de Regla?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el Tipo de Regla?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("Se ha Configurado una regla a la Variable")
+            jsMensajes.Metodos.OkAlertModal("Se ha configurado una regla a la Variable")
                 .set('onok', function (closeEvent) {
                
                 });
@@ -102,7 +110,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("Se ha Configurado una regla a la Variable")
+            jsMensajes.Metodos.OkAlertModal("Se ha configurado una regla a la Variable")
                 .set('onok', function (closeEvent) {
                     $("a[href='#step-2']").trigger('click');
                 });
@@ -121,14 +129,14 @@ $(document).on("click", JsReglas.Controles.btnSiguienteRegla, function (e) {
 
 $(document).on("click", JsReglas.Controles.btnClonarRegla, function () {
     let id = 1;
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Clonar la Regla?", jsMensajes.Variables.actionType.clonar )
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Regla?", jsMensajes.Variables.actionType.clonar )
         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/ReglasValidacion/Create?id=" + id});
 });
 
 
 
 $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Eliminar la Regla?",jsMensajes.Variables. actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Regla?",jsMensajes.Variables. actionType.eliminar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Regla ha Sido Eliminada de Manera Correcta")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/ReglasValidacion/index" });
@@ -152,7 +160,7 @@ $(document).on("click", JsReglas.Controles.btnAtrasRegla, function (e) {
 
 $(document).on("click", JsReglas.Controles.btnSiguienteTipoSiguiente, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Agregar la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Regla ha Sido Agregada de Manera Correcta")
                 .set('onok', function (closeEvent) {
