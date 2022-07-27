@@ -98,7 +98,7 @@ $(document).on("click", JsCategoria.Controles.btnDesactivarCategoria, function (
 });
 
 $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Desactivar la Categoría?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Categoría?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Categoría ha sido desactivada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
@@ -133,7 +133,7 @@ $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, functi
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Detalle ha sido agregado")
+            jsMensajes.Metodos.OkAlertModal("El detalle ha sido agregado")
                 .set('onok', function (closeEvent) {  });
         });
 });

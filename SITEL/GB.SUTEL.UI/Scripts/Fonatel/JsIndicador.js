@@ -5,17 +5,17 @@
             "btnGuardarIndicador": "#btnGuardarIndicador",
             "btnSiguienteIndicador":"#btnSiguienteIndicador",
             "btnGuardarVariable": "#btnGuardarVariable",
-            "btnGuardarCategoria": "#btnGuardarCategoria",
+            "btnGuardarCategoría": "#btnGuardarCategoría",
             "btnEditarIndicador": "#TableIndicador tbody tr td .btn-edit",
             "btnDesactivarIndicador": "#TableIndicador tbody tr td .btn-power-off",
             "btnActivarIndicador": "#TableIndicador tbody tr td .btn-power-on",
             "btnEliminarIndicador": "#TableIndicador tbody tr td .btn-delete",
             "btnClonarIndicador": "#TableIndicador tbody tr td .btn-clone",
             "btnAddIndicadorVariable": "#TableIndicador tbody tr td .variable",
-            "btnAddIndicadorCategoria": "#TableIndicador tbody tr td .categoria",
+            "btnAddIndicadorCategoría": "#TableIndicador tbody tr td .Categoría",
             "btnEliminarVariable":"#TableDetalleVariable tbody tr td .btn-delete",
-            "btnSiguienteCategoria": "#btnSiguienteCategoria",
-            "btnAtrasCategoria": "#btnAtrasCategoria",
+            "btnSiguienteCategoría": "#btnSiguienteCategoría",
+            "btnAtrasCategoría": "#btnAtrasCategoría",
             "btnSiguienteVariable": "#btnSiguienteVariable",
             "btnAtrasVariable": "#btnAtrasVariable",
             "btnCancelar":"#btnCancelarIndicador"
@@ -48,9 +48,9 @@ $(document).on("click", JsIndicador.Controles.btnEditarIndicador, function () {
 
 
 
-$(document).on("click", JsIndicador.Controles.btnAddIndicadorCategoria, function () {
+$(document).on("click", JsIndicador.Controles.btnAddIndicadorCategoría, function () {
     let id = 1;
-    window.location.href = "/Fonatel/IndicadorFonatel/DetalleCategoria?id=" + id;
+    window.location.href = "/Fonatel/IndicadorFonatel/DetalleCategoría?id=" + id;
 });
 
 $(document).on("click", JsIndicador.Controles.btnAddIndicadorVariable, function () {
@@ -64,7 +64,7 @@ $(document).on("click", JsIndicador.Controles.btnAddIndicadorVariable, function 
 $(document).on("click", JsIndicador.Controles.btnDesactivarIndicador, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar el Indicador?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido Activado")
+            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido activado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
         });
 });
@@ -92,9 +92,9 @@ $(document).on("click", JsIndicador.Controles.btnEliminarVariable, function () {
 
 
 $(document).on("click", JsIndicador.Controles.btnActivarIndicador, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Desactivar el Indicadores?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Indicadores?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido Desactivada")
+            jsMensajes.Metodos.OkAlertModal("La Indicador ha sido Desactivado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
         });
 });
@@ -134,18 +134,18 @@ $(document).on("click", JsIndicador.Controles.btnAtrasVariable, function (e) {
 });
 
 
-$(document).on("click", JsIndicador.Controles.btnSiguienteCategoria, function (e) {
+$(document).on("click", JsIndicador.Controles.btnSiguienteCategoría, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Indicador ha sido Agregado")
+            jsMensajes.Metodos.OkAlertModal("La Indicador ha sido agregado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
         });
 
 });
 
 
-$(document).on("click", JsIndicador.Controles.btnAtrasCategoria, function (e) {
+$(document).on("click", JsIndicador.Controles.btnAtrasCategoría, function (e) {
     e.preventDefault();
     $("a[href='#step-2']").trigger('click');
 
@@ -168,7 +168,7 @@ $(document).on("click", JsIndicador.Controles.btnGuardarVariable, function (e) {
         });
 });
 
-$(document).on("click", JsIndicador.Controles.btnGuardarCategoria, function (e) {
+$(document).on("click", JsIndicador.Controles.btnGuardarCategoría, function (e) {
     e.preventDefault();
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)

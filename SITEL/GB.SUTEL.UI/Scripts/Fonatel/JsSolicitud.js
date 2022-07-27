@@ -96,7 +96,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
 $(document).on("click", JsSolicitud.Controles.btnDeleteSolicitud, function (e) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina la Relación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Relación ha sido eliminado")
+            jsMensajes.Metodos.OkAlertModal("La relación ha sido eliminado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });
@@ -113,14 +113,14 @@ $(document).on("click", JsSolicitud.Controles.btnDesactivadoSolicitud, function 
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Solicitud ha Sido Activada")
+            jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido activada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });
 
 $(document).on("click", JsSolicitud.Controles.btnActivadoSolicitud, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Desactivar la Solicitud?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido desactivado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });

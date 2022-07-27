@@ -78,15 +78,15 @@ $(document).on("click", JsFormulario.Controles.btnDesactivadoFormulario, functio
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Formulario ha Sido Activada")
+            jsMensajes.Metodos.OkAlertModal("La Formulario ha sido activada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
         });
 });
 $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Desactivar el Formulario?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Formulario ha Sido Activada")
+            jsMensajes.Metodos.OkAlertModal("La Formulario ha sido activada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
         });
 });
