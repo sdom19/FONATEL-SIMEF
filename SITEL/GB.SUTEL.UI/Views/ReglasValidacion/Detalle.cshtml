@@ -1,8 +1,12 @@
 ﻿@using GB.SIMEF.Resources;
 
 @{
-    ViewBag.Title = "View";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Detalle";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/ReglasValidacion")
 }
 
 <div class="container body-content">

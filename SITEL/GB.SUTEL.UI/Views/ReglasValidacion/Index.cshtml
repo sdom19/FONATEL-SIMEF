@@ -2,7 +2,11 @@
 
 @{
     ViewBag.Title = "Reglas de Validación";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/ReglasValidacion")
 }
 
 <div class="container body-content">
@@ -17,7 +21,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h2 class="page-title-fonatel text-center">Reglas de Validación</h2>
-            <hr/>
+            <hr />
         </div>
         <div class="col-lg-12">
             <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="Crear" alt="Crear" href="/Fonatel/ReglasValidacion/Create">@Etiquetas.BotonCrear</a>

@@ -2,8 +2,13 @@
 
 @{
     ViewBag.Title = "Reglas de Validación";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
+
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/ReglasValidacion")
+}
+
 <div class="container body-content">
     <div class="row">
         <div class="col-sm-12">

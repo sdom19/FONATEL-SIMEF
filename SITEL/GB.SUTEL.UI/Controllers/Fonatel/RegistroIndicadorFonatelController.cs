@@ -18,7 +18,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         // GET: RegistroIndicadorFonatel/Details/5
         [HttpGet]
-        public ActionResult Detalle(int id)
+        public ActionResult Edit(int id)
         {
             return View();
         }

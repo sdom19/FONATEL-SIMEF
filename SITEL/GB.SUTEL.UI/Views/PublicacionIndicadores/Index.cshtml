@@ -2,8 +2,13 @@
 
 @{
     ViewBag.Title = "Publicación de Indicadores";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
+
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/PublicacionIndicador")
+}
+
 <div class="container body-content">
     <div class="text-right">
         <nav aria-label="breadcrumb">

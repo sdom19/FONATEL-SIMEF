@@ -2,9 +2,12 @@
 
 @{
     ViewBag.Title = "Histórico Fonatel";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/HistoricoFonatel")
+}
 
 <div class="container body-content">
     <div class="text-right">

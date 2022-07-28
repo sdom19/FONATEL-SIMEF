@@ -2,9 +2,13 @@
 
 @{
     ViewBag.Title = @EtiquetasViewDefinicionIndicadores.TituloCreate;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
-<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/DefinicionIndicador")
+}
+
 <div class="container body-content">
     <div class="text-right">
         <nav aria-label="breadcrumb">

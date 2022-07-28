@@ -194,8 +194,8 @@
     .btn-icon-base-bg:before,
     .btn-icon-base:before {
         display: block;
-        height: 22px;
-        width: 22px;
+        height: 23px;
+        width: 23px;
         content: ' ';
         background-size: contain;
         background-repeat: no-repeat;
