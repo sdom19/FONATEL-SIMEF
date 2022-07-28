@@ -668,6 +668,7 @@
     <Content Include="Scripts\DataTables\scroller.bootstrap.js" />
     <Content Include="Scripts\DataTables\scroller.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\vfs_fonts.js" />
+    <Content Include="Scripts\Fonatel\jsFonatel.min.js" />
     <Content Include="Scripts\Fonatel\JsBitacoraFonatel.js" />
     <Content Include="Scripts\Fonatel\JsDefiniciones.js" />
     <Content Include="Scripts\Fonatel\JsDescargaFormularioWeb.js" />
@@ -1414,6 +1415,7 @@
     <Content Include="Views\DescargaFormulario\_tableFonatel.cshtml" />
     <Content Include="Views\EditarFormulario\_tableFonatel.cshtml" />
     <Content Include="Views\Shared\_LayoutFonatel.cshtml" />
+    <Content Include="Views\RegistroIndicadorFonatel\Edit.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1436,6 +1438,14 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GB.SIMEF.BL\GB.SIMEF.BL.csproj">
+      <Project>{2809c01e-d303-47ee-b354-7c9ac14c515d}</Project>
+      <Name>GB.SIMEF.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SIMEF.DAL\GB.SIMEF.DAL.csproj">
+      <Project>{efdfefb4-2c0f-490e-8f8e-156c63c26295}</Project>
+      <Name>GB.SIMEF.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GB.SIMEF.Resources\GB.SIMEF.Resources.csproj">
       <Project>{93f172d6-f11b-41d1-bd43-afad2f43d314}</Project>
       <Name>GB.SIMEF.Resources</Name>
