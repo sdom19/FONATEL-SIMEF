@@ -11,6 +11,8 @@
             "btnDesactivarIndicador": "#TableIndicador tbody tr td .btn-power-off",
             "btnActivarIndicador": "#TableIndicador tbody tr td .btn-power-on",
             "btnEliminarIndicador": "#TableIndicador tbody tr td .btn-delete",
+
+            "btnEliminarCategoria":"#TablaDetalleCategoriaIndicador tbody tr td .btn-delete",
             "btnClonarIndicador": "#TableIndicador tbody tr td .btn-clone",
             "btnAddIndicadorVariable": "#TableIndicador tbody tr td .variable",
             "btnAddIndicadorCategoría": "#TableIndicador tbody tr td .Categoría",
@@ -85,7 +87,7 @@ $(document).on("click", JsIndicador.Controles.btnDesactivarIndicador, function (
 
 
 $(document).on("click", JsIndicador.Controles.btnEliminarIndicador, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
@@ -101,7 +103,13 @@ $(document).on("click", JsIndicador.Controles.btnEliminarVariable, function () {
                 .set('onok', function (closeEvent) {  });
         });
 });
-
+$(document).on("click", JsIndicador.Controles.btnEliminarCategoria, function () {
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Categoría?", jsMensajes.Variables.actionType.eliminar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido eliminada")
+                .set('onok', function (closeEvent) { });
+        });
+});
 
 
 

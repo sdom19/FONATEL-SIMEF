@@ -17,7 +17,7 @@
 }
 
 $(document).on("click", JsEditarFormularioWeb.Controles.btndescarga, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario", null, "Descargar Registro")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
                 .set('onok', function (closeEvent) { window.location.href = "/" });

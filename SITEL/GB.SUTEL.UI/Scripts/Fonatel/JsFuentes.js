@@ -5,6 +5,7 @@
         "btnSiguienteFuente":"#btnSiguienteFuente",
         "btnEditarFuente": "#TableFuentes tbody tr td .btn-edit",
         "btnBorrarFuente": "#TableFuentes tbody tr td .btn-delete",
+        "btnBorrarDetalle": "#TableDetalleFuentes tbody tr td .btn-delete",
         "btnAddFuente": "#TableFuentes tbody tr td .btn-add",
         "divContenedor": ".divContenedor_fuentes",
         "btnGuardarDestinatario": "#btnGuardarDestinatario",
@@ -74,6 +75,19 @@ $(document).on("click", JsFuentes.Controles.btnBorrarFuente, function () {
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });
         });
 });
+
+
+
+
+
+$(document).on("click", JsFuentes.Controles.btnBorrarDetalle, function () {
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Destinatario?", jsMensajes.Variables.actionType.eliminar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Destinatario ha sido eliminado")
+                .set('onok', function (closeEvent) { });
+        });
+});
+
 
 $(document).on("click", JsFuentes.Controles.btnAtrasFuentes, function (e) {
     e.preventDefault();
