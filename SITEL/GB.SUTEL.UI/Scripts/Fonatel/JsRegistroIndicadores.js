@@ -16,7 +16,10 @@
                                                     <select class="listasDesplegables" id="${id}" >
                                                     <option></option>${option}</select ></div >`,
         "InputDate": id => `<input type="date" class="form-control form-control-fonatel" id="${id}">`,
-        "InputText": (id, placeholder) => `<input type="text" aria-label="${placeholder}" class="form-control form-control-fonatel alfa_numerico" id="${id}" placeholder="${placeholder}" style="min-width:150px;">`
+        "InputText": (id, placeholder) => `<input type="text" aria-label="${placeholder}" class="form-control form-control-fonatel alfa_numerico" id="${id}" placeholder="${placeholder}" style="min-width:150px;">`,
+
+        "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
+        "inputFileCargarPlantilla": "#inputFileCargarPlantilla"
 
     },
     "Variables": {
@@ -164,3 +167,7 @@ function setSelect2() {
         width: 'resolve'
     });
 }
+
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro, function (e) {
+    $(jsRegistroIndicadorFonatel.Controles.inputFileCargarPlantilla).click();
+});
