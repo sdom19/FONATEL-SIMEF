@@ -2,9 +2,12 @@
 
 @{
     ViewBag.Title = "Relaciones entre Categorías";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/RelacionCategoria")
+}
 
 <div class="container body-content">
     <div class="text-right">

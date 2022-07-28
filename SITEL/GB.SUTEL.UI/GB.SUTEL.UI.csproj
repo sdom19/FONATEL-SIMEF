@@ -1414,8 +1414,8 @@
     <Content Include="Views\FormulaCalculo\_ModalFechaFormulaCalculo.cshtml" />
     <Content Include="Views\DescargaFormulario\_tableFonatel.cshtml" />
     <Content Include="Views\EditarFormulario\_tableFonatel.cshtml" />
-    <Content Include="Views\Shared\_LayoutFonatel.cshtml" />
     <Content Include="Views\RegistroIndicadorFonatel\Edit.cshtml" />
+    <Content Include="Views\Shared\_LayoutFONATEL.cshtml" />
     <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>

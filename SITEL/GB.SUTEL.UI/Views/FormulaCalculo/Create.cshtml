@@ -2,7 +2,11 @@
 
 @{
     ViewBag.Title = "Fórmulas de Cálculo";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/FormulaCalculo")
 }
 
 <div class="row mt-5">

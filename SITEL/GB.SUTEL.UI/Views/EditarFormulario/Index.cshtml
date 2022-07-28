@@ -1,8 +1,13 @@
 ﻿@using GB.SIMEF.Resources;
 @{
     ViewBag.Title = "Descarga y Edición de Formulario";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
+
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/EditarFormulario")
+}
+
 <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
 <div class="container body-content">
     <div class="text-right">

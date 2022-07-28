@@ -1,9 +1,14 @@
-﻿@using GB.SIMEF.Resources; 
+﻿@using GB.SIMEF.Resources;
 
 @{
     ViewBag.Title = "Indicadores";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
+
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/IndicadorFonatel")
+}
+
 <div class="container body-content">
     <div class="text-right">
         <nav aria-label="breadcrumb">
