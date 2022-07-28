@@ -265,7 +265,7 @@ $(document).on("click", JsFormulasCalculo.Controles.btnSiguienteFormulaCalculo, 
 
 $(document).on("click", JsFormulasCalculo.Controles.btnFinalizarFormulaCalculo, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Fórmula de Cálculo?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Fórmula de Cálculo?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido agregada")
                 .set('onok', function (closeEvent) {
@@ -276,9 +276,9 @@ $(document).on("click", JsFormulasCalculo.Controles.btnFinalizarFormulaCalculo, 
 
 $(document).on("click", JsFormulasCalculo.Controles.btnGuardarGestionFormulaCalculo, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Guardar fórmula de cálculo?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Fórmula de Cálculo?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La fórmula ha sido guardada correctamente.")
+            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido creada")
                 .set('onok', function (closeEvent) {
                     window.location.href = "/Fonatel/FormulaCalculo/Index"
                 });

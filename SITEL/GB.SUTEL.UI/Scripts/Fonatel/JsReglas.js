@@ -8,6 +8,7 @@
             "btnEditarRegla": "#TableReglaDesagregacion tbody tr td .btn-edit",
             "btnClonarRegla": "#TableReglaDesagregacion tbody tr td .btn-clone",
             "btnBorrarRegla": "#TableReglaDesagregacion tbody tr td .btn-delete",
+            "btnEliminaTipoRegla":"#TableTipoRegla tbody tr td .btn-delete",
             "btnAddRegla": "#TableReglaDesagregacion tbody tr td .btn-add",
             "btnRemoveReglaDetalle": "#TableReglaDesagregacionDetalle tbody tr td .btn-delete",
             "divFormulaCambioMensual":"#divFormulaCambioMensual",
@@ -100,6 +101,18 @@ $(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
             jsMensajes.Metodos.OkAlertModal("El Tipo de Regla ha sido agregado")
                 .set('onok', function (closeEvent) {
                
+                });
+        });
+});
+
+
+$(document).on("click", JsReglas.Controles.btnEliminaTipoRegla, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar  el Tipo de Regla?", jsMensajes.Variables.actionType.eliminar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Tipo de Regla ha sido eliminada")
+                .set('onok', function (closeEvent) {
+
                 });
         });
 });

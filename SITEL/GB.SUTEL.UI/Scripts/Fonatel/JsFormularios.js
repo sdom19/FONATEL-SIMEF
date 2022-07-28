@@ -3,6 +3,9 @@
         "btnAgregarFormulario": "#TablaFormulario tbody tr td .btn-add",
         "btnEditarFormulario": "#TablaFormulario tbody tr td .btn-edit",
         "btnDeleteFormulario": "#TablaFormulario tbody tr td .btn-delete",
+        "btnDeleteIndicador": "#TableIndicadorFormulario tbody tr td .btn-delete",
+
+        
         "btnSiguienteFormulario":"#btnSiguienteFormulario",
         "btnCloneFormulario": "#TablaFormulario tbody tr td .btn-clone",
         "btnDesactivadoFormulario": "#TablaFormulario tbody tr td .btn-power-off",
@@ -81,6 +84,16 @@ $(document).on("click", JsFormulario.Controles.btnDeleteFormulario, function (e)
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
         });
 });
+
+
+$(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) {
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Indicador?", jsMensajes.Variables.actionType.eliminar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado")
+                .set('onok', function (closeEvent) { });
+        });
+});
+
 
 
 

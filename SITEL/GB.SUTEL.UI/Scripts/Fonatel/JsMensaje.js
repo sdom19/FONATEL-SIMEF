@@ -7,6 +7,7 @@
         "MensajeEliminar": "Eliminar Registro",
         "MensajeConfirmacion": "Proceso Exitoso",
         "ErrorTransaccion": "Ocurrio un Error",
+        "ContentDelete": (mensaje) => { return "<div class='text-center'><div class='icon warning-icon'></div> <strong>" + mensaje + "</strong></div>" },
         "ContentSuccess": (mensaje) => { return "<div class='text-center'><div class='icon success-icon'></div> <strong>" + mensaje + "</strong></div>" },
         "ContentQuestion": (mensaje) => { return "<div class='text-center'><div class='icon question-icon'></div> <strong>" + mensaje + "</strong></div>" },
         "ContentQuestionStatus": (mensaje) => { return "<div class='text-center'><div class='icon warning-icon'></div> <strong>" + mensaje + "</strong></div>" },
@@ -66,11 +67,19 @@
             else {
                 _question = customTitleMessage;
             }
-
-            let alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })
-                .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
-                .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
-            alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
+            let alertifyObject = null;
+            if (actionType == jsMensajes.Variables.actionType.eliminar) {
+                alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })
+                    .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
+                    .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
+                alertifyObject.setContent(jsMensajes.Variables.ContentDelete(mensaje));
+            } else {
+                alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })
+                    .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
+                    .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
+                alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
+            }
+           
 
             return alertifyObject;
         },
