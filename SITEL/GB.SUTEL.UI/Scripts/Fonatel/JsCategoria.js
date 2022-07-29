@@ -28,6 +28,12 @@
         },
 
         "Metodos": {
+            "CerrarFormulario": function () {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Salir del Formulario?", jsMensajes.Variables.actionType.cancelar)
+                    .set('onok', function (closeEvent) {
+                        
+                    }); 
+            },
             "HabilitarControlesTipoCategoria": function (selected) {
                 if (selected == JsCategoria.Variables.TipoFecha) {
                     $(JsCategoria.Controles.divRangoMaximaCategoria).addClass("hidden");
@@ -58,7 +64,8 @@
 $(document).on("click", JsCategoria.Controles.btnCancelar, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
-        .set('onok', function (closeEvent)  { window.location.href = "/Fonatel/CategoriasDesagregacion/Index"; 
+        .set('onok', function (closeEvent) {
+            preguntarAntesDeSalir = false;  window.location.href = "/Fonatel/CategoriasDesagregacion/Index"; 
         });   
 });
 
@@ -71,7 +78,10 @@ $(document).on("click", JsCategoria.Controles.btnCancelarDetalle, function (e) {
 });
 
 
-
+$(document).on("change", JsCategoria.Controles.ddlTipoDetalle, function () {
+    var selected = $(this).val();
+    JsCategoria.Metodos.HabilitarControlesTipoCategoria(selected);
+});
 
 $(document).on("change", JsCategoria.Controles.ddlTipoDetalle, function () {
     var selected = $(this).val();
@@ -157,3 +167,11 @@ $(document).on("click", JsCategoria.Controles.btnClonarCategoria, function () {
 $(document).on("click", JsCategoria.Controles.btnCargarDetalle, function (e) {
     $(JsCategoria.Controles.inputFileCargarDetalle).click();
 });
+
+
+//window.addEventListener('beforeunload', (event) => {
+//    // Cancel the event as stated by the standard.
+//    event.preventDefault();
+//    // Chrome requires returnValue to be set.
+//    event.returnValue = '';
+//});

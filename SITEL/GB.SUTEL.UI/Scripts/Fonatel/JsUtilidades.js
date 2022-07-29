@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
 
     $(".datatable_simef_modal").DataTable({
         language: {
@@ -160,5 +161,4 @@ $(document).on("keypress", '.alfa_numerico', function (e) {
         return false;
     }
 });
-
 

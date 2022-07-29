@@ -1394,7 +1394,6 @@
     <Content Include="Views\FormularioWeb\_ModalTipoIndicador.cshtml" />
     <Content Include="Views\HistoricoFonatel\index.cshtml" />
     <Content Include="Views\ReglasValidacion\_CrearTipoRegla.cshtml" />
-    <Content Include="Views\ReglasValidacion\_TablaDetalleVariable.cshtml" />
     <Content Include="Views\IndicadorFonatel\_ModalUnidadEstudio.cshtml" />
     <Content Include="Views\RegistroIndicador\Ayuda.cshtml" />
     <Content Include="Views\RegistroIndicador\Mensaje.cshtml" />
@@ -1416,7 +1415,8 @@
     <Content Include="Views\EditarFormulario\_tableFonatel.cshtml" />
     <Content Include="Views\RegistroIndicadorFonatel\Edit.cshtml" />
     <Content Include="Views\Shared\_LayoutFONATEL.cshtml" />
-    <None Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
+    <Content Include="Views\ReglasValidacion\_TablaTipoRegla.cshtml" />
+    <Content Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

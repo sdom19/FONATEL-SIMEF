@@ -2,9 +2,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
+
 @* Implementar la section de _Layout *@
 @section stylesheets {
-    @Styles.Render("~/Content/FONATEL/css");
 
     @* Declararle a las subvistas hijas la misma section para que la implementen (false: es opcional) *@
     @RenderSection("stylesheets", false)
