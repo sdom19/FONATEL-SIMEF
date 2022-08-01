@@ -55,5 +55,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GB.SIMEF.Entities\GB.SIMEF.Entities.csproj">
+      <Project>{2ed1985f-eb85-4a08-8f29-6a358e01b7f5}</Project>
+      <Name>GB.SIMEF.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

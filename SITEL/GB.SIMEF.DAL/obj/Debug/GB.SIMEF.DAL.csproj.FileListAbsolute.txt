@@ -1,0 +1,12 @@
+C:\Fonatel\SITEL\GB.SIMEF.DAL\bin\Debug\GB.SIMEF.DAL.dll.config
+C:\Fonatel\SITEL\GB.SIMEF.DAL\bin\Debug\GB.SIMEF.DAL.dll
+C:\Fonatel\SITEL\GB.SIMEF.DAL\bin\Debug\GB.SIMEF.DAL.pdb
+C:\Fonatel\SITEL\GB.SIMEF.DAL\bin\Debug\EntityFramework.dll
+C:\Fonatel\SITEL\GB.SIMEF.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Fonatel\SITEL\GB.SIMEF.DAL\bin\Debug\EntityFramework.xml
+C:\Fonatel\SITEL\GB.SIMEF.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Fonatel\SITEL\GB.SIMEF.DAL\obj\Debug\GB.SIMEF.DAL.csprojAssemblyReference.cache
+C:\Fonatel\SITEL\GB.SIMEF.DAL\obj\Debug\GB.SIMEF.DAL.csproj.CoreCompileInputs.cache
+C:\Fonatel\SITEL\GB.SIMEF.DAL\obj\Debug\GB.SIMEF.DAL.csproj.CopyComplete
+C:\Fonatel\SITEL\GB.SIMEF.DAL\obj\Debug\GB.SIMEF.DAL.dll
+C:\Fonatel\SITEL\GB.SIMEF.DAL\obj\Debug\GB.SIMEF.DAL.pdb
