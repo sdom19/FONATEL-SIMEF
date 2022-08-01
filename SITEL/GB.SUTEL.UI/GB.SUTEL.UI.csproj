@@ -620,6 +620,7 @@
     <Content Include="Images\icon-download.svg" />
     <Content Include="Images\icon-edit.svg" />
     <Content Include="Images\icon-equal-to.svg" />
+    <Content Include="Images\icon-form.svg" />
     <Content Include="Images\icon-greater-than-or-equal-to.svg" />
     <Content Include="Images\icon-greater-than.svg" />
     <Content Include="Images\icon-home.svg" />

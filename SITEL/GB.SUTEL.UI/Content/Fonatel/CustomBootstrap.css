@@ -219,6 +219,11 @@
     background-image: url("../../Images/icon-calendar-disabled.svg");
 }
 
+
+.btn-edit-form:before {
+    background-image: url("../../Images/icon-form.svg");
+}
+
 .btn-sent:before {
     background-image: url("../../Images/icon-sent.svg");
 }

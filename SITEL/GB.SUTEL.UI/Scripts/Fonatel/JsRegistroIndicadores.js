@@ -1,6 +1,6 @@
 ﻿jsRegistroIndicadorFonatel= {
     "Controles": {
-        "btnllenadoweb": "#TableRegistroIndicadorFonatel tbody tr td .btn-home",
+        "btnllenadoweb": "#TableRegistroIndicadorFonatel tbody tr td .btn-edit-form",
         "txtCantidadRegistroIndicador": "#txtCantidadRegistroIndicador",
         "txtCantidadRegistroIndicador": "#txtCantidadRegistroIndicador",
         "tabActivoRegistroIndicador": "div.tab-pane.active",
