@@ -7,7 +7,6 @@
             "divRangoMaximaCategoria": "#divRangoMaximaCategoria",
             "ddlTipoDetalle": "#ddlTipoDetalleCategoria",
             "btnGuardarCategoria": "#btnGuardarCategoria",
-
             "btnCancelar": "#btnCancelarCategoria",
             "btnCancelarDetalle": "#btnCancelarDetalleCategoria",
             "btnEditarCategoria": "#TableCategoriaDesagregacion tbody tr td .btn-edit",
@@ -24,7 +23,8 @@
 
         "Variables": {
             "TipoFecha": 4,
-            "TipoNumerico": 1
+            "TipoNumerico": 1,
+            "OpcionSalir": true
         },
 
         "Metodos": {
@@ -63,6 +63,7 @@
 
 $(document).on("click", JsCategoria.Controles.btnCancelar, function (e) {
     e.preventDefault();
+    JsCategoria.Variables.OpcionSalir = false;
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
             preguntarAntesDeSalir = false;  window.location.href = "/Fonatel/CategoriasDesagregacion/Index"; 
@@ -70,6 +71,7 @@ $(document).on("click", JsCategoria.Controles.btnCancelar, function (e) {
 });
 
 $(document).on("click", JsCategoria.Controles.btnCancelarDetalle, function (e) {
+    JsCategoria.Variables.OpcionSalir = false;
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
@@ -90,12 +92,14 @@ $(document).on("change", JsCategoria.Controles.ddlTipoDetalle, function () {
 
 
 $(document).on("click", JsCategoria.Controles.btnEditarCategoria, function () {
+    JsCategoria.Variables.OpcionSalir = false;
     let id = $(this).val();
     window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id=" + id;
 });
 
 
 $(document).on("click", JsCategoria.Controles.btnAddCategoria, function () {
+    JsCategoria.Variables.OpcionSalir = false;
     let id = 1;
     window.location.href = "/Fonatel/CategoriasDesagregacion/Detalle?id=" + id;
 });
@@ -132,7 +136,7 @@ $(document).on("click", JsCategoria.Controles.btnRemoveCategoriaDetalle, functio
 
 $(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) {
     e.preventDefault();
-
+    JsCategoria.Variables.OpcionSalir = false;
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Categoría ha sido creada")
@@ -170,8 +174,16 @@ $(document).on("click", JsCategoria.Controles.btnCargarDetalle, function (e) {
 
 
 //window.addEventListener('beforeunload', (event) => {
-//    // Cancel the event as stated by the standard.
-//    event.preventDefault();
-//    // Chrome requires returnValue to be set.
-//    event.returnValue = '';
+
+//    if (JsCategoria.Variables.OpcionSalir) {
+//        // Cancel the event as stated by the standard.
+//        event.preventDefault();
+//        // Chrome requires returnValue to be set.
+//        event.returnValue = '';
+//    }
+
 //});
+
+window.addEventListener('navigateback', function () {
+    alert("sadas");
+}, false);
