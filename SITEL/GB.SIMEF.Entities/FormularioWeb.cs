@@ -11,16 +11,16 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class FormularioWeb
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FormularioWeb()
         {
             this.DetalleFormularioWeb = new HashSet<DetalleFormularioWeb>();
             this.DetalleSolicitudFormulario = new HashSet<DetalleSolicitudFormulario>();
         }
-    
+        [Key]
         public int idFormulario { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }

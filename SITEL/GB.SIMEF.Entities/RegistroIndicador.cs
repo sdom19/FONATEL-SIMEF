@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class RegistroIndicador
     {
+        [Key]
         public int idRegistroIndicador { get; set; }
         public int idIndicador { get; set; }
         public int CantidadFilas { get; set; }

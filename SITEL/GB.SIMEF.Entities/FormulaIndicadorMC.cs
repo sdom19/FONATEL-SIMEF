@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class FormulaIndicadorMC
     {
+        [Key]
         public int idFormula { get; set; }
         public int idDetalleIndicador { get; set; }
         public string Criterio { get; set; }

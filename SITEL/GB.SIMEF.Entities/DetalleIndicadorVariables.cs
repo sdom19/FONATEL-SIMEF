@@ -11,16 +11,17 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DetalleIndicadorVariables
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        
         public DetalleIndicadorVariables()
         {
             this.DetalleRegistroIndicadorVariable = new HashSet<DetalleRegistroIndicadorVariable>();
             this.FormulasCalculo = new HashSet<FormulasCalculo>();
         }
-    
+        [Key]
         public int idDetalleIndicador { get; set; }
         public int idIndicador { get; set; }
         public string NombreVariable { get; set; }

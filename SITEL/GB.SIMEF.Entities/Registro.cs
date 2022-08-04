@@ -11,15 +11,16 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Registro
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Registro()
         {
             this.RegistroIndicador = new HashSet<RegistroIndicador>();
         }
-    
+
+        [Key]
         public int idRegistro { get; set; }
         public System.DateTime FechaIncio { get; set; }
         public Nullable<System.DateTime> FechaFin { get; set; }

@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DetalleFuentesRegistro
     {
+        [Key]
         public int idDetalleFuente { get; set; }
         public int idFuente { get; set; }
         public string NombreDestinatario { get; set; }

@@ -11,15 +11,19 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("DetalleCategoriaTexto")]
     public partial class DetalleCategoriaTexto
     {
+        [Key]
         public int idCategoriaDetalle { get; set; }
         public int idCategoria { get; set; }
         public Nullable<int> Codigo { get; set; }
         public string Etiqueta { get; set; }
         public bool Estado { get; set; }
     
-        public virtual CategoriasDesagregacion CategoriasDesagregacion { get; set; }
+        
     }
 }

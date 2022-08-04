@@ -11,48 +11,51 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("EstadoRegistro")]
     public partial class EstadoRegistro
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+       
         public EstadoRegistro()
         {
-            this.CategoriasDesagregacion = new HashSet<CategoriasDesagregacion>();
-            this.DefinicionIndicadores = new HashSet<DefinicionIndicadores>();
-            this.FormularioWeb = new HashSet<FormularioWeb>();
-            this.FormulasCalculo = new HashSet<FormulasCalculo>();
-            this.FuentesRegistro = new HashSet<FuentesRegistro>();
-            this.Indicador = new HashSet<Indicador>();
-            this.Registro = new HashSet<Registro>();
-            this.ReglaValidacion = new HashSet<ReglaValidacion>();
-            this.RelacionCategoria = new HashSet<RelacionCategoria>();
-            this.Solicitud = new HashSet<Solicitud>();
+            //this.CategoriasDesagregacion = new HashSet<CategoriasDesagregacion>();
+            //this.DefinicionIndicadores = new HashSet<DefinicionIndicadores>();
+            //this.FormularioWeb = new HashSet<FormularioWeb>();
+            //this.FormulasCalculo = new HashSet<FormulasCalculo>();
+            //this.FuentesRegistro = new HashSet<FuentesRegistro>();
+            //this.Indicador = new HashSet<Indicador>();
+            //this.Registro = new HashSet<Registro>();
+            //this.ReglaValidacion = new HashSet<ReglaValidacion>();
+            //this.RelacionCategoria = new HashSet<RelacionCategoria>();
+            //this.Solicitud = new HashSet<Solicitud>();
         }
-    
+        [Key]
         public int idEstado { get; set; }
         public string Nombre { get; set; }
         public string Comentarios { get; set; }
         public bool Estado { get; set; }
     
 
-        public virtual ICollection<CategoriasDesagregacion> CategoriasDesagregacion { get; set; }
+        //public virtual ICollection<CategoriasDesagregacion> CategoriasDesagregacion { get; set; }
 
-        public virtual ICollection<DefinicionIndicadores> DefinicionIndicadores { get; set; }
+        //public virtual ICollection<DefinicionIndicadores> DefinicionIndicadores { get; set; }
 
-        public virtual ICollection<FormularioWeb> FormularioWeb { get; set; }
+        //public virtual ICollection<FormularioWeb> FormularioWeb { get; set; }
 
-        public virtual ICollection<FormulasCalculo> FormulasCalculo { get; set; }
+        //public virtual ICollection<FormulasCalculo> FormulasCalculo { get; set; }
 
-        public virtual ICollection<FuentesRegistro> FuentesRegistro { get; set; }
+        //public virtual ICollection<FuentesRegistro> FuentesRegistro { get; set; }
 
-        public virtual ICollection<Indicador> Indicador { get; set; }
+        //public virtual ICollection<Indicador> Indicador { get; set; }
 
-        public virtual ICollection<Registro> Registro { get; set; }
+        //public virtual ICollection<Registro> Registro { get; set; }
 
-        public virtual ICollection<ReglaValidacion> ReglaValidacion { get; set; }
+        //public virtual ICollection<ReglaValidacion> ReglaValidacion { get; set; }
 
-        public virtual ICollection<RelacionCategoria> RelacionCategoria { get; set; }
+        //public virtual ICollection<RelacionCategoria> RelacionCategoria { get; set; }
 
-        public virtual ICollection<Solicitud> Solicitud { get; set; }
+        //public virtual ICollection<Solicitud> Solicitud { get; set; }
     }
 }

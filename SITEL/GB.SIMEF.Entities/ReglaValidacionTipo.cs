@@ -11,10 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ReglaValidacionTipo
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+      
         public ReglaValidacionTipo()
         {
             this.ReglaAtributosValidos = new HashSet<ReglaAtributosValidos>();
@@ -22,7 +23,7 @@ namespace GB.SIMEF.Entities
             this.ReglaComparacionIndicador = new HashSet<ReglaComparacionIndicador>();
             this.ReglaSecuencial = new HashSet<ReglaSecuencial>();
         }
-    
+        [Key]
         public int idReglasValidacionTipo { get; set; }
         public int idindicardorVariable { get; set; }
     

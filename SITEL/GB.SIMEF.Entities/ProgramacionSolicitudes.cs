@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ProgramacionSolicitudes
     {
+        [Key]
         public int IdProgamacion { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
         public Nullable<int> NumeroDia { get; set; }

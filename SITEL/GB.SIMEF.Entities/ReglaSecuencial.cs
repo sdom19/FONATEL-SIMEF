@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ReglaSecuencial
     {
+        [Key]
         public int idCompara { get; set; }
         public int idCategoriaId { get; set; }
         public Nullable<int> idvariable { get; set; }

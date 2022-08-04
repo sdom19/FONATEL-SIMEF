@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ReglaComparacionIndicador
     {
+        [Key]
         public int idCompara { get; set; }
         public int IdIndicadorCompara { get; set; }
         public Nullable<int> idVariableCompara { get; set; }

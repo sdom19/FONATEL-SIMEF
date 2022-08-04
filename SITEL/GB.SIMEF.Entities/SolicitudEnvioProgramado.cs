@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class SolicitudEnvioProgramado
     {
+        [Key]
         public string IdEnvioProgramado { get; set; }
         public int CantidadRepiticiones { get; set; }
         public int Dia { get; set; }

@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DetalleCategoriaNumerico
     {
+        [Key]
         public int idCategoriaDetalle { get; set; }
         public int idCategoria { get; set; }
         public Nullable<int> Minimo { get; set; }

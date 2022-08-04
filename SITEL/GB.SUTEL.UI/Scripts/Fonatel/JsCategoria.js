@@ -16,15 +16,16 @@
             "btnAddCategoria": "#TableCategoriaDesagregacion tbody tr td .btn-add",
             "btnRemoveCategoriaDetalle": "#TableCategoriaDesagregacionDetalle tbody tr td .btn-delete",
             "btnGuardarDetalleCategoria": "#btnGuardarDetalleCategoria",
-
-            "btnCargarDetalle": "#btnCargarDetalle",
+            "tablacategoria": "#TableCategoriaDesagregacion tbody",
+            "btnCargarDetalle": "#TableCategoriaDesagregacion tbody tr td .btn-upload",
             "inputFileCargarDetalle": "#inputFileCargarDetalle"
         },
 
         "Variables": {
             "TipoFecha": 4,
             "TipoNumerico": 1,
-            "OpcionSalir": true
+            "OpcionSalir": true,
+            "ListadoCategoria":[]
         },
 
         "Metodos": {
@@ -33,6 +34,59 @@
                     .set('onok', function (closeEvent) {
                         
                     }); 
+            },
+            "CargarTablaDatos": function () {
+                $.ajax({
+                    url: urlOrigen + '/CategoriasDesagregacion/ObtenerCategorias',
+                    type: "GET",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $("#loading").fadeIn();
+                    },
+                    success: function (obj) {
+                       
+                        let html = "";
+                        if (obj.objetoRespuesta !== undefined) {
+                            JsCategoria.Variables.ListadoCategoria = obj.objetoRespuesta;
+                            for (var i = 0; i < JsCategoria.Variables.ListadoCategoria.length; i++) {
+                                let categoria = JsCategoria.Variables.ListadoCategoria[i];
+
+                                html = html + "<tr>"
+
+                                html = html + "<td scope='row'>" + categoria.Codigo + "</td>";
+                                html = html + "<td>" + categoria.NombreCategoria + "</td>";                  
+                                if (!categoria.TieneDetalle) {
+                                    html = html + "<td><strong>N/A</strong></td>";
+                                    html = html + "<td>" + categoria.EstadoRegistro.Nombre + "</td>";
+                                    html = html + "<td><strong>N/A</strong></td>";
+
+                                   
+                                }
+                                else {
+                                    html = html + "<td>" + categoria.CantidadDetalleDesagregacion + "/" + categoria.DetalleCategoriaTexto.length + "</td>";
+                                    html = html + "<td>" + categoria.EstadoRegistro.Nombre + "</td>";
+                                    html = html + "<td><input id='inputFileCargarDetalle' type='file' accept='.csv,.xlsx,.xls' style='display: none;' />"+
+                                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Cargar Detalle' class='btn-icon-base btn-upload'></button>"+
+                                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>"+
+                                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
+                                }
+                                html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.idCategoria + " title='Editar' class='btn-icon-base btn-edit'></button>" +
+                                    "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' class='btn-icon-base btn-clone' ></button>" +
+                                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' class='btn-icon-base btn-power-on'></button></td >";
+                                html = html + "</tr>"
+                            }
+                            $(JsCategoria.Controles.tablacategoria).html(html);
+
+                            CargarDatasource();
+
+                        }
+                        $("#loading").fadeOut();
+                    }
+                }).fail(function (obj) {
+                    console.log(obj);
+                    $("#loading").fadeOut();
+                   
+                })
             },
             "HabilitarControlesTipoCategoria": function (selected) {
                 if (selected == JsCategoria.Variables.TipoFecha) {
@@ -184,6 +238,10 @@ $(document).on("click", JsCategoria.Controles.btnCargarDetalle, function (e) {
 
 //});
 
-window.addEventListener('navigateback', function () {
-    alert("sadas");
-}, false);
+//window.addEventListener('navigateback', function () {
+//    alert("sadas");
+//}, false);
+$(function () {
+    JsCategoria.Metodos.CargarTablaDatos();
+});
+

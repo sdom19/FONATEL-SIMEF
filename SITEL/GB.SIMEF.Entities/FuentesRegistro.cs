@@ -11,17 +11,18 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class FuentesRegistro
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        
         public FuentesRegistro()
         {
             this.DetalleFuentesRegistro = new HashSet<DetalleFuentesRegistro>();
             this.Solicitud = new HashSet<Solicitud>();
             this.SolicitudDetalleFuentes = new HashSet<SolicitudDetalleFuentes>();
         }
-    
+        [Key]
         public int idFuente { get; set; }
         public string Fuente { get; set; }
         public int CantidadDestinatario { get; set; }

@@ -11,15 +11,16 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TipoCategoria
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        
         public TipoCategoria()
         {
             this.CategoriasDesagregacion = new HashSet<CategoriasDesagregacion>();
         }
-    
+        [Key]
         public int idTipoCategoria { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }

@@ -1447,6 +1447,10 @@
       <Project>{efdfefb4-2c0f-490e-8f8e-156c63c26295}</Project>
       <Name>GB.SIMEF.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GB.SIMEF.Entities\GB.SIMEF.Entities.csproj">
+      <Project>{2ed1985f-eb85-4a08-8f29-6a358e01b7f5}</Project>
+      <Name>GB.SIMEF.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GB.SIMEF.Resources\GB.SIMEF.Resources.csproj">
       <Project>{93f172d6-f11b-41d1-bd43-afad2f43d314}</Project>
       <Name>GB.SIMEF.Resources</Name>

@@ -11,15 +11,16 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ReglaValidacion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        
         public ReglaValidacion()
         {
             this.ReglaValidacionTipo = new HashSet<ReglaValidacionTipo>();
         }
-    
+        [Key]
         public int idRegla { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }

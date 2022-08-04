@@ -11,10 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class FrecuenciaEnvio
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        
         public FrecuenciaEnvio()
         {
             this.FormularioWeb = new HashSet<FormularioWeb>();
@@ -23,7 +24,7 @@ namespace GB.SIMEF.Entities
             this.ProgramacionSolicitudes = new HashSet<ProgramacionSolicitudes>();
             this.SolicitudEnvioProgramado = new HashSet<SolicitudEnvioProgramado>();
         }
-    
+        [Key]
         public int idFrecuencia { get; set; }
         public string Nombre { get; set; }
         public int CantidadDias { get; set; }

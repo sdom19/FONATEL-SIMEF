@@ -11,19 +11,22 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class CategoriasDesagregacion
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("CategoriasDesagregacion")]
+    public class CategoriasDesagregacion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CategoriasDesagregacion()
         {
-            this.DetalleCategoriaNumerico = new HashSet<DetalleCategoriaNumerico>();
-            this.DetalleCategoriaFecha = new HashSet<DetalleCategoriaFecha>();
-            this.DetalleCategoriaTexto = new HashSet<DetalleCategoriaTexto>();
-            this.DetalleIndicadorVariables = new HashSet<DetalleIndicadorVariables>();
-            this.RelacionCategoria = new HashSet<RelacionCategoria>();
+            //this.DetalleCategoriaNumerico = new HashSet<DetalleCategoriaNumerico>();
+            //this.DetalleCategoriaFecha = new HashSet<DetalleCategoriaFecha>();
+            this.DetalleCategoriaTexto = new List<DetalleCategoriaTexto>();
+            this.EstadoRegistro = new EstadoRegistro();
+            //this.DetalleIndicadorVariables = new HashSet<DetalleIndicadorVariables>();
+            //this.RelacionCategoria = new HashSet<RelacionCategoria>();
         }
-    
+        [Key]
         public int idCategoria { get; set; }
         public string Codigo { get; set; }
         public string NombreCategoria { get; set; }
@@ -32,19 +35,31 @@ namespace GB.SIMEF.Entities
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
-    
+        public int idEstado { get; set; }
+        public int idTipoDetalle { get; set; }
+        public int IdTipoCategoria { get; set; }
+
+        [NotMapped]
+        public virtual List<DetalleCategoriaTexto> DetalleCategoriaTexto { get; set; }
+
+        [NotMapped]
         public virtual EstadoRegistro EstadoRegistro { get; set; }
-        public virtual TipoCategoria TipoCategoria { get; set; }
-        public virtual TiposDetalleCategoria TiposDetalleCategoria { get; set; }
 
-        public virtual ICollection<DetalleCategoriaNumerico> DetalleCategoriaNumerico { get; set; }
+        [NotMapped]
+        public bool TieneDetalle { get; set; }
 
-        public virtual ICollection<DetalleCategoriaFecha> DetalleCategoriaFecha { get; set; }
+        //public virtual EstadoRegistro EstadoRegistro { get; set; }
+        //public virtual TipoCategoria TipoCategoria { get; set; }
+        //public virtual TiposDetalleCategoria TiposDetalleCategoria { get; set; }
 
-        public virtual ICollection<DetalleCategoriaTexto> DetalleCategoriaTexto { get; set; }
+        //public virtual ICollection<DetalleCategoriaNumerico> DetalleCategoriaNumerico { get; set; }
 
-        public virtual ICollection<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
+        //public virtual ICollection<DetalleCategoriaFecha> DetalleCategoriaFecha { get; set; }
 
-        public virtual ICollection<RelacionCategoria> RelacionCategoria { get; set; }
+
+
+        //public virtual ICollection<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
+
+        //public virtual ICollection<RelacionCategoria> RelacionCategoria { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿
+urlOrigen = location.origin;
+
 $(document).ready(function () {
 
     $(".datatable_simef_modal").DataTable({
@@ -27,7 +29,48 @@ $(document).ready(function () {
        
     });
 
+  
+   
 
+    $('.listasDesplegables').select2({
+        placeholder: "Seleccione",
+        width: 'resolve' 
+    });
+
+
+
+
+
+    $('.nav-tabs > li a[title]').tooltip();
+
+
+});
+
+
+$('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+
+    var $target = $(e.target);
+
+    if ($target.parent().hasClass('disabled')) {
+        return false;
+    }
+});
+
+
+
+$(document).on("keypress",'.solo_numeros', function (e) {
+    var regex = new RegExp("^[0-9]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+
+
+
+function CargarDatasource() {
     $(".datatable_simef").DataTable({
         "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
         buttons: [
@@ -101,47 +144,10 @@ $(document).ready(function () {
         },
     });
 
-    $('.listasDesplegables').select2({
-        placeholder: "Seleccione",
-        width: 'resolve' 
-    });
-
-
     $('.table-wrapper-fonatel table tfoot th select').select2({
         width: 'resolve'
     });
-
-
-    $('.nav-tabs > li a[title]').tooltip();
-
-
-});
-
-
-$('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-
-    var $target = $(e.target);
-
-    if ($target.parent().hasClass('disabled')) {
-        return false;
-    }
-});
-
-
-
-$(document).on("keypress",'.solo_numeros', function (e) {
-    var regex = new RegExp("^[0-9]+$");
-    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-    if (!regex.test(key)) {
-        e.preventDefault();
-        return false;
-    }
-});
-
-
-
-
-
+}
 
 $(document).on("keypress", '.solo_operacion', function (e) {
     var regex = new RegExp("^[0-9]|[-+*>=</]+$");

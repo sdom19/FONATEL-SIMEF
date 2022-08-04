@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class FormulaNivelCalculoCategoria
     {
+        [Key]
         public int idFormulaNivel { get; set; }
         public int idCategoria { get; set; }
     

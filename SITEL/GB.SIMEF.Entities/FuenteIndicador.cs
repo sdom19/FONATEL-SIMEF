@@ -11,16 +11,17 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class FuenteIndicador
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+       
         public FuenteIndicador()
         {
             this.FormulaIndicadorDSF = new HashSet<FormulaIndicadorDSF>();
             this.FormulaIndicadorMC = new HashSet<FormulaIndicadorMC>();
         }
-    
+        [Key]
         public int idFuenteIndicador { get; set; }
         public string FuenteIndicador1 { get; set; }
         public Nullable<bool> Estado { get; set; }

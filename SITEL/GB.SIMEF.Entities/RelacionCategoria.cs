@@ -11,15 +11,16 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class RelacionCategoria
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+       
         public RelacionCategoria()
         {
             this.DetalleRelacionCategoria = new HashSet<DetalleRelacionCategoria>();
         }
-    
+        [Key]
         public int idRelacionCategoria { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }

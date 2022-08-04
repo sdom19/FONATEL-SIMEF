@@ -11,15 +11,16 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class GrupoIndicadores
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+       
         public GrupoIndicadores()
         {
             this.Indicador = new HashSet<Indicador>();
         }
-    
+        [Key]
         public int idGrupo { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }

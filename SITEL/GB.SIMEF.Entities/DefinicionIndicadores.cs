@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DefinicionIndicadores
     {
+        [Key]
         public int idDefinición { get; set; }
         public string Fuente { get; set; }
         public string Notas { get; set; }

@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class EnvioSolicitudes
     {
+        [Key]
         public int idEnvio { get; set; }
         public System.DateTime Fecha { get; set; }
         public bool Enviado { get; set; }

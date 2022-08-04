@@ -11,10 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Solicitud
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+       
         public Solicitud()
         {
             this.DetalleSolicitudFormulario = new HashSet<DetalleSolicitudFormulario>();
@@ -22,7 +23,7 @@ namespace GB.SIMEF.Entities
             this.ProgramacionSolicitudes = new HashSet<ProgramacionSolicitudes>();
             this.SolicitudEnvioProgramado = new HashSet<SolicitudEnvioProgramado>();
         }
-    
+        [Key] 
         public int idSolicitud { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }

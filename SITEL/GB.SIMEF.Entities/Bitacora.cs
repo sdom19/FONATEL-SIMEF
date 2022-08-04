@@ -11,15 +11,29 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Bitacora
     {
+        public Bitacora()
+        {
+            Fecha = DateTime.Now;
+        }
+        [Key]
         public int idBitacora { get; set; }
         public System.DateTime Fecha { get; set; }
         public string Usuario { get; set; }
         public string Clase { get; set; }
         public Nullable<int> Accion { get; set; }
         public string Respuesta { get; set; }
-        public string CantidadRegistros { get; set; }
+        public int CantidadRegistros { get; set; }
+
+        public bool HayError { get; set; }
+
+        public string MensajeError { get; set; }
+
+        [NotMapped]
+        public object objetoRespuesta { get; set; }
     }
 }

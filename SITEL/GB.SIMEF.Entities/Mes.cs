@@ -11,15 +11,16 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Mes
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+       
         public Mes()
         {
             this.Solicitud = new HashSet<Solicitud>();
         }
-    
+        [Key]
         public int idMes { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }

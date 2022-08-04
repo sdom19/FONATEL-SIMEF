@@ -11,10 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Indicador
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+     
         public Indicador()
         {
             this.DetalleFormularioWeb = new HashSet<DetalleFormularioWeb>();
@@ -23,7 +24,7 @@ namespace GB.SIMEF.Entities
             this.DefinicionIndicadores = new HashSet<DefinicionIndicadores>();
             this.ReglaValidacion = new HashSet<ReglaValidacion>();
         }
-    
+        [Key]
         public int idIndicador { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }

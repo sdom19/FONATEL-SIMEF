@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class SolicitudDetalleFuentes
     {
+        [Key]
         public int IdSolicitud { get; set; }
         public int idFuente { get; set; }
     

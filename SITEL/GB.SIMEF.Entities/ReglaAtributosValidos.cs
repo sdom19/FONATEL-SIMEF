@@ -11,9 +11,11 @@ namespace GB.SIMEF.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ReglaAtributosValidos
     {
+        [Key]
         public int idCompara { get; set; }
         public int idCategoria { get; set; }
         public int idCategoriaAtributo { get; set; }
