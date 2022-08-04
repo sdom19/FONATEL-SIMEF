@@ -72,6 +72,8 @@ $(document).on("keypress",'.solo_numeros', function (e) {
 
 function CargarDatasource() {
     $(".datatable_simef").DataTable({
+        pageLength: 5,
+        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
         "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
         buttons: [
             {
