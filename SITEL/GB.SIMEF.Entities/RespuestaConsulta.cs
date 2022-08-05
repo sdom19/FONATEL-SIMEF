@@ -13,12 +13,13 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
+    using GB.SIMEF.Resources;
     public partial class RespuestaConsulta<T>
     {
         public RespuestaConsulta()
         {
             Fecha = DateTime.Now;
+            HayError = (int)Constantes.Error.NoError;
         }
         [Key]
         public int idBitacora { get; set; }
@@ -29,7 +30,7 @@ namespace GB.SIMEF.Entities
         public string Respuesta { get; set; }
         public int CantidadRegistros { get; set; }
 
-        public bool HayError { get; set; }
+        public int HayError { get; set; }
 
         public string MensajeError { get; set; }
 

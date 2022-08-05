@@ -17,7 +17,7 @@ namespace GB.SIMEF.BL
 
         RespuestaConsulta<T> CambioEstado(T objeto);
 
-        RespuestaConsulta<T> EliminarElemento(T objeto);
+        RespuestaConsulta<List<T>> EliminarElemento(T objeto);
 
         RespuestaConsulta<T> ActualizarElemento(T objeto);
 

@@ -29,7 +29,7 @@ $(document).ready(function () {
        
     });
 
-  
+    CargarDatasource();
    
 
     $('.listasDesplegables').select2({
@@ -68,9 +68,12 @@ $(document).on("keypress",'.solo_numeros', function (e) {
 });
 
 
-
+function EliminarDatasource() {
+    $(".datatable_simef").DataTable().destroy();
+}
 
 function CargarDatasource() {
+   
     $(".datatable_simef").DataTable({
         pageLength: 5,
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']],

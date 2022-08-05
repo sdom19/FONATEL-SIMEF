@@ -9,7 +9,7 @@ using GB.SIMEF.Resources;
 
 namespace GB.SIMEF.DAL
 {
-    public class DetalleCategoriaTextoDAL
+    public class DetalleCategoriaTextoDAL:LogErrorDAL
     {
         private  SIMEFContext db;
         #region Metodos Consulta Base de Datos
@@ -27,11 +27,31 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaCategoria = db.Database.SqlQuery<DetalleCategoriaTexto>
-                    ("execute spObtenerDetalleCategoriaTexto @idCategoria,@codigo",
+                    ("execute spObtenerDetalleCategoriaTexto @idCategoriaDetalle, @idCategoria,@codigo",
+                      new SqlParameter("@idCategoriaDetalle", objCategoria.idCategoriaDetalle),
                      new SqlParameter("@idCategoria", objCategoria.idCategoria),
                      new SqlParameter("@codigo", objCategoria.Codigo)
                     ).ToList();
             }
+            return ListaCategoria;
+        }
+
+
+        public List<DetalleCategoriaTexto> ActualizarDatos(DetalleCategoriaTexto objCategoria)
+        {
+            List<DetalleCategoriaTexto> ListaCategoria = new List<DetalleCategoriaTexto>();
+            using (db = new SIMEFContext())
+            {
+                ListaCategoria = db.Database.SqlQuery<DetalleCategoriaTexto>
+                    ("execute spActualizarDetalleCategoriaTexto @idCategoriaDetalle, @idCategoria,@codigo,@Etiqueta,@Estado",
+                      new SqlParameter("@idCategoriaDetalle", objCategoria.idCategoriaDetalle),
+                      new SqlParameter("@idCategoria", objCategoria.idCategoria),
+                      new SqlParameter("@codigo", objCategoria.Codigo),
+                      new SqlParameter("@Etiqueta", objCategoria.Etiqueta),
+                      new SqlParameter("@Estado", objCategoria.Estado)
+                    ).ToList();
+            }
+
             return ListaCategoria;
         }
         #endregion

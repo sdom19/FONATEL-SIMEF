@@ -78,6 +78,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
             return JsonConvert.SerializeObject(result);
         }
+
+        [HttpPost]
+        public async Task<string> EliminarCategoriasDetalle(int idDetalleCategoria)
+        {
+            RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
+            await Task.Run(() =>
+            {
+                result = categoriaDetalleBL.EliminarElemento(new DetalleCategoriaTexto() { idCategoriaDetalle=idDetalleCategoria });
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
+        
         #endregion
 
     }

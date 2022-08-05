@@ -37,7 +37,7 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<CategoriasDesagregacion> EliminarElemento(CategoriasDesagregacion objeto)
+        public RespuestaConsulta<List<CategoriasDesagregacion>> EliminarElemento(CategoriasDesagregacion objeto)
         {
             throw new NotImplementedException();
         }
@@ -51,7 +51,6 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = 1;
                 var resul = clsDatos.ObtenerDatos(objCategoria);
@@ -60,7 +59,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                ResultadoConsulta.HayError = true;
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 ResultadoConsulta.MensajeError = ex.Message;
             }
             return ResultadoConsulta;

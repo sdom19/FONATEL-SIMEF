@@ -96,5 +96,11 @@
     <Compile Include="TiposDetalleCategoria.cs" />
     <Compile Include="UnidadEstudio.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GB.SIMEF.Resources\GB.SIMEF.Resources.csproj">
+      <Project>{93f172d6-f11b-41d1-bd43-afad2f43d314}</Project>
+      <Name>GB.SIMEF.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

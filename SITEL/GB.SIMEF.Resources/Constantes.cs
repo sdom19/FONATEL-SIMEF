@@ -28,7 +28,17 @@ namespace GB.SIMEF.Resources
             Desactivado = 3,
             Eliminado = 4
         }
+        public enum Error : int
+        {
+            NoError = 0,
+            ErrorSistema = 1,
+            ErrorControlado = 2
+        }
 
 
+        public enum Accion : int
+        {
+            Eliminar = 4,
+        }
     }
 }

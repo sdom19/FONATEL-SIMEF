@@ -9,7 +9,7 @@ using GB.SIMEF.Resources;
 
 namespace GB.SIMEF.DAL
 {
-    public class CategoriasDesagregacionDAL
+    public class CategoriasDesagregacionDAL:LogErrorDAL
     {
         private  SIMEFContext db;
         #region Metodos Consulta Base de Datos

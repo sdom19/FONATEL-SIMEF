@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Errores.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Errores.resx</DependentUpon>
+    </Compile>
     <Compile Include="Etiquetas.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -70,6 +75,10 @@
     <Compile Include="Constantes.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Errores.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Errores.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Etiquetas.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Etiquetas.Designer.cs</LastGenOutput>
