@@ -52,7 +52,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpGet]
-        public async Task<string> ObtenerCategorias()
+        public async Task<string> ObtenerListaCategorias()
         {
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
             await Task.Run(() =>
@@ -68,7 +68,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<string> ObtenerCategoriasDetalle(int idCategoria)
+        public async Task<string> ObtenerListaCategoriasDetalle(int idCategoria)
         {
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
@@ -92,8 +92,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
+        [HttpGet]
+        public async Task<string> ObtenerCategoriasDetalle(int idCategoriaDetalle)
+        {
+            RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
+            await Task.Run(() =>
+            {
+                result = categoriaDetalleBL.ObtenerDatos(new DetalleCategoriaTexto() { idCategoriaDetalle=idCategoriaDetalle });
 
-        
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
+
         #endregion
 
     }
