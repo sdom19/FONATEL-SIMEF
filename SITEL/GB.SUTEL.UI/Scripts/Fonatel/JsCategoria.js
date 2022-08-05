@@ -18,8 +18,11 @@
             "tablacategoria": "#TableCategoriaDesagregacion tbody",
             "TablaCategoriaDetalle": "#TableCategoriaDesagregacionDetalle tbody",
             "btnEliminarDetalle": "#TableCategoriaDesagregacionDetalle tbody .btn-delete",
+            "btnEditarDetalle": "#TableCategoriaDesagregacionDetalle tbody .btn-edit",
             "btnCargarDetalle": "#TableCategoriaDesagregacion tbody tr td .btn-upload",
-            "inputFileCargarDetalle": "#inputFileCargarDetalle"
+            "inputFileCargarDetalle": "#inputFileCargarDetalle",
+            "txtCodigoDetalle": "#txtCodigoDetalle",
+            "txtEtiquetaDetalle":"#txtEtiquetaDetalle"
         },
         "Variables": {
             "TipoFecha": 4,
@@ -73,7 +76,7 @@
                     html = html + "<td scope='row'>" + detalle.Codigo + "</td>";
                     html = html + "<td scope='row'>" + detalle.Etiqueta + "</td>";
 
-                    html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' title='Editar' class='btn-icon-base btn-edit'></button>" +
+                    html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value=" + detalle.idCategoriaDetalle + " class='btn-icon-base btn-edit'></button>" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value=" + detalle.idCategoriaDetalle + " class='btn-icon-base btn-delete'></button></td>";
                     html = html + "</tr>"
                 }
@@ -113,42 +116,62 @@
         },
 
         "Consultas": {
-            "ConsultaDatosCategoria": function () {
+            "ConsultaListaCategoria": function () {
                 $.ajax({
-                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ObtenerCategorias',
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ObtenerListaCategorias',
                     type: "GET",
                     dataType: "JSON",
                     beforeSend: function () {
                         $("#loading").fadeIn();
                     },
                     success: function (obj) {
-                        if (obj.objetoRespuesta !== undefined) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
                             JsCategoria.Variables.ListadoCategoria = obj.objetoRespuesta;
                             JsCategoria.Metodos.CargarTablaCategoria();
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { });
+                        }            
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { })
                         }
                         $("#loading").fadeOut();
                     }
                 }).fail(function (obj) {
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
                     $("#loading").fadeOut();
                 })
             },
-            "ConsultaDatosCategoriaDetalle": function () {
+            "ConsultaListaCategoriaDetalle": function () {
                 let idCategoria = 1;
                 $.ajax({
-                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ObtenerCategoriasDetalle?idCategoria=' + idCategoria,
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ObtenerListaCategoriasDetalle?idCategoria=' + idCategoria,
                     type: "GET",
                     dataType: "JSON",
                     beforeSend: function () {
                         $("#loading").fadeIn();
                     },
                     success: function (obj) {   
-                        if (obj.objetoRespuesta !== undefined) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
                             JsCategoria.Variables.ListadoCategoriaDetalle = obj.objetoRespuesta;
                             JsCategoria.Metodos.CargarTablaDetalleCategoria();
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { })
                         }
                         $("#loading").fadeOut();
                     }
                 }).fail(function (obj) {
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
                     $("#loading").fadeOut();
                 })
             },
@@ -179,11 +202,53 @@
                         }
                     }
                 }).fail(function (obj) {
-                    console.log(obj);
+
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
                     $("#loading").fadeOut();
 
                 })
             },
+
+
+            "ConsultaCategoriaDetalle": function (idDetalleCategoria) {
+                
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ObtenerCategoriasDetalle?idCategoriaDetalle=' + idDetalleCategoria,
+                    type: "GET",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $("#loading").fadeIn();
+                    },
+                    success: function (obj) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            JsCategoria.Variables.ListadoCategoriaDetalle = obj.objetoRespuesta;
+                            if (JsCategoria.Variables.ListadoCategoriaDetalle.length > 0) {
+                                $(JsCategoria.Controles.txtCodigoDetalle).val(JsCategoria.Variables.ListadoCategoriaDetalle[0].Codigo);
+                                $(JsCategoria.Controles.txtEtiquetaDetalle).val(JsCategoria.Variables.ListadoCategoriaDetalle[0].Etiqueta);
+                            }
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { })
+                        }
+                        $("#loading").fadeOut();
+                    }
+                }).fail(function (obj) {
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
+                    $("#loading").fadeOut();
+                })
+
+
+            }
+
+
         }
 
 }
@@ -303,6 +368,13 @@ $(document).on("click", JsCategoria.Controles.btnEliminarDetalle, function (e) {
 
 
 
+$(document).on("click", JsCategoria.Controles.btnEditarDetalle, function (e) {
+    let id = $(this).val();
+    JsCategoria.Consultas.ConsultaCategoriaDetalle(id);
+});
+
+
+
 //window.addEventListener('beforeunload', (event) => {
 
 //    if (JsCategoria.Variables.OpcionSalir) {
@@ -319,12 +391,12 @@ $(document).on("click", JsCategoria.Controles.btnEliminarDetalle, function (e) {
 //}, false);
 $(function () {
     if ($(JsCategoria.Controles.tablacategoria).length > 0) {
-         JsCategoria.Consultas.ConsultaDatosCategoria();
+         JsCategoria.Consultas.ConsultaListaCategoria();
 
       
     }
     if ($(JsCategoria.Controles.TablaCategoriaDetalle).length > 0) {
-        JsCategoria.Consultas.ConsultaDatosCategoriaDetalle();
+        JsCategoria.Consultas.ConsultaListaCategoriaDetalle();
     }
 });
 

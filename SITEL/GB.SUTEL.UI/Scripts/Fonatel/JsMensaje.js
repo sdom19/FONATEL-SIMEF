@@ -44,13 +44,13 @@
 
 
 
-        "OkAlertModal": function (mensaje) {
-            let alertifyObject = alertify.alert(jsMensajes.Variables.MensajeConfirmacion, "")
-                .set('label', jsMensajes.Variables.btnlisto )
-                .set({ 'modal': true, 'closable': false })
-            alertifyObject.setContent(jsMensajes.Variables.ContentSuccess(mensaje));
-            return alertifyObject;
-        },
+        //"OkAlertModal": function (mensaje) {
+        //    let alertifyObject = alertify.alert(jsMensajes.Variables.MensajeConfirmacion, "")
+        //        .set('label', jsMensajes.Variables.btnlisto )
+        //        .set({ 'modal': true, 'closable': false })
+        //    alertifyObject.setContent(jsMensajes.Variables.ContentSuccess(mensaje));
+        //    return alertifyObject;
+        //},
 
         /**
          * Función que permite mostrar un modal de confirmación, incluye las acciones de Si y No, 
