@@ -8,13 +8,25 @@ namespace GB.SIMEF.Resources
 {
     public static class Constantes
     {
-
+        /// <summary>
+        /// Tipos de Categorías
+        /// </summary>
         public enum TipoDetalleCategoria : int
         {
             Numerico=1,
             Alfanumerico=2,
             Texto=3,
             Fecha=4
+        }
+        /// <summary>
+        /// Estados de los registros
+        /// </summary>
+        public enum EstadosRegistro : int
+        {
+            EnProceso = 1,
+            Activo = 2,
+            Desactivado = 3,
+            Eliminado = 4
         }
 
 

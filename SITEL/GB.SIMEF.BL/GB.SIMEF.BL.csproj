@@ -41,8 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DetalleCategoriasTextoBL.cs" />
     <Compile Include="CategoriasDesagregacionBL.cs" />
-    <Compile Include="Interface1.cs" />
+    <Compile Include="IMetodos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +54,10 @@
     <ProjectReference Include="..\GB.SIMEF.Entities\GB.SIMEF.Entities.csproj">
       <Project>{2ed1985f-eb85-4a08-8f29-6a358e01b7f5}</Project>
       <Name>GB.SIMEF.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SIMEF.Resources\GB.SIMEF.Resources.csproj">
+      <Project>{93F172D6-F11B-41D1-BD43-AFAD2F43D314}</Project>
+      <Name>GB.SIMEF.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

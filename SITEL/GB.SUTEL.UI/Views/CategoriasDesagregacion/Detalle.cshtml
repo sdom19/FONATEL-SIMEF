@@ -1,12 +1,12 @@
 ﻿@using GB.SIMEF.Resources;
 
 @{
-    ViewBag.Title = "Detalle de Categorías";
+    ViewBag.Title = Etiquetas.DetalleCategorias;
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/CategoriaDesagregacion")
+    @*@Scripts.Render("~/bundles/FONATEL/CategoriaDesagregacion")*@
 }
 
 <div class="container body-content">
@@ -35,4 +35,4 @@
     </div>
 
 </div>
-
+<script src="~/Scripts/Fonatel/JsCategoria.js"></script>

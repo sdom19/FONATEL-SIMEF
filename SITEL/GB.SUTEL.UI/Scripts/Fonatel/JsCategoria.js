@@ -17,17 +17,18 @@
             "btnRemoveCategoriaDetalle": "#TableCategoriaDesagregacionDetalle tbody tr td .btn-delete",
             "btnGuardarDetalleCategoria": "#btnGuardarDetalleCategoria",
             "tablacategoria": "#TableCategoriaDesagregacion tbody",
+            "TablaCategoriaDetalle": "#TableCategoriaDesagregacionDetalle tbody",
+            "btnEliminarDetalle": "#TableCategoriaDesagregacionDetalle tbody .btn-delete",
             "btnCargarDetalle": "#TableCategoriaDesagregacion tbody tr td .btn-upload",
             "inputFileCargarDetalle": "#inputFileCargarDetalle"
         },
-
         "Variables": {
             "TipoFecha": 4,
             "TipoNumerico": 1,
             "OpcionSalir": true,
-            "ListadoCategoria":[]
+            "ListadoCategoria": [],
+            "ListadoCategoriaDetalle":[]
         },
-
         "Metodos": {
             "CerrarFormulario": function () {
                 jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Salir del Formulario?", jsMensajes.Variables.actionType.cancelar)
@@ -35,7 +36,7 @@
                         
                     }); 
             },
-            "CargarTablaDatos": function () {
+            "CargarTablaDatosCategoria": function () {
                 $.ajax({
                     url: urlOrigen + '/CategoriasDesagregacion/ObtenerCategorias',
                     type: "GET",
@@ -58,9 +59,7 @@
                                 if (!categoria.TieneDetalle) {
                                     html = html + "<td><strong>N/A</strong></td>";
                                     html = html + "<td>" + categoria.EstadoRegistro.Nombre + "</td>";
-                                    html = html + "<td><strong>N/A</strong></td>";
-
-                                   
+                                    html = html + "<td><strong>N/A</strong></td>";             
                                 }
                                 else {
                                     html = html + "<td>" + categoria.CantidadDetalleDesagregacion + "/" + categoria.DetalleCategoriaTexto.length + "</td>";
@@ -88,6 +87,46 @@
                    
                 })
             },
+            "CargarTablaDatosCategoriaDetalle": function () {
+                let idCategoria = 1;
+                $.ajax({
+                    url: urlOrigen + '/CategoriasDesagregacion/ObtenerCategoriasDetalle?idCategoria='+idCategoria,
+                    type: "GET",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $("#loading").fadeIn();
+                    },
+                    success: function (obj) {
+
+                        let html = "";
+                        if (obj.objetoRespuesta !== undefined) {
+                            JsCategoria.Variables.ListadoCategoriaDetalle = obj.objetoRespuesta;
+                            for (var i = 0; i < JsCategoria.Variables.ListadoCategoriaDetalle.length; i++) {
+                                let detalle = JsCategoria.Variables.ListadoCategoriaDetalle[i];
+                                html = html + "<tr>"
+
+                                html = html + "<td scope='row'>" + detalle.Codigo + "</td>";
+                                html = html + "<td scope='row'>" + detalle.Etiqueta + "</td>";
+
+                                html=html+"<td><button type='button' data-toggle='tooltip' data-placement='top' title='Editar' class='btn-icon-base btn-edit'></button>" +
+                                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' class='btn-icon-base btn-delete'></button></td>";
+                                html = html + "</tr>"
+                            }
+                            $(JsCategoria.Controles.TablaCategoriaDetalle).html(html);
+                            CargarDatasource();
+                        }
+                        $("#loading").fadeOut();
+                    }
+                }).fail(function (obj) {
+                    console.log(obj);
+                    $("#loading").fadeOut();
+
+                })
+            },
+
+
+
+
             "HabilitarControlesTipoCategoria": function (selected) {
                 if (selected == JsCategoria.Variables.TipoFecha) {
                     $(JsCategoria.Controles.divRangoMaximaCategoria).addClass("hidden");
@@ -227,6 +266,19 @@ $(document).on("click", JsCategoria.Controles.btnCargarDetalle, function (e) {
 });
 
 
+$(document).on("click", JsCategoria.Controles.btnEliminarDetalle, function (e) {
+
+
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
+        .set('onok', function (closeEvent) {
+            
+        });
+
+
+});
+
+
+
 //window.addEventListener('beforeunload', (event) => {
 
 //    if (JsCategoria.Variables.OpcionSalir) {
@@ -242,6 +294,11 @@ $(document).on("click", JsCategoria.Controles.btnCargarDetalle, function (e) {
 //    alert("sadas");
 //}, false);
 $(function () {
-    JsCategoria.Metodos.CargarTablaDatos();
+    if ($(JsCategoria.Controles.tablacategoria).length > 0) {
+        JsCategoria.Metodos.CargarTablaDatosCategoria();
+    }
+    if ($(JsCategoria.Controles.TablaCategoriaDetalle).length > 0) {
+        JsCategoria.Metodos.CargarTablaDatosCategoriaDetalle();
+    }
 });
 

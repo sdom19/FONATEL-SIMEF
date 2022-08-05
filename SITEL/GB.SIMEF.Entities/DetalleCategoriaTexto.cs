@@ -20,7 +20,7 @@ namespace GB.SIMEF.Entities
         [Key]
         public int idCategoriaDetalle { get; set; }
         public int idCategoria { get; set; }
-        public Nullable<int> Codigo { get; set; }
+        public int Codigo { get; set; }
         public string Etiqueta { get; set; }
         public bool Estado { get; set; }
     

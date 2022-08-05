@@ -11,3 +11,5 @@ C:\Fonatel\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csproj.CoreCompileInputs.cach
 C:\Fonatel\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csproj.CopyComplete
 C:\Fonatel\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.dll
 C:\Fonatel\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.pdb
+C:\Fonatel\SITEL\GB.SIMEF.BL\bin\Debug\GB.SIMEF.Resources.dll
+C:\Fonatel\SITEL\GB.SIMEF.BL\bin\Debug\GB.SIMEF.Resources.pdb

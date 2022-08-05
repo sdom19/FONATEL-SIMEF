@@ -1,14 +1,12 @@
 ﻿@using GB.SIMEF.Resources;
 
 @{
-    ViewBag.Title = "Categoría de Desagregación";
+    ViewBag.Title = Etiquetas.Categorias;
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
 @section scripts {
     @*@Scripts.Render("~/bundles/FONATEL/CategoriaDesagregacion")*@
-    
-
 }
 
 <div class="container body-content">
@@ -16,13 +14,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="@Url.Action( "index","Home")">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@Etiquetas.Categorías</li>
+                <li class="breadcrumb-item active" aria-current="page">@Etiquetas.Categorias</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">@Etiquetas.Categorías</h2>
+            <h2 class="page-title-fonatel text-center">@Etiquetas.Categorias</h2>
             <hr />
         </div>
         <div class="col-lg-12 mt-4">

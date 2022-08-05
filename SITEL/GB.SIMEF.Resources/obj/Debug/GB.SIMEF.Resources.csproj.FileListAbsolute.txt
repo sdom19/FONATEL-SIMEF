@@ -17,4 +17,4 @@ C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.csproj.Generate
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.csproj.CoreCompileInputs.cache
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.dll
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.pdb
-C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.csprojAssemblyReference.cache
+C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewCategorias.resources

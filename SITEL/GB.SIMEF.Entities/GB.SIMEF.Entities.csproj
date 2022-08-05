@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Anno.cs" />
-    <Compile Include="Bitacora.cs" />
+    <Compile Include="RespuestaConsulta.cs" />
     <Compile Include="CategoriasDesagregacion.cs" />
     <Compile Include="ClasificacionIndicadores.cs" />
     <Compile Include="DefinicionIndicadores.cs" />

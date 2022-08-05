@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "MuQfdbuxfeseYJQ8+yUD1Inld9MW4F1YyZjzX/6zG8kPbiQMYw3sqBriqs/gcmMOfv9BcNaGpKlkSSUzZgsNtw==",
+  "dgSpecHash": "KuUgu7GRBwP7xKJ1s8V0Vy//uxKcYn3lP8HKfi7xlZvW50GxPseHnJpUbSbUIH5PULAE3c/f/1V1j8bT9VSS8A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jose.navarro\\source\\Repos\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.Shared\\GB.SIMEF.Shared.csproj",
+  "projectFilePath": "C:\\Fonatel\\SITEL\\GB.SIMEF.Shared\\GB.SIMEF.Shared.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jose.navarro\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\jose.navarro\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
   ],
   "logs": []
 }

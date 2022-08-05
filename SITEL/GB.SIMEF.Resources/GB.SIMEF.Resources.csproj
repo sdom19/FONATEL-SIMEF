@@ -46,6 +46,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Etiquetas.resx</DependentUpon>
     </Compile>
+    <Compile Include="EtiquetasViewCategorias.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewCategorias.resx</DependentUpon>
+    </Compile>
     <Compile Include="EtiquetasViewFormulario.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -68,6 +73,10 @@
     <EmbeddedResource Include="Etiquetas.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Etiquetas.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewCategorias.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewCategorias.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="EtiquetasViewDefinicionIndicadores.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

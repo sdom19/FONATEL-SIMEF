@@ -33,3 +33,4 @@ C:\Fonatel\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.Assemb
 C:\Fonatel\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.csproj.CoreCompileInputs.cache
 C:\Fonatel\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.dll
 C:\Fonatel\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.pdb
+C:\Fonatel\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.csprojAssemblyReference.cache

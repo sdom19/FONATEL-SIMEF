@@ -187,6 +187,24 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Categorías de Desagregación.
+        /// </summary>
+        public static string Categorias {
+            get {
+                return ResourceManager.GetString("Categorias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Detalle Categoría Desagregación.
+        /// </summary>
+        public static string DetalleCategorias {
+            get {
+                return ResourceManager.GetString("DetalleCategorias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Inicio.
         /// </summary>
         public static string LabelInicio {

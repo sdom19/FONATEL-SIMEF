@@ -649,3 +649,9 @@ C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Resources.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Resources.pdb
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.BL.dll
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.DAL.dll
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Entities.dll
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.BL.pdb
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.DAL.pdb
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Entities.pdb

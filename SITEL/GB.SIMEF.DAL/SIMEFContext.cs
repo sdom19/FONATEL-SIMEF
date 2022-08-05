@@ -14,14 +14,7 @@ namespace GB.SIMEF.DAL
         {
         }
 
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<CategoriasDesagregacion>().ToTable("CategoriasDesagregacion");
-        }
-
         public virtual DbSet<CategoriasDesagregacion> CategoriasDesagregacion { get; set; }
-
         public virtual DbSet<DetalleCategoriaTexto> DetalleCategoriaTexto { get; set; }
         public virtual DbSet<EstadoRegistro> EstadoRegistro { get; set; }
         //public virtual DbSet<Anno> Anno { get; set; }
