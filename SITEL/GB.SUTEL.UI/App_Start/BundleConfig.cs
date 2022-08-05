@@ -140,8 +140,9 @@ namespace GB.SUTEL.UI
                 "~/Content/jsTree/themes/default/style.min.css",
                 "~/Content/DataTables/datatables.min.css",
                 "~/Content/Select2.min.css",
-                "~/Content/calendar.css"
-                ));
+                "~/Content/calendar.css",
+                "~/Content/font-awesome.min.css"
+              ));
 
             // Stylesheets: FONATEL
 
@@ -153,8 +154,7 @@ namespace GB.SUTEL.UI
                 "~/Content/alertifyjs/bootstrap.min.css",
                 "~/Content/alertifyjs/CustomAlertify.css",
                 "~/Content/DataTables/buttons.bootstrap5.min.css",
-                "~/Content/DataTables/scroller.bootstrap5.min.css",
-                "~/Content/font-awesome.min.css"
+                "~/Content/DataTables/scroller.bootstrap5.min.css"
                 ));
 
             BundleTable.EnableOptimizations = true;

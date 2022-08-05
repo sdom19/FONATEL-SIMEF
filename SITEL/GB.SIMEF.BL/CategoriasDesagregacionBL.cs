@@ -64,5 +64,10 @@ namespace GB.SIMEF.BL
             }
             return ResultadoConsulta;
         }
+
+        public RespuestaConsulta<CategoriasDesagregacion> ValidarDatos(CategoriasDesagregacion objeto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

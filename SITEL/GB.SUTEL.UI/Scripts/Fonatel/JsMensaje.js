@@ -6,8 +6,9 @@
         "MensajeClonar": "Clonar Registro",
         "MensajeEliminar": "Eliminar Registro",
         "MensajeConfirmacion": "Proceso Exitoso",
-        "ErrorTransaccion": "Ocurrio un Error",
+        "ErrorTransaccion": "Error",
         "ContentDelete": (mensaje) => { return "<div class='text-center'><div class='icon warning-icon'></div> <strong>" + mensaje + "</strong></div>" },
+        "ContentError": (mensaje) => { return "<div class='text-center'><div class='icon warning-icon'></div> <strong>" + mensaje + "</strong></div>" },
         "ContentSuccess": (mensaje) => { return "<div class='text-center'><div class='icon success-icon'></div> <strong>" + mensaje + "</strong></div>" },
         "ContentQuestion": (mensaje) => { return "<div class='text-center'><div class='icon question-icon'></div> <strong>" + mensaje + "</strong></div>" },
         "ContentQuestionStatus": (mensaje) => { return "<div class='text-center'><div class='icon warning-icon'></div> <strong>" + mensaje + "</strong></div>" },
@@ -24,8 +25,22 @@
 
     },
     "Metodos": {
-
-
+        "OkAlertErrorModal": function (mensaje = null) {
+            if (mensaje == null) {
+                let alertifyObject = alertify.alert(jsMensajes.Variables.ErrorTransaccion, "")
+                    .set('label', jsMensajes.Variables.btnlisto)
+                    .set({ 'modal': true, 'closable': false })
+                alertifyObject.setContent(jsMensajes.Variables.ContentError("Favor comunicarse con soporte de aplicaciones"));
+                return alertifyObject;
+            }
+            else {
+                let alertifyObject = alertify.alert(jsMensajes.Variables.ErrorTransaccion, "")
+                    .set('label', jsMensajes.Variables.btnlisto)
+                    .set({ 'modal': true, 'closable': false })
+                alertifyObject.setContent(jsMensajes.Variables.ContentError(mensaje));
+                return alertifyObject;
+            }
+        },
 
 
 
@@ -85,6 +100,7 @@
         },
 
         "OkAlertModal": function (mensaje) {
+
             let alertifyObject = alertify.alert(jsMensajes.Variables.MensajeConfirmacion, "")
                 .set('label', jsMensajes.Variables.btnlisto)
                 .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })

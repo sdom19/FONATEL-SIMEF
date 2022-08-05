@@ -115,7 +115,7 @@
         "Consultas": {
             "ConsultaDatosCategoria": function () {
                 $.ajax({
-                    url: urlOrigen + '/CategoriasDesagregacion/ObtenerCategorias',
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ObtenerCategorias',
                     type: "GET",
                     dataType: "JSON",
                     beforeSend: function () {
@@ -135,7 +135,7 @@
             "ConsultaDatosCategoriaDetalle": function () {
                 let idCategoria = 1;
                 $.ajax({
-                    url: urlOrigen + '/CategoriasDesagregacion/ObtenerCategoriasDetalle?idCategoria=' + idCategoria,
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ObtenerCategoriasDetalle?idCategoria=' + idCategoria,
                     type: "GET",
                     dataType: "JSON",
                     beforeSend: function () {
@@ -154,7 +154,7 @@
             },
             "EliminarDetalleCategoria": function (idDetalleCategoria) {
                 $.ajax({
-                    url: urlOrigen + '/CategoriasDesagregacion/EliminarCategoriasDetalle',
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/EliminarCategoriasDetalle',
                     type: "POST",
                     dataType: "JSON",
                     beforeSend: function () {
@@ -162,17 +162,21 @@
                     },
                     data:{idDetalleCategoria},
                     success: function (obj) {
-                        if (obj.objetoRespuesta !== undefined) {
-                            $("#loading").fadeOut();
+                        $("#loading").fadeOut();
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
                             jsMensajes.Metodos.OkAlertModal("El Detalle ha sido Eliminado")
-                                .set('onok', function (closeEvent)
-                                {
+                                .set('onok', function (closeEvent) {
                                     JsCategoria.Variables.ListadoCategoriaDetalle = obj.objetoRespuesta;
                                     JsCategoria.Metodos.CargarTablaDetalleCategoria();
-                                });      
-                            
+                                });
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { });
                         }
-                       
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) { });
+                        }
                     }
                 }).fail(function (obj) {
                     console.log(obj);

@@ -21,5 +21,7 @@ namespace GB.SIMEF.BL
 
         RespuestaConsulta<T> ActualizarElemento(T objeto);
 
+        RespuestaConsulta<T> ValidarDatos(T objeto);
+
     }
 }

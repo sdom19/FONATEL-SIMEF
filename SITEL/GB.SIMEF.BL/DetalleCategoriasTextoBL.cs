@@ -100,5 +100,10 @@ namespace GB.SIMEF.BL
             }
             return ResultadoConsulta;
         }
+
+        public RespuestaConsulta<DetalleCategoriaTexto> ValidarDatos(DetalleCategoriaTexto objeto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,5 +1,20 @@
 ﻿
-urlOrigen = location.origin;
+
+jsUtilidades= {
+    "Variables": {
+        "urlOrigen": location.origin,
+
+        "Error": {
+            "NoError": 0,
+            "ErrorSistema": 1,
+            "ErrorControlado": 2
+        }
+    }
+}
+
+
+
+
 
 $(document).ready(function () {
 

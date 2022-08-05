@@ -61,7 +61,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a No se encuentran registros por actualizar.
+        ///   Busca una cadena traducida similar a No se encuentran registros.
         /// </summary>
         public static string NoRegistrosActualizar {
             get {
