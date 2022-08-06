@@ -70,6 +70,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Reporte de Bitácora.
+        /// </summary>
+        public static string Bitacora {
+            get {
+                return ResourceManager.GetString("Bitacora", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Atrás.
         /// </summary>
         public static string BotonAtras {

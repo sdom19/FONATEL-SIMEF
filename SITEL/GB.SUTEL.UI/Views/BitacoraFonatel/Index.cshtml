@@ -6,7 +6,7 @@
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/BitacoraFonatel")
+   @* @Scripts.Render("~/bundles/FONATEL/BitacoraFonatel")*@
 }
 
 <div class="container body-content">
@@ -14,13 +14,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Reporte de Bitácora</li>
+                <li class="breadcrumb-item active" aria-current="page">@Etiquetas.Bitacora</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h2 class="page-title-fonatel text-center">Reporte de Bitácora</h2>
+            <h2 class="page-title-fonatel text-center">@Etiquetas.Bitacora</h2>
             <hr />
         </div>
         <div class="col-sm-12 mt-5">
@@ -33,3 +33,4 @@
     </div>
 
 </div>
+<script src="~/Scripts/Fonatel/JsBitacoraFonatel.js"></script>

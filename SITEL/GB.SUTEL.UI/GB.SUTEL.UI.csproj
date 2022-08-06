@@ -1045,6 +1045,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Content\pnotify.custom.min.css" />
     <Content Include="Scripts\Moment.js" />
+    <Content Include="Scripts\Moment\moment.js" />
     <Content Include="Scripts\Multiselect\bootstrap-multiselect.js" />
     <Content Include="Scripts\Multiselect\multiselect.min.js" />
     <Content Include="Scripts\notifications.js" />

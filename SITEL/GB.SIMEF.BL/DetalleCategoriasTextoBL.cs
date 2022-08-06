@@ -45,6 +45,8 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
+                ResultadoConsulta.Usuario = objeto.usuario;
+                DetalleCategoriaTexto registroActializar;
                 var resul = clsDatos.ObtenerDatos(objCategoria);
                 if (resul.Count()==0)
                 {
@@ -53,12 +55,18 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    var registroActializar = resul.SingleOrDefault();
+                    registroActializar = resul.SingleOrDefault();
                     registroActializar.Estado = false;
                     resul = clsDatos.ActualizarDatos(registroActializar);
                 }
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion, ResultadoConsulta.Usuario, 
+                    ResultadoConsulta.Clase, 
+                   string.Format("{0}/{1}", 
+                   registroActializar.CategoriasDesagregacion.Codigo,
+                   registroActializar.Codigo)
+                 );
             }
             catch (Exception ex)
             {
@@ -70,7 +78,7 @@ namespace GB.SIMEF.BL
                 else
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;             
-                    clsDatos.RegistrarError();
+   
                 }       
             }
             return ResultadoConsulta;
@@ -96,7 +104,7 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 ResultadoConsulta.MensajeError = ex.Message;
-                clsDatos.RegistrarError();
+
             }
             return ResultadoConsulta;
         }

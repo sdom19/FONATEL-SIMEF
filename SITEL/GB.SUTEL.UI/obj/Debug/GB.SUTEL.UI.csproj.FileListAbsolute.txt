@@ -622,6 +622,10 @@ C:\Users\michael.hernandez\Documents\Sutel\FONATEL\SITEL\GB.SUTEL.UI\obj\Debug\G
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.BL.dll
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.DAL.dll
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Entities.dll
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Resources.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.BL.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Entities.dll
@@ -629,6 +633,10 @@ C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.ExceptionHandler.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Resources.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\Omu.ValueInjecter.dll
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.BL.pdb
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.DAL.pdb
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Entities.pdb
+C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Resources.pdb
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.BL.pdb
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.pdb
 C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.DAL.dll.config
@@ -647,11 +655,3 @@ C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cach
 C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
 C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
-C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Resources.dll
-C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Resources.pdb
-C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.BL.dll
-C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.DAL.dll
-C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Entities.dll
-C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.BL.pdb
-C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.DAL.pdb
-C:\Fonatel\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Entities.pdb

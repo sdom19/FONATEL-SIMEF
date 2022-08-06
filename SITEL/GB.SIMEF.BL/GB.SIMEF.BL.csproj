@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitacoraBL.cs" />
     <Compile Include="DetalleCategoriasTextoBL.cs" />
     <Compile Include="CategoriasDesagregacionBL.cs" />
     <Compile Include="IMetodos.cs" />

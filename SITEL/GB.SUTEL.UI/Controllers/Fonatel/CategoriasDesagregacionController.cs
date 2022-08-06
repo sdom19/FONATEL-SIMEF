@@ -6,20 +6,27 @@ using System.Web;
 using System.Web.Mvc;
 using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
+using GB.SUTEL.UI.Helpers;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class CategoriasDesagregacionController : Controller
     {
         private readonly CategoriasDesagregacionBL categoriaBL;
 
         private readonly DetalleCategoriasTextoBL categoriaDetalleBL;
 
+        string user;
+        
+
         public CategoriasDesagregacionController()
         {
             categoriaBL = new CategoriasDesagregacionBL();
-            categoriaDetalleBL = new DetalleCategoriasTextoBL(); 
+            categoriaDetalleBL = new DetalleCategoriasTextoBL();
+            
         }
 
         #region Eventos de la Página
@@ -82,10 +89,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EliminarCategoriasDetalle(int idDetalleCategoria)
         {
+            user = User.Identity.GetUserId();
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
             {
-                result = categoriaDetalleBL.EliminarElemento(new DetalleCategoriaTexto() { idCategoriaDetalle=idDetalleCategoria });
+                result = categoriaDetalleBL.EliminarElemento(new DetalleCategoriaTexto() { 
+                    idCategoriaDetalle=idDetalleCategoria,
+                    usuario = user
+                });
 
             });
             return JsonConvert.SerializeObject(result);
@@ -98,7 +109,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
             {
-                result = categoriaDetalleBL.ObtenerDatos(new DetalleCategoriaTexto() { idCategoriaDetalle=idCategoriaDetalle });
+                result = categoriaDetalleBL.ObtenerDatos(new DetalleCategoriaTexto() 
+                { idCategoriaDetalle=idCategoriaDetalle});
 
             });
             return JsonConvert.SerializeObject(result);

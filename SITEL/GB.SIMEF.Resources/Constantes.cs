@@ -38,6 +38,7 @@ namespace GB.SIMEF.Resources
 
         public enum Accion : int
         {
+            Consultar=2,
             Eliminar = 4,
         }
     }

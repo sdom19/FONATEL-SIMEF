@@ -23,17 +23,27 @@ namespace GB.SIMEF.DAL
         
         public List<DetalleCategoriaTexto> ObtenerDatos(DetalleCategoriaTexto objCategoria)
         {
-            List<DetalleCategoriaTexto> ListaCategoria = new List<DetalleCategoriaTexto>();
+            List<DetalleCategoriaTexto> ListaCategoriaDetalle = new List<DetalleCategoriaTexto>();
             using (db = new SIMEFContext())
             {
-                ListaCategoria = db.Database.SqlQuery<DetalleCategoriaTexto>
+                ListaCategoriaDetalle = db.Database.SqlQuery<DetalleCategoriaTexto>
                     ("execute spObtenerDetalleCategoriaTexto @idCategoriaDetalle, @idCategoria,@codigo",
                       new SqlParameter("@idCategoriaDetalle", objCategoria.idCategoriaDetalle),
-                     new SqlParameter("@idCategoria", objCategoria.idCategoria),
-                     new SqlParameter("@codigo", objCategoria.Codigo)
+                      new SqlParameter("@idCategoria", objCategoria.idCategoria),
+                      new SqlParameter("@codigo", objCategoria.Codigo)
                     ).ToList();
+
+                ListaCategoriaDetalle = ListaCategoriaDetalle.Select(x => new DetalleCategoriaTexto()
+                {
+                    idCategoriaDetalle = x.idCategoriaDetalle,
+                    idCategoria = x.idCategoria,
+                    Codigo = x.Codigo,
+                    Estado = x.Estado,
+                    Etiqueta = x.Etiqueta,
+                    CategoriasDesagregacion = db.CategoriasDesagregacion.Where(i => i.idCategoria == x.idCategoria).Single()
+                }).ToList();
             }
-            return ListaCategoria;
+            return ListaCategoriaDetalle;
         }
 
 

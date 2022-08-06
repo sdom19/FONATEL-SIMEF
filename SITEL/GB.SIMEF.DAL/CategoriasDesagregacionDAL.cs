@@ -25,10 +25,11 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaCategoria = db.Database.SqlQuery<CategoriasDesagregacion>
-                    ("execute spObtenerCategoriasDesagregacion @idCategoria,@codigo,@idEstado ",
+                    ("execute spObtenerCategoriasDesagregacion @idCategoria,@codigo,@idEstado,@idTipoCategoria ",
                      new SqlParameter("@idCategoria", objCategoria.idCategoria),
                      new SqlParameter("@codigo", string.IsNullOrEmpty(objCategoria.Codigo) ? DBNull.Value.ToString() : objCategoria.Codigo),
-                     new SqlParameter("@idEstado", objCategoria.idEstado)
+                     new SqlParameter("@idEstado", objCategoria.idEstado),
+                     new SqlParameter("@idTipoCategoria", objCategoria.IdTipoCategoria)
                     ).ToList();
 
                 ListaCategoria = ListaCategoria.Select(x => new CategoriasDesagregacion()

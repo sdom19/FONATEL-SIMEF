@@ -22,11 +22,11 @@ namespace GB.SIMEF.Entities
             HayError = (int)Constantes.Error.NoError;
         }
         [Key]
-        public int idBitacora { get; set; }
+ 
         public System.DateTime Fecha { get; set; }
         public string Usuario { get; set; }
         public string Clase { get; set; }
-        public Nullable<int> Accion { get; set; }
+        public int Accion { get; set; }
         public string Respuesta { get; set; }
         public int CantidadRegistros { get; set; }
 

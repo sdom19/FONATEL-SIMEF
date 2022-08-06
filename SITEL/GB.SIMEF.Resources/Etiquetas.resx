@@ -120,6 +120,9 @@
   <data name="Acciones" xml:space="preserve">
     <value>Acciones</value>
   </data>
+  <data name="Bitacora" xml:space="preserve">
+    <value>Reporte de Bitácora</value>
+  </data>
   <data name="BotonAtras" xml:space="preserve">
     <value>Atrás</value>
   </data>
