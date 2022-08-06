@@ -24,7 +24,7 @@ namespace GB.SIMEF.BL
             this.clsDatos = new CategoriasDesagregacionDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<Bitacora>>();
         }
-
+        #region Metedos sin Usar
         public RespuestaConsulta<Bitacora> ActualizarElemento(Bitacora objeto)
         {
             throw new NotImplementedException();
@@ -50,12 +50,26 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+        public RespuestaConsulta<Bitacora> ValidarDatos(Bitacora objeto)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+
+        /// <summary>
+        /// 05/08/2022
+        /// Obtiene la lista con base a un parametro de fecha desde y fecha hasta
+        /// Michael Hernández Cordero
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<Bitacora>> ObtenerDatos(Bitacora objeto)
         {
             try
             {
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;      
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -68,9 +82,6 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<Bitacora> ValidarDatos(Bitacora objeto)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

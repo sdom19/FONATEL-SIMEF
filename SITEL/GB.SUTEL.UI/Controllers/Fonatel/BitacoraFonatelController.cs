@@ -1,5 +1,6 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
+using GB.SUTEL.UI.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class BitacoraFonatelController : Controller
     {
         private readonly BitacoraBL BitacoraBL;

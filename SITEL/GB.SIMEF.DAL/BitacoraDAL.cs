@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GB.SIMEF.Entities;
+using static GB.SIMEF.Resources.Constantes;
+
 namespace GB.SIMEF.DAL
 {
     public class BitacoraDAL
@@ -45,6 +47,7 @@ namespace GB.SIMEF.DAL
         /// <returns>Lista</returns>
         public List<Bitacora> ObtenerDatos(Bitacora bitacora)
         {
+
             List<Bitacora> ListaBitacora= new List<Bitacora>();
             using (db = new SIMEFContext())
             {
@@ -53,6 +56,17 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@fechaDesde", string.IsNullOrEmpty(bitacora.FechaDesde) ? DBNull.Value.ToString(): bitacora.FechaDesde),
                      new SqlParameter("@fechaHasta", string.IsNullOrEmpty(bitacora.FechaHasta) ? DBNull.Value.ToString() : bitacora.FechaHasta)
                     ).ToList();
+
+                ListaBitacora = ListaBitacora.Select(x => new Bitacora()
+                {
+                    idBitacora=x.idBitacora,
+                    Accion=x.Accion,
+                    Codigo=x.Codigo,
+                    Pantalla=x.Pantalla,
+                    Usuario=x.Usuario,
+                    Fecha=x.Fecha,
+                    AccionNombre= Enum.GetName(typeof(Accion), x.Accion)
+            }).ToList();
             }
             return ListaBitacora;
         }

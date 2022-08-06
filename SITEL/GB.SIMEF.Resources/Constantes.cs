@@ -41,5 +41,6 @@ namespace GB.SIMEF.Resources
             Consultar=2,
             Eliminar = 4,
         }
+
     }
 }

@@ -28,10 +28,13 @@ namespace GB.SIMEF.Entities
         public string Usuario { get; set; }
         public string Pantalla { get; set; }
         public int Accion { get; set; }
+       
         public string Codigo { get; set; }
         [NotMapped]
         public string FechaDesde { get; set; }
         [NotMapped]
         public string FechaHasta { get; set; }
+        [NotMapped]
+        public string AccionNombre { get; set; }
     }
 }
