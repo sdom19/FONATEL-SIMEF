@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Newtonsoft.Json;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
@@ -54,11 +55,21 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                if (!String.IsNullOrEmpty(objCategoria.id))
+                {
+                    objCategoria.id = Utilidades.Desencriptar(objCategoria.id);
+                    int temp;
+                    if (int.TryParse(objCategoria.id, out temp))
+                    {
+                        objCategoria.idCategoria = temp;
+                    }
+                }
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
                 var resul = clsDatos.ObtenerDatos(objCategoria);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
+              
             }
             catch (Exception ex)
             {

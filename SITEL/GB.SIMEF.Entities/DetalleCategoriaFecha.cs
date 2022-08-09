@@ -12,16 +12,23 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("DetalleCategoriaFecha")]
     public partial class DetalleCategoriaFecha
     {
         [Key]
         public int idCategoriaDetalle { get; set; }
         public int idCategoria { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+
         public System.DateTime FechaMinima { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime FechaMaxima { get; set; }
         public bool Estado { get; set; }
-    
-        public virtual CategoriasDesagregacion CategoriasDesagregacion { get; set; }
     }
 }

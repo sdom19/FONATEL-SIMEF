@@ -5,7 +5,7 @@
             "divCantidadDetalle": "#divCantidadDetalleCategoria",
             "divRangoMinimoCategoria": "#divRangoMinimaCategoria",
             "divRangoMaximaCategoria": "#divRangoMaximaCategoria",
-            "ddlTipoDetalle": "#ddlTipoDetalleCategoria",
+            "ddlTipoDetalle": "#idTipoDetalle",
             "btnGuardarCategoria": "#btnGuardarCategoria",
             "btnCancelar": "#btnCancelarCategoria",
             "btnCancelarDetalle": "#btnCancelarDetalleCategoria",
@@ -22,7 +22,8 @@
             "btnCargarDetalle": "#TableCategoriaDesagregacion tbody tr td .btn-upload",
             "inputFileCargarDetalle": "#inputFileCargarDetalle",
             "txtCodigoDetalle": "#txtCodigoDetalle",
-            "txtEtiquetaDetalle":"#txtEtiquetaDetalle"
+            "txtEtiquetaDetalle": "#txtEtiquetaDetalle",
+            "id":"#id"
         },
         "Variables": {
             "TipoFecha": 4,
@@ -54,11 +55,11 @@
                         html = html + "<td><input id='inputFileCargarDetalle' type='file' accept='.csv,.xlsx,.xls' style='display: none;' />" +
                             "<button type='button' data-toggle='tooltip' data-placement='top' title='Cargar Detalle' class='btn-icon-base btn-upload'></button>" +
                             "<button type='button' data-toggle='tooltip' data-placement='top' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
-                            "<button type='button' data-toggle='tooltip' data-placement='top' title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
+                            "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
                     }
-                    html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.idCategoria + " title='Editar' class='btn-icon-base btn-edit'></button>" +
-                        "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' class='btn-icon-base btn-clone' ></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' class='btn-icon-base btn-power-on'></button></td >";
+                    html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " title='Editar' class='btn-icon-base btn-edit'></button>" +
+                        "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' value=" + categoria.id + " class='btn-icon-base btn-clone' ></button>" +
+                        "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' value=" + categoria.id + " class='btn-icon-base btn-power-on'></button></td >";
                     html = html + "</tr>"
                 }
                 $(JsCategoria.Controles.tablacategoria).html(html);
@@ -76,8 +77,8 @@
                     html = html + "<td scope='row'>" + detalle.Codigo + "</td>";
                     html = html + "<td scope='row'>" + detalle.Etiqueta + "</td>";
 
-                    html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value=" + detalle.idCategoriaDetalle + " class='btn-icon-base btn-edit'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value=" + detalle.idCategoriaDetalle + " class='btn-icon-base btn-delete'></button></td>";
+                    html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value=" + detalle.id + " class='btn-icon-base btn-edit'></button>" +
+                        "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value=" + detalle.id + " class='btn-icon-base btn-delete'></button></td>";
                     html = html + "</tr>"
                 }
                 $(JsCategoria.Controles.TablaCategoriaDetalle).html(html);
@@ -272,10 +273,7 @@ $(document).on("click", JsCategoria.Controles.btnCancelarDetalle, function (e) {
 });
 
 
-$(document).on("change", JsCategoria.Controles.ddlTipoDetalle, function () {
-    var selected = $(this).val();
-    JsCategoria.Metodos.HabilitarControlesTipoCategoria(selected);
-});
+
 
 $(document).on("change", JsCategoria.Controles.ddlTipoDetalle, function () {
     var selected = $(this).val();
@@ -284,16 +282,13 @@ $(document).on("change", JsCategoria.Controles.ddlTipoDetalle, function () {
 
 
 $(document).on("click", JsCategoria.Controles.btnEditarCategoria, function () {
-    JsCategoria.Variables.OpcionSalir = false;
     let id = $(this).val();
     window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id=" + id;
 });
 
 
 $(document).on("click", JsCategoria.Controles.btnAddCategoria, function () {
-    JsCategoria.Variables.OpcionSalir = false;
-    let id = 1;
-    window.location.href = "/Fonatel/CategoriasDesagregacion/Detalle?id=" + id;
+    window.location.href = "/Fonatel/CategoriasDesagregacion/Detalle";
 });
 
 
@@ -316,15 +311,15 @@ $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
 });
 
 
-$(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) {
-    e.preventDefault();
-    JsCategoria.Variables.OpcionSalir = false;
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido creada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
-        });
-});
+//$(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) {
+//    e.preventDefault();
+//    JsCategoria.Variables.OpcionSalir = false;
+//    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+//        .set('onok', function (closeEvent) {
+//            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido creada")
+//                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+//        });
+//});
 
 
 
@@ -343,7 +338,7 @@ $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, functi
 
 
 $(document).on("click", JsCategoria.Controles.btnClonarCategoria, function () {
-    let id = 1;
+    let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Categoría?", jsMensajes.Variables.actionType.clonar)
         .set('onok', function (closeEvent) {
              window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id="+id
@@ -397,6 +392,13 @@ $(function () {
     }
     if ($(JsCategoria.Controles.TablaCategoriaDetalle).length > 0) {
         JsCategoria.Consultas.ConsultaListaCategoriaDetalle();
+    }
+    if ($(JsCategoria.Controles.ddlTipoDetalle).length>0) {
+        var selected = $(JsCategoria.Controles.ddlTipoDetalle).val();
+        if (selected>0) {
+            JsCategoria.Metodos.HabilitarControlesTipoCategoria(selected);
+        }
+       
     }
 });
 

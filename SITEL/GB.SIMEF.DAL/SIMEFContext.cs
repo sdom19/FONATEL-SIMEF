@@ -17,15 +17,18 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<CategoriasDesagregacion> CategoriasDesagregacion { get; set; }
         public virtual DbSet<DetalleCategoriaTexto> DetalleCategoriaTexto { get; set; }
         public virtual DbSet<EstadoRegistro> EstadoRegistro { get; set; }
-
         public virtual DbSet<Bitacora> Bitacora { get; set; }
+        public virtual DbSet<TipoCategoria> TipoCategoria { get; set; }
+
+        public virtual DbSet<DetalleCategoriaFecha> DetalleCategoriaFecha { get; set; }
+        public virtual DbSet<DetalleCategoriaNumerico> DetalleCategoriaNumerico { get; set; }
+
 
 
         //public virtual DbSet<Anno> Anno { get; set; }
 
         //public virtual DbSet<ClasificacionIndicadores> ClasificacionIndicadores { get; set; }
-        //public virtual DbSet<DetalleCategoriaFecha> DetalleCategoriaFecha { get; set; }
-        //public virtual DbSet<DetalleCategoriaNumerico> DetalleCategoriaNumerico { get; set; }
+
 
         //public virtual DbSet<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
         //public virtual DbSet<DetalleFuentesRegistro> DetalleFuentesRegistro { get; set; }
@@ -65,7 +68,7 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<Solicitud> Solicitud { get; set; }
         //public virtual DbSet<SolicitudDetalleFuentes> SolicitudDetalleFuentes { get; set; }
         //public virtual DbSet<SolicitudEnvioProgramado> SolicitudEnvioProgramado { get; set; }
-        //public virtual DbSet<TipoCategoria> TipoCategoria { get; set; }
+
         //public virtual DbSet<TipoIndicadores> TipoIndicadores { get; set; }
         //public virtual DbSet<TipoMedida> TipoMedida { get; set; }
         //public virtual DbSet<TipoReglaValidacion> TipoReglaValidacion { get; set; }

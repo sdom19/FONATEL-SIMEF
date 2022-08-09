@@ -22,14 +22,14 @@ namespace GB.SIMEF.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class EtiquetasViewCategorias {
+    public class EtiquetasViewBitacora {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EtiquetasViewCategorias() {
+        internal EtiquetasViewBitacora() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace GB.SIMEF.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GB.SIMEF.Resources.EtiquetasViewCategorias", typeof(EtiquetasViewCategorias).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GB.SIMEF.Resources.EtiquetasViewBitacora", typeof(EtiquetasViewBitacora).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,74 +61,29 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Acciones.
+        ///   Busca una cadena traducida similar a Reporte de Bitácora.
         /// </summary>
-        public static string Acciones {
+        public static string Bitacora {
             get {
-                return ResourceManager.GetString("Acciones", resourceCulture);
+                return ResourceManager.GetString("Bitacora", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Cantidad.
+        ///   Busca una cadena traducida similar a Fecha Desde.
         /// </summary>
-        public static string Cantidad {
+        public static string FechaDesde {
             get {
-                return ResourceManager.GetString("Cantidad", resourceCulture);
+                return ResourceManager.GetString("FechaDesde", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Cantidad Detalle.
+        ///   Busca una cadena traducida similar a Fecha Hasta.
         /// </summary>
-        public static string CantidadDetalle {
+        public static string FechaHasta {
             get {
-                return ResourceManager.GetString("CantidadDetalle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Código.
-        /// </summary>
-        public static string Codigo {
-            get {
-                return ResourceManager.GetString("Codigo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Detalle.
-        /// </summary>
-        public static string Detalle {
-            get {
-                return ResourceManager.GetString("Detalle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a .
-        /// </summary>
-        public static string ErrorTipoDetalleCategoria {
-            get {
-                return ResourceManager.GetString("ErrorTipoDetalleCategoria", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Estado.
-        /// </summary>
-        public static string Estado {
-            get {
-                return ResourceManager.GetString("Estado", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Nombre.
-        /// </summary>
-        public static string Nombre {
-            get {
-                return ResourceManager.GetString("Nombre", resourceCulture);
+                return ResourceManager.GetString("FechaHasta", resourceCulture);
             }
         }
     }

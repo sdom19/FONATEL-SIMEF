@@ -19,8 +19,8 @@ namespace GB.SIMEF.Entities
     {
         public CategoriasDesagregacion()
         {
-            //this.DetalleCategoriaNumerico = new HashSet<DetalleCategoriaNumerico>();
-            //this.DetalleCategoriaFecha = new HashSet<DetalleCategoriaFecha>();
+            this.DetalleCategoriaNumerico = new DetalleCategoriaNumerico();
+            this.DetalleCategoriaFecha = new DetalleCategoriaFecha();
             this.DetalleCategoriaTexto = new List<DetalleCategoriaTexto>();
             this.EstadoRegistro = new EstadoRegistro();
             //this.DetalleIndicadorVariables = new HashSet<DetalleIndicadorVariables>();
@@ -28,7 +28,9 @@ namespace GB.SIMEF.Entities
         }
         [Key]
         public int idCategoria { get; set; }
+        [MaxLength(30)]
         public string Codigo { get; set; }
+        [MaxLength(300)]
         public string NombreCategoria { get; set; }
         public Nullable<int> CantidadDetalleDesagregacion { get; set; }
         public System.DateTime FechaCreacion { get; set; }
@@ -39,22 +41,33 @@ namespace GB.SIMEF.Entities
         public int idTipoDetalle { get; set; }
         public int IdTipoCategoria { get; set; }
 
+
+        #region Varibles que no forman parte del contexto
         [NotMapped]
         public virtual List<DetalleCategoriaTexto> DetalleCategoriaTexto { get; set; }
-
         [NotMapped]
         public virtual EstadoRegistro EstadoRegistro { get; set; }
-
         [NotMapped]
         public bool TieneDetalle { get; set; }
+        [NotMapped]
+        public string id { get; set; }
+        [NotMapped]
+        public virtual DetalleCategoriaNumerico DetalleCategoriaNumerico { get; set; }
+        [NotMapped]
+        public virtual DetalleCategoriaFecha DetalleCategoriaFecha { get; set; }
+        #endregion
+
+
+
+
+
+
 
         //public virtual EstadoRegistro EstadoRegistro { get; set; }
         //public virtual TipoCategoria TipoCategoria { get; set; }
         //public virtual TiposDetalleCategoria TiposDetalleCategoria { get; set; }
 
-        //public virtual ICollection<DetalleCategoriaNumerico> DetalleCategoriaNumerico { get; set; }
 
-        //public virtual ICollection<DetalleCategoriaFecha> DetalleCategoriaFecha { get; set; }
 
 
 

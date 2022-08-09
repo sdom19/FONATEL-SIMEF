@@ -26,7 +26,7 @@ namespace GB.SIMEF.DAL
             {
                 ListaCategoria = db.Database.SqlQuery<CategoriasDesagregacion>
                     ("execute spObtenerCategoriasDesagregacion @idCategoria,@codigo,@idEstado,@idTipoCategoria ",
-                     new SqlParameter("@idCategoria", objCategoria.idCategoria),
+                     new SqlParameter("@idCategoria",objCategoria.idCategoria),
                      new SqlParameter("@codigo", string.IsNullOrEmpty(objCategoria.Codigo) ? DBNull.Value.ToString() : objCategoria.Codigo),
                      new SqlParameter("@idEstado", objCategoria.idEstado),
                      new SqlParameter("@idTipoCategoria", objCategoria.IdTipoCategoria)
@@ -34,6 +34,7 @@ namespace GB.SIMEF.DAL
 
                 ListaCategoria = ListaCategoria.Select(x => new CategoriasDesagregacion()
                 {
+                    id = Utilidades.Encriptar(x.idCategoria.ToString()),
                     idCategoria = x.idCategoria,
                     Codigo = x.Codigo,
                     NombreCategoria = x.NombreCategoria,
@@ -45,9 +46,12 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
-                    DetalleCategoriaTexto = db.DetalleCategoriaTexto.Where(i => i.idCategoria == x.idCategoria).ToList(),
+                    DetalleCategoriaTexto = db.DetalleCategoriaTexto
+                            .Where(i => i.idCategoria == x.idCategoria && i.Estado == true).ToList(),
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).Single(),
-                    TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle)
+                    TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle),
+                    DetalleCategoriaFecha = ObtenerDetalleCategoriaFecha(x.idCategoria),
+                    DetalleCategoriaNumerico = ObtenerDetalleCategoriaNumerico(x.idCategoria)
 
                 }).ToList();
             }
@@ -108,7 +112,7 @@ namespace GB.SIMEF.DAL
 
         private bool ValidarTieneDetalle(int i)
         {
-            if (i == (int)Constantes.TipoDetalleCategoria.Texto || i == (int)Constantes.TipoDetalleCategoria.Alfanumerico)
+            if (i == (int)Constantes.TipoDetalleCategoriaEnum.Texto || i == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
             {
                 return true;
             }
@@ -118,5 +122,26 @@ namespace GB.SIMEF.DAL
             }
         }
         #endregion
+
+        private DetalleCategoriaNumerico ObtenerDetalleCategoriaNumerico(int id)
+        {
+            var result=
+            db.DetalleCategoriaNumerico
+                             .Where(x => x.idCategoria == id && x.Estado == true).FirstOrDefault();
+
+            if (result==null)
+            {
+                return new DetalleCategoriaNumerico();
+            }
+            else
+            {
+                return result;
+            }
+        }
+        private DetalleCategoriaFecha ObtenerDetalleCategoriaFecha(int id)
+        {
+            return db.DetalleCategoriaFecha
+                             .Where(x => x.idCategoria == id && x.Estado == true).FirstOrDefault();
+        }
     }
 }

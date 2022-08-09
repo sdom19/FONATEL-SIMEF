@@ -40,7 +40,8 @@ namespace GB.SIMEF.DAL
                     Codigo = x.Codigo,
                     Estado = x.Estado,
                     Etiqueta = x.Etiqueta,
-                    CategoriasDesagregacion = db.CategoriasDesagregacion.Where(i => i.idCategoria == x.idCategoria).Single()
+                    CategoriasDesagregacion = db.CategoriasDesagregacion.Where(i => i.idCategoria == x.idCategoria).Single(),
+                    id = Utilidades.Encriptar(x.idCategoriaDetalle.ToString()),
                 }).ToList();
             }
             return ListaCategoriaDetalle;

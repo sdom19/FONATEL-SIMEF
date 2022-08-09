@@ -12,7 +12,9 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("DetalleCategoriaNumerico")]
     public partial class DetalleCategoriaNumerico
     {
         [Key]
@@ -21,7 +23,5 @@ namespace GB.SIMEF.Entities
         public Nullable<int> Minimo { get; set; }
         public Nullable<int> Maximo { get; set; }
         public bool Estado { get; set; }
-    
-        public virtual CategoriasDesagregacion CategoriasDesagregacion { get; set; }
     }
 }

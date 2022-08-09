@@ -12,13 +12,14 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using System.ComponentModel.DataAnnotations.Schema;
+    [Table("TipoCategoria")]
     public partial class TipoCategoria
     {
-        
+      
         public TipoCategoria()
         {
-            this.CategoriasDesagregacion = new HashSet<CategoriasDesagregacion>();
+            //this.CategoriasDesagregacion = new HashSet<CategoriasDesagregacion>();
         }
         [Key]
         public int idTipoCategoria { get; set; }
@@ -26,6 +27,6 @@ namespace GB.SIMEF.Entities
         public bool Estado { get; set; }
     
 
-        public virtual ICollection<CategoriasDesagregacion> CategoriasDesagregacion { get; set; }
+        //public virtual ICollection<CategoriasDesagregacion> CategoriasDesagregacion { get; set; }
     }
 }

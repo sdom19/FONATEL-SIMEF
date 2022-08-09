@@ -12,21 +12,31 @@ using Newtonsoft.Json;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
-    [AuthorizeUserAttribute]
+    //[AuthorizeUserAttribute]
     public class CategoriasDesagregacionController : Controller
     {
+
+        #region Variables Públicas del controller
         private readonly CategoriasDesagregacionBL categoriaBL;
 
         private readonly DetalleCategoriasTextoBL categoriaDetalleBL;
 
+        private readonly TipoCategoriaBL TipoCategoriaBL;
+
+        private readonly TipoDetalleCategoriaBL TipoDetalleCategoriaBL;
+
         string user;
-        
+
+        #endregion
+
 
         public CategoriasDesagregacionController()
         {
             categoriaBL = new CategoriasDesagregacionBL();
             categoriaDetalleBL = new DetalleCategoriasTextoBL();
-            
+            TipoCategoriaBL = new TipoCategoriaBL();
+            TipoDetalleCategoriaBL = new TipoDetalleCategoriaBL();
+
         }
 
         #region Eventos de la Página
@@ -38,16 +48,38 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         // GET: CategoriasDesagregacion/Details/5
         [HttpGet]
-        public ActionResult Detalle(int id)
+        public ActionResult Detalle()
         {
             return View();
         }
 
         [HttpGet]
-        public ActionResult Create(int? id)
+        public ActionResult Create(string id)
         {
-            return View();
+            ViewBag.TipoCategoria = TipoCategoriaBL.ObtenerDatos(new TipoCategoria() { })
+                .objetoRespuesta;
+            ViewBag.TipoDetalleCategoria = TipoDetalleCategoriaBL.ObtenerDatos(new TipoDetalleCategoria() { })
+               .objetoRespuesta;
+            CategoriasDesagregacion objCategoria = new CategoriasDesagregacion();
+            if (!string.IsNullOrEmpty(id))
+            {
+                objCategoria.id = id;
+                objCategoria = categoriaBL.ObtenerDatos(objCategoria).objetoRespuesta.SingleOrDefault();
+            }
+            return View(objCategoria);
+           
         }
+
+        [HttpPost]
+        public ActionResult Create(CategoriasDesagregacion obCategoria)
+        {
+           
+            return View();
+
+        }
+
+
+
         #endregion
 
         #region Métodos de ASYNC
@@ -64,8 +96,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
             await Task.Run(() =>
             {
-                result = categoriaBL.ObtenerDatos(new CategoriasDesagregacion());
+               result = categoriaBL.ObtenerDatos(new CategoriasDesagregacion());
             });
+         
             return JsonConvert.SerializeObject(result);
         }
         /// <summary>
@@ -87,14 +120,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
-        public async Task<string> EliminarCategoriasDetalle(int idDetalleCategoria)
+        public async Task<string> EliminarCategoriasDetalle(string idDetalleCategoria)
         {
             user = User.Identity.GetUserId();
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
             {
                 result = categoriaDetalleBL.EliminarElemento(new DetalleCategoriaTexto() { 
-                    idCategoriaDetalle=idDetalleCategoria,
+                    id=idDetalleCategoria,
                     usuario = user
                 });
 

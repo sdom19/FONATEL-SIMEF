@@ -47,6 +47,18 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
                 ResultadoConsulta.Usuario = objeto.usuario;
                 DetalleCategoriaTexto registroActializar;
+
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objCategoria.id = Utilidades.Desencriptar(objCategoria.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objCategoria.idCategoriaDetalle = temp;
+                    }
+                }
+
+
                 var resul = clsDatos.ObtenerDatos(objCategoria);
                 if (resul.Count()==0)
                 {
@@ -95,7 +107,7 @@ namespace GB.SIMEF.BL
             try
             {
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = 1;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
                 var resul = clsDatos.ObtenerDatos(objCategoria);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();

@@ -33,5 +33,8 @@ namespace GB.SIMEF.Entities
         [NotMapped]
 
         public CategoriasDesagregacion CategoriasDesagregacion { get; set; }
+        [NotMapped]
+
+        public string id { get; set; }
     }
 }
