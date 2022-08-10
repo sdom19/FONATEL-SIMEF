@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
 using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
@@ -48,13 +49,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         // GET: CategoriasDesagregacion/Details/5
         [HttpGet]
-        public ActionResult Detalle()
+        public ActionResult Detalle(string idCategoria)
         {
-            return View();
+            if (string.IsNullOrEmpty( idCategoria))
+            {
+                return View("Index");
+            }else
+            {
+                CategoriasDesagregacion objCategoria = new CategoriasDesagregacion();
+                if (!string.IsNullOrEmpty(idCategoria))
+                {
+                    objCategoria.id = idCategoria;
+                    objCategoria = categoriaBL.ObtenerDatos(objCategoria).objetoRespuesta.SingleOrDefault();
+                }
+                return View(objCategoria);
+            }
+           
         }
 
         [HttpGet]
-        public ActionResult Create(string id)
+        public ActionResult Create(string id, int? modo)
         {
             ViewBag.TipoCategoria = TipoCategoriaBL.ObtenerDatos(new TipoCategoria() { })
                 .objetoRespuesta;
@@ -65,6 +79,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 objCategoria.id = id;
                 objCategoria = categoriaBL.ObtenerDatos(objCategoria).objetoRespuesta.SingleOrDefault();
+                if (modo==(int)Constantes.Accion.Clonar)
+                {
+                    objCategoria.Codigo = string.Empty;
+                    objCategoria.id = string.Empty;
+                }
+
             }
             return View(objCategoria);
            
@@ -82,7 +102,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #endregion
 
-        #region Métodos de ASYNC
+        #region Métodos de ASYNC Categoria
         /// <summary>
         /// Fecha 04-08-2022
         /// Michael Hernández Cordero
@@ -101,6 +121,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
          
             return JsonConvert.SerializeObject(result);
         }
+
+
+
+
+
+        #endregion
+
+
+        #region Metodos Async DetalleCateriaTexto
         /// <summary>
         /// Fecha 04-08-2022
         /// Michael Hernández Cordero
@@ -108,17 +137,43 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<string> ObtenerListaCategoriasDetalle(int idCategoria)
+        public async Task<string> ObtenerListaCategoriasDetalle(string idCategoria)
         {
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
             {
-                result = categoriaDetalleBL.ObtenerDatos(new DetalleCategoriaTexto() { idCategoria = idCategoria });
+                result = categoriaDetalleBL.ObtenerDatos(new DetalleCategoriaTexto() { categoriaid = idCategoria });
 
             });
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Inserta un detalle para los atributops tipo texto
+        /// 09/08/2022
+        /// Michael Hernández
+        /// </summary>
+        /// <param name="detalleCategoria"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+
+        public async Task<string> InsertarCategoriasDetalle(DetalleCategoriaTexto detalleCategoria)
+        {
+            user = User.Identity.GetUserId();
+            detalleCategoria.usuario = user;
+            RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
+            result = categoriaDetalleBL.InsertarDatos(detalleCategoria);
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Establece la variable estado en false, estado eliminado
+        /// 09/08/2022
+        /// Michael Hernández Codero
+        /// </summary>
+        /// <param name="idDetalleCategoria"></param>
+        /// <returns>JSON</returns>
         [HttpPost]
         public async Task<string> EliminarCategoriasDetalle(string idDetalleCategoria)
         {
@@ -126,8 +181,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
             {
-                result = categoriaDetalleBL.EliminarElemento(new DetalleCategoriaTexto() { 
-                    id=idDetalleCategoria,
+                result = categoriaDetalleBL.EliminarElemento(new DetalleCategoriaTexto()
+                {
+                    id = idDetalleCategoria,
                     usuario = user
                 });
 
@@ -137,19 +193,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpGet]
-        public async Task<string> ObtenerCategoriasDetalle(int idCategoriaDetalle)
+        public async Task<string> ObtenerCategoriasDetalle(string idCategoriaDetalle)
         {
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
             {
-                result = categoriaDetalleBL.ObtenerDatos(new DetalleCategoriaTexto() 
-                { idCategoriaDetalle=idCategoriaDetalle});
+                result = categoriaDetalleBL.ObtenerDatos(new DetalleCategoriaTexto()
+                { id = idCategoriaDetalle });
 
             });
             return JsonConvert.SerializeObject(result);
         }
-
-
 
 
         #endregion

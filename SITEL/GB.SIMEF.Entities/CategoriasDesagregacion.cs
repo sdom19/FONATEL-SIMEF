@@ -23,8 +23,6 @@ namespace GB.SIMEF.Entities
             this.DetalleCategoriaFecha = new DetalleCategoriaFecha();
             this.DetalleCategoriaTexto = new List<DetalleCategoriaTexto>();
             this.EstadoRegistro = new EstadoRegistro();
-            //this.DetalleIndicadorVariables = new HashSet<DetalleIndicadorVariables>();
-            //this.RelacionCategoria = new HashSet<RelacionCategoria>();
         }
         [Key]
         public int idCategoria { get; set; }
@@ -41,6 +39,8 @@ namespace GB.SIMEF.Entities
         public int idTipoDetalle { get; set; }
         public int IdTipoCategoria { get; set; }
 
+       
+
 
         #region Varibles que no forman parte del contexto
         [NotMapped]
@@ -55,24 +55,9 @@ namespace GB.SIMEF.Entities
         public virtual DetalleCategoriaNumerico DetalleCategoriaNumerico { get; set; }
         [NotMapped]
         public virtual DetalleCategoriaFecha DetalleCategoriaFecha { get; set; }
+
+        [NotMapped]
+        public string IndicadorAsociados { get; set; }
         #endregion
-
-
-
-
-
-
-
-        //public virtual EstadoRegistro EstadoRegistro { get; set; }
-        //public virtual TipoCategoria TipoCategoria { get; set; }
-        //public virtual TiposDetalleCategoria TiposDetalleCategoria { get; set; }
-
-
-
-
-
-        //public virtual ICollection<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
-
-        //public virtual ICollection<RelacionCategoria> RelacionCategoria { get; set; }
     }
 }

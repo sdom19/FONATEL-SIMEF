@@ -25,17 +25,17 @@ namespace GB.SIMEF.BL
             this.ResultadoConsulta = new RespuestaConsulta<List<TipoCategoria>>();
         }
 
-        public RespuestaConsulta<TipoCategoria> ActualizarElemento(TipoCategoria objeto)
+        public RespuestaConsulta<List<TipoCategoria>> ActualizarElemento(TipoCategoria objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<TipoCategoria> CambioEstado(TipoCategoria objeto)
+        public RespuestaConsulta<List<TipoCategoria>> CambioEstado(TipoCategoria objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<TipoCategoria> ClonarDatos(TipoCategoria objeto)
+        public RespuestaConsulta<List<TipoCategoria>> ClonarDatos(TipoCategoria objeto)
         {
             throw new NotImplementedException();
         }
@@ -45,7 +45,7 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<TipoCategoria> InsertarDatos(TipoCategoria objeto)
+        public RespuestaConsulta<List<TipoCategoria>> InsertarDatos(TipoCategoria objeto)
         {
             throw new NotImplementedException();
         }
@@ -69,7 +69,7 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<TipoCategoria> ValidarDatos(TipoCategoria objeto)
+        public RespuestaConsulta<List<TipoCategoria>> ValidarDatos(TipoCategoria objeto)
         {
             throw new NotImplementedException();
         }

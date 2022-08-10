@@ -1,11 +1,19 @@
 ﻿    JsCategoria= {
         "Controles": {
+            "FormularioCategorias": "#FormularioCategorias",
+            "FormularioIndex":"#FormularioIndex",
+
+            "FormularioDetalle": "#FormularioDetalle",
+            "txtCodigo":"#txtCodigo",
+
+
+
             "divFechaMinima": "#divFechaMinimaCategoria",
             "divFechaMaxima": "#divFechaMaximaCategoria",
             "divCantidadDetalle": "#divCantidadDetalleCategoria",
             "divRangoMinimoCategoria": "#divRangoMinimaCategoria",
             "divRangoMaximaCategoria": "#divRangoMaximaCategoria",
-            "ddlTipoDetalle": "#idTipoDetalle",
+            "ddlTipoDetalle": "#ddlTipoDetalleCategoria",
             "btnGuardarCategoria": "#btnGuardarCategoria",
             "btnCancelar": "#btnCancelarCategoria",
             "btnCancelarDetalle": "#btnCancelarDetalleCategoria",
@@ -23,7 +31,7 @@
             "inputFileCargarDetalle": "#inputFileCargarDetalle",
             "txtCodigoDetalle": "#txtCodigoDetalle",
             "txtEtiquetaDetalle": "#txtEtiquetaDetalle",
-            "id":"#id"
+            "id":"#txtidCategoria"
         },
         "Variables": {
             "TipoFecha": 4,
@@ -131,11 +139,11 @@
                             JsCategoria.Metodos.CargarTablaCategoria();
                         } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                             jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) { });
+                                .set('onok', function (closeEvent) { location.reload();});
                         }            
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) { })
+                                .set('onok', function (closeEvent) { location.reload(); })
                         }
                         $("#loading").fadeOut();
                     }
@@ -147,7 +155,7 @@
                 })
             },
             "ConsultaListaCategoriaDetalle": function () {
-                let idCategoria = 1;
+                let idCategoria = $(JsCategoria.Controles.id).val();
                 $.ajax({
                     url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ObtenerListaCategoriasDetalle?idCategoria=' + idCategoria,
                     type: "GET",
@@ -161,11 +169,11 @@
                             JsCategoria.Metodos.CargarTablaDetalleCategoria();
                         } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                             jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) { });
+                                .set('onok', function (closeEvent) { location.reload(); });
                         }
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) { })
+                                .set('onok', function (closeEvent) { location.reload();})
                         }
                         $("#loading").fadeOut();
                     }
@@ -195,11 +203,11 @@
                                 });
                         } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                             jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) { });
+                                .set('onok', function (closeEvent) { location.reload(); });
                         }
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                                .set('onok', function (closeEvent) { });
+                                .set('onok', function (closeEvent) { location.reload(); });
                         }
                     }
                 }).fail(function (obj) {
@@ -211,10 +219,7 @@
 
                 })
             },
-
-
-            "ConsultaCategoriaDetalle": function (idDetalleCategoria) {
-                
+            "ConsultaCategoriaDetalle": function (idDetalleCategoria) {       
                 $.ajax({
                     url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ObtenerCategoriasDetalle?idCategoriaDetalle=' + idDetalleCategoria,
                     type: "GET",
@@ -228,14 +233,16 @@
                             if (JsCategoria.Variables.ListadoCategoriaDetalle.length > 0) {
                                 $(JsCategoria.Controles.txtCodigoDetalle).val(JsCategoria.Variables.ListadoCategoriaDetalle[0].Codigo);
                                 $(JsCategoria.Controles.txtEtiquetaDetalle).val(JsCategoria.Variables.ListadoCategoriaDetalle[0].Etiqueta);
+                                $(JsCategoria.Controles.txtCodigoDetalle).prop("disabled", true)
+
                             }
                         } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                             jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) { });
+                                .set('onok', function (closeEvent) { location.reload(); });
                         }
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) { })
+                                .set('onok', function (closeEvent) { location.reload(); })
                         }
                         $("#loading").fadeOut();
                     }
@@ -247,8 +254,50 @@
                 })
 
 
-            }
+            },
+            "InsertarDetalleCategoria": function () {
+                let detalleCategoria = new Object();
+                detalleCategoria.categoriaid = $(JsCategoria.Controles.id).val();
+                detalleCategoria.Codigo = $(JsCategoria.Controles.txtCodigoDetalle).val();
+                detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val();
 
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/InsertarCategoriasDetalle',
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $("#loading").fadeIn();
+                    },
+                    data: { detalleCategoria },
+                    success: function (obj) {
+                        $("#loading").fadeOut();
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            jsMensajes.Metodos.OkAlertModal("El detalle ha sido agregado")
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                    }
+                }).fail(function (obj) {
+
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
+                    $("#loading").fadeOut();
+
+                })
+            }
 
         }
 
@@ -256,7 +305,6 @@
 
 $(document).on("click", JsCategoria.Controles.btnCancelar, function (e) {
     e.preventDefault();
-    JsCategoria.Variables.OpcionSalir = false;
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
             preguntarAntesDeSalir = false;  window.location.href = "/Fonatel/CategoriasDesagregacion/Index"; 
@@ -264,11 +312,11 @@ $(document).on("click", JsCategoria.Controles.btnCancelar, function (e) {
 });
 
 $(document).on("click", JsCategoria.Controles.btnCancelarDetalle, function (e) {
-    JsCategoria.Variables.OpcionSalir = false;
+
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
-            window.location.href = "/Fonatel/CategoriasDesagregacion/Index";
+            location.reload();
         });
 });
 
@@ -283,12 +331,13 @@ $(document).on("change", JsCategoria.Controles.ddlTipoDetalle, function () {
 
 $(document).on("click", JsCategoria.Controles.btnEditarCategoria, function () {
     let id = $(this).val();
-    window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id=" + id;
+    window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
 
 
 $(document).on("click", JsCategoria.Controles.btnAddCategoria, function () {
-    window.location.href = "/Fonatel/CategoriasDesagregacion/Detalle";
+    let idCategoria = $(this).val();
+    window.location.href = "/Fonatel/CategoriasDesagregacion/Detalle?IdCategoria=" + idCategoria;
 });
 
 
@@ -328,8 +377,7 @@ $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, functi
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El detalle ha sido agregado")
-                .set('onok', function (closeEvent) {  });
+            JsCategoria.Consultas.InsertarDetalleCategoria();
         });
 });
 
@@ -341,7 +389,7 @@ $(document).on("click", JsCategoria.Controles.btnClonarCategoria, function () {
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Categoría?", jsMensajes.Variables.actionType.clonar)
         .set('onok', function (closeEvent) {
-             window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id="+id
+            window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
         });
 });
 
@@ -357,8 +405,6 @@ $(document).on("click", JsCategoria.Controles.btnEliminarDetalle, function (e) {
          
            JsCategoria.Consultas.EliminarDetalleCategoria(id);
         });
-
-
 });
 
 
@@ -385,20 +431,26 @@ $(document).on("click", JsCategoria.Controles.btnEditarDetalle, function (e) {
 //    alert("sadas");
 //}, false);
 $(function () {
-    if ($(JsCategoria.Controles.tablacategoria).length > 0) {
-         JsCategoria.Consultas.ConsultaListaCategoria();
-
-      
-    }
-    if ($(JsCategoria.Controles.TablaCategoriaDetalle).length > 0) {
-        JsCategoria.Consultas.ConsultaListaCategoriaDetalle();
-    }
-    if ($(JsCategoria.Controles.ddlTipoDetalle).length>0) {
+    if ($(JsCategoria.Controles.FormularioCategorias).length > 0) {
+        if ($(JsCategoria.Controles.txtCodigo).val().length > 0) {
+            $(JsCategoria.Controles.txtCodigo).prop("disabled", true);
+        }
         var selected = $(JsCategoria.Controles.ddlTipoDetalle).val();
-        if (selected>0) {
+        if (selected > 0) {
             JsCategoria.Metodos.HabilitarControlesTipoCategoria(selected);
         }
-       
     }
+    else if ($(JsCategoria.Controles.FormularioDetalle).length > 0) {
+        JsCategoria.Consultas.ConsultaListaCategoriaDetalle();
+        
+    }
+    else if ($(JsCategoria.Controles.FormularioIndex).length > 0) {
+        JsCategoria.Consultas.ConsultaListaCategoria();
+
+
+    }
+
+
+
 });
 

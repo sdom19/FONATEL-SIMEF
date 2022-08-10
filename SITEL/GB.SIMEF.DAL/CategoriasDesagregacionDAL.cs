@@ -24,6 +24,7 @@ namespace GB.SIMEF.DAL
             List<CategoriasDesagregacion> ListaCategoria = new List<CategoriasDesagregacion>();
             using (db = new SIMEFContext())
             {
+
                 ListaCategoria = db.Database.SqlQuery<CategoriasDesagregacion>
                     ("execute spObtenerCategoriasDesagregacion @idCategoria,@codigo,@idEstado,@idTipoCategoria ",
                      new SqlParameter("@idCategoria",objCategoria.idCategoria),
@@ -46,8 +47,7 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
-                    DetalleCategoriaTexto = db.DetalleCategoriaTexto
-                            .Where(i => i.idCategoria == x.idCategoria && i.Estado == true).ToList(),
+                    DetalleCategoriaTexto = ListaDetalleCategoriaTexto(x.idCategoria),
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).Single(),
                     TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle),
                     DetalleCategoriaFecha = ObtenerDetalleCategoriaFecha(x.idCategoria),
@@ -125,23 +125,20 @@ namespace GB.SIMEF.DAL
 
         private DetalleCategoriaNumerico ObtenerDetalleCategoriaNumerico(int id)
         {
-            var result=
+            return 
             db.DetalleCategoriaNumerico
                              .Where(x => x.idCategoria == id && x.Estado == true).FirstOrDefault();
-
-            if (result==null)
-            {
-                return new DetalleCategoriaNumerico();
-            }
-            else
-            {
-                return result;
-            }
         }
         private DetalleCategoriaFecha ObtenerDetalleCategoriaFecha(int id)
         {
             return db.DetalleCategoriaFecha
                              .Where(x => x.idCategoria == id && x.Estado == true).FirstOrDefault();
+        }
+
+        private List<DetalleCategoriaTexto> ListaDetalleCategoriaTexto(int id)
+        {
+            return db.DetalleCategoriaTexto
+                             .Where(x => x.idCategoria == id && x.Estado == true).ToList();
         }
     }
 }

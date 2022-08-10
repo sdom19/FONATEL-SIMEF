@@ -26,50 +26,27 @@ namespace GB.SIMEF.BL
             this.ResultadoConsulta = new RespuestaConsulta<List<CategoriasDesagregacion>>();
         }
 
-        public RespuestaConsulta<CategoriasDesagregacion> ActualizarElemento(CategoriasDesagregacion objeto)
-        {
-            throw new NotImplementedException();
-        }
+   
 
-        public RespuestaConsulta<CategoriasDesagregacion> CambioEstado(CategoriasDesagregacion objeto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RespuestaConsulta<CategoriasDesagregacion> ClonarDatos(CategoriasDesagregacion objeto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RespuestaConsulta<List<CategoriasDesagregacion>> EliminarElemento(CategoriasDesagregacion objeto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RespuestaConsulta<CategoriasDesagregacion> InsertarDatos(CategoriasDesagregacion objeto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerDatos(CategoriasDesagregacion objCategoria)
+        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerDatos(CategoriasDesagregacion objeto)
         {
             try
             {
-                if (!String.IsNullOrEmpty(objCategoria.id))
+                if (!String.IsNullOrEmpty(objeto.id))
                 {
-                    objCategoria.id = Utilidades.Desencriptar(objCategoria.id);
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
                     int temp;
-                    if (int.TryParse(objCategoria.id, out temp))
+                    if (int.TryParse(objeto.id, out temp))
                     {
-                        objCategoria.idCategoria = temp;
+                        objeto.idCategoria = temp;
                     }
                 }
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
-                var resul = clsDatos.ObtenerDatos(objCategoria);
+                var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
-              
+
             }
             catch (Exception ex)
             {
@@ -79,7 +56,33 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<CategoriasDesagregacion> ValidarDatos(CategoriasDesagregacion objeto)
+        public RespuestaConsulta<List<CategoriasDesagregacion>> ValidarDatos(CategoriasDesagregacion objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public RespuestaConsulta<List<CategoriasDesagregacion>> ActualizarElemento(CategoriasDesagregacion objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<CategoriasDesagregacion>> CambioEstado(CategoriasDesagregacion objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<CategoriasDesagregacion>> ClonarDatos(CategoriasDesagregacion objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<CategoriasDesagregacion>> EliminarElemento(CategoriasDesagregacion objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<CategoriasDesagregacion>> InsertarDatos(CategoriasDesagregacion objeto)
         {
             throw new NotImplementedException();
         }
