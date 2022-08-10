@@ -1,14 +1,26 @@
-﻿using System;
+﻿using GB.SIMEF.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using GB.SIMEF.BL;
+using Microsoft.AspNet.Identity;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class IndicadorFonatelController : Controller
     {
-        // GET: CategoriasDesagregacion
+        private readonly IndicadorFonatelBL indicadorBL;
+
+        public IndicadorFonatelController()
+        {
+            indicadorBL = new IndicadorFonatelBL();
+        }
+
+        #region Eventos de la página
 
         [HttpGet]
         public ActionResult Index()
@@ -16,14 +28,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View();
         }
 
-        // GET: CategoriasDesagregacion/Details/5
         [HttpGet]
         public ActionResult Detalle(int id)
         {
             return View();
         }
-
-
 
         [HttpGet]
         public ActionResult DetalleVariables(int id)
@@ -42,6 +51,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -56,6 +66,50 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return View();
             }
         }
+        #endregion
 
+        #region Métodos de async
+
+        /// <summary>
+        /// 10/08/2022
+        /// José Navarro Acuña
+        /// Método que retorna todos los indicadores registrados en el sistema
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaIndicadores()
+        {
+            RespuestaConsulta<List<Indicador>> result = null;
+            await Task.Run(() =>
+            {
+                result = indicadorBL.ObtenerDatos(new Indicador());
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// 10/08/2022
+        /// José Navarro Acuña
+        /// Método que eliminar un indicador
+        /// </summary>
+        /// <param name="pIdIdentificador"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EliminarIndicador(int pIdIdentificador)
+        {
+            string user = User.Identity.GetUserId();
+            RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
+            await Task.Run(() =>
+            {
+                result = indicadorBL.EliminarElemento(new DetalleCategoriaTexto()
+                {
+                    idCategoriaDetalle = idDetalleCategoria,
+                    usuario = user
+                });
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+        #endregion
     }
 }

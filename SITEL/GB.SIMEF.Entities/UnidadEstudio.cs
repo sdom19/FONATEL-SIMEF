@@ -12,13 +12,15 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("UnidadEstudio")]
     public partial class UnidadEstudio
     {
      
         public UnidadEstudio()
         {
-            this.Indicador = new HashSet<Indicador>();
+            //this.Indicador = new HashSet<Indicador>();
         }
         [Key]
         public int idUnidad { get; set; }
@@ -26,6 +28,6 @@ namespace GB.SIMEF.Entities
         public bool Estado { get; set; }
     
 
-        public virtual ICollection<Indicador> Indicador { get; set; }
+        //public virtual ICollection<Indicador> Indicador { get; set; }
     }
 }
