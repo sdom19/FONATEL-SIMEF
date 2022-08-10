@@ -24,13 +24,20 @@ namespace GB.SIMEF.Entities
             this.DefinicionIndicadores = new HashSet<DefinicionIndicadores>();
             this.ReglaValidacion = new HashSet<ReglaValidacion>();
         }
+
         [Key]
         public int idIndicador { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
+        public int IdTipoIndicador { get; set; }
+        public int IdClasificacion { get; set; }
+        public int idGrupo { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> CantidadVariableDato { get; set; }
         public Nullable<int> CantidadCategoriasDesagregacion { get; set; }
+        public Nullable<int> IdUnidadEstudio { get; set; }
+        public int idTipoMedida { get; set; }
+        public int IdFrecuencia { get; set; }
         public Nullable<bool> Interno { get; set; }
         public bool Solicitud { get; set; }
         public string Fuente { get; set; }
@@ -40,7 +47,8 @@ namespace GB.SIMEF.Entities
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
         public bool VisualizaSigitel { get; set; }
-    
+        public int idEstado { get; set; }
+
         public virtual ClasificacionIndicadores ClasificacionIndicadores { get; set; }
 
         public virtual ICollection<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }

@@ -45,6 +45,7 @@
     <Compile Include="DetalleCategoriasTextoBL.cs" />
     <Compile Include="CategoriasDesagregacionBL.cs" />
     <Compile Include="IMetodos.cs" />
+    <Compile Include="IndicadorFonatelBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

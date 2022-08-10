@@ -9,8 +9,7 @@ namespace GB.SIMEF.DAL
 {
     public partial class SIMEFContext:DbContext
     {
-        public SIMEFContext()
-           : base("name=SIMEFEntities")
+        public SIMEFContext() : base("name=SIMEFEntities")
         {
         }
 
@@ -23,7 +22,7 @@ namespace GB.SIMEF.DAL
 
         //public virtual DbSet<Anno> Anno { get; set; }
 
-        //public virtual DbSet<ClasificacionIndicadores> ClasificacionIndicadores { get; set; }
+        public virtual DbSet<ClasificacionIndicadores> ClasificacionIndicadores { get; set; }
         //public virtual DbSet<DetalleCategoriaFecha> DetalleCategoriaFecha { get; set; }
         //public virtual DbSet<DetalleCategoriaNumerico> DetalleCategoriaNumerico { get; set; }
 
@@ -45,10 +44,10 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<FormulasCalculo> FormulasCalculo { get; set; }
         //public virtual DbSet<FormulasCalculoDetalle> FormulasCalculoDetalle { get; set; }
         //public virtual DbSet<FormulasOperador> FormulasOperador { get; set; }
-        //public virtual DbSet<FrecuenciaEnvio> FrecuenciaEnvio { get; set; }
+        public virtual DbSet<FrecuenciaEnvio> FrecuenciaEnvio { get; set; }
         //public virtual DbSet<FuenteIndicador> FuenteIndicador { get; set; }
         //public virtual DbSet<FuentesRegistro> FuentesRegistro { get; set; }
-        //public virtual DbSet<GrupoIndicadores> GrupoIndicadores { get; set; }
+        public virtual DbSet<GrupoIndicadores> GrupoIndicadores { get; set; }
         //public virtual DbSet<Indicador> Indicador { get; set; }
         //public virtual DbSet<Mes> Mes { get; set; }
         //public virtual DbSet<Operadores> Operadores { get; set; }
@@ -66,11 +65,11 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<SolicitudDetalleFuentes> SolicitudDetalleFuentes { get; set; }
         //public virtual DbSet<SolicitudEnvioProgramado> SolicitudEnvioProgramado { get; set; }
         //public virtual DbSet<TipoCategoria> TipoCategoria { get; set; }
-        //public virtual DbSet<TipoIndicadores> TipoIndicadores { get; set; }
-        //public virtual DbSet<TipoMedida> TipoMedida { get; set; }
+        public virtual DbSet<TipoIndicadores> TipoIndicadores { get; set; }
+        public virtual DbSet<TipoMedida> TipoMedida { get; set; }
         //public virtual DbSet<TipoReglaValidacion> TipoReglaValidacion { get; set; }
         //public virtual DbSet<TiposDetalleCategoria> TiposDetalleCategoria { get; set; }
-        //public virtual DbSet<UnidadEstudio> UnidadEstudio { get; set; }
+        public virtual DbSet<UnidadEstudio> UnidadEstudio { get; set; }
         //public virtual DbSet<DefinicionIndicadores> DefinicionIndicadores { get; set; }
     }
 }

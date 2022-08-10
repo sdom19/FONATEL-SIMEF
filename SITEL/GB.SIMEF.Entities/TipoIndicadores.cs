@@ -12,14 +12,16 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("TipoIndicadores")]
     public partial class TipoIndicadores
     {
         public TipoIndicadores()
         {
-            this.FormulaIndicadorDSF = new HashSet<FormulaIndicadorDSF>();
-            this.FormulaIndicadorMC = new HashSet<FormulaIndicadorMC>();
-            this.Indicador = new HashSet<Indicador>();
+            //this.FormulaIndicadorDSF = new HashSet<FormulaIndicadorDSF>();
+            //this.FormulaIndicadorMC = new HashSet<FormulaIndicadorMC>();
+            //this.Indicador = new HashSet<Indicador>();
         }
         [Key]
         public int IdTipoIdicador { get; set; }
@@ -27,10 +29,10 @@ namespace GB.SIMEF.Entities
         public bool Estado { get; set; }
     
 
-        public virtual ICollection<FormulaIndicadorDSF> FormulaIndicadorDSF { get; set; }
+        //public virtual ICollection<FormulaIndicadorDSF> FormulaIndicadorDSF { get; set; }
 
-        public virtual ICollection<FormulaIndicadorMC> FormulaIndicadorMC { get; set; }
+        //public virtual ICollection<FormulaIndicadorMC> FormulaIndicadorMC { get; set; }
 
-        public virtual ICollection<Indicador> Indicador { get; set; }
+        //public virtual ICollection<Indicador> Indicador { get; set; }
     }
 }
