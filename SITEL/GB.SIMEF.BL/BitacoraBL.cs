@@ -24,18 +24,25 @@ namespace GB.SIMEF.BL
             this.clsDatos = new CategoriasDesagregacionDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<Bitacora>>();
         }
-        #region Metedos sin Usar
-        public RespuestaConsulta<Bitacora> ActualizarElemento(Bitacora objeto)
+
+
+        #region Metodos sin Usar
+        public RespuestaConsulta<List<Bitacora>> ValidarDatos(Bitacora objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<Bitacora> CambioEstado(Bitacora objeto)
+        public RespuestaConsulta<List<Bitacora>> ActualizarElemento(Bitacora objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<Bitacora> ClonarDatos(Bitacora objeto)
+        public RespuestaConsulta<List<Bitacora>> CambioEstado(Bitacora objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<Bitacora>> ClonarDatos(Bitacora objeto)
         {
             throw new NotImplementedException();
         }
@@ -45,12 +52,7 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<Bitacora> InsertarDatos(Bitacora objeto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RespuestaConsulta<Bitacora> ValidarDatos(Bitacora objeto)
+        public RespuestaConsulta<List<Bitacora>> InsertarDatos(Bitacora objeto)
         {
             throw new NotImplementedException();
         }

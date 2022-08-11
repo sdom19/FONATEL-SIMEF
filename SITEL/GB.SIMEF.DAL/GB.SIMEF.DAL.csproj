@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TipoDetalleCategoriaDAL.cs" />
+    <Compile Include="TipoCategoriaDAL.cs" />
     <Compile Include="DetalleCategoriasTextoDAL.cs" />
     <Compile Include="CategoriasDesagregacionDAL.cs" />
     <Compile Include="Migrations\Configuration.cs" />

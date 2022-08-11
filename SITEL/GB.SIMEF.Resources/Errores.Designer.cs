@@ -61,6 +61,42 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Se Excedio la cantidad de registros establecidos.
+        /// </summary>
+        public static string CantidadRegistros {
+            get {
+                return ResourceManager.GetString("CantidadRegistros", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El Código ingresado ya se encuentra registrado.
+        /// </summary>
+        public static string CodigoRegistrado {
+            get {
+                return ResourceManager.GetString("CodigoRegistrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La Etiqueta ingresada ya se encuentra registrado.
+        /// </summary>
+        public static string EtiquetaRegistrada {
+            get {
+                return ResourceManager.GetString("EtiquetaRegistrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El Nombre ingresado ya se encuentra registrado.
+        /// </summary>
+        public static string NombreRegistrado {
+            get {
+                return ResourceManager.GetString("NombreRegistrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No se encuentran registros.
         /// </summary>
         public static string NoRegistrosActualizar {

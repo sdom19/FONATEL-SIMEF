@@ -1,106 +1,100 @@
 ﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.CategoriasDesagregacion
 
-<form>
-    <div class="row">
-        <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0" >
-            <div class="justify-content-center">
-                <div class="form-group row">
-                    <label for="txtNombreCategoria" class="col-sm-12 col-form-label">Nombre</label>
-                    <div class="col-sm-12">
-                        <input type="text" class="form-control form-control-fonatel" id="txtNombreCategoria" placeholder="Nombre de Categoría">
-                        <small id="nombreCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
-                    <div class="col-sm-12">
-                        <input type="text" class="form-control form-control-fonatel" id="txtCodigo" placeholder="Codigo">
-                        <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                    </div>
-                </div>
 
-                <div class="form-group row">
-                    <label for="ddlTipoCategoria" class="col-sm-12 col-form-label ">Tipo Categoría</label>
-                    <div class="col-sm-12">
-                        <div class="select2-wrapper">
-                            <select class="listasDesplegables" aria-label="Default select example" id="ddlTipoCategoria">
-                                <option></option>
-                                <option value="1">id único</option>
-                                <option value="2">atributo</option>
-                                <option value="3">actualizable</option>
-                            </select>
-                        </div>
-                        <small id="TipoCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                    </div>
-                </div>
+@Html.HiddenFor(model => model.id, new {id="txtidCategoria" });
+<div class="row">
 
-            </div>
-        </div>
-        <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+    <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+        <div class="justify-content-center">
+
             <div class="form-group row">
-                <label for="ddlTipoDetalleCategoria" class="col-sm-12 col-form-label">Tipo Detalle</label>
+                <label for="txtNombreCategoria" class="col-sm-12 col-form-label">Nombre</label>
+                <div class="col-sm-12">
+                    @Html.EditorFor(model => model.NombreCategoria, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewCategorias.Nombre,  id = "txtNombreCategoria" } })
+                    <small id="txtnombreCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
+                <div class="col-sm-12">
+                    @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewCategorias.Codigo, id = "txtCodigoCategoria" } })
+                    <small id="txtCodigoCategoriaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="ddlTipoCategoria" class="col-sm-12 col-form-label ">Tipo Categoría</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
-                        <select class="listasDesplegables" aria-label="Default select example" id="ddlTipoDetalleCategoria">
-                            <option></option>
-                            <option value="1">numérico</option>
-                            <option value="2">alfanumérico</option>
-                            <option value="3">texto</option>
-                            <option value="4">fecha</option>
-                        </select>
-                        </div>
-                    <small id="TipoCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                        @Html.DropDownListFor(model => model.IdTipoCategoria, new SelectList(ViewBag.TipoCategoria, "idTipoCategoria", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipoCategoria" });
                     </div>
-                </div>
-            <div class="form-group row hidden" id="divCantidadDetalleCategoria">
-                <label for="txtCantidadDetalleCategoria" class="col-sm-12 col-form-label">Cantidad Detalle</label>
-                <div class="col-sm-12">
-                    <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadDetalleCategoria" placeholder="Cantidad Detalle">
-                    <small id="CantidadDetalleCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                </div>
-            </div>
-
-            <div class="form-group row hidden" id="divFechaMinimaCategoria">
-                <label for="txtFechaMinimaCategoria" class="col-sm-12 col-form-label">Fecha Inicio</label>
-                <div class="col-sm-12">
-                    <input type="date" class="form-control form-control-fonatel" id="txtFechaMinimaCategoria" placeholder="Fecha de Inicio">
-                    <small id="FechaMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                </div>
-            </div>
-
-
-            <div class="form-group row hidden" id="divFechaMaximaCategoria">
-                <label for="txtFechaMaximaCategoria" class="col-sm-12 col-form-label">Fecha Final</label>
-                <div class="col-sm-12">
-                    <input type="date" class="form-control form-control-fonatel" id="txtFechaMaximaCategoria" placeholder="Fecha de Fin">
-                    <small id="FechaMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                </div>
-            </div>
-
-            <div class="form-group row hidden" id="divRangoMinimaCategoria">
-                <label for="txtRangoMinimaCategoría" class="col-sm-12 col-form-label">Valor Mínimo</label>
-                <div class="col-sm-12">
-                    <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtRangoMinimaCategoria" placeholder="Rango de Inicio">
-                    <small id="RangoMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                </div>
-            </div>
-
-            <div class="form-group row hidden" id="divRangoMaximaCategoria">
-                <label for="txtRangoMaximaCategoria" class="col-sm-12 col-form-label">Valor Máximo</label>
-                <div class="col-sm-12">
-                    <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtRangoMaximaCategoria" placeholder="Valor Máximo">
-                    <small id="RangoMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                    <small id="ddlTipoCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
         </div>
+    </div>
+    <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+        <div class="form-group row">
+            <label for="ddlTipoDetalleCategoria" class="col-sm-12 col-form-label">Tipo Detalle</label>
+            <div class="col-sm-12">
+                <div class="select2-wrapper">
+                    @Html.DropDownListFor(model => model.idTipoDetalle, new SelectList(ViewBag.TipoDetalleCategoria, "idTipoCategoria", "Nombre"), "Seleccione", new { @class = "listasDesplegables",  id = "ddlTipoDetalleCategoria" })
+                </div>
+                <small id="ddlTipoDetalleCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+        <div class="form-group row hidden" id="divCantidadDetalleCategoria">
+            <label for="txtCantidadDetalleCategoria" class="col-sm-12 col-form-label">Cantidad Detalle</label>
+            <div class="col-sm-12">
+
+                @Html.EditorFor(model => model.CantidadDetalleDesagregacion, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewCategorias.CantidadDetalle, id= "txtCantidadDetalleCategoria" } })
+
+                <small id="CantidadDetalleCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+
+        <div class="form-group row hidden" id="divFechaMinimaCategoria">
+            <label for="txtFechaMinimaCategoria" class="col-sm-12 col-form-label">Fecha Inicio</label>
+            <div class="col-sm-12">
+                @Html.EditorFor(model => model.DetalleCategoriaFecha.FechaMinima, new { htmlAttributes = new { @class = "form-control form-control-fonatel", @type = "date", id= "txtFechaMinimaCategoria" } })
+                <small id="FechaMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+
+
+        <div class="form-group row hidden" id="divFechaMaximaCategoria">
+            <label for="txtFechaMinimaCategoria" class="col-sm-12 col-form-label">Fecha Hasta</label>     
+            <div class="col-sm-12">
+                @Html.EditorFor(model => model.DetalleCategoriaFecha.FechaMaxima, new { htmlAttributes = new { @class = "form-control form-control-fonatel", @type = "date",id= "txtFechaMaximaCategoria" } })
+                <small id="FechaMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+
+        <div class="form-group row hidden" id="divRangoMinimaCategoria">
+            <label for="txtRangoMinimaCategoría" class="col-sm-12 col-form-label">Valor Mínimo</label>
+            <div class="col-sm-12">
+                @Html.EditorFor(model => model.DetalleCategoriaNumerico.Minimo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewCategorias.Codigo, id= "txtRangoMinimaCategoria" } })
+                <small id="RangoMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+
+        <div class="form-group row hidden" id="divRangoMaximaCategoria">
+            <label for="txtRangoMaximaCategoria" class="col-sm-12 col-form-label">Valor Máximo</label>
+            <div class="col-sm-12">
+                @Html.EditorFor(model => model.DetalleCategoriaNumerico.Maximo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewCategorias.Codigo, id= "txtRangoMaximaCategoria" } })
+                <small id="RangoMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
 
     </div>
-    <div class="row mt-5">
-        <div class="col-sm-12 text-center">
-            <button id="btnGuardarCategoria"  class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-            <button type="submit" id="btnCancelarCategoria" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
-        </div>
+
+</div>
+<div class="row mt-5">
+    <div class="col-sm-12 text-center">
+        <button id="btnGuardarCategoria" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+        <button type="submit" id="btnCancelarCategoria" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
     </div>
-</form>
+</div>
 

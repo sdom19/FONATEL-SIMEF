@@ -73,6 +73,12 @@
       <DependentUpon>EtiquetasViewDefinicionIndicadores.resx</DependentUpon>
     </Compile>
     <Compile Include="Constantes.cs" />
+    <Compile Include="EtiquetasViewBitacora.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewBitacora.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Errores.resx">
@@ -99,6 +105,10 @@
     <EmbeddedResource Include="EtiquetasViewIndicadorFonatel.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewIndicadorFonatel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewBitacora.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewBitacora.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

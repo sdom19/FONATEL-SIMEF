@@ -8,6 +8,20 @@ jsUtilidades= {
             "NoError": 0,
             "ErrorSistema": 1,
             "ErrorControlado": 2
+        },
+
+        "Acciones": {
+            "Insertar": 1,
+            "Consultar": 2,
+            "Editar": 3,      
+            "Eliminar": 4,
+            "Clonar": 5,
+        },
+        "EstadoRegistros": {
+            "EnProceso": 1,
+            "Activo" : 2,
+            "Desactivado":3,
+            "Eliminado": 4
         }
     }
 }
@@ -180,7 +194,7 @@ $(document).on("keypress", '.solo_operacion', function (e) {
 
 
 $(document).on("keypress", '.alfa_numerico', function (e) {
-    var regex = new RegExp("^[0-9]|[a-z]+$");
+    var regex = new RegExp("^[0-9]|[a-z]|[\s]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         e.preventDefault();

@@ -117,28 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Acciones" xml:space="preserve">
-    <value>Acciones</value>
+  <data name="Bitacora" xml:space="preserve">
+    <value>Reporte de Bitácora</value>
   </data>
-  <data name="Cantidad" xml:space="preserve">
-    <value>Cantidad</value>
+  <data name="FechaDesde" xml:space="preserve">
+    <value>Fecha Desde</value>
   </data>
-  <data name="CantidadDetalle" xml:space="preserve">
-    <value>Cantidad Detalle</value>
-  </data>
-  <data name="Codigo" xml:space="preserve">
-    <value>Código</value>
-  </data>
-  <data name="Detalle" xml:space="preserve">
-    <value>Detalle</value>
-  </data>
-  <data name="ErrorTipoDetalleCategoria" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Estado" xml:space="preserve">
-    <value>Estado</value>
-  </data>
-  <data name="Nombre" xml:space="preserve">
-    <value>Nombre</value>
+  <data name="FechaHasta" xml:space="preserve">
+    <value>Fecha Hasta</value>
   </data>
 </root>
