@@ -33,7 +33,7 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
         //public virtual DbSet<DetalleRegistroIndicadorCategoria> DetalleRegistroIndicadorCategoria { get; set; }
         //public virtual DbSet<DetalleRegistroIndicadorVariable> DetalleRegistroIndicadorVariable { get; set; }
-        //public virtual DbSet<DetalleRelacionCategoria> DetalleRelacionCategoria { get; set; }
+        public virtual DbSet<DetalleRelacionCategoria> DetalleRelacionCategoria { get; set; }
         //public virtual DbSet<DetalleSolicitudFormulario> DetalleSolicitudFormulario { get; set; }
         //public virtual DbSet<EnvioSolicitudes> EnvioSolicitudes { get; set; }
 

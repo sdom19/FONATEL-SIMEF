@@ -12,28 +12,42 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("RelacionCategoria")]
     public partial class RelacionCategoria
     {
        
         public RelacionCategoria()
         {
-            this.DetalleRelacionCategoria = new HashSet<DetalleRelacionCategoria>();
+            //this.DetalleRelacionCategoria = new HashSet<DetalleRelacionCategoria>();
+            this.DetalleRelacionCategoria = new List<DetalleRelacionCategoria>();
         }
+
         [Key]
         public int idRelacionCategoria { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
         public Nullable<int> CantidadCategoria { get; set; }
+        public int idCategoria { get; set; }
         public string idCategoriaValor { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
-    
-        public virtual CategoriasDesagregacion CategoriasDesagregacion { get; set; }
+        public int idEstado { get; set; }
 
-        public virtual ICollection<DetalleRelacionCategoria> DetalleRelacionCategoria { get; set; }
+        [NotMapped]
         public virtual EstadoRegistro EstadoRegistro { get; set; }
+
+        [NotMapped]
+        public bool TieneDetalle { get; set; }
+
+        [NotMapped]
+        public List<DetalleRelacionCategoria> DetalleRelacionCategoria { get; set; }
+
+
+        //public virtual ICollection<DetalleRelacionCategoria> DetalleRelacionCategoria { get; set; }
+        //public virtual EstadoRegistro EstadoRegistro { get; set; }
     }
 }

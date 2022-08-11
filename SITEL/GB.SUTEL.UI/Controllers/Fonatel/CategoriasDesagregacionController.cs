@@ -68,6 +68,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
             return JsonConvert.SerializeObject(result);
         }
+
+
         /// <summary>
         /// Fecha 04-08-2022
         /// Michael Hernández Cordero
