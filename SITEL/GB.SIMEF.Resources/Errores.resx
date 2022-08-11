@@ -118,13 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CantidadRegistros" xml:space="preserve">
-    <value>No se puede insertar el registro ya que la cantidad configurada </value>
+    <value>Se Excedio la cantidad de registros establecidos</value>
   </data>
   <data name="CodigoRegistrado" xml:space="preserve">
-    <value>El Código ha sido registrado anteriormente</value>
+    <value>El Código ingresado ya se encuentra registrado</value>
   </data>
   <data name="EtiquetaRegistrada" xml:space="preserve">
-    <value>La Etiqueta ha sido registrada anteriormente</value>
+    <value>La Etiqueta ingresada ya se encuentra registrado</value>
+  </data>
+  <data name="NombreRegistrado" xml:space="preserve">
+    <value>El Nombre ingresado ya se encuentra registrado</value>
   </data>
   <data name="NoRegistrosActualizar" xml:space="preserve">
     <value>No se encuentran registros</value>

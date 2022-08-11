@@ -43,6 +43,8 @@ namespace GB.SIMEF.Resources
             Editar=3,        
             Eliminar = 4,
             Clonar = 5,
+            Activar=6,
+            Inactiva=7
         }
 
         public struct CifradoDatos

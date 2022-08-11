@@ -30,7 +30,7 @@ namespace GB.SIMEF.Entities
         public string Codigo { get; set; }
         [MaxLength(300)]
         public string NombreCategoria { get; set; }
-        public Nullable<int> CantidadDetalleDesagregacion { get; set; }
+        public int CantidadDetalleDesagregacion { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }

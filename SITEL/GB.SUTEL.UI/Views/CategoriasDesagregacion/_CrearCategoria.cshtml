@@ -12,29 +12,24 @@
                 <label for="txtNombreCategoria" class="col-sm-12 col-form-label">Nombre</label>
                 <div class="col-sm-12">
                     @Html.EditorFor(model => model.NombreCategoria, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewCategorias.Nombre,  id = "txtNombreCategoria" } })
-                    <small id="nombreCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                    <small id="txtnombreCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
                 <div class="col-sm-12">
-                    @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewCategorias.Codigo, id = "txtCodigo" } })
-                    <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                    @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewCategorias.Codigo, id = "txtCodigoCategoria" } })
+                    <small id="txtCodigoCategoriaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
             <div class="form-group row">
-
-
-
-
-
                 <label for="ddlTipoCategoria" class="col-sm-12 col-form-label ">Tipo Categoría</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
                         @Html.DropDownListFor(model => model.IdTipoCategoria, new SelectList(ViewBag.TipoCategoria, "idTipoCategoria", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipoCategoria" });
                     </div>
-                    <small id="TipoCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                    <small id="ddlTipoCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
@@ -47,7 +42,7 @@
                 <div class="select2-wrapper">
                     @Html.DropDownListFor(model => model.idTipoDetalle, new SelectList(ViewBag.TipoDetalleCategoria, "idTipoCategoria", "Nombre"), "Seleccione", new { @class = "listasDesplegables",  id = "ddlTipoDetalleCategoria" })
                 </div>
-                <small id="TipoCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlTipoDetalleCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
         <div class="form-group row hidden" id="divCantidadDetalleCategoria">
@@ -56,7 +51,7 @@
 
                 @Html.EditorFor(model => model.CantidadDetalleDesagregacion, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewCategorias.CantidadDetalle, id= "txtCantidadDetalleCategoria" } })
 
-                <small id="CantidadDetalleCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="CantidadDetalleCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 
@@ -64,24 +59,24 @@
             <label for="txtFechaMinimaCategoria" class="col-sm-12 col-form-label">Fecha Inicio</label>
             <div class="col-sm-12">
                 @Html.EditorFor(model => model.DetalleCategoriaFecha.FechaMinima, new { htmlAttributes = new { @class = "form-control form-control-fonatel", @type = "date", id= "txtFechaMinimaCategoria" } })
-                <small id="FechaMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="FechaMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 
 
         <div class="form-group row hidden" id="divFechaMaximaCategoria">
-            <label for="txtFechaMinimaCategoria" class="col-sm-12 col-form-label">Fecha Inicio</label>     
+            <label for="txtFechaMinimaCategoria" class="col-sm-12 col-form-label">Fecha Hasta</label>     
             <div class="col-sm-12">
-                @Html.EditorFor(model => model.DetalleCategoriaFecha.FechaMaxima, new { htmlAttributes = new { @class = "form-control form-control-fonatel", @type = "date",id= "txtFechaMinimaCategoria" } })
-                <small id="FechaMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                @Html.EditorFor(model => model.DetalleCategoriaFecha.FechaMaxima, new { htmlAttributes = new { @class = "form-control form-control-fonatel", @type = "date",id= "txtFechaMaximaCategoria" } })
+                <small id="FechaMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 
         <div class="form-group row hidden" id="divRangoMinimaCategoria">
             <label for="txtRangoMinimaCategoría" class="col-sm-12 col-form-label">Valor Mínimo</label>
             <div class="col-sm-12">
-                @Html.EditorFor(model => model.DetalleCategoriaNumerico.Minimo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewCategorias.Codigo, id= "txtRangoMinimaCategoría" } })
-                <small id="RangoMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                @Html.EditorFor(model => model.DetalleCategoriaNumerico.Minimo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewCategorias.Codigo, id= "txtRangoMinimaCategoria" } })
+                <small id="RangoMinimaCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 
@@ -89,7 +84,7 @@
             <label for="txtRangoMaximaCategoria" class="col-sm-12 col-form-label">Valor Máximo</label>
             <div class="col-sm-12">
                 @Html.EditorFor(model => model.DetalleCategoriaNumerico.Maximo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewCategorias.Codigo, id= "txtRangoMaximaCategoria" } })
-                <small id="RangoMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="RangoMaximaCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 

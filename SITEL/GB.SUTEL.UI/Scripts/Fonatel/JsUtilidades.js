@@ -16,6 +16,12 @@ jsUtilidades= {
             "Editar": 3,      
             "Eliminar": 4,
             "Clonar": 5,
+        },
+        "EstadoRegistros": {
+            "EnProceso": 1,
+            "Activo" : 2,
+            "Desactivado":3,
+            "Eliminado": 4
         }
     }
 }

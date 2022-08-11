@@ -2,9 +2,34 @@
         "Controles": {
             "FormularioCategorias": "#FormularioCategorias",
             "FormularioIndex":"#FormularioIndex",
-
             "FormularioDetalle": "#FormularioDetalle",
-            "txtCodigo":"#txtCodigo",
+            "txtCodigo":"#txtCodigoCategoria",
+            "EtiquetaDetalleHelp":"#txtEtiquetaDetalleHelp",
+            "CodigoDetalleHelp": "#txtCodigoDetalleHelp",
+
+
+            "txtNombreCategoria": "#txtNombreCategoria",
+            "txtCodigoCategoria":"#txtCodigoCategoria",
+            "ddlTipoCategoria": "#ddlTipoCategoria",
+            "txtCantidadDetalleCategoria": "#txtCantidadDetalleCategoria",
+            "txtFechaMinimaCategoria": "#txtFechaMinimaCategoria",
+            "txtFechaMaximaCategoria": "#txtFechaMaximaCategoria",
+            "txtRangoMinimaCategoria": "#txtRangoMinimaCategoria",
+            "txtRangoMaximaCategoria": "#txtRangoMaximaCategoria",
+            "ddlTipoDetalle": "#ddlTipoDetalleCategoria",
+
+
+            "txtCodigoCategoriaHelp": "#txtCodigoCategoriaHelp",
+            "txtnombreCategoriaHelp": "#txtnombreCategoriaHelp",
+            "ddlTipoCategoriaHelp": "#ddlTipoCategoriaHelp",
+            "ddlTipoDetalleCategoriaHelp": "#ddlTipoDetalleCategoriaHelp",
+            "CantidadDetalleCategoriaHelp": "#CantidadDetalleCategoriaHelp",
+            "FechaMinimaCategoriaHelp": "#FechaMinimaCategoriaHelp",
+            "FechaMaximaCategoriaHelp": "#FechaMaximaCategoriaHelp",
+            "RangoMinimaCategoriaHelp": "#RangoMinimaCategoriaHelp",
+            "RangoMaximaCategoriaHelp":"#RangoMaximaCategoriaHelp",
+
+
 
 
 
@@ -13,7 +38,7 @@
             "divCantidadDetalle": "#divCantidadDetalleCategoria",
             "divRangoMinimoCategoria": "#divRangoMinimaCategoria",
             "divRangoMaximaCategoria": "#divRangoMaximaCategoria",
-            "ddlTipoDetalle": "#ddlTipoDetalleCategoria",
+           
             "btnGuardarCategoria": "#btnGuardarCategoria",
             "btnCancelar": "#btnCancelarCategoria",
             "btnCancelarDetalle": "#btnCancelarDetalleCategoria",
@@ -41,7 +66,6 @@
             "ListadoCategoriaDetalle":[]
         },
         "Metodos": {
-
             "CargarTablaCategoria": function () {
                 EliminarDatasource();
                 let html = "";
@@ -65,15 +89,18 @@
                             "<button type='button' data-toggle='tooltip' data-placement='top' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
                             "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
                     }
-                    html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " title='Editar' class='btn-icon-base btn-edit'></button>" +
-                        "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' value=" + categoria.id + " class='btn-icon-base btn-clone' ></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' value=" + categoria.id + " class='btn-icon-base btn-power-on'></button></td >";
+                    html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " title='Editar' class='btn-icon-base btn-edit'></button>";
+                    html = html +     "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' value=" + categoria.id + " class='btn-icon-base btn-clone' ></button>";
+                    if (categoria.idEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
+                        html = html +   "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' value=" + categoria.id + " class='btn-icon-base btn-power-off'></button></td >";
+                    } else {
+                       html = html +  "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' value=" + categoria.id + " class='btn-icon-base btn-power-on'></button></td >";
+                    }       
                     html = html + "</tr>"
                 }
                 $(JsCategoria.Controles.tablacategoria).html(html);
                 CargarDatasource();
             },
-
             "CargarTablaDetalleCategoria": function () {
                 EliminarDatasource();
                 let html = "";
@@ -92,7 +119,6 @@
                 $(JsCategoria.Controles.TablaCategoriaDetalle).html(html);
                 CargarDatasource();
             },
-
             "CerrarFormulario": function () {
                 jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Salir del Formulario?", jsMensajes.Variables.actionType.cancelar)
                     .set('onok', function (closeEvent) {
@@ -121,6 +147,77 @@
                     $(JsCategoria.Controles.divFechaMinima).addClass("hidden");
                     $(JsCategoria.Controles.divCantidadDetalle).removeClass("hidden");
                 }
+            },
+            "ValidarFormularioDetalle": function () {
+                let validarFormulario = true;
+
+                $(JsCategoria.Controles.CodigoDetalleHelp).addClass("hidden");
+                $(JsCategoria.Controles.EtiquetaDetalleHelp).addClass("hidden");
+
+
+                if ($(JsCategoria.Controles.txtEtiquetaDetalle).val().length == 0) {
+                    $(JsCategoria.Controles.EtiquetaDetalleHelp).removeClass("hidden")
+                    validarFormulario = false;
+                }
+                if ($(JsCategoria.Controles.txtCodigoDetalle).val().length == 0) {
+                    $(JsCategoria.Controles.CodigoDetalleHelp).removeClass("hidden")
+                    validarFormulario = false;
+                }
+                return validarFormulario;
+            },
+            "ValidarFormularioCategoria": function () {
+                let validar = true;
+
+                $(JsCategoria.Controles.txtCodigoCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.txtnombreCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.ddlTipoCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.ddlTipoDetalleCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.CantidadDetalleCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.FechaMinimaCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.FechaMaximaCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.RangoMinimaCategoriaHelp).addClass("hidden");
+                $(JsCategoria.Controles.RangoMaximaCategoriaHelp).addClass("hidden");
+
+
+
+                if ($(JsCategoria.Controles.txtNombreCategoria).val().length == 0) {
+                    validar = false;
+                    $(JsCategoria.Controles.txtnombreCategoriaHelp).removeClass("hidden");
+                }
+                if ($(JsCategoria.Controles.txtCodigoCategoria).val().length == 0) {
+                    validar = false;
+                    $(JsCategoria.Controles.txtCodigoCategoriaHelp).removeClass("hidden");
+                }
+                if ($(JsCategoria.Controles.ddlTipoCategoria).val().length == 0) {
+                    validar = false;
+                    $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
+                }
+                if ($(JsCategoria.Controles.ddlTipoDetalle).val() == 0) {
+                    validar = false;
+                    $(JsCategoria.Controles.ddlTipoDetalleCategoriaHelp).removeClass("hidden");
+                }
+                if ($(JsCategoria.Controles.txtCantidadDetalleCategoria).val().length == 0) {
+                    validar = false;
+
+                    $(JsCategoria.Controles.CantidadDetalleCategoriaHelp).removeClass("hidden");
+                }
+                if ($(JsCategoria.Controles.txtFechaMinimaCategoria).val().length == 0) {
+                    validar = false;
+                    $(JsCategoria.Controles.FechaMinimaCategoriaHelp).removeClass("hidden");
+                }
+                if ($(JsCategoria.Controles.txtFechaMaximaCategoria).val().length == 0) {
+                    validar = false;
+                    $(JsCategoria.Controles.FechaMaximaCategoriaHelp).removeClass("hidden");
+                }
+                if ($(JsCategoria.Controles.txtRangoMinimaCategoria).val() == 0) {
+                    validar = false;
+                    $(JsCategoria.Controles.RangoMinimaCategoriaHelp).removeClass("hidden");
+                }
+                if ($(JsCategoria.Controles.txtRangoMaximoCategoria).val() == 0) {
+                    validar = false;
+                    $(JsCategoria.Controles.RangoMaximaCategoriaHelp).removeClass("hidden");
+                }
+                return validar;
             }
         },
 
@@ -196,7 +293,7 @@
                     success: function (obj) {
                         $("#loading").fadeOut();
                         if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                            jsMensajes.Metodos.OkAlertModal("El Detalle ha sido Eliminado")
+                            jsMensajes.Metodos.OkAlertModal("El Detalle ha sido eliminado")
                                 .set('onok', function (closeEvent) {
                                     JsCategoria.Variables.ListadoCategoriaDetalle = obj.objetoRespuesta;
                                     JsCategoria.Metodos.CargarTablaDetalleCategoria();
@@ -297,7 +394,109 @@
                     $("#loading").fadeOut();
 
                 })
+            },
+            "CambiarEstadoCategoria": function (idCategoria,estado) {
+                let categoria = new Object()
+                categoria.id = idCategoria;
+                categoria.idEstado = estado;
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/CambiarEstadoCategoria',
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $("#loading").fadeIn();
+                    },
+                    data: { categoria },
+                    success: function (obj) {
+                        $("#loading").fadeOut();
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            if (estado == 2) {
+                                jsMensajes.Metodos.OkAlertModal("La Categoría ha sido activada")
+                                    .set('onok', function (closeEvent) {
+                                        location.reload();
+                                    });
+                            } else {
+                                jsMensajes.Metodos.OkAlertModal("La Categoría ha sido desactivada")
+                                    .set('onok', function (closeEvent) {
+                                        location.reload();
+                                    });
+                            }                         
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                    }
+                }).fail(function (obj) {
+
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
+                    $("#loading").fadeOut();
+
+                })
+            },
+
+            "InsertarCategoria": function () {
+                let categoria = new Object();
+                categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val();
+                categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val();
+                categoria.CantidadDetalleDesagregacion = $(JsCategoria.Controles.txtCantidadDetalleCategoria).val();
+                categoria.idTipoDetalle = $(JsCategoria.Controles.ddlTipoDetalle).val();
+                categoria.IdTipoCategoria = $(JsCategoria.Controles.ddlTipoCategoria).val();
+                categoria.DetalleCategoriaNumerico = new Object();
+                categoria.DetalleCategoriaNumerico.Minimo = $(JsCategoria.Controles.txtRangoMinimaCategoria).val();
+                categoria.DetalleCategoriaNumerico.Maximo = $(JsCategoria.Controles.txtRangoMaximaCategoria).val();
+                categoria.DetalleCategoriaFecha = new Object();
+                categoria.DetalleCategoriaFecha.FechaMinima = $(JsCategoria.Controles.txtFechaMinimaCategoria).val();
+                categoria.DetalleCategoriaFecha.FechaMaxima = $(JsCategoria.Controles.txtFechaMaximaCategoria).val();
+
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/InsertarCategoria',
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $("#loading").fadeIn();
+                    },
+                    data: { categoria },
+                    success: function (obj) {
+                        $("#loading").fadeOut();
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido creada")
+                                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                    }
+                }).fail(function (obj) {
+
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
+                    $("#loading").fadeOut();
+
+                })
+
+
+
             }
+
 
         }
 
@@ -344,41 +543,57 @@ $(document).on("click", JsCategoria.Controles.btnAddCategoria, function () {
 
 
 $(document).on("click", JsCategoria.Controles.btnDesactivarCategoria, function () {
+
+    let id = $(this).val();
+    let estado = jsUtilidades.Variables.EstadoRegistros.Activo;
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Categoría?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido activada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+
+            JsCategoria.Consultas.CambiarEstadoCategoria(id, estado);
         });
 });
 
 $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
+    let id = $(this).val();
+    let estado = jsUtilidades.Variables.EstadoRegistros.Desactivado;
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Categoría?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido desactivada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+     
+            JsCategoria.Consultas.CambiarEstadoCategoria(id, estado);
         });
 });
 
 
-//$(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) {
-//    e.preventDefault();
-//    JsCategoria.Variables.OpcionSalir = false;
-//    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
-//        .set('onok', function (closeEvent) {
-//            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido creada")
-//                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
-//        });
-//});
+$(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) {
+    e.preventDefault();
+    //let result = JsCategoria.Metodos.ValidarFormularioCategoria();
+
+    
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            JsCategoria.Consultas.InsertarCategoria();
+        });
+});
 
 
 
 $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, function (e) {
     e.preventDefault();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            JsCategoria.Consultas.InsertarDetalleCategoria();
-        });
+
+    if (JsCategoria.Metodos.ValidarFormularioDetalle()) {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsCategoria.Consultas.InsertarDetalleCategoria();
+            });
+    }
+    else {
+
+    }
+
+
+ 
 });
 
 
@@ -432,8 +647,8 @@ $(document).on("click", JsCategoria.Controles.btnEditarDetalle, function (e) {
 //}, false);
 $(function () {
     if ($(JsCategoria.Controles.FormularioCategorias).length > 0) {
-        if ($(JsCategoria.Controles.txtCodigo).val().length > 0) {
-            $(JsCategoria.Controles.txtCodigo).prop("disabled", true);
+        if ($(JsCategoria.Controles.txtCodigoCategoria).val().length > 0) {
+            $(JsCategoria.Controles.txtCodigoCategoria).prop("disabled", true);
         }
         var selected = $(JsCategoria.Controles.ddlTipoDetalle).val();
         if (selected > 0) {

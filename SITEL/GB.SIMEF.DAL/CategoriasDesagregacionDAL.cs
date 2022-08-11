@@ -48,7 +48,7 @@ namespace GB.SIMEF.DAL
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     DetalleCategoriaTexto = ListaDetalleCategoriaTexto(x.idCategoria),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).Single(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
                     TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle),
                     DetalleCategoriaFecha = ObtenerDetalleCategoriaFecha(x.idCategoria),
                     DetalleCategoriaNumerico = ObtenerDetalleCategoriaNumerico(x.idCategoria)
@@ -58,7 +58,11 @@ namespace GB.SIMEF.DAL
             return ListaCategoria;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objCategoria"></param>
+        /// <returns></returns>
         public List<CategoriasDesagregacion> ActualizarDatos(CategoriasDesagregacion objCategoria)
         {
             List<CategoriasDesagregacion> ListaCategoria = new List<CategoriasDesagregacion>();
@@ -73,7 +77,7 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@idTipoDetalle", objCategoria.idTipoDetalle),
                      new SqlParameter("@IdTipoCategoria", objCategoria.IdTipoCategoria),
                      new SqlParameter("@UsuarioCreacion", objCategoria.UsuarioCreacion),
-                     new SqlParameter("@UsuarioModificacion", objCategoria.UsuarioModificacion),
+                     new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objCategoria.UsuarioModificacion) ? DBNull.Value.ToString() : objCategoria.UsuarioModificacion),
                      new SqlParameter("@idEstado", objCategoria.idEstado)
                     ).ToList();
 
@@ -122,6 +126,28 @@ namespace GB.SIMEF.DAL
             }
         }
         #endregion
+
+
+
+        public void InsertarDetalleFecha(DetalleCategoriaFecha detalleFecha)
+        {
+            using (db=new SIMEFContext())
+            {
+                db.DetalleCategoriaFecha.Add(detalleFecha);
+                db.SaveChanges();
+            }
+        }
+
+        public void InsertarDetalleNumerico (DetalleCategoriaNumerico detalleNumerico)
+        {
+            using (db = new SIMEFContext())
+            {
+                db.DetalleCategoriaNumerico.Add(detalleNumerico);
+                db.SaveChanges();
+            }
+        }
+
+
 
         private DetalleCategoriaNumerico ObtenerDetalleCategoriaNumerico(int id)
         {

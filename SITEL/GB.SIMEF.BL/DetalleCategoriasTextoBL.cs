@@ -126,11 +126,11 @@ namespace GB.SIMEF.BL
                 {
                     throw new Exception(Errores.CantidadRegistros);
                 }
-                else if (ObtenerListaParaComparar.Where(x=>x.Codigo==objeto.Codigo).Count()>0)
+                else if (clsDatos.ObtenerDatos(new DetalleCategoriaTexto() { Codigo=objeto.Codigo, idCategoria = objeto.idCategoria }).Count()>0)
                 {
                     throw new Exception(Errores.CodigoRegistrado);
                 }
-                else if (ObtenerListaParaComparar.Where(x => x.Etiqueta.ToUpper() == objeto.Etiqueta.ToUpper()).Count() > 0)
+                else if (clsDatos.ObtenerDatos(new DetalleCategoriaTexto() { Etiqueta = objeto.Etiqueta, idCategoria=objeto.idCategoria }).Count() > 0)
                 {
                     throw new Exception(Errores.EtiquetaRegistrada);
                 }
@@ -138,10 +138,19 @@ namespace GB.SIMEF.BL
                 {
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+
+                    if (cantidadDisponible==1)
+                    {
+                        objeto.CategoriasDesagregacion.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                        objeto.CategoriasDesagregacion.UsuarioModificacion = objeto.usuario;
+                        clsDatosCategoria.ActualizarDatos(objeto.CategoriasDesagregacion);
+                    }
+
                     clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
                         ResultadoConsulta.Clase, string.Format("{0}/{1}",
                         objeto.CategoriasDesagregacion.Codigo, objeto.Codigo));
+                    
                     
                 }
             }

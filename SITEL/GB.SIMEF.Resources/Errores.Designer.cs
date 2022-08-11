@@ -61,7 +61,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a No se puede insertar el registro ya que la cantidad configurada .
+        ///   Busca una cadena traducida similar a Se Excedio la cantidad de registros establecidos.
         /// </summary>
         public static string CantidadRegistros {
             get {
@@ -70,7 +70,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El Código ha sido registrado anteriormente.
+        ///   Busca una cadena traducida similar a El Código ingresado ya se encuentra registrado.
         /// </summary>
         public static string CodigoRegistrado {
             get {
@@ -79,11 +79,20 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a La Etiqueta ha sido registrada anteriormente.
+        ///   Busca una cadena traducida similar a La Etiqueta ingresada ya se encuentra registrado.
         /// </summary>
         public static string EtiquetaRegistrada {
             get {
                 return ResourceManager.GetString("EtiquetaRegistrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El Nombre ingresado ya se encuentra registrado.
+        /// </summary>
+        public static string NombreRegistrado {
+            get {
+                return ResourceManager.GetString("NombreRegistrado", resourceCulture);
             }
         }
         

@@ -90,14 +90,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
            
         }
 
-        [HttpPost]
-        public ActionResult Create(CategoriasDesagregacion obCategoria)
-        {
-           
-            return View();
-
-        }
-
 
 
         #endregion
@@ -119,6 +111,50 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                result = categoriaBL.ObtenerDatos(new CategoriasDesagregacion());
             });
          
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha 10/08/2022
+        /// Michael Hernández Cordero
+        /// Cambio el estado de registro a desactivado y activado 
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+        [HttpPost]
+
+        public async Task<string> CambiarEstadoCategoria(CategoriasDesagregacion categoria)
+        {
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            await Task.Run(() =>
+            {
+                categoria.UsuarioModificacion = user;
+                result = categoriaBL.CambioEstado(categoria); 
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+        /// <summary>
+        /// Fecha 10/08/2022
+        /// Michael Hernández Cordero
+        /// Insertar Categoría  
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+
+        public async Task<string> InsertarCategoria(CategoriasDesagregacion categoria)
+        {
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            await Task.Run(() =>
+            {
+                categoria.UsuarioCreacion = user;
+                result = categoriaBL.InsertarDatos(categoria);
+            });
+
             return JsonConvert.SerializeObject(result);
         }
 
@@ -163,7 +199,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             user = User.Identity.GetUserId();
             detalleCategoria.usuario = user;
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
-            result = categoriaDetalleBL.InsertarDatos(detalleCategoria);
+            await Task.Run(() =>
+            {
+                result = categoriaDetalleBL.InsertarDatos(detalleCategoria);
+            });
+          
             return JsonConvert.SerializeObject(result);
         }
 
@@ -191,7 +231,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
+        /// <summary>
+        /// Fecha 10/08/2022
+        /// Michael Hernández Cordero 
+        /// Obtiene la lista de elementos con base al parámetro encriptado
+        /// , Js filtra el elemento a 1
+        /// </summary>
+        /// <param name="idCategoriaDetalle"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<string> ObtenerCategoriasDetalle(string idCategoriaDetalle)
         {
