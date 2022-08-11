@@ -20,14 +20,16 @@ namespace GB.SIMEF.Entities
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ClasificacionIndicadores()
         {
-            //this.Indicador = new HashSet<Indicador>();
         }
         [Key]
         public int idClasificacion { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
-    
 
-        //public virtual ICollection<Indicador> Indicador { get; set; }
+
+        #region Variables que no forman parte del contexto
+        [NotMapped]
+        public string id { get; set; }
+        #endregion
     }
 }

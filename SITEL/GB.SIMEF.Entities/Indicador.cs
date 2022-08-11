@@ -12,6 +12,7 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Indicador
     {
@@ -66,5 +67,10 @@ namespace GB.SIMEF.Entities
         public virtual TipoIndicadores TipoIndicadores { get; set; }
 
         public virtual ICollection<ReglaValidacion> ReglaValidacion { get; set; }
+
+        #region Variables que no forman parte del contexto
+        [NotMapped]
+        public string id { get; set; }
+        #endregion
     }
 }

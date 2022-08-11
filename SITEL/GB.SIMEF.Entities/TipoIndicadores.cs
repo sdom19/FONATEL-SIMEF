@@ -19,20 +19,17 @@ namespace GB.SIMEF.Entities
     {
         public TipoIndicadores()
         {
-            //this.FormulaIndicadorDSF = new HashSet<FormulaIndicadorDSF>();
-            //this.FormulaIndicadorMC = new HashSet<FormulaIndicadorMC>();
-            //this.Indicador = new HashSet<Indicador>();
+
         }
         [Key]
         public int IdTipoIdicador { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
-    
 
-        //public virtual ICollection<FormulaIndicadorDSF> FormulaIndicadorDSF { get; set; }
 
-        //public virtual ICollection<FormulaIndicadorMC> FormulaIndicadorMC { get; set; }
-
-        //public virtual ICollection<Indicador> Indicador { get; set; }
+        #region Variables que no forman parte del contexto
+        [NotMapped]
+        public string id { get; set; }
+        #endregion
     }
 }

@@ -37,16 +37,18 @@
         "CargarTablaIndicadores": function () {
             $("#loading").fadeIn();
 
-            $.when(
-                JsIndicador.Consultas.ConsultaListaIndicadores()
-            ).then(function (objListaIndicadores) {
-                JsIndicador.Metodos.InsertarDatosTablaIndicadores(objListaIndicadores.objetoRespuesta);
-            })
-            .fail(function () { })
-            .done(function () { })
-            .always(function () {
-                $("#loading").fadeOut();
-            })
+            JsIndicador.Consultas.ConsultaListaIndicadores()
+                .then((data) => {
+                    JsIndicador.Metodos.InsertarDatosTablaIndicadores(data.objetoRespuesta);
+                })
+                .catch((error) => {
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { });
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+
         },
 
         "InsertarDatosTablaIndicadores": function (listaIndicadores) {
@@ -86,27 +88,24 @@
 
     "Consultas": {
         "ConsultaListaIndicadores": function () {
-            var def = $.Deferred();
-            return $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/ObtenerListaIndicadores',
-                type: "GET",
-                dataType: "JSON",
-                beforeSend: function () { },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        def.resolve(obj.objetoRespuesta);
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/ObtenerListaIndicadores',
+                    type: "GET",
+                    dataType: "JSON",
+                    beforeSend: function () { },
+                    success: function (obj) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            resolve(obj);
+                        }
+                        else {
+                            reject();
+                        }
+                    },
+                    error: function () {
+                        reject()
                     }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { })
-                    }
-                }
-            }).fail(function (obj) {
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
+                })
             })
         },
 

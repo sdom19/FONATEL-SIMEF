@@ -20,14 +20,17 @@ namespace GB.SIMEF.Entities
      
         public UnidadEstudio()
         {
-            //this.Indicador = new HashSet<Indicador>();
         }
+
         [Key]
         public int idUnidad { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
-    
 
-        //public virtual ICollection<Indicador> Indicador { get; set; }
+
+        #region Variables que no forman parte del contexto
+        [NotMapped]
+        public string id { get; set; }
+        #endregion
     }
 }

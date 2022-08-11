@@ -12,25 +12,25 @@ namespace GB.SIMEF.BL
 {
     public class IndicadorFonatelBL : IMetodos<Indicador>
     {
-        private readonly IndicadorFonatelDAL clsDatos;
+        private readonly IndicadorFonatelDAL indicadorFonatelDAL;
         string modulo = "";
 
         public IndicadorFonatelBL()
         {
-            this.clsDatos = new IndicadorFonatelDAL();
+            indicadorFonatelDAL = new IndicadorFonatelDAL();
         }
 
-        public RespuestaConsulta<Indicador> ActualizarElemento(Indicador objeto)
+        public RespuestaConsulta<List<Indicador>> ActualizarElemento(Indicador objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<Indicador> CambioEstado(Indicador objeto)
+        public RespuestaConsulta<List<Indicador>> CambioEstado(Indicador objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<Indicador> ClonarDatos(Indicador objeto)
+        public RespuestaConsulta<List<Indicador>> ClonarDatos(Indicador objeto)
         {
             throw new NotImplementedException();
         }
@@ -40,11 +40,19 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<Indicador> InsertarDatos(Indicador objeto)
+        public RespuestaConsulta<List<Indicador>> InsertarDatos(Indicador objeto)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 10/08/2022
+        /// José Navarro Acuña
+        /// Método que retorna todos los indicadores registrados en el sistema.
+        /// Se puede realizar un filtrado de acuerdo al objecto que se envia.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<Indicador>> ObtenerDatos(Indicador pIndicador)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
@@ -53,7 +61,7 @@ namespace GB.SIMEF.BL
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                var result = clsDatos.ObtenerDatos(pIndicador);
+                var result = indicadorFonatelDAL.ObtenerDatos(pIndicador);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -66,6 +74,11 @@ namespace GB.SIMEF.BL
         }
 
         public RespuestaConsulta<Indicador> ValidarDatos(Indicador objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        RespuestaConsulta<List<Indicador>> IMetodos<Indicador>.ValidarDatos(Indicador objeto)
         {
             throw new NotImplementedException();
         }

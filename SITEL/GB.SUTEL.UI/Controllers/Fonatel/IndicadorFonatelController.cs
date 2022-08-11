@@ -99,15 +99,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             string user = User.Identity.GetUserId();
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
-            await Task.Run(() =>
-            {
-                result = indicadorBL.EliminarElemento(new DetalleCategoriaTexto()
-                {
-                    idCategoriaDetalle = idDetalleCategoria,
-                    usuario = user
-                });
+            //await Task.Run(() =>
+            //{
+            //    result = indicadorBL.EliminarElemento(new DetalleCategoriaTexto()
+            //    {
+            //        idCategoriaDetalle = idDetalleCategoria,
+            //        usuario = user
+            //    });
 
-            });
+            //});
             return JsonConvert.SerializeObject(result);
         }
         #endregion
