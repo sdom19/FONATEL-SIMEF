@@ -9,6 +9,18 @@ namespace GB.SIMEF.Resources
     public static class Constantes
     {
         /// <summary>
+        /// 
+        /// </summary>
+
+        public enum TipoCategoria : int
+        {
+            IdUnico=1,
+            Atributo=2,
+            Actualizable=3
+        }
+
+
+        /// <summary>
         /// Tipos de Categorías
         /// </summary>
         public enum TipoDetalleCategoriaEnum : int

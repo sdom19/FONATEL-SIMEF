@@ -12,13 +12,14 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("DetalleRelacionCategoria")]
     public partial class DetalleRelacionCategoria
     {
       
         public DetalleRelacionCategoria()
         {
-            this.DetalleIndicadorCategoria = new HashSet<DetalleIndicadorCategoria>();
         }
         [Key]
         public int idDetalleRelacionCategoria { get; set; }
@@ -27,8 +28,5 @@ namespace GB.SIMEF.Entities
         public string CategoriaAtributoValor { get; set; }
         public bool Estado { get; set; }
     
-
-        public virtual ICollection<DetalleIndicadorCategoria> DetalleIndicadorCategoria { get; set; }
-        public virtual RelacionCategoria RelacionCategoria { get; set; }
     }
 }

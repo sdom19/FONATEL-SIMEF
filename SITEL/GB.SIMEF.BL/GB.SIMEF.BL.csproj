@@ -49,6 +49,7 @@
     <Compile Include="CategoriasDesagregacionBL.cs" />
     <Compile Include="IMetodos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelacionCategoriaBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GB.SIMEF.DAL\GB.SIMEF.DAL.csproj">
