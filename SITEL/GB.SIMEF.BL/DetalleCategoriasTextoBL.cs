@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using OfficeOpenXml;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class DetalleCategoriasTextoBL:IMetodos<DetalleCategoriaTexto>
+    public class DetalleCategoriasTextoBL : IMetodos<DetalleCategoriaTexto>
     {
         private readonly DetalleCategoriaTextoDAL clsDatos;
 
-        private readonly CategoriasDesagregacionDAL  clsDatosCategoria;
+        private readonly CategoriasDesagregacionDAL clsDatosCategoria;
 
         private RespuestaConsulta<List<DetalleCategoriaTexto>> ResultadoConsulta;
         string modulo = Etiquetas.DetalleCategorias;
@@ -117,20 +119,20 @@ namespace GB.SIMEF.BL
                     new DetalleCategoriaTexto() { idCategoria = objeto.idCategoria }
                     );
 
-                int cantidadDisponible = (int)objeto.CategoriasDesagregacion.CantidadDetalleDesagregacion 
+                int cantidadDisponible = (int)objeto.CategoriasDesagregacion.CantidadDetalleDesagregacion
                                             - objeto.CategoriasDesagregacion.DetalleCategoriaTexto.Count();
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
                 ResultadoConsulta.Usuario = objeto.usuario;
-                if (cantidadDisponible<=0)
+                if (cantidadDisponible <= 0)
                 {
                     throw new Exception(Errores.CantidadRegistros);
                 }
-                else if (clsDatos.ObtenerDatos(new DetalleCategoriaTexto() { Codigo=objeto.Codigo, idCategoria = objeto.idCategoria }).Count()>0)
+                else if (clsDatos.ObtenerDatos(new DetalleCategoriaTexto() { Codigo = objeto.Codigo, idCategoria = objeto.idCategoria }).Count() > 0)
                 {
                     throw new Exception(Errores.CodigoRegistrado);
                 }
-                else if (clsDatos.ObtenerDatos(new DetalleCategoriaTexto() { Etiqueta = objeto.Etiqueta, idCategoria=objeto.idCategoria }).Count() > 0)
+                else if (clsDatos.ObtenerDatos(new DetalleCategoriaTexto() { Etiqueta = objeto.Etiqueta, idCategoria = objeto.idCategoria }).Count() > 0)
                 {
                     throw new Exception(Errores.EtiquetaRegistrada);
                 }
@@ -139,7 +141,7 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
 
-                    if (cantidadDisponible==1)
+                    if (cantidadDisponible == 1)
                     {
                         objeto.CategoriasDesagregacion.idEstado = (int)Constantes.EstadosRegistro.Activo;
                         objeto.CategoriasDesagregacion.UsuarioModificacion = objeto.usuario;
@@ -150,22 +152,22 @@ namespace GB.SIMEF.BL
                         ResultadoConsulta.Usuario,
                         ResultadoConsulta.Clase, string.Format("{0}/{1}",
                         objeto.CategoriasDesagregacion.Codigo, objeto.Codigo));
-                    
-                    
+
+
                 }
             }
             catch (Exception ex)
             {
-               
-                if (ex.Message==Errores.CantidadRegistros || ex.Message==Errores.CodigoRegistrado || ex.Message==Errores.EtiquetaRegistrada)
+
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.EtiquetaRegistrada)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }
-               
+
                 else
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-                   
+
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -209,6 +211,43 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<DetalleCategoriaTexto>> ValidarDatos(DetalleCategoriaTexto objeto)
         {
             throw new NotImplementedException();
+        }
+
+
+        public void CargarExcel(HttpPostedFileBase file)
+        {
+
+            using (var package = new ExcelPackage(file.InputStream))
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
+                string Codigo = worksheet.Name;
+
+                CategoriasDesagregacion categoria =
+                                     clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { Codigo = Codigo })
+                                    .SingleOrDefault();
+                categoria.DetalleCategoriaTexto = new List<DetalleCategoriaTexto>();
+
+                for (int i = 0; i < categoria.CantidadDetalleDesagregacion; i++)
+                {
+                    int fila = i + 2;
+                    if (worksheet.Cells[fila, 1].Value != null || worksheet.Cells[fila, 2].Value != null)
+                    {
+                        int codigo = 0;
+                        string Etiqueta = string.Empty;
+                        int.TryParse(worksheet.Cells[fila, 1].Value.ToString().Trim(), out codigo);
+                        Etiqueta = worksheet.Cells[fila, 2].Value.ToString();
+
+                        var detallecategoria = new DetalleCategoriaTexto()
+                        {
+                            idCategoria = categoria.idCategoria,
+                            Codigo = codigo,
+                            Etiqueta = Etiqueta,
+                            Estado = true
+                        };
+                        clsDatos.ActualizarDatos(detallecategoria);
+                    }
+                }
+            }
         }
     }
 }

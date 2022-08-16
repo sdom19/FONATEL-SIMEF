@@ -4,6 +4,12 @@ jsUtilidades= {
     "Variables": {
         "urlOrigen": location.origin,
 
+        "TipoDetalleCategoria": {
+            "Numerico":1,
+            "Alfanumerico":2,
+            "Texto":3,
+            "Fecha":4
+        },
         "Error": {
             "NoError": 0,
             "ErrorSistema": 1,

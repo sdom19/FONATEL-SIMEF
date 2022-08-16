@@ -165,6 +165,9 @@
   <data name="Categorias" xml:space="preserve">
     <value>Categorías de Desagregación</value>
   </data>
+  <data name="DescargaExcel" xml:space="preserve">
+    <value>Descargar Excel</value>
+  </data>
   <data name="DetalleCategorias" xml:space="preserve">
     <value>Detalle Categoría Desagregación</value>
   </data>

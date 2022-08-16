@@ -1419,6 +1419,8 @@
     <Content Include="Views\Shared\_LayoutFONATEL.cshtml" />
     <Content Include="Views\ReglasValidacion\_TablaTipoRegla.cshtml" />
     <Content Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
+    <Content Include="Views\CategoriasDesagregacion\DescargarExcel.cshtml" />
+    <Content Include="Views\CategoriasDesagregacion\_ImportarArchivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

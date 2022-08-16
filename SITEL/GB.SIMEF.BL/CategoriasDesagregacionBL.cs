@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
 using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
@@ -114,7 +116,11 @@ namespace GB.SIMEF.BL
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<CategoriasDesagregacion>> InsertarDatos(CategoriasDesagregacion objeto)
         {
             try
@@ -136,7 +142,8 @@ namespace GB.SIMEF.BL
                 else
                 {
                     objeto.idEstado = (int)EstadosRegistro.Desactivado;
-                    var result =clsDatos.ActualizarDatos(objeto).Where(x=>x.Codigo==objeto.Codigo).FirstOrDefault();
+                    var result =clsDatos.ActualizarDatos(objeto)
+                        .Where(x=>x.Codigo.ToUpper()==objeto.Codigo.ToUpper()).FirstOrDefault();
                     if (objeto.idTipoDetalle== (int)TipoDetalleCategoriaEnum.Fecha)
                     {
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
@@ -164,5 +171,9 @@ namespace GB.SIMEF.BL
             }
             return ResultadoConsulta;
         }
+
+
+     
+
     }
 }

@@ -27,7 +27,7 @@ namespace GB.SIMEF.DAL
                 Accion = accion,
                 Usuario = usuario,
                 Pantalla = pantalla,
-                Codigo=codigo 
+                Codigo = codigo.ToUpper() 
             };
             using (db = new SIMEFContext())
             {
