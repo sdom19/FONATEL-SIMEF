@@ -12,6 +12,7 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class FormularioWeb
     {
@@ -30,12 +31,18 @@ namespace GB.SIMEF.Entities
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
-    
+        public int IdEstado { get; set; }
+        public int idFrecuencia { get; set; }
 
         public virtual ICollection<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
 
         public virtual ICollection<DetalleSolicitudFormulario> DetalleSolicitudFormulario { get; set; }
         public virtual EstadoRegistro EstadoRegistro { get; set; }
         public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
+
+        #region Variables que no forman parte del contexto
+        [NotMapped]
+        public string id { get; set; }
+        #endregion
     }
 }

@@ -9,7 +9,7 @@ using GB.SIMEF.Resources;
 
 namespace GB.SIMEF.DAL
 {
-    public class IndicadorFonatelDAL
+    public class IndicadorFonatelDAL : BitacoraDAL
     {
         private SIMEFContext db;
 
@@ -29,24 +29,165 @@ namespace GB.SIMEF.DAL
             {
                 listaIndicadores = db.Database.SqlQuery<Indicador>
                     ("execute spObtenerIndicadoresFonatel " + 
-                    "@IdIndicador," + 
-                    "@Codigo," + 
-                    "@IdTipoIndicador," +
-                    "@IdClasificacion," + 
-                    "@IdGrupo," +
-                    "@IdUnidadEstudio," +
-                    "@IdTipoMedida," +
-                    "@IdFrecuencia," +
-                    "@IdEstado",
-                     new SqlParameter("@IdIndicador", pIndicador.idIndicador),
-                     new SqlParameter("@Codigo", string.IsNullOrEmpty(pIndicador.Codigo) ? DBNull.Value.ToString() : pIndicador.Codigo),
-                     new SqlParameter("@IdTipoIndicador", pIndicador.IdTipoIndicador),
-                     new SqlParameter("@IdClasificacion", pIndicador.IdClasificacion),
-                     new SqlParameter("@IdGrupo", pIndicador.idGrupo),
-                     new SqlParameter("@IdUnidadEstudio", pIndicador.IdUnidadEstudio != null ? pIndicador.IdUnidadEstudio : 0),
-                     new SqlParameter("@IdTipoMedida", pIndicador.idTipoMedida),
-                     new SqlParameter("@IdFrecuencia", pIndicador.IdFrecuencia),
-                     new SqlParameter("@IdEstado", pIndicador.idEstado)
+                    "@pIdIndicador," + 
+                    "@pCodigo," + 
+                    "@pIdTipoIndicador," +
+                    "@pIdClasificacion," + 
+                    "@pIdGrupo," +
+                    "@pIdUnidadEstudio," +
+                    "@pIdTipoMedida," +
+                    "@pIdFrecuencia," +
+                    "@pIdEstado",
+                     new SqlParameter("@pIdIndicador", pIndicador.idIndicador),
+                     new SqlParameter("@pCodigo", string.IsNullOrEmpty(pIndicador.Codigo) ? DBNull.Value.ToString() : pIndicador.Codigo),
+                     new SqlParameter("@pIdTipoIndicador", pIndicador.IdTipoIndicador),
+                     new SqlParameter("@pIdClasificacion", pIndicador.IdClasificacion),
+                     new SqlParameter("@pIdGrupo", pIndicador.idGrupo),
+                     new SqlParameter("@pIdUnidadEstudio", pIndicador.IdUnidadEstudio != null ? pIndicador.IdUnidadEstudio : 0),
+                     new SqlParameter("@pIdTipoMedida", pIndicador.idTipoMedida),
+                     new SqlParameter("@pIdFrecuencia", pIndicador.IdFrecuencia),
+                     new SqlParameter("@pIdEstado", pIndicador.idEstado)
+                    ).ToList();
+
+                listaIndicadores = listaIndicadores.Select(x => new Indicador()
+                {
+                    id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                    Codigo = x.Codigo,
+                    Nombre = x.Nombre,
+                    TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),
+                    ClasificacionIndicadores = ObtenerClasificacionIndicador(x.IdClasificacion),
+                    GrupoIndicadores = ObtenerGrupoIndicadores(x.idGrupo),
+                    Descripcion = x.Descripcion,
+                    CantidadVariableDato = x.CantidadVariableDato,
+                    CantidadCategoriasDesagregacion = x.CantidadCategoriasDesagregacion,
+                    UnidadEstudio = x.IdUnidadEstudio != null ? ObtenerUnidadEstudio((int)x.IdUnidadEstudio) : null,
+                    TipoMedida = ObtenerTipoMedida(x.idTipoMedida),
+                    FrecuenciaEnvio = ObtenerFrecuenciaEnvia(x.IdFrecuencia),
+                    Interno = x.Interno,
+                    Solicitud = x.Solicitud,
+                    Fuente = x.Fuente,
+                    Notas = x.Notas,
+                    FechaCreacion = x.FechaCreacion,
+                    UsuarioCreacion = x.UsuarioCreacion,
+                    FechaModificacion = x.FechaModificacion,
+                    UsuarioModificacion = x.UsuarioModificacion,
+                    VisualizaSigitel = x.VisualizaSigitel,
+                    EstadoRegistro = ObtenerEstadoRegistro(x.idEstado)
+                }).ToList();
+            }
+
+            return listaIndicadores;
+        }
+
+        /// <summary>
+        /// 16/08/2022
+        /// José Navarro Acuña
+        /// Método que retorna todos los formularios web relacionados a indicador.
+        /// Se puede realizar un filtrado de acuerdo al objecto que se envia y obtener un compilado de varios indicadores.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public List<FormularioWeb> ObtenerFormulariosWebSegunIndicador(Indicador pIndicador)
+        {
+            List<FormularioWeb> listaIndicadores = new List<FormularioWeb>();
+
+            using (db = new SIMEFContext())
+            {
+                listaIndicadores = db.Database.SqlQuery<FormularioWeb>
+                    ("execute spObtenerFormulariosWebSegunIndicadorFonatel " +
+                    "@pIdIndicador," +
+                    "@pIdTipoIndicador," +
+                    "@pIdClasificacion," +
+                    "@pIdGrupo," +
+                    "@pIdUnidadEstudio," +
+                    "@pIdTipoMedida," +
+                    "@pIdFrecuencia," +
+                    "@pIdEstado",
+                     new SqlParameter("@pIdIndicador", pIndicador.idIndicador),
+                     new SqlParameter("@pIdTipoIndicador", pIndicador.IdTipoIndicador),
+                     new SqlParameter("@pIdClasificacion", pIndicador.IdClasificacion),
+                     new SqlParameter("@pIdGrupo", pIndicador.idGrupo),
+                     new SqlParameter("@pIdUnidadEstudio", pIndicador.IdUnidadEstudio != null ? pIndicador.IdUnidadEstudio : 0),
+                     new SqlParameter("@pIdTipoMedida", pIndicador.idTipoMedida),
+                     new SqlParameter("@pIdFrecuencia", pIndicador.IdFrecuencia),
+                     new SqlParameter("@pIdEstado", pIndicador.idEstado)
+                    ).ToList();
+
+                listaIndicadores = listaIndicadores.Select(x => new FormularioWeb()
+                {
+                    id = Utilidades.Encriptar(x.idFormulario.ToString()),
+                    Codigo = x.Codigo,
+                    Nombre = x.Nombre,
+                    Descripcion = x.Descripcion,
+                    CantidadIndicadores = x.CantidadIndicadores,
+                    FrecuenciaEnvio = ObtenerFrecuenciaEnvia(x.idFrecuencia),
+                    FechaCreacion = x.FechaCreacion,
+                    UsuarioCreacion = x.UsuarioCreacion,
+                    FechaModificacion = x.FechaModificacion,
+                    UsuarioModificacion = x.UsuarioModificacion,
+                    EstadoRegistro = ObtenerEstadoRegistro(x.IdEstado)
+                }).ToList();
+            }
+
+            return listaIndicadores;
+        }
+
+        /// <summary>
+        /// 16/08/2022
+        /// José Navarro Acuña
+        /// Método que permite actualizar los datos de un indicador
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public List<Indicador> ActualizarDatos(Indicador pIndicador)
+        {
+            List<Indicador> listaIndicadores = new List<Indicador>();
+
+            using (db = new SIMEFContext())
+            {
+                listaIndicadores = db.Database.SqlQuery<Indicador>
+                    ("execute spActualizarIndicadorFonatel " +
+                    "@pIdIndicador," +
+                    "@pCodigo," +
+                    "@pNombre," +
+                    "@pIdTipoIndicador," +
+                    "@pIdClasificacion," +
+                    "@pIdGrupo," +
+                    "@pDescripcion," +
+                    "@pCantidadVariableDato," +
+                    "@pCantidadCategoriasDesagregacion" + 
+                    "@pIdUnidadEstudio" +
+                    "@pIdTipoMedida" +
+                    "@pIdFrecuencia" +
+                    "@pInterno" +
+                    "@pSolicitud" +
+                    "@pFuente" +
+                    "@pNotas" +
+                    "@pUsuarioCreacion" +
+                    "@pUsuarioModificacion" +
+                    "@pVisualizaSigitel" +
+                    "@pIdEstado",
+                     new SqlParameter("@pIdIndicador", pIndicador.idIndicador),
+                     new SqlParameter("@pCodigo", string.IsNullOrEmpty(pIndicador.Codigo) ? DBNull.Value.ToString() : pIndicador.Codigo),
+                     new SqlParameter("@pNombre", pIndicador.IdTipoIndicador),
+                     new SqlParameter("@pIdTipoIndicador", pIndicador.IdTipoIndicador),
+                     new SqlParameter("@pIdClasificacion", pIndicador.IdClasificacion),
+                     new SqlParameter("@pIdGrupo", pIndicador.idGrupo),
+                     new SqlParameter("@pDescripcion", pIndicador.Descripcion),
+                     new SqlParameter("@pCantidadVariableDato", pIndicador.CantidadVariableDato),
+                     new SqlParameter("@pCantidadCategoriasDesagregacion", pIndicador.CantidadCategoriasDesagregacion),
+                     new SqlParameter("@pIdUnidadEstudio", pIndicador.IdUnidadEstudio),
+                     new SqlParameter("@pIdTipoMedida", pIndicador.idTipoMedida),
+                     new SqlParameter("@pIdFrecuencia", pIndicador.IdFrecuencia),
+                     new SqlParameter("@pInterno", pIndicador.Interno),
+                     new SqlParameter("@pSolicitud", pIndicador.Solicitud),
+                     new SqlParameter("@pFuente", pIndicador.Fuente),
+                     new SqlParameter("@pNotas", pIndicador.Notas),
+                     new SqlParameter("@pUsuarioCreacion", pIndicador.UsuarioCreacion),
+                     new SqlParameter("@pUsuarioModificacion", pIndicador.UsuarioModificacion),
+                     new SqlParameter("@pVisualizaSigitel", pIndicador.VisualizaSigitel),
+                     new SqlParameter("@pIdEstado", pIndicador.idEstado)
+                     
                     ).ToList();
 
                 listaIndicadores = listaIndicadores.Select(x => new Indicador()
@@ -80,12 +221,12 @@ namespace GB.SIMEF.DAL
         }
 
         #region Métodos privados
-        private TipoIndicadores ObtenerTipoIndicador(int id, bool unicamenteActivos = false)
+        private TipoIndicadores ObtenerTipoIndicador(int pId, bool pUnicamenteActivos = false)
         {
-            TipoIndicadores tipoIndicadores = unicamenteActivos ?
-                db.TipoIndicadores.Where(i => i.IdTipoIdicador == id && i.Estado == true).FirstOrDefault()
+            TipoIndicadores tipoIndicadores = pUnicamenteActivos ?
+                db.TipoIndicadores.Where(i => i.IdTipoIdicador == pId && i.Estado == true).FirstOrDefault()
                 :
-                db.TipoIndicadores.Where(i => i.IdTipoIdicador == id).FirstOrDefault();
+                db.TipoIndicadores.Where(i => i.IdTipoIdicador == pId).FirstOrDefault();
 
             if (tipoIndicadores != null)
             {
@@ -95,12 +236,12 @@ namespace GB.SIMEF.DAL
             return tipoIndicadores;
         }
 
-        private ClasificacionIndicadores ObtenerClasificacionIndicador(int id, bool unicamenteActivos = false)
+        private ClasificacionIndicadores ObtenerClasificacionIndicador(int pId, bool pUnicamenteActivos = false)
         {
-            ClasificacionIndicadores clasificacion = unicamenteActivos ?
-                db.ClasificacionIndicadores.Where(i => i.idClasificacion == id && i.Estado == true).FirstOrDefault()
+            ClasificacionIndicadores clasificacion = pUnicamenteActivos ?
+                db.ClasificacionIndicadores.Where(i => i.idClasificacion == pId && i.Estado == true).FirstOrDefault()
                 :
-                db.ClasificacionIndicadores.Where(i => i.idClasificacion == id).FirstOrDefault();
+                db.ClasificacionIndicadores.Where(i => i.idClasificacion == pId).FirstOrDefault();
 
             if (clasificacion != null)
             {
@@ -110,12 +251,12 @@ namespace GB.SIMEF.DAL
             return clasificacion;
         }
 
-        private GrupoIndicadores ObtenerGrupoIndicadores(int id, bool unicamenteActivos = false)
+        private GrupoIndicadores ObtenerGrupoIndicadores(int pId, bool pUnicamenteActivos = false)
         {
-            GrupoIndicadores grupo = unicamenteActivos ?
-                db.GrupoIndicadores.Where(i => i.idGrupo == id && i.Estado == true).FirstOrDefault()
+            GrupoIndicadores grupo = pUnicamenteActivos ?
+                db.GrupoIndicadores.Where(i => i.idGrupo == pId && i.Estado == true).FirstOrDefault()
                 :
-                db.GrupoIndicadores.Where(i => i.idGrupo == id).FirstOrDefault();
+                db.GrupoIndicadores.Where(i => i.idGrupo == pId).FirstOrDefault();
 
             if (grupo != null)
             {
@@ -125,12 +266,12 @@ namespace GB.SIMEF.DAL
             return grupo;
         }
 
-        private UnidadEstudio ObtenerUnidadEstudio(int id, bool unicamenteActivos = false)
+        private UnidadEstudio ObtenerUnidadEstudio(int pId, bool pUnicamenteActivos = false)
         {
-            UnidadEstudio unidad = unicamenteActivos ?
-                db.UnidadEstudio.Where(i => i.idUnidad == id && i.Estado == true).FirstOrDefault()
+            UnidadEstudio unidad = pUnicamenteActivos ?
+                db.UnidadEstudio.Where(i => i.idUnidad == pId && i.Estado == true).FirstOrDefault()
                 :
-                db.UnidadEstudio.Where(i => i.idUnidad == id).FirstOrDefault();
+                db.UnidadEstudio.Where(i => i.idUnidad == pId).FirstOrDefault();
 
             if (unidad != null)
             {
@@ -140,12 +281,12 @@ namespace GB.SIMEF.DAL
             return unidad;
         }
 
-        private TipoMedida ObtenerTipoMedida(int id, bool unicamenteActivos = false)
+        private TipoMedida ObtenerTipoMedida(int pId, bool pUnicamenteActivos = false)
         {
-            TipoMedida tipoMedida = unicamenteActivos ?
-                db.TipoMedida.Where(i => i.idMedida == id && i.Estado == true).FirstOrDefault()
+            TipoMedida tipoMedida = pUnicamenteActivos ?
+                db.TipoMedida.Where(i => i.idMedida == pId && i.Estado == true).FirstOrDefault()
                 :
-                db.TipoMedida.Where(i => i.idMedida == id).FirstOrDefault();
+                db.TipoMedida.Where(i => i.idMedida == pId).FirstOrDefault();
 
             if (tipoMedida != null)
             {
@@ -155,12 +296,12 @@ namespace GB.SIMEF.DAL
             return tipoMedida;
         }
 
-        private FrecuenciaEnvio ObtenerFrecuenciaEnvia(int id, bool unicamenteActivos = false)
+        private FrecuenciaEnvio ObtenerFrecuenciaEnvia(int pId, bool pUnicamenteActivos = false)
         {
-            FrecuenciaEnvio frecuencia = unicamenteActivos ?
-                db.FrecuenciaEnvio.Where(i => i.idFrecuencia == id && i.Estado == true).FirstOrDefault()
+            FrecuenciaEnvio frecuencia = pUnicamenteActivos ?
+                db.FrecuenciaEnvio.Where(i => i.idFrecuencia == pId && i.Estado == true).FirstOrDefault()
                 :
-                db.FrecuenciaEnvio.Where(i => i.idFrecuencia == id).FirstOrDefault();
+                db.FrecuenciaEnvio.Where(i => i.idFrecuencia == pId).FirstOrDefault();
 
             if (frecuencia != null)
             {
@@ -170,12 +311,12 @@ namespace GB.SIMEF.DAL
             return frecuencia;
         }
 
-        private EstadoRegistro ObtenerEstadoRegistro(int id, bool unicamenteActivos = false)
+        private EstadoRegistro ObtenerEstadoRegistro(int pId, bool pUnicamenteActivos = false)
         {
-            EstadoRegistro estado = unicamenteActivos ?
-                db.EstadoRegistro.Where(i => i.idEstado == id && i.Estado == true).FirstOrDefault()
+            EstadoRegistro estado = pUnicamenteActivos ?
+                db.EstadoRegistro.Where(i => i.idEstado == pId && i.Estado == true).FirstOrDefault()
                 :
-                db.EstadoRegistro.Where(i => i.idEstado == id).FirstOrDefault();
+                db.EstadoRegistro.Where(i => i.idEstado == pId).FirstOrDefault();
 
             if (estado != null)
             {

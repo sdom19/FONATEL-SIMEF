@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using GB.SIMEF.BL;
 using Microsoft.AspNet.Identity;
+using GB.SIMEF.Resources;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -17,7 +18,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public IndicadorFonatelController()
         {
-            indicadorBL = new IndicadorFonatelBL();
+            indicadorBL = new IndicadorFonatelBL(
+                EtiquetasViewIndicadorFonatel.TituloIndex, 
+                System.Web.HttpContext.Current.User.Identity.GetUserId()
+                );
         }
 
         #region Eventos de la página
@@ -90,24 +94,47 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 10/08/2022
         /// José Navarro Acuña
-        /// Método que eliminar un indicador
+        /// Método que elimina un indicador
         /// </summary>
-        /// <param name="pIdIdentificador"></param>
+        /// <param name="pIdIndicador"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> EliminarIndicador(int pIdIdentificador)
+        public async Task<string> EliminarIndicador(string pIdIndicador)
         {
-            string user = User.Identity.GetUserId();
-            RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
-            //await Task.Run(() =>
-            //{
-            //    result = indicadorBL.EliminarElemento(new DetalleCategoriaTexto()
-            //    {
-            //        idCategoriaDetalle = idDetalleCategoria,
-            //        usuario = user
-            //    });
+            RespuestaConsulta<List<Indicador>> result = null;
+            await Task.Run(() =>
+            {
+                result = indicadorBL.EliminarElemento(new Indicador()
+                {
+                    id = pIdIndicador
+                });
 
-            //});
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// 16/08/2022
+        /// José Navarro Acuña
+        /// Método que verifica si el indicador se encuentra en algún formulario web
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> VerificarIndicadorEnFormularioWeb(string pIdIndicador)
+        {
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = indicadorBL.ObtenerFormulariosWebSegunIndicador(new Indicador()
+                {
+                    id = pIdIndicador
+                });
+
+            });
+
+            result.objetoRespuesta = null; // datos innecesarios, de momento
+
             return JsonConvert.SerializeObject(result);
         }
         #endregion

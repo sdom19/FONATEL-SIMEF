@@ -38,17 +38,16 @@
             $("#loading").fadeIn();
 
             JsIndicador.Consultas.ConsultaListaIndicadores()
-                .then((data) => {
-                    JsIndicador.Metodos.InsertarDatosTablaIndicadores(data.objetoRespuesta);
-                })
-                .catch((error) => {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { });
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
-
+            .then(data => {
+                JsIndicador.Metodos.InsertarDatosTablaIndicadores(data.objetoRespuesta);
+            })
+            .catch(error => {
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { });
+            })
+            .finally(() => {
+                $("#loading").fadeOut();
+            });
         },
 
         "InsertarDatosTablaIndicadores": function (listaIndicadores) {
@@ -64,10 +63,10 @@
                 html += `<th scope='row'>${ item.TipoIndicadores.Nombre }</th>`;
                 html += `<th scope='row'>${ item.EstadoRegistro.Nombre }</th>`;
                 html += "<td>"
-                html += `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${ item.idIndicador }></button>`
-                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn-icon-base btn-clone" value=${ item.idIndicador }></button>`
-                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn-icon-base btn-power-off" value=${ item.idIndicador }></button>`
-                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete" value=${ item.idIndicador }></button>`
+                html += `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${ item.id }></button>`
+                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn-icon-base btn-clone" value=${ item.id }></button>`
+                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn-icon-base btn-power-off" value=${ item.id }></button>`
+                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete" value=${ item.id }></button>`
                 html += "</td>"
                 html += "</tr>";
             });
@@ -76,12 +75,48 @@
             CargarDatasource();
         },
 
-        "EliminarIndicador": function (identficador) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
-                .set('onok', function (closeEvent) {
+        "EliminarIndicador": async function (pIdIndicador) {
 
-                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado")
-                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return JsIndicador.Consultas.VerificarIndicadorEnFormularioWeb(pIdIndicador);
+                })
+                .then(data => {
+                    console.log(data);
+                    if (data.CantidadRegistros > 0) {
+                        $("#loading").fadeOut();
+                        new Promise((resolve, reject) => {
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El indicador ya forma parte de uno o varios formularios. ¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
+                                .set('onok', function (closeEvent) {
+                                    resolve(true);
+                                });
+                        })
+                    }
+                    else {
+                        return true;
+                    }
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
                 });
         }
     },
@@ -109,31 +144,51 @@
             })
         },
 
-        "EliminarDetalleCategoria": function (idIndicador) {
-            var def = $.Deferred();
-            return $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/EliminarCategoriasDetalle',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () { },
-                data: { idIndicador },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        def.resolve(obj);
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+        "EliminarDetalleCategoria": function (pIdIndicador) {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/EliminarIndicador',
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () { },
+                    data: { pIdIndicador },
+                    success: function (obj) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            resolve(obj);
+                        }
+                        else {
+                            reject(obj);
+                        }
+                    },
+                    error: function () {
+                        reject()
                     }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { });
-                    }
-                }
-            }).fail(function (obj) {
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
+                })
             })
         },
+
+        "VerificarIndicadorEnFormularioWeb": function (pIdIndicador) {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/VerificarIndicadorEnFormularioWeb?pIdIndicador=' + pIdIndicador,
+                    type: "GET",
+                    dataType: "JSON",
+                    beforeSend: function () { },
+                    data: { pIdIndicador },
+                    success: function (obj) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            resolve(obj);
+                        }
+                        else {
+                            reject(obj);
+                        }
+                    },
+                    error: function () {
+                        reject()
+                    }
+                })
+            })
+        }
     }
 }
 
@@ -189,12 +244,13 @@ $(document).on("click", JsIndicador.Controles.btnDesactivarIndicador, function (
 
 
 $(document).on("click", JsIndicador.Controles.btnEliminarIndicador, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
-        .set('onok', function (closeEvent) {
+    JsIndicador.Metodos.EliminarIndicador($(this).val());
+    //jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
+    //    .set('onok', function (closeEvent) {
 
-            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
-        });
+    //        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado")
+    //            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
+    //    });
 });
 
 
