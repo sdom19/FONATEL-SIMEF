@@ -752,6 +752,13 @@ $(function () {
     if ($(JsCategoria.Controles.FormularioCategorias).length > 0) {
         if ($(JsCategoria.Controles.txtCodigoCategoria).val().length > 0) {
             $(JsCategoria.Controles.txtCodigoCategoria).prop("disabled", true);
+
+            if (window.location.contains("modo=5")) {
+
+            }
+
+
+
         }
         var selected = $(JsCategoria.Controles.ddlTipoDetalle).val();
         if (selected > 0) {
@@ -764,11 +771,6 @@ $(function () {
     }
     else if ($(JsCategoria.Controles.FormularioIndex).length > 0) {
         JsCategoria.Consultas.ConsultaListaCategoria();
-
-
     }
-
-
-
 });
 
