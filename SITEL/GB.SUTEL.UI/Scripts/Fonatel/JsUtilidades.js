@@ -200,7 +200,7 @@ $(document).on("keypress", '.solo_operacion', function (e) {
 
 
 $(document).on("keypress", '.alfa_numerico', function (e) {
-    var regex = new RegExp("^[0-9]|[a-z]|[\s]+$");
+    var regex = new RegExp("^[0-9]|[a-z]|[A-Z]|[\\s]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         e.preventDefault();

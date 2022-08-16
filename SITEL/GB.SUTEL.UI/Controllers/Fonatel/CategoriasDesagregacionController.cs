@@ -232,11 +232,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
      
-
-
-
-
-
+        /// <summary>
+        /// Fecha 16-08-2022
+        /// Michael Hernández Cordero
+        /// Realiza la carga de información por medio de un excel
+        /// </summary>
 
         [HttpPost]
         public void CargaExcel()
@@ -308,6 +308,32 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
           
             return JsonConvert.SerializeObject(result);
         }
+
+
+        /// <summary>
+        /// Modifica un detalle para los atributos tipo texto
+        /// 09/08/2022
+        /// Michael Hernández
+        /// </summary>
+        /// <param name="detalleCategoria"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+
+        public async Task<string> ModificaCategoriasDetalle(DetalleCategoriaTexto detalleCategoria)
+        {
+            user = User.Identity.GetUserId();
+            detalleCategoria.usuario = user;
+            RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
+            await Task.Run(() =>
+            {
+                result = categoriaDetalleBL.ActualizarElemento(detalleCategoria);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+
 
         /// <summary>
         /// Establece la variable estado en false, estado eliminado

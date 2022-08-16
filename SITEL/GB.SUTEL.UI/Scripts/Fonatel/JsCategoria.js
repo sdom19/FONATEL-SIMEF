@@ -65,7 +65,8 @@
             "TipoNumerico": 1,
             "OpcionSalir": true,
             "ListadoCategoria": [],
-            "ListadoCategoriaDetalle": []
+            "ListadoCategoriaDetalle": [],
+            "ModoEditarAtributo": false
         },
         "Metodos": {
             "CargarTablaCategoria": function () {
@@ -506,7 +507,6 @@
 
                 })
             },
-
             "ImportarExcel": function () {
                 var data;
                 data = new FormData();
@@ -532,8 +532,50 @@
                     $("#loading").fadeOut();
 
                 })
-            }
+            },
+              "ModificarDetalleCategoria": function () {
+                let detalleCategoria = new Object();
+                detalleCategoria.categoriaid = $(JsCategoria.Controles.id).val();
+                detalleCategoria.Codigo = $(JsCategoria.Controles.txtCodigoDetalle).val();
+                detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val();
 
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ModificaCategoriasDetalle',
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $("#loading").fadeIn();
+                    },
+                    data: { detalleCategoria },
+                    success: function (obj) {
+                        $("#loading").fadeOut();
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            jsMensajes.Metodos.OkAlertModal("El detalle ha sido modificado")
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                    }
+                }).fail(function (obj) {
+
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
+                    $("#loading").fadeOut();
+
+                })
+            },
         }
 
 }
@@ -549,6 +591,7 @@ $(document).on("click", JsCategoria.Controles.btnCancelar, function (e) {
 $(document).on("click", JsCategoria.Controles.btnCancelarDetalle, function (e) {
 
     e.preventDefault();
+    JsCategoria.Variables.ModoEditarAtributo = false;
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
             location.reload();
@@ -632,18 +675,23 @@ $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, functi
     e.preventDefault();
 
 
-    if (JsCategoria.Metodos.ValidarFormularioDetalle()) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
-            .set('onok', function (closeEvent) {
-                JsCategoria.Consultas.InsertarDetalleCategoria();
-            });
+    if (!JsCategoria.Variables.ModoEditarAtributo) {
+        if (JsCategoria.Metodos.ValidarFormularioDetalle()) {
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    JsCategoria.Consultas.InsertarDetalleCategoria();
+                });
+        }
     }
     else {
 
+        if (JsCategoria.Metodos.ValidarFormularioDetalle()) {
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea modificar el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    JsCategoria.Consultas.ModificarDetalleCategoria();
+                });
+        }
     }
-
-
- 
 });
 
 
@@ -679,6 +727,7 @@ $(document).on("click", JsCategoria.Controles.btnEliminarDetalle, function (e) {
         });
 });
 $(document).on("click", JsCategoria.Controles.btnEditarDetalle, function (e) {
+    JsCategoria.Variables.ModoEditarAtributo = true;
     let id = $(this).val();
     JsCategoria.Consultas.ConsultaCategoriaDetalle(id);
 });

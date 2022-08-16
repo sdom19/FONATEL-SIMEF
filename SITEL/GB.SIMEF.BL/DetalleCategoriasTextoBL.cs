@@ -30,7 +30,56 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleCategoriaTexto>> ActualizarElemento(DetalleCategoriaTexto objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                objeto.Estado = true;
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Editar;
+                ResultadoConsulta.Usuario = objeto.usuario;
+                if (!string.IsNullOrEmpty(objeto.categoriaid))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.categoriaid), out temp);
+                    objeto.idCategoria = temp;
+                }
+                var auxTemp = clsDatos.ObtenerDatos(new DetalleCategoriaTexto()
+                { idCategoria = objeto.idCategoria }).ToList();
+                auxTemp = auxTemp.Where(x => x.Codigo != objeto.Codigo).ToList();
+
+              
+
+                if (auxTemp.Where(x => x.Etiqueta.ToUpper()==objeto.Etiqueta.ToUpper()).Count()>0)
+                {
+                    throw new Exception(Errores.EtiquetaRegistrada);
+                }
+                else
+                {
+                    var categoria = clsDatosCategoria
+                      .ObtenerDatos(new CategoriasDesagregacion() { idCategoria = objeto.idCategoria }).Single();
+                    ResultadoConsulta.objetoRespuesta= clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                    clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                     ResultadoConsulta.Usuario,
+                     ResultadoConsulta.Clase, string.Format("{0}/{1}",
+                     categoria.Codigo, objeto.Codigo));
+                }
+            }
+            catch (Exception ex)
+            {
+
+                if (ex.Message == Errores.EtiquetaRegistrada)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<DetalleCategoriaTexto>> CambioEstado(DetalleCategoriaTexto objeto)
