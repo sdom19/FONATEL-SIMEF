@@ -183,6 +183,14 @@ function CargarDatasource() {
     });
 }
 
+function ConcatenarItems(lista, nombreObj) { // concatenar una serie de objectos de una lista, según el parámetro enviado
+    let resultado = "";
+    lista.forEach(item => {
+        resultado += item[nombreObj].trim() + ", ";
+    });
+    return resultado.slice(0, resultado.length - 2) + ".";
+}
+
 $(document).on("keypress", '.solo_operacion', function (e) {
     var regex = new RegExp("^[0-9]|[-+*>=</]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);

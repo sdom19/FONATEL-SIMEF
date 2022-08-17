@@ -14,16 +14,17 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("Indicador")]
     public partial class Indicador
     {
      
         public Indicador()
         {
-            this.DetalleFormularioWeb = new HashSet<DetalleFormularioWeb>();
-            this.DetalleIndicadorCategoria = new HashSet<DetalleIndicadorCategoria>();
-            this.DetalleIndicadorVariables = new HashSet<DetalleIndicadorVariables>();
-            this.DefinicionIndicadores = new HashSet<DefinicionIndicadores>();
-            this.ReglaValidacion = new HashSet<ReglaValidacion>();
+            //this.DetalleFormularioWeb = new HashSet<DetalleFormularioWeb>();
+            //this.DetalleIndicadorCategoria = new HashSet<DetalleIndicadorCategoria>();
+            //this.DetalleIndicadorVariables = new HashSet<DetalleIndicadorVariables>();
+            //this.DefinicionIndicadores = new HashSet<DefinicionIndicadores>();
+            //this.ReglaValidacion = new HashSet<ReglaValidacion>();
         }
 
         [Key]

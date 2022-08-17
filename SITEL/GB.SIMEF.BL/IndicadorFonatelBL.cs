@@ -52,26 +52,25 @@ namespace GB.SIMEF.BL
 
             try
             {
-                if (string.IsNullOrEmpty(pIndicador.id))
+                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
+                pIndicador.idIndicador = number;
+
+                if (pIndicador.idIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                // buscar el indicador
-                int temp = -1;
-                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out temp);
-                pIndicador.idIndicador = temp;
-
                 pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
 
-                if (pIndicador == null) // ¿ID válido?
+                if (pIndicador == null) // ¿el indicador existe en BD?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
                 // actualizar el estado del indicador
+                pIndicador = PrepararObjetoIndicador(pIndicador);
                 pIndicador.UsuarioModificacion = user;
                 pIndicador.idEstado = (int)EstadosRegistro.Eliminado;
                 var indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
@@ -84,8 +83,8 @@ namespace GB.SIMEF.BL
 
                 // construir respuesta
                 resultado.Clase = modulo;
+                resultado.Usuario = user;
                 resultado.Accion = (int)Accion.Eliminar;
-                resultado.objetoRespuesta = indicadorActualizado;
                 resultado.CantidadRegistros = indicadorActualizado.Count();
 
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
@@ -119,15 +118,14 @@ namespace GB.SIMEF.BL
 
             try
             {
-                if (string.IsNullOrEmpty(pIndicador.id))
+                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
+                pIndicador.idIndicador = number;
+
+                if (pIndicador.idIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
-
-                int temp = -1;
-                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out temp);
-                pIndicador.idIndicador = temp;
 
                 pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
 
@@ -137,6 +135,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
+                pIndicador = PrepararObjetoIndicador(pIndicador);
                 var result = indicadorFonatelDAL.ObtenerFormulariosWebSegunIndicador(pIndicador);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
@@ -194,6 +193,64 @@ namespace GB.SIMEF.BL
         RespuestaConsulta<List<Indicador>> IMetodos<Indicador>.ValidarDatos(Indicador pIndicador)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Prepara un objeto indicador para ser enviado al servicio DAL.
+        /// Se preparan los id's de las tablas relacionadas para poder efectuar consultas debido a la encriptación.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        private Indicador PrepararObjetoIndicador(Indicador pIndicador)
+        {
+            if (!string.IsNullOrEmpty(pIndicador.id))
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
+                pIndicador.idIndicador = number;
+            }
+
+            if (pIndicador.TipoIndicadores != null && !string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.TipoIndicadores.id), out int number);
+                pIndicador.IdTipoIndicador = number;
+            }
+            
+            if (pIndicador.ClasificacionIndicadores != null && !string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.ClasificacionIndicadores.id), out int number);
+                pIndicador.IdClasificacion = number;
+            }
+            
+            if (pIndicador.GrupoIndicadores != null && !string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.GrupoIndicadores.id), out int number);
+                pIndicador.idGrupo = number;
+            }
+            
+            if (pIndicador.UnidadEstudio != null && !string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.UnidadEstudio.id), out int number);
+                pIndicador.IdUnidadEstudio = number;
+            }
+
+            if (pIndicador.TipoMedida != null && !string.IsNullOrEmpty(pIndicador.TipoMedida.id))
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.TipoMedida.id), out int number);
+                pIndicador.idTipoMedida = number;
+            }
+
+            if (pIndicador.FrecuenciaEnvio != null && !string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.FrecuenciaEnvio.id), out int number);
+                pIndicador.IdFrecuencia = number;
+            }
+
+            if (pIndicador.EstadoRegistro != null && !string.IsNullOrEmpty(pIndicador.EstadoRegistro.id))
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.EstadoRegistro.id), out int number);
+                pIndicador.idEstado = number;
+            }
+            return pIndicador;
         }
     }
 }

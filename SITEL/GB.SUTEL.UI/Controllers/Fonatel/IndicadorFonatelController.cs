@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using GB.SIMEF.BL;
 using Microsoft.AspNet.Identity;
 using GB.SIMEF.Resources;
+using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -83,12 +84,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerListaIndicadores()
         {
-            RespuestaConsulta<List<Indicador>> result = null;
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
             await Task.Run(() =>
             {
-                result = indicadorBL.ObtenerDatos(new Indicador());
+                resultado = indicadorBL.ObtenerDatos(new Indicador());
             });
-            return JsonConvert.SerializeObject(result);
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>
@@ -101,16 +102,24 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EliminarIndicador(string pIdIndicador)
         {
-            RespuestaConsulta<List<Indicador>> result = null;
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
             await Task.Run(() =>
             {
-                result = indicadorBL.EliminarElemento(new Indicador()
+                resultado = indicadorBL.EliminarElemento(new Indicador()
                 {
                     id = pIdIndicador
                 });
 
             });
-            return JsonConvert.SerializeObject(result);
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>
@@ -123,19 +132,24 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> VerificarIndicadorEnFormularioWeb(string pIdIndicador)
         {
-            RespuestaConsulta<List<FormularioWeb>> result = null;
+            RespuestaConsulta<List<FormularioWeb>> resultado = new RespuestaConsulta<List<FormularioWeb>>();
+            
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
             await Task.Run(() =>
             {
-                result = indicadorBL.ObtenerFormulariosWebSegunIndicador(new Indicador()
+                resultado = indicadorBL.ObtenerFormulariosWebSegunIndicador(new Indicador()
                 {
                     id = pIdIndicador
                 });
 
             });
-
-            result.objetoRespuesta = null; // datos innecesarios, de momento
-
-            return JsonConvert.SerializeObject(result);
+            return JsonConvert.SerializeObject(resultado);
         }
         #endregion
     }

@@ -89,11 +89,11 @@ namespace GB.SIMEF.DAL
         /// <returns></returns>
         public List<FormularioWeb> ObtenerFormulariosWebSegunIndicador(Indicador pIndicador)
         {
-            List<FormularioWeb> listaIndicadores = new List<FormularioWeb>();
+            List<FormularioWeb> listaFormularioWeb = new List<FormularioWeb>();
 
             using (db = new SIMEFContext())
             {
-                listaIndicadores = db.Database.SqlQuery<FormularioWeb>
+                listaFormularioWeb = db.Database.SqlQuery<FormularioWeb>
                     ("execute spObtenerFormulariosWebSegunIndicadorFonatel " +
                     "@pIdIndicador," +
                     "@pIdTipoIndicador," +
@@ -113,7 +113,7 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pIdEstado", pIndicador.idEstado)
                     ).ToList();
 
-                listaIndicadores = listaIndicadores.Select(x => new FormularioWeb()
+                listaFormularioWeb = listaFormularioWeb.Select(x => new FormularioWeb()
                 {
                     id = Utilidades.Encriptar(x.idFormulario.ToString()),
                     Codigo = x.Codigo,
@@ -129,7 +129,7 @@ namespace GB.SIMEF.DAL
                 }).ToList();
             }
 
-            return listaIndicadores;
+            return listaFormularioWeb;
         }
 
         /// <summary>
@@ -148,32 +148,32 @@ namespace GB.SIMEF.DAL
                 listaIndicadores = db.Database.SqlQuery<Indicador>
                     ("execute spActualizarIndicadorFonatel " +
                     "@pIdIndicador," +
-                    "@pCodigo," +
-                    "@pNombre," +
+                    "@pCodigo," + // opcional
+                    "@pNombre," + // opcional
                     "@pIdTipoIndicador," +
                     "@pIdClasificacion," +
                     "@pIdGrupo," +
-                    "@pDescripcion," +
-                    "@pCantidadVariableDato," +
-                    "@pCantidadCategoriasDesagregacion" + 
-                    "@pIdUnidadEstudio" +
-                    "@pIdTipoMedida" +
-                    "@pIdFrecuencia" +
-                    "@pInterno" +
-                    "@pSolicitud" +
-                    "@pFuente" +
-                    "@pNotas" +
-                    "@pUsuarioCreacion" +
-                    "@pUsuarioModificacion" +
-                    "@pVisualizaSigitel" +
+                    "@pDescripcion," + // opcional
+                    "@pCantidadVariableDato," + // opcional
+                    "@pCantidadCategoriasDesagregacion," + // opcional
+                    "@pIdUnidadEstudio," + // opcional
+                    "@pIdTipoMedida," +
+                    "@pIdFrecuencia," +
+                    "@pInterno," + // opcional
+                    "@pSolicitud," +
+                    "@pFuente," + // opcional
+                    "@pNotas," + // opcional
+                    "@pUsuarioCreacion," +
+                    "@pUsuarioModificacion," + // opcional
+                    "@pVisualizaSigitel," +
                     "@pIdEstado",
                      new SqlParameter("@pIdIndicador", pIndicador.idIndicador),
                      new SqlParameter("@pCodigo", string.IsNullOrEmpty(pIndicador.Codigo) ? DBNull.Value.ToString() : pIndicador.Codigo),
-                     new SqlParameter("@pNombre", pIndicador.IdTipoIndicador),
+                     new SqlParameter("@pNombre", string.IsNullOrEmpty(pIndicador.Nombre) ? DBNull.Value.ToString() : pIndicador.Nombre),
                      new SqlParameter("@pIdTipoIndicador", pIndicador.IdTipoIndicador),
                      new SqlParameter("@pIdClasificacion", pIndicador.IdClasificacion),
                      new SqlParameter("@pIdGrupo", pIndicador.idGrupo),
-                     new SqlParameter("@pDescripcion", pIndicador.Descripcion),
+                     new SqlParameter("@pDescripcion", string.IsNullOrEmpty(pIndicador.Descripcion) ? DBNull.Value.ToString() : pIndicador.Descripcion),
                      new SqlParameter("@pCantidadVariableDato", pIndicador.CantidadVariableDato),
                      new SqlParameter("@pCantidadCategoriasDesagregacion", pIndicador.CantidadCategoriasDesagregacion),
                      new SqlParameter("@pIdUnidadEstudio", pIndicador.IdUnidadEstudio),
@@ -181,40 +181,13 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pIdFrecuencia", pIndicador.IdFrecuencia),
                      new SqlParameter("@pInterno", pIndicador.Interno),
                      new SqlParameter("@pSolicitud", pIndicador.Solicitud),
-                     new SqlParameter("@pFuente", pIndicador.Fuente),
-                     new SqlParameter("@pNotas", pIndicador.Notas),
+                     new SqlParameter("@pFuente", string.IsNullOrEmpty(pIndicador.Fuente) ? DBNull.Value.ToString() : pIndicador.Fuente),
+                     new SqlParameter("@pNotas", string.IsNullOrEmpty(pIndicador.Notas) ? DBNull.Value.ToString() : pIndicador.Notas),
                      new SqlParameter("@pUsuarioCreacion", pIndicador.UsuarioCreacion),
-                     new SqlParameter("@pUsuarioModificacion", pIndicador.UsuarioModificacion),
+                     new SqlParameter("@pUsuarioModificacion", string.IsNullOrEmpty(pIndicador.UsuarioModificacion) ? DBNull.Value.ToString() : pIndicador.UsuarioModificacion),
                      new SqlParameter("@pVisualizaSigitel", pIndicador.VisualizaSigitel),
                      new SqlParameter("@pIdEstado", pIndicador.idEstado)
-                     
                     ).ToList();
-
-                listaIndicadores = listaIndicadores.Select(x => new Indicador()
-                {
-                    id = Utilidades.Encriptar(x.idIndicador.ToString()),
-                    Codigo = x.Codigo,
-                    Nombre = x.Nombre,
-                    TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),
-                    ClasificacionIndicadores = ObtenerClasificacionIndicador(x.IdClasificacion),
-                    GrupoIndicadores = ObtenerGrupoIndicadores(x.idGrupo),
-                    Descripcion = x.Descripcion,
-                    CantidadVariableDato = x.CantidadVariableDato,
-                    CantidadCategoriasDesagregacion = x.CantidadCategoriasDesagregacion,
-                    UnidadEstudio = x.IdUnidadEstudio != null ? ObtenerUnidadEstudio((int)x.IdUnidadEstudio) : null,
-                    TipoMedida = ObtenerTipoMedida(x.idTipoMedida),
-                    FrecuenciaEnvio = ObtenerFrecuenciaEnvia(x.IdFrecuencia),
-                    Interno = x.Interno,
-                    Solicitud = x.Solicitud,
-                    Fuente = x.Fuente,
-                    Notas = x.Notas,
-                    FechaCreacion = x.FechaCreacion,
-                    UsuarioCreacion = x.UsuarioCreacion,
-                    FechaModificacion = x.FechaModificacion,
-                    UsuarioModificacion = x.UsuarioModificacion,
-                    VisualizaSigitel = x.VisualizaSigitel,
-                    EstadoRegistro = ObtenerEstadoRegistro(x.idEstado)
-                }).ToList();
             }
 
             return listaIndicadores;

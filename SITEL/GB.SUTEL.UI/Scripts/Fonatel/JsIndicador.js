@@ -88,12 +88,14 @@
                     return JsIndicador.Consultas.VerificarIndicadorEnFormularioWeb(pIdIndicador);
                 })
                 .then(data => {
-                    console.log(data);
-                    if (data.CantidadRegistros > 0) {
+                    if (data.CantidadRegistros > 0 && data.objetoRespuesta != null) {
+                        let formularios = ConcatenarItems(data.objetoRespuesta, "Nombre");
+
                         $("#loading").fadeOut();
-                        new Promise((resolve, reject) => {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El indicador ya forma parte de uno o varios formularios. ¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
+                        return new Promise((resolve, reject) => {
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El indicador ya está en uso en el/los formularios: " + formularios + " ¿Desea eliminarlo?", jsMensajes.Variables.actionType.eliminar)
                                 .set('onok', function (closeEvent) {
+                                    $("#loading").fadeIn();
                                     resolve(true);
                                 });
                         })
@@ -103,7 +105,19 @@
                     }
                 })
                 .then(data => {
-                    console.log(data);
+                    return JsIndicador.Consultas.EliminarIndicador(pIdIndicador);
+                })
+                .then(data => {
+                    $("#loading").fadeOut();
+                    return new Promise((resolve, reject) => {
+                        jsMensajes.Metodos.OkAlertModal("El indicador ha sido eliminado", jsMensajes.Variables.actionType.eliminar)
+                            .set('onok', function (closeEvent) {
+                                resolve(true);
+                            });
+                    })
+                })
+                .then(data => {
+                    window.location.href = "/Fonatel/IndicadorFonatel/index"
                 })
                 .catch(error => {
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -144,7 +158,7 @@
             })
         },
 
-        "EliminarDetalleCategoria": function (pIdIndicador) {
+        "EliminarIndicador": function (pIdIndicador) {
             return new Promise((resolve, reject) => {
                 $.ajax({
                     url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/EliminarIndicador',
