@@ -16,7 +16,7 @@ namespace GB.SIMEF.BL
     public class CategoriasDesagregacionBL:IMetodos<CategoriasDesagregacion>
     {
         private readonly CategoriasDesagregacionDAL clsDatos;
-
+        private readonly DetalleCategoriaTextoDAL clsDatosTexto;
 
 
         private RespuestaConsulta<List<CategoriasDesagregacion>> ResultadoConsulta;
@@ -25,6 +25,7 @@ namespace GB.SIMEF.BL
         public CategoriasDesagregacionBL()
         {
             this.clsDatos = new CategoriasDesagregacionDAL();
+            this.clsDatosTexto = new DetalleCategoriaTextoDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<CategoriasDesagregacion>>();
         }
 
@@ -66,7 +67,55 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<CategoriasDesagregacion>> ActualizarElemento(CategoriasDesagregacion objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<CategoriasDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Editar;
+                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                objeto.UsuarioModificacion = objeto.UsuarioCreacion;
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.idCategoria = temp;
+                }
+
+                if(listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Count()==0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+                else
+                {
+
+                    var result = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
+                    objeto.idEstado = result.idEstado;
+
+                      result=  clsDatos.ActualizarDatos(objeto)
+                      .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+                }
+
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
+            }
+            catch (Exception ex)
+            {
+
+                if ( ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.NombreRegistrado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<CategoriasDesagregacion>> CambioEstado(CategoriasDesagregacion objeto)
@@ -109,7 +158,81 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<CategoriasDesagregacion>> ClonarDatos(CategoriasDesagregacion objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<CategoriasDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Editar;
+                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                string codigo = objeto.Codigo;
+                string Nombre = objeto.NombreCategoria;
+                if (!string.IsNullOrEmpty( objeto.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp );
+                    objeto.idCategoria = temp;
+                }
+            
+                objeto = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
+              
+
+                if (listadoCategorias.Where(x=>x.Codigo==codigo).Count()>0)
+                {
+                    throw new Exception(Errores.CodigoRegistrado);
+                }
+                else if(listadoCategorias.Where(x => x.NombreCategoria.ToUpper() == Nombre.ToUpper()).Count() > 0)
+                {
+                    throw new Exception(Errores.NombreRegistrado);
+                }
+                else
+                {
+                    objeto.Codigo = codigo;
+                    objeto.NombreCategoria = Nombre;
+                    objeto.idCategoria = 0;
+                    var result = clsDatos.ActualizarDatos(objeto)
+                      .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+
+                    if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
+                    {
+                        objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
+                        clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
+                    }
+                    else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
+                    {
+                        objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
+                        clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
+                    }
+                    else
+                    {
+                        foreach (var item in objeto.DetalleCategoriaTexto)
+                        {
+                            item.idCategoria = result.idCategoria;
+                            clsDatosTexto.ActualizarDatos(item);
+                        }
+                    }
+                }
+
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
+            }
+            catch (Exception ex)
+            {
+
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<CategoriasDesagregacion>> EliminarElemento(CategoriasDesagregacion objeto)
@@ -166,7 +289,16 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
 
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
             return ResultadoConsulta;

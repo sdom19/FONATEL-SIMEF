@@ -7,7 +7,7 @@
             "EtiquetaDetalleHelp":"#txtEtiquetaDetalleHelp",
             "CodigoDetalleHelp": "#txtCodigoDetalleHelp",
             "ModalCargaExcel":"#modalImportarExcel",
-
+            "txtmodoCategoria":"#txtmodoCategoria",
             "txtNombreCategoria": "#txtNombreCategoria",
             "txtCodigoCategoria":"#txtCodigoCategoria",
             "ddlTipoCategoria": "#ddlTipoCategoria",
@@ -507,6 +507,104 @@
 
                 })
             },
+            "EditarCategoria": function () {
+                let categoria = new Object();
+                categoria.Id = $(JsCategoria.Controles.id).val();
+                categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val();
+                categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val();
+                categoria.CantidadDetalleDesagregacion = $(JsCategoria.Controles.txtCantidadDetalleCategoria).val();
+                categoria.idTipoDetalle = $(JsCategoria.Controles.ddlTipoDetalle).val();
+                categoria.IdTipoCategoria = $(JsCategoria.Controles.ddlTipoCategoria).val();
+                categoria.DetalleCategoriaNumerico = new Object();
+                categoria.DetalleCategoriaNumerico.Minimo = $(JsCategoria.Controles.txtRangoMinimaCategoria).val();
+                categoria.DetalleCategoriaNumerico.Maximo = $(JsCategoria.Controles.txtRangoMaximaCategoria).val();
+                categoria.DetalleCategoriaFecha = new Object();
+                categoria.DetalleCategoriaFecha.FechaMinima = $(JsCategoria.Controles.txtFechaMinimaCategoria).val();
+                categoria.DetalleCategoriaFecha.FechaMaxima = $(JsCategoria.Controles.txtFechaMaximaCategoria).val();
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/EditarCategoria',
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $("#loading").fadeIn();
+                    },
+                    data: { categoria },
+                    success: function (obj) {
+                        $("#loading").fadeOut();
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido editada")
+                                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                    }
+                }).fail(function (obj) {
+
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
+                    $("#loading").fadeOut();
+
+                })
+            },
+            "ClonarCategoria": function () {
+                let categoria = new Object();
+                categoria.Id = $(JsCategoria.Controles.id).val();
+                categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val();
+                categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val();
+                categoria.CantidadDetalleDesagregacion = $(JsCategoria.Controles.txtCantidadDetalleCategoria).val();
+                categoria.idTipoDetalle = $(JsCategoria.Controles.ddlTipoDetalle).val();
+                categoria.IdTipoCategoria = $(JsCategoria.Controles.ddlTipoCategoria).val();
+                categoria.DetalleCategoriaNumerico = new Object();
+                categoria.DetalleCategoriaNumerico.Minimo = $(JsCategoria.Controles.txtRangoMinimaCategoria).val();
+                categoria.DetalleCategoriaNumerico.Maximo = $(JsCategoria.Controles.txtRangoMaximaCategoria).val();
+                categoria.DetalleCategoriaFecha = new Object();
+                categoria.DetalleCategoriaFecha.FechaMinima = $(JsCategoria.Controles.txtFechaMinimaCategoria).val();
+                categoria.DetalleCategoriaFecha.FechaMaxima = $(JsCategoria.Controles.txtFechaMaximaCategoria).val();
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ClonarCategoria',
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $("#loading").fadeIn();
+                    },
+                    data: { categoria },
+                    success: function (obj) {
+                        $("#loading").fadeOut();
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido creada")
+                                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                    }
+                }).fail(function (obj) {
+
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
+                    $("#loading").fadeOut();
+
+                })
+            },
             "ImportarExcel": function () {
                 var data;
                 data = new FormData();
@@ -533,7 +631,7 @@
 
                 })
             },
-              "ModificarDetalleCategoria": function () {
+            "ModificarDetalleCategoria": function () {
                 let detalleCategoria = new Object();
                 detalleCategoria.categoriaid = $(JsCategoria.Controles.id).val();
                 detalleCategoria.Codigo = $(JsCategoria.Controles.txtCodigoDetalle).val();
@@ -654,27 +752,37 @@ $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
 
 $(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) {
     e.preventDefault();
-    
+    let modo = $(JsCategoria.Controles.txtmodoCategoria).val();
+    let validar = JsCategoria.Metodos.ValidarFormularioCategoria();
+    if (!validar) {
+        return;
+    }
 
-    
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
 
-            let result = JsCategoria.Metodos.ValidarFormularioCategoria();
-            if (result) {
+    if (modo == jsUtilidades.Variables.Acciones.Editar) {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsCategoria.Consultas.EditarCategoria();
+            });
+    }
+    else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsCategoria.Consultas.ClonarCategoria();
+            });
+    }
+    else {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
                 JsCategoria.Consultas.InsertarCategoria();
-            }
-
-            
-        });
+            });
+    }
 });
 
 
 
 $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, function (e) {
     e.preventDefault();
-
-
     if (!JsCategoria.Variables.ModoEditarAtributo) {
         if (JsCategoria.Metodos.ValidarFormularioDetalle()) {
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
@@ -750,14 +858,19 @@ $(document).on("click", JsCategoria.Controles.btnEditarDetalle, function (e) {
 //}, false);
 $(function () {
     if ($(JsCategoria.Controles.FormularioCategorias).length > 0) {
-        if ($(JsCategoria.Controles.txtCodigoCategoria).val().length > 0) {
+        let modo = $(JsCategoria.Controles.txtmodoCategoria).val();
+        if (modo == jsUtilidades.Variables.Acciones.Editar) {
             $(JsCategoria.Controles.txtCodigoCategoria).prop("disabled", true);
+        }
+        else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
+            $(JsCategoria.Controles.ddlTipoDetalle).prop("disabled", true);
+            $(JsCategoria.Controles.ddlTipoCategoria).prop("disabled", true);
 
-            if (window.location.contains("modo=5")) {
-
-            }
-
-
+            $(JsCategoria.Controles.txtCantidadDetalleCategoria).prop("disabled", true);
+            $(JsCategoria.Controles.txtRangoMaximaCategoria).prop("disabled", true);
+            $(JsCategoria.Controles.txtRangoMinimaCategoria).prop("disabled", true);
+            $(JsCategoria.Controles.txtFechaMaximaCategoria).prop("disabled", true);
+            $(JsCategoria.Controles.txtFechaMinimaCategoria).prop("disabled", true);
 
         }
         var selected = $(JsCategoria.Controles.ddlTipoDetalle).val();

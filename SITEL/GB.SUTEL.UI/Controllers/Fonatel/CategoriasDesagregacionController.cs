@@ -80,6 +80,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 .objetoRespuesta;
             ViewBag.TipoDetalleCategoria = TipoDetalleCategoriaBL.ObtenerDatos(new TipoDetalleCategoria() { })
                .objetoRespuesta;
+            ViewBag.Modo = modo.ToString();
+
             CategoriasDesagregacion objCategoria = new CategoriasDesagregacion();
             if (!string.IsNullOrEmpty(id))
             {
@@ -231,7 +233,57 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-     
+
+        /// <summary>
+        /// Fecha 10/08/2022
+        /// Michael Hernández Cordero
+        /// Editar Categoría  
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+
+        public async Task<string> EditarCategoria(CategoriasDesagregacion categoria)
+        {
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            await Task.Run(() =>
+            {
+                categoria.UsuarioCreacion = user;
+                result = categoriaBL.ActualizarElemento(categoria);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
+
+        /// <summary>
+        /// Fecha 10/08/2022
+        /// Michael Hernández Cordero
+        /// Clonar Categoría  
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+
+        public async Task<string> ClonarCategoria(CategoriasDesagregacion categoria)
+        {
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            await Task.Run(() =>
+            {
+                categoria.UsuarioCreacion = user;
+                result = categoriaBL.ClonarDatos(categoria);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+
         /// <summary>
         /// Fecha 16-08-2022
         /// Michael Hernández Cordero
