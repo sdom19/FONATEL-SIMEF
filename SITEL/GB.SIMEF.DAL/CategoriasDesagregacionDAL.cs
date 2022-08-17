@@ -59,7 +59,9 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
-        /// 
+        /// Actualiza los datos e inserta por medio de merge
+        /// 17/08/2022
+        /// michael Hernández C
         /// </summary>
         /// <param name="objCategoria"></param>
         /// <returns></returns>
@@ -127,26 +129,51 @@ namespace GB.SIMEF.DAL
         }
         #endregion
 
-
+        /// <summary>
+        /// Michael Hernández C
+        /// Actualiza e inserta
+        /// </summary>
+        /// <param name="detalleFecha"></param>
 
         public void InsertarDetalleFecha(DetalleCategoriaFecha detalleFecha)
         {
             using (db=new SIMEFContext())
             {
-                db.DetalleCategoriaFecha.Add(detalleFecha);
-                db.SaveChanges();
+                detalleFecha= db.Database.SqlQuery<DetalleCategoriaFecha>("exec spActualizarCategoriasDesagregacionFecha  @idCategoria, @FechaMinima, @FechaMaxima, @Estado",
+                     new SqlParameter("@idCategoria", detalleFecha.idCategoria),
+                     new SqlParameter("@FechaMinima", detalleFecha.FechaMinima),
+                     new SqlParameter("@FechaMaxima", detalleFecha.FechaMaxima),
+                     new SqlParameter("@Estado", detalleFecha.Estado)
+                ).Single();
             }
         }
-
+        /// <summary>
+        /// Michael Hernández C
+        /// Actualiza e inserta 
+        /// </summary>
+        /// <param name="detalleNumerico"></param>
         public void InsertarDetalleNumerico (DetalleCategoriaNumerico detalleNumerico)
         {
             using (db = new SIMEFContext())
             {
-                db.DetalleCategoriaNumerico.Add(detalleNumerico);
-                db.SaveChanges();
+                detalleNumerico = db.Database.SqlQuery<DetalleCategoriaNumerico>("exec spActualizarCategoriasDesagregacionNumerico  @idCategoria, @Minimo, @Maximo, @Estado",
+                      new SqlParameter("@idCategoria", detalleNumerico.idCategoria),
+                      new SqlParameter("@Minimo", detalleNumerico.Minimo),
+                      new SqlParameter("@Maximo", detalleNumerico.Maximo),
+                      new SqlParameter("@Estado", detalleNumerico.Estado)
+                 ).Single();
             }
         }
+        
 
+
+        public void ValidarCategoria(CategoriasDesagregacion categoria)
+        {
+            using (db=new SIMEFContext())
+            {
+
+            }
+        }
 
 
         private DetalleCategoriaNumerico ObtenerDetalleCategoriaNumerico(int id)

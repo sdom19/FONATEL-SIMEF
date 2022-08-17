@@ -197,12 +197,11 @@ namespace GB.SIMEF.BL
                         clsDatosCategoria.ActualizarDatos(objeto.CategoriasDesagregacion);
                     }
 
-                    clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                        ResultadoConsulta.Usuario,
-                        ResultadoConsulta.Clase, string.Format("{0}/{1}",
-                        objeto.CategoriasDesagregacion.Codigo, objeto.Codigo));
-
-
+                      clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                       ResultadoConsulta.Usuario,
+                       ResultadoConsulta.Clase, string.Format("{0}/{1}",
+                       objeto.CategoriasDesagregacion.Codigo, objeto.Codigo));
+                    
                 }
             }
             catch (Exception ex)
@@ -276,6 +275,7 @@ namespace GB.SIMEF.BL
                                     .SingleOrDefault();
                 categoria.DetalleCategoriaTexto = new List<DetalleCategoriaTexto>();
 
+                clsDatos.DeshabilitarDatos(new DetalleCategoriaTexto() {idCategoria=categoria.idCategoria });
                 for (int i = 0; i < categoria.CantidadDetalleDesagregacion; i++)
                 {
                     int fila = i + 2;
@@ -293,7 +293,7 @@ namespace GB.SIMEF.BL
                             Etiqueta = Etiqueta,
                             Estado = true
                         };
-                        clsDatos.ActualizarDatos(detallecategoria);
+                        InsertarDatos(detallecategoria);
                     }
                 }
             }

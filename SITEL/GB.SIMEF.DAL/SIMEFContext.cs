@@ -71,7 +71,7 @@ namespace GB.SIMEF.DAL
 
         //public virtual DbSet<TipoIndicadores> TipoIndicadores { get; set; }
         //public virtual DbSet<TipoMedida> TipoMedida { get; set; }
-        //public virtual DbSet<TipoReglaValidacion> TipoReglaValidacion { get; set; }
+        public virtual DbSet<TipoReglaValidacion> TipoReglaValidacion { get; set; }
         //public virtual DbSet<TiposDetalleCategoria> TiposDetalleCategoria { get; set; }
         //public virtual DbSet<UnidadEstudio> UnidadEstudio { get; set; }
         //public virtual DbSet<DefinicionIndicadores> DefinicionIndicadores { get; set; }

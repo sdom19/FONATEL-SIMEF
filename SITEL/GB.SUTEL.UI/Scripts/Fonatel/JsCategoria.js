@@ -87,16 +87,16 @@
                     else {
                         html = html + "<td>" + categoria.CantidadDetalleDesagregacion + "/" + categoria.DetalleCategoriaTexto.length + "</td>";
                         html = html + "<td>" + categoria.EstadoRegistro.Nombre + "</td>";
-                        html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " title='Cargar Detalle' class='btn-icon-base btn-upload'></button>" +
-                            "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
-                            "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
+                        html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Cargar Detalle'  title='Cargar Detalle' class='btn-icon-base btn-upload'></button>" +
+                            "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Descargar Plantilla' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
+                            "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Agregar Detalle' title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
                     }
-                    html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " title='Editar' class='btn-icon-base btn-edit'></button>";
-                    html = html +     "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' value=" + categoria.id + " class='btn-icon-base btn-clone' ></button>";
+                    html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Editar' title='Editar' class='btn-icon-base btn-edit'></button>";
+                    html = html +     "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' value=" + categoria.id + " class='btn-icon-base btn-clone' ></button>";
                     if (categoria.idEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
-                        html = html +   "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' value=" + categoria.id + " class='btn-icon-base btn-power-off'></button></td >";
+                        html = html +   "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + categoria.id + " class='btn-icon-base btn-power-off'></button></td >";
                     } else {
-                       html = html +  "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' value=" + categoria.id + " class='btn-icon-base btn-power-on'></button></td >";
+                        html = html +  "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + categoria.id + " class='btn-icon-base btn-power-on'></button></td >";
                     }       
                     html = html + "</tr>"
                 }
@@ -622,7 +622,9 @@
                     }, 
                     success: function (obj) {
                         $("#loading").fadeOut();
-                       
+                        jsMensajes.Metodos.OkAlertModal("El archivo ha sido importado")
+                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+ 
                     }
                 }).fail(function (obj) {
                     jsMensajes.Metodos.OkAlertErrorModal()
@@ -674,6 +676,48 @@
 
                 })
             },
+            "ValidarCategoriaDesactivar": function () {
+                let Categoria = new Object();
+                detalleCategoria.id = $(JsCategoria.Controles.id).val();
+
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ModificaCategoriasDetalle',
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $("#loading").fadeIn();
+                    },
+                    data: { Categoria },
+                    success: function (obj) {
+                        $("#loading").fadeOut();
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+
+
+
+
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                    }
+                }).fail(function (obj) {
+
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
+                    $("#loading").fadeOut();
+
+                })
+            },
+
         }
 
 }

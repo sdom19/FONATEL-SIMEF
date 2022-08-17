@@ -61,11 +61,20 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Se Excedio la cantidad de registros establecidos.
+        ///   Busca una cadena traducida similar a Se excedio la cantidad de registros establecidos.
         /// </summary>
         public static string CantidadRegistros {
             get {
                 return ResourceManager.GetString("CantidadRegistros", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La cantidad de detalle a establecer, sobrepasa la lista actual.
+        /// </summary>
+        public static string CantidadRegistrosLimite {
+            get {
+                return ResourceManager.GetString("CantidadRegistrosLimite", resourceCulture);
             }
         }
         

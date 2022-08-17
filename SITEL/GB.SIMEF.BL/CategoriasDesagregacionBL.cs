@@ -74,25 +74,44 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
                 objeto.UsuarioModificacion = objeto.UsuarioCreacion;
+          
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
                     objeto.idCategoria = temp;
                 }
-
-                if(listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Count()==0)
+                var result = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
+                if (listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Count()==0)
                 {
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
-                else
+                else if (result.DetalleCategoriaTexto.Count()>objeto.CantidadDetalleDesagregacion)
                 {
-
-                    var result = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
+                    throw new Exception(Errores.CantidadRegistrosLimite);
+                }
+                else
+                {   
                     objeto.idEstado = result.idEstado;
 
                       result=  clsDatos.ActualizarDatos(objeto)
                       .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+
+                    if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
+                    {
+                        objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
+                        objeto.DetalleCategoriaFecha.Estado = true;
+                        clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
+                    }
+                    else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
+                    {
+                        objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
+                        objeto.DetalleCategoriaNumerico.Estado = true;
+                        clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
+                    }
+
+
+
                 }
 
 
@@ -103,7 +122,7 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if ( ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.NombreRegistrado)
+                if ( ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.NombreRegistrado || ex.Message== Errores.CantidadRegistrosLimite)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }

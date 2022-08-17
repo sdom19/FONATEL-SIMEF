@@ -230,5 +230,14 @@ namespace GB.SIMEF.Resources {
                 return ResourceManager.GetString("LabelInicio", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reglas de Validación.
+        /// </summary>
+        public static string ReglasValidacion {
+            get {
+                return ResourceManager.GetString("ReglasValidacion", resourceCulture);
+            }
+        }
     }
 }

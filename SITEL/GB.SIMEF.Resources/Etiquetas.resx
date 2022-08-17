@@ -174,4 +174,7 @@
   <data name="LabelInicio" xml:space="preserve">
     <value>Inicio</value>
   </data>
+  <data name="ReglasValidacion" xml:space="preserve">
+    <value>Reglas de Validación</value>
+  </data>
 </root>
