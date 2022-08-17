@@ -51,8 +51,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             ViewBag.ListaCatergoriaIdUnico = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
             {
-                IdTipoCategoria = (int)Constantes.TipoCategoria.IdUnico
-                
+                //IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.IdUnico
+
             }).objetoRespuesta;
             return View();
         }
@@ -108,6 +108,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return JsonConvert.SerializeObject(result);
         }
+
+        /// <summary>
+        /// Fecha 17-08-2022
+        /// Francisco Vindas
+        /// Obtiene datos para la table de categorías Detalle Detalle
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaCategorias(int select)
+        {
+            RespuestaConsulta <List<CategoriasDesagregacion>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion() { idCategoria = select });
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
 
         #endregion
 

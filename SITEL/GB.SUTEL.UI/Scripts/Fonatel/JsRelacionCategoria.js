@@ -1,5 +1,8 @@
-﻿JsRelacionCategoria = {
+﻿
+JsRelacionCategoria = {
     "Controles": {
+
+        "ddlCategoriaId": "#ddlCategoriaId",
 
         "RelacionCategoriaIndex": "#divRelacionCategoriaIndex",
         "btnGuardar": "#btnGuardarRelacionCategoria",
@@ -15,9 +18,12 @@
         "tablarelacion": "#TablaRelacionCategoria tbody",
         "inputFileAgregarDetalle": "#inputFileAgregarDetalle"
     },
+
     "Variables": {
-        "ListadoRelacionCategoria": []
+        "ListadoRelacionCategoria": [],
+        "ListadoCategoria": []
     },
+
     "Metodos": {
 
         "CargarTablaRelacionCategoria": function () {
@@ -62,6 +68,7 @@
 
         
     },
+
     "Consultas": {
         "ConsultaListaRelacionCategoria": function () {
             $.ajax({
@@ -91,79 +98,110 @@
                     .set('onok', function (closeEvent) { })
                 $("#loading").fadeOut();
             })
-        }
+        },
+
+        "ConsultaListaCategoria": function () {
+            let idCategoria = $(JsRelacionCategoria.Controles.ddlCategoriaId).val();
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaCategorias?select=' + idCategoria,
+                type: "GET",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                success: function (obj) {
+                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                        JsRelacionCategoria.Variables.ListadoCategoria = obj.objetoRespuesta;
+                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                    $("#loading").fadeOut();
+                }
+            }).fail(function (obj) {
+
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
+                $("#loading").fadeOut();
+            })
+        },
     }
 }
 
+//EVENTO PARA SABER EL ID DE LA CATEGORIA AL CAMBIAR EL COMBO
+$(document).on("change", JsRelacionCategoria.Controles.ddlCategoriaId, function () {
+    JsRelacionCategoria.Consultas.ConsultaListaCategoria();
+});
 
-
-
-$(document).on("OnChange", JsRelacionCategoria. )
-
+//EVENTO PARA AGREGAR DETALLES
 $(document).on("click", JsRelacionCategoria.Controles.btnAgregarRelacion, function () {
     let id = 1;
     window.location.href = "/Fonatel/RelacionCategoria/Detalle?id=" + id;
 });
 
+//EVENTO PARA EDITAR LA RELACION
 $(document).on("click", JsRelacionCategoria.Controles.btnEditarRelacionCategoria, function () {
         let id = 1;
         window.location.href = "/Fonatel/RelacionCategoria/Create?id=" + id;
-    });
+});
 
-$(document).on("click", JsRelacionCategoria.Controles.btnCancelar, function (e) {
-        e.preventDefault();
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
-            .set('onok', function (closeEvent) {
-                window.location.href = "/Fonatel/RelacionCategoria/Index";
-            });
-    });
+//$(document).on("click", JsRelacionCategoria.Controles.btnCancelar, function (e) {
+//        e.preventDefault();
+//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+//            .set('onok', function (closeEvent) {
+//                window.location.href = "/Fonatel/RelacionCategoria/Index";
+//            });
+//    });
 
+//$(document).on("click", JsRelacionCategoria.Controles.btnCancelarDetalle, function (e) {
+//        e.preventDefault();
+//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+//            .set('onok', function (closeEvent) {
+//                window.location.href = "/Fonatel/RelacionCategoria/Index";
+//            });
+//    });
 
-$(document).on("click", JsRelacionCategoria.Controles.btnCancelarDetalle, function (e) {
-        e.preventDefault();
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
-            .set('onok', function (closeEvent) {
-                window.location.href = "/Fonatel/RelacionCategoria/Index";
-            });
-    });
+//$(document).on("click", JsRelacionCategoria.Controles.btnGuardar, function (e) {
+//        e.preventDefault();
+//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Relación?", jsMensajes.Variables.actionType.agregar)
+//            .set('onok', function (closeEvent) {
+//                jsMensajes.Metodos.OkAlertModal("La Relación ha sido creada")
+//                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+//            });
+//    });
 
-$(document).on("click", JsRelacionCategoria.Controles.btnGuardar, function (e) {
-        e.preventDefault();
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Relación?", jsMensajes.Variables.actionType.agregar)
-            .set('onok', function (closeEvent) {
-                jsMensajes.Metodos.OkAlertModal("La Relación ha sido creada")
-                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-            });
-    });
+//$(document).on("click", JsRelacionCategoria.Controles.btnGuardarDetalle, function (e) {
+//        e.preventDefault();
+//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea relacionar la Categoría?", jsMensajes.Variables.actionType.agregar)
+//            .set('onok', function (closeEvent) {
+//                jsMensajes.Metodos.OkAlertModal("La Categoría ha sido relacionada")
+//                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+//            });
+//    });
 
-$(document).on("click", JsRelacionCategoria.Controles.btnGuardarDetalle, function (e) {
-        e.preventDefault();
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea relacionar la Categoría?", jsMensajes.Variables.actionType.agregar)
-            .set('onok', function (closeEvent) {
-                jsMensajes.Metodos.OkAlertModal("La Categoría ha sido relacionada")
-                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-            });
-    });
+//$(document).on("click", JsRelacionCategoria.Controles.btnEliminarDetalleRelacionCategoria, function (e) {
+//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Atributo?", jsMensajes.Variables.actionType.eliminar)
+//            .set('onok', function (closeEvent) {
+//                jsMensajes.Metodos.OkAlertModal("El Atributo ha sido eliminado")
+//                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+//            });
+//    });
 
-$(document).on("click", JsRelacionCategoria.Controles.btnEliminarDetalleRelacionCategoria, function (e) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Atributo?", jsMensajes.Variables.actionType.eliminar)
-            .set('onok', function (closeEvent) {
-                jsMensajes.Metodos.OkAlertModal("El Atributo ha sido eliminado")
-                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-            });
-    });
+//$(document).on("click", JsRelacionCategoria.Controles.btnDeleteRelacionCategoria, function (e) {
+//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina la Relación?", jsMensajes.Variables.actionType.eliminar)
+//            .set('onok', function (closeEvent) {
+//                jsMensajes.Metodos.OkAlertModal("La relación ha sido eliminado")
+//                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+//            });
+//    });
 
-$(document).on("click", JsRelacionCategoria.Controles.btnDeleteRelacionCategoria, function (e) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina la Relación?", jsMensajes.Variables.actionType.eliminar)
-            .set('onok', function (closeEvent) {
-                jsMensajes.Metodos.OkAlertModal("La relación ha sido eliminado")
-                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-            });
-    });
-
-$(document).on("click", JsRelacionCategoria.Controles.btnAgregarDetalle, function (e) {
-        $(JsRelacionCategoria.Controles.inputFileAgregarDetalle).click();
-    });
+//$(document).on("click", JsRelacionCategoria.Controles.btnAgregarDetalle, function (e) {
+//        $(JsRelacionCategoria.Controles.inputFileAgregarDetalle).click();
+//    });
 
 $(function () {
     if ($(JsRelacionCategoria.Controles.RelacionCategoriaIndex).length > 0) {

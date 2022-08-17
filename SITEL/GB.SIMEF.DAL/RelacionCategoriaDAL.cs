@@ -51,18 +51,6 @@ namespace GB.SIMEF.DAL
 
         }
 
-        private bool ValidarTieneDetalle(int i)
-        {
-            if (i == (int)Constantes.TipoDetalleCategoria.Texto || i == (int)Constantes.TipoDetalleCategoria.Alfanumerico)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         #endregion
 
     }

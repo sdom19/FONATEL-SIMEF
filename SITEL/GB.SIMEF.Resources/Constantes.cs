@@ -12,7 +12,7 @@ namespace GB.SIMEF.Resources
         /// 
         /// </summary>
 
-        public enum TipoCategoria : int
+        public enum TipoCategoriaEnum : int
         {
             IdUnico=1,
             Atributo=2,

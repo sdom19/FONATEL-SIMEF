@@ -24,17 +24,17 @@ namespace GB.SIMEF.BL
             this.ResultadoConsulta = new RespuestaConsulta<List<RelacionCategoria>>();
         }
 
-        public RespuestaConsulta<RelacionCategoria> ActualizarElemento(RelacionCategoria objeto)
+        public RespuestaConsulta<List<RelacionCategoria>> ActualizarElemento(RelacionCategoria objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<RelacionCategoria> CambioEstado(RelacionCategoria objeto)
+        public RespuestaConsulta<List<RelacionCategoria>> CambioEstado(RelacionCategoria objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<RelacionCategoria> ClonarDatos(RelacionCategoria objeto)
+        public RespuestaConsulta<List<RelacionCategoria>> ClonarDatos(RelacionCategoria objeto)
         {
             throw new NotImplementedException();
         }
@@ -44,7 +44,7 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<RelacionCategoria> InsertarDatos(RelacionCategoria objeto)
+        public RespuestaConsulta<List<RelacionCategoria>> InsertarDatos(RelacionCategoria objeto)
         {
             throw new NotImplementedException();
         }
@@ -73,7 +73,7 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<RelacionCategoria> ValidarDatos(RelacionCategoria objeto)
+        public RespuestaConsulta<List<RelacionCategoria>> ValidarDatos(RelacionCategoria objeto)
         {
             throw new NotImplementedException();
         }
