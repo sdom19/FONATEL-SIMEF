@@ -65,6 +65,35 @@ namespace GB.SIMEF.BL
         }
 
 
+        public RespuestaConsulta<List<string>> ValidarExistencia(CategoriasDesagregacion objeto)
+        {
+            RespuestaConsulta<List<string>> listaExistencias = new RespuestaConsulta<List<string>>();
+            try
+            {
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.idCategoria = temp;
+                    }
+                }
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ObtenerDatos(objeto).Single();
+                listaExistencias.objetoRespuesta = clsDatos.ValidarCategoria(resul);
+
+            }
+            catch (Exception ex)
+            {
+                listaExistencias.HayError = (int)Constantes.Error.ErrorSistema;
+                listaExistencias.MensajeError = ex.Message;
+            }
+            return listaExistencias;
+        }
+
+
         public RespuestaConsulta<List<CategoriasDesagregacion>> ActualizarElemento(CategoriasDesagregacion objeto)
         {
             try

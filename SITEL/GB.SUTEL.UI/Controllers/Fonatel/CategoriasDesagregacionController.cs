@@ -168,14 +168,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #endregion
 
         #region Métodos de ASYNC Categoria
-        /// <summary>
-        /// Fecha 04-08-2022
-        /// Michael Hernández Cordero
-        /// Obtiene datos para la table de categorías INDEX
-        /// </summary>
-        /// <returns></returns>
 
-        [HttpGet]
+
+      /// <summary>
+      /// Fecha 04-08-2022
+      /// Michael Hernández Cordero
+      /// Obtiene datos para la table de categorías INDEX
+      /// </summary>
+      /// <returns></returns>
+
+      [HttpGet]
         public async Task<string> ObtenerListaCategorias()
         {
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
@@ -306,7 +308,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ValidarCategoria(CategoriasDesagregacion categoria)
+        {
+            RespuestaConsulta<List<string>> result = null;
+            await Task.Run(() =>
+            {
+                result = categoriaBL.ValidarExistencia(categoria);
+            });
 
+            return JsonConvert.SerializeObject(result);
+        }
 
 
 

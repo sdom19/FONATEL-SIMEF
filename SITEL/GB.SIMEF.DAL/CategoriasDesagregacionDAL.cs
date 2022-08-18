@@ -132,6 +132,7 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// Michael Hernández C
         /// Actualiza e inserta
+        /// 18/08/2022
         /// </summary>
         /// <param name="detalleFecha"></param>
 
@@ -165,14 +166,26 @@ namespace GB.SIMEF.DAL
             }
         }
         
+        /// <summary>
+        /// Michael Hernández Cordero
+        /// Valida dependencias con otras tablas
+        /// 18/08/2022
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
 
-
-        public void ValidarCategoria(CategoriasDesagregacion categoria)
+        public List<string> ValidarCategoria(CategoriasDesagregacion categoria)
         {
+            List<string> listaValicion = new List<string>();
             using (db=new SIMEFContext())
             {
-
+                listaValicion= db.Database.SqlQuery<string>
+                    ("exec spValidarCategoriaDesagregacion @idCategoria",
+                       new SqlParameter("@idCategoria", categoria.idCategoria)
+                    ).ToList();
             }
+
+            return listaValicion;
         }
 
 

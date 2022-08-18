@@ -275,7 +275,6 @@ namespace GB.SIMEF.BL
                                     .SingleOrDefault();
                 categoria.DetalleCategoriaTexto = new List<DetalleCategoriaTexto>();
 
-                clsDatos.DeshabilitarDatos(new DetalleCategoriaTexto() {idCategoria=categoria.idCategoria });
                 for (int i = 0; i < categoria.CantidadDetalleDesagregacion; i++)
                 {
                     int fila = i + 2;
