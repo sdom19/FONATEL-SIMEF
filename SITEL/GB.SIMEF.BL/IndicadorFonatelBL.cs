@@ -28,27 +28,18 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<Indicador>> CambioEstado(Indicador pIndicador)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RespuestaConsulta<List<Indicador>> ClonarDatos(Indicador pIndicador)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// 10/08/2022
         /// José Navarro Acuña
-        /// Método que permite realizar un eliminado lógico de un indicador.
+        /// Función que permite realizar un cambio de estado de un indicador, puede ser eliminado o desactivo
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<Indicador>> EliminarElemento(Indicador pIndicador)
+        public RespuestaConsulta<List<Indicador>> CambioEstado(Indicador pIndicador)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
             bool errorControlado = false;
+            int nuevoEstado = pIndicador.nuevoEstado;
 
             try
             {
@@ -72,7 +63,7 @@ namespace GB.SIMEF.BL
                 // actualizar el estado del indicador
                 pIndicador = PrepararObjetoIndicador(pIndicador);
                 pIndicador.UsuarioModificacion = user;
-                pIndicador.idEstado = (int)EstadosRegistro.Eliminado;
+                pIndicador.idEstado = nuevoEstado;
                 var indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
 
                 if (indicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
@@ -82,9 +73,20 @@ namespace GB.SIMEF.BL
                 }
 
                 // construir respuesta
+                int accion = 0;
+                switch (nuevoEstado)
+                {
+                    case (int)EstadosRegistro.Eliminado:
+                        accion = (int)Accion.Eliminar; break;
+                    case (int)EstadosRegistro.Activo:
+                        accion = (int)Accion.Activar; break;
+                    case (int)EstadosRegistro.Desactivado:
+                        accion = (int)Accion.Inactiva; break;
+                }
+
+                resultado.Accion = accion;
                 resultado.Clase = modulo;
                 resultado.Usuario = user;
-                resultado.Accion = (int)Accion.Eliminar;
                 resultado.CantidadRegistros = indicadorActualizado.Count();
 
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
@@ -103,10 +105,20 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
+        public RespuestaConsulta<List<Indicador>> ClonarDatos(Indicador pIndicador)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<Indicador>> EliminarElemento(Indicador pIndicador)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// 16/08/2022
         /// José Navarro Acuña
-        /// Método que retorna todos los formularios web relacionados a indicador.
+        /// Función que retorna todos los formularios web relacionados a indicador.
         /// Se puede realizar un filtrado de acuerdo al objecto que se envia y obtener un compilado de varios indicadores.
         /// </summary>
         /// <param name="pIndicador"></param>
@@ -160,7 +172,7 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 10/08/2022
         /// José Navarro Acuña
-        /// Método que retorna todos los indicadores registrados en el sistema.
+        /// Función que retorna todos los indicadores registrados en el sistema.
         /// Se puede realizar un filtrado de acuerdo al objecto que se envia.
         /// </summary>
         /// <param name="pIndicador"></param>

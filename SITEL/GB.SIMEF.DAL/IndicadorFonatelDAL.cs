@@ -16,7 +16,7 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 10/08/2022
         /// José Navarro Acuña
-        /// Método que retorna todos los indicadores registrados en el sistema.
+        /// Función que retorna todos los indicadores registrados en el sistema.
         /// Se puede realizar un filtrado de acuerdo al objecto que se envia.
         /// </summary>
         /// <param name="pIndicador"></param>
@@ -82,7 +82,7 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 16/08/2022
         /// José Navarro Acuña
-        /// Método que retorna todos los formularios web relacionados a indicador.
+        /// Función que retorna todos los formularios web relacionados a indicador.
         /// Se puede realizar un filtrado de acuerdo al objecto que se envia y obtener un compilado de varios indicadores.
         /// </summary>
         /// <param name="pIndicador"></param>
@@ -135,7 +135,7 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 16/08/2022
         /// José Navarro Acuña
-        /// Método que permite actualizar los datos de un indicador
+        /// Función que permite actualizar los datos de un indicador
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>

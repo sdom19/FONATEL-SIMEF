@@ -78,7 +78,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 10/08/2022
         /// José Navarro Acuña
-        /// Método que retorna todos los indicadores registrados en el sistema
+        /// Función que retorna todos los indicadores registrados en el sistema
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -95,7 +95,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 10/08/2022
         /// José Navarro Acuña
-        /// Método que elimina un indicador
+        /// Función que permite realizar un eliminado lógico de un indicador
         /// </summary>
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
@@ -113,9 +113,72 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = indicadorBL.EliminarElemento(new Indicador()
+                resultado = indicadorBL.CambioEstado(new Indicador()
                 {
-                    id = pIdIndicador
+                    id = pIdIndicador,
+                    nuevoEstado = (int)EstadosRegistro.Eliminado // nuevo estado
+                });
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 17/08/2022
+        /// José Navarro Acuña
+        /// Función que permite desactivar un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> DesactivarIndicador(string pIdIndicador)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = indicadorBL.CambioEstado(new Indicador()
+                {
+                    id = pIdIndicador,
+                    nuevoEstado = (int)EstadosRegistro.Desactivado // nuevo estado
+                });
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 10/08/2022
+        /// José Navarro Acuña
+        /// Función que permite activar un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ActivarIndicador(string pIdIndicador)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = indicadorBL.CambioEstado(new Indicador()
+                {
+                    id = pIdIndicador,
+                    nuevoEstado = (int)EstadosRegistro.Activo // nuevo estado
                 });
 
             });
@@ -125,7 +188,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 16/08/2022
         /// José Navarro Acuña
-        /// Método que verifica si el indicador se encuentra en algún formulario web
+        /// Función que verifica si el indicador se encuentra en algún formulario web
         /// </summary>
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
