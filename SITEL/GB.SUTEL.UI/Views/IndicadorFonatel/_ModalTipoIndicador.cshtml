@@ -1,6 +1,6 @@
 ﻿@using GB.SIMEF.Resources;
 
-<div class="modal fade modal-fonatel" data-backdrop="static" id="modalTipo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade modal-fonatel" data-backdrop="static" id="modalTipoIndicador" tabindex="-1" role="dialog" aria-labelledby="Modal tipo indicador" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-fonatel" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -27,7 +27,7 @@
             </div>
             <div class="modal-footer">
                 <div class="table-responsive table-wrapper-fonatel" >
-                    <table class="dataTable datatable_simef table-bordered table-condensed table-hover no-footer">
+                    <table id="tableModalTipoIndicador" class="dataTable datatable_simef table-bordered table-condensed table-hover no-footer">
                         <thead>
                             <tr>
                                 <th scope="col">Tipo</th>
@@ -35,12 +35,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            @*<tr>
                                 <td>Prueba</td>
                                 <td>
                                     <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete "></button>
                                 </td>
-                            </tr>
+                            </tr>*@
                         </tbody>
                     </table>
                 </div>

@@ -97,13 +97,13 @@ $(document).on("keypress",'.solo_numeros', function (e) {
 });
 
 
-function EliminarDatasource() {
-    $(".datatable_simef").DataTable().destroy();
+function EliminarDatasource(pDataTable = ".datatable_simef") {
+    $(pDataTable).DataTable().destroy();
 }
 
-function CargarDatasource() {
+function CargarDatasource(pDataTable = ".datatable_simef") {
    
-    $(".datatable_simef").DataTable({
+    $(pDataTable).DataTable({
         pageLength: 5,
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
         "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',

@@ -16,13 +16,19 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
     public class IndicadorFonatelController : Controller
     {
         private readonly IndicadorFonatelBL indicadorBL;
+        private readonly TipoIndicadorBL tipoIndicadorBL;
+        private readonly GrupoIndicadorBL grupoIndicadorBL;
 
         public IndicadorFonatelController()
         {
             indicadorBL = new IndicadorFonatelBL(
-                EtiquetasViewIndicadorFonatel.TituloIndex, 
-                System.Web.HttpContext.Current.User.Identity.GetUserId()
-                );
+                EtiquetasViewIndicadorFonatel.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            tipoIndicadorBL = new TipoIndicadorBL(
+                EtiquetasViewIndicadorFonatel.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            grupoIndicadorBL = new GrupoIndicadorBL(
+                EtiquetasViewIndicadorFonatel.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
         #region Eventos de la página
@@ -212,6 +218,42 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 });
 
             });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 18/08/2022
+        /// José Navarro Acuña
+        /// Función que obtiene un listado de los tipos de indicadores registrados en el sistema
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaTipoIndicador()
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            await Task.Run(() =>
+            {
+                resultado = tipoIndicadorBL.ObtenerDatos();
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 18/08/2022
+        /// José Navarro Acuña
+        /// Función que obtiene un listado de los tipos de indicadores registrados en el sistema
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaGrupoIndicador()
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            await Task.Run(() =>
+            {
+                resultado = grupoIndicadorBL.ObtenerDatos();
+            });
+
             return JsonConvert.SerializeObject(resultado);
         }
         #endregion

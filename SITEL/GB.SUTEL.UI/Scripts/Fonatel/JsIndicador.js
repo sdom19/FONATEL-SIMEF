@@ -1,11 +1,11 @@
 ﻿IndexView = {
     Controles: {
-        tablaIndicador: "#TableIndicador tbody",
-        btnEditarIndicador: "#TableIndicador tbody tr td .btn-edit",
-        btnDesactivarIndicador: "#TableIndicador tbody tr td .btn-power-off",
-        btnActivarIndicador: "#TableIndicador tbody tr td .btn-power-on",
-        btnEliminarIndicador: "#TableIndicador tbody tr td .btn-delete",
-        btnClonarIndicador: "#TableIndicador tbody tr td .btn-clone",
+        tablaIndicador: "#tableIndicador tbody",
+        btnEditarIndicador: "#tableIndicador tbody tr td .btn-edit",
+        btnDesactivarIndicador: "#tableIndicador tbody tr td .btn-power-off",
+        btnActivarIndicador: "#tableIndicador tbody tr td .btn-power-on",
+        btnEliminarIndicador: "#tableIndicador tbody tr td .btn-delete",
+        btnClonarIndicador: "#tableIndicador tbody tr td .btn-clone",
 
         IndexView: "#dad1f1ea"
     },
@@ -373,6 +373,16 @@ CreateView = {
         btnAtrasVariable: "#btnAtrasVariable",
         btnAtrasCategoria: "#btnAtrasCategoria",
 
+        modalTipoIndicador: "#modalTipoIndicador",
+        tableModalTipoIndicador: "#tableModalTipoIndicador",
+        tableModalTipoIndicador_tbody: "#tableModalTipoIndicador tbody",
+        btnModalTipoIndicador: "#btnModalTipoIndicador",
+
+        modalGrupoIndicador: "#modalGrupoIndicador",
+        tableModalGrupoIndicador: "#tableModalGrupoIndicador",
+        tableModalGrupoIndicador_tbody: "#tableModalGrupoIndicador tbody",
+        btnModalGrupoIndicador: "#btnModalGrupoIndicador",
+
         //btnstep: ".step_navigation_indicador div",
         //divContenedor: ".stepwizard-content-container",
         //btnGuardarIndicador: "#btnGuardarIndicador",
@@ -394,14 +404,162 @@ CreateView = {
     },
 
     Metodos: {
+        AbrirModalTipoIndicador: function () {
+            $("#loading").fadeIn();
 
+            CreateView.Consultas.ConsultarListaTipoIndicador()
+                .then(data => {
+                    CreateView.Metodos.InsertarDatosTablaModalTipoIndicador(data.objetoRespuesta);
+                })
+                .then(_ => {
+                    setTimeout(() => {
+                        $(CreateView.Controles.modalTipoIndicador).modal('show');
+                    }, 500);
+                })
+                .catch(error => {
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { });
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        InsertarDatosTablaModalTipoIndicador: function (listaTipoIndicador) {
+            EliminarDatasource(CreateView.Controles.tableModalTipoIndicador);
+            let html = "";
+
+            listaTipoIndicador.forEach(item => {
+                html += "<tr>";
+                html += `<th scope='row'>${item.Nombre}</th>`;
+                html += "<td>"
+                html += `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${item.id}></button>`
+                html += "</td>"
+                html += "</tr>";
+            });
+            $(CreateView.Controles.tableModalTipoIndicador_tbody).html(html);
+            CargarDatasource(CreateView.Controles.tableModalTipoIndicador);
+        },
+
+        AbrirModalGrupoIndicador: function () {
+            $("#loading").fadeIn();
+
+            CreateView.Consultas.ConsultarListaGrupoIndicador()
+                .then(data => {
+                    CreateView.Metodos.InsertarDatosTablaModalGrupoIndicador(data.objetoRespuesta);
+                })
+                .then(_ => {
+                    setTimeout(() => {
+                        $(CreateView.Controles.modalGrupoIndicador).modal('show');
+                    }, 500);
+                })
+                .catch(error => {
+                    console.log(error)
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { });
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        InsertarDatosTablaModalGrupoIndicador: function (listaGrupoIndicador) {
+            EliminarDatasource(CreateView.Controles.tableModalGrupoIndicador);
+            let html = "";
+
+            listaGrupoIndicador.forEach(item => {
+                html += "<tr>";
+                html += `<th scope='row'>${item.Nombre}</th>`;
+                html += "<td>"
+                html += `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${item.id}></button>`
+                html += "</td>"
+                html += "</tr>";
+            });
+            $(CreateView.Controles.tableModalGrupoIndicador_tbody).html(html);
+            CargarDatasource(CreateView.Controles.tableModalGrupoIndicador);
+        },
     },
 
     Consultas: {
+        ConsultarListaTipoIndicador: function () {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/ObtenerListaTipoIndicador',
+                    type: "GET",
+                    dataType: "JSON",
+                    beforeSend: function () { },
+                    success: function (obj) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            resolve(obj);
+                        }
+                        else {
+                            reject();
+                        }
+                    },
+                    error: function () {
+                        reject()
+                    }
+                })
+            })
+        },
 
+        ConsultarListaGrupoIndicador: function () {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/ObtenerListaGrupoIndicador',
+                    type: "GET",
+                    dataType: "JSON",
+                    beforeSend: function () { },
+                    success: function (obj) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            resolve(obj);
+                        }
+                        else {
+                            reject();
+                        }
+                    },
+                    error: function () {
+                        reject()
+                    }
+                })
+            })
+        }
     },
 
     Eventos: function () {
+        $(document).on("click", CreateView.Controles.btnSiguienteIndicador, function (e) {
+            e.preventDefault();
+            $("a[href='#step-2']").trigger('click');
+        });
+
+        $(document).on("click", CreateView.Controles.btnSiguienteVariable, function (e) {
+            e.preventDefault();
+            $("a[href='#step-3']").trigger('click');
+
+        });
+
+        $(document).on("click", CreateView.Controles.btnAtrasVariable, function (e) {
+            e.preventDefault();
+            $("a[href='#step-1']").trigger('click');
+
+        });
+
+        $(document).on("click", CreateView.Controles.btnAtrasCategoria, function (e) {
+            e.preventDefault();
+            $("a[href='#step-2']").trigger('click');
+
+        });
+
+        $(document).on("click", CreateView.Controles.btnModalTipoIndicador, function (e) {
+            e.preventDefault();
+            CreateView.Metodos.AbrirModalTipoIndicador();
+        });
+
+        $(document).on("click", CreateView.Controles.btnModalGrupoIndicador, function (e) {
+            e.preventDefault();
+            CreateView.Metodos.AbrirModalGrupoIndicador();
+        });
+
         //$(document).on("click", CreateView.Controles.btnCancelar, function (e) {
         //    e.preventDefault();
         //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
@@ -457,32 +615,6 @@ CreateView = {
         //        });
         //});
 
-        $(document).on("click", CreateView.Controles.btnSiguienteIndicador, function (e) {
-            console.log("Click on btnSiguienteIndicador button");
-            e.preventDefault();
-            $("a[href='#step-2']").trigger('click');
-        });
-
-        $(document).on("click", CreateView.Controles.btnSiguienteVariable, function (e) {
-            console.log("Click on btnSiguienteVariable button");
-            e.preventDefault();
-            $("a[href='#step-3']").trigger('click');
-
-        });
-
-        $(document).on("click", CreateView.Controles.btnAtrasVariable, function (e) {
-            console.log("Click on btnAtrasVariable button");
-            e.preventDefault();
-            $("a[href='#step-1']").trigger('click');
-
-        });
-
-        $(document).on("click", CreateView.Controles.btnAtrasCategoria, function (e) {
-            e.preventDefault();
-            $("a[href='#step-2']").trigger('click');
-
-        });
-
         //$(document).on("click", CreateView.Controles.btnSiguienteCategoria, function (e) {
         //    e.preventDefault();
         //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.estado)
@@ -523,10 +655,10 @@ CreateView = {
 
 $(function () {
     if ($(IndexView.Controles.IndexView).length > 0) {
-        IndexView.Init();
+        IndexView.Init(); console.log("indexView");
     }
 
     if ($(CreateView.Controles.CreateView).length > 0) {
-        CreateView.Init();
+        CreateView.Init(); console.log("createView");
     }
 });

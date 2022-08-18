@@ -12,9 +12,9 @@ namespace GB.SIMEF.BL
 {
     public class IndicadorFonatelBL : IMetodos<Indicador>
     {
-        private readonly IndicadorFonatelDAL indicadorFonatelDAL;
         readonly string modulo = "";
         readonly string user = "";
+        private readonly IndicadorFonatelDAL indicadorFonatelDAL;
 
         public IndicadorFonatelBL(string pView = "", string pUser = "")
         {
