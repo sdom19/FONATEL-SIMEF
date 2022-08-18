@@ -23,11 +23,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly RelacionCategoriaBL RelacionCategoriaBL;
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBl;
 
+
         public RelacionCategoriaController()
         {
             //user = User.Identity.GetUserId(); 
             categoriasDesagregacionBl = new CategoriasDesagregacionBL();
             RelacionCategoriaBL = new RelacionCategoriaBL();
+
+
         }
 
         #region Eventos de la pagina 
@@ -49,11 +52,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Create()
         {
+
             ViewBag.ListaCatergoriaIdUnico = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
             {
                 //IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.IdUnico
 
             }).objetoRespuesta;
+
+
+
+
             return View();
         }
         [HttpPost]
@@ -90,8 +98,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 result = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria());
-            }
-            );
+            });
             return JsonConvert.SerializeObject(result);
         }
 
@@ -115,19 +122,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Obtiene datos para la table de categorías Detalle Detalle
         /// </summary>
         /// <returns></returns>
+
         [HttpGet]
         public async Task<string> ObtenerListaCategorias(int select)
         {
-            RespuestaConsulta <List<CategoriasDesagregacion>> result = null;
+            List<string> result = new List<string>() ;
 
             await Task.Run(() =>
             {
-                result = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion() { idCategoria = select });
+                var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
+                {
+                    idCategoria = select
+                }).objetoRespuesta.Single();
 
+                result = RelacionCategoriaBL.ObtenerListaCategoria(categoria);
             });
             return JsonConvert.SerializeObject(result);
         }
-
 
         #endregion
 

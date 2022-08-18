@@ -13,7 +13,7 @@ namespace GB.SIMEF.BL
     public class RelacionCategoriaBL : IMetodos<RelacionCategoria>
     {
         private readonly RelacionCategoriaDAL clsDatos;
-
+        private readonly CategoriasDesagregacionDAL clsDatosTexto;
 
         private RespuestaConsulta<List<RelacionCategoria>> ResultadoConsulta;
         string modulo = EtiquetasViewRelacionCategoria.RelacionCategoria;
@@ -21,6 +21,7 @@ namespace GB.SIMEF.BL
         public RelacionCategoriaBL()
         {
             this.clsDatos = new RelacionCategoriaDAL();
+            this.clsDatosTexto = new CategoriasDesagregacionDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<RelacionCategoria>>();
         }
 
@@ -72,6 +73,40 @@ namespace GB.SIMEF.BL
             }
             return ResultadoConsulta;
         }
+
+        public List<string> ObtenerListaCategoria(CategoriasDesagregacion obj)
+        {
+            CategoriasDesagregacion Categoria = clsDatosTexto.ObtenerDatos(obj).Single();
+
+            List<string> result = new List<string>();
+            
+            if (Categoria.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
+            {
+                DateTime fecha = Categoria.DetalleCategoriaFecha.FechaMinima;
+
+                while (fecha <= Categoria.DetalleCategoriaFecha.FechaMaxima)
+                {
+                    result.Add(fecha.ToString());
+                    fecha = fecha.AddDays(1);
+                }
+            }
+            else if (Categoria.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
+            {
+                int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
+                for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
+                {
+                    result.Add(i.ToString());
+                }
+            }
+            else
+            {
+                result = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
+            }
+
+            return result;
+
+        }
+
 
         public RespuestaConsulta<List<RelacionCategoria>> ValidarDatos(RelacionCategoria objeto)
         {

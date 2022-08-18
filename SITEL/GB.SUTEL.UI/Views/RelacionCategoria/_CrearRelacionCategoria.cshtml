@@ -46,8 +46,11 @@
                     <label for="ddlDetalleDesagregacionId" class="col-sm-12 col-form-label ">Detalle Desagregación ID</label>
                     <div class="col-sm-12">
                         <div class="select2-wrapper">
+
+                            @*@Html.DropDownListFor(model => model.idCategoriaValor, new SelectList(ViewBag.ListaCategoria), "Seleccione", new { @class = "listasDesplegables", id = "ddlDetalleDesagregacionId" })*@
+
                             <select class="form-control form-control-fonatel  required listasDesplegables" aria-label="Default select example" id="ddlDetalleDesagregacionId">
-                                <option></option>
+                            <option></option>
                             </select>
                         </div>   
                         <small id="DetalleDesagregacionIDHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
