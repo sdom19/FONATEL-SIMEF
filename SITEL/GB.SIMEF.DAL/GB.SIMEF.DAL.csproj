@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReglasValicionDAL.cs" />
+    <Compile Include="RelacionCategoriaDAL.cs" />
     <Compile Include="TipoDetalleCategoriaDAL.cs" />
     <Compile Include="TipoCategoriaDAL.cs" />
     <Compile Include="DetalleCategoriasTextoDAL.cs" />

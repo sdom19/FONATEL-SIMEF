@@ -20,6 +20,7 @@ namespace GB.SIMEF.Entities
       
         public DetalleRelacionCategoria()
         {
+         
         }
         [Key]
         public int idDetalleRelacionCategoria { get; set; }

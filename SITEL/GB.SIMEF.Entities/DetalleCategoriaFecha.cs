@@ -17,6 +17,12 @@ namespace GB.SIMEF.Entities
     [Table("DetalleCategoriaFecha")]
     public partial class DetalleCategoriaFecha
     {
+        public DetalleCategoriaFecha()
+        {
+            FechaMaxima = DateTime.Now;
+            FechaMinima = DateTime.Now;
+        }
+
         [Key]
         public int idCategoriaDetalle { get; set; }
         public int idCategoria { get; set; }

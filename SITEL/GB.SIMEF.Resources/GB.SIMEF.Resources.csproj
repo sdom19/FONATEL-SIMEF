@@ -66,7 +66,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewIndicadorFonatel.resx</DependentUpon>
     </Compile>
-    <Compile Include="EtiquetasViewRelacionCategoria.Designer.cs">
+    <Compile Include="EtiquetasViewRelacionCategoria1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewRelacionCategoria.resx</DependentUpon>
@@ -111,13 +111,13 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewIndicadorFonatel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="EtiquetasViewRelacionCategoria.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>EtiquetasViewRelacionCategoria.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="EtiquetasViewBitacora.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewBitacora.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewRelacionCategoria.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewRelacionCategoria1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

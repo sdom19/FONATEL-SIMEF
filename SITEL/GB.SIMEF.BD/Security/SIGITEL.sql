@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [SIGITEL]
+    AUTHORIZATION [dbo];
+

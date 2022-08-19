@@ -64,14 +64,14 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<ReglaSecuencial> ReglaSecuencial { get; set; }
         //public virtual DbSet<ReglaValidacion> ReglaValidacion { get; set; }
         //public virtual DbSet<ReglaValidacionTipo> ReglaValidacionTipo { get; set; }
-        //public virtual DbSet<RelacionCategoria> RelacionCategoria { get; set; }
+        public virtual DbSet<RelacionCategoria> RelacionCategoria { get; set; }
         //public virtual DbSet<Solicitud> Solicitud { get; set; }
         //public virtual DbSet<SolicitudDetalleFuentes> SolicitudDetalleFuentes { get; set; }
         //public virtual DbSet<SolicitudEnvioProgramado> SolicitudEnvioProgramado { get; set; }
 
         //public virtual DbSet<TipoIndicadores> TipoIndicadores { get; set; }
         //public virtual DbSet<TipoMedida> TipoMedida { get; set; }
-        //public virtual DbSet<TipoReglaValidacion> TipoReglaValidacion { get; set; }
+        public virtual DbSet<TipoReglaValidacion> TipoReglaValidacion { get; set; }
         //public virtual DbSet<TiposDetalleCategoria> TiposDetalleCategoria { get; set; }
         //public virtual DbSet<UnidadEstudio> UnidadEstudio { get; set; }
         //public virtual DbSet<DefinicionIndicadores> DefinicionIndicadores { get; set; }

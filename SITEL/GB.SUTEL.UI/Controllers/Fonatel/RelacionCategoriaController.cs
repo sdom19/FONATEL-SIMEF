@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using GB.SIMEF.BL;
-using GB.SIMEF.Entities;
 using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
@@ -50,19 +49,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(string id)
         {
 
             ViewBag.ListaCatergoriaIdUnico = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
             {
-                //IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.IdUnico
+                IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.IdUnico,
+                idEstado=(int)Constantes.EstadosRegistro.Activo
 
             }).objetoRespuesta;
 
+            if (string.IsNullOrEmpty(id))
+            {
+                return View();
+            }
+            else
+            {
+                RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() {id=id })
+                    .objetoRespuesta.Single() ;
+
+                return View(model);
+            }
 
 
 
-            return View();
+            
         }
         [HttpPost]
         public ActionResult Create(FormCollection collection)
@@ -124,7 +135,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpGet]
-        public async Task<string> ObtenerListaCategorias(int select)
+        public async Task<string> ObtenerDetalleDesagregacionId(int select)
         {
             List<string> result = new List<string>() ;
 

@@ -1,95 +1,75 @@
-﻿
-JsRelacionCategoria = {
+﻿JsRelacion= {
     "Controles": {
 
-        "ddlCategoriaId": "#ddlCategoriaId",
-        "ddlDetalleDesagregacionId": "#ddlDetalleDesagregacionId",
-
-        "RelacionCategoriaIndex": "#divRelacionCategoriaIndex",
-
-        "btnGuardar": "#btnGuardarRelacion",
         "btnEliminar": ".btnEliminarRelacion",
+        "btnGuardar": "#btnGuardarRelacion",
         "btnCancelar": "#btnCancelarRelacion",
-        "btnCancelarDetalle": "#btnCancelarDetalle",
+        "btnCancelarDetalle":"#btnCancelarDetalle",
         "btnAgregarRelacion": "#TablaRelacionCategoria tbody tr td .btn-add",
-        "btnEditarRelacionCategoria": "#TablaRelacionCategoria tbody tr td .btn-edit",
-        "btnDeleteRelacionCategoria": "#TablaRelacionCategoria tbody tr td .btn-delete",
-        "btnEliminarDetalleRelacionCategoria": "#TablaDetalleRelacionCategoria tbody tr td .btn-delete",
+        "btnEditarRelacion": "#TablaRelacionCategoria tbody tr td .btn-edit",
+        "btnDeleteRelacion": "#TablaRelacionCategoria tbody tr td .btn-delete",
+        "btnEliminarDetalleRelacion": "#TablaDetalleRelacionCategoria tbody tr td .btn-delete",
         "btnGuardarDetalle": "#btnGuardarDetalle",
+        "ddlCategoriaId":"#ddlCategoriaId",
         "btnAgregarDetalle": "#btnAgregarDetalle",
-        "tablarelacion": "#TablaRelacionCategoria tbody",
-        "inputFileAgregarDetalle": "#inputFileAgregarDetalle"
+        "inputFileAgregarDetalle": "#inputFileAgregarDetalle",
+        "TablaRelacionCategoria": "#TablaRelacionCategoria tbody",
+        "ddlDetalleDesagregacionId":"#ddlDetalleDesagregacionId"
     },
-
-    "Variables": {
-        "ListadoRelacionCategoria": [],
-        "ListadoCategoria": []
+    "Variables":{
+        "ListadoRelaciones":[]
     },
 
     "Metodos": {
-
-        "CargarTablaRelacionCategoria": function () {
+        "CargarTablaRelacion": function () {
             EliminarDatasource();
             let html = "";
-            for (var i = 0; i < JsRelacionCategoria.Variables.ListadoRelacionCategoria.length; i++) {
-                let relacion = JsRelacionCategoria.Variables.ListadoRelacionCategoria[i];
 
+            for (var i = 0; i < JsRelacion.Variables.ListadoRelaciones.length; i++) {
+                let detalle = JsRelacion.Variables.ListadoRelaciones[i];
                 html = html + "<tr>"
 
-                html = html + "<td scope='row'>" + relacion.Codigo + "</td>";
-                html = html + "<td>" + relacion.Nombre + "</td>";
+                html = html + "<td scope='row'>" + detalle.Codigo + "</td>";
+                html = html + "<td>" + detalle.Nombre + "</td>";
+                html = html + "<td>" + detalle.CantidadCategoria + "/" + detalle.DetalleRelacionCategoria.length + "</td>";
+                html = html + "<td>" + detalle.EstadoRegistro.Nombre + "</td>";
 
-                if (!relacion.TieneDetalle) {
-                    html = html + "<td><strong>N/A</strong></td>";
-                    html = html + "<td>" + relacion.EstadoRegistro.Nombre + "</td>";
-                    html = html + "<td><strong>N/A</strong></td>";
-                } else {
-                    html = html + "<td>" + relacion.CantidadCategoria + "/" + relacion.DetalleRelacionCategoria.length + "</td>";
-                    html = html + "<td>" + relacion.EstadoRegistro.Nombre + "</td>";
-                    html = html + "<td><input id='inputFileCargarDetalle' type='file' accept='.csv,.xlsx,.xls' style='display: none;' />" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' title='Cargar Detalle' class='btn-icon-base btn-upload'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
-                }
-                html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + relacion.idRelacionCategoria + " title='Editar' class='btn-icon-base btn-edit'></button>" +
-                    "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' class='btn-icon-base btn-clone' ></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' class='btn-icon-base btn-power-on'></button></td >";
-                html = html + "</tr>"
+                html = html + "<td><button id = 'btnAgregarDetalle' type = 'button' data - toggle='tooltip' data - placement='top' title = 'Agregar Detalle' class='btn-icon-base btn-upload' ></button >" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
+
+
+                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value='" + detalle.id + "' title='Editar' class='btn-icon-base btn-edit'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' value='" + detalle.id + "' title='Eliminar' class='btn-icon-base btn-delete'></button></td>";
+                html = html + "</tr>";
             }
-            $(JsRelacionCategoria.Controles.tablarelacion).html(html);
+            $(JsRelacion.Controles.TablaRelacionCategoria).html(html);
             CargarDatasource();
+            JsRelacion.Variables.ListadoRelaciones = [];
         },
-
-        "CerrarFormulario": function () {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Salir del Formulario?", jsMensajes.Variables.actionType.cancelar)
-                .set('onok', function (closeEvent) {
-
-                });
-
-        }
-
     },
 
     "Consultas": {
-        "ConsultaListaRelacionCategoria": function () {
+        "ConsultaListaRelaciones": function () {
             $.ajax({
                 url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaRelacionCategoria',
                 type: "GET",
+                contentType: "application/json; charset=utf-8",
                 dataType: "JSON",
                 beforeSend: function () {
                     $("#loading").fadeIn();
                 },
                 success: function (obj) {
                     if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        JsRelacionCategoria.Variables.ListadoRelacionCategoria = obj.objetoRespuesta;
-                        JsRelacionCategoria.Metodos.CargarTablaRelacionCategoria();
+                        JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
+                        JsRelacion.Metodos.CargarTablaRelacion();
                     } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+                            .set('onok', function (closeEvent) { location.reload(); });
                     }
                     else {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { })
+                            .set('onok', function (closeEvent) { location.reload(); })
                     }
                     $("#loading").fadeOut();
                 }
@@ -101,20 +81,26 @@ JsRelacionCategoria = {
             })
         },
 
-        "ConsultaListaCategoria": function () {
-            let idCategoria = $(JsRelacionCategoria.Controles.ddlCategoriaId).val();
+
+        "ConsultarDesagregacionId": function (selected) {
             $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaCategorias?select=' + idCategoria,
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerDetalleDesagregacionId?select='+selected,
                 type: "GET",
+                contentType: "application/json; charset=utf-8",
                 dataType: "JSON",
                 beforeSend: function () {
                     $("#loading").fadeIn();
                 },
                 success: function (obj) {
+   
+                    let html = "";
 
                     for (var i = 0; i < obj.length; i++) {
 
+                        html = html + "<option value='" + obj[i] + "'>"+obj[i]+"</option>"
                     }
+
+                    $(JsRelacion.Controles.ddlDetalleDesagregacionId).html(html);
 
 
                     $("#loading").fadeOut();
@@ -126,38 +112,23 @@ JsRelacionCategoria = {
                 $("#loading").fadeOut();
             })
         },
+
+
     }
+
 }
 
-//EVENTO PARA SABER EL ID DE LA CATEGORIA AL CAMBIAR EL COMBO
-$(document).on("change", JsRelacionCategoria.Controles.ddlCategoriaId, function () {
-    JsRelacionCategoria.Consultas.ConsultaListaCategoria();
-
-});
-
-//EVENTO PARA AGREGAR DETALLES
-$(document).on("click", JsRelacionCategoria.Controles.btnAgregarRelacion, function () {
+$(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
     let id = 1;
     window.location.href = "/Fonatel/RelacionCategoria/Detalle?id=" + id;
 });
 
-//EVENTO PARA EDITAR LA RELACION
-$(document).on("click", JsRelacionCategoria.Controles.btnEditarRelacionCategoria, function () {
-    let id = 1;
+$(document).on("click", JsRelacion.Controles.btnEditarRelacion, function () {
+    let id = $(this).val();
     window.location.href = "/Fonatel/RelacionCategoria/Create?id=" + id;
 });
 
-//EVENTO CANCELAR RELACION CATEGORIA
-$(document).on("click", JsRelacionCategoria.Controles.btnCancelar, function (e) {
-    e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
-        .set('onok', function (closeEvent) {
-            window.location.href = "/Fonatel/RelacionCategoria/Index";
-        });
-});
-
-//EVENTO PARA CANCELAR EL DETALLE
-$(document).on("click", JsRelacionCategoria.Controles.btnCancelarDetalle, function (e) {
+$(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
@@ -166,8 +137,32 @@ $(document).on("click", JsRelacionCategoria.Controles.btnCancelarDetalle, functi
 });
 
 
-//EVENTO PARA GUARDAR LA RELACION ENTRE CATEGORIAS
-$(document).on("click", JsRelacionCategoria.Controles.btnGuardar, function (e) {
+$(document).on("click", JsRelacion.Controles.btnCancelarDetalle, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            window.location.href = "/Fonatel/RelacionCategoria/Index";
+        });
+});
+
+
+
+
+$(document).on("change", JsRelacion.Controles.ddlCategoriaId, function () {
+
+    let seleted = $(this).val();
+    if (seleted != 0) {
+        JsRelacion.Consultas.ConsultarDesagregacionId(seleted);
+    }
+
+});
+
+
+
+
+
+
+$(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Relación?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
@@ -176,8 +171,7 @@ $(document).on("click", JsRelacionCategoria.Controles.btnGuardar, function (e) {
         });
 });
 
-//EVENTO PARA GUARDAR EL DETALLE
-$(document).on("click", JsRelacionCategoria.Controles.btnGuardarDetalle, function (e) {
+$(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea relacionar la Categoría?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
@@ -186,17 +180,15 @@ $(document).on("click", JsRelacionCategoria.Controles.btnGuardarDetalle, functio
         });
 });
 
-//EVENTO PARA ELIMINAR EL DETALLE
-$(document).on("click", JsRelacionCategoria.Controles.btnEliminarDetalleRelacionCategoria, function (e) {
+$(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, function (e) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Atributo?", jsMensajes.Variables.actionType.eliminar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Atributo ha sido eliminado")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-        });
+           .set('onok', function (closeEvent) {
+                jsMensajes.Metodos.OkAlertModal("El Atributo ha sido eliminado")
+                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+         });
 });
 
-//EVENTO PARA ELIMINAR LA RELACION CATEGORIA
-$(document).on("click", JsRelacionCategoria.Controles.btnDeleteRelacionCategoria, function (e) {
+$(document).on("click", JsRelacion.Controles.btnDeleteRelacion, function (e) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina la Relación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La relación ha sido eliminado")
@@ -204,13 +196,12 @@ $(document).on("click", JsRelacionCategoria.Controles.btnDeleteRelacionCategoria
         });
 });
 
-//EVENTO PARA AGREGAR DETALLES 
-$(document).on("click", JsRelacionCategoria.Controles.btnAgregarDetalle, function (e) {
-    $(JsRelacionCategoria.Controles.inputFileAgregarDetalle).click();
+$(document).on("click", JsRelacion.Controles.btnAgregarDetalle, function (e) {
+    $(JsRelacion.Controles.inputFileAgregarDetalle).click();
 });
 
 $(function () {
-    if ($(JsRelacionCategoria.Controles.RelacionCategoriaIndex).length > 0) {
-        JsRelacionCategoria.Consultas.ConsultaListaRelacionCategoria();
+    if ($(JsRelacion.Controles.TablaRelacionCategoria).length > 0) {
+        JsRelacion.Consultas.ConsultaListaRelaciones();
     }
-});
+})

@@ -165,10 +165,16 @@
   <data name="Categorias" xml:space="preserve">
     <value>Categorías de Desagregación</value>
   </data>
+  <data name="DescargaExcel" xml:space="preserve">
+    <value>Descargar Excel</value>
+  </data>
   <data name="DetalleCategorias" xml:space="preserve">
     <value>Detalle Categoría Desagregación</value>
   </data>
   <data name="LabelInicio" xml:space="preserve">
     <value>Inicio</value>
+  </data>
+  <data name="ReglasValidacion" xml:space="preserve">
+    <value>Reglas de Validación</value>
   </data>
 </root>

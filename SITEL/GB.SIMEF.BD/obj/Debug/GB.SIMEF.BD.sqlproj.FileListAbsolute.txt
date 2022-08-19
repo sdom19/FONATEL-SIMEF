@@ -1,0 +1,9 @@
+C:\Fonatel\SITEL\GB.SIMEF.BD\bin\Debug\GB.SIMEF.BD.dacpac
+C:\Fonatel\SITEL\GB.SIMEF.BD\bin\Debug\GB.SIMEF.BD.dll
+C:\Fonatel\SITEL\GB.SIMEF.BD\bin\Debug\GB.SIMEF.BD.pdb
+C:\Fonatel\SITEL\GB.SIMEF.BD\obj\Debug\Model.xml
+C:\Fonatel\SITEL\GB.SIMEF.BD\obj\Debug\refactor.xml
+C:\Fonatel\SITEL\GB.SIMEF.BD\obj\Debug\postdeploy.sql
+C:\Fonatel\SITEL\GB.SIMEF.BD\obj\Debug\predeploy.sql
+C:\Fonatel\SITEL\GB.SIMEF.BD\obj\Debug\GB.SIMEF.BD.dll
+C:\Fonatel\SITEL\GB.SIMEF.BD\obj\Debug\GB.SIMEF.BD.pdb

@@ -60,6 +60,17 @@ namespace GB.SIMEF.BL
         {
             try
             {
+
+                if (!string.IsNullOrEmpty(objRelacionCategoria.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objRelacionCategoria.id), out temp);
+                    objRelacionCategoria.idRelacionCategoria = temp;
+                }
+
+
+
+
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
                 var resul = clsDatos.ObtenerDatos(objRelacionCategoria);
@@ -80,7 +91,7 @@ namespace GB.SIMEF.BL
 
             List<string> result = new List<string>();
             
-            if (Categoria.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
+            if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
             {
                 DateTime fecha = Categoria.DetalleCategoriaFecha.FechaMinima;
 
@@ -90,7 +101,7 @@ namespace GB.SIMEF.BL
                     fecha = fecha.AddDays(1);
                 }
             }
-            else if (Categoria.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
+            else if (Categoria.IdTipoCategoria== (int)TipoDetalleCategoriaEnum.Numerico)
             {
                 int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
                 for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)

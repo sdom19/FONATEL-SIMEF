@@ -42,6 +42,7 @@ namespace GB.SIMEF.DAL
                     UsuarioCreacion = X.UsuarioCreacion,
                     UsuarioModificacion = X.UsuarioModificacion,
                     idEstado = X.idEstado,
+                    id=Utilidades.Encriptar(X.idRelacionCategoria.ToString()),
                     DetalleRelacionCategoria = db.DetalleRelacionCategoria.Where(p =>p.IdRelacionCategoria == X.idRelacionCategoria & p.Estado==true).ToList(),
                     EstadoRegistro = db.EstadoRegistro.Where(p => p.idEstado == X.idEstado).FirstOrDefault()
                 }).ToList();

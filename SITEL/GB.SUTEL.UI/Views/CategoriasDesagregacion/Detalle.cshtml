@@ -19,7 +19,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
                 <li class="breadcrumb-item"><a href="/CategoriasDesagregacion">@Etiquetas.Categorias</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Detalle Categoría Desagregación</li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewCategorias.DetalleAtributo</li>
             </ol>
         </nav>
     </div>
@@ -28,7 +28,7 @@
     <div id="FormularioDetalle" class="row">
         @Html.HiddenFor(model => model.id, new { id = "txtidCategoria" });
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Detalle Categoría de Desagregación</h2>
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewCategorias.DetalleAtributo</h2>
             <hr />
         </div>
         <div class="col-lg-12">

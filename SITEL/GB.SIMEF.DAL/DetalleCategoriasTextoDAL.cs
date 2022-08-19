@@ -66,6 +66,21 @@ namespace GB.SIMEF.DAL
 
             return ListaCategoria;
         }
+
+
+        public void DeshabilitarDatos(DetalleCategoriaTexto objCategoria)
+        {
+            using (db = new SIMEFContext())
+            {
+                 db.Database.SqlQuery<DetalleCategoriaTexto>
+                    ("execute spDeshabilitarDetalleCategoriaTexto @idCategoria",
+                      new SqlParameter("@idCategoria", objCategoria.idCategoria)
+                    );
+            } 
+        }
+
+
+
         #endregion
     }
 }

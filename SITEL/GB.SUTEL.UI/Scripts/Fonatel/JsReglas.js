@@ -22,7 +22,8 @@
             "btnAtrasRegla": "#btnAtrasTipoRegla",
             "btnSiguienteTipoSiguiente": "#btnSiguienteTipoSiguiente",
             "btnGuardarReglaTipo": "#btnGuardarReglaTipo",
-            "ddlVariableRegla":"#ddlVariableRegla"
+            "ddlVariableRegla": "#ddlVariableRegla",
+            "TablaReglas": "#TableReglaDesagregacion tbody" 
       
      },
     "Variables":{
@@ -33,9 +34,9 @@
         "FormulaActualizacionSecuencial": "5",
         "FormulaContraIndicadorSalida": "6",
         "FormulaContraIndicadorEntradaSalida": "7",
+        "ListaReglas":[]
     },
-
-        "Metodos": {
+    "Metodos": {
             "SeleccionarStep": function (div) {
                 $(JsReglas.Controles.divContenedor).addClass('hidden');
                 $(div).removeClass('hidden');
@@ -76,8 +77,75 @@
 
                 default:
             }     
-        }
-    }
+            },
+
+
+            "CargarTablaReglas": function () {
+                EliminarDatasource();
+                let html = "";
+                for (var i = 0; i < JsReglas.Variables.ListaReglas.length; i++) {
+                    let reglas = JsReglas.Variables.ListaReglas[i];
+
+                    html = html + "<tr>"
+
+                    html = html + "<td scope='row'>" + reglas.Codigo + "</td>";
+                    html = html + "<td>" + reglas.Nombre + "</td>";
+                    html = html + "<td>" + reglas.TipoReglaValidacion.Nombre + "</td>";
+
+
+                    html = html + "<td>" + reglas.EstadoRegistro.Nombre + "</td>";
+
+                    html = html + "<td><button type='button' data - toggle='tooltip' data - placement='top' value = '"+reglas.id+"' title = 'Editar' class='btn-icon-base btn-edit' ></button>" +
+                        "<button type='button' data-toggle='tooltip' data-placement='top' title='Clonar' value = '" + reglas.id +"' class='btn-icon-base btn-clone'></button>" +
+                        "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value = '" + reglas.id +"' class='btn-icon-base btn-delete'></button></td>";
+
+
+                    html = html + "</tr>"
+                }
+                $(JsReglas.Controles.TablaReglas).html(html);
+                CargarDatasource();
+            }
+
+
+        },
+    "Consultas": {
+       "ConsultaListaReglas": function () {
+
+
+     
+
+                $.ajax({
+                    url: jsUtilidades.Variables.urlOrigen + '/ReglasValidacion/ObtenerListaReglasValidacion',
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "JSON",
+                    beforeSend: function () {
+                        $("#loading").fadeIn();
+                    },
+                    success: function (obj) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                            JsReglas.Variables.ListaReglas = obj.objetoRespuesta;
+                            JsReglas.Metodos.CargarTablaReglas();
+                        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { location.reload(); });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { location.reload(); })
+                        }
+                        $("#loading").fadeOut();
+                    }
+                }).fail(function (obj) {
+
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { })
+                    $("#loading").fadeOut();
+                })
+            }
+     }
+
+
 }
 
 $(document).on("click", JsReglas.Controles.btnCancelar, function (e) {
@@ -182,3 +250,9 @@ $(document).on("click", JsReglas.Controles.btnSiguienteTipoSiguiente, function (
         });
 });
 
+$(function () {
+    if ($("#TableReglaDesagregacion").length > 0) {
+        JsReglas.Consultas.ConsultaListaReglas();
+    }
+
+});
