@@ -18,6 +18,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly IndicadorFonatelBL indicadorBL;
         private readonly TipoIndicadorBL tipoIndicadorBL;
         private readonly GrupoIndicadorBL grupoIndicadorBL;
+        private readonly UnidadEstudioBL unidadEstudioBL;
 
         public IndicadorFonatelController()
         {
@@ -28,6 +29,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 EtiquetasViewIndicadorFonatel.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
             grupoIndicadorBL = new GrupoIndicadorBL(
+                EtiquetasViewIndicadorFonatel.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            
+            unidadEstudioBL = new UnidadEstudioBL(
                 EtiquetasViewIndicadorFonatel.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
@@ -254,6 +258,117 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = grupoIndicadorBL.ObtenerDatos();
             });
 
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 19/08/2022
+        /// José Navarro Acuña
+        /// Función que obtiene un listado de las unidades de estudio registradas en el sistema
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaUnidadEstudio()
+        {
+            RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
+            await Task.Run(() =>
+            {
+                resultado = unidadEstudioBL.ObtenerDatos();
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 19/08/2022
+        /// José Navarro Acuña
+        /// Función que realiza un eliminado lógico de un tipo de indicador
+        /// </summary>
+        /// <param name="pIdTipoIndicador"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EliminarTipoIndicador(string pIdTipoIndicador)
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+
+            if (string.IsNullOrEmpty(pIdTipoIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = tipoIndicadorBL.CambioEstado(new TipoIndicadores()
+                {
+                    id = pIdTipoIndicador,
+                    nuevoEstado = false // nuevo estado
+                });
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 19/08/2022
+        /// José Navarro Acuña
+        /// Función que realiza un eliminado lógico de un grupo de indicador
+        /// </summary>
+        /// <param name="pIdTipoIndicador"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EliminarGrupoIndicador(string pIdGrupoIndicador)
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            if (string.IsNullOrEmpty(pIdGrupoIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = grupoIndicadorBL.CambioEstado(new GrupoIndicadores()
+                {
+                    id = pIdGrupoIndicador,
+                    nuevoEstado = (int)EstadosRegistro.Eliminado // nuevo estado
+                });
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 19/08/2022
+        /// José Navarro Acuña
+        /// Función que realiza un eliminado lógico de un tipo de indicador
+        /// </summary>
+        /// <param name="pIdTipoIndicador"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EliminarUnidadEstudio(string pIdUnidadEstudio)
+        {
+            RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
+
+            if (string.IsNullOrEmpty(pIdUnidadEstudio))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = unidadEstudioBL.CambioEstado(new UnidadEstudio()
+                {
+                    id = pIdUnidadEstudio,
+                    nuevoEstado = (int)EstadosRegistro.Eliminado // nuevo estado
+                });
+
+            });
             return JsonConvert.SerializeObject(resultado);
         }
         #endregion

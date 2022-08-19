@@ -78,7 +78,7 @@
 
                         $("#loading").fadeOut();
                         return new Promise((resolve, reject) => {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El indicador ya está en uso en el/los formularios: " + formularios + " ¿Desea eliminarlo?", jsMensajes.Variables.actionType.eliminar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Indicador ya está en uso en el/los formularios: " + formularios + " ¿Desea eliminarlo?", jsMensajes.Variables.actionType.eliminar)
                                 .set('onok', function (closeEvent) {
                                     $("#loading").fadeIn();
                                     resolve(true);
@@ -95,7 +95,7 @@
                 .then(data => {
                     $("#loading").fadeOut();
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El indicador ha sido eliminado", jsMensajes.Variables.actionType.eliminar)
+                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado", jsMensajes.Variables.actionType.eliminar)
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -136,7 +136,7 @@
 
                         $("#loading").fadeOut();
                         return new Promise((resolve, reject) => {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El indicador ya está en uso en el/los formularios: " + formularios + " ¿Desea desactivarlo?", jsMensajes.Variables.actionType.estado)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Indicador ya está en uso en el/los formularios: " + formularios + " ¿Desea desactivarlo?", jsMensajes.Variables.actionType.estado)
                                 .set('onok', function (closeEvent) {
                                     $("#loading").fadeIn();
                                     resolve(true);
@@ -153,7 +153,7 @@
                 .then(data => {
                     $("#loading").fadeOut();
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El indicador ha sido desactivado", jsMensajes.Variables.actionType.eliminar)
+                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido desactivado", jsMensajes.Variables.actionType.eliminar)
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -191,7 +191,7 @@
                 .then(data => {
                     $("#loading").fadeOut();
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El indicador ha sido activado", jsMensajes.Variables.actionType.estado)
+                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido activado", jsMensajes.Variables.actionType.estado)
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -218,117 +218,23 @@
 
     Consultas: {
         ConsultaListaIndicadores: function () {
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/ObtenerListaIndicadores',
-                    type: "GET",
-                    dataType: "JSON",
-                    beforeSend: function () { },
-                    success: function (obj) {
-                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                            resolve(obj);
-                        }
-                        else {
-                            reject();
-                        }
-                    },
-                    error: function () {
-                        reject()
-                    }
-                })
-            })
+            return execAjaxCall('/IndicadorFonatel/ObtenerListaIndicadores', 'GET');
         },
 
         EliminarIndicador: function (pIdIndicador) {
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/EliminarIndicador',
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function () { },
-                    data: { pIdIndicador },
-                    success: function (obj) {
-                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                            resolve(obj);
-                        }
-                        else {
-                            reject(obj);
-                        }
-                    },
-                    error: function () {
-                        reject()
-                    }
-                })
-            })
+            return execAjaxCall('/IndicadorFonatel/EliminarIndicador', 'POST', { pIdIndicador: pIdIndicador });
         },
 
         DesactivarIndicador: function (pIdIndicador) {
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/DesactivarIndicador',
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function () { },
-                    data: { pIdIndicador },
-                    success: function (obj) {
-                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                            resolve(obj);
-                        }
-                        else {
-                            reject(obj);
-                        }
-                    },
-                    error: function () {
-                        reject()
-                    }
-                })
-            })
+            return execAjaxCall('/IndicadorFonatel/DesactivarIndicador', 'POST', { pIdIndicador: pIdIndicador });
         },
 
         ActivarIndicador: function (pIdIndicador) {
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/ActivarIndicador',
-                    type: "POST",
-                    dataType: "JSON",
-                    beforeSend: function () { },
-                    data: { pIdIndicador },
-                    success: function (obj) {
-                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                            resolve(obj);
-                        }
-                        else {
-                            reject(obj);
-                        }
-                    },
-                    error: function () {
-                        reject()
-                    }
-                })
-            })
+            return execAjaxCall('/IndicadorFonatel/ActivarIndicador', 'POST', { pIdIndicador: pIdIndicador });
         },
 
         VerificarIndicadorEnFormularioWeb: function (pIdIndicador) {
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/VerificarIndicadorEnFormularioWeb?pIdIndicador=' + pIdIndicador,
-                    type: "GET",
-                    dataType: "JSON",
-                    beforeSend: function () { },
-                    data: { pIdIndicador },
-                    success: function (obj) {
-                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                            resolve(obj);
-                        }
-                        else {
-                            reject(obj);
-                        }
-                    },
-                    error: function () {
-                        reject()
-                    }
-                })
-            })
+            return execAjaxCall('/IndicadorFonatel/VerificarIndicadorEnFormularioWeb?pIdIndicador=' + pIdIndicador, 'GET');
         }
     },
 
@@ -377,11 +283,19 @@ CreateView = {
         tableModalTipoIndicador: "#tableModalTipoIndicador",
         tableModalTipoIndicador_tbody: "#tableModalTipoIndicador tbody",
         btnModalTipoIndicador: "#btnModalTipoIndicador",
+        btnEliminarTipoIndicador: "#tableModalTipoIndicador tbody tr td .btn-delete",
 
         modalGrupoIndicador: "#modalGrupoIndicador",
         tableModalGrupoIndicador: "#tableModalGrupoIndicador",
         tableModalGrupoIndicador_tbody: "#tableModalGrupoIndicador tbody",
         btnModalGrupoIndicador: "#btnModalGrupoIndicador",
+        btnEliminarGrupoIndicador: "#tableModalGrupoIndicador tbody tr td .btn-delete",
+
+        modalUnidadEstudio: "#modalUnidadEstudio",
+        tableModalUnidadEstudio: "#tableModalUnidadEstudio",
+        tableModalUnidadEstudio_tbody: "#tableModalUnidadEstudio tbody",
+        btnModalUnidadEstudio: "#btnModalUnidadEstudio",
+        btnEliminarUnidadEstudio: "#tableModalUnidadEstudio tbody tr td .btn-delete",
 
         //btnstep: ".step_navigation_indicador div",
         //divContenedor: ".stepwizard-content-container",
@@ -441,6 +355,45 @@ CreateView = {
             CargarDatasource(CreateView.Controles.tableModalTipoIndicador);
         },
 
+        EliminarTipoIndicador: function (pIdTipoIndicador) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Tipo Indicador?", jsMensajes.Variables.actionType.eliminar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    console.log("Button yes was pressed ..");
+                    return CreateView.Consultas.EliminarTipoIndicador(pIdTipoIndicador);
+                })
+                .then(data => {
+                    $("#loading").fadeOut();
+                    return new Promise((resolve, reject) => {
+                        jsMensajes.Metodos.OkAlertModal("El Tipo Indicador ha sido eliminado", jsMensajes.Variables.actionType.eliminar)
+                            .set('onok', function (closeEvent) {
+                                resolve(true);
+                            });
+                    })
+                })
+                .then(data => {
+                    //window.location.href = "/Fonatel/IndicadorFonatel/index"
+                })
+                .catch(error => {
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
         AbrirModalGrupoIndicador: function () {
             $("#loading").fadeIn();
 
@@ -478,51 +431,62 @@ CreateView = {
             $(CreateView.Controles.tableModalGrupoIndicador_tbody).html(html);
             CargarDatasource(CreateView.Controles.tableModalGrupoIndicador);
         },
+
+        AbrirModalUnidadEstudio: function () {
+            $("#loading").fadeIn();
+
+            CreateView.Consultas.ConsultarListaUnidadEstudio()
+                .then(data => {
+                    CreateView.Metodos.InsertarDatosTablaModalUnidadEstudio(data.objetoRespuesta);
+                })
+                .then(_ => {
+                    setTimeout(() => {
+                        $(CreateView.Controles.modalUnidadEstudio).modal('show');
+                    }, 500);
+                })
+                .catch(error => {
+                    console.log(error)
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { });
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        InsertarDatosTablaModalUnidadEstudio: function (listaUnidadEstudio) {
+            EliminarDatasource(CreateView.Controles.tableModalUnidadEstudio);
+            let html = "";
+
+            listaUnidadEstudio.forEach(item => {
+                html += "<tr>";
+                html += `<th scope='row'>${item.Nombre}</th>`;
+                html += "<td>"
+                html += `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${item.id}></button>`
+                html += "</td>"
+                html += "</tr>";
+            });
+            $(CreateView.Controles.tableModalUnidadEstudio_tbody).html(html);
+            CargarDatasource(CreateView.Controles.tableModalUnidadEstudio);
+        }
     },
 
     Consultas: {
         ConsultarListaTipoIndicador: function () {
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/ObtenerListaTipoIndicador',
-                    type: "GET",
-                    dataType: "JSON",
-                    beforeSend: function () { },
-                    success: function (obj) {
-                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                            resolve(obj);
-                        }
-                        else {
-                            reject();
-                        }
-                    },
-                    error: function () {
-                        reject()
-                    }
-                })
-            })
+            return execAjaxCall('/IndicadorFonatel/ObtenerListaTipoIndicador', 'GET');
         },
 
         ConsultarListaGrupoIndicador: function () {
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    url: jsUtilidades.Variables.urlOrigen + '/IndicadorFonatel/ObtenerListaGrupoIndicador',
-                    type: "GET",
-                    dataType: "JSON",
-                    beforeSend: function () { },
-                    success: function (obj) {
-                        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                            resolve(obj);
-                        }
-                        else {
-                            reject();
-                        }
-                    },
-                    error: function () {
-                        reject()
-                    }
-                })
-            })
+            return execAjaxCall('/IndicadorFonatel/ObtenerListaGrupoIndicador', 'GET');
+        },
+
+        ConsultarListaUnidadEstudio: function () {
+            return execAjaxCall('/IndicadorFonatel/ObtenerListaUnidadEstudio', 'GET');
+        },
+
+        EliminarTipoIndicador: function (pIdTipoIndicador) {
+            console.log("Executing ajax request to the server..");
+            return execAjaxCall('/IndicadorFonatel/EliminarTipoIndicador', 'POST', { pIdTipoIndicador: pIdTipoIndicador });
         }
     },
 
@@ -535,19 +499,16 @@ CreateView = {
         $(document).on("click", CreateView.Controles.btnSiguienteVariable, function (e) {
             e.preventDefault();
             $("a[href='#step-3']").trigger('click');
-
         });
 
         $(document).on("click", CreateView.Controles.btnAtrasVariable, function (e) {
             e.preventDefault();
             $("a[href='#step-1']").trigger('click');
-
         });
 
         $(document).on("click", CreateView.Controles.btnAtrasCategoria, function (e) {
             e.preventDefault();
             $("a[href='#step-2']").trigger('click');
-
         });
 
         $(document).on("click", CreateView.Controles.btnModalTipoIndicador, function (e) {
@@ -558,6 +519,21 @@ CreateView = {
         $(document).on("click", CreateView.Controles.btnModalGrupoIndicador, function (e) {
             e.preventDefault();
             CreateView.Metodos.AbrirModalGrupoIndicador();
+        });
+
+        $(document).on("click", CreateView.Controles.btnModalUnidadEstudio, function (e) {
+            e.preventDefault();
+            CreateView.Metodos.AbrirModalUnidadEstudio();
+        });
+
+        $(document).on("click", CreateView.Controles.btnModalUnidadEstudio, function (e) {
+            e.preventDefault();
+            CreateView.Metodos.AbrirModalUnidadEstudio();
+        });
+
+        $(document).on("click", CreateView.Controles.btnEliminarTipoIndicador, function (e) {
+            e.preventDefault();
+            CreateView.Metodos.EliminarTipoIndicador($(this).val());
         });
 
         //$(document).on("click", CreateView.Controles.btnCancelar, function (e) {

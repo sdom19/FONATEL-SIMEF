@@ -62,6 +62,7 @@
     <Compile Include="BitacoraDAL.cs" />
     <Compile Include="SIMEFContext.cs" />
     <Compile Include="TipoIndicadorDAL.cs" />
+    <Compile Include="UnidadEstudioDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

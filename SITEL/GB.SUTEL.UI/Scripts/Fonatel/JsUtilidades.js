@@ -191,6 +191,28 @@ function ConcatenarItems(lista, nombreObj) { // concatenar una serie de objectos
     return resultado.slice(0, resultado.length - 2) + ".";
 }
 
+function execAjaxCall(pURL, pHttpMethod, pParams = null) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: jsUtilidades.Variables.urlOrigen + pURL,
+            type: pHttpMethod,
+            dataType: "JSON",
+            data: pParams,
+            success: function (obj) {
+                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                    resolve(obj);
+                }
+                else {
+                    reject(obj);
+                }
+            },
+            error: function () {
+                reject()
+            }
+        })
+    })
+}
+
 $(document).on("keypress", '.solo_operacion', function (e) {
     var regex = new RegExp("^[0-9]|[-+*>=</]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);

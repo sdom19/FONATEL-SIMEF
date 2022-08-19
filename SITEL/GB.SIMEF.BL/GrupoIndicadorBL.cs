@@ -16,7 +16,7 @@ namespace GB.SIMEF.BL
         readonly string user = "";
         private readonly GrupoIndicadorDAL grupoIndicadorDAL;
 
-        public GrupoIndicadorBL(string pModulo = "", string pUser = "")
+        public GrupoIndicadorBL(string pModulo, string pUser)
         {
             modulo = pModulo;
             user = pUser;

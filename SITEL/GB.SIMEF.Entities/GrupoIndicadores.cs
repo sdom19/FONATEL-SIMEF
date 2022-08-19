@@ -17,7 +17,6 @@ namespace GB.SIMEF.Entities
     [Table("GrupoIndicadores")]
     public partial class GrupoIndicadores
     {
-       
         public GrupoIndicadores()
         {
         }
@@ -30,6 +29,8 @@ namespace GB.SIMEF.Entities
         #region Variables que no forman parte del contexto
         [NotMapped]
         public string id { get; set; }
+        [NotMapped]
+        public int nuevoEstado { get; set; }
         #endregion
     }
 }

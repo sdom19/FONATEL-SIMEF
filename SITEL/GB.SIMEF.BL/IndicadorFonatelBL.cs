@@ -16,7 +16,7 @@ namespace GB.SIMEF.BL
         readonly string user = "";
         private readonly IndicadorFonatelDAL indicadorFonatelDAL;
 
-        public IndicadorFonatelBL(string pView = "", string pUser = "")
+        public IndicadorFonatelBL(string pView, string pUser)
         {
             modulo = pView;
             user = pUser;

@@ -17,7 +17,6 @@ namespace GB.SIMEF.Entities
     [Table("UnidadEstudio")]
     public partial class UnidadEstudio
     {
-     
         public UnidadEstudio()
         {
         }
@@ -27,10 +26,11 @@ namespace GB.SIMEF.Entities
         public string Nombre { get; set; }
         public bool Estado { get; set; }
 
-
         #region Variables que no forman parte del contexto
         [NotMapped]
         public string id { get; set; }
+        [NotMapped]
+        public int nuevoEstado { get; set; }
         #endregion
     }
 }
