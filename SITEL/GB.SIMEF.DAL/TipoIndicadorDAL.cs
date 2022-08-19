@@ -2,9 +2,9 @@
 using GB.SIMEF.Resources;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GB.SIMEF.DAL
 {
@@ -16,7 +16,7 @@ namespace GB.SIMEF.DAL
         /// 18/08/2022
         /// José Navarro Acuña
         /// Función que retorna todos los tipos indicadores registrados en estado activo.
-        /// Se puede filtrar por el ID del tipo indicador
+        /// Se puede filtrar por el ID del objecto
         /// </summary>
         /// <returns></returns>
         public List<TipoIndicadores> ObtenerDatos(TipoIndicadores pTipoIndicadores)
@@ -41,26 +41,29 @@ namespace GB.SIMEF.DAL
                 Nombre = x.Nombre,
                 Estado = x.Estado
             }).ToList();
-
+            
             return listaTipoIndicadores;
         }
 
+        /// <summary>
+        /// 18/08/2022
+        /// José Navarro Acuña
+        /// Función que actualiza los datos de un tipo de indicador.
+        /// </summary>
+        /// <param name="pTipoIndicadores"></param>
+        /// <returns></returns>
         public List<TipoIndicadores> ActualizarDatos(TipoIndicadores pTipoIndicadores)
         {
             List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
 
             using (db = new SIMEFContext())
             {
-                db.Entry(pTipoIndicadores).Property(i => i.Estado).IsModified = true;
+                db.Entry(pTipoIndicadores).State = EntityState.Modified;
                 db.SaveChanges();
             }
 
-            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
-            {
-                id = Utilidades.Encriptar(x.IdTipoIdicador.ToString()),
-                Nombre = x.Nombre,
-                Estado = x.Estado
-            }).ToList();
+            pTipoIndicadores.IdTipoIdicador = 0;
+            listaTipoIndicadores.Add(pTipoIndicadores);
 
             return listaTipoIndicadores;
         }

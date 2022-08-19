@@ -54,12 +54,6 @@ namespace GB.SIMEF.BL
 
                 pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
 
-                if (pIndicador == null) // ¿el indicador existe en BD?
-                {
-                    errorControlado = true;
-                    throw new Exception(Errores.NoRegistrosActualizar);
-                }
-
                 // actualizar el estado del indicador
                 pIndicador = PrepararObjetoIndicador(pIndicador);
                 pIndicador.UsuarioModificacion = user;
@@ -140,12 +134,6 @@ namespace GB.SIMEF.BL
                 }
 
                 pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
-
-                if (pIndicador == null) // ¿ID válido?
-                {
-                    errorControlado = true;
-                    throw new Exception(Errores.NoRegistrosActualizar);
-                }
 
                 pIndicador = PrepararObjetoIndicador(pIndicador);
                 var result = indicadorFonatelDAL.ObtenerFormulariosWebSegunIndicador(pIndicador);

@@ -355,6 +355,10 @@ CreateView = {
             CargarDatasource(CreateView.Controles.tableModalTipoIndicador);
         },
 
+        RemoverItemDeTablaModalTipoIndicador: function (pIdTipoIndicador) {
+            $(CreateView.Controles.tableModalTipoIndicador).DataTable().row($(`button[value='${pIdTipoIndicador}']`).parents('tr')).remove().draw();
+        },
+
         EliminarTipoIndicador: function (pIdTipoIndicador) {
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Tipo Indicador?", jsMensajes.Variables.actionType.eliminar)
@@ -364,20 +368,19 @@ CreateView = {
             })
                 .then(data => {
                     $("#loading").fadeIn();
-                    console.log("Button yes was pressed ..");
                     return CreateView.Consultas.EliminarTipoIndicador(pIdTipoIndicador);
                 })
                 .then(data => {
+                    CreateView.Metodos.RemoverItemDeTablaModalTipoIndicador(pIdTipoIndicador);
+
                     $("#loading").fadeOut();
+
                     return new Promise((resolve, reject) => {
                         jsMensajes.Metodos.OkAlertModal("El Tipo Indicador ha sido eliminado", jsMensajes.Variables.actionType.eliminar)
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
                     })
-                })
-                .then(data => {
-                    //window.location.href = "/Fonatel/IndicadorFonatel/index"
                 })
                 .catch(error => {
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -407,7 +410,6 @@ CreateView = {
                     }, 500);
                 })
                 .catch(error => {
-                    console.log(error)
                     jsMensajes.Metodos.OkAlertErrorModal()
                         .set('onok', function (closeEvent) { });
                 })
@@ -432,6 +434,48 @@ CreateView = {
             CargarDatasource(CreateView.Controles.tableModalGrupoIndicador);
         },
 
+        RemoverItemDeTablaModalGrupoIndicador: function (pIdGrupoIndicador) {
+            $(CreateView.Controles.tableModalGrupoIndicador).DataTable().row($(`button[value='${pIdGrupoIndicador}']`).parents('tr')).remove().draw();
+        },
+
+        EliminarGrupoIndicador: function (pIdGrupoIndicador) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Grupo Indicador?", jsMensajes.Variables.actionType.eliminar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.EliminarGrupoIndicador(pIdGrupoIndicador);
+                })
+                .then(data => {
+                    CreateView.Metodos.RemoverItemDeTablaModalGrupoIndicador(pIdGrupoIndicador);
+
+                    $("#loading").fadeOut();
+
+                    return new Promise((resolve, reject) => {
+                        jsMensajes.Metodos.OkAlertModal("El Grupo Indicador ha sido eliminado", jsMensajes.Variables.actionType.eliminar)
+                            .set('onok', function (closeEvent) {
+                                resolve(true);
+                            });
+                    })
+                })
+                .catch(error => {
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
         AbrirModalUnidadEstudio: function () {
             $("#loading").fadeIn();
 
@@ -445,7 +489,6 @@ CreateView = {
                     }, 500);
                 })
                 .catch(error => {
-                    console.log(error)
                     jsMensajes.Metodos.OkAlertErrorModal()
                         .set('onok', function (closeEvent) { });
                 })
@@ -468,7 +511,49 @@ CreateView = {
             });
             $(CreateView.Controles.tableModalUnidadEstudio_tbody).html(html);
             CargarDatasource(CreateView.Controles.tableModalUnidadEstudio);
-        }
+        },
+
+        RemoverItemDeTablaModalUnidadEstudio: function (pIdUnidadEstudio) {
+            $(CreateView.Controles.tableModalUnidadEstudio).DataTable().row($(`button[value='${pIdUnidadEstudio}']`).parents('tr')).remove().draw();
+        },
+
+        EliminarUnidadEstudio: function (pIdUnidadEstudio) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Unidad de Estudio?", jsMensajes.Variables.actionType.eliminar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.EliminarUnidadEstudio(pIdUnidadEstudio);
+                })
+                .then(data => {
+                    CreateView.Metodos.RemoverItemDeTablaModalUnidadEstudio(pIdUnidadEstudio);
+
+                    $("#loading").fadeOut();
+
+                    return new Promise((resolve, reject) => {
+                        jsMensajes.Metodos.OkAlertModal("La Unidad de Estudio ha sido eliminada", jsMensajes.Variables.actionType.eliminar)
+                            .set('onok', function (closeEvent) {
+                                resolve(true);
+                            });
+                    })
+                })
+                .catch(error => {
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
     },
 
     Consultas: {
@@ -476,18 +561,25 @@ CreateView = {
             return execAjaxCall('/IndicadorFonatel/ObtenerListaTipoIndicador', 'GET');
         },
 
+        EliminarTipoIndicador: function (pIdTipoIndicador) {
+            return execAjaxCall('/IndicadorFonatel/EliminarTipoIndicador', 'POST', { pIdTipoIndicador: pIdTipoIndicador });
+        },
+
         ConsultarListaGrupoIndicador: function () {
             return execAjaxCall('/IndicadorFonatel/ObtenerListaGrupoIndicador', 'GET');
+        },
+
+        EliminarGrupoIndicador: function (pIdGrupoIndicador) {
+            return execAjaxCall('/IndicadorFonatel/EliminarGrupoIndicador', 'POST', { pIdGrupoIndicador: pIdGrupoIndicador });
         },
 
         ConsultarListaUnidadEstudio: function () {
             return execAjaxCall('/IndicadorFonatel/ObtenerListaUnidadEstudio', 'GET');
         },
 
-        EliminarTipoIndicador: function (pIdTipoIndicador) {
-            console.log("Executing ajax request to the server..");
-            return execAjaxCall('/IndicadorFonatel/EliminarTipoIndicador', 'POST', { pIdTipoIndicador: pIdTipoIndicador });
-        }
+        EliminarUnidadEstudio: function (pIdUnidadEstudio) {
+            return execAjaxCall('/IndicadorFonatel/EliminarUnidadEstudio', 'POST', { pIdUnidadEstudio: pIdUnidadEstudio });
+        },
     },
 
     Eventos: function () {
@@ -534,6 +626,16 @@ CreateView = {
         $(document).on("click", CreateView.Controles.btnEliminarTipoIndicador, function (e) {
             e.preventDefault();
             CreateView.Metodos.EliminarTipoIndicador($(this).val());
+        });
+
+        $(document).on("click", CreateView.Controles.btnEliminarGrupoIndicador, function (e) {
+            e.preventDefault();
+            CreateView.Metodos.EliminarGrupoIndicador($(this).val());
+        });
+
+        $(document).on("click", CreateView.Controles.btnEliminarUnidadEstudio, function (e) {
+            e.preventDefault();
+            CreateView.Metodos.EliminarUnidadEstudio($(this).val());
         });
 
         //$(document).on("click", CreateView.Controles.btnCancelar, function (e) {

@@ -28,9 +28,55 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<UnidadEstudio>> CambioEstado(UnidadEstudio objeto)
+        public RespuestaConsulta<List<UnidadEstudio>> CambioEstado(UnidadEstudio pUnidadEstudio)
         {
-            throw new NotImplementedException();
+            RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
+            bool errorControlado = false, nuevoEstado = pUnidadEstudio.nuevoEstado;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pUnidadEstudio.id), out int idDecencriptado);
+                pUnidadEstudio.idUnidad = idDecencriptado;
+
+                if (pUnidadEstudio.idUnidad == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                pUnidadEstudio = unidadEstudioDAL.ObtenerDatos(pUnidadEstudio).Single();
+
+                // actualizar el estado del indicador
+                pUnidadEstudio.idUnidad = idDecencriptado;
+                pUnidadEstudio.Estado = nuevoEstado;
+                var grupoIndicadorActualizado = unidadEstudioDAL.ActualizarDatos(pUnidadEstudio);
+
+                if (grupoIndicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // construir respuesta
+                resultado.Accion = nuevoEstado ? (int)Accion.Activar : (int)Accion.Eliminar;
+                resultado.Clase = modulo;
+                resultado.Usuario = user;
+                resultado.CantidadRegistros = grupoIndicadorActualizado.Count();
+
+                unidadEstudioDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario,
+                        resultado.Clase, pUnidadEstudio.Nombre);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
         }
 
         public RespuestaConsulta<List<UnidadEstudio>> ClonarDatos(UnidadEstudio objeto)
@@ -48,18 +94,14 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<UnidadEstudio>> ObtenerDatos(UnidadEstudio objeto)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// 19/08/2022
         /// José Navarro Acuña
         /// Función que retorna todos las unidades de estudio registradas en estado activo
+        /// Se puede aplicar un filtro para obtener un único elemento a traves del ID.
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<UnidadEstudio>> ObtenerDatos()
+        public RespuestaConsulta<List<UnidadEstudio>> ObtenerDatos(UnidadEstudio pUnidadEstudio)
         {
             RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
 
@@ -67,7 +109,7 @@ namespace GB.SIMEF.BL
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                var result = unidadEstudioDAL.ObtenerDatos();
+                var result = unidadEstudioDAL.ObtenerDatos(pUnidadEstudio);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }

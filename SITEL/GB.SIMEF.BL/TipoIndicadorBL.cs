@@ -38,8 +38,7 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<TipoIndicadores>> CambioEstado(TipoIndicadores pTipoIndicadores)
         {
             RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
-            bool errorControlado = false;
-            bool nuevoEstado = pTipoIndicadores.nuevoEstado;
+            bool errorControlado = false, nuevoEstado = pTipoIndicadores.nuevoEstado;
 
             try
             {
@@ -54,18 +53,12 @@ namespace GB.SIMEF.BL
 
                 pTipoIndicadores = tipoIndicadorDAL.ObtenerDatos(pTipoIndicadores).Single();
 
-                if (pTipoIndicadores == null) // ¿el indicador existe en BD?
-                {
-                    errorControlado = true;
-                    throw new Exception(Errores.NoRegistrosActualizar);
-                }
-
                 // actualizar el estado del indicador
                 pTipoIndicadores.IdTipoIdicador = idDecencriptado;
                 pTipoIndicadores.Estado = nuevoEstado;
-                var indicadorActualizado = tipoIndicadorDAL.ActualizarDatos(pTipoIndicadores);
+                var tipoIndicadorActualizado = tipoIndicadorDAL.ActualizarDatos(pTipoIndicadores);
 
-                if (indicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
+                if (tipoIndicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -75,7 +68,7 @@ namespace GB.SIMEF.BL
                 resultado.Accion = nuevoEstado ? (int)Accion.Activar : (int)Accion.Eliminar;
                 resultado.Clase = modulo;
                 resultado.Usuario = user;
-                resultado.CantidadRegistros = indicadorActualizado.Count();
+                resultado.CantidadRegistros = tipoIndicadorActualizado.Count();
 
                 tipoIndicadorDAL.RegistrarBitacora(resultado.Accion,
                         resultado.Usuario,
@@ -108,18 +101,14 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatos(TipoIndicadores pTipoIndicadores)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// 18/08/2022
         /// José Navarro Acuña
         /// Función que retorna todos los tipos indicadores registrados en estado activo
+        /// Se puede aplicar un filtro para obtener un único elemento a traves del ID.
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatos()
+        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatos(TipoIndicadores pTipoIndicadores)
         {
             RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
 
@@ -127,7 +116,7 @@ namespace GB.SIMEF.BL
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                var result = tipoIndicadorDAL.ObtenerDatos(new TipoIndicadores());
+                var result = tipoIndicadorDAL.ObtenerDatos(pTipoIndicadores);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }

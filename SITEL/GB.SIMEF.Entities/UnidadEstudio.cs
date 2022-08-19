@@ -30,7 +30,7 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string id { get; set; }
         [NotMapped]
-        public int nuevoEstado { get; set; }
+        public bool nuevoEstado { get; set; }
         #endregion
     }
 }

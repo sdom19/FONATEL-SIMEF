@@ -2,29 +2,38 @@
 using GB.SIMEF.Resources;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GB.SIMEF.DAL
 {
-    public class GrupoIndicadorDAL
+    public class GrupoIndicadorDAL : BitacoraDAL
     {
         private SIMEFContext db;
 
         /// <summary>
         /// 18/08/2022
         /// José Navarro Acuña
-        /// Función que retorna todos los grupos de indicadores registrados en estado activo
+        /// Función que retorna todos los grupos de indicadores registrados en estado activo.
+        /// Se puede filtrar por el ID del objecto
         /// </summary>
         /// <returns></returns>
-        public List<GrupoIndicadores> ObtenerDatos()
+        public List<GrupoIndicadores> ObtenerDatos(GrupoIndicadores pGrupoIndicadores)
         {
             List<GrupoIndicadores> listaGrupoIndicadores = new List<GrupoIndicadores>();
 
             using (db = new SIMEFContext())
             {
-                listaGrupoIndicadores = db.GrupoIndicadores.Where(x => x.Estado == true).ToList();
+                if (pGrupoIndicadores.idGrupo != 0)
+                {
+                    listaGrupoIndicadores = db.GrupoIndicadores.Where(x => x.idGrupo == pGrupoIndicadores.idGrupo && x.Estado == true).ToList();
+                }
+                else
+                {
+                    listaGrupoIndicadores = db.GrupoIndicadores.Where(x => x.Estado == true).ToList();
+                }
             }
 
             listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicadores()
@@ -33,6 +42,29 @@ namespace GB.SIMEF.DAL
                 Nombre = x.Nombre,
                 Estado = x.Estado
             }).ToList();
+
+            return listaGrupoIndicadores;
+        }
+
+        /// <summary>
+        /// 18/08/2022
+        /// José Navarro Acuña
+        /// Función que actualiza los datos de un grupo indicador.
+        /// </summary>
+        /// <param name="pTipoIndicadores"></param>
+        /// <returns></returns>
+        public List<GrupoIndicadores> ActualizarDatos(GrupoIndicadores pGrupoIndicadores)
+        {
+            List<GrupoIndicadores> listaGrupoIndicadores = new List<GrupoIndicadores>();
+
+            using (db = new SIMEFContext())
+            {
+                db.Entry(pGrupoIndicadores).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            pGrupoIndicadores.idGrupo = 0;
+            listaGrupoIndicadores.Add(pGrupoIndicadores);
 
             return listaGrupoIndicadores;
         }

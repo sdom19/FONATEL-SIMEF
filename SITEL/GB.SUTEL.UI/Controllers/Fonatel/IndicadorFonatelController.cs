@@ -237,7 +237,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
             await Task.Run(() =>
             {
-                resultado = tipoIndicadorBL.ObtenerDatos();
+                resultado = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores());
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -255,7 +255,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
             await Task.Run(() =>
             {
-                resultado = grupoIndicadorBL.ObtenerDatos();
+                resultado = grupoIndicadorBL.ObtenerDatos(new GrupoIndicadores());
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -273,7 +273,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
             await Task.Run(() =>
             {
-                resultado = unidadEstudioBL.ObtenerDatos();
+                resultado = unidadEstudioBL.ObtenerDatos(new UnidadEstudio());
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -303,7 +303,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = tipoIndicadorBL.CambioEstado(new TipoIndicadores()
                 {
                     id = pIdTipoIndicador,
-                    nuevoEstado = false // nuevo estado
+                    nuevoEstado = false // eliminar
                 });
 
             });
@@ -334,7 +334,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = grupoIndicadorBL.CambioEstado(new GrupoIndicadores()
                 {
                     id = pIdGrupoIndicador,
-                    nuevoEstado = (int)EstadosRegistro.Eliminado // nuevo estado
+                    nuevoEstado = false // eliminar
                 });
 
             });
@@ -344,7 +344,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 19/08/2022
         /// José Navarro Acuña
-        /// Función que realiza un eliminado lógico de un tipo de indicador
+        /// Función que realiza un eliminado lógico de una unidad de estudio
         /// </summary>
         /// <param name="pIdTipoIndicador"></param>
         /// <returns></returns>
@@ -365,7 +365,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = unidadEstudioBL.CambioEstado(new UnidadEstudio()
                 {
                     id = pIdUnidadEstudio,
-                    nuevoEstado = (int)EstadosRegistro.Eliminado // nuevo estado
+                    nuevoEstado = false // eliminado
                 });
 
             });
