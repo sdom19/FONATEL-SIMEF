@@ -129,8 +129,14 @@
   <data name="Codigo" xml:space="preserve">
     <value>Código</value>
   </data>
+  <data name="CrearCategoria" xml:space="preserve">
+    <value>Crear Categoría de Desagregación</value>
+  </data>
   <data name="Detalle" xml:space="preserve">
     <value>Detalle</value>
+  </data>
+  <data name="DetalleAtributo" xml:space="preserve">
+    <value>Detalle Categoría Desagregación</value>
   </data>
   <data name="ErrorTipoDetalleCategoria" xml:space="preserve">
     <value />
@@ -138,7 +144,28 @@
   <data name="Estado" xml:space="preserve">
     <value>Estado</value>
   </data>
+  <data name="Etiqueta" xml:space="preserve">
+    <value>Etiqueta de Detalle</value>
+  </data>
+  <data name="FechaHasta" xml:space="preserve">
+    <value>Fecha Hasta</value>
+  </data>
+  <data name="FechaInicio" xml:space="preserve">
+    <value>Fecha Inicio</value>
+  </data>
   <data name="Nombre" xml:space="preserve">
     <value>Nombre</value>
+  </data>
+  <data name="TipoCategoria" xml:space="preserve">
+    <value>Tipo Categoría</value>
+  </data>
+  <data name="TipoDetalle" xml:space="preserve">
+    <value>Tipo Detalle</value>
+  </data>
+  <data name="ValorMinimo" xml:space="preserve">
+    <value>Valor Mínimo</value>
+  </data>
+  <data name="ValorMáximo" xml:space="preserve">
+    <value>Valor Máximo</value>
   </data>
 </root>

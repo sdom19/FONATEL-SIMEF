@@ -12,13 +12,15 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("ReglaValidacion")]
     public partial class ReglaValidacion
     {
-        
+       
         public ReglaValidacion()
         {
-            this.ReglaValidacionTipo = new HashSet<ReglaValidacionTipo>();
+
         }
         [Key]
         public int idRegla { get; set; }
@@ -27,14 +29,20 @@ namespace GB.SIMEF.Entities
         public int IdTipo { get; set; }
         public string Descripcion { get; set; }
         public int idOperador { get; set; }
+        public int idIndicador { get; set; }
+
+        public int idEstado { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
     
-        public virtual EstadoRegistro EstadoRegistro { get; set; }
-        public virtual Indicador Indicador { get; set; }
+        [NotMapped]
 
-        public virtual ICollection<ReglaValidacionTipo> ReglaValidacionTipo { get; set; }
+        public EstadoRegistro EstadoRegistro { get; set; }
+        [NotMapped]
+        public String id{ get; set; }
+        [NotMapped]
+        public TipoReglaValidacion TipoReglaValidacion { get; set; }
     }
 }

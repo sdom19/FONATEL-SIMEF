@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CantidadRegistros" xml:space="preserve">
-    <value>Se Excedio la cantidad de registros establecidos</value>
+    <value>Se excedio la cantidad de registros establecidos</value>
+  </data>
+  <data name="CantidadRegistrosLimite" xml:space="preserve">
+    <value>La cantidad de detalle a establecer, sobrepasa la lista actual</value>
   </data>
   <data name="CodigoRegistrado" xml:space="preserve">
     <value>El Código ingresado ya se encuentra registrado</value>

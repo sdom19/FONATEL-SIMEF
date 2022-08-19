@@ -205,6 +205,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Descargar Excel.
+        /// </summary>
+        public static string DescargaExcel {
+            get {
+                return ResourceManager.GetString("DescargaExcel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Detalle Categoría Desagregación.
         /// </summary>
         public static string DetalleCategorias {
@@ -219,6 +228,15 @@ namespace GB.SIMEF.Resources {
         public static string LabelInicio {
             get {
                 return ResourceManager.GetString("LabelInicio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reglas de Validación.
+        /// </summary>
+        public static string ReglasValidacion {
+            get {
+                return ResourceManager.GetString("ReglasValidacion", resourceCulture);
             }
         }
     }
