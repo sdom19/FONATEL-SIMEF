@@ -24,7 +24,7 @@
                 <div class="form-group row">
                     <label for="txtCantidad" class="col-sm-12 col-form-label">Cantidad Atributos</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control form-control-fonatel " id="TxtCantidad" placeholder="Cantidad Atributos">
+                        @Html.EditorFor(model => model.CantidadCategoria, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewRelacionCategoria.Cantidad, id = "TxtCantidad" } })
                         <small id="CantidadHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>

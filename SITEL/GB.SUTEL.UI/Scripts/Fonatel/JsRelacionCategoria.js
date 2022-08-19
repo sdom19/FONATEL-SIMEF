@@ -10,17 +10,24 @@
         "btnDeleteRelacion": "#TablaRelacionCategoria tbody tr td .btn-delete",
         "btnEliminarDetalleRelacion": "#TablaDetalleRelacionCategoria tbody tr td .btn-delete",
         "btnGuardarDetalle": "#btnGuardarDetalle",
-        "ddlCategoriaId":"#ddlCategoriaId",
         "btnAgregarDetalle": "#btnAgregarDetalle",
         "inputFileAgregarDetalle": "#inputFileAgregarDetalle",
         "TablaRelacionCategoria": "#TablaRelacionCategoria tbody",
-        "ddlDetalleDesagregacionId":"#ddlDetalleDesagregacionId"
+
+        "txtNombre": "#txtNombre",
+        "txtCodigo": "#txtCodigo",
+        "TxtCantidad": "#TxtCantidad",
+        "ddlCategoriaId": "#ddlCategoriaId",
+        "ddlDetalleDesagregacionId": "#ddlDetalleDesagregacionId"
+
+
     },
     "Variables":{
         "ListadoRelaciones":[]
     },
 
     "Metodos": {
+
         "CargarTablaRelacion": function () {
             EliminarDatasource();
             let html = "";
@@ -50,6 +57,7 @@
     },
 
     "Consultas": {
+
         "ConsultaListaRelaciones": function () {
             $.ajax({
                 url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaRelacionCategoria',
@@ -80,7 +88,6 @@
                 $("#loading").fadeOut();
             })
         },
-
 
         "ConsultarDesagregacionId": function (selected) {
             $.ajax({
@@ -113,6 +120,49 @@
             })
         },
 
+        "InsertarCategoria": function () {
+            let relacion = new Object();
+            relacion.Nombre = $(JsRelacion.Controles.txtNombre).val().trim();
+            relacion.Codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
+            categoria.CantidadDetalleDesagregacion = $(JsRelacion.Controles.TxtCantidad).val();
+            categoria.idTipoDetalle = $(JsRelacion.Controles.ddlCategoriaId).val();
+            categoria.IdTipoCategoria = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/InsertarRelacionCategoria',
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                data: { categoria },
+                success: function (obj) {
+                    $("#loading").fadeOut();
+                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                        jsMensajes.Metodos.OkAlertModal("La relacion ha sido creada")
+                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                }
+            }).fail(function (obj) {
+
+
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
+                $("#loading").fadeOut();
+
+            })
+        },
+
 
     }
 
@@ -136,7 +186,6 @@ $(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
         });
 });
 
-
 $(document).on("click", JsRelacion.Controles.btnCancelarDetalle, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
@@ -144,9 +193,6 @@ $(document).on("click", JsRelacion.Controles.btnCancelarDetalle, function (e) {
             window.location.href = "/Fonatel/RelacionCategoria/Index";
         });
 });
-
-
-
 
 $(document).on("change", JsRelacion.Controles.ddlCategoriaId, function () {
 
@@ -157,18 +203,27 @@ $(document).on("change", JsRelacion.Controles.ddlCategoriaId, function () {
 
 });
 
-
-
-
-
-
 $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Relación?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Relación ha sido creada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-        });
+    let modo = $(JsCategoria.Controles.txtmodoCategoria).val();
+
+    //let validar = JsCategoria.Metodos.ValidarFormularioCategoria();
+    //if (!validar) {
+    //    return;
+    //}
+
+    if (modo == jsUtilidades.Variables.Acciones.Editar) {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsCategoria.Consultas.EditarCategoria();
+            });
+    }
+    else {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsCategoria.Consultas.InsertarCategoria();
+            });
+    }
 });
 
 $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {

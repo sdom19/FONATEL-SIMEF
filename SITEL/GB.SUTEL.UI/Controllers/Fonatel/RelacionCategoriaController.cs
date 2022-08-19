@@ -15,13 +15,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class RelacionCategoriaController : Controller
     {
-        private readonly string user;
+        string user;
 
         // GET: CategoriasDesagregacion
 
         private readonly RelacionCategoriaBL RelacionCategoriaBL;
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBl;
-
+        
 
         public RelacionCategoriaController()
         {
@@ -114,16 +114,32 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
+        /// <summary>
+        /// Fecha 19-08-2022
+        /// Francisco Vindas
+        /// Metodo para insertar los relacion categorias
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public async Task<string> InsertarRelacionCategoria(RelacionCategoria relacion)
         {
+            //Identificamos el id del usuario
+            user = User.Identity.GetUserId();
+
+            //Creamos una variable resultado de tipo lista relacion categoria
             RespuestaConsulta<List<RelacionCategoria>> result = null;
+
             await Task.Run(() =>
             {
-                //relacion.UsuarioModificacion = user;
-                //result = RelacionCategoriaBL.CambioEstado(relacion);
+                //Obtenemos el usuario de creacion en la variable user
+                relacion.UsuarioCreacion = user;
+
+                //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
+                result = RelacionCategoriaBL.InsertarDatos(relacion);
+
             });
 
+            //Retornamos un Json con el resultado
             return JsonConvert.SerializeObject(result);
         }
 

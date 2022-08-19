@@ -70,7 +70,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Cantidad.
+        ///   Busca una cadena traducida similar a Cantidad Atributos.
         /// </summary>
         public static string Cantidad {
             get {
@@ -79,7 +79,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Codigó.
+        ///   Busca una cadena traducida similar a Código.
         /// </summary>
         public static string Codigo {
             get {
