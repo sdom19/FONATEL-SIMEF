@@ -1,51 +1,19 @@
-﻿<div class="table-responsive table-wrapper-fonatel">
+﻿
+@using GB.SIMEF.Resources;
 
-    <table id="TableFuentes" class="dataTable datatable_simef table-bordered table-condensed table-hover">
+
+<div class="table-responsive table-wrapper-fonatel">
+
+    <table id="TablaFuentes" class="dataTable datatable_simef table-bordered table-condensed table-hover">
         <thead>
             <tr>
-                <th scope="col">Fuente de Registros</th>
-                <th scope="col">Cantidad de Destinatarios</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Acciones</th>
+                <th scope="col">@EtiquetasViewFuentesRegistro.FuentesRegistro</th>
+                <th scope="col">@EtiquetasViewFuentesRegistro.CantidadDestinatarios</th>
+                <th scope="col">@Etiquetas.Estado</th>
+                <th scope="col">@Etiquetas.Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">Unidad de Gestión 1</th>
-                <td>3</td>
-                <td>Activo</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" value="4" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Unidad de Gestión 2</th>
-                <td>10</td>
-                <td>Activo</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" value="4" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Unidad de Gestion 3</th>
-                <td>15</td>
-                <td>Activo</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" value="4" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Unidad de Gestión 8</th>
-                <td>2</td>
-                <td>Activo</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" value="4" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
         </tbody>
 
         <tfoot>
@@ -61,4 +29,4 @@
     </table>
 
 
-    </div>
+</div>

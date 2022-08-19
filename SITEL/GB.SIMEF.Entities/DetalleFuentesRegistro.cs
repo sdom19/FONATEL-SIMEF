@@ -12,7 +12,9 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("DetalleFuentesRegistro")]
     public partial class DetalleFuentesRegistro
     {
         [Key]
@@ -22,6 +24,6 @@ namespace GB.SIMEF.Entities
         public string CorreoElectronico { get; set; }
         public bool Estado { get; set; }
     
-        public virtual FuentesRegistro FuentesRegistro { get; set; }
+  
     }
 }
