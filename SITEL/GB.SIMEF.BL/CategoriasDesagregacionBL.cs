@@ -64,7 +64,6 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-
         public RespuestaConsulta<List<string>> ValidarExistencia(CategoriasDesagregacion objeto)
         {
             RespuestaConsulta<List<string>> listaExistencias = new RespuestaConsulta<List<string>>();
@@ -92,7 +91,6 @@ namespace GB.SIMEF.BL
             }
             return listaExistencias;
         }
-
 
         public RespuestaConsulta<List<CategoriasDesagregacion>> ActualizarElemento(CategoriasDesagregacion objeto)
         {
@@ -224,7 +222,7 @@ namespace GB.SIMEF.BL
                 objeto = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
               
 
-                if (listadoCategorias.Where(x=>x.Codigo==codigo).Count()>0)
+                if (listadoCategorias.Where(x=>x.Codigo.ToUpper()==codigo.ToUpper().Trim()).Count()>0)
                 {
                     throw new Exception(Errores.CodigoRegistrado);
                 }

@@ -115,7 +115,6 @@
     <Build Include="dbo\Tables\CategoriasDesagregacion.sql" />
     <Build Include="dbo\Tables\Bitacora.sql" />
     <Build Include="dbo\Tables\Anno.sql" />
-    <Build Include="dbo\Views\THIndicadorFonatel.sql" />
     <Build Include="dbo\Views\DimTipoIndicadores.sql" />
     <Build Include="dbo\Views\dimSolicitud.sql" />
     <Build Include="dbo\Views\DimMedida.sql" />
@@ -131,5 +130,11 @@
     <Build Include="dbo\Stored Procedures\spActualizarCategoriasDesagregacion.sql" />
     <Build Include="Security\SITEL.sql" />
     <Build Include="Security\SIGITEL.sql" />
+    <Build Include="dbo\Stored Procedures\spValidarCategoriaDesagregacion.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerRelacionCategorias.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerReglasValidacion.sql" />
+    <Build Include="dbo\Stored Procedures\spActualizarRelacionCategoria.sql" />
+    <Build Include="dbo\Stored Procedures\spActualizarCategoriasDesagregacionNumerico.sql" />
+    <Build Include="dbo\Stored Procedures\spActualizarCategoriasDesagregacionFecha.sql" />
   </ItemGroup>
 </Project>

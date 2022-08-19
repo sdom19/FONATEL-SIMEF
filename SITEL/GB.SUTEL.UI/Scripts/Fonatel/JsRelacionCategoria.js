@@ -10,16 +10,110 @@
         "btnDeleteRelacion": "#TablaRelacionCategoria tbody tr td .btn-delete",
         "btnEliminarDetalleRelacion": "#TablaDetalleRelacionCategoria tbody tr td .btn-delete",
         "btnGuardarDetalle": "#btnGuardarDetalle",
-
+        "ddlCategoriaId":"#ddlCategoriaId",
         "btnAgregarDetalle": "#btnAgregarDetalle",
-        "inputFileAgregarDetalle": "#inputFileAgregarDetalle"
+        "inputFileAgregarDetalle": "#inputFileAgregarDetalle",
+        "TablaRelacionCategoria": "#TablaRelacionCategoria tbody",
+        "ddlDetalleDesagregacionId":"#ddlDetalleDesagregacionId"
     },
     "Variables":{
-
+        "ListadoRelaciones":[]
     },
 
     "Metodos": {
+        "CargarTablaRelacion": function () {
+            EliminarDatasource();
+            let html = "";
+
+            for (var i = 0; i < JsRelacion.Variables.ListadoRelaciones.length; i++) {
+                let detalle = JsRelacion.Variables.ListadoRelaciones[i];
+                html = html + "<tr>"
+
+                html = html + "<td scope='row'>" + detalle.Codigo + "</td>";
+                html = html + "<td>" + detalle.Nombre + "</td>";
+                html = html + "<td>" + detalle.CantidadCategoria + "/" + detalle.DetalleRelacionCategoria.length + "</td>";
+                html = html + "<td>" + detalle.EstadoRegistro.Nombre + "</td>";
+
+                html = html + "<td><button id = 'btnAgregarDetalle' type = 'button' data - toggle='tooltip' data - placement='top' title = 'Agregar Detalle' class='btn-icon-base btn-upload' ></button >" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
+
+
+                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value='" + detalle.id + "' title='Editar' class='btn-icon-base btn-edit'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' value='" + detalle.id + "' title='Eliminar' class='btn-icon-base btn-delete'></button></td>";
+                html = html + "</tr>";
+            }
+            $(JsRelacion.Controles.TablaRelacionCategoria).html(html);
+            CargarDatasource();
+            JsRelacion.Variables.ListadoRelaciones = [];
+        },
+    },
+
+    "Consultas": {
+        "ConsultaListaRelaciones": function () {
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaRelacionCategoria',
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                success: function (obj) {
+                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                        JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
+                        JsRelacion.Metodos.CargarTablaRelacion();
+                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                    $("#loading").fadeOut();
+                }
+            }).fail(function (obj) {
+
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
+                $("#loading").fadeOut();
+            })
+        },
+
+
+        "ConsultarDesagregacionId": function (selected) {
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerDetalleDesagregacionId?select='+selected,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                success: function (obj) {
    
+                    let html = "";
+
+                    for (var i = 0; i < obj.length; i++) {
+
+                        html = html + "<option value='" + obj[i] + "'>"+obj[i]+"</option>"
+                    }
+
+                    $(JsRelacion.Controles.ddlDetalleDesagregacionId).html(html);
+
+
+                    $("#loading").fadeOut();
+                }
+            }).fail(function (obj) {
+
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
+                $("#loading").fadeOut();
+            })
+        },
+
+
     }
 
 }
@@ -30,7 +124,7 @@ $(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
 });
 
 $(document).on("click", JsRelacion.Controles.btnEditarRelacion, function () {
-    let id = 1;
+    let id = $(this).val();
     window.location.href = "/Fonatel/RelacionCategoria/Create?id=" + id;
 });
 
@@ -50,6 +144,21 @@ $(document).on("click", JsRelacion.Controles.btnCancelarDetalle, function (e) {
             window.location.href = "/Fonatel/RelacionCategoria/Index";
         });
 });
+
+
+
+
+$(document).on("change", JsRelacion.Controles.ddlCategoriaId, function () {
+
+    let seleted = $(this).val();
+    if (seleted != 0) {
+        JsRelacion.Consultas.ConsultarDesagregacionId(seleted);
+    }
+
+});
+
+
+
 
 
 
@@ -90,3 +199,9 @@ $(document).on("click", JsRelacion.Controles.btnDeleteRelacion, function (e) {
 $(document).on("click", JsRelacion.Controles.btnAgregarDetalle, function (e) {
     $(JsRelacion.Controles.inputFileAgregarDetalle).click();
 });
+
+$(function () {
+    if ($(JsRelacion.Controles.TablaRelacionCategoria).length > 0) {
+        JsRelacion.Consultas.ConsultaListaRelaciones();
+    }
+})

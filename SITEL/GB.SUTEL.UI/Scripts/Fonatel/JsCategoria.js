@@ -378,8 +378,8 @@
             "InsertarDetalleCategoria": function () {
                 let detalleCategoria = new Object();
                 detalleCategoria.categoriaid = $(JsCategoria.Controles.id).val();
-                detalleCategoria.Codigo = $(JsCategoria.Controles.txtCodigoDetalle).val();
-                detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val();
+                detalleCategoria.Codigo = $(JsCategoria.Controles.txtCodigoDetalle).val().trim();
+                detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val().trim();
 
                 $.ajax({
                     url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/InsertarCategoriasDetalle',
@@ -468,8 +468,8 @@
             },
             "InsertarCategoria": function () {
                 let categoria = new Object();
-                categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val();
-                categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val();
+                categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val().trim();
+                categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val().trim();
                 categoria.CantidadDetalleDesagregacion = $(JsCategoria.Controles.txtCantidadDetalleCategoria).val();
                 categoria.idTipoDetalle = $(JsCategoria.Controles.ddlTipoDetalle).val();
                 categoria.IdTipoCategoria = $(JsCategoria.Controles.ddlTipoCategoria).val();
@@ -517,8 +517,8 @@
             "EditarCategoria": function () {
                 let categoria = new Object();
                 categoria.Id = $(JsCategoria.Controles.id).val();
-                categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val();
-                categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val();
+                categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val().trim();
+                categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val().trim();
                 categoria.CantidadDetalleDesagregacion = $(JsCategoria.Controles.txtCantidadDetalleCategoria).val();
                 categoria.idTipoDetalle = $(JsCategoria.Controles.ddlTipoDetalle).val();
                 categoria.IdTipoCategoria = $(JsCategoria.Controles.ddlTipoCategoria).val();
@@ -566,8 +566,8 @@
             "ClonarCategoria": function () {
                 let categoria = new Object();
                 categoria.Id = $(JsCategoria.Controles.id).val();
-                categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val();
-                categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val();
+                categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val().trim();
+                categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val().trim();
                 categoria.CantidadDetalleDesagregacion = $(JsCategoria.Controles.txtCantidadDetalleCategoria).val();
                 categoria.idTipoDetalle = $(JsCategoria.Controles.ddlTipoDetalle).val();
                 categoria.IdTipoCategoria = $(JsCategoria.Controles.ddlTipoCategoria).val();
@@ -643,8 +643,8 @@
             "ModificarDetalleCategoria": function () {
                 let detalleCategoria = new Object();
                 detalleCategoria.categoriaid = $(JsCategoria.Controles.id).val();
-                detalleCategoria.Codigo = $(JsCategoria.Controles.txtCodigoDetalle).val();
-                detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val();
+                detalleCategoria.Codigo = $(JsCategoria.Controles.txtCodigoDetalle).val().trim();
+                detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val().trim();
 
                 $.ajax({
                     url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ModificaCategoriasDetalle',

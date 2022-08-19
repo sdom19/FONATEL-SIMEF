@@ -283,7 +283,7 @@ namespace GB.SIMEF.BL
                         int codigo = 0;
                         string Etiqueta = string.Empty;
                         int.TryParse(worksheet.Cells[fila, 1].Value.ToString().Trim(), out codigo);
-                        Etiqueta = worksheet.Cells[fila, 2].Value.ToString();
+                        Etiqueta = worksheet.Cells[fila, 2].Value.ToString().Trim();
 
                         var detallecategoria = new DetalleCategoriaTexto()
                         {

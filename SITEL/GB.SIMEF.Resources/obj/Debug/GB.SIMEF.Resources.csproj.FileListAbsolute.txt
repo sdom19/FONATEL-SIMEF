@@ -9,15 +9,15 @@ C:\Users\jose.navarro\source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\De
 C:\Users\jose.navarro\source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.pdb
 C:\Fonatel\SITEL\GB.SIMEF.Resources\bin\Debug\GB.SIMEF.Resources.dll
 C:\Fonatel\SITEL\GB.SIMEF.Resources\bin\Debug\GB.SIMEF.Resources.pdb
-C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.csprojAssemblyReference.cache
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.Errores.resources
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.Etiquetas.resources
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewCategorias.resources
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewDefinicionIndicadores.resources
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewFormulario.resources
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewIndicadorFonatel.resources
+C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewBitacora.resources
+C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewRelacionCategoria.resources
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.csproj.GenerateResource.cache
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.csproj.CoreCompileInputs.cache
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.dll
 C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.pdb
-C:\Fonatel\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewBitacora.resources

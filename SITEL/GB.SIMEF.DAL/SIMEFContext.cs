@@ -36,7 +36,7 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
         //public virtual DbSet<DetalleRegistroIndicadorCategoria> DetalleRegistroIndicadorCategoria { get; set; }
         //public virtual DbSet<DetalleRegistroIndicadorVariable> DetalleRegistroIndicadorVariable { get; set; }
-        //public virtual DbSet<DetalleRelacionCategoria> DetalleRelacionCategoria { get; set; }
+        public virtual DbSet<DetalleRelacionCategoria> DetalleRelacionCategoria { get; set; }
         //public virtual DbSet<DetalleSolicitudFormulario> DetalleSolicitudFormulario { get; set; }
         //public virtual DbSet<EnvioSolicitudes> EnvioSolicitudes { get; set; }
 
@@ -64,7 +64,7 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<ReglaSecuencial> ReglaSecuencial { get; set; }
         //public virtual DbSet<ReglaValidacion> ReglaValidacion { get; set; }
         //public virtual DbSet<ReglaValidacionTipo> ReglaValidacionTipo { get; set; }
-        //public virtual DbSet<RelacionCategoria> RelacionCategoria { get; set; }
+        public virtual DbSet<RelacionCategoria> RelacionCategoria { get; set; }
         //public virtual DbSet<Solicitud> Solicitud { get; set; }
         //public virtual DbSet<SolicitudDetalleFuentes> SolicitudDetalleFuentes { get; set; }
         //public virtual DbSet<SolicitudEnvioProgramado> SolicitudEnvioProgramado { get; set; }
