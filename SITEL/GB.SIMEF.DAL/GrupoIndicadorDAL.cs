@@ -68,5 +68,28 @@ namespace GB.SIMEF.DAL
 
             return listaGrupoIndicadores;
         }
+
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Función que crea un nuevo registro grupo indicador.
+        /// </summary>
+        /// <param name="detalleFecha"></param>
+        public List<GrupoIndicadores> InsertarGrupoIndicador(GrupoIndicadores pGrupoIndicadores)
+        {
+            List<GrupoIndicadores> listaGrupos = new List<GrupoIndicadores>();
+
+            using (db = new SIMEFContext())
+            {
+                db.GrupoIndicadores.Add(pGrupoIndicadores);
+                db.SaveChanges();
+
+                // EF establecerá el objecto cuando sea guardado
+                pGrupoIndicadores.id = Utilidades.Encriptar(pGrupoIndicadores.idGrupo.ToString());
+                pGrupoIndicadores.idGrupo = 0;
+                listaGrupos.Add(pGrupoIndicadores);
+            }
+            return listaGrupos;
+        }
     }
 }

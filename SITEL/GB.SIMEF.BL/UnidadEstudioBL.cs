@@ -28,6 +28,13 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 19/08/2022
+        /// José Navarro Acuña
+        /// Función que permite cambiar el estado de una unidad de estudio. True: activo, False: desactivado
+        /// </summary>
+        /// <param name="pUnidadEstudio"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<UnidadEstudio>> CambioEstado(UnidadEstudio pUnidadEstudio)
         {
             RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
@@ -89,9 +96,50 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<UnidadEstudio>> InsertarDatos(UnidadEstudio objeto)
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Función que inserta un nuevo registro unidad de estudio
+        /// </summary>
+        /// <param name="pUnidadEstudio"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<UnidadEstudio>> InsertarDatos(UnidadEstudio pUnidadEstudio)
         {
-            throw new NotImplementedException();
+            RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
+            bool errorControlado = false;
+
+            try
+            {
+                List<UnidadEstudio> unidades = unidadEstudioDAL.ObtenerDatos(new UnidadEstudio());
+                UnidadEstudio unidadExiste = unidades.FirstOrDefault(x => x.Nombre.ToUpper() == pUnidadEstudio.Nombre.ToUpper());
+
+                if (unidadExiste != null)
+                {
+                    errorControlado = true;
+                    throw new Exception(string.Format(Errores.CampoYaExiste, pUnidadEstudio.Nombre));
+                }
+
+                List<UnidadEstudio> unidadInsertada = unidadEstudioDAL.InsertarUnidadEstudio(pUnidadEstudio);
+                resultado.objetoRespuesta = unidadInsertada;
+                resultado.CantidadRegistros = unidadInsertada.Count();
+                resultado.Accion = (int)Accion.Insertar;
+                resultado.Clase = modulo;
+                resultado.Usuario = user;
+
+                unidadEstudioDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario,
+                        resultado.Clase, pUnidadEstudio.Nombre);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
         }
 
         /// <summary>

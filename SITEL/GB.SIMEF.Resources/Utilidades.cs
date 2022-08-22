@@ -4,12 +4,20 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GB.SIMEF.Resources
 {
     public static class Utilidades
     {
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Valida si la cadena es alfanumérica: Letras del alfabeto, números, tildes (utilizadas en español) y la eñe (ñ). Acepta espacios entre los caracteres válidos
+        /// </summary>
+        public static Regex rx_alfanumerico_v2 = new Regex(@"^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+([ ][A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+)*$", RegexOptions.Compiled);
+
         /// <summary>
         /// 
         /// </summary>
@@ -33,11 +41,6 @@ namespace GB.SIMEF.Resources
             result = System.Text.Encoding.Unicode.GetString(decryted);
             return result;
         }
-
-
-
-
-
 
         private static byte[] EncriptarByte(byte[] btValor)
         {
@@ -63,7 +66,6 @@ namespace GB.SIMEF.Resources
       
             return valorEncriptado;
         }
-
 
         private static byte[] DesencriptarByte(byte[] btValor)
         {

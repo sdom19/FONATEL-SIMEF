@@ -95,7 +95,7 @@
                 .then(data => {
                     $("#loading").fadeOut();
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado", jsMensajes.Variables.actionType.eliminar)
+                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado")
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -153,7 +153,7 @@
                 .then(data => {
                     $("#loading").fadeOut();
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido desactivado", jsMensajes.Variables.actionType.eliminar)
+                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido desactivado")
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -191,7 +191,7 @@
                 .then(data => {
                     $("#loading").fadeOut();
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido activado", jsMensajes.Variables.actionType.estado)
+                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido activado")
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -284,18 +284,28 @@ CreateView = {
         tableModalTipoIndicador_tbody: "#tableModalTipoIndicador tbody",
         btnModalTipoIndicador: "#btnModalTipoIndicador",
         btnEliminarTipoIndicador: "#tableModalTipoIndicador tbody tr td .btn-delete",
+        btnGuardarTipoIndicador: "#modalTipoIndicador #btnGuardarTipoIndicador",
+        inputTipo: "#modalTipoIndicador #inputTipo",
+        inputTipoHelp: "#modalTipoIndicador #inputTipoHelp",
 
         modalGrupoIndicador: "#modalGrupoIndicador",
         tableModalGrupoIndicador: "#tableModalGrupoIndicador",
         tableModalGrupoIndicador_tbody: "#tableModalGrupoIndicador tbody",
         btnModalGrupoIndicador: "#btnModalGrupoIndicador",
         btnEliminarGrupoIndicador: "#tableModalGrupoIndicador tbody tr td .btn-delete",
+        btnGuardarGrupoIndicador: "#modalGrupoIndicador #btnGuardarGrupoIndicador",
+        inputGrupo: "#modalGrupoIndicador #inputGrupo",
+        inputGrupoHelp: "#modalGrupoIndicador #inputGrupoHelp",
 
         modalUnidadEstudio: "#modalUnidadEstudio",
         tableModalUnidadEstudio: "#tableModalUnidadEstudio",
         tableModalUnidadEstudio_tbody: "#tableModalUnidadEstudio tbody",
         btnModalUnidadEstudio: "#btnModalUnidadEstudio",
         btnEliminarUnidadEstudio: "#tableModalUnidadEstudio tbody tr td .btn-delete",
+        btnGuardarUnidadEstudio: "#modalUnidadEstudio #btnGuardarUnidadEstudio",
+        inputUnidadEstudio: "#modalUnidadEstudio #inputUnidadEstudio",
+        inputUnidadEstudioHelp: "#modalUnidadEstudio #inputUnidadEstudioHelp",
+
 
         //btnstep: ".step_navigation_indicador div",
         //divContenedor: ".stepwizard-content-container",
@@ -314,7 +324,7 @@ CreateView = {
     },
 
     Variables: {
-
+        btnDeleteModal: (pValue) => `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${pValue}></button>`
     },
 
     Metodos: {
@@ -339,24 +349,20 @@ CreateView = {
                 });
         },
 
-        InsertarDatosTablaModalTipoIndicador: function (listaTipoIndicador) {
+        InsertarDatosTablaModalTipoIndicador: function (pListaTipoIndicador) {
             EliminarDatasource(CreateView.Controles.tableModalTipoIndicador);
             let html = "";
 
-            listaTipoIndicador.forEach(item => {
+            pListaTipoIndicador.forEach(item => {
                 html += "<tr>";
                 html += `<th scope='row'>${item.Nombre}</th>`;
                 html += "<td>"
-                html += `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${item.id}></button>`
+                html += CreateView.Variables.btnDeleteModal(item.id)
                 html += "</td>"
                 html += "</tr>";
             });
             $(CreateView.Controles.tableModalTipoIndicador_tbody).html(html);
             CargarDatasource(CreateView.Controles.tableModalTipoIndicador);
-        },
-
-        RemoverItemDeTablaModalTipoIndicador: function (pIdTipoIndicador) {
-            $(CreateView.Controles.tableModalTipoIndicador).DataTable().row($(`button[value='${pIdTipoIndicador}']`).parents('tr')).remove().draw();
         },
 
         EliminarTipoIndicador: function (pIdTipoIndicador) {
@@ -371,12 +377,12 @@ CreateView = {
                     return CreateView.Consultas.EliminarTipoIndicador(pIdTipoIndicador);
                 })
                 .then(data => {
-                    CreateView.Metodos.RemoverItemDeTablaModalTipoIndicador(pIdTipoIndicador);
+                    CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalTipoIndicador, `button[value='${pIdTipoIndicador}']`);
 
                     $("#loading").fadeOut();
 
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Tipo Indicador ha sido eliminado", jsMensajes.Variables.actionType.eliminar)
+                        jsMensajes.Metodos.OkAlertModal("El Tipo Indicador ha sido eliminado")
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -418,24 +424,20 @@ CreateView = {
                 });
         },
 
-        InsertarDatosTablaModalGrupoIndicador: function (listaGrupoIndicador) {
+        InsertarDatosTablaModalGrupoIndicador: function (pListaGrupoIndicador) {
             EliminarDatasource(CreateView.Controles.tableModalGrupoIndicador);
             let html = "";
 
-            listaGrupoIndicador.forEach(item => {
+            pListaGrupoIndicador.forEach(item => {
                 html += "<tr>";
                 html += `<th scope='row'>${item.Nombre}</th>`;
                 html += "<td>"
-                html += `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${item.id}></button>`
+                html += CreateView.Variables.btnDeleteModal(item.id)
                 html += "</td>"
                 html += "</tr>";
             });
             $(CreateView.Controles.tableModalGrupoIndicador_tbody).html(html);
             CargarDatasource(CreateView.Controles.tableModalGrupoIndicador);
-        },
-
-        RemoverItemDeTablaModalGrupoIndicador: function (pIdGrupoIndicador) {
-            $(CreateView.Controles.tableModalGrupoIndicador).DataTable().row($(`button[value='${pIdGrupoIndicador}']`).parents('tr')).remove().draw();
         },
 
         EliminarGrupoIndicador: function (pIdGrupoIndicador) {
@@ -450,12 +452,12 @@ CreateView = {
                     return CreateView.Consultas.EliminarGrupoIndicador(pIdGrupoIndicador);
                 })
                 .then(data => {
-                    CreateView.Metodos.RemoverItemDeTablaModalGrupoIndicador(pIdGrupoIndicador);
+                    CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalGrupoIndicador, `button[value='${pIdGrupoIndicador}']`);
 
                     $("#loading").fadeOut();
 
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Grupo Indicador ha sido eliminado", jsMensajes.Variables.actionType.eliminar)
+                        jsMensajes.Metodos.OkAlertModal("El Grupo Indicador ha sido eliminado")
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -497,24 +499,20 @@ CreateView = {
                 });
         },
 
-        InsertarDatosTablaModalUnidadEstudio: function (listaUnidadEstudio) {
+        InsertarDatosTablaModalUnidadEstudio: function (pListaUnidadEstudio) {
             EliminarDatasource(CreateView.Controles.tableModalUnidadEstudio);
             let html = "";
 
-            listaUnidadEstudio.forEach(item => {
+            pListaUnidadEstudio.forEach(item => {
                 html += "<tr>";
                 html += `<th scope='row'>${item.Nombre}</th>`;
                 html += "<td>"
-                html += `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${item.id}></button>`
+                html += CreateView.Variables.btnDeleteModal(item.id)
                 html += "</td>"
                 html += "</tr>";
             });
             $(CreateView.Controles.tableModalUnidadEstudio_tbody).html(html);
             CargarDatasource(CreateView.Controles.tableModalUnidadEstudio);
-        },
-
-        RemoverItemDeTablaModalUnidadEstudio: function (pIdUnidadEstudio) {
-            $(CreateView.Controles.tableModalUnidadEstudio).DataTable().row($(`button[value='${pIdUnidadEstudio}']`).parents('tr')).remove().draw();
         },
 
         EliminarUnidadEstudio: function (pIdUnidadEstudio) {
@@ -529,12 +527,12 @@ CreateView = {
                     return CreateView.Consultas.EliminarUnidadEstudio(pIdUnidadEstudio);
                 })
                 .then(data => {
-                    CreateView.Metodos.RemoverItemDeTablaModalUnidadEstudio(pIdUnidadEstudio);
+                    CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalUnidadEstudio, `button[value='${pIdUnidadEstudio}']`);
 
                     $("#loading").fadeOut();
 
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("La Unidad de Estudio ha sido eliminada", jsMensajes.Variables.actionType.eliminar)
+                        jsMensajes.Metodos.OkAlertModal("La Unidad de Estudio ha sido eliminada")
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -554,6 +552,110 @@ CreateView = {
                     $("#loading").fadeOut();
                 });
         },
+
+        RemoverItemDataTable: function (pDataTable, pItem) {
+            $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
+        },
+
+        InsertarItemDataTable: function (pDataTable, pListaItems) {
+            $(pDataTable).DataTable().row.add(pListaItems).draw(false);
+        },
+
+        CrearTipoIndicador: function (pNombre) {
+            if ($.trim(pNombre).length <= 0) {
+                $(inputTipoHelp).css("display", "block");
+                return;
+            }
+            $(inputTipoHelp).css("display", "none");
+            $("#loading").fadeIn();
+
+            CreateView.Consultas.CrearTipoIndicador(pNombre)
+                .then(data => {
+                    CreateView.Metodos.InsertarItemDataTable(
+                        CreateView.Controles.tableModalTipoIndicador,
+                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
+
+                    jsMensajes.Metodos.OkAlertModal("El tipo ha sido agregado")
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        CrearGrupoIndicador: function (pNombre) {
+            if ($.trim(pNombre).length <= 0) {
+                $(inputGrupoHelp).css("display", "block");
+                return;
+            }
+            $(inputGrupoHelp).css("display", "none");
+            $("#loading").fadeIn();
+
+            CreateView.Consultas.CrearGrupoIndicador(pNombre)
+                .then(data => {
+                    CreateView.Metodos.InsertarItemDataTable(
+                        CreateView.Controles.tableModalGrupoIndicador,
+                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
+
+                    jsMensajes.Metodos.OkAlertModal("El grupo ha sido agregado")
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        CrearUnidadEstudio: function (pNombre) {
+            if ($.trim(pNombre).length <= 0) {
+                $(inputUnidadEstudioHelp).css("display", "block");
+                return;
+            }
+            $(inputUnidadEstudioHelp).css("display", "none");
+            $("#loading").fadeIn();
+
+            CreateView.Consultas.CrearUnidadEstudio(pNombre)
+                .then(data => {
+                    CreateView.Metodos.InsertarItemDataTable(
+                        CreateView.Controles.tableModalUnidadEstudio,
+                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
+
+                    jsMensajes.Metodos.OkAlertModal("La unidad de estudio ha sido agregada")
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        }
     },
 
     Consultas: {
@@ -580,6 +682,18 @@ CreateView = {
         EliminarUnidadEstudio: function (pIdUnidadEstudio) {
             return execAjaxCall('/IndicadorFonatel/EliminarUnidadEstudio', 'POST', { pIdUnidadEstudio: pIdUnidadEstudio });
         },
+
+        CrearTipoIndicador: function (pNombre) {
+            return execAjaxCall('/IndicadorFonatel/CrearTipoIndicador', 'POST', { pNombre: pNombre });
+        },
+
+        CrearGrupoIndicador: function (pNombre) {
+            return execAjaxCall('/IndicadorFonatel/CrearGrupoIndicador', 'POST', { pNombre: pNombre });
+        },
+
+        CrearUnidadEstudio: function (pNombre) {
+            return execAjaxCall('/IndicadorFonatel/CrearUnidadEstudio', 'POST', { pNombre: pNombre });
+        }
     },
 
     Eventos: function () {
@@ -604,38 +718,39 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.btnModalTipoIndicador, function (e) {
-            e.preventDefault();
             CreateView.Metodos.AbrirModalTipoIndicador();
         });
 
         $(document).on("click", CreateView.Controles.btnModalGrupoIndicador, function (e) {
-            e.preventDefault();
             CreateView.Metodos.AbrirModalGrupoIndicador();
         });
 
         $(document).on("click", CreateView.Controles.btnModalUnidadEstudio, function (e) {
-            e.preventDefault();
-            CreateView.Metodos.AbrirModalUnidadEstudio();
-        });
-
-        $(document).on("click", CreateView.Controles.btnModalUnidadEstudio, function (e) {
-            e.preventDefault();
             CreateView.Metodos.AbrirModalUnidadEstudio();
         });
 
         $(document).on("click", CreateView.Controles.btnEliminarTipoIndicador, function (e) {
-            e.preventDefault();
             CreateView.Metodos.EliminarTipoIndicador($(this).val());
         });
 
         $(document).on("click", CreateView.Controles.btnEliminarGrupoIndicador, function (e) {
-            e.preventDefault();
             CreateView.Metodos.EliminarGrupoIndicador($(this).val());
         });
 
         $(document).on("click", CreateView.Controles.btnEliminarUnidadEstudio, function (e) {
-            e.preventDefault();
             CreateView.Metodos.EliminarUnidadEstudio($(this).val());
+        });
+
+        $(document).on("click", CreateView.Controles.btnGuardarTipoIndicador, function (e) {
+            CreateView.Metodos.CrearTipoIndicador($(CreateView.Controles.inputTipo).val());
+        });
+
+        $(document).on("click", CreateView.Controles.btnGuardarGrupoIndicador, function (e) {
+            CreateView.Metodos.CrearGrupoIndicador($(CreateView.Controles.inputGrupo).val());
+        });
+
+        $(document).on("click", CreateView.Controles.btnGuardarUnidadEstudio, function (e) {
+            CreateView.Metodos.CrearUnidadEstudio($(CreateView.Controles.inputUnidadEstudio).val());
         });
 
         //$(document).on("click", CreateView.Controles.btnCancelar, function (e) {

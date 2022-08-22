@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static GB.SIMEF.Resources.Constantes;
 
@@ -56,7 +57,7 @@ namespace GB.SIMEF.BL
                 // actualizar el estado del indicador
                 pTipoIndicadores.IdTipoIdicador = idDecencriptado;
                 pTipoIndicadores.Estado = nuevoEstado;
-                var tipoIndicadorActualizado = tipoIndicadorDAL.ActualizarDatos(pTipoIndicadores);
+                List<TipoIndicadores> tipoIndicadorActualizado = tipoIndicadorDAL.ActualizarDatos(pTipoIndicadores);
 
                 if (tipoIndicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
                 {
@@ -96,9 +97,50 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<TipoIndicadores>> InsertarDatos(TipoIndicadores objeto)
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Función que inserta un nuevo registro tipo indicador
+        /// </summary>
+        /// <param name="pTipoIndicadores"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<TipoIndicadores>> InsertarDatos(TipoIndicadores pTipoIndicadores)
         {
-            throw new NotImplementedException();
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            bool errorControlado = false;
+
+            try
+            {
+                List<TipoIndicadores> tipos = tipoIndicadorDAL.ObtenerDatos(new TipoIndicadores());
+                TipoIndicadores indicadorExiste = tipos.FirstOrDefault(x => x.Nombre.ToUpper() == pTipoIndicadores.Nombre.ToUpper());
+
+                if (indicadorExiste != null)
+                {
+                    errorControlado = true;
+                    throw new Exception(string.Format(Errores.CampoYaExiste, pTipoIndicadores.Nombre));
+                }
+
+                List<TipoIndicadores> indicadorInsertado = tipoIndicadorDAL.InsertarTipoIndicador(pTipoIndicadores);
+                resultado.objetoRespuesta = indicadorInsertado;
+                resultado.CantidadRegistros = indicadorInsertado.Count();
+                resultado.Accion = (int)Accion.Insertar;
+                resultado.Clase = modulo;
+                resultado.Usuario = user;
+
+                tipoIndicadorDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario,
+                        resultado.Clase, pTipoIndicadores.Nombre);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
         }
 
         /// <summary>
@@ -116,7 +158,7 @@ namespace GB.SIMEF.BL
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                var result = tipoIndicadorDAL.ObtenerDatos(pTipoIndicadores);
+                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatos(pTipoIndicadores);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }

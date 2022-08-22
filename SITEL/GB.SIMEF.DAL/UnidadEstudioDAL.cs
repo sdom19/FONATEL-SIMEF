@@ -68,5 +68,28 @@ namespace GB.SIMEF.DAL
 
             return listaUnidadEstudio;
         }
+
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Función que crea un nuevo registro unidad de estudio.
+        /// </summary>
+        /// <param name="detalleFecha"></param>
+        public List<UnidadEstudio> InsertarUnidadEstudio(UnidadEstudio pUnidadEstudio)
+        {
+            List<UnidadEstudio> listaUnidades = new List<UnidadEstudio>();
+
+            using (db = new SIMEFContext())
+            {
+                db.UnidadEstudio.Add(pUnidadEstudio);
+                db.SaveChanges();
+
+                // EF establecerá el objecto cuando sea guardado
+                pUnidadEstudio.id = Utilidades.Encriptar(pUnidadEstudio.idUnidad.ToString());
+                pUnidadEstudio.idUnidad = 0;
+                listaUnidades.Add(pUnidadEstudio);
+            }
+            return listaUnidades;
+        }
     }
 }

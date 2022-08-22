@@ -1,27 +1,27 @@
 ﻿@using GB.SIMEF.Resources;
 
-<div class="modal fade modal-fonatel" data-backdrop="static" id="modalGrupoIndicador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade modal-fonatel" data-backdrop="static" id="modalGrupoIndicador" tabindex="-1" role="dialog" aria-labelledby="Modal grupo indicador" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-fonatel" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-                <h5 class="modal-title" id="exampleModalLongTitle">Grupo Indicador</h5>
+                <h5 class="modal-title">@EtiquetasViewIndicadorFonatel.TituloModalGrupoIndicador</h5>
 
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="form-group row">
-                            <label for="txtGrupo" class="col-sm-12 col-form-label">Grupo</label>
+                            <label for="inputGrupo" class="col-sm-12 col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelGrupo</label>
                             <div class="col-sm-12">
-                                <input type="text" aria-label="Grupo" class="form-control form-control-fonatel" id="txtGrupo" placeholder="Grupo">
-                                <small id="nombreHelp" class="form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                                <input type="text" aria-label="Grupo" class="form-control form-control-fonatel alfa_numerico_v2" id="inputGrupo" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelGrupo">
+                                <small id="inputGrupoHelp" class="form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 text-center" style="display:inline-block">
-                        <button type="submit" id="btnGuardarGrupoIndicador" class="btn btn-fonatel btn-success-fonatel ">@Etiquetas.BotonGuardar</button>
-                        <button type="submit" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">@Etiquetas.BotonCancelar</button>
+                        <button type="button" id="btnGuardarGrupoIndicador" class="btn btn-fonatel btn-success-fonatel ">@Etiquetas.BotonGuardar</button>
+                        <button type="button" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">@Etiquetas.BotonCancelar</button>
                     </div>
                 </div>
             </div>
@@ -30,8 +30,8 @@
                     <table id="tableModalGrupoIndicador" class="dataTable datatable_simef table-bordered table-condensed table-hover no-footer" >
                         <thead>
                             <tr>
-                                <th scope="col" class="text-center">Grupo</th>
-                                <th scope="col" class="text-center">Acciones</th>
+                                <th scope="col" class="text-center">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelGrupo</th>
+                                <th scope="col" class="text-center">@Etiquetas.Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

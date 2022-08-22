@@ -201,4 +201,13 @@
   <data name="TituloIndex" xml:space="preserve">
     <value>Indicadores</value>
   </data>
+  <data name="TituloModalGrupoIndicador" xml:space="preserve">
+    <value>Grupo Indicador</value>
+  </data>
+  <data name="TituloModalTipoIndicador" xml:space="preserve">
+    <value>Tipo Indicador</value>
+  </data>
+  <data name="TituloModalUnidadEstudio" xml:space="preserve">
+    <value>Unidad de Estudio</value>
+  </data>
 </root>

@@ -67,5 +67,28 @@ namespace GB.SIMEF.DAL
 
             return listaTipoIndicadores;
         }
+
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Función que crea un nuevo registro tipo indicador.
+        /// </summary>
+        /// <param name="detalleFecha"></param>
+        public List<TipoIndicadores> InsertarTipoIndicador(TipoIndicadores pTipoIndicadores)
+        {
+            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+            
+            using (db = new SIMEFContext())
+            {
+                db.TipoIndicadores.Add(pTipoIndicadores);
+                db.SaveChanges();
+
+                // EF establecerá el objecto cuando sea guardado
+                pTipoIndicadores.id = Utilidades.Encriptar(pTipoIndicadores.IdTipoIdicador.ToString());
+                pTipoIndicadores.IdTipoIdicador = 0;
+                listaTipoIndicadores.Add(pTipoIndicadores);
+            }
+            return listaTipoIndicadores;
+        }
     }
 }

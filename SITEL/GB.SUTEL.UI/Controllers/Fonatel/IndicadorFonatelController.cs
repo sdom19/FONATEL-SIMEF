@@ -371,6 +371,126 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
             return JsonConvert.SerializeObject(resultado);
         }
+
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Función que permite crear un tipo de indicador. Por defecto el estado es activo
+        /// </summary>
+        /// <param name="pNombre"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CrearTipoIndicador(string pNombre)
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+
+            if (string.IsNullOrEmpty(pNombre.Trim()))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.CamposIncompletos;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            if (!Utilidades.rx_alfanumerico_v2.Match(pNombre.Trim()).Success) // validar si el nombre tiene el formato correcto
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo);
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = tipoIndicadorBL.InsertarDatos(new TipoIndicadores()
+                {
+                    id = "",
+                    IdTipoIdicador = 0,
+                    Nombre = pNombre.Trim(),
+                    Estado = true // activo
+                });
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Función que permite crear un grupo indicador. Por defecto el estado es activo
+        /// </summary>
+        /// <param name="pNombre"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CrearGrupoIndicador(string pNombre)
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            if (string.IsNullOrEmpty(pNombre.Trim()))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.CamposIncompletos;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            if (!Utilidades.rx_alfanumerico_v2.Match(pNombre.Trim()).Success) // validar si el nombre tiene el formato correcto
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelGrupo);
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = grupoIndicadorBL.InsertarDatos(new GrupoIndicadores()
+                {
+                    id = "",
+                    idGrupo = 0,
+                    Nombre = pNombre.Trim(),
+                    Estado = true // activo
+                });
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Función que permite crear una unidad de estudio. Por defecto el estado es activo
+        /// </summary>
+        /// <param name="pNombre"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CrearUnidadEstudio(string pNombre)
+        {
+            RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
+
+            if (string.IsNullOrEmpty(pNombre.Trim()))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.CamposIncompletos;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            if (!Utilidades.rx_alfanumerico_v2.Match(pNombre.Trim()).Success) // validar si el nombre tiene el formato correcto
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio);
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = unidadEstudioBL.InsertarDatos(new UnidadEstudio()
+                {
+                    id = "",
+                    idUnidad = 0,
+                    Nombre = pNombre.Trim(),
+                    Estado = true // activo
+                });
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
         #endregion
     }
 }

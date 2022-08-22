@@ -311,5 +311,32 @@ namespace GB.SIMEF.Resources {
                 return ResourceManager.GetString("TituloIndex", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grupo Indicador.
+        /// </summary>
+        public static string TituloModalGrupoIndicador {
+            get {
+                return ResourceManager.GetString("TituloModalGrupoIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo Indicador.
+        /// </summary>
+        public static string TituloModalTipoIndicador {
+            get {
+                return ResourceManager.GetString("TituloModalTipoIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unidad de Estudio.
+        /// </summary>
+        public static string TituloModalUnidadEstudio {
+            get {
+                return ResourceManager.GetString("TituloModalUnidadEstudio", resourceCulture);
+            }
+        }
     }
 }

@@ -96,9 +96,50 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<GrupoIndicadores>> InsertarDatos(GrupoIndicadores objeto)
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Función que inserta un nuevo registro grupo indicador
+        /// </summary>
+        /// <param name="pGrupoIndicador"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<GrupoIndicadores>> InsertarDatos(GrupoIndicadores pGrupoIndicador)
         {
-            throw new NotImplementedException();
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            bool errorControlado = false;
+
+            try
+            {
+                List<GrupoIndicadores> grupos = grupoIndicadorDAL.ObtenerDatos(new GrupoIndicadores());
+                GrupoIndicadores grupoExiste = grupos.FirstOrDefault(x => x.Nombre.ToUpper() == pGrupoIndicador.Nombre.ToUpper());
+
+                if (grupoExiste != null)
+                {
+                    errorControlado = true;
+                    throw new Exception(string.Format(Errores.CampoYaExiste, pGrupoIndicador.Nombre));
+                }
+
+                List<GrupoIndicadores> grupoInsertado = grupoIndicadorDAL.InsertarGrupoIndicador(pGrupoIndicador);
+                resultado.objetoRespuesta = grupoInsertado;
+                resultado.CantidadRegistros = grupoInsertado.Count();
+                resultado.Accion = (int)Accion.Insertar;
+                resultado.Clase = modulo;
+                resultado.Usuario = user;
+
+                grupoIndicadorDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario,
+                        resultado.Clase, pGrupoIndicador.Nombre);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
         }
 
         /// <summary>
