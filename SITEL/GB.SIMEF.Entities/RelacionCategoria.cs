@@ -24,17 +24,19 @@ namespace GB.SIMEF.Entities
         }
         [Key]
         public int idRelacionCategoria { get; set; }
+
+        [MaxLength(30, ErrorMessage = "Máximo de caracteres permitido 30")]
         public string Codigo { get; set; }
+        [MaxLength(300, ErrorMessage = "Máximo de caracteres permitido 300")]
         public string Nombre { get; set; }
+        //VALIDAR EL RANGO
         public Nullable<int> CantidadCategoria { get; set; }
+        public int idCategoria { get; set; }
         public string idCategoriaValor { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
-
-
-        public int idCategoria { get; set; }
 
         public int idEstado { get; set; }
 

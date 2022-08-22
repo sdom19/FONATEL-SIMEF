@@ -25,9 +25,76 @@ namespace GB.SIMEF.BL
             this.ResultadoConsulta = new RespuestaConsulta<List<RelacionCategoria>>();
         }
 
+        /// <summary>
+        /// Fecha 22/08/2022
+        /// Francisco Vindas Ruiz
+        /// Metodo para editar la relacion categoria
+        /// </summary>
         public RespuestaConsulta<List<RelacionCategoria>> ActualizarElemento(RelacionCategoria objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //VALIDACIONES DE CODIGOS REGISTRADOS Y NOMBRES REGISTRADOS NO SE REPITAN
+
+                //OBTENEMOS UNA LISTA DE RELACION CATEGORIA
+                List<RelacionCategoria> Registros = clsDatos.ObtenerDatos(new RelacionCategoria());
+
+                //DESENCRIPTAR EL ID
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.idCategoria = temp;
+                }
+
+                //GUARDAMOS EL OBJETO EN UNA VARIBALE SEGUN EL ID
+                var result = Registros.Where(x => x.idRelacionCategoria == objeto.idRelacionCategoria).Single();
+
+                //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
+                if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper()).ToList().Count() > 0)
+                {
+                    //ENVIE EL ERROR NOMBRE REGISTRADO
+                    throw new Exception(Errores.NombreRegistrado);
+                }
+                //¿?
+                if (Registros.Where(x => x.idRelacionCategoria == objeto.idRelacionCategoria).Count() == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                //VALIDAR QUE NO EXCEDA EL LIMITE DE REGISTROS
+                else if (result.idCategoriaValor.Count() > objeto.CantidadCategoria)
+                {
+                    throw new Exception(Errores.CantidadRegistrosLimite);
+                }
+                else
+                {
+                    //¿?
+                    objeto.idEstado = result.idEstado;
+
+                    //HACEMOS LA EDICION
+                    ResultadoConsulta.Clase = modulo;
+                    ResultadoConsulta.Accion = (int)Accion.Editar;
+                    result = clsDatos.ActualizarDatos(objeto)
+                    .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+                    ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                    objeto.UsuarioModificacion = objeto.UsuarioCreacion;
+
+                }
+
+                //REGISTRAMOS EN BITACORA 1111
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<RelacionCategoria>> CambioEstado(RelacionCategoria objeto)
@@ -67,16 +134,13 @@ namespace GB.SIMEF.BL
                     //ENVIE EL ERROR NOMBRE REGISTRADO
                     throw new Exception(Errores.NombreRegistrado);
                 }
-
-                //ACA HACEMOS LA INSERCION 
                 else
-                {                  
+                {
+                    //HACEMOS LA INSERCION 
+
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion = (int)Accion.Insertar;
                     var resul = clsDatos.ActualizarDatos(objeto);
-                    //PUEDE FUNCIONAR PARA EL EDITAR
-                    //var result = clsDatos.ActualizarDatos(objeto)
-                    //.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
 
@@ -91,7 +155,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.NombreRegistrado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }
@@ -100,11 +164,11 @@ namespace GB.SIMEF.BL
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }
+
                 ResultadoConsulta.MensajeError = ex.Message;
             }
             return ResultadoConsulta;
         }
-
 
         /// <summary>
         /// Fecha 10/08/2022
@@ -137,6 +201,11 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        /// <summary>
+        /// Fecha 19/08/2022
+        /// Francisco Vindas Ruiz
+        /// Metodo para obtener la lista Relacion Categorias
+        /// </summary>
         public List<string> ObtenerListaCategoria(CategoriasDesagregacion obj)
         {
             CategoriasDesagregacion Categoria = clsDatosTexto.ObtenerDatos(obj).Single();

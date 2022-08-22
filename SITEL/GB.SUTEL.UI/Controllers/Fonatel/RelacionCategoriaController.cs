@@ -59,6 +59,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             }).objetoRespuesta;
 
+           
+
+
             if (string.IsNullOrEmpty(id))
             {
                 return View();
@@ -68,13 +71,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() {id=id })
                     .objetoRespuesta.Single() ;
 
+              
                 return View(model);
-            }
-
-
-
-            
+            }           
         }
+
+
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -123,8 +125,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> InsertarRelacionCategoria(RelacionCategoria relacion)
         {
+
             //Identificamos el id del usuario
             user = User.Identity.GetUserId();
+            relacion.idEstado = (int)Constantes.EstadosRegistro.Desactivado;
 
             //Creamos una variable resultado de tipo lista relacion categoria
             RespuestaConsulta<List<RelacionCategoria>> result = null;
@@ -136,6 +140,37 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
                 result = RelacionCategoriaBL.InsertarDatos(relacion);
+
+            });
+
+            //Retornamos un Json con el resultado
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha 22-08-2022
+        /// Francisco Vindas
+        /// Metodo para editar los relacion categorias
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EditarRelacionCategoria(RelacionCategoria relacion)
+        {
+
+            //Identificamos el id del usuario
+            user = User.Identity.GetUserId();
+            relacion.idEstado = (int)Constantes.EstadosRegistro.Desactivado;
+
+            //Creamos una variable resultado de tipo lista relacion categoria
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
+
+            await Task.Run(() =>
+            {
+                //Obtenemos el usuario de creacion en la variable user
+                relacion.UsuarioCreacion = user;
+
+                //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
+                result = RelacionCategoriaBL.ActualizarElemento(relacion);
 
             });
 
