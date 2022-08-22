@@ -7,3 +7,12 @@ C:\Fonatel\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.csproj.CoreCompil
 C:\Fonatel\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.csproj.CopyComplete
 C:\Fonatel\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.dll
 C:\Fonatel\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\GB.SIMEF.Entities.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\GB.SIMEF.Entities.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\GB.SIMEF.Resources.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\GB.SIMEF.Resources.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.csprojAssemblyReference.cache
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.csproj.CoreCompileInputs.cache
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.csproj.CopyComplete
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.pdb
