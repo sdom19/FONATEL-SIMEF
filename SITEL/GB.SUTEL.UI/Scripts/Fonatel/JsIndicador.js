@@ -43,7 +43,7 @@
                 html += `<th scope='row'>${ item.TipoIndicadores.Nombre }</th>`;
                 html += `<th scope='row'>${ item.EstadoRegistro.Nombre }</th>`;
                 html += "<td>"
-                html += `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${ item.id }></button>`
+                html += `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${item.id}></button>`
                 html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id}></button>`
 
                 if (item.EstadoRegistro.Nombre == "Activo") {
@@ -252,8 +252,7 @@
         });
 
         $(document).on("click", IndexView.Controles.btnEditarIndicador, function () {
-            let id = $(this).val();
-            window.location.href = "/Fonatel/IndicadorFonatel/Create?id=" + id;
+            window.location.href = "/Fonatel/IndicadorFonatel/edit?id=" + $(this).val();
         });
 
         $(document).on("click", IndexView.Controles.btnClonarIndicador, function () {
@@ -273,12 +272,7 @@
 
 CreateView = {
     Controles: {
-        btnSiguienteIndicador: "#btnSiguienteIndicador",
-        btnSiguienteCategoria: "#btnSiguienteCategoria",
-        btnSiguienteVariable: "#btnSiguienteVariable",
-        btnAtrasVariable: "#btnAtrasVariable",
-        btnAtrasCategoria: "#btnAtrasCategoria",
-
+        // ============ Modals ============
         modalTipoIndicador: "#modalTipoIndicador",
         tableModalTipoIndicador: "#tableModalTipoIndicador",
         tableModalTipoIndicador_tbody: "#tableModalTipoIndicador tbody",
@@ -306,6 +300,29 @@ CreateView = {
         inputModalUnidadEstudio: "#modalUnidadEstudio #inputUnidadEstudio",
         inputModalUnidadEstudioHelp: "#modalUnidadEstudio #inputUnidadEstudioHelp",
 
+        // ============ Formulario Indicador ============
+        btnSiguienteIndicador: "#btnSiguienteIndicador",
+        btnSiguienteCategoria: "#btnSiguienteCategoria",
+        btnSiguienteVariable: "#btnSiguienteVariable",
+        btnAtrasVariable: "#btnAtrasVariable",
+        btnAtrasCategoria: "#btnAtrasCategoria",
+
+        // Step 1
+        inputCodigo: "#inputCodigo",
+        inputNombre: "#inputNombre",
+        ddlTipo: "#ddlTipo",
+        ddlFrecuencias: "#ddlFrecuencias",
+        ddlClasificacion: "#ddlClasificacion",
+        ddlTipoMedida: "#ddlTipoMedida",
+        ddlGrupo: "#ddlGrupo",
+        ddlUsoIndicador: "#ddlUsoIndicador",
+        inputCantidadVariableDatosIndicador: "#inputCantidadVariableDatosIndicador",
+        inputCantidadCategoriaIndicador: "#inputCantidadCategoriaIndicador",
+        ddlUnidadEstudio: "#ddlUnidadEstudio",
+        ddlUsoSolicitud: "#ddlUsoSolicitud",
+        inputDescripcion: "#inputDescripcion",
+        inputNota: "#inputNota",
+        inputFuenteIndicador: "#inputFuenteIndicador",
 
         //btnstep: ".step_navigation_indicador div",
         //divContenedor: ".stepwizard-content-container",
@@ -377,6 +394,7 @@ CreateView = {
                     return CreateView.Consultas.EliminarTipoIndicador(pIdTipoIndicador);
                 })
                 .then(data => {
+                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.ddlTipo, pIdTipoIndicador);
                     CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalTipoIndicador, `button[value='${pIdTipoIndicador}']`);
 
                     $("#loading").fadeOut();
@@ -452,6 +470,7 @@ CreateView = {
                     return CreateView.Consultas.EliminarGrupoIndicador(pIdGrupoIndicador);
                 })
                 .then(data => {
+                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.ddlGrupo, pIdGrupoIndicador);
                     CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalGrupoIndicador, `button[value='${pIdGrupoIndicador}']`);
 
                     $("#loading").fadeOut();
@@ -527,6 +546,7 @@ CreateView = {
                     return CreateView.Consultas.EliminarUnidadEstudio(pIdUnidadEstudio);
                 })
                 .then(data => {
+                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.ddlUnidadEstudio, pIdUnidadEstudio);
                     CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalUnidadEstudio, `button[value='${pIdUnidadEstudio}']`);
 
                     $("#loading").fadeOut();
@@ -557,8 +577,17 @@ CreateView = {
             $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
         },
 
+        RemoverItemSelect2: function (pSelect2, pValor) {
+            $(`${pSelect2} option[value='${pValor}']`).remove();
+        },
+
         InsertarItemDataTable: function (pDataTable, pListaItems) {
             $(pDataTable).DataTable().row.add(pListaItems).draw(false);
+        },
+
+        InsertarItemSelect2: function (pSelect2, pTexto, pValor, pDefaultSelected = false, pSelect = false) {
+            var newOption = new Option(pTexto, pValor, pDefaultSelected, pSelect);
+            $(pSelect2).append(newOption).trigger('change');
         },
 
         CrearTipoIndicador: function (pNombre) {
@@ -571,7 +600,11 @@ CreateView = {
 
             CreateView.Consultas.CrearTipoIndicador(pNombre)
                 .then(data => {
-                    $(inputModalTipo).val(null);
+                    $(CreateView.Controles.inputModalTipo).val(null);
+
+                    CreateView.Metodos.InsertarItemSelect2(
+                        CreateView.Controles.ddlTipo,
+                        data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
 
                     CreateView.Metodos.InsertarItemDataTable(
                         CreateView.Controles.tableModalTipoIndicador,
@@ -581,6 +614,7 @@ CreateView = {
                         .set('onok', function (closeEvent) { });
                 })
                 .catch(error => {
+                    console.log(error);
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { });
@@ -605,7 +639,11 @@ CreateView = {
 
             CreateView.Consultas.CrearGrupoIndicador(pNombre)
                 .then(data => {
-                    $(inputModalGrupo).val(null);
+                    $(CreateView.Controles.inputModalGrupo).val(null);
+
+                    CreateView.Metodos.InsertarItemSelect2(
+                        CreateView.Controles.ddlGrupo,
+                        data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
 
                     CreateView.Metodos.InsertarItemDataTable(
                         CreateView.Controles.tableModalGrupoIndicador,
@@ -639,7 +677,11 @@ CreateView = {
 
             CreateView.Consultas.CrearUnidadEstudio(pNombre)
                 .then(data => {
-                    $(inputModalUnidadEstudio).val(null);
+                    $(CreateView.Controles.inputModalUnidadEstudio).val(null);
+
+                    CreateView.Metodos.InsertarItemSelect2(
+                        CreateView.Controles.ddlUnidadEstudio,
+                        data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
 
                     CreateView.Metodos.InsertarItemDataTable(
                         CreateView.Controles.tableModalUnidadEstudio,
@@ -661,6 +703,10 @@ CreateView = {
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
+        },
+
+        ValidarPaso1Indicador: function () {
+            return false;
         }
     },
 
@@ -704,22 +750,20 @@ CreateView = {
 
     Eventos: function () {
         $(document).on("click", CreateView.Controles.btnSiguienteIndicador, function (e) {
-            e.preventDefault();
-            $("a[href='#step-2']").trigger('click');
+            if (CreateView.Metodos.ValidarPaso1Indicador()) {
+                $("a[href='#step-2']").trigger('click');
+            }
         });
 
         $(document).on("click", CreateView.Controles.btnSiguienteVariable, function (e) {
-            e.preventDefault();
             $("a[href='#step-3']").trigger('click');
         });
 
         $(document).on("click", CreateView.Controles.btnAtrasVariable, function (e) {
-            e.preventDefault();
             $("a[href='#step-1']").trigger('click');
         });
 
         $(document).on("click", CreateView.Controles.btnAtrasCategoria, function (e) {
-            e.preventDefault();
             $("a[href='#step-2']").trigger('click');
         });
 
@@ -850,7 +894,6 @@ CreateView = {
         CreateView.Eventos();
     }
 }
-
 
 $(function () {
     if ($(IndexView.Controles.IndexView).length > 0) {

@@ -190,9 +190,53 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        RespuestaConsulta<List<Indicador>> IMetodos<Indicador>.ValidarDatos(Indicador pIndicador)
+        RespuestaConsulta<List<Indicador>> IMetodos<Indicador>.ValidarDatos(Indicador objeto)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 23/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los usos de indicador disponibles.
+        /// Al no ser entidades catálogo en BD, se manejan a nivel de BL
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<EstadoLogico>> ObtenerListaUsosIndicador()
+        {
+            RespuestaConsulta<List<EstadoLogico>> resultado = new RespuestaConsulta<List<EstadoLogico>>();
+            List<EstadoLogico> listado = new List<EstadoLogico> { 
+                new EstadoLogico() { Nombre = UsosIndicador.interno, Valor = true },
+                new EstadoLogico() { Nombre = UsosIndicador.externo, Valor = false } 
+            };
+
+            resultado.Clase = modulo;
+            resultado.Accion = (int)Accion.Consultar;
+            resultado.objetoRespuesta = listado;
+            resultado.CantidadRegistros = listado.Count;
+            return resultado;
+        }
+
+        /// <summary>
+        /// 23/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna las opciones disponibles si mostar el indicador o no
+        /// Al no ser entidades catálogo en BD, se manejan a nivel de BL
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<EstadoLogico>> ObtenerListaMostrarIndicadorEnSolicitud()
+        {
+            RespuestaConsulta<List<EstadoLogico>> resultado = new RespuestaConsulta<List<EstadoLogico>>();
+            List<EstadoLogico> listado = new List<EstadoLogico> {
+                new EstadoLogico() { Nombre = MostrarIndicadorEnSolicitud.si, Valor = true },
+                new EstadoLogico() { Nombre = MostrarIndicadorEnSolicitud.no, Valor = false }
+            };
+
+            resultado.Clase = modulo;
+            resultado.Accion = (int)Accion.Consultar;
+            resultado.objetoRespuesta = listado;
+            resultado.CantidadRegistros = listado.Count;
+            return resultado;
         }
 
         /// <summary>

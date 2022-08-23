@@ -1,24 +1,4 @@
-﻿
-
-
-
-//$(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
-//    e.preventDefault();
-//    jsMensajes.Metodos.AgregarRegistro("¿Desea agregar  la Regla de Validación?")
-//        .set('onok', function (closeEvent) {
-//            jsMensajes.Metodos.OkAlertModal("La Regla ha sido agregada ")
-//                .set('onok', function (closeEvent) {
-//                    $("a[href='#step-2']").trigger('click');
-//                });
-//        });
-//});
-
-
-
-
-
-
-$(document).on("click", ".step_navigation_indicador div", function (e) {
+﻿$(document).on("click", ".step_navigation_indicador div", function (e) {
     $(".step_navigation_indicador div").removeClass('active');
     $(this).addClass('active');
     let selected = $(this);

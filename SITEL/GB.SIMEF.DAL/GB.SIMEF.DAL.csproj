@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClasificacionIndicadorDAL.cs" />
+    <Compile Include="FrecuenciaEnvioDAL.cs" />
     <Compile Include="GrupoIndicadorDAL.cs" />
     <Compile Include="TipoDetalleCategoriaDAL.cs" />
     <Compile Include="TipoCategoriaDAL.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="BitacoraDAL.cs" />
     <Compile Include="SIMEFContext.cs" />
     <Compile Include="TipoIndicadorDAL.cs" />
+    <Compile Include="TipoMedidaDAL.cs" />
     <Compile Include="UnidadEstudioDAL.cs" />
   </ItemGroup>
   <ItemGroup>

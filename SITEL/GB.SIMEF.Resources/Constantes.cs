@@ -57,6 +57,16 @@ namespace GB.SIMEF.Resources
             public const int intDivisionPassword = 8;
         }
 
+        public struct UsosIndicador
+        {
+            public const string interno = "Interno";
+            public const string externo = "Externo";
+        }
 
+        public struct MostrarIndicadorEnSolicitud
+        {
+            public const string si = "SI";
+            public const string no = "NO";
+        }
     }
 }

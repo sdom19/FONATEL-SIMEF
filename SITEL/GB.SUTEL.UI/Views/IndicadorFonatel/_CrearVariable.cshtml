@@ -1,5 +1,7 @@
 ﻿@using GB.SIMEF.Resources;
 
+@model GB.SIMEF.Entities.Indicador
+
 <form>
     <div class="row">
         <div class="col-md-6 col-sm-12">
@@ -7,27 +9,27 @@
             <div class="form-group center">
                 <label for="ddlVariableIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelVariableIndicador</label>
                 <div class="select2-wrapper">
-                    <select class="listasDesplegables" aria-label="Default select example" id="ddlVariableIndicador">
+                    <select class="listasDesplegables" id="ddlVariableIndicador">
                         <option></option>
                         <option value="1">Estado de Torres</option>
                         <option value="2">Cantidad Torres</option>
                     </select>
                 </div>
-                <small id="ddlVariableIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlVariableIndicadorHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
             <div class="form-group center">
-                <label for="txtDescripcionVariable" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable</label>
-                <textarea class="form-control form-control-fonatel " maxlength="2000" id="txtDescripcionVariable" placeholder="@EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable"></textarea>
-                <small id="txtDescripcionVariableHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <label for="inputDescripcionVariable" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable</label>
+                <textarea class="form-control form-control-fonatel" maxlength="2000" id="inputDescripcionVariable" placeholder="@EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable"></textarea>
+                <small id="inputDescripcionVariableHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 
         <div class="col-md-6 col-sm-12">
 
             <div class="form-group center">
-                <label for="txtNombreVariable" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable</label>
-                <input type="text" class="form-control form-control-fonatel " id="txtNombreVariable" placeholder="@EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable">
-                <small id="txtNombreVariableHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <label for="inputNombreVariable" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable</label>
+                <input type="text" class="form-control form-control-fonatel" id="inputNombreVariable" placeholder="@EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable">
+                <small id="inputNombreVariableHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
         </div>
@@ -36,9 +38,9 @@
     <div class="row mt-5">
         <div class="col-lg-12 text-center">
 
-            <button type="submit" id="btnGuardarVariable" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-            <button id="btnSiguienteVariable" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
-            <button id="btnCancelarIndicador" type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
+            <button type="button" id="btnGuardarVariable" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="button" id="btnSiguienteVariable" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+            <button type="button" id="btnCancelarIndicador"  class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
 
         </div>
     </div>
