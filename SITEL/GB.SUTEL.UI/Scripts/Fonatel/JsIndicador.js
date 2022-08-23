@@ -285,8 +285,8 @@ CreateView = {
         btnModalTipoIndicador: "#btnModalTipoIndicador",
         btnEliminarTipoIndicador: "#tableModalTipoIndicador tbody tr td .btn-delete",
         btnGuardarTipoIndicador: "#modalTipoIndicador #btnGuardarTipoIndicador",
-        inputTipo: "#modalTipoIndicador #inputTipo",
-        inputTipoHelp: "#modalTipoIndicador #inputTipoHelp",
+        inputModalTipo: "#modalTipoIndicador #inputTipo",
+        inputModalTipoHelp: "#modalTipoIndicador #inputTipoHelp",
 
         modalGrupoIndicador: "#modalGrupoIndicador",
         tableModalGrupoIndicador: "#tableModalGrupoIndicador",
@@ -294,8 +294,8 @@ CreateView = {
         btnModalGrupoIndicador: "#btnModalGrupoIndicador",
         btnEliminarGrupoIndicador: "#tableModalGrupoIndicador tbody tr td .btn-delete",
         btnGuardarGrupoIndicador: "#modalGrupoIndicador #btnGuardarGrupoIndicador",
-        inputGrupo: "#modalGrupoIndicador #inputGrupo",
-        inputGrupoHelp: "#modalGrupoIndicador #inputGrupoHelp",
+        inputModalGrupo: "#modalGrupoIndicador #inputGrupo",
+        inputModalGrupoHelp: "#modalGrupoIndicador #inputGrupoHelp",
 
         modalUnidadEstudio: "#modalUnidadEstudio",
         tableModalUnidadEstudio: "#tableModalUnidadEstudio",
@@ -303,8 +303,8 @@ CreateView = {
         btnModalUnidadEstudio: "#btnModalUnidadEstudio",
         btnEliminarUnidadEstudio: "#tableModalUnidadEstudio tbody tr td .btn-delete",
         btnGuardarUnidadEstudio: "#modalUnidadEstudio #btnGuardarUnidadEstudio",
-        inputUnidadEstudio: "#modalUnidadEstudio #inputUnidadEstudio",
-        inputUnidadEstudioHelp: "#modalUnidadEstudio #inputUnidadEstudioHelp",
+        inputModalUnidadEstudio: "#modalUnidadEstudio #inputUnidadEstudio",
+        inputModalUnidadEstudioHelp: "#modalUnidadEstudio #inputUnidadEstudioHelp",
 
 
         //btnstep: ".step_navigation_indicador div",
@@ -563,14 +563,16 @@ CreateView = {
 
         CrearTipoIndicador: function (pNombre) {
             if ($.trim(pNombre).length <= 0) {
-                $(inputTipoHelp).css("display", "block");
+                $(CreateView.Controles.inputModalTipoHelp).css("display", "block");
                 return;
             }
-            $(inputTipoHelp).css("display", "none");
+            $(CreateView.Controles.inputModalTipoHelp).css("display", "none");
             $("#loading").fadeIn();
 
             CreateView.Consultas.CrearTipoIndicador(pNombre)
                 .then(data => {
+                    $(inputModalTipo).val(null);
+
                     CreateView.Metodos.InsertarItemDataTable(
                         CreateView.Controles.tableModalTipoIndicador,
                         [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
@@ -595,14 +597,16 @@ CreateView = {
 
         CrearGrupoIndicador: function (pNombre) {
             if ($.trim(pNombre).length <= 0) {
-                $(inputGrupoHelp).css("display", "block");
+                $(CreateView.Controles.inputModalGrupoHelp).css("display", "block");
                 return;
             }
-            $(inputGrupoHelp).css("display", "none");
+            $(CreateView.Controles.inputModalGrupoHelp).css("display", "none");
             $("#loading").fadeIn();
 
             CreateView.Consultas.CrearGrupoIndicador(pNombre)
                 .then(data => {
+                    $(inputModalGrupo).val(null);
+
                     CreateView.Metodos.InsertarItemDataTable(
                         CreateView.Controles.tableModalGrupoIndicador,
                         [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
@@ -627,14 +631,16 @@ CreateView = {
 
         CrearUnidadEstudio: function (pNombre) {
             if ($.trim(pNombre).length <= 0) {
-                $(inputUnidadEstudioHelp).css("display", "block");
+                $(CreateView.Controles.inputModalUnidadEstudioHelp).css("display", "block");
                 return;
             }
-            $(inputUnidadEstudioHelp).css("display", "none");
+            $(CreateView.Controles.inputModalUnidadEstudioHelp).css("display", "none");
             $("#loading").fadeIn();
 
             CreateView.Consultas.CrearUnidadEstudio(pNombre)
                 .then(data => {
+                    $(inputModalUnidadEstudio).val(null);
+
                     CreateView.Metodos.InsertarItemDataTable(
                         CreateView.Controles.tableModalUnidadEstudio,
                         [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
@@ -742,15 +748,15 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.btnGuardarTipoIndicador, function (e) {
-            CreateView.Metodos.CrearTipoIndicador($(CreateView.Controles.inputTipo).val());
+            CreateView.Metodos.CrearTipoIndicador($(CreateView.Controles.inputModalTipo).val());
         });
 
         $(document).on("click", CreateView.Controles.btnGuardarGrupoIndicador, function (e) {
-            CreateView.Metodos.CrearGrupoIndicador($(CreateView.Controles.inputGrupo).val());
+            CreateView.Metodos.CrearGrupoIndicador($(CreateView.Controles.inputModalGrupo).val());
         });
 
         $(document).on("click", CreateView.Controles.btnGuardarUnidadEstudio, function (e) {
-            CreateView.Metodos.CrearUnidadEstudio($(CreateView.Controles.inputUnidadEstudio).val());
+            CreateView.Metodos.CrearUnidadEstudio($(CreateView.Controles.inputModalUnidadEstudio).val());
         });
 
         //$(document).on("click", CreateView.Controles.btnCancelar, function (e) {
