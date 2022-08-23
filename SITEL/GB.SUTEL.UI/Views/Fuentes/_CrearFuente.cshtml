@@ -1,6 +1,7 @@
 ﻿@using GB.SIMEF.Resources;
  @model GB.SIMEF.Entities.FuentesRegistro
 <form>
+    @Html.HiddenFor(model => model.id, new { id = "txtidFuente" })
     <div class="row">
         <div class="col-md-4 col-sm-10 col-md-offset-2 col-sm-offset-2">
             <div class="form-group row">
@@ -8,11 +9,7 @@
                 <div class="col-sm-12">
 
                     @Html.EditorFor(model => model.Fuente, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewFuentesRegistro.FuentesRegistro, id = "txtFuente" } })
-
-
-
-                
-                    <small id="FuenteHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                    <small id="FuenteHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -21,10 +18,10 @@
                 <label for="txtCantidad" class="col-sm-12 col-form-label">Cantidad de Destinatarios</label>
                 <div class="col-sm-12">
 
-                    @Html.EditorFor(model => model.CantidadDestinatario, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewFuentesRegistro.CantidadDestinatarios, id = "txtCantidad" } })
+                    @Html.EditorFor(model => model.CantidadDestinatario, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewFuentesRegistro.CantidadDestinatarios, id = "txtCantidad" } })
 
-                   
-                    <small id="CantidadDetalleHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+
+                    <small id="CantidadDetalleHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -32,7 +29,7 @@
     <div class="row mt-5">
         <div class="col-sm-12 text-center">
             <button type="submit" id="btnGuardarFuente" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-            <button type="submit" id="btnSiguienteFuente" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+            <button type="submit" id="btnSiguienteFuente" disabled class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
             <button type="submit" id="btnCancelarFuente" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
         </div>
     </div>

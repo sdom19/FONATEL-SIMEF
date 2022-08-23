@@ -61,6 +61,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La cantidad de destinatarios no es la correcta.
+        /// </summary>
+        public static string CantidadDestinatariosIncorrecta {
+            get {
+                return ResourceManager.GetString("CantidadDestinatariosIncorrecta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Se excedio la cantidad de registros establecidos.
         /// </summary>
         public static string CantidadRegistros {
@@ -70,7 +79,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a La cantidad de detalle a establecer, sobrepasa la lista actual.
+        ///   Busca una cadena traducida similar a La cantidad de detalle a establecer, es inferior la lista actual.
         /// </summary>
         public static string CantidadRegistrosLimite {
             get {
@@ -88,11 +97,38 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El correo ingresado ya se encuentra registrado.
+        /// </summary>
+        public static string CorreoRegistrado {
+            get {
+                return ResourceManager.GetString("CorreoRegistrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La Etiqueta ingresada ya se encuentra registrado.
         /// </summary>
         public static string EtiquetaRegistrada {
             get {
                 return ResourceManager.GetString("EtiquetaRegistrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La Fuente ingresada ya se encuentra registrada.
+        /// </summary>
+        public static string FuenteRegistrada {
+            get {
+                return ResourceManager.GetString("FuenteRegistrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La cantidad de destinatarios debe ser mayor que 0.
+        /// </summary>
+        public static string FuentesCantidadDestiatarios {
+            get {
+                return ResourceManager.GetString("FuentesCantidadDestiatarios", resourceCulture);
             }
         }
         

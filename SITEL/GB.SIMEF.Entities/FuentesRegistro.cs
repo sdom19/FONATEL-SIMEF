@@ -20,7 +20,7 @@ namespace GB.SIMEF.Entities
         
         public FuentesRegistro()
         {
-
+            DetalleFuentesRegistro = new List<DetalleFuentesRegistro>();
         }
         [Key]
         public int idFuente { get; set; }

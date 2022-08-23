@@ -33,6 +33,7 @@ namespace GB.SIMEF.DAL
                     id = Utilidades.Encriptar(X.idFuente.ToString()),
                     idFuente = X.idFuente,
                     Fuente = X.Fuente,
+                    idEstado=X.idEstado,
                     CantidadDestinatario = X.CantidadDestinatario,
                     FechaCreacion = X.FechaCreacion,
                     UsuarioCreacion = X.UsuarioCreacion,
@@ -58,6 +59,45 @@ namespace GB.SIMEF.DAL
             return db.DetalleFuentesRegistro
                 .Where(x => x.idFuente == id & x.Estado==true).ToList();
         }
+
+
+
+        public List<FuentesRegistro> ActualizarDatos(FuentesRegistro objFuentesRegistro)
+        {
+            List<FuentesRegistro> ListaFuentesRegistro = new List<FuentesRegistro>();
+
+            using (db = new SIMEFContext())
+            {
+                ListaFuentesRegistro = db.Database.SqlQuery<FuentesRegistro>
+                ("execute spActualizarFuentesRegistro @idFuente,@Fuente,@CantidadDestinatario ,@UsuarioCreacion ,@UsuarioModificacion ,@Estado",
+                    new SqlParameter("@idFuente", objFuentesRegistro.idFuente),
+                    new SqlParameter("@Fuente", objFuentesRegistro.Fuente),
+                    new SqlParameter("@CantidadDestinatario", objFuentesRegistro.CantidadDestinatario),
+                    new SqlParameter("@UsuarioCreacion",    objFuentesRegistro.UsuarioCreacion),
+                    new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty( objFuentesRegistro.UsuarioModificacion)?DBNull.Value.ToString(): objFuentesRegistro.UsuarioModificacion),
+                new SqlParameter("@Estado", objFuentesRegistro.idEstado)
+                ).ToList();
+
+
+                ListaFuentesRegistro = ListaFuentesRegistro.Select(X => new FuentesRegistro
+                {
+                    id = Utilidades.Encriptar(X.idFuente.ToString()),
+                    idFuente = X.idFuente,
+                    Fuente = X.Fuente,
+                    CantidadDestinatario = X.CantidadDestinatario,
+                    FechaCreacion = X.FechaCreacion,
+                    UsuarioCreacion = X.UsuarioCreacion,
+                    UsuarioModificacion = X.UsuarioModificacion,
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == X.idEstado).Single(),
+                    DetalleFuentesRegistro = ObtenerDetalleFuentesRegistro(X.idFuente)
+
+                }).ToList();
+
+                return ListaFuentesRegistro;
+            }
+
+        }
+
 
         #endregion
 

@@ -17,6 +17,12 @@ namespace GB.SIMEF.Entities
     [Table("DetalleFuentesRegistro")]
     public partial class DetalleFuentesRegistro
     {
+
+        public DetalleFuentesRegistro()
+        {
+          
+        }
+
         [Key]
         public int idDetalleFuente { get; set; }
         public int idFuente { get; set; }
@@ -24,6 +30,12 @@ namespace GB.SIMEF.Entities
         public string CorreoElectronico { get; set; }
         public bool Estado { get; set; }
     
-  
+        [NotMapped]
+        public string FuenteId { get; set; }
+
+        [NotMapped]
+        public string Usuario { get; set; }
+
+
     }
 }

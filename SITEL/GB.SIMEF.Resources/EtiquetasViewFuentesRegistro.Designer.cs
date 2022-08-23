@@ -61,6 +61,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Agregar Destinatario.
+        /// </summary>
+        public static string AgregarDestinatario {
+            get {
+                return ResourceManager.GetString("AgregarDestinatario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Cantidad de Destinatarios.
         /// </summary>
         public static string CantidadDestinatarios {
@@ -75,6 +84,33 @@ namespace GB.SIMEF.Resources {
         public static string Correo {
             get {
                 return ResourceManager.GetString("Correo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Crear Fuentes de Registro.
+        /// </summary>
+        public static string CrearFuente {
+            get {
+                return ResourceManager.GetString("CrearFuente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Destinatarios.
+        /// </summary>
+        public static string Destinatarios {
+            get {
+                return ResourceManager.GetString("Destinatarios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fuentes.
+        /// </summary>
+        public static string Fuente {
+            get {
+                return ResourceManager.GetString("Fuente", resourceCulture);
             }
         }
         
