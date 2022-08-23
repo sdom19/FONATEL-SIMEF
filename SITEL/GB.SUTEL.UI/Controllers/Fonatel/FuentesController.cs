@@ -1,6 +1,11 @@
-﻿using System;
+﻿using GB.SIMEF.BL;
+using GB.SIMEF.Entities;
+using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,7 +13,20 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class FuentesController : Controller
     {
-        // GET: CategoriasDesagregacion
+
+
+        FuentesRegistroBL FuenteBL;
+        FuentesRegistroDestinatariosBL FuenteDestinatariosBL;
+        string user;
+
+        public FuentesController()
+        {
+            FuenteBL = new FuentesRegistroBL();
+            FuenteDestinatariosBL = new FuentesRegistroDestinatariosBL();
+        }
+
+
+        // GET: FuentesRegistro
 
         [HttpGet]
         public ActionResult Index()
@@ -16,17 +34,27 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View();
         }
 
-        // GET: CategoriasDesagregacion/Details/5
+        // GET: FuentesRegistro/Details/5
         [HttpGet]
         public ActionResult Detalle(int id)
         {
             return View();
         }
 
-        // GET: CategoriasDesagregacion/Create
-        public ActionResult Create()
+        // GET: FuentesRegistro/Create
+        [HttpGet]
+        public ActionResult Create(string id)
         {
-            return View();
+            if (string.IsNullOrEmpty(id))
+            {
+                return View(new FuentesRegistro());
+            }else
+            {
+                FuentesRegistro fuente = 
+                    FuenteBL.ObtenerDatos(new FuentesRegistro() { id = id }).objetoRespuesta.Single();
+                return View(fuente);
+            }
+            
         }
 
         public ActionResult Deatlle(int id)
@@ -39,60 +67,151 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
 
-        // POST: CategoriasDesagregacion/Create
+
+        #region Métodos de ASYNC Fuentes
+
+
+        /// <summary>
+        /// Fecha 04-08-2022
+        /// Michael Hernández Cordero
+        /// Obtiene datos para la table de categorías INDEX
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpGet]
+        public async Task<string> ObtenerListaFuentes()
+        {
+            RespuestaConsulta<List<FuentesRegistro>> result = null;
+            await Task.Run(() =>
+            {
+                result = FuenteBL.ObtenerDatos(new FuentesRegistro());
+            });
+
+            return JsonConvert.SerializeObject(result);
+
+
+        }
+
+        /// <summary>
+        /// Fecha 10/08/2022
+        /// Michael Hernández Cordero
+        /// Cambio el estado de registro a desactivado y activado 
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
+        public async Task<string> EliminarFuente(FuentesRegistro fuente)
+        {
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<FuentesRegistro>> result = null;
+            await Task.Run(() =>
             {
-                return View();
-            }
+          
+                fuente.UsuarioModificacion = user;
+                result = FuenteBL.EliminarElemento(fuente);
+            });
+
+            return JsonConvert.SerializeObject(result);
         }
 
-        // GET: CategoriasDesagregacion/Edit/5
-        
-        // POST: CategoriasDesagregacion/Edit/5
+
+
+
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public async Task<string> AgregarFuente(FuentesRegistro fuente)
         {
-            try
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<FuentesRegistro>> result = null;
+            await Task.Run(() =>
             {
-                // TODO: Add update logic here
+                if (String.IsNullOrEmpty(fuente.id))
+                {
+                    fuente.UsuarioCreacion = user;
+                    result = FuenteBL.InsertarDatos(fuente);
+                }
+                else
+                {
+                    fuente.UsuarioModificacion = user;
+                    result = FuenteBL.ActualizarElemento(fuente);
+                }
+           
+            });
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return JsonConvert.SerializeObject(result);
         }
 
-        // GET: CategoriasDesagregacion/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: CategoriasDesagregacion/Delete/5
+        /// <summary>
+        /// Activar Fuente Proceso de finalizar 
+        /// </summary>
+        /// <param name="fuente"></param>
+        /// <returns></returns>
+
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public async Task<string> ActivarFuente(FuentesRegistro fuente)
         {
-            try
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<FuentesRegistro>> result = null;
+            await Task.Run(() =>
             {
-                // TODO: Add delete logic here
+                fuente.UsuarioModificacion = user;
+                result = FuenteBL.CambioEstado(fuente);
+            });
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return JsonConvert.SerializeObject(result);
         }
+
+        #endregion
+
+
+
+        #region Destinatarios
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fuente"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<string> AgregarDestinatario(DetalleFuentesRegistro destinatario)
+        {
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<DetalleFuentesRegistro>> result = null;
+            await Task.Run(() =>
+            {
+
+                destinatario.Usuario = user;
+                result = FuenteDestinatariosBL.InsertarDatos(destinatario);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fuente"></param>
+        /// <returns></returns>
+        /// 
+
+        public async Task<string> EliminarDestinatario(DetalleFuentesRegistro destinatario)
+        {
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<DetalleFuentesRegistro>> result = null;
+            await Task.Run(() =>
+            {
+
+                destinatario.Usuario = user;
+
+                result = FuenteDestinatariosBL.EliminarElemento(destinatario);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+        #endregion
     }
 }

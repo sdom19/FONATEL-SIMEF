@@ -111,7 +111,7 @@ function CargarDatasource() {
    
     $(".datatable_simef").DataTable({
         pageLength: 5,
-        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
+        lengthMenu: [[5, 25, 50, 100], [5, 25, 50, 100]],
         "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
         buttons: [
             {

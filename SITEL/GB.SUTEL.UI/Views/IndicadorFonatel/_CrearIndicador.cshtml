@@ -28,7 +28,7 @@
                         <option value="3">evaluación</option>
                         <option value="3">percepción</option>
                     </select>
-                    <button class="btn-icon-base btn-add" data-toggle="modal" data-target="#modalTipo" title="Agregar Tipo" alt="Agregar Detalle"></button>
+                    <button class="btn-icon-base btn-add" type="button" id="btnModalTipoIndicador" title="Agregar Tipo" alt="Agregar Detalle"></button>
                 </div>
                 <small id="TipoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
@@ -83,7 +83,7 @@
                         <option value="2">Programa 2</option>
                         <option value="3">Programa 3</option>
                     </select>
-                    <button class="btn-icon-base btn-add" data-toggle="modal" data-target="#modalGrupo" title="Agregar Tipo" alt="Agregar Detalle"></button>
+                    <button id="btnModalGrupoIndicador" type="button" class="btn-icon-base btn-add" title="Agregar Tipo" alt="Agregar Tipo"></button>
                 </div>
                 <small id="TipoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
@@ -115,8 +115,6 @@
                 <small id="CantidadCategoríaIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
 
-
-
             <div class="form-group">
                 <label for="ddlUnidadEstudio" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio</label>
                 <div class="select2-btn-wrapper">
@@ -125,11 +123,10 @@
                         <option value="1">Cuenta de Torres</option>
                         <option value="2">Cuenta de Hogares</option>
                     </select>
-                    <button class="btn-icon-base btn-add" data-toggle="modal" data-target="#modalUnidadEstudio" title="Agregar Tipo" alt="Agregar Detalle"></button>
+                    <button class="btn-icon-base btn-add" type="button" id="btnModalUnidadEstudio" title="Agregar Unidad de Estudio" alt="Agregar Unidad de Estudio"></button>
                 </div>
                 <small id="ddlUnidadEstudioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
-
 
             <div class="form-group">
                 <label for="ddlSolicitudSolicitud" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelSolicitud</label>
@@ -141,7 +138,6 @@
                     </select>
                 </div>
             </div>
-
         </div>
 
 

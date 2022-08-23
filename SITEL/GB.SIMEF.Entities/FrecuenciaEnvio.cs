@@ -12,33 +12,26 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("FrecuenciaEnvio")]
     public partial class FrecuenciaEnvio
     {
         
         public FrecuenciaEnvio()
         {
-            this.FormularioWeb = new HashSet<FormularioWeb>();
-            this.FormulasCalculo = new HashSet<FormulasCalculo>();
-            this.Indicador = new HashSet<Indicador>();
-            this.ProgramacionSolicitudes = new HashSet<ProgramacionSolicitudes>();
-            this.SolicitudEnvioProgramado = new HashSet<SolicitudEnvioProgramado>();
+            
         }
+
         [Key]
         public int idFrecuencia { get; set; }
         public string Nombre { get; set; }
         public int CantidadDias { get; set; }
         public bool Estado { get; set; }
-    
 
-        public virtual ICollection<FormularioWeb> FormularioWeb { get; set; }
-
-        public virtual ICollection<FormulasCalculo> FormulasCalculo { get; set; }
-
-        public virtual ICollection<Indicador> Indicador { get; set; }
-
-        public virtual ICollection<ProgramacionSolicitudes> ProgramacionSolicitudes { get; set; }
-
-        public virtual ICollection<SolicitudEnvioProgramado> SolicitudEnvioProgramado { get; set; }
+        #region Variables que no forman parte del contexto
+        [NotMapped]
+        public string id { get; set; }
+        #endregion
     }
 }

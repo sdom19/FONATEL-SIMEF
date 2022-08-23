@@ -34,6 +34,9 @@
     <Reference Include="ClosedXML">
       <HintPath>..\GB.SUTEL.UI\bin\ClosedXML.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\GB.SUTEL.UI\bin\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus">
       <HintPath>..\GB.SUTEL.UI\bin\EPPlus.dll</HintPath>
     </Reference>
@@ -50,14 +53,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitacoraBL.cs" />
+    <Compile Include="FrecuenciaEnvioBL.cs" />
+    <Compile Include="FuentesRegistroDestinatariosBL.cs" />
+    <Compile Include="GrupoIndicadorBL.cs" />
+    <Compile Include="IndicadorFonatelBL.cs" />
     <Compile Include="ReglasValidacionBL.cs" />
+    <Compile Include="FuentesRegistroBL.cs" />
     <Compile Include="RelacionCategoriaBL.cs" />
+    <Compile Include="SolicitudBL.cs" />
     <Compile Include="TipoDetalleCategoriaBL.cs" />
     <Compile Include="TipoCategoriaBL.cs" />
     <Compile Include="DetalleCategoriasTextoBL.cs" />
     <Compile Include="CategoriasDesagregacionBL.cs" />
     <Compile Include="IMetodos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TipoIndicadorBL.cs" />
+    <Compile Include="TipoMedidaBL.cs" />
+    <Compile Include="UnidadEstudioBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GB.SIMEF.DAL\GB.SIMEF.DAL.csproj">

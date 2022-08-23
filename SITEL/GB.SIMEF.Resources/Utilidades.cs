@@ -4,12 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GB.SIMEF.Resources
 {
     public static class Utilidades
     {
+
+
+        public static Regex rx_alfanumerico_v2 = new Regex(@"^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+([ ][A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+)*$", RegexOptions.Compiled);
         /// <summary>
         /// 
         /// </summary>

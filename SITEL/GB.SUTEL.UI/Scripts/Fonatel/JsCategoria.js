@@ -17,8 +17,6 @@
             "txtRangoMinimaCategoria": "#txtRangoMinimaCategoria",
             "txtRangoMaximaCategoria": "#txtRangoMaximaCategoria",
             "ddlTipoDetalle": "#ddlTipoDetalleCategoria",
-
-
             "txtCodigoCategoriaHelp": "#txtCodigoCategoriaHelp",
             "txtnombreCategoriaHelp": "#txtnombreCategoriaHelp",
             "ddlTipoCategoriaHelp": "#ddlTipoCategoriaHelp",
@@ -28,17 +26,11 @@
             "FechaMaximaCategoriaHelp": "#FechaMaximaCategoriaHelp",
             "RangoMinimaCategoriaHelp": "#RangoMinimaCategoriaHelp",
             "RangoMaximaCategoriaHelp":"#RangoMaximaCategoriaHelp",
-
-
-
-
-
             "divFechaMinima": "#divFechaMinimaCategoria",
             "divFechaMaxima": "#divFechaMaximaCategoria",
             "divCantidadDetalle": "#divCantidadDetalleCategoria",
             "divRangoMinimoCategoria": "#divRangoMinimaCategoria",
             "divRangoMaximaCategoria": "#divRangoMaximaCategoria",
-           
             "btnGuardarCategoria": "#btnGuardarCategoria",
             "btnCancelar": "#btnCancelarCategoria",
             "btnCancelarDetalle": "#btnCancelarDetalleCategoria",
@@ -237,13 +229,7 @@
                 return validar;
             }
         },
-
         "Consultas": {
-
-
-
-
-
             "ConsultaListaCategoria": function () {
                 $.ajax({
                     url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/ObtenerListaCategorias',
