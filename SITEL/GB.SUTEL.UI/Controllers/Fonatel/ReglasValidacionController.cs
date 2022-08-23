@@ -58,8 +58,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Create(string id, int? modo)
         {
-            ViewBag.indicador = indicadorfonatelBL.ObtenerDatos(new Indicador() { })
-                .objetoRespuesta;
+            ViewBag.indicador = indicadorfonatelBL.ObtenerDatos(new Indicador() { }).objetoRespuesta;
             
             ViewBag.Modo = modo.ToString();
 
