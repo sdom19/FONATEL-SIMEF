@@ -61,6 +61,33 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El campo {0} presenta un formato inválido.
+        /// </summary>
+        public static string CampoConFormatoInvalido {
+            get {
+                return ResourceManager.GetString("CampoConFormatoInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Se deben completar todos los campos del formulario.
+        /// </summary>
+        public static string CamposIncompletos {
+            get {
+                return ResourceManager.GetString("CamposIncompletos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El valor ingresado &apos;{0}&apos; ya se encuentra registrado.
+        /// </summary>
+        public static string CampoYaExiste {
+            get {
+                return ResourceManager.GetString("CampoYaExiste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La cantidad de destinatarios no es la correcta.
         /// </summary>
         public static string CantidadDestinatariosIncorrecta {

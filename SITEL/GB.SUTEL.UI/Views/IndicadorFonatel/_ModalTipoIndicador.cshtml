@@ -1,46 +1,46 @@
 ﻿@using GB.SIMEF.Resources;
 
-<div class="modal fade modal-fonatel" data-backdrop="static" id="modalTipo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade modal-fonatel" data-backdrop="static" id="modalTipoIndicador" tabindex="-1" role="dialog" aria-labelledby="Modal tipo indicador" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-fonatel" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-                <h5 class="modal-title" id="exampleModalLongTitle">Tipo Indicador</h5>
+                <h5 class="modal-title">@EtiquetasViewIndicadorFonatel.TituloModalTipoIndicador</h5>
 
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="form-group row">
-                            <label for="txtTipo" class="col-sm-12 col-form-label">Tipo</label>
+                            <label for="inputTipo" class="col-sm-12 col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo</label>
                             <div class="col-sm-12">
-                                <input type="text" aria-label="Tipo" class="form-control form-control-fonatel" id="txtTipo" placeholder="Tipo">
-                                <small id="nombreHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                                <input type="text" aria-label="Tipo" class="form-control form-control-fonatel alfa_numerico_v2" id="inputTipo" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo">
+                                <small id="inputTipoHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 text-center" style="display:inline-block">
-                        <button type="submit" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-                        <button type="submit" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">@Etiquetas.BotonCancelar</button>
+                        <button type="button" id="btnGuardarTipoIndicador" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+                        <button type="button" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">@Etiquetas.BotonCancelar</button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <div class="table-responsive table-wrapper-fonatel" >
-                    <table class="dataTable datatable_simef table-bordered table-condensed table-hover no-footer">
+                    <table id="tableModalTipoIndicador" class="dataTable datatable_simef table-bordered table-condensed table-hover no-footer">
                         <thead>
                             <tr>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Acciones</th>
+                                <th scope="col">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo</th>
+                                <th scope="col">@Etiquetas.Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            @*<tr>
                                 <td>Prueba</td>
                                 <td>
                                     <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete "></button>
                                 </td>
-                            </tr>
+                            </tr>*@
                         </tbody>
                     </table>
                 </div>
