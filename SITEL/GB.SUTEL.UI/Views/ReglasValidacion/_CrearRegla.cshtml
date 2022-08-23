@@ -1,12 +1,21 @@
 ﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.ReglaValidacion
+
+
+
+
+@Html.Hidden("txtmodoregla", (string)ViewBag.Modo)
+
+@Html.HiddenFor(model => model.id, new { id = "txtCodigo" })
 
 <form class="mt-5">
     <div class="row">
         <div class="col-md-4 col-sm-12">
-           
+
             <div class="form-group row">
-                <label for="txtCodigo" class="col-form-label">Código</label>
-                <input type="text" class="form-control form-control-fonatel" id="txtCodigo" placeholder="Codigo">
+                <label for="txtCodigo" class="col-form-label">@EtiquetasViewReglasValidacion.LabelCodigo.</label>
+                @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewReglasValidacion.LabelCodigo, id = "txtCodigo" } })
+                @* <input type="text" class="form-control form-control-fonatel" id="txtCodigo" placeholder="Codigo">*@
                 <small id="CodigoHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>

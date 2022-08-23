@@ -27,7 +27,6 @@ D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\DocumentFormat.Ope
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\GB.SIMEF.DAL.pdb
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\GB.SIMEF.Entities.pdb
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\GB.SIMEF.Resources.pdb
-D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\EntityFramework.xml
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csprojAssemblyReference.cache
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csproj.CoreCompileInputs.cache
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csproj.CopyComplete
