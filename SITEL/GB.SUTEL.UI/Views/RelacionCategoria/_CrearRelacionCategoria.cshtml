@@ -46,17 +46,17 @@
                     <small id="TipoCategoriaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
-
-
+             
             <div class="form-group row">
                 <label for="ddlDetalleDesagregacionId" class="col-sm-12 col-form-label ">Detalle Desagregación ID</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
-                        <!-- ¿SE NECESITA UN DROPDOWN? -->
 
-                        <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlDetalleDesagregacionId">
+                        @Html.DropDownListFor(model => model.idCategoriaValor, new SelectList(ViewBag.ListaCatergoriaValor, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlDetalleDesagregacionId" })
+
+                        @*<select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlDetalleDesagregacionId">
                             <option></option>
-                        </select>
+                        </select>*@
                     </div>
 
                     <small id="DetalleDesagregacionIDHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>

@@ -49,21 +49,20 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpGet]
-        public ActionResult Create(string id)
+        public ActionResult Create(string id, int? modo)
         {
+            ViewBag.Modo = modo.ToString();
 
             ViewBag.ListaCatergoriaIdUnico = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
             {
                 IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.IdUnico,
-                idEstado=(int)Constantes.EstadosRegistro.Activo
+                idEstado = (int)Constantes.EstadosRegistro.Activo
 
             }).objetoRespuesta;
 
-           
-
-
             if (string.IsNullOrEmpty(id))
             {
+                ViewBag.ListaCatergoriaValor = new List<SelectListItem>();
                 return View();
             }
             else
@@ -71,7 +70,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() {id=id })
                     .objetoRespuesta.Single() ;
 
-              
+                var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
+                {
+                    idCategoria = model.idCategoria
+                }).objetoRespuesta.Single();
+
+                var listavalores = RelacionCategoriaBL.ObtenerListaCategoria(categoria)
+                    .Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
+                listavalores.Add(new SelectListItem() { Value = model.idCategoriaValor, Text = model.idCategoriaValor, Selected = true });
+                ViewBag.ListaCatergoriaValor = listavalores;
                 return View(model);
             }           
         }

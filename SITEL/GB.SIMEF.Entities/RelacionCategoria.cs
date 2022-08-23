@@ -25,9 +25,9 @@ namespace GB.SIMEF.Entities
         [Key]
         public int idRelacionCategoria { get; set; }
 
-        [MaxLength(30, ErrorMessage = "Máximo de caracteres permitido 30")]
+        [MaxLength(10, ErrorMessage = "Máximo de caracteres permitido *")]
         public string Codigo { get; set; }
-        [MaxLength(300, ErrorMessage = "Máximo de caracteres permitido 300")]
+        [MaxLength(10, ErrorMessage = "Máximo de caracteres permitido *")]
         public string Nombre { get; set; }
         //VALIDAR EL RANGO
         public Nullable<int> CantidadCategoria { get; set; }
@@ -41,9 +41,12 @@ namespace GB.SIMEF.Entities
         public int idEstado { get; set; }
 
 
-
+        #region Variables que no estan en la entiendad
         [NotMapped]
         public virtual EstadoRegistro EstadoRegistro { get; set; }
+
+        [NotMapped]
+        public bool TieneDetalle { get; set; }
 
         [NotMapped]
 
@@ -51,5 +54,6 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string id { get; set; }
+        #endregion
     }
 }

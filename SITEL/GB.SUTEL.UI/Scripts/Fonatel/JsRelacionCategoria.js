@@ -30,7 +30,6 @@
         "txtmodoRelacion": "#txtmodoRelacion",
         "id": "#txtidRelacion"
 
-
     },
     "Variables": {
         "ListadoRelaciones": []
@@ -50,7 +49,7 @@
                 html = html + "<td>" + detalle.Nombre + "</td>";
                 html = html + "<td>" + detalle.CantidadCategoria + "/" + detalle.DetalleRelacionCategoria.length + "</td>";
                 html = html + "<td>" + detalle.EstadoRegistro.Nombre + "</td>";
-
+                
                 html = html + "<td><button id = 'btnAgregarDetalle' type = 'button' data - toggle='tooltip' data - placement='top' title = 'Agregar Detalle' class='btn-icon-base btn-upload' ></button >" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
@@ -267,10 +266,32 @@ $(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
 });
 
 $(document).on("click", JsRelacion.Controles.btnEditarRelacion, function () {
-    //let id = $(this).val();
-    //window.location.href = "/Fonatel/RelacionCategoria/Create?id=" + id;
     let id = $(this).val();
     window.location.href = "/Fonatel/RelacionCategoria/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
+});
+
+$(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
+
+    e.preventDefault();
+    let modo = $(JsRelacion.Controles.txtmodoRelacion).val();
+    let validar = JsRelacion.Metodos.ValidarFormularioRelacion();
+    if (!validar) {
+        return;
+    }
+
+    if (modo == jsUtilidades.Variables.Acciones.Editar) {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación entre Categoria?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsRelacion.Consultas.EditarRelacion();             
+            });
+    }
+    else {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación entre Categoria?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsRelacion.Consultas.InsertarRelacion();
+            });
+    }
+
 });
 
 $(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
@@ -298,28 +319,6 @@ $(document).on("change", JsRelacion.Controles.ddlCategoriaId, function () {
 
 });
 
-$(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
-
-    e.preventDefault();
-    let modo = $(JsRelacion.Controles.txtmodoRelacion).val();
-    let validar = JsRelacion.Metodos.ValidarFormularioRelacion();
-    if (!validar) {
-        return;
-    }
-    if (modo == jsUtilidades.Variables.Acciones.Editar) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación entre Categoria?", jsMensajes.Variables.actionType.agregar)
-            .set('onok', function (closeEvent) {
-                JsRelacion.Consultas.EditarRelacion();
-            });
-    }
-    else {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación entre Categoria?", jsMensajes.Variables.actionType.agregar)
-            .set('onok', function (closeEvent) {
-                JsRelacion.Consultas.InsertarRelacion();
-            });
-    }
-
-});
 
 $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
     e.preventDefault();
@@ -351,6 +350,16 @@ $(document).on("click", JsRelacion.Controles.btnAgregarDetalle, function (e) {
 });
 
 $(function () {
+
+    if ($(JsRelacion.Controles.FormularioCrearRelacion).length > 0) {
+
+        let modo = $(JsRelacion.Controles.txtmodoRelacion).val();
+
+        if (modo == jsUtilidades.Variables.Acciones.Editar) {
+            //DESACTIVE EL CAMPO CODIGO
+            $(JsRelacion.Controles.txtCodigo).prop("disabled", true);
+        }
+    }
 
     if ($(JsRelacion.Controles.TablaRelacionCategoria).length > 0) {
         JsRelacion.Consultas.ConsultaListaRelaciones();

@@ -34,32 +34,37 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                //VALIDACIONES DE CODIGOS REGISTRADOS Y NOMBRES REGISTRADOS NO SE REPITAN
 
                 //OBTENEMOS UNA LISTA DE RELACION CATEGORIA
                 List<RelacionCategoria> Registros = clsDatos.ObtenerDatos(new RelacionCategoria());
+
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Editar;
+                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                objeto.UsuarioModificacion = objeto.UsuarioCreacion;
 
                 //DESENCRIPTAR EL ID
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idCategoria = temp;
+                    objeto.idRelacionCategoria = temp;
                 }
 
                 //GUARDAMOS EL OBJETO EN UNA VARIBALE SEGUN EL ID
                 var result = Registros.Where(x => x.idRelacionCategoria == objeto.idRelacionCategoria).Single();
 
-                //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
-                if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper()).ToList().Count() > 0)
-                {
-                    //ENVIE EL ERROR NOMBRE REGISTRADO
-                    throw new Exception(Errores.NombreRegistrado);
-                }
-                //¿?
+                //VALIDA SI NO SE ENCONTRARON REGISTROS
                 if (Registros.Where(x => x.idRelacionCategoria == objeto.idRelacionCategoria).Count() == 0)
                 {
                     throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
+                //if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper()).ToList().Count() > 0)
+                if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() >= 1)   
+                {
+                    throw new Exception(Errores.NombreRegistrado);
                 }
 
                 //VALIDAR QUE NO EXCEDA EL LIMITE DE REGISTROS
@@ -69,16 +74,10 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    //¿?
-                    objeto.idEstado = result.idEstado;
 
                     //HACEMOS LA EDICION
-                    ResultadoConsulta.Clase = modulo;
-                    ResultadoConsulta.Accion = (int)Accion.Editar;
                     result = clsDatos.ActualizarDatos(objeto)
                     .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
-                    ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
-                    objeto.UsuarioModificacion = objeto.UsuarioCreacion;
 
                 }
 
@@ -88,10 +87,20 @@ namespace GB.SIMEF.BL
                             ResultadoConsulta.Clase, objeto.Codigo);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                if (ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.NombreRegistrado || ex.Message == Errores.CantidadRegistrosLimite)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
             }
 
             return ResultadoConsulta;
@@ -210,6 +219,8 @@ namespace GB.SIMEF.BL
         {
             CategoriasDesagregacion Categoria = clsDatosTexto.ObtenerDatos(obj).Single();
 
+            var listaRelacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() {idCategoria=Categoria.idCategoria }).ToList();
+
             List<string> result = new List<string>();
 
             if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
@@ -218,20 +229,34 @@ namespace GB.SIMEF.BL
 
                 while (fecha <= Categoria.DetalleCategoriaFecha.FechaMaxima)
                 {
-                    result.Add(fecha.ToString());
+                    if (listaRelacionCategoria.Where(x => x.idCategoriaValor == fecha.ToString()).Count() == 0) {
+
+                        result.Add(fecha.ToString());
+                    }
+                    
                     fecha = fecha.AddDays(1);
                 }
             }
             else if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
             {
+
                 int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
                 for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
                 {
+
+                    //if (listaRelacionCategoria.Where(x => x.idCategoriaValor == numeroMinimo.ToString()).Count() == 0)
+                    //{
+                    //    result.Add(i.ToString());
+                    //}
+
                     result.Add(i.ToString());
+
                 }
             }
             else
             {
+                //ACA FALTA UNA VALIDACION
+
                 result = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
             }
 
