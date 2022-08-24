@@ -24,6 +24,13 @@ namespace GB.SIMEF.BL
             this.clsDatosTexto = new CategoriasDesagregacionDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<FuentesRegistro>>();
         }
+        /// <summary>
+        /// Evalua si la fuente genero cambios para actualizar
+        /// Michael Hernández Cordero
+        /// 24/08/2022
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
 
         public RespuestaConsulta<List<FuentesRegistro>> ActualizarElemento(FuentesRegistro objeto)
         {
@@ -106,7 +113,13 @@ namespace GB.SIMEF.BL
             }
             return ResultadoConsulta;
         }
-
+        /// <summary>
+        /// Activa la fuente en el proceso de finalizar
+        /// Michael Hernández Cordero
+        /// 24-08-2022
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<FuentesRegistro>> CambioEstado(FuentesRegistro objeto)
         {
             try
@@ -177,6 +190,14 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Elimina la fuente desde de manera lógica, estado 4
+        /// Michael Hernández Cordero
+        /// 24/08/2022
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+
         public RespuestaConsulta<List<FuentesRegistro>> EliminarElemento(FuentesRegistro objeto)
         {
             try
@@ -231,7 +252,13 @@ namespace GB.SIMEF.BL
             }
             return ResultadoConsulta;
         }
-
+        /// <summary>
+        /// Crea la fuente en estado en proceso 
+        /// Michael Hernández Cordero
+        /// 24-08-2022
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<FuentesRegistro>> InsertarDatos(FuentesRegistro objeto)
         {
             try

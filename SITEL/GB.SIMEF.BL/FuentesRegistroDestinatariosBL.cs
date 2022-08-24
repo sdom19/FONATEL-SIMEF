@@ -30,20 +30,55 @@ namespace GB.SIMEF.BL
 
             try
             {
-               
-               var resul = clsDatos.ObtenerDatos(new DetalleFuentesRegistro());
-               objeto = resul.Where(x => x.idFuente == objeto.idFuente).Single();
-                resul = clsDatos.ActualizarDatos(objeto);
-                ResultadoConsulta.objetoRespuesta = resul;
-                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                if (!string.IsNullOrEmpty(objeto.FuenteId))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.FuenteId), out temp);
+                    objeto.idFuente = temp;
+                }
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Usuario = objeto.Usuario;
+                ResultadoConsulta.Accion = (int)Accion.Editar;
+                string nombre = objeto.NombreDestinatario.Trim();
+                string Correo = objeto.CorreoElectronico.Trim();
+                var resul = clsfuente.ObtenerDatos(new FuentesRegistro() {idFuente=objeto.idFuente }).SingleOrDefault();
+                var listado = resul.DetalleFuentesRegistro.Where(x => x.idDetalleFuente == objeto.idDetalleFuente).ToList();
+                if (listado.Count() == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+                else if(listado.Where(x=>x.idFuente!=objeto.idFuente && objeto.CorreoElectronico.ToUpper()==Correo.ToUpper()).Count()>0)
+                {
+                    throw new Exception(Errores.CorreoRegistrado);
+                }
+                else if (listado.Where(x => x.idFuente != objeto.idFuente && objeto.NombreDestinatario.ToUpper() == nombre.ToUpper()).Count() > 0)
+                {
+                    throw new Exception(Errores.NombreRegistrado);
+                }
+                else if (!Utilidades.ValidarEmail(Correo))
+                {
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "correo electrónico"));
+                }
+                else
+                {
+                    objeto = listado.Single();
+                    objeto.NombreDestinatario = nombre;
+                    objeto.CorreoElectronico = Correo;
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                    clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                             ResultadoConsulta.Usuario,
+                             ResultadoConsulta.Clase, resul.Fuente);
+                }
                     
                
             }
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.FuentesCantidadDestiatarios 
-                    || ex.Message == Errores.CantidadRegistrosLimite || ex.Message== Errores.FuenteRegistrada)
+                if (ex.Message == Errores.CorreoRegistrado || ex.Message== Errores.NoRegistrosActualizar 
+                    || ex.Message==Errores.NombreRegistrado || ex.Message== string.Format(Errores.CampoConFormatoInvalido, "correo electrónico"))
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                 }
@@ -150,6 +185,15 @@ namespace GB.SIMEF.BL
                 {
                     throw new Exception(Errores.CantidadRegistrosLimite);
                 }
+                else if (consultardatos.Where(x => x.idFuente != objeto.idFuente && objeto.NombreDestinatario.ToUpper() == Nombre.ToUpper()).Count() > 0)
+                {
+                    throw new Exception(Errores.NombreRegistrado);
+                }
+
+                else if (!Utilidades.ValidarEmail(Correo))
+                {
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "correo electrónico"));
+                }
                 else
                 {
                     objeto.CorreoElectronico = Correo;
@@ -161,7 +205,10 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message== Errores.CorreoRegistrado || ex.Message== Errores.CantidadRegistrosLimite)
+                if (ex.Message== Errores.CorreoRegistrado 
+                    || ex.Message== Errores.CantidadRegistrosLimite 
+                    || ex.Message == string.Format(Errores.CampoConFormatoInvalido, "correo electrónico")
+                    || ex.Message == Errores.NombreRegistrado)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                 }
@@ -178,7 +225,21 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleFuentesRegistro>> ObtenerDatos(DetalleFuentesRegistro objDetalleFuentesRegistro)
         {
-            throw new NotImplementedException();
+            try
+            {
+              
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ObtenerDatos(objDetalleFuentesRegistro);
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
 

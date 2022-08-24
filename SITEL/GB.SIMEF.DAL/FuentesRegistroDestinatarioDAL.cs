@@ -22,8 +22,9 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaDetalleFuentesRegistro = db.Database.SqlQuery<DetalleFuentesRegistro>
-                ("execute spObtenerFuentesRegistrosDestinatarios @idFuentesRegistro",
-                new SqlParameter("@idFuentesRegistro", objDetalleFuentesRegistro.idFuente)
+                ("execute spObtenerFuentesRegistrosDestinatarios @idDetalleFuente, @idFuentesRegistro",
+                    new SqlParameter("@idDetalleFuente", objDetalleFuentesRegistro.idDetalleFuente),
+                    new SqlParameter("@idFuentesRegistro", objDetalleFuentesRegistro.idFuente)
                 ).ToList();
 
 

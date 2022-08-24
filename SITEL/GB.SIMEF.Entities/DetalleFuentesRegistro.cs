@@ -29,13 +29,17 @@ namespace GB.SIMEF.Entities
         public string NombreDestinatario { get; set; }
         public string CorreoElectronico { get; set; }
         public bool Estado { get; set; }
-    
+
+
+        #region Atributos no forman parte del contexto
+
         [NotMapped]
         public string FuenteId { get; set; }
 
         [NotMapped]
         public string Usuario { get; set; }
 
+        #endregion
 
     }
 }

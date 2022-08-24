@@ -1,5 +1,6 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
+using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class FuentesController : Controller
     {
 
@@ -169,6 +171,24 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region Destinatarios
 
 
+
+        [HttpPost]
+        public async Task<string> ConsultarDestinatarios(DetalleFuentesRegistro destinatario)
+        {
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<DetalleFuentesRegistro>> result = null;
+            await Task.Run(() =>
+            {
+
+                destinatario.Usuario = user;
+                result = FuenteDestinatariosBL.ObtenerDatos(destinatario);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -182,9 +202,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<DetalleFuentesRegistro>> result = null;
             await Task.Run(() =>
             {
-
                 destinatario.Usuario = user;
-                result = FuenteDestinatariosBL.InsertarDatos(destinatario);
+                if (destinatario.idDetalleFuente==0)
+                {
+                    result = FuenteDestinatariosBL.InsertarDatos(destinatario);
+                }
+                else
+                {
+
+                    result = FuenteDestinatariosBL.ActualizarElemento(destinatario);
+                }
+              
             });
 
             return JsonConvert.SerializeObject(result);

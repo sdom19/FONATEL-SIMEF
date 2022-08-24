@@ -6,6 +6,7 @@
         "btnEditarFuente": "#TablaFuentes tbody tr td .btn-edit",
         "btnBorrarFuente": "#TablaFuentes tbody tr td .btn-delete",
         "btnBorrarDetalle": "#TableDetalleFuentes tbody tr td .btn-delete",
+        "btnEditarDetalle": "#TableDetalleFuentes tbody tr td .btn-edit",
         "btnAddFuente": "#TablaFuentes tbody tr td .btn-add",
         "divContenedor": ".divContenedor_fuentes",
         "btnGuardarDestinatario": "#btnGuardarDestinatario",
@@ -14,21 +15,19 @@
         "btnCancelar": "#btnCancelarFuente",
         "TablaFuentes": "#TablaFuentes tbody",
         "ControlesStep1":"#step-1 div form div div div div input",
-        "tabladetalle":"#TableDetalleFuentes tbody",
-
+        "tabladetalle":"#TableDetalleFuentes tbody",   
         "CorreoHelp":"#CorreoHelp",
         "nombreHelp":"#nombreHelp",
         "txtNombre": "#txtNombre",
         "txtCorreo": "#txtCorreo",
         "txtidFuente": "#txtidFuente",
+        "txtidDetalleFuente":"#txtidDetalleFuente",
         "FuenteHelp": "#FuenteHelp",
         "CantidadDetalleHelp": "#CantidadDetalleHelp",
         "txtFuente": "#txtFuente",
         "txtCantidad": "#txtCantidad",
         "step1": "a[href='#step-1']",
-
         "divstepwizard":".stepwizard-step",
-
         "step2": "a[href='#step-2']"
     },
     "Variables": {
@@ -67,7 +66,6 @@
             CargarDatasource();
             JsFuentes.Variables.ListaDestinatarios  = [];
         },
-
         "ValidarFuente": function () {
             $(JsFuentes.Controles.FuenteHelp).addClass("hidden");
             $(JsFuentes.Controles.CantidadDetalleHelp).addClass("hidden");
@@ -164,8 +162,8 @@
             let destinatario = new Object()
             destinatario.NombreDestinatario = $(JsFuentes.Controles.txtNombre).val();
             destinatario.CorreoElectronico = $(JsFuentes.Controles.txtCorreo).val();
-            destinatario.fuenteId= $(JsFuentes.Controles.txtidFuente).val();
-
+            destinatario.fuenteId = $(JsFuentes.Controles.txtidFuente).val();
+            destinatario.idDetalleFuente = $(JsFuentes.Controles.txtidDetalleFuente).val();
             $.ajax({
                 url: jsUtilidades.Variables.urlOrigen + '/Fuentes/AgregarDestinatario',
                 type: "POST",
@@ -176,19 +174,27 @@
                 data: { destinatario },
                 success: function (obj) {
                     if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                       jsMensajes.Metodos.OkAlertModal("El destinatario ha sido creado") 
+
+                        let mensaje = "El destinatario ha sido creado";
+                        if (destinatario.idDetalleFuente > 0) {
+                            mensaje = "El destinatario ha sido editado"
+                        }
+
+
+                        jsMensajes.Metodos.OkAlertModal(mensaje) 
                            .set('onok', function (closeEvent) {
                                JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta;
                                JsFuentes.Metodos.CargarTablaDestinatarios();
                                $(JsFuentes.Controles.txtNombre).val("");
                                $(JsFuentes.Controles.txtCorreo).val("");
+                               $(JsFuentes.Controles.txtidDetalleFuente).val("");
                            });
                     } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
                     } else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { location.reload(); });
+                            .set('onok', function (closeEvent) {  });
                     }
 
                     $("#loading").fadeOut();
@@ -234,7 +240,7 @@
                             .set('onok', function (closeEvent) { location.reload(); });
                     } else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { location.reload(); });
+                            .set('onok', function (closeEvent) {  });
                     }
 
                     $("#loading").fadeOut();
@@ -288,10 +294,6 @@
                 $("#loading").fadeOut();
             })
         },
-
-
-
-
         "ActivarFuente": function () {
             let fuente = new Object()
             fuente.id = $(JsFuentes.Controles.txtidFuente).val();
@@ -314,6 +316,41 @@
                             .set('onok', function (closeEvent) { location.reload(); });
                     } else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {  });
+                    }
+
+                    $("#loading").fadeOut();
+                }
+            }).fail(function (obj) {
+
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
+                $("#loading").fadeOut();
+            })
+        },
+        "ConsultarDestinatarios": function (id) {
+            let destinatario = new Object()
+            destinatario.idDetalleFuente = id;
+            
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/Fuentes/ConsultarDestinatarios',
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                data: { destinatario },
+                success: function (obj) {
+                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                        JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta;
+                        if (JsFuentes.Variables.ListaDestinatarios.length>0) {
+                            let destinatario = JsFuentes.Variables.ListaDestinatarios[0];
+                            $(JsFuentes.Controles.txtidDetalleFuente).val(destinatario.idDetalleFuente);
+                            $(JsFuentes.Controles.txtNombre).val(destinatario.NombreDestinatario);
+                            $(JsFuentes.Controles.txtCorreo).val(destinatario.CorreoElectronico)
+                        }
+                    } else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
                     }
 
@@ -325,7 +362,11 @@
                     .set('onok', function (closeEvent) { })
                 $("#loading").fadeOut();
             })
-        }
+
+
+
+        },
+
     }
 
 }
@@ -390,11 +431,17 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function 
 $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e) {
     e.preventDefault();
     let validar = JsFuentes.Metodos.ValidarFormularioDetalle();
-    if (validar) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el destinatario a la Fuente?", jsMensajes.Variables.actionType.agregar)
-            .set('onok', function (closeEvent) {
-               
 
+
+
+    if (validar) {
+        let mensaje = "¿Desea agregar el destinatario a la Fuente?";
+        if ($(JsFuentes.Controles.txtidDetalleFuente).val() > 0) {
+            mensaje = "¿Desea editar el destinatario?";
+        }
+
+        jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje, jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
                 JsFuentes.Consultas.AgregarDestinatario();
             });
     }
@@ -411,7 +458,6 @@ $(document).on("click", JsFuentes.Controles.btnBorrarFuente, function () {
 
 
 $(document).on("click", JsFuentes.Controles.btnEditarFuente, function () {
-
     let id = $(this).val();
     window.location.href = "/Fonatel/Fuentes/Create?id=" + id;
 });
@@ -420,9 +466,7 @@ $(document).on("click", JsFuentes.Controles.btnEditarFuente, function () {
 
 
 $(document).on("click", JsFuentes.Controles.btnBorrarDetalle, function () {
-
     let id = $(this).val();
-
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Destinatario?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {        
             JsFuentes.Consultas.EliminarDestinatario(id);
@@ -430,27 +474,21 @@ $(document).on("click", JsFuentes.Controles.btnBorrarDetalle, function () {
 });
 
 
+
+$(document).on("click", JsFuentes.Controles.btnEditarDetalle, function () {
+    let id = $(this).val();
+    JsFuentes.Consultas.ConsultarDestinatarios(id);
+});
+
+
+
+
+
 $(document).on("click", JsFuentes.Controles.btnAtrasFuentes, function (e) {
     e.preventDefault();
     $("a[href='#step-1']").trigger('click');
 });
 
-
-
-$(function () {
-    if ($(JsFuentes.Controles.TablaFuentes).length > 0) {
-        JsFuentes.Consultas.ConsultaListaFuentes();
-    }
-    if ($(JsFuentes.Controles.ControlesStep1).length>0) {
-        if ($(JsFuentes.Controles.txtFuente).val().trim().length > 0 && $(JsFuentes.Controles.txtCantidad).val() > 0) {
-            $(JsFuentes.Controles.btnSiguienteFuente).prop("disabled", false);
-            $(JsFuentes.Controles.step2).prop("disabled", false);
-        }
-        else {
-            $(JsFuentes.Controles.btnSiguienteFuente).prop("disabled", true);
-        }
-    }
-})
 
 $(document).on("keyup", JsFuentes.Controles.ControlesStep1, function (e) {
    if ($(JsFuentes.Controles.txtFuente).val().trim().length > 0 && $(JsFuentes.Controles.txtCantidad).val() > 0) {
@@ -462,3 +500,18 @@ $(document).on("keyup", JsFuentes.Controles.ControlesStep1, function (e) {
        $(JsFuentes.Controles.step2).prop("disabled", true);
     }
 });
+
+$(function () {
+    if ($(JsFuentes.Controles.TablaFuentes).length > 0) {
+        JsFuentes.Consultas.ConsultaListaFuentes();
+    }
+    if ($(JsFuentes.Controles.ControlesStep1).length > 0) {
+        if ($(JsFuentes.Controles.txtFuente).val().trim().length > 0 && $(JsFuentes.Controles.txtCantidad).val() > 0) {
+            $(JsFuentes.Controles.btnSiguienteFuente).prop("disabled", false);
+            $(JsFuentes.Controles.step2).prop("disabled", false);
+        }
+        else {
+            $(JsFuentes.Controles.btnSiguienteFuente).prop("disabled", true);
+        }
+    }
+})
