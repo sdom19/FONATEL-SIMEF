@@ -367,6 +367,49 @@
 
         },
 
+        "ValidarExistenciaFuente": function (idfuente) {
+            let fuente = new Object()
+            fuente.id= idfuente;
+
+
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/Fuentes/ValidarFuente',
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                data: { fuente },
+                success: function (obj) {
+                    $("#loading").fadeOut();
+                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                        if (obj.objetoRespuesta.length == 0) {
+                            JsFuentes.Consultas.EliminarFuente(idfuente);
+                        } else {
+                            let dependencias = obj.objetoRespuesta[i] + "<br>"
+                          
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Fuentes ya está en uso en las<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                                .set('onok', function (closeEvent) {
+                                    JsFuentes.Consultas.EliminarFuente(idfuente);
+                                });
+                        }
+                    } else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+
+                    }
+                }
+            }).fail(function (obj) {
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
+                $("#loading").fadeOut();
+
+            });
+        } 
+
+
     }
 
 }
@@ -452,7 +495,7 @@ $(document).on("click", JsFuentes.Controles.btnBorrarFuente, function () {
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Fuente?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            JsFuentes.Consultas.EliminarFuente(id);
+            JsFuentes.Consultas.ValidarExistenciaFuente(id);
         });
 });
 

@@ -164,6 +164,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ValidarFuente(FuentesRegistro fuente)
+        {
+            RespuestaConsulta<List<string>> result = null;
+            await Task.Run(() =>
+            {
+                result = FuenteBL.ValidarExistencia(fuente);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+
         #endregion
 
 

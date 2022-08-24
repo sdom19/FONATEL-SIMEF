@@ -337,7 +337,44 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-            public RespuestaConsulta<List<FuentesRegistro>> ValidarDatos(FuentesRegistro objeto)
+        /// <summary>
+        /// Valida si existen solicitudes con la fuente para eliminar
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+
+
+        public RespuestaConsulta<List<string>> ValidarExistencia(FuentesRegistro objeto)
+        {
+            RespuestaConsulta<List<string>> listaExistencias = new RespuestaConsulta<List<string>>();
+            try
+            {
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.idFuente = temp;
+                    }
+                }
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ObtenerDatos(objeto).Single();
+                listaExistencias.objetoRespuesta = clsDatos.ValidarFuente(resul);
+
+            }
+            catch (Exception ex)
+            {
+                listaExistencias.HayError = (int)Constantes.Error.ErrorSistema;
+                listaExistencias.MensajeError = ex.Message;
+            }
+            return listaExistencias;
+        }
+
+
+
+        public RespuestaConsulta<List<FuentesRegistro>> ValidarDatos(FuentesRegistro objeto)
         {
             throw new NotImplementedException();
         }

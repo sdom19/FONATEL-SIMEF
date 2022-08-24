@@ -60,7 +60,11 @@ namespace GB.SIMEF.DAL
                 .Where(x => x.idFuente == id & x.Estado==true).ToList();
         }
 
-
+        /// <summary>
+        /// Creación y modificación
+        /// </summary>
+        /// <param name="objFuentesRegistro"></param>
+        /// <returns></returns>
 
         public List<FuentesRegistro> ActualizarDatos(FuentesRegistro objFuentesRegistro)
         {
@@ -98,6 +102,28 @@ namespace GB.SIMEF.DAL
 
         }
 
+
+
+        /// Michael Hernández Cordero
+        /// Valida dependencias con otras tablas
+        /// 18/08/2022
+        /// </summary>
+        /// <param name="fuente"></param>
+        /// <returns></returns>
+
+        public List<string> ValidarFuente(FuentesRegistro fuente)
+        {
+            List<string> listaValicion = new List<string>();
+            using (db = new SIMEFContext())
+            {
+                listaValicion = db.Database.SqlQuery<string>
+                    ("exec spValidarFuente @idFuente",
+                       new SqlParameter("@idFuente", fuente.idFuente)
+                    ).ToList();
+            }
+
+            return listaValicion;
+        }
 
         #endregion
 
