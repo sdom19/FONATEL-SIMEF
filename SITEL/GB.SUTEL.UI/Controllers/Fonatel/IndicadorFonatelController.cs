@@ -510,10 +510,40 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 24/08/2022
+        /// José Navarro Acuña
+        /// Función que permite crear un indicador.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<string> CrearIndicador(Indicador pIndicador)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            if (string.IsNullOrEmpty(pIndicador.Codigo.Trim()))
+            {
+                pIndicador.Codigo = defaultInputTextValue;
+            }
+            else if (!Utilidades.rx_alfanumerico_v2.Match(pIndicador.Codigo.Trim()).Success) // validar si el nombre tiene el formato correcto
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
+                return JsonConvert.SerializeObject(resultado);
+            }
+            
+            if (string.IsNullOrEmpty(pIndicador.Nombre.Trim()))
+            {
+                pIndicador.Nombre = defaultInputTextValue;
+            }
+            else if (!Utilidades.rx_alfanumerico_v2.Match(pIndicador.Nombre.Trim()).Success) // validar si el nombre tiene el formato correcto
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
+                return JsonConvert.SerializeObject(resultado);
+            }
+
 
             await Task.Run(() =>
             {

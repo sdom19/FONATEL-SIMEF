@@ -11,7 +11,9 @@
     },
 
     Variables: {
-
+        indexViewURL: "/Fonatel/IndicadorFonatel/index",
+        editViewURL: "/Fonatel/IndicadorFonatel/edit?id=",
+        createViewURL: "/Fonatel/IndicadorFonatel/Create?id="
     },
 
     Metodos: {
@@ -102,16 +104,14 @@
                     })
                 })
                 .then(data => {
-                    window.location.href = "/Fonatel/IndicadorFonatel/index"
+                    window.location.href = IndexView.Variables.indexViewURL
                 })
                 .catch(error => {
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -160,16 +160,14 @@
                     })
                 })
                 .then(data => {
-                    window.location.href = "/Fonatel/IndicadorFonatel/index"
+                    window.location.href = IndexView.Variables.indexViewURL
                 })
                 .catch(error => {
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -198,16 +196,14 @@
                     })
                 })
                 .then(data => {
-                    window.location.href = "/Fonatel/IndicadorFonatel/index"
+                    window.location.href = IndexView.Variables.indexViewURL
                 })
                 .catch(error => {
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -252,14 +248,14 @@
         });
 
         $(document).on("click", IndexView.Controles.btnEditarIndicador, function () {
-            window.location.href = "/Fonatel/IndicadorFonatel/edit?id=" + $(this).val();
+            window.location.href = IndexView.Variables.editViewURL + $(this).val();
         });
 
         $(document).on("click", IndexView.Controles.btnClonarIndicador, function () {
             let id = 1;
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar el Indicador?", jsMensajes.Variables.actionType.clonar)
                 .set('onok', function (closeEvent) {
-                     window.location.href = "/Fonatel/IndicadorFonatel/Create?id="+id
+                    window.location.href = IndexView.Variables.createViewURL + id
                 });
         });
     },
@@ -306,6 +302,7 @@ CreateView = {
             btnSiguiente: "#btnSiguienteIndicador",
             inputs: "#formCrearIndicador input, #formCrearIndicador textarea, #formCrearIndicador select",
             selects2: "#formCrearIndicador select",
+            btnGuardar: "#btnGuardarIndicador",
 
             inputCodigo: "#inputCodigo",
             inputNombre: "#inputNombre",
@@ -338,21 +335,22 @@ CreateView = {
 
         //btnstep: ".step_navigation_indicador div",
         //divContenedor: ".stepwizard-content-container",
-        //btnGuardarIndicador: "#btnGuardarIndicador",
-        //btnFinalizar: "#btnFinalizarIndicador",
-        //btnGuardarVariable: "#btnGuardarVariable",
-        //btnGuardarCategoría: "#btnGuardarCategoría",
+        
+        btnFinalizar: "#btnFinalizarIndicador",
+        btnGuardarVariable: "#btnGuardarVariable",
+        btnGuardarCategoria: "#btnGuardarCategoria",
 
         //btnEliminarCategoria: "#TablaDetalleCategoriaIndicador tbody tr td .btn-delete",
         //btnAddIndicadorVariable: "#TableIndicador tbody tr td .variable",
         //btnAddIndicadorCategoria: "#TableIndicador tbody tr td .Categoría",
         //btnEliminarVariable: "#TableDetalleVariable tbody tr td .btn-delete",
-        //btnCancelar: "#btnCancelarIndicador",
+        btnCancelar: "#btnCancelarIndicador",
 
         CreateView: "#dad1f550"
     },
 
     Variables: {
+        indexViewURL: "/Fonatel/IndicadorFonatel/index",
         btnDeleteModal: (pValue) => `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${pValue}></button>`
     },
 
@@ -421,12 +419,10 @@ CreateView = {
                 })
                 .catch(error => {
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -460,12 +456,10 @@ CreateView = {
                 .catch(error => {
                     console.log(error);
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -537,12 +531,10 @@ CreateView = {
                 })
                 .catch(error => {
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -575,12 +567,10 @@ CreateView = {
                 })
                 .catch(error => {
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -652,12 +642,10 @@ CreateView = {
                 })
                 .catch(error => {
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -690,12 +678,10 @@ CreateView = {
                 })
                 .catch(error => {
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError)
-                            .set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -747,9 +733,65 @@ CreateView = {
 
         BtnSiguienteIndicador: function () {
             if (CreateView.Metodos.ValidarFormularioIndicador().puedeContinuar) {
-                $("a[href='#step-2']").trigger('click');
+                CreateView.Metodos.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador())
+                    .then(data => {
+                        $("#loading").fadeIn();
+                        return CreateView.Metodos.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador());
+                    })
+                    .then(data => {
+                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
+                            .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click'); });
+                    })
+                    .catch(error => {
+                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        }
+                    })
+                    .finally(() => {
+                        $("#loading").fadeOut();
+                    });
             }
-            $(CreateView.Controles.formIndicador.form).submit();
+        },
+
+        CrearIndicadorParcial: function () {
+            let mensaje = "";
+            if (!CreateView.Metodos.ValidarFormularioIndicador().puedeContinuar) {
+                mensaje = "Existen campos vacíos. ";
+            }
+
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + "¿Desea realizar un guardado parcial del Indicador?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    })
+                    .set("oncancel", function (closeEvent) {
+                        resolve(false);
+                    })
+            })
+                .then(data => {
+                    console.log(data);
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador());
+                })
+                .then(data => {
+                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
+                        .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
+                })
+                .catch(error => {
+                    console.log(error);
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
         },
 
         // View utils
@@ -806,6 +848,10 @@ CreateView = {
 
         CrearUnidadEstudio: function (pNombre) {
             return execAjaxCall('/IndicadorFonatel/CrearUnidadEstudio', 'POST', { pNombre: pNombre });
+        },
+
+        CrearIndicador: function (pIndicador) {
+            return execAjaxCall('/IndicadorFonatel/CrearIndicador', 'POST', { pIndicador: pIndicador });
         }
     },
 
@@ -862,12 +908,6 @@ CreateView = {
             CreateView.Metodos.CrearUnidadEstudio($(CreateView.Controles.inputModalUnidadEstudio).val());
         });
 
-        $(CreateView.Controles.formIndicador.form).on("submit", function (event) {
-            event.preventDefault();
-            let form = CreateView.Metodos.CrearObjFormularioIndicador();
-            execAjaxCall('/IndicadorFonatel/CrearIndicador', 'POST', form);
-        });
-
         $(CreateView.Controles.formIndicador.inputs).on("keyup", function (e) {
             let validacion = CreateView.Metodos.ValidarFormularioIndicador();
             $(CreateView.Controles.formIndicador.btnSiguiente).prop('disabled', !validacion.puedeContinuar);
@@ -882,22 +922,26 @@ CreateView = {
             CreateView.Metodos.CrearUnidadEstudio($(CreateView.Controles.inputModalUnidadEstudio).val());
         });
 
-        //$(document).on("click", CreateView.Controles.btnCancelar, function (e) {
-        //    e.preventDefault();
-        //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
-        //        .set('onok', function (closeEvent) {
-        //            window.location.href = "/Fonatel/IndicadorFonatel/Index";
-        //        });
-        //});
+        $(document).on("click", CreateView.Controles.formIndicador.btnGuardar, function (e) {
+            CreateView.Metodos.CrearIndicadorParcial();
+        });
 
-        //$(document).on("click", CreateView.Controles.btnFinalizar, function (e) {
-        //    e.preventDefault();
-        //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.cancelar)
-        //        .set('onok', function (closeEvent) {
-        //            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido agregado")
-        //                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
-        //        });
-        //});
+        $(document).on("click", CreateView.Controles.btnCancelar, function (e) {
+            e.preventDefault();
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+                .set('onok', function (closeEvent) {
+                    window.location.href = CreateView.Variables.indexViewURL;
+                });
+        });
+
+        $(document).on("click", CreateView.Controles.btnFinalizar, function (e) {
+            e.preventDefault();
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.cancelar)
+                .set('onok', function (closeEvent) {
+                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido agregado")
+                        .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL });
+                });
+        });
 
         //$(document).on("click", CreateView.Controles.btnAddIndicadorCategoria, function () {
         //    let id = 1;
@@ -926,18 +970,7 @@ CreateView = {
         //        });
         //});
 
-        //$(document).on("click", CreateView.Controles.btnGuardarIndicador, function (e) {
-        //    e.preventDefault();
-        //    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial del Indicador?", jsMensajes.Variables.actionType.agregar)
-        //        .set('onok', function (closeEvent) {
-
-        //            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
-        //                .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click'); });
-
-        //        });
-        //});
-
-        //$(document).on("click", CreateView.Controles.btnSiguienteCategoria, function (e) {
+        //$(document).on("click", CreateView.Controles.formCategoria.btnSiguiente, function (e) {
         //    e.preventDefault();
         //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.estado)
         //        .set('onok', function (closeEvent) {
@@ -948,25 +981,25 @@ CreateView = {
 
         
 
-        //$(document).on("click", CreateView.Controles.btnGuardarVariable, function (e) {
-        //    e.preventDefault();
+        $(document).on("click", CreateView.Controles.btnGuardarVariable, function (e) {
+            e.preventDefault();
 
-        //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
-        //        .set('onok', function (closeEvent) {
-        //            jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
-        //                .set('onok', function (closeEvent) { });
-        //        });
-        //});
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
+                        .set('onok', function (closeEvent) { });
+                });
+        });
 
-        //$(document).on("click", CreateView.Controles.btnGuardarCategoría, function (e) {
-        //    e.preventDefault();
+        $(document).on("click", CreateView.Controles.btnGuardarCategoria, function (e) {
+            e.preventDefault();
 
-        //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
-        //        .set('onok', function (closeEvent) {
-        //            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido agregada")
-        //                .set('onok', function (closeEvent) { });
-        //        });
-        //});
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    jsMensajes.Metodos.OkAlertModal("La Categoría ha sido agregada")
+                        .set('onok', function (closeEvent) { });
+                });
+        });
     },
 
     Init: function () {
