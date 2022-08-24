@@ -118,7 +118,60 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<RelacionCategoria>> EliminarElemento(RelacionCategoria objeto)
         {
-            throw new NotImplementedException();
+            RelacionCategoria objrelacion = (RelacionCategoria)objeto;
+
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Eliminar;
+                ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
+                RelacionCategoria registroActualizar;
+
+                //DESENCRIPTAR EL ID
+                if (!string.IsNullOrEmpty(objrelacion.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objrelacion.id), out temp);
+                    objrelacion.idRelacionCategoria = temp;
+                }
+
+                var resul = clsDatos.ObtenerDatos(objrelacion);
+                if (resul.Count() == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+
+                }
+                else
+                {
+                    registroActualizar = resul.SingleOrDefault();
+                    registroActualizar.idEstado = 4;
+                    resul = clsDatos.ActualizarDatos(registroActualizar);
+                }
+
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                //REGISTRAMOS EN BITACORA 1111
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.MensajeError = ex.Message;
+                if (ex.Message == Errores.NoRegistrosActualizar)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
+            }
+
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<RelacionCategoria>> InsertarDatos(RelacionCategoria objeto)

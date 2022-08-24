@@ -123,11 +123,23 @@
   <data name="Cantidad" xml:space="preserve">
     <value>Cantidad Atributos</value>
   </data>
+  <data name="CategoriaAtributo" xml:space="preserve">
+    <value>Categoría Atributo</value>
+  </data>
   <data name="Codigo" xml:space="preserve">
     <value>Código</value>
   </data>
   <data name="Detalle" xml:space="preserve">
     <value>Detalle</value>
+  </data>
+  <data name="DetalleAtributo" xml:space="preserve">
+    <value>Detalle Relación Atributo</value>
+  </data>
+  <data name="DetalleRelacion" xml:space="preserve">
+    <value>Detalle de Relaciones entre Categorías</value>
+  </data>
+  <data name="DetalleRelacionCategoria" xml:space="preserve">
+    <value>Detalle de Relaciones entre Categorías</value>
   </data>
   <data name="Estado" xml:space="preserve">
     <value>Estado</value>

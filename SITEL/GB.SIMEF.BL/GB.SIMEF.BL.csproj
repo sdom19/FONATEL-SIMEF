@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitacoraBL.cs" />
+    <Compile Include="DetalleRelacionCategoriaBL.cs" />
     <Compile Include="ReglasValidacionBL.cs" />
     <Compile Include="RelacionCategoriaBL.cs" />
     <Compile Include="TipoDetalleCategoriaBL.cs" />

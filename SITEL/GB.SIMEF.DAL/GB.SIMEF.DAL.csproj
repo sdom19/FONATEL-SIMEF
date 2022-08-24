@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ReglasValicionDAL.cs" />
+    <Compile Include="DetalleRelacionCategoriaDAL.cs" />
     <Compile Include="RelacionCategoriaDAL.cs" />
     <Compile Include="TipoDetalleCategoriaDAL.cs" />
     <Compile Include="TipoCategoriaDAL.cs" />

@@ -21,14 +21,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         private readonly RelacionCategoriaBL RelacionCategoriaBL;
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBl;
+        private readonly DetalleRelacionCategoriaBL DetalleRelacionCategoriaBL;
         
 
         public RelacionCategoriaController()
         {
-            //user = User.Identity.GetUserId(); 
+
             categoriasDesagregacionBl = new CategoriasDesagregacionBL();
+
             RelacionCategoriaBL = new RelacionCategoriaBL();
 
+            DetalleRelacionCategoriaBL = new DetalleRelacionCategoriaBL();
 
         }
 
@@ -41,12 +44,30 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         // GET: CategoriasDesagregacion/Details/5
-        [HttpGet]
-        public ActionResult Detalle(int id)
-        { 
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult Detalle(int id)
+        //{ 
+        //    return View();
+        //}
 
+        [HttpGet]
+        public ActionResult Detalle(string idRelacionCategoria)
+        {
+            if (string.IsNullOrEmpty(idRelacionCategoria))
+            {
+                return View("Index");
+            }
+            else
+            {
+                RelacionCategoria objRelacion = new RelacionCategoria();
+                if (!string.IsNullOrEmpty(idRelacionCategoria))
+                {
+                    objRelacion.id = idRelacionCategoria;
+                    objRelacion = RelacionCategoriaBL.ObtenerDatos(objRelacion).objetoRespuesta.SingleOrDefault();
+                }
+                return View(objRelacion);
+            }
+        }
 
         [HttpGet]
         public ActionResult Create(string id, int? modo)
@@ -84,24 +105,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         #endregion
 
-        #region Metodos de ASYNC
+        #region Metodos de ASYNC Relacion Categoria
 
         /// <summary>
         /// Fecha 10/08/2022
@@ -185,6 +193,34 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary> 
+        /// 23/08/2022
+        /// Francisco Vindas Ruiz
+        /// Metodo para eliminar relacion categoria
+        /// </summary>
+        /// <param name="idRelacionCategoria></param>
+        /// <returns>JSON</returns>
+        [HttpPost]
+        public async Task<string> EliminarRelacionCategoria(string idRelacionCategoria)
+        {
+            user = User.Identity.GetUserId();
+
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = RelacionCategoriaBL.EliminarElemento(new RelacionCategoria()
+                {
+
+                    id = idRelacionCategoria,
+                    UsuarioModificacion = user
+
+                });
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
         /// <summary>
         /// Fecha 17-08-2022
         /// Francisco Vindas
@@ -208,6 +244,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
             return JsonConvert.SerializeObject(result);
         }
+
+        #endregion
+
+        #region Metodos ASYNC Detalle Relacion Categoria
+
+        /// <summary>
+        /// Fecha 24-08-2022
+        /// Francisco Vindas Ruiz
+        /// Obtiene datos para la table de detalle relacion categoria
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaCategoriasDetalle(string IdRelacionCategoria)
+        {
+            RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = DetalleRelacionCategoriaBL.ObtenerDatos(new DetalleRelacionCategoria() 
+                { relacionid = IdRelacionCategoria });
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
 
         #endregion
 

@@ -20,7 +20,7 @@ namespace GB.SIMEF.Entities
       
         public DetalleRelacionCategoria()
         {
-         
+            RelacionCategoria = new RelacionCategoria();
         }
         [Key]
         public int idDetalleRelacionCategoria { get; set; }
@@ -28,6 +28,22 @@ namespace GB.SIMEF.Entities
         public int idCategoriaAtributo { get; set; }
         public string CategoriaAtributoValor { get; set; }
         public bool Estado { get; set; }
-    
+
+        #region Variables Fuera del contexto 
+
+        [NotMapped]
+        public string usuario { get; set; }
+
+        [NotMapped]
+        public RelacionCategoria RelacionCategoria { get; set; }
+
+        [NotMapped]
+        public string id { get; set; }
+
+        [NotMapped]
+        public string relacionid { get; set; }
+
+        #endregion
+
     }
 }
