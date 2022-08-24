@@ -2,14 +2,14 @@
 
 @model GB.SIMEF.Entities.Indicador
 
-<form>
+<form id="formCrearCategoria">
     <div class="row">
 
         <div class="col-md-6 col-sm-12">
             <div class="form-group center">
-                <label for="ddlCategoríaIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearCategoria_LabelCategoriaIndicador</label>
+                <label for="ddlCategoriaIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearCategoria_LabelCategoriaIndicador</label>
                 <div class="select2-wrapper">
-                    <select class="listasDesplegables" id="ddlCategoríaIndicador">
+                    <select class="listasDesplegables" id="ddlCategoriaIndicador">
                         <option></option>
                         <option value="1">Provincia</option>
                         <option value="2">Cantón</option>
@@ -22,9 +22,9 @@
 
         <div class="col-md-6 col-sm-12">
             <div class="form-group center">
-                <label for="ddlCategoríaDetalleIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearCategoria_LabelDetalleIndicador</label>
+                <label for="ddlCategoriaDetalleIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearCategoria_LabelDetalleIndicador</label>
                 <div class="select2-wrapper">
-                    <select class="listasDesplegables" multiple id="ddlCategoríaDetalleIndicador">
+                    <select class="listasDesplegables" multiple id="ddlCategoriaDetalleIndicador">
                         <option></option>
                         <option value="1">San jose</option>
                         <option value="2">Limón</option>
@@ -36,7 +36,7 @@
                     </select>
 
                 </div>
-                <small id="ddlCategoríaDetalleHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
+                <small id="ddlCategoriaDetalleIndicadorHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 

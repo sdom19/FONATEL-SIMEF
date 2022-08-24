@@ -2,7 +2,7 @@
 
 @model GB.SIMEF.Entities.Indicador
 
-<form>
+<form id="formCrearIndicador">
     <div class="row">
         <div class="col-lg-4 col-sm-12">
 
@@ -14,7 +14,7 @@
 
             <div class="form-group">
                 <label for="inputNombre" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre</label>
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre, id = "inputNombre" } })
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico_v2", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre, id = "inputNombre" } })
                 <small id="inputNombreHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
@@ -137,7 +137,7 @@
 
             <div class="text-center">
                 <button type="button" id="btnGuardarIndicador" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-                <button type="button" id="btnSiguienteIndicador" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+                <button type="button" id="btnSiguienteIndicador" class="btn btn-fonatel btn-next-fonatel" disabled>@Etiquetas.BotonSiguiente</button>
                 <button type="button" id="btnCancelarIndicador" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
             </div>
         </div>

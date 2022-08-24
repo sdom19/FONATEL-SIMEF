@@ -99,21 +99,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.UnidadesEstudio = new List<UnidadEstudio>();
             return View("Create");
         }
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
         #endregion
 
         #region Métodos de async
@@ -519,6 +504,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     idUnidad = 0,
                     Nombre = pNombre.Trim(),
                     Estado = true // activo
+                });
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        [HttpPost]
+        public async Task<string> CrearIndicador(Indicador pIndicador)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            await Task.Run(() =>
+            {
+                resultado = indicadorBL.InsertarDatos(new Indicador()
+                {
+                    
                 });
 
             });
