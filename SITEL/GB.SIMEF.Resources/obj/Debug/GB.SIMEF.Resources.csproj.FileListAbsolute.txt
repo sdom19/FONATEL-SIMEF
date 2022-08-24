@@ -37,3 +37,4 @@ D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Re
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.dll
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.pdb
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewFuentesRegistro.resources
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewReglasValidacion.resources
