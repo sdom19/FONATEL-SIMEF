@@ -17,17 +17,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
     {
         string user;
 
-        // GET: CategoriasDesagregacion
+        // : RELACION ENTRE CATEGORIAS
 
         private readonly RelacionCategoriaBL RelacionCategoriaBL;
-        private readonly CategoriasDesagregacionBL categoriasDesagregacionBl;
         private readonly DetalleRelacionCategoriaBL DetalleRelacionCategoriaBL;
-        
+
+        // : CATEGORIAS DESAGREGACION
+
+        private readonly CategoriasDesagregacionBL categoriasDesagregacionBl;
+        private readonly DetalleCategoriasTextoBL DetalleCategoriasTextoBL;
 
         public RelacionCategoriaController()
         {
 
             categoriasDesagregacionBl = new CategoriasDesagregacionBL();
+
+            DetalleCategoriasTextoBL = new DetalleCategoriasTextoBL();
 
             RelacionCategoriaBL = new RelacionCategoriaBL();
 
@@ -43,16 +48,28 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View();
         }
 
-        // GET: CategoriasDesagregacion/Details/5
-        //[HttpGet]
-        //public ActionResult Detalle(int id)
-        //{ 
-        //    return View();
-        //}
 
+        /// <summary>
+        /// Francisco Vindas Ruiz
+        /// 24-08-2022
+        /// Obtener la lista de detalles
+        /// </summary>
+        /// <param name="idRelacionCategoria"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Detalle(string idRelacionCategoria)
         {
+
+            //CATEGORIAS DE TIPO ATRIBUTO
+            ViewBag.ListaCatergorias= categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
+            {
+                IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.Atributo,
+                idEstado = (int)Constantes.EstadosRegistro.Activo
+
+            }).objetoRespuesta;
+
+            //EL DETALLE QUE CORRESPONDE A LA CATEGORIA SELECIONADA (TEXTO,NUMERO, FECHA)
+
             if (string.IsNullOrEmpty(idRelacionCategoria))
             {
                 return View("Index");
@@ -266,6 +283,52 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 { relacionid = IdRelacionCategoria });
 
             });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha 17-08-2022
+        /// Francisco Vindas
+        /// Obtiene datos para la table de categorías Detalle Detalle
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpGet]
+        public async Task<string> ObtenerListaDetalleDesagregacion(int select)
+        {
+            List<string> result = new List<string>();
+
+            await Task.Run(() =>
+            {
+                var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
+                {
+                    idCategoria = select
+                }).objetoRespuesta.Single();
+
+                result = RelacionCategoriaBL.ObtenerListaDetalleCategoria(categoria);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Inserta un detalle relacion entre categorias
+        /// 25/08/2022
+        /// Francisco Vindas Ruiz
+        /// </summary>
+        /// <param name="detalleRelacion"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<string> InsertarDetalleRelacion(DetalleRelacionCategoria relacion)
+        {
+            user = User.Identity.GetUserId();
+            relacion.usuario = user;
+            RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
+            await Task.Run(() =>
+            {
+                result = DetalleRelacionCategoriaBL.InsertarDatos(relacion);
+            });
+
             return JsonConvert.SerializeObject(result);
         }
 

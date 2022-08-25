@@ -151,10 +151,10 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 
-                //REGISTRAMOS EN BITACORA 1111
-                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                        ResultadoConsulta.Usuario,
-                            ResultadoConsulta.Clase, objeto.Codigo);
+                //REGISTRAMOS EN BITACORA 
+                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                //        ResultadoConsulta.Usuario,
+                //            ResultadoConsulta.Clase, objeto.Codigo);
 
             }
             catch (Exception ex)
@@ -184,14 +184,14 @@ namespace GB.SIMEF.BL
                 List<RelacionCategoria> BuscarRegistros = clsDatos.ObtenerDatos(new RelacionCategoria());
 
                 //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
-                if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper()).ToList().Count() > 0)
+                if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() > 0)
                 {
                     //ENVIE EL ERROR CODIGO REGISTRADO
                     throw new Exception(Errores.CodigoRegistrado);
                 }
 
                 //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
-                if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper()).ToList().Count() > 0)
+                if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() > 0)
                 {
                     //ENVIE EL ERROR NOMBRE REGISTRADO
                     throw new Exception(Errores.NombreRegistrado);
@@ -310,6 +310,49 @@ namespace GB.SIMEF.BL
             {
                 //ACA FALTA UNA VALIDACION
 
+                result = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
+            }
+
+            return result;
+
+        }
+
+        /// <summary>
+        /// Fecha 25/08/2022
+        /// Francisco Vindas Ruiz
+        /// Metodo para obtener la lista Relacion Categorias
+        /// </summary>
+        public List<string> ObtenerListaDetalleCategoria(CategoriasDesagregacion obj)
+        {
+            CategoriasDesagregacion Categoria = clsDatosTexto.ObtenerDatos(obj).Single();
+
+            var listaRelacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { idCategoria = Categoria.idCategoria }).ToList();
+
+            List<string> result = new List<string>();
+
+            if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
+            {
+                DateTime fecha = Categoria.DetalleCategoriaFecha.FechaMinima;
+
+                while (fecha <= Categoria.DetalleCategoriaFecha.FechaMaxima)
+                {
+
+                    result.Add(fecha.ToString());
+                    
+                    fecha = fecha.AddDays(1);
+                }
+            }
+            else if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
+            {
+
+                int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
+                for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
+                {
+                    result.Add(i.ToString());
+                }
+            }
+            else
+            {
                 result = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
             }
 

@@ -22,7 +22,8 @@
     </div>
 
     <div id="FormularioDetalle" class="row">
-        @Html.HiddenFor(model => model.id, new { id = "txtidRelacion" });
+        <!-- TEXTO PARA ENCRIPTAR ID Y PARA EL EDITAR-->
+        @Html.HiddenFor(model => model.id, new { id = "txtidRelacion" })
         <div>
             <h2 class="page-title-fonatel text-center">@EtiquetasViewRelacionCategoria.DetalleRelacionCategoria</h2>
             <hr />

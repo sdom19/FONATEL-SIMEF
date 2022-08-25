@@ -16,6 +16,7 @@
         "inputFileAgregarDetalle": "#inputFileAgregarDetalle",
 
         "TablaRelacionCategoria": "#TablaRelacionCategoria tbody",
+        "TablaRelacionCategoriaElemento": "#TablaRelacionCategoria",
         "TablaDetalleRelacion": "#TablaDetalleRelacionCategoria tbody",
 
         "txtCodigo": "#txtCodigo",
@@ -23,12 +24,17 @@
         "TxtCantidad": "#TxtCantidad",
         "ddlCategoriaId": "#ddlCategoriaId",
         "ddlDetalleDesagregacionId": "#ddlDetalleDesagregacionId",
+        "ddlCategoriaDetalle": "#ddlCategoriaDetalle",
+        "ddlDetalleDesagregacionAtributo": "#ddlDetalleDesagregacionAtributo",
 
         "nombreHelp": "#nombreHelp",
         "CodigoHelp": "#CodigoHelp",
         "CantidadHelp": "#CantidadHelp",
         "TipoCategoriaHelp": "#TipoCategoriaHelp",
         "DetalleDesagregacionIDHelp": "#DetalleDesagregacionIDHelp",
+
+        "CategoriaDetalleHelp": "#CategoriaDetalleHelp",
+        "DetalleDesagregacionAtributoHelp": "#DetalleDesagregacionAtributoHelp",
 
         "txtmodoRelacion": "#txtmodoRelacion",
         "id": "#txtidRelacion"
@@ -41,6 +47,11 @@
     },
 
     "Metodos": {
+
+        "RemoverItemDataTable": function (pDataTable, pItem) {
+            $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
+
+        },
 
         "CargarTablaRelacion": function () {
             EliminarDatasource();
@@ -91,278 +102,340 @@
             JsRelacion.Variables.ListadoDetalleRelaciones = [];
         },
 
-    "ValidarFormularioRelacion": function () {
+        "ValidarFormularioRelacion": function () {
 
-        let validar = true;
+            let validar = true;
 
-        $(JsRelacion.Controles.nombreHelp).addClass("hidden");
-        $(JsRelacion.Controles.CodigoHelp).addClass("hidden");
-        $(JsRelacion.Controles.CantidadHelp).addClass("hidden");
-        $(JsRelacion.Controles.TipoCategoriaHelp).addClass("hidden");
-        $(JsRelacion.Controles.DetalleDesagregacionIDHelp).addClass("hidden");
+            $(JsRelacion.Controles.nombreHelp).addClass("hidden");
+            $(JsRelacion.Controles.CodigoHelp).addClass("hidden");
+            $(JsRelacion.Controles.CantidadHelp).addClass("hidden");
+            $(JsRelacion.Controles.TipoCategoriaHelp).addClass("hidden");
+            $(JsRelacion.Controles.DetalleDesagregacionIDHelp).addClass("hidden");
 
-        if ($(JsRelacion.Controles.txtCodigo).val().length == 0) {
-            validar = false;
-            $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
-        }
+            if ($(JsRelacion.Controles.txtCodigo).val().length == 0) {
+                validar = false;
+                $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
+            }
 
-        if ($(JsRelacion.Controles.txtNombre).val().length == 0) {
-            validar = false;
-            $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
-        }
+            if ($(JsRelacion.Controles.txtNombre).val().length == 0) {
+                validar = false;
+                $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
+            }
 
-        if ($(JsRelacion.Controles.TxtCantidad).val().length == 0) {
-            validar = false;
-            $(JsRelacion.Controles.CantidadHelp).removeClass("hidden");
-        }
+            if ($(JsRelacion.Controles.TxtCantidad).val().length == 0) {
+                validar = false;
+                $(JsRelacion.Controles.CantidadHelp).removeClass("hidden");
+            }
 
-        if ($(JsRelacion.Controles.ddlCategoriaId).val().length == 0) {
-            validar = false;
-            $(JsRelacion.Controles.TipoCategoriaHelp).removeClass("hidden");
-        }
+            if ($(JsRelacion.Controles.ddlCategoriaId).val().length == 0) {
+                validar = false;
+                $(JsRelacion.Controles.TipoCategoriaHelp).removeClass("hidden");
+            }
 
-        if ($(JsRelacion.Controles.ddlDetalleDesagregacionId).val() == 0) {
-            validar = false;
-            $(JsRelacion.Controles.DetalleDesagregacionIDHelp).removeClass("hidden");
-        }
+            if ($(JsRelacion.Controles.ddlDetalleDesagregacionId).val() == 0) {
+                validar = false;
+                $(JsRelacion.Controles.DetalleDesagregacionIDHelp).removeClass("hidden");
+            }
 
-        return validar;
-    },
+            return validar;
+        },
     },
 
     "Consultas": {
 
-    "ConsultaListaRelaciones": function () {
-        $.ajax({
-            url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaRelacionCategoria',
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            dataType: "JSON",
-            beforeSend: function () {
-                $("#loading").fadeIn();
-            },
-            success: function (obj) {
-                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                    JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
-                    JsRelacion.Metodos.CargarTablaRelacion();
-                } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { location.reload(); });
+        "ConsultaListaRelaciones": function () {
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaRelacionCategoria',
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                success: function (obj) {
+                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                        JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
+                        JsRelacion.Metodos.CargarTablaRelacion();
+                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                    $("#loading").fadeOut();
                 }
-                else {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { location.reload(); })
-                }
+            }).fail(function (obj) {
+
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
                 $("#loading").fadeOut();
-            }
-        }).fail(function (obj) {
+            })
+        },
 
-            jsMensajes.Metodos.OkAlertErrorModal()
-                .set('onok', function (closeEvent) { })
-            $("#loading").fadeOut();
-        })
-    },
+        "ConsultaListaRelacionDetalle": function () {
+            let idRelacion = $(JsRelacion.Controles.id).val();
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaCategoriasDetalle?IdRelacionCategoria=' + idRelacion,
+                type: "GET",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                success: function (obj) {
+                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                        JsRelacion.Variables.ListadoDetalleRelaciones = obj.objetoRespuesta;
+                        JsRelacion.Metodos.CargarTablaDetalleRelacion();
+                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                    $("#loading").fadeOut();
+                }
+            }).fail(function (obj) {
 
-    "ConsultaListaRelacionDetalle": function () {
-        let idRelacion = $(JsRelacion.Controles.id).val();
-        $.ajax({
-            url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaCategoriasDetalle?IdRelacionCategoria=' + idRelacion,
-            type: "GET",
-            dataType: "JSON",
-            beforeSend: function () {
-                $("#loading").fadeIn();
-            },
-            success: function (obj) {
-                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                    JsRelacion.Variables.ListadoDetalleRelaciones = obj.objetoRespuesta;
-                    JsRelacion.Metodos.CargarTablaDetalleRelacion();
-                } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { location.reload(); });
-                }
-                else {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { location.reload(); })
-                }
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
                 $("#loading").fadeOut();
-            }
-        }).fail(function (obj) {
+            })
+        },
 
-            jsMensajes.Metodos.OkAlertErrorModal()
-                .set('onok', function (closeEvent) { })
-            $("#loading").fadeOut();
-        })
-    },
+        "ConsultarDesagregacionId": function (selected) {
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerDetalleDesagregacionId?select=' + selected,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                success: function (obj) {
 
-    "ConsultarDesagregacionId": function (selected) {
-        $.ajax({
-            url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerDetalleDesagregacionId?select=' + selected,
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            dataType: "JSON",
-            beforeSend: function () {
-                $("#loading").fadeIn();
-            },
-            success: function (obj) {
+                    let html = "";
 
-                let html = "";
+                    for (var i = 0; i < obj.length; i++) {
 
-                for (var i = 0; i < obj.length; i++) {
+                        html = html + "<option value='" + obj[i] + "'>" + obj[i] + "</option>"
+                    }
 
-                    html = html + "<option value='" + obj[i] + "'>" + obj[i] + "</option>"
+                    $(JsRelacion.Controles.ddlDetalleDesagregacionId).html(html);
+
+
+                    $("#loading").fadeOut();
                 }
+            }).fail(function (obj) {
 
-                $(JsRelacion.Controles.ddlDetalleDesagregacionId).html(html);
-
-
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
                 $("#loading").fadeOut();
-            }
-        }).fail(function (obj) {
+            })
+        },
 
-            jsMensajes.Metodos.OkAlertErrorModal()
-                .set('onok', function (closeEvent) { })
-            $("#loading").fadeOut();
-        })
-    },
+        "ConsultarDetalleDesagregacionId": function (selected) {
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaDetalleDesagregacion?select=' + selected,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                success: function (obj) {
 
-    "InsertarRelacion": function () {
-        let relacion = new Object();
-        relacion.Codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
-        relacion.Nombre = $(JsRelacion.Controles.txtNombre).val().trim();
-        relacion.CantidadCategoria = $(JsRelacion.Controles.TxtCantidad).val();
-        relacion.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
-        relacion.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
-        $.ajax({
-            url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/InsertarRelacionCategoria',
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-                $("#loading").fadeIn();
-            },
-            data: { relacion },
-            success: function (obj) {
+                    let html = "";
+
+                    for (var i = 0; i < obj.length; i++) {
+
+                        html = html + "<option value='" + obj[i] + "'>" + obj[i] + "</option>"
+                    }
+
+                    $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).html(html);
+
+
+                    $("#loading").fadeOut();
+                }
+            }).fail(function (obj) {
+
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
                 $("#loading").fadeOut();
-                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido creada")
-                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-                } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) {
-                            location.reload();
-                        });
+            })
+        },
+
+        "InsertarRelacion": function () {
+            let relacion = new Object();
+            relacion.Codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
+            relacion.Nombre = $(JsRelacion.Controles.txtNombre).val().trim();
+            relacion.CantidadCategoria = $(JsRelacion.Controles.TxtCantidad).val();
+            relacion.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
+            relacion.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/InsertarRelacionCategoria',
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                data: { relacion },
+                success: function (obj) {
+                    $("#loading").fadeOut();
+                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                        jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido creada")
+                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
                 }
-                else {
-                    jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                        .set('onok', function (closeEvent) {
-                            location.reload();
-                        });
-                }
-            }
-        }).fail(function (obj) {
+            }).fail(function (obj) {
 
 
-            jsMensajes.Metodos.OkAlertErrorModal()
-                .set('onok', function (closeEvent) { })
-            $("#loading").fadeOut();
-
-        })
-    },
-
-    "EditarRelacion": function () {
-        let relacion = new Object();
-        relacion.id = $(JsRelacion.Controles.id).val();
-        relacion.Codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
-        relacion.Nombre = $(JsRelacion.Controles.txtNombre).val().trim();
-        relacion.CantidadCategoria = $(JsRelacion.Controles.TxtCantidad).val();
-        relacion.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
-        relacion.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
-
-        $.ajax({
-            url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/EditarRelacionCategoria',
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-                $("#loading").fadeIn();
-            },
-            data: { relacion },
-            success: function (obj) {
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
                 $("#loading").fadeOut();
-                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido editada")
-                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-                } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) {
-                            location.reload();
-                        });
+
+            })
+        },
+
+        "EditarRelacion": function () {
+            let relacion = new Object();
+            relacion.id = $(JsRelacion.Controles.id).val();
+            relacion.Codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
+            relacion.Nombre = $(JsRelacion.Controles.txtNombre).val().trim();
+            relacion.CantidadCategoria = $(JsRelacion.Controles.TxtCantidad).val();
+            relacion.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
+            relacion.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
+
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/EditarRelacionCategoria',
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                data: { relacion },
+                success: function (obj) {
+                    $("#loading").fadeOut();
+                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                        jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido editada")
+                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
                 }
-                else {
-                    jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                        .set('onok', function (closeEvent) {
-                            location.reload();
-                        });
-                }
-            }
-        }).fail(function (obj) {
+            }).fail(function (obj) {
 
 
-            jsMensajes.Metodos.OkAlertErrorModal()
-                .set('onok', function (closeEvent) { })
-            $("#loading").fadeOut();
-
-        })
-
-    },
-
-    "EliminarRelacionCategoria": function (idRelacionCategoria) {
-        $.ajax({
-            url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/EliminarRelacionCategoria',
-            type: "POST",
-            dataType: "JSON",
-            beforeSend: function () {
-                $("#loading").fadeIn();
-            },
-            data: { idRelacionCategoria },
-            success: function (obj) {
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
                 $("#loading").fadeOut();
-                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido eliminado")
-                        .set('onok', function (closeEvent) {
-                            JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
-                            JsRelacion.Metodos.CargarTablaRelacion();
-                        });
-                } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { location.reload(); });
+
+            })
+
+        },
+
+        "EliminarRelacionCategoria": function (idRelacionCategoria) {
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/EliminarRelacionCategoria',
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                data: { idRelacionCategoria },
+                success: function (obj) {
+                    $("#loading").fadeOut();
+                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                        jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido eliminado")
+                            .set('onok', function (closeEvent) {
+                                JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
+                                JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
+                            });
+                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
                 }
-                else {
-                    jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                        .set('onok', function (closeEvent) { location.reload(); });
+            }).fail(function (obj) {
+
+
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
+                $("#loading").fadeOut();
+
+            })
+        },
+
+        "InsertarDetalleRelacion": function () {
+            let relacion = new Object();
+            relacion.id = $(JsRelacion.Controles.id).val();
+            relacion.idCategoriaAtributo = $(JsRelacion.Controles.ddlCategoriaDetalle).val();
+            relacion.CategoriaAtributoValor = $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val();
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/InsertarDetalleRelacion',
+                type: "POST",
+                dataType: "JSON",
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                data: { relacion },
+                success: function (obj) {
+                    $("#loading").fadeOut();
+                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                        jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido creada")
+                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
                 }
-            }
-        }).fail(function (obj) {
+            }).fail(function (obj) {
 
 
-            jsMensajes.Metodos.OkAlertErrorModal()
-                .set('onok', function (closeEvent) { })
-            $("#loading").fadeOut();
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
+                $("#loading").fadeOut();
 
-        })
-    },
-
+            })
+        },
     }
 }
 
-$(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
-    let id = $(this).val();
-    window.location.href = "/Fonatel/RelacionCategoria/Detalle?idRelacionCategoria=" + id;
-});
-
-$(document).on("click", JsRelacion.Controles.btnEditarRelacion, function () {
-    let id = $(this).val();
-    window.location.href = "/Fonatel/RelacionCategoria/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
-});
-
+//EVENTO PARA GUARDAR RELACION ENTRE CATEGORIAS
 $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
 
     e.preventDefault();
@@ -387,22 +460,13 @@ $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
 
 });
 
-$(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
-    e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
-        .set('onok', function (closeEvent) {
-            window.location.href = "/Fonatel/RelacionCategoria/Index";
-        });
+//EVENTO PARA EDITAR RELACION ENTRE CATEGORIAS
+$(document).on("click", JsRelacion.Controles.btnEditarRelacion, function () {
+    let id = $(this).val();
+    window.location.href = "/Fonatel/RelacionCategoria/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
 
-$(document).on("click", JsRelacion.Controles.btnCancelarDetalle, function (e) {
-    e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
-        .set('onok', function (closeEvent) {
-            window.location.href = "/Fonatel/RelacionCategoria/Index";
-        });
-});
-
+//EVENTO DE CAMBIO PARA CARGAR CATEGORIAS DESAGREGACION 
 $(document).on("change", JsRelacion.Controles.ddlCategoriaId, function () {
 
     let seleted = $(this).val();
@@ -412,15 +476,30 @@ $(document).on("change", JsRelacion.Controles.ddlCategoriaId, function () {
 
 });
 
+//EVENTO PARA AGREGAR DETALLE 
+$(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
+    let id = $(this).val();
+    window.location.href = "/Fonatel/RelacionCategoria/Detalle?idRelacionCategoria=" + id;
+});
+
+//EVENTO DE CAMBIO PARA CARGAR DETALLE CATEGORIAS DESAGREGACION 
+$(document).on("change", JsRelacion.Controles.ddlCategoriaDetalle, function () {
+    let seleted = $(this).val();
+    if (seleted != 0) {
+        JsRelacion.Consultas.ConsultarDetalleDesagregacionId(seleted);
+    }
+});
+
+//EVENTO PARA GUARDAR DETALLE RELACION ENTRE CATEGORIAS 
 $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea relacionar la Categoría?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido relacionada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+            JsRelacion.Consultas.InsertarDetalleRelacion();
         });
 });
 
+//EVENTO PARA ELIMINAR DETALLE RELACION ENTRE CATEGORIAS 
 $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, function (e) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Atributo?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
@@ -429,17 +508,36 @@ $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, functio
         });
 });
 
+//EVENTO PARA ELIMINAR RELACION ENTRE CATEGORIAS 
 $(document).on("click", JsRelacion.Controles.btnDeleteRelacion, function (e) {
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Relación entre Categoría?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            /*JsRelacion.Consultas.EliminarRelacionCategoria(id);*/
-            alert(id)
+            JsRelacion.Consultas.EliminarRelacionCategoria(id);
         });
 });
 
+//EVENTO PARA AGREGAR DETALLE POR EXCEL
 $(document).on("click", JsRelacion.Controles.btnAgregarDetalle, function () {
     $(JsRelacion.Controles.inputFileAgregarDetalle).click();
+});
+
+//EVENTO PARA CANCELAR DETALLE RELACION CATEGORIA
+$(document).on("click", JsRelacion.Controles.btnCancelarDetalle, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            window.location.href = "/Fonatel/RelacionCategoria/Index";
+        });
+});
+
+//EVENTO PARA CANCELAR RELACION CATEGORIA
+$(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            window.location.href = "/Fonatel/RelacionCategoria/Index";
+        });
 });
 
 $(function () {

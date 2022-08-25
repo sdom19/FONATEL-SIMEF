@@ -53,16 +53,33 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// Autor: Francisco Vindas Ruiz
         /// Fecha: 24/08/2022
-        /// Ejecutar procedimiento almacenado para obtener datos del detalle relacion categoria
+        /// Ejecutar procedimiento almacenado para insertar y editar datos detalle relacion categoria
         /// </summary>
         /// <param name="objRelacionCategoria"></param>
         /// <returns></returns>
         public List<DetalleRelacionCategoria> ActualizarDatos(DetalleRelacionCategoria objDetalle)
         {
             List<DetalleRelacionCategoria> ListaDetalle = new List<DetalleRelacionCategoria>();
-
+            using (db = new SIMEFContext())
+            {
+                ListaDetalle = db.Database.SqlQuery<DetalleRelacionCategoria>
+                    ("execute spActualizarDetalleRelacionCategoria @idDetalleRelacionCategoria, @IdRelacionCategoria, @idCategoriaAtributo, @CategoriaAtributoValor, @Estado",
+                      new SqlParameter("@idDetalleRelacionCategoria", objDetalle.idDetalleRelacionCategoria),
+                      new SqlParameter("@IdRelacionCategoria", objDetalle.IdRelacionCategoria),
+                      new SqlParameter("@idCategoriaAtributo", objDetalle.idCategoriaAtributo),
+                      new SqlParameter("@CategoriaAtributoValor", objDetalle.CategoriaAtributoValor),
+                      new SqlParameter("@Estado", objDetalle.Estado)
+                    ).ToList();
+            }
 
             return ListaDetalle;
+        }
+
+
+        private List<DetalleCategoriaTexto> ListaDetalleCategoriaTexto(int id)
+        {
+            return db.DetalleCategoriaTexto
+                             .Where(x => x.idCategoria == id && x.Estado == true).ToList();
         }
 
     }

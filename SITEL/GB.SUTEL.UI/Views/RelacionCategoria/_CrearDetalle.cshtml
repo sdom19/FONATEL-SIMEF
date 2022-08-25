@@ -8,12 +8,11 @@
                 <label for="ddlCategoriaDetalle" class="col-sm-12 col-form-label ">@EtiquetasViewRelacionCategoria.CategoriaAtributo</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
-                        <select class="listasDesplegables" id="ddlCategoriaDetalle">
-                            <option></option>
-                            <option>Provincia</option>
-                        </select>
+
+                        @Html.DropDownListFor(model => model.idCategoria, new SelectList(ViewBag.ListaCatergorias, "idCategoria", "NombreCategoria"), "Seleccione", new { @class = "listasDesplegables", id = "ddlCategoriaDetalle" })
+
                     </div>
-                    <small id="CategoriaDetalleHelp" class="form-text text-danger">@Etiquetas.CampoRequerido</small>
+                    <small id="CategoriaDetalleHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -24,11 +23,9 @@
                     <div class="select2-wrapper">
                         <select class="listasDesplegables" id="ddlDetalleDesagregacionAtributo">
                             <option></option>
-                            <option>Cartago</option>
-                            <option>San José</option>
                         </select>
                     </div>
-                    <small id="DetalleDesagregacionAtributoHelp" class="form-text text-danger">@Etiquetas.CampoRequerido</small>
+                    <small id="DetalleDesagregacionAtributoHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
