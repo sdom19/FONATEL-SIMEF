@@ -189,6 +189,38 @@ function CargarDatasource() {
     });
 }
 
+
+
+function ConcatenarItems(lista, nombreObj) { // concatenar una serie de objectos de una lista, según el parámetro enviado
+    let resultado = "";
+    lista.forEach(item => {
+        resultado += item[nombreObj].trim() + ", ";
+    });
+    return resultado.slice(0, resultado.length - 2) + ".";
+}
+
+function execAjaxCall(pURL, pHttpMethod, pParams = null) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: jsUtilidades.Variables.urlOrigen + pURL,
+            type: pHttpMethod,
+            dataType: "JSON",
+            data: pParams,
+            success: function (obj) {
+                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                    resolve(obj);
+                }
+                else {
+                    reject(obj);
+                }
+            },
+            error: function () {
+                reject()
+            }
+        })
+    })
+}
+
 $(document).on("keypress", '.solo_operacion', function (e) {
     var regex = new RegExp("^[0-9]|[-+*>=</]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
@@ -200,7 +232,7 @@ $(document).on("keypress", '.solo_operacion', function (e) {
 
 
 $(document).on("keypress", '.alfa_numerico', function (e) {
-    var regex = new RegExp("^[0-9]|[a-z]|[A-Z]|[\\s]+$");
+    var regex = new RegExp("^[0-9]|[a-z]|[\s]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         e.preventDefault();
@@ -208,6 +240,14 @@ $(document).on("keypress", '.alfa_numerico', function (e) {
     }
 });
 
+$(document).on("keypress", '.alfa_numerico_v2', function (e) {
+    var regex = new RegExp("^[0-9]|[A-Za-zÁÉÍÓÚáéíóúñÑ]|[\\s]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        e.preventDefault();
+        return false;
+    }
+});
 
 $(document).on("keypress", '.solo_texto', function (e) {
     var regex = new RegExp("^[a-z]|[A-Z]|[\\s]+$");

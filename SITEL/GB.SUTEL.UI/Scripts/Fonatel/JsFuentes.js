@@ -98,65 +98,32 @@
 
     "Consultas": {
         "ConsultaListaFuentes": function () {
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/Fuentes/ObtenerListaFuentes',
-                type: "GET",
-                contentType: "application/json; charset=utf-8",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        JsFuentes.Variables.ListadoFuentes = obj.objetoRespuesta;
-                        JsFuentes.Metodos.CargarTablaFuentes();
-                    } else  {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
-                    }
-                  
+            $("#loading").fadeIn();
+            execAjaxCall("/Fuentes/ObtenerListaFuentes", "GET")
+                .then((data) => {
+                    JsFuentes.Variables.ListadoFuentes = data.objetoRespuesta;
+                    JsFuentes.Metodos.CargarTablaFuentes();
+                }).catch((data) => {
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { location.reload(); });
+                }).finally(() => {
                     $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
+                });
         },
         "EliminarFuente": function (id) {
             let fuente = new Object();
-
             fuente.id = id;
-
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/Fuentes/EliminarFuente',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { fuente },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-
-                        jsMensajes.Metodos.OkAlertModal("La Fuente ha sido eliminada ")
-                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });
-
-
-                    } else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
-                    }
-
+            $("#loading").fadeIn();
+            execAjaxCall("/Fuentes/EliminarFuente", "POST", fuente)
+                .then((data) => {
+                    jsMensajes.Metodos.OkAlertModal("La Fuente ha sido eliminada ")
+                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });
+                }).catch((data) => {
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { location.reload(); });
+                }).finally(() => {
                     $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
+             });
         },
         "AgregarDestinatario": function () {
             let destinatario = new Object()
@@ -164,251 +131,163 @@
             destinatario.CorreoElectronico = $(JsFuentes.Controles.txtCorreo).val();
             destinatario.fuenteId = $(JsFuentes.Controles.txtidFuente).val();
             destinatario.idDetalleFuente = $(JsFuentes.Controles.txtidDetalleFuente).val();
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/Fuentes/AgregarDestinatario',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { destinatario },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-
-                        let mensaje = "El destinatario ha sido creado";
-                        if (destinatario.idDetalleFuente > 0) {
-                            mensaje = "El destinatario ha sido editado"
-                        }
-
-
-                        jsMensajes.Metodos.OkAlertModal(mensaje) 
-                           .set('onok', function (closeEvent) {
-                               JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta;
-                               JsFuentes.Metodos.CargarTablaDestinatarios();
-                               $(JsFuentes.Controles.txtNombre).val("");
-                               $(JsFuentes.Controles.txtCorreo).val("");
-                               $(JsFuentes.Controles.txtidDetalleFuente).val("");
-                           });
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+            $("#loading").fadeIn();
+            execAjaxCall("/Fuentes/AgregarDestinatario", "POST", destinatario)
+                .then((data) => {
+                    let mensaje = "El destinatario ha sido creado";
+                    if (destinatario.idDetalleFuente > 0) {
+                        mensaje = "El destinatario ha sido editado"
+                    }
+                    jsMensajes.Metodos.OkAlertModal(mensaje)
+                        .set('onok', function (closeEvent) {
+                            JsFuentes.Variables.ListaDestinatarios = data.objetoRespuesta;
+                            JsFuentes.Metodos.CargarTablaDestinatarios();
+                            $(JsFuentes.Controles.txtNombre).val("");
+                            $(JsFuentes.Controles.txtCorreo).val("");
+                            $(JsFuentes.Controles.txtidDetalleFuente).val("");
+                     });
+                }).catch((data) => {
+                    if (data.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
                     } else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) {  });
+                        jsMensajes.Metodos.OkAlertErrorModal(data.MensajeError)
+                            .set('onok', function (closeEvent) { });
                     }
-
+                }).finally(() => {
                     $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
-
-
-
+             });
         },
-        "AgregarFuente": function (parcial) {
-            let fuente = new Object()
-             fuente.Fuente = $(JsFuentes.Controles.txtFuente).val();
-            fuente.CantidadDestinatario = $(JsFuentes.Controles.txtCantidad).val();
-            fuente.id = $(JsFuentes.Controles.txtidFuente).val();
-
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/Fuentes/AgregarFuente',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { fuente },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-
-                        if (parcial) {
-                            jsMensajes.Metodos.OkAlertModal("La Fuente ha sido creada")
-                                .set('onok', function (closeEvent) {
-                                    window.location.href = "/Fonatel/Fuentes/Index";
-                                });
-                        }
-                        else {
-                            $(JsFuentes.Controles.txtidFuente).val(obj.objetoRespuesta[0].id);
-                        }             
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+        "AgregarFuente": async function (parcial) {
+            $("#loading").fadeIn();
+            let objetoFuente = new Object()
+            objetoFuente.Fuente = $(JsFuentes.Controles.txtFuente).val();
+            objetoFuente.CantidadDestinatario = $(JsFuentes.Controles.txtCantidad).val();
+            objetoFuente.id = $(JsFuentes.Controles.txtidFuente).val();
+            execAjaxCall("/Fuentes/AgregarFuente", "POST", objetoFuente)
+                .then((obj) => {
+                    if (parcial) {
+                        jsMensajes.Metodos.OkAlertModal("La Fuente ha sido creada")
+                            .set('onok', function (closeEvent) {
+                                window.location.href = "/Fonatel/Fuentes/Index";
+                            });
+                    }
+                    else {
+                        $(JsFuentes.Controles.txtidFuente).val(obj.objetoRespuesta[0].id);
+                    }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
                     } else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) {  });
+                            .set('onok', function (closeEvent) { });
                     }
-
+                }).finally(() => {
                     $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
-
-
-
+                });
+        
         },
         "EliminarDestinatario": function (id) {
-            let destinatario = new Object();
-
-             destinatario.idDetalleFuente = id;
-             destinatario.fuenteId = $(JsFuentes.Controles.txtidFuente).val();
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/Fuentes/EliminarDestinatario',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { destinatario },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        jsMensajes.Metodos.OkAlertModal("El Destinatario ha sido eliminado")
-                            .set('onok', function (closeEvent) {
-                                JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta;
-                                JsFuentes.Metodos.CargarTablaDestinatarios();
-                                $(JsFuentes.Controles.txtNombre).val("");
-                                $(JsFuentes.Controles.txtCorreo).val("");
-                            });
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+         let destinatario = new Object();
+         destinatario.idDetalleFuente = id;
+         destinatario.fuenteId = $(JsFuentes.Controles.txtidFuente).val();
+         execAjaxCall("/Fuentes/EliminarDestinatario", "POST", destinatario)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("El Destinatario ha sido eliminado")
+                        .set('onok', function (closeEvent) {
+                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta;
+                            JsFuentes.Metodos.CargarTablaDestinatarios();
+                            $(JsFuentes.Controles.txtNombre).val("");
+                            $(JsFuentes.Controles.txtCorreo).val("");
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
                     } else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) { location.reload(); });
                     }
-
+                }).finally(() => {
                     $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
+                });
         },
         "ActivarFuente": function () {
+            $("#loading").fadeIn();
             let fuente = new Object()
             fuente.id = $(JsFuentes.Controles.txtidFuente).val();
-
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/Fuentes/ActivarFuente',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { fuente },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        jsMensajes.Metodos.OkAlertModal("La Fuente ha sido creada")
-                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });
-                      
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+            execAjaxCall("/Fuentes/ActivarFuente", "POST", fuente)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Fuente ha sido creada")
+                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
                     } else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) {  });
+                            .set('onok', function (closeEvent) { });
                     }
-
+                }).finally(() => {
                     $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
-        },
+                });
+           },
         "ConsultarDestinatarios": function (id) {
+            $("#loading").fadeIn();
             let destinatario = new Object()
             destinatario.idDetalleFuente = id;
-            
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/Fuentes/ConsultarDestinatarios',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { destinatario },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta;
-                        if (JsFuentes.Variables.ListaDestinatarios.length>0) {
-                            let destinatario = JsFuentes.Variables.ListaDestinatarios[0];
-                            $(JsFuentes.Controles.txtidDetalleFuente).val(destinatario.idDetalleFuente);
-                            $(JsFuentes.Controles.txtNombre).val(destinatario.NombreDestinatario);
-                            $(JsFuentes.Controles.txtCorreo).val(destinatario.CorreoElectronico)
-                        }
-                    } else {
+            execAjaxCall("/Fuentes/ConsultarDestinatarios", "POST", destinatario)
+                .then((obj) => {
+                    JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta;
+
+                    if (JsFuentes.Variables.ListaDestinatarios.length > 0) {
+                        let destinatario = JsFuentes.Variables.ListaDestinatarios[0];
+                        $(JsFuentes.Controles.txtidDetalleFuente).val(destinatario.idDetalleFuente);
+                        $(JsFuentes.Controles.txtNombre).val(destinatario.NombreDestinatario);
+                        $(JsFuentes.Controles.txtCorreo).val(destinatario.CorreoElectronico)
+                    }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
-                    }
-
-                    $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
-
-
-
-        },
-
-        "ValidarExistenciaFuente": function (idfuente) {
-            let fuente = new Object()
-            fuente.id= idfuente;
-
-
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/Fuentes/ValidarFuente',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { fuente },
-                success: function (obj) {
-                    $("#loading").fadeOut();
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        if (obj.objetoRespuesta.length == 0) {
-                            JsFuentes.Consultas.EliminarFuente(idfuente);
-                        } else {
-                            let dependencias = obj.objetoRespuesta[i] + "<br>"
-                          
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Fuentes ya está en uso en las<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
-                                .set('onok', function (closeEvent) {
-                                    JsFuentes.Consultas.EliminarFuente(idfuente);
-                                });
-                        }
                     } else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
-
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { });
                     }
-                }
-            }).fail(function (obj) {
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+        "ValidarExistenciaFuente": function (idfuente) {
+            $("#loading").fadeIn();
+            let fuente = new Object()
+            fuente.id = idfuente;
+            execAjaxCall("/Fuentes/ValidarFuente", "POST", fuente)
+                .then((obj) => {
+                    if (obj.objetoRespuesta.length == 0) {
+                        JsFuentes.Consultas.EliminarFuente(idfuente);
+                    } else {
+                        let dependencias = obj.objetoRespuesta[i] + "<br>"
 
-            });
-        } 
+                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Fuentes ya está en uso en las<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                            .set('onok', function (closeEvent) {
+                                JsFuentes.Consultas.EliminarFuente(idfuente);
+                            })
+                    }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    } else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
 
+        }
 
     }
 

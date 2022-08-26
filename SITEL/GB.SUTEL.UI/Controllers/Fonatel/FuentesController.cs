@@ -121,21 +121,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
-        public async Task<string> AgregarFuente(FuentesRegistro fuente)
+        public async Task<string> AgregarFuente(FuentesRegistro objetoFuente)
         {
             user = User.Identity.GetUserId();
             RespuestaConsulta<List<FuentesRegistro>> result = null;
             await Task.Run(() =>
             {
-                if (String.IsNullOrEmpty(fuente.id))
+                if (String.IsNullOrEmpty(objetoFuente.id))
                 {
-                    fuente.UsuarioCreacion = user;
-                    result = FuenteBL.InsertarDatos(fuente);
+                    objetoFuente.UsuarioCreacion = user;
+                    result = FuenteBL.InsertarDatos(objetoFuente);
                 }
                 else
                 {
-                    fuente.UsuarioModificacion = user;
-                    result = FuenteBL.ActualizarElemento(fuente);
+                    objetoFuente.UsuarioModificacion = user;
+                    result = FuenteBL.ActualizarElemento(objetoFuente);
                 }
            
             });

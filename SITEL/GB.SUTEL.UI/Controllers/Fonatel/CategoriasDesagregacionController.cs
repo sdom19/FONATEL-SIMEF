@@ -196,18 +196,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Michael Hernández Cordero
         /// Cambio el estado de registro a desactivado y activado 
         /// </summary>
-        /// <param name="categoria"></param>
+        /// <param name="Categoria"></param>
         /// <returns></returns>
         [HttpPost]
 
-        public async Task<string> CambiarEstadoCategoria(CategoriasDesagregacion categoria)
+        public async Task<string> CambiarEstadoCategoria(CategoriasDesagregacion Categoria)
         {
             user = User.Identity.GetUserId();
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
             await Task.Run(() =>
             {
-                categoria.UsuarioModificacion = user;
-                result = categoriaBL.CambioEstado(categoria); 
+                Categoria.UsuarioModificacion = user;
+                result = categoriaBL.CambioEstado(Categoria); 
             });
 
             return JsonConvert.SerializeObject(result);
@@ -360,19 +360,19 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// 09/08/2022
         /// Michael Hernández
         /// </summary>
-        /// <param name="detalleCategoria"></param>
+        /// <param name="DetalleCategoria"></param>
         /// <returns></returns>
 
         [HttpPost]
 
-        public async Task<string> InsertarCategoriasDetalle(DetalleCategoriaTexto detalleCategoria)
+        public async Task<string> InsertarCategoriasDetalle(DetalleCategoriaTexto DetalleCategoria)
         {
             user = User.Identity.GetUserId();
-            detalleCategoria.usuario = user;
+            DetalleCategoria.usuario = user;
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
             {
-                result = categoriaDetalleBL.InsertarDatos(detalleCategoria);
+                result = categoriaDetalleBL.InsertarDatos(DetalleCategoria);
             });
           
             return JsonConvert.SerializeObject(result);
@@ -412,17 +412,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idDetalleCategoria"></param>
         /// <returns>JSON</returns>
         [HttpPost]
-        public async Task<string> EliminarCategoriasDetalle(string idDetalleCategoria)
+        public async Task<string> EliminarCategoriasDetalle( DetalleCategoriaTexto DetalleCategoriaTexto)
         {
-            user = User.Identity.GetUserId();
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
             {
-                result = categoriaDetalleBL.EliminarElemento(new DetalleCategoriaTexto()
-                {
-                    id = idDetalleCategoria,
-                    usuario = user
-                });
+                DetalleCategoriaTexto.usuario = User.Identity.GetUserId();
+                result = categoriaDetalleBL.EliminarElemento(DetalleCategoriaTexto);
 
             });
             return JsonConvert.SerializeObject(result);

@@ -245,8 +245,8 @@ namespace GB.SIMEF.BL
                     }
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
-                        objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
-                        clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
+                        objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
+                        clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
                     }
                     else
                     {
@@ -257,8 +257,6 @@ namespace GB.SIMEF.BL
                         }
                     }
                 }
-
-
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
                             ResultadoConsulta.Clase, objeto.Codigo);
