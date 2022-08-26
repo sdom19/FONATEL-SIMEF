@@ -268,49 +268,71 @@ namespace GB.SIMEF.BL
         /// Francisco Vindas Ruiz
         /// Metodo para obtener la lista Relacion Categorias
         /// </summary>
-        public List<string> ObtenerListaCategoria(CategoriasDesagregacion obj)
+        public RespuestaConsulta<List<string>> ObtenerListaCategoria(CategoriasDesagregacion obj)
         {
-            CategoriasDesagregacion Categoria = clsDatosTexto.ObtenerDatos(obj).Single();
+            RespuestaConsulta<List<string>> result = new RespuestaConsulta<List<string>>();
 
-            var listaRelacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() {idCategoria=Categoria.idCategoria }).ToList();
+            result.objetoRespuesta = new List<string>();
 
-            List<string> result = new List<string>();
+            var ErrorControlado = false;
 
-            if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
+            try
             {
-                DateTime fecha = Categoria.DetalleCategoriaFecha.FechaMinima;
+                CategoriasDesagregacion Categoria = clsDatosTexto.ObtenerDatos(obj).Single();
 
-                while (fecha <= Categoria.DetalleCategoriaFecha.FechaMaxima)
+                var listaRelacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { idCategoria = Categoria.idCategoria }).ToList();
+
+
+                if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
                 {
-                    if (listaRelacionCategoria.Where(x => x.idCategoriaValor == fecha.ToString()).Count() == 0) {
+                    DateTime fecha = Categoria.DetalleCategoriaFecha.FechaMinima;
 
-                        result.Add(fecha.ToString());
+                    while (fecha <= Categoria.DetalleCategoriaFecha.FechaMaxima)
+                    {
+                        if (listaRelacionCategoria.Where(x => x.idCategoriaValor == fecha.ToString()).Count() == 0)
+                        {
+
+                            result.objetoRespuesta.Add(fecha.ToString());
+                        }
+
+                        fecha = fecha.AddDays(1);
                     }
-                    
-                    fecha = fecha.AddDays(1);
                 }
-            }
-            else if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
-            {
-
-                int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
-                for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
+                else if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
                 {
 
-                    //if (listaRelacionCategoria.Where(x => x.idCategoriaValor == numeroMinimo.ToString()).Count() == 0)
-                    //{
-                    //    result.Add(i.ToString());
-                    //}
+                    int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
+                    for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
+                    {
 
-                    result.Add(i.ToString());
+                        //if (listaRelacionCategoria.Where(x => x.idCategoriaValor == numeroMinimo.ToString()).Count() == 0)
+                        //{
+                        //    result.Add(i.ToString());
+                        //}
 
+                        result.objetoRespuesta.Add(i.ToString());
+
+                    }
                 }
-            }
-            else
-            {
-                //ACA FALTA UNA VALIDACION
+                else
+                {
+                    //ACA FALTA UNA VALIDACION
 
-                result = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
+                    result.objetoRespuesta = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.MensajeError = ex.Message;
+
+                if (ErrorControlado)
+
+                    result.HayError = (int)Error.ErrorControlado;
+
+                else
+
+                    result.HayError = (int)Error.ErrorSistema;
             }
 
             return result;
@@ -322,39 +344,61 @@ namespace GB.SIMEF.BL
         /// Francisco Vindas Ruiz
         /// Metodo para obtener la lista Relacion Categorias
         /// </summary>
-        public List<string> ObtenerListaDetalleCategoria(CategoriasDesagregacion obj)
+        public RespuestaConsulta<List<string>> ObtenerListaDetalleCategoria(CategoriasDesagregacion obj)
         {
-            CategoriasDesagregacion Categoria = clsDatosTexto.ObtenerDatos(obj).Single();
+            RespuestaConsulta<List<string>> result = new RespuestaConsulta<List<string>>();
 
-            var listaRelacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { idCategoria = Categoria.idCategoria }).ToList();
+            result.objetoRespuesta = new List<string>();
 
-            List<string> result = new List<string>();
+            var ErrorControlado = false;
 
-            if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
+            try
             {
-                DateTime fecha = Categoria.DetalleCategoriaFecha.FechaMinima;
+                CategoriasDesagregacion Categoria = clsDatosTexto.ObtenerDatos(obj).Single();
 
-                while (fecha <= Categoria.DetalleCategoriaFecha.FechaMaxima)
+                var listaRelacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { idCategoria = Categoria.idCategoria }).ToList();
+
+
+                if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
+                {
+                    DateTime fecha = Categoria.DetalleCategoriaFecha.FechaMinima;
+
+                    while (fecha <= Categoria.DetalleCategoriaFecha.FechaMaxima)
+                    {
+
+                        result.objetoRespuesta.Add(fecha.ToString());
+
+                        fecha = fecha.AddDays(1);
+                    }
+                }
+                else if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
                 {
 
-                    result.Add(fecha.ToString());
-                    
-                    fecha = fecha.AddDays(1);
+                    int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
+                    for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
+                    {
+                        result.objetoRespuesta.Add(i.ToString());
+                    }
                 }
-            }
-            else if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
-            {
-
-                int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
-                for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
+                else
                 {
-                    result.Add(i.ToString());
+                    result.objetoRespuesta = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
                 }
+
             }
-            else
+            catch (Exception ex)
             {
-                result = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
+                result.MensajeError = ex.Message;
+
+                if (ErrorControlado)
+
+                    result.HayError = (int)Error.ErrorControlado;
+
+                else
+
+                    result.HayError = (int)Error.ErrorSistema;
             }
+
 
             return result;
 

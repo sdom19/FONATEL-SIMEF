@@ -68,22 +68,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             }).objetoRespuesta;
 
-            //EL DETALLE QUE CORRESPONDE A LA CATEGORIA SELECIONADA (TEXTO,NUMERO, FECHA)
 
             if (string.IsNullOrEmpty(idRelacionCategoria))
             {
-                return View("Index");
+                ViewBag.ListaCatergoriaValor = new List<SelectListItem>();
+                return View();
             }
             else
             {
-                RelacionCategoria objRelacion = new RelacionCategoria();
-                if (!string.IsNullOrEmpty(idRelacionCategoria))
-                {
-                    objRelacion.id = idRelacionCategoria;
-                    objRelacion = RelacionCategoriaBL.ObtenerDatos(objRelacion).objetoRespuesta.SingleOrDefault();
-                }
-                return View(objRelacion);
+                RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria })
+                    .objetoRespuesta.Single();
+
+                return View(model);
             }
+
+
         }
 
         [HttpGet]
@@ -106,14 +105,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             else
             {
                 RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() {id=id })
-                    .objetoRespuesta.Single() ;
+                    .objetoRespuesta.Single();
 
                 var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
                 {
                     idCategoria = model.idCategoria
                 }).objetoRespuesta.Single();
 
-                var listavalores = RelacionCategoriaBL.ObtenerListaCategoria(categoria)
+                var listavalores = RelacionCategoriaBL.ObtenerListaCategoria(categoria).objetoRespuesta
                     .Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
                 listavalores.Add(new SelectListItem() { Value = model.idCategoriaValor, Text = model.idCategoriaValor, Selected = true });
                 ViewBag.ListaCatergoriaValor = listavalores;
@@ -246,15 +245,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpGet]
-        public async Task<string> ObtenerDetalleDesagregacionId(int select)
+        public async Task<string> ObtenerDetalleDesagregacionId(int selected)
         {
-            List<string> result = new List<string>() ;
+            //ACA TAMBIEN PUEDO AGREGAR VALIDACIONES DE ERRORES CONTROLADOS
+
+            RespuestaConsulta < List < string >> result = new RespuestaConsulta<List<string>>();
 
             await Task.Run(() =>
             {
                 var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
                 {
-                    idCategoria = select
+                    idCategoria = selected
                 }).objetoRespuesta.Single();
 
                 result = RelacionCategoriaBL.ObtenerListaCategoria(categoria);
@@ -269,7 +270,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// Fecha 24-08-2022
         /// Francisco Vindas Ruiz
-        /// Obtiene datos para la table de detalle relacion categoria
+        /// Obtiene los datos en la vista principal en el Detalle Relacion Categoria 
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -289,20 +290,20 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// Fecha 17-08-2022
         /// Francisco Vindas
-        /// Obtiene datos para la table de categorías Detalle Detalle
+        /// Carga el combo box categoria atributo
         /// </summary>
         /// <returns></returns>
 
         [HttpGet]
-        public async Task<string> ObtenerListaDetalleDesagregacion(int select)
+        public async Task<string> CargarListaDetalleDesagregacion(int selected)
         {
-            List<string> result = new List<string>();
+            RespuestaConsulta<List<string>> result = new RespuestaConsulta<List<string>>();
 
             await Task.Run(() =>
             {
                 var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
                 {
-                    idCategoria = select
+                    idCategoria = selected
                 }).objetoRespuesta.Single();
 
                 result = RelacionCategoriaBL.ObtenerListaDetalleCategoria(categoria);

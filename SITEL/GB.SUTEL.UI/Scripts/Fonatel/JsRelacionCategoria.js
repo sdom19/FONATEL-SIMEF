@@ -12,6 +12,7 @@
         "btnDeleteRelacion": "#TablaRelacionCategoria tbody tr td .btn-delete",
         "btnEliminarDetalleRelacion": "#TablaDetalleRelacionCategoria tbody tr td .btn-delete",
         "btnGuardarDetalle": "#btnGuardarDetalle",
+        "btnEditarDetalle": "#TablaDetalleRelacionCategoria tbody tr td .btn-edit",
         "btnAgregarDetalle": "#btnAgregarDetalle",
         "inputFileAgregarDetalle": "#inputFileAgregarDetalle",
 
@@ -93,8 +94,8 @@
                 html = html + "<td scope='row'>" + detalle.idCategoriaAtributo + "</td>";
                 html = html + "<td scope='row'>" + detalle.CategoriaAtributoValor + "</td>";
 
-                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value=" + detalle.id + " class='btn-icon-base btn-edit'></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value=" + detalle.id + " class='btn-icon-base btn-delete'></button></td>";
+                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i +" title='Editar' value=" + detalle.id + " class='btn-icon-base btn-edit'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' data-index="+ i +" title='Eliminar' value=" + detalle.id + " class='btn-icon-base btn-delete'></button></td>";
                 html = html + "</tr>"
             }
             $(JsRelacion.Controles.TablaDetalleRelacion).html(html);
@@ -142,17 +143,10 @@
     },
 
     "Consultas": {
-
         "ConsultaListaRelaciones": function () {
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaRelacionCategoria',
-                type: "GET",
-                contentType: "application/json; charset=utf-8",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                success: function (obj) {
+            $("#loading").fadeIn();
+            execAjaxCall("/RelacionCategoria/ObtenerListaRelacionCategoria", "GET")
+                .then((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
                         JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
                         JsRelacion.Metodos.CargarTablaRelacion();
@@ -165,29 +159,8 @@
                             .set('onok', function (closeEvent) { location.reload(); })
                     }
                     $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
-        },
-
-        "ConsultaListaRelacionDetalle": function () {
-            let idRelacion = $(JsRelacion.Controles.id).val();
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaCategoriasDetalle?IdRelacionCategoria=' + idRelacion,
-                type: "GET",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        JsRelacion.Variables.ListadoDetalleRelaciones = obj.objetoRespuesta;
-                        JsRelacion.Metodos.CargarTablaDetalleRelacion();
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
                     }
@@ -195,242 +168,280 @@
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); })
                     }
+                }).finally(() => {
                     $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
+                });
+        },
 
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
+        "ConsultaListaRelacionDetalle": function () {
+
+            $("#loading").fadeIn();
+            let idRelacion = $(JsRelacion.Controles.id).val();
+            execAjaxCall("/RelacionCategoria/ObtenerListaCategoriasDetalle?IdRelacionCategoria=" + idRelacion, "GET")
+                .then((obj) => {
+                    JsRelacion.Variables.ListadoDetalleRelaciones = obj.objetoRespuesta;
+                    JsRelacion.Metodos.CargarTablaDetalleRelacion();
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
         },
 
         "ConsultarDesagregacionId": function (selected) {
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerDetalleDesagregacionId?select=' + selected,
-                type: "GET",
-                contentType: "application/json; charset=utf-8",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                success: function (obj) {
+
+            execAjaxCall("/RelacionCategoria/ObtenerDetalleDesagregacionId?selected=" + selected, "GET")
+
+                .then((obj) => {
 
                     let html = "";
 
-                    for (var i = 0; i < obj.length; i++) {
+                    for (var i = 0; i < obj.objetoRespuesta.length; i++) {
 
-                        html = html + "<option value='" + obj[i] + "'>" + obj[i] + "</option>"
+                        html = html + "<option value='" + obj.objetoRespuesta[i] + "'>" + obj.objetoRespuesta[i] + "</option>"
                     }
 
                     $(JsRelacion.Controles.ddlDetalleDesagregacionId).html(html);
 
-
+                }).catch((obj) => {
+                    console.log(obj);
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                }).finally(() => {
                     $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
+                });
 
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
+            //$.ajax({
+            //    url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerDetalleDesagregacionId?selected=' + selected,
+            //    type: "GET",
+            //    contentType: "application/json; charset=utf-8",
+            //    dataType: "JSON",
+            //    beforeSend: function () {
+            //        $("#loading").fadeIn();
+            //    },
+            //    success: function (obj) {
+
+            //        let html = "";
+
+            //        for (var i = 0; i < obj.length; i++) {
+
+            //            html = html + "<option value='" + obj[i] + "'>" + obj[i] + "</option>"
+            //        }
+
+            //        $(JsRelacion.Controles.ddlDetalleDesagregacionId).html(html);
+
+
+            //        $("#loading").fadeOut();
+            //    }
+            //}).fail(function (obj) {
+
+            //    jsMensajes.Metodos.OkAlertErrorModal()
+            //        .set('onok', function (closeEvent) { })
+            //    $("#loading").fadeOut();
+            //});
         },
 
         "ConsultarDetalleDesagregacionId": function (selected) {
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/ObtenerListaDetalleDesagregacion?select=' + selected,
-                type: "GET",
-                contentType: "application/json; charset=utf-8",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                success: function (obj) {
+
+            execAjaxCall("/RelacionCategoria/CargarListaDetalleDesagregacion?selected=" + selected, "GET")
+
+                .then((obj) => {
 
                     let html = "";
 
-                    for (var i = 0; i < obj.length; i++) {
+                    for (var i = 0; i < obj.objetoRespuesta.length; i++) {
 
-                        html = html + "<option value='" + obj[i] + "'>" + obj[i] + "</option>"
+                        html = html + "<option value='" + obj.objetoRespuesta[i] + "'>" + obj.objetoRespuesta[i] + "</option>"
                     }
 
                     $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).html(html);
 
-
+                }).catch((obj) => {
+                    console.log(obj);
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { location.reload(); })
+                }).finally(() => {
                     $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
+                });
         },
 
         "InsertarRelacion": function () {
-            let relacion = new Object();
-            relacion.Codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
-            relacion.Nombre = $(JsRelacion.Controles.txtNombre).val().trim();
-            relacion.CantidadCategoria = $(JsRelacion.Controles.TxtCantidad).val();
-            relacion.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
-            relacion.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/InsertarRelacionCategoria',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { relacion },
-                success: function (obj) {
-                    $("#loading").fadeOut();
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido creada")
-                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+
+            $("#loading").fadeIn();
+
+            let RelacionCategoria = new Object();
+            RelacionCategoria.Codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
+            RelacionCategoria.Nombre = $(JsRelacion.Controles.txtNombre).val().trim();
+            RelacionCategoria.CantidadCategoria = $(JsRelacion.Controles.TxtCantidad).val();
+            RelacionCategoria.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
+            RelacionCategoria.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
+
+            execAjaxCall("/RelacionCategoria/InsertarRelacionCategoria", "POST", RelacionCategoria)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido creada")
+                        .set('onok', function (closeEvent) {
+                            location.reload();
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
+                            .set('onok', function (closeEvent) { location.reload(); });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
                     }
-                }
-            }).fail(function (obj) {
-
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-
-            })
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
         },
 
         "EditarRelacion": function () {
-            let relacion = new Object();
-            relacion.id = $(JsRelacion.Controles.id).val();
-            relacion.Codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
-            relacion.Nombre = $(JsRelacion.Controles.txtNombre).val().trim();
-            relacion.CantidadCategoria = $(JsRelacion.Controles.TxtCantidad).val();
-            relacion.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
-            relacion.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
 
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/EditarRelacionCategoria',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { relacion },
-                success: function (obj) {
-                    $("#loading").fadeOut();
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido editada")
-                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+            $("#loading").fadeIn();
+
+            let RelacionCategoria = new Object();
+            RelacionCategoria.id = $(JsRelacion.Controles.id).val();
+            RelacionCategoria.Codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
+            RelacionCategoria.Nombre = $(JsRelacion.Controles.txtNombre).val().trim();
+            RelacionCategoria.CantidadCategoria = $(JsRelacion.Controles.TxtCantidad).val();
+            RelacionCategoria.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
+            RelacionCategoria.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
+
+            execAjaxCall("/RelacionCategoria/EditarRelacionCategoria", "POST", RelacionCategoria)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido editada")
+                        .set('onok', function (closeEvent) {
+                            location.reload();
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
+                            .set('onok', function (closeEvent) { location.reload(); });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
                     }
-                }
-            }).fail(function (obj) {
-
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-
-            })
+                }).finally(() => {
+                    $("#loading").fadeOut();
+             });
 
         },
 
         "EliminarRelacionCategoria": function (idRelacionCategoria) {
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/EliminarRelacionCategoria',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { idRelacionCategoria },
-                success: function (obj) {
-                    $("#loading").fadeOut();
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido eliminado")
-                            .set('onok', function (closeEvent) {
-                                JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
-                                JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
-                            });
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+
+            $("#loading").fadeIn();
+
+            execAjaxCall("/RelacionCategoria/EliminarRelacionCategoria", "POST", { idRelacionCategoria : idRelacionCategoria})
+                .then((obj) => {
+
+                    JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
+
+                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido eliminado")
+                        .set('onok', function (closeEvent) {
+                            
+                            JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
+
+                        });
+                }).catch((obj) => {
+                    console.log(obj);
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { location.reload(); });
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
                     }
-                }
-            }).fail(function (obj) {
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+
+            //$.ajax({
+            //    url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/EliminarRelacionCategoria',
+            //    type: "POST",
+            //    dataType: "JSON",
+            //    beforeSend: function () {
+            //        $("#loading").fadeIn();
+            //    },
+            //    data: { idRelacionCategoria },
+            //    success: function (obj) {
+            //        $("#loading").fadeOut();
+            //        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+            //            jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido eliminado")
+            //                .set('onok', function (closeEvent) {
+            //                    JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
+            //                    JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
+            //                });
+            //        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+            //            jsMensajes.Metodos.OkAlertErrorModal()
+            //                .set('onok', function (closeEvent) { location.reload(); });
+            //        }
+            //        else {
+            //            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+            //                .set('onok', function (closeEvent) { location.reload(); });
+            //        }
+            //    }
+            //}).fail(function (obj) {
 
 
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
+            //    jsMensajes.Metodos.OkAlertErrorModal()
+            //        .set('onok', function (closeEvent) { })
+            //    $("#loading").fadeOut();
 
-            })
+            //})
         },
 
         "InsertarDetalleRelacion": function () {
-            let relacion = new Object();
-            relacion.id = $(JsRelacion.Controles.id).val();
-            relacion.idCategoriaAtributo = $(JsRelacion.Controles.ddlCategoriaDetalle).val();
-            relacion.CategoriaAtributoValor = $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val();
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/InsertarDetalleRelacion',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { relacion },
-                success: function (obj) {
-                    $("#loading").fadeOut();
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido creada")
-                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+
+
+            let RelacionDetalle = new Object();
+            RelacionDetalle.id = $(JsRelacion.Controles.id).val();
+            RelacionDetalle.idCategoriaAtributo = $(JsRelacion.Controles.ddlCategoriaDetalle).val();
+            RelacionDetalle.CategoriaAtributoValor = $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val();
+
+            execAjaxCall("/RelacionCategoria/InsertarDetalleRelacion", "POST", RelacionDetalle)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido creada")
+                        .set('onok', function (closeEvent) {
+                            location.reload();
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
+                            .set('onok', function (closeEvent) { location.reload(); });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
                     }
-                }
-            }).fail(function (obj) {
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "CargarDetalleDesagregacion": function (index) {
 
 
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
+            if (JsRelacion.Variables.ListadoDetalleRelaciones.length > index) {
 
-            })
+                let RelacionDetalle = JsRelacion.Variables.ListadoDetalleRelaciones[index];
+
+                $(JsRelacion.Controles.ddlCategoriaDetalle).val(RelacionDetalle.idCategoriaAtributo);
+                $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val(RelacionDetalle.CategoriaAtributoValor);
+
+                $(JsRelacion.Controles.ddlCategoriaDetalle).trigger("change");
+                $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).trigger("change");
+
+            }             
         },
     }
 }
@@ -469,9 +480,9 @@ $(document).on("click", JsRelacion.Controles.btnEditarRelacion, function () {
 //EVENTO DE CAMBIO PARA CARGAR CATEGORIAS DESAGREGACION 
 $(document).on("change", JsRelacion.Controles.ddlCategoriaId, function () {
 
-    let seleted = $(this).val();
-    if (seleted != 0) {
-        JsRelacion.Consultas.ConsultarDesagregacionId(seleted);
+    let selected = $(this).val();
+    if (selected != 0) {
+        JsRelacion.Consultas.ConsultarDesagregacionId(selected);
     }
 
 });
@@ -484,9 +495,9 @@ $(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
 
 //EVENTO DE CAMBIO PARA CARGAR DETALLE CATEGORIAS DESAGREGACION 
 $(document).on("change", JsRelacion.Controles.ddlCategoriaDetalle, function () {
-    let seleted = $(this).val();
-    if (seleted != 0) {
-        JsRelacion.Consultas.ConsultarDetalleDesagregacionId(seleted);
+    let selected = $(this).val();
+    if (selected != 0) {
+        JsRelacion.Consultas.ConsultarDetalleDesagregacionId(selected);
     }
 });
 
@@ -497,6 +508,12 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
         .set('onok', function (closeEvent) {
             JsRelacion.Consultas.InsertarDetalleRelacion();
         });
+});
+
+//EVENTO PARA EDITAR DETALLE RELACION ENTRE CATEGORIAS
+$(document).on("click", JsRelacion.Controles.btnEditarDetalle, function () {
+    let id = $(this).attr("data-index");
+    JsRelacion.Consultas.CargarDetalleDesagregacion(id);
 });
 
 //EVENTO PARA ELIMINAR DETALLE RELACION ENTRE CATEGORIAS 
