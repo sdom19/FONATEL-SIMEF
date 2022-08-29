@@ -756,7 +756,7 @@ CreateView = {
             }
         },
 
-        CrearIndicadorParcial: function () {
+        CrearIndicadorGuardadoParcial: function () {
             let mensaje = "";
             if (!CreateView.Metodos.ValidarFormularioIndicador().puedeContinuar) {
                 mensaje = "Existen campos vacíos. ";
@@ -764,17 +764,12 @@ CreateView = {
 
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + "¿Desea realizar un guardado parcial del Indicador?", jsMensajes.Variables.actionType.agregar)
-                    .set('onok', function (closeEvent) {
-                        resolve(true);
-                    })
-                    .set("oncancel", function (closeEvent) {
-                        resolve(false);
-                    })
+                    .set('onok', function () { resolve(true); })
+                    .set("oncancel", function () { })
             })
                 .then(data => {
-                    console.log(data);
                     $("#loading").fadeIn();
-                    return CreateView.Consultas.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador());
+                    return CreateView.Consultas.CrearIndicadorGuardadoParcial(CreateView.Metodos.CrearObjFormularioIndicador());
                 })
                 .then(data => {
                     jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
@@ -852,6 +847,10 @@ CreateView = {
 
         CrearIndicador: function (pIndicador) {
             return execAjaxCall('/IndicadorFonatel/CrearIndicador', 'POST', { pIndicador: pIndicador });
+        },
+        
+        CrearIndicadorGuardadoParcial: function (pIndicador) {
+            return execAjaxCall('/IndicadorFonatel/CrearIndicadorGuardadoParcial', 'POST', { pIndicador: pIndicador });
         }
     },
 
@@ -923,7 +922,7 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.formIndicador.btnGuardar, function (e) {
-            CreateView.Metodos.CrearIndicadorParcial();
+            CreateView.Metodos.CrearIndicadorGuardadoParcial();
         });
 
         $(document).on("click", CreateView.Controles.btnCancelar, function (e) {

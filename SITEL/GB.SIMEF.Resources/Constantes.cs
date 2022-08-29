@@ -57,16 +57,26 @@ namespace GB.SIMEF.Resources
             public const int intDivisionPassword = 8;
         }
 
+        /// <summary>
+        /// Usos del indicador
+        /// </summary>
         public struct UsosIndicador
         {
             public const string interno = "Interno";
             public const string externo = "Externo";
         }
 
+        /// <summary>
+        /// Bandera que indica si se muestra el indicador en la solicitud
+        /// </summary>
         public struct MostrarIndicadorEnSolicitud
         {
             public const string si = "SI";
             public const string no = "NO";
         }
+
+        public readonly static string defaultInputTextValue = "NA";
+        public readonly static int defaultInputNumberValue = 0;
+        public readonly static int defaultDropDownValue = 1; // Representa el valor: "Sin definir". En Utilidades.cs existe un método para encriptarlo
     }
 }

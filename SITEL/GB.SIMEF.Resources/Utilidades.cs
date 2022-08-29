@@ -19,6 +19,17 @@ namespace GB.SIMEF.Resources
         public static Regex rx_alfanumerico_v2 = new Regex(@"^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+([ ][A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+)*$", RegexOptions.Compiled);
 
         /// <summary>
+        /// 29/08/2022
+        /// José Navarro Acuña
+        /// Obtener el valor encriptado por defecto de los componentes dropdown
+        /// </summary>
+        /// <returns></returns>
+        public static string GetDefaultDropDownValue()
+        {
+            return Encriptar(Constantes.defaultDropDownValue.ToString());
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="_cadenaAencriptar"></param>

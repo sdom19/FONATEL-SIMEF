@@ -70,11 +70,29 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El campo {0} presenta un valor inválido.
+        /// </summary>
+        public static string CampoConValorInvalido {
+            get {
+                return ResourceManager.GetString("CampoConValorInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Campo requerido.
         /// </summary>
         public static string CampoRequerido {
             get {
                 return ResourceManager.GetString("CampoRequerido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El campo {0} es requerido.
+        /// </summary>
+        public static string CampoRequeridoV2 {
+            get {
+                return ResourceManager.GetString("CampoRequeridoV2", resourceCulture);
             }
         }
         

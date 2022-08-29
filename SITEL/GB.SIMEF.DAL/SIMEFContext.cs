@@ -52,7 +52,7 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<FuenteIndicador> FuenteIndicador { get; set; }
         //public virtual DbSet<FuentesRegistro> FuentesRegistro { get; set; }
         public virtual DbSet<GrupoIndicadores> GrupoIndicadores { get; set; }
-        //public virtual DbSet<Indicador> Indicador { get; set; }
+        public virtual DbSet<Indicador> Indicador { get; set; }
         //public virtual DbSet<Mes> Mes { get; set; }
         //public virtual DbSet<Operadores> Operadores { get; set; }
         //public virtual DbSet<ProgramacionSolicitudes> ProgramacionSolicitudes { get; set; }

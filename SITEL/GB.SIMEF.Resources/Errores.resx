@@ -120,8 +120,14 @@
   <data name="CampoConFormatoInvalido" xml:space="preserve">
     <value>El campo {0} presenta un formato inválido</value>
   </data>
+  <data name="CampoConValorInvalido" xml:space="preserve">
+    <value>El campo {0} presenta un valor inválido</value>
+  </data>
   <data name="CampoRequerido" xml:space="preserve">
     <value>Campo requerido</value>
+  </data>
+  <data name="CampoRequeridoV2" xml:space="preserve">
+    <value>El campo {0} es requerido</value>
   </data>
   <data name="CamposIncompletos" xml:space="preserve">
     <value>Se deben completar todos los campos del formulario</value>

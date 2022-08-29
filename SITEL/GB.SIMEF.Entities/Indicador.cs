@@ -41,7 +41,7 @@ namespace GB.SIMEF.Entities
         public int idTipoMedida { get; set; }
         public int IdFrecuencia { get; set; }
         public Nullable<bool> Interno { get; set; }
-        public bool Solicitud { get; set; }
+        public Nullable<bool> Solicitud { get; set; }
         public string Fuente { get; set; }
         public string Notas { get; set; }
         public System.DateTime FechaCreacion { get; set; }
@@ -74,6 +74,8 @@ namespace GB.SIMEF.Entities
         public string id { get; set; }
         [NotMapped]
         public int nuevoEstado { get; set; }
+        [NotMapped]
+        public bool esGuardadoParcial { get; set; }
         #endregion
     }
 }

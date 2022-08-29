@@ -15,12 +15,24 @@ namespace GB.SIMEF.BL
         readonly string modulo = "";
         readonly string user = "";
         private readonly IndicadorFonatelDAL indicadorFonatelDAL;
+        private readonly TipoIndicadorDAL tipoIndicadorDAL;
+        private readonly FrecuenciaEnvioDAL frecuenciaEnvioDAL;
+        private readonly ClasificacionIndicadorDAL clasificacionIndicadorDAL;
+        private readonly TipoMedidaDAL tipoMedidaDAL;
+        private readonly GrupoIndicadorDAL grupoIndicadorDAL;
+        private readonly UnidadEstudioDAL unidadEstudioDAL;
 
         public IndicadorFonatelBL(string pView, string pUser)
         {
             modulo = pView;
             user = pUser;
             indicadorFonatelDAL = new IndicadorFonatelDAL();
+            tipoIndicadorDAL = new TipoIndicadorDAL();
+            frecuenciaEnvioDAL = new FrecuenciaEnvioDAL();
+            clasificacionIndicadorDAL = new ClasificacionIndicadorDAL();
+            tipoMedidaDAL = new TipoMedidaDAL();
+            grupoIndicadorDAL = new GrupoIndicadorDAL();
+            unidadEstudioDAL = new UnidadEstudioDAL();
         }
 
         public RespuestaConsulta<List<Indicador>> ActualizarElemento(Indicador pIndicador)
@@ -152,9 +164,117 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
+        /// <summary>
+        /// 29/08/2022
+        /// José Navarro Acuña
+        /// Función que crea un nuevo registro en la entidad Indicador
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<Indicador>> InsertarDatos(Indicador pIndicador)
         {
-            throw new NotImplementedException();
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            bool errorControlado = false;
+
+            try
+            {
+                pIndicador = PrepararObjetoIndicador(pIndicador);
+                resultado = ValidarDatos(pIndicador);
+
+                if (resultado.HayError != 0)
+                {
+                    return resultado;
+                }
+
+                resultado = InsertarDatos(pIndicador);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 29/08/2022
+        /// José Navarro Acuña
+        /// Función que valida los datos de un indicador antes de insertar o actualizar
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> ValidarDatos(Indicador pIndicador)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            bool errorControlado = false;
+
+            try
+            {
+                Indicador indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicador(pIndicador);
+                if (indicadorExistente != null) {
+                    errorControlado = true;
+
+                    if (indicadorExistente.Codigo.Trim().ToUpper() == pIndicador.Codigo.Trim().ToUpper())
+                    {
+                        throw new Exception(string.Format(Errores.CodigoRegistrado, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo));
+                    }
+                    else
+                    {
+                        throw new Exception(string.Format(Errores.CodigoRegistrado, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre));
+                    }
+                }
+
+                if (tipoIndicadorDAL.ObtenerDatos(pIndicador.TipoIndicadores).Count < 0)
+                {
+                    errorControlado = true;
+                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo));
+                }
+
+                if (frecuenciaEnvioDAL.ObtenerDatos(pIndicador.FrecuenciaEnvio).Count < 0)
+                {
+                    errorControlado = true;
+                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFrecuencias));
+                }
+
+                if (clasificacionIndicadorDAL.ObtenerDatos(pIndicador.ClasificacionIndicadores).Count < 0)
+                {
+                    errorControlado = true;
+                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelClasificacion));
+                }
+
+                if (tipoMedidaDAL.ObtenerDatos(pIndicador.TipoMedida).Count < 0)
+                {
+                    errorControlado = true;
+                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipoMedida));
+                }
+
+                if (grupoIndicadorDAL.ObtenerDatos(pIndicador.GrupoIndicadores).Count < 0)
+                {
+                    errorControlado = true;
+                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelGrupo));
+                }
+
+                if (unidadEstudioDAL.ObtenerDatos(pIndicador.UnidadEstudio).Count < 0)
+                {
+                    errorControlado = true;
+                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio));
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+
+            return resultado;
         }
 
         /// <summary>
@@ -183,16 +303,6 @@ namespace GB.SIMEF.BL
                 resultado.MensajeError = ex.Message;
             }
             return resultado;
-        }
-
-        public RespuestaConsulta<Indicador> ValidarDatos(Indicador pIndicador)
-        {
-            throw new NotImplementedException();
-        }
-
-        RespuestaConsulta<List<Indicador>> IMetodos<Indicador>.ValidarDatos(Indicador objeto)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -253,43 +363,43 @@ namespace GB.SIMEF.BL
                 pIndicador.idIndicador = number;
             }
 
-            if (pIndicador.TipoIndicadores != null && !string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
+            if (!string.IsNullOrEmpty(pIndicador.TipoIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoIndicadores.id), out int number);
                 pIndicador.IdTipoIndicador = number;
             }
             
-            if (pIndicador.ClasificacionIndicadores != null && !string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
+            if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.ClasificacionIndicadores.id), out int number);
                 pIndicador.IdClasificacion = number;
             }
             
-            if (pIndicador.GrupoIndicadores != null && !string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
+            if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.GrupoIndicadores.id), out int number);
                 pIndicador.idGrupo = number;
             }
             
-            if (pIndicador.UnidadEstudio != null && !string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
+            if (!string.IsNullOrEmpty(pIndicador.UnidadEstudio?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.UnidadEstudio.id), out int number);
                 pIndicador.IdUnidadEstudio = number;
             }
 
-            if (pIndicador.TipoMedida != null && !string.IsNullOrEmpty(pIndicador.TipoMedida.id))
+            if (!string.IsNullOrEmpty(pIndicador.TipoMedida?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoMedida.id), out int number);
                 pIndicador.idTipoMedida = number;
             }
 
-            if (pIndicador.FrecuenciaEnvio != null && !string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
+            if (!string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.FrecuenciaEnvio.id), out int number);
                 pIndicador.IdFrecuencia = number;
             }
 
-            if (pIndicador.EstadoRegistro != null && !string.IsNullOrEmpty(pIndicador.EstadoRegistro.id))
+            if (!string.IsNullOrEmpty(pIndicador.EstadoRegistro?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.EstadoRegistro.id), out int number);
                 pIndicador.idEstado = number;
