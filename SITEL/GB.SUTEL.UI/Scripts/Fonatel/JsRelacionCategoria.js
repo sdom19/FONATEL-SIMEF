@@ -364,40 +364,6 @@
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
-
-            //$.ajax({
-            //    url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/EliminarRelacionCategoria',
-            //    type: "POST",
-            //    dataType: "JSON",
-            //    beforeSend: function () {
-            //        $("#loading").fadeIn();
-            //    },
-            //    data: { idRelacionCategoria },
-            //    success: function (obj) {
-            //        $("#loading").fadeOut();
-            //        if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-            //            jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido eliminado")
-            //                .set('onok', function (closeEvent) {
-            //                    JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
-            //                    JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
-            //                });
-            //        } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-            //            jsMensajes.Metodos.OkAlertErrorModal()
-            //                .set('onok', function (closeEvent) { location.reload(); });
-            //        }
-            //        else {
-            //            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-            //                .set('onok', function (closeEvent) { location.reload(); });
-            //        }
-            //    }
-            //}).fail(function (obj) {
-
-
-            //    jsMensajes.Metodos.OkAlertErrorModal()
-            //        .set('onok', function (closeEvent) { })
-            //    $("#loading").fadeOut();
-
-            //})
         },
 
         "InsertarDetalleRelacion": function () {
@@ -442,6 +408,36 @@
                 $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).trigger("change");
 
             }             
+        },
+
+        "EliminarDetalleRelacion": function (idDetalleRelacionCategoria) {
+
+            $("#loading").fadeIn();
+
+            execAjaxCall("/RelacionCategoria/EliminarDetalleRelacion", "POST", { idDetalleRelacionCategoria: idDetalleRelacionCategoria })
+                .then((obj) => {
+
+                    JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idDetalleRelacionCategoria}']`)
+
+                    jsMensajes.Metodos.OkAlertModal("La Atributo ha sido eliminado")
+                        .set('onok', function (closeEvent) {
+
+                            JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
+
+                        });
+                }).catch((obj) => {
+                    console.log(obj);
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
         },
     }
 }
@@ -518,10 +514,10 @@ $(document).on("click", JsRelacion.Controles.btnEditarDetalle, function () {
 
 //EVENTO PARA ELIMINAR DETALLE RELACION ENTRE CATEGORIAS 
 $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, function (e) {
+    let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Atributo?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Atributo ha sido eliminado")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+            JsRelacion.Consultas.EliminarDetalleRelacion(id);
         });
 });
 

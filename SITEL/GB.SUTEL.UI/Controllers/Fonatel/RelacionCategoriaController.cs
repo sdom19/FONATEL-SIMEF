@@ -61,7 +61,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
 
             //CATEGORIAS DE TIPO ATRIBUTO
-            ViewBag.ListaCatergorias= categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
+            ViewBag.ListaCatergorias = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
             {
                 IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.Atributo,
                 idEstado = (int)Constantes.EstadosRegistro.Activo
@@ -104,7 +104,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
             else
             {
-                RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() {id=id })
+                RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = id })
                     .objetoRespuesta.Single();
 
                 var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
@@ -117,7 +117,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 listavalores.Add(new SelectListItem() { Value = model.idCategoriaValor, Text = model.idCategoriaValor, Selected = true });
                 ViewBag.ListaCatergoriaValor = listavalores;
                 return View(model);
-            }           
+            }
         }
 
 
@@ -249,7 +249,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             //ACA TAMBIEN PUEDO AGREGAR VALIDACIONES DE ERRORES CONTROLADOS
 
-            RespuestaConsulta < List < string >> result = new RespuestaConsulta<List<string>>();
+            RespuestaConsulta<List<string>> result = new RespuestaConsulta<List<string>>();
 
             await Task.Run(() =>
             {
@@ -280,7 +280,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                result = DetalleRelacionCategoriaBL.ObtenerDatos(new DetalleRelacionCategoria() 
+                result = DetalleRelacionCategoriaBL.ObtenerDatos(new DetalleRelacionCategoria()
                 { relacionid = IdRelacionCategoria });
 
             });
@@ -328,6 +328,54 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 result = DetalleRelacionCategoriaBL.InsertarDatos(relacion);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Inserta un detalle relacion entre categorias
+        /// 29/08/2022
+        /// Francisco Vindas Ruiz
+        /// </summary>
+        /// <param name="detalleRelacion"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<string> ModificarDetalleRelacion(DetalleRelacionCategoria relacion)
+        {
+            user = User.Identity.GetUserId();
+            relacion.usuario = user;
+            RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
+            await Task.Run(() =>
+            {
+                result = DetalleRelacionCategoriaBL.ActualizarElemento(relacion);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+        /// <summary>
+        /// Francisco Vindas Ruiz 
+        /// 29/08/2022
+        /// Pase el estado a falso para el eliminado del detalle 
+        /// </summary>
+        /// <param name="idDetalleRelacion"></param>
+        /// <returns>JSON</returns>
+        [HttpPost]
+        public async Task<string> EliminarDetalleRelacion(string idDetalleRelacionCategoria)
+        {
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
+            await Task.Run(() =>
+            {
+                result = DetalleRelacionCategoriaBL.EliminarElemento(new DetalleRelacionCategoria()
+                {
+                    id = idDetalleRelacionCategoria,
+                    usuario = user
+                });
+
             });
 
             return JsonConvert.SerializeObject(result);
