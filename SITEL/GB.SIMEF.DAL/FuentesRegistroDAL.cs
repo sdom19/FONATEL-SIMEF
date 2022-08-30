@@ -6,12 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using GB.SUTEL.DAL;
 
 namespace GB.SIMEF.DAL
 {
     public class FuentesRegistroDAL:BitacoraDAL
     {
         private SIMEFContext db;
+
+
 
         #region Metodos de Consulta a Base Datos
 
@@ -101,8 +104,6 @@ namespace GB.SIMEF.DAL
             }
 
         }
-
-
 
         /// Michael Hernández Cordero
         /// Valida dependencias con otras tablas

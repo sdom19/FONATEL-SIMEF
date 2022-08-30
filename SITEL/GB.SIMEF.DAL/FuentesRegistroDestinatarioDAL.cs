@@ -57,6 +57,25 @@ namespace GB.SIMEF.DAL
         }
 
 
+
+        public List<DetalleFuentesRegistro> ActualizarUsuario(DetalleFuentesRegistro objUser)
+        {
+            using (db = new SIMEFContext())
+            {
+                return db.Database.SqlQuery<DetalleFuentesRegistro>("exec spCrearUsuario @idFuente,@Correo,@Nombre,@Contrasena,@Estado",
+                new SqlParameter("@idFuente", objUser.idFuente),
+                new SqlParameter("@Correo", objUser.CorreoElectronico),
+                new SqlParameter("@Nombre", objUser.NombreDestinatario),
+                new SqlParameter("@Contrasena", objUser.Contrasena),
+                new SqlParameter("@Estado", objUser.Estado)).ToList();
+            }
+
+        }
+
+
+
+
+
         #endregion
 
     }

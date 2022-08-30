@@ -89,11 +89,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 objCategoria = categoriaBL.ObtenerDatos(objCategoria).objetoRespuesta.SingleOrDefault();
                 if (modo==(int)Constantes.Accion.Clonar)
                 {
+                    ViewBag.titulo = EtiquetasViewCategorias.Clonar;
                     objCategoria.Codigo = string.Empty;
                     objCategoria.id = string.Empty;
                 }
+                else
+                {
+                    ViewBag.titulo = EtiquetasViewCategorias.EditarCategoria;
+                }
 
             }
+            else
+            {
+                ViewBag.titulo = EtiquetasViewCategorias.CrearCategoria;
+            }
+
             return View(objCategoria);
            
         }

@@ -117,20 +117,32 @@ function CargarDatasource() {
             {
                 extend: 'excel',
                 text: '<i class="fa fa-file-excel-o" style="color:green;"></i>',
-                titleAttr: 'Excel'
+                titleAttr: 'Excel',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
             },
             {
                 extend: 'pdf',
                 text: '<i class="fa fa-file-pdf-o" style="color:brown;"></i>',
                 titleAttr: 'PDF',
-
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
             },
             {
                 extend: 'print',
                 text: '<i class="fa fa-print" style="color:black;"></i>',
-                titleAttr: 'Imprimir'
+                titleAttr: 'Imprimir',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
 
-            }
+            },
+
         ],
         columnDefs: [
             { "className": "dt-center", "targets": "_all" }

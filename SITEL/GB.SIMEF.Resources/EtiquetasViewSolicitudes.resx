@@ -117,55 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Acciones" xml:space="preserve">
-    <value>Acciones</value>
-  </data>
-  <data name="Cantidad" xml:space="preserve">
-    <value>Cantidad de Detalle</value>
-  </data>
   <data name="Clonar" xml:space="preserve">
-    <value>Clonar Categoría de Desagregación</value>
+    <value>Clonar Solicitudes</value>
   </data>
   <data name="Codigo" xml:space="preserve">
     <value>Código</value>
   </data>
-  <data name="CrearCategoria" xml:space="preserve">
-    <value>Crear Categoría de Desagregación</value>
+  <data name="Crear" xml:space="preserve">
+    <value>Crear Solicitudes</value>
   </data>
-  <data name="Detalle" xml:space="preserve">
-    <value>Detalle</value>
+  <data name="Editar" xml:space="preserve">
+    <value>Editar Solicitudes</value>
   </data>
-  <data name="DetalleAtributo" xml:space="preserve">
-    <value>Detalle Categoría Desagregación</value>
+  <data name="Envio" xml:space="preserve">
+    <value>Envío Programado</value>
   </data>
-  <data name="EditarCategoria" xml:space="preserve">
-    <value>Editar Categoría de Desagregación</value>
+  <data name="Formulario" xml:space="preserve">
+    <value>Formulario Web</value>
   </data>
-  <data name="Estado" xml:space="preserve">
-    <value>Estado</value>
-  </data>
-  <data name="Etiqueta" xml:space="preserve">
-    <value>Etiqueta de Detalle</value>
-  </data>
-  <data name="FechaHasta" xml:space="preserve">
-    <value>Fecha Hasta</value>
-  </data>
-  <data name="FechaInicio" xml:space="preserve">
-    <value>Fecha Inicio</value>
+  <data name="Fuente" xml:space="preserve">
+    <value>Fuente</value>
   </data>
   <data name="Nombre" xml:space="preserve">
     <value>Nombre</value>
   </data>
-  <data name="TipoCategoria" xml:space="preserve">
-    <value>Tipo Categoría</value>
-  </data>
-  <data name="TipoDetalle" xml:space="preserve">
-    <value>Tipo Detalle</value>
-  </data>
-  <data name="ValorMinimo" xml:space="preserve">
-    <value>Valor Mínimo</value>
-  </data>
-  <data name="ValorMáximo" xml:space="preserve">
-    <value>Valor Máximo</value>
+  <data name="Solicitudes" xml:space="preserve">
+    <value>Solicitudes de Información</value>
   </data>
 </root>

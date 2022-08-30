@@ -1,0 +1,26 @@
+﻿@using GB.SIMEF.Resources;
+
+<form>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+
+            <div class="form-group center">
+                <label for="ddlVariableIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelVariableIndicador</label>
+                <div class="select2-wrapper">
+                    <select class="listasDesplegables" aria-label="Default select example" id="ddlVariableIndicador">
+                        <option></option>
+                        <option value="1">Estado de Torres</option>
+                        <option value="2">Cantidad Torres</option>
+                    </select>
+                </div>
+                <small id="ddlVariableIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-12 text-center">
+            <button type="submit" id="btnGuardarVariable" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button id="btnCancelarIndicador" type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
+        </div>
+    </div>
+</form>

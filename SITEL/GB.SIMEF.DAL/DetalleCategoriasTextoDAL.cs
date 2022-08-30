@@ -27,7 +27,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaCategoriaDetalle = db.Database.SqlQuery<DetalleCategoriaTexto>
-                    ("execute spObtenerDetalleCategoriaTexto @idCategoriaDetalle, @idCategoria,@codigo, @Etiqueta",
+                    ("execute spObtenerDetalleCategoriasTexto @idCategoriaDetalle, @idCategoria,@codigo, @Etiqueta",
                       new SqlParameter("@idCategoriaDetalle", objCategoria.idCategoriaDetalle),
                       new SqlParameter("@idCategoria", objCategoria.idCategoria),
                       new SqlParameter("@codigo", objCategoria.Codigo),
@@ -41,7 +41,8 @@ namespace GB.SIMEF.DAL
                     Codigo = x.Codigo,
                     Estado = x.Estado,
                     Etiqueta = x.Etiqueta,
-                    CategoriasDesagregacion = db.CategoriasDesagregacion.Where(i => i.idCategoria == x.idCategoria).Single(),
+                    Completo = db.CategoriasDesagregacion.Where(i => i.idCategoria == x.idCategoria).Single().CantidadDetalleDesagregacion
+                    == ListaCategoriaDetalle.Count()?true:false,
                     id = Utilidades.Encriptar(x.idCategoriaDetalle.ToString()),
                 }).ToList();
             }

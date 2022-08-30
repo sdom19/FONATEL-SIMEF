@@ -156,4 +156,10 @@
   <data name="NoRegistrosActualizar" xml:space="preserve">
     <value>No se encuentran registros</value>
   </data>
+  <data name="ValorFecha" xml:space="preserve">
+    <value>El valor fecha final debe ser mayor a fecha inicio</value>
+  </data>
+  <data name="ValorMinimo" xml:space="preserve">
+    <value>El valor máximo debe ser mayor al valor minimo</value>
+  </data>
 </root>

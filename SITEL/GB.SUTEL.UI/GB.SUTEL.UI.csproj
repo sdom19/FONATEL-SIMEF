@@ -1420,6 +1420,8 @@
     <Content Include="Views\ReglasValidacion\_TablaTipoRegla.cshtml" />
     <Content Include="Views\SolicitudFonatel\_ModalSolicitud.cshtml" />
     <Content Include="Views\CategoriasDesagregacion\DescargarExcel.cshtml" />
+    <Content Include="Views\SolicitudFonatel\_AgregarFormulario.cshtml" />
+    <Content Include="Views\SolicitudFonatel\_TablaFormularios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -39,6 +39,9 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string Usuario { get; set; }
 
+        [NotMapped]
+        public string Contrasena { get; set; }
+
         #endregion
 
     }

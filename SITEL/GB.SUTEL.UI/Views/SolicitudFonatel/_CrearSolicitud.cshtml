@@ -1,4 +1,7 @@
 ﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.Solicitud
+
+
 
 <form>
     <div class="row mt-5">
@@ -10,7 +13,9 @@
                 <div class="form-group row">
                     <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
                     <div class="col-sm-12">
-                        <input type="text" aria-label="Código de Categoría" class="form-control form-control-fonatel  " id="txtCodigo" placeholder="Código">
+
+
+                        @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewSolicitudes.Codigo, id = "txtCodigo" } })
                         <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
@@ -18,7 +23,7 @@
                 <div class="form-group row">
                     <label for="txtNombre" class="col-sm-12 col-form-label">Nombre</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control form-control-fonatel  " id="txtNombre" placeholder="Nombre">
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewSolicitudes.Nombre, id = "txtNombre" } })
                         <small id="nombreHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
@@ -26,7 +31,7 @@
                 <div class="form-group row">
                     <label for="txtFechaInicio" class="col-sm-12 col-form-label">Fecha de Inicio</label>
                     <div class="col-sm-12">
-                        <input type="date" class="form-control form-control-fonatel  " id="TxtFechaInicio">
+                        @Html.EditorFor(model => model.FechaInicio, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewSolicitudes.Nombre, id = "txtNombre" } })
                         <small id="FechaInicioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
@@ -36,7 +41,7 @@
                     <label for="ddlMesSolicitud" class="col-sm-12 col-form-label ">Mes</label>
                     <div class="select2-wrapper">
                         <div class="col-sm-12">
-                            <select  class="listasDesplegables" id="ddlMesSolicitud">
+                            <select class="listasDesplegables" id="ddlMesSolicitud">
                                 <option></option>
                                 <option>Enero</option>
                                 <option>Febrero</option>
@@ -49,7 +54,7 @@
                 </div>
 
             </div>
-          </div>
+        </div>
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
             <div class="justify-content-center">
 
@@ -58,7 +63,7 @@
                     <label for="ddlFuentes" class="col-sm-12 col-form-label ">Fuentes</label>
                     <div class="col-sm-12">
                         <div class="select2-wrapper">
-                            <select  class="listasDesplegables" id="ddlFuentes">
+                            <select class="listasDesplegables" id="ddlFuentes">
                                 <option></option>
                                 <option>Fuentes 1</option>
                                 <option>Fuentes 2</option>
@@ -72,16 +77,9 @@
 
 
                 <div class="form-group row">
-                    <label for="ddlFormularios" class="col-sm-12 col-form-label ">Formulario</label>
-                    <div class="select2-wrapper">
-                        <div class="col-sm-12">
-                            <select  class="listasDesplegables" id="ddlFormularios" multiple>
-                                <option></option>
-                                <option>Formulario 1</option>
-                                <option>Formulario 2</option>
-                                <option>Formulario 3</option>
-                            </select>
-                        </div>
+                    <label for="txtCantidadFormularios" class="col-sm-12 col-form-label ">Cantidad de Formularios</label>
+                    <div class="col-sm-12">
+                        <input type="number" class="form-control form-control-fonatel  " id="TxtCantidadFormulario">
                         <small id="FormulariosHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
@@ -116,7 +114,7 @@
             </div>
         </div>
 
-        <div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0 " >
+        <div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0 ">
             <div class="form-group row">
                 <label for="txtMensajeSolicitud" class="col-sm-12 col-form-label">Mensaje</label>
                 <div class="col-sm-12">
@@ -125,7 +123,7 @@
                 </div>
             </div>
         </div>
-     </div>
+    </div>
     <div class="row">
 
         <div class="col-lg-12 text-center">

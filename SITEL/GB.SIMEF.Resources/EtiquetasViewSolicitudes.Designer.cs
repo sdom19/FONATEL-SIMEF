@@ -22,14 +22,14 @@ namespace GB.SIMEF.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class EtiquetasViewCategorias {
+    public class EtiquetasViewSolicitudes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EtiquetasViewCategorias() {
+        internal EtiquetasViewSolicitudes() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace GB.SIMEF.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GB.SIMEF.Resources.EtiquetasViewCategorias", typeof(EtiquetasViewCategorias).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GB.SIMEF.Resources.EtiquetasViewSolicitudes", typeof(EtiquetasViewSolicitudes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,25 +61,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Acciones.
-        /// </summary>
-        public static string Acciones {
-            get {
-                return ResourceManager.GetString("Acciones", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Cantidad de Detalle.
-        /// </summary>
-        public static string Cantidad {
-            get {
-                return ResourceManager.GetString("Cantidad", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Clonar Categoría de Desagregación.
+        ///   Busca una cadena traducida similar a Clonar Solicitudes.
         /// </summary>
         public static string Clonar {
             get {
@@ -97,74 +79,47 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Crear Categoría de Desagregación.
+        ///   Busca una cadena traducida similar a Crear Solicitudes.
         /// </summary>
-        public static string CrearCategoria {
+        public static string Crear {
             get {
-                return ResourceManager.GetString("CrearCategoria", resourceCulture);
+                return ResourceManager.GetString("Crear", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Detalle.
+        ///   Busca una cadena traducida similar a Editar Solicitudes.
         /// </summary>
-        public static string Detalle {
+        public static string Editar {
             get {
-                return ResourceManager.GetString("Detalle", resourceCulture);
+                return ResourceManager.GetString("Editar", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Detalle Categoría Desagregación.
+        ///   Busca una cadena traducida similar a Envío Programado.
         /// </summary>
-        public static string DetalleAtributo {
+        public static string Envio {
             get {
-                return ResourceManager.GetString("DetalleAtributo", resourceCulture);
+                return ResourceManager.GetString("Envio", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Editar Categoría de Desagregación.
+        ///   Busca una cadena traducida similar a Formulario Web.
         /// </summary>
-        public static string EditarCategoria {
+        public static string Formulario {
             get {
-                return ResourceManager.GetString("EditarCategoria", resourceCulture);
+                return ResourceManager.GetString("Formulario", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Estado.
+        ///   Busca una cadena traducida similar a Fuente.
         /// </summary>
-        public static string Estado {
+        public static string Fuente {
             get {
-                return ResourceManager.GetString("Estado", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Etiqueta de Detalle.
-        /// </summary>
-        public static string Etiqueta {
-            get {
-                return ResourceManager.GetString("Etiqueta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Fecha Hasta.
-        /// </summary>
-        public static string FechaHasta {
-            get {
-                return ResourceManager.GetString("FechaHasta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Fecha Inicio.
-        /// </summary>
-        public static string FechaInicio {
-            get {
-                return ResourceManager.GetString("FechaInicio", resourceCulture);
+                return ResourceManager.GetString("Fuente", resourceCulture);
             }
         }
         
@@ -178,38 +133,11 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Tipo Categoría.
+        ///   Busca una cadena traducida similar a Solicitudes de Información.
         /// </summary>
-        public static string TipoCategoria {
+        public static string Solicitudes {
             get {
-                return ResourceManager.GetString("TipoCategoria", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Tipo Detalle.
-        /// </summary>
-        public static string TipoDetalle {
-            get {
-                return ResourceManager.GetString("TipoDetalle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Valor Máximo.
-        /// </summary>
-        public static string ValorMáximo {
-            get {
-                return ResourceManager.GetString("ValorMáximo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Valor Mínimo.
-        /// </summary>
-        public static string ValorMinimo {
-            get {
-                return ResourceManager.GetString("ValorMinimo", resourceCulture);
+                return ResourceManager.GetString("Solicitudes", resourceCulture);
             }
         }
     }

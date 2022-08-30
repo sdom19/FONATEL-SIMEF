@@ -50,10 +50,10 @@
             </div>
         </div>
         <div class="form-group row hidden" id="divCantidadDetalleCategoria">
-            <label for="txtCantidadDetalleCategoria" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.CantidadDetalle</label>
+            <label for="txtCantidadDetalleCategoria" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.Cantidad</label>
             <div class="col-sm-12">
 
-                @Html.EditorFor(model => model.CantidadDetalleDesagregacion, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewCategorias.CantidadDetalle, id = "txtCantidadDetalleCategoria" } })
+                @Html.EditorFor(model => model.CantidadDetalleDesagregacion, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewCategorias.Cantidad, id = "txtCantidadDetalleCategoria" } })
 
                 <small id="CantidadDetalleCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>

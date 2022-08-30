@@ -45,7 +45,7 @@
             "btnEliminarDetalle": "#TableCategoriaDesagregacionDetalle tbody .btn-delete",
             "btnEditarDetalle": "#TableCategoriaDesagregacionDetalle tbody .btn-edit",
             "btnCargarDetalle": "#TableCategoriaDesagregacion tbody tr td .btn-upload",
-
+            "btnFinalizarDetalle":"#btnFinalizarDetalleCategoria",
             "btnDescargarDetalle": "#TableCategoriaDesagregacion tbody tr td .btn-download",
             "inputFileCargarDetalle": "#inputFileCargarDetalle",
             "txtCodigoDetalle": "#txtCodigoDetalle",
@@ -99,7 +99,16 @@
             "CargarTablaDetalleCategoria": function () {
                 EliminarDatasource();
                 let html = "";
-                
+
+                let formularioCompleto = JsCategoria.Variables.ListadoCategoriaDetalle.length == 0 ? false : JsCategoria.Variables.ListadoCategoriaDetalle[0].Completo;
+                if (formularioCompleto) {
+                    $(JsCategoria.Controles.btnGuardarDetalleCategoria).prop("disabled", true);
+                    $(JsCategoria.Controles.btnFinalizarDetalle).prop("disabled", false);
+                }
+                else {
+                    $(JsCategoria.Controles.btnGuardarDetalleCategoria).prop("disabled", false);
+                    $(JsCategoria.Controles.btnFinalizarDetalle).prop("disabled", true);
+                }  
                 for (var i = 0; i < JsCategoria.Variables.ListadoCategoriaDetalle.length; i++) {
                     let detalle = JsCategoria.Variables.ListadoCategoriaDetalle[i];
                     html = html + "<tr>"
@@ -113,6 +122,9 @@
                 }
                 $(JsCategoria.Controles.TablaCategoriaDetalle).html(html);
                 CargarDatasource();
+
+       
+
                 JsCategoria.Variables.ListadoCategoriaDetalle = [];
             },
             "CerrarFormulario": function () {
@@ -243,7 +255,7 @@
                         }
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) { location.reload(); })
+                                .set('onok', function (closeEvent) {  })
                         }
                     }).finally(() => {
                         $("#loading").fadeOut();
@@ -263,7 +275,7 @@
                         }
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) { location.reload(); })
+                                .set('onok', function (closeEvent) {  })
                         }
                     }).finally(() => {
                         $("#loading").fadeOut();
@@ -287,7 +299,7 @@
                         }
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                                .set('onok', function (closeEvent) { location.reload(); });
+                                .set('onok', function (closeEvent) {  });
                         }
                     }).finally(() => {
                         $("#loading").fadeOut();
@@ -311,7 +323,7 @@
                         }
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) { location.reload(); })
+                                .set('onok', function (closeEvent) {  })
                         }
                     }).finally(() => {
                         $("#loading").fadeOut();
@@ -339,7 +351,7 @@
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                                 .set('onok', function (closeEvent) {
-                                    location.reload();
+                                    
                                 });
                         }
                     }).finally(() => {
@@ -374,7 +386,7 @@
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                                 .set('onok', function (closeEvent) {
-                                    location.reload();
+                                   
                                 });
                         }
                     }).finally(() => {
@@ -409,7 +421,7 @@
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                                 .set('onok', function (closeEvent) {
-                                    location.reload();
+                          
                                 });
                         }
                     }).finally(() => {
@@ -446,7 +458,7 @@
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                                 .set('onok', function (closeEvent) {
-                                    location.reload();
+                                 
                                 });
                         }
                     }).finally(() => {
@@ -482,7 +494,7 @@
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                                 .set('onok', function (closeEvent) {
-                                    location.reload();
+                            
                                 });
                         }
                     }).finally(() => {
@@ -591,6 +603,14 @@ $(document).on("click", JsCategoria.Controles.btnCancelar, function (e) {
             preguntarAntesDeSalir = false;  window.location.href = "/Fonatel/CategoriasDesagregacion/Index"; 
         });   
 });
+
+$(document).on("click", JsCategoria.Controles.btnFinalizarDetalle, function (e) {
+    e.preventDefault();
+    window.location.href = "/Fonatel/CategoriasDesagregacion/Index";
+});
+
+
+
 
 $(document).on("click", JsCategoria.Controles.btnCancelarDetalle, function (e) {
 

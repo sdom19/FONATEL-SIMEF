@@ -1,6 +1,11 @@
-﻿using System;
+﻿using GB.SIMEF.BL;
+using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,6 +13,28 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class SolicitudFonatelController : Controller
     {
+
+        #region Variables publicas
+
+
+        private readonly SolicitudBL SolicitudesBL;
+
+
+
+        string user;
+
+        #endregion
+
+
+        public SolicitudFonatelController()
+        {
+            SolicitudesBL = new SolicitudBL();
+
+        }
+
+
+
+
         // GET: Solicitud
         public ActionResult Index()
         {
@@ -21,9 +48,32 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         // GET: Solicitud/Create
-        public ActionResult Create()
+        public ActionResult Create(string id, int? modo)
         {
-            return View();
+
+            Solicitud model = new Solicitud();
+
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = SolicitudesBL.ObtenerDatos(new Solicitud() {id=id })
+                    .objetoRespuesta.Single();
+                if (modo== (int)Constantes.Accion.Clonar)
+                {
+                    ViewBag.titulo = EtiquetasViewSolicitudes.Clonar;
+                    model.Nombre = string.Empty;
+                    model.Codigo = string.Empty;
+                }
+                else
+                {
+                    ViewBag.titulo = EtiquetasViewSolicitudes.Editar;
+                }
+            }
+            else
+            {
+                ViewBag.titulo = EtiquetasViewSolicitudes.Crear;
+            }
+            return View(model);
         }
 
         // POST: Solicitud/Create
@@ -85,5 +135,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return View();
             }
         }
+
+
+
+        public async Task<string> ObtenerListaSolicitudes()
+        {
+            RespuestaConsulta<List<Solicitud>> result = null;
+            await Task.Run(() =>
+            {
+                result = SolicitudesBL.ObtenerDatos(new Solicitud());
+            });
+
+            return JsonConvert.SerializeObject(result);
+
+
+        }
+
+
+
     }
 }

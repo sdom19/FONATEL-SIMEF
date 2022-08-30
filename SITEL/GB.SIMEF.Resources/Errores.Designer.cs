@@ -176,5 +176,23 @@ namespace GB.SIMEF.Resources {
                 return ResourceManager.GetString("NoRegistrosActualizar", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El valor fecha final debe ser mayor a fecha inicio.
+        /// </summary>
+        public static string ValorFecha {
+            get {
+                return ResourceManager.GetString("ValorFecha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El valor máximo debe ser mayor al valor minimo.
+        /// </summary>
+        public static string ValorMinimo {
+            get {
+                return ResourceManager.GetString("ValorMinimo", resourceCulture);
+            }
+        }
     }
 }

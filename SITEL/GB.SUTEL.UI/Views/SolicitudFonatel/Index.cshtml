@@ -6,7 +6,7 @@
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/SolicitudFonatel")
+   @* @Scripts.Render("~/bundles/FONATEL/SolicitudFonatel")*@
 }
 
 <div class="container body-content">
@@ -35,34 +35,4 @@
     @Html.Partial("_ModalSolicitud")
 
 </div>
-
-<div id="loading" class="loading">
-    <div class="loadingcontent">
-
-        <div class="spinner">
-            <div class="lds-roller">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-
-            <strong>Cargando...</strong>
-        </div>
-
-
-    </div>
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        // $(".loading").fadeIn();
-        JsSolicitud.Metodos.CargarDiasMesCombo();
-
-    });
-
-</script>
-
+<script src="~/Scripts/Fonatel/JsSolicitud.js"></script>

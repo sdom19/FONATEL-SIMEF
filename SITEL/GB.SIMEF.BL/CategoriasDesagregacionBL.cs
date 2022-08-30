@@ -126,12 +126,20 @@ namespace GB.SIMEF.BL
 
                     if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
+                        if (objeto.DetalleCategoriaFecha.FechaMinima > objeto.DetalleCategoriaFecha.FechaMaxima)
+                        {
+                            throw new Exception(Errores.ValorFecha);
+                        }
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaFecha.Estado = true;
                         clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
                     }
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
+                        if (objeto.DetalleCategoriaNumerico.Minimo > objeto.DetalleCategoriaNumerico.Maximo)
+                        {
+                            throw new Exception(Errores.ValorMinimo);
+                        }
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaNumerico.Estado = true;
                         clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
@@ -149,7 +157,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if ( ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.NombreRegistrado || ex.Message== Errores.CantidadRegistrosLimite)
+                if ( ex.Message == Errores.NoRegistrosActualizar || 
+                    ex.Message == Errores.NombreRegistrado || ex.Message== Errores.CantidadRegistrosLimite 
+                    || ex.Message==Errores.ValorMinimo || ex.Message==Errores.ValorFecha)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }
@@ -313,12 +323,21 @@ namespace GB.SIMEF.BL
                         .Where(x=>x.Codigo.ToUpper()==objeto.Codigo.ToUpper()).FirstOrDefault();
                     if (objeto.idTipoDetalle== (int)TipoDetalleCategoriaEnum.Fecha)
                     {
+                        if (objeto.DetalleCategoriaFecha.FechaMinima> objeto.DetalleCategoriaFecha.FechaMaxima)
+                        {
+                            throw new Exception(Errores.ValorFecha);
+                        }
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaFecha.Estado = true;
                         clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
                     }
                     else if(objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
+                        if (objeto.DetalleCategoriaNumerico.Minimo>objeto.DetalleCategoriaNumerico.Maximo)
+                        {
+                            throw new Exception(Errores.ValorMinimo);
+                        }
+
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaNumerico.Estado = true;
                         clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
@@ -333,7 +352,8 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado 
+                    || ex.Message== Errores.ValorMinimo || ex.Message==Errores.ValorFecha)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }

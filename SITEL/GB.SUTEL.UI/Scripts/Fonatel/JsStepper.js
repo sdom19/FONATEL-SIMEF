@@ -18,27 +18,26 @@
 
 
 
-$(document).on("click", ".step_navigation_indicador div", function (e) {
-    $(".step_navigation_indicador div").removeClass('active');
-    $(this).addClass('active');
-    let selected = $(this);
+$(document).on("click", ".step_navigation_indicador div a", function (e) {
 
-    $(this).siblings().each(function () {
-        if ($(this).attr("data-step") < selected.attr("data-step")) {
-            $(this).addClass('active');
-        }
-        else {
-            $(this).removeClass('active');
-        }
+    let div = $(this).parent();
+    //$(".step_navigation_indicador div").removeClass('active');
+    $(div).addClass('active');
+    $(div).siblings().each(function () {
+     if ($(this).attr("data-step") <= $(div).attr("data-step")) {
+        $(this).addClass('active');
+     }
+     else {
+         $(this).removeClass('active');
+      }
     });
 
-    e.preventDefault();
-    let div = $(this).children("a").attr("href");
+    let div_content = $(this).attr("href");
     $(".stepwizard-content-container").addClass('hidden');
-    $(div).removeClass('hidden');
+    $(div_content).removeClass('hidden');
 });
 
 
 $(document).ready(function () {
-    $(".stepwizard-step[data-step='0']").trigger('click');
+    $(".stepwizard-step[data-step='0'] a").trigger('click');
 });

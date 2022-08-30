@@ -23,10 +23,12 @@
         "txtFechaEnvio": "#txtFechaEnvio",
         "txtFechaInicioCiclo": "#txtFechaInicioCiclo",
         "ddlFormularios": "#ddlFormularios",
-        "txtCampoRequerido": ".form-text-danger-fonatel"
+        "txtCampoRequerido": ".form-text-danger-fonatel",
+        "TablaSolicitud":"#TablaSolicitud tbody"
     },
     "Variables":{
-        "CantidadMaxDias": 28
+        "CantidadMaxDias": 28,
+        "ListadoSolicitudes":[]
     },
 
     "Metodos": {
@@ -36,6 +38,58 @@
                 html = html+"<option>" + i + "</option>";
             }
             $(JsSolicitud.Controles.ddldiaSolicitudModal).html(html);
+        },
+
+        "CargarTablaSolicitudes": function () {
+            EliminarDatasource();
+            let html = "";
+            for (var i = 0; i < JsSolicitud.Variables.ListadoSolicitudes.length; i++) {
+                let solicitud = JsSolicitud.Variables.ListadoSolicitudes[i];
+                let listaFormularios = solicitud.SolicitudFormulario.length == 0 ? "N/A" : solicitud.SolicitudFormulario.join(", ");
+                let envioProgramado = solicitud.EnvioProgramado == null ? "NO" : "SI";
+
+                html = html + "<tr>";
+
+                html = html + "<td>" + solicitud.Codigo + "</td>";
+                html = html + "<td>" + solicitud.Nombre + "</td>";
+                html = html + "<td>" + solicitud.Fuente.Fuente + "</td>";
+                html = html + "<td>" + listaFormularios + "</td>";
+                html = html + "<td>" + envioProgramado + "</td>";
+                html = html + "<td>" + solicitud.Estado.Nombre +"</td >";
+
+                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Editar' class='btn-icon-base btn-edit'></button>"+
+                    "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Clonar' class='btn-icon-base btn-clone'></button>"+
+                    "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Desactivar' class='btn-icon-base btn-power-on'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Envío' class='btn-icon-base btn-sent'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>"
+            }
+            $(JsSolicitud.Controles.TablaSolicitud).html(html);
+            CargarDatasource();
+            JsSolicitud.Variables.ListadoSolicitudes = [];
+        }
+
+
+    },
+    "Consultas": {
+        "ConsultaListaSolicitudes": function () {
+            $("#loading").fadeIn();
+            execAjaxCall("/SolicitudFonatel/ObtenerListaSolicitudes", "GET")
+                .then((obj) => {
+                    JsSolicitud.Variables.ListadoSolicitudes = obj.objetoRespuesta;
+                    JsSolicitud.Metodos.CargarTablaSolicitudes();
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
         }
     }
 
@@ -50,12 +104,12 @@ $(document).on("click", JsSolicitud.Controles.btnCancelar, function (e) {
 });
 
 $(document).on("click", JsSolicitud.Controles.btnEditarSolicitud, function () {
-    let id = 1;
+    let id = $(this).val();
     window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id;
 });
 
 $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
-    let id = 1;
+    let id = $(this).val();
     window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id;
 });
 
@@ -152,4 +206,12 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarSolicituProgramardEnvio
 
 $(document).on("click", JsSolicitud.Controles.btnCancelarEnvio, function () {
     $(JsSolicitud.Controles.modalEnvio).modal('hide');
+});
+
+
+$(function () {
+    
+    if ($(JsSolicitud.Controles.TablaSolicitud).length > 0) {
+        JsSolicitud.Consultas.ConsultaListaSolicitudes();
+    }
 });

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using GB.SUTEL.DAL.Seguridad;
+using GB.SUTEL.Entities;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
@@ -13,7 +16,9 @@ namespace GB.SIMEF.BL
     public class FuentesRegistroBL : IMetodos<FuentesRegistro>
     {
         private readonly FuentesRegistroDAL clsDatos;
-        private readonly CategoriasDesagregacionDAL clsDatosTexto;
+        private readonly FuentesRegistroDestinatarioDAL clsDatosUsuario;
+
+        private UsersDA objUserDA;
 
         private RespuestaConsulta<List<FuentesRegistro>> ResultadoConsulta;
         string modulo = EtiquetasViewFuentesRegistro.FuentesRegistro;
@@ -21,7 +26,7 @@ namespace GB.SIMEF.BL
         public FuentesRegistroBL()
         {
             this.clsDatos = new FuentesRegistroDAL();
-            this.clsDatosTexto = new CategoriasDesagregacionDAL();
+            this.clsDatosUsuario = new FuentesRegistroDestinatarioDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<FuentesRegistro>>();
         }
         /// <summary>
@@ -47,7 +52,7 @@ namespace GB.SIMEF.BL
                         objeto.idFuente = temp;
                     }
                     ResultadoConsulta.Clase = modulo;
-                    ResultadoConsulta.Accion =  (int)Accion.Editar;
+                    ResultadoConsulta.Accion =  (int) Constantes. Accion.Editar;
                     ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
 
                     string fuente = objeto.Fuente.Trim();
@@ -152,16 +157,16 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-
-
-
                     objeto = fuente;
                     objeto.idEstado = nuevoEstado;
                     objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
-                    ResultadoConsulta.Accion = (int)Accion.Activar;
+                    ResultadoConsulta.Accion = (int)Constantes.Accion.Activar;
                     resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                    CrearUsuarios(fuente);
+
                     clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                            ResultadoConsulta.Usuario,
                            ResultadoConsulta.Clase, objeto.Fuente);
@@ -226,13 +231,16 @@ namespace GB.SIMEF.BL
                     objeto = resul.Single();
                     objeto.idEstado = nuevoEstado;
                     objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
-                    ResultadoConsulta.Accion = (int)Accion.Eliminar;
+                    ResultadoConsulta.Accion = (int)Constantes.Accion.Eliminar;
                     resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
+              
                     clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                            ResultadoConsulta.Usuario,
                            ResultadoConsulta.Clase, objeto.Fuente);
+                  
+
                 }
 
             }
@@ -264,7 +272,7 @@ namespace GB.SIMEF.BL
             try
             {
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Accion = (int)Constantes.Accion.Insertar;
                 ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
                 objeto.Fuente = objeto.Fuente.Trim();
                 objeto.idEstado = (int)EstadosRegistro.EnProceso;
@@ -324,7 +332,7 @@ namespace GB.SIMEF.BL
                     objFuentesRegistro.idFuente = temp;
                 }
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                ResultadoConsulta.Accion = (int)Constantes.Accion.Consultar;
                 var resul = clsDatos.ObtenerDatos(objFuentesRegistro);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -359,7 +367,7 @@ namespace GB.SIMEF.BL
                     }
                 }
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                ResultadoConsulta.Accion = (int)Constantes.Accion.Consultar;
                 var resul = clsDatos.ObtenerDatos(objeto).Single();
                 listaExistencias.objetoRespuesta = clsDatos.ValidarFuente(resul);
 
@@ -377,6 +385,50 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<FuentesRegistro>> ValidarDatos(FuentesRegistro objeto)
         {
             throw new NotImplementedException();
+        }
+
+
+
+        public void CrearUsuarios( FuentesRegistro fuente)
+        {
+            foreach (var item in fuente.DetalleFuentesRegistro)
+            {
+                item.Estado = fuente.idEstado == (int)Constantes.EstadosRegistro.Activo ? true : false;
+                item.Contrasena = generatePassword();
+                item.Contrasena = HashPassword(item.Contrasena);
+                clsDatosUsuario.ActualizarUsuario(item);
+            }
+
+         }
+
+        private static string HashPassword(string password)
+        {
+            byte[] salt;
+            byte[] buffer2;
+            if (password == null)
+            {
+                throw new ArgumentNullException("password");
+            }
+            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8))
+            {
+                salt = bytes.Salt;
+                buffer2 = bytes.GetBytes(0x20);
+            }
+            byte[] dst = new byte[0x31];
+            Buffer.BlockCopy(salt, 0, dst, 1, 0x10);
+            Buffer.BlockCopy(buffer2, 0, dst, 0x11, 0x20);
+            return Convert.ToBase64String(dst);
+        }
+
+        public string generatePassword()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var pass = new string(
+                Enumerable.Repeat(chars, 8)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            return pass;
         }
     }
 }

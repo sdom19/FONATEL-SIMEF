@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SolicitudDAL.cs" />
     <Compile Include="FuentesRegistroDestinatarioDAL.cs" />
     <Compile Include="GrupoIndicadorDAL.cs" />
     <Compile Include="IndicadorFonatelDAL.cs" />
@@ -76,6 +77,14 @@
     <ProjectReference Include="..\GB.SIMEF.Resources\GB.SIMEF.Resources.csproj">
       <Project>{93F172D6-F11B-41D1-BD43-AFAD2F43D314}</Project>
       <Name>GB.SIMEF.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.DAL\GB.SUTEL.DAL.csproj">
+      <Project>{3548F570-BB86-47FA-AD42-CB491214EAC6}</Project>
+      <Name>GB.SUTEL.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.Entities\GB.SUTEL.Entities.csproj">
+      <Project>{8B30812D-4414-4C62-9A34-FD80220C0029}</Project>
+      <Name>GB.SUTEL.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
