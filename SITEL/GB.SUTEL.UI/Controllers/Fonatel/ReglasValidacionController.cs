@@ -1,5 +1,6 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #region Variables Públicas del controller
         private readonly ReglaValidacionBL reglaBL;
-
+        private readonly IndicadorFonatelBL indicadorfonatelBL;
         string user;
 
         #endregion
@@ -24,6 +25,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ReglasValidacionController()
         {
             reglaBL = new ReglaValidacionBL();
+            indicadorfonatelBL = new IndicadorFonatelBL("","");
         }
 
         [HttpGet]
@@ -32,19 +34,50 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View();
         }
 
-        // GET: CategoriasDesagregacion/Details/5
         [HttpGet]
-        public ActionResult Detalle(int id)
+        public ActionResult Detalle(string idregla)
         {
-            return View();
+            if (string.IsNullOrEmpty(idregla))
+            {
+                return View("Index");
+            }
+            else
+            {
+                ReglaValidacion objregla = new ReglaValidacion();
+                if (!string.IsNullOrEmpty(idregla))
+                {
+                    objregla.id = idregla;
+                    objregla = reglaBL.ObtenerDatos(objregla).objetoRespuesta.SingleOrDefault();
+                }
+                return View(objregla);
+            }
+
         }
 
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(string id, int? modo)
         {
-            return View();
+            ViewBag.indicador = indicadorfonatelBL.ObtenerDatos(new Indicador() { }).objetoRespuesta;
+            
+            ViewBag.Modo = modo.ToString();
+
+            ReglaValidacion objregla = new ReglaValidacion();
+            if (!string.IsNullOrEmpty(id))
+            {
+                objregla.id = id;
+                objregla = reglaBL.ObtenerDatos(objregla).objetoRespuesta.SingleOrDefault();
+                if (modo == (int)Constantes.Accion.Clonar)
+                {
+                    objregla.Codigo = string.Empty;
+                    objregla.id = string.Empty;
+                }
+
+            }
+            return View(objregla);
+
         }
+
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
