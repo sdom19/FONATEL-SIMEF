@@ -72,6 +72,7 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     VisualizaSigitel = x.VisualizaSigitel,
+                    idIndicador= x.idIndicador,
                     EstadoRegistro = ObtenerEstadoRegistro(x.idEstado)
                 }).ToList();
             }
