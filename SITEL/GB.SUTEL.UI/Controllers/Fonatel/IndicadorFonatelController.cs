@@ -624,70 +624,57 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             string defaultDropDown = Utilidades.GetDefaultDropDownValue();
 
-            if (pIndicador.TipoIndicadores == null || string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
-            {
+            if (string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
                 pIndicador.TipoIndicadores.id = defaultDropDown;
-            }
+            
 
-            if (pIndicador.FrecuenciaEnvio == null || string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
-            {
+            if (string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
                 pIndicador.FrecuenciaEnvio.id = defaultDropDown;
-            }
+            
 
-            if (string.IsNullOrEmpty(pIndicador.Descripcion))
-            {
+            if (pIndicador.Descripcion == null || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()))
                 pIndicador.Descripcion = defaultInputTextValue;
-            }
+            
 
-            if (pIndicador.ClasificacionIndicadores == null || string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
-            {
+            if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
                 pIndicador.ClasificacionIndicadores.id = defaultDropDown;
-            }
+            
 
-            if (pIndicador.TipoMedida == null || string.IsNullOrEmpty(pIndicador.TipoMedida.id))
-            {
+            if (string.IsNullOrEmpty(pIndicador.TipoMedida.id))
                 pIndicador.TipoMedida.id = defaultDropDown;
-            }
+            
 
-            if (pIndicador.GrupoIndicadores == null || string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
-            {
+            if (string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
                 pIndicador.GrupoIndicadores.id = defaultDropDown;
-            }
+            
 
             if (pIndicador.Interno == null) // Uso
-            {
                 pIndicador.Interno = false;
-            }
 
-            if (string.IsNullOrEmpty(pIndicador.Notas))
-            {
+
+            if (pIndicador.Notas == null || string.IsNullOrEmpty(pIndicador.Notas.Trim()))
                 pIndicador.Notas = defaultInputTextValue;
-            }
+            
 
             if (pIndicador.CantidadVariableDato == null)
-            {
                 pIndicador.CantidadVariableDato = defaultInputNumberValue;
-            }
+            
 
             if (pIndicador.CantidadCategoriasDesagregacion == null)
-            {
                 pIndicador.CantidadCategoriasDesagregacion = defaultInputNumberValue;
-            }
+            
 
-            if (pIndicador.UnidadEstudio == null || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
-            {
+            if (string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
                 pIndicador.UnidadEstudio.id = defaultDropDown;
-            }
+            
 
             if (pIndicador.Solicitud == null)
-            {
                 pIndicador.Solicitud = false;
-            }
+            
 
-            if (string.IsNullOrEmpty(pIndicador.Fuente))
-            {
+            if (pIndicador.Fuente == null || string.IsNullOrEmpty(pIndicador.Fuente.Trim()))
                 pIndicador.Fuente = defaultInputTextValue;
-            }
+            
         }
 
         #endregion

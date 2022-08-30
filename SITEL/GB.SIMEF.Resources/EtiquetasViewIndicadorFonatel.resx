@@ -139,10 +139,10 @@
     <value>Descripción</value>
   </data>
   <data name="CrearIndicador_LabelFrecuencias" xml:space="preserve">
-    <value>Frecuencias</value>
+    <value>Frecuencia</value>
   </data>
   <data name="CrearIndicador_LabelFuenteIndicador" xml:space="preserve">
-    <value>Fuentes</value>
+    <value>Fuente</value>
   </data>
   <data name="CrearIndicador_LabelGrupo" xml:space="preserve">
     <value>Grupo</value>
@@ -157,7 +157,7 @@
     <value>Solicitud</value>
   </data>
   <data name="CrearIndicador_LabelTipo" xml:space="preserve">
-    <value>Tipo</value>
+    <value>Tipo indicador</value>
   </data>
   <data name="CrearIndicador_LabelTipoMedida" xml:space="preserve">
     <value>Tipo de Medida</value>

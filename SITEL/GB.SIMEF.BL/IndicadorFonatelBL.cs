@@ -67,7 +67,7 @@ namespace GB.SIMEF.BL
                 pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
 
                 // actualizar el estado del indicador
-                pIndicador = PrepararObjetoIndicador(pIndicador);
+                PrepararObjetoIndicador(pIndicador);
                 pIndicador.UsuarioModificacion = user;
                 pIndicador.idEstado = nuevoEstado;
                 var indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
@@ -146,7 +146,7 @@ namespace GB.SIMEF.BL
 
                 pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
 
-                pIndicador = PrepararObjetoIndicador(pIndicador);
+                PrepararObjetoIndicador(pIndicador);
                 var result = indicadorFonatelDAL.ObtenerFormulariosWebSegunIndicador(pIndicador);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
@@ -227,7 +227,7 @@ namespace GB.SIMEF.BL
                 if (indicadorExistente != null) {
                     errorControlado = true;
 
-                    if (indicadorExistente.Codigo.Trim().ToUpper() == pIndicador.Codigo.Trim().ToUpper())
+                    if (indicadorExistente.Codigo.Trim().ToUpper().Equals(pIndicador.Codigo.Trim().ToUpper()))
                     {
                         throw new Exception(string.Format(Errores.CodigoRegistrado, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo));
                     }
@@ -359,12 +359,14 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
+        /// 23/08/2022
+        /// José Navarro Acuña
         /// Prepara un objeto indicador para ser enviado al servicio DAL.
         /// Se preparan los id's de las tablas relacionadas para poder efectuar consultas debido a la encriptación.
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
-        private Indicador PrepararObjetoIndicador(Indicador pIndicador)
+        private void PrepararObjetoIndicador(Indicador pIndicador)
         {
             if (!string.IsNullOrEmpty(pIndicador.id))
             {
@@ -372,48 +374,41 @@ namespace GB.SIMEF.BL
                 pIndicador.idIndicador = number;
             }
 
-            if (!string.IsNullOrEmpty(pIndicador.TipoIndicadores?.id))
+            if (!string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoIndicadores.id), out int number);
                 pIndicador.IdTipoIndicador = number;
             }
             
-            if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
+            if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.ClasificacionIndicadores.id), out int number);
                 pIndicador.IdClasificacion = number;
             }
             
-            if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id))
+            if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.GrupoIndicadores.id), out int number);
                 pIndicador.idGrupo = number;
             }
             
-            if (!string.IsNullOrEmpty(pIndicador.UnidadEstudio?.id))
+            if (!string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.UnidadEstudio.id), out int number);
                 pIndicador.IdUnidadEstudio = number;
             }
 
-            if (!string.IsNullOrEmpty(pIndicador.TipoMedida?.id))
+            if (!string.IsNullOrEmpty(pIndicador.TipoMedida.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoMedida.id), out int number);
                 pIndicador.idTipoMedida = number;
             }
 
-            if (!string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio?.id))
+            if (!string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.FrecuenciaEnvio.id), out int number);
                 pIndicador.IdFrecuencia = number;
             }
-
-            if (!string.IsNullOrEmpty(pIndicador.EstadoRegistro?.id))
-            {
-                int.TryParse(Utilidades.Desencriptar(pIndicador.EstadoRegistro.id), out int number);
-                pIndicador.idEstado = number;
-            }
-            return pIndicador;
         }
     }
 }

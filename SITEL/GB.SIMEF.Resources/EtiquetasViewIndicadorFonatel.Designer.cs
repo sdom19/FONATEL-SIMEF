@@ -124,7 +124,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Frecuencias.
+        ///   Looks up a localized string similar to Frecuencia.
         /// </summary>
         public static string CrearIndicador_LabelFrecuencias {
             get {
@@ -133,7 +133,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fuentes.
+        ///   Looks up a localized string similar to Fuente.
         /// </summary>
         public static string CrearIndicador_LabelFuenteIndicador {
             get {
@@ -178,7 +178,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tipo.
+        ///   Looks up a localized string similar to Tipo indicador.
         /// </summary>
         public static string CrearIndicador_LabelTipo {
             get {
