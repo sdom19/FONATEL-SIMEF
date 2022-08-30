@@ -127,7 +127,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objrelacion.id), out temp);
-                    objrelacion.idCategoriaAtributo = temp;
+                    objrelacion.idDetalleRelacionCategoria = temp;
                 }
 
                 var resul = clsDatos.ObtenerDatos(objrelacion);
@@ -170,6 +170,7 @@ namespace GB.SIMEF.BL
         {
             try
             {
+
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
@@ -179,7 +180,7 @@ namespace GB.SIMEF.BL
                 }
 
                 objeto.RelacionCategoria = 
-                    clsDatosRelacionCategoria.ObtenerDatos(new RelacionCategoria() { idRelacionCategoria = objeto.IdRelacionCategoria }).Single();
+                    clsDatosRelacionCategoria.ObtenerDatos(new RelacionCategoria() { idRelacionCategoria = objeto.IdRelacionCategoria}).Single();
 
                 List<DetalleRelacionCategoria> ObtenerListaParaComparar = clsDatos.ObtenerDatos(
                     new DetalleRelacionCategoria() { idCategoriaAtributo = objeto.idCategoriaAtributo }
@@ -197,10 +198,12 @@ namespace GB.SIMEF.BL
                 }
                 else if (clsDatos.ObtenerDatos(new DetalleRelacionCategoria() { CategoriaAtributoValor = objeto.CategoriaAtributoValor, IdRelacionCategoria = objeto.IdRelacionCategoria }).Count() > 0)
                 {
+                    //VALIDACION SIMILAR
                     throw new Exception(Errores.NombreRegistrado);
                 }
                 else
                 {
+                    
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
 
@@ -249,7 +252,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idDetalleRelacionCategoria = temp;
+                    objeto.IdRelacionCategoria = temp;
                 }
                 if (!string.IsNullOrEmpty(objeto.relacionid))
                 {

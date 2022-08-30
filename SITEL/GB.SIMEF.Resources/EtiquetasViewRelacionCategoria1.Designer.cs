@@ -70,7 +70,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Cantidad Atributos.
+        ///   Busca una cadena traducida similar a Cantidad de atributos.
         /// </summary>
         public static string Cantidad {
             get {
@@ -97,7 +97,16 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Detalle.
+        ///   Busca una cadena traducida similar a Crear Relaciones entre Categorías.
+        /// </summary>
+        public static string CrearRelacion {
+            get {
+                return ResourceManager.GetString("CrearRelacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Agregar atributos.
         /// </summary>
         public static string Detalle {
             get {
@@ -133,6 +142,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Editar Relaciones entre Categorías.
+        /// </summary>
+        public static string EditarRelacion {
+            get {
+                return ResourceManager.GetString("EditarRelacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Estado.
         /// </summary>
         public static string Estado {
@@ -151,7 +169,16 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Relación entre Categorías.
+        ///   Busca una cadena traducida similar a Nombre de Relación.
+        /// </summary>
+        public static string NombreRelacion {
+            get {
+                return ResourceManager.GetString("NombreRelacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Relaciones entre Categorías.
         /// </summary>
         public static string RelacionCategoria {
             get {

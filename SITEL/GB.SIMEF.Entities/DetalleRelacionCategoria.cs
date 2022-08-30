@@ -43,6 +43,9 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string relacionid { get; set; }
 
+        [NotMapped]
+        public bool Completo { get; set; }
+
         #endregion
 
     }

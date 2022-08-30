@@ -99,11 +99,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (string.IsNullOrEmpty(id))
             {
+                          
+                ViewBag.titulo = EtiquetasViewRelacionCategoria.CrearRelacion;
+                
                 ViewBag.ListaCatergoriaValor = new List<SelectListItem>();
+
                 return View();
             }
             else
             {
+                ViewBag.titulo = EtiquetasViewRelacionCategoria.EditarRelacion;
+
                 RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = id })
                     .objetoRespuesta.Single();
 
@@ -287,6 +293,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+
         /// <summary>
         /// Fecha 17-08-2022
         /// Francisco Vindas
@@ -332,6 +339,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return JsonConvert.SerializeObject(result);
         }
+
 
         /// <summary>
         /// Inserta un detalle relacion entre categorias
