@@ -69,10 +69,19 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 objregla = reglaBL.ObtenerDatos(objregla).objetoRespuesta.SingleOrDefault();
                 if (modo == (int)Constantes.Accion.Clonar)
                 {
+                    ViewBag.titulo = EtiquetasViewReglasValidacion.Clonar;
                     objregla.Codigo = string.Empty;
                     objregla.id = string.Empty;
                 }
+                else
+                {
+                    ViewBag.titulo = EtiquetasViewReglasValidacion.Editar;
+                }
 
+            }
+            else
+            {
+                ViewBag.titulo = EtiquetasViewReglasValidacion.Crear;
             }
             return View(objregla);
 
