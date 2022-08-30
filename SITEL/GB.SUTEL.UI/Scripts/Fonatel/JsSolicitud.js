@@ -105,12 +105,12 @@ $(document).on("click", JsSolicitud.Controles.btnCancelar, function (e) {
 
 $(document).on("click", JsSolicitud.Controles.btnEditarSolicitud, function () {
     let id = $(this).val();
-    window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id;
+    window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id+ "&modo=" + jsUtilidades.Variables.Acciones.Editar;;
 });
 
 $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
     let id = $(this).val();
-    window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id;
+    window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
 });
 
 $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function () {
