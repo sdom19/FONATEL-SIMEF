@@ -502,45 +502,134 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 24/08/2022
         /// José Navarro Acuña
-        /// Función que permite crear un indicador, como un guardado parcial
+        /// Función que permite crear un indicador.
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> CrearIndicadorGuardadoParcial(Indicador pIndicador)
+        public async Task<string> CrearIndicador(Indicador pIndicador)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
-            resultado.HayError = (int)Error.ErrorControlado;
+
+            string mensajeValidacionIndicador = ValidarObjetoIndicador(pIndicador, pIndicador.esGuardadoParcial);
+
+            if (mensajeValidacionIndicador != null)
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = mensajeValidacionIndicador;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            if (pIndicador.esGuardadoParcial)
+            {
+                PrepararObjetoIndicadorGuardadoParcial(pIndicador);
+            }
+
+            pIndicador.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+            // evitar datos indeseados en los ids
+            pIndicador.IdTipoIndicador = 0;
+            pIndicador.IdFrecuencia = 0;
+            pIndicador.IdClasificacion = 0;
+            pIndicador.IdTipoIndicador = 0;
+            pIndicador.idGrupo = 0;
+            pIndicador.IdUnidadEstudio = 0;
+
+            await Task.Run(() =>
+            {
+                resultado = indicadorBL.InsertarDatos(pIndicador);
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        #endregion
+
+        #region Funciones privadas
+
+        /// <summary>
+        /// 30/08/2022
+        /// José Navarro Acuña
+        /// Función que permite verificar los datos de un objeto indicador.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        private string ValidarObjetoIndicador(Indicador pIndicador, bool esGuardadoParcial)
+        {
+            if (!esGuardadoParcial)
+            {
+                if ( // el nombre y código siempre son obligatorios
+                pIndicador.TipoIndicadores == null          || string.IsNullOrEmpty(pIndicador.TipoIndicadores.id) ||
+                pIndicador.FrecuenciaEnvio == null          || string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id) ||
+                pIndicador.Descripcion == null              || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()) ||
+                pIndicador.ClasificacionIndicadores == null || string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id) ||
+                pIndicador.TipoMedida == null               || string.IsNullOrEmpty(pIndicador.TipoMedida.id) ||
+                pIndicador.GrupoIndicadores == null         || string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id) ||
+                pIndicador.Interno == null ||
+                pIndicador.Notas == null                    || string.IsNullOrEmpty(pIndicador.Notas.Trim()) ||
+                pIndicador.CantidadVariableDato == null ||
+                pIndicador.CantidadCategoriasDesagregacion == null ||
+                pIndicador.UnidadEstudio == null            || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id) ||
+                pIndicador.Solicitud == null ||
+                pIndicador.Fuente == null                   || string.IsNullOrEmpty(pIndicador.Fuente.Trim())
+                )
+                {
+                    return Errores.CamposIncompletos;
+                }
+            }
+
+            if (pIndicador.Codigo == null || string.IsNullOrEmpty(pIndicador.Codigo.Trim())) // campo requerido (obligatorio siempre)
+            {
+                return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
+            }
+            else if (!Utilidades.rx_alfanumerico_v2.Match(pIndicador.Codigo.Trim()).Success // validar el formato correcto
+                || pIndicador.Codigo.Trim().Length > 30)                                    // validar la cantidad de caracteres
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
+            }
+
+            if (pIndicador.Nombre == null || string.IsNullOrEmpty(pIndicador.Nombre.Trim())) // campo requerido (obligatorio siempre)
+            {
+                return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
+            }
+            else if (!Utilidades.rx_alfanumerico_v2.Match(pIndicador.Nombre.Trim()).Success // validar el formato correcto
+                || pIndicador.Nombre.Trim().Length > 300)                                   // validar la cantidad de caracteres
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
+            }
+
+            if (pIndicador.Descripcion?.Trim().Length > 3000)                               // validar la cantidad de caracteres
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelDescripcion);
+            }
+
+            if (pIndicador.Notas?.Trim().Length > 3000)                                     // validar la cantidad de caracteres
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas);
+            }
+
+            if (pIndicador.Fuente?.Trim().Length > 300)                                     // validar la cantidad de caracteres
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 30/08/2022
+        /// José Navarro Acuña
+        /// Función que prepara los atributos no establecidos en un indicador para realizar un guardado parcial
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        private void PrepararObjetoIndicadorGuardadoParcial(Indicador pIndicador)
+        {
             string defaultDropDown = Utilidades.GetDefaultDropDownValue();
 
-            if (string.IsNullOrEmpty(pIndicador.Codigo?.Trim()))
-            {
-                resultado.MensajeError = string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
-                return JsonConvert.SerializeObject(resultado);
-            }
-            else if (!Utilidades.rx_alfanumerico_v2.Match(pIndicador.Codigo.Trim()).Success) // validar si el nombre tiene el formato correcto
-            {
-                resultado.MensajeError = string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
-                return JsonConvert.SerializeObject(resultado);
-            }
-            
-            if (string.IsNullOrEmpty(pIndicador.Nombre?.Trim()))
-            {
-                resultado.MensajeError = string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
-                return JsonConvert.SerializeObject(resultado);
-            }
-            else if (!Utilidades.rx_alfanumerico_v2.Match(pIndicador.Nombre.Trim()).Success) // validar si el nombre tiene el formato correcto
-            {
-                resultado.MensajeError = string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
-                return JsonConvert.SerializeObject(resultado);
-            }
-
-            if (string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
+            if (pIndicador.TipoIndicadores == null || string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
             {
                 pIndicador.TipoIndicadores.id = defaultDropDown;
             }
 
-            if (string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
+            if (pIndicador.FrecuenciaEnvio == null || string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
             {
                 pIndicador.FrecuenciaEnvio.id = defaultDropDown;
             }
@@ -550,17 +639,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 pIndicador.Descripcion = defaultInputTextValue;
             }
 
-            if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
+            if (pIndicador.ClasificacionIndicadores == null || string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
             {
                 pIndicador.ClasificacionIndicadores.id = defaultDropDown;
             }
 
-            if (string.IsNullOrEmpty(pIndicador.TipoMedida.id))
+            if (pIndicador.TipoMedida == null || string.IsNullOrEmpty(pIndicador.TipoMedida.id))
             {
-                pIndicador.TipoIndicadores.id = defaultDropDown;
+                pIndicador.TipoMedida.id = defaultDropDown;
             }
 
-            if (string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id)) 
+            if (pIndicador.GrupoIndicadores == null || string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
             {
                 pIndicador.GrupoIndicadores.id = defaultDropDown;
             }
@@ -585,7 +674,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 pIndicador.CantidadCategoriasDesagregacion = defaultInputNumberValue;
             }
 
-            if (string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
+            if (pIndicador.UnidadEstudio == null || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
             {
                 pIndicador.UnidadEstudio.id = defaultDropDown;
             }
@@ -599,81 +688,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 pIndicador.Fuente = defaultInputTextValue;
             }
-
-            resultado.HayError = 0;
-            pIndicador.esGuardadoParcial = true;
-            pIndicador.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
-
-            await Task.Run(() =>
-            {
-                resultado = indicadorBL.InsertarDatos(pIndicador);
-            });
-            return JsonConvert.SerializeObject(resultado);
-        }
-
-        /// <summary>
-        /// 24/08/2022
-        /// José Navarro Acuña
-        /// Función que permite crear un indicador.
-        /// </summary>
-        /// <param name="pIndicador"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<string> CrearIndicador(Indicador pIndicador)
-        {
-            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
-
-            if (string.IsNullOrEmpty(pIndicador.Codigo.Trim()) ||
-                string.IsNullOrEmpty(pIndicador.Nombre.Trim()) ||
-                string.IsNullOrEmpty(pIndicador.TipoIndicadores.id) ||
-                string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id) ||
-                string.IsNullOrEmpty(pIndicador.Descripcion) ||
-                string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id) ||
-                string.IsNullOrEmpty(pIndicador.TipoMedida.id) ||
-                string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id) ||
-                pIndicador.Interno == null ||
-                string.IsNullOrEmpty(pIndicador.Notas) ||
-                pIndicador.CantidadVariableDato == null ||
-                pIndicador.CantidadCategoriasDesagregacion == null ||
-                string.IsNullOrEmpty(pIndicador.UnidadEstudio.id) ||
-                pIndicador.Solicitud == null ||
-                string.IsNullOrEmpty(pIndicador.Fuente)
-                )
-            {
-                resultado.MensajeError = Errores.CamposIncompletos;
-                resultado.HayError = (int)Error.ErrorControlado;
-                return JsonConvert.SerializeObject(resultado);
-            }
-            
-            if (!Utilidades.rx_alfanumerico_v2.Match(pIndicador.Codigo.Trim()).Success) // validar si el nombre tiene el formato correcto
-            {
-                resultado.MensajeError = string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
-                resultado.HayError = (int)Error.ErrorControlado;
-                return JsonConvert.SerializeObject(resultado);
-            }
-            
-            if (!Utilidades.rx_alfanumerico_v2.Match(pIndicador.Nombre.Trim()).Success) // validar si el nombre tiene el formato correcto
-            {
-                resultado.MensajeError = string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
-                resultado.HayError = (int)Error.ErrorControlado;
-                return JsonConvert.SerializeObject(resultado);
-            }
-
-            pIndicador.esGuardadoParcial = false;
-            pIndicador.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
-            // evitar datos indeseados en los ids
-            pIndicador.IdTipoIndicador = 0;
-            pIndicador.IdFrecuencia = 0;
-            pIndicador.IdClasificacion = 0;
-            pIndicador.IdTipoIndicador = 0;
-            pIndicador.idGrupo = 0;
-            pIndicador.IdUnidadEstudio = 0;
-
-            await Task.Run(() =>
-            {
-                resultado = indicadorBL.InsertarDatos(pIndicador);
-            });
-            return JsonConvert.SerializeObject(resultado);
         }
 
         #endregion

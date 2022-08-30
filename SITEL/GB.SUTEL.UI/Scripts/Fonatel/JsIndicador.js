@@ -319,6 +319,7 @@ CreateView = {
             inputDescripcion: "#inputDescripcion",
             inputNota: "#inputNota",
             inputFuenteIndicador: "#inputFuenteIndicador",
+            prefijoLabelsHelp: "Help",
         },
 
         formVariable: {
@@ -690,7 +691,7 @@ CreateView = {
         },
 
         // Formulario Indicador
-        CrearObjFormularioIndicador: function () {
+        CrearObjFormularioIndicador: function (esGuardadoParcial) {
             let controles = CreateView.Controles.formIndicador;
 
             var formData = {
@@ -720,24 +721,21 @@ CreateView = {
                 },
                 FrecuenciaEnvio: {
                     id: $(controles.ddlClasificacion).val()
-                }
+                },
+                esGuardadoParcial: esGuardadoParcial ? true : false
             };
             return formData;
         },
 
         ValidarFormularioIndicador: function () {
             let inputsPendientesCompletar = [...$(CreateView.Controles.formIndicador.inputs)].filter(i => { return $.trim(i.value) == "" || i.value == null; });
-            let puedeContinuar = inputsPendientesCompletar.length == 0 ? true : false;
-            return { puedeContinuar: puedeContinuar, objetos: inputsPendientesCompletar };
+            return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
         },
 
         BtnSiguienteIndicador: function () {
             if (CreateView.Metodos.ValidarFormularioIndicador().puedeContinuar) {
-                CreateView.Metodos.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador())
-                    .then(data => {
-                        $("#loading").fadeIn();
-                        return CreateView.Metodos.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador());
-                    })
+                $("#loading").fadeIn();
+                CreateView.Metodos.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador(false))
                     .then(data => {
                         jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
                             .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click'); });
@@ -758,7 +756,27 @@ CreateView = {
 
         CrearIndicadorGuardadoParcial: function () {
             let mensaje = "";
-            if (!CreateView.Metodos.ValidarFormularioIndicador().puedeContinuar) {
+            let prefijoHelp = CreateView.Controles.formIndicador.prefijoLabelsHelp;
+            let validacionFormulario = CreateView.Metodos.ValidarFormularioIndicador();
+            let camposObligatoriosPendientes = false;
+
+            $(CreateView.Controles.formIndicador.inputCodigo + prefijoHelp).css("display", "none");
+            $(CreateView.Controles.formIndicador.inputNombre + prefijoHelp).css("display", "none");
+
+            if (validacionFormulario.objetos.some(x => $(x).attr("id") === $(CreateView.Controles.formIndicador.inputCodigo).attr("id"))) {
+                $(CreateView.Controles.formIndicador.inputCodigo + prefijoHelp).css("display", "block");
+                camposObligatoriosPendientes = true;
+            }
+            if (validacionFormulario.objetos.some(x => $(x).attr("id") === $(CreateView.Controles.formIndicador.inputNombre).attr("id"))) {
+                $(CreateView.Controles.formIndicador.inputNombre + prefijoHelp).css("display", "block");
+                camposObligatoriosPendientes = true;
+            }
+
+            if (camposObligatoriosPendientes) {
+                return;
+            }
+
+            if (!validacionFormulario.puedeContinuar) {
                 mensaje = "Existen campos vacíos. ";
             }
 
@@ -769,7 +787,7 @@ CreateView = {
             })
                 .then(data => {
                     $("#loading").fadeIn();
-                    return CreateView.Consultas.CrearIndicadorGuardadoParcial(CreateView.Metodos.CrearObjFormularioIndicador());
+                    return CreateView.Consultas.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador(true));
                 })
                 .then(data => {
                     jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
@@ -848,10 +866,6 @@ CreateView = {
         CrearIndicador: function (pIndicador) {
             return execAjaxCall('/IndicadorFonatel/CrearIndicador', 'POST', { pIndicador: pIndicador });
         },
-        
-        CrearIndicadorGuardadoParcial: function (pIndicador) {
-            return execAjaxCall('/IndicadorFonatel/CrearIndicadorGuardadoParcial', 'POST', { pIndicador: pIndicador });
-        }
     },
 
     Eventos: function () {

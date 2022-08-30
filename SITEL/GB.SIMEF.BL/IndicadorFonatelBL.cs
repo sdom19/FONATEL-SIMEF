@@ -96,8 +96,7 @@ namespace GB.SIMEF.BL
                 resultado.CantidadRegistros = indicadorActualizado.Count();
 
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario,
-                        resultado.Clase, pIndicador.Codigo);
+                        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
             }
             catch (Exception ex)
             {
@@ -178,7 +177,7 @@ namespace GB.SIMEF.BL
 
             try
             {
-                pIndicador = PrepararObjetoIndicador(pIndicador);
+                PrepararObjetoIndicador(pIndicador);
                 resultado = ValidarDatos(pIndicador);
 
                 if (resultado.HayError != 0)
@@ -186,7 +185,16 @@ namespace GB.SIMEF.BL
                     return resultado;
                 }
 
-                resultado = InsertarDatos(pIndicador);
+                pIndicador.UsuarioCreacion = user;
+                resultado.objetoRespuesta = indicadorFonatelDAL.ActualizarDatos(pIndicador);
+                
+                resultado.Usuario = user;
+                resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Insertar;
+
+                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
             }
             catch (Exception ex)
             {
@@ -210,6 +218,7 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<Indicador>> ValidarDatos(Indicador pIndicador)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            resultado.HayError = (int)Error.NoError;
             bool errorControlado = false;
 
             try

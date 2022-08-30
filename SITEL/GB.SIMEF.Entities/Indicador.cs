@@ -53,21 +53,23 @@ namespace GB.SIMEF.Entities
 
         public virtual ClasificacionIndicadores ClasificacionIndicadores { get; set; }
 
-        public virtual ICollection<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
+        //public virtual ICollection<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
 
-        public virtual ICollection<DetalleIndicadorCategoria> DetalleIndicadorCategoria { get; set; }
+        //public virtual ICollection<DetalleIndicadorCategoria> DetalleIndicadorCategoria { get; set; }
 
-        public virtual ICollection<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
+        //public virtual ICollection<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
+
         public virtual EstadoRegistro EstadoRegistro { get; set; }
         public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
         public virtual GrupoIndicadores GrupoIndicadores { get; set; }
 
-        public virtual ICollection<DefinicionIndicadores> DefinicionIndicadores { get; set; }
+        //public virtual ICollection<DefinicionIndicadores> DefinicionIndicadores { get; set; }
+
         public virtual TipoMedida TipoMedida { get; set; }
         public virtual UnidadEstudio UnidadEstudio { get; set; }
         public virtual TipoIndicadores TipoIndicadores { get; set; }
 
-        public virtual ICollection<ReglaValidacion> ReglaValidacion { get; set; }
+        //public virtual ICollection<ReglaValidacion> ReglaValidacion { get; set; }
 
         #region Variables que no forman parte del contexto
         [NotMapped]

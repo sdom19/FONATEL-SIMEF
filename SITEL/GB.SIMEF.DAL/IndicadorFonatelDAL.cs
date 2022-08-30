@@ -148,8 +148,8 @@ namespace GB.SIMEF.DAL
                 listaIndicadores = db.Database.SqlQuery<Indicador>
                     ("execute spActualizarIndicadorFonatel " +
                     "@pIdIndicador," +
-                    "@pCodigo," + // opcional
-                    "@pNombre," + // opcional
+                    "@pCodigo," +
+                    "@pNombre," +
                     "@pIdTipoIndicador," +
                     "@pIdClasificacion," +
                     "@pIdGrupo," +
