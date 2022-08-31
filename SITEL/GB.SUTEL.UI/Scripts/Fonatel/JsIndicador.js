@@ -2,8 +2,8 @@
     Controles: {
         tablaIndicador: "#tableIndicador tbody",
         btnEditarIndicador: "#tableIndicador tbody tr td .btn-edit",
-        btnDesactivarIndicador: "#tableIndicador tbody tr td .btn-power-off",
-        btnActivarIndicador: "#tableIndicador tbody tr td .btn-power-on",
+        btnDesactivarIndicador: "#tableIndicador tbody tr td .btn-power-on",
+        btnActivarIndicador: "#tableIndicador tbody tr td .btn-power-off",
         btnEliminarIndicador: "#tableIndicador tbody tr td .btn-delete",
         btnClonarIndicador: "#tableIndicador tbody tr td .btn-clone",
 
@@ -49,10 +49,10 @@
                 html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id}></button>`
 
                 if (item.EstadoRegistro.Nombre == "Activo") {
-                    html += `<button class="btn-icon-base btn-power-off" type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" value=${item.id}></button>`
+                    html += `<button class="btn-icon-base btn-power-on" type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" value=${item.id}></button>`
                 }
                 else {
-                    html += `<button class="btn-icon-base btn-power-on" type="button" data-toggle="tooltip" data-placement="top" title="Activar" value=${item.id}></button>`
+                    html += `<button class="btn-icon-base btn-power-off" type="button" data-toggle="tooltip" data-placement="top" title="Activar" value=${item.id}></button>`
                 }
 
                 html += `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${ item.id }></button>`
