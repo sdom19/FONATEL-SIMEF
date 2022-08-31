@@ -32,6 +32,12 @@ namespace GB.SIMEF.Entities
         #region Variables Fuera del contexto 
 
         [NotMapped]
+        public virtual List<CategoriasDesagregacion> DetalleCategoriaTexto { get; set; }
+
+        [NotMapped]
+        public virtual CategoriasDesagregacion CategoriaDesagracion { get; set; }
+
+        [NotMapped]
         public string usuario { get; set; }
 
         [NotMapped]

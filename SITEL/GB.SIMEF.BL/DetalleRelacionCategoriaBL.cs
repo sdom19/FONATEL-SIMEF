@@ -192,20 +192,21 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
                 ResultadoConsulta.Usuario = objeto.usuario;
 
+
                 if (cantidadDisponible <= 0)
                 {
                     throw new Exception(Errores.CantidadRegistros);
                 }
                 else if (clsDatos.ObtenerDatos(new DetalleRelacionCategoria() { CategoriaAtributoValor = objeto.CategoriaAtributoValor, IdRelacionCategoria = objeto.IdRelacionCategoria }).Count() > 0)
                 {
-                    //VALIDACION SIMILAR
-                    throw new Exception(Errores.NombreRegistrado);
+                    throw new Exception(Errores.DetalleRegistrado);
                 }
                 else
                 {
-                    
+                   
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                    
 
                     if (cantidadDisponible == 1)
                     {
@@ -224,7 +225,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.DetalleRegistrado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }

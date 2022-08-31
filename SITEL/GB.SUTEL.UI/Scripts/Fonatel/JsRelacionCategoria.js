@@ -49,7 +49,9 @@
     "Variables": {
         "ListadoRelaciones": [],
         "ListadoDetalleRelaciones": [],
-        "ModoEditarAtributo": false
+        "ModoEditarAtributo": false,
+        "esModoEdicion": false,
+        "objEditarDetalleAtributo": null
     },
 
     "Metodos": {
@@ -102,11 +104,13 @@
             }
 
             for (var i = 0; i < JsRelacion.Variables.ListadoDetalleRelaciones.length; i++) {
+                
                 let detalle = JsRelacion.Variables.ListadoDetalleRelaciones[i];
-
+                console.log(detalle);
                 html = html + "<tr>"
 
-                html = html + "<td scope='row'>" + detalle.idCategoriaAtributo + "</td>";
+                html = html + "<td scope='row'>" + detalle.CategoriaDesagracion.NombreCategoria + "</td>";
+
                 html = html + "<td scope='row'>" + detalle.CategoriaAtributoValor + "</td>";
 
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i +" title='Editar' value=" + detalle.id + " class='btn-icon-base btn-edit'></button>" +
@@ -115,7 +119,7 @@
             }
             $(JsRelacion.Controles.TablaDetalleRelacion).html(html);
             CargarDatasource();
-            JsRelacion.Variables.ListadoDetalleRelaciones = [];
+
         },
 
         "ValidarFormularioRelacion": function () {
@@ -176,6 +180,13 @@
 
             return validar;
         },
+
+        "CerrarFormulario": function () {
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Salir del Formulario?", jsMensajes.Variables.actionType.cancelar)
+                .set('onok', function (closeEvent) {
+
+                });
+        },
     },
 
     "Consultas": {
@@ -219,13 +230,14 @@
                     JsRelacion.Variables.ListadoDetalleRelaciones = obj.objetoRespuesta;
                     JsRelacion.Metodos.CargarTablaDetalleRelacion();
                 }).catch((obj) => {
+                    console.log(obj);
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
+                            .set('onok', function (closeEvent) { });
                     }
                     else {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); })
+                            .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
                     $("#loading").fadeOut();
@@ -294,12 +306,16 @@
                     let html = "";
 
                     for (var i = 0; i < obj.objetoRespuesta.length; i++) {
-
-                        html = html + "<option value='" + obj.objetoRespuesta[i] + "'>" + obj.objetoRespuesta[i] + "</option>"
+                        html = html + "<option value='" + obj.objetoRespuesta[i].toUpperCase() + "'>" + obj.objetoRespuesta[i] + "</option>"
                     }
 
                     $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).html(html);
 
+                    if (JsRelacion.Variables.esModoEdicion) {
+                        $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val(JsRelacion.Variables.objEditarDetalleAtributo.CategoriaAtributoValor.toUpperCase());
+                        $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).trigger("change");
+                        JsRelacion.Variables.esModoEdicion = false;
+                    }
                 }).catch((obj) => {
                     console.log(obj);
                     jsMensajes.Metodos.OkAlertErrorModal()
@@ -361,16 +377,19 @@
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); })
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
                     }
                 }).finally(() => {
                     $("#loading").fadeOut();
-             });
-
+                });
         },
 
         "EliminarRelacionCategoria": function (idRelacionCategoria) {
@@ -481,39 +500,13 @@
                     });
         },
 
-        "CargarDetalleDesagregacion": function (IdRelacionCategoria) {
-
-            $("#loading").fadeIn();
-            execAjaxCall('/RelacionCategoria/ObtenerListaCategoriasDetalle?IdRelacionCategoria=' + IdRelacionCategoria, "GET")
-                .then((obj) => {
-                    JsRelacion.Variables.ListadoDetalleRelaciones = obj.objetoRespuesta;
-                    if (JsRelacion.Variables.ListadoDetalleRelaciones.length > 0) {
-                        $(JsRelacion.Controles.ddlCategoriaDetalle).val(JsRelacion.Variables.ListadoDetalleRelaciones[0].idCategoriaAtributo);
-                        $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val(JsRelacion.Variables.ListadoDetalleRelaciones[0].CategoriaAtributoValor);
-
-
-                    }
-                }).catch((obj) => {
-                    console.log(obj);
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { location.reload(); })
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-
-
-
-            //if (JsRelacion.Variables.ListadoDetalleRelaciones.length > index) {
-
-            //    let RelacionDetalle = JsRelacion.Variables.ListadoDetalleRelaciones[index];
-
-            //    $(JsRelacion.Controles.ddlCategoriaDetalle).val(RelacionDetalle.idCategoriaAtributo);
-            //    $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val(RelacionDetalle.CategoriaAtributoValor);
-
-            //    $(JsRelacion.Controles.ddlCategoriaDetalle).trigger("change");
-            //    $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).trigger("change");
-
-            //}             
+        "CargarDetalleDesagregacion": function (index) {
+            if (JsRelacion.Variables.ListadoDetalleRelaciones.length > index) {
+                JsRelacion.Variables.esModoEdicion = true;
+                JsRelacion.Variables.objEditarDetalleAtributo = JsRelacion.Variables.ListadoDetalleRelaciones[index];
+                $(JsRelacion.Controles.ddlCategoriaDetalle).val(JsRelacion.Variables.objEditarDetalleAtributo.CategoriaDesagracion.idCategoria);
+                $(JsRelacion.Controles.ddlCategoriaDetalle).trigger("change");
+            }             
         },
 
         "EliminarDetalleRelacion": function (idDetalleRelacionCategoria) {
@@ -640,13 +633,8 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
 
 //EVENTO PARA EDITAR DETALLE RELACION ENTRE CATEGORIAS
 $(document).on("click", JsRelacion.Controles.btnEditarDetalle, function () {
-
-    JsRelacion.Variables.ModoEditarAtributo = true;
-    let id = $(this).val();
-    JsRelacion.Consultas.CargarCombosDetalle(id);
-
-    //let id = $(this).attr("data-index");
-    //JsRelacion.Consultas.CargarDetalleDesagregacion(id);
+    let id = $(this).attr("data-index");
+    JsRelacion.Consultas.CargarDetalleDesagregacion(id);
 });
 
 //EVENTO PARA ELIMINAR DETALLE RELACION ENTRE CATEGORIAS 
@@ -657,7 +645,6 @@ $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, functio
             JsRelacion.Consultas.EliminarDetalleRelacion(id);
         });
 });
-
 
 //EVENTO PARA AGREGAR DETALLE POR EXCEL
 $(document).on("click", JsRelacion.Controles.btnAgregarDetalle, function () {
@@ -680,6 +667,12 @@ $(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
         .set('onok', function (closeEvent) {
             window.location.href = "/Fonatel/RelacionCategoria/Index";
         });
+});
+
+//EVENTO BOTON FINALIZAR DETALLE
+$(document).on("click", JsRelacion.Controles.btnFinalizarDetalleRelacion, function (e) {
+    e.preventDefault();
+    window.location.href = "/Fonatel/RelacionCategoria/Index";
 });
 
 $(function () {

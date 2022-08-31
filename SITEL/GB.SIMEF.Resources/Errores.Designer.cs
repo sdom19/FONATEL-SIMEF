@@ -88,6 +88,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El Detalle ingresado ya se encuentra registrado.
+        /// </summary>
+        public static string DetalleRegistrado {
+            get {
+                return ResourceManager.GetString("DetalleRegistrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La Etiqueta ingresada ya se encuentra registrado.
         /// </summary>
         public static string EtiquetaRegistrada {

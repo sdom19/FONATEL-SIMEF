@@ -59,6 +59,10 @@ namespace GB.SIMEF.BL
                 {
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
+                else if (result.DetalleRelacionCategoria.Count() > objeto.CantidadCategoria)
+                {
+                    throw new Exception(Errores.CantidadRegistrosLimite);
+                }
 
                 //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
                 //if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper()).ToList().Count() > 0)

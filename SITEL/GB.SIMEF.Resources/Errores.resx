@@ -126,6 +126,9 @@
   <data name="CodigoRegistrado" xml:space="preserve">
     <value>El Código ingresado ya se encuentra registrado</value>
   </data>
+  <data name="DetalleRegistrado" xml:space="preserve">
+    <value>El Detalle ingresado ya se encuentra registrado</value>
+  </data>
   <data name="EtiquetaRegistrada" xml:space="preserve">
     <value>La Etiqueta ingresada ya se encuentra registrado</value>
   </data>

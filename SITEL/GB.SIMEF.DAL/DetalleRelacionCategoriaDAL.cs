@@ -39,7 +39,7 @@ namespace GB.SIMEF.DAL
                 {
                     idDetalleRelacionCategoria = x.idDetalleRelacionCategoria,
                     IdRelacionCategoria = x.IdRelacionCategoria,
-                    idCategoriaAtributo = x.idCategoriaAtributo,
+                    CategoriaDesagracion = ObtenerCategoriaDesagracion(x.idCategoriaAtributo),
                     CategoriaAtributoValor = x.CategoriaAtributoValor,
                     Estado = x.Estado,
                     RelacionCategoria = db.RelacionCategoria.Where(i => i.idRelacionCategoria == x.IdRelacionCategoria).Single(),
@@ -76,10 +76,10 @@ namespace GB.SIMEF.DAL
         }
 
 
-        private List<DetalleCategoriaTexto> ListaDetalleCategoriaTexto(int id)
+        private CategoriasDesagregacion ObtenerCategoriaDesagracion(int id)
         {
-            return db.DetalleCategoriaTexto
-                             .Where(x => x.idCategoria == id && x.Estado == true).ToList();
+            return
+            db.CategoriasDesagregacion.Where(x => x.idCategoria == id && x.idEstado == 2).FirstOrDefault();
         }
 
     }
