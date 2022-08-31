@@ -331,13 +331,6 @@ $(document).on("click", JsFuentes.Controles.step2, function (e) {
 });
 
 
-$(document).on("click", ".stepwizard-step[data-step='1']", function (e) {
-    e.stopPropagation();
-});
-
-
-
-
 
 
 $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function (e) {

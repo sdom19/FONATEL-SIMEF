@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-
+using GB.SIMEF.Resources;
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     [AuthorizeUserAttribute]
@@ -49,9 +49,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             if (string.IsNullOrEmpty(id))
             {
+                ViewBag.titulo = EtiquetasViewFuentesRegistro.CrearFuente;
                 return View(new FuentesRegistro());
             }else
             {
+                ViewBag.titulo = EtiquetasViewFuentesRegistro.Editar;
                 FuentesRegistro fuente = 
                     FuenteBL.ObtenerDatos(new FuentesRegistro() { id = id }).objetoRespuesta.Single();
                 return View(fuente);

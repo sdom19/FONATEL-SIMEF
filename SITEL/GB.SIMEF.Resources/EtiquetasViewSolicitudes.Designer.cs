@@ -61,7 +61,25 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Clonar Solicitudes.
+        ///   Busca una cadena traducida similar a Año de Registro.
+        /// </summary>
+        public static string Anno {
+            get {
+                return ResourceManager.GetString("Anno", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cantidad de Formularios.
+        /// </summary>
+        public static string CantidadFormularios {
+            get {
+                return ResourceManager.GetString("CantidadFormularios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Clonar Solicitud.
         /// </summary>
         public static string Clonar {
             get {
@@ -79,7 +97,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Crear Solicitudes.
+        ///   Busca una cadena traducida similar a Crear Solicitud.
         /// </summary>
         public static string Crear {
             get {
@@ -88,7 +106,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Editar Solicitudes.
+        ///   Busca una cadena traducida similar a Editar Solicitud.
         /// </summary>
         public static string Editar {
             get {
@@ -106,11 +124,38 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Fecha de Fin.
+        /// </summary>
+        public static string FechaFin {
+            get {
+                return ResourceManager.GetString("FechaFin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fecha de Inicio.
+        /// </summary>
+        public static string FechaInicio {
+            get {
+                return ResourceManager.GetString("FechaInicio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Formulario Web.
         /// </summary>
         public static string Formulario {
             get {
                 return ResourceManager.GetString("Formulario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Formularios Web.
+        /// </summary>
+        public static string Formularios {
+            get {
+                return ResourceManager.GetString("Formularios", resourceCulture);
             }
         }
         
@@ -124,6 +169,24 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Mensaje.
+        /// </summary>
+        public static string Mensaje {
+            get {
+                return ResourceManager.GetString("Mensaje", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Mes de Registro.
+        /// </summary>
+        public static string Mes {
+            get {
+                return ResourceManager.GetString("Mes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Nombre.
         /// </summary>
         public static string Nombre {
@@ -133,7 +196,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Solicitudes de Información.
+        ///   Busca una cadena traducida similar a Solicitud.
         /// </summary>
         public static string Solicitudes {
             get {

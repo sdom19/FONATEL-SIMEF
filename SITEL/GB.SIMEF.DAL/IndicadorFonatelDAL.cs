@@ -126,7 +126,7 @@ namespace GB.SIMEF.DAL
                     UsuarioCreacion = x.UsuarioCreacion,
                     FechaModificacion = x.FechaModificacion,
                     UsuarioModificacion = x.UsuarioModificacion,
-                    EstadoRegistro = ObtenerEstadoRegistro(x.IdEstado)
+                    EstadoRegistro = ObtenerEstadoRegistro(x.idEstado)
                 }).ToList();
             }
 

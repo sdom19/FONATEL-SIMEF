@@ -21,6 +21,17 @@ namespace GB.SIMEF.Resources
             return email != null && Regex.IsMatch(email, "^(([\\w-]+\\.)+[\\w -]+|([a-zA-Z]{1}|[\\w -]{2,}))@(([a-zA -Z]+[\\w-]+\\.){1,2}[a-zA-Z]{2,4})$");
         }
 
+
+
+
+        public static string ConcatenadoCombos(string  codigo, string nombre)
+        {
+            return string.Format("{0} / {1}",codigo,nombre) ;
+        }
+
+
+
+
         /// <summary>
         /// 
         /// </summary>
