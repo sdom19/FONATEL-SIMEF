@@ -117,31 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Anno" xml:space="preserve">
+    <value>Año de Registro</value>
+  </data>
+  <data name="CantidadFormularios" xml:space="preserve">
+    <value>Cantidad de Formularios</value>
+  </data>
   <data name="Clonar" xml:space="preserve">
-    <value>Clonar Solicitudes</value>
+    <value>Clonar Solicitud</value>
   </data>
   <data name="Codigo" xml:space="preserve">
     <value>Código</value>
   </data>
   <data name="Crear" xml:space="preserve">
-    <value>Crear Solicitudes</value>
+    <value>Crear Solicitud</value>
   </data>
   <data name="Editar" xml:space="preserve">
-    <value>Editar Solicitudes</value>
+    <value>Editar Solicitud</value>
   </data>
   <data name="Envio" xml:space="preserve">
     <value>Envío Programado</value>
   </data>
+  <data name="FechaFin" xml:space="preserve">
+    <value>Fecha de Fin</value>
+  </data>
+  <data name="FechaInicio" xml:space="preserve">
+    <value>Fecha de Inicio</value>
+  </data>
   <data name="Formulario" xml:space="preserve">
     <value>Formulario Web</value>
   </data>
+  <data name="Formularios" xml:space="preserve">
+    <value>Formularios Web</value>
+  </data>
   <data name="Fuente" xml:space="preserve">
     <value>Fuente</value>
+  </data>
+  <data name="Mensaje" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
+  <data name="Mes" xml:space="preserve">
+    <value>Mes de Registro</value>
   </data>
   <data name="Nombre" xml:space="preserve">
     <value>Nombre</value>
   </data>
   <data name="Solicitudes" xml:space="preserve">
-    <value>Solicitudes de Información</value>
+    <value>Solicitud</value>
   </data>
 </root>

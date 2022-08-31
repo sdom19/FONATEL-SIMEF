@@ -31,18 +31,24 @@ namespace GB.SIMEF.Entities
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
-        public int IdEstado { get; set; }
+        
+        public int idEstado { get; set; }
         public int idFrecuencia { get; set; }
+        
+
+        [NotMapped]
+        public string id { get; set; }
+        [NotMapped]
 
         public virtual ICollection<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
 
         public virtual ICollection<DetalleSolicitudFormulario> DetalleSolicitudFormulario { get; set; }
+        [NotMapped]
+
         public virtual EstadoRegistro EstadoRegistro { get; set; }
+        [NotMapped]
+
         public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
 
-        #region Variables que no forman parte del contexto
-        [NotMapped]
-        public string id { get; set; }
-        #endregion
     }
 }

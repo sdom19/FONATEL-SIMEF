@@ -1422,6 +1422,10 @@
     <Content Include="Views\CategoriasDesagregacion\DescargarExcel.cshtml" />
     <Content Include="Views\SolicitudFonatel\_AgregarFormulario.cshtml" />
     <Content Include="Views\SolicitudFonatel\_TablaFormularios.cshtml" />
+    <Content Include="Views\DefinicionIndicadores\Detalle.cshtml" />
+    <Content Include="Views\DefinicionIndicadores\_DetalleDefinicion.cshtml" />
+    <Content Include="Views\DefinicionIndicadores\Clonar.cshtml" />
+    <Content Include="Views\DefinicionIndicadores\_ClonarDefinicion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

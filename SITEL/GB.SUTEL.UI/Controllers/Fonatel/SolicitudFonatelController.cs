@@ -18,7 +18,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         private readonly SolicitudBL SolicitudesBL;
-
+        private readonly AnnoBL AnnoBL;
+        private readonly MesBL MesBL;
+        private readonly FuentesRegistroBL fuenteBl;
+        private readonly FormularioWebBL formularioWebBL;
 
 
         string user;
@@ -29,6 +32,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public SolicitudFonatelController()
         {
             SolicitudesBL = new SolicitudBL();
+            AnnoBL = new AnnoBL();
+            MesBL = new MesBL();
+            fuenteBl = new FuentesRegistroBL();
+            formularioWebBL = new FormularioWebBL();
 
         }
 
@@ -41,21 +48,20 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View();
         }
 
-        // GET: Solicitud/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Solicitud/Create
         public ActionResult Create(string id, int? modo)
         {
-
             Solicitud model = new Solicitud();
-
-
+            ViewBag.ListaAnno = AnnoBL.ObtenerDatos(new Anno() ).objetoRespuesta;
+            ViewBag.Modo = modo.ToString();
+            ViewBag.ListaMes= MesBL.ObtenerDatos(new Mes()).objetoRespuesta;
+            ViewBag.ListaFuentes = fuenteBl.ObtenerDatos(new FuentesRegistro()).objetoRespuesta;
+            ViewBag.ListaFormularioWeb = formularioWebBL.ObtenerDatos(new FormularioWeb())
+                                        .objetoRespuesta.Select(x=>new SelectListItem() { Selected=false, Value=x.id, 
+                                            Text=Utilidades.ConcatenadoCombos(x.Codigo,x.Nombre) }).ToList();
             if (!string.IsNullOrEmpty(id))
             {
+                
                 model = SolicitudesBL.ObtenerDatos(new Solicitud() {id=id })
                     .objetoRespuesta.Single();
                 if (modo== (int)Constantes.Accion.Clonar)
@@ -76,65 +82,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View(model);
         }
 
-        // POST: Solicitud/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: Solicitud/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Solicitud/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Solicitud/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Solicitud/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
 
 

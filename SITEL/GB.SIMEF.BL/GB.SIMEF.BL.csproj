@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormularioWebBL.cs" />
+    <Compile Include="DefinicionIndicadorBL.cs" />
+    <Compile Include="MesBL.cs" />
     <Compile Include="BitacoraBL.cs" />
     <Compile Include="SolicitudBL.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoIndicadorBL.cs" />
     <Compile Include="TipoMedidaBL.cs" />
+    <Compile Include="AnnoBL.cs" />
     <Compile Include="UnidadEstudioBL.cs" />
   </ItemGroup>
   <ItemGroup>
