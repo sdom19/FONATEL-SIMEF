@@ -233,44 +233,62 @@ namespace GB.SIMEF.BL
                     }
                     else
                     {
-                        throw new Exception(string.Format(Errores.CodigoRegistrado, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre));
+                        throw new Exception(string.Format(Errores.NombreRegistrado, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre));
                     }
                 }
 
-                if (tipoIndicadorDAL.ObtenerDatos(pIndicador.TipoIndicadores).Count < 0)
+                if ((pIndicador.esGuardadoParcial && pIndicador.TipoIndicadores.IdTipoIdicador != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
-                    errorControlado = true;
-                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo));
+                    if (tipoIndicadorDAL.ObtenerDatos(pIndicador.TipoIndicadores).Count <= 0)
+                    {
+                        errorControlado = true;
+                        throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo));
+                    }
                 }
 
-                if (frecuenciaEnvioDAL.ObtenerDatos(pIndicador.FrecuenciaEnvio).Count < 0)
+                if ((pIndicador.esGuardadoParcial && pIndicador.FrecuenciaEnvio.idFrecuencia != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
-                    errorControlado = true;
-                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFrecuencias));
+                    if (frecuenciaEnvioDAL.ObtenerDatos(pIndicador.FrecuenciaEnvio).Count <= 0)
+                    {
+                        errorControlado = true;
+                        throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFrecuencias));
+                    }
                 }
 
-                if (clasificacionIndicadorDAL.ObtenerDatos(pIndicador.ClasificacionIndicadores).Count < 0)
+                if ((pIndicador.esGuardadoParcial && pIndicador.ClasificacionIndicadores.idClasificacion != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
-                    errorControlado = true;
-                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelClasificacion));
+                    if (clasificacionIndicadorDAL.ObtenerDatos(pIndicador.ClasificacionIndicadores).Count <= 0)
+                    {
+                        errorControlado = true;
+                        throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelClasificacion));
+                    }
                 }
 
-                if (tipoMedidaDAL.ObtenerDatos(pIndicador.TipoMedida).Count < 0)
+                if ((pIndicador.esGuardadoParcial && pIndicador.TipoMedida.idMedida != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
-                    errorControlado = true;
-                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipoMedida));
+                    if (tipoMedidaDAL.ObtenerDatos(pIndicador.TipoMedida).Count <= 0)
+                    {
+                        errorControlado = true;
+                        throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipoMedida));
+                    }
                 }
 
-                if (grupoIndicadorDAL.ObtenerDatos(pIndicador.GrupoIndicadores).Count < 0)
+                if ((pIndicador.esGuardadoParcial && pIndicador.GrupoIndicadores.idGrupo != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
-                    errorControlado = true;
-                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelGrupo));
+                    if (grupoIndicadorDAL.ObtenerDatos(pIndicador.GrupoIndicadores).Count <= 0)
+                    {
+                        errorControlado = true;
+                        throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelGrupo));
+                    }
                 }
 
-                if (unidadEstudioDAL.ObtenerDatos(pIndicador.UnidadEstudio).Count < 0)
+                if ((pIndicador.esGuardadoParcial && pIndicador.UnidadEstudio.idUnidad != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
-                    errorControlado = true;
-                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio));
+                    if (unidadEstudioDAL.ObtenerDatos(pIndicador.UnidadEstudio).Count <= 0)
+                    {
+                        errorControlado = true;
+                        throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio));
+                    }
                 }
             }
             catch (Exception ex)
@@ -378,36 +396,42 @@ namespace GB.SIMEF.BL
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoIndicadores.id), out int number);
                 pIndicador.IdTipoIndicador = number;
+                pIndicador.TipoIndicadores.IdTipoIdicador = pIndicador.TipoIndicadores != null ? number : 0;
             }
             
             if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.ClasificacionIndicadores.id), out int number);
                 pIndicador.IdClasificacion = number;
+                pIndicador.ClasificacionIndicadores.idClasificacion = pIndicador.ClasificacionIndicadores != null ? number : 0;
             }
             
             if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.GrupoIndicadores.id), out int number);
                 pIndicador.idGrupo = number;
+                pIndicador.GrupoIndicadores.idGrupo = pIndicador.GrupoIndicadores != null ? number: 0;
             }
             
             if (!string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.UnidadEstudio.id), out int number);
                 pIndicador.IdUnidadEstudio = number;
+                pIndicador.UnidadEstudio.idUnidad = pIndicador.UnidadEstudio != null ? number : 0;
             }
 
             if (!string.IsNullOrEmpty(pIndicador.TipoMedida.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoMedida.id), out int number);
                 pIndicador.idTipoMedida = number;
+                pIndicador.TipoMedida.idMedida = pIndicador.TipoMedida != null ? number : 0;
             }
 
             if (!string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.FrecuenciaEnvio.id), out int number);
                 pIndicador.IdFrecuencia = number;
+                pIndicador.FrecuenciaEnvio.idFrecuencia = pIndicador.FrecuenciaEnvio != null ? number : 0;
             }
         }
     }

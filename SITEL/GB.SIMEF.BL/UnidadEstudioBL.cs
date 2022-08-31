@@ -111,7 +111,7 @@ namespace GB.SIMEF.BL
             try
             {
                 List<UnidadEstudio> unidades = unidadEstudioDAL.ObtenerDatos(new UnidadEstudio());
-                UnidadEstudio unidadExiste = unidades.FirstOrDefault(x => x.Nombre.ToUpper() == pUnidadEstudio.Nombre.ToUpper());
+                UnidadEstudio unidadExiste = unidades.FirstOrDefault(x => x.Nombre.ToUpper().Equals(pUnidadEstudio.Nombre.ToUpper()));
 
                 if (unidadExiste != null)
                 {

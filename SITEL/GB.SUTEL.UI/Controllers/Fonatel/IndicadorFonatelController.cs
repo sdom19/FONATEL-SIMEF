@@ -22,6 +22,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
         private readonly ClasificacionIndicadorBL clasificacionIndicadorBL;
         private readonly TipoMedidaBL tipoMedidaBL;
+        private readonly string defaultDropDownValue;
+
 
         public IndicadorFonatelController()
         {
@@ -33,6 +35,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             clasificacionIndicadorBL = new ClasificacionIndicadorBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             tipoMedidaBL = new TipoMedidaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+
+            defaultDropDownValue = Utilidades.GetDefaultDropDownValue();
         }
 
         #region Eventos de la página
@@ -391,7 +395,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
 
-            if (string.IsNullOrEmpty(pNombre.Trim()))
+            if (string.IsNullOrEmpty(pNombre))
             {
                 resultado.HayError = (int)Error.ErrorControlado;
                 resultado.MensajeError = Errores.CamposIncompletos;
@@ -431,7 +435,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
 
-            if (string.IsNullOrEmpty(pNombre.Trim()))
+            if (string.IsNullOrEmpty(pNombre))
             {
                 resultado.HayError = (int)Error.ErrorControlado;
                 resultado.MensajeError = Errores.CamposIncompletos;
@@ -471,7 +475,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
 
-            if (string.IsNullOrEmpty(pNombre.Trim()))
+            if (string.IsNullOrEmpty(pNombre))
             {
                 resultado.HayError = (int)Error.ErrorControlado;
                 resultado.MensajeError = Errores.CamposIncompletos;
@@ -622,14 +626,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIndicador"></param>
         private void PrepararObjetoIndicadorGuardadoParcial(Indicador pIndicador)
         {
-            string defaultDropDown = Utilidades.GetDefaultDropDownValue();
-
             if (string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
-                pIndicador.TipoIndicadores.id = defaultDropDown;
+                pIndicador.TipoIndicadores.id = defaultDropDownValue;
             
 
             if (string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
-                pIndicador.FrecuenciaEnvio.id = defaultDropDown;
+                pIndicador.FrecuenciaEnvio.id = defaultDropDownValue;
             
 
             if (pIndicador.Descripcion == null || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()))
@@ -637,15 +639,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             
 
             if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
-                pIndicador.ClasificacionIndicadores.id = defaultDropDown;
+                pIndicador.ClasificacionIndicadores.id = defaultDropDownValue;
             
 
             if (string.IsNullOrEmpty(pIndicador.TipoMedida.id))
-                pIndicador.TipoMedida.id = defaultDropDown;
+                pIndicador.TipoMedida.id = defaultDropDownValue;
             
 
             if (string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
-                pIndicador.GrupoIndicadores.id = defaultDropDown;
+                pIndicador.GrupoIndicadores.id = defaultDropDownValue;
             
 
             if (pIndicador.Interno == null) // Uso
@@ -665,7 +667,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             
 
             if (string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
-                pIndicador.UnidadEstudio.id = defaultDropDown;
+                pIndicador.UnidadEstudio.id = defaultDropDownValue;
             
 
             if (pIndicador.Solicitud == null)

@@ -406,7 +406,7 @@ CreateView = {
                     return CreateView.Consultas.EliminarTipoIndicador(pIdTipoIndicador);
                 })
                 .then(data => {
-                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.ddlTipo, pIdTipoIndicador);
+                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.formIndicador.ddlTipo, pIdTipoIndicador);
                     CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalTipoIndicador, `button[value='${pIdTipoIndicador}']`);
 
                     $("#loading").fadeOut();
@@ -444,7 +444,7 @@ CreateView = {
                     $(CreateView.Controles.inputModalTipo).val(null);
 
                     CreateView.Metodos.InsertarItemSelect2(
-                        CreateView.Controles.ddlTipo,
+                        CreateView.Controles.formIndicador.ddlTipo,
                         data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
 
                     CreateView.Metodos.InsertarItemDataTable(
@@ -518,7 +518,7 @@ CreateView = {
                     return CreateView.Consultas.EliminarGrupoIndicador(pIdGrupoIndicador);
                 })
                 .then(data => {
-                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.ddlGrupo, pIdGrupoIndicador);
+                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.formIndicador.ddlGrupo, pIdGrupoIndicador);
                     CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalGrupoIndicador, `button[value='${pIdGrupoIndicador}']`);
 
                     $("#loading").fadeOut();
@@ -556,7 +556,7 @@ CreateView = {
                     $(CreateView.Controles.inputModalGrupo).val(null);
 
                     CreateView.Metodos.InsertarItemSelect2(
-                        CreateView.Controles.ddlGrupo,
+                        CreateView.Controles.formIndicador.ddlGrupo,
                         data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
 
                     CreateView.Metodos.InsertarItemDataTable(
@@ -629,7 +629,7 @@ CreateView = {
                     return CreateView.Consultas.EliminarUnidadEstudio(pIdUnidadEstudio);
                 })
                 .then(data => {
-                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.ddlUnidadEstudio, pIdUnidadEstudio);
+                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.formIndicador.ddlUnidadEstudio, pIdUnidadEstudio);
                     CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalUnidadEstudio, `button[value='${pIdUnidadEstudio}']`);
 
                     $("#loading").fadeOut();
@@ -667,7 +667,7 @@ CreateView = {
                     $(CreateView.Controles.inputModalUnidadEstudio).val(null);
 
                     CreateView.Metodos.InsertarItemSelect2(
-                        CreateView.Controles.ddlUnidadEstudio,
+                        CreateView.Controles.formIndicador.ddlUnidadEstudio,
                         data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
 
                     CreateView.Metodos.InsertarItemDataTable(
@@ -929,10 +929,6 @@ CreateView = {
         $(CreateView.Controles.formIndicador.selects2).on('select2:select', function (e) {
             let validacion = CreateView.Metodos.ValidarFormularioIndicador();
             $(CreateView.Controles.formIndicador.btnSiguiente).prop('disabled', !validacion.puedeContinuar);
-        });
-
-        $(document).on("click", CreateView.Controles.btnGuardarUnidadEstudio, function (e) {
-            CreateView.Metodos.CrearUnidadEstudio($(CreateView.Controles.inputModalUnidadEstudio).val());
         });
 
         $(document).on("click", CreateView.Controles.formIndicador.btnGuardar, function (e) {
