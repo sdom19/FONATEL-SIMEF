@@ -12,17 +12,27 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("DetalleFormularioWeb")]
     public partial class DetalleFormularioWeb
     {
+        public DetalleFormularioWeb () { }
+
         [Key]
         public int idDetalle { get; set; }
+        public int idFormulario { get; set; }
+        public int idIndicador { get; set; }
         public string TituloHojas { get; set; }
         public string NotasInformante { get; set; }
         public string NotasEncargado { get; set; }
         public bool Estado { get; set; }
-    
-        public virtual FormularioWeb FormularioWeb { get; set; }
+
+        [NotMapped]
         public virtual Indicador Indicador { get; set; }
+        [NotMapped]
+        public virtual FormularioWeb formularioweb { get; set; }
+        [NotMapped]
+        public virtual Indicador indicador { get; set; }
     }
 }

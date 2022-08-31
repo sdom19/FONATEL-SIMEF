@@ -26,9 +26,16 @@ namespace GB.SIMEF.Entities
         public int idSolicitud { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime FechaInicio { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime FechaFin { get; set; }
         public int CantidadFormularios { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Mensaje { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
@@ -40,7 +47,7 @@ namespace GB.SIMEF.Entities
 
         public int idAnno { get; set; }
 
-   
+        #region variables que no están en el contexto
         public int IdEstado { get; set; }
 
         [NotMapped]
@@ -62,5 +69,7 @@ namespace GB.SIMEF.Entities
         public SolicitudEnvioProgramado EnvioProgramado { get; set; }
         [NotMapped]
         public List<DetalleSolicitudFormulario> SolicitudFormulario { get; set; }
+
+        #endregion
     }
 }

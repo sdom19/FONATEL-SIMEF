@@ -50,14 +50,12 @@ namespace GB.SIMEF.Entities
         public string UsuarioModificacion { get; set; }
         public bool VisualizaSigitel { get; set; }
         public int idEstado { get; set; }
-
         public virtual ClasificacionIndicadores ClasificacionIndicadores { get; set; }
-
         public virtual EstadoRegistro EstadoRegistro { get; set; }
         public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
         public virtual GrupoIndicadores GrupoIndicadores { get; set; }
 
-        public virtual ICollection<DefinicionIndicadores> DefinicionIndicadores { get; set; }
+        public virtual ICollection<DefinicionIndicador> DefinicionIndicadores { get; set; }
         public virtual TipoMedida TipoMedida { get; set; }
         public virtual UnidadEstudio UnidadEstudio { get; set; }
         public virtual TipoIndicadores TipoIndicadores { get; set; }

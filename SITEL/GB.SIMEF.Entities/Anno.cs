@@ -12,20 +12,17 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("Anno")]
     public partial class Anno
     {
         
-        public Anno()
-        {
-            this.Solicitud = new HashSet<Solicitud>();
-        }
+      
         [Key]
         public int idAnno { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
     
-
-        public virtual ICollection<Solicitud> Solicitud { get; set; }
     }
 }

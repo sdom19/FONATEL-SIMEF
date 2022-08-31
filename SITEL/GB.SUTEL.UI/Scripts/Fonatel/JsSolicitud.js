@@ -1,6 +1,6 @@
 ﻿JsSolicitud= {
     "Controles": {
-
+        "btnGuardarFormulario":"#btnGuardarFormulario",
         "btnAgregarSolicitud": "#TablaSolicitud tbody tr td .btn-add",
         "btnEditarSolicitud": "#TablaSolicitud tbody tr td .btn-edit",
         "btnDeleteSolicitud": "#TablaSolicitud tbody tr td .btn-delete",
@@ -24,7 +24,20 @@
         "txtFechaInicioCiclo": "#txtFechaInicioCiclo",
         "ddlFormularios": "#ddlFormularios",
         "txtCampoRequerido": ".form-text-danger-fonatel",
-        "TablaSolicitud":"#TablaSolicitud tbody"
+        "TablaSolicitud": "#TablaSolicitud tbody",
+        "txtmodoSolicitud": "#txtmodoSolicitud",
+        "txtCodigo": "#txtCodigo",
+        "btnGuardarSolicitud": "#btnGuardarSolicitud",
+        "btnSiguienteSolicitud": "#btnSiguienteSolicitud",
+        "step2": "a[href='#step-2']",
+        "step1": "a[href='#step-1']",
+        "btnAtrasSolicitud": "#btnAtrasSolicitud",
+
+
+        "ddlFormularioWeb":"#ddlFormularioWeb",
+        "ddlVariableIndicadorHelp": "#ddlVariableIndicadorHelp",
+        "btnCancelarFormulario":"#btnCancelarFormulario"
+
     },
     "Variables":{
         "CantidadMaxDias": 28,
@@ -57,12 +70,17 @@
                 html = html + "<td>" + envioProgramado + "</td>";
                 html = html + "<td>" + solicitud.Estado.Nombre +"</td >";
 
-                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Editar' class='btn-icon-base btn-edit'></button>"+
-                    "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Clonar' class='btn-icon-base btn-clone'></button>"+
+                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Editar' class='btn-icon-base btn-edit'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Clonar' class='btn-icon-base btn-clone'></button>" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Desactivar' class='btn-icon-base btn-power-on'></button>" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Envío' class='btn-icon-base btn-sent'></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>"
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Envío' class='btn-icon-base btn-sent'></button>";
+                    if (envioProgramado == "SI") {
+                        html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
+                    }
+                    else {
+                        html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
+                    }
             }
             $(JsSolicitud.Controles.TablaSolicitud).html(html);
             CargarDatasource();
@@ -113,6 +131,31 @@ $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
     window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
 });
 
+
+
+
+$(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el formulario a la Solicitud?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+
+            if ($(JsSolicitud.Controles.ddlFormularioWeb).val().length > 0) {
+                $(JsSolicitud.Controles.ddlVariableIndicadorHelp).addClass("hidden");
+                jsMensajes.Metodos.OkAlertModal("El Formulario ha sido agregado")
+                    .set('onok', function (closeEvent) { $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change'); });
+            }
+            else {
+                $(JsSolicitud.Controles.ddlVariableIndicadorHelp).removeClass("hidden");
+            }
+        }); 
+});
+$(document).on("click", JsSolicitud.Controles.btnCancelarFormulario, function (e) {
+    e.preventDefault();
+    $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change');
+});
+
+
+
 $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function () {
     $(JsSolicitud.Controles.idSolicitudProgramacion).val("aqui va algun ID");
 
@@ -140,7 +183,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Solicitud?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Solicitud a sido creada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
@@ -181,6 +224,16 @@ $(document).on("click", JsSolicitud.Controles.btnActivadoSolicitud, function (e)
         });
 });
 
+
+
+$(document).on("click", JsSolicitud.Controles.btnSiguienteSolicitud, function (e) {
+    e.preventDefault();
+    $(JsSolicitud.Controles.step2).trigger('click');
+});
+
+
+
+
 $(document).on("click", JsSolicitud.Controles.btnEnvioSolicitud, function () {
     $(JsSolicitud.Controles.idSolicitudProgramacion).val(null);
 
@@ -208,10 +261,23 @@ $(document).on("click", JsSolicitud.Controles.btnCancelarEnvio, function () {
     $(JsSolicitud.Controles.modalEnvio).modal('hide');
 });
 
+$(document).on("click", JsSolicitud.Controles.btnAtrasSolicitud, function (e) {
+    e.preventDefault();
+    $(JsSolicitud.Controles.step1).trigger('click');
+});
+
+
 
 $(function () {
-    
+    let modo = $(JsSolicitud.Controles.txtmodoSolicitud).val();
     if ($(JsSolicitud.Controles.TablaSolicitud).length > 0) {
         JsSolicitud.Consultas.ConsultaListaSolicitudes();
+    }
+    else if (modo == jsUtilidades.Variables.Acciones.Editar) {
+        $(JsSolicitud.Controles.txtCodigo).prop("disabled", true);
+    }
+    else {
+
+       
     }
 });

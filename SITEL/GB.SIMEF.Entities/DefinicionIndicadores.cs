@@ -12,17 +12,28 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class DefinicionIndicadores
+    [Table("DefinicionIndicador")]
+    public partial class DefinicionIndicador
     {
         [Key]
-        public int idDefinición { get; set; }
+        public int idDefinicion { get; set; }
+        
+        [MaxLength(3000)]
+        [DataType(DataType.MultilineText)]
         public string Fuente { get; set; }
+        [DataType(DataType.MultilineText)]
+        [MaxLength(3000)]
         public string Notas { get; set; }
+
+        [MaxLength(3000)]
+        [DataType(DataType.MultilineText)]
+        public string Definicion { get; set; }
         public int idIndicador { get; set; }
         public int idEstado { get; set; }
-    
-        public virtual EstadoRegistro EstadoRegistro { get; set; }
+        
+        [NotMapped]
         public virtual Indicador Indicador { get; set; }
     }
 }

@@ -132,6 +132,9 @@
   <data name="Destinatarios" xml:space="preserve">
     <value>Destinatarios</value>
   </data>
+  <data name="Editar" xml:space="preserve">
+    <value>Editar Fuentes de Registro</value>
+  </data>
   <data name="Fuente" xml:space="preserve">
     <value>Fuentes</value>
   </data>

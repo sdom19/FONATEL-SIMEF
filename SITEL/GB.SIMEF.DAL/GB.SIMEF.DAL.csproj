@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefinicionIndicadorDAL.cs" />
+    <Compile Include="FormularioWebDAL.cs" />
+    <Compile Include="MesDAL.cs" />
     <Compile Include="SolicitudDAL.cs" />
     <Compile Include="FuentesRegistroDestinatarioDAL.cs" />
     <Compile Include="GrupoIndicadorDAL.cs" />
@@ -67,6 +70,7 @@
     <Compile Include="BitacoraDAL.cs" />
     <Compile Include="SIMEFContext.cs" />
     <Compile Include="TipoIndicadorDAL.cs" />
+    <Compile Include="AnnoDAL.cs" />
     <Compile Include="UnidadEstudioDAL.cs" />
   </ItemGroup>
   <ItemGroup>

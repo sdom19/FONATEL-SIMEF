@@ -39,6 +39,8 @@ jsUtilidades= {
 $(document).ready(function () {
 
     $(".datatable_simef_modal").DataTable({
+        'scrollY': '300px',
+        'scrollCollapse': true,
         language: {
             "decimal": "",
             "emptyTable": "No hay información",
@@ -71,14 +73,7 @@ $(document).ready(function () {
         placeholder: "Seleccione",
         width: 'resolve' 
     });
-
-
-
-
-
     $('.nav-tabs > li a[title]').tooltip();
-
-
 });
 
 
@@ -194,11 +189,15 @@ function CargarDatasource() {
                     }
                 });
         },
+
+        
     });
 
     $('.table-wrapper-fonatel table tfoot th select').select2({
         width: 'resolve'
     });
+
+    $('.datatable_simef > tbody tr td button').tooltip();
 }
 
 
