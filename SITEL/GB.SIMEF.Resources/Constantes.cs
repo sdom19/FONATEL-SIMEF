@@ -58,6 +58,15 @@ namespace GB.SIMEF.Resources
             Activar=6,
             Inactiva=7
         }
+        /// <summary>
+        /// Enum Clasificación indicador
+        /// </summary>
+        public enum ClasificacionIndicadorEnum : int
+        {
+            Entrada = 1,
+            Salida = 2,
+            EntradaSalida = 3
+        }
 
         public struct CifradoDatos
         {
@@ -69,12 +78,29 @@ namespace GB.SIMEF.Resources
             public const int intDivisionPassword = 8;
         }
 
-        public enum ClasificacionIndicadorEnum : int
+
+
+        /// <summary>
+        /// Usos del indicador
+        /// </summary>
+        public struct UsosIndicador
         {
-            Entrada=1,
-            Salida=2,
-            EntradaSalida=3
+            public const string interno = "Interno";
+            public const string externo = "Externo";
         }
+
+        /// <summary>
+        /// Bandera que indica si se muestra el indicador en la solicitud
+        /// </summary>
+        public struct MostrarIndicadorEnSolicitud
+        {
+            public const string si = "SI";
+            public const string no = "NO";
+        }
+
+        public readonly static string defaultInputTextValue = "NA";
+        public readonly static int defaultInputNumberValue = 0;
+        public readonly static int defaultDropDownValue = 1; // Representa el valor: "Sin definir". En Utilidades.cs existe un método para encriptarlo
 
 
     }

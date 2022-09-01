@@ -120,6 +120,9 @@
   <data name="CampoConFormatoInvalido" xml:space="preserve">
     <value>El campo {0} presenta un formato inválido</value>
   </data>
+  <data name="CampoConValorInvalido" xml:space="preserve">
+    <value>El campo {0} presenta un valor inválido</value>
+  </data>
   <data name="CamposIncompletos" xml:space="preserve">
     <value>Se deben completar todos los campos del formulario</value>
   </data>
@@ -157,9 +160,9 @@
     <value>No se encuentran registros</value>
   </data>
   <data name="ValorFecha" xml:space="preserve">
-    <value>El valor fecha final debe ser mayor a fecha inicio</value>
+    <value>La Fecha Final debe ser mayor que la Fecha Inicial</value>
   </data>
   <data name="ValorMinimo" xml:space="preserve">
-    <value>El valor máximo debe ser mayor al valor minimo</value>
+    <value>El valor Máximo debe ser mayor al valor Minimo</value>
   </data>
 </root>

@@ -52,7 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClasificacionIndicadorDAL.cs" />
+    <Compile Include="FrecuenciaEnvioDAL.cs" />
     <Compile Include="OperadorArismeticoBL.cs" />
+    <Compile Include="TipoMedidaDAL.cs" />
     <Compile Include="TipoReglaValidacionBL.cs" />
     <Compile Include="FormularioWebBL.cs" />
     <Compile Include="DefinicionIndicadorBL.cs" />

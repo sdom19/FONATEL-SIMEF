@@ -20,11 +20,7 @@ namespace GB.SIMEF.Entities
      
         public Indicador()
         {
-            //this.DetalleFormularioWeb = new HashSet<DetalleFormularioWeb>();
-            //this.DetalleIndicadorCategoria = new HashSet<DetalleIndicadorCategoria>();
-            //this.DetalleIndicadorVariables = new HashSet<DetalleIndicadorVariables>();
-            //this.DefinicionIndicadores = new HashSet<DefinicionIndicadores>();
-            //this.ReglaValidacion = new HashSet<ReglaValidacion>();
+
         }
 
         [Key]
@@ -41,7 +37,7 @@ namespace GB.SIMEF.Entities
         public int idTipoMedida { get; set; }
         public int IdFrecuencia { get; set; }
         public Nullable<bool> Interno { get; set; }
-        public bool Solicitud { get; set; }
+        public Nullable<bool> Solicitud { get; set; }
         public string Fuente { get; set; }
         public string Notas { get; set; }
         public System.DateTime FechaCreacion { get; set; }
@@ -50,22 +46,28 @@ namespace GB.SIMEF.Entities
         public string UsuarioModificacion { get; set; }
         public bool VisualizaSigitel { get; set; }
         public int idEstado { get; set; }
-        public virtual ClasificacionIndicadores ClasificacionIndicadores { get; set; }
-        public virtual EstadoRegistro EstadoRegistro { get; set; }
-        public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
-        public virtual GrupoIndicadores GrupoIndicadores { get; set; }
-
-        public virtual ICollection<DefinicionIndicador> DefinicionIndicadores { get; set; }
-        public virtual TipoMedida TipoMedida { get; set; }
-        public virtual UnidadEstudio UnidadEstudio { get; set; }
-        public virtual TipoIndicadores TipoIndicadores { get; set; }
-
 
         #region Variables que no forman parte del contexto
+        [NotMapped]
+        public virtual ClasificacionIndicadores ClasificacionIndicadores { get; set; }
+        [NotMapped]
+        public virtual EstadoRegistro EstadoRegistro { get; set; }
+        [NotMapped]
+        public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
+        [NotMapped]
+        public virtual GrupoIndicadores GrupoIndicadores { get; set; }
+        [NotMapped]
+        public virtual TipoMedida TipoMedida { get; set; }
+        [NotMapped]
+        public virtual UnidadEstudio UnidadEstudio { get; set; }
+        [NotMapped]
+        public virtual TipoIndicadores TipoIndicadores { get; set; }
         [NotMapped]
         public string id { get; set; }
         [NotMapped]
         public int nuevoEstado { get; set; }
+        [NotMapped]
+        public bool esGuardadoParcial { get; set; }
         #endregion
     }
 }

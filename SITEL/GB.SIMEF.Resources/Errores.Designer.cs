@@ -70,6 +70,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El campo {0} presenta un valor inválido.
+        /// </summary>
+        public static string CampoConValorInvalido {
+            get {
+                return ResourceManager.GetString("CampoConValorInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Se deben completar todos los campos del formulario.
         /// </summary>
         public static string CamposIncompletos {
@@ -178,7 +187,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El valor fecha final debe ser mayor a fecha inicio.
+        ///   Busca una cadena traducida similar a La Fecha Final debe ser mayor que la Fecha Inicial.
         /// </summary>
         public static string ValorFecha {
             get {
@@ -187,7 +196,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El valor máximo debe ser mayor al valor minimo.
+        ///   Busca una cadena traducida similar a El valor Máximo debe ser mayor al valor Minimo.
         /// </summary>
         public static string ValorMinimo {
             get {

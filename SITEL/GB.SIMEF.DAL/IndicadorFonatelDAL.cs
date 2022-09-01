@@ -72,7 +72,6 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     VisualizaSigitel = x.VisualizaSigitel,
-                    idIndicador= x.idIndicador,
                     EstadoRegistro = ObtenerEstadoRegistro(x.idEstado)
                 }).ToList();
             }
@@ -136,7 +135,7 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 16/08/2022
         /// José Navarro Acuña
-        /// Función que permite actualizar los datos de un indicador
+        /// Función que permite actualizar los datos de un indicador. Si el indicador no existe se crea el registro
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
@@ -149,8 +148,8 @@ namespace GB.SIMEF.DAL
                 listaIndicadores = db.Database.SqlQuery<Indicador>
                     ("execute spActualizarIndicadorFonatel " +
                     "@pIdIndicador," +
-                    "@pCodigo," + // opcional
-                    "@pNombre," + // opcional
+                    "@pCodigo," +
+                    "@pNombre," +
                     "@pIdTipoIndicador," +
                     "@pIdClasificacion," +
                     "@pIdGrupo," +
@@ -169,8 +168,8 @@ namespace GB.SIMEF.DAL
                     "@pVisualizaSigitel," +
                     "@pIdEstado",
                      new SqlParameter("@pIdIndicador", pIndicador.idIndicador),
-                     new SqlParameter("@pCodigo", string.IsNullOrEmpty(pIndicador.Codigo) ? DBNull.Value.ToString() : pIndicador.Codigo),
-                     new SqlParameter("@pNombre", string.IsNullOrEmpty(pIndicador.Nombre) ? DBNull.Value.ToString() : pIndicador.Nombre),
+                     new SqlParameter("@pCodigo", string.IsNullOrEmpty(pIndicador.Codigo) ? DBNull.Value.ToString() : pIndicador.Codigo.Trim()),
+                     new SqlParameter("@pNombre", string.IsNullOrEmpty(pIndicador.Nombre) ? DBNull.Value.ToString() : pIndicador.Nombre.Trim()),
                      new SqlParameter("@pIdTipoIndicador", pIndicador.IdTipoIndicador),
                      new SqlParameter("@pIdClasificacion", pIndicador.IdClasificacion),
                      new SqlParameter("@pIdGrupo", pIndicador.idGrupo),
@@ -192,6 +191,24 @@ namespace GB.SIMEF.DAL
             }
 
             return listaIndicadores;
+        }
+
+        /// <summary>
+        /// 29/08/2022
+        /// José Navarro Acuña
+        /// Función que permite buscar y verificar la existencia de un indicador, por código o nombre
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        public Indicador VerificarExistenciaIndicador(Indicador pIndicador)
+        {
+            Indicador indicador = null;
+
+            using (db = new SIMEFContext())
+            {
+                indicador = db.Indicador.Where(x => x.Nombre.Trim().ToUpper() == pIndicador.Nombre.Trim().ToUpper() || x.Codigo.Trim().ToUpper() == pIndicador.Codigo.Trim().ToUpper()).FirstOrDefault();
+            }
+
+            return indicador;
         }
 
         #region Métodos privados

@@ -68,14 +68,14 @@
                         "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Editar/Eliminar' class='btn-icon-base btn-edit'></button>" +
                         "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Clonar' class='btn-icon-base btn-clone'></button>" +
                         "<button type='button' data-toggle='tooltip' disabled  data-placement='top' title='Visualizar Detalle' class='btn-icon-base btn-view'></button>" +
-                        "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Eliminar' class='btn-icon-base btn-delete'></button></td>";
+                        "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Eliminar Definición' class='btn-icon-base btn-delete'></button></td>";
                 }
                 else {
                     html = html + "<td><button type='button' data-toggle='tooltip' disabled data-placement='top' title='Agregar' class='btn-icon-base btn-add'></button>" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.Indicador.id+" title='Editar/Eliminar' class='btn-icon-base btn-edit'></button>" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.idDefinicion + " title='Clonar' class='btn-icon-base btn-clone'></button>" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.idDefinicion + " title='Visualizar Detalle' class='btn-icon-base btn-view'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.idDefinicion +" title='Eliminar' class='btn-icon-base btn-delete'></button></td>";
+                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.idDefinicion +" title='Eliminar Definición' class='btn-icon-base btn-delete'></button></td>";
                 }
              
 
@@ -101,7 +101,30 @@
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
-         }
+        },
+
+        "EliminarDefinicion": function (idDefinicion) {
+            let definicion = new Object();
+            definicion.idDefinicion = idDefinicion;
+            $("#loading").fadeIn();
+            execAjaxCall("/DefinicionIndicadores/EliminarDefinicion", "POST", definicion)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Definición ha sido eliminada")
+                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/DefinicionIndicadores/index" });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+           },
+
 
     }
 
@@ -173,10 +196,22 @@ $(document).on("click", JsDefiniciones.Controles.btnGuardar, function (e) {
 });
 
 $(document).on("click", JsDefiniciones.Controles.btnDeleteDefiniciones, function (e) {
+
+
+
+
+    let id = $(this).val();
+
+
+
+
+
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina la Definición?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Definición ha sido eliminada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/DefinicionIndicadores/index" });
+
+            JsDefiniciones.Consultas.EliminarDefinicion(id);
+
         });
 });
 
