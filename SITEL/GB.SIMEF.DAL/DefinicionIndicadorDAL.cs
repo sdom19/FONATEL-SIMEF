@@ -57,5 +57,35 @@ namespace GB.SIMEF.DAL
             return ListaDefiniciones;
         }
         #endregion
+
+
+        /// <summary>
+        /// Michael Hernández C
+        /// Actualiza e inserta 
+        /// </summary>
+        /// <param>objDefinicion</param>
+
+        public List<DefinicionIndicador> ActualizarDatos(DefinicionIndicador objDefinicion)
+        {
+            List<DefinicionIndicador> Definiciones = new List<DefinicionIndicador>();
+            using (db = new SIMEFContext())
+            {
+                Definiciones = db.Database.SqlQuery<DefinicionIndicador>
+                ("execute " +
+                "dbo.spActualizarDefinicionIndicador @idDefinicion,@Fuente,@Notas,@idIndicador,@idEstado,@Definicion",
+                     new SqlParameter("@idDefinicion", objDefinicion.idDefinicion),
+                     new SqlParameter("@Fuente", objDefinicion.Fuente),
+                     new SqlParameter("@Notas", objDefinicion.Notas),
+                     new SqlParameter("@idIndicador", objDefinicion.idIndicador),
+                     new SqlParameter("@idEstado", objDefinicion.idEstado),
+                     new SqlParameter("@Definicion", objDefinicion.Definicion)
+                    ).ToList();
+
+            
+            }
+            return Definiciones;
+        }
+
+
     }
 }

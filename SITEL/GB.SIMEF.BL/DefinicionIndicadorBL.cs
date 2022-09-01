@@ -16,9 +16,14 @@ namespace GB.SIMEF.BL
         readonly string user = "";
         private readonly DefinicionIndicadorDAL DefinicionIndicadorDAL;
 
-        public DefinicionIndicadorBL()
+        private RespuestaConsulta<List<DefinicionIndicador>> ResultadoConsulta;
+
+        public DefinicionIndicadorBL(string modulo, string user)
         {
+            this.modulo = modulo;
+            this.user = user;
             DefinicionIndicadorDAL = new DefinicionIndicadorDAL();
+            ResultadoConsulta = new RespuestaConsulta<List<DefinicionIndicador>>();
         }
 
         public RespuestaConsulta<List<DefinicionIndicador>> ActualizarElemento(DefinicionIndicador objeto)
@@ -38,7 +43,29 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DefinicionIndicador>> EliminarElemento(DefinicionIndicador objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Usuario = user;
+                var resul = DefinicionIndicadorDAL.ObtenerDatos(objeto);
+                objeto = resul.Single();
+                objeto.idEstado = (int)EstadosRegistro.Eliminado;
+                ResultadoConsulta.Accion = (int)Accion.Eliminar ;
+                resul = DefinicionIndicadorDAL.ActualizarDatos(objeto);
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+                DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsulta.Accion,
+                       ResultadoConsulta.Usuario,
+                       ResultadoConsulta.Clase, objeto.Indicador.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
+      
         }
 
         public RespuestaConsulta<List<DefinicionIndicador>> InsertarDatos(DefinicionIndicador objeto)
@@ -49,25 +76,21 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DefinicionIndicador>> ObtenerDatos(DefinicionIndicador pDefinicionIndicador)
         {
-            RespuestaConsulta<List<DefinicionIndicador>> resultado = new RespuestaConsulta<List<DefinicionIndicador>>();
-
             try
             {
-                
-
-
-                resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Consultar;
+              
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
                 var result = DefinicionIndicadorDAL.ObtenerDatos(pDefinicionIndicador);
-                resultado.objetoRespuesta = result;
-                resultado.CantidadRegistros = result.Count();
+                ResultadoConsulta.objetoRespuesta = result;
+                ResultadoConsulta.CantidadRegistros = result.Count();
             }
             catch (Exception ex)
             {
-                resultado.HayError = (int)Constantes.Error.ErrorSistema;
-                resultado.MensajeError = ex.Message;
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
             }
-            return resultado;
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<DefinicionIndicador>> ValidarDatos(DefinicionIndicador objeto)

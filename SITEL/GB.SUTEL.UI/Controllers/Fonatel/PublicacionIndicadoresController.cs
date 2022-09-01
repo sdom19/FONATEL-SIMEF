@@ -73,18 +73,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 int temp = 0;
-
                 int.TryParse(Utilidades.Desencriptar(indicador.id), out temp);
-
                 indicador.idIndicador = temp;
-
                 return indicadorfonatelBL.ObtenerDatos(indicador);
 
             }).ContinueWith(data =>
              {
                 Indicador objetoActualizar = data.Result.objetoRespuesta.Single();
                 objetoActualizar.VisualizaSigitel = indicador.VisualizaSigitel;
-                objetoActualizar.UsuarioModificacion= User.Identity.GetUserId();
                 result = indicadorfonatelBL.ActualizarElemento(objetoActualizar);
              }
             );

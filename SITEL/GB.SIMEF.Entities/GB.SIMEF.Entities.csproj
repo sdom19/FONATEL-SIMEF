@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Anno.cs" />
     <Compile Include="Bitacora.cs" />
+    <Compile Include="EstadoLogico.cs" />
     <Compile Include="RespuestaConsulta.cs" />
     <Compile Include="CategoriasDesagregacion.cs" />
     <Compile Include="ClasificacionIndicadores.cs" />

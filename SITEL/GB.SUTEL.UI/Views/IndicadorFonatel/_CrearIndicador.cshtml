@@ -1,48 +1,38 @@
 ﻿@using GB.SIMEF.Resources;
 
-<form>
+@model GB.SIMEF.Entities.Indicador
+
+<form id="formCrearIndicador">
     <div class="row">
         <div class="col-lg-4 col-sm-12">
 
             <div class="form-group">
-                <label for="txtCodigo" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo</label>
-                <input type="text" aria-label="Código de Categoría" class="form-control form-control-fonatel " id="txtCodigo" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo">
-                <small id="CodigoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <label for="inputCodigo" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo</label>
+                @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico_v2", @maxlength = "30", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo, id = "inputCodigo" } })
+                <small id="inputCodigoHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group">
-                <label for="txtNombre" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre</label>
-                <input type="text" class="form-control form-control-fonatel " id="txtNombre" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre">
-                <small id="nombreHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <label for="inputNombre" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre</label>
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico_v2", @maxlength = "300", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre, id = "inputNombre" } })
+                <small id="inputNombreHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group">
                 <label for="ddlTipo" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo</label>
                 <div class="select2-btn-wrapper">
-                    <select class="listasDesplegables" aria-label="Default select example" id="ddlTipo">
-                        <option></option>
-                        <option value="1">gestión</option>
-                        <option value="2">cumplimiento de meta</option>
-                        <option value="3">beneficiarios</option>
-                        <option value="3">financieros</option>
-                        <option value="3">evaluación</option>
-                        <option value="3">percepción</option>
-                    </select>
-                    <button class="btn-icon-base btn-add" type="button" id="btnModalTipoIndicador" title="Agregar Tipo" alt="Agregar Detalle"></button>
+                    @Html.DropDownListFor(model => model.IdTipoIndicador, new SelectList(ViewBag.TiposIndicadores, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipo" })
+                    <button class="btn-icon-base btn-add" type="button" id="btnModalTipoIndicador" title="Agregar Tipo" alt="Agregar tipo indicador"></button>
                 </div>
-                <small id="TipoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlTipoHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group">
                 <label for="ddlFrecuencias" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFrecuencias</label>
                 <div class="select2-wrapper">
-                    <select class="listasDesplegables" aria-label="Default select example" id="ddlFrecuencias">
-                        <option></option>
-                        <option value="1">Mensual</option>
-                        <option value="2">Trimestral</option>
-                    </select>
+                    @Html.DropDownListFor(model => model.IdFrecuencia, new SelectList(ViewBag.FrecuenciasEnvio, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlFrecuencias" })
                 </div>
-                <small id="FrecuenciasHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlFrecuenciasHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 
@@ -51,91 +41,64 @@
             <div class="form-group">
                 <label for="ddlClasificacion" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelClasificacion</label>
                 <div class="select2-wrapper">
-                    <select class="listasDesplegables" aria-label="Default select example" id="ddlClasificacion">
-                        <option></option>
-                        <option value="1">Entrada</option>
-                        <option value="2">Salida</option>
-                        <option value="3">Entrada/salida</option>
-                    </select>
+                    @Html.DropDownListFor(model => model.IdClasificacion, new SelectList(ViewBag.Clasificaciones, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlClasificacion" })
                 </div>
-
-                <small id="TipoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlClasificacionHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group">
                 <label for="ddlTipoMedida" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipoMedida</label>
                 <div class="select2-wrapper">
-                    <select class="listasDesplegables" aria-label="Default select example" id="ddlTipoMedida">
-                        <option></option>
-                        <option value="1">Cualitativo</option>
-                        <option value="2">Cuantitativo</option>
-                    </select>
+                    @Html.DropDownListFor(model => model.idTipoMedida, new SelectList(ViewBag.TipoMedidas, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipoMedida" })
                 </div>
-                <small id="ddlTipoMedidaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlTipoMedidaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group">
                 <label for="ddlGrupo" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelGrupo</label>
                 <div class="select2-btn-wrapper">
-                    <select class=" listasDesplegables" aria-label="Default select example" id="ddlGrupo">
-                        <option></option>
-                        <option value="1">Programa 1</option>
-                        <option value="2">Programa 2</option>
-                        <option value="3">Programa 3</option>
-                    </select>
+                    @Html.DropDownListFor(model => model.idGrupo, new SelectList(ViewBag.Grupos, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlGrupo" })
                     <button id="btnModalGrupoIndicador" type="button" class="btn-icon-base btn-add" title="Agregar Tipo" alt="Agregar Tipo"></button>
                 </div>
-                <small id="TipoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="TipoHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group">
                 <label for="ddlUsoIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUsoIndicador</label>
                 <div class="select2-wrapper">
-                    <select class="listasDesplegables" aria-label="Default select example" id="ddlUsoIndicador">
-                        <option></option>
-                        <option value="1">Interno</option>
-                        <option value="2">Externo</option>
-                    </select>
+                    @Html.DropDownListFor(model => model.Interno, new SelectList(ViewBag.UsosIndicador, "Valor", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlUsoIndicador" })
                 </div>
-                <small id="ddlUsoIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlUsoIndicadorHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
         </div>
         <div class="col-lg-4 col-sm-12">
 
             <div class="form-group">
-                <label for="txtCantidadVariableDatosIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador</label>
-                <input type="text" class="form-control form-control-fonatel  solo_numeros" id="txtCantidadVariableDatosIndicador" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador">
-                <small id="CantidadVariableDatosIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <label for="inputCantidadVariableDatosIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador</label>
+                @Html.EditorFor(model => model.CantidadVariableDato, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador, id = "inputCantidadVariableDatosIndicador" } })
+                <small id="inputCantidadVariableDatosIndicadorHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group">
-                <label for="txtCantidadCategoríaIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador</label>
-                <input type="text" class="form-control form-control-fonatel  solo_numeros" id="txtCantidadCategoríaIndicador" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador">
-                <small id="CantidadCategoríaIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <label for="inputCantidadCategoriaIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador</label>
+                @Html.EditorFor(model => model.CantidadCategoriasDesagregacion, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador, id = "inputCantidadCategoriaIndicador" } })
+                <small id="inputCantidadCategoriaIndicadorHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group">
                 <label for="ddlUnidadEstudio" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio</label>
                 <div class="select2-btn-wrapper">
-                    <select class="listasDesplegables" aria-label="Default select example" id="ddlUnidadEstudio">
-                        <option></option>
-                        <option value="1">Cuenta de Torres</option>
-                        <option value="2">Cuenta de Hogares</option>
-                    </select>
+                    @Html.DropDownListFor(model => model.IdUnidadEstudio, new SelectList(ViewBag.UnidadesEstudio, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlUnidadEstudio" })
                     <button class="btn-icon-base btn-add" type="button" id="btnModalUnidadEstudio" title="Agregar Unidad de Estudio" alt="Agregar Unidad de Estudio"></button>
                 </div>
-                <small id="ddlUnidadEstudioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlUnidadEstudioHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group">
-                <label for="ddlSolicitudSolicitud" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelSolicitud</label>
+                <label for="ddlUsoSolicitud" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelSolicitud</label>
                 <div class="select2-wrapper">
-                    <select class="listasDesplegables" id="ddlSolicitudSolicitud">
-                        <option></option>
-                        <option>SI</option>
-                        <option>NO</option>
-                    </select>
+                    @Html.DropDownListFor(model => model.Solicitud, new SelectList(ViewBag.UsosSolicitud, "Valor", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlUsoSolicitud" })
                 </div>
             </div>
         </div>
@@ -147,38 +110,39 @@
         <div class="col-md-4 col-sm-12">
 
             <div class="form-group">
-                <label for="txtDescripcion" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelDescripcion</label>
-                <textarea class="form-control form-control-fonatel" id="txtDescripcion" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_TextAreaDescripcionPlaceholder"></textarea>
-                <small id="DescripcionHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <label for="inputDescripcion" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelDescripcion</label>
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control form-control-fonatel", @maxlength = "3000", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_TextAreaDescripcionPlaceholder, id = "inputDescripcion" } )
+                <small id="inputDescripcionHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 
         <div class="col-md-4 col-sm-12">
             <div class="form-group">
-                <label for="txtNota" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas</label>
-                <textarea class="form-control form-control-fonatel  text-area" id="txtNota" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas"></textarea>
-                <small id="NotaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <label for="inputFuenteIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador</label>
+                @Html.TextAreaFor(m => m.Fuente, new { @class = "form-control form-control-fonatel", @maxlength = "300", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador, id = "inputFuenteIndicador" } )
+                <small id="inputFuenteIndicadorHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 
         <div class="col-md-4 col-sm-12">
             <div class="form-group">
-                <label for="txtFuenteIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador</label>
-                <textarea class="form-control form-control-fonatel" id="txtFuenteIndicador" placeholder="@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador"></textarea>
-                <small id="txtFuenteIndicadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <label for="inputNota" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas</label>
+                @Html.TextAreaFor(m => m.Notas, new { @class = "form-control form-control-fonatel", @maxlength = "3000", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas, id = "inputNota" } )
+                <small id="inputNotaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-12">
+
+            <div class="text-center">
+                <button type="button" id="btnGuardarIndicador" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+                <button type="button" id="btnSiguienteIndicador" class="btn btn-fonatel btn-next-fonatel" disabled>@Etiquetas.BotonSiguiente</button>
+                <button type="button" id="btnCancelarIndicador" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
             </div>
         </div>
     </div>
-        <div class="row mt-5">
-            <div class="col-sm-12">
-
-                <div class="text-center">
-                    <button type="submit" id="btnGuardarIndicador" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-                    <button type="submit" id="btnSiguienteIndicador" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
-                    <button type="submit" id="btnCancelarIndicador" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
-                </div>
-            </div>
-        </div>
 </form>
 
 

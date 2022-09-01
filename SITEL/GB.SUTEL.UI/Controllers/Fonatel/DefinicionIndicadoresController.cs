@@ -25,7 +25,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public DefinicionIndicadoresController()
         {
-            definicionBL = new DefinicionIndicadorBL();
+            definicionBL = new DefinicionIndicadorBL(EtiquetasViewDefinicionIndicadores.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
         // GET: CategoriasDesagregacion
@@ -98,7 +98,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<DefinicionIndicador>> result = null;
             await Task.Run(() =>
             {
-                result = definicionBL.ObtenerDatos(new DefinicionIndicador());
+                result = definicionBL.ObtenerDatos(new DefinicionIndicador() );
             });
 
             return JsonConvert.SerializeObject(result);
@@ -108,12 +108,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
-        public async Task<string> ObtenerDefinicion(DefinicionIndicador definicion)
+        public async Task<string> EliminarDefinicion(DefinicionIndicador definicion)
         {
             RespuestaConsulta<List<DefinicionIndicador>> result = null;
             await Task.Run(() =>
             {
-                result = definicionBL.ObtenerDatos(definicion);
+                result = definicionBL.EliminarElemento(definicion);
             });
 
             return JsonConvert.SerializeObject(result);
