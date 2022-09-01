@@ -165,7 +165,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             //Identificamos el id del usuario
             user = User.Identity.GetUserId();
-            relacion.idEstado = (int)Constantes.EstadosRegistro.Desactivado;
+            relacion.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
             //Creamos una variable resultado de tipo lista relacion categoria
             RespuestaConsulta<List<RelacionCategoria>> result = null;
@@ -196,7 +196,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             //Identificamos el id del usuario
             user = User.Identity.GetUserId();
-            relacion.idEstado = (int)Constantes.EstadosRegistro.Desactivado;
+            relacion.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
             //Creamos una variable resultado de tipo lista relacion categoria
             RespuestaConsulta<List<RelacionCategoria>> result = null;
@@ -388,6 +388,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return JsonConvert.SerializeObject(result);
         }
+
 
 
         #endregion

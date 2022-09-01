@@ -42,7 +42,7 @@ namespace GB.SIMEF.DAL
                     CategoriaDesagracion = ObtenerCategoriaDesagracion(x.idCategoriaAtributo),
                     CategoriaAtributoValor = x.CategoriaAtributoValor,
                     Estado = x.Estado,
-                    RelacionCategoria = db.RelacionCategoria.Where(i => i.idRelacionCategoria == x.IdRelacionCategoria).Single(),
+                    Completo = db.RelacionCategoria.Where(i => i.idRelacionCategoria == x.IdRelacionCategoria).Single().CantidadCategoria == ListaDetalle.Count()?true:false,
                     id = Utilidades.Encriptar(x.idDetalleRelacionCategoria.ToString()),
                 }).ToList();
             }
@@ -70,6 +70,12 @@ namespace GB.SIMEF.DAL
                       new SqlParameter("@CategoriaAtributoValor", objDetalle.CategoriaAtributoValor),
                       new SqlParameter("@Estado", objDetalle.Estado)
                     ).ToList();
+
+                ListaDetalle = ListaDetalle.Select(x => new DetalleRelacionCategoria()
+                {
+                    Completo = db.RelacionCategoria.Where(i => i.idRelacionCategoria == x.IdRelacionCategoria).Single().CantidadCategoria == ListaDetalle.Count()?true:false
+
+                }).ToList();
             }
 
             return ListaDetalle;
