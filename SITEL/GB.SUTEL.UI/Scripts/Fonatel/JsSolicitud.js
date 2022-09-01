@@ -32,11 +32,27 @@
         "step2": "a[href='#step-2']",
         "step1": "a[href='#step-1']",
         "btnAtrasSolicitud": "#btnAtrasSolicitud",
-
-
+        "txtCodigo": "#txtCodigo",
+        "txtNombre": "#txtNombre",
+        "txtFechaInicio": "#txtFechaInicio",
+        "txtFechaFin": "#txtFechaFin",
+        "ddlFuentes": "#ddlFuentes",
+        "TxtCantidadFormulario": "#TxtCantidadFormulario",
+        "ddlMesSolicitud": "#ddlMesSolicitud",
+        "ddlAnoSolicitud": "#ddlAnoSolicitud",
+        "txtMensajeSolicitud": "#txtMensajeSolicitud",
         "ddlFormularioWeb":"#ddlFormularioWeb",
         "ddlVariableIndicadorHelp": "#ddlVariableIndicadorHelp",
-        "btnCancelarFormulario":"#btnCancelarFormulario"
+        "btnCancelarFormulario": "#btnCancelarFormulario",
+        "CodigoHelp": "#CodigoHelp",
+        "nombreHelp": "#nombreHelp",
+        "FechaInicioHelp": "#FechaInicioHelp",
+        "FechaFinHelp": "#FechaFinHelp",
+        "FuentesHelp": "#FuentesHelp",
+        "FormulariosHelp": "#FormulariosHelp",
+        "ddlMesSolicitudHelp": "#ddlMesSolicitudHelp",
+        "ddlAnoSolicitudHelp": "#ddlAnoSolicitudHelp",
+        "txtMensajeSolicitudHelp": "#txtMensajeSolicitudHelp"
 
     },
     "Variables":{
