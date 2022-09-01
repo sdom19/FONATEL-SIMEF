@@ -21,7 +21,7 @@ namespace GB.SIMEF.Entities
         public Nullable<int> idvariable { get; set; }
         public int Estado { get; set; }
     
-        public virtual Operadores Operadores { get; set; }
+    
         public virtual ReglaValidacionTipo ReglaValidacionTipo { get; set; }
     }
 }

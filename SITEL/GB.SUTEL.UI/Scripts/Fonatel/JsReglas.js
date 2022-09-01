@@ -23,7 +23,10 @@
             "btnSiguienteTipoSiguiente": "#btnSiguienteTipoSiguiente",
             "btnGuardarReglaTipo": "#btnGuardarReglaTipo",
             "ddlVariableRegla": "#ddlVariableRegla",
-            "TablaReglas": "#TableReglaDesagregacion tbody" 
+            "TablaReglas": "#TableReglaDesagregacion tbody",
+            "ddlAtributosValidosRegla": "#ddlAtributosValidosRegla",
+
+            "chkAtributosValidosRegla":"#chkAtributosValidosRegla"
       
      },
     "Variables":{
@@ -249,6 +252,19 @@ $(document).on("click", JsReglas.Controles.btnSiguienteTipoSiguiente, function (
                 });
         });
 });
+
+
+
+$(document).on("click", JsReglas.Controles.chkAtributosValidosRegla, function () {
+    if ($(this).is(':checked')) {
+        $("#ddlAtributosValidosRegla > option").prop("selected", "selected");
+    } else {
+        $("#ddlAtributosValidosRegla > option").removeAttr("selected");
+    }
+});
+
+
+
 
 $(function () {
     if ($("#TableReglaDesagregacion").length > 0) {

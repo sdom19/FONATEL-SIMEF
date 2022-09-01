@@ -20,10 +20,12 @@ namespace GB.SIMEF.BL
 
 
         private RespuestaConsulta<List<CategoriasDesagregacion>> ResultadoConsulta;
-        string modulo = Etiquetas.Categorias;
-
-        public CategoriasDesagregacionBL()
+        string modulo = string.Empty;
+        string user = string.Empty;
+        public CategoriasDesagregacionBL(string modulo, string user)
         {
+            this.modulo = modulo;
+            this.user = user;
             this.clsDatos = new CategoriasDesagregacionDAL();
             this.clsDatosTexto = new DetalleCategoriaTextoDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<CategoriasDesagregacion>>();
@@ -99,8 +101,8 @@ namespace GB.SIMEF.BL
                 List<CategoriasDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
-                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
-                objeto.UsuarioModificacion = objeto.UsuarioCreacion;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioModificacion = user;
           
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
@@ -190,11 +192,11 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 int nuevoEstado = objeto.idEstado;
                 objeto.idEstado = 0;
-                ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
+                ResultadoConsulta.Usuario = user;
                 var resul = clsDatos.ObtenerDatos(objeto);
                 objeto = resul.Single();
                 objeto.idEstado = nuevoEstado;
-                objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
+                objeto.UsuarioModificacion =user;
                 ResultadoConsulta.Accion= (int)EstadosRegistro.Activo == objeto.idEstado ? (int)Accion.Activar : (int)Accion.Inactiva;
                 resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
@@ -219,7 +221,8 @@ namespace GB.SIMEF.BL
                 List<CategoriasDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
-                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioCreacion = user;
                 string codigo = objeto.Codigo;
                 string Nombre = objeto.NombreCategoria;
                 if (!string.IsNullOrEmpty( objeto.id))
@@ -305,7 +308,8 @@ namespace GB.SIMEF.BL
                 objeto.idCategoria = 0;
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
-                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                ResultadoConsulta.Usuario =user ;
+                objeto.UsuarioCreacion = user;
                 List<CategoriasDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
 
                 if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).ToList().Count() > 0)
