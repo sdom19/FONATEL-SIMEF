@@ -12,8 +12,8 @@ namespace GB.SIMEF.BL
 {
     public class IndicadorFonatelBL : IMetodos<Indicador>
     {
-        readonly string modulo = "";
-        readonly string user = "";
+        private readonly string modulo = "";
+        private readonly string user = "";
         private readonly IndicadorFonatelDAL indicadorFonatelDAL;
         private readonly TipoIndicadorDAL tipoIndicadorDAL;
         private readonly FrecuenciaEnvioDAL frecuenciaEnvioDAL;

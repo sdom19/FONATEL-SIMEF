@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="BitacoraBL.cs" />
     <Compile Include="ClasificacionIndicadorBL.cs" />
+    <Compile Include="DetalleIndicadorVariablesBL.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />
     <Compile Include="GrupoIndicadorBL.cs" />
     <Compile Include="SolicitudBL.cs" />

@@ -22,6 +22,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
         private readonly ClasificacionIndicadorBL clasificacionIndicadorBL;
         private readonly TipoMedidaBL tipoMedidaBL;
+        private readonly DetalleIndicadorVariablesBL detalleIndicadorVariablesBL;
         private readonly string defaultDropDownValue;
 
 
@@ -35,6 +36,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             clasificacionIndicadorBL = new ClasificacionIndicadorBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             tipoMedidaBL = new TipoMedidaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
 
             defaultDropDownValue = Utilidades.GetDefaultDropDownValue();
         }
@@ -541,6 +543,36 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 resultado = indicadorBL.InsertarDatos(pIndicador);
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 01/09/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener los detalles variables dato de un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesVariable(string pIdIndicador)
+        {
+            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorVariablesBL.ObtenerDatosPorIndicador(new DetalleIndicadorVariables()
+                {
+                    idIndicadorString = pIdIndicador
+                });
+
             });
             return JsonConvert.SerializeObject(resultado);
         }

@@ -13,7 +13,7 @@
     Variables: {
         indexViewURL: "/Fonatel/IndicadorFonatel/index",
         editViewURL: "/Fonatel/IndicadorFonatel/edit?id=",
-        createViewURL: "/Fonatel/IndicadorFonatel/Create?id="
+        createViewURL: "/Fonatel/IndicadorFonatel/create?id="
     },
 
     Metodos: {
@@ -325,7 +325,10 @@ CreateView = {
         formVariable: {
             form: "#formCrearVariable",
             btnSiguiente: "#btnSiguienteVariable",
-            btnAtras: "#btnAtrasVariable"
+            btnAtras: "#btnAtrasVariable",
+            tablaDetallesVariable: "#tableDetallesVariable tbody",
+            btnEliminarVariable: "#tableDetallesVariable tbody tr td .btn-delete",
+
         },
 
         formCategoria: {
@@ -336,23 +339,24 @@ CreateView = {
 
         //btnstep: ".step_navigation_indicador div",
         //divContenedor: ".stepwizard-content-container",
+        //btnEliminarCategoria: "#TablaDetalleCategoriaIndicador tbody tr td .btn-delete",
+        //btnAddIndicadorVariable: "#TableIndicador tbody tr td .variable",
+        //btnAddIndicadorCategoria: "#TableIndicador tbody tr td .Categoría",
         
         btnFinalizar: "#btnFinalizarIndicador",
         btnGuardarVariable: "#btnGuardarVariable",
         btnGuardarCategoria: "#btnGuardarCategoria",
-
-        //btnEliminarCategoria: "#TablaDetalleCategoriaIndicador tbody tr td .btn-delete",
-        //btnAddIndicadorVariable: "#TableIndicador tbody tr td .variable",
-        //btnAddIndicadorCategoria: "#TableIndicador tbody tr td .Categoría",
-        //btnEliminarVariable: "#TableDetalleVariable tbody tr td .btn-delete",
         btnCancelar: "#btnCancelarIndicador",
-
+        step1Indicador: "a[href='#step-1']",
+        step2Variable: "a[href='#step-2']",
+        step3Categoria: "a[href='#step-3']",
         CreateView: "#dad1f550"
     },
 
     Variables: {
         indexViewURL: "/Fonatel/IndicadorFonatel/index",
-        btnDeleteModal: (pValue) => `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${pValue}></button>`
+        btnDeleteModal: (pValue) => `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${pValue}></button>`,
+        hizoCargaDetallesVariables: false
     },
 
     Metodos: {
@@ -406,8 +410,8 @@ CreateView = {
                     return CreateView.Consultas.EliminarTipoIndicador(pIdTipoIndicador);
                 })
                 .then(data => {
-                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.formIndicador.ddlTipo, pIdTipoIndicador);
-                    CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalTipoIndicador, `button[value='${pIdTipoIndicador}']`);
+                    RemoverItemSelect2(CreateView.Controles.formIndicador.ddlTipo, pIdTipoIndicador);
+                    RemoverItemDataTable(CreateView.Controles.tableModalTipoIndicador, `button[value='${pIdTipoIndicador}']`);
 
                     $("#loading").fadeOut();
 
@@ -443,11 +447,11 @@ CreateView = {
                 .then(data => {
                     $(CreateView.Controles.inputModalTipo).val(null);
 
-                    CreateView.Metodos.InsertarItemSelect2(
+                    InsertarItemSelect2(
                         CreateView.Controles.formIndicador.ddlTipo,
                         data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
 
-                    CreateView.Metodos.InsertarItemDataTable(
+                    InsertarItemDataTable(
                         CreateView.Controles.tableModalTipoIndicador,
                         [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
 
@@ -518,8 +522,8 @@ CreateView = {
                     return CreateView.Consultas.EliminarGrupoIndicador(pIdGrupoIndicador);
                 })
                 .then(data => {
-                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.formIndicador.ddlGrupo, pIdGrupoIndicador);
-                    CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalGrupoIndicador, `button[value='${pIdGrupoIndicador}']`);
+                    RemoverItemSelect2(CreateView.Controles.formIndicador.ddlGrupo, pIdGrupoIndicador);
+                    RemoverItemDataTable(CreateView.Controles.tableModalGrupoIndicador, `button[value='${pIdGrupoIndicador}']`);
 
                     $("#loading").fadeOut();
 
@@ -555,11 +559,11 @@ CreateView = {
                 .then(data => {
                     $(CreateView.Controles.inputModalGrupo).val(null);
 
-                    CreateView.Metodos.InsertarItemSelect2(
+                    InsertarItemSelect2(
                         CreateView.Controles.formIndicador.ddlGrupo,
                         data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
 
-                    CreateView.Metodos.InsertarItemDataTable(
+                    InsertarItemDataTable(
                         CreateView.Controles.tableModalGrupoIndicador,
                         [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
 
@@ -629,8 +633,8 @@ CreateView = {
                     return CreateView.Consultas.EliminarUnidadEstudio(pIdUnidadEstudio);
                 })
                 .then(data => {
-                    CreateView.Metodos.RemoverItemSelect2(CreateView.Controles.formIndicador.ddlUnidadEstudio, pIdUnidadEstudio);
-                    CreateView.Metodos.RemoverItemDataTable(CreateView.Controles.tableModalUnidadEstudio, `button[value='${pIdUnidadEstudio}']`);
+                    RemoverItemSelect2(CreateView.Controles.formIndicador.ddlUnidadEstudio, pIdUnidadEstudio);
+                    RemoverItemDataTable(CreateView.Controles.tableModalUnidadEstudio, `button[value='${pIdUnidadEstudio}']`);
 
                     $("#loading").fadeOut();
 
@@ -666,11 +670,11 @@ CreateView = {
                 .then(data => {
                     $(CreateView.Controles.inputModalUnidadEstudio).val(null);
 
-                    CreateView.Metodos.InsertarItemSelect2(
+                    InsertarItemSelect2(
                         CreateView.Controles.formIndicador.ddlUnidadEstudio,
                         data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
 
-                    CreateView.Metodos.InsertarItemDataTable(
+                    InsertarItemDataTable(
                         CreateView.Controles.tableModalUnidadEstudio,
                         [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
 
@@ -732,13 +736,17 @@ CreateView = {
             return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
         },
 
-        BtnSiguienteIndicador: function () {
+        CrearIndicador: function () {
             if (CreateView.Metodos.ValidarFormularioIndicador().puedeContinuar) {
                 $("#loading").fadeIn();
-                CreateView.Metodos.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador(false))
+                CreateView.Consultas.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador(false))
                     .then(data => {
+                        InsertarParametroUrl("id", data.objetoRespuesta[0].id);
+
                         jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
-                            .set('onok', function (closeEvent) { $("a[href='#step-2']").trigger('click'); });
+                            .set('onok', function (closeEvent) {
+                                $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
+                            });
                     })
                     .catch(error => {
                         if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -807,22 +815,46 @@ CreateView = {
                 });
         },
 
-        // View utils
-        RemoverItemDataTable: function (pDataTable, pItem) {
-            $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
+        // Formularo Detalles Variable
+        CargarDetallesVariable: function (pIndicador) {
+            if (!CreateView.Variables.hizoCargaDetallesVariables) {
+                $("#loading").fadeIn();
+                CreateView.Consultas.ConsultarDetallesVariable(pIndicador)
+                    .then(data => {
+                        CreateView.Metodos.InsertarDatosTablaDetallesVariable(data.objetoRespuesta);
+                        CreateView.Variables.hizoCargaDetallesVariables = true;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        }
+                    })
+                    .finally(() => {
+                        $("#loading").fadeOut();
+                    });
+            }
         },
 
-        RemoverItemSelect2: function (pSelect2, pValor) {
-            $(`${pSelect2} option[value='${pValor}']`).remove();
-        },
+        InsertarDatosTablaDetallesVariable: function (listaVariables) {
+            EliminarDatasource();
+            let html = "";
 
-        InsertarItemDataTable: function (pDataTable, pListaItems) {
-            $(pDataTable).DataTable().row.add(pListaItems).draw(false);
-        },
-
-        InsertarItemSelect2: function (pSelect2, pTexto, pValor, pDefaultSelected = false, pSelect = false) {
-            var newOption = new Option(pTexto, pValor, pDefaultSelected, pSelect);
-            $(pSelect2).append(newOption).trigger('change');
+            listaVariables.forEach(item => {
+                html += "<tr>";
+                html += `<th scope='row'>${item.NombreVariable}</th>`;
+                html += `<th scope='row'>${item.Descripcion}</th>`;
+                html += "<td>"
+                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit" value=${item.id}></button>` 
+                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete" value=${item.id}></button>`
+                html += "</td>"
+                html += "</tr>";
+            });
+            $(CreateView.Controles.formVariable.tablaDetallesVariable).html(html);
+            CargarDatasource();
         },
     },
 
@@ -866,23 +898,27 @@ CreateView = {
         CrearIndicador: function (pIndicador) {
             return execAjaxCall('/IndicadorFonatel/CrearIndicador', 'POST', { pIndicador: pIndicador });
         },
+
+        ConsultarDetallesVariable: function (pIdIndicador) {
+            return execAjaxCall('/IndicadorFonatel/ObtenerListaDetallesVariable', 'GET', { pIdIndicador: pIdIndicador });
+        }
     },
 
     Eventos: function () {
         $(document).on("click", CreateView.Controles.formIndicador.btnSiguiente, function (e) {
-            CreateView.Metodos.BtnSiguienteIndicador();
+            CreateView.Metodos.CrearIndicador();
         });
 
         $(document).on("click", CreateView.Controles.formVariable.btnSiguiente, function (e) {
-            $("a[href='#step-3']").trigger('click');
+            $(CreateView.Controles.step3Categoria).trigger('click');
         });
 
         $(document).on("click", CreateView.Controles.formVariable.btnAtras, function (e) {
-            $("a[href='#step-1']").trigger('click');
+            $(CreateView.Controles.step1Indicador).trigger('click');
         });
 
         $(document).on("click", CreateView.Controles.formCategoria.btnAtras, function (e) {
-            $("a[href='#step-2']").trigger('click');
+            $(CreateView.Controles.step2Variable).trigger('click');
         });
 
         $(document).on("click", CreateView.Controles.btnModalTipoIndicador, function (e) {
@@ -933,6 +969,10 @@ CreateView = {
 
         $(document).on("click", CreateView.Controles.formIndicador.btnGuardar, function (e) {
             CreateView.Metodos.CrearIndicadorGuardadoParcial();
+        });
+
+        $(document).on("click", CreateView.Controles.step2Variable, function (e) {
+            CreateView.Metodos.CargarDetallesVariable(ObtenerValorParametroUrl("id"));
         });
 
         $(document).on("click", CreateView.Controles.btnCancelar, function (e) {

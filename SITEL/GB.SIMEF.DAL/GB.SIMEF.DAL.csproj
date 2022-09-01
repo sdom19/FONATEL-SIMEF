@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClasificacionIndicadorDAL.cs" />
+    <Compile Include="DetalleIndicadorVariablesDAL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
     <Compile Include="GrupoIndicadorDAL.cs" />
     <Compile Include="TipoDetalleCategoriaDAL.cs" />

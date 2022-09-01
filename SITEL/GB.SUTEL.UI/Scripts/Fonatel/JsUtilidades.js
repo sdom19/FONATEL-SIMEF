@@ -213,6 +213,34 @@ function execAjaxCall(pURL, pHttpMethod, pParams = null) {
     })
 }
 
+function RemoverItemDataTable (pDataTable, pItem) {
+    $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
+}
+
+function RemoverItemSelect2 (pSelect2, pValor) {
+    $(`${pSelect2} option[value='${pValor}']`).remove();
+}
+
+function InsertarItemDataTable (pDataTable, pListaItems) {
+    $(pDataTable).DataTable().row.add(pListaItems).draw(false);
+}
+
+function InsertarItemSelect2 (pSelect2, pTexto, pValor, pDefaultSelected = false, pSelect = false) {
+    var newOption = new Option(pTexto, pValor, pDefaultSelected, pSelect);
+    $(pSelect2).append(newOption).trigger('change');
+}
+
+function InsertarParametroUrl (pParametro, pValor) {
+    const url = new URL(window.location);
+    url.searchParams.set(pParametro, pValor);
+    window.history.pushState(null, '', url.toString());
+}
+
+function ObtenerValorParametroUrl (pParametro) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(pParametro);
+}
+
 $(document).on("keypress", '.solo_operacion', function (e) {
     var regex = new RegExp("^[0-9]|[-+*>=</]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
