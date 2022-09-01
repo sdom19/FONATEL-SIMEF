@@ -39,7 +39,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public CategoriasDesagregacionController()
         {
-            categoriaBL = new CategoriasDesagregacionBL();
+            categoriaBL = new CategoriasDesagregacionBL(Etiquetas.Categorias, System.Web.HttpContext.Current.User.Identity.GetUserId());
             categoriaDetalleBL = new DetalleCategoriasTextoBL();
             TipoCategoriaBL = new TipoCategoriaBL();
             TipoDetalleCategoriaBL = new TipoDetalleCategoriaBL();

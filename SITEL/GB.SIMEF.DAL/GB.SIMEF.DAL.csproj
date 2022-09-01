@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OperadorArismeticoDAL.cs" />
+    <Compile Include="TipoReglaValidacionDAL.cs" />
     <Compile Include="DefinicionIndicadorDAL.cs" />
     <Compile Include="FormularioWebDAL.cs" />
     <Compile Include="MesDAL.cs" />

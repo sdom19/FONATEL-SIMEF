@@ -12,17 +12,13 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class Operadores
+    [Table("OperadorArismetico") ]
+    public partial class OperadorArismetico
     {
       
-        public Operadores()
-        {
-            this.FormulasOperador = new HashSet<FormulasOperador>();
-            this.ReglaComparacionConstante = new HashSet<ReglaComparacionConstante>();
-            this.ReglaComparacionIndicador = new HashSet<ReglaComparacionIndicador>();
-            this.ReglaSecuencial = new HashSet<ReglaSecuencial>();
-        }
+ 
         [Key]
         public int IdOperador { get; set; }
         public string Nombre { get; set; }
@@ -30,13 +26,5 @@ namespace GB.SIMEF.Entities
         public Nullable<int> Tipo { get; set; }
         public bool Estado { get; set; }
     
-
-        public virtual ICollection<FormulasOperador> FormulasOperador { get; set; }
-
-        public virtual ICollection<ReglaComparacionConstante> ReglaComparacionConstante { get; set; }
-
-        public virtual ICollection<ReglaComparacionIndicador> ReglaComparacionIndicador { get; set; }
-
-        public virtual ICollection<ReglaSecuencial> ReglaSecuencial { get; set; }
     }
 }

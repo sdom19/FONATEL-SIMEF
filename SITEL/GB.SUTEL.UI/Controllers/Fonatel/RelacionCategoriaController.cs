@@ -26,7 +26,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public RelacionCategoriaController()
         {
             //user = User.Identity.GetUserId(); 
-            categoriasDesagregacionBl = new CategoriasDesagregacionBL();
+            categoriasDesagregacionBl = new CategoriasDesagregacionBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
             RelacionCategoriaBL = new RelacionCategoriaBL();
 
 

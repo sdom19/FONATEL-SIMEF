@@ -44,7 +44,7 @@
             }
             if (notas.length == 0) {
                 $(JsDefiniciones.Controles.txtNotasDefinicionHelp).removeClass("hidden");
-                notas = false;
+                validar = false;
             }
             return validar;
         },
@@ -101,25 +101,7 @@
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
-        },
-
-        "ConsultarDefinicion": function (id) {
-            let definicion = new Object();
-            definicion.idDefinicion = id;
-
-
-            $("#loading").fadeIn();
-            execAjaxCall("/DefinicionIndicadores/ObtenerDefinicion", "POST", definicion)
-                .then((data) => {
-                    JsDefiniciones.Variables.DefinicionSeleccionada = data.objetoRespuesta;
-              
-                }).catch((data) => {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { location.reload(); });
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        }
+         }
 
     }
 

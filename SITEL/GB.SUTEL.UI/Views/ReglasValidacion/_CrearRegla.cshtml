@@ -34,14 +34,7 @@
             <div class="form-group">
                 <label for="ddlIndicadorRegla" class="col-form-label">@EtiquetasViewReglasValidacion.LabelIndicador</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownListFor(model => model.idIndicador, new SelectList(ViewBag.indicador, "idIndicador", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorRegla" })
-                    @*<select class=" listasDesplegables" id="ddlIndicadorRegla">
-                        <option></option>
-                        <option value="1">Torres Según Estado</option>
-                        <option value="2">CPSP conectados</option>
-                        <option value="3">Hogares Benificiados</option>
-                        <option value="4">Dispositivos entregados</option>
-                    </select>*@
+                    @Html.DropDownListFor(model => model.idIndicador, new SelectList(ViewBag.ListaIndicadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorRegla" })
                 </div>
                 <small id="TipoIndicadorHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>

@@ -69,6 +69,13 @@ namespace GB.SIMEF.Resources
             public const int intDivisionPassword = 8;
         }
 
+        public enum ClasificacionIndicadorEnum : int
+        {
+            Entrada=1,
+            Salida=2,
+            EntradaSalida=3
+        }
+
 
     }
 }

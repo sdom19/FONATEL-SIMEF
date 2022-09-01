@@ -61,6 +61,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Atributos válidos.
+        /// </summary>
+        public static string AtributosValidos {
+            get {
+                return ResourceManager.GetString("AtributosValidos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Clonar Reglas de Validación.
         /// </summary>
         public static string Clonar {
@@ -120,6 +129,33 @@ namespace GB.SIMEF.Resources {
         public static string LabelNombre {
             get {
                 return ResourceManager.GetString("LabelNombre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reglas de Validación.
+        /// </summary>
+        public static string ReglasValidacion {
+            get {
+                return ResourceManager.GetString("ReglasValidacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tipo de Regla.
+        /// </summary>
+        public static string TipoRegla {
+            get {
+                return ResourceManager.GetString("TipoRegla", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Variable dato.
+        /// </summary>
+        public static string Variable {
+            get {
+                return ResourceManager.GetString("Variable", resourceCulture);
             }
         }
     }
