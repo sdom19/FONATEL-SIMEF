@@ -45,6 +45,12 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                int temp = 0;
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.idDefinicion = temp;
+                }
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Usuario = user;
                 var resul = DefinicionIndicadorDAL.ObtenerDatos(objeto);
@@ -77,8 +83,13 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<DefinicionIndicador>> ObtenerDatos(DefinicionIndicador pDefinicionIndicador)
         {
             try
-            {
-              
+            { 
+                int temp = 0;
+                if (!string.IsNullOrEmpty(pDefinicionIndicador.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pDefinicionIndicador.id), out temp);
+                    pDefinicionIndicador.idDefinicion = temp;
+                }      
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
                 var result = DefinicionIndicadorDAL.ObtenerDatos(pDefinicionIndicador);

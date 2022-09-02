@@ -31,8 +31,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public ReglasValidacionController()
         {
-            reglaBL = new ReglaValidacionBL();
-            indicadorfonatelBL = new IndicadorFonatelBL(EtiquetasViewPublicaciones.PublicacionIndicadores, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            reglaBL = new ReglaValidacionBL(EtiquetasViewReglasValidacion.ReglasValidacion, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            indicadorfonatelBL = new IndicadorFonatelBL(EtiquetasViewReglasValidacion.ReglasValidacion, System.Web.HttpContext.Current.User.Identity.GetUserId());
             categoriasDesagregacionBL = new CategoriasDesagregacionBL(EtiquetasViewReglasValidacion.ReglasValidacion, System.Web.HttpContext.Current.User.Identity.GetUserId());
             TipoReglasBL = new TipoReglaValidacionBL();
             OperadoresBL = new OperadorArismeticoBL();
@@ -70,7 +70,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ActionResult Create(string id, int? modo)
         {
             var ListadoIndicador = indicadorfonatelBL
-                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
+                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo}).objetoRespuesta;
 
             var listadoCategoria = categoriasDesagregacionBL
                .ObtenerDatos(new CategoriasDesagregacion() {idEstado=(int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
@@ -92,11 +92,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
             ViewBag.ListaIndicadores=
-                        ListadoIndicador. Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                        ListadoIndicador. Select(x => new SelectListItem() { Selected = false, Value = Utilidades.Desencriptar(x.id), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
 
             ViewBag.ListaIndicadoresSalida =
-                       ListadoIndicador.Where(x=>x.IdClasificacion==(int)Constantes.ClasificacionIndicadorEnum.Salida).Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                       ListadoIndicador.Where(x=>x.IdClasificacion==(int)Constantes.ClasificacionIndicadorEnum.Salida).Select(x => new SelectListItem() { Selected = false, Value = Utilidades.Desencriptar(x.id), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
             ViewBag.Modo = modo.ToString();
 
@@ -109,6 +109,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     ViewBag.titulo = EtiquetasViewReglasValidacion.Clonar;
                     objregla.Codigo = string.Empty;
+                    objregla.Nombre = string.Empty;
                     objregla.id = string.Empty;
                 }
                 else

@@ -1,6 +1,4 @@
-﻿
-
-jsUtilidades= {
+﻿jsUtilidades= {
     "Variables": {
         "urlOrigen": location.origin,
 
@@ -75,6 +73,30 @@ $(document).ready(function () {
     });
     $('.nav-tabs > li a[title]').tooltip();
 });
+
+$(document).on("select2:select", '.multiple-Select', function (e) {
+    var data = e.params.data.text;
+    if (data == 'Todos') {
+        $(".multiple-Select > option").prop("selected", "selected");
+        $(".multiple-Select").trigger("change");
+    }
+});
+
+
+$(document).on("select2:unselect", '.multiple-Select', function (e) {
+    var data = e.params.data.text;
+    if (data == 'Todos') {
+        $(".multiple-Select > option").prop("selected", false);
+        $(".multipli-Select").trigger("change");
+    }
+    else {
+        $(".multiple-Select > option[value='all']").prop("selected", false);
+        $(".multiple-Select").trigger("change");
+    }
+
+});
+
+
 
 
 $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
@@ -243,7 +265,7 @@ $(document).on("keypress", '.solo_operacion', function (e) {
 
 
 $(document).on("keypress", '.alfa_numerico', function (e) {
-    var regex = new RegExp("^[0-9]|[a-z]|[\s]+$");
+    var regex = new RegExp("^[0-9]|[a-z]|[\s]|[A-Z]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         e.preventDefault();
@@ -268,4 +290,5 @@ $(document).on("keypress", '.solo_texto', function (e) {
         return false;
     }
 });
+
 

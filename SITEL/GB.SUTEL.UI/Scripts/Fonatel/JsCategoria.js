@@ -314,7 +314,7 @@
                             $(JsCategoria.Controles.txtCodigoDetalle).val(JsCategoria.Variables.ListadoCategoriaDetalle[0].Codigo);
                             $(JsCategoria.Controles.txtEtiquetaDetalle).val(JsCategoria.Variables.ListadoCategoriaDetalle[0].Etiqueta);
                             $(JsCategoria.Controles.txtCodigoDetalle).prop("disabled", true)
-
+                            $(JsCategoria.Controles.btnGuardarDetalleCategoria).prop("disabled", false);
                         }
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -709,6 +709,7 @@ $(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) 
 
 $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, function (e) {
     e.preventDefault();
+
     if (!JsCategoria.Variables.ModoEditarAtributo) {
         if (JsCategoria.Metodos.ValidarFormularioDetalle()) {
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
@@ -762,6 +763,7 @@ $(document).on("click", JsCategoria.Controles.btnEliminarDetalle, function (e) {
 });
 $(document).on("click", JsCategoria.Controles.btnEditarDetalle, function (e) {
     JsCategoria.Variables.ModoEditarAtributo = true;
+
     let id = $(this).val();
     JsCategoria.Consultas.ConsultaCategoriaDetalle(id);
 });
@@ -792,11 +794,11 @@ $(function () {
             $(JsCategoria.Controles.ddlTipoDetalle).prop("disabled", true);
             $(JsCategoria.Controles.ddlTipoCategoria).prop("disabled", true);
 
-            $(JsCategoria.Controles.txtCantidadDetalleCategoria).prop("disabled", true);
-            $(JsCategoria.Controles.txtRangoMaximaCategoria).prop("disabled", true);
-            $(JsCategoria.Controles.txtRangoMinimaCategoria).prop("disabled", true);
-            $(JsCategoria.Controles.txtFechaMaximaCategoria).prop("disabled", true);
-            $(JsCategoria.Controles.txtFechaMinimaCategoria).prop("disabled", true);
+            //$(JsCategoria.Controles.txtCantidadDetalleCategoria).prop("disabled", true);
+            //$(JsCategoria.Controles.txtRangoMaximaCategoria).prop("disabled", true);
+            //$(JsCategoria.Controles.txtRangoMinimaCategoria).prop("disabled", true);
+            //$(JsCategoria.Controles.txtFechaMaximaCategoria).prop("disabled", true);
+            //$(JsCategoria.Controles.txtFechaMinimaCategoria).prop("disabled", true);
 
         }
         var selected = $(JsCategoria.Controles.ddlTipoDetalle).val();

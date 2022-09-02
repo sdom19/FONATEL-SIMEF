@@ -61,7 +61,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Atributos válidos.
+        ///   Busca una cadena traducida similar a Atributos Válidos.
         /// </summary>
         public static string AtributosValidos {
             get {
@@ -115,7 +115,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Indicador.
+        ///   Busca una cadena traducida similar a Indicador a Aplicar.
         /// </summary>
         public static string LabelIndicador {
             get {
@@ -151,7 +151,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Variable dato.
+        ///   Busca una cadena traducida similar a Variable Dato.
         /// </summary>
         public static string Variable {
             get {
