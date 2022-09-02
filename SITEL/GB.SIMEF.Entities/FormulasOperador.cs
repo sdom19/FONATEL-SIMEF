@@ -19,6 +19,6 @@ namespace GB.SIMEF.Entities
         public int idFormula { get; set; }
         public int idDetalleFormula { get; set; }
     
-        public virtual Operadores Operadores { get; set; }
+       
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-jsUtilidades= {
+﻿jsUtilidades= {
     "Variables": {
         "urlOrigen": location.origin,
 
@@ -39,6 +37,8 @@ jsUtilidades= {
 $(document).ready(function () {
 
     $(".datatable_simef_modal").DataTable({
+        'scrollY': '300px',
+        'scrollCollapse': true,
         language: {
             "decimal": "",
             "emptyTable": "No hay información",
@@ -71,15 +71,32 @@ $(document).ready(function () {
         placeholder: "Seleccione",
         width: 'resolve' 
     });
-
-
-
-
-
     $('.nav-tabs > li a[title]').tooltip();
+});
 
+$(document).on("select2:select", '.multiple-Select', function (e) {
+    var data = e.params.data.text;
+    if (data == 'Todos') {
+        $(".multiple-Select > option").prop("selected", "selected");
+        $(".multiple-Select").trigger("change");
+    }
+});
+
+
+$(document).on("select2:unselect", '.multiple-Select', function (e) {
+    var data = e.params.data.text;
+    if (data == 'Todos') {
+        $(".multiple-Select > option").prop("selected", false);
+        $(".multipli-Select").trigger("change");
+    }
+    else {
+        $(".multiple-Select > option[value='all']").prop("selected", false);
+        $(".multiple-Select").trigger("change");
+    }
 
 });
+
+
 
 
 $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
@@ -117,20 +134,32 @@ function CargarDatasource() {
             {
                 extend: 'excel',
                 text: '<i class="fa fa-file-excel-o" style="color:green;"></i>',
-                titleAttr: 'Excel'
+                titleAttr: 'Excel',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
             },
             {
                 extend: 'pdf',
                 text: '<i class="fa fa-file-pdf-o" style="color:brown;"></i>',
                 titleAttr: 'PDF',
-
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
             },
             {
                 extend: 'print',
                 text: '<i class="fa fa-print" style="color:black;"></i>',
-                titleAttr: 'Imprimir'
+                titleAttr: 'Imprimir',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
 
-            }
+            },
+
         ],
         columnDefs: [
             { "className": "dt-center", "targets": "_all" }
@@ -182,11 +211,15 @@ function CargarDatasource() {
                     }
                 });
         },
+
+        
     });
 
     $('.table-wrapper-fonatel table tfoot th select').select2({
         width: 'resolve'
     });
+
+    $('.datatable_simef > tbody tr td button').tooltip();
 }
 
 
@@ -232,7 +265,7 @@ $(document).on("keypress", '.solo_operacion', function (e) {
 
 
 $(document).on("keypress", '.alfa_numerico', function (e) {
-    var regex = new RegExp("^[0-9]|[a-z]|[\s]+$");
+    var regex = new RegExp("^[0-9]|[a-z]|[\s]|[A-Z]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         e.preventDefault();
@@ -257,4 +290,5 @@ $(document).on("keypress", '.solo_texto', function (e) {
         return false;
     }
 });
+
 

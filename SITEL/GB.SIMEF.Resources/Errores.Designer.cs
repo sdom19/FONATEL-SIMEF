@@ -61,6 +61,51 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El campo {0} presenta un formato inválido.
+        /// </summary>
+        public static string CampoConFormatoInvalido {
+            get {
+                return ResourceManager.GetString("CampoConFormatoInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El campo {0} presenta un valor inválido.
+        /// </summary>
+        public static string CampoConValorInvalido {
+            get {
+                return ResourceManager.GetString("CampoConValorInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Se deben completar todos los campos del formulario.
+        /// </summary>
+        public static string CamposIncompletos {
+            get {
+                return ResourceManager.GetString("CamposIncompletos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El valor ingresado &apos;{0}&apos; ya se encuentra registrado.
+        /// </summary>
+        public static string CampoYaExiste {
+            get {
+                return ResourceManager.GetString("CampoYaExiste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La cantidad de destinatarios no es la correcta.
+        /// </summary>
+        public static string CantidadDestinatariosIncorrecta {
+            get {
+                return ResourceManager.GetString("CantidadDestinatariosIncorrecta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Se excedio la cantidad de registros establecidos.
         /// </summary>
         public static string CantidadRegistros {
@@ -70,7 +115,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a La cantidad de detalle a establecer, sobrepasa la lista actual.
+        ///   Busca una cadena traducida similar a La cantidad de detalle a establecer, es inferior la lista actual.
         /// </summary>
         public static string CantidadRegistrosLimite {
             get {
@@ -88,11 +133,11 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El Detalle ingresado ya se encuentra registrado.
+        ///   Busca una cadena traducida similar a El correo ingresado ya se encuentra registrado.
         /// </summary>
-        public static string DetalleRegistrado {
+        public static string CorreoRegistrado {
             get {
-                return ResourceManager.GetString("DetalleRegistrado", resourceCulture);
+                return ResourceManager.GetString("CorreoRegistrado", resourceCulture);
             }
         }
         
@@ -102,6 +147,24 @@ namespace GB.SIMEF.Resources {
         public static string EtiquetaRegistrada {
             get {
                 return ResourceManager.GetString("EtiquetaRegistrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La Fuente ingresada ya se encuentra registrada.
+        /// </summary>
+        public static string FuenteRegistrada {
+            get {
+                return ResourceManager.GetString("FuenteRegistrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La cantidad de destinatarios debe ser mayor que 0.
+        /// </summary>
+        public static string FuentesCantidadDestiatarios {
+            get {
+                return ResourceManager.GetString("FuentesCantidadDestiatarios", resourceCulture);
             }
         }
         
@@ -120,6 +183,24 @@ namespace GB.SIMEF.Resources {
         public static string NoRegistrosActualizar {
             get {
                 return ResourceManager.GetString("NoRegistrosActualizar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La Fecha Final debe ser mayor que la Fecha Inicial.
+        /// </summary>
+        public static string ValorFecha {
+            get {
+                return ResourceManager.GetString("ValorFecha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El valor Máximo debe ser mayor al valor Minimo.
+        /// </summary>
+        public static string ValorMinimo {
+            get {
+                return ResourceManager.GetString("ValorMinimo", resourceCulture);
             }
         }
     }

@@ -3,7 +3,7 @@
 @model GB.SIMEF.Entities.CategoriasDesagregacion
 
 @{
-    ViewBag.Title = "Categoría de Desagregación";
+    ViewBag.Title = ViewBag.titulo;
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
@@ -17,14 +17,14 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="@Url.Action( "index","Home")">@Etiquetas.LabelInicio</a></li>
                 <li class="breadcrumb-item active"><a href="@Url.Action( "index","CategoriasDesagregacion")">Categorías de Desagregación</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewCategorias.CrearCategoria</li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewBag.titulo</li>
             </ol>
         </nav>
     </div>
     <div  class="row">
 
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">@EtiquetasViewCategorias.CrearCategoria</h2>
+            <h2 class="page-title-fonatel text-center">@ViewBag.titulo</h2>
             <hr />
 
         </div>

@@ -12,20 +12,24 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("ClasificacionIndicadores")]
     public partial class ClasificacionIndicadores
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ClasificacionIndicadores()
         {
-            this.Indicador = new HashSet<Indicador>();
         }
         [Key]
         public int idClasificacion { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
-    
 
-        public virtual ICollection<Indicador> Indicador { get; set; }
+
+        #region Variables que no forman parte del contexto
+        [NotMapped]
+        public string id { get; set; }
+        #endregion
     }
 }

@@ -34,19 +34,13 @@
             let bitacora = new Object();
             bitacora.FechaDesde = $(JsBitacora.Controles.txtFechaDesde).val();
             bitacora.FechaHasta = $(JsBitacora.Controles.txtFechaHasta).val();
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/BitacoraFonatel/ObtenerListaBitacora',
-                type: "POST",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                data: { bitacora },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        JsBitacora.Variables.ListaBitacora = obj.objetoRespuesta;
-                        JsBitacora.Metodos.CargarTablaBitacora();
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+            $("#loading").fadeIn();
+            execAjaxCall("/BitacoraFonatel/ObtenerListaBitacora", "POST", bitacora)
+                .then((obj) => {
+                    JsBitacora.Variables.ListaBitacora = obj.objetoRespuesta;
+                    JsBitacora.Metodos.CargarTablaBitacora();
+                }).catch((data) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) { });
                     }
@@ -54,15 +48,9 @@
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { })
                     }
+                }).finally(() => {
                     $("#loading").fadeOut();
-                    $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
-
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
+                });
         }
     }
 

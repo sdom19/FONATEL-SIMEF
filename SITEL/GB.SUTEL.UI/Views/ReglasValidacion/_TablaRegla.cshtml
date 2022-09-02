@@ -1,16 +1,18 @@
-﻿<div class="table-responsive table-wrapper-fonatel" style="min-width:300px">
+﻿
+@using GB.SIMEF.Resources;
+
+<div class="table-responsive table-wrapper-fonatel" style="min-width:300px">
     <table id="TableReglaDesagregacion" class="dataTable datatable_simef table-bordered table-condensed table-hover">
         <thead>
             <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Acciones</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>@Etiquetas.Estado</th>
+                <th class="noExport">@Etiquetas.Acciones</th>
             </tr>
         </thead>
         <tbody>
-        
         </tbody>
         <tfoot>
             <tr>

@@ -51,8 +51,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OperadorArismeticoDAL.cs" />
+    <Compile Include="TipoReglaValidacionDAL.cs" />
+    <Compile Include="DefinicionIndicadorDAL.cs" />
+    <Compile Include="FormularioWebDAL.cs" />
+    <Compile Include="MesDAL.cs" />
+    <Compile Include="SolicitudDAL.cs" />
+    <Compile Include="FuentesRegistroDestinatarioDAL.cs" />
+    <Compile Include="GrupoIndicadorDAL.cs" />
+    <Compile Include="IndicadorFonatelDAL.cs" />
     <Compile Include="ReglasValicionDAL.cs" />
-    <Compile Include="DetalleRelacionCategoriaDAL.cs" />
+    <Compile Include="FuentesRegistroDAL.cs" />
     <Compile Include="RelacionCategoriaDAL.cs" />
     <Compile Include="TipoDetalleCategoriaDAL.cs" />
     <Compile Include="TipoCategoriaDAL.cs" />
@@ -62,9 +71,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BitacoraDAL.cs" />
     <Compile Include="SIMEFContext.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="TipoIndicadorDAL.cs" />
+    <Compile Include="AnnoDAL.cs" />
+    <Compile Include="UnidadEstudioDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GB.SIMEF.Entities\GB.SIMEF.Entities.csproj">
@@ -74,6 +83,14 @@
     <ProjectReference Include="..\GB.SIMEF.Resources\GB.SIMEF.Resources.csproj">
       <Project>{93F172D6-F11B-41D1-BD43-AFAD2F43D314}</Project>
       <Name>GB.SIMEF.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.DAL\GB.SUTEL.DAL.csproj">
+      <Project>{3548F570-BB86-47FA-AD42-CB491214EAC6}</Project>
+      <Name>GB.SUTEL.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.Entities\GB.SUTEL.Entities.csproj">
+      <Project>{8B30812D-4414-4C62-9A34-FD80220C0029}</Project>
+      <Name>GB.SUTEL.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

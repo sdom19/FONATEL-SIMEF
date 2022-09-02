@@ -70,7 +70,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Cantidad.
+        ///   Busca una cadena traducida similar a Cantidad de Detalle.
         /// </summary>
         public static string Cantidad {
             get {
@@ -79,11 +79,11 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Cantidad Detalle.
+        ///   Busca una cadena traducida similar a Clonar Categoría de Desagregación.
         /// </summary>
-        public static string CantidadDetalle {
+        public static string Clonar {
             get {
-                return ResourceManager.GetString("CantidadDetalle", resourceCulture);
+                return ResourceManager.GetString("Clonar", resourceCulture);
             }
         }
         
@@ -124,11 +124,11 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a .
+        ///   Busca una cadena traducida similar a Editar Categoría de Desagregación.
         /// </summary>
-        public static string ErrorTipoDetalleCategoria {
+        public static string EditarCategoria {
             get {
-                return ResourceManager.GetString("ErrorTipoDetalleCategoria", resourceCulture);
+                return ResourceManager.GetString("EditarCategoria", resourceCulture);
             }
         }
         

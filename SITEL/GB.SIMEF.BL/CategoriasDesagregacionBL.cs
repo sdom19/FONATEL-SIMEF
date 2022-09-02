@@ -20,10 +20,12 @@ namespace GB.SIMEF.BL
 
 
         private RespuestaConsulta<List<CategoriasDesagregacion>> ResultadoConsulta;
-        string modulo = Etiquetas.Categorias;
-
-        public CategoriasDesagregacionBL()
+        string modulo = string.Empty;
+        string user = string.Empty;
+        public CategoriasDesagregacionBL(string modulo, string user)
         {
+            this.modulo = modulo;
+            this.user = user;
             this.clsDatos = new CategoriasDesagregacionDAL();
             this.clsDatosTexto = new DetalleCategoriaTextoDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<CategoriasDesagregacion>>();
@@ -99,8 +101,8 @@ namespace GB.SIMEF.BL
                 List<CategoriasDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
-                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
-                objeto.UsuarioModificacion = objeto.UsuarioCreacion;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioModificacion = user;
           
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
@@ -126,12 +128,20 @@ namespace GB.SIMEF.BL
 
                     if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
+                        if (objeto.DetalleCategoriaFecha.FechaMinima > objeto.DetalleCategoriaFecha.FechaMaxima)
+                        {
+                            throw new Exception(Errores.ValorFecha);
+                        }
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaFecha.Estado = true;
                         clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
                     }
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
+                        if (objeto.DetalleCategoriaNumerico.Minimo > objeto.DetalleCategoriaNumerico.Maximo)
+                        {
+                            throw new Exception(Errores.ValorMinimo);
+                        }
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaNumerico.Estado = true;
                         clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
@@ -149,7 +159,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if ( ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.NombreRegistrado || ex.Message== Errores.CantidadRegistrosLimite)
+                if ( ex.Message == Errores.NoRegistrosActualizar || 
+                    ex.Message == Errores.NombreRegistrado || ex.Message== Errores.CantidadRegistrosLimite 
+                    || ex.Message==Errores.ValorMinimo || ex.Message==Errores.ValorFecha)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }
@@ -180,11 +192,11 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 int nuevoEstado = objeto.idEstado;
                 objeto.idEstado = 0;
-                ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
+                ResultadoConsulta.Usuario = user;
                 var resul = clsDatos.ObtenerDatos(objeto);
                 objeto = resul.Single();
                 objeto.idEstado = nuevoEstado;
-                objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
+                objeto.UsuarioModificacion =user;
                 ResultadoConsulta.Accion= (int)EstadosRegistro.Activo == objeto.idEstado ? (int)Accion.Activar : (int)Accion.Inactiva;
                 resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
@@ -209,7 +221,8 @@ namespace GB.SIMEF.BL
                 List<CategoriasDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
-                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioCreacion = user;
                 string codigo = objeto.Codigo;
                 string Nombre = objeto.NombreCategoria;
                 if (!string.IsNullOrEmpty( objeto.id))
@@ -245,8 +258,8 @@ namespace GB.SIMEF.BL
                     }
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
-                        objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
-                        clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
+                        objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
+                        clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
                     }
                     else
                     {
@@ -257,8 +270,6 @@ namespace GB.SIMEF.BL
                         }
                     }
                 }
-
-
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
                             ResultadoConsulta.Clase, objeto.Codigo);
@@ -297,7 +308,8 @@ namespace GB.SIMEF.BL
                 objeto.idCategoria = 0;
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
-                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                ResultadoConsulta.Usuario =user ;
+                objeto.UsuarioCreacion = user;
                 List<CategoriasDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
 
                 if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).ToList().Count() > 0)
@@ -315,12 +327,21 @@ namespace GB.SIMEF.BL
                         .Where(x=>x.Codigo.ToUpper()==objeto.Codigo.ToUpper()).FirstOrDefault();
                     if (objeto.idTipoDetalle== (int)TipoDetalleCategoriaEnum.Fecha)
                     {
+                        if (objeto.DetalleCategoriaFecha.FechaMinima> objeto.DetalleCategoriaFecha.FechaMaxima)
+                        {
+                            throw new Exception(Errores.ValorFecha);
+                        }
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaFecha.Estado = true;
                         clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
                     }
                     else if(objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
+                        if (objeto.DetalleCategoriaNumerico.Minimo>objeto.DetalleCategoriaNumerico.Maximo)
+                        {
+                            throw new Exception(Errores.ValorMinimo);
+                        }
+
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaNumerico.Estado = true;
                         clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
@@ -335,7 +356,8 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado 
+                    || ex.Message== Errores.ValorMinimo || ex.Message==Errores.ValorFecha)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }

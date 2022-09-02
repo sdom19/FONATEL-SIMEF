@@ -223,6 +223,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Estado.
+        /// </summary>
+        public static string Estado {
+            get {
+                return ResourceManager.GetString("Estado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Inicio.
         /// </summary>
         public static string LabelInicio {

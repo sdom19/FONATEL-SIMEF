@@ -121,10 +121,10 @@
     <value>Acciones</value>
   </data>
   <data name="Cantidad" xml:space="preserve">
-    <value>Cantidad</value>
+    <value>Cantidad de Detalle</value>
   </data>
-  <data name="CantidadDetalle" xml:space="preserve">
-    <value>Cantidad Detalle</value>
+  <data name="Clonar" xml:space="preserve">
+    <value>Clonar Categoría de Desagregación</value>
   </data>
   <data name="Codigo" xml:space="preserve">
     <value>Código</value>
@@ -138,8 +138,8 @@
   <data name="DetalleAtributo" xml:space="preserve">
     <value>Detalle Categoría Desagregación</value>
   </data>
-  <data name="ErrorTipoDetalleCategoria" xml:space="preserve">
-    <value />
+  <data name="EditarCategoria" xml:space="preserve">
+    <value>Editar Categoría de Desagregación</value>
   </data>
   <data name="Estado" xml:space="preserve">
     <value>Estado</value>

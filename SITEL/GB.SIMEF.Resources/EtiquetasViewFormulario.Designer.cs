@@ -79,7 +79,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Formulario.
+        ///   Busca una cadena traducida similar a Formulario Web.
         /// </summary>
         public static string Formulario {
             get {

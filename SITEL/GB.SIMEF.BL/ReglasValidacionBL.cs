@@ -20,9 +20,11 @@ namespace GB.SIMEF.BL
 
         private RespuestaConsulta<List<ReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
-
-        public ReglaValidacionBL()
+        string user;
+        public ReglaValidacionBL(string modulo, string  user)
         {
+            this.modulo = modulo;
+            this.user = user;
             clsDatos = new ReglasValicionDAL();
             ResultadoConsulta = new RespuestaConsulta<List<ReglaValidacion>>();
         }
