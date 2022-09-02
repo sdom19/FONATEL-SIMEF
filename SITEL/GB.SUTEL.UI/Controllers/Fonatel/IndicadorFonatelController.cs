@@ -23,6 +23,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly ClasificacionIndicadorBL clasificacionIndicadorBL;
         private readonly TipoMedidaBL tipoMedidaBL;
         private readonly DetalleIndicadorVariablesBL detalleIndicadorVariablesBL;
+        private readonly DetalleIndicadorCategoriaBL detalleIndicadorCategoriaBL;
         private readonly string defaultDropDownValue;
 
 
@@ -37,6 +38,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             clasificacionIndicadorBL = new ClasificacionIndicadorBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             tipoMedidaBL = new TipoMedidaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            detalleIndicadorCategoriaBL = new DetalleIndicadorCategoriaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
 
             defaultDropDownValue = Utilidades.GetDefaultDropDownValue();
         }
@@ -569,6 +571,36 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 resultado = detalleIndicadorVariablesBL.ObtenerDatosPorIndicador(new DetalleIndicadorVariables()
+                {
+                    idIndicadorString = pIdIndicador
+                });
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 02/09/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener los detalles categoria de un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesCategoria(string pIdIndicador)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
                 {
                     idIndicadorString = pIdIndicador
                 });

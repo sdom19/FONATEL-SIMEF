@@ -232,20 +232,11 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nombre.
+        ///   Looks up a localized string similar to Nombre Variable Dato.
         /// </summary>
         public static string CrearVariable_LabelNombreVariable {
             get {
                 return ResourceManager.GetString("CrearVariable_LabelNombreVariable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Variable.
-        /// </summary>
-        public static string CrearVariable_LabelVariableIndicador {
-            get {
-                return ResourceManager.GetString("CrearVariable_LabelVariableIndicador", resourceCulture);
             }
         }
         
@@ -273,6 +264,24 @@ namespace GB.SIMEF.Resources {
         public static string LabelStepperVariables {
             get {
                 return ResourceManager.GetString("LabelStepperVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acciones.
+        /// </summary>
+        public static string TablaColumnaAcciones {
+            get {
+                return ResourceManager.GetString("TablaColumnaAcciones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estado.
+        /// </summary>
+        public static string TablaColumnaEstado {
+            get {
+                return ResourceManager.GetString("TablaColumnaEstado", resourceCulture);
             }
         }
         

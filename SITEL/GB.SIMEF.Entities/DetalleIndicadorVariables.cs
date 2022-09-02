@@ -17,11 +17,11 @@ namespace GB.SIMEF.Entities
     [Table("DetalleIndicadorVariables")]
     public partial class DetalleIndicadorVariables
     {
-        
         public DetalleIndicadorVariables()
         {
 
         }
+
         [Key]
         public int idDetalleIndicador { get; set; }
         public int idIndicador { get; set; }

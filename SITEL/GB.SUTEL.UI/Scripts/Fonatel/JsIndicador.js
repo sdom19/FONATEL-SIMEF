@@ -327,8 +327,11 @@ CreateView = {
             btnSiguiente: "#btnSiguienteVariable",
             btnAtras: "#btnAtrasVariable",
             tablaDetallesVariable: "#tableDetallesVariable tbody",
+            btnEditarIndicador: "#tableDetallesVariable tbody tr td .btn-edit",
             btnEliminarVariable: "#tableDetallesVariable tbody tr td .btn-delete",
 
+            inputNombreVariable: "#inputNombreVariable",
+            inputDescripcionVariable: "#inputDescripcionVariable"
         },
 
         formCategoria: {
@@ -356,7 +359,11 @@ CreateView = {
     Variables: {
         indexViewURL: "/Fonatel/IndicadorFonatel/index",
         btnDeleteModal: (pValue) => `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${pValue}></button>`,
-        hizoCargaDetallesVariables: false
+
+        hizoCargaDetallesVariables: false,
+        listaVariablesDato: [],
+        listaCategorias: [],
+        objEditarDetallesVariableDato: null
     },
 
     Metodos: {
@@ -822,10 +829,10 @@ CreateView = {
                 CreateView.Consultas.ConsultarDetallesVariable(pIndicador)
                     .then(data => {
                         CreateView.Metodos.InsertarDatosTablaDetallesVariable(data.objetoRespuesta);
+                        CreateView.Variables.listaVariablesDato = data.objetoRespuesta;
                         CreateView.Variables.hizoCargaDetallesVariables = true;
                     })
                     .catch(error => {
-                        console.log(error);
                         if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                             jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                         }
@@ -843,12 +850,12 @@ CreateView = {
             EliminarDatasource();
             let html = "";
 
-            listaVariables.forEach(item => {
+            listaVariables.forEach((item, index) => {
                 html += "<tr>";
                 html += `<th scope='row'>${item.NombreVariable}</th>`;
                 html += `<th scope='row'>${item.Descripcion}</th>`;
                 html += "<td>"
-                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit" value=${item.id}></button>` 
+                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit" value=${index}></button>` 
                 html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete" value=${item.id}></button>`
                 html += "</td>"
                 html += "</tr>";
@@ -856,6 +863,35 @@ CreateView = {
             $(CreateView.Controles.formVariable.tablaDetallesVariable).html(html);
             CargarDatasource();
         },
+
+        CargarFormularioEditarDetallesVariable: function (pIndex) {
+            let variable = CreateView.Variables.listaVariablesDato[pIndex];
+            CreateView.Variables.objEditarDetallesVariableDato = variable;
+            $(CreateView.Controles.formVariable.inputNombreVariable).val(variable.NombreVariable);
+            $(CreateView.Controles.formVariable.inputDescripcionVariable).val(variable.Descripcion);
+        },
+
+        EditarDetallesVariable: function () {
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
+                        .set('onok', function (closeEvent) {
+                            CreateView.Variables.objEditarDetallesVariableDato = null;
+                            $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
+                            $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
+                        });
+                });
+        },
+
+        CrearDetallesVariables: function () {
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
+                        .set('onok', function (closeEvent) { });
+                });
+        },
+
+
     },
 
     Consultas: {
@@ -975,6 +1011,19 @@ CreateView = {
             CreateView.Metodos.CargarDetallesVariable(ObtenerValorParametroUrl("id"));
         });
 
+        $(document).on("click", CreateView.Controles.formVariable.btnEditarIndicador, function (e) {
+            CreateView.Metodos.CargarFormularioEditarDetallesVariable($(this).val());
+        });
+
+        $(document).on("click", CreateView.Controles.btnGuardarVariable, function (e) {
+            if (CreateView.Variables.objEditarDetallesVariableDato != null) {
+                CreateView.Metodos.EditarDetallesVariable();
+            }
+            else {
+                CreateView.Metodos.CrearDetallesVariables();
+            }
+        });
+
         $(document).on("click", CreateView.Controles.btnCancelar, function (e) {
             e.preventDefault();
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
@@ -1027,18 +1076,6 @@ CreateView = {
         //                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
         //        });
         //});
-
-        
-
-        $(document).on("click", CreateView.Controles.btnGuardarVariable, function (e) {
-            e.preventDefault();
-
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
-                    jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
-                        .set('onok', function (closeEvent) { });
-                });
-        });
 
         $(document).on("click", CreateView.Controles.btnGuardarCategoria, function (e) {
             e.preventDefault();
