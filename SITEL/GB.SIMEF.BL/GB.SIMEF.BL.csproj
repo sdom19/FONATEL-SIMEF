@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClasificacionIndicadorDAL.cs" />
+    <Compile Include="DetalleRelacionCategoriaBL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
     <Compile Include="OperadorArismeticoBL.cs" />
     <Compile Include="TipoMedidaDAL.cs" />
