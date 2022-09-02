@@ -70,7 +70,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Cantidad de atributos.
+        ///   Busca una cadena traducida similar a Cantidad.
         /// </summary>
         public static string Cantidad {
             get {
@@ -79,16 +79,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Categoría Atributo.
-        /// </summary>
-        public static string CategoriaAtributo {
-            get {
-                return ResourceManager.GetString("CategoriaAtributo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Código.
+        ///   Busca una cadena traducida similar a Codigó.
         /// </summary>
         public static string Codigo {
             get {
@@ -97,56 +88,11 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Crear Relaciones entre Categorías.
-        /// </summary>
-        public static string CrearRelacion {
-            get {
-                return ResourceManager.GetString("CrearRelacion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Agregar atributos.
+        ///   Busca una cadena traducida similar a Detalle.
         /// </summary>
         public static string Detalle {
             get {
                 return ResourceManager.GetString("Detalle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Detalle Relación Atributo.
-        /// </summary>
-        public static string DetalleAtributo {
-            get {
-                return ResourceManager.GetString("DetalleAtributo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Detalle de Relaciones entre Categorías.
-        /// </summary>
-        public static string DetalleRelacion {
-            get {
-                return ResourceManager.GetString("DetalleRelacion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Detalle de Relaciones entre Categorías.
-        /// </summary>
-        public static string DetalleRelacionCategoria {
-            get {
-                return ResourceManager.GetString("DetalleRelacionCategoria", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Editar Relaciones entre Categorías.
-        /// </summary>
-        public static string EditarRelacion {
-            get {
-                return ResourceManager.GetString("EditarRelacion", resourceCulture);
             }
         }
         
@@ -169,16 +115,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Nombre de Relación.
-        /// </summary>
-        public static string NombreRelacion {
-            get {
-                return ResourceManager.GetString("NombreRelacion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Relaciones entre Categorías.
+        ///   Busca una cadena traducida similar a Relación entre Categorías.
         /// </summary>
         public static string RelacionCategoria {
             get {
