@@ -71,7 +71,8 @@ namespace GB.SUTEL.UI
                 "~/Scripts/alertifyjs/alertify.min.js",
                 "~/Scripts/Fonatel/JsUtilidades.js",
                 "~/Scripts/Fonatel/JsMensaje.js",
-                "~/Scripts/Fonatel/JsStepper.js"
+                "~/Scripts/Fonatel/JsStepper.js",
+                "~/Scripts/Moment/moment.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/CategoriaDesagregacion").Include(

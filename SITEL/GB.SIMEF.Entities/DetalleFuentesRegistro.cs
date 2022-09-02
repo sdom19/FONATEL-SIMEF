@@ -12,16 +12,37 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("DetalleFuentesRegistro")]
     public partial class DetalleFuentesRegistro
     {
+
+        public DetalleFuentesRegistro()
+        {
+          
+        }
+
         [Key]
         public int idDetalleFuente { get; set; }
         public int idFuente { get; set; }
         public string NombreDestinatario { get; set; }
         public string CorreoElectronico { get; set; }
         public bool Estado { get; set; }
-    
-        public virtual FuentesRegistro FuentesRegistro { get; set; }
+
+
+        #region Atributos no forman parte del contexto
+
+        [NotMapped]
+        public string FuenteId { get; set; }
+
+        [NotMapped]
+        public string Usuario { get; set; }
+
+        [NotMapped]
+        public string Contrasena { get; set; }
+
+        #endregion
+
     }
 }

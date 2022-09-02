@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [SITEL]
+    AUTHORIZATION [dbo];
+

@@ -1,0 +1,26 @@
+﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.Solicitud
+<div class="table-responsive table-wrapper-fonatel" style="min-width:300px">
+    <table id="TablaFormulario" class="dataTable datatable_simef table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">@EtiquetasViewSolicitudes.Codigo</th>
+                <th scope="col">@EtiquetasViewSolicitudes.Formulario</th>
+                <th scope="col">@Etiquetas.Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @*@foreach (var item in Model.FormularioWeb)
+            {
+                <tr>
+                    <th scope="row">@item.Codigo</th>
+                    <th scope="row">@item.Nombre</th>
+                    <td>
+                        <button type="button" data-toggle="tooltip" value="@item.id" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
+                    </td>
+                </tr>
+            }*@
+        </tbody>
+
+    </table>
+</div>

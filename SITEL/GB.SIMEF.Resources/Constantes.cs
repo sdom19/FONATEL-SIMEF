@@ -9,9 +9,21 @@ namespace GB.SIMEF.Resources
     public static class Constantes
     {
         /// <summary>
+        /// 
+        /// </summary>
+
+        public enum TipoCategoriaEnum : int
+        {
+            IdUnico=1,
+            Atributo=2,
+            Actualizable=3
+        }
+
+
+        /// <summary>
         /// Tipos de Categorías
         /// </summary>
-        public enum TipoDetalleCategoria : int
+        public enum TipoDetalleCategoriaEnum : int
         {
             Numerico=1,
             Alfanumerico=2,
@@ -38,7 +50,59 @@ namespace GB.SIMEF.Resources
 
         public enum Accion : int
         {
+            Insertar=1,
+            Consultar=2,
+            Editar=3,        
             Eliminar = 4,
+            Clonar = 5,
+            Activar=6,
+            Inactiva=7
         }
+        /// <summary>
+        /// Enum Clasificación indicador
+        /// </summary>
+        public enum ClasificacionIndicadorEnum : int
+        {
+            SinDefinir=1,
+            Entrada = 4,
+            Salida = 2,
+            EntradaSalida = 3
+        }
+
+        public struct CifradoDatos
+        {
+            public const String strPermutacion = "ouiveyxaqtd";
+            public const Int32 intBytePermutacionUno = 0x19;
+            public const Int32 intBytePermutacionDos = 0x59;
+            public const Int32 intBytePermutacionTres = 0x17;
+            public const Int32 intBytePermutacionCuatro = 0x41;
+            public const int intDivisionPassword = 8;
+        }
+
+
+
+        /// <summary>
+        /// Usos del indicador
+        /// </summary>
+        public struct UsosIndicador
+        {
+            public const string interno = "Interno";
+            public const string externo = "Externo";
+        }
+
+        /// <summary>
+        /// Bandera que indica si se muestra el indicador en la solicitud
+        /// </summary>
+        public struct MostrarIndicadorEnSolicitud
+        {
+            public const string si = "SI";
+            public const string no = "NO";
+        }
+
+        public readonly static string defaultInputTextValue = "NA";
+        public readonly static int defaultInputNumberValue = 0;
+        public readonly static int defaultDropDownValue = 1; // Representa el valor: "Sin definir". En Utilidades.cs existe un método para encriptarlo
+
+
     }
 }

@@ -6,7 +6,7 @@
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/RelacionCategoria")
+  @*  @Scripts.Render("~/bundles/FONATEL/RelacionCategoria")*@
 }
 
 <div class="container body-content">
@@ -15,20 +15,22 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
                 <li class="breadcrumb-item active"><a href="/Fonatel/RelacionCategoria/index">Relaciones entre Categorías</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Crear Relaciones entre Categorías</li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewBag.titulo</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div>
-            <h2 class="page-title-fonatel text-center">Crear Relaciones entre Categorías</h2>
+            <h2 class="page-title-fonatel text-center">@ViewBag.titulo</h2>
             <hr />
         </div>
         <div class="col-lg-12">
-
-            @Html.Partial("_CrearRelacionCategoria")
+            <form id="FormularioCrearRelacion">
+                @Html.Partial("_CrearRelacionCategoria")
+            </form>
         </div>
     </div>
 
 </div>
 
+<script src="~/Scripts/Fonatel/JsRelacionCategoria.js"></script>

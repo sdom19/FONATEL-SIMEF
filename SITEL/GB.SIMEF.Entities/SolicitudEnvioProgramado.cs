@@ -12,18 +12,24 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("SolicitudEnvioProgramado")]
     public partial class SolicitudEnvioProgramado
     {
         [Key]
-        public string IdEnvioProgramado { get; set; }
+        public int IdEnvioProgramado { get; set; }
+
+        public int IdSolicitud { get; set; }
+
+        public int IdFrecuencia { get; set; }
         public int CantidadRepiticiones { get; set; }
         public int Dia { get; set; }
-        public int idMes { get; set; }
+        public int IdMes { get; set; }
         public System.DateTime FechaCiclo { get; set; }
         public bool Estado { get; set; }
     
-        public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
-        public virtual Solicitud Solicitud { get; set; }
+        //public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
+        //public virtual Solicitud Solicitud { get; set; }
     }
 }

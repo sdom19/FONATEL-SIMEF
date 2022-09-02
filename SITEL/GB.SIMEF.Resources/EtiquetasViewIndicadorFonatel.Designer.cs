@@ -124,7 +124,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Frecuencias.
+        ///   Looks up a localized string similar to Frecuencia.
         /// </summary>
         public static string CrearIndicador_LabelFrecuencias {
             get {
@@ -133,7 +133,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fuentes.
+        ///   Looks up a localized string similar to Fuente.
         /// </summary>
         public static string CrearIndicador_LabelFuenteIndicador {
             get {
@@ -178,7 +178,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tipo.
+        ///   Looks up a localized string similar to Tipo indicador.
         /// </summary>
         public static string CrearIndicador_LabelTipo {
             get {
@@ -232,20 +232,11 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nombre.
+        ///   Looks up a localized string similar to Nombre Variable Dato.
         /// </summary>
         public static string CrearVariable_LabelNombreVariable {
             get {
                 return ResourceManager.GetString("CrearVariable_LabelNombreVariable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Variable.
-        /// </summary>
-        public static string CrearVariable_LabelVariableIndicador {
-            get {
-                return ResourceManager.GetString("CrearVariable_LabelVariableIndicador", resourceCulture);
             }
         }
         
@@ -304,11 +295,47 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Definiciones.
+        /// </summary>
+        public static string TituloDefiniciones {
+            get {
+                return ResourceManager.GetString("TituloDefiniciones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Indicadores.
         /// </summary>
         public static string TituloIndex {
             get {
                 return ResourceManager.GetString("TituloIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grupo Indicador.
+        /// </summary>
+        public static string TituloModalGrupoIndicador {
+            get {
+                return ResourceManager.GetString("TituloModalGrupoIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo Indicador.
+        /// </summary>
+        public static string TituloModalTipoIndicador {
+            get {
+                return ResourceManager.GetString("TituloModalTipoIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unidad de Estudio.
+        /// </summary>
+        public static string TituloModalUnidadEstudio {
+            get {
+                return ResourceManager.GetString("TituloModalUnidadEstudio", resourceCulture);
             }
         }
     }

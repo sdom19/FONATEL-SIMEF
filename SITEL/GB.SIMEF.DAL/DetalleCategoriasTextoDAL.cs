@@ -23,17 +23,30 @@ namespace GB.SIMEF.DAL
         
         public List<DetalleCategoriaTexto> ObtenerDatos(DetalleCategoriaTexto objCategoria)
         {
-            List<DetalleCategoriaTexto> ListaCategoria = new List<DetalleCategoriaTexto>();
+            List<DetalleCategoriaTexto> ListaCategoriaDetalle = new List<DetalleCategoriaTexto>();
             using (db = new SIMEFContext())
             {
-                ListaCategoria = db.Database.SqlQuery<DetalleCategoriaTexto>
-                    ("execute spObtenerDetalleCategoriaTexto @idCategoriaDetalle, @idCategoria,@codigo",
+                ListaCategoriaDetalle = db.Database.SqlQuery<DetalleCategoriaTexto>
+                    ("execute spObtenerDetalleCategoriasTexto @idCategoriaDetalle, @idCategoria,@codigo, @Etiqueta",
                       new SqlParameter("@idCategoriaDetalle", objCategoria.idCategoriaDetalle),
-                     new SqlParameter("@idCategoria", objCategoria.idCategoria),
-                     new SqlParameter("@codigo", objCategoria.Codigo)
+                      new SqlParameter("@idCategoria", objCategoria.idCategoria),
+                      new SqlParameter("@codigo", objCategoria.Codigo),
+                      new SqlParameter("@Etiqueta", string.IsNullOrEmpty( objCategoria.Etiqueta)?DBNull.Value.ToString():objCategoria.Etiqueta)
                     ).ToList();
+
+                ListaCategoriaDetalle = ListaCategoriaDetalle.Select(x => new DetalleCategoriaTexto()
+                {
+                    idCategoriaDetalle = x.idCategoriaDetalle,
+                    idCategoria = x.idCategoria,
+                    Codigo = x.Codigo,
+                    Estado = x.Estado,
+                    Etiqueta = x.Etiqueta,
+                    Completo = db.CategoriasDesagregacion.Where(i => i.idCategoria == x.idCategoria).Single().CantidadDetalleDesagregacion
+                    == ListaCategoriaDetalle.Count()?true:false,
+                    id = Utilidades.Encriptar(x.idCategoriaDetalle.ToString()),
+                }).ToList();
             }
-            return ListaCategoria;
+            return ListaCategoriaDetalle;
         }
 
 
@@ -54,6 +67,21 @@ namespace GB.SIMEF.DAL
 
             return ListaCategoria;
         }
+
+
+        public void DeshabilitarDatos(DetalleCategoriaTexto objCategoria)
+        {
+            using (db = new SIMEFContext())
+            {
+                 db.Database.SqlQuery<DetalleCategoriaTexto>
+                    ("execute spDeshabilitarDetalleCategoriaTexto @idCategoria",
+                      new SqlParameter("@idCategoria", objCategoria.idCategoria)
+                    );
+            } 
+        }
+
+
+
         #endregion
     }
 }

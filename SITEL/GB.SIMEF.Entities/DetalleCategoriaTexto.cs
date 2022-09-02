@@ -17,13 +17,33 @@ namespace GB.SIMEF.Entities
     [Table("DetalleCategoriaTexto")]
     public partial class DetalleCategoriaTexto
     {
+        public DetalleCategoriaTexto()
+        {
+            CategoriasDesagregacion = new CategoriasDesagregacion();
+        }
         [Key]
         public int idCategoriaDetalle { get; set; }
         public int idCategoria { get; set; }
         public int Codigo { get; set; }
         public string Etiqueta { get; set; }
         public bool Estado { get; set; }
-    
-        
+
+
+
+        #region Variables Fuera del contexto 
+        [NotMapped]
+        public string usuario { get; set; }
+        [NotMapped]
+        public CategoriasDesagregacion CategoriasDesagregacion { get; set; }
+        [NotMapped]
+        public string id { get; set; }
+
+        [NotMapped]
+        public string categoriaid { get; set; }
+
+        [NotMapped]
+        public bool Completo { get; set; }
+
+        #endregion
     }
 }

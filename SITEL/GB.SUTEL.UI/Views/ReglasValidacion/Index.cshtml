@@ -6,7 +6,7 @@
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/ReglasValidacion")
+  @* @Scripts.Render("~/bundles/FONATEL/ReglasValidacion")*@
 }
 
 <div class="container body-content">
@@ -14,13 +14,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Reglas de Validación</li>
+                <li class="breadcrumb-item active" aria-current="page">@Etiquetas.ReglasValidacion</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Reglas de Validación</h2>
+            <h2 class="page-title-fonatel text-center">@Etiquetas.ReglasValidacion</h2>
             <hr />
         </div>
         <div class="col-lg-12">
@@ -35,3 +35,4 @@
 
 </div>
 
+<script src="~/Scripts/Fonatel/JsReglas.js"></script>

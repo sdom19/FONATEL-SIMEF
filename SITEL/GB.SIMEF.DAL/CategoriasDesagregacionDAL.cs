@@ -24,15 +24,18 @@ namespace GB.SIMEF.DAL
             List<CategoriasDesagregacion> ListaCategoria = new List<CategoriasDesagregacion>();
             using (db = new SIMEFContext())
             {
+
                 ListaCategoria = db.Database.SqlQuery<CategoriasDesagregacion>
-                    ("execute spObtenerCategoriasDesagregacion @idCategoria,@codigo,@idEstado ",
-                     new SqlParameter("@idCategoria", objCategoria.idCategoria),
+                    ("execute spObtenerCategoriasDesagregacion @idCategoria,@codigo,@idEstado,@idTipoCategoria ",
+                     new SqlParameter("@idCategoria",objCategoria.idCategoria),
                      new SqlParameter("@codigo", string.IsNullOrEmpty(objCategoria.Codigo) ? DBNull.Value.ToString() : objCategoria.Codigo),
-                     new SqlParameter("@idEstado", objCategoria.idEstado)
+                     new SqlParameter("@idEstado", objCategoria.idEstado),
+                     new SqlParameter("@idTipoCategoria", objCategoria.IdTipoCategoria)
                     ).ToList();
 
                 ListaCategoria = ListaCategoria.Select(x => new CategoriasDesagregacion()
                 {
+                    id = Utilidades.Encriptar(x.idCategoria.ToString()),
                     idCategoria = x.idCategoria,
                     Codigo = x.Codigo,
                     NombreCategoria = x.NombreCategoria,
@@ -44,16 +47,24 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
-                    DetalleCategoriaTexto = db.DetalleCategoriaTexto.Where(i => i.idCategoria == x.idCategoria).ToList(),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).Single(),
-                    TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle)
+                    DetalleCategoriaTexto = ListaDetalleCategoriaTexto(x.idCategoria),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
+                    TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle),
+                    DetalleCategoriaFecha = ObtenerDetalleCategoriaFecha(x.idCategoria),
+                    DetalleCategoriaNumerico = ObtenerDetalleCategoriaNumerico(x.idCategoria)
 
                 }).ToList();
             }
             return ListaCategoria;
         }
 
-
+        /// <summary>
+        /// Actualiza los datos e inserta por medio de merge
+        /// 17/08/2022
+        /// michael Hernández C
+        /// </summary>
+        /// <param name="objCategoria"></param>
+        /// <returns></returns>
         public List<CategoriasDesagregacion> ActualizarDatos(CategoriasDesagregacion objCategoria)
         {
             List<CategoriasDesagregacion> ListaCategoria = new List<CategoriasDesagregacion>();
@@ -68,7 +79,7 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@idTipoDetalle", objCategoria.idTipoDetalle),
                      new SqlParameter("@IdTipoCategoria", objCategoria.IdTipoCategoria),
                      new SqlParameter("@UsuarioCreacion", objCategoria.UsuarioCreacion),
-                     new SqlParameter("@UsuarioModificacion", objCategoria.UsuarioModificacion),
+                     new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objCategoria.UsuarioModificacion) ? DBNull.Value.ToString() : objCategoria.UsuarioModificacion),
                      new SqlParameter("@idEstado", objCategoria.idEstado)
                     ).ToList();
 
@@ -107,7 +118,7 @@ namespace GB.SIMEF.DAL
 
         private bool ValidarTieneDetalle(int i)
         {
-            if (i == (int)Constantes.TipoDetalleCategoria.Texto || i == (int)Constantes.TipoDetalleCategoria.Alfanumerico)
+            if (i == (int)Constantes.TipoDetalleCategoriaEnum.Texto || i == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
             {
                 return true;
             }
@@ -117,5 +128,83 @@ namespace GB.SIMEF.DAL
             }
         }
         #endregion
+
+        /// <summary>
+        /// Michael Hernández C
+        /// Actualiza e inserta
+        /// 18/08/2022
+        /// </summary>
+        /// <param name="detalleFecha"></param>
+
+        public void InsertarDetalleFecha(DetalleCategoriaFecha detalleFecha)
+        {
+            using (db=new SIMEFContext())
+            {
+                detalleFecha= db.Database.SqlQuery<DetalleCategoriaFecha>("exec spActualizarCategoriasDesagregacionFecha  @idCategoria, @FechaMinima, @FechaMaxima, @Estado",
+                     new SqlParameter("@idCategoria", detalleFecha.idCategoria),
+                     new SqlParameter("@FechaMinima", detalleFecha.FechaMinima),
+                     new SqlParameter("@FechaMaxima", detalleFecha.FechaMaxima),
+                     new SqlParameter("@Estado", detalleFecha.Estado)
+                ).Single();
+            }
+        }
+        /// <summary>
+        /// Michael Hernández C
+        /// Actualiza e inserta 
+        /// </summary>
+        /// <param name="detalleNumerico"></param>
+        public void InsertarDetalleNumerico (DetalleCategoriaNumerico detalleNumerico)
+        {
+            using (db = new SIMEFContext())
+            {
+                detalleNumerico = db.Database.SqlQuery<DetalleCategoriaNumerico>("exec spActualizarCategoriasDesagregacionNumerico  @idCategoria, @Minimo, @Maximo, @Estado",
+                      new SqlParameter("@idCategoria", detalleNumerico.idCategoria),
+                      new SqlParameter("@Minimo", detalleNumerico.Minimo),
+                      new SqlParameter("@Maximo", detalleNumerico.Maximo),
+                      new SqlParameter("@Estado", detalleNumerico.Estado)
+                 ).Single();
+            }
+        }
+        
+        /// <summary>
+        /// Michael Hernández Cordero
+        /// Valida dependencias con otras tablas
+        /// 18/08/2022
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+
+        public List<string> ValidarCategoria(CategoriasDesagregacion categoria)
+        {
+            List<string> listaValicion = new List<string>();
+            using (db=new SIMEFContext())
+            {
+                listaValicion= db.Database.SqlQuery<string>
+                    ("exec spValidarCategoriaDesagregacion @idCategoria",
+                       new SqlParameter("@idCategoria", categoria.idCategoria)
+                    ).ToList();
+            }
+
+            return listaValicion;
+        }
+
+
+        private DetalleCategoriaNumerico ObtenerDetalleCategoriaNumerico(int id)
+        {
+            return 
+            db.DetalleCategoriaNumerico
+                             .Where(x => x.idCategoria == id && x.Estado == true).FirstOrDefault();
+        }
+        private DetalleCategoriaFecha ObtenerDetalleCategoriaFecha(int id)
+        {
+            return db.DetalleCategoriaFecha
+                             .Where(x => x.idCategoria == id && x.Estado == true).FirstOrDefault();
+        }
+
+        private List<DetalleCategoriaTexto> ListaDetalleCategoriaTexto(int id)
+        {
+            return db.DetalleCategoriaTexto
+                             .Where(x => x.idCategoria == id && x.Estado == true).ToList();
+        }
     }
 }

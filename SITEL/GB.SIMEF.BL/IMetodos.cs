@@ -11,17 +11,17 @@ namespace GB.SIMEF.BL
     {
         RespuestaConsulta<List<T>> ObtenerDatos(T objeto);
 
-        RespuestaConsulta<T> InsertarDatos(T objeto);
+        RespuestaConsulta<List<T>> InsertarDatos(T objeto);
 
-        RespuestaConsulta<T> ClonarDatos(T objeto);
+        RespuestaConsulta<List<T>> ClonarDatos(T objeto);
 
-        RespuestaConsulta<T> CambioEstado(T objeto);
+        RespuestaConsulta<List<T>> CambioEstado(T objeto);
 
         RespuestaConsulta<List<T>> EliminarElemento(T objeto);
 
-        RespuestaConsulta<T> ActualizarElemento(T objeto);
+        RespuestaConsulta<List<T>> ActualizarElemento(T objeto);
 
-        RespuestaConsulta<T> ValidarDatos(T objeto);
+        RespuestaConsulta<List<T>> ValidarDatos(T objeto);
 
     }
 }

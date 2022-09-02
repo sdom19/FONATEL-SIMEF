@@ -70,11 +70,20 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Cantidad.
+        ///   Busca una cadena traducida similar a Cantidad de Detalle.
         /// </summary>
         public static string Cantidad {
             get {
                 return ResourceManager.GetString("Cantidad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Clonar Categoría de Desagregación.
+        /// </summary>
+        public static string Clonar {
+            get {
+                return ResourceManager.GetString("Clonar", resourceCulture);
             }
         }
         
@@ -88,11 +97,38 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Crear Categoría de Desagregación.
+        /// </summary>
+        public static string CrearCategoria {
+            get {
+                return ResourceManager.GetString("CrearCategoria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Detalle.
         /// </summary>
         public static string Detalle {
             get {
                 return ResourceManager.GetString("Detalle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Detalle Categoría Desagregación.
+        /// </summary>
+        public static string DetalleAtributo {
+            get {
+                return ResourceManager.GetString("DetalleAtributo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Editar Categoría de Desagregación.
+        /// </summary>
+        public static string EditarCategoria {
+            get {
+                return ResourceManager.GetString("EditarCategoria", resourceCulture);
             }
         }
         
@@ -106,11 +142,74 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Etiqueta de Detalle.
+        /// </summary>
+        public static string Etiqueta {
+            get {
+                return ResourceManager.GetString("Etiqueta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fecha Hasta.
+        /// </summary>
+        public static string FechaHasta {
+            get {
+                return ResourceManager.GetString("FechaHasta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fecha Inicio.
+        /// </summary>
+        public static string FechaInicio {
+            get {
+                return ResourceManager.GetString("FechaInicio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Nombre.
         /// </summary>
         public static string Nombre {
             get {
                 return ResourceManager.GetString("Nombre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tipo Categoría.
+        /// </summary>
+        public static string TipoCategoria {
+            get {
+                return ResourceManager.GetString("TipoCategoria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tipo Detalle.
+        /// </summary>
+        public static string TipoDetalle {
+            get {
+                return ResourceManager.GetString("TipoDetalle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Valor Máximo.
+        /// </summary>
+        public static string ValorMáximo {
+            get {
+                return ResourceManager.GetString("ValorMáximo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Valor Mínimo.
+        /// </summary>
+        public static string ValorMinimo {
+            get {
+                return ResourceManager.GetString("ValorMinimo", resourceCulture);
             }
         }
     }

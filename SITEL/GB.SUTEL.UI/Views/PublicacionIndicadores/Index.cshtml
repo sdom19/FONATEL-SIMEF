@@ -6,7 +6,7 @@
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/PublicacionIndicador")
+    @*@Scripts.Render("~/bundles/FONATEL/PublicacionIndicador")*@
 }
 
 <div class="container body-content">
@@ -14,13 +14,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Publicación de Indicadores</li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewPublicaciones.Publicado</li>
             </ol>
         </nav>
     </div>
     <div class="row card">
         <div class="col-lg-12 mt-5">
-            <h2 class="page-title-fonatel text-center">Publicación de Indicadores</h2>
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewPublicaciones.Publicado</h2>
             <hr />
         </div>
         <div class="col-md-12">
@@ -31,7 +31,7 @@
 
     </div>
 </div>
-
+<script src="~/Scripts/Fonatel/JsPublicar.js"></script>
 
 
 

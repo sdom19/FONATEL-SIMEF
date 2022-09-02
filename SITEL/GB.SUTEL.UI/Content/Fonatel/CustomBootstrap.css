@@ -51,6 +51,15 @@
     color: var(--red-fonatel);
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 /*
     ===============================================================
                          Navigation Bar
@@ -207,6 +216,11 @@
         background-color: white;
     }
 
+
+.btn.disabled, .btn[disabled] {
+    background-color: var(--default-stepper-btn-circle);
+    opacity:1!important;
+}
 .btn-add:before {
     background-image: url("../../Images/icon-add.svg");
 }

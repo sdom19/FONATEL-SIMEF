@@ -1,12 +1,12 @@
 ﻿@using GB.SIMEF.Resources;
 
 @{
-    ViewBag.Title = "Solicitudes";
+    ViewBag.Title = ViewBag.titulo;
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/SolicitudFonatel")
+   @* @Scripts.Render("~/bundles/FONATEL/SolicitudFonatel")*@
 }
 
 <div class="container body-content">
@@ -14,23 +14,82 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item active"><a href="/Fonatel/SolicitudFonatel/index">Solicitudes de Información</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Crear Solicitud</li>
+                <li class="breadcrumb-item active"><a href="/Fonatel/SolicitudFonatel/index">@EtiquetasViewSolicitudes.Solicitudes</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewBag.titulo </li>
             </ol>
         </nav>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <h2 class="page-title-fonatel text-center">Crear Solicitud</h2>
-            <hr />
-        </div>
-        <div class="col-sm-12">
 
-            @Html.Partial("_CrearSolicitud")
+
+
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel step_navigation_indicador">
+            <div class="stepwizard-step" data-step="0">
+                <p>@EtiquetasViewSolicitudes.Solicitudes</p>
+                <a href="#step-1" type="button" class="btn btn-circle">1</a>
+
+            </div>
+            <div class="stepwizard-step" data-step="1">
+                <p>@EtiquetasViewSolicitudes.Formularios</p>
+                <a href="#step-2" type="button" class="btn btn-circle">2</a>
+
+            </div>
         </div>
     </div>
 
+
+
+
+
+
+    <div class="row mt-5">
+        <div class="col-lg-12 stepwizard-content-container hidden" id="step-1">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-title-fonatel text-center">@ViewBag.titulo</h2>
+                    <hr />
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_CrearSolicitud")
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 stepwizard-content-container hidden" id="step-2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-title-fonatel text-center">@EtiquetasViewSolicitudes.Formulario</h2>
+                    <hr />
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_AgregarFormulario")
+                </div>
+                <div class="col-lg-12 mt-4">
+                    @Html.Partial("_TablaFormularios")
+                </div>
+
+                <div class="col-lg-12 text-center">
+                    <button type="submit" id="btnFinalizarIndicador" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
+                </div>
+                <div class="col-12 pull-right mt-4">
+                    <button type="button" id="btnAtrasSolicitud" class="btn btn-fonatel btn-goback" aria-label="Left Align">
+                        <span aria-hidden="true"></span>@Etiquetas.BotonAtras
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 
 
+
+
+
+
+
+
+
+
+<script src="~/Scripts/Fonatel/JsSolicitud.js"></script>

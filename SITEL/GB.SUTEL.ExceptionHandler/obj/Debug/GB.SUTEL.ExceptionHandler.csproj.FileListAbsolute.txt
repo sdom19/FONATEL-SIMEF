@@ -20,6 +20,7 @@ C:\Users\michael.hernandez\Documents\Sutel\FONATEL\SITEL\GB.SUTEL.ExceptionHandl
 C:\Fonatel\SITEL\GB.SUTEL.ExceptionHandler\bin\Debug\GB.SUTEL.ExceptionHandler.dll.config
 C:\Fonatel\SITEL\GB.SUTEL.ExceptionHandler\bin\Debug\GB.SUTEL.ExceptionHandler.dll
 C:\Fonatel\SITEL\GB.SUTEL.ExceptionHandler\bin\Debug\GB.SUTEL.ExceptionHandler.pdb
+C:\Fonatel\SITEL\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.csprojAssemblyReference.cache
 C:\Fonatel\SITEL\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.csproj.CoreCompileInputs.cache
 C:\Fonatel\SITEL\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.dll
 C:\Fonatel\SITEL\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.pdb

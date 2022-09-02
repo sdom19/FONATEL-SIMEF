@@ -120,6 +120,9 @@
   <data name="Acciones" xml:space="preserve">
     <value>Acciones</value>
   </data>
+  <data name="Bitacora" xml:space="preserve">
+    <value>Reporte de Bitácora</value>
+  </data>
   <data name="BotonAtras" xml:space="preserve">
     <value>Atrás</value>
   </data>
@@ -162,10 +165,19 @@
   <data name="Categorias" xml:space="preserve">
     <value>Categorías de Desagregación</value>
   </data>
+  <data name="DescargaExcel" xml:space="preserve">
+    <value>Descargar Excel</value>
+  </data>
   <data name="DetalleCategorias" xml:space="preserve">
     <value>Detalle Categoría Desagregación</value>
   </data>
+  <data name="Estado" xml:space="preserve">
+    <value>Estado</value>
+  </data>
   <data name="LabelInicio" xml:space="preserve">
     <value>Inicio</value>
+  </data>
+  <data name="ReglasValidacion" xml:space="preserve">
+    <value>Reglas de Validación</value>
   </data>
 </root>

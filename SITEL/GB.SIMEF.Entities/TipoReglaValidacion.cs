@@ -12,20 +12,20 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("TipoReglaValidacion")]
     public partial class TipoReglaValidacion
     {
        
         public TipoReglaValidacion()
         {
-            this.ReglaValidacionTipo = new HashSet<ReglaValidacionTipo>();
+     
         }
         [Key]
         public int IdTipo { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
     
-
-        public virtual ICollection<ReglaValidacionTipo> ReglaValidacionTipo { get; set; }
     }
 }
