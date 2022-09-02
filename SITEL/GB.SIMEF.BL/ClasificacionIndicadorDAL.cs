@@ -22,7 +22,6 @@ namespace GB.SIMEF.DAL
         public List<ClasificacionIndicadores> ObtenerDatos(ClasificacionIndicadores pClasificacionIndicadores)
         {
             List<ClasificacionIndicadores> lista = new List<ClasificacionIndicadores>();
-
             using (db = new SIMEFContext())
             {
                 if (pClasificacionIndicadores.idClasificacion != 0)
@@ -41,6 +40,7 @@ namespace GB.SIMEF.DAL
                 Nombre = x.Nombre,
                 Estado = x.Estado
             }).ToList();
+
 
             return lista;
         }

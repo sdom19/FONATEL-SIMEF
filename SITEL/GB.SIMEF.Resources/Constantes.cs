@@ -63,7 +63,8 @@ namespace GB.SIMEF.Resources
         /// </summary>
         public enum ClasificacionIndicadorEnum : int
         {
-            Entrada = 1,
+            SinDefinir=1,
+            Entrada = 4,
             Salida = 2,
             EntradaSalida = 3
         }

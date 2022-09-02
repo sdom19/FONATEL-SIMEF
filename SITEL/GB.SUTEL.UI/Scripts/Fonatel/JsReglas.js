@@ -125,11 +125,9 @@
             $(JsReglas.Controles.nombreHelp).addClass("hidden");
             $(JsReglas.Controles.TipoIndicadorHelp).addClass("hidden");
             $(JsReglas.Controles.DescripcionReglaHelp).addClass("hidden");
-
-
             let codigo = $(JsReglas.Controles.txtCodigo).val().trim();
             let nombre = $(JsReglas.Controles.txtNombre).val().trim();
-            let Indicador = $(JsReglas.Controles.ddlIndicadorRegla).val().trim();
+            let Indicador = $(JsReglas.Controles.ddlIndicadorRegla).val();
             let Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val().trim();
 
 

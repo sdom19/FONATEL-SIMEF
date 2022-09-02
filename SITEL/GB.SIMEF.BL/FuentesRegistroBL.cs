@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
-using GB.SUTEL.DAL.Seguridad;
-using GB.SUTEL.Entities;
+
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
@@ -17,8 +16,6 @@ namespace GB.SIMEF.BL
     {
         private readonly FuentesRegistroDAL clsDatos;
         private readonly FuentesRegistroDestinatarioDAL clsDatosUsuario;
-
-        private UsersDA objUserDA;
 
         private RespuestaConsulta<List<FuentesRegistro>> ResultadoConsulta;
         string modulo = EtiquetasViewFuentesRegistro.FuentesRegistro;

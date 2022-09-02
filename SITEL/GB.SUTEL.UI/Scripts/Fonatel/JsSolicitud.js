@@ -214,18 +214,23 @@ $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el formulario a la Solicitud?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
 
-            if ($(JsSolicitud.Controles.ddlFormularioWeb).val().length > 0) {
-                $(JsSolicitud.Controles.ddlVariableIndicadorHelp).addClass("hidden");
+
+    if ($(JsSolicitud.Controles.ddlFormularioWeb).val().length > 0) {
+        $(JsSolicitud.Controles.ddlVariableIndicadorHelp).addClass("hidden");
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el formulario a la Solicitud?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
                 jsMensajes.Metodos.OkAlertModal("El Formulario ha sido agregado")
                     .set('onok', function (closeEvent) { $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change'); });
-            }
-            else {
-                $(JsSolicitud.Controles.ddlVariableIndicadorHelp).removeClass("hidden");
-            }
-        }); 
+
+            });
+    }
+    else {
+        $(JsSolicitud.Controles.ddlVariableIndicadorHelp).removeClass("hidden");
+
+    }
+
+    
 });
 $(document).on("click", JsSolicitud.Controles.btnCancelarFormulario, function (e) {
     e.preventDefault();

@@ -79,6 +79,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El campo {0} es requerido.
+        /// </summary>
+        public static string CampoRequeridoV2 {
+            get {
+                return ResourceManager.GetString("CampoRequeridoV2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se deben completar todos los campos del formulario.
         /// </summary>
         public static string CamposIncompletos {

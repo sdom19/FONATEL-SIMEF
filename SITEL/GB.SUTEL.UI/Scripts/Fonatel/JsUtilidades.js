@@ -87,7 +87,7 @@ $(document).on("select2:unselect", '.multiple-Select', function (e) {
     var data = e.params.data.text;
     if (data == 'Todos') {
         $(".multiple-Select > option").prop("selected", false);
-        $(".multipli-Select").trigger("change");
+        $(".multiple-Select").trigger("change");
     }
     else {
         $(".multiple-Select > option[value='all']").prop("selected", false);
@@ -248,7 +248,10 @@ function execAjaxCall(pURL, pHttpMethod, pParams = null) {
             error: function () {
                 reject()
             }
-})
+        })
+    })
+}
+
 
 
 function RemoverItemDataTable (pDataTable, pItem) {
@@ -348,11 +351,3 @@ $(document).on("keypress", '.solo_texto', function (e) {
     }
 });
 
-$(document).on("keypress", '.alfa_numerico_v2', function (e) {
-    var regex = new RegExp("^[0-9]|[A-Za-zÁÉÍÓÚáéíóúñÑ]|[\\s]+$");
-    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-    if (!regex.test(key)) {
-        e.preventDefault();
-        return false;
-    }
-});

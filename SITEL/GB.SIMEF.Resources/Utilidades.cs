@@ -13,6 +13,11 @@ namespace GB.SIMEF.Resources
     {
 
 
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Valida si la cadena es alfanumérica: Letras del alfabeto, números, tildes (utilizadas en español) y la eñe (ñ). Acepta espacios entre los caracteres válidos
+        /// </summary>
         public static Regex rx_alfanumerico_v2 = new Regex(@"^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+([ ][A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+)*$", RegexOptions.Compiled);
 
 
@@ -32,12 +37,7 @@ namespace GB.SIMEF.Resources
 
 
 
-        /// <summary>
-        /// 22/08/2022
-        /// José Navarro Acuña
-        /// Valida si la cadena es alfanumérica: Letras del alfabeto, números, tildes (utilizadas en español) y la eñe (ñ). Acepta espacios entre los caracteres válidos
-        /// </summary>
-        public static Regex rx_alfanumerico_v2 = new Regex(@"^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+([ ][A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+)*$", RegexOptions.Compiled);
+        
 
         /// <summary>
         /// 29/08/2022
