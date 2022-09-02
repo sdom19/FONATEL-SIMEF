@@ -20,14 +20,18 @@ namespace GB.SIMEF.Entities
        
         public EstadoRegistro()
         {
+            
         }
+
         [Key]
         public int idEstado { get; set; }
         public string Nombre { get; set; }
         public string Comentarios { get; set; }
         public bool Estado { get; set; }
-    
+
+        #region Variables que no forman parte del contexto
         [NotMapped]
         public string id { get; set; }
+        #endregion
     }
 }

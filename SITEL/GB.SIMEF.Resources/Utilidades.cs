@@ -33,6 +33,24 @@ namespace GB.SIMEF.Resources
 
 
         /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Valida si la cadena es alfanumérica: Letras del alfabeto, números, tildes (utilizadas en español) y la eñe (ñ). Acepta espacios entre los caracteres válidos
+        /// </summary>
+        public static Regex rx_alfanumerico_v2 = new Regex(@"^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+([ ][A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+)*$", RegexOptions.Compiled);
+
+        /// <summary>
+        /// 29/08/2022
+        /// José Navarro Acuña
+        /// Obtener el valor encriptado por defecto de los componentes dropdown
+        /// </summary>
+        /// <returns></returns>
+        public static string GetDefaultDropDownValue()
+        {
+            return Encriptar(Constantes.defaultDropDownValue.ToString());
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="_cadenaAencriptar"></param>
@@ -55,11 +73,6 @@ namespace GB.SIMEF.Resources
             result = System.Text.Encoding.Unicode.GetString(decryted);
             return result;
         }
-
-
-
-
-
 
         private static byte[] EncriptarByte(byte[] btValor)
         {
@@ -85,7 +98,6 @@ namespace GB.SIMEF.Resources
       
             return valorEncriptado;
         }
-
 
         private static byte[] DesencriptarByte(byte[] btValor)
         {

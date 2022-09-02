@@ -12,8 +12,8 @@ namespace GB.SIMEF.BL
 {
     public class IndicadorFonatelBL : IMetodos<Indicador>
     {
-        readonly string modulo = "";
-        readonly string user = "";
+        private readonly string modulo = "";
+        private readonly string user = "";
         private readonly IndicadorFonatelDAL indicadorFonatelDAL;
         private readonly TipoIndicadorDAL tipoIndicadorDAL;
         private readonly FrecuenciaEnvioDAL frecuenciaEnvioDAL;
@@ -37,37 +37,7 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<Indicador>> ActualizarElemento(Indicador pIndicador)
         {
-            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
-            bool errorControlado = false;
-
-            try
-            {
-                PrepararObjetoIndicador(pIndicador);
-                if (resultado.HayError != 0)
-                {
-                    return resultado;
-                }
-                resultado.objetoRespuesta = indicadorFonatelDAL.ActualizarDatos(pIndicador);
-
-                resultado.Usuario = user;
-                pIndicador.UsuarioModificacion = user;
-                resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
-                resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Insertar;
-
-                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
-            }
-            catch (Exception ex)
-            {
-                resultado.MensajeError = ex.Message;
-
-                if (errorControlado)
-                    resultado.HayError = (int)Error.ErrorControlado;
-                else
-                    resultado.HayError = (int)Error.ErrorSistema;
-            }
-            return resultado;
+            throw new NotImplementedException();
         }
 
         /// <summary>

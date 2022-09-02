@@ -31,19 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML">
-      <HintPath>..\GB.SUTEL.UI\bin\ClosedXML.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\GB.SUTEL.UI\bin\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EPPlus">
-      <HintPath>..\GB.SUTEL.UI\bin\EPPlus.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,33 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClasificacionIndicadorDAL.cs" />
-    <Compile Include="DetalleRelacionCategoriaBL.cs" />
-    <Compile Include="FrecuenciaEnvioDAL.cs" />
-    <Compile Include="OperadorArismeticoBL.cs" />
-    <Compile Include="TipoMedidaDAL.cs" />
-    <Compile Include="TipoReglaValidacionBL.cs" />
-    <Compile Include="FormularioWebBL.cs" />
-    <Compile Include="DefinicionIndicadorBL.cs" />
-    <Compile Include="MesBL.cs" />
     <Compile Include="BitacoraBL.cs" />
-    <Compile Include="SolicitudBL.cs" />
+    <Compile Include="ClasificacionIndicadorBL.cs" />
+    <Compile Include="DetalleIndicadorCategoriaBL.cs" />
+    <Compile Include="DetalleIndicadorVariablesBL.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />
-    <Compile Include="FuentesRegistroDestinatariosBL.cs" />
     <Compile Include="GrupoIndicadorBL.cs" />
-    <Compile Include="IndicadorFonatelBL.cs" />
-    <Compile Include="ReglasValidacionBL.cs" />
-    <Compile Include="FuentesRegistroBL.cs" />
-    <Compile Include="RelacionCategoriaBL.cs" />
+    <Compile Include="SolicitudBL.cs" />
     <Compile Include="TipoDetalleCategoriaBL.cs" />
     <Compile Include="TipoCategoriaBL.cs" />
     <Compile Include="DetalleCategoriasTextoBL.cs" />
     <Compile Include="CategoriasDesagregacionBL.cs" />
     <Compile Include="IMetodos.cs" />
+    <Compile Include="IndicadorFonatelBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoIndicadorBL.cs" />
     <Compile Include="TipoMedidaBL.cs" />
-    <Compile Include="AnnoBL.cs" />
     <Compile Include="UnidadEstudioBL.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,14 +72,6 @@
     <ProjectReference Include="..\GB.SIMEF.Resources\GB.SIMEF.Resources.csproj">
       <Project>{93F172D6-F11B-41D1-BD43-AFAD2F43D314}</Project>
       <Name>GB.SIMEF.Resources</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GB.SUTEL.DAL\GB.SUTEL.DAL.csproj">
-      <Project>{3548F570-BB86-47FA-AD42-CB491214EAC6}</Project>
-      <Name>GB.SUTEL.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GB.SUTEL.Entities\GB.SUTEL.Entities.csproj">
-      <Project>{8B30812D-4414-4C62-9A34-FD80220C0029}</Project>
-      <Name>GB.SUTEL.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

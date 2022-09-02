@@ -125,7 +125,7 @@ namespace GB.SIMEF.DAL
                     UsuarioCreacion = x.UsuarioCreacion,
                     FechaModificacion = x.FechaModificacion,
                     UsuarioModificacion = x.UsuarioModificacion,
-                    EstadoRegistro = ObtenerEstadoRegistro(x.idEstado)
+                    EstadoRegistro = ObtenerEstadoRegistro(x.IdEstado)
                 }).ToList();
             }
 
@@ -188,6 +188,32 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pVisualizaSigitel", pIndicador.VisualizaSigitel),
                      new SqlParameter("@pIdEstado", pIndicador.idEstado)
                     ).ToList();
+
+                listaIndicadores = listaIndicadores.Select(x => new Indicador()
+                {
+                    id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                    Codigo = x.Codigo,
+                    Nombre = x.Nombre,
+                    TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),
+                    ClasificacionIndicadores = ObtenerClasificacionIndicador(x.IdClasificacion),
+                    GrupoIndicadores = ObtenerGrupoIndicadores(x.idGrupo),
+                    Descripcion = x.Descripcion,
+                    CantidadVariableDato = x.CantidadVariableDato,
+                    CantidadCategoriasDesagregacion = x.CantidadCategoriasDesagregacion,
+                    UnidadEstudio = x.IdUnidadEstudio != null ? ObtenerUnidadEstudio((int)x.IdUnidadEstudio) : null,
+                    TipoMedida = ObtenerTipoMedida(x.idTipoMedida),
+                    FrecuenciaEnvio = ObtenerFrecuenciaEnvia(x.IdFrecuencia),
+                    Interno = x.Interno,
+                    Solicitud = x.Solicitud,
+                    Fuente = x.Fuente,
+                    Notas = x.Notas,
+                    FechaCreacion = x.FechaCreacion,
+                    UsuarioCreacion = x.UsuarioCreacion,
+                    FechaModificacion = x.FechaModificacion,
+                    UsuarioModificacion = x.UsuarioModificacion,
+                    VisualizaSigitel = x.VisualizaSigitel,
+                    EstadoRegistro = ObtenerEstadoRegistro(x.idEstado)
+                }).ToList();
             }
 
             return listaIndicadores;

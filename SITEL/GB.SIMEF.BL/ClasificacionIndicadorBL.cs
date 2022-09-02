@@ -10,57 +10,57 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class FrecuenciaEnvioBL : IMetodos<FrecuenciaEnvio>
+    public class ClasificacionIndicadorBL : IMetodos<ClasificacionIndicadores>
     {
         readonly string modulo = "";
         readonly string user = "";
-        private readonly FrecuenciaEnvioDAL frecuenciaEnvioDAL;
+        private readonly ClasificacionIndicadorDAL clasificacionIndicadorDAL;
 
-        public FrecuenciaEnvioBL(string pModulo, string pUser)
+        public ClasificacionIndicadorBL(string pModulo, string pUser)
         {
             modulo = pModulo;
             user = pUser;
-            frecuenciaEnvioDAL = new FrecuenciaEnvioDAL();
+            clasificacionIndicadorDAL = new ClasificacionIndicadorDAL();
         }
 
-        public RespuestaConsulta<List<FrecuenciaEnvio>> ActualizarElemento(FrecuenciaEnvio objeto)
+        public RespuestaConsulta<List<ClasificacionIndicadores>> ActualizarElemento(ClasificacionIndicadores objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FrecuenciaEnvio>> CambioEstado(FrecuenciaEnvio objeto)
+        public RespuestaConsulta<List<ClasificacionIndicadores>> CambioEstado(ClasificacionIndicadores objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FrecuenciaEnvio>> ClonarDatos(FrecuenciaEnvio objeto)
+        public RespuestaConsulta<List<ClasificacionIndicadores>> ClonarDatos(ClasificacionIndicadores objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FrecuenciaEnvio>> EliminarElemento(FrecuenciaEnvio objeto)
+        public RespuestaConsulta<List<ClasificacionIndicadores>> EliminarElemento(ClasificacionIndicadores objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FrecuenciaEnvio>> InsertarDatos(FrecuenciaEnvio objeto)
+        public RespuestaConsulta<List<ClasificacionIndicadores>> InsertarDatos(ClasificacionIndicadores objeto)
         {
             throw new NotImplementedException();
         }
 
         /// 23/08/2022
         /// José Navarro Acuña
-        /// Función que retorna todos las frecuencia de envio registradas en estado activo
+        /// Función que retorna todas las clasificaciones de indicadores registradas en estado activo
         /// Se puede aplicar un filtro para obtener un único elemento a traves del ID.
-        public RespuestaConsulta<List<FrecuenciaEnvio>> ObtenerDatos(FrecuenciaEnvio pFrecuenciaEnvio)
+        public RespuestaConsulta<List<ClasificacionIndicadores>> ObtenerDatos(ClasificacionIndicadores pClasificacionIndicadores)
         {
-            RespuestaConsulta<List<FrecuenciaEnvio>> resultado = new RespuestaConsulta<List<FrecuenciaEnvio>>();
+            RespuestaConsulta<List<ClasificacionIndicadores>> resultado = new RespuestaConsulta<List<ClasificacionIndicadores>>();
 
             try
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                var result = frecuenciaEnvioDAL.ObtenerDatos(pFrecuenciaEnvio);
+                var result = clasificacionIndicadorDAL.ObtenerDatos(pClasificacionIndicadores);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -72,7 +72,7 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<FrecuenciaEnvio>> ValidarDatos(FrecuenciaEnvio objeto)
+        public RespuestaConsulta<List<ClasificacionIndicadores>> ValidarDatos(ClasificacionIndicadores objeto)
         {
             throw new NotImplementedException();
         }

@@ -19,20 +19,28 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly TipoIndicadorBL tipoIndicadorBL;
         private readonly GrupoIndicadorBL grupoIndicadorBL;
         private readonly UnidadEstudioBL unidadEstudioBL;
+        private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
+        private readonly ClasificacionIndicadorBL clasificacionIndicadorBL;
+        private readonly TipoMedidaBL tipoMedidaBL;
+        private readonly DetalleIndicadorVariablesBL detalleIndicadorVariablesBL;
+        private readonly DetalleIndicadorCategoriaBL detalleIndicadorCategoriaBL;
+        private readonly string defaultDropDownValue;
+
 
         public IndicadorFonatelController()
         {
-            indicadorBL = new IndicadorFonatelBL(
-                EtiquetasViewIndicadorFonatel.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            string usuario = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            indicadorBL = new IndicadorFonatelBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            tipoIndicadorBL = new TipoIndicadorBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            grupoIndicadorBL = new GrupoIndicadorBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            unidadEstudioBL = new UnidadEstudioBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            clasificacionIndicadorBL = new ClasificacionIndicadorBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            tipoMedidaBL = new TipoMedidaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            detalleIndicadorCategoriaBL = new DetalleIndicadorCategoriaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
 
-            tipoIndicadorBL = new TipoIndicadorBL(
-                EtiquetasViewIndicadorFonatel.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
-
-            grupoIndicadorBL = new GrupoIndicadorBL(
-                EtiquetasViewIndicadorFonatel.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            
-            unidadEstudioBL = new UnidadEstudioBL(
-                EtiquetasViewIndicadorFonatel.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            defaultDropDownValue = Utilidades.GetDefaultDropDownValue();
         }
 
         #region Eventos de la página
@@ -64,23 +72,30 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.TiposIndicadores = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores()).objetoRespuesta;
+            ViewBag.FrecuenciasEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
+            ViewBag.Clasificaciones = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores()).objetoRespuesta;
+            ViewBag.TipoMedidas = tipoMedidaBL.ObtenerDatos(new TipoMedida()).objetoRespuesta;
+            ViewBag.Grupos = grupoIndicadorBL.ObtenerDatos(new GrupoIndicadores()).objetoRespuesta;
+            ViewBag.UsosIndicador = indicadorBL.ObtenerListaUsosIndicador().objetoRespuesta;
+            ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
+            ViewBag.UnidadesEstudio = unidadEstudioBL.ObtenerDatos(new UnidadEstudio()).objetoRespuesta;
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [HttpGet]
+        public ActionResult Edit(string id)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.TiposIndicadores = new List<TipoIndicadores>();
+            ViewBag.FrecuenciasEnvio = new List<FrecuenciaEnvio>();
+            ViewBag.Clasificaciones = new List<ClasificacionIndicadores>();
+            ViewBag.TipoMedidas = new List<TipoMedida>();
+            ViewBag.Grupos = new List<GrupoIndicadores>();
+            ViewBag.UsosIndicador = new List<EstadoLogico>();
+            ViewBag.UnidadesEstudio = new List<UnidadEstudio>();
+            return View("Create");
         }
+
         #endregion
 
         #region Métodos de async
@@ -384,7 +399,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
 
-            if (string.IsNullOrEmpty(pNombre.Trim()))
+            if (string.IsNullOrEmpty(pNombre))
             {
                 resultado.HayError = (int)Error.ErrorControlado;
                 resultado.MensajeError = Errores.CamposIncompletos;
@@ -424,7 +439,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
 
-            if (string.IsNullOrEmpty(pNombre.Trim()))
+            if (string.IsNullOrEmpty(pNombre))
             {
                 resultado.HayError = (int)Error.ErrorControlado;
                 resultado.MensajeError = Errores.CamposIncompletos;
@@ -464,7 +479,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
 
-            if (string.IsNullOrEmpty(pNombre.Trim()))
+            if (string.IsNullOrEmpty(pNombre))
             {
                 resultado.HayError = (int)Error.ErrorControlado;
                 resultado.MensajeError = Errores.CamposIncompletos;
@@ -491,6 +506,243 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
             return JsonConvert.SerializeObject(resultado);
         }
+
+        /// <summary>
+        /// 24/08/2022
+        /// José Navarro Acuña
+        /// Función que permite crear un indicador.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CrearIndicador(Indicador pIndicador)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            string mensajeValidacionIndicador = ValidarObjetoIndicador(pIndicador, pIndicador.esGuardadoParcial);
+
+            if (mensajeValidacionIndicador != null)
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = mensajeValidacionIndicador;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            if (pIndicador.esGuardadoParcial)
+            {
+                PrepararObjetoIndicadorGuardadoParcial(pIndicador);
+            }
+
+            pIndicador.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+            // evitar datos indeseados en los ids
+            pIndicador.IdTipoIndicador = 0;
+            pIndicador.IdFrecuencia = 0;
+            pIndicador.IdClasificacion = 0;
+            pIndicador.IdTipoIndicador = 0;
+            pIndicador.idGrupo = 0;
+            pIndicador.IdUnidadEstudio = 0;
+
+            await Task.Run(() =>
+            {
+                resultado = indicadorBL.InsertarDatos(pIndicador);
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 01/09/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener los detalles variables dato de un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesVariable(string pIdIndicador)
+        {
+            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorVariablesBL.ObtenerDatosPorIndicador(new DetalleIndicadorVariables()
+                {
+                    idIndicadorString = pIdIndicador
+                });
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 02/09/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener los detalles categoria de un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesCategoria(string pIdIndicador)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
+                {
+                    idIndicadorString = pIdIndicador
+                });
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        #endregion
+
+        #region Funciones privadas
+
+        /// <summary>
+        /// 30/08/2022
+        /// José Navarro Acuña
+        /// Función que permite verificar los datos de un objeto indicador.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        private string ValidarObjetoIndicador(Indicador pIndicador, bool esGuardadoParcial)
+        {
+            if (!esGuardadoParcial)
+            {
+                if ( // el nombre y código siempre son obligatorios
+                pIndicador.TipoIndicadores == null          || string.IsNullOrEmpty(pIndicador.TipoIndicadores.id) ||
+                pIndicador.FrecuenciaEnvio == null          || string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id) ||
+                pIndicador.Descripcion == null              || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()) ||
+                pIndicador.ClasificacionIndicadores == null || string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id) ||
+                pIndicador.TipoMedida == null               || string.IsNullOrEmpty(pIndicador.TipoMedida.id) ||
+                pIndicador.GrupoIndicadores == null         || string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id) ||
+                pIndicador.Interno == null ||
+                pIndicador.Notas == null                    || string.IsNullOrEmpty(pIndicador.Notas.Trim()) ||
+                pIndicador.CantidadVariableDato == null ||
+                pIndicador.CantidadCategoriasDesagregacion == null ||
+                pIndicador.UnidadEstudio == null            || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id) ||
+                pIndicador.Solicitud == null ||
+                pIndicador.Fuente == null                   || string.IsNullOrEmpty(pIndicador.Fuente.Trim())
+                )
+                {
+                    return Errores.CamposIncompletos;
+                }
+            }
+
+            if (pIndicador.Codigo == null || string.IsNullOrEmpty(pIndicador.Codigo.Trim())) // campo requerido (obligatorio siempre)
+            {
+                return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
+            }
+            else if (!Utilidades.rx_alfanumerico_v2.Match(pIndicador.Codigo.Trim()).Success // validar el formato correcto
+                || pIndicador.Codigo.Trim().Length > 30)                                    // validar la cantidad de caracteres
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
+            }
+
+            if (pIndicador.Nombre == null || string.IsNullOrEmpty(pIndicador.Nombre.Trim())) // campo requerido (obligatorio siempre)
+            {
+                return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
+            }
+            else if (!Utilidades.rx_alfanumerico_v2.Match(pIndicador.Nombre.Trim()).Success // validar el formato correcto
+                || pIndicador.Nombre.Trim().Length > 300)                                   // validar la cantidad de caracteres
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
+            }
+
+            if (pIndicador.Descripcion?.Trim().Length > 3000)                               // validar la cantidad de caracteres
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelDescripcion);
+            }
+
+            if (pIndicador.Notas?.Trim().Length > 3000)                                     // validar la cantidad de caracteres
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas);
+            }
+
+            if (pIndicador.Fuente?.Trim().Length > 300)                                     // validar la cantidad de caracteres
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 30/08/2022
+        /// José Navarro Acuña
+        /// Función que prepara los atributos no establecidos en un indicador para realizar un guardado parcial
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        private void PrepararObjetoIndicadorGuardadoParcial(Indicador pIndicador)
+        {
+            if (string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
+                pIndicador.TipoIndicadores.id = defaultDropDownValue;
+            
+
+            if (string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
+                pIndicador.FrecuenciaEnvio.id = defaultDropDownValue;
+            
+
+            if (pIndicador.Descripcion == null || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()))
+                pIndicador.Descripcion = defaultInputTextValue;
+            
+
+            if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
+                pIndicador.ClasificacionIndicadores.id = defaultDropDownValue;
+            
+
+            if (string.IsNullOrEmpty(pIndicador.TipoMedida.id))
+                pIndicador.TipoMedida.id = defaultDropDownValue;
+            
+
+            if (string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
+                pIndicador.GrupoIndicadores.id = defaultDropDownValue;
+            
+
+            if (pIndicador.Interno == null) // Uso
+                pIndicador.Interno = false;
+
+
+            if (pIndicador.Notas == null || string.IsNullOrEmpty(pIndicador.Notas.Trim()))
+                pIndicador.Notas = defaultInputTextValue;
+            
+
+            if (pIndicador.CantidadVariableDato == null)
+                pIndicador.CantidadVariableDato = defaultInputNumberValue;
+            
+
+            if (pIndicador.CantidadCategoriasDesagregacion == null)
+                pIndicador.CantidadCategoriasDesagregacion = defaultInputNumberValue;
+            
+
+            if (string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
+                pIndicador.UnidadEstudio.id = defaultDropDownValue;
+            
+
+            if (pIndicador.Solicitud == null)
+                pIndicador.Solicitud = false;
+            
+
+            if (pIndicador.Fuente == null || string.IsNullOrEmpty(pIndicador.Fuente.Trim()))
+                pIndicador.Fuente = defaultInputTextValue;
+            
+        }
+
         #endregion
     }
 }

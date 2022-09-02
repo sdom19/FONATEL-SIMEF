@@ -120,13 +120,13 @@ $(document).on("keypress",'.solo_numeros', function (e) {
 });
 
 
-function EliminarDatasource() {
-    $(".datatable_simef").DataTable().destroy();
+function EliminarDatasource(pDataTable = ".datatable_simef") {
+    $(pDataTable).DataTable().destroy();
 }
 
-function CargarDatasource() {
+function CargarDatasource(pDataTable = ".datatable_simef") {
    
-    $(".datatable_simef").DataTable({
+    $(pDataTable).DataTable({
         pageLength: 5,
         lengthMenu: [[5, 25, 50, 100], [5, 25, 50, 100]],
         "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
@@ -222,6 +222,63 @@ function CargarDatasource() {
     $('.datatable_simef > tbody tr td button').tooltip();
 }
 
+function ConcatenarItems(lista, nombreObj) { // concatenar una serie de objectos de una lista, según el parámetro enviado
+    let resultado = "";
+    lista.forEach(item => {
+        resultado += item[nombreObj].trim() + ", ";
+    });
+    return resultado.slice(0, resultado.length - 2) + ".";
+}
+
+function execAjaxCall(pURL, pHttpMethod, pParams = null) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: jsUtilidades.Variables.urlOrigen + pURL,
+            type: pHttpMethod,
+            dataType: "JSON",
+            data: pParams,
+            success: function (obj) {
+                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                    resolve(obj);
+                }
+                else {
+                    reject(obj);
+                }
+            },
+            error: function () {
+                reject()
+            }
+})
+
+
+function RemoverItemDataTable (pDataTable, pItem) {
+    $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
+}
+
+function RemoverItemSelect2 (pSelect2, pValor) {
+    $(`${pSelect2} option[value='${pValor}']`).remove();
+}
+
+function InsertarItemDataTable (pDataTable, pListaItems) {
+    $(pDataTable).DataTable().row.add(pListaItems).draw(false);
+}
+
+function InsertarItemSelect2 (pSelect2, pTexto, pValor, pDefaultSelected = false, pSelect = false) {
+    var newOption = new Option(pTexto, pValor, pDefaultSelected, pSelect);
+    $(pSelect2).append(newOption).trigger('change');
+}
+
+function InsertarParametroUrl (pParametro, pValor) {
+    const url = new URL(window.location);
+    url.searchParams.set(pParametro, pValor);
+    window.history.pushState(null, '', url.toString());
+}
+
+function ObtenerValorParametroUrl (pParametro) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(pParametro);
+}
+
 
 
 function ConcatenarItems(lista, nombreObj) { // concatenar una serie de objectos de una lista, según el parámetro enviado
@@ -291,4 +348,11 @@ $(document).on("keypress", '.solo_texto', function (e) {
     }
 });
 
-
+$(document).on("keypress", '.alfa_numerico_v2', function (e) {
+    var regex = new RegExp("^[0-9]|[A-Za-zÁÉÍÓÚáéíóúñÑ]|[\\s]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        e.preventDefault();
+        return false;
+    }
+});

@@ -12,25 +12,27 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("DetalleIndicadorVariables")]
     public partial class DetalleIndicadorVariables
     {
-        
         public DetalleIndicadorVariables()
         {
-            this.DetalleRegistroIndicadorVariable = new HashSet<DetalleRegistroIndicadorVariable>();
-            this.FormulasCalculo = new HashSet<FormulasCalculo>();
+
         }
+
         [Key]
         public int idDetalleIndicador { get; set; }
         public int idIndicador { get; set; }
         public string NombreVariable { get; set; }
-    
-        public virtual CategoriasDesagregacion CategoriasDesagregacion { get; set; }
-        public virtual Indicador Indicador { get; set; }
+        public string Descripcion { get; set; }
+        public bool Estado { get; set; }
 
-        public virtual ICollection<DetalleRegistroIndicadorVariable> DetalleRegistroIndicadorVariable { get; set; }
+        [NotMapped]
+        public string id { get; set; }
 
-        public virtual ICollection<FormulasCalculo> FormulasCalculo { get; set; }
+        [NotMapped]
+        public string idIndicadorString { get; set; }
     }
 }
