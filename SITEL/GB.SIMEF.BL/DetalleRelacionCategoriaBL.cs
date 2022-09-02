@@ -29,6 +29,11 @@ namespace GB.SIMEF.BL
             ResultadoConsulta = new RespuestaConsulta<List<DetalleRelacionCategoria>>();
         }
 
+        public void CargarExcel(HttpPostedFileBase file)
+        {
+
+        }
+
         public RespuestaConsulta<List<DetalleRelacionCategoria>> ActualizarElemento(DetalleRelacionCategoria objeto)
         {
             try
@@ -264,6 +269,42 @@ namespace GB.SIMEF.BL
         {
             throw new NotImplementedException();
         }
+
+        //public void CargarExcel(HttpPostedFileBase file)
+        //{
+
+        //    using (var package = new ExcelPackage(file.InputStream))
+        //    {
+        //        ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
+        //        string Codigo = worksheet.Name;
+
+        //        CategoriasDesagregacion categoria =
+        //                             clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { Codigo = Codigo })
+        //                            .SingleOrDefault();
+        //        categoria.DetalleCategoriaTexto = new List<DetalleCategoriaTexto>();
+
+        //        for (int i = 0; i < categoria.CantidadDetalleDesagregacion; i++)
+        //        {
+        //            int fila = i + 2;
+        //            if (worksheet.Cells[fila, 1].Value != null || worksheet.Cells[fila, 2].Value != null)
+        //            {
+        //                int codigo = 0;
+        //                string Etiqueta = string.Empty;
+        //                int.TryParse(worksheet.Cells[fila, 1].Value.ToString().Trim(), out codigo);
+        //                Etiqueta = worksheet.Cells[fila, 2].Value.ToString().Trim();
+
+        //                var detallecategoria = new DetalleCategoriaTexto()
+        //                {
+        //                    idCategoria = categoria.idCategoria,
+        //                    Codigo = codigo,
+        //                    Etiqueta = Etiqueta,
+        //                    Estado = true
+        //                };
+        //                InsertarDatos(detallecategoria);
+        //            }
+        //        }
+        //    }
+        //}
 
     }
   

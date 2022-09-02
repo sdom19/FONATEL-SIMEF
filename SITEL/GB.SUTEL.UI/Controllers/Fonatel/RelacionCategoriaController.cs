@@ -1,15 +1,21 @@
-﻿using GB.SIMEF.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using GB.SIMEF.BL;
+using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
 using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
-using GB.SIMEF.Resources;
+using OfficeOpenXml;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -99,9 +105,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (string.IsNullOrEmpty(id))
             {
-                          
+
                 ViewBag.titulo = EtiquetasViewRelacionCategoria.CrearRelacion;
-                
+
                 ViewBag.ListaCatergoriaValor = new List<SelectListItem>();
 
                 return View();
@@ -393,5 +399,90 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #endregion
 
+        #region Metodo para descargar y cargar excel
+
+        /// <summary>
+        /// Francisco Vindas
+        /// 02/09/2022
+        /// Metodo para descargar en un Excel los detalles Relacion Categoria
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        [HttpGet]
+        public ActionResult DescargarExcel(string id)
+        {
+            user = User.Identity.GetUserId();
+
+            var relacion = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = id }).objetoRespuesta.Single();
+
+            relacion.DetalleRelacionCategoria = DetalleRelacionCategoriaBL.ObtenerDatos(new DetalleRelacionCategoria()
+            {
+                IdRelacionCategoria = relacion.idRelacionCategoria
+            }).objetoRespuesta;
+
+            MemoryStream stream = new MemoryStream();
+
+            using (ExcelPackage package = new ExcelPackage(stream))
+            {
+                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(relacion.Codigo);
+
+                worksheetInicio.Cells["A1"].LoadFromCollection(relacion.DetalleRelacionCategoria
+
+                    .Select(i => new { i.CategoriaDesagracion.NombreCategoria, i.CategoriaAtributoValor }), true);
+
+                worksheetInicio.Cells["A1"].Value = "Categoría Atributo";
+                worksheetInicio.Cells["B1"].Value = "Detalle Relación Atributo";
+
+                worksheetInicio.Cells["A1:B1"].Style.Font.Bold = true;
+                worksheetInicio.Cells["A1:B1"].Style.Font.Size = 12;
+                worksheetInicio.Cells["A1:B1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheetInicio.Cells["A1:B1"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
+                worksheetInicio.Cells["A1:B1"].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                worksheetInicio.Cells["A1:B1"].Style.Font.Bold = true;
+                worksheetInicio.Cells["A1:B1"].Style.Font.Size = 12;
+                worksheetInicio.Cells["A1:B1"].AutoFitColumns();
+                for (int i = 0; i < relacion.CantidadCategoria; i++)
+                {
+                    string celdas = string.Format("A{0}:B{0}", i + 2);
+
+
+                    worksheetInicio.Cells[celdas].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    worksheetInicio.Cells[celdas].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                    worksheetInicio.Cells[celdas].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                    worksheetInicio.Cells[celdas].AutoFitColumns();
+                }
+                Response.BinaryWrite(package.GetAsByteArray());
+                Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
+                Response.AddHeader("content-disposition", "attachment;  filename=" + relacion.Nombre + ".xlsx");
+            }
+
+            return new EmptyResult();
+
+        }
+
+        /// <summary>
+        /// Fecha 02/09/2022
+        /// Francisco Vindas Ruiz
+        /// Cargar de los detalles desde un Excel
+        /// </summary>
+
+        [HttpPost]
+        public void CargaExcel()
+        {
+            if (Request.Files.Count > 0)
+            {
+                HttpFileCollectionBase files = Request.Files;
+                HttpPostedFileBase file = files[0];
+                string fileName = file.FileName;
+                Directory.CreateDirectory(Server.MapPath("~/Simef/"));
+                string path = Path.Combine(Server.MapPath("~/Simef/"), fileName);
+
+                DetalleRelacionCategoriaBL.CargarExcel(file);
+                file.SaveAs(path);
+            }
+        }
+
+        #endregion
     }
 }

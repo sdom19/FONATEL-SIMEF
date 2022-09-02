@@ -18,6 +18,7 @@
         "btnAgregarDetalle": "#btnAgregarDetalle",
         "btnFinalizarDetalleRelacion": "#btnFinalizarDetalleRelacion",
         "inputFileAgregarDetalle": "#inputFileAgregarDetalle",
+        "btnDescargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-download",
 
         "TablaRelacionCategoria": "#TablaRelacionCategoria tbody",
         "TablaRelacionCategoriaElemento": "#TablaRelacionCategoria",
@@ -29,6 +30,8 @@
         "TxtCantidad": "#TxtCantidad",
         "ddlCategoriaId": "#ddlCategoriaId",
         "ddlDetalleDesagregacionId": "#ddlDetalleDesagregacionId",
+
+
         "ddlCategoriaDetalle": "#ddlCategoriaDetalle",
         "ddlDetalleDesagregacionAtributo": "#ddlDetalleDesagregacionAtributo",
 
@@ -375,13 +378,26 @@
             execAjaxCall("/RelacionCategoria/EliminarRelacionCategoria", "POST", { idRelacionCategoria: idRelacionCategoria })
                 .then((obj) => {
 
-                    JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
+                    jsMensajes.Metodos.ConfirmYesOrNoModal("La Relación ya está en uso en el/los Indicadores:<br><br> Indicadores Asociados<br> <br> ¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                        .set('onok', function (closeEvent) {
 
-                        jsMensajes.Metodos.OkAlertModal("La Relación ha sido eliminada")
-                            .set('onok', function (closeEvent) {
+                            JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
 
-                                JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
-                    });
+                            jsMensajes.Metodos.OkAlertModal("La Relación ha sido eliminada")
+                                .set('onok', function (closeEvent) {
+
+                                    JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
+                                });
+
+                        });
+
+                    //JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
+
+                    //    jsMensajes.Metodos.OkAlertModal("La Relación ha sido eliminada")
+                    //        .set('onok', function (closeEvent) {
+
+                    //            JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
+                    //});
 
                 }).catch((obj) => {
 
@@ -408,7 +424,7 @@
 
             execAjaxCall("/RelacionCategoria/InsertarDetalleRelacion", "POST", RelacionDetalle)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido creada")
+                    jsMensajes.Metodos.OkAlertModal("El detalle ha sido creado")
                         .set('onok', function (closeEvent) {
                             location.reload();
                         });
@@ -513,13 +529,13 @@ $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
     }
 
     if (modo == jsUtilidades.Variables.Acciones.Editar) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación entre Categoria?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación entre Categoría?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.EditarRelacion();
             });
     }
     else {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación entre Categoria?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación entre Categoría?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.InsertarRelacion();
             });
@@ -539,11 +555,7 @@ $(document).on("click", JsRelacion.Controles.btnDeleteRelacion, function (e) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Relación entre Categoría?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
 
-            jsMensajes.Metodos.OkAlertModal("La Relación ya está en uso en el/los Indicadores:<br><br> Indicadores Asociados<br> <br> ¿Desea eliminarla?")
-                .set('onok', function (closeEvent) {
-
-                    JsRelacion.Consultas.EliminarRelacionCategoria(id);
-                });
+            JsRelacion.Consultas.EliminarRelacionCategoria(id);
 
         });
 
@@ -640,6 +652,12 @@ $(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
 $(document).on("click", JsRelacion.Controles.btnFinalizarDetalleRelacion, function (e) {
     e.preventDefault();
     window.location.href = "/Fonatel/RelacionCategoria/Index";
+});
+
+//EVENTO PARA DESCARGAR EXCEL
+$(document).on("click", JsRelacion.Controles.btnDescargarDetalle, function () {
+    let id = $(this).val();
+    window.open(jsUtilidades.Variables.urlOrigen + "/RelacionCategoria/DescargarExcel?id=" + id);
 });
 
 $(function () {
