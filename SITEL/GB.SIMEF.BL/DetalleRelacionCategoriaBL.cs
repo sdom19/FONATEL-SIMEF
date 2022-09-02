@@ -31,7 +31,41 @@ namespace GB.SIMEF.BL
 
         public void CargarExcel(HttpPostedFileBase file)
         {
+            using (var package = new ExcelPackage(file.InputStream))
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
+                string Codigo = worksheet.Name;
 
+                RelacionCategoria relacion = clsDatosRelacionCategoria.ObtenerDatos(new RelacionCategoria() { Codigo = Codigo }).SingleOrDefault();
+
+                relacion.DetalleRelacionCategoria = new List<DetalleRelacionCategoria>();
+
+                for (int i = 0; i < relacion.CantidadCategoria; i++)
+                {
+                    int fila = i + 2;
+
+                    if (worksheet.Cells[fila, 1].Value != null || worksheet.Cells[fila, 2].Value != null)
+                    {
+                        int codigo = 0;
+                        string CategoriaAtributoValor = string.Empty;
+
+                        int.TryParse(worksheet.Cells[fila, 1].Value.ToString().Trim(), out codigo);
+                        CategoriaAtributoValor = worksheet.Cells[fila, 2].Value.ToString().Trim();
+
+
+                        var detallerelacion = new DetalleRelacionCategoria()
+                        {
+                            IdRelacionCategoria = relacion.idRelacionCategoria,
+                            idCategoriaAtributo = codigo,
+                            CategoriaAtributoValor = CategoriaAtributoValor,
+                            Estado = true
+                        };
+
+                        InsertarDatos(detallerelacion);
+                    }
+
+                }
+            }
         }
 
         public RespuestaConsulta<List<DetalleRelacionCategoria>> ActualizarElemento(DetalleRelacionCategoria objeto)

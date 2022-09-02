@@ -17,7 +17,8 @@
         "btnEditarDetalle": "#TablaDetalleRelacionCategoria tbody tr td .btn-edit",
         "btnAgregarDetalle": "#btnAgregarDetalle",
         "btnFinalizarDetalleRelacion": "#btnFinalizarDetalleRelacion",
-        "inputFileAgregarDetalle": "#inputFileAgregarDetalle",
+        "btnCargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-upload",
+        "inputFileCargarDetalle": "#inputFileCargarDetalle",
         "btnDescargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-download",
 
         "TablaRelacionCategoria": "#TablaRelacionCategoria tbody",
@@ -147,7 +148,7 @@
 
             if ($(JsRelacion.Controles.ddlDetalleDesagregacionId).val() == 0) {
                 validar = false;
-                $(JsRelacion.Controles.DetalleDesagregacionAtributoHelp).removeClass("hidden");
+                $(JsRelacion.Controles.DetalleDesagregacionIDHelp).removeClass("hidden");
             }
 
             return validar;
@@ -514,6 +515,35 @@
                 });
         },
 
+        "ImportarExcel": function () {
+            var data;
+            data = new FormData();
+            data.append('file', $(JsRelacion.Controles.inputFileCargarDetalle)[0].files[0]);
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/CargarExcel',
+                type: 'post',
+                datatype: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                data: data,
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                success: function (obj) {
+                    $("#loading").fadeOut();
+                    jsMensajes.Metodos.OkAlertModal("El archivo ha sido importado")
+                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+
+                }
+            }).fail(function (obj) {
+                jsMensajes.Metodos.OkAlertErrorModal()
+                    .set('onok', function (closeEvent) { })
+                $("#loading").fadeOut();
+
+            })
+        },
+
 
     }
 }
@@ -626,9 +656,16 @@ $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, functio
 });
 
 //EVENTO PARA AGREGAR DETALLE POR EXCEL
-$(document).on("click", JsRelacion.Controles.btnAgregarDetalle, function () {
-    $(JsRelacion.Controles.inputFileAgregarDetalle).click();
+$(document).on("click", JsRelacion.Controles.btnCargarDetalle, function (e) {
+
+    $(JsRelacion.Controles.inputFileCargarDetalle).click();
 });
+
+
+$(document).on("change", JsRelacion.Controles.inputFileCargarDetalle, function (e) {
+    JsRelacion.Consultas.ImportarExcel();
+});
+
 
 //EVENTO PARA CANCELAR DETALLE RELACION CATEGORIA
 $(document).on("click", JsRelacion.Controles.btnCancelarDetalle, function (e) {

@@ -468,7 +468,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
 
         [HttpPost]
-        public void CargaExcel()
+        public void CargarExcel()
         {
             if (Request.Files.Count > 0)
             {
