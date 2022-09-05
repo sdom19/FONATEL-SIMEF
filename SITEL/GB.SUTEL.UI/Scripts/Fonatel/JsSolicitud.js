@@ -74,7 +74,7 @@
             let html = "";
             for (var i = 0; i < JsSolicitud.Variables.ListadoSolicitudes.length; i++) {
                 let solicitud = JsSolicitud.Variables.ListadoSolicitudes[i];
-                let listaFormularios = solicitud.SolicitudFormulario.length == 0 ? "N/A" : solicitud.SolicitudFormulario.join(", ");
+                let listaFormularios =  solicitud.FormulariosString;
                 let envioProgramado = solicitud.EnvioProgramado == null ? "NO" : "SI";
 
                 html = html + "<tr>";

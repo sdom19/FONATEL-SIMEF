@@ -38,12 +38,38 @@
             let html = "";
             for (var i = 0; i < JsFormulario.Variables.ListadoFormulario.length; i++) {
                 let formulario = JsFormulario.Variables.ListadoFormulario[i];
-                if (formulario.ListaIndicadores.length === 0) {
-                    html = html + JsFormulario.Metodos.CrearTablaFormulario(formulario,"N/A");
+                html = html + "<tr>"
+                html = html + "<td scope='row'>" + formulario.Codigo + "</td>";
+                html = html + "<td>" + formulario.Nombre + "</td>";
+                if (formulario.ListaIndicadores == null) {
+                    html = html + "<td>N/A</td>";
                 }
-                for (var j = 0; j < formulario.ListaIndicadores.length; j++) {
-                    html = html + JsFormulario.Metodos.CrearTablaFormulario(formulario, formulario.ListaIndicadores[j]);
+                else {
+                    html = html + "<td>" + formulario.ListaIndicadores + "</td>";
                 }
+                html = html + "<td>" + formulario.FrecuenciaEnvio.Nombre + "</td>";
+                html = html + "<td>" + formulario.EstadoRegistro.Nombre + "</td>";
+                html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + formulario.id + " data-original-title='Editar' title='Editar' class='btn-icon-base btn-edit'></button>";
+                html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' value=" + formulario.id + " class='btn-icon-base btn-clone' ></button>";
+                if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + formulario.id + " class='btn-icon-base btn-power-off'></button>";
+                } else {
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + formulario.id + " class='btn-icon-base btn-power-on'></button>";
+                }
+                html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Visualizar' data-original-title='Visualizar' value=" + formulario.id + " class='btn-icon-base btn-view' ></button>";
+                html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Eliminar' data-original-title='Eliminar' value=" + formulario.id + " class='btn-icon-base btn-delete' ></button></td >";
+
+
+                html = html + "</tr>"
+                //if (formulario.ListaIndicadores.length == null) {
+                //    html = html + JsFormulario.Metodos.CrearTablaFormulario(formulario, "N/A");
+                //}
+                //else {
+                //    html = html + JsFormulario.Metodos.CrearTablaFormulario(formulario, formulario.ListaIndicadores);
+                //}
+                //for (var j = 0; j < formulario.ListaIndicadores.length; j++) {
+                //    html = html + JsFormulario.Metodos.CrearTablaFormulario(formulario, formulario.ListaIndicadores[j]);
+                //}
             }
             $(JsFormulario.Controles.tablaFormulario).html(html);
             CargarDatasource();

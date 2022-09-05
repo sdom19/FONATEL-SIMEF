@@ -54,11 +54,11 @@ namespace GB.SIMEF.DAL
             return ListaFormulariosWeb;
         }
 
-        private List<string> ObtenerIndicadoresXFormulario(int id) {
+        private string ObtenerIndicadoresXFormulario(int id) {
             return db.Database.SqlQuery<string>
                     ("execute spObtenerListadoIndicadoresXFormulario @idFormulario",
                     new SqlParameter("@idFormulario", id)
-                    ).ToList();
+                    ).Single();
         }
 
         #endregion

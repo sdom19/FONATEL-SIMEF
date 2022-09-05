@@ -40,7 +40,7 @@ namespace GB.SIMEF.Entities
         
 
         [NotMapped]
-        public List<string> ListaIndicadores { get; set; }
+        public string ListaIndicadores { get; set; }
 
         [NotMapped]
         public string id { get; set; }

@@ -78,6 +78,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 objDetalleFormularioWeb.formularioweb = objFormularioWeb;
                 if (modo==(int)Constantes.Accion.Clonar)
                     ViewBag.ModoTitulo = EtiquetasViewFormulario.ClonarFormulario;
+                objDetalleFormularioWeb.formularioweb.Codigo = string.Empty;
+                objDetalleFormularioWeb.formularioweb.Nombre = string.Empty;
                 if (modo==(int)Constantes.Accion.Editar)
                     ViewBag.ModoTitulo = EtiquetasViewFormulario.EditarFormularioWeb;
             }
