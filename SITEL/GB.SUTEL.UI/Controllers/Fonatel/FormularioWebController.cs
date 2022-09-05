@@ -1,6 +1,11 @@
-﻿using System;
+﻿using GB.SIMEF.BL;
+using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,8 +13,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class FormularioWebController : Controller
     {
-        // GET: CategoriasDesagregacion
+        #region Variables Públicas del controller
+        private readonly FormularioWebBL formularioWebBL;
+        private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
+        private readonly IndicadorBL indicadorBL;
 
+        #endregion
+
+        public FormularioWebController()
+        {
+            formularioWebBL = new FormularioWebBL();
+            this.frecuenciaEnvioBL = new FrecuenciaEnvioBL();
+            this.indicadorBL = new IndicadorBL();
+        }
+
+        #region Eventos de la Página
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,12 +40,50 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             return View();
         }
+    #endregion
+
+        /// <summary>
+        /// Fecha 24-08-2022
+        /// Anderson Alvarado Aguero
+        /// Obtiene datos para la tabla de formularios web INDEX
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerFormulariosWeb()
+        {
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = formularioWebBL.ObtenerDatos(new FormularioWeb());
+            });
+            return JsonConvert.SerializeObject(result);
+        }
 
         [HttpGet]
-        public ActionResult Create(int? id)
+        public ActionResult Create(string id, int? modo)
         {
-            return View();
-        }
+            ViewBag.FrecuanciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
+                .objetoRespuesta;
+            var indicadores = indicadorBL.ObtenerDatos(new Indicador() { })
+                .objetoRespuesta;
+            var listaValores= indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+            ViewBag.Indicador = listaValores;
+            FormularioWeb objFormularioWeb = new FormularioWeb();
+            DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();
+            ViewBag.Modo = modo.ToString();
+            if (id != null) {
+                objFormularioWeb.id = id;
+                objFormularioWeb = formularioWebBL.ObtenerDatos(objFormularioWeb).objetoRespuesta.SingleOrDefault();
+                objDetalleFormularioWeb.formularioweb = objFormularioWeb;
+                if (modo==(int)Constantes.Accion.Clonar)
+                    ViewBag.ModoTitulo = EtiquetasViewFormulario.ClonarFormulario;
+                if (modo==(int)Constantes.Accion.Editar)
+                    ViewBag.ModoTitulo = EtiquetasViewFormulario.EditarFormularioWeb;
+            }
+            else
+                ViewBag.ModoTitulo = EtiquetasViewFormulario.CrearFormulario;
+            return View(objDetalleFormularioWeb);
+        } 
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {

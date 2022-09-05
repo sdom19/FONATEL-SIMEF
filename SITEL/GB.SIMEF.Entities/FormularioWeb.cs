@@ -12,6 +12,9 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("FormularioWeb")]
 
     public partial class FormularioWeb
     {
@@ -19,6 +22,7 @@ namespace GB.SIMEF.Entities
         {
             this.DetalleFormularioWeb = new HashSet<DetalleFormularioWeb>();
             this.DetalleSolicitudFormulario = new HashSet<DetalleSolicitudFormulario>();
+
         }
         [Key]
         public int idFormulario { get; set; }
@@ -30,12 +34,24 @@ namespace GB.SIMEF.Entities
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
-    
+        
+        public int idEstado { get; set; }
+        public int idFrecuencia { get; set; }
+        
 
+        [NotMapped]
+        public List<string> ListaIndicadores { get; set; }
+
+        [NotMapped]
+        public string id { get; set; }
+        [NotMapped]
         public virtual ICollection<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
-
+        [NotMapped]
         public virtual ICollection<DetalleSolicitudFormulario> DetalleSolicitudFormulario { get; set; }
+        [NotMapped]
         public virtual EstadoRegistro EstadoRegistro { get; set; }
+        [NotMapped]
         public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
+
     }
 }

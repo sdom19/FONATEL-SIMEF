@@ -117,19 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Acciones" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="AgregarIndicadores" xml:space="preserve">
+    <value>Agregar Indicadores al Formulario</value>
+  </data>
+  <data name="CantidadIndicadores" xml:space="preserve">
+    <value>Cantidad de Indicadores</value>
+  </data>
+  <data name="ClonarFormulario" xml:space="preserve">
+    <value>Clonar Formulario Web</value>
+  </data>
+  <data name="Codigo" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="CrearFormulario" xml:space="preserve">
+    <value>Crear Formulario Web</value>
+  </data>
   <data name="DescargaFormulario" xml:space="preserve">
     <value>Descarga Formulario Web</value>
+  </data>
+  <data name="Descripcion" xml:space="preserve">
+    <value>Descripción</value>
   </data>
   <data name="EditarFormulario" xml:space="preserve">
     <value>Descarga y Edición de Formulario Web </value>
   </data>
+  <data name="EditarFormularioWeb" xml:space="preserve">
+    <value>Editar Formulario Web</value>
+  </data>
+  <data name="Estado" xml:space="preserve">
+    <value>Estado</value>
+  </data>
   <data name="Formulario" xml:space="preserve">
     <value>Formulario</value>
+  </data>
+  <data name="Frecuencia" xml:space="preserve">
+    <value>Frecuencia</value>
+  </data>
+  <data name="FrecuenciaEnvio" xml:space="preserve">
+    <value>Frecuencia de Envío</value>
   </data>
   <data name="Fuente" xml:space="preserve">
     <value>Fuente</value>
   </data>
+  <data name="Grupo" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="Indicador" xml:space="preserve">
+    <value>Indicador</value>
+  </data>
+  <data name="Indicadores" xml:space="preserve">
+    <value>Indicadores</value>
+  </data>
+  <data name="Mensaje" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
+  <data name="Nombre" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="NotasEncargado" xml:space="preserve">
+    <value>Notas de FONATEL para el informante</value>
+  </data>
   <data name="Solicitud" xml:space="preserve">
     <value>Solicitud</value>
+  </data>
+  <data name="Tipo" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="TituloHoja" xml:space="preserve">
+    <value>Título de Hoja</value>
   </data>
 </root>

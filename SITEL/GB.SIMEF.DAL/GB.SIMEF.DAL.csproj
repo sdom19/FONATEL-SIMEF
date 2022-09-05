@@ -51,6 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DetalleFormularioWebDAL.cs" />
+    <Compile Include="FormularioWebDAL.cs" />
+    <Compile Include="FrecuenciaEnvioDAL.cs" />
+    <Compile Include="FuentesRegistroDAL.cs" />
+    <Compile Include="IndicadorDAL.cs" />
     <Compile Include="ReglasValicionDAL.cs" />
     <Compile Include="RelacionCategoriaDAL.cs" />
     <Compile Include="TipoDetalleCategoriaDAL.cs" />

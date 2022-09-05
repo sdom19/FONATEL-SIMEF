@@ -12,17 +12,21 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("Indicador")]
     public partial class Indicador
     {
      
         public Indicador()
         {
+            /*
             this.DetalleFormularioWeb = new HashSet<DetalleFormularioWeb>();
             this.DetalleIndicadorCategoria = new HashSet<DetalleIndicadorCategoria>();
             this.DetalleIndicadorVariables = new HashSet<DetalleIndicadorVariables>();
             this.DefinicionIndicadores = new HashSet<DefinicionIndicadores>();
             this.ReglaValidacion = new HashSet<ReglaValidacion>();
+            */
         }
         [Key]
         public int idIndicador { get; set; }
@@ -39,24 +43,37 @@ namespace GB.SIMEF.Entities
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
+
+        public int idEstado { get; set; }
+        public int idTipoIndicador { get; set; }
+
         public bool VisualizaSigitel { get; set; }
-    
+
+        [NotMapped]
         public virtual ClasificacionIndicadores ClasificacionIndicadores { get; set; }
-
+        [NotMapped]
         public virtual ICollection<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
-
+        [NotMapped]
         public virtual ICollection<DetalleIndicadorCategoria> DetalleIndicadorCategoria { get; set; }
-
+        [NotMapped]
         public virtual ICollection<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
+        [NotMapped]
         public virtual EstadoRegistro EstadoRegistro { get; set; }
+        [NotMapped]
         public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
+        [NotMapped]
         public virtual GrupoIndicadores GrupoIndicadores { get; set; }
 
+        [NotMapped]
         public virtual ICollection<DefinicionIndicadores> DefinicionIndicadores { get; set; }
+        [NotMapped]
         public virtual TipoMedida TipoMedida { get; set; }
+        [NotMapped]
         public virtual UnidadEstudio UnidadEstudio { get; set; }
+        [NotMapped]
         public virtual TipoIndicadores TipoIndicadores { get; set; }
 
+        [NotMapped]
         public virtual ICollection<ReglaValidacion> ReglaValidacion { get; set; }
     }
 }

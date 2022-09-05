@@ -30,7 +30,7 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<ClasificacionIndicadores> ClasificacionIndicadores { get; set; }
 
 
-        //public virtual DbSet<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
+        public virtual DbSet<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
         public virtual DbSet<DetalleFuentesRegistro> DetalleFuentesRegistro { get; set; }
         //public virtual DbSet<DetalleIndicadorCategoria> DetalleIndicadorCategoria { get; set; }
         //public virtual DbSet<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
@@ -44,15 +44,15 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<FormulaIndicadorFecha> FormulaIndicadorFecha { get; set; }
         //public virtual DbSet<FormulaIndicadorMC> FormulaIndicadorMC { get; set; }
         //public virtual DbSet<FormulaNivelCalculoCategoria> FormulaNivelCalculoCategoria { get; set; }
-        //public virtual DbSet<FormularioWeb> FormularioWeb { get; set; }
+        public virtual DbSet<FormularioWeb> FormularioWeb { get; set; }
         //public virtual DbSet<FormulasCalculo> FormulasCalculo { get; set; }
         //public virtual DbSet<FormulasCalculoDetalle> FormulasCalculoDetalle { get; set; }
         //public virtual DbSet<FormulasOperador> FormulasOperador { get; set; }
-        //public virtual DbSet<FrecuenciaEnvio> FrecuenciaEnvio { get; set; }
+        public virtual DbSet<FrecuenciaEnvio> FrecuenciaEnvio { get; set; }
         //public virtual DbSet<FuenteIndicador> FuenteIndicador { get; set; }
         //public virtual DbSet<FuentesRegistro> FuentesRegistro { get; set; }
         //public virtual DbSet<GrupoIndicadores> GrupoIndicadores { get; set; }
-        //public virtual DbSet<Indicador> Indicador { get; set; }
+        public virtual DbSet<Indicador> Indicador { get; set; }
         //public virtual DbSet<Mes> Mes { get; set; }
         //public virtual DbSet<Operadores> Operadores { get; set; }
         //public virtual DbSet<ProgramacionSolicitudes> ProgramacionSolicitudes { get; set; }

@@ -1,4 +1,5 @@
 ﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.DetalleFormularioWeb
 
 <form>
     <div class="row">
@@ -6,49 +7,46 @@
 
         <div class="col-md-5 col-sm-12 col-md-offset-1">
             <div class="form-group row">
-                <label for="ddlIndicadorFormulario" class="col-sm-12 col-form-label ">Indicador</label>
+                <label for="ddlIndicadorFormulario" class="col-sm-12 col-form-label ">@EtiquetasViewFormulario.Indicador</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
-                        <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlIndicadorFormulario">
-                            <option></option>
-                            <option value="1">IP1Tor Torres según estado</option>
-                            <option value="2">IP1CPSP CPSP Conectados</option>
-                            <option value="2">IP2Hog Hogares Beneficiarios</option>
-                        </select>
+                        <div class="select2-wrapper">
+                            @Html.DropDownListFor(model => model.idIndicador, new SelectList(ViewBag.Indicador, "Value","Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicador" })
+                        </div>
                     </div>
-                   
-             
+
+
                     <small id="ddlIndicadorFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
-          
+
 
         </div>
 
         <div class="col-md-5 col-sm-12 col-md-offset-1">
             <div class="form-group row">
-                <label for="txtTituloHoja" class="col-sm-12 col-form-label">Título de Hoja</label>
+                <label for="txtTituloHoja" class="col-sm-12 col-form-label">@EtiquetasViewFormulario.TituloHoja</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control form-control-fonatel" id="txtNombreVariable" placeholder="Titulo de Hoja">
+                    <input type="text" class="form-control form-control-fonatel" id="txtNombreVariable" placeholder=@EtiquetasViewFormulario.TituloHoja>
                     <small id="txtNombreVariableHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
             @*<div class="form-group row">
-                <label for="txtNotasInformanteFormlulario" class="col-sm-12 col-form-label">Notas del Informante</label>
-                <div class="col-sm-12">
-                    <textarea class="form-control form-control-fonatel" id="txtNotasInformanteFormlulario" placeholder="Notas del Informante"></textarea>
-                    <small id="txtNotasInformanteFormlularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                </div>
-            </div>*@
+                    <label for="txtNotasInformanteFormlulario" class="col-sm-12 col-form-label">Notas del Informante</label>
+                    <div class="col-sm-12">
+                        <textarea class="form-control form-control-fonatel" id="txtNotasInformanteFormlulario" placeholder="Notas del Informante"></textarea>
+                        <small id="txtNotasInformanteFormlularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                    </div>
+                </div>*@
 
 
         </div>
 
-        <div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0" >
+        <div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0">
             <div class="form-group row">
-                <label for="txtNotasEncargadoFormlulario" class="col-sm-12 col-form-label">Notas del Encargado</label>
+                <label for="txtNotasEncargadoFormlulario" class="col-sm-12 col-form-label">@EtiquetasViewFormulario.NotasEncargado</label>
                 <div class="col-sm-12">
-                    <textarea class="form-control form-control-fonatel" id="txtNotasEncargadoFormlulario" placeholder="Notas del Encargado"></textarea>
+                    <textarea class="form-control form-control-fonatel" id="txtNotasEncargadoFormlulario" placeholder=@EtiquetasViewFormulario.NotasEncargado></textarea>
                     <small id="txtNotasEncargadoFormlularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
