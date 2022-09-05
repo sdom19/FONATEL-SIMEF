@@ -80,6 +80,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.UsosIndicador = indicadorBL.ObtenerListaUsosIndicador().objetoRespuesta;
             ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
             ViewBag.UnidadesEstudio = unidadEstudioBL.ObtenerDatos(new UnidadEstudio()).objetoRespuesta;
+            ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
             return View();
         }
 
