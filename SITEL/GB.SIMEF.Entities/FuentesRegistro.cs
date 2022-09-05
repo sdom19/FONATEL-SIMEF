@@ -12,15 +12,15 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("FuentesRegistro")]
     public partial class FuentesRegistro
     {
         
         public FuentesRegistro()
         {
-            this.DetalleFuentesRegistro = new HashSet<DetalleFuentesRegistro>();
-            this.Solicitud = new HashSet<Solicitud>();
-            this.SolicitudDetalleFuentes = new HashSet<SolicitudDetalleFuentes>();
+            DetalleFuentesRegistro = new List<DetalleFuentesRegistro>();
         }
         [Key]
         public int idFuente { get; set; }
@@ -30,13 +30,18 @@ namespace GB.SIMEF.Entities
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
-    
 
-        public virtual ICollection<DetalleFuentesRegistro> DetalleFuentesRegistro { get; set; }
-        public virtual EstadoRegistro EstadoRegistro { get; set; }
+        public int idEstado { get; set; }
 
-        public virtual ICollection<Solicitud> Solicitud { get; set; }
+        [NotMapped]
+        public  EstadoRegistro EstadoRegistro { get; set; }
 
-        public virtual ICollection<SolicitudDetalleFuentes> SolicitudDetalleFuentes { get; set; }
+        [NotMapped]
+
+        public string id { get; set; }
+
+        [NotMapped]
+        public List<DetalleFuentesRegistro> DetalleFuentesRegistro { get; set; }
+
     }
 }

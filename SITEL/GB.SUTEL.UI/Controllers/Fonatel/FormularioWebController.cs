@@ -1,6 +1,10 @@
-﻿using System;
+﻿using GB.SIMEF.BL;
+using GB.SIMEF.Entities;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,7 +12,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class FormularioWebController : Controller
     {
-        // GET: CategoriasDesagregacion
+
+
+      
+
 
         [HttpGet]
         public ActionResult Index()
@@ -28,19 +35,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }       
+
     }
 }

@@ -35,10 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -53,23 +53,32 @@
   <ItemGroup>
     <Compile Include="ClasificacionIndicadorDAL.cs" />
     <Compile Include="DetalleIndicadorVariablesDAL.cs" />
+    <Compile Include="DetalleRelacionCategoriaDAL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
+    <Compile Include="OperadorArismeticoDAL.cs" />
+    <Compile Include="TipoMedidaDAL.cs" />
+    <Compile Include="TipoReglaValidacionDAL.cs" />
+    <Compile Include="DefinicionIndicadorDAL.cs" />
+    <Compile Include="FormularioWebDAL.cs" />
+    <Compile Include="MesDAL.cs" />
+    <Compile Include="SolicitudDAL.cs" />
+    <Compile Include="FuentesRegistroDestinatarioDAL.cs" />
     <Compile Include="GrupoIndicadorDAL.cs" />
+    <Compile Include="IndicadorFonatelDAL.cs" />
+    <Compile Include="ReglasValicionDAL.cs" />
+    <Compile Include="FuentesRegistroDAL.cs" />
+    <Compile Include="RelacionCategoriaDAL.cs" />
     <Compile Include="TipoDetalleCategoriaDAL.cs" />
     <Compile Include="TipoCategoriaDAL.cs" />
     <Compile Include="DetalleCategoriasTextoDAL.cs" />
     <Compile Include="CategoriasDesagregacionDAL.cs" />
-    <Compile Include="IndicadorFonatelDAL.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BitacoraDAL.cs" />
     <Compile Include="SIMEFContext.cs" />
     <Compile Include="TipoIndicadorDAL.cs" />
-    <Compile Include="TipoMedidaDAL.cs" />
+    <Compile Include="AnnoDAL.cs" />
     <Compile Include="UnidadEstudioDAL.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GB.SIMEF.Entities\GB.SIMEF.Entities.csproj">
@@ -80,6 +89,18 @@
       <Project>{93F172D6-F11B-41D1-BD43-AFAD2F43D314}</Project>
       <Name>GB.SIMEF.Resources</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.DAL\GB.SUTEL.DAL.csproj">
+      <Project>{3548F570-BB86-47FA-AD42-CB491214EAC6}</Project>
+      <Name>GB.SUTEL.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GB.SUTEL.Entities\GB.SUTEL.Entities.csproj">
+      <Project>{8B30812D-4414-4C62-9A34-FD80220C0029}</Project>
+      <Name>GB.SUTEL.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

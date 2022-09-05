@@ -268,24 +268,6 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Acciones.
-        /// </summary>
-        public static string TablaColumnaAcciones {
-            get {
-                return ResourceManager.GetString("TablaColumnaAcciones", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Estado.
-        /// </summary>
-        public static string TablaColumnaEstado {
-            get {
-                return ResourceManager.GetString("TablaColumnaEstado", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Agregar Categoría.
         /// </summary>
         public static string TituloAgregarCategoria {
@@ -309,6 +291,15 @@ namespace GB.SIMEF.Resources {
         public static string TituloCrearVariable {
             get {
                 return ResourceManager.GetString("TituloCrearVariable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Definiciones.
+        /// </summary>
+        public static string TituloDefiniciones {
+            get {
+                return ResourceManager.GetString("TituloDefiniciones", resourceCulture);
             }
         }
         

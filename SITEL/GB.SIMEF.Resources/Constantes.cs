@@ -9,6 +9,18 @@ namespace GB.SIMEF.Resources
     public static class Constantes
     {
         /// <summary>
+        /// 
+        /// </summary>
+
+        public enum TipoCategoriaEnum : int
+        {
+            IdUnico=1,
+            Atributo=2,
+            Actualizable=3
+        }
+
+
+        /// <summary>
         /// Tipos de Categorías
         /// </summary>
         public enum TipoDetalleCategoriaEnum : int
@@ -46,6 +58,16 @@ namespace GB.SIMEF.Resources
             Activar=6,
             Inactiva=7
         }
+        /// <summary>
+        /// Enum Clasificación indicador
+        /// </summary>
+        public enum ClasificacionIndicadorEnum : int
+        {
+            SinDefinir=1,
+            Entrada = 4,
+            Salida = 2,
+            EntradaSalida = 3
+        }
 
         public struct CifradoDatos
         {
@@ -56,6 +78,8 @@ namespace GB.SIMEF.Resources
             public const Int32 intBytePermutacionCuatro = 0x41;
             public const int intDivisionPassword = 8;
         }
+
+
 
         /// <summary>
         /// Usos del indicador
@@ -78,5 +102,7 @@ namespace GB.SIMEF.Resources
         public readonly static string defaultInputTextValue = "NA";
         public readonly static int defaultInputNumberValue = 0;
         public readonly static int defaultDropDownValue = 1; // Representa el valor: "Sin definir". En Utilidades.cs existe un método para encriptarlo
+
+
     }
 }

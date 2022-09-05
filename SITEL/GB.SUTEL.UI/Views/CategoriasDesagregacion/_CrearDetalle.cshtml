@@ -1,13 +1,13 @@
 ﻿@using GB.SIMEF.Resources;
-
+@model GB.SIMEF.Entities.CategoriasDesagregacion
 <form>
     <div class="row">
 
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
             <div class="form-group row">
-                <label for="txtCodigoDetalle" class="col-sm-12 col-form-label">Código</label>
+                <label for="txtCodigoDetalle" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.Codigo</label>
                 <div class="col-sm-12">
-                    <input type="number" class="form-control form-control-fonatel  " id="txtCodigoDetalle" placeholder="Código">
+                    <input type="number" class="form-control form-control-fonatel  " id="txtCodigoDetalle" placeholder="@EtiquetasViewCategorias.Codigo">
                     <small id="txtCodigoDetalleHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
@@ -15,10 +15,18 @@
 
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
             <div class="form-group row">
-                <label for="txtEtiquetaDetalle" class="col-sm-12 col-form-label">Etiqueta de Detalle</label>
+                <label for="txtEtiquetaDetalle" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.Etiqueta</label>
                 <div class="col-sm-12">
-                    <input type="text" maxlength="300" class="form-control form-control-fonatel alfa_numerico" id="txtEtiquetaDetalle" placeholder="Etiqueta de detalle">
-                    <small id="txtEtiquetaDetalleHelp"  class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+                    @if (Model.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
+                    {
+                        <input type="text" maxlength="300" class="form-control form-control-fonatel alfa_numerico" id="txtEtiquetaDetalle" placeholder="@EtiquetasViewCategorias.Etiqueta">
+                    }
+                    else
+                    {
+                        <input type="text" maxlength="300" class="form-control form-control-fonatel solo_texto" id="txtEtiquetaDetalle" placeholder="@EtiquetasViewCategorias.Etiqueta">
+                    }
+
+                    <small id="txtEtiquetaDetalleHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
@@ -28,8 +36,8 @@
     <div class="row mt-5">
         <div class="col-lg-12 text-center">
 
-            <button type="submit" class="btn btn-fonatel btn-success-fonatel" id="btnGuardarDetalleCategoria">@Etiquetas.BotonGuardar</button>
-            <button type="submit" class="btn btn-fonatel btn-error-fonatel"  id="btnCancelarDetalleCategoria" >@Etiquetas.BotonCancelar</button>
+            <button type="submit" class="btn btn-fonatel btn-success-fonatel" disabled id="btnGuardarDetalleCategoria">@Etiquetas.BotonGuardar</button>
+            <button type="submit" class="btn btn-fonatel btn-error-fonatel" id="btnCancelarDetalleCategoria">@Etiquetas.BotonCancelar</button>
 
         </div>
     </div>

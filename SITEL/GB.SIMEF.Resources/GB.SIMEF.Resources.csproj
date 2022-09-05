@@ -61,10 +61,35 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewFormulario.resx</DependentUpon>
     </Compile>
+    <Compile Include="EtiquetasViewFuentesRegistro.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewFuentesRegistro.resx</DependentUpon>
+    </Compile>
     <Compile Include="EtiquetasViewIndicadorFonatel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewIndicadorFonatel.resx</DependentUpon>
+    </Compile>
+    <Compile Include="EtiquetasViewPublicaciones.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewPublicaciones.resx</DependentUpon>
+    </Compile>
+    <Compile Include="EtiquetasViewReglasValidacion.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewReglasValidacion.resx</DependentUpon>
+    </Compile>
+    <Compile Include="EtiquetasViewRelacionCategoria1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewRelacionCategoria.resx</DependentUpon>
+    </Compile>
+    <Compile Include="EtiquetasViewSolicitudes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewSolicitudes.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EtiquetasViewDefinicionIndicadores.Designer.cs">
@@ -102,6 +127,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewFormulario.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewFuentesRegistro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewFuentesRegistro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="EtiquetasViewIndicadorFonatel.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewIndicadorFonatel.Designer.cs</LastGenOutput>
@@ -109,6 +138,22 @@
     <EmbeddedResource Include="EtiquetasViewBitacora.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewBitacora.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewPublicaciones.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewPublicaciones.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewReglasValidacion.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewReglasValidacion.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewRelacionCategoria.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewRelacionCategoria1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewSolicitudes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewSolicitudes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

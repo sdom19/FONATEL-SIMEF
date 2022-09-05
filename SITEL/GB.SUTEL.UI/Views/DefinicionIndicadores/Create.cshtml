@@ -1,7 +1,7 @@
 ﻿@using GB.SIMEF.Resources;
 
 @{
-    ViewBag.Title = @EtiquetasViewDefinicionIndicadores.TituloCreate;
+    ViewBag.Title = ViewBag.Titulo;
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
@@ -14,14 +14,14 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item active"><a href="/Fonatel/DefinicionIndicadores/index">@EtiquetasViewIndicadorFonatel.TituloIndex</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewDefinicionIndicadores.TituloCreate</li>
+                <li class="breadcrumb-item active"><a href="/Fonatel/DefinicionIndicadores/index">@EtiquetasViewIndicadorFonatel.TituloDefiniciones</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewBag.Titulo</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">@EtiquetasViewDefinicionIndicadores.TituloCreate</h2>
+            <h2 class="page-title-fonatel text-center">@ViewBag.Titulo</h2>
             <hr />
         </div>
         <div class="col-lg-12">

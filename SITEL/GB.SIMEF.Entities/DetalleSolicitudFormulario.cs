@@ -12,22 +12,21 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("DetalleSolicitudFormulario")]
     public partial class DetalleSolicitudFormulario
     {
       
-        public DetalleSolicitudFormulario()
-        {
-            this.Registro = new HashSet<Registro>();
-        }
+      
         [Key]
         public int IdSolicitud { get; set; }
         public int IdFormulario { get; set; }
         public bool Estado { get; set; }
     
 
-        public virtual ICollection<Registro> Registro { get; set; }
-        public virtual Solicitud Solicitud { get; set; }
-        public virtual FormularioWeb FormularioWeb { get; set; }
+        //public virtual ICollection<Registro> Registro { get; set; }
+        //public virtual Solicitud Solicitud { get; set; }
+        //public virtual FormularioWeb FormularioWeb { get; set; }
     }
 }

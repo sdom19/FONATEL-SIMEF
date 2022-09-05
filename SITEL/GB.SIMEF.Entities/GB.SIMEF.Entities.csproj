@@ -76,7 +76,7 @@
     <Compile Include="GrupoIndicadores.cs" />
     <Compile Include="Indicador.cs" />
     <Compile Include="Mes.cs" />
-    <Compile Include="Operadores.cs" />
+    <Compile Include="OperadorArismetico.cs" />
     <Compile Include="ProgramacionSolicitudes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro.cs" />
@@ -103,6 +103,9 @@
       <Project>{93f172d6-f11b-41d1-bd43-afad2f43d314}</Project>
       <Name>GB.SIMEF.Resources</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -171,3 +171,54 @@ function setSelect2() {
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro, function (e) {
     $(jsRegistroIndicadorFonatel.Controles.inputFileCargarPlantilla).click();
 });
+
+$(function () {
+    $(document).ready(function () {
+        var t = $('#TableRegistroIndicadorFonatel').DataTable({
+            'scrollY': '400px',
+
+           
+
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "searchPlaceholder": "",
+                "zeroRecords": "Sin resultados encontrados",
+
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+
+            },
+
+            columnDefs: [
+                {
+                    searchable: false,
+                    orderable: false,
+                    targets: 0,
+                },
+            ],
+            order: [[1, 'asc']],
+        });
+
+        t.on('order.dt search.dt', function () {
+            let i = 1;
+
+            t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+                this.data(i++);
+            });
+        }).draw();
+    });
+})

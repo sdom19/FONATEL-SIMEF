@@ -12,41 +12,64 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("Solicitud")]
     public partial class Solicitud
     {
        
         public Solicitud()
         {
-            this.DetalleSolicitudFormulario = new HashSet<DetalleSolicitudFormulario>();
-            this.EnvioSolicitudes = new HashSet<EnvioSolicitudes>();
-            this.ProgramacionSolicitudes = new HashSet<ProgramacionSolicitudes>();
-            this.SolicitudEnvioProgramado = new HashSet<SolicitudEnvioProgramado>();
+           
         }
         [Key] 
         public int idSolicitud { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime FechaInicio { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime FechaFin { get; set; }
-        public Nullable<int> CantidadFormularios { get; set; }
+        public int CantidadFormularios { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Mensaje { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
-    
-        public virtual Anno Anno { get; set; }
 
-        public virtual ICollection<DetalleSolicitudFormulario> DetalleSolicitudFormulario { get; set; }
+        public int idFuente { get; set; }
+        public int idMes { get; set; }
 
-        public virtual ICollection<EnvioSolicitudes> EnvioSolicitudes { get; set; }
-        public virtual EstadoRegistro EstadoRegistro { get; set; }
-        public virtual FuentesRegistro FuentesRegistro { get; set; }
-        public virtual Mes Mes { get; set; }
+        public int idAnno { get; set; }
 
-        public virtual ICollection<ProgramacionSolicitudes> ProgramacionSolicitudes { get; set; }
+        #region variables que no están en el contexto
+        public int IdEstado { get; set; }
 
-        public virtual ICollection<SolicitudEnvioProgramado> SolicitudEnvioProgramado { get; set; }
+        [NotMapped]
+
+        public string id { get; set; }
+
+        [NotMapped]
+
+        public EstadoRegistro Estado { get; set; }
+
+
+        [NotMapped]
+
+        public FuentesRegistro Fuente { get; set; }
+        [NotMapped]
+        public List<FormularioWeb> FormularioWeb { get; set; }
+
+        [NotMapped]
+        public SolicitudEnvioProgramado EnvioProgramado { get; set; }
+        [NotMapped]
+        public List<DetalleSolicitudFormulario> SolicitudFormulario { get; set; }
+
+        #endregion
     }
 }

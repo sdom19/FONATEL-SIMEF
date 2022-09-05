@@ -17,7 +17,7 @@ namespace GB.SIMEF.Entities
     [Table("DetalleCategoriaTexto")]
     public partial class DetalleCategoriaTexto
     {
-        public  DetalleCategoriaTexto()
+        public DetalleCategoriaTexto()
         {
             CategoriasDesagregacion = new CategoriasDesagregacion();
         }
@@ -40,6 +40,9 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string categoriaid { get; set; }
+
+        [NotMapped]
+        public bool Completo { get; set; }
 
         #endregion
     }

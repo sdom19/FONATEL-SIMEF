@@ -11,12 +11,33 @@ namespace GB.SIMEF.Resources
 {
     public static class Utilidades
     {
+
+
         /// <summary>
         /// 22/08/2022
         /// José Navarro Acuña
         /// Valida si la cadena es alfanumérica: Letras del alfabeto, números, tildes (utilizadas en español) y la eñe (ñ). Acepta espacios entre los caracteres válidos
         /// </summary>
         public static Regex rx_alfanumerico_v2 = new Regex(@"^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+([ ][A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+)*$", RegexOptions.Compiled);
+
+
+        public static bool ValidarEmail(string email)
+        {
+            return email != null && Regex.IsMatch(email, "^(([\\w-]+\\.)+[\\w -]+|([a-zA-Z]{1}|[\\w -]{2,}))@(([a-zA -Z]+[\\w-]+\\.){1,2}[a-zA-Z]{2,4})$");
+        }
+
+
+
+
+        public static string ConcatenadoCombos(string  codigo, string nombre)
+        {
+            return string.Format("{0} / {1}",codigo,nombre) ;
+        }
+
+
+
+
+        
 
         /// <summary>
         /// 29/08/2022

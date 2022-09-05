@@ -1008,6 +1008,7 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.step2Variable, function (e) {
+            let wasd = ObtenerValorParametroUrl("id");
             CreateView.Metodos.CargarDetallesVariable(ObtenerValorParametroUrl("id"));
         });
 

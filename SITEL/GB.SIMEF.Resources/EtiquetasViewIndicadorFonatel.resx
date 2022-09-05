@@ -186,12 +186,6 @@
   <data name="LabelStepperVariables" xml:space="preserve">
     <value>Variables</value>
   </data>
-  <data name="TablaColumnaAcciones" xml:space="preserve">
-    <value>Acciones</value>
-  </data>
-  <data name="TablaColumnaEstado" xml:space="preserve">
-    <value>Estado</value>
-  </data>
   <data name="TituloAgregarCategoria" xml:space="preserve">
     <value>Agregar Categoría</value>
   </data>
@@ -200,6 +194,9 @@
   </data>
   <data name="TituloCrearVariable" xml:space="preserve">
     <value>Agregar Variable Dato</value>
+  </data>
+  <data name="TituloDefiniciones" xml:space="preserve">
+    <value>Definiciones</value>
   </data>
   <data name="TituloIndex" xml:space="preserve">
     <value>Indicadores</value>

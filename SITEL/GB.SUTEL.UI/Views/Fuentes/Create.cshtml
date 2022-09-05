@@ -1,12 +1,12 @@
 ﻿@using GB.SIMEF.Resources;
 
 @{
-    ViewBag.Title = "Fuentes de Registro";
+    ViewBag.Title = ViewBag.titulo;
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/Fuentes")
+    @* @Scripts.Render("~/bundles/FONATEL/Fuentes")*@
 }
 
 <div class="row">
@@ -15,8 +15,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
-                    <li class="breadcrumb-item active"><a href="/Fonatel/Fuentes/index">Fuentes</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Crear Fuente</li>
+                    <li class="breadcrumb-item active"><a href="/Fonatel/Fuentes/index">@EtiquetasViewFuentesRegistro.Fuente</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewBag.titulo</li>
                 </ol>
             </nav>
         </div>
@@ -27,12 +27,12 @@
 <div class="stepwizard">
     <div class="stepwizard-row setup-panel step_navigation_indicador">
         <div class="stepwizard-step" data-step="0">
-            <p>Fuente</p>
+            <p>@EtiquetasViewFuentesRegistro.Fuente</p>
             <a href="#step-1" type="button" class="btn btn-circle">1</a>
 
         </div>
         <div class="stepwizard-step" data-step="1">
-            <p>Destinatarios</p>
+            <p>@EtiquetasViewFuentesRegistro.Destinatarios</p>
             <a href="#step-2" type="button" class="btn btn-circle">2</a>
 
         </div>
@@ -42,7 +42,7 @@
 
 <div class="row stepwizard-content-container hidden" id="step-1">
     <div class="col-lg-12">
-        <h2 class="page-title-fonatel text-center">Crear Fuentes de Registro</h2>
+        <h2 class="page-title-fonatel text-center">@ViewBag.titulo</h2>
         <hr />
     </div>
     <div class="col-lg-12">
@@ -54,7 +54,7 @@
 
 <div class="row stepwizard-content-container hidden" id="step-2">
     <div>
-        <h2 class="page-title-fonatel text-center">Agregar Destinatario</h2>
+        <h2 class="page-title-fonatel text-center">@EtiquetasViewFuentesRegistro.AgregarDestinatario</h2>
         <hr />
     </div>
     <div class="col-lg-12">
@@ -76,3 +76,4 @@
     </div>
 </div>
 
+<script src="~/Scripts/Fonatel/JsFuentes.js"></script>

@@ -1,64 +1,19 @@
-﻿<div class="table-responsive table-wrapper-fonatel">
+﻿@using GB.SIMEF.Resources;
+
+<div class="table-responsive table-wrapper-fonatel">
     <table id="TablaRelacionCategoria" class="dataTable datatable_simef  table-bordered table-condensed table-hover">
         <thead>
             <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Detalle</th>
-                <th scope="col">Acciones</th>
+                <th scope="col">@EtiquetasViewRelacionCategoria.Codigo</th>
+                <th scope="col">@EtiquetasViewRelacionCategoria.Nombre</th>
+                <th scope="col">@EtiquetasViewRelacionCategoria.Cantidad</th>
+                <th scope="col">@EtiquetasViewRelacionCategoria.Estado</th>
+                <th scope="col">@EtiquetasViewRelacionCategoria.Detalle</th>
+                <th scope="col">@EtiquetasViewRelacionCategoria.Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">Rel1-1</th>
-                <td>Relación Proyecto</td>
-                <td>800/800</td>
-                <td>En Proceso</td>
-                <td>
-                    <input id='inputFileAgregarDetalle' type='file' accept=".csv,.xlsx,.xls" style="display:none;" />
-                    <button id="btnAgregarDetalle" type="button" data-toggle="tooltip" data-placement="top" title="Agregar Detalle" class="btn-icon-base btn-upload"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Descargar Plantilla" class="btn-icon-base btn-download"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Agregar Detalle" class="btn-icon-base btn-add"></button>
-                </td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" value="4" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Rel1-2</th>
-                <td>Relación Torre</td>
-                <td>30/30</td>
-                <td>Activo</td>
-                <td>
-                    <button id="btnAgregarDetalle" type="button" data-toggle="tooltip" data-placement="top" title="Agregar Detalle" class="btn-icon-base btn-upload"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Descargar Plantilla" class="btn-icon-base btn-download"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Agregar Detalle" class="btn-icon-base btn-add"></button>
-                </td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" value="4" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Rel1-3</th>
-                <td>Rlación CPSP</td>
-                <td>6/5</td>
-                <td>Activo</td>
-                <td>
-                    <button id="btnAgregarDetalle" type="button" data-toggle="tooltip" data-placement="top" title="Agregar Detalle" class="btn-icon-base btn-upload"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Descargar Plantilla" class="btn-icon-base btn-download"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Agregar Detalle" class="btn-icon-base btn-add"></button>
-                </td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" value="4" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
         </tbody>
-
 
         <tfoot>
             <tr>

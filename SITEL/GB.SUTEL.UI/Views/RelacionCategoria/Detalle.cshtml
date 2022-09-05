@@ -1,12 +1,12 @@
 ﻿@using GB.SIMEF.Resources;
-
+@model GB.SIMEF.Entities.RelacionCategoria
 @{
     ViewBag.Title = "Detalle Relaciones entre Categorías";
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/RelacionCategoria")
+    @*@Scripts.Render("~/bundles/FONATEL/RelacionCategoria")*@
 }
 
 <div class="container body-content">
@@ -15,15 +15,17 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item"><a href="/RelacionCategoria">Relaciones entre Categorías</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Detalle de Relaciones entre Categorías</li>
+                <li class="breadcrumb-item"><a href="/RelacionCategoria">@EtiquetasViewRelacionCategoria.RelacionCategoria</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewRelacionCategoria.DetalleRelacionCategoria</li>
             </ol>
         </nav>
     </div>
 
-    <div class="row">
+    <div id="FormularioDetalle" class="row">
+        <!-- TEXTO PARA ENCRIPTAR ID Y PARA EL EDITAR-->
+        @Html.HiddenFor(model => model.id, new { id = "txtidRelacion" })
         <div>
-            <h2 class="page-title-fonatel text-center">Detalle de Relaciones entre Categorías</h2>
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewRelacionCategoria.DetalleRelacionCategoria</h2>
             <hr />
         </div>
         <div class="col-lg-12">
@@ -33,7 +35,11 @@
             <br />
             @Html.Partial("_TablaDetalleRelacionCategoria")
         </div>
+        <div class="col-lg-12 mt-4 text-center">
+            <button type="submit" id="btnFinalizarDetalleRelacion" disabled class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
+        </div>
     </div>
 
 </div>
 
+<script src="~/Scripts/Fonatel/JsRelacionCategoria.js"></script>
