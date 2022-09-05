@@ -361,6 +361,7 @@ CreateView = {
         btnDeleteModal: (pValue) => `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${pValue}></button>`,
 
         hizoCargaDetallesVariables: false,
+        hizoCargaDetallesCategorias: false,
         listaVariablesDato: [],
         listaCategorias: [],
         objEditarDetallesVariableDato: null
@@ -891,7 +892,36 @@ CreateView = {
                 });
         },
 
+        // Formulario Detalles Categorias
+        CargarDatosDetallesCategorias: function () {
+            if (!CreateView.Variables.hizoCargaDetallesCategorias) {
+                $("#loading").fadeIn();
+                CreateView.Consultas.ConsultarCategoriasDesagregacionTipoAtributo()
+                    .then(data => {
 
+                        data.forEach(item => {
+                            InsertarItemSelect2()
+                        });
+
+                        CreateView.Variables.hizoCargaDetallesCategorias = true;
+                    })
+                    .catch(error => {
+                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        }
+                    })
+                    .finally(() => {
+                        $("#loading").fadeOut();
+                    });
+            }
+        },
+
+        CargarCategoriasDesagregacionTipoAtributo: function () {
+            
+        }
     },
 
     Consultas: {
@@ -937,6 +967,10 @@ CreateView = {
 
         ConsultarDetallesVariable: function (pIdIndicador) {
             return execAjaxCall('/IndicadorFonatel/ObtenerListaDetallesVariable', 'GET', { pIdIndicador: pIdIndicador });
+        },
+
+        ConsultarCategoriasDesagregacionTipoAtributo: function () {
+            return execAjaxCall('/IndicadorFonatel/ObtenerCategoriasDesagregacionTipoAtributo', 'GET');
         }
     },
 
@@ -1008,8 +1042,11 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.step2Variable, function (e) {
-            let wasd = ObtenerValorParametroUrl("id");
-            CreateView.Metodos.CargarDetallesVariable(ObtenerValorParametroUrl("id"));
+            let id = ObtenerValorParametroUrl("id");
+
+            if (id != null || $.trim(id) != "") {
+                CreateView.Metodos.CargarDetallesVariable(id);
+            }
         });
 
         $(document).on("click", CreateView.Controles.formVariable.btnEditarIndicador, function (e) {

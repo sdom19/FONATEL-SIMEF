@@ -24,6 +24,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly TipoMedidaBL tipoMedidaBL;
         private readonly DetalleIndicadorVariablesBL detalleIndicadorVariablesBL;
         private readonly DetalleIndicadorCategoriaBL detalleIndicadorCategoriaBL;
+        private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
         private readonly string defaultDropDownValue;
 
 
@@ -39,6 +40,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             tipoMedidaBL = new TipoMedidaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             detalleIndicadorCategoriaBL = new DetalleIndicadorCategoriaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            categoriasDesagregacionBL = new CategoriasDesagregacionBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
 
             defaultDropDownValue = Utilidades.GetDefaultDropDownValue();
         }
@@ -606,6 +608,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     idIndicadorString = pIdIndicador
                 });
 
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 05/09/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener las categorías de desagregación
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ObtenerCategoriasDesagregacionTipoAtributo()
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+
+            await Task.Run(() =>
+            {
+                resultado = categoriasDesagregacionBL.ObtenerDatos(new CategoriasDesagregacion() {
+                    IdTipoCategoria = (int)TipoCategoriaEnum.Atributo
+                });
             });
             return JsonConvert.SerializeObject(resultado);
         }
