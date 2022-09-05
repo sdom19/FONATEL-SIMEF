@@ -13,13 +13,18 @@ namespace GB.SIMEF.BL
     public class FormularioWebBL : IMetodos<FormularioWeb>
     {
         private readonly FormularioWebDAL clsDatos;
+        private readonly DetalleFormularioWebDAL clsDatos2;
 
         private RespuestaConsulta<List<FormularioWeb>> ResultadoConsulta;
-        string modulo = EtiquetasViewFormulario.Formulario;
+        string modulo = string.Empty;
+        string user = string.Empty;
 
-        public FormularioWebBL()
+        public FormularioWebBL(string modulo, string user)
         {
+            this.modulo = modulo;
+            this.user = user;
             this.clsDatos = new FormularioWebDAL();
+            this.clsDatos2 = new DetalleFormularioWebDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<FormularioWeb>>();
         }
 

@@ -70,6 +70,10 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public List<DetalleSolicitudFormulario> SolicitudFormulario { get; set; }
 
+
+        [NotMapped]
+        public string FormulariosString { get; set; }
+
         #endregion
     }
 }

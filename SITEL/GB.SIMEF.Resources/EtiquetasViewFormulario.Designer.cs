@@ -61,11 +61,74 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Acciones.
+        /// </summary>
+        public static string Acciones {
+            get {
+                return ResourceManager.GetString("Acciones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Agregar Indicadores al Formulario.
+        /// </summary>
+        public static string AgregarIndicadores {
+            get {
+                return ResourceManager.GetString("AgregarIndicadores", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cantidad de Indicadores.
+        /// </summary>
+        public static string CantidadIndicadores {
+            get {
+                return ResourceManager.GetString("CantidadIndicadores", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Clonar Formulario Web.
+        /// </summary>
+        public static string ClonarFormulario {
+            get {
+                return ResourceManager.GetString("ClonarFormulario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Código.
+        /// </summary>
+        public static string Codigo {
+            get {
+                return ResourceManager.GetString("Codigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Crear Formulario Web.
+        /// </summary>
+        public static string CrearFormulario {
+            get {
+                return ResourceManager.GetString("CrearFormulario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Descarga Formulario Web.
         /// </summary>
         public static string DescargaFormulario {
             get {
                 return ResourceManager.GetString("DescargaFormulario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Descripción.
+        /// </summary>
+        public static string Descripcion {
+            get {
+                return ResourceManager.GetString("Descripcion", resourceCulture);
             }
         }
         
@@ -79,11 +142,47 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Editar Formulario Web.
+        /// </summary>
+        public static string EditarFormularioWeb {
+            get {
+                return ResourceManager.GetString("EditarFormularioWeb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Estado.
+        /// </summary>
+        public static string Estado {
+            get {
+                return ResourceManager.GetString("Estado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Formulario Web.
         /// </summary>
         public static string Formulario {
             get {
                 return ResourceManager.GetString("Formulario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Frecuencia.
+        /// </summary>
+        public static string Frecuencia {
+            get {
+                return ResourceManager.GetString("Frecuencia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Frecuencia de Envío.
+        /// </summary>
+        public static string FrecuenciaEnvio {
+            get {
+                return ResourceManager.GetString("FrecuenciaEnvio", resourceCulture);
             }
         }
         
@@ -97,11 +196,83 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Grupo.
+        /// </summary>
+        public static string Grupo {
+            get {
+                return ResourceManager.GetString("Grupo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Indicador.
+        /// </summary>
+        public static string Indicador {
+            get {
+                return ResourceManager.GetString("Indicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Indicadores.
+        /// </summary>
+        public static string Indicadores {
+            get {
+                return ResourceManager.GetString("Indicadores", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Mensaje.
+        /// </summary>
+        public static string Mensaje {
+            get {
+                return ResourceManager.GetString("Mensaje", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nombre.
+        /// </summary>
+        public static string Nombre {
+            get {
+                return ResourceManager.GetString("Nombre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Notas de FONATEL para el informante.
+        /// </summary>
+        public static string NotasEncargado {
+            get {
+                return ResourceManager.GetString("NotasEncargado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Solicitud.
         /// </summary>
         public static string Solicitud {
             get {
                 return ResourceManager.GetString("Solicitud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tipo.
+        /// </summary>
+        public static string Tipo {
+            get {
+                return ResourceManager.GetString("Tipo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Título de Hoja.
+        /// </summary>
+        public static string TituloHoja {
+            get {
+                return ResourceManager.GetString("TituloHoja", resourceCulture);
             }
         }
     }

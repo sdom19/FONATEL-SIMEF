@@ -45,13 +45,20 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     idEstado = x.idEstado,
-
+                    ListaIndicadores = ObtenerIndicadoresXFormulario(x.idFormulario), 
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
                     FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.idFrecuencia == x.idFrecuencia).FirstOrDefault(),
                     DetalleFormularioWeb = ListaDetalleFormularioWeb(x.idFormulario),
                 }).ToList();
             }
             return ListaFormulariosWeb;
+        }
+
+        private string ObtenerIndicadoresXFormulario(int id) {
+            return db.Database.SqlQuery<string>
+                    ("execute spObtenerListadoIndicadoresXFormulario @idFormulario",
+                    new SqlParameter("@idFormulario", id)
+                    ).Single();
         }
 
         #endregion

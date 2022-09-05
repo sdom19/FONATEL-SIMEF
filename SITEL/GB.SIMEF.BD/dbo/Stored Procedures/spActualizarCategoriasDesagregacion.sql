@@ -53,12 +53,12 @@ BEGIN TRY
 												  ,Source.idEstado )
 										WHEN MATCHED THEN
 											UPDATE SET 
-											NombreCategoria=Source.NombreCategoria,
+											NombreCategoria=upper(Source.NombreCategoria),
 											CantidadDetalleDesagregacion=Source.CantidadDetalleDesagregacion,
 											idTipoDetalle=Source.idTipoDetalle,
 											IdTipoCategoria  =Source.IdTipoCategoria,
 											FechaModificacion=getdate(),
-											UsuarioModificacion=Source.UsuarioModificacion,
+											UsuarioModificacion=upper(Source.UsuarioModificacion),
 											idEstado=Source.idEstado;
 	COMMIT TRAN
 	SELECT TOP (1000) [idCategoria]

@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClasificacionIndicadorDAL.cs" />
+    <Compile Include="DetalleFormularioWebDAL.cs" />
     <Compile Include="DetalleIndicadorVariablesDAL.cs" />
     <Compile Include="DetalleRelacionCategoriaDAL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
@@ -100,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -53,7 +53,9 @@ namespace GB.SIMEF.DAL
                     Estado = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
                     Fuente = db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single(),
                     EnvioProgramado = db.SolicitudEnvioProgramado.Where(i => i.IdSolicitud == x.idSolicitud).SingleOrDefault(),
-                    SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud).ToList()
+                    SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud).ToList(),
+                    FormulariosString= ObtenerListaFormularioString(x.idSolicitud)
+
 
                 }).ToList();
             }
@@ -81,9 +83,27 @@ namespace GB.SIMEF.DAL
             return ListaSolicitud;
         }
 
+        /// <summary>
+        /// Obtener el listado de formularios en una fila string
+        /// </summary>
+        /// <param name="objSolicitud"></param>
+        /// <returns></returns>
+        public string ObtenerListaFormularioString(int objSolicitud)
+        {
+            string resultado = string.Empty;
+            resultado=  db.Database.SqlQuery<string>
+                  ("execute spObtenerFormularioXSolicitud @idSolicitud",
+                  new SqlParameter("@idSolicitud", objSolicitud)
+                    ).SingleOrDefault();
+            if (string.IsNullOrEmpty(resultado))
+            {
+                resultado = "N/A";
+            }
+            return resultado;
+        }
         #endregion
 
-        
+
 
     }
 }
