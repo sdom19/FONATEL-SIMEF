@@ -77,6 +77,7 @@
     "Consultas": {
 
         "ConsultaListaFormularioWeb": function () {
+            $("#loading").fadeIn();
             execAjaxCall("/FormularioWeb/ObtenerFormulariosWeb", "GET")
                 .then((obj) => {
                     JsFormulario.Variables.ListadoFormulario = obj.objetoRespuesta;

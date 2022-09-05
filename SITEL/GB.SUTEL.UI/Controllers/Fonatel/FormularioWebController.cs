@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,15 +17,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region Variables Públicas del controller
         private readonly FormularioWebBL formularioWebBL;
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
-        private readonly IndicadorBL indicadorBL;
+        private readonly IndicadorFonatelBL indicadorBL;
 
         #endregion
 
         public FormularioWebController()
         {
-            formularioWebBL = new FormularioWebBL();
-            this.frecuenciaEnvioBL = new FrecuenciaEnvioBL();
-            this.indicadorBL = new IndicadorBL();
+            formularioWebBL = new FormularioWebBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            this.frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            this.indicadorBL = new IndicadorFonatelBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
         #region Eventos de la Página

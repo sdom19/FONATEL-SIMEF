@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             AnnoBL = new AnnoBL();
             MesBL = new MesBL();
             fuenteBl = new FuentesRegistroBL();
-            formularioWebBL = new FormularioWebBL();
+            formularioWebBL = new FormularioWebBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
         }
 
@@ -81,12 +82,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
             return View(model);
         }
-
-
-
-
-
-
         public async Task<string> ObtenerListaSolicitudes()
         {
             RespuestaConsulta<List<Solicitud>> result = null;

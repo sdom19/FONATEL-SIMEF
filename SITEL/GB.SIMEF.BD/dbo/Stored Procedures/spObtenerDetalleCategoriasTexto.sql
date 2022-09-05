@@ -1,5 +1,5 @@
 ﻿
-CREATE procedure [dbo].[spObtenerDetalleCategoriaTexto]
+CREATE procedure [dbo].[spObtenerDetalleCategoriasTexto]
 @idCategoriaDetalle int,
 @idCategoria int,
 @codigo int,
