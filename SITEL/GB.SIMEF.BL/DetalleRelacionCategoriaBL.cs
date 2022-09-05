@@ -77,15 +77,16 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 ResultadoConsulta.Usuario = objeto.usuario;
 
-                if (!string.IsNullOrEmpty(objeto.relacionid))
+                if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objeto.relacionid), out temp);
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
                     objeto.IdRelacionCategoria = temp;
                 }
-
+              
                 var RegistrosEncontrados = clsDatos.ObtenerDatos(new DetalleRelacionCategoria()
                 { IdRelacionCategoria = objeto.IdRelacionCategoria }).ToList();
+
 
                 RegistrosEncontrados = RegistrosEncontrados.Where(x => x.idCategoriaAtributo != objeto.idCategoriaAtributo).ToList();
 

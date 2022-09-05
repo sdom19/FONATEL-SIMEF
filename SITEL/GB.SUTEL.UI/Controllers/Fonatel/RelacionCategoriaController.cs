@@ -85,9 +85,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria })
                     .objetoRespuesta.Single();
 
+
                 return View(model);
             }
-
 
         }
 
@@ -348,7 +348,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         /// <summary>
-        /// Inserta un detalle relacion entre categorias
+        /// Editar un detalle relacion entre categorias
         /// 29/08/2022
         /// Francisco Vindas Ruiz
         /// </summary>
