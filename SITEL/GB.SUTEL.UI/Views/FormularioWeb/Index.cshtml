@@ -1,12 +1,12 @@
 ﻿@using GB.SIMEF.Resources;
 
 @{
-    ViewBag.Title = "Formulario Web";
+    ViewBag.Title = Etiquetas.Formulario;
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/FormularioWeb")
+    @*Scripts.Render("~/bundles/FONATEL/FormularioWeb")*@
 }
 
 <div class="container body-content">
@@ -14,17 +14,17 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Formulario Web</li>
+                <li class="breadcrumb-item active" aria-current="page">@Etiquetas.Formulario</li>
             </ol>
         </nav>
     </div>
-    <div class="row">
+    <div id="FormularioIndex" class="row">
         <div class="col-lg-12 mt-4">
-            <h2 class="page-title-fonatel text-center">Formulario Web</h2>
+            <h2 class="page-title-fonatel text-center">@Etiquetas.Formulario</h2>
             <hr />
         </div>
         <div class="col-lg-12 mt-4">
-            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCrear" alt="@Etiquetas.BotonCrear" href="/Fonatel/FormularioWeb/Create">@Etiquetas.BotonCrear</a>
+            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCrear" alt="@Etiquetas.BotonCrear" href="@Url.Action( "create","FormularioWeb")">@Etiquetas.BotonCrear</a>
         </div>
 
         <div class="col-lg-12 mt-4">
@@ -36,3 +36,4 @@
 </div>
 
 
+<script src="~/Scripts/Fonatel/JsFormularios.js"></script>
