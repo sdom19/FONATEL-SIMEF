@@ -271,6 +271,21 @@ function InsertarItemSelect2 (pSelect2, pTexto, pValor, pDefaultSelected = false
     $(pSelect2).append(newOption).trigger('change');
 }
 
+function InsertarDataSetSelect2(pSelect2, pDataSet) {
+    if (pDataSet.length > 0) {
+        pDataSet.forEach(option => {
+            var newOption = new Option(option.text, option.value, false, false);
+            $(pSelect2).append(newOption);
+        });
+        $(pSelect2).trigger('change');
+    }
+}
+
+function InsertarOpcionTodosSelect2Multiple(pSelect2) {
+    var newOption = new Option("Todos", "all", false, false);
+    $(pSelect2).append(newOption).trigger('change');
+}
+
 function InsertarParametroUrl (pParametro, pValor) {
     const url = new URL(window.location);
     url.searchParams.set(pParametro, pValor);

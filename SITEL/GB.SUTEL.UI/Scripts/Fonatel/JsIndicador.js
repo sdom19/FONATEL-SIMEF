@@ -37,7 +37,7 @@
             EliminarDatasource();
             let html = "";
 
-            listaIndicadores.forEach(item => {
+            listaIndicadores?.forEach(item => {
                 html += "<tr>";
                 html += `<th scope='row'>${ item.Codigo }</th>`;
                 html += `<th scope='row'>${ item.Nombre }</th>`;
@@ -296,6 +296,8 @@ CreateView = {
         inputModalUnidadEstudio: "#modalUnidadEstudio #inputUnidadEstudio",
         inputModalUnidadEstudioHelp: "#modalUnidadEstudio #inputUnidadEstudioHelp",
 
+        prefijoLabelsHelp: "Help",
+
         // ============ Formularios ============
         formIndicador: {
             form: "#formCrearIndicador",
@@ -319,7 +321,6 @@ CreateView = {
             inputDescripcion: "#inputDescripcion",
             inputNota: "#inputNota",
             inputFuenteIndicador: "#inputFuenteIndicador",
-            prefijoLabelsHelp: "Help",
         },
 
         formVariable: {
@@ -331,13 +332,16 @@ CreateView = {
             btnEliminarVariable: "#tableDetallesVariable tbody tr td .btn-delete",
 
             inputNombreVariable: "#inputNombreVariable",
-            inputDescripcionVariable: "#inputDescripcionVariable"
+            inputDescripcionVariable: "#inputDescripcionVariable",
         },
 
         formCategoria: {
             form: "#formCrearCategoria",
             btnSiguiente: "#btnSiguienteCategoria",
-            btnAtras: "#btnAtrasCategoria"
+            btnAtras: "#btnAtrasCategoria",
+
+            ddlCategoriaIndicador: "#ddlCategoriaIndicador",
+            ddlCategoriaDetalleIndicador: "#ddlCategoriaDetalleIndicador"
         },
 
         //btnstep: ".step_navigation_indicador div",
@@ -394,7 +398,7 @@ CreateView = {
             EliminarDatasource(CreateView.Controles.tableModalTipoIndicador);
             let html = "";
 
-            pListaTipoIndicador.forEach(item => {
+            pListaTipoIndicador?.forEach(item => {
                 html += "<tr>";
                 html += `<th scope='row'>${item.Nombre}</th>`;
                 html += "<td>"
@@ -506,7 +510,7 @@ CreateView = {
             EliminarDatasource(CreateView.Controles.tableModalGrupoIndicador);
             let html = "";
 
-            pListaGrupoIndicador.forEach(item => {
+            pListaGrupoIndicador?.forEach(item => {
                 html += "<tr>";
                 html += `<th scope='row'>${item.Nombre}</th>`;
                 html += "<td>"
@@ -617,7 +621,7 @@ CreateView = {
             EliminarDatasource(CreateView.Controles.tableModalUnidadEstudio);
             let html = "";
 
-            pListaUnidadEstudio.forEach(item => {
+            pListaUnidadEstudio?.forEach(item => {
                 html += "<tr>";
                 html += `<th scope='row'>${item.Nombre}</th>`;
                 html += "<td>"
@@ -750,11 +754,9 @@ CreateView = {
                 CreateView.Consultas.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador(false))
                     .then(data => {
                         InsertarParametroUrl("id", data.objetoRespuesta[0].id);
+                        $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
 
-                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
-                            .set('onok', function (closeEvent) {
-                                $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
-                            });
+                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado").set('onok', function (closeEvent) { });
                     })
                     .catch(error => {
                         if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -772,7 +774,7 @@ CreateView = {
 
         CrearIndicadorGuardadoParcial: function () {
             let mensaje = "";
-            let prefijoHelp = CreateView.Controles.formIndicador.prefijoLabelsHelp;
+            let prefijoHelp = CreateView.Controles.prefijoLabelsHelp;
             let validacionFormulario = CreateView.Metodos.ValidarFormularioIndicador();
             let camposObligatoriosPendientes = false;
 
@@ -851,7 +853,7 @@ CreateView = {
             EliminarDatasource();
             let html = "";
 
-            listaVariables.forEach((item, index) => {
+            listaVariables?.forEach((item, index) => {
                 html += "<tr>";
                 html += `<th scope='row'>${item.NombreVariable}</th>`;
                 html += `<th scope='row'>${item.Descripcion}</th>`;
@@ -893,19 +895,20 @@ CreateView = {
         },
 
         // Formulario Detalles Categorias
-        CargarDatosDetallesCategorias: function () {
+        CargarCategoriasDesagregacionTipoAtributo: function () {
             if (!CreateView.Variables.hizoCargaDetallesCategorias) {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ConsultarCategoriasDesagregacionTipoAtributo()
                     .then(data => {
-
-                        data.forEach(item => {
-                            InsertarItemSelect2()
+                        let dataSet = []
+                        data.objetoRespuesta?.forEach(item => {
+                            dataSet.push({ value: item.id, text: item.NombreCategoria });
                         });
-
+                        InsertarDataSetSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, dataSet);
                         CreateView.Variables.hizoCargaDetallesCategorias = true;
                     })
                     .catch(error => {
+                        console.log(error);
                         if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                             jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                         }
@@ -919,8 +922,35 @@ CreateView = {
             }
         },
 
-        CargarCategoriasDesagregacionTipoAtributo: function () {
-            
+        CargarDatosDetallesCategorias: function (pIdCategoria) {
+            $("#loading").fadeIn();
+
+            $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).empty();
+
+            CreateView.Consultas.ConsultarDetallesCategoriaDesagregacion(pIdCategoria)
+                .then(data => {
+                    let dataSet = [];
+                    data.objetoRespuesta?.forEach(item => {
+                        dataSet.push({ value: item.id, text: item.Etiqueta });
+                    });
+
+                    if (dataSet.length > 0) {
+                        InsertarOpcionTodosSelect2Multiple(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador);
+                    }
+
+                    InsertarDataSetSelect2(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador, dataSet);
+                })
+                .catch(error => {
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
         }
     },
 
@@ -971,6 +1001,10 @@ CreateView = {
 
         ConsultarCategoriasDesagregacionTipoAtributo: function () {
             return execAjaxCall('/IndicadorFonatel/ObtenerCategoriasDesagregacionTipoAtributo', 'GET');
+        },
+
+        ConsultarDetallesCategoriaDesagregacion: function (pIdCategoria) {
+            return execAjaxCall('/IndicadorFonatel/ObtenerDetallesCategoriaDesagregacion', 'GET', { pIdCategoria: pIdCategoria });
         }
     },
 
@@ -1043,10 +1077,18 @@ CreateView = {
 
         $(document).on("click", CreateView.Controles.step2Variable, function (e) {
             let id = ObtenerValorParametroUrl("id");
-
             if (id != null || $.trim(id) != "") {
                 CreateView.Metodos.CargarDetallesVariable(id);
             }
+        });
+
+        $(document).on("click", CreateView.Controles.step3Categoria, function (e) {
+            let id = ObtenerValorParametroUrl("id");
+            if (id != null || $.trim(id) != "") {
+                // proximamente
+            }
+
+            CreateView.Metodos.CargarCategoriasDesagregacionTipoAtributo();
         });
 
         $(document).on("click", CreateView.Controles.formVariable.btnEditarIndicador, function (e) {
@@ -1059,6 +1101,13 @@ CreateView = {
             }
             else {
                 CreateView.Metodos.CrearDetallesVariables();
+            }
+        });
+
+        $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).on('select2:select', function (event) {
+            let id = $(this).val();
+            if (id != null || $.trim(id) != "") {
+                CreateView.Metodos.CargarDatosDetallesCategorias(id);
             }
         });
 

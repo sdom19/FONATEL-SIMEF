@@ -25,6 +25,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly DetalleIndicadorVariablesBL detalleIndicadorVariablesBL;
         private readonly DetalleIndicadorCategoriaBL detalleIndicadorCategoriaBL;
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
+        private readonly DetalleCategoriasTextoBL detalleCategoriasTextoBL;
         private readonly string defaultDropDownValue;
 
 
@@ -41,6 +42,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             detalleIndicadorCategoriaBL = new DetalleIndicadorCategoriaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             categoriasDesagregacionBL = new CategoriasDesagregacionBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            detalleCategoriasTextoBL = new DetalleCategoriasTextoBL();
 
             defaultDropDownValue = Utilidades.GetDefaultDropDownValue();
         }
@@ -618,7 +620,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Función que permite obtener las categorías de desagregación
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         public async Task<string> ObtenerCategoriasDesagregacionTipoAtributo()
         {
             RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
@@ -628,6 +630,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = categoriasDesagregacionBL.ObtenerDatos(new CategoriasDesagregacion() {
                     IdTipoCategoria = (int)TipoCategoriaEnum.Atributo
                 });
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 06/09/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener los detalles de una categorías de desagregación
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerDetallesCategoriaDesagregacion(string pIdCategoria)
+        {
+            RespuestaConsulta<List<DetalleCategoriaTexto>> resultado = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
+
+            if (string.IsNullOrEmpty(pIdCategoria))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+            await Task.Run(() =>
+            {
+                // TEMPORALMENTE se utiliza detalleCategoriasTextoBL
+                resultado = detalleCategoriasTextoBL.ObtenerDatos(new DetalleCategoriaTexto() { categoriaid = pIdCategoria });
             });
             return JsonConvert.SerializeObject(resultado);
         }

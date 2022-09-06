@@ -9,11 +9,6 @@
             <div class="form-group center">
                 <label for="ddlCategoriaIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearCategoria_LabelCategoriaIndicador</label>
                 <div class="select2-wrapper">
-                    @*<select class="listasDesplegables" id="ddlCategoriaIndicador">
-                        <option></option>
-                        <option value="1">Provincia</option>
-                        <option value="2">Cantón</option>
-                    </select>*@
                     @Html.DropDownListFor(model => model.IdCategoria, Enumerable.Empty<SelectListItem>(), "Seleccione", new { @class = "listasDesplegables", id = "ddlCategoriaIndicador" })
                 </div>
                 <small id="ddlCategoríaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
@@ -24,16 +19,6 @@
             <div class="form-group center">
                 <label for="ddlCategoriaDetalleIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearCategoria_LabelDetalleIndicador</label>
                 <div class="select2-wrapper">
-                    @*<select class="listasDesplegables multiple-Select" multiple id="ddlcategoriadetalleindicador">
-                        <option value="all">Todos</option>
-                        <option value="1">san jose</option>
-                        <option value="2">limón</option>
-                        <option value="2">cartago</option>
-
-                        <option value="1">guanacaste</option>
-                        <option value="2">heredía</option>
-                        <option value="2">puntarenas</option>
-                    </select>*@
                     @Html.DropDownListFor(model => model.idDetalleIndicador, Enumerable.Empty<SelectListItem>(), "Seleccione", new { @class = "listasDesplegables multiple-Select", id = "ddlCategoriaDetalleIndicador", multiple = "multiple" })
                 </div>
                 <small id="ddlCategoriaDetalleIndicadorHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>

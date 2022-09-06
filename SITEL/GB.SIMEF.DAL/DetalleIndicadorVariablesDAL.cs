@@ -2,6 +2,7 @@
 using GB.SIMEF.Resources;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,13 +20,17 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public List<DetalleIndicadorVariables> ObtenerDatosPorIndicador(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public List<DetalleIndicadorVariables> ObtenerDatos(DetalleIndicadorVariables pDetalleIndicadorVariables)
         {
             List<DetalleIndicadorVariables> listaDetalles = new List<DetalleIndicadorVariables>();
 
             using (db = new SIMEFContext())
             {
-                listaDetalles = db.DetalleIndicadorVariables.Where(x => x.idIndicador == pDetalleIndicadorVariables.idIndicador && x.Estado == true).ToList();
+                listaDetalles = db.Database.SqlQuery<DetalleIndicadorVariables>
+                    ("execute spObtenerDetallesIndicadorVariables @pIdDetalleIndicador,@pIdIndicador ",
+                     new SqlParameter("@pIdDetalleIndicador", pDetalleIndicadorVariables.idDetalleIndicador),
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorVariables.idIndicador)
+                    ).ToList();
             }
 
             listaDetalles = listaDetalles.Select(x => new DetalleIndicadorVariables()
