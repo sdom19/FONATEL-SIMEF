@@ -25,8 +25,8 @@ namespace GB.SIMEF.Entities
         [Key]
         public int idDetalleIndicador { get; set; }
         public int idIndicador { get; set; }
-        public int IdCategoria { get; set; }
-        public int IdCategoriaDetalle { get; set; }
+        public int idCategoria { get; set; }
+        public int idCategoriaDetalle { get; set; }
         public bool Estado { get; set; }
 
         [NotMapped]
@@ -40,5 +40,8 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string idCategoriaDetalleString { get; set; }
+
+        [NotMapped]
+        public string Etiquetas { get; set; }
     }
 }

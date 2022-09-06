@@ -9,7 +9,7 @@
             <div class="form-group center">
                 <label for="ddlCategoriaIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearCategoria_LabelCategoriaIndicador</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownListFor(model => model.IdCategoria, Enumerable.Empty<SelectListItem>(), "Seleccione", new { @class = "listasDesplegables", id = "ddlCategoriaIndicador" })
+                    @Html.DropDownListFor(model => model.idCategoria, Enumerable.Empty<SelectListItem>(), "Seleccione", new { @class = "listasDesplegables", id = "ddlCategoriaIndicador" })
                 </div>
                 <small id="ddlCategoríaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>

@@ -339,6 +339,7 @@ CreateView = {
             form: "#formCrearCategoria",
             btnSiguiente: "#btnSiguienteCategoria",
             btnAtras: "#btnAtrasCategoria",
+            tablaDetallesCategoria: "#tableDetallesCategoria tbody",
 
             ddlCategoriaIndicador: "#ddlCategoriaIndicador",
             ddlCategoriaDetalleIndicador: "#ddlCategoriaDetalleIndicador"
@@ -895,6 +896,48 @@ CreateView = {
         },
 
         // Formulario Detalles Categorias
+        CargarDetallesCategoria: function (pIndicador) {
+            if (!CreateView.Variables.hizoCargaDetallesCategorias) {
+                $("#loading").fadeIn();
+                CreateView.Consultas.ConsultarDetallesCategoria(pIndicador)
+                    .then(data => {
+                        CreateView.Metodos.InsertarDatosTablaDetallesCategoria(data.objetoRespuesta);
+                        //CreateView.Variables.listaVariablesDato = data.objetoRespuesta;
+                        CreateView.Variables.hizoCargaDetallesCategorias = true;
+                    })
+                    .catch(error => {
+                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        }
+                    })
+                    .finally(() => {
+                        $("#loading").fadeOut();
+                    });
+            }
+        },
+
+        InsertarDatosTablaDetallesCategoria: function (listaVariables) {
+            EliminarDatasource();
+            let html = "";
+
+            listaVariables?.forEach((item, index) => {
+                html += "<tr>";
+                html += `<th scope='row'>${index}</th>`;
+                html += `<th>${index}</th>`;
+                html += `<th>${index}</th>`;
+                html += "<td>"
+                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit" value=${index}></button>`
+                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete" value=${item.id}></button>`
+                html += "</td>"
+                html += "</tr>";
+            });
+            $(CreateView.Controles.formCategoria.tablaDetallesCategoria).html(html);
+            CargarDatasource();
+        },
+
         CargarCategoriasDesagregacionTipoAtributo: function () {
             if (!CreateView.Variables.hizoCargaDetallesCategorias) {
                 $("#loading").fadeIn();
@@ -922,12 +965,12 @@ CreateView = {
             }
         },
 
-        CargarDatosDetallesCategorias: function (pIdCategoria) {
+        CargarDetallesDeLaCategoria: function (pIdCategoria) {
             $("#loading").fadeIn();
 
             $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).empty();
 
-            CreateView.Consultas.ConsultarDetallesCategoriaDesagregacion(pIdCategoria)
+            CreateView.Consultas.ConsultarDetallesDeCategoriaDesagregacion(pIdCategoria)
                 .then(data => {
                     let dataSet = [];
                     data.objetoRespuesta?.forEach(item => {
@@ -951,7 +994,9 @@ CreateView = {
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
-        }
+        },
+
+        
     },
 
     Consultas: {
@@ -1003,9 +1048,13 @@ CreateView = {
             return execAjaxCall('/IndicadorFonatel/ObtenerCategoriasDesagregacionTipoAtributo', 'GET');
         },
 
-        ConsultarDetallesCategoriaDesagregacion: function (pIdCategoria) {
-            return execAjaxCall('/IndicadorFonatel/ObtenerDetallesCategoriaDesagregacion', 'GET', { pIdCategoria: pIdCategoria });
-        }
+        ConsultarDetallesDeCategoriaDesagregacion: function (pIdCategoria) {
+            return execAjaxCall('/IndicadorFonatel/ObtenerDetallesDeCategoriaDesagregacion', 'GET', { pIdCategoria: pIdCategoria });
+        },
+
+        ConsultarDetallesCategoria: function (pIdIndicador) {
+            return execAjaxCall('/IndicadorFonatel/ObtenerListaDetallesCategoria', 'GET', { pIdIndicador: pIdIndicador });
+        },
     },
 
     Eventos: function () {
@@ -1085,7 +1134,7 @@ CreateView = {
         $(document).on("click", CreateView.Controles.step3Categoria, function (e) {
             let id = ObtenerValorParametroUrl("id");
             if (id != null || $.trim(id) != "") {
-                // proximamente
+                CreateView.Metodos.CargarDetallesCategoria(id);
             }
 
             CreateView.Metodos.CargarCategoriasDesagregacionTipoAtributo();
@@ -1107,7 +1156,7 @@ CreateView = {
         $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).on('select2:select', function (event) {
             let id = $(this).val();
             if (id != null || $.trim(id) != "") {
-                CreateView.Metodos.CargarDatosDetallesCategorias(id);
+                CreateView.Metodos.CargarDetallesDeLaCategoria(id);
             }
         });
 

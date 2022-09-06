@@ -641,7 +641,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<string> ObtenerDetallesCategoriaDesagregacion(string pIdCategoria)
+        public async Task<string> ObtenerDetallesDeCategoriaDesagregacion(string pIdCategoria)
         {
             RespuestaConsulta<List<DetalleCategoriaTexto>> resultado = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
 

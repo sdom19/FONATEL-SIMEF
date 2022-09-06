@@ -20,6 +20,7 @@ namespace GB.SIMEF.BL
         {
             modulo = pView;
             user = pUser;
+            detalleIndicadorCategoriaDAL = new DetalleIndicadorCategoriaDAL();
         }
 
         public RespuestaConsulta<List<DetalleIndicadorCategoria>> ActualizarElemento(DetalleIndicadorCategoria objeto)
@@ -55,21 +56,21 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 06/09/2022
         /// José Navarro Acuña
-        /// Función que permite obtener los detalles indicador de una categoría
+        /// Función que permite obtener los detalles de categorias de un indicador
         /// </summary>
         /// <param name="pDetalleIndicadorCategoria"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorCategoria>> ObtenerDatosPorCategoria(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
+        public RespuestaConsulta<List<DetalleIndicadorCategoria>> ObtenerDatosPorIndicador (DetalleIndicadorCategoria pDetalleIndicadorCategoria)
         {
             RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
             bool errorControlado = false;
 
             try
             {
-                int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.idCategoriaDetalleString), out int number);
-                pDetalleIndicadorCategoria.IdCategoria = number;
+                int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.idIndicadorString), out int number);
+                pDetalleIndicadorCategoria.idIndicador = number;
 
-                if (pDetalleIndicadorCategoria.IdCategoria == 0) // ¿ID descencriptado con éxito?
+                if (pDetalleIndicadorCategoria.idIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -88,11 +89,6 @@ namespace GB.SIMEF.BL
                     resultado.HayError = (int)Error.ErrorSistema;
             }
             return resultado;
-        }
-
-        public RespuestaConsulta<List<DetalleIndicadorCategoria>> ObtenerDatosPorIndicador (DetalleIndicadorCategoria objeto)
-        {
-            throw new NotImplementedException();
         }
 
         public RespuestaConsulta<List<DetalleIndicadorCategoria>> ValidarDatos(DetalleIndicadorCategoria objeto)
