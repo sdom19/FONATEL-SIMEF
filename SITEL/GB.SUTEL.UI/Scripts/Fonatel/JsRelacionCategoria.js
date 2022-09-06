@@ -292,21 +292,6 @@
                 });
         },
 
-        "DetalleCompletos": function () {
-
-            let formularioCompleto = JsRelacion.Variables.ListadoDetalleRelaciones.length == 0 ? false : JsRelacion.Variables.ListadoDetalleRelaciones[0].Completo;
-
-                if (formularioCompleto) {
-                    $(JsRelacion.Controles.btnGuardarDetalle).prop("disabled", true);
-                    $(JsRelacion.Controles.btnFinalizarDetalleRelacion).prop("disabled", false);
-                } else {
-                    $(JsRelacion.Controles.btnGuardarDetalle).prop("disabled", false);
-                    $(JsRelacion.Controles.btnFinalizarDetalleRelacion).prop("disabled", true);
-                }
-            
-
-        },
-
         "InsertarRelacion": function () {
 
             $("#loading").fadeIn();
@@ -427,7 +412,7 @@
 
             execAjaxCall("/RelacionCategoria/InsertarDetalleRelacion", "POST", RelacionDetalle)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("El detalle ha sido creado")
+                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido creado")
                         .set('onok', function (closeEvent) {
                             location.reload();
                         });
@@ -460,18 +445,22 @@
 
             execAjaxCall("/RelacionCategoria/ModificarDetalleRelacion", "POST", RelacionDetalle)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("El detalle ha sido modificado")
+                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido modificado")
                         .set('onok', function (closeEvent) {
                             location.reload();
                         });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
+                            .set('onok', function (closeEvent) {
+
+                            });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); })
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+
+                            });
                     }
                 }).finally(() => {
                     $("#loading").fadeOut();
@@ -502,7 +491,7 @@
 
                     JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaDetalleRelacionElemento, `button[value='${idDetalleRelacionCategoria}']`)
 
-                    jsMensajes.Metodos.OkAlertModal("La relación ha sido eliminada")
+                    jsMensajes.Metodos.OkAlertModal("La Detalle ha sido eliminado")
                         .set('onok', function (closeEvent) {
 
                             JsRelacion.Variables.ListadoDetalleRelaciones = obj.objetoRespuesta;
@@ -513,11 +502,11 @@
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) {  });
+                            .set('onok', function (closeEvent) { });
                     }
                     else {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) {  })
+                            .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
                     $("#loading").fadeOut();
@@ -551,6 +540,34 @@
                 $("#loading").fadeOut();
 
             })
+        },
+
+        "DetalleCompletos": function () {
+
+            let formularioCompleto = JsRelacion.Variables.ListadoDetalleRelaciones.length == 0 ? false : JsRelacion.Variables.ListadoDetalleRelaciones[0].Completo;
+
+            if (JsRelacion.Variables.ModoEditarAtributo) {
+
+                if (formularioCompleto) {
+
+                    $(JsRelacion.Controles.btnGuardarDetalle).prop("disabled", false);
+                    $(JsRelacion.Controles.btnFinalizarDetalleRelacion).prop("disabled", true);
+
+                }
+                
+            } else {
+
+                if (formularioCompleto) {
+
+                    $(JsRelacion.Controles.btnGuardarDetalle).prop("disabled", true);
+                    $(JsRelacion.Controles.btnFinalizarDetalleRelacion).prop("disabled", false);
+
+                } else {
+                    $(JsRelacion.Controles.btnGuardarDetalle).prop("disabled", false);
+                    $(JsRelacion.Controles.btnFinalizarDetalleRelacion).prop("disabled", true);
+                }
+            }
+
         },
 
 
@@ -617,6 +634,7 @@ $(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
 
 //EVENTO DE CAMBIO PARA CARGAR DETALLE CATEGORIAS DESAGREGACION 
 $(document).on("change", JsRelacion.Controles.ddlCategoriaDetalle, function () {
+
     let selected = $(this).val();
     if (selected != 0) {
         JsRelacion.Consultas.ConsultarDetalleDesagregacionId(selected);
