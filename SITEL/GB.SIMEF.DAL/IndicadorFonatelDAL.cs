@@ -51,7 +51,8 @@ namespace GB.SIMEF.DAL
 
                 listaIndicadores = listaIndicadores.Select(x => new Indicador()
                 {
-                    id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                    id = Utilidades.Encriptar(x.idIndicador.ToString()), 
+                    idIndicador=x.idIndicador,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),

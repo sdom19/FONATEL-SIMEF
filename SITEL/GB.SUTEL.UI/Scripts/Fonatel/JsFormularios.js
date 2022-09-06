@@ -33,6 +33,10 @@
 
     "Metodos": {
 
+
+
+
+
         "CargarTablasFormulario": function () {
             EliminarDatasource();
             let html = "";
@@ -101,6 +105,75 @@
     },
 
     "Consultas": {
+
+
+        "EliminarFormulario": function (idFormulario)
+        {
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+        },
+
+        "DesactivarFormulario": function (idFormulario) {
+            let objFormulario = new Object()
+            objFormulario.id = idFormulario;
+            execAjaxCall("/FormularioWeb/ValidarFormulario", "POST", objFormulario)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido desactivado")
+                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    } else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "ValidarExistenciaFormulario": function (idFormulario, eliminado = false) {
+            $("#loading").fadeIn();
+            let objFormulario= new Object()
+            objFormulario.id = idFormulario;
+            execAjaxCall("/FormularioWeb/ValidarFormulario", "POST", objFormulario)
+                .then((obj) => {
+                    if (obj.objetoRespuesta.length == 0) {
+
+                        if (eliminado) {
+                            JsFormulario.Consultas.EliminarFormulario(idFormulario);
+
+                        } else {
+                            JsFormulario.Consultas.DesactivarFormulario(idFormulario);
+                        }
+                    } else {
+                        let dependencias = obj.objetoRespuesta[0] + "<br>"
+                        if (eliminado) {
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario ya está en uso en las<br>" + dependencias + "<br>¿Desea Eliminar?", jsMensajes.Variables.actionType.eliminar)
+                                .set('onok', function (closeEvent) {
+                                    JsFormulario.Consultas.EliminarFormulario(idFormulario);
+                                })
+                        }
+                        else {
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario ya está en uso en las<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                                .set('onok', function (closeEvent) {
+                                    JsFormulario.Consultas.DesactivarFormulario(idFormulario);
+                                })
+                        }        
+                    }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    } else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
 
         "ConsultaListaFormularioWeb": function () {
             $("#loading").fadeIn();
@@ -171,42 +244,28 @@ $(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, function 
 
 
 $(document).on("click", JsFormulario.Controles.btnDeleteFormulario, function (e) {
+    let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Formulario?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+            JsFormulario.Consultas.ValidarExistenciaFormulario(id, true);
         });
 });
-
-
-$(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Indicador?", jsMensajes.Variables.actionType.eliminar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado")
-                .set('onok', function (closeEvent) { });
-        });
-});
-
-
-
-
 
 
 
 $(document).on("click", JsFormulario.Controles.btnDesactivadoFormulario, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Formulario?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Formulario?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Formulario ha sido activada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
         });
 });
 $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (e) {
-    e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Formulario?", jsMensajes.Variables.actionType.agregar)
+    let id = $(this).val();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Formulario?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Formulario ha sido activada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+            JsFormulario.Consultas.ValidarExistenciaFormulario(id);
         });
 });
 

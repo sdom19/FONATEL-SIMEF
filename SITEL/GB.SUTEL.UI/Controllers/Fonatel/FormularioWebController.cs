@@ -60,6 +60,97 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+
+
+        [HttpPost]
+        public async Task<string> EliminarFormulario(FormularioWeb objFormulario)
+        {
+
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
+                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Eliminado;
+                result = formularioWebBL.EliminarElemento(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
+        [HttpPost]
+        public async Task<string> DesactivarFormulario(FormularioWeb objFormulario)
+        {
+
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
+                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Desactivado;
+                result = formularioWebBL.CambioEstado(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+        [HttpPost]
+        public async Task<string> ActivarFormulario(FormularioWeb objFormulario)
+        {
+
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
+                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                result = formularioWebBL.CambioEstado(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Validar si el formulario está en una solicitud 
+        /// Michael Hernandez Cordero
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<string> ValidarFormulario( FormularioWeb objFormulario)
+        {
+            RespuestaConsulta<List<string>> result = null;
+            await Task.Run(() =>
+            {
+                return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
+                result = formularioWebBL.ValidarDatos(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
         [HttpGet]
         public ActionResult Create(string id, int? modo)
         {
@@ -76,12 +167,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 objFormularioWeb.id = id;
                 objFormularioWeb = formularioWebBL.ObtenerDatos(objFormularioWeb).objetoRespuesta.SingleOrDefault();
                 objDetalleFormularioWeb.formularioweb = objFormularioWeb;
-                if (modo==(int)Constantes.Accion.Clonar)
+                if (modo == (int)Constantes.Accion.Clonar)
+                {
                     ViewBag.ModoTitulo = EtiquetasViewFormulario.ClonarFormulario;
-                objDetalleFormularioWeb.formularioweb.Codigo = string.Empty;
-                objDetalleFormularioWeb.formularioweb.Nombre = string.Empty;
-                if (modo==(int)Constantes.Accion.Editar)
+                    objDetalleFormularioWeb.formularioweb.Codigo = string.Empty;
+                    objDetalleFormularioWeb.formularioweb.Nombre = string.Empty;
+                }
+                if (modo == (int)Constantes.Accion.Editar)
+                {
                     ViewBag.ModoTitulo = EtiquetasViewFormulario.EditarFormularioWeb;
+                }
             }
             else
                 ViewBag.ModoTitulo = EtiquetasViewFormulario.CrearFormulario;

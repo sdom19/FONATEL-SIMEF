@@ -75,7 +75,27 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<ReglaValidacion>> ValidarDatos(ReglaValidacion objeto)
+        public RespuestaConsulta<List<string>> ValidarDatos(ReglaValidacion objeto)
+        {
+            RespuestaConsulta<List<string>> resultado = new RespuestaConsulta<List<string>>(); 
+            try
+            {
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ValidarDatos(objeto);
+                resultado.objetoRespuesta = resul;
+                resultado.CantidadRegistros = resul.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+
+            }
+            return resultado;
+        }
+
+        RespuestaConsulta<List<ReglaValidacion>> IMetodos<ReglaValidacion>.ValidarDatos(ReglaValidacion objeto)
         {
             throw new NotImplementedException();
         }

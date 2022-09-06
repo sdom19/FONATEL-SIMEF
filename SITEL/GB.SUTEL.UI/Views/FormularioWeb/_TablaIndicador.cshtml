@@ -16,17 +16,20 @@
             </tr>
         </thead>
         <tbody>
-            @*@foreach(var indi in Model.formularioweb.ListaIndicadores) 
+            @foreach(var indi in Model.formularioweb.ListaIndicadoresObj) 
             { 
-                <tr>
-                    <td>@indi</td>
-                    <td>@indi</td>
-                    <td>@indi</td>
-                    <td>@indi</td>
-                    <td>@indi</td>
-                    <td>@indi</td>
-                </tr>
-            }*@
+            <tr>
+                <td>@indi.Codigo</td>
+                <td>@indi.Nombre</td>
+                <td>@indi.GrupoIndicadores.Nombre</td>
+                <td>@indi.TipoIndicadores.Nombre</td>
+                <td>@indi.EstadoRegistro.Nombre</td>
+                <td>
+                    <button type='button' data-toggle='tooltip' data-placement='top' value="@indi.idIndicador" data-original-title='Editar' title='Editar' class='btn-icon-base btn-edit'></button>
+                    <button type='button' data-toggle='tooltip' data-placement='top' value="@indi.idIndicador" data-original-title='Eliminar' title='Eliminar' class='btn-icon-base btn-delete'></button>
+                </td>
+            </tr>
+            }
         </tbody>
 
     </table>
