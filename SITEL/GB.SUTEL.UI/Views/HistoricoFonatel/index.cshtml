@@ -6,7 +6,7 @@
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/HistoricoFonatel")
+    @*@Scripts.Render("~/bundles/FONATEL/HistoricoFonatel")*@
 }
 
 <div class="container body-content">
@@ -14,65 +14,45 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="@Url.Action( "index","Home")">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Descarga de Datos Históricos</li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewHistorico.Descarga</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Descarga de Datos Históricos</h2>
-            <hr />
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewHistorico.Descarga</h2>
         </div>
-        <div class="col-lg-12">
-            <div class="row">
-                <div class=" col-md-4 col-sm-10 col-sm-offset-2 col-md-offset-2">
-                    <label for="ddlNombreHistorico" class="col-sm-12 col-form-label ">Nombre de Tabla</label>
+        <div class="col-lg-12 text-center mt-4">
+            <div class="row mt-4">
+                <label for="ddlNombreHistorico" class="col-sm-12 col-form-label ">@EtiquetasViewHistorico.CodigoNombre</label>
                     <div class="col-sm-12">
-                        <div class="select2-wrapper">
-                            <select class=" listasDesplegables" aria-label="Default select example" id="ddlNombreHistorico">
-                                <option></option>
-                                <option value="1">Programa 1</option>
-                                <option value="2">Programa 2</option>
-                                <option value="3">Programa 3</option>
-                            </select>
 
+                        <div class="select2-wrapper">
+                            @Html.DropDownList("ddlNombreHistorico",  new SelectList(ViewBag.ListadoDatosHistoricos, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables multiple-Select", id = "ddlNombreHistorico", multiple=true })
                         </div>
                     </div>
-                </div>
-                <div class=" col-md-6 col-sm-10 col-sm-offset-2 col-md-offset-0">
-
-
-                    <label for="ddlCodigoHistorico" class="col-sm-12 col-form-label ">Código de Tabla</label>
-                    <div class="col-sm-12">
-                        <div class="select2-wrapper">
-                            <select class=" listasDesplegables" aria-label="Default select example" id="ddlCodigoHistorico">
-                                <option></option>
-                                <option value="1">Programa 1</option>
-                                <option value="2">Programa 2</option>
-                                <option value="3">Programa 3</option>
-                            </select>
-
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="col-md-12">
             <div class="modal-footer text-center">
                 <div class="text-center">
-                    <button id="btnDescargarHistorico" class="btn btn-fonatel btn-purple-fonatel">@Etiquetas.BotonDescarga</button>
+                    <button id="btnDescargarHistorico" class="btn btn-fonatel btn-purple-fonatel" disabled>@Etiquetas.BotonDescarga</button>
+
+                    <button id="btnVisualizarHistorico" class="btn btn-fonatel btn-next-fonatel" disabled >@Etiquetas.BotonVisualizar</button>
+
                     <button id="btnCancelarHistorico" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">@Etiquetas.BotonCancelar</button>
                 </div>
 
             </div>
         </div>
+
     </div>
 
 </div>
 
 
 
-
+<script src="~/Scripts/Fonatel/JsHistorico.js"></script>
 
 
 

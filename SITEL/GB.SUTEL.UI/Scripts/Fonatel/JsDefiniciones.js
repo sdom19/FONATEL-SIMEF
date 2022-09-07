@@ -69,14 +69,14 @@
                     "<td>" + TieneDefinicion + "</td>";
                 if (TieneDefinicion=="NO") {
                     html = html + "<td><button type='button' data-toggle='tooltip' value=" + Definiciones.Indicador.id+"  data-placement='top' title='Agregar' class='btn-icon-base btn-add'></button>" +
-                        "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Editar/Eliminar' class='btn-icon-base btn-edit'></button>" +
+                        "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Editar' class='btn-icon-base btn-edit'></button>" +
                         "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Clonar' class='btn-icon-base btn-clone'></button>" +
                         "<button type='button' data-toggle='tooltip' disabled  data-placement='top' title='Visualizar Detalle' class='btn-icon-base btn-view'></button>" +
                         "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Eliminar Definición' class='btn-icon-base btn-delete'></button></td>";
                 }
                 else {
                     html = html + "<td><button type='button' data-toggle='tooltip' disabled data-placement='top' title='Agregar' class='btn-icon-base btn-add'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.Indicador.id+" title='Editar/Eliminar' class='btn-icon-base btn-edit'></button>" +
+                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.Indicador.id+" title='Editar' class='btn-icon-base btn-edit'></button>" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.id + " title='Clonar' class='btn-icon-base btn-clone'></button>" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.id + " title='Visualizar Detalle' class='btn-icon-base btn-view'></button>" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.id +" title='Eliminar Definición' class='btn-icon-base btn-delete'></button></td>";

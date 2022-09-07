@@ -159,6 +159,9 @@
   <data name="BotonValidar" xml:space="preserve">
     <value>Validar</value>
   </data>
+  <data name="BotonVisualizar" xml:space="preserve">
+    <value>Visualizar</value>
+  </data>
   <data name="CampoRequerido" xml:space="preserve">
     <value>Campo requerido</value>
   </data>

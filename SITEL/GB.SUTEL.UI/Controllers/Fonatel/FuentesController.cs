@@ -176,6 +176,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> ValidarFuente(FuentesRegistro fuente)
         {
+
             RespuestaConsulta<List<string>> result = null;
             await Task.Run(() =>
             {

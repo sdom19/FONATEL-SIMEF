@@ -126,21 +126,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
 
 
         #region Metodos Async
@@ -163,6 +148,36 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
             return JsonConvert.SerializeObject(result);
         }
+
+
+
+
+        /// <summary>
+        /// Validar si el regla está en un indicador
+        /// Michael Hernandez Cordero
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<string> ValidarRegla(ReglaValidacion objRegla)
+        {
+            RespuestaConsulta<List<string>> result = null;
+            await Task.Run(() =>
+            {
+                return reglaBL.ObtenerDatos(objRegla);
+
+            }).ContinueWith(data =>
+            {
+                ReglaValidacion objetoValidar = data.Result.objetoRespuesta.Single();
+                result = reglaBL.ValidarDatos(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
+
         #endregion
 
     }

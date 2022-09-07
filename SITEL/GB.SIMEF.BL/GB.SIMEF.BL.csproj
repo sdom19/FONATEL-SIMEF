@@ -56,11 +56,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatosHistoricosBL.cs" />
     <Compile Include="AnnoBL.cs" />
     <Compile Include="BitacoraBL.cs" />
     <Compile Include="ClasificacionIndicadorBL.cs" />
     <Compile Include="ClasificacionIndicadorDAL.cs" />
     <Compile Include="DefinicionIndicadorBL.cs" />
+    <Compile Include="DetalleFormularioWebBL.cs" />
     <Compile Include="DetalleIndicadorCategoriaBL.cs" />
     <Compile Include="DetalleIndicadorVariablesBL.cs" />
     <Compile Include="DetalleRelacionCategoriaBL.cs" />

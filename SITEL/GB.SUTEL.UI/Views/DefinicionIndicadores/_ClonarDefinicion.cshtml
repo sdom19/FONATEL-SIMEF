@@ -8,7 +8,7 @@
         <div class="col-md-11 col-sm-12 col-md-offset-1 col-sm-offset-0 mt-3">
 
             <div class="form-group">
-                <label for="ddlTipoRegla" class="col-form-label col-sm-12  ">@EtiquetasViewDefinicionIndicadores.Indicador</label>
+                <label for="ddlTipoRegla" class="col-sm-12  ">@EtiquetasViewDefinicionIndicadores.Indicador</label>
                 <div class="select2-wrapper col-sm-12 ">
                     @Html.DropDownListFor(model => model.Indicador.id, new SelectList(ViewBag.ListaIndicadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlindicador" })
                 </div>
