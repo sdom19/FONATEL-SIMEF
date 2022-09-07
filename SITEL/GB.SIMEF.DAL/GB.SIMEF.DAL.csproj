@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatosHistoricosDAL.cs" />
     <Compile Include="ClasificacionIndicadorDAL.cs" />
     <Compile Include="DetalleFormularioWebDAL.cs" />
     <Compile Include="DetalleIndicadorVariablesDAL.cs" />

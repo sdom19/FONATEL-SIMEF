@@ -124,9 +124,10 @@ function EliminarDatasource(pDataTable = ".datatable_simef") {
     $(pDataTable).DataTable().destroy();
 }
 
+
 function CargarDatasource(pDataTable = ".datatable_simef") {
    
-    $(pDataTable).DataTable({
+      $(pDataTable).DataTable({
         pageLength: 5,
         lengthMenu: [[5, 25, 50, 100], [5, 25, 50, 100]],
         "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
@@ -161,10 +162,10 @@ function CargarDatasource(pDataTable = ".datatable_simef") {
             },
 
         ],
+
         columnDefs: [
             { "className": "dt-center", "targets": "_all" }
         ],
-
         language: {
             "decimal": "",
             "emptyTable": "No hay información",
@@ -351,3 +352,10 @@ $(document).on("keypress", '.solo_texto', function (e) {
     }
 });
 
+$.urlParam = function (name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results == null) {
+        return null;
+    }
+    return decodeURI(results[1]) || 0;
+}

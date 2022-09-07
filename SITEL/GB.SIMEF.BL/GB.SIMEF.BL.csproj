@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatosHistoricosBL.cs" />
     <Compile Include="AnnoBL.cs" />
     <Compile Include="BitacoraBL.cs" />
     <Compile Include="ClasificacionIndicadorBL.cs" />

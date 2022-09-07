@@ -26,7 +26,15 @@ namespace GB.SIMEF.Resources
             return email != null && Regex.IsMatch(email, "^(([\\w-]+\\.)+[\\w -]+|([a-zA-Z]{1}|[\\w -]{2,}))@(([a-zA -Z]+[\\w-]+\\.){1,2}[a-zA-Z]{2,4})$");
         }
 
+        public static string fechaColumna(DateTime fecha)
+        {
+            return fecha.ToString("MMM") +"-"+fecha.ToString("yyyy");
+        }
 
+        public static string fechaSinHora(DateTime fecha)
+        {
+            return fecha.ToString("dd-MM-yy");
+        }
 
 
         public static string ConcatenadoCombos(string  codigo, string nombre)

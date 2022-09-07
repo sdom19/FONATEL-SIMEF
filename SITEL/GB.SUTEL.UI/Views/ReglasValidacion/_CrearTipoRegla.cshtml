@@ -58,7 +58,7 @@
                 <label for="ddlIndicadorComparacionRegla" class="col-form-label">Indicador Comparación</label>
                 <div class="select2-wrapper">
 
-                    @Html.DropDownList("ddlIndicadorComparacionRegla", new SelectList(ViewBag.ListaIndicadores, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorComparacionRegla" })
+                    @Html.DropDownList("ddlIndicadorComparacionRegla", new SelectList(ViewBag.ListaIndicadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorComparacionRegla" })
 
                 </div>
                 <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
