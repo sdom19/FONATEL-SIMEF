@@ -22,6 +22,7 @@ namespace GB.SIMEF.Entities
         {
             this.DetalleFormularioWeb = new HashSet<DetalleFormularioWeb>();
             this.DetalleSolicitudFormulario = new HashSet<DetalleSolicitudFormulario>();
+            this.ListaIndicadoresObj = new List<Indicador>();
 
         }
         [Key]
@@ -52,6 +53,9 @@ namespace GB.SIMEF.Entities
         public virtual EstadoRegistro EstadoRegistro { get; set; }
         [NotMapped]
         public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
+
+        [NotMapped]
+        public List<Indicador> ListaIndicadoresObj { get; set; }
 
     }
 }

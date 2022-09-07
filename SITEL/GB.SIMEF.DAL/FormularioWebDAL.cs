@@ -54,6 +54,32 @@ namespace GB.SIMEF.DAL
             }
             return ListaFormulariosWeb;
         }
+
+        public List<Indicador> ObtenerIndicadoresFormulario(int idFormulario)
+        {
+
+            List<Indicador> listaIndicadores = new List<Indicador>();
+            using (db = new SIMEFContext())
+            {
+                listaIndicadores = db.Database.SqlQuery<Indicador>(
+                    "execute spObtenerListaIndicadoresXFormulario @idFormulario",
+                    new SqlParameter("@idFormulario", idFormulario)
+                    ).ToList();
+                listaIndicadores = listaIndicadores.Select(x => new Indicador()
+                {
+                    idIndicador = x.idIndicador,
+                    Codigo = x.Codigo,
+                    Nombre = x.Nombre,
+                    idGrupo = x.idGrupo,
+                    idTipoIndicador = x.idTipoIndicador,
+                    idEstado = x.idEstado,
+                    GrupoIndicadores = db.GrupoIndicadores.Where(g => g.idGrupo == x.idGrupo).FirstOrDefault(),
+                    TipoIndicadores = db.TipoIndicadores.Where(i => i.IdTipoIdicador == x.idTipoIndicador).FirstOrDefault(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
+                }).ToList();
+            }
+            return listaIndicadores;
+        }
         /// <summary>
         /// 
         /// </summary>

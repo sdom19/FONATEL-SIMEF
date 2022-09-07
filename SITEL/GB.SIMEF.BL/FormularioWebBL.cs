@@ -142,6 +142,40 @@ namespace GB.SIMEF.BL
             return Resultado;
         }
 
+
+        public RespuestaConsulta<List<Indicador>> ObtenerIndicadoresFormulario(FormularioWeb objeto)
+        {
+            RespuestaConsulta<List<Indicador>> ResultadoConsultaIndicadores = new RespuestaConsulta<List<Indicador>>();
+            try
+            {
+                 
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.idFormulario = temp;
+                    }
+                }
+                ResultadoConsultaIndicadores.Clase = modulo;
+                ResultadoConsultaIndicadores.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ObtenerIndicadoresFormulario(objeto.idFormulario);
+
+                ResultadoConsultaIndicadores.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsultaIndicadores.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsultaIndicadores.MensajeError = ex.Message;
+            }
+            return ResultadoConsultaIndicadores;
+        }
+
+
+
         RespuestaConsulta<List<FormularioWeb>> IMetodos<FormularioWeb>.ValidarDatos(FormularioWeb objeto)
         {
             throw new NotImplementedException();
