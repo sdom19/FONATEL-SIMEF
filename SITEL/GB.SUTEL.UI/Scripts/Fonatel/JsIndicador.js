@@ -13,7 +13,8 @@
     Variables: {
         indexViewURL: "/Fonatel/IndicadorFonatel/index",
         editViewURL: "/Fonatel/IndicadorFonatel/edit?id=",
-        createViewURL: "/Fonatel/IndicadorFonatel/create?id="
+        createViewURL: "/Fonatel/IndicadorFonatel/create?id=",
+        cloneViewURL: "/Fonatel/IndicadorFonatel/clone?id="
     },
 
     Metodos: {
@@ -252,10 +253,14 @@
         });
 
         $(document).on("click", IndexView.Controles.btnClonarIndicador, function () {
-            let id = 1;
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar el Indicador?", jsMensajes.Variables.actionType.clonar)
-                .set('onok', function (closeEvent) {
-                    window.location.href = IndexView.Variables.createViewURL + id
+            new Promise((resolve, rejected) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar el Indicador?", jsMensajes.Variables.actionType.clonar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    window.location.href = IndexView.Variables.cloneViewURL + $(this).val();
                 });
         });
     },
@@ -297,6 +302,8 @@ CreateView = {
         inputModalUnidadEstudioHelp: "#modalUnidadEstudio #inputUnidadEstudioHelp",
 
         prefijoLabelsHelp: "Help",
+
+        modoFormulario: "#modoFormulario",
 
         // ============ Formularios ============
         formIndicador: {
@@ -894,7 +901,10 @@ CreateView = {
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
-                        .set('onok', function (closeEvent) { });
+                        .set('onok', function (closeEvent) {
+                            $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
+                            $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
+                        });
                 });
         },
 
@@ -988,6 +998,8 @@ CreateView = {
                 })
                 .then(data => { // en caso de editar
                     if (data) {
+                        CreateView.Variables.objEditarDetallesCategoria = data.objetoRespuesta;
+
                         SeleccionarItemsSelect2Multiple(
                             CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador,
                             data.objetoRespuesta, "idCategoriaDetalleString");
@@ -1010,6 +1022,28 @@ CreateView = {
         CargarFormularioEditarDetallesCategoria: function (pIdCategoria, pIdIndicador) {
             SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, pIdCategoria);
             CreateView.Metodos.CargarDetallesDeLaCategoria(pIdCategoria, pIdIndicador);
+        },
+
+        EditarDetallesCategoria: function () {
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    jsMensajes.Metodos.OkAlertModal("La Categoría ha sido agregada")
+                        .set('onok', function (closeEvent) {
+                            $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).empty();
+                            SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, "");
+                        });
+                });
+        },
+
+        CrearDetallesCategoria: function () {
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    jsMensajes.Metodos.OkAlertModal("La Categoría ha sido agregada")
+                        .set('onok', function (closeEvent) {
+                            $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).empty();
+                            SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, "");
+                        });
+                });
         }
     },
 
@@ -1191,6 +1225,15 @@ CreateView = {
             }
         });
 
+        $(document).on("click", CreateView.Controles.btnGuardarCategoria, function (e) {
+            if (CreateView.Variables.objEditarDetallesCategoria != null) {
+                CreateView.Metodos.EditarDetallesCategoria();
+            }
+            else {
+                CreateView.Metodos.CrearDetallesCategoria();
+            }
+        });
+
         $(document).on("click", CreateView.Controles.btnCancelar, function (e) {
             e.preventDefault();
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
@@ -1244,19 +1287,21 @@ CreateView = {
         //        });
         //});
 
-        $(document).on("click", CreateView.Controles.btnGuardarCategoria, function (e) {
-            e.preventDefault();
-
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
-                    jsMensajes.Metodos.OkAlertModal("La Categoría ha sido agregada")
-                        .set('onok', function (closeEvent) { });
-                });
-        });
     },
 
     Init: function () {
         CreateView.Eventos();
+
+        let modo = $(CreateView.Controles.modoFormulario).val();
+        console.log(modo);
+
+        if (jsUtilidades.Variables.Acciones.Editar == modo) {
+            let validacion = CreateView.Metodos.ValidarFormularioIndicador();
+            $(CreateView.Controles.formIndicador.btnSiguiente).prop('disabled', !validacion.puedeContinuar);
+        }
+        else if (jsUtilidades.Variables.Acciones.Clonar == modo) {
+            console.log("Clonando");
+        }
     }
 }
 

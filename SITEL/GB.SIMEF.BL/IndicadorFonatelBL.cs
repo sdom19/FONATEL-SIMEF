@@ -318,6 +318,7 @@ namespace GB.SIMEF.BL
 
             try
             {
+                PrepararObjetoIndicador(pIndicador);
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
                 var result = indicadorFonatelDAL.ObtenerDatos(pIndicador);
@@ -392,42 +393,42 @@ namespace GB.SIMEF.BL
                 pIndicador.idIndicador = number;
             }
 
-            if (!string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
+            if (!string.IsNullOrEmpty(pIndicador.TipoIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoIndicadores.id), out int number);
                 pIndicador.IdTipoIndicador = number;
                 pIndicador.TipoIndicadores.IdTipoIdicador = pIndicador.TipoIndicadores != null ? number : 0;
             }
             
-            if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
+            if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.ClasificacionIndicadores.id), out int number);
                 pIndicador.IdClasificacion = number;
                 pIndicador.ClasificacionIndicadores.idClasificacion = pIndicador.ClasificacionIndicadores != null ? number : 0;
             }
             
-            if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
+            if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.GrupoIndicadores.id), out int number);
                 pIndicador.idGrupo = number;
                 pIndicador.GrupoIndicadores.idGrupo = pIndicador.GrupoIndicadores != null ? number: 0;
             }
             
-            if (!string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
+            if (!string.IsNullOrEmpty(pIndicador.UnidadEstudio?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.UnidadEstudio.id), out int number);
                 pIndicador.IdUnidadEstudio = number;
                 pIndicador.UnidadEstudio.idUnidad = pIndicador.UnidadEstudio != null ? number : 0;
             }
 
-            if (!string.IsNullOrEmpty(pIndicador.TipoMedida.id))
+            if (!string.IsNullOrEmpty(pIndicador.TipoMedida?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoMedida.id), out int number);
                 pIndicador.idTipoMedida = number;
                 pIndicador.TipoMedida.idMedida = pIndicador.TipoMedida != null ? number : 0;
             }
 
-            if (!string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
+            if (!string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.FrecuenciaEnvio.id), out int number);
                 pIndicador.IdFrecuencia = number;

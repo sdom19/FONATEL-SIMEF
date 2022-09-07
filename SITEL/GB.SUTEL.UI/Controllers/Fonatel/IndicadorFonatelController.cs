@@ -76,29 +76,60 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.TiposIndicadores = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores()).objetoRespuesta;
-            ViewBag.FrecuenciasEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
-            ViewBag.Clasificaciones = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores()).objetoRespuesta;
-            ViewBag.TipoMedidas = tipoMedidaBL.ObtenerDatos(new TipoMedida()).objetoRespuesta;
-            ViewBag.Grupos = grupoIndicadorBL.ObtenerDatos(new GrupoIndicadores()).objetoRespuesta;
-            ViewBag.UsosIndicador = indicadorBL.ObtenerListaUsosIndicador().objetoRespuesta;
-            ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
-            ViewBag.UnidadesEstudio = unidadEstudioBL.ObtenerDatos(new UnidadEstudio()).objetoRespuesta;
-            ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
+            CargarDatosEnVistas();
+            ViewBag.ModoFormulario = ((int) Accion.Insertar).ToString();
+            ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloCrearIndicador;
+
             return View();
         }
 
         [HttpGet]
         public ActionResult Edit(string id)
         {
-            ViewBag.TiposIndicadores = new List<TipoIndicadores>();
-            ViewBag.FrecuenciasEnvio = new List<FrecuenciaEnvio>();
-            ViewBag.Clasificaciones = new List<ClasificacionIndicadores>();
-            ViewBag.TipoMedidas = new List<TipoMedida>();
-            ViewBag.Grupos = new List<GrupoIndicadores>();
-            ViewBag.UsosIndicador = new List<EstadoLogico>();
-            ViewBag.UnidadesEstudio = new List<UnidadEstudio>();
-            return View("Create");
+            CargarDatosEnVistas();
+            ViewBag.ModoFormulario = ((int) Accion.Editar).ToString();
+            ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloEditarIndicador;
+
+            if (string.IsNullOrEmpty(id))
+                return View("Index");
+
+            Indicador objIndicador = null;
+            try
+            {
+                objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.SingleOrDefault();
+            }
+            catch (Exception) { };
+
+            if (objIndicador == null)
+                return View("Index");
+
+            return View("Create", objIndicador);
+        }
+
+        [HttpGet]
+        public ActionResult Clone(string id)
+        {
+            CargarDatosEnVistas();
+            ViewBag.ModoFormulario = ((int) Accion.Clonar).ToString();
+            ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloClonarIndicador;
+
+            if (string.IsNullOrEmpty(id))
+                return View("Index");
+
+            Indicador objIndicador = null;
+            try
+            {
+                objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.SingleOrDefault();
+            }
+            catch (Exception) { };
+
+            if (objIndicador == null)
+                return View("Index");
+
+            objIndicador.Codigo = string.Empty;
+            objIndicador.Nombre = string.Empty;
+
+            return View("Create", objIndicador);
         }
 
         #endregion
@@ -830,6 +861,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             
         }
 
+        /// <summary>
+        /// 07/09/2022
+        /// José Navarro Acuña
+        /// Método que permite cargar los datos necesarios del formulario de indicadores Fonatel
+        /// </summary>
+        private void CargarDatosEnVistas()
+        {
+            ViewBag.TiposIndicadores = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores()).objetoRespuesta;
+            ViewBag.FrecuenciasEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
+            ViewBag.Clasificaciones = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores()).objetoRespuesta;
+            ViewBag.TipoMedidas = tipoMedidaBL.ObtenerDatos(new TipoMedida()).objetoRespuesta;
+            ViewBag.Grupos = grupoIndicadorBL.ObtenerDatos(new GrupoIndicadores()).objetoRespuesta;
+            ViewBag.UsosIndicador = indicadorBL.ObtenerListaUsosIndicador().objetoRespuesta;
+            ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
+            ViewBag.UnidadesEstudio = unidadEstudioBL.ObtenerDatos(new UnidadEstudio()).objetoRespuesta;
+            ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
+        }
         #endregion
     }
 }
