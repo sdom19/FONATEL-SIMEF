@@ -101,6 +101,9 @@ $(document).on("select2:unselect", '.multiple-Select', function (e) {
 
 $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 
+
+    console.log($(this).val());
+
     var $target = $(e.target);
 
     if ($target.parent().hasClass('disabled')) {

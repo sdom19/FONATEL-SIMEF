@@ -28,9 +28,10 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
 
-                listaDatosHistoricos = db.Database.SqlQuery<DatoHistorico>("exec spObtenerDatoHistorico  @idHistorico,@codigo",
+                listaDatosHistoricos = db.Database.SqlQuery<DatoHistorico>("exec spObtenerDatoHistorico  @idHistorico,@codigo,@arrayid",
                       new SqlParameter("@idHistorico", objDato.IdHistorico),
-                      new SqlParameter("@codigo", string.IsNullOrEmpty(objDato.Codigo) ? DBNull.Value.ToString() : objDato.Codigo))
+                      new SqlParameter("@codigo", string.IsNullOrEmpty(objDato.Codigo) ? DBNull.Value.ToString() : objDato.Codigo),
+                     new SqlParameter("@arrayid", string.IsNullOrEmpty(objDato.id) ? DBNull.Value.ToString() : objDato.id))
                     .ToList();
 
                 listaDatosHistoricos = listaDatosHistoricos.Select(x => new DatoHistorico()

@@ -123,4 +123,7 @@
   <data name="Descarga" xml:space="preserve">
     <value>Descarga de Datos Históricos</value>
   </data>
+  <data name="Titulo" xml:space="preserve">
+    <value>Visualización de Datos Históricos</value>
+  </data>
 </root>

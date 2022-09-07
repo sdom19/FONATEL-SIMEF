@@ -28,7 +28,7 @@
                     <div class="col-sm-12">
 
                         <div class="select2-wrapper">
-                            @Html.DropDownList("ddlNombreHistorico", new SelectList(ViewBag.ListadoDatosHistoricos, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlNombreHistorico" })
+                            @Html.DropDownList("ddlNombreHistorico",  new SelectList(ViewBag.ListadoDatosHistoricos, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables multiple-Select", id = "ddlNombreHistorico", multiple=true })
                         </div>
                     </div>
             </div>

@@ -40,8 +40,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Detalle(string  id)
         {
-            ViewBag.Titulo = 
-                historicoBl.ObtenerDatos(new DatoHistorico() {id=id }).objetoRespuesta.Single().NombrePrograma;
+       
             return View();
         }
 
@@ -123,6 +122,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost ]
         public async Task<string> ObtenerListaHistorica(DatoHistorico datoHistorico)
         {
+
             RespuestaConsulta<List<DatoHistorico>> result = null;
             await Task.Run(() =>
             {

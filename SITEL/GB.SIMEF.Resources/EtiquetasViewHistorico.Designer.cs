@@ -77,5 +77,14 @@ namespace GB.SIMEF.Resources {
                 return ResourceManager.GetString("Descarga", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visualización de Datos Históricos.
+        /// </summary>
+        public static string Titulo {
+            get {
+                return ResourceManager.GetString("Titulo", resourceCulture);
+            }
+        }
     }
 }

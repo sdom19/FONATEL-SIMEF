@@ -82,6 +82,26 @@ namespace GB.SIMEF.Resources
             return result;
         }
 
+        public static string DesencriptarArray(string _cadenaAdesencriptar)
+        {
+            string result = string.Empty;
+
+            string[] cadenaArray = _cadenaAdesencriptar.Split(',');
+
+            for (int i = 0; i<cadenaArray.Length; i++)
+            {
+                _cadenaAdesencriptar = cadenaArray[i];
+
+                byte[] decryted = Convert.FromBase64String(_cadenaAdesencriptar.Replace(' ', '+'));
+                decryted = DesencriptarByte(decryted);
+                result =result+","+ System.Text.Encoding.Unicode.GetString(decryted);
+            }
+
+            return result.Trim(',');
+        }
+
+
+
         private static byte[] EncriptarByte(byte[] btValor)
         {
             byte[] valorEncriptado = null; 

@@ -76,11 +76,15 @@ namespace GB.SIMEF.BL
             {
                 if (!string.IsNullOrEmpty(pDatosHistoricos.id))
                 {
-                    pDatosHistoricos.id = Utilidades.Desencriptar(pDatosHistoricos.id);
+
+                   
+
+                    pDatosHistoricos.id = Utilidades.DesencriptarArray(pDatosHistoricos.id);
                     int temp;
                     if (int.TryParse(pDatosHistoricos.id, out temp))
                     {
                         pDatosHistoricos.IdHistorico = temp;
+                        pDatosHistoricos.id = string.Empty;
                     }
                 }
                 resultado.Clase = modulo;
