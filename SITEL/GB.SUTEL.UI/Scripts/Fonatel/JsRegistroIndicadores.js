@@ -31,7 +31,12 @@
     "Metodos": {
         "GuardarEncabezadFormulario": function(){
 
-        }
+        },
+
+        "CargarExcel": function () {
+
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
+        },
     }
 
 }
@@ -80,8 +85,7 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnDescargarPlantil
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
             window.open(jsUtilidades.Variables.urlOrigen + "/RegistroIndicadorFonatel/DescargarExcel");
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
-               
+            jsRegistroIndicadorFonatel.Metodos.CargarExcel();
         });
 });
 
@@ -99,7 +103,7 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar, functio
 
     //    });
 
-    jsMensajes.Metodos.OkAlertErrorModal("La información ingresada no es congruente con el registro del mes anterior.", null, "Error en Registro");
+    jsMensajes.Metodos.OkAlertModal("La información ingresada cumple con los criterios de validación.", null, "Error en Registro");
 
 
 });
@@ -194,10 +198,10 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaR
 
 $(function () {
     $(document).ready(function () {
+
         var t = $('#TableRegistroIndicadorFonatel').DataTable({
             'scrollY': '400px',
-
-           
+    
 
             language: {
                 "decimal": "",
@@ -246,8 +250,6 @@ $(function () {
         var t = $('#tablaIndicador').DataTable({
             'scrollY': '400px',
 
-
-
             language: {
                 "decimal": "",
                 "emptyTable": "No hay información",
@@ -294,10 +296,10 @@ $(function () {
 
 
 
-    $(jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicador).prop("disabled", false);
-    $(jsRegistroIndicadorFonatel.Controles.btnGuardar).prop("disabled", true);
-    $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", true);
-    $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", true);
+    //$(jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicador).prop("disabled", false);
+    //$(jsRegistroIndicadorFonatel.Controles.btnGuardar).prop("disabled", true);
+    //$(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", true);
+    //$(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", true);
 
 
 

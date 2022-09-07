@@ -142,7 +142,7 @@
     <value>Detalle de Relaciones entre Categorías</value>
   </data>
   <data name="DetalleRelacionCategoria" xml:space="preserve">
-    <value>Detalle de Relaciones entre Categorías</value>
+    <value>Detalles de Relaciones entre Categorías</value>
   </data>
   <data name="EditarRelacion" xml:space="preserve">
     <value>Editar Relaciones entre Categorías</value>
@@ -151,7 +151,7 @@
     <value>Estado</value>
   </data>
   <data name="Nombre" xml:space="preserve">
-    <value>Nombre</value>
+    <value>Nombre de Relación</value>
   </data>
   <data name="NombreRelacion" xml:space="preserve">
     <value>Nombre de Relación</value>

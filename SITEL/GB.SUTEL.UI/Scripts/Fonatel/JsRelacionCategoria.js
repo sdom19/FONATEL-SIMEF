@@ -2,16 +2,13 @@
     "Controles": {
         "FormularioCrearRelacion": "#FormularioCrearRelacion",
         "FormularioDetalle": "#FormularioDetalle",
-
         "btnEliminar": ".btnEliminarRelacion",
         "btnGuardar": "#btnGuardarRelacion",
         "btnCancelar": "#btnCancelarRelacion",
         "btnCancelarDetalle": "#btnCancelarDetalle",
-
         "btnAgregarRelacion": "#TablaRelacionCategoria tbody tr td .btn-add",
         "btnEditarRelacion": "#TablaRelacionCategoria tbody tr td .btn-edit",
         "btnDeleteRelacion": "#TablaRelacionCategoria tbody tr td .btn-delete",
-
         "btnEliminarDetalleRelacion": "#TablaDetalleRelacionCategoria tbody tr td .btn-delete",
         "btnGuardarDetalle": "#btnGuardarDetalle",
         "btnEditarDetalle": "#TablaDetalleRelacionCategoria tbody tr td .btn-edit",
@@ -20,35 +17,27 @@
         "btnCargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-upload",
         "inputFileCargarDetalle": "#inputFileCargarDetalle",
         "btnDescargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-download",
-
         "TablaRelacionCategoria": "#TablaRelacionCategoria tbody",
         "TablaRelacionCategoriaElemento": "#TablaRelacionCategoria",
         "TablaDetalleRelacion": "#TablaDetalleRelacionCategoria tbody",
         "TablaDetalleRelacionElemento": "#TablaDetalleRelacionCategoria",
-
         "txtCodigo": "#txtCodigo",
         "txtNombre": "#txtNombre",
         "TxtCantidad": "#TxtCantidad",
         "ddlCategoriaId": "#ddlCategoriaId",
         "ddlDetalleDesagregacionId": "#ddlDetalleDesagregacionId",
-
-
         "ddlCategoriaDetalle": "#ddlCategoriaDetalle",
         "ddlDetalleDesagregacionAtributo": "#ddlDetalleDesagregacionAtributo",
-
         "nombreHelp": "#nombreHelp",
         "CodigoHelp": "#CodigoHelp",
         "CantidadHelp": "#CantidadHelp",
         "TipoCategoriaHelp": "#TipoCategoriaHelp",
         "DetalleDesagregacionIDHelp": "#DetalleDesagregacionIDHelp",
-
         "CategoriaDetalleHelp": "#CategoriaDetalleHelp",
         "DetalleDesagregacionAtributoHelp": "#DetalleDesagregacionAtributoHelp",
-
         "txtmodoRelacion": "#txtmodoRelacion",
         "id": "#txtidRelacion",
         "detalleid": "#txtidDetalle"
-
     },
 
     "Variables": {
@@ -305,18 +294,18 @@
 
             execAjaxCall("/RelacionCategoria/InsertarRelacionCategoria", "POST", RelacionCategoria)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido creada")
+                    jsMensajes.Metodos.OkAlertModal("La Relación ha sido creada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/RelacionCategoria/Index";
                         });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
+                            .set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); })
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
                     $("#loading").fadeOut();
@@ -337,7 +326,7 @@
 
             execAjaxCall("/RelacionCategoria/EditarRelacionCategoria", "POST", RelacionCategoria)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categoría ha sido editada")
+                    jsMensajes.Metodos.OkAlertModal("La Relación ha sido editada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/RelacionCategoria/Index";
                         });
@@ -427,6 +416,7 @@
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) {
                                 location.reload();
+                                
                             });
                     }
                 }).finally(() => {
@@ -445,7 +435,7 @@
 
             execAjaxCall("/RelacionCategoria/ModificarDetalleRelacion", "POST", RelacionDetalle)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido modificado")
+                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido editado")
                         .set('onok', function (closeEvent) {
                             location.reload();
                         });
@@ -569,7 +559,6 @@
             }
 
         },
-
 
     }
 }
