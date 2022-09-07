@@ -28,30 +28,39 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listado = db.Database.SqlQuery<Model_spObtenerDetallesIndicadorCategoria>
-                    ("execute spObtenerDetallesIndicadorCategoria @pIdIndicador, @pIdCategoria",
+                    ("execute spObtenerDetallesIndicadorCategoria @pIdIndicador, @pIdCategoria, @pDetallesAgrupados",
                      new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.idIndicador),
-                     new SqlParameter("@pIdCategoria", pDetalleIndicadorCategoria.idCategoria)
+                     new SqlParameter("@pIdCategoria", pDetalleIndicadorCategoria.idCategoria),
+                     new SqlParameter("@pDetallesAgrupados", pDetalleIndicadorCategoria.DetallesAgrupados)
                     ).ToList();
             }
-
-            List<int> banderasEtiquetas = new List<int>();
 
             listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
             {
                 idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                 idCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString()),
+                idCategoriaDetalleString = Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()),
                 Etiquetas = x.Etiquetas,
-                //Estado = x.Estado
+                Codigo = x.Codigo,
+                NombreCategoria = x.NombreCategoria,
             }).ToList();
 
             return listaDetalles;
         }
-    }
 
-    public class Model_spObtenerDetallesIndicadorCategoria
-    {
-        public int IdIndicador { get; set; }
-        public int IdCategoria { get; set; }
-        public string Etiquetas { get; set; }
+        /// <summary>
+        /// 06/09/2022
+        /// José Navarro Acuña
+        /// Modelo privado para obtener el resultado del procedimiento almacenado: spObtenerDetallesIndicadorCategoria
+        /// </summary>
+        private class Model_spObtenerDetallesIndicadorCategoria
+        {
+            public int IdIndicador { get; set; }
+            public int IdCategoria { get; set; }
+            public int IdCategoriaDetalle { get; set; }
+            public string Etiquetas { get; set; }
+            public string Codigo { get; set; }
+            public string NombreCategoria { get; set; }
+        }
     }
 }

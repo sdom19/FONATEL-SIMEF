@@ -587,7 +587,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 02/09/2022
         /// José Navarro Acuña
-        /// Función que permite obtener los detalles categoria de un indicador
+        /// Función que permite obtener los detalles categoria de un indicador de manera agrupada
         /// </summary>
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
@@ -607,9 +607,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 resultado = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
                 {
+                    DetallesAgrupados = true,
                     idIndicadorString = pIdIndicador
                 });
-
             });
             return JsonConvert.SerializeObject(resultado);
         }
@@ -637,7 +637,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 06/09/2022
         /// José Navarro Acuña
-        /// Función que permite obtener los detalles de una categorías de desagregación
+        /// Función que permite obtener los detalles de una categorías de desagregación.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -659,6 +659,43 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 07/09/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener los detalles de una categorías de desagregación a manera de listado
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesDeCategoriaGuardada(string pIdIndicador, string pIdCategoria)
+        {
+
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            if (string.IsNullOrEmpty(pIdCategoria))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicadorYCategoria(new DetalleIndicadorCategoria()
+                {
+                    DetallesAgrupados = false,
+                    idIndicadorString = pIdIndicador,
+                    idCategoriaString = pIdCategoria
+                });
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
         #endregion
 
         #region Funciones privadas

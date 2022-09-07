@@ -43,5 +43,14 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string Etiquetas { get; set; }
+
+        [NotMapped]
+        public string Codigo { get; set; }
+
+        [NotMapped]
+        public string NombreCategoria { get; set; }
+
+        [NotMapped]
+        public bool DetallesAgrupados { get; set; }
     }
 }
