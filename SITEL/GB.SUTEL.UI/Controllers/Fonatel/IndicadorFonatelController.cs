@@ -247,16 +247,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         /// <summary>
-        /// 16/08/2022
+        /// 08/09/2022
         /// José Navarro Acuña
-        /// Función que verifica si el indicador se encuentra en algún formulario web
+        /// Función que verifica si el indicador se encuentra en algún formulario web o una formula de calculo
         /// </summary>
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<string> VerificarIndicadorEnFormularioWeb(string pIdIndicador)
+        public async Task<string> VerificarUsoIndicador(string pIdIndicador)
         {
-            RespuestaConsulta<List<FormularioWeb>> resultado = new RespuestaConsulta<List<FormularioWeb>>();
+            RespuestaConsulta<List<string>> resultado = new RespuestaConsulta<List<string>>();
             
             if (string.IsNullOrEmpty(pIdIndicador))
             {
@@ -267,7 +267,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = indicadorBL.ObtenerFormulariosWebSegunIndicador(new Indicador()
+                resultado = indicadorBL.VerificarUsoIndicador(new Indicador()
                 {
                     id = pIdIndicador
                 });

@@ -73,15 +73,18 @@
             })
                 .then(data => {
                     $("#loading").fadeIn();
-                    return IndexView.Consultas.VerificarIndicadorEnFormularioWeb(pIdIndicador);
+                    return IndexView.Consultas.VerificarUsoIndicador(pIdIndicador);
                 })
                 .then(data => {
-                    if (data.CantidadRegistros > 0 && data.objetoRespuesta != null) {
-                        let formularios = ConcatenarItems(data.objetoRespuesta, "Nombre");
+                    if (data.objetoRespuesta.length > 0) {
+                        let dependencias = '';
+                        for (var i = 0; i < data.objetoRespuesta.length; i++) {
+                            dependencias += data.objetoRespuesta[i] + "<br>"
+                        }
 
                         $("#loading").fadeOut();
                         return new Promise((resolve, reject) => {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Indicador ya está en uso en el/los formularios: " + formularios + " ¿Desea eliminarlo?", jsMensajes.Variables.actionType.eliminar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Indicador ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarlo?", jsMensajes.Variables.actionType.eliminar)
                                 .set('onok', function (closeEvent) {
                                     $("#loading").fadeIn();
                                     resolve(true);
@@ -129,15 +132,18 @@
             })
                 .then(data => {
                     $("#loading").fadeIn();
-                    return IndexView.Consultas.VerificarIndicadorEnFormularioWeb(pIdIndicador);
+                    return IndexView.Consultas.VerificarUsoIndicador(pIdIndicador);
                 })
                 .then(data => {
-                    if (data.CantidadRegistros > 0 && data.objetoRespuesta != null) {
-                        let formularios = ConcatenarItems(data.objetoRespuesta, "Nombre");
+                    if (data.objetoRespuesta.length > 0) {
+                        let dependencias = '';
+                        for (var i = 0; i < data.objetoRespuesta.length; i++) {
+                            dependencias += data.objetoRespuesta[i] + "<br>"
+                        }
 
                         $("#loading").fadeOut();
                         return new Promise((resolve, reject) => {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Indicador ya está en uso en el/los formularios: " + formularios + " ¿Desea desactivarlo?", jsMensajes.Variables.actionType.estado)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Indicador ya está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarlo?", jsMensajes.Variables.actionType.estado)
                                 .set('onok', function (closeEvent) {
                                     $("#loading").fadeIn();
                                     resolve(true);
@@ -230,8 +236,8 @@
             return execAjaxCall('/IndicadorFonatel/ActivarIndicador', 'POST', { pIdIndicador: pIdIndicador });
         },
 
-        VerificarIndicadorEnFormularioWeb: function (pIdIndicador) {
-            return execAjaxCall('/IndicadorFonatel/VerificarIndicadorEnFormularioWeb?pIdIndicador=' + pIdIndicador, 'GET');
+        VerificarUsoIndicador: function (pIdIndicador) {
+            return execAjaxCall('/IndicadorFonatel/VerificarUsoIndicador?pIdIndicador=' + pIdIndicador, 'GET');
         }
     },
 

@@ -123,14 +123,14 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 16/08/2022
         /// José Navarro Acuña
-        /// Función que retorna todos los formularios web relacionados a indicador.
-        /// Se puede realizar un filtrado de acuerdo al objecto que se envia y obtener un compilado de varios indicadores.
+        /// Función que verifica si el indicador se encuentra en algún formulario web o una formula de calculo.
+        /// Retorna un listado indicando las dependencias según corresponda
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FormularioWeb>> ObtenerFormulariosWebSegunIndicador(Indicador pIndicador)
+        public RespuestaConsulta<List<string>> VerificarUsoIndicador(Indicador pIndicador)
         {
-            RespuestaConsulta<List<FormularioWeb>> resultado = new RespuestaConsulta<List<FormularioWeb>>();
+            RespuestaConsulta<List<string>> resultado = new RespuestaConsulta<List<string>>();
             bool errorControlado = false;
 
             try
@@ -147,7 +147,7 @@ namespace GB.SIMEF.BL
                 pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
 
                 PrepararObjetoIndicador(pIndicador);
-                var result = indicadorFonatelDAL.ObtenerFormulariosWebSegunIndicador(pIndicador);
+                var result = indicadorFonatelDAL.VerificarUsoIndicador(pIndicador);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
