@@ -277,6 +277,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clonar Indicador.
+        /// </summary>
+        public static string TituloClonarIndicador {
+            get {
+                return ResourceManager.GetString("TituloClonarIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crear Indicador.
         /// </summary>
         public static string TituloCrearIndicador {
@@ -300,6 +309,15 @@ namespace GB.SIMEF.Resources {
         public static string TituloDefiniciones {
             get {
                 return ResourceManager.GetString("TituloDefiniciones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar Indicador.
+        /// </summary>
+        public static string TituloEditarIndicador {
+            get {
+                return ResourceManager.GetString("TituloEditarIndicador", resourceCulture);
             }
         }
         
