@@ -32,15 +32,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         private readonly TipoDetalleCategoriaBL TipoDetalleCategoriaBL;
 
-        string user;
-
         #endregion
 
 
         public CategoriasDesagregacionController()
         {
             categoriaBL = new CategoriasDesagregacionBL(Etiquetas.Categorias, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            categoriaDetalleBL = new DetalleCategoriasTextoBL();
+            categoriaDetalleBL = new DetalleCategoriasTextoBL(Etiquetas.Categorias, System.Web.HttpContext.Current.User.Identity.GetUserId());
             TipoCategoriaBL = new TipoCategoriaBL();
             TipoDetalleCategoriaBL = new TipoDetalleCategoriaBL();
 
@@ -124,7 +122,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
          [HttpGet]
         public ActionResult DescargarExcel(string id)
         {
-            user = User.Identity.GetUserId();
 
             var categoria = categoriaBL
                     .ObtenerDatos(new CategoriasDesagregacion() { id = id }).objetoRespuesta.Single();
@@ -212,12 +209,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public async Task<string> CambiarEstadoCategoria(CategoriasDesagregacion Categoria)
         {
-            user = User.Identity.GetUserId();
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
             await Task.Run(() =>
             {
-                Categoria.UsuarioModificacion = user;
-                result = categoriaBL.CambioEstado(Categoria); 
+                 result = categoriaBL.CambioEstado(Categoria); 
             });
 
             return JsonConvert.SerializeObject(result);
@@ -236,11 +231,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public async Task<string> InsertarCategoria(CategoriasDesagregacion categoria)
         {
-            user = User.Identity.GetUserId();
+
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
             await Task.Run(() =>
             {
-                categoria.UsuarioCreacion = user;
                 result = categoriaBL.InsertarDatos(categoria);
             });
 
@@ -260,11 +254,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public async Task<string> EditarCategoria(CategoriasDesagregacion categoria)
         {
-            user = User.Identity.GetUserId();
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
             await Task.Run(() =>
             {
-                categoria.UsuarioCreacion = user;
                 result = categoriaBL.ActualizarElemento(categoria);
             });
 
@@ -286,11 +278,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public async Task<string> ClonarCategoria(CategoriasDesagregacion categoria)
         {
-            user = User.Identity.GetUserId();
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
             await Task.Run(() =>
             {
-                categoria.UsuarioCreacion = user;
                 result = categoriaBL.ClonarDatos(categoria);
             });
 
@@ -379,8 +369,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public async Task<string> InsertarCategoriasDetalle(DetalleCategoriaTexto DetalleCategoria)
         {
-            user = User.Identity.GetUserId();
-            DetalleCategoria.usuario = user;
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
             {
@@ -403,8 +391,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public async Task<string> ModificaCategoriasDetalle(DetalleCategoriaTexto detalleCategoria)
         {
-            user = User.Identity.GetUserId();
-            detalleCategoria.usuario = user;
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
             {

@@ -13,7 +13,7 @@
 
 
             </div>
-            <small id="TipoReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+            <small id="TipoReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
 
         </div>
 
@@ -26,7 +26,7 @@
                 @Html.DropDownListFor(model => model.idOperador, new SelectList(ViewBag.ListaOperadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlOperadorRegla" })
             </div>
 
-            <small id="OperadorHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+            <small id="OperadorHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
         </div>
 
     </div>
@@ -41,7 +41,7 @@
                     <option value="2">Estado de Torres</option>
                 </select>
             </div>
-            <small id="VariableHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+            <small id="VariableHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
         </div>
 
 
@@ -49,7 +49,7 @@
             <div class="form-group center">
                 <label for="txtConstanteRegla" class="col-form-label">Valor Constante</label>
                 <input type="text" class="form-control form-control-fonatel  " id="txtConstanteRegla" placeholder="Constante">
-                <small id="txtConstanteReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="txtConstanteReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
         <div class="hidden" id="divFormulaContraIndicador">
@@ -61,7 +61,7 @@
                     @Html.DropDownList("ddlIndicadorComparacionRegla", new SelectList(ViewBag.ListaIndicadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorComparacionRegla" })
 
                 </div>
-                <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
 
 
@@ -76,7 +76,7 @@
                         <option value="2">Estado de Torres</option>
                     </select>
                 </div>
-                <small id="ddlVariableComparacionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlVariableComparacionReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
         <div class="hidden" id="divFormulaContraAtributosValido">
@@ -86,15 +86,14 @@
                 <div class="select2-wrapper">
                     @Html.DropDownList("ddlVariableComparacionRegla", new SelectList(ViewBag.ListaCategoria, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlAtributosValidosCategoríaRegla" })
                 </div>
-                <small id="ddlAtributosValidosCategoríaReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlAtributosValidosCategoríaReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
 
 
             <div class="form-group center">
                 <label for="ddlAtributosValidosRegla" class="col-form-label">@EtiquetasViewReglasValidacion.AtributosValidos</label>
                 <div class="select2-wrapper">
-                    <select multiple class="listasDesplegables multiple-Select" id="ddlAtributosValidosRegla" name="ddlAtributosValidosRegla">
-               
+                    <select multiple class="listasDesplegables multiple-Select" id="ddlAtributosValidosRegla">
                         <option value="all">Todos</option>
                         <option value="1">Provincia</option>
                         <option value="2">Cantón</option>
@@ -102,8 +101,8 @@
                     </select>
 
 
-                </div>
-                <small id="ddlAtributosValidosReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                </div>                
+                <small id="ddlAtributosValidosReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
         <div class="hidden" id="divFormulaActualizacionSecuencial">
@@ -113,7 +112,7 @@
                 <div class="select2-wrapper">
                     @Html.DropDownList("ddlCategoríaActualizableRegla", new SelectList(ViewBag.ListaCategoriaActualizable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlCategoríaActualizableRegla" })
                 </div>
-                <small id="ddlCategoríaActualizableReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlCategoríaActualizableReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
         <div class="hidden" id="divFormulaContraIndicadorSalida">
@@ -124,7 +123,7 @@
                     @Html.DropDownList("ddlIndicadorSalidaRegla", new SelectList(ViewBag.ListaIndicadoresSalida, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorSalidaRegla" })
 
                 </div>
-                <small id="ddlIndicadorSalidaReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                <small id="ddlIndicadorSalidaReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 

@@ -38,7 +38,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             categoriasDesagregacionBl = new CategoriasDesagregacionBL(EtiquetasViewReglasValidacion.ReglasValidacion, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-            DetalleCategoriasTextoBL = new DetalleCategoriasTextoBL();
+            DetalleCategoriasTextoBL = new DetalleCategoriasTextoBL(EtiquetasViewReglasValidacion.ReglasValidacion, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
             RelacionCategoriaBL = new RelacionCategoriaBL();
 
@@ -85,9 +85,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria })
                     .objetoRespuesta.Single();
 
+
                 return View(model);
             }
-
 
         }
 
@@ -348,7 +348,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         /// <summary>
-        /// Inserta un detalle relacion entre categorias
+        /// Editar un detalle relacion entre categorias
         /// 29/08/2022
         /// Francisco Vindas Ruiz
         /// </summary>
@@ -468,7 +468,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
 
         [HttpPost]
-        public void CargaExcel()
+        public void CargarExcel()
         {
             if (Request.Files.Count > 0)
             {

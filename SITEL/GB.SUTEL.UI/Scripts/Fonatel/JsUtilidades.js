@@ -93,6 +93,9 @@ $(document).on("select2:unselect", '.multiple-Select', function (e) {
 
 $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 
+
+    console.log($(this).val());
+
     var $target = $(e.target);
 
     if ($target.parent().hasClass('disabled')) {
@@ -113,9 +116,74 @@ function EliminarDatasource(pDataTable = ".datatable_simef") {
     $(pDataTable).DataTable().destroy();
 }
 
+
+function CargarDatasourceV2 (table) {
+    $(table).DataTable({
+        pageLength: 25,
+        lengthMenu: [[25, 50, 100], [25, 50, 100]],
+        "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
+        buttons: [
+            {
+                extend: 'excel',
+                text: '<i class="fa fa-file-excel-o" style="color:green;"></i>',
+                titleAttr: 'Excel',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
+            },
+            {
+                extend: 'print',
+                text: '<i class="fa fa-print" style="color:black;"></i>',
+                titleAttr: 'Imprimir',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
+
+            },
+
+        ],
+        columnDefs: [
+            {
+                searchable: false,
+                orderable: false,
+                targets: 0,
+            },
+            { "className": "dt-center", "targets": "_all" }
+        ],
+        scrollY: 450,
+        scrollX: true,
+        language: {
+            "decimal": "",
+            "emptyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "searchPlaceholder": "",
+            "zeroRecords": "Sin resultados encontrados",
+
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        }
+    });
+
+};
+
+
 function CargarDatasource(pDataTable = ".datatable_simef") {
    
-    $(pDataTable).DataTable({
+      $(pDataTable).DataTable({
         pageLength: 5,
         lengthMenu: [[5, 25, 50, 100], [5, 25, 50, 100]],
         "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
@@ -150,10 +218,10 @@ function CargarDatasource(pDataTable = ".datatable_simef") {
             },
 
         ],
+
         columnDefs: [
             { "className": "dt-center", "targets": "_all" }
         ],
-
         language: {
             "decimal": "",
             "emptyTable": "No hay información",
@@ -379,3 +447,52 @@ $(document).on("keypress", '.solo_texto', function (e) {
     }
 });
 
+$.urlParam = function (name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results == null) {
+        return null;
+    }
+    return decodeURI(results[1]) || 0;
+}
+function InsertarDataSetSelect2(pSelect2, pDataSet) {
+    if (pDataSet.length > 0) {
+        pDataSet.forEach(option => {
+            var newOption = new Option(option.text, option.value, false, false);
+            $(pSelect2).append(newOption);
+        });
+        $(pSelect2).trigger('change');
+    }
+}
+
+function SeleccionarItemsSelect2Multiple(pSelect2, pDataSet, pLlave, pActivarEventoOnChange = false) {
+    if (pDataSet.length > 0) {
+        let list = [];
+        pDataSet.forEach(option => {
+            list.push(option[pLlave]);
+        });
+        $(pSelect2).val(list);
+        $(pSelect2).trigger('change');
+
+        if (pActivarEventoOnChange) {
+            $(pSelect2).trigger({
+                type: 'select2:select'
+            });
+        }
+    }
+}
+
+function SeleccionarItemSelect2(pSelect2, pValue, pActivarEventoOnChange = false) {
+    $(pSelect2).val(pValue);
+    $(pSelect2).trigger('change');
+
+    if (pActivarEventoOnChange) {
+        $(pSelect2).trigger({
+            type: 'select2:select'
+        });
+    }
+}
+
+function InsertarOpcionTodosSelect2Multiple(pSelect2) {
+    var newOption = new Option("Todos", "all", false, false);
+    $(pSelect2).append(newOption).trigger('change');
+}

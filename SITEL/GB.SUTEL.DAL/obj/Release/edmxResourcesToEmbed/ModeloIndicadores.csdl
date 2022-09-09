@@ -1,0 +1,2927 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SITELModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <ComplexType Name="fn_Split_Result">
+    <Property Name="position" Type="Int32" Nullable="false" />
+    <Property Name="value" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+  </ComplexType>
+  <EntityType Name="Accion">
+    <Key>
+      <PropertyRef Name="IdAccion" />
+    </Key>
+    <Property Name="IdAccion" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Bitacora" Relationship="Self.FK_BITACORA_ACCION" FromRole="Accion" ToRole="Bitacora" />
+    <NavigationProperty Name="BitacoraArchivosMifCsv" Relationship="Self.FK_BitacoraArchivosMifCsv_Accion" FromRole="Accion" ToRole="BitacoraArchivosMifCsv" />
+    <NavigationProperty Name="RolAccionPantalla" Relationship="Self.FK_ROLACCIO_REFERENCE_ACCION" FromRole="Accion" ToRole="RolAccionPantalla" />
+  </EntityType>
+  <EntityType Name="Agrupacion">
+    <Key>
+      <PropertyRef Name="IdAgrupacion" />
+    </Key>
+    <Property Name="IdAgrupacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DescAgrupacion" Type="String" MaxLength="600" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="DetalleAgrupacion" Relationship="Self.FK_DETALLEA_REFERENCE_AGRUPACI" FromRole="Agrupacion" ToRole="DetalleAgrupacion" />
+  </EntityType>
+  <EntityType Name="ArchivoBandaAngostaCsv">
+    <Key>
+      <PropertyRef Name="IdArchivoCsv" />
+    </Key>
+    <Property Name="IdArchivoCsv" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FechaCapturaArchivo" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CodigoConsecutivo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DetalleBandaAngostaCsv" Relationship="Self.FK__DetalleBa__IdArc__33408412" FromRole="ArchivoBandaAngostaCsv" ToRole="DetalleBandaAngostaCsv" />
+  </EntityType>
+  <EntityType Name="ArchivoCsv">
+    <Key>
+      <PropertyRef Name="IdArchivoCsv" />
+    </Key>
+    <Property Name="IdArchivoCsv" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodigoSitio" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaCapturaArchivo" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CodigoConsecutivo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DetalleArchivoCsv" Relationship="Self.FK_DetalleArchivoCsv_ArchivoCsv" FromRole="ArchivoCsv" ToRole="DetalleArchivoCsv" />
+    <NavigationProperty Name="InformacionArchivoCsv" Relationship="Self.FK_InformacionArchivoCsv_ArchivoCsv" FromRole="ArchivoCsv" ToRole="InformacionArchivoCsv" />
+  </EntityType>
+  <EntityType Name="ArchivoExcel">
+    <Key>
+      <PropertyRef Name="IdArchivoExcel" />
+    </Key>
+    <Property Name="IdArchivoExcel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdSolicitudIndicador" Type="Guid" Nullable="false" />
+    <Property Name="IdOperador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ArchivoExcelGenerado" Type="Boolean" Nullable="false" />
+    <Property Name="ArchivoExcelBytes" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="FechaHoraSolicitud" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaHoraGeneracionAutomatica" Type="DateTime" Precision="3" />
+    <Property Name="Borrado" Type="Boolean" />
+    <Property Name="Descarga" Type="Boolean" />
+    <Property Name="FormularioWeb" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArchivoIMTFijasCsv">
+    <Key>
+      <PropertyRef Name="IdArchivoCsv" />
+    </Key>
+    <Property Name="IdArchivoCsv" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FechaCapturaArchivo" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CodigoConsecutivo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DetalleArchivoIMTFijasCsv" Relationship="Self.FK__DetalleAr__IdArc__2E7BCEF5" FromRole="ArchivoIMTFijasCsv" ToRole="DetalleArchivoIMTFijasCsv" />
+  </EntityType>
+  <EntityType Name="ArchivoMif">
+    <Key>
+      <PropertyRef Name="IdArchivoMif" />
+    </Key>
+    <Property Name="IdArchivoMif" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreArchivoMif" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Region" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CoordenadasArchivoMif" Relationship="Self.FK_CoordenadasArchivoMif_ArchivoMif" FromRole="ArchivoMif" ToRole="CoordenadasArchivoMif" />
+  </EntityType>
+  <EntityType Name="ArchivoTelevisionDigitalCsv">
+    <Key>
+      <PropertyRef Name="IdArchivoCsv" />
+    </Key>
+    <Property Name="IdArchivoCsv" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodigoSitio" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaCapturaArchivo" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CodigoConsecutivo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DetalleArchivoTelevisionDigitalCsv" Relationship="Self.FkDetalleArchivoDigitalArchivo" FromRole="ArchivoTelevisionDigitalCsv" ToRole="DetalleArchivoTelevisionDigitalCsv" />
+  </EntityType>
+  <EntityType Name="Bitacora">
+    <Key>
+      <PropertyRef Name="IdBitacora" />
+    </Key>
+    <Property Name="IdBitacora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Pantalla" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Accion" Type="Int32" Nullable="false" />
+    <Property Name="Usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FechaBitacora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="RegistroAnterior" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RegistroNuevo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Accion1" Relationship="Self.FK_BITACORA_ACCION" FromRole="Bitacora" ToRole="Accion" />
+  </EntityType>
+  <EntityType Name="BitacoraArchivosMifCsv">
+    <Key>
+      <PropertyRef Name="IdBitacora" />
+    </Key>
+    <Property Name="IdBitacora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdArchivo" Type="Int32" />
+    <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Accion" Type="Int32" Nullable="false" />
+    <Property Name="Usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Maquina" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TipoArchivo" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AccionExitosa" Type="Boolean" Nullable="false" />
+    <Property Name="DetalleTransaccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Accion1" Relationship="Self.FK_BitacoraArchivosMifCsv_Accion" FromRole="BitacoraArchivosMifCsv" ToRole="Accion" />
+  </EntityType>
+  <EntityType Name="BitacoraExcepcion">
+    <Key>
+      <PropertyRef Name="IdExcepcion" />
+    </Key>
+    <Property Name="IdExcepcion" Type="Guid" Nullable="false" />
+    <Property Name="NombreAplicacion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NombreServidor" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NombreUsuario" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NivelExcepcion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Capa" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Mensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Stacktrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="InnerException" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="BitacoraIndicador">
+    <Key>
+      <PropertyRef Name="IdBitacoIndicador" />
+    </Key>
+    <Property Name="IdBitacoIndicador" Type="Guid" Nullable="false" />
+    <Property Name="IdDetalleRegistroIndicador" Type="Guid" Nullable="false" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="ValorAnterior" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ValorNuevo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Justificacion" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FechaModificacion" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="DetalleRegistroIndicador" Relationship="Self.FK_BITACORA_REFERENCE_DETALLER" FromRole="BitacoraIndicador" ToRole="DetalleRegistroIndicador" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_BITACORA_REFERENCE_USUARIO" FromRole="BitacoraIndicador" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="BitacoraParametrizacionIndicador">
+    <Key>
+      <PropertyRef Name="IdBitacoraParametrizacionIndicador" />
+    </Key>
+    <Property Name="IdBitacoraParametrizacionIndicador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdIndicador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdServicio" Type="Int32" Nullable="false" />
+    <Property Name="Visualiza" Type="Boolean" Nullable="false" />
+    <Property Name="AnnoPorOperador" Type="Int32" Nullable="false" />
+    <Property Name="MesPorOperador" Type="Int32" Nullable="false" />
+    <Property Name="AnnoPorTotal" Type="Int32" Nullable="false" />
+    <Property Name="MesPorTotal" Type="Int32" Nullable="false" />
+    <Property Name="FechaPublicacion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="HoraPublicacion" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="UsuarioPublicador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AnnoDesde" Type="Int32" />
+    <Property Name="MesDesde" Type="Int32" />
+    <NavigationProperty Name="Indicador" Relationship="Self.FK_BitacoraParametrizacionIndicadores_Indicador" FromRole="BitacoraParametrizacionIndicador" ToRole="Indicador" />
+    <NavigationProperty Name="Servicio" Relationship="Self.FK_BitacoraParametrizacionIndicadores_Servicio" FromRole="BitacoraParametrizacionIndicador" ToRole="Servicio" />
+  </EntityType>
+  <EntityType Name="Canton">
+    <Key>
+      <PropertyRef Name="IdCanton" />
+    </Key>
+    <Property Name="IdCanton" Type="Int32" Nullable="false" />
+    <Property Name="IdProvincia" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodigoOficial" Type="Int32" />
+    <NavigationProperty Name="Provincia" Relationship="Self.FK_CANTON_REFERENCE_PROVINCI" FromRole="Canton" ToRole="Provincia" />
+    <NavigationProperty Name="DetalleRegistroIndicador" Relationship="Self.FK_DETALLER_REFERENCE_CANTON" FromRole="Canton" ToRole="DetalleRegistroIndicador" />
+    <NavigationProperty Name="Distrito" Relationship="Self.FK_DISTRITO_REFERENCE_CANTON" FromRole="Canton" ToRole="Distrito" />
+    <NavigationProperty Name="RegistroIndicadorExterno" Relationship="Self.FK_REGISTRO_REFERENCE_CANTON" FromRole="Canton" ToRole="RegistroIndicadorExterno" />
+  </EntityType>
+  <EntityType Name="Constructor">
+    <Key>
+      <PropertyRef Name="IdConstructor" />
+    </Key>
+    <Property Name="IdConstructor" Type="Guid" Nullable="false" />
+    <Property Name="IdIndicador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdFrecuencia" Type="Int32" Nullable="false" />
+    <Property Name="IdDesglose" Type="Int32" />
+    <Property Name="FechaCreacionConstructor" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <Property Name="IdDireccion" Type="Int32" />
+    <NavigationProperty Name="ConstructorCriterio" Relationship="Self.FK_CONSTRUC_REFERENCE_CONSTRUC" FromRole="Constructor" ToRole="ConstructorCriterio" />
+    <NavigationProperty Name="Direccion" Relationship="Self.FK_CONSTRUC_REFERENCE_DIRECCIO" FromRole="Constructor" ToRole="Direccion" />
+    <NavigationProperty Name="Frecuencia" Relationship="Self.FK_CONSTRUC_REFERENCE_FRECUENC" FromRole="Constructor" ToRole="Frecuencia" />
+    <NavigationProperty Name="Frecuencia1" Relationship="Self.FK_CONSTRUC_REFERENCE_FRECUENC2" FromRole="Constructor" ToRole="Frecuencia" />
+    <NavigationProperty Name="Indicador" Relationship="Self.FK_CONSTRUC_REFERENCE_INDICADO" FromRole="Constructor" ToRole="Indicador" />
+    <NavigationProperty Name="SolicitudConstructor" Relationship="Self.FK_SOLICITU_REFERENCIA_CONSTRUCTOR" FromRole="Constructor" ToRole="SolicitudConstructor" />
+  </EntityType>
+  <EntityType Name="ConstructorCriterio">
+    <Key>
+      <PropertyRef Name="IdConstructor" />
+      <PropertyRef Name="IdCriterio" />
+    </Key>
+    <Property Name="IdConstructor" Type="Guid" Nullable="false" />
+    <Property Name="IdCriterio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ayuda" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Constructor" Relationship="Self.FK_CONSTRUC_REFERENCE_CONSTRUC" FromRole="ConstructorCriterio" ToRole="Constructor" />
+    <NavigationProperty Name="Criterio" Relationship="Self.FK_CONSTRUC_REFERENCE_CRITERIO" FromRole="ConstructorCriterio" ToRole="Criterio" />
+  </EntityType>
+  <EntityType Name="ConstructorCriterioDetalleAgrupacion">
+    <Key>
+      <PropertyRef Name="IdConstructorCriterio" />
+    </Key>
+    <Property Name="IdConstructorCriterio" Type="Guid" Nullable="false" />
+    <Property Name="IdConstructor" Type="Guid" Nullable="false" />
+    <Property Name="IdCriterio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdOperador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdAgrupacion" Type="Int32" Nullable="false" />
+    <Property Name="IdConstructorDetallePadre" Type="Guid" />
+    <Property Name="IdTipoValor" Type="Int32" />
+    <Property Name="IdNivelDetalle" Type="Int32" />
+    <Property Name="IdNivel" Type="Int32" />
+    <Property Name="UltimoNivel" Type="Byte" />
+    <Property Name="Borrado" Type="Byte" />
+    <Property Name="IdDetalleAgrupacion" Type="Int32" Nullable="false" />
+    <Property Name="Orden" Type="Int32" />
+    <Property Name="UsaReglaEstadisticaConNivelDetalle" Type="Byte" />
+    <Property Name="UsaReglaEstadistica" Type="Byte" />
+    <Property Name="OrdenCorregido" Type="Int32" />
+    <Property Name="IdNivelDetalleGenero" Type="Int32" />
+    <NavigationProperty Name="ConstructorCriterioDetalleAgrupacion1" Relationship="Self.FK_CONSTRUC_REFERENCE_CONSTRUC2" FromRole="ConstructorCriterioDetalleAgrupacion" ToRole="ConstructorCriterioDetalleAgrupacion1" />
+    <NavigationProperty Name="ConstructorCriterioDetalleAgrupacion2" Relationship="Self.FK_CONSTRUC_REFERENCE_CONSTRUC2" FromRole="ConstructorCriterioDetalleAgrupacion1" ToRole="ConstructorCriterioDetalleAgrupacion" />
+    <NavigationProperty Name="DetalleRegistroIndicador" Relationship="Self.FK_DETALLER_REFERENCE_CONSTRUC" FromRole="ConstructorCriterioDetalleAgrupacion" ToRole="DetalleRegistroIndicador" />
+    <NavigationProperty Name="Regla" Relationship="Self.FK_REGLA_REFERENCE_CONSTRUC" FromRole="ConstructorCriterioDetalleAgrupacion" ToRole="Regla" />
+    <NavigationProperty Name="NivelDetalleReglaEstadistica" Relationship="Self.FK_ReglaEstadistica_ConstructorCriterioDetalleAgrupacion" FromRole="ConstructorCriterioDetalleAgrupacion" ToRole="NivelDetalleReglaEstadistica" />
+    <NavigationProperty Name="DetalleAgrupacion" Relationship="Self.FK_SOLICITU" FromRole="ConstructorCriterioDetalleAgrupacion" ToRole="DetalleAgrupacion" />
+  </EntityType>
+  <EntityType Name="CoordenadasArchivoMif">
+    <Key>
+      <PropertyRef Name="IdCoordenadasArchivoMif" />
+    </Key>
+    <Property Name="IdCoordenadasArchivoMif" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdArchivoMif" Type="Int32" Nullable="false" />
+    <Property Name="Latitud" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Longitud" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Region" Type="Int32" />
+    <NavigationProperty Name="ArchivoMif" Relationship="Self.FK_CoordenadasArchivoMif_ArchivoMif" FromRole="CoordenadasArchivoMif" ToRole="ArchivoMif" />
+  </EntityType>
+  <EntityType Name="CorreosEquipoIndicadores">
+    <Key>
+      <PropertyRef Name="IdCorreosGrupoIndicadores" />
+    </Key>
+    <Property Name="IdCorreosGrupoIndicadores" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CorreosGrupoIndicadores" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Iddireccion" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Criterio">
+    <Key>
+      <PropertyRef Name="IdCriterio" />
+    </Key>
+    <Property Name="IdCriterio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdDireccion" Type="Int32" />
+    <Property Name="DescCriterio" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+    <Property Name="Borrado" Type="Byte" />
+    <Property Name="IdIndicador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ConstructorCriterio" Relationship="Self.FK_CONSTRUC_REFERENCE_CRITERIO" FromRole="Criterio" ToRole="ConstructorCriterio" />
+    <NavigationProperty Name="Indicador" Relationship="Self.FK__CRITERIO__IDINDI__0D7A0286" FromRole="Criterio" ToRole="Indicador" />
+    <NavigationProperty Name="Direccion" Relationship="Self.FK_CRITERIO_REFERENCE_DIRECCIO" FromRole="Criterio" ToRole="Direccion" />
+  </EntityType>
+  <EntityType Name="DetalleAgrupacion">
+    <Key>
+      <PropertyRef Name="IdDetalleAgrupacion" />
+      <PropertyRef Name="IdOperador" />
+      <PropertyRef Name="IdAgrupacion" />
+    </Key>
+    <Property Name="IdDetalleAgrupacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdOperador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdAgrupacion" Type="Int32" Nullable="false" />
+    <Property Name="DescDetalleAgrupacion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <Property Name="DescHexa" Type="Binary" MaxLength="250" FixedLength="false" />
+    <NavigationProperty Name="Agrupacion" Relationship="Self.FK_DETALLEA_REFERENCE_AGRUPACI" FromRole="DetalleAgrupacion" ToRole="Agrupacion" />
+    <NavigationProperty Name="ConstructorCriterioDetalleAgrupacion" Relationship="Self.FK_SOLICITU" FromRole="DetalleAgrupacion" ToRole="ConstructorCriterioDetalleAgrupacion" />
+    <NavigationProperty Name="Operador" Relationship="Self.FK_DETALLEA_REFERENCE_OPERADOR" FromRole="DetalleAgrupacion" ToRole="Operador" />
+  </EntityType>
+  <EntityType Name="DetalleArchivoCsv">
+    <Key>
+      <PropertyRef Name="IdDetalleArchivoCsv" />
+    </Key>
+    <Property Name="IdDetalleArchivoCsv" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdArchivoCsv" Type="Int32" Nullable="false" />
+    <Property Name="Tiempo" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Nivel" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Frecuencia" Type="Int64" />
+    <NavigationProperty Name="ArchivoCsv" Relationship="Self.FK_DetalleArchivoCsv_ArchivoCsv" FromRole="DetalleArchivoCsv" ToRole="ArchivoCsv" />
+  </EntityType>
+  <EntityType Name="DetalleArchivoIMTFijasCsv">
+    <Key>
+      <PropertyRef Name="IdDetalleArchivoCsv" />
+    </Key>
+    <Property Name="IdDetalleArchivoCsv" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdArchivoCsv" Type="Int32" />
+    <Property Name="Tiempo" Type="DateTime" Precision="3" />
+    <Property Name="Frecuencia" Type="Int64" />
+    <Property Name="Level" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="ArchivoInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ArchivoIMTFijasCsv" Relationship="Self.FK__DetalleAr__IdArc__2E7BCEF5" FromRole="DetalleArchivoIMTFijasCsv" ToRole="ArchivoIMTFijasCsv" />
+  </EntityType>
+  <EntityType Name="DetalleArchivoTelevisionDigitalCsv">
+    <Key>
+      <PropertyRef Name="idDetalle" />
+    </Key>
+    <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdArchivoCsv" Type="Int32" />
+    <Property Name="Tiempo" Type="DateTime" Precision="3" />
+    <Property Name="Frecuencia" Type="Int32" />
+    <Property Name="NombreSistema" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ISDBT" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="Acimut" Type="Int32" />
+    <Property Name="Logitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ArchInfo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ArchivoTelevisionDigitalCsv" Relationship="Self.FkDetalleArchivoDigitalArchivo" FromRole="DetalleArchivoTelevisionDigitalCsv" ToRole="ArchivoTelevisionDigitalCsv" />
+  </EntityType>
+  <EntityType Name="DetalleBandaAngostaCsv">
+    <Key>
+      <PropertyRef Name="IdDetalleArchivoCsv" />
+    </Key>
+    <Property Name="IdDetalleArchivoCsv" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdArchivoCsv" Type="Int32" />
+    <Property Name="Tiempo" Type="DateTime" Precision="3" />
+    <Property Name="Frecuencia" Type="Int64" />
+    <Property Name="Level" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="ArchivoInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ArchivoBandaAngostaCsv" Relationship="Self.FK__DetalleBa__IdArc__33408412" FromRole="DetalleBandaAngostaCsv" ToRole="ArchivoBandaAngostaCsv" />
+  </EntityType>
+  <EntityType Name="DetalleIndicadorCruzado">
+    <Key>
+      <PropertyRef Name="IdDetalleIndicadorCruzado" />
+    </Key>
+    <Property Name="IdDetalleIndicadorCruzado" Type="Guid" Nullable="false" />
+    <Property Name="IdIndicadorCruzado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdIndicadorExterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IdIndicador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IdIndicadorInterno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="IndicadorExterno" Relationship="Self.FK__DetalleIn__IdInd__0C50D423" FromRole="DetalleIndicadorCruzado" ToRole="IndicadorExterno" />
+    <NavigationProperty Name="IndicadorCruzado" Relationship="Self.FK_DETALLEI_REFERENCE_INDICADO" FromRole="DetalleIndicadorCruzado" ToRole="IndicadorCruzado" />
+    <NavigationProperty Name="Indicador" Relationship="Self.FK_DETALLEI_REFERENCE_INDICADO2" FromRole="DetalleIndicadorCruzado" ToRole="Indicador" />
+    <NavigationProperty Name="Indicador1" Relationship="Self.FK_DETALLEI_REFERENCE_INDICADO4" FromRole="DetalleIndicadorCruzado" ToRole="Indicador" />
+  </EntityType>
+  <EntityType Name="DetalleRegistroIndicador">
+    <Key>
+      <PropertyRef Name="IdDetalleRegistroindicador" />
+    </Key>
+    <Property Name="IdDetalleRegistroindicador" Type="Guid" Nullable="false" />
+    <Property Name="IdRegistroIndicador" Type="Guid" Nullable="false" />
+    <Property Name="IdConstructorCriterio" Type="Guid" Nullable="false" />
+    <Property Name="IdTipoValor" Type="Int32" Nullable="false" />
+    <Property Name="IdProvincia" Type="Int32" />
+    <Property Name="IdCanton" Type="Int32" />
+    <Property Name="IdGenero" Type="Int32" />
+    <Property Name="Anno" Type="Int32" Nullable="false" />
+    <Property Name="NumeroDesglose" Type="Int32" Nullable="false" />
+    <Property Name="Valor" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Comentario" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Modificado" Type="Byte" Nullable="false" />
+    <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+    <Property Name="IdDistrito" Type="Int32" />
+    <NavigationProperty Name="BitacoraIndicador" Relationship="Self.FK_BITACORA_REFERENCE_DETALLER" FromRole="DetalleRegistroIndicador" ToRole="BitacoraIndicador" />
+    <NavigationProperty Name="Canton" Relationship="Self.FK_DETALLER_REFERENCE_CANTON" FromRole="DetalleRegistroIndicador" ToRole="Canton" />
+    <NavigationProperty Name="ConstructorCriterioDetalleAgrupacion" Relationship="Self.FK_DETALLER_REFERENCE_CONSTRUC" FromRole="DetalleRegistroIndicador" ToRole="ConstructorCriterioDetalleAgrupacion" />
+    <NavigationProperty Name="Genero" Relationship="Self.FK_DETALLER_REFERENCE_GENERO" FromRole="DetalleRegistroIndicador" ToRole="Genero" />
+    <NavigationProperty Name="Provincia" Relationship="Self.FK_DETALLER_REFERENCE_PROVINCI" FromRole="DetalleRegistroIndicador" ToRole="Provincia" />
+    <NavigationProperty Name="RegistroIndicador" Relationship="Self.FK_DETALLER_REFERENCE_REGISTRO" FromRole="DetalleRegistroIndicador" ToRole="RegistroIndicador" />
+    <NavigationProperty Name="TipoValor" Relationship="Self.FK_DETALLER_REFERENCE_TIPOVALO" FromRole="DetalleRegistroIndicador" ToRole="TipoValor" />
+  </EntityType>
+  <EntityType Name="Direccion">
+    <Key>
+      <PropertyRef Name="IdDireccion" />
+    </Key>
+    <Property Name="IdDireccion" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Correo" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Constructor" Relationship="Self.FK_CONSTRUC_REFERENCE_DIRECCIO" FromRole="Direccion" ToRole="Constructor" />
+    <NavigationProperty Name="Criterio" Relationship="Self.FK_CRITERIO_REFERENCE_DIRECCIO" FromRole="Direccion" ToRole="Criterio" />
+    <NavigationProperty Name="SolicitudIndicador" Relationship="Self.FK_SOLICITU_REFERENCE_DIRECCIO" FromRole="Direccion" ToRole="SolicitudIndicador" />
+    <NavigationProperty Name="Indicador" Relationship="Self.IndicadorDireccion" FromRole="Direccion" ToRole="Indicador" />
+  </EntityType>
+  <EntityType Name="Distrito">
+    <Key>
+      <PropertyRef Name="IdDistrito" />
+    </Key>
+    <Property Name="IdDistrito" Type="Int32" Nullable="false" />
+    <Property Name="IdCanton" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Canton" Relationship="Self.FK_DISTRITO_REFERENCE_CANTON" FromRole="Distrito" ToRole="Canton" />
+  </EntityType>
+  <EntityType Name="EjecucionMotor">
+    <Key>
+      <PropertyRef Name="idejecucion" />
+    </Key>
+    <Property Name="idejecucion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="periodoEjecucion" Type="Int32" />
+    <Property Name="anioEjecucion" Type="Int32" />
+    <Property Name="usuarioEjecucion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+    <Property Name="Ejecutado" Type="Int32" />
+  </EntityType>
+  <EntityType Name="EstadoSolicitud">
+    <Key>
+      <PropertyRef Name="IdEstado" />
+    </Key>
+    <Property Name="IdEstado" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SolicitudConstructor" Relationship="Self.FK_SOLICITU_REFERENCE_ESTADOSO" FromRole="EstadoSolicitud" ToRole="SolicitudConstructor" />
+  </EntityType>
+  <EntityType Name="Frecuencia">
+    <Key>
+      <PropertyRef Name="IdFrecuencia" />
+    </Key>
+    <Property Name="IdFrecuencia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreFrecuencia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <Property Name="CantidadMeses" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Constructor" Relationship="Self.FK_CONSTRUC_REFERENCE_FRECUENC" FromRole="Frecuencia" ToRole="Constructor" />
+    <NavigationProperty Name="Constructor1" Relationship="Self.FK_CONSTRUC_REFERENCE_FRECUENC2" FromRole="Frecuencia" ToRole="Constructor" />
+    <NavigationProperty Name="SolicitudIndicador" Relationship="Self.FK_SOLICITU_REFERENCE_FRECUENC" FromRole="Frecuencia" ToRole="SolicitudIndicador" />
+  </EntityType>
+  <EntityType Name="FuenteExterna">
+    <Key>
+      <PropertyRef Name="IdFuenteExterna" />
+    </Key>
+    <Property Name="IdFuenteExterna" Type="Int32" Nullable="false" />
+    <Property Name="NombreFuenteExterna" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="IndicadorExterno" Relationship="Self.FK_INDICADO_REFERENCE_FUENTEEX" FromRole="FuenteExterna" ToRole="IndicadorExterno" />
+  </EntityType>
+  <EntityType Name="Genero">
+    <Key>
+      <PropertyRef Name="IdGenero" />
+    </Key>
+    <Property Name="IdGenero" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DetalleRegistroIndicador" Relationship="Self.FK_DETALLER_REFERENCE_GENERO" FromRole="Genero" ToRole="DetalleRegistroIndicador" />
+    <NavigationProperty Name="RegistroIndicadorExterno" Relationship="Self.FK_REGISTRO_REFERENCE_GENERO" FromRole="Genero" ToRole="RegistroIndicadorExterno" />
+  </EntityType>
+  <EntityType Name="Indicador">
+    <Key>
+      <PropertyRef Name="IdIndicador" />
+    </Key>
+    <Property Name="IdIndicador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdTipoInd" Type="Int32" Nullable="false" />
+    <Property Name="NombreIndicador" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DescIndicador" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <Property Name="DefinicionIndicador" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="FuenteIndicador" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="NotaAlPie" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="FechaUltimaModificacion" Type="DateTime" Precision="0" />
+    <Property Name="HoraUltimaModificacion" Type="Time" Precision="7" />
+    <Property Name="UsuarioUltimaModificacion" Type="Int32" />
+    <NavigationProperty Name="BitacoraParametrizacionIndicador" Relationship="Self.FK_BitacoraParametrizacionIndicadores_Indicador" FromRole="Indicador" ToRole="BitacoraParametrizacionIndicador" />
+    <NavigationProperty Name="Constructor" Relationship="Self.FK_CONSTRUC_REFERENCE_INDICADO" FromRole="Indicador" ToRole="Constructor" />
+    <NavigationProperty Name="Criterio" Relationship="Self.FK__CRITERIO__IDINDI__0D7A0286" FromRole="Indicador" ToRole="Criterio" />
+    <NavigationProperty Name="DetalleIndicadorCruzado" Relationship="Self.FK_DETALLEI_REFERENCE_INDICADO2" FromRole="Indicador" ToRole="DetalleIndicadorCruzado" />
+    <NavigationProperty Name="DetalleIndicadorCruzado1" Relationship="Self.FK_DETALLEI_REFERENCE_INDICADO4" FromRole="Indicador" ToRole="DetalleIndicadorCruzado" />
+    <NavigationProperty Name="InidicadorUmbralPeso" Relationship="Self.FK__Inidicado__IdInd__19FFD4FC" FromRole="Indicador" ToRole="InidicadorUmbralPeso" />
+    <NavigationProperty Name="ParamFormulas" Relationship="Self.FK__ParamForm__IdInd__1DD065E0" FromRole="Indicador" ToRole="ParamFormulas" />
+    <NavigationProperty Name="ServicioDefinicion" Relationship="Self.FK__ServicioD__IdInd__670A40DB" FromRole="Indicador" ToRole="ServicioDefinicion" />
+    <NavigationProperty Name="TipoIndicador" Relationship="Self.FK_INDICADO_REFERENCE_TIPOINDI" FromRole="Indicador" ToRole="TipoIndicador" />
+    <NavigationProperty Name="ParametroIndicador" Relationship="Self.FK_ParametroIndicador_Indicador" FromRole="Indicador" ToRole="ParametroIndicador" />
+    <NavigationProperty Name="ServicioIndicador" Relationship="Self.FK_SERVICIOINDICADOR_INDICADOR" FromRole="Indicador" ToRole="ServicioIndicador" />
+    <NavigationProperty Name="Direccion" Relationship="Self.IndicadorDireccion" FromRole="Indicador" ToRole="Direccion" />
+    <NavigationProperty Name="IndicadorUIT" Relationship="Self.IndicadorIndicadorUIT" FromRole="Indicador" ToRole="IndicadorUIT" />
+  </EntityType>
+  <EntityType Name="IndicadorCruzado">
+    <Key>
+      <PropertyRef Name="IdIndicadorCruzado" />
+    </Key>
+    <Property Name="IdIndicadorCruzado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="DetalleIndicadorCruzado" Relationship="Self.FK_DETALLEI_REFERENCE_INDICADO" FromRole="IndicadorCruzado" ToRole="DetalleIndicadorCruzado" />
+  </EntityType>
+  <EntityType Name="IndicadorExterno">
+    <Key>
+      <PropertyRef Name="IdIndicadorExterno" />
+    </Key>
+    <Property Name="IdIndicadorExterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdFuenteExterna" Type="Int32" Nullable="false" />
+    <Property Name="IdTipoValor" Type="Int32" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="DetalleIndicadorCruzado" Relationship="Self.FK__DetalleIn__IdInd__0C50D423" FromRole="IndicadorExterno" ToRole="DetalleIndicadorCruzado" />
+    <NavigationProperty Name="FuenteExterna" Relationship="Self.FK_INDICADO_REFERENCE_FUENTEEX" FromRole="IndicadorExterno" ToRole="FuenteExterna" />
+    <NavigationProperty Name="RegistroIndicadorExterno" Relationship="Self.FK__RegistroI__IdInd__0B5CAFEA" FromRole="IndicadorExterno" ToRole="RegistroIndicadorExterno" />
+    <NavigationProperty Name="TipoValor" Relationship="Self.FK_INDICADO_REFERENCE_TIPOVALO" FromRole="IndicadorExterno" ToRole="TipoValor" />
+  </EntityType>
+  <EntityType Name="IndicadorUIT">
+    <Key>
+      <PropertyRef Name="IdIndicadorUIT" />
+    </Key>
+    <Property Name="IdIndicadorUIT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DescIndicadorUIT" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Indicador" Relationship="Self.IndicadorIndicadorUIT" FromRole="IndicadorUIT" ToRole="Indicador" />
+  </EntityType>
+  <EntityType Name="InformacionArchivoCsv">
+    <Key>
+      <PropertyRef Name="IdInformacionArchivoCsv" />
+    </Key>
+    <Property Name="IdInformacionArchivoCsv" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdArchivoCsv" Type="Int32" Nullable="false" />
+    <Property Name="InformacionArchivoCsv1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ArchivoCsv" Relationship="Self.FK_InformacionArchivoCsv_ArchivoCsv" FromRole="InformacionArchivoCsv" ToRole="ArchivoCsv" />
+  </EntityType>
+  <EntityType Name="InidicadorUmbralPeso">
+    <Key>
+      <PropertyRef Name="IdUmbralPeso" />
+    </Key>
+    <Property Name="IdUmbralPeso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdIndicador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Umbral" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="PesoRelativo" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="FechaUltimaModificacion" Type="DateTime" Precision="3" />
+    <Property Name="UsuarioUltimaModificacion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Indicador" Relationship="Self.FK__Inidicado__IdInd__19FFD4FC" FromRole="InidicadorUmbralPeso" ToRole="Indicador" />
+  </EntityType>
+  <EntityType Name="LogFormulas">
+    <Key>
+      <PropertyRef Name="Idlog" />
+    </Key>
+    <Property Name="Idlog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Indicador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+    <Property Name="Usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FormulaAntiguaCumpli" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="FormulaNuevaCumpli" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="FormulaAntiguaPor" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="FormulaNuevaPor" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="TipoAccion" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Nivel">
+    <Key>
+      <PropertyRef Name="IdNivel" />
+    </Key>
+    <Property Name="IdNivel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DescNivel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NivelDetalleReglaEstadistica">
+    <Key>
+      <PropertyRef Name="IdNivelDetalleReglaEstadistica" />
+    </Key>
+    <Property Name="IdNivelDetalleReglaEstadistica" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdConstructorCriterioDetalleAgrupacion" Type="Guid" Nullable="false" />
+    <Property Name="ValorLimiteSuperior" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ValorLimiteInferior" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdNivelDetalle" Type="Int32" Nullable="false" />
+    <Property Name="IdGenerico" Type="Int32" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="ConstructorCriterioDetalleAgrupacion" Relationship="Self.FK_ReglaEstadistica_ConstructorCriterioDetalleAgrupacion" FromRole="NivelDetalleReglaEstadistica" ToRole="ConstructorCriterioDetalleAgrupacion" />
+    <NavigationProperty Name="TipoNivelDetalle" Relationship="Self.FK_NivelDetalleReglaEstadistica_TipoNivelDetalle" FromRole="NivelDetalleReglaEstadistica" ToRole="TipoNivelDetalle" />
+  </EntityType>
+  <EntityType Name="Operador">
+    <Key>
+      <PropertyRef Name="IdOperador" />
+    </Key>
+    <Property Name="IdOperador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NombreOperador" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado" Type="Boolean" Nullable="false" />
+    <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="DetalleAgrupacion" Relationship="Self.FK_DETALLEA_REFERENCE_OPERADOR" FromRole="Operador" ToRole="DetalleAgrupacion" />
+    <NavigationProperty Name="ServicioOperador" Relationship="Self.FK_SERVICIOOPERADOR_OPERADOR" FromRole="Operador" ToRole="ServicioOperador" />
+    <NavigationProperty Name="SolicitudConstructor" Relationship="Self.FK_SOLICITU_REFERENCE_OPERADOR" FromRole="Operador" ToRole="SolicitudConstructor" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_USUARIO_REFERENCE_OPERADOR" FromRole="Operador" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="OperadorSync">
+    <Key>
+      <PropertyRef Name="IdOperador" />
+    </Key>
+    <Property Name="IdOperador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NombreOperador" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Pantalla">
+    <Key>
+      <PropertyRef Name="IdPantalla" />
+    </Key>
+    <Property Name="IdPantalla" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="RolAccionPantalla" Relationship="Self.FK_ROLACCIO_REFERENCE_PANTALLA" FromRole="Pantalla" ToRole="RolAccionPantalla" />
+  </EntityType>
+  <EntityType Name="ParametroIndicador">
+    <Key>
+      <PropertyRef Name="IdParametroIndicador" />
+    </Key>
+    <Property Name="IdParametroIndicador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdIndicador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Visualiza" Type="Boolean" Nullable="false" />
+    <Property Name="AnnoPorOperador" Type="Int32" Nullable="false" />
+    <Property Name="MesPorOperador" Type="Int32" Nullable="false" />
+    <Property Name="AnnoPorTotal" Type="Int32" Nullable="false" />
+    <Property Name="MesPorTotal" Type="Int32" Nullable="false" />
+    <Property Name="Publicar" Type="Boolean" Nullable="false" />
+    <Property Name="FechaUltimaPublicacion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="HoraUltimaPublicacion" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="UsuarioUltimoPublicador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AnnoDesde" Type="Int32" />
+    <Property Name="MesDesde" Type="Int32" />
+    <NavigationProperty Name="Indicador" Relationship="Self.FK_ParametroIndicador_Indicador" FromRole="ParametroIndicador" ToRole="Indicador" />
+  </EntityType>
+  <EntityType Name="ParametrosGenerales">
+    <Key>
+      <PropertyRef Name="IdParametros" />
+    </Key>
+    <Property Name="IdParametros" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Valor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ParamFormulas">
+    <Key>
+      <PropertyRef Name="IdParamFormulas" />
+    </Key>
+    <Property Name="IdParamFormulas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdServicio" Type="Int32" />
+    <Property Name="IdIndicador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FormulaPorcentaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FormulaCumplimiento" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Criterios" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FromArray" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FechaUltimaActualizacion" Type="DateTime" Precision="3" />
+    <Property Name="Usuario" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Periodicidad" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ArrayIf" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="ArrayVerdadero" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="ArrayFalso" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Indicador" Relationship="Self.FK__ParamForm__IdInd__1DD065E0" FromRole="ParamFormulas" ToRole="Indicador" />
+    <NavigationProperty Name="Servicio" Relationship="Self.FK__ParamForm__IdSer__1EC48A19" FromRole="ParamFormulas" ToRole="Servicio" />
+  </EntityType>
+  <EntityType Name="Periodicidad">
+    <Key>
+      <PropertyRef Name="IdPeridiocidad" />
+    </Key>
+    <Property Name="IdPeridiocidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DescPeriodicidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="RegistroIndicadorExterno" Relationship="Self.FK_REGISTRO_REFERENCE_PERIODIC" FromRole="Periodicidad" ToRole="RegistroIndicadorExterno" />
+  </EntityType>
+  <EntityType Name="Provincia">
+    <Key>
+      <PropertyRef Name="IdProvincia" />
+    </Key>
+    <Property Name="IdProvincia" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Canton" Relationship="Self.FK_CANTON_REFERENCE_PROVINCI" FromRole="Provincia" ToRole="Canton" />
+    <NavigationProperty Name="DetalleRegistroIndicador" Relationship="Self.FK_DETALLER_REFERENCE_PROVINCI" FromRole="Provincia" ToRole="DetalleRegistroIndicador" />
+  </EntityType>
+  <EntityType Name="RegionIndicadorExterno">
+    <Key>
+      <PropertyRef Name="IdRegionIndicadorExterno" />
+    </Key>
+    <Property Name="IdRegionIndicadorExterno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DescRegionIndicadorExterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="RegistroIndicadorExterno" Relationship="Self.FK_REGISTRO_REFERENCE_REGIONIN" FromRole="RegionIndicadorExterno" ToRole="RegistroIndicadorExterno" />
+  </EntityType>
+  <EntityType Name="RegistroIndicador">
+    <Key>
+      <PropertyRef Name="IdRegistroIndicador" />
+    </Key>
+    <Property Name="IdRegistroIndicador" Type="Guid" Nullable="false" />
+    <Property Name="IdSolicitudConstructor" Type="Guid" Nullable="false" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="FechaRegistroIndicador" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Comentario" Type="String" MaxLength="550" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Justificado" Type="String" MaxLength="550" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Bloqueado" Type="Byte" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DetalleRegistroIndicador" Relationship="Self.FK_DETALLER_REFERENCE_REGISTRO" FromRole="RegistroIndicador" ToRole="DetalleRegistroIndicador" />
+    <NavigationProperty Name="SolicitudConstructor" Relationship="Self.FK_REGISTRO_REFERENCE_SOLICITU" FromRole="RegistroIndicador" ToRole="SolicitudConstructor" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_REGISTRO_REFERENCE_USUARIO" FromRole="RegistroIndicador" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="RegistroIndicadorExterno">
+    <Key>
+      <PropertyRef Name="IdRegistroIndicadorExterno" />
+    </Key>
+    <Property Name="IdRegistroIndicadorExterno" Type="Guid" Nullable="false" />
+    <Property Name="IdPeridiocidad" Type="Int32" Nullable="false" />
+    <Property Name="IdRegionIndicadorExterno" Type="Int32" Nullable="false" />
+    <Property Name="IdZonaIndicadorExterno" Type="Int32" Nullable="false" />
+    <Property Name="IdIndicadorExterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdGenero" Type="Int32" Nullable="false" />
+    <Property Name="ValorIndicador" Type="Double" Nullable="false" />
+    <Property Name="Borrado" Type="Boolean" Nullable="false" />
+    <Property Name="Anno" Type="Int32" Nullable="false" />
+    <Property Name="IdCanton" Type="Int32" Nullable="false" />
+    <Property Name="IdTrimestre" Type="Int32" Nullable="false" />
+    <Property Name="Modificado" Type="Byte" Nullable="false" />
+    <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Canton" Relationship="Self.FK_REGISTRO_REFERENCE_CANTON" FromRole="RegistroIndicadorExterno" ToRole="Canton" />
+    <NavigationProperty Name="Genero" Relationship="Self.FK_REGISTRO_REFERENCE_GENERO" FromRole="RegistroIndicadorExterno" ToRole="Genero" />
+    <NavigationProperty Name="IndicadorExterno" Relationship="Self.FK__RegistroI__IdInd__0B5CAFEA" FromRole="RegistroIndicadorExterno" ToRole="IndicadorExterno" />
+    <NavigationProperty Name="Periodicidad" Relationship="Self.FK_REGISTRO_REFERENCE_PERIODIC" FromRole="RegistroIndicadorExterno" ToRole="Periodicidad" />
+    <NavigationProperty Name="RegionIndicadorExterno" Relationship="Self.FK_REGISTRO_REFERENCE_REGIONIN" FromRole="RegistroIndicadorExterno" ToRole="RegionIndicadorExterno" />
+    <NavigationProperty Name="Trimestre" Relationship="Self.FK_REGISTRO_REFERENCE_TRIMESTR" FromRole="RegistroIndicadorExterno" ToRole="Trimestre" />
+    <NavigationProperty Name="ZonaIndicadorExterno" Relationship="Self.FK_REGISTRO_REFERENCE_ZONAINDI" FromRole="RegistroIndicadorExterno" ToRole="ZonaIndicadorExterno" />
+  </EntityType>
+  <EntityType Name="Regla">
+    <Key>
+      <PropertyRef Name="IdConstructorCriterio" />
+    </Key>
+    <Property Name="IdConstructorCriterio" Type="Guid" Nullable="false" />
+    <Property Name="ValorLimiteInferior" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ValorLimiteSuperior" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FechaCreacionRegla" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="ConstructorCriterioDetalleAgrupacion" Relationship="Self.FK_REGLA_REFERENCE_CONSTRUC" FromRole="Regla" ToRole="ConstructorCriterioDetalleAgrupacion" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreRol" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="RolAccionPantalla" Relationship="Self.FK_ROLACCIO_REFERENCE_ROL" FromRole="Rol" ToRole="RolAccionPantalla" />
+    <NavigationProperty Name="Usuario" Relationship="Self.RolUsuario" FromRole="Rol" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="RolAccionPantalla">
+    <Key>
+      <PropertyRef Name="IdRol" />
+      <PropertyRef Name="IdPantalla" />
+      <PropertyRef Name="IdAccion" />
+    </Key>
+    <Property Name="IdRol" Type="Int32" Nullable="false" />
+    <Property Name="IdPantalla" Type="Int32" Nullable="false" />
+    <Property Name="IdAccion" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Accion" Relationship="Self.FK_ROLACCIO_REFERENCE_ACCION" FromRole="RolAccionPantalla" ToRole="Accion" />
+    <NavigationProperty Name="Pantalla" Relationship="Self.FK_ROLACCIO_REFERENCE_PANTALLA" FromRole="RolAccionPantalla" ToRole="Pantalla" />
+    <NavigationProperty Name="Rol" Relationship="Self.FK_ROLACCIO_REFERENCE_ROL" FromRole="RolAccionPantalla" ToRole="Rol" />
+  </EntityType>
+  <EntityType Name="SemaforoFormularioWEB">
+    <Key>
+      <PropertyRef Name="IdSemaforo" />
+    </Key>
+    <Property Name="IdSemaforo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Servicio">
+    <Key>
+      <PropertyRef Name="IdServicio" />
+    </Key>
+    <Property Name="IdServicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DesServicio" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="BitacoraParametrizacionIndicador" Relationship="Self.FK_BitacoraParametrizacionIndicadores_Servicio" FromRole="Servicio" ToRole="BitacoraParametrizacionIndicador" />
+    <NavigationProperty Name="ParamFormulas" Relationship="Self.FK__ParamForm__IdSer__1EC48A19" FromRole="Servicio" ToRole="ParamFormulas" />
+    <NavigationProperty Name="ServicioIndicador" Relationship="Self.FK_SERVICIOINDICADOR_SERVICIO" FromRole="Servicio" ToRole="ServicioIndicador" />
+    <NavigationProperty Name="ServicioOperador" Relationship="Self.FK_SERVICIOOPERADOR_SERVICIO" FromRole="Servicio" ToRole="ServicioOperador" />
+    <NavigationProperty Name="SolicitudIndicador" Relationship="Self.FK_SOLICITU_REFERENCE_SERVICIO" FromRole="Servicio" ToRole="SolicitudIndicador" />
+    <NavigationProperty Name="TipoIndicadorServicio" Relationship="Self.FK_TIPOINDI_REFERENCE_SERVICIO" FromRole="Servicio" ToRole="TipoIndicadorServicio" />
+  </EntityType>
+  <EntityType Name="ServicioDefinicion">
+    <Key>
+      <PropertyRef Name="IdIndicador" />
+    </Key>
+    <Property Name="IdIndicador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Tipo" Type="Int32" />
+    <NavigationProperty Name="Indicador" Relationship="Self.FK__ServicioD__IdInd__670A40DB" FromRole="ServicioDefinicion" ToRole="Indicador" />
+  </EntityType>
+  <EntityType Name="ServicioIndicador">
+    <Key>
+      <PropertyRef Name="IdIndicador" />
+      <PropertyRef Name="IdServicio" />
+    </Key>
+    <Property Name="IdIndicador" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IdServicio" Type="Int32" Nullable="false" />
+    <Property Name="Mercado" Type="Boolean" />
+    <NavigationProperty Name="Indicador" Relationship="Self.FK_SERVICIOINDICADOR_INDICADOR" FromRole="ServicioIndicador" ToRole="Indicador" />
+    <NavigationProperty Name="Servicio" Relationship="Self.FK_SERVICIOINDICADOR_SERVICIO" FromRole="ServicioIndicador" ToRole="Servicio" />
+  </EntityType>
+  <EntityType Name="ServicioOperador">
+    <Key>
+      <PropertyRef Name="IdeServicio" />
+      <PropertyRef Name="IdOperador" />
+    </Key>
+    <Property Name="IdeServicio" Type="Int32" Nullable="false" />
+    <Property Name="IdOperador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" />
+    <Property Name="Verificar" Type="Boolean" />
+    <NavigationProperty Name="Operador" Relationship="Self.FK_SERVICIOOPERADOR_OPERADOR" FromRole="ServicioOperador" ToRole="Operador" />
+    <NavigationProperty Name="Servicio" Relationship="Self.FK_SERVICIOOPERADOR_SERVICIO" FromRole="ServicioOperador" ToRole="Servicio" />
+  </EntityType>
+  <EntityType Name="SolicitudConstructor">
+    <Key>
+      <PropertyRef Name="IdSolicitudContructor" />
+    </Key>
+    <Property Name="IdSolicitudContructor" Type="Guid" Nullable="false" />
+    <Property Name="IdSolicitudIndicador" Type="Guid" Nullable="false" />
+    <Property Name="IdConstructor" Type="Guid" Nullable="false" />
+    <Property Name="IdEstado" Type="Int32" Nullable="false" />
+    <Property Name="IdOperador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <Property Name="OrdenIndicadorEnExcel" Type="Int32" />
+    <Property Name="Cargado" Type="Boolean" />
+    <Property Name="CantidadCarga" Type="Int32" />
+    <Property Name="IdSemaforo" Type="Int32" />
+    <NavigationProperty Name="Constructor" Relationship="Self.FK_SOLICITU_REFERENCIA_CONSTRUCTOR" FromRole="SolicitudConstructor" ToRole="Constructor" />
+    <NavigationProperty Name="EstadoSolicitud" Relationship="Self.FK_SOLICITU_REFERENCE_ESTADOSO" FromRole="SolicitudConstructor" ToRole="EstadoSolicitud" />
+    <NavigationProperty Name="Operador" Relationship="Self.FK_SOLICITU_REFERENCE_OPERADOR" FromRole="SolicitudConstructor" ToRole="Operador" />
+    <NavigationProperty Name="RegistroIndicador" Relationship="Self.FK_REGISTRO_REFERENCE_SOLICITU" FromRole="SolicitudConstructor" ToRole="RegistroIndicador" />
+    <NavigationProperty Name="SolicitudIndicador" Relationship="Self.FK_SOLICITU_REFERENCE_SOLICITU" FromRole="SolicitudConstructor" ToRole="SolicitudIndicador" />
+  </EntityType>
+  <EntityType Name="SolicitudGeneral">
+    <Key>
+      <PropertyRef Name="IdSolicitud" />
+    </Key>
+    <Property Name="IdSolicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FechaFinal" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+    <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NotificacionEnviada" Type="Boolean" Nullable="false" />
+    <Property Name="Borrado" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="SolicitudOperador" Relationship="Self.FK_Solicitud" FromRole="SolicitudGeneral" ToRole="SolicitudOperador" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuarios" FromRole="SolicitudGeneral" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="SolicitudIndicador">
+    <Key>
+      <PropertyRef Name="IdSolicitudIndicador" />
+    </Key>
+    <Property Name="IdSolicitudIndicador" Type="Guid" Nullable="false" />
+    <Property Name="IdFrecuencia" Type="Int32" Nullable="false" />
+    <Property Name="IdServicio" Type="Int32" Nullable="false" />
+    <Property Name="IdDireccion" Type="Int32" Nullable="false" />
+    <Property Name="DescFormulario" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaFin" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Activo" Type="Byte" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <Property Name="FechaBaseParaCrearExcel" Type="DateTime" Precision="3" />
+    <Property Name="FormularioWeb" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Direccion" Relationship="Self.FK_SOLICITU_REFERENCE_DIRECCIO" FromRole="SolicitudIndicador" ToRole="Direccion" />
+    <NavigationProperty Name="Frecuencia" Relationship="Self.FK_SOLICITU_REFERENCE_FRECUENC" FromRole="SolicitudIndicador" ToRole="Frecuencia" />
+    <NavigationProperty Name="Servicio" Relationship="Self.FK_SOLICITU_REFERENCE_SERVICIO" FromRole="SolicitudIndicador" ToRole="Servicio" />
+    <NavigationProperty Name="SolicitudConstructor" Relationship="Self.FK_SOLICITU_REFERENCE_SOLICITU" FromRole="SolicitudIndicador" ToRole="SolicitudConstructor" />
+  </EntityType>
+  <EntityType Name="SolicitudOperador">
+    <Key>
+      <PropertyRef Name="IdSolicitud" />
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdSolicitud" Type="Int32" Nullable="false" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Respuesta" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="SolicitudGeneral" Relationship="Self.FK_Solicitud" FromRole="SolicitudOperador" ToRole="SolicitudGeneral" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Respuesta" FromRole="SolicitudOperador" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TEMPDetalleRegistroIndicador">
+    <Key>
+      <PropertyRef Name="IdDetalleRegistroindicador" />
+    </Key>
+    <Property Name="IdDetalleRegistroindicador" Type="Guid" Nullable="false" />
+    <Property Name="IdRegistroIndicador" Type="Guid" Nullable="false" />
+    <Property Name="IdConstructorCriterio" Type="Guid" Nullable="false" />
+    <Property Name="IdTipoValor" Type="Int32" Nullable="false" />
+    <Property Name="IdProvincia" Type="Int32" />
+    <Property Name="IdCanton" Type="Int32" />
+    <Property Name="IdGenero" Type="Int32" />
+    <Property Name="Anno" Type="Int32" Nullable="false" />
+    <Property Name="NumeroDesglose" Type="Int32" Nullable="false" />
+    <Property Name="Valor" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Comentario" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Modificado" Type="Byte" Nullable="false" />
+    <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+    <Property Name="IdDistrito" Type="Int32" />
+    <Property Name="IdSemaforo" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TEMPRegistroIndicador">
+    <Key>
+      <PropertyRef Name="IdRegistroIndicador" />
+    </Key>
+    <Property Name="IdRegistroIndicador" Type="Guid" Nullable="false" />
+    <Property Name="IdSolicitudConstructor" Type="Guid" Nullable="false" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="FechaRegistroIndicador" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Comentario" Type="String" MaxLength="550" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Justificado" Type="String" MaxLength="550" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Bloqueado" Type="Byte" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TipoIndicador">
+    <Key>
+      <PropertyRef Name="IdTipoInd" />
+    </Key>
+    <Property Name="IdTipoInd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DesTipoInd" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Indicador" Relationship="Self.FK_INDICADO_REFERENCE_TIPOINDI" FromRole="TipoIndicador" ToRole="Indicador" />
+    <NavigationProperty Name="TipoIndicadorServicio" Relationship="Self.FK_TIPOINDI_REFERENCE_TIPOINDI" FromRole="TipoIndicador" ToRole="TipoIndicadorServicio" />
+  </EntityType>
+  <EntityType Name="TipoIndicadorServicio">
+    <Key>
+      <PropertyRef Name="IdTipoInd" />
+      <PropertyRef Name="IdServicio" />
+    </Key>
+    <Property Name="IdTipoInd" Type="Int32" Nullable="false" />
+    <Property Name="IdServicio" Type="Int32" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Servicio" Relationship="Self.FK_TIPOINDI_REFERENCE_SERVICIO" FromRole="TipoIndicadorServicio" ToRole="Servicio" />
+    <NavigationProperty Name="TipoIndicador" Relationship="Self.FK_TIPOINDI_REFERENCE_TIPOINDI" FromRole="TipoIndicadorServicio" ToRole="TipoIndicador" />
+  </EntityType>
+  <EntityType Name="TipoNivelDetalle">
+    <Key>
+      <PropertyRef Name="IdNivelDetalle" />
+    </Key>
+    <Property Name="IdNivelDetalle" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Tabla" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NivelDetalleReglaEstadistica" Relationship="Self.FK_NivelDetalleReglaEstadistica_TipoNivelDetalle" FromRole="TipoNivelDetalle" ToRole="NivelDetalleReglaEstadistica" />
+  </EntityType>
+  <EntityType Name="TipoValor">
+    <Key>
+      <PropertyRef Name="IdTipoValor" />
+    </Key>
+    <Property Name="IdTipoValor" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Formato" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DetalleRegistroIndicador" Relationship="Self.FK_DETALLER_REFERENCE_TIPOVALO" FromRole="TipoValor" ToRole="DetalleRegistroIndicador" />
+    <NavigationProperty Name="IndicadorExterno" Relationship="Self.FK_INDICADO_REFERENCE_TIPOVALO" FromRole="TipoValor" ToRole="IndicadorExterno" />
+  </EntityType>
+  <EntityType Name="Trimestre">
+    <Key>
+      <PropertyRef Name="IdTrimestre" />
+    </Key>
+    <Property Name="IdTrimestre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="RegistroIndicadorExterno" Relationship="Self.FK_REGISTRO_REFERENCE_TRIMESTR" FromRole="Trimestre" ToRole="RegistroIndicadorExterno" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdOperador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AccesoUsuario" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NombreUsuario" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Contrasena" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="CorreoUsuario" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UsuarioInterno" Type="Byte" Nullable="false" />
+    <Property Name="Activo" Type="Byte" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <Property Name="Mercado" Type="Boolean" />
+    <Property Name="Calidad" Type="Boolean" />
+    <Property Name="FONATEL" Type="Boolean" />
+    <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BitacoraIndicador" Relationship="Self.FK_BITACORA_REFERENCE_USUARIO" FromRole="Usuario" ToRole="BitacoraIndicador" />
+    <NavigationProperty Name="Operador" Relationship="Self.FK_USUARIO_REFERENCE_OPERADOR" FromRole="Usuario" ToRole="Operador" />
+    <NavigationProperty Name="RegistroIndicador" Relationship="Self.FK_REGISTRO_REFERENCE_USUARIO" FromRole="Usuario" ToRole="RegistroIndicador" />
+    <NavigationProperty Name="SolicitudGeneral" Relationship="Self.FK_Usuarios" FromRole="Usuario" ToRole="SolicitudGeneral" />
+    <NavigationProperty Name="SolicitudOperador" Relationship="Self.FK_Usuario_Respuesta" FromRole="Usuario" ToRole="SolicitudOperador" />
+    <NavigationProperty Name="UsuarioLogin" Relationship="Self.FK_USUARIOLOGIN_USUARIO" FromRole="Usuario" ToRole="UsuarioLogin" />
+    <NavigationProperty Name="Rol" Relationship="Self.RolUsuario" FromRole="Usuario" ToRole="Rol" />
+  </EntityType>
+  <EntityType Name="UsuarioLogin">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="PrimerLogueo" Type="Boolean" Nullable="false" />
+    <Property Name="Intentos" Type="Byte" Nullable="false" />
+    <Property Name="UltimoLogueoFallido" Type="DateTime" Precision="3" />
+    <Property Name="UltimoLogueoExitoso" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_USUARIOLOGIN_USUARIO" FromRole="UsuarioLogin" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="ZonaIndicadorExterno">
+    <Key>
+      <PropertyRef Name="IdZonaIndicadorExterno" />
+    </Key>
+    <Property Name="IdZonaIndicadorExterno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DescZonaIndicadorExterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="RegistroIndicadorExterno" Relationship="Self.FK_REGISTRO_REFERENCE_ZONAINDI" FromRole="ZonaIndicadorExterno" ToRole="RegistroIndicadorExterno" />
+  </EntityType>
+  <EntityType Name="BitacoraSync">
+    <Key>
+      <PropertyRef Name="IdProcess" />
+      <PropertyRef Name="DateSync" />
+      <PropertyRef Name="Status" />
+      <PropertyRef Name="RowsInsert" />
+      <PropertyRef Name="RowsUpdate" />
+    </Key>
+    <Property Name="IdProcess" Type="Guid" Nullable="false" />
+    <Property Name="DateSync" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="RowsInsert" Type="Int32" Nullable="false" />
+    <Property Name="RowsUpdate" Type="Int32" Nullable="false" />
+    <Property Name="Error" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="DetalleAgrupacionNEW">
+    <Key>
+      <PropertyRef Name="IdDetalleAgrupacion" />
+      <PropertyRef Name="IdOperador" />
+      <PropertyRef Name="IdAgrupacion" />
+      <PropertyRef Name="DescDetalleAgrupacion" />
+      <PropertyRef Name="Borrado" />
+    </Key>
+    <Property Name="IdDetalleAgrupacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdOperador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdAgrupacion" Type="Int32" Nullable="false" />
+    <Property Name="DescDetalleAgrupacion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Borrado" Type="Byte" Nullable="false" />
+    <Property Name="DescHexa" Type="Binary" MaxLength="250" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_BITACORA_ACCION">
+    <End Role="Accion" Type="Self.Accion" Multiplicity="1" />
+    <End Role="Bitacora" Type="Self.Bitacora" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accion">
+        <PropertyRef Name="IdAccion" />
+      </Principal>
+      <Dependent Role="Bitacora">
+        <PropertyRef Name="Accion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BitacoraArchivosMifCsv_Accion">
+    <End Role="Accion" Type="Self.Accion" Multiplicity="1" />
+    <End Role="BitacoraArchivosMifCsv" Type="Self.BitacoraArchivosMifCsv" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accion">
+        <PropertyRef Name="IdAccion" />
+      </Principal>
+      <Dependent Role="BitacoraArchivosMifCsv">
+        <PropertyRef Name="Accion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ROLACCIO_REFERENCE_ACCION">
+    <End Role="Accion" Type="Self.Accion" Multiplicity="1" />
+    <End Role="RolAccionPantalla" Type="Self.RolAccionPantalla" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accion">
+        <PropertyRef Name="IdAccion" />
+      </Principal>
+      <Dependent Role="RolAccionPantalla">
+        <PropertyRef Name="IdAccion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLEA_REFERENCE_AGRUPACI">
+    <End Role="Agrupacion" Type="Self.Agrupacion" Multiplicity="1" />
+    <End Role="DetalleAgrupacion" Type="Self.DetalleAgrupacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agrupacion">
+        <PropertyRef Name="IdAgrupacion" />
+      </Principal>
+      <Dependent Role="DetalleAgrupacion">
+        <PropertyRef Name="IdAgrupacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetalleBa__IdArc__33408412">
+    <End Role="ArchivoBandaAngostaCsv" Type="Self.ArchivoBandaAngostaCsv" Multiplicity="0..1" />
+    <End Role="DetalleBandaAngostaCsv" Type="Self.DetalleBandaAngostaCsv" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArchivoBandaAngostaCsv">
+        <PropertyRef Name="IdArchivoCsv" />
+      </Principal>
+      <Dependent Role="DetalleBandaAngostaCsv">
+        <PropertyRef Name="IdArchivoCsv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleArchivoCsv_ArchivoCsv">
+    <End Role="ArchivoCsv" Type="Self.ArchivoCsv" Multiplicity="1" />
+    <End Role="DetalleArchivoCsv" Type="Self.DetalleArchivoCsv" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArchivoCsv">
+        <PropertyRef Name="IdArchivoCsv" />
+      </Principal>
+      <Dependent Role="DetalleArchivoCsv">
+        <PropertyRef Name="IdArchivoCsv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InformacionArchivoCsv_ArchivoCsv">
+    <End Role="ArchivoCsv" Type="Self.ArchivoCsv" Multiplicity="1" />
+    <End Role="InformacionArchivoCsv" Type="Self.InformacionArchivoCsv" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArchivoCsv">
+        <PropertyRef Name="IdArchivoCsv" />
+      </Principal>
+      <Dependent Role="InformacionArchivoCsv">
+        <PropertyRef Name="IdArchivoCsv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetalleAr__IdArc__2E7BCEF5">
+    <End Role="ArchivoIMTFijasCsv" Type="Self.ArchivoIMTFijasCsv" Multiplicity="0..1" />
+    <End Role="DetalleArchivoIMTFijasCsv" Type="Self.DetalleArchivoIMTFijasCsv" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArchivoIMTFijasCsv">
+        <PropertyRef Name="IdArchivoCsv" />
+      </Principal>
+      <Dependent Role="DetalleArchivoIMTFijasCsv">
+        <PropertyRef Name="IdArchivoCsv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CoordenadasArchivoMif_ArchivoMif">
+    <End Role="ArchivoMif" Type="Self.ArchivoMif" Multiplicity="1" />
+    <End Role="CoordenadasArchivoMif" Type="Self.CoordenadasArchivoMif" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArchivoMif">
+        <PropertyRef Name="IdArchivoMif" />
+      </Principal>
+      <Dependent Role="CoordenadasArchivoMif">
+        <PropertyRef Name="IdArchivoMif" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FkDetalleArchivoDigitalArchivo">
+    <End Role="ArchivoTelevisionDigitalCsv" Type="Self.ArchivoTelevisionDigitalCsv" Multiplicity="0..1" />
+    <End Role="DetalleArchivoTelevisionDigitalCsv" Type="Self.DetalleArchivoTelevisionDigitalCsv" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArchivoTelevisionDigitalCsv">
+        <PropertyRef Name="IdArchivoCsv" />
+      </Principal>
+      <Dependent Role="DetalleArchivoTelevisionDigitalCsv">
+        <PropertyRef Name="IdArchivoCsv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BITACORA_REFERENCE_DETALLER">
+    <End Role="DetalleRegistroIndicador" Type="Self.DetalleRegistroIndicador" Multiplicity="1" />
+    <End Role="BitacoraIndicador" Type="Self.BitacoraIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DetalleRegistroIndicador">
+        <PropertyRef Name="IdDetalleRegistroindicador" />
+      </Principal>
+      <Dependent Role="BitacoraIndicador">
+        <PropertyRef Name="IdDetalleRegistroIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BITACORA_REFERENCE_USUARIO">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="BitacoraIndicador" Type="Self.BitacoraIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="BitacoraIndicador">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BitacoraParametrizacionIndicadores_Indicador">
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="1" />
+    <End Role="BitacoraParametrizacionIndicador" Type="Self.BitacoraParametrizacionIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicador">
+        <PropertyRef Name="IdIndicador" />
+      </Principal>
+      <Dependent Role="BitacoraParametrizacionIndicador">
+        <PropertyRef Name="IdIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BitacoraParametrizacionIndicadores_Servicio">
+    <End Role="Servicio" Type="Self.Servicio" Multiplicity="1" />
+    <End Role="BitacoraParametrizacionIndicador" Type="Self.BitacoraParametrizacionIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servicio">
+        <PropertyRef Name="IdServicio" />
+      </Principal>
+      <Dependent Role="BitacoraParametrizacionIndicador">
+        <PropertyRef Name="IdServicio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CANTON_REFERENCE_PROVINCI">
+    <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
+    <End Role="Canton" Type="Self.Canton" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provincia">
+        <PropertyRef Name="IdProvincia" />
+      </Principal>
+      <Dependent Role="Canton">
+        <PropertyRef Name="IdProvincia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLER_REFERENCE_CANTON">
+    <End Role="Canton" Type="Self.Canton" Multiplicity="0..1" />
+    <End Role="DetalleRegistroIndicador" Type="Self.DetalleRegistroIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Canton">
+        <PropertyRef Name="IdCanton" />
+      </Principal>
+      <Dependent Role="DetalleRegistroIndicador">
+        <PropertyRef Name="IdCanton" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DISTRITO_REFERENCE_CANTON">
+    <End Role="Canton" Type="Self.Canton" Multiplicity="1" />
+    <End Role="Distrito" Type="Self.Distrito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Canton">
+        <PropertyRef Name="IdCanton" />
+      </Principal>
+      <Dependent Role="Distrito">
+        <PropertyRef Name="IdCanton" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_REFERENCE_CANTON">
+    <End Role="Canton" Type="Self.Canton" Multiplicity="1" />
+    <End Role="RegistroIndicadorExterno" Type="Self.RegistroIndicadorExterno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Canton">
+        <PropertyRef Name="IdCanton" />
+      </Principal>
+      <Dependent Role="RegistroIndicadorExterno">
+        <PropertyRef Name="IdCanton" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONSTRUC_REFERENCE_CONSTRUC">
+    <End Role="Constructor" Type="Self.Constructor" Multiplicity="1" />
+    <End Role="ConstructorCriterio" Type="Self.ConstructorCriterio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Constructor">
+        <PropertyRef Name="IdConstructor" />
+      </Principal>
+      <Dependent Role="ConstructorCriterio">
+        <PropertyRef Name="IdConstructor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONSTRUC_REFERENCE_DIRECCIO">
+    <End Role="Direccion" Type="Self.Direccion" Multiplicity="0..1" />
+    <End Role="Constructor" Type="Self.Constructor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Direccion">
+        <PropertyRef Name="IdDireccion" />
+      </Principal>
+      <Dependent Role="Constructor">
+        <PropertyRef Name="IdDireccion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONSTRUC_REFERENCE_FRECUENC">
+    <End Role="Frecuencia" Type="Self.Frecuencia" Multiplicity="1" />
+    <End Role="Constructor" Type="Self.Constructor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Frecuencia">
+        <PropertyRef Name="IdFrecuencia" />
+      </Principal>
+      <Dependent Role="Constructor">
+        <PropertyRef Name="IdFrecuencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONSTRUC_REFERENCE_FRECUENC2">
+    <End Role="Frecuencia" Type="Self.Frecuencia" Multiplicity="0..1" />
+    <End Role="Constructor" Type="Self.Constructor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Frecuencia">
+        <PropertyRef Name="IdFrecuencia" />
+      </Principal>
+      <Dependent Role="Constructor">
+        <PropertyRef Name="IdDesglose" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONSTRUC_REFERENCE_INDICADO">
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="1" />
+    <End Role="Constructor" Type="Self.Constructor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicador">
+        <PropertyRef Name="IdIndicador" />
+      </Principal>
+      <Dependent Role="Constructor">
+        <PropertyRef Name="IdIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITU_REFERENCIA_CONSTRUCTOR">
+    <End Role="Constructor" Type="Self.Constructor" Multiplicity="1" />
+    <End Role="SolicitudConstructor" Type="Self.SolicitudConstructor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Constructor">
+        <PropertyRef Name="IdConstructor" />
+      </Principal>
+      <Dependent Role="SolicitudConstructor">
+        <PropertyRef Name="IdConstructor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONSTRUC_REFERENCE_CRITERIO">
+    <End Role="Criterio" Type="Self.Criterio" Multiplicity="1" />
+    <End Role="ConstructorCriterio" Type="Self.ConstructorCriterio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Criterio">
+        <PropertyRef Name="IdCriterio" />
+      </Principal>
+      <Dependent Role="ConstructorCriterio">
+        <PropertyRef Name="IdCriterio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONSTRUC_REFERENCE_CONSTRUC2">
+    <End Role="ConstructorCriterioDetalleAgrupacion" Type="Self.ConstructorCriterioDetalleAgrupacion" Multiplicity="0..1" />
+    <End Role="ConstructorCriterioDetalleAgrupacion1" Type="Self.ConstructorCriterioDetalleAgrupacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConstructorCriterioDetalleAgrupacion">
+        <PropertyRef Name="IdConstructorCriterio" />
+      </Principal>
+      <Dependent Role="ConstructorCriterioDetalleAgrupacion1">
+        <PropertyRef Name="IdConstructorDetallePadre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLER_REFERENCE_CONSTRUC">
+    <End Role="ConstructorCriterioDetalleAgrupacion" Type="Self.ConstructorCriterioDetalleAgrupacion" Multiplicity="1" />
+    <End Role="DetalleRegistroIndicador" Type="Self.DetalleRegistroIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConstructorCriterioDetalleAgrupacion">
+        <PropertyRef Name="IdConstructorCriterio" />
+      </Principal>
+      <Dependent Role="DetalleRegistroIndicador">
+        <PropertyRef Name="IdConstructorCriterio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGLA_REFERENCE_CONSTRUC">
+    <End Role="ConstructorCriterioDetalleAgrupacion" Type="Self.ConstructorCriterioDetalleAgrupacion" Multiplicity="1" />
+    <End Role="Regla" Type="Self.Regla" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ConstructorCriterioDetalleAgrupacion">
+        <PropertyRef Name="IdConstructorCriterio" />
+      </Principal>
+      <Dependent Role="Regla">
+        <PropertyRef Name="IdConstructorCriterio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReglaEstadistica_ConstructorCriterioDetalleAgrupacion">
+    <End Role="ConstructorCriterioDetalleAgrupacion" Type="Self.ConstructorCriterioDetalleAgrupacion" Multiplicity="1" />
+    <End Role="NivelDetalleReglaEstadistica" Type="Self.NivelDetalleReglaEstadistica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConstructorCriterioDetalleAgrupacion">
+        <PropertyRef Name="IdConstructorCriterio" />
+      </Principal>
+      <Dependent Role="NivelDetalleReglaEstadistica">
+        <PropertyRef Name="IdConstructorCriterioDetalleAgrupacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITU">
+    <End Role="DetalleAgrupacion" Type="Self.DetalleAgrupacion" Multiplicity="1" />
+    <End Role="ConstructorCriterioDetalleAgrupacion" Type="Self.ConstructorCriterioDetalleAgrupacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DetalleAgrupacion">
+        <PropertyRef Name="IdDetalleAgrupacion" />
+        <PropertyRef Name="IdOperador" />
+        <PropertyRef Name="IdAgrupacion" />
+      </Principal>
+      <Dependent Role="ConstructorCriterioDetalleAgrupacion">
+        <PropertyRef Name="IdDetalleAgrupacion" />
+        <PropertyRef Name="IdOperador" />
+        <PropertyRef Name="IdAgrupacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CRITERIO__IDINDI__0D7A0286">
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="1" />
+    <End Role="Criterio" Type="Self.Criterio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicador">
+        <PropertyRef Name="IdIndicador" />
+      </Principal>
+      <Dependent Role="Criterio">
+        <PropertyRef Name="IdIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CRITERIO_REFERENCE_DIRECCIO">
+    <End Role="Direccion" Type="Self.Direccion" Multiplicity="0..1" />
+    <End Role="Criterio" Type="Self.Criterio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Direccion">
+        <PropertyRef Name="IdDireccion" />
+      </Principal>
+      <Dependent Role="Criterio">
+        <PropertyRef Name="IdDireccion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLEA_REFERENCE_OPERADOR">
+    <End Role="Operador" Type="Self.Operador" Multiplicity="1" />
+    <End Role="DetalleAgrupacion" Type="Self.DetalleAgrupacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operador">
+        <PropertyRef Name="IdOperador" />
+      </Principal>
+      <Dependent Role="DetalleAgrupacion">
+        <PropertyRef Name="IdOperador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetalleIn__IdInd__0C50D423">
+    <End Role="IndicadorExterno" Type="Self.IndicadorExterno" Multiplicity="0..1" />
+    <End Role="DetalleIndicadorCruzado" Type="Self.DetalleIndicadorCruzado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndicadorExterno">
+        <PropertyRef Name="IdIndicadorExterno" />
+      </Principal>
+      <Dependent Role="DetalleIndicadorCruzado">
+        <PropertyRef Name="IdIndicadorExterno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLEI_REFERENCE_INDICADO">
+    <End Role="IndicadorCruzado" Type="Self.IndicadorCruzado" Multiplicity="1" />
+    <End Role="DetalleIndicadorCruzado" Type="Self.DetalleIndicadorCruzado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndicadorCruzado">
+        <PropertyRef Name="IdIndicadorCruzado" />
+      </Principal>
+      <Dependent Role="DetalleIndicadorCruzado">
+        <PropertyRef Name="IdIndicadorCruzado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLEI_REFERENCE_INDICADO2">
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="0..1" />
+    <End Role="DetalleIndicadorCruzado" Type="Self.DetalleIndicadorCruzado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicador">
+        <PropertyRef Name="IdIndicador" />
+      </Principal>
+      <Dependent Role="DetalleIndicadorCruzado">
+        <PropertyRef Name="IdIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLEI_REFERENCE_INDICADO4">
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="0..1" />
+    <End Role="DetalleIndicadorCruzado" Type="Self.DetalleIndicadorCruzado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicador">
+        <PropertyRef Name="IdIndicador" />
+      </Principal>
+      <Dependent Role="DetalleIndicadorCruzado">
+        <PropertyRef Name="IdIndicadorInterno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLER_REFERENCE_GENERO">
+    <End Role="Genero" Type="Self.Genero" Multiplicity="0..1" />
+    <End Role="DetalleRegistroIndicador" Type="Self.DetalleRegistroIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genero">
+        <PropertyRef Name="IdGenero" />
+      </Principal>
+      <Dependent Role="DetalleRegistroIndicador">
+        <PropertyRef Name="IdGenero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLER_REFERENCE_PROVINCI">
+    <End Role="Provincia" Type="Self.Provincia" Multiplicity="0..1" />
+    <End Role="DetalleRegistroIndicador" Type="Self.DetalleRegistroIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provincia">
+        <PropertyRef Name="IdProvincia" />
+      </Principal>
+      <Dependent Role="DetalleRegistroIndicador">
+        <PropertyRef Name="IdProvincia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLER_REFERENCE_REGISTRO">
+    <End Role="RegistroIndicador" Type="Self.RegistroIndicador" Multiplicity="1" />
+    <End Role="DetalleRegistroIndicador" Type="Self.DetalleRegistroIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RegistroIndicador">
+        <PropertyRef Name="IdRegistroIndicador" />
+      </Principal>
+      <Dependent Role="DetalleRegistroIndicador">
+        <PropertyRef Name="IdRegistroIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLER_REFERENCE_TIPOVALO">
+    <End Role="TipoValor" Type="Self.TipoValor" Multiplicity="1" />
+    <End Role="DetalleRegistroIndicador" Type="Self.DetalleRegistroIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoValor">
+        <PropertyRef Name="IdTipoValor" />
+      </Principal>
+      <Dependent Role="DetalleRegistroIndicador">
+        <PropertyRef Name="IdTipoValor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITU_REFERENCE_DIRECCIO">
+    <End Role="Direccion" Type="Self.Direccion" Multiplicity="1" />
+    <End Role="SolicitudIndicador" Type="Self.SolicitudIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Direccion">
+        <PropertyRef Name="IdDireccion" />
+      </Principal>
+      <Dependent Role="SolicitudIndicador">
+        <PropertyRef Name="IdDireccion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITU_REFERENCE_ESTADOSO">
+    <End Role="EstadoSolicitud" Type="Self.EstadoSolicitud" Multiplicity="1" />
+    <End Role="SolicitudConstructor" Type="Self.SolicitudConstructor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoSolicitud">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="SolicitudConstructor">
+        <PropertyRef Name="IdEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITU_REFERENCE_FRECUENC">
+    <End Role="Frecuencia" Type="Self.Frecuencia" Multiplicity="1" />
+    <End Role="SolicitudIndicador" Type="Self.SolicitudIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Frecuencia">
+        <PropertyRef Name="IdFrecuencia" />
+      </Principal>
+      <Dependent Role="SolicitudIndicador">
+        <PropertyRef Name="IdFrecuencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INDICADO_REFERENCE_FUENTEEX">
+    <End Role="FuenteExterna" Type="Self.FuenteExterna" Multiplicity="1" />
+    <End Role="IndicadorExterno" Type="Self.IndicadorExterno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FuenteExterna">
+        <PropertyRef Name="IdFuenteExterna" />
+      </Principal>
+      <Dependent Role="IndicadorExterno">
+        <PropertyRef Name="IdFuenteExterna" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_REFERENCE_GENERO">
+    <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+    <End Role="RegistroIndicadorExterno" Type="Self.RegistroIndicadorExterno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genero">
+        <PropertyRef Name="IdGenero" />
+      </Principal>
+      <Dependent Role="RegistroIndicadorExterno">
+        <PropertyRef Name="IdGenero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Inidicado__IdInd__19FFD4FC">
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="0..1" />
+    <End Role="InidicadorUmbralPeso" Type="Self.InidicadorUmbralPeso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicador">
+        <PropertyRef Name="IdIndicador" />
+      </Principal>
+      <Dependent Role="InidicadorUmbralPeso">
+        <PropertyRef Name="IdIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ParamForm__IdInd__1DD065E0">
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="0..1" />
+    <End Role="ParamFormulas" Type="Self.ParamFormulas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicador">
+        <PropertyRef Name="IdIndicador" />
+      </Principal>
+      <Dependent Role="ParamFormulas">
+        <PropertyRef Name="IdIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ServicioD__IdInd__670A40DB">
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="1" />
+    <End Role="ServicioDefinicion" Type="Self.ServicioDefinicion" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Indicador">
+        <PropertyRef Name="IdIndicador" />
+      </Principal>
+      <Dependent Role="ServicioDefinicion">
+        <PropertyRef Name="IdIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INDICADO_REFERENCE_TIPOINDI">
+    <End Role="TipoIndicador" Type="Self.TipoIndicador" Multiplicity="1" />
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoIndicador">
+        <PropertyRef Name="IdTipoInd" />
+      </Principal>
+      <Dependent Role="Indicador">
+        <PropertyRef Name="IdTipoInd" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ParametroIndicador_Indicador">
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="1" />
+    <End Role="ParametroIndicador" Type="Self.ParametroIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicador">
+        <PropertyRef Name="IdIndicador" />
+      </Principal>
+      <Dependent Role="ParametroIndicador">
+        <PropertyRef Name="IdIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SERVICIOINDICADOR_INDICADOR">
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="1" />
+    <End Role="ServicioIndicador" Type="Self.ServicioIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Indicador">
+        <PropertyRef Name="IdIndicador" />
+      </Principal>
+      <Dependent Role="ServicioIndicador">
+        <PropertyRef Name="IdIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RegistroI__IdInd__0B5CAFEA">
+    <End Role="IndicadorExterno" Type="Self.IndicadorExterno" Multiplicity="1" />
+    <End Role="RegistroIndicadorExterno" Type="Self.RegistroIndicadorExterno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndicadorExterno">
+        <PropertyRef Name="IdIndicadorExterno" />
+      </Principal>
+      <Dependent Role="RegistroIndicadorExterno">
+        <PropertyRef Name="IdIndicadorExterno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_INDICADO_REFERENCE_TIPOVALO">
+    <End Role="TipoValor" Type="Self.TipoValor" Multiplicity="0..1" />
+    <End Role="IndicadorExterno" Type="Self.IndicadorExterno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoValor">
+        <PropertyRef Name="IdTipoValor" />
+      </Principal>
+      <Dependent Role="IndicadorExterno">
+        <PropertyRef Name="IdTipoValor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NivelDetalleReglaEstadistica_TipoNivelDetalle">
+    <End Role="TipoNivelDetalle" Type="Self.TipoNivelDetalle" Multiplicity="1" />
+    <End Role="NivelDetalleReglaEstadistica" Type="Self.NivelDetalleReglaEstadistica" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoNivelDetalle">
+        <PropertyRef Name="IdNivelDetalle" />
+      </Principal>
+      <Dependent Role="NivelDetalleReglaEstadistica">
+        <PropertyRef Name="IdNivelDetalle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SERVICIOOPERADOR_OPERADOR">
+    <End Role="Operador" Type="Self.Operador" Multiplicity="1" />
+    <End Role="ServicioOperador" Type="Self.ServicioOperador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operador">
+        <PropertyRef Name="IdOperador" />
+      </Principal>
+      <Dependent Role="ServicioOperador">
+        <PropertyRef Name="IdOperador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITU_REFERENCE_OPERADOR">
+    <End Role="Operador" Type="Self.Operador" Multiplicity="1" />
+    <End Role="SolicitudConstructor" Type="Self.SolicitudConstructor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operador">
+        <PropertyRef Name="IdOperador" />
+      </Principal>
+      <Dependent Role="SolicitudConstructor">
+        <PropertyRef Name="IdOperador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USUARIO_REFERENCE_OPERADOR">
+    <End Role="Operador" Type="Self.Operador" Multiplicity="0..1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operador">
+        <PropertyRef Name="IdOperador" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="IdOperador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ROLACCIO_REFERENCE_PANTALLA">
+    <End Role="Pantalla" Type="Self.Pantalla" Multiplicity="1" />
+    <End Role="RolAccionPantalla" Type="Self.RolAccionPantalla" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pantalla">
+        <PropertyRef Name="IdPantalla" />
+      </Principal>
+      <Dependent Role="RolAccionPantalla">
+        <PropertyRef Name="IdPantalla" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ParamForm__IdSer__1EC48A19">
+    <End Role="Servicio" Type="Self.Servicio" Multiplicity="0..1" />
+    <End Role="ParamFormulas" Type="Self.ParamFormulas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servicio">
+        <PropertyRef Name="IdServicio" />
+      </Principal>
+      <Dependent Role="ParamFormulas">
+        <PropertyRef Name="IdServicio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_REFERENCE_PERIODIC">
+    <End Role="Periodicidad" Type="Self.Periodicidad" Multiplicity="1" />
+    <End Role="RegistroIndicadorExterno" Type="Self.RegistroIndicadorExterno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Periodicidad">
+        <PropertyRef Name="IdPeridiocidad" />
+      </Principal>
+      <Dependent Role="RegistroIndicadorExterno">
+        <PropertyRef Name="IdPeridiocidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_REFERENCE_REGIONIN">
+    <End Role="RegionIndicadorExterno" Type="Self.RegionIndicadorExterno" Multiplicity="1" />
+    <End Role="RegistroIndicadorExterno" Type="Self.RegistroIndicadorExterno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RegionIndicadorExterno">
+        <PropertyRef Name="IdRegionIndicadorExterno" />
+      </Principal>
+      <Dependent Role="RegistroIndicadorExterno">
+        <PropertyRef Name="IdRegionIndicadorExterno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_REFERENCE_SOLICITU">
+    <End Role="SolicitudConstructor" Type="Self.SolicitudConstructor" Multiplicity="1" />
+    <End Role="RegistroIndicador" Type="Self.RegistroIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SolicitudConstructor">
+        <PropertyRef Name="IdSolicitudContructor" />
+      </Principal>
+      <Dependent Role="RegistroIndicador">
+        <PropertyRef Name="IdSolicitudConstructor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_REFERENCE_USUARIO">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="RegistroIndicador" Type="Self.RegistroIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="RegistroIndicador">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_REFERENCE_TRIMESTR">
+    <End Role="Trimestre" Type="Self.Trimestre" Multiplicity="1" />
+    <End Role="RegistroIndicadorExterno" Type="Self.RegistroIndicadorExterno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trimestre">
+        <PropertyRef Name="IdTrimestre" />
+      </Principal>
+      <Dependent Role="RegistroIndicadorExterno">
+        <PropertyRef Name="IdTrimestre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_REFERENCE_ZONAINDI">
+    <End Role="ZonaIndicadorExterno" Type="Self.ZonaIndicadorExterno" Multiplicity="1" />
+    <End Role="RegistroIndicadorExterno" Type="Self.RegistroIndicadorExterno" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZonaIndicadorExterno">
+        <PropertyRef Name="IdZonaIndicadorExterno" />
+      </Principal>
+      <Dependent Role="RegistroIndicadorExterno">
+        <PropertyRef Name="IdZonaIndicadorExterno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ROLACCIO_REFERENCE_ROL">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+    <End Role="RolAccionPantalla" Type="Self.RolAccionPantalla" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="RolAccionPantalla">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SERVICIOINDICADOR_SERVICIO">
+    <End Role="Servicio" Type="Self.Servicio" Multiplicity="1" />
+    <End Role="ServicioIndicador" Type="Self.ServicioIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servicio">
+        <PropertyRef Name="IdServicio" />
+      </Principal>
+      <Dependent Role="ServicioIndicador">
+        <PropertyRef Name="IdServicio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SERVICIOOPERADOR_SERVICIO">
+    <End Role="Servicio" Type="Self.Servicio" Multiplicity="1" />
+    <End Role="ServicioOperador" Type="Self.ServicioOperador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servicio">
+        <PropertyRef Name="IdServicio" />
+      </Principal>
+      <Dependent Role="ServicioOperador">
+        <PropertyRef Name="IdeServicio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITU_REFERENCE_SERVICIO">
+    <End Role="Servicio" Type="Self.Servicio" Multiplicity="1" />
+    <End Role="SolicitudIndicador" Type="Self.SolicitudIndicador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servicio">
+        <PropertyRef Name="IdServicio" />
+      </Principal>
+      <Dependent Role="SolicitudIndicador">
+        <PropertyRef Name="IdServicio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TIPOINDI_REFERENCE_SERVICIO">
+    <End Role="Servicio" Type="Self.Servicio" Multiplicity="1" />
+    <End Role="TipoIndicadorServicio" Type="Self.TipoIndicadorServicio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servicio">
+        <PropertyRef Name="IdServicio" />
+      </Principal>
+      <Dependent Role="TipoIndicadorServicio">
+        <PropertyRef Name="IdServicio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOLICITU_REFERENCE_SOLICITU">
+    <End Role="SolicitudIndicador" Type="Self.SolicitudIndicador" Multiplicity="1" />
+    <End Role="SolicitudConstructor" Type="Self.SolicitudConstructor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SolicitudIndicador">
+        <PropertyRef Name="IdSolicitudIndicador" />
+      </Principal>
+      <Dependent Role="SolicitudConstructor">
+        <PropertyRef Name="IdSolicitudIndicador" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solicitud">
+    <End Role="SolicitudGeneral" Type="Self.SolicitudGeneral" Multiplicity="1" />
+    <End Role="SolicitudOperador" Type="Self.SolicitudOperador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SolicitudGeneral">
+        <PropertyRef Name="IdSolicitud" />
+      </Principal>
+      <Dependent Role="SolicitudOperador">
+        <PropertyRef Name="IdSolicitud" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="SolicitudGeneral" Type="Self.SolicitudGeneral" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="SolicitudGeneral">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_Respuesta">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="SolicitudOperador" Type="Self.SolicitudOperador" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="SolicitudOperador">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TIPOINDI_REFERENCE_TIPOINDI">
+    <End Role="TipoIndicador" Type="Self.TipoIndicador" Multiplicity="1" />
+    <End Role="TipoIndicadorServicio" Type="Self.TipoIndicadorServicio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoIndicador">
+        <PropertyRef Name="IdTipoInd" />
+      </Principal>
+      <Dependent Role="TipoIndicadorServicio">
+        <PropertyRef Name="IdTipoInd" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USUARIOLOGIN_USUARIO">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="UsuarioLogin" Type="Self.UsuarioLogin" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="UsuarioLogin">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IndicadorDireccion">
+    <End Role="Direccion" Type="Self.Direccion" Multiplicity="*" />
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="*" />
+  </Association>
+  <Association Name="IndicadorIndicadorUIT">
+    <End Role="IndicadorUIT" Type="Self.IndicadorUIT" Multiplicity="*" />
+    <End Role="Indicador" Type="Self.Indicador" Multiplicity="*" />
+  </Association>
+  <Association Name="RolUsuario">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accion" EntityType="Self.Accion" />
+    <EntitySet Name="Agrupacion" EntityType="Self.Agrupacion" />
+    <EntitySet Name="ArchivoBandaAngostaCsv" EntityType="Self.ArchivoBandaAngostaCsv" />
+    <EntitySet Name="ArchivoCsv" EntityType="Self.ArchivoCsv" />
+    <EntitySet Name="ArchivoExcel" EntityType="Self.ArchivoExcel" />
+    <EntitySet Name="ArchivoIMTFijasCsv" EntityType="Self.ArchivoIMTFijasCsv" />
+    <EntitySet Name="ArchivoMif" EntityType="Self.ArchivoMif" />
+    <EntitySet Name="ArchivoTelevisionDigitalCsv" EntityType="Self.ArchivoTelevisionDigitalCsv" />
+    <EntitySet Name="Bitacora" EntityType="Self.Bitacora" />
+    <EntitySet Name="BitacoraArchivosMifCsv" EntityType="Self.BitacoraArchivosMifCsv" />
+    <EntitySet Name="BitacoraExcepcion" EntityType="Self.BitacoraExcepcion" />
+    <EntitySet Name="BitacoraIndicador" EntityType="Self.BitacoraIndicador" />
+    <EntitySet Name="BitacoraParametrizacionIndicador" EntityType="Self.BitacoraParametrizacionIndicador" />
+    <EntitySet Name="Canton" EntityType="Self.Canton" />
+    <EntitySet Name="Constructor" EntityType="Self.Constructor" />
+    <EntitySet Name="ConstructorCriterio" EntityType="Self.ConstructorCriterio" />
+    <EntitySet Name="ConstructorCriterioDetalleAgrupacion" EntityType="Self.ConstructorCriterioDetalleAgrupacion" />
+    <EntitySet Name="CoordenadasArchivoMif" EntityType="Self.CoordenadasArchivoMif" />
+    <EntitySet Name="CorreosEquipoIndicadores" EntityType="Self.CorreosEquipoIndicadores" />
+    <EntitySet Name="Criterio" EntityType="Self.Criterio" />
+    <EntitySet Name="DetalleAgrupacion" EntityType="Self.DetalleAgrupacion" />
+    <EntitySet Name="DetalleArchivoCsv" EntityType="Self.DetalleArchivoCsv" />
+    <EntitySet Name="DetalleArchivoIMTFijasCsv" EntityType="Self.DetalleArchivoIMTFijasCsv" />
+    <EntitySet Name="DetalleArchivoTelevisionDigitalCsv" EntityType="Self.DetalleArchivoTelevisionDigitalCsv" />
+    <EntitySet Name="DetalleBandaAngostaCsv" EntityType="Self.DetalleBandaAngostaCsv" />
+    <EntitySet Name="DetalleIndicadorCruzado" EntityType="Self.DetalleIndicadorCruzado" />
+    <EntitySet Name="DetalleRegistroIndicador" EntityType="Self.DetalleRegistroIndicador" />
+    <EntitySet Name="Direccion" EntityType="Self.Direccion" />
+    <EntitySet Name="Distrito" EntityType="Self.Distrito" />
+    <EntitySet Name="EjecucionMotor" EntityType="Self.EjecucionMotor" />
+    <EntitySet Name="EstadoSolicitud" EntityType="Self.EstadoSolicitud" />
+    <EntitySet Name="Frecuencia" EntityType="Self.Frecuencia" />
+    <EntitySet Name="FuenteExterna" EntityType="Self.FuenteExterna" />
+    <EntitySet Name="Genero" EntityType="Self.Genero" />
+    <EntitySet Name="Indicador" EntityType="Self.Indicador" />
+    <EntitySet Name="IndicadorCruzado" EntityType="Self.IndicadorCruzado" />
+    <EntitySet Name="IndicadorExterno" EntityType="Self.IndicadorExterno" />
+    <EntitySet Name="IndicadorUIT" EntityType="Self.IndicadorUIT" />
+    <EntitySet Name="InformacionArchivoCsv" EntityType="Self.InformacionArchivoCsv" />
+    <EntitySet Name="InidicadorUmbralPeso" EntityType="Self.InidicadorUmbralPeso" />
+    <EntitySet Name="LogFormulas" EntityType="Self.LogFormulas" />
+    <EntitySet Name="Nivel" EntityType="Self.Nivel" />
+    <EntitySet Name="NivelDetalleReglaEstadistica" EntityType="Self.NivelDetalleReglaEstadistica" />
+    <EntitySet Name="Operador" EntityType="Self.Operador" />
+    <EntitySet Name="OperadorSync" EntityType="Self.OperadorSync" />
+    <EntitySet Name="Pantalla" EntityType="Self.Pantalla" />
+    <EntitySet Name="ParametroIndicador" EntityType="Self.ParametroIndicador" />
+    <EntitySet Name="ParametrosGenerales" EntityType="Self.ParametrosGenerales" />
+    <EntitySet Name="ParamFormulas" EntityType="Self.ParamFormulas" />
+    <EntitySet Name="Periodicidad" EntityType="Self.Periodicidad" />
+    <EntitySet Name="Provincia" EntityType="Self.Provincia" />
+    <EntitySet Name="RegionIndicadorExterno" EntityType="Self.RegionIndicadorExterno" />
+    <EntitySet Name="RegistroIndicador" EntityType="Self.RegistroIndicador" />
+    <EntitySet Name="RegistroIndicadorExterno" EntityType="Self.RegistroIndicadorExterno" />
+    <EntitySet Name="Regla" EntityType="Self.Regla" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" />
+    <EntitySet Name="RolAccionPantalla" EntityType="Self.RolAccionPantalla" />
+    <EntitySet Name="SemaforoFormularioWEB" EntityType="Self.SemaforoFormularioWEB" />
+    <EntitySet Name="Servicio" EntityType="Self.Servicio" />
+    <EntitySet Name="ServicioDefinicion" EntityType="Self.ServicioDefinicion" />
+    <EntitySet Name="ServicioIndicador" EntityType="Self.ServicioIndicador" />
+    <EntitySet Name="ServicioOperador" EntityType="Self.ServicioOperador" />
+    <EntitySet Name="SolicitudConstructor" EntityType="Self.SolicitudConstructor" />
+    <EntitySet Name="SolicitudGeneral" EntityType="Self.SolicitudGeneral" />
+    <EntitySet Name="SolicitudIndicador" EntityType="Self.SolicitudIndicador" />
+    <EntitySet Name="SolicitudOperador" EntityType="Self.SolicitudOperador" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TEMPDetalleRegistroIndicador" EntityType="Self.TEMPDetalleRegistroIndicador" />
+    <EntitySet Name="TEMPRegistroIndicador" EntityType="Self.TEMPRegistroIndicador" />
+    <EntitySet Name="TipoIndicador" EntityType="Self.TipoIndicador" />
+    <EntitySet Name="TipoIndicadorServicio" EntityType="Self.TipoIndicadorServicio" />
+    <EntitySet Name="TipoNivelDetalle" EntityType="Self.TipoNivelDetalle" />
+    <EntitySet Name="TipoValor" EntityType="Self.TipoValor" />
+    <EntitySet Name="Trimestre" EntityType="Self.Trimestre" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <EntitySet Name="UsuarioLogin" EntityType="Self.UsuarioLogin" />
+    <EntitySet Name="ZonaIndicadorExterno" EntityType="Self.ZonaIndicadorExterno" />
+    <EntitySet Name="BitacoraSync" EntityType="Self.BitacoraSync" />
+    <EntitySet Name="DetalleAgrupacionNEW" EntityType="Self.DetalleAgrupacionNEW" />
+    <AssociationSet Name="FK_BITACORA_ACCION" Association="Self.FK_BITACORA_ACCION">
+      <End Role="Accion" EntitySet="Accion" />
+      <End Role="Bitacora" EntitySet="Bitacora" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BitacoraArchivosMifCsv_Accion" Association="Self.FK_BitacoraArchivosMifCsv_Accion">
+      <End Role="Accion" EntitySet="Accion" />
+      <End Role="BitacoraArchivosMifCsv" EntitySet="BitacoraArchivosMifCsv" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ROLACCIO_REFERENCE_ACCION" Association="Self.FK_ROLACCIO_REFERENCE_ACCION">
+      <End Role="Accion" EntitySet="Accion" />
+      <End Role="RolAccionPantalla" EntitySet="RolAccionPantalla" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLEA_REFERENCE_AGRUPACI" Association="Self.FK_DETALLEA_REFERENCE_AGRUPACI">
+      <End Role="Agrupacion" EntitySet="Agrupacion" />
+      <End Role="DetalleAgrupacion" EntitySet="DetalleAgrupacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetalleBa__IdArc__33408412" Association="Self.FK__DetalleBa__IdArc__33408412">
+      <End Role="ArchivoBandaAngostaCsv" EntitySet="ArchivoBandaAngostaCsv" />
+      <End Role="DetalleBandaAngostaCsv" EntitySet="DetalleBandaAngostaCsv" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleArchivoCsv_ArchivoCsv" Association="Self.FK_DetalleArchivoCsv_ArchivoCsv">
+      <End Role="ArchivoCsv" EntitySet="ArchivoCsv" />
+      <End Role="DetalleArchivoCsv" EntitySet="DetalleArchivoCsv" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InformacionArchivoCsv_ArchivoCsv" Association="Self.FK_InformacionArchivoCsv_ArchivoCsv">
+      <End Role="ArchivoCsv" EntitySet="ArchivoCsv" />
+      <End Role="InformacionArchivoCsv" EntitySet="InformacionArchivoCsv" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetalleAr__IdArc__2E7BCEF5" Association="Self.FK__DetalleAr__IdArc__2E7BCEF5">
+      <End Role="ArchivoIMTFijasCsv" EntitySet="ArchivoIMTFijasCsv" />
+      <End Role="DetalleArchivoIMTFijasCsv" EntitySet="DetalleArchivoIMTFijasCsv" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CoordenadasArchivoMif_ArchivoMif" Association="Self.FK_CoordenadasArchivoMif_ArchivoMif">
+      <End Role="ArchivoMif" EntitySet="ArchivoMif" />
+      <End Role="CoordenadasArchivoMif" EntitySet="CoordenadasArchivoMif" />
+    </AssociationSet>
+    <AssociationSet Name="FkDetalleArchivoDigitalArchivo" Association="Self.FkDetalleArchivoDigitalArchivo">
+      <End Role="ArchivoTelevisionDigitalCsv" EntitySet="ArchivoTelevisionDigitalCsv" />
+      <End Role="DetalleArchivoTelevisionDigitalCsv" EntitySet="DetalleArchivoTelevisionDigitalCsv" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BITACORA_REFERENCE_DETALLER" Association="Self.FK_BITACORA_REFERENCE_DETALLER">
+      <End Role="DetalleRegistroIndicador" EntitySet="DetalleRegistroIndicador" />
+      <End Role="BitacoraIndicador" EntitySet="BitacoraIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BITACORA_REFERENCE_USUARIO" Association="Self.FK_BITACORA_REFERENCE_USUARIO">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="BitacoraIndicador" EntitySet="BitacoraIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BitacoraParametrizacionIndicadores_Indicador" Association="Self.FK_BitacoraParametrizacionIndicadores_Indicador">
+      <End Role="Indicador" EntitySet="Indicador" />
+      <End Role="BitacoraParametrizacionIndicador" EntitySet="BitacoraParametrizacionIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BitacoraParametrizacionIndicadores_Servicio" Association="Self.FK_BitacoraParametrizacionIndicadores_Servicio">
+      <End Role="Servicio" EntitySet="Servicio" />
+      <End Role="BitacoraParametrizacionIndicador" EntitySet="BitacoraParametrizacionIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CANTON_REFERENCE_PROVINCI" Association="Self.FK_CANTON_REFERENCE_PROVINCI">
+      <End Role="Provincia" EntitySet="Provincia" />
+      <End Role="Canton" EntitySet="Canton" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLER_REFERENCE_CANTON" Association="Self.FK_DETALLER_REFERENCE_CANTON">
+      <End Role="Canton" EntitySet="Canton" />
+      <End Role="DetalleRegistroIndicador" EntitySet="DetalleRegistroIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DISTRITO_REFERENCE_CANTON" Association="Self.FK_DISTRITO_REFERENCE_CANTON">
+      <End Role="Canton" EntitySet="Canton" />
+      <End Role="Distrito" EntitySet="Distrito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_REFERENCE_CANTON" Association="Self.FK_REGISTRO_REFERENCE_CANTON">
+      <End Role="Canton" EntitySet="Canton" />
+      <End Role="RegistroIndicadorExterno" EntitySet="RegistroIndicadorExterno" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONSTRUC_REFERENCE_CONSTRUC" Association="Self.FK_CONSTRUC_REFERENCE_CONSTRUC">
+      <End Role="Constructor" EntitySet="Constructor" />
+      <End Role="ConstructorCriterio" EntitySet="ConstructorCriterio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONSTRUC_REFERENCE_DIRECCIO" Association="Self.FK_CONSTRUC_REFERENCE_DIRECCIO">
+      <End Role="Direccion" EntitySet="Direccion" />
+      <End Role="Constructor" EntitySet="Constructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONSTRUC_REFERENCE_FRECUENC" Association="Self.FK_CONSTRUC_REFERENCE_FRECUENC">
+      <End Role="Frecuencia" EntitySet="Frecuencia" />
+      <End Role="Constructor" EntitySet="Constructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONSTRUC_REFERENCE_FRECUENC2" Association="Self.FK_CONSTRUC_REFERENCE_FRECUENC2">
+      <End Role="Frecuencia" EntitySet="Frecuencia" />
+      <End Role="Constructor" EntitySet="Constructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONSTRUC_REFERENCE_INDICADO" Association="Self.FK_CONSTRUC_REFERENCE_INDICADO">
+      <End Role="Indicador" EntitySet="Indicador" />
+      <End Role="Constructor" EntitySet="Constructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITU_REFERENCIA_CONSTRUCTOR" Association="Self.FK_SOLICITU_REFERENCIA_CONSTRUCTOR">
+      <End Role="Constructor" EntitySet="Constructor" />
+      <End Role="SolicitudConstructor" EntitySet="SolicitudConstructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONSTRUC_REFERENCE_CRITERIO" Association="Self.FK_CONSTRUC_REFERENCE_CRITERIO">
+      <End Role="Criterio" EntitySet="Criterio" />
+      <End Role="ConstructorCriterio" EntitySet="ConstructorCriterio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONSTRUC_REFERENCE_CONSTRUC2" Association="Self.FK_CONSTRUC_REFERENCE_CONSTRUC2">
+      <End Role="ConstructorCriterioDetalleAgrupacion" EntitySet="ConstructorCriterioDetalleAgrupacion" />
+      <End Role="ConstructorCriterioDetalleAgrupacion1" EntitySet="ConstructorCriterioDetalleAgrupacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLER_REFERENCE_CONSTRUC" Association="Self.FK_DETALLER_REFERENCE_CONSTRUC">
+      <End Role="ConstructorCriterioDetalleAgrupacion" EntitySet="ConstructorCriterioDetalleAgrupacion" />
+      <End Role="DetalleRegistroIndicador" EntitySet="DetalleRegistroIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGLA_REFERENCE_CONSTRUC" Association="Self.FK_REGLA_REFERENCE_CONSTRUC">
+      <End Role="ConstructorCriterioDetalleAgrupacion" EntitySet="ConstructorCriterioDetalleAgrupacion" />
+      <End Role="Regla" EntitySet="Regla" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReglaEstadistica_ConstructorCriterioDetalleAgrupacion" Association="Self.FK_ReglaEstadistica_ConstructorCriterioDetalleAgrupacion">
+      <End Role="ConstructorCriterioDetalleAgrupacion" EntitySet="ConstructorCriterioDetalleAgrupacion" />
+      <End Role="NivelDetalleReglaEstadistica" EntitySet="NivelDetalleReglaEstadistica" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITU" Association="Self.FK_SOLICITU">
+      <End Role="DetalleAgrupacion" EntitySet="DetalleAgrupacion" />
+      <End Role="ConstructorCriterioDetalleAgrupacion" EntitySet="ConstructorCriterioDetalleAgrupacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CRITERIO__IDINDI__0D7A0286" Association="Self.FK__CRITERIO__IDINDI__0D7A0286">
+      <End Role="Indicador" EntitySet="Indicador" />
+      <End Role="Criterio" EntitySet="Criterio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CRITERIO_REFERENCE_DIRECCIO" Association="Self.FK_CRITERIO_REFERENCE_DIRECCIO">
+      <End Role="Direccion" EntitySet="Direccion" />
+      <End Role="Criterio" EntitySet="Criterio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLEA_REFERENCE_OPERADOR" Association="Self.FK_DETALLEA_REFERENCE_OPERADOR">
+      <End Role="Operador" EntitySet="Operador" />
+      <End Role="DetalleAgrupacion" EntitySet="DetalleAgrupacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetalleIn__IdInd__0C50D423" Association="Self.FK__DetalleIn__IdInd__0C50D423">
+      <End Role="IndicadorExterno" EntitySet="IndicadorExterno" />
+      <End Role="DetalleIndicadorCruzado" EntitySet="DetalleIndicadorCruzado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLEI_REFERENCE_INDICADO" Association="Self.FK_DETALLEI_REFERENCE_INDICADO">
+      <End Role="IndicadorCruzado" EntitySet="IndicadorCruzado" />
+      <End Role="DetalleIndicadorCruzado" EntitySet="DetalleIndicadorCruzado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLEI_REFERENCE_INDICADO2" Association="Self.FK_DETALLEI_REFERENCE_INDICADO2">
+      <End Role="Indicador" EntitySet="Indicador" />
+      <End Role="DetalleIndicadorCruzado" EntitySet="DetalleIndicadorCruzado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLEI_REFERENCE_INDICADO4" Association="Self.FK_DETALLEI_REFERENCE_INDICADO4">
+      <End Role="Indicador" EntitySet="Indicador" />
+      <End Role="DetalleIndicadorCruzado" EntitySet="DetalleIndicadorCruzado" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLER_REFERENCE_GENERO" Association="Self.FK_DETALLER_REFERENCE_GENERO">
+      <End Role="Genero" EntitySet="Genero" />
+      <End Role="DetalleRegistroIndicador" EntitySet="DetalleRegistroIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLER_REFERENCE_PROVINCI" Association="Self.FK_DETALLER_REFERENCE_PROVINCI">
+      <End Role="Provincia" EntitySet="Provincia" />
+      <End Role="DetalleRegistroIndicador" EntitySet="DetalleRegistroIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLER_REFERENCE_REGISTRO" Association="Self.FK_DETALLER_REFERENCE_REGISTRO">
+      <End Role="RegistroIndicador" EntitySet="RegistroIndicador" />
+      <End Role="DetalleRegistroIndicador" EntitySet="DetalleRegistroIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLER_REFERENCE_TIPOVALO" Association="Self.FK_DETALLER_REFERENCE_TIPOVALO">
+      <End Role="TipoValor" EntitySet="TipoValor" />
+      <End Role="DetalleRegistroIndicador" EntitySet="DetalleRegistroIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITU_REFERENCE_DIRECCIO" Association="Self.FK_SOLICITU_REFERENCE_DIRECCIO">
+      <End Role="Direccion" EntitySet="Direccion" />
+      <End Role="SolicitudIndicador" EntitySet="SolicitudIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITU_REFERENCE_ESTADOSO" Association="Self.FK_SOLICITU_REFERENCE_ESTADOSO">
+      <End Role="EstadoSolicitud" EntitySet="EstadoSolicitud" />
+      <End Role="SolicitudConstructor" EntitySet="SolicitudConstructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITU_REFERENCE_FRECUENC" Association="Self.FK_SOLICITU_REFERENCE_FRECUENC">
+      <End Role="Frecuencia" EntitySet="Frecuencia" />
+      <End Role="SolicitudIndicador" EntitySet="SolicitudIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INDICADO_REFERENCE_FUENTEEX" Association="Self.FK_INDICADO_REFERENCE_FUENTEEX">
+      <End Role="FuenteExterna" EntitySet="FuenteExterna" />
+      <End Role="IndicadorExterno" EntitySet="IndicadorExterno" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_REFERENCE_GENERO" Association="Self.FK_REGISTRO_REFERENCE_GENERO">
+      <End Role="Genero" EntitySet="Genero" />
+      <End Role="RegistroIndicadorExterno" EntitySet="RegistroIndicadorExterno" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Inidicado__IdInd__19FFD4FC" Association="Self.FK__Inidicado__IdInd__19FFD4FC">
+      <End Role="Indicador" EntitySet="Indicador" />
+      <End Role="InidicadorUmbralPeso" EntitySet="InidicadorUmbralPeso" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ParamForm__IdInd__1DD065E0" Association="Self.FK__ParamForm__IdInd__1DD065E0">
+      <End Role="Indicador" EntitySet="Indicador" />
+      <End Role="ParamFormulas" EntitySet="ParamFormulas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ServicioD__IdInd__670A40DB" Association="Self.FK__ServicioD__IdInd__670A40DB">
+      <End Role="Indicador" EntitySet="Indicador" />
+      <End Role="ServicioDefinicion" EntitySet="ServicioDefinicion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INDICADO_REFERENCE_TIPOINDI" Association="Self.FK_INDICADO_REFERENCE_TIPOINDI">
+      <End Role="TipoIndicador" EntitySet="TipoIndicador" />
+      <End Role="Indicador" EntitySet="Indicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ParametroIndicador_Indicador" Association="Self.FK_ParametroIndicador_Indicador">
+      <End Role="Indicador" EntitySet="Indicador" />
+      <End Role="ParametroIndicador" EntitySet="ParametroIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SERVICIOINDICADOR_INDICADOR" Association="Self.FK_SERVICIOINDICADOR_INDICADOR">
+      <End Role="Indicador" EntitySet="Indicador" />
+      <End Role="ServicioIndicador" EntitySet="ServicioIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RegistroI__IdInd__0B5CAFEA" Association="Self.FK__RegistroI__IdInd__0B5CAFEA">
+      <End Role="IndicadorExterno" EntitySet="IndicadorExterno" />
+      <End Role="RegistroIndicadorExterno" EntitySet="RegistroIndicadorExterno" />
+    </AssociationSet>
+    <AssociationSet Name="FK_INDICADO_REFERENCE_TIPOVALO" Association="Self.FK_INDICADO_REFERENCE_TIPOVALO">
+      <End Role="TipoValor" EntitySet="TipoValor" />
+      <End Role="IndicadorExterno" EntitySet="IndicadorExterno" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NivelDetalleReglaEstadistica_TipoNivelDetalle" Association="Self.FK_NivelDetalleReglaEstadistica_TipoNivelDetalle">
+      <End Role="TipoNivelDetalle" EntitySet="TipoNivelDetalle" />
+      <End Role="NivelDetalleReglaEstadistica" EntitySet="NivelDetalleReglaEstadistica" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SERVICIOOPERADOR_OPERADOR" Association="Self.FK_SERVICIOOPERADOR_OPERADOR">
+      <End Role="Operador" EntitySet="Operador" />
+      <End Role="ServicioOperador" EntitySet="ServicioOperador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITU_REFERENCE_OPERADOR" Association="Self.FK_SOLICITU_REFERENCE_OPERADOR">
+      <End Role="Operador" EntitySet="Operador" />
+      <End Role="SolicitudConstructor" EntitySet="SolicitudConstructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USUARIO_REFERENCE_OPERADOR" Association="Self.FK_USUARIO_REFERENCE_OPERADOR">
+      <End Role="Operador" EntitySet="Operador" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ROLACCIO_REFERENCE_PANTALLA" Association="Self.FK_ROLACCIO_REFERENCE_PANTALLA">
+      <End Role="Pantalla" EntitySet="Pantalla" />
+      <End Role="RolAccionPantalla" EntitySet="RolAccionPantalla" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ParamForm__IdSer__1EC48A19" Association="Self.FK__ParamForm__IdSer__1EC48A19">
+      <End Role="Servicio" EntitySet="Servicio" />
+      <End Role="ParamFormulas" EntitySet="ParamFormulas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_REFERENCE_PERIODIC" Association="Self.FK_REGISTRO_REFERENCE_PERIODIC">
+      <End Role="Periodicidad" EntitySet="Periodicidad" />
+      <End Role="RegistroIndicadorExterno" EntitySet="RegistroIndicadorExterno" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_REFERENCE_REGIONIN" Association="Self.FK_REGISTRO_REFERENCE_REGIONIN">
+      <End Role="RegionIndicadorExterno" EntitySet="RegionIndicadorExterno" />
+      <End Role="RegistroIndicadorExterno" EntitySet="RegistroIndicadorExterno" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_REFERENCE_SOLICITU" Association="Self.FK_REGISTRO_REFERENCE_SOLICITU">
+      <End Role="SolicitudConstructor" EntitySet="SolicitudConstructor" />
+      <End Role="RegistroIndicador" EntitySet="RegistroIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_REFERENCE_USUARIO" Association="Self.FK_REGISTRO_REFERENCE_USUARIO">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="RegistroIndicador" EntitySet="RegistroIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_REFERENCE_TRIMESTR" Association="Self.FK_REGISTRO_REFERENCE_TRIMESTR">
+      <End Role="Trimestre" EntitySet="Trimestre" />
+      <End Role="RegistroIndicadorExterno" EntitySet="RegistroIndicadorExterno" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_REFERENCE_ZONAINDI" Association="Self.FK_REGISTRO_REFERENCE_ZONAINDI">
+      <End Role="ZonaIndicadorExterno" EntitySet="ZonaIndicadorExterno" />
+      <End Role="RegistroIndicadorExterno" EntitySet="RegistroIndicadorExterno" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ROLACCIO_REFERENCE_ROL" Association="Self.FK_ROLACCIO_REFERENCE_ROL">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="RolAccionPantalla" EntitySet="RolAccionPantalla" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SERVICIOINDICADOR_SERVICIO" Association="Self.FK_SERVICIOINDICADOR_SERVICIO">
+      <End Role="Servicio" EntitySet="Servicio" />
+      <End Role="ServicioIndicador" EntitySet="ServicioIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SERVICIOOPERADOR_SERVICIO" Association="Self.FK_SERVICIOOPERADOR_SERVICIO">
+      <End Role="Servicio" EntitySet="Servicio" />
+      <End Role="ServicioOperador" EntitySet="ServicioOperador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITU_REFERENCE_SERVICIO" Association="Self.FK_SOLICITU_REFERENCE_SERVICIO">
+      <End Role="Servicio" EntitySet="Servicio" />
+      <End Role="SolicitudIndicador" EntitySet="SolicitudIndicador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TIPOINDI_REFERENCE_SERVICIO" Association="Self.FK_TIPOINDI_REFERENCE_SERVICIO">
+      <End Role="Servicio" EntitySet="Servicio" />
+      <End Role="TipoIndicadorServicio" EntitySet="TipoIndicadorServicio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOLICITU_REFERENCE_SOLICITU" Association="Self.FK_SOLICITU_REFERENCE_SOLICITU">
+      <End Role="SolicitudIndicador" EntitySet="SolicitudIndicador" />
+      <End Role="SolicitudConstructor" EntitySet="SolicitudConstructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solicitud" Association="Self.FK_Solicitud">
+      <End Role="SolicitudGeneral" EntitySet="SolicitudGeneral" />
+      <End Role="SolicitudOperador" EntitySet="SolicitudOperador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios" Association="Self.FK_Usuarios">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="SolicitudGeneral" EntitySet="SolicitudGeneral" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Respuesta" Association="Self.FK_Usuario_Respuesta">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="SolicitudOperador" EntitySet="SolicitudOperador" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TIPOINDI_REFERENCE_TIPOINDI" Association="Self.FK_TIPOINDI_REFERENCE_TIPOINDI">
+      <End Role="TipoIndicador" EntitySet="TipoIndicador" />
+      <End Role="TipoIndicadorServicio" EntitySet="TipoIndicadorServicio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USUARIOLOGIN_USUARIO" Association="Self.FK_USUARIOLOGIN_USUARIO">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="UsuarioLogin" EntitySet="UsuarioLogin" />
+    </AssociationSet>
+    <AssociationSet Name="IndicadorDireccion" Association="Self.IndicadorDireccion">
+      <End Role="Direccion" EntitySet="Direccion" />
+      <End Role="Indicador" EntitySet="Indicador" />
+    </AssociationSet>
+    <AssociationSet Name="IndicadorIndicadorUIT" Association="Self.IndicadorIndicadorUIT">
+      <End Role="IndicadorUIT" EntitySet="IndicadorUIT" />
+      <End Role="Indicador" EntitySet="Indicador" />
+    </AssociationSet>
+    <AssociationSet Name="RolUsuario" Association="Self.RolUsuario">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <FunctionImport Name="fn_Split" IsComposable="true" ReturnType="Collection(SITELModel.fn_Split_Result)">
+      <Parameter Name="text" Mode="In" Type="String" />
+      <Parameter Name="delimiter" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_ClonarArbol">
+      <Parameter Name="p_IdConstructor" Mode="In" Type="Guid" />
+      <Parameter Name="p_Criterio" Mode="In" Type="String" />
+      <Parameter Name="p_IdOperadorOriginal" Mode="In" Type="String" />
+      <Parameter Name="p_IdOperadorClonar" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_ClonarConstructor">
+      <Parameter Name="IdConstructor" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="pa_ConstructorModificar" ReturnType="Collection(SITELModel.pa_ConstructorModificar_Result)">
+      <Parameter Name="ID_OPERADOR" Mode="In" Type="String" />
+      <Parameter Name="ID_SERVICIO" Mode="In" Type="Int32" />
+      <Parameter Name="ID_DIRECCION" Mode="In" Type="Int32" />
+      <Parameter Name="ID_INDICADOR" Mode="In" Type="String" />
+      <Parameter Name="ID_CRITERIO" Mode="In" Type="String" />
+      <Parameter Name="ID_FRECUENCIA" Mode="In" Type="Int32" />
+      <Parameter Name="ID_DESGLOSE" Mode="In" Type="Int32" />
+      <Parameter Name="FECHA_INICIAL" Mode="In" Type="DateTime" />
+      <Parameter Name="FECHA_FINAL" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="pa_ConsultarDetalleRegistroIndicador" ReturnType="Collection(Guid)">
+      <Parameter Name="IdDetalleRegistroindicador" Mode="In" Type="Guid" />
+      <Parameter Name="IdRegistroIndicador" Mode="InOut" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="pa_DescargarArchivoExcel" ReturnType="Collection(Binary)">
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+      <Parameter Name="IdSolicitudIndicador" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="pa_DescripcionHexadecimal" ReturnType="Collection(String)">
+      <Parameter Name="IdOperadorCopia" Mode="In" Type="String" />
+      <Parameter Name="IdOperadorOriginal" Mode="In" Type="String" />
+      <Parameter Name="descAgrupacion" Mode="In" Type="String" />
+      <Parameter Name="desDetalleAgrupacion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_EditarIdConstructorDetallePadre" ReturnType="Collection(String)">
+      <Parameter Name="IdConstructor" Mode="In" Type="Guid" />
+      <Parameter Name="IdCriterio" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_EditarIdConstructorDetallePadreporOperador" ReturnType="Collection(String)">
+      <Parameter Name="IdConstructor" Mode="In" Type="Guid" />
+      <Parameter Name="IdCriterio" Mode="In" Type="String" />
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_EjecucionMotor" ReturnType="Collection(SITELModel.pa_EjecucionMotor_Result)">
+      <Parameter Name="p_Opcion" Mode="In" Type="Int32" />
+      <Parameter Name="p_Periodo" Mode="In" Type="Int32" />
+      <Parameter Name="p_Usuario" Mode="In" Type="String" />
+      <Parameter Name="p_Anio" Mode="In" Type="Int32" />
+      <Parameter Name="p_Fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="p_IdEjecucion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_EliminadoFisicoDetalleAgrupacion" />
+    <FunctionImport Name="pa_EliminarConstructorCriterio" ReturnType="Collection(String)">
+      <Parameter Name="IdConstructor" Mode="In" Type="Guid" />
+      <Parameter Name="IdCriterio" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_EliminarDetallesdeAgrupacion">
+      <Parameter Name="IdConstructor" Mode="In" Type="Guid" />
+      <Parameter Name="IdCriterio" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_EliminarDetallesdeAgrupacionporOperador">
+      <Parameter Name="IdConstructor" Mode="In" Type="Guid" />
+      <Parameter Name="IdCriterio" Mode="In" Type="String" />
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_EliminarReglaEstadistica" ReturnType="Collection(String)">
+      <Parameter Name="IdConstructor" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="pa_EneviarCorreoUsuario" ReturnType="Collection(SITELModel.pa_EneviarCorreoUsuario_Result)">
+      <Parameter Name="codOper" Mode="In" Type="String" />
+      <Parameter Name="AcUsu" Mode="In" Type="String" />
+      <Parameter Name="NomUsu" Mode="In" Type="String" />
+      <Parameter Name="CorUsu" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_EnviarNotificacionesGeneral" ReturnType="Collection(String)">
+      <Parameter Name="IdSolicitud" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_Envio_Notificaciones">
+      <Parameter Name="IdSolicitudIndicador" Mode="In" Type="Guid" />
+      <Parameter Name="Asunto" Mode="In" Type="String" />
+      <Parameter Name="html" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_ExtraerCantoXprovincia" ReturnType="Collection(SITELModel.pa_ExtraerCantoXprovincia_Result)">
+      <Parameter Name="IdProvincia" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_ExtraerDistritoXCanton" ReturnType="Collection(SITELModel.pa_ExtraerDistritoXCanton_Result)">
+      <Parameter Name="IdCanton" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_ExtraerGenero" ReturnType="Collection(SITELModel.pa_ExtraerGenero_Result)" />
+    <FunctionImport Name="pa_ExtraerSolicitudesPendientes" ReturnType="Collection(SITELModel.pa_ExtraerSolicitudesPendientes_Result)" />
+    <FunctionImport Name="pa_GetCriteriosXIndicador" ReturnType="Collection(SITELModel.pa_GetCriteriosXIndicador_Result)">
+      <Parameter Name="IdIndicador" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_getDetalleAgrupacionesPorOperador" ReturnType="Collection(SITELModel.pa_getDetalleAgrupacionesPorOperador_Result)">
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+      <Parameter Name="IdSolicitudIndicador" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="pa_GetIndicadorXservicio" ReturnType="Collection(SITELModel.pa_GetIndicadorXservicio_Result)">
+      <Parameter Name="Servicio" Mode="In" Type="Int32" />
+      <Parameter Name="FechaInic" Mode="In" Type="String" />
+      <Parameter Name="FechaFin" Mode="In" Type="String" />
+      <Parameter Name="Usuario" Mode="In" Type="String" />
+      <Parameter Name="Opcion" Mode="In" Type="Int32" />
+      <Parameter Name="Direccion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_getListaIndicadoresSolicitud" ReturnType="Collection(SITELModel.pa_getListaIndicadoresSolicitud_Result)">
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+      <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
+      <Parameter Name="IdFrecuencia" Mode="In" Type="Int32" />
+      <Parameter Name="Filtrado" Mode="In" Type="Boolean" />
+      <Parameter Name="DescripcionIndicador" Mode="In" Type="String" />
+      <Parameter Name="IdServicio" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_getListaIndicadoresXSolicitud" ReturnType="Collection(SITELModel.pa_getListaIndicadoresXSolicitud_Result)">
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+      <Parameter Name="IdIndicador" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="pa_getNombreIndicadorByIdSolicitudConstructor" ReturnType="Collection(String)">
+      <Parameter Name="IdSolicitudConstructor" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="pa_getOperadoresDetalleAgrupacionPorIdConstructorAndIdCriterio" ReturnType="Collection(SITELModel.pa_getOperadoresDetalleAgrupacionPorIdConstructorAndIdCriterio_Result)">
+      <Parameter Name="IdConstructor" Mode="In" Type="Guid" />
+      <Parameter Name="IdCriterio" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_getValoresRegistradosPorOperador_Canton" ReturnType="Collection(SITELModel.pa_getValoresRegistradosPorOperador_Canton_Result)">
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+      <Parameter Name="IdTipoValor" Mode="In" Type="Int32" />
+      <Parameter Name="IdDetalleAgrupacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_getValoresRegistradosPorOperador_Genero" ReturnType="Collection(SITELModel.pa_getValoresRegistradosPorOperador_Genero_Result)">
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+      <Parameter Name="IdTipoValor" Mode="In" Type="Int32" />
+      <Parameter Name="IdDetalleAgrupacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_getValoresRegistradosPorOperador_Provincia" ReturnType="Collection(SITELModel.pa_getValoresRegistradosPorOperador_Provincia_Result)">
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+      <Parameter Name="IdTipoValor" Mode="In" Type="Int32" />
+      <Parameter Name="IdDetalleAgrupacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_getValoresRegistradosPorOperador_SinDetalleNivel" ReturnType="Collection(String)">
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+      <Parameter Name="IdTipoValor" Mode="In" Type="Int32" />
+      <Parameter Name="IdDetalleAgrupacion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_getValoresReglaEstadisticaConNivelDetalle" ReturnType="Collection(SITELModel.pa_getValoresReglaEstadisticaConNivelDetalle_Result)">
+      <Parameter Name="IdConstructorCriterio" Mode="In" Type="Guid" />
+      <Parameter Name="IdNivelDetalle" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_InsertarArchivoExcel" ReturnType="Collection(Boolean)">
+      <Parameter Name="ArchivoExcelBytes" Mode="In" Type="Binary" />
+      <Parameter Name="IdArchivoExcel" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_InsertarDetalleArchivoCsv" ReturnType="Collection(Boolean)">
+      <Parameter Name="Tiempo" Mode="In" Type="DateTime" />
+      <Parameter Name="Frecuencia" Mode="In" Type="Int32" />
+      <Parameter Name="Nivel" Mode="In" Type="Double" />
+      <Parameter Name="IdArchivoCsv" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_InsertarSolicitudArchivoExcel" ReturnType="Collection(Boolean)">
+      <Parameter Name="IdSolicitudIndicador" Mode="In" Type="Guid" />
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+      <Parameter Name="FormularioWeb" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="pa_InsertarUsuario">
+      <Parameter Name="codOper" Mode="In" Type="String" />
+      <Parameter Name="AcUsu" Mode="In" Type="String" />
+      <Parameter Name="NomUsu" Mode="In" Type="String" />
+      <Parameter Name="CorUsu" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_ListadoModificacionMasiva" ReturnType="Collection(SITELModel.pa_ListadoModificacionMasiva_Result)">
+      <Parameter Name="DesServicio" Mode="In" Type="String" />
+      <Parameter Name="IdOperador" Mode="In" Type="String" />
+      <Parameter Name="Estado" Mode="In" Type="Int32" />
+      <Parameter Name="IdIndicador" Mode="In" Type="String" />
+      <Parameter Name="Ano" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_LogErrores">
+      <Parameter Name="Indicador" Mode="In" Type="String" />
+      <Parameter Name="tipo" Mode="In" Type="String" />
+      <Parameter Name="Usuario" Mode="In" Type="String" />
+      <Parameter Name="FormulaAntiguaCumpli" Mode="In" Type="String" />
+      <Parameter Name="FormulaNuevaCumpli" Mode="In" Type="String" />
+      <Parameter Name="FormulaAntiguaPor" Mode="In" Type="String" />
+      <Parameter Name="FormulaNuevaPor" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_MetodosIndicarXServicio" ReturnType="Collection(SITELModel.pa_MetodosIndicarXServicio_Result)">
+      <Parameter Name="Opcion" Mode="In" Type="Int32" />
+      <Parameter Name="IdIndicador" Mode="In" Type="String" />
+      <Parameter Name="Umbral" Mode="In" Type="Decimal" />
+      <Parameter Name="PesoRelativo" Mode="In" Type="Decimal" />
+      <Parameter Name="usuario" Mode="In" Type="String" />
+      <Parameter Name="fecha" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_ParamFormulasTrans" ReturnType="Collection(SITELModel.pa_ParamFormulasTrans_Result)">
+      <Parameter Name="p_Opcion" Mode="In" Type="Int32" />
+      <Parameter Name="p_IdServicio" Mode="In" Type="Int32" />
+      <Parameter Name="p_IdIndicador" Mode="In" Type="String" />
+      <Parameter Name="p_FormulaPorcentaje" Mode="In" Type="String" />
+      <Parameter Name="p_FormulaCumplimiento" Mode="In" Type="String" />
+      <Parameter Name="p_Criterios" Mode="In" Type="String" />
+      <Parameter Name="p_Usuario" Mode="In" Type="String" />
+      <Parameter Name="p_FromArray" Mode="In" Type="String" />
+      <Parameter Name="p_ArrayIf" Mode="In" Type="String" />
+      <Parameter Name="p_ArrayVerdadero" Mode="In" Type="String" />
+      <Parameter Name="p_ArrayFalso" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_RegistrarExcepcion">
+      <Parameter Name="IDEXCEPCION" Mode="In" Type="Guid" />
+      <Parameter Name="NOMBREAPLICACION" Mode="In" Type="String" />
+      <Parameter Name="NOMBRESERVIDOR" Mode="In" Type="String" />
+      <Parameter Name="NOMBREUSUARIO" Mode="In" Type="String" />
+      <Parameter Name="NIVELEXCEPCION" Mode="In" Type="String" />
+      <Parameter Name="CAPA" Mode="In" Type="String" />
+      <Parameter Name="MENSAJE" Mode="In" Type="String" />
+      <Parameter Name="STACKTRACE" Mode="In" Type="String" />
+      <Parameter Name="INNEREXCEPTION" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_RptBitacora" ReturnType="Collection(SITELModel.pa_RptBitacora_Result)">
+      <Parameter Name="pPantallas" Mode="In" Type="String" />
+      <Parameter Name="pUsuarios" Mode="In" Type="String" />
+      <Parameter Name="pAcciones" Mode="In" Type="String" />
+      <Parameter Name="pFechaInicial" Mode="In" Type="String" />
+      <Parameter Name="pFechaFinal" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_RptDetalleAgrupacionPorAgrupacion" ReturnType="Collection(SITELModel.pa_RptDetalleAgrupacionPorAgrupacion_Result)">
+      <Parameter Name="pOperadores" Mode="In" Type="String" />
+      <Parameter Name="pAgrupaciones" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_RptIndicadoresPorOperador" ReturnType="Collection(SITELModel.pa_RptIndicadoresPorOperador_Result)">
+      <Parameter Name="pOperadores" Mode="In" Type="String" />
+      <Parameter Name="pServicios" Mode="In" Type="String" />
+      <Parameter Name="pDirecciones" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_RptIndicadoresPorServicio" ReturnType="Collection(SITELModel.pa_RptIndicadoresPorServicio_Result)">
+      <Parameter Name="pServicios" Mode="In" Type="String" />
+      <Parameter Name="pIndicadores" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_RptTiposIndicadorPorServicio" ReturnType="Collection(SITELModel.pa_RptTiposIndicadorPorServicio_Result)">
+      <Parameter Name="PSERVICIOS" Mode="In" Type="String" />
+      <Parameter Name="PTIPOSINDICADOR" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="pa_SendEmail">
+      <Parameter Name="to" Mode="In" Type="String" />
+      <Parameter Name="asunto" Mode="In" Type="String" />
+      <Parameter Name="html" Mode="In" Type="String" />
+      <Parameter Name="profile_name" Mode="In" Type="String" />
+      <Parameter Name="direccion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_SolicitudConstructorActualizar" ReturnType="Collection(Int32)">
+      <Parameter Name="ID_SOLICTUDCONSTRUCTOR" Mode="In" Type="String" />
+      <Parameter Name="ID_ESTADO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="pa_SolicitudesPorParametros" ReturnType="Collection(SITELModel.pa_SolicitudesPorParametros_Result)">
+      <Parameter Name="ID_OPERADOR" Mode="In" Type="String" />
+      <Parameter Name="ID_SERVICIO" Mode="In" Type="Int32" />
+      <Parameter Name="ID_DIRECCION" Mode="In" Type="Int32" />
+      <Parameter Name="ID_INDICADOR" Mode="In" Type="String" />
+      <Parameter Name="ID_CRITERIO" Mode="In" Type="String" />
+      <Parameter Name="ID_FRECUENCIA" Mode="In" Type="Int32" />
+      <Parameter Name="ID_DESGLOSE" Mode="In" Type="Int32" />
+      <Parameter Name="FECHA_INICIAL" Mode="In" Type="DateTime" />
+      <Parameter Name="FECHA_FINAL" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="pa_SolicitudesVencidas" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(SITELModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(SITELModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="pa_ConstructorModificar_Result">
+    <Property Type="Guid" Name="IdSolicitudIndicador" Nullable="false" />
+    <Property Type="Int32" Name="IdFrecuencia" Nullable="false" />
+    <Property Type="Int32" Name="IdServicio" Nullable="false" />
+    <Property Type="Int32" Name="IdDireccion" Nullable="false" />
+    <Property Type="String" Name="DescFormulario" Nullable="false" MaxLength="500" />
+    <Property Type="DateTime" Name="FechaInicio" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="FechaFin" Nullable="false" Precision="23" />
+    <Property Type="Byte" Name="Activo" Nullable="false" />
+    <Property Type="Byte" Name="Borrado" Nullable="false" />
+    <Property Type="DateTime" Name="FechaBaseParaCrearExcel" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="FormularioWeb" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pa_EjecucionMotor_Result">
+    <Property Type="Int32" Name="idejecucion" Nullable="false" />
+    <Property Type="Int32" Name="anioEjecucion" Nullable="true" />
+    <Property Type="String" Name="usuarioEjecucion" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="FechaRegistro" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Ejecutado" Nullable="true" />
+    <Property Type="String" Name="periodoEjecucion" Nullable="true" MaxLength="17" />
+    <Property Type="Int32" Name="idPeriodoEjecucion" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pa_EneviarCorreoUsuario_Result">
+    <Property Type="String" Name="IdOperador" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="AccesoUsuario" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="NombreUsuario" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="CorreoUsuario" Nullable="false" MaxLength="60" />
+  </ComplexType>
+  <ComplexType Name="pa_ExtraerCantoXprovincia_Result">
+    <Property Type="Int32" Name="IdCanton" Nullable="false" />
+    <Property Type="Int32" Name="IdProvincia" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="250" />
+    <Property Type="Int32" Name="CodigoOficial" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pa_ExtraerDistritoXCanton_Result">
+    <Property Type="Int32" Name="IdDistrito" Nullable="false" />
+    <Property Type="Int32" Name="IdCanton" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="pa_ExtraerGenero_Result">
+    <Property Type="Int32" Name="IdGenero" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="pa_ExtraerSolicitudesPendientes_Result">
+    <Property Type="Int32" Name="IdArchivoExcel" Nullable="false" />
+    <Property Type="Guid" Name="IdSolicitudIndicador" Nullable="false" />
+    <Property Type="String" Name="IdOperador" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="pa_GetCriteriosXIndicador_Result">
+    <Property Type="String" Name="IdCriterio" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="IdIndicador" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="IdDireccion" Nullable="true" />
+    <Property Type="String" Name="criteriosCkech" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DescCriterio" Nullable="true" MaxLength="350" />
+    <Property Type="String" Name="FormulaCumplimiento" Nullable="false" />
+    <Property Type="String" Name="FormulaPorcentaje" Nullable="false" />
+    <Property Type="String" Name="Criterios" Nullable="false" />
+    <Property Type="String" Name="FromArray" Nullable="false" />
+    <Property Type="String" Name="ArrayIf" Nullable="false" MaxLength="1000" />
+    <Property Type="String" Name="ArrayVerdadero" Nullable="false" MaxLength="1000" />
+    <Property Type="String" Name="ArrayFalso" Nullable="false" MaxLength="1000" />
+    <Property Type="String" Name="Usuario" Nullable="false" MaxLength="30" />
+    <Property Type="DateTime" Name="FechaUltimaActualizacion" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="pa_getDetalleAgrupacionesPorOperador_Result">
+    <Property Type="Int32" Name="Id_Detalle_Agrupacion" Nullable="false" />
+    <Property Type="String" Name="Nombre_Detalle_Agrupacion" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="Nombre_Agrupacion" Nullable="false" MaxLength="600" />
+    <Property Type="String" Name="Nombre_Operador" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="Nombre_Criterio" Nullable="true" MaxLength="350" />
+    <Property Type="Int32" Name="ID_Frecuencia" Nullable="false" />
+    <Property Type="String" Name="Nombre_Frecuencia" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="Cantidad_Meses_Frecuencia" Nullable="false" />
+    <Property Type="Int32" Name="ID_Desglose" Nullable="false" />
+    <Property Type="String" Name="Nombre_Desglose" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="Cantidad_Meses_Desglose" Nullable="false" />
+    <Property Type="String" Name="ID_Indicador" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Nombre_Indicador" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="Nivel" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Valor_Inferior" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Valor_Superior" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Id_Tipo_Valor" Nullable="true" />
+    <Property Type="String" Name="Tipo_Valor" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Valor_Formato" Nullable="true" MaxLength="50" />
+    <Property Type="Guid" Name="Id_ConstructorCriterio" Nullable="false" />
+    <Property Type="Guid" Name="Id_Padre_ConstructorCriterio" Nullable="true" />
+    <Property Type="Int32" Name="Id_Padre_Detalle_Agrupacion" Nullable="true" />
+    <Property Type="String" Name="Nombre_Padre_Detalle_Agrupacion" Nullable="true" MaxLength="250" />
+    <Property Type="DateTime" Name="Fecha_Inicio" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="Fecha_Fin" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="FechaBaseParaCrearExcel" Nullable="true" Precision="23" />
+    <Property Type="Byte" Name="UsaReglaEstadisticaConNivelDetalle" Nullable="true" />
+    <Property Type="String" Name="Constructor_Criterio_Ayuda" Nullable="true" />
+    <Property Type="String" Name="Descripcion_Criterio" Nullable="true" MaxLength="350" />
+    <Property Type="Guid" Name="Id_Solicitud_Indicador" Nullable="false" />
+    <Property Type="Guid" Name="Id_Solicitud_Constructor" Nullable="false" />
+    <Property Type="String" Name="Nombre_Direccion" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Nombre_Servicio" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="Tipo_Nivel_Detalle" Nullable="true" />
+    <Property Type="String" Name="Id_Tipo_Nivel_Detalle" Nullable="true" />
+    <Property Type="String" Name="Tabla_Tipo_Nivel_Detalle" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="IDNIVELDETALLEGENERO" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="pa_GetIndicadorXservicio_Result">
+    <Property Type="String" Name="IdIndicador" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NombreIndicador" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="DescIndicador" Nullable="false" MaxLength="2000" />
+    <Property Type="Int32" Name="IdServicio" Nullable="false" />
+    <Property Type="Decimal" Name="Umbral" Nullable="false" Precision="5" Scale="2" />
+    <Property Type="Decimal" Name="PesoRelativo" Nullable="false" Precision="5" Scale="2" />
+    <Property Type="String" Name="UsuarioUltimaModificacion" Nullable="false" MaxLength="40" />
+    <Property Type="String" Name="FechaUltimaModificacion" Nullable="false" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="pa_getListaIndicadoresSolicitud_Result">
+    <Property Type="String" Name="IDINDICADOR" Nullable="false" MaxLength="50" />
+    <Property Type="Guid" Name="IDCONSTRUCTOR" Nullable="false" />
+    <Property Type="String" Name="NOMBREINDICADOR" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="NOMBREFRECUENCIA" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="NOMBREDESGLOSE" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="pa_getListaIndicadoresXSolicitud_Result">
+    <Property Type="String" Name="IDINDICADOR" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="IDOPERADOR" Nullable="false" MaxLength="20" />
+    <Property Type="Guid" Name="IDCONSTRUCTOR" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pa_getOperadoresDetalleAgrupacionPorIdConstructorAndIdCriterio_Result">
+    <Property Type="String" Name="IdOperador" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="NombreOperador" Nullable="false" MaxLength="150" />
+    <Property Type="Boolean" Name="Estado" Nullable="false" />
+    <Property Type="DateTime" Name="FechaRegistro" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="pa_getValoresRegistradosPorOperador_Canton_Result">
+    <Property Type="Int32" Name="IdCanton" Nullable="true" />
+    <Property Type="String" Name="Valor" Nullable="false" MaxLength="250" />
+  </ComplexType>
+  <ComplexType Name="pa_getValoresRegistradosPorOperador_Genero_Result">
+    <Property Type="Int32" Name="IdGenero" Nullable="true" />
+    <Property Type="String" Name="Valor" Nullable="false" MaxLength="250" />
+  </ComplexType>
+  <ComplexType Name="pa_getValoresRegistradosPorOperador_Provincia_Result">
+    <Property Type="Int32" Name="IdProvincia" Nullable="true" />
+    <Property Type="String" Name="Valor" Nullable="false" MaxLength="250" />
+  </ComplexType>
+  <ComplexType Name="pa_getValoresReglaEstadisticaConNivelDetalle_Result">
+    <Property Type="String" Name="ValorLimiteInferior" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ValorLimiteSuperior" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="pa_ListadoModificacionMasiva_Result">
+    <Property Type="Guid" Name="IdDetalleRegistroindicador" Nullable="false" />
+    <Property Type="String" Name="IdOperador" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="NombreOperador" Nullable="false" MaxLength="150" />
+    <Property Type="String" Name="DescFormulario" Nullable="false" MaxLength="500" />
+    <Property Type="String" Name="DesServicio" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="DesTipoInd" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="IdIndicador" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NombreIndicador" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="IdCriterio" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DescCriterio" Nullable="true" MaxLength="350" />
+    <Property Type="String" Name="Nivel_Superior" Nullable="true" MaxLength="851" />
+    <Property Type="String" Name="Penultimo_Nivel" Nullable="false" MaxLength="600" />
+    <Property Type="String" Name="Ultimo_Nivel" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="Frecuencia" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="Anno" Nullable="false" />
+    <Property Type="Int32" Name="NumeroDesglose" Nullable="false" />
+    <Property Type="String" Name="Valor" Nullable="false" MaxLength="250" />
+  </ComplexType>
+  <ComplexType Name="pa_MetodosIndicarXServicio_Result">
+    <Property Type="Int32" Name="IdUmbralPeso" Nullable="false" />
+    <Property Type="String" Name="IdIndicador" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="Umbral" Nullable="true" Precision="5" Scale="2" />
+    <Property Type="Decimal" Name="PesoRelativo" Nullable="true" Precision="5" Scale="2" />
+    <Property Type="DateTime" Name="FechaUltimaModificacion" Nullable="true" Precision="23" />
+    <Property Type="String" Name="UsuarioUltimaModificacion" Nullable="true" MaxLength="40" />
+  </ComplexType>
+  <ComplexType Name="pa_ParamFormulasTrans_Result">
+    <Property Type="Int32" Name="IdParamFormulas" Nullable="false" />
+    <Property Type="Int32" Name="IdServicio" Nullable="true" />
+    <Property Type="String" Name="IdIndicador" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="FormulaPorcentaje" Nullable="true" />
+    <Property Type="String" Name="FormulaCumplimiento" Nullable="true" />
+    <Property Type="String" Name="Criterios" Nullable="true" />
+    <Property Type="String" Name="FromArray" Nullable="true" />
+    <Property Type="DateTime" Name="FechaUltimaActualizacion" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Usuario" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="Periodicidad" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="ArrayIf" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="ArrayVerdadero" Nullable="true" MaxLength="1000" />
+    <Property Type="String" Name="ArrayFalso" Nullable="true" MaxLength="1000" />
+  </ComplexType>
+  <ComplexType Name="pa_RptBitacora_Result">
+    <Property Type="String" Name="PANTALLA" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="ACCION" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="USUARIO" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="DESCRIPCION" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="FECHABITACORA" Nullable="true" MaxLength="19" />
+    <Property Type="String" Name="REGISTROANTERIOR" Nullable="false" />
+    <Property Type="String" Name="REGISTRONUEVO" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="pa_RptDetalleAgrupacionPorAgrupacion_Result">
+    <Property Type="String" Name="IDOPERADOR" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="NOMBREOPERADOR" Nullable="false" MaxLength="150" />
+    <Property Type="Int32" Name="IDAGRUPACION" Nullable="false" />
+    <Property Type="String" Name="DESCAGRUPACION" Nullable="false" MaxLength="600" />
+    <Property Type="Int32" Name="IDDETALLEAGRUPACION" Nullable="false" />
+    <Property Type="String" Name="DESCDETALLEAGRUPACION" Nullable="false" MaxLength="250" />
+  </ComplexType>
+  <ComplexType Name="pa_RptIndicadoresPorOperador_Result">
+    <Property Type="String" Name="IDOPERADOR" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="NOMBREOPERADOR" Nullable="false" MaxLength="150" />
+    <Property Type="Int32" Name="IDSERVICIO" Nullable="false" />
+    <Property Type="String" Name="DESSERVICIO" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="IDINDICADOR" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NOMBREINDICADOR" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="DESCINDICADOR" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="DESCTIPOINDICADOR" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="DIRECCION" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="pa_RptIndicadoresPorServicio_Result">
+    <Property Type="Int32" Name="IDSERVICIO" Nullable="false" />
+    <Property Type="String" Name="DESCSERVICIO" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="IDINDICADOR" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NOMINDICADOR" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="DESCINDICADOR" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="DESCTIPOINDICADOR" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="DIRECCION" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="pa_RptTiposIndicadorPorServicio_Result">
+    <Property Type="String" Name="SERVICIO" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="TIPOINDICADOR" Nullable="true" MaxLength="250" />
+  </ComplexType>
+  <ComplexType Name="pa_SolicitudesPorParametros_Result">
+    <Property Type="Guid" Name="IdSolicitudIndicador" Nullable="false" />
+    <Property Type="Int32" Name="IdFrecuencia" Nullable="false" />
+    <Property Type="Int32" Name="IdServicio" Nullable="false" />
+    <Property Type="Int32" Name="IdDireccion" Nullable="false" />
+    <Property Type="String" Name="DescFormulario" Nullable="false" MaxLength="500" />
+    <Property Type="DateTime" Name="FechaInicio" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="FechaFin" Nullable="false" Precision="23" />
+    <Property Type="Byte" Name="Activo" Nullable="false" />
+    <Property Type="Byte" Name="Borrado" Nullable="false" />
+    <Property Type="DateTime" Name="FechaBaseParaCrearExcel" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="FormularioWeb" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

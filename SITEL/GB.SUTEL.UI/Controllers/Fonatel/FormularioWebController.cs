@@ -18,12 +18,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly FormularioWebBL formularioWebBL;
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
         private readonly IndicadorFonatelBL indicadorBL;
+        private readonly DetalleFormularioWebBL detalleFormularioWeb;
 
         #endregion
 
         public FormularioWebController()
         {
-            formularioWebBL = new FormularioWebBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            this.detalleFormularioWeb = new DetalleFormularioWebBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            this.formularioWebBL = new FormularioWebBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
             this.frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
             this.indicadorBL = new IndicadorFonatelBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
@@ -60,6 +62,97 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+
+
+        [HttpPost]
+        public async Task<string> EliminarFormulario(FormularioWeb objFormulario)
+        {
+
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
+                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Eliminado;
+                result = formularioWebBL.EliminarElemento(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
+        [HttpPost]
+        public async Task<string> DesactivarFormulario(FormularioWeb objFormulario)
+        {
+
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
+                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Desactivado;
+                result = formularioWebBL.CambioEstado(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+        [HttpPost]
+        public async Task<string> ActivarFormulario(FormularioWeb objFormulario)
+        {
+
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
+                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                result = formularioWebBL.CambioEstado(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Validar si el formulario está en una solicitud 
+        /// Michael Hernandez Cordero
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<string> ValidarFormulario( FormularioWeb objFormulario)
+        {
+            RespuestaConsulta<List<string>> result = null;
+            await Task.Run(() =>
+            {
+                return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
+                result = formularioWebBL.ValidarDatos(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
         [HttpGet]
         public ActionResult Create(string id, int? modo)
         {
@@ -67,26 +160,70 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 .objetoRespuesta;
             var indicadores = indicadorBL.ObtenerDatos(new Indicador() { })
                 .objetoRespuesta;
-            var listaValores= indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+            var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
             ViewBag.Indicador = listaValores;
-            FormularioWeb objFormularioWeb = new FormularioWeb();
             DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();
             ViewBag.Modo = modo.ToString();
-            if (id != null) {
+            if (id != null)
+            {
+                FormularioWeb objFormularioWeb = new FormularioWeb();
                 objFormularioWeb.id = id;
                 objFormularioWeb = formularioWebBL.ObtenerDatos(objFormularioWeb).objetoRespuesta.SingleOrDefault();
-                objDetalleFormularioWeb.formularioweb = objFormularioWeb;
-                if (modo==(int)Constantes.Accion.Clonar)
+                objFormularioWeb.ListaIndicadoresObj = formularioWebBL.ObtenerIndicadoresFormulario(objFormularioWeb).objetoRespuesta.ToList();
+                
+                if (modo == (int)Constantes.Accion.Clonar)
+                {
                     ViewBag.ModoTitulo = EtiquetasViewFormulario.ClonarFormulario;
-                objDetalleFormularioWeb.formularioweb.Codigo = string.Empty;
-                objDetalleFormularioWeb.formularioweb.Nombre = string.Empty;
-                if (modo==(int)Constantes.Accion.Editar)
+                    objFormularioWeb.Codigo = string.Empty;
+                    objFormularioWeb.Nombre = string.Empty;
+                }
+
+                if (modo == (int)Constantes.Accion.Editar)
+                {
                     ViewBag.ModoTitulo = EtiquetasViewFormulario.EditarFormularioWeb;
+                }
+                objDetalleFormularioWeb.formularioweb = objFormularioWeb;
             }
             else
+            {
                 ViewBag.ModoTitulo = EtiquetasViewFormulario.CrearFormulario;
+                objDetalleFormularioWeb.formularioweb = new FormularioWeb();
+            }
             return View(objDetalleFormularioWeb);
-        } 
+        }
+
+
+
+        [HttpGet]
+        public async Task<string> ObtenerDetalleFormularioWeb(int idIndicador, string idFormulario)
+        {
+            DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();
+            int temp = 0;
+            int.TryParse(Utilidades.Desencriptar( idFormulario), out temp );
+            objDetalleFormularioWeb.idFormulario = temp;
+            objDetalleFormularioWeb.idIndicador = idIndicador;
+            await Task.Run(() =>
+            {
+                objDetalleFormularioWeb = detalleFormularioWeb.ObtenerDatos(objDetalleFormularioWeb).objetoRespuesta.FirstOrDefault();
+            });
+            return JsonConvert.SerializeObject(objDetalleFormularioWeb);
+        }
+
+        [HttpGet]
+        public ActionResult _CrearIndicador(int idIndicador, int idFormulario)
+        {
+            var indicadores = indicadorBL.ObtenerDatos(new Indicador() { })
+                .objetoRespuesta;
+            var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+            ViewBag.Indicador = listaValores;
+            DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();
+            objDetalleFormularioWeb.TituloHojas = "prueba lo que sea";
+            return View(objDetalleFormularioWeb);
+        }
+
+
+
+
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
