@@ -19,48 +19,22 @@ using OfficeOpenXml;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
-    public class RegistroIndicadorFonatelController  : Controller
+    public class EditarFormularioController : Controller
     {
-        // GET: RegistroIndicadorFonatel
+        // GET: CategoriasDesagregacion
 
-
-        #region Metodos de las vistas
         [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: RegistroIndicadorFonatel/Details/5
-        [HttpGet]
-        public ActionResult Edit(int id)
+
+        public ActionResult Edit(string id)
         {
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Create(int? id, int? modo)
-        {
-            return View();
-
-        }
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        #endregion
 
         /// <summary>
         /// Francisco Vindas
@@ -73,13 +47,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult DescargarExcel()
         {
-            string nombre = "RegistroIndicadorExcel";
+            string nombre = "PruebaExcel";
 
             MemoryStream stream = new MemoryStream();
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
-                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add("REGISTRO INDICADOR");
+                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add("Prueba Excel");
 
                 worksheetInicio.Cells["A1"].Value = "Categoría Atributo";
                 worksheetInicio.Cells["B1"].Value = "Detalle Relación Atributo";
@@ -92,5 +66,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return new EmptyResult();
 
         }
+
     }
+
 }

@@ -3,6 +3,10 @@
 
 <form>
     <div class="row">
+
+        <!-- TEXTO PARA ENCRIPTAR ID Y PARA EL EDITAR-->
+        @Html.HiddenFor(model => model.id, new { id = "txtidDetalle" })
+
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
             <div class="form-group row">
                 <label for="ddlCategoriaDetalle" class="col-sm-12 col-form-label ">@EtiquetasViewRelacionCategoria.CategoriaAtributo</label>
@@ -21,9 +25,8 @@
                 <label for="ddlDetalleDesagregacionAtributo" class="col-sm-12 col-form-label">@EtiquetasViewRelacionCategoria.DetalleAtributo</label>
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
-                        @*@Html.DropDownListFor(model => model.idCategoriaValor, new SelectList(ViewBag.ListaCatergoriaValor, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlDetalleDesagregacionId" })*@
                         <select class="listasDesplegables" id="ddlDetalleDesagregacionAtributo">
-                        <option></option>
+                            <option></option>
                         </select>
                     </div>
                     <small id="DetalleDesagregacionAtributoHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>

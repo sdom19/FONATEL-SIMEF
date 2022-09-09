@@ -5,7 +5,7 @@
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/RegistroIndicadorFonatel")
+    @*@Scripts.Render("~/bundles/FONATEL/RegistroIndicadorFonatel")*@
 }
 
 <div class="container body-content">
@@ -13,13 +13,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Registro Indicador</li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-lg-12 mt-4">
-            <h2 class="page-title-fonatel text-center">Registro Indicador</h2>
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador</h2>
             <hr />
         </div>
 
@@ -30,3 +30,5 @@
     </div>
 
 </div>
+
+<script src="~/Scripts/Fonatel/JsRegistroIndicadores.js"></script>

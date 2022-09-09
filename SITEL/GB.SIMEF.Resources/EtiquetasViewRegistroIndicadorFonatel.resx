@@ -117,46 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Acciones" xml:space="preserve">
-    <value>Acciones</value>
+  <data name="CantidadFilas" xml:space="preserve">
+    <value>Ingresar Cantidad de filas</value>
   </data>
-  <data name="Cantidad" xml:space="preserve">
-    <value>Cantidad de atributos</value>
+  <data name="CargarPlanilla" xml:space="preserve">
+    <value>Cargar plantilla</value>
   </data>
-  <data name="CategoriaAtributo" xml:space="preserve">
-    <value>Categoría Atributo</value>
+  <data name="DescargarPlanilla" xml:space="preserve">
+    <value>Descargar plantilla</value>
   </data>
-  <data name="Codigo" xml:space="preserve">
-    <value>Código</value>
+  <data name="NotasEncargado" xml:space="preserve">
+    <value>Notas de FONATEL para el informante</value>
   </data>
-  <data name="CrearRelacion" xml:space="preserve">
-    <value>Crear Relaciones entre Categorías</value>
+  <data name="NotasInformante" xml:space="preserve">
+    <value>Notas del informante para FONATEL</value>
   </data>
-  <data name="Detalle" xml:space="preserve">
-    <value>Agregar atributos</value>
-  </data>
-  <data name="DetalleAtributo" xml:space="preserve">
-    <value>Detalle Relación Atributo</value>
-  </data>
-  <data name="DetalleRelacion" xml:space="preserve">
-    <value>Detalle de Relaciones entre Categorías</value>
-  </data>
-  <data name="DetalleRelacionCategoria" xml:space="preserve">
-    <value>Detalles de Relaciones entre Categorías</value>
-  </data>
-  <data name="EditarRelacion" xml:space="preserve">
-    <value>Editar Relaciones entre Categorías</value>
-  </data>
-  <data name="Estado" xml:space="preserve">
-    <value>Estado</value>
-  </data>
-  <data name="Nombre" xml:space="preserve">
-    <value>Nombre de Relación</value>
-  </data>
-  <data name="NombreRelacion" xml:space="preserve">
-    <value>Nombre de Relación</value>
-  </data>
-  <data name="RelacionCategoria" xml:space="preserve">
-    <value>Relaciones entre Categorías</value>
+  <data name="RegistroIndicador" xml:space="preserve">
+    <value>Registro de Indicador</value>
   </data>
 </root>
