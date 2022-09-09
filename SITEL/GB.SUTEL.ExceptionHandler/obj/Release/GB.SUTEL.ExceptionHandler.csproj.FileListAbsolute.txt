@@ -1,0 +1,6 @@
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\bin\Release\GB.SUTEL.ExceptionHandler.dll.config
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\bin\Release\GB.SUTEL.ExceptionHandler.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\bin\Release\GB.SUTEL.ExceptionHandler.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\obj\Release\GB.SUTEL.ExceptionHandler.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\obj\Release\GB.SUTEL.ExceptionHandler.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\obj\Release\GB.SUTEL.ExceptionHandler.pdb

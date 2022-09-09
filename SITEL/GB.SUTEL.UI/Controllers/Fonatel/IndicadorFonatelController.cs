@@ -42,7 +42,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             detalleIndicadorCategoriaBL = new DetalleIndicadorCategoriaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             categoriasDesagregacionBL = new CategoriasDesagregacionBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
-            detalleCategoriasTextoBL = new DetalleCategoriasTextoBL();
+            detalleCategoriasTextoBL = new DetalleCategoriasTextoBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
 
             defaultDropDownValue = Utilidades.GetDefaultDropDownValue();
         }

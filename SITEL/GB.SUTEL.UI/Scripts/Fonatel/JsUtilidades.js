@@ -454,3 +454,45 @@ $.urlParam = function (name) {
     }
     return decodeURI(results[1]) || 0;
 }
+function InsertarDataSetSelect2(pSelect2, pDataSet) {
+    if (pDataSet.length > 0) {
+        pDataSet.forEach(option => {
+            var newOption = new Option(option.text, option.value, false, false);
+            $(pSelect2).append(newOption);
+        });
+        $(pSelect2).trigger('change');
+    }
+}
+
+function SeleccionarItemsSelect2Multiple(pSelect2, pDataSet, pLlave, pActivarEventoOnChange = false) {
+    if (pDataSet.length > 0) {
+        let list = [];
+        pDataSet.forEach(option => {
+            list.push(option[pLlave]);
+        });
+        $(pSelect2).val(list);
+        $(pSelect2).trigger('change');
+
+        if (pActivarEventoOnChange) {
+            $(pSelect2).trigger({
+                type: 'select2:select'
+            });
+        }
+    }
+}
+
+function SeleccionarItemSelect2(pSelect2, pValue, pActivarEventoOnChange = false) {
+    $(pSelect2).val(pValue);
+    $(pSelect2).trigger('change');
+
+    if (pActivarEventoOnChange) {
+        $(pSelect2).trigger({
+            type: 'select2:select'
+        });
+    }
+}
+
+function InsertarOpcionTodosSelect2Multiple(pSelect2) {
+    var newOption = new Option("Todos", "all", false, false);
+    $(pSelect2).append(newOption).trigger('change');
+}

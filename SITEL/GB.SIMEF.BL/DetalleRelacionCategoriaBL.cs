@@ -7,6 +7,7 @@ using System.Web;
 using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using OfficeOpenXml;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
