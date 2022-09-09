@@ -291,4 +291,11 @@ $(document).on("keypress", '.solo_texto', function (e) {
     }
 });
 
+$.urlParam = function (name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results == null) {
+        return null;
+    }
+    return decodeURI(results[1]) || 0;
+}
 

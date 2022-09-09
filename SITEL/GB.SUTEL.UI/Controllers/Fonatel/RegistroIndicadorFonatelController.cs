@@ -39,10 +39,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
-        public ActionResult Create(int? id)
+        public ActionResult Create(int? id, int? modo)
         {
             return View();
+
         }
+
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
