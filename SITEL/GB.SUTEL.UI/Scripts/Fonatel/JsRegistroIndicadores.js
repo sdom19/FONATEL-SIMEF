@@ -42,6 +42,10 @@
             $('textarea').prop('disabled', true);
         },
 
+        "CargarExcel": function () {
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
+        },
+
     }
 
 }
@@ -102,13 +106,13 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnllenadoweb, func
     let id = 1;
     window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create?id=" + id;
 });
+
 //DESCARGAR
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
             window.open(jsUtilidades.Variables.urlOrigen + "/RegistroIndicadorFonatel/DescargarExcel");
             jsRegistroIndicadorFonatel.Metodos.CargarExcel();
-
         });
 });
 
