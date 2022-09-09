@@ -1,5 +1,5 @@
 ﻿@using GB.SIMEF.Resources
-
+@model GB.SIMEF.Entities.FormulasCalculo
 <form>
     <div class="row">
         <div class="col-md-6 col-sm-10">
@@ -9,9 +9,42 @@
                 <small id="txtCodigoFormulaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
 
+            <div class="form-group center">
+                <label for="txtNombreFormula" class="col-form-label">Nombre</label>
+                <input type="text" class="form-control form-control-fonatel " id="txtNombreFormula" placeholder="Nombre">
+                <small id="txtNombreFormulaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+            </div>
 
             <div class="form-group center">
-                <label for="ddlIndicadorFormulario" class="col-form-label ">Indicador de Salida</label>
+                <label for="ddlFrecuenciaFormulario" class="col-form-label">Frecuencia de Cálculo</label>
+                <div class="select2-wrapper">
+                    <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlFrecuenciaFormulario">
+                        <option></option>
+                        <option value="1">Mensual</option>
+                        <option value="2">Trimestral</option>
+                    </select>
+                </div>
+                <small id="ddlFrecuenciaFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+            </div>
+
+            <div class="form-group center">
+                <label for="txtFechaCalculo" class="col-form-label">Fecha de cálculo</label>
+
+                @Html.EditorFor(model => model.FechaCalculo,  new { htmlAttributes = new { @class = "form-control form-control-fonatel", id = "txtFechaCalculo"} })
+                      
+                <small id="txtFechaCalculoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+            </div>
+
+            <div class="form-group center">
+                <label for="txtDescripcionFormula" class="col-form-label">Descripción</label>
+                <textarea id="txtDescripcionFormula" class="form-control form-control-fonatel" placeholder="Descripción"></textarea>
+                <small id="txtDescripcionFormulaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-10">
+            <div class="form-group center">
+                <label for="ddlIndicadorFormulario" class="col-form-label ">Indicador de salida</label>
                 <div class="select2-wrapper">
                     <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlIndicadorFormulario">
                         <option></option>
@@ -20,8 +53,6 @@
                         <option value="2">IP2Hog Hogares Beneficiarios</option>
                     </select>
                 </div>
-
-
                 <small id="ddlIndicadorFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
 
@@ -33,55 +64,20 @@
                         <option value="1">Torres según estado</option>>
                     </select>
                 </div>
-
                 <small id="ddlVariableFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group center">
                 <label for="ddlVariableFormulario" class="col-form-label ">Nivel de Cálculo</label>
-
                 <label class="radio-inline" style="display: block;">
                     <input type="radio" id="radioTotal" name="nivelCalculo" value="">
                     Total
                 </label>
                 <label class="radio-inline mt-3" style="display: block;">
                     <input type="radio" id="radioCategoríaDesagregacion" name="nivelCalculo" value="">
-                    Categoría de Desagregación
+                    Categoría de desagregación
                 </label>
-
                 <small id="ddlVariableFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-            </div>
-
-        </div>
-
-        <div class="col-md-6 col-sm-10">
-            <div class="form-group center">
-                <label for="txtNombreFormula" class="col-form-label">Nombre</label>
-                <input type="text" class="form-control form-control-fonatel " id="txtNombreFormula" placeholder="Nombre">
-                <small id="txtNombreFormulaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-            </div>
-
-
-            <div class="form-group center">
-                <label for="ddlFrecuenciaFormulario" class="col-form-label">Frecuencia</label>
-                <div class="select2-wrapper">
-                    <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlFrecuenciaFormulario">
-                        <option></option>
-                        <option value="1">Mensual</option>
-                        <option value="2">Trimestral</option>
-                    </select>
-                </div>
-
-
-                <small id="ddlFrecuenciaFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-            </div>
-
-            <div class="form-group center">
-                <label for="txtDescripcionFormula" class="col-form-label">Descripción</label>
-
-                <textarea id="txtDescripcionFormula" class="form-control form-control-fonatel" placeholder="Descripción"></textarea>
-                <small id="txtDescripcionFormulaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-
             </div>
 
             <div class="form-group center" style="display: none;" id="divInputCategoríaDesagregacion">
@@ -95,20 +91,20 @@
                         <option value="1">Categoría 4</option>
                         <option value="1">Categoría 5</option>
                         <option value="1">Categoría 6</option>
+                        <option value="1">Todos</option>
                     </select>
                 </div>
-
                 <small id="ddlCategoríaDesagregacion" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
-    
+
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-12 text-center">
+            <button type="submit" id="btnGuardarFormulaCalculo" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="submit" id="btnSiguienteFormulaCalculo" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+            <button type="submit" id="btnCancelarFormula" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
         </div>
-        <div class="row mt-5">
-            <div class="col-sm-12 text-center">
-                <button type="submit" id="btnGuardarFormulaCalculo" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-                <button type="submit" id="btnSiguienteFormulaCalculo" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
-                <button type="submit" id="btnCancelarFormula" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
-            </div>
-        </div>
+    </div>
 </form>
 
