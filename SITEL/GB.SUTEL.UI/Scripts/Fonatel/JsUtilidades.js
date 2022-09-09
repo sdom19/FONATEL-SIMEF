@@ -30,10 +30,6 @@
     }
 }
 
-
-
-
-
 $(document).ready(function () {
 
     $(".datatable_simef_modal").DataTable({
@@ -82,7 +78,6 @@ $(document).on("select2:select", '.multiple-Select', function (e) {
     }
 });
 
-
 $(document).on("select2:unselect", '.multiple-Select', function (e) {
     var data = e.params.data.text;
     if (data == 'Todos') {
@@ -96,9 +91,6 @@ $(document).on("select2:unselect", '.multiple-Select', function (e) {
 
 });
 
-
-
-
 $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 
 
@@ -111,8 +103,6 @@ $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
     }
 });
 
-
-
 $(document).on("keypress",'.solo_numeros', function (e) {
     var regex = new RegExp("^[0-9]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
@@ -121,7 +111,6 @@ $(document).on("keypress",'.solo_numeros', function (e) {
         return false;
     }
 });
-
 
 function EliminarDatasource(pDataTable = ".datatable_simef") {
     $(pDataTable).DataTable().destroy();
@@ -320,8 +309,6 @@ function execAjaxCall(pURL, pHttpMethod, pParams = null) {
     })
 }
 
-
-
 function RemoverItemDataTable (pDataTable, pItem) {
     $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
 }
@@ -339,6 +326,49 @@ function InsertarItemSelect2 (pSelect2, pTexto, pValor, pDefaultSelected = false
     $(pSelect2).append(newOption).trigger('change');
 }
 
+function InsertarDataSetSelect2(pSelect2, pDataSet) {
+    if (pDataSet.length > 0) {
+        pDataSet.forEach(option => {
+            var newOption = new Option(option.text, option.value, false, false);
+            $(pSelect2).append(newOption);
+        });
+        $(pSelect2).trigger('change');
+    }
+}
+
+function SeleccionarItemsSelect2Multiple(pSelect2, pDataSet, pLlave, pActivarEventoOnChange = false) {
+    if (pDataSet.length > 0) {
+        let list = [];
+        pDataSet.forEach(option => {
+            list.push(option[pLlave]);
+        });
+        $(pSelect2).val(list);
+        $(pSelect2).trigger('change');
+
+        if (pActivarEventoOnChange) {
+            $(pSelect2).trigger({
+                type: 'select2:select'
+            });
+        }
+    }
+}
+
+function SeleccionarItemSelect2(pSelect2, pValue, pActivarEventoOnChange = false) {
+    $(pSelect2).val(pValue);
+    $(pSelect2).trigger('change');
+
+    if (pActivarEventoOnChange) {
+        $(pSelect2).trigger({
+            type: 'select2:select'
+        });
+    }
+}
+
+function InsertarOpcionTodosSelect2Multiple(pSelect2) {
+    var newOption = new Option("Todos", "all", false, false);
+    $(pSelect2).append(newOption).trigger('change');
+}
+
 function InsertarParametroUrl (pParametro, pValor) {
     const url = new URL(window.location);
     url.searchParams.set(pParametro, pValor);
@@ -349,8 +379,6 @@ function ObtenerValorParametroUrl (pParametro) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(pParametro);
 }
-
-
 
 function ConcatenarItems(lista, nombreObj) { // concatenar una serie de objectos de una lista, según el parámetro enviado
     let resultado = "";

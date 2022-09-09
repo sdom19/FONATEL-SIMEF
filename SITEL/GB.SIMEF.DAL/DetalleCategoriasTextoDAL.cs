@@ -44,6 +44,7 @@ namespace GB.SIMEF.DAL
                     Completo = db.CategoriasDesagregacion.Where(i => i.idCategoria == x.idCategoria).Single().CantidadDetalleDesagregacion
                     == ListaCategoriaDetalle.Count()?true:false,
                     id = Utilidades.Encriptar(x.idCategoriaDetalle.ToString()),
+                    categoriaid = Utilidades.Encriptar(x.idCategoria.ToString())
                 }).ToList();
             }
             return ListaCategoriaDetalle;

@@ -1,7 +1,5 @@
 ﻿@using GB.SIMEF.Resources;
 
-@model GB.SIMEF.Entities.Indicador
-
 @{
     ViewBag.Title = "Indicadores";
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
@@ -11,8 +9,7 @@
     @Scripts.Render("~/bundles/FONATEL/IndicadorFonatel")
 }
 
-@Html.Hidden("modoFormulario", (string)ViewBag.Modo)
-@Html.HiddenFor(model => model.id, new { id = "identificadorFormulario" })
+@Html.Hidden("modoFormulario", (string) ViewBag.ModoFormulario)
 
 <div class="container body-content">
     <input type="hidden" id="dad1f550">
@@ -23,7 +20,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
                         <li class="breadcrumb-item active"><a href="@Url.Action( "index","IndicadorFonatel")">@EtiquetasViewIndicadorFonatel.TituloIndex</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewIndicadorFonatel.TituloCrearIndicador</li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewBag.TituloVista</li>
                     </ol>
                 </nav>
             </div>
@@ -54,11 +51,11 @@
         <div class="col-lg-12 stepwizard-content-container hidden" id="step-1">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="page-title-fonatel text-center">@EtiquetasViewIndicadorFonatel.TituloCrearIndicador</h2>
+                    <h2 class="page-title-fonatel text-center">@ViewBag.TituloVista</h2>
                     <hr />
                 </div>
                 <div class="col-lg-12">
-                    @Html.Partial("_CrearIndicador", Model)
+                    @Html.Partial("_CrearIndicador")
                     @Html.Partial("_ModalTipoIndicador")
                     @Html.Partial("_ModalGrupoIndicador")
                     @Html.Partial("_ModalUnidadEstudio")
@@ -73,12 +70,14 @@
                     <hr />
                 </div>
                 <div class="col-lg-12">
-                    @Html.Partial("_CrearVariable", Model)
+                    @Html.Partial("_CrearVariable")
                 </div>
                 <div class="col-lg-12 mt-4">
                     @Html.Partial("_TablaDetalleVariable")
                 </div>
-
+                <div class="col-lg-12 mt-3 text-center">
+                    <button type="button" id="btnSiguienteVariable" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+                </div>
                 <div class="col-12 pull-right mt-4">
                     <button type="button" id="btnAtrasVariable" class="btn btn-fonatel btn-goback" aria-label="Left Align">
                         <span aria-hidden="true"></span>@Etiquetas.BotonAtras
@@ -96,7 +95,7 @@
                 <hr />
             </div>
             <div class="col-lg-12">
-                @Html.Partial("_CrearCategoria", Model)
+                @Html.Partial("_CrearCategoria")
             </div>
             <div class="col-lg-12 mt-4">
                 @Html.Partial("_TablaDetalleCategoria")

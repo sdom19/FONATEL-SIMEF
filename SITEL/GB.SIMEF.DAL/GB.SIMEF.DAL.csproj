@@ -57,6 +57,7 @@
     <Compile Include="DatosHistoricosDAL.cs" />
     <Compile Include="ClasificacionIndicadorDAL.cs" />
     <Compile Include="DetalleFormularioWebDAL.cs" />
+    <Compile Include="DetalleIndicadorCategoriaDAL.cs" />
     <Compile Include="DetalleIndicadorVariablesDAL.cs" />
     <Compile Include="DetalleRelacionCategoriaDAL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />

@@ -189,6 +189,9 @@
   <data name="TituloAgregarCategoria" xml:space="preserve">
     <value>Agregar Categoría</value>
   </data>
+  <data name="TituloClonarIndicador" xml:space="preserve">
+    <value>Clonar Indicador</value>
+  </data>
   <data name="TituloCrearIndicador" xml:space="preserve">
     <value>Crear Indicador</value>
   </data>
@@ -197,6 +200,9 @@
   </data>
   <data name="TituloDefiniciones" xml:space="preserve">
     <value>Definiciones</value>
+  </data>
+  <data name="TituloEditarIndicador" xml:space="preserve">
+    <value>Editar Indicador</value>
   </data>
   <data name="TituloIndex" xml:space="preserve">
     <value>Indicadores</value>

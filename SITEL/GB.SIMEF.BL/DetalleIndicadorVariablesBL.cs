@@ -76,7 +76,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ObtenerDatosPorIndicador(pDetalleIndicadorVariables).ToList();
+                resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ObtenerDatos(pDetalleIndicadorVariables).ToList();
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
             }
             catch (Exception ex)
