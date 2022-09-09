@@ -9,6 +9,7 @@
         "btnAgregarFormulario": "#TablaFormulario tbody tr td .btn-add",
         "btnEditarFormulario": "#TablaFormulario tbody tr td .btn-edit",
         "btnDeleteFormulario": "#TablaFormulario tbody tr td .btn-delete",
+        "btnVizualizarFormulario": "#TablaFormulario tbody tr td .btn-view",
         "btnDeleteIndicador": "#TableIndicadorFormulario tbody tr td .btn-delete",
         "btnEditarIndicadores":"#TableIndicadorFormulario tbody tr td .btn-edit",
         
@@ -134,7 +135,7 @@
 
         "CargarIndicadores": function (obj) {
             $(JsFormulario.Controles.txtTituloHoja).val(obj.TituloHojas);
-            $(JsFormulario.Controles.txtNotasEncargadoFormlulario).val(obj.NotasEncargado);
+            $(JsFormulario.Controles.txtNotasEncargadoFormulario).val(obj.NotasEncargado);
             $(JsFormulario.Controles.ddlIndicador).val(obj.idIndicador).change();
         }
     },
@@ -314,6 +315,15 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
 });
 
 
+$(document).on("click", JsFormulario.Controles.btnVizualizarFormulario, function (e) {
+    // Esta quemado por el tema del tiempo, para no generar conflictos con los posibles cambios de otros compañeros
+    //let id = $(this).val();
+    // valor quemado
+    let id = 1;
+    window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create?id=" + id + "&modo=" + 6;
+    //window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Visualizar;
+});
+
 
 $(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, function (e) {
     e.preventDefault();
@@ -374,7 +384,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, fun
 
 $(function () {
     if ($(JsFormulario.Controles.FormFormulario).length > 0) {
-        let modo = $.urlParam('modo');
+        let modo = $.urlParam('modo'); 
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
             $(JsFormulario.Controles.txtCodigoFormulario).prop("disabled", true);
         }
