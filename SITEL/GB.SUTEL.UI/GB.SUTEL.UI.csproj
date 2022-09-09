@@ -257,7 +257,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EspectroController.cs" />
     <Compile Include="Controllers\Fonatel\DescargaFormularioController.cs" />
-    <Compile Include="Controllers\Fonatel\EditarFormulario.cs" />
+    <Compile Include="Controllers\Fonatel\EditarFormularioController.cs" />
     <Compile Include="Controllers\Fonatel\RegistroIndicadorFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\FormularioWebController.cs" />
     <Compile Include="Controllers\Fonatel\PublicacionIndicadoresController.cs" />
@@ -677,6 +677,7 @@
     <Content Include="Scripts\Fonatel\JsHistorico.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />
     <Content Include="Scripts\Fonatel\JsFormulasCalculo.js" />
+    <Content Include="Scripts\Fonatel\JsRegistroIndicadoresEdit.js" />
     <Content Include="Scripts\Fonatel\JsReglas.js" />
     <Content Include="Scripts\Fonatel\JsPublicar.js" />
     <Content Include="Scripts\Fonatel\JsFormularios.js" />
@@ -1426,6 +1427,7 @@
     <Content Include="Views\DefinicionIndicadores\_DetalleDefinicion.cshtml" />
     <Content Include="Views\DefinicionIndicadores\Clonar.cshtml" />
     <Content Include="Views\DefinicionIndicadores\_ClonarDefinicion.cshtml" />
+    <Content Include="Views\EditarFormulario\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
