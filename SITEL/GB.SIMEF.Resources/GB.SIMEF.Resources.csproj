@@ -61,6 +61,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewFormulario.resx</DependentUpon>
     </Compile>
+    <Compile Include="EtiquetasViewFormulasCalculo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewFormulasCalculo.resx</DependentUpon>
+    </Compile>
     <Compile Include="EtiquetasViewFuentesRegistro.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -126,6 +131,10 @@
     <EmbeddedResource Include="EtiquetasViewFormulario.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewFormulario.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewFormulasCalculo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewFormulasCalculo.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="EtiquetasViewFuentesRegistro.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
