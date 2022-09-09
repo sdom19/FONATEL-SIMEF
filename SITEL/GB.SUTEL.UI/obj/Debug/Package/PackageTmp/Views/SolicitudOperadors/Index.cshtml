@@ -1,0 +1,192 @@
+﻿@model IEnumerable< GB.SUTEL.Entities.SolicitudOperador>
+
+@{
+    ViewBag.Title = "Index";
+}
+@*Links*@
+<link href="~/Content/Mantenimiento.css" rel="stylesheet" />
+<link href="~/Content/DataTables/DataTables-1.10.18/css/dataTables.bootstrap.css" rel="stylesheet" />
+<link href="~/Content/DataTables/Responsive-2.2.2/css/responsive.bootstrap4.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link href="~/Content/dropify-master/dropify-master/dist/css/dropify.css" rel="stylesheet" />
+<link href="~/Content/sweetalert2-7.32.2/package/dist/sweetalert2.css" rel="stylesheet" />
+<h2>Solicitudes Operador</h2>
+@*Input ocultos*@
+<input id="IdUsuario" type="hidden" />
+<input id="IdSolicitud" type="hidden" />
+<input id="Path" type="hidden" />
+
+@using (Html.BeginForm("Upload", "SolicitudGenerals", FormMethod.Post, new { enctype = "multipart/form-data", id = "formArchivosMatricula" }))
+{
+    @*Tabla*@
+    <table id="Solicitudes" class="table table-striped  dt-responsive" style="width:100%">
+        @*Enabezado*@
+        <thead class='azul-sutel'>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SolicitudGeneral.Descripcion)
+                </th>
+                <th>
+                    Fecha Inicio
+                </th>
+                <th>
+                    Fecha Fin
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        @*Cuerpo*@
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*Descripción*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SolicitudGeneral.Descripcion)
+                    </td>
+                    @*Fecha inicio*@
+                    <td>
+                        @item.SolicitudGeneral.FechaInicio.ToString("dd/MM/yyyy")
+                    </td>
+                    @*Fecha fin*@
+                    <td>
+                        @item.SolicitudGeneral.FechaFinal.ToString("dd/MM/yyyy")
+                    </td>
+                    @*Acciones*@
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a href="@Url.Action("ReturnFile", "SolicitudGenerals", new { IdSolicitud = item.IdSolicitud })" class="btn azul-sutel"><i class="fa fa-file-download" style="color:#ffffff"></i></a>
+                            <label class="btn azul-sutel" data-toggle="modal" data-target="#myModal" onclick='cargarInput(@item.IdSolicitud, @item.IdUsuario, "@item.SolicitudGeneral.Path")'><i class="fa fa-file-upload" style="color:#ffffff"></i></label>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@*Modal archivo*@
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cargar Archivo</h4>
+            </div>
+            @*Archivo*@
+            <div class="modal-body">
+                @using (Html.BeginForm("Upload", "SolicitudGenerals", FormMethod.Post, new { enctype = "multipart/form-data", id = "formArchivos" }))
+                {
+                    <div>
+                        <input type="file" class="dropify" name="file" id="file" required />
+                    </div>
+                }
+            </div>
+            @*Acciones*@
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick="CreateArchivo();">Guardar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*Scripts*@
+<script src="~/Content/dropify-master/dropify-master/dist/js/dropify.js"></script>
+<script src="~/Content/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/DataTables/DataTables-1.10.18/js/dataTables.bootstrap.min.js"></script>
+<script src="~/Content/DataTables/Responsive-2.2.2/js/dataTables.responsive.min.js"></script>
+<script src="~/Content/DataTables/Responsive-2.2.2/js/responsive.bootstrap4.min.js"></script>
+<script src="~/Content/sweetalert2-7.32.2/package/dist/sweetalert2.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('link[rel=stylesheet][href~="/Content/DataTables-1.10.5/media/css/jquery.dataTables.min.css"]').attr('disabled', 'true');
+
+        //Usar Datatable
+        $('#Solicitudes').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json",
+            },
+            'columnDefs': [
+                {
+                    "targets": [3],
+                    "className": "text-center",
+                }]
+        });
+        //Usar dropify
+        $('.dropify').dropify({
+            messages: {
+                'default': 'Arraste un archivo o haga click aquí',
+                'replace': 'Arraste un archivo o haga click aquí para remplazar',
+                'remove': 'Remover',
+                'error': 'Incoveniente con la carga del archivo'
+            }
+        });
+    });
+
+    //Función para crear archivo
+    function CreateArchivo() {
+        var PathOriginal = $('#Path').val();
+        var PathNew = $('#file').val();
+        //Validaciones
+        if (PathNew == "") {
+            Swal("Debe subir un archivo", "", "error");
+        }
+        else {
+            if (PathOriginal != (PathNew.substring(12).replace(/\s/g, ''))) {
+                Swal.fire("Debe subir el mismo archivo", "", "error");
+            }
+            else {
+                //Obtiene datos
+                var formContainer = $('#formArchivos');
+                var IdSolicitud = $('#IdSolicitud').val();
+                var IdUsuario = $('#IdUsuario').val();
+                var form = $('#formArchivos')[0];
+                var data = new FormData(form);
+                if (formContainer.validate()) {
+                    //Sube archivo
+                    $.ajax({
+
+                        url: "/SolicitudOperadors/Upload?IdSolicitud=" + IdSolicitud + "&IdUsuario=" + IdUsuario + "&file=" + data,
+                        type: 'POST',
+                        enctype: 'multipart/form-data',
+                        cache: false,
+                        data: data,
+                        processData: false,
+                        contentType: false,
+                        success: function (result) {
+                            //mensaje
+                            if (result) {
+                                Swal.fire({
+                                    title: 'El archivo se subió correctamente',
+                                    text: "",
+                                    type: 'success',
+                                }).then((result) => {
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                })
+                            }
+                            else {
+                                Swal.fire("El archivo no se subío correctamente", "", "error");
+
+                            }
+                        },
+                        error: function (jqXHR, textStatus, error) {
+                            Swal.fire("El archivo no se subío correctamente", "", "error");
+                        }
+                    });
+                }
+            }
+        }
+
+    }
+
+    //Carga inputs iniciales
+    function cargarInput(IdSolicitud, IdUsuario, Path) {
+        $('#IdSolicitud').val(IdSolicitud);
+        $('#IdUsuario').val(IdUsuario);
+        $('#Path').val(Path);
+    }
+</script>

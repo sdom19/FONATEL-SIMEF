@@ -693,9 +693,6 @@ C:\Fonatel\SITEL\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
 C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
 C:\Fonatel\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
-C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.AssemblyReference.cache
-C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
-C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll.config
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.UI.pdb
@@ -730,8 +727,9 @@ C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\GB.SUTEL
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.pdb
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\GB.SUTEL.Shared.dll.config
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\en\GB.SUTEL.Resources.resources.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.AssemblyReference.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.ResolveComReference.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
-C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\Newtonsoft.Json.dll
-C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\Newtonsoft.Json.xml

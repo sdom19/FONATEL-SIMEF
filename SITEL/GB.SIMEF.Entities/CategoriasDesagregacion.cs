@@ -9,7 +9,6 @@
 
 namespace GB.SIMEF.Entities
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -34,13 +33,10 @@ namespace GB.SIMEF.Entities
         [MaxLength(300)]
         public string NombreCategoria { get; set; }
         public int CantidadDetalleDesagregacion { get; set; }
-        [JsonIgnore]
         public System.DateTime FechaCreacion { get; set; }
-        [JsonIgnore]
         public string UsuarioCreacion { get; set; }
-        [JsonIgnore]
+ 
         public Nullable<System.DateTime> FechaModificacion { get; set; }
-        [JsonIgnore]
         public string UsuarioModificacion { get; set; }
 
         public int idEstado { get; set; }
@@ -94,7 +90,12 @@ namespace GB.SIMEF.Entities
             "idEstado",
             "DetalleCategoriaFecha",
             "DetalleCategoriaTexto",
-            "TipoCategoria"
+            "TipoCategoria",
+            "FechaModificacion",
+            "UsuarioCreacion",
+            "FechaCreacion",
+            "UsuarioModificacion"
+
         };
 
 

@@ -1,0 +1,107 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.TipoIndicador>, GB.SUTEL.Entities.TipoIndicador>
+@using GB.SUTEL.UI.Helpers;
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Tipo Indicador", "Consultar"))
+{
+<table class="display" cellspacing="0" data-table-grid="true">
+    <thead>
+        <tr>
+            <th width="1%">Id</th>
+            <th width="1%">Nombre</th>
+            <th width="1%" class="no-sort" style="min-width:40px;"></th>
+        </tr>
+    </thead>   
+    <tbody>
+        @foreach (var item in Model.Item1)
+        {
+            <tr>
+                <td data-toggle="modal" data-target="#modalEditarTipoIndicador"
+                    data-select="true"
+                    data-json-selected='{"IDTipoIndicadorEditar":" @item.IdTipoInd ", "txtIDNombreTipoIndicadorEditar": "@item.DesTipoInd"}'>
+                    @Html.DisplayFor(modelItem => item.IdTipoInd)
+                </td>
+                <td data-toggle="modal" data-target="#modalEditarTipoIndicador"
+                    data-select="true"
+                    data-json-selected='{"IDTipoIndicadorEditar":" @item.IdTipoInd ", "txtIDNombreTipoIndicadorEditar": "@item.DesTipoInd"}'>
+                    @Html.DisplayFor(modelItem => item.DesTipoInd)
+                </td>
+
+                <td>
+                    @if (rolValidation.ValidateScreenFunctions(this.Context, "Tipo Indicador", "Eliminar"))
+                    {
+                    <button type="button" class="btn btn-danger btn-sm" aria-label="Left Align" data-toggle="modal" data-target="#modalEliminarTipoIndicador"
+                            data-select="true"
+                            data-json-selected='{"IDTipoIndicadorEliminar":" @item.IdTipoInd "}'>
+
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td width="1%" colspan="3">
+                <form id="frmFilterTipoIndicador" method="post"
+                      action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tableTipoIndicador"
+                      data-ajax-message="Cargando datos...">
+                    <input placeholder="Id" name="IdTipoInd" value="@(ViewBag.searchTerm.IdTipoInd == 0 ? "" : ViewBag.searchTerm.IdTipoInd)" />
+
+                    <input placeholder="Nombre" name="DesTipoInd" value="@ViewBag.searchTerm.DesTipoInd" style="margin-left: 15%" />
+                    <button type="submit" class="hidden">Submit</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        No tiene permisos para consultar.
+    </div>
+}
+  
+<script type="text/javascript">
+    //Consulta permisos de roles por usuario
+    $(document).ready(
+        function () {
+            AjaxifyMyForm("frmFilterTipoIndicador",
+            function (data) {
+                data = "<div id='tableTipoIndicador'>" + data + "</div>";
+
+                var $form = $(data);
+                console.log(data);
+                $("#tableTipoIndicador").replaceWith(data);
+            },
+            function (error) {
+
+            }, 10000);
+        });       
+
+    if (typeof initDataGrid !== 'undefined') {
+        $('table[data-table-grid="true"]').ready(initDataGrid);
+    }
+
+    $('#frmFilterTipoIndicador').submit(function (event) {
+        event.preventDefault(); // stop the actual submit
+        // ajax code goes here to submit data
+    });
+
+    $('#frmFilterTipoIndicador input').keyup(function (event) {
+        if(event.keyCode === 13){
+            $('#frmFilterTipoIndicador').submit();
+        }
+    });
+
+</script>

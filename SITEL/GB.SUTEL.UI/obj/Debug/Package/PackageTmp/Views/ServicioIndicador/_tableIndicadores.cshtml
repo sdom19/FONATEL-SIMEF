@@ -1,0 +1,91 @@
+@model List<GB.SUTEL.Entities.Indicador>
+@using GB.SUTEL.UI.Helpers;
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error</span>
+    </div>
+}
+    <form hidden method="post" action="@Url.Action("_tableIndicadores")" data-ajax="true" data-ajax-message="Cargando datos desde index...">
+    @Html.AntiForgeryToken()
+    <table class="display" cellspacing="0" data-table-grid="true">
+        <thead>
+            <tr>
+                <th class="no-sort"></th>
+                <th width="100%">Indicador</th>
+                <th width="1%">Dirección</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.ServicioIndicador.Count == 0)
+                     {
+                        <tr>
+                            <td>
+                                <input name="INDICADORES" id="IId @item.IdIndicador" data-id="@item.IdIndicador" type="checkbox" />
+                            </td>
+                            <td><label for="IId @item.IdIndicador">@item.NombreIndicador</label></td>
+                            <td>
+                                @if (item.Direccion.Count > 0)
+                                {
+                                    var last = item.Direccion.Last();
+                                    foreach (var itemDireccion in item.Direccion)
+                                    {
+                                        if (itemDireccion != last)
+                                        {
+                                            @(string.Concat(@itemDireccion.Nombre.Trim(),", "));
+                                        }
+                                        else
+                                        {
+                                            @itemDireccion.Nombre.Trim()
+                                        }
+
+                                    }
+                                }
+
+                            </td>
+                        </tr>
+                    }
+
+
+            }
+        }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input placeholder="Indicador" name="Nombre" value="@ViewBag.searchTerm" />
+                </td>
+                <td>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>
+<style>
+    table tr td:nth-child(2) {
+        width: 100% !important;
+    }
+
+    table label, table input[type="checkbox"] {
+        font-weight: normal !important;
+        cursor: pointer;
+    }
+</style>
+
+@if (ViewBag.IndicadoresSeleccionados!=null)    
+{    
+<script>
+    Indicadores = @Html.Raw(ViewBag.IndicadoresSeleccionados);
+    @if (@ViewBag.IsEdit!=null)
+    {
+        Html.Raw("CargarIndicadores()");
+    }
+   
+</script>
+}

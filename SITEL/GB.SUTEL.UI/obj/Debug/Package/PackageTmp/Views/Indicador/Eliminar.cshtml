@@ -1,0 +1,75 @@
+﻿@model GB.SUTEL.Entities.Indicador
+@*Fix cambio de modelo*@
+
+<form method="post" id="formEliminarIndicador"
+      action="@Url.Action("Eliminar")" data-ajax="true">
+
+    <div class="modal fade" id="modalEliminarIndicador">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Eliminar Indicador</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+
+                            <p style="margin:15px;margin-bottom:0px;"> ¿Seguro(a) que desea eliminar el Indicador? </p>
+                            <div class="col-sm-11">
+                                @Html.HiddenFor(model => model.IdIndicador, new { @id = "IDIndicadorEliminar" })
+                                </br>
+                                <div class="alert alert-warning col-sm-9" hidden role="alert" id="divMensajeErroEliminarIndicador">
+                                    <strong>Advertencia!</strong>
+                                    <div id="msgErrorEliminarIndicador"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Eliminar" class="btn btn-success" />
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>                    
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</form>
+<script type="text/javascript">
+    /* Determina comportamiento al hacer submit */
+    $(document).ready(function () {
+
+
+        function onSuccessEliminarIndicador(data) {
+
+            data = JSON.parse(data);
+
+            if (data.ok === "True") {
+                $("#modalEliminarIndicador").modal('hide');
+                addSuccess({ msg: "La información se eliminó con éxito" });
+                $("#frmFilterIndicador")[0].reset();
+                $("#frmFilterIndicador").submit();
+
+            } else {
+                $("#divMensajeErroEliminarIndicador").show();
+                $("#msgErrorEliminarIndicador").html("");
+                $("#msgErrorEliminarIndicador").append("- " + data.strMensaje);
+            }
+        }
+        function onFailureEliminarIndicador(error) {
+
+        }
+        // pasa el id del form de crear
+        // pasa la función a ejecutar si todo está bien
+        // pasa la función a ejecutar si hay errores
+        AjaxifyMyForm("formEliminarIndicador",
+            onSuccessEliminarIndicador,
+            onFailureEliminarIndicador);
+    });
+</script>

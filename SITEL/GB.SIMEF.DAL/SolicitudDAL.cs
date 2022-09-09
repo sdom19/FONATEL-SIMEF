@@ -110,8 +110,11 @@ namespace GB.SIMEF.DAL
         public List<string> ValidarSolicitud(Solicitud objSolicitud)
         {
             List<string> resultado = new List<string>();
-            resultado = db.Database.SqlQuery<string>("execute spObtenerFormularioXSolicitud @idSolicitud"
-                ,new SqlParameter("@idSolicitud", objSolicitud.idSolicitud)).ToList();
+            using (db = new SIMEFContext())
+            {
+                resultado = db.Database.SqlQuery<string>("execute spValidarSolicitud @idSolicitud"
+                , new SqlParameter("@idSolicitud", objSolicitud.idSolicitud)).ToList();
+            }
             return resultado;
         }
         #endregion

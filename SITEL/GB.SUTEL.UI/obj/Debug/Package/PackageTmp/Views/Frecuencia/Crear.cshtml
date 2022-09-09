@@ -1,0 +1,53 @@
+﻿@model GB.SUTEL.Entities.Frecuencia
+
+
+    <form id="formCreate" method="post"
+          data-ajax="true" action="@Url.Action("Crear")"
+          data-ajax-message="Guardando Frecuencia...">
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="modal fade" id="modalCrearFrecuencia">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Crear Frecuencia</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true)
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NombreFrecuencia, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(model => model.NombreFrecuencia, new { htmlAttributes = new { @class = "form-control" } })<br />
+                                    @Html.ValidationMessageFor(model => model.NombreFrecuencia, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CantidadMeses, new { @class = "col-md-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(model => model.CantidadMeses, new { htmlAttributes = new { @class = "form-control"} })<br />
+                                    @Html.ValidationMessageFor(model => model.CantidadMeses, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <br />
+                            <div class="alert alert-danger hidden" role="alert" id="divMensajeErrorNuevaFrecuencia">
+                                <span id="MyerrorMensaje"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">                        
+                        <input type="submit" value="Crear" class="btn btn-success" title="Crear" alt="Crear" />
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" title="Cancelar">Cancelar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+    </form>
+

@@ -1,0 +1,46 @@
+﻿@model List<string[]>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+else
+{
+    <div class="table-responsive" id="divTableFuentesExternasPreview">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Fuente</td>
+                    <td>Indicador</td>
+                    <td>Periodicidad</td>
+                    <td>Zona</td>
+                    <td>Región</td>
+                    <td>Año</td>
+                    <td>Trimestre</td>
+                    <td>Cantón</td>
+                    <td>Género</td>
+                    <td>Valor</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item[0]</td>
+                        <td>@item[1]</td>
+                        <td>@item[2]</td>
+                        <td>@item[3]</td>
+                        <td>@item[4]</td>
+                        <td>@item[5]</td>
+                        <td>@item[6]</td>
+                        <td>@item[7]</td>
+                        <td>@item[8]</td>
+                        <td>@item[9]</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

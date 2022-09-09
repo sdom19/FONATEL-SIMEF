@@ -32,8 +32,6 @@ D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csproj
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csproj.CopyComplete
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.dll
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.pdb
-C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csproj.AssemblyReference.cache
-C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csproj.CoreCompileInputs.cache
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\GB.SIMEF.BL.dll.config
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\GB.SIMEF.BL.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\GB.SIMEF.BL.pdb
@@ -53,6 +51,8 @@ C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\GB
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\EntityFramework.xml
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csproj.AssemblyReference.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csproj.CoreCompileInputs.cache
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.csproj.CopyComplete
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BL\obj\Debug\GB.SIMEF.BL.pdb

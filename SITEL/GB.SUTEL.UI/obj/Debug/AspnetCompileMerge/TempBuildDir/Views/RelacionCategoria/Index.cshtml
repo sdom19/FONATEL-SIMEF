@@ -1,33 +1,37 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 @{
-    ViewBag.Title = "Relaciones entre Categorías";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = EtiquetasViewRelacionCategoria.RelacionCategoria;
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
+@section scripts {
+    @*@Scripts.Render("~/bundles/FONATEL/RelacionCategoria")*@
+}
 
-<div class="container body-content">
+<div id="divRelacionCategoriaIndex" class="container body-content">
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Relaciones entre Categorías</li>
+                <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewRelacionCategoria.RelacionCategoria</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Relaciones entre Categorías</h2>
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewRelacionCategoria.RelacionCategoria</h2>
             <hr />
         </div>
         <div class="col-lg-12">
-            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="Crear" alt="Crear" href="/Fonatel/RelacionCategoria/Create">Crear</a>
+            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCrear" alt="@Etiquetas.BotonCrear" href="@Url.Action( "create","RelacionCategoria")">@Etiquetas.BotonCrear</a>
         </div>
         <div class="col-lg-12 mt-4 ">
             @Html.Partial("_TablaRelacionCategoria")
+            <input id='inputFileCargarDetalle' type='file' accept='.csv,.xlsx,.xls' style='display: none;' />
         </div>
     </div>
 
 </div>
 
-
-
+<script src="~/Scripts/Fonatel/JsRelacionCategoria.js"></script>

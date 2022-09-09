@@ -48,6 +48,7 @@ C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\D
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewCategorias.resources
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewDefinicionIndicadores.resources
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewFormulario.resources
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewFormulasCalculo.resources
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewFuentesRegistro.resources
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewHistorico.resources
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.EtiquetasViewIndicadorFonatel.resources

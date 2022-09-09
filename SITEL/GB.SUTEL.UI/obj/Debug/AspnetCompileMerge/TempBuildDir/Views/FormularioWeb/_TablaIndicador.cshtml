@@ -1,52 +1,35 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
+@model GB.SIMEF.Entities.DetalleFormularioWeb
+
 
 <div class="table-responsive table-wrapper-fonatel" style="min-width:300px">
     <table id="TableIndicadorFormulario" class=" dataTable datatable_simef  table-bordered table-condensed table-hover">
         <thead>
             <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Grupo</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Acciones</th>
+                <th scope="col">@EtiquetasViewFormulario.Codigo</th>
+                <th scope="col">@EtiquetasViewFormulario.Nombre</th>
+                <th scope="col">@EtiquetasViewFormulario.Grupo</th>
+                <th scope="col">@EtiquetasViewFormulario.Tipo</th>
+                <th scope="col">@EtiquetasViewFormulario.Estado</th>
+                <th scope="col">@EtiquetasViewFormulario.Acciones</th>
             </tr>
         </thead>
         <tbody>
+            @foreach(var indi in Model.formularioweb.ListaIndicadoresObj) 
+            { 
             <tr>
-                <th scope="row">IP1Tor</th>
-                <td>Torres según estado</td>
-                <td>Programa 1</td>
-                <td>Gestión</td>
-                <td>Activo</td>
+                <td>@indi.Codigo</td>
+                <td>@indi.Nombre</td>
+                <td>@indi.GrupoIndicadores.Nombre</td>
+                <td>@indi.TipoIndicadores.Nombre</td>
+                <td>@indi.EstadoRegistro.Nombre</td>
                 <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-
+                    <button type='button' data-toggle='tooltip' data-placement='top' value="@indi.idIndicador" data-original-title='Editar' title='Editar' class='btn-icon-base btn-edit'></button>
+                    <button type='button' data-toggle='tooltip' data-placement='top' value="@indi.idIndicador" data-original-title='Eliminar' title='Eliminar' class='btn-icon-base btn-delete'></button>
                 </td>
             </tr>
-            <tr>
-                <th scope="row">IP1CPSP</th>
-                <td>CPSP Conectados</td>
-                <td>Programa 2</td>
-                <td>Cumplimiento</td>
-                <td>En Proceso</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">IP2Hog</th>
-                <td>Hogares Beneficiarios</td>
-                <td>Programa 2</td>
-                <td>Beneficiario</td>
-                <td>Desactivado</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
+            }
         </tbody>
 
     </table>
