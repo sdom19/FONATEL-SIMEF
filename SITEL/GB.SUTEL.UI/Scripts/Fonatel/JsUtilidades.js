@@ -128,6 +128,70 @@ function EliminarDatasource(pDataTable = ".datatable_simef") {
 }
 
 
+function CargarDatasourceV2 (table) {
+    $(table).DataTable({
+        pageLength: 25,
+        lengthMenu: [[25, 50, 100], [25, 50, 100]],
+        "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
+        buttons: [
+            {
+                extend: 'excel',
+                text: '<i class="fa fa-file-excel-o" style="color:green;"></i>',
+                titleAttr: 'Excel',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
+            },
+            {
+                extend: 'print',
+                text: '<i class="fa fa-print" style="color:black;"></i>',
+                titleAttr: 'Imprimir',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
+
+            },
+
+        ],
+        columnDefs: [
+            {
+                searchable: false,
+                orderable: false,
+                targets: 0,
+            },
+            { "className": "dt-center", "targets": "_all" }
+        ],
+        scrollY: 450,
+        scrollX: true,
+        language: {
+            "decimal": "",
+            "emptyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "searchPlaceholder": "",
+            "zeroRecords": "Sin resultados encontrados",
+
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        }
+    });
+
+};
+
+
 function CargarDatasource(pDataTable = ".datatable_simef") {
    
       $(pDataTable).DataTable({

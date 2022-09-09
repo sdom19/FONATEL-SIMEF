@@ -23,11 +23,11 @@
                     else {
                         html = html + "<li><a data-toggle='tab' href='#tab" + i + "'>" + datoHistorico.NombrePrograma + "</a></li>"
                     }
-                    
+
                 }
                 html = html + "</ul>";
 
-                html = html +" <div class='tab-content'>"
+                html = html + " <div class='tab-content'>"
 
                 for (var x = 0; x < JsHistorico.Variables.ListaDatosHistorico.length; x++) {
                     let datoHistorico = JsHistorico.Variables.ListaDatosHistorico[x];
@@ -38,9 +38,9 @@
                     else {
                         html = html + "<div id='tab" + x + "' class='tab-pane fade'>";
                     }
-                    
 
-                    html = html + "<table id='' class='dataTable table-bordered table-condensed table-hover'><thead><tr>";
+
+                    html = html + "<table class='dataTable table-bordered table-condensed table-hover'><thead><tr>";
                     for (var i = 0; i < datoHistorico.DetalleDatoHistoricoColumna.length; i++) {
                         html = html + " <th>" + datoHistorico.DetalleDatoHistoricoColumna[i].Nombre + "</th>"
                     }
@@ -61,71 +61,10 @@
 
                 html = html + " </div>";
                 $(JsHistorico.Controles.divHistorica).html(html);
-                JsHistorico.Metodos.CargarDatasource();
+                CargarDatasourceV2(".dataTable");
             },
-            "CargarDatasource": function () {
-                $(JsHistorico.Controles.tablaHistorica).DataTable({
-                    pageLength: 25,
-                    lengthMenu: [[25, 50, 100], [25, 50, 100]],
-                    "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
-                    buttons: [
-                        {
-                            extend: 'excel',
-                            text: '<i class="fa fa-file-excel-o" style="color:green;"></i>',
-                            titleAttr: 'Excel',
-                            autoPrint: false,
-                            exportOptions: {
-                                columns: ':not(.noExport)'
-                            },
-                        },
-                        {
-                            extend: 'print',
-                            text: '<i class="fa fa-print" style="color:black;"></i>',
-                            titleAttr: 'Imprimir',
-                            autoPrint: false,
-                            exportOptions: {
-                                columns: ':not(.noExport)'
-                            },
 
-                        },
-
-                    ],
-                    columnDefs: [
-                        {
-                            searchable: false,
-                            orderable: false,
-                            targets: 0,
-                        },
-                        { "className": "dt-center", "targets": "_all" }
-                    ],
-                    scrollY: 450,
-                    scrollX: true,
-                    language: {
-                        "decimal": "",
-                        "emptyTable": "No hay información",
-                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                        "infoPostFix": "",
-                        "thousands": ",",
-                        "lengthMenu": "Mostrar _MENU_ Entradas",
-                        "loadingRecords": "Cargando...",
-                        "processing": "Procesando...",
-                        "search": "Buscar:",
-                        "searchPlaceholder": "",
-                        "zeroRecords": "Sin resultados encontrados",
-
-                        "paginate": {
-                            "first": "Primero",
-                            "last": "Ultimo",
-                            "next": "Siguiente",
-                            "previous": "Anterior"
-                        }
-                    }
-                });
-
-            },
-        },
+     },
     "Consulta": {
         "ConsultaListaHistorica": function (id) {
 

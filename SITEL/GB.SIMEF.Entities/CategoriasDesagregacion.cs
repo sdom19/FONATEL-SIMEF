@@ -9,6 +9,7 @@
 
 namespace GB.SIMEF.Entities
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -25,39 +26,79 @@ namespace GB.SIMEF.Entities
             this.EstadoRegistro = new EstadoRegistro();
         }
         [Key]
+
+
         public int idCategoria { get; set; }
         [MaxLength(30)]
         public string Codigo { get; set; }
         [MaxLength(300)]
         public string NombreCategoria { get; set; }
         public int CantidadDetalleDesagregacion { get; set; }
+        [JsonIgnore]
         public System.DateTime FechaCreacion { get; set; }
+        [JsonIgnore]
         public string UsuarioCreacion { get; set; }
+        [JsonIgnore]
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+        [JsonIgnore]
         public string UsuarioModificacion { get; set; }
+
         public int idEstado { get; set; }
+
         public int idTipoDetalle { get; set; }
+
         public int IdTipoCategoria { get; set; }
 
-       
+
 
 
         #region Varibles que no forman parte del contexto
+
+
         [NotMapped]
+        public virtual TipoCategoria TipoCategoria { get; set; }
+        [NotMapped]
+
         public virtual List<DetalleCategoriaTexto> DetalleCategoriaTexto { get; set; }
         [NotMapped]
         public virtual EstadoRegistro EstadoRegistro { get; set; }
         [NotMapped]
         public bool TieneDetalle { get; set; }
+
         [NotMapped]
         public string id { get; set; }
         [NotMapped]
+
         public virtual DetalleCategoriaNumerico DetalleCategoriaNumerico { get; set; }
         [NotMapped]
+
         public virtual DetalleCategoriaFecha DetalleCategoriaFecha { get; set; }
 
         [NotMapped]
+
         public string IndicadorAsociados { get; set; }
+
+        [NotMapped]
+
+        public List<string> NoSerialize = new List<string>()
+        {
+            "idCategoria",
+            "IndicadorAsociados",
+            "DetalleCategoriaNumerico",
+            "idEstado",
+            "idTipoDetalle",
+            "IdTipoCategoria",
+            "id",
+            "Estado",
+            "EstadoRegistro",
+            "idEstado",
+            "DetalleCategoriaFecha",
+            "DetalleCategoriaTexto",
+            "TipoCategoria"
+        };
+
+
         #endregion
+
     }
 }

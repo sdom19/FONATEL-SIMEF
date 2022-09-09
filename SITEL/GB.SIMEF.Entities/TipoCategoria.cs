@@ -9,6 +9,7 @@
 
 namespace GB.SIMEF.Entities
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -22,8 +23,10 @@ namespace GB.SIMEF.Entities
             //this.CategoriasDesagregacion = new HashSet<CategoriasDesagregacion>();
         }
         [Key]
+      
         public int idTipoCategoria { get; set; }
         public string Nombre { get; set; }
+      
         public bool Estado { get; set; }
     
 

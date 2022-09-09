@@ -56,7 +56,7 @@ namespace GB.SIMEF.BL
 
 
 
-        public RespuestaConsulta<List<string>> ValidarExistencia(Solicitud objeto)
+        public RespuestaConsulta<List<string>> ValidarExistenciaSolicitudEliminar(Solicitud objeto)
         {
             RespuestaConsulta<List<string>> listaExistencias = new RespuestaConsulta<List<string>>();
             try

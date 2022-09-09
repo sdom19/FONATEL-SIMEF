@@ -50,6 +50,7 @@ namespace GB.SIMEF.DAL
                     DetalleCategoriaTexto = ListaDetalleCategoriaTexto(x.idCategoria),
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
                     TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle),
+                    TipoCategoria = ObtenerTipoCategoria(x.IdTipoCategoria),
                     DetalleCategoriaFecha = ObtenerDetalleCategoriaFecha(x.idCategoria),
                     DetalleCategoriaNumerico = ObtenerDetalleCategoriaNumerico(x.idCategoria)
 
@@ -78,7 +79,7 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@CantidadDetalleDesagregacion", objCategoria.CantidadDetalleDesagregacion),
                      new SqlParameter("@idTipoDetalle", objCategoria.idTipoDetalle),
                      new SqlParameter("@IdTipoCategoria", objCategoria.IdTipoCategoria),
-                     new SqlParameter("@UsuarioCreacion", objCategoria.UsuarioCreacion),
+                     new SqlParameter("@UsuarioCreacion", string.IsNullOrEmpty(objCategoria.UsuarioCreacion) ? DBNull.Value.ToString() : objCategoria.UsuarioCreacion),
                      new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objCategoria.UsuarioModificacion) ? DBNull.Value.ToString() : objCategoria.UsuarioModificacion),
                      new SqlParameter("@idEstado", objCategoria.idEstado)
                     ).ToList();
@@ -96,6 +97,7 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
+                    TipoCategoria = ObtenerTipoCategoria(x.IdTipoCategoria),
                     DetalleCategoriaTexto = db.DetalleCategoriaTexto.Where(i => i.idCategoria == x.idCategoria).ToList(),
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).Single(),
                     TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle)
@@ -194,6 +196,14 @@ namespace GB.SIMEF.DAL
             return 
             db.DetalleCategoriaNumerico
                              .Where(x => x.idCategoria == id && x.Estado == true).FirstOrDefault();
+        }
+
+
+        private TipoCategoria ObtenerTipoCategoria(int id)
+        {
+            return
+            db.TipoCategoria
+                             .Where(x => x.idTipoCategoria == id).FirstOrDefault();
         }
         private DetalleCategoriaFecha ObtenerDetalleCategoriaFecha(int id)
         {

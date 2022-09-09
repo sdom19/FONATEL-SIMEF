@@ -9,6 +9,7 @@
 
 namespace GB.SIMEF.Entities
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -24,13 +25,17 @@ namespace GB.SIMEF.Entities
         }
 
         [Key]
+      
         public int idEstado { get; set; }
         public string Nombre { get; set; }
+      
         public string Comentarios { get; set; }
+      
         public bool Estado { get; set; }
 
         #region Variables que no forman parte del contexto
         [NotMapped]
+      
         public string id { get; set; }
         #endregion
     }

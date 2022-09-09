@@ -241,7 +241,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Notas de FONATEL para el informante.
+        ///   Busca una cadena traducida similar a Notas de FONATEL para el Informante.
         /// </summary>
         public static string NotasEncargado {
             get {
