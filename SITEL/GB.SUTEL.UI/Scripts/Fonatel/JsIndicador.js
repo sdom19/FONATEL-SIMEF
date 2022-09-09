@@ -79,7 +79,7 @@
                     if (data.objetoRespuesta.length > 0) {
                         let dependencias = '';
                         for (var i = 0; i < data.objetoRespuesta.length; i++) {
-                            dependencias += data.objetoRespuesta[i] + "<br>"
+                            dependencias += data.objetoRespuesta[i] + ".<br>";
                         }
 
                         $("#loading").fadeOut();
@@ -138,7 +138,7 @@
                     if (data.objetoRespuesta.length > 0) {
                         let dependencias = '';
                         for (var i = 0; i < data.objetoRespuesta.length; i++) {
-                            dependencias += data.objetoRespuesta[i] + "<br>"
+                            dependencias += data.objetoRespuesta[i] + ".<br>";
                         }
 
                         $("#loading").fadeOut();
