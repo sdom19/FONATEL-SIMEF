@@ -133,7 +133,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Detalle de Relaciones entre Categorías.
+        ///   Busca una cadena traducida similar a Detalles de Relaciones entre Categorías.
         /// </summary>
         public static string DetalleRelacionCategoria {
             get {
@@ -160,7 +160,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Nombre.
+        ///   Busca una cadena traducida similar a Nombre de Relación.
         /// </summary>
         public static string Nombre {
             get {

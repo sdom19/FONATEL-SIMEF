@@ -23,7 +23,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public FuentesController()
         {
-            FuenteBL = new FuentesRegistroBL();
+            FuenteBL = new FuentesRegistroBL(EtiquetasViewFuentesRegistro.FuentesRegistro, System.Web.HttpContext.Current.User.Identity.GetUserId());
             FuenteDestinatariosBL = new FuentesRegistroDestinatariosBL();
         }
 
@@ -111,8 +111,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<FuentesRegistro>> result = null;
             await Task.Run(() =>
             {
-          
-                fuente.UsuarioModificacion = user;
                 result = FuenteBL.EliminarElemento(fuente);
             });
 
@@ -131,7 +129,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 if (String.IsNullOrEmpty(objetoFuente.id))
                 {
-                    objetoFuente.UsuarioCreacion = user;
                     result = FuenteBL.InsertarDatos(objetoFuente);
                 }
                 else
@@ -159,7 +156,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<FuentesRegistro>> result = null;
             await Task.Run(() =>
             {
-                fuente.UsuarioModificacion = user;
                 result = FuenteBL.CambioEstado(fuente);
             });
 

@@ -24,6 +24,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly TipoMedidaBL tipoMedidaBL;
         private readonly DetalleIndicadorVariablesBL detalleIndicadorVariablesBL;
         private readonly DetalleIndicadorCategoriaBL detalleIndicadorCategoriaBL;
+        private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
+        private readonly DetalleCategoriasTextoBL detalleCategoriasTextoBL;
         private readonly string defaultDropDownValue;
 
 
@@ -39,6 +41,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             tipoMedidaBL = new TipoMedidaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
             detalleIndicadorCategoriaBL = new DetalleIndicadorCategoriaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            categoriasDesagregacionBL = new CategoriasDesagregacionBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            detalleCategoriasTextoBL = new DetalleCategoriasTextoBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
 
             defaultDropDownValue = Utilidades.GetDefaultDropDownValue();
         }
@@ -72,29 +76,60 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.TiposIndicadores = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores()).objetoRespuesta;
-            ViewBag.FrecuenciasEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
-            ViewBag.Clasificaciones = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores()).objetoRespuesta;
-            ViewBag.TipoMedidas = tipoMedidaBL.ObtenerDatos(new TipoMedida()).objetoRespuesta;
-            ViewBag.Grupos = grupoIndicadorBL.ObtenerDatos(new GrupoIndicadores()).objetoRespuesta;
-            ViewBag.UsosIndicador = indicadorBL.ObtenerListaUsosIndicador().objetoRespuesta;
-            ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
-            ViewBag.UnidadesEstudio = unidadEstudioBL.ObtenerDatos(new UnidadEstudio()).objetoRespuesta;
-            ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
+            CargarDatosEnVistas();
+            ViewBag.ModoFormulario = ((int) Accion.Insertar).ToString();
+            ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloCrearIndicador;
+
             return View();
         }
 
         [HttpGet]
         public ActionResult Edit(string id)
         {
-            ViewBag.TiposIndicadores = new List<TipoIndicadores>();
-            ViewBag.FrecuenciasEnvio = new List<FrecuenciaEnvio>();
-            ViewBag.Clasificaciones = new List<ClasificacionIndicadores>();
-            ViewBag.TipoMedidas = new List<TipoMedida>();
-            ViewBag.Grupos = new List<GrupoIndicadores>();
-            ViewBag.UsosIndicador = new List<EstadoLogico>();
-            ViewBag.UnidadesEstudio = new List<UnidadEstudio>();
-            return View("Create");
+            CargarDatosEnVistas();
+            ViewBag.ModoFormulario = ((int) Accion.Editar).ToString();
+            ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloEditarIndicador;
+
+            if (string.IsNullOrEmpty(id))
+                return View("Index");
+
+            Indicador objIndicador = null;
+            try
+            {
+                objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.SingleOrDefault();
+            }
+            catch (Exception) { };
+
+            if (objIndicador == null)
+                return View("Index");
+
+            return View("Create", objIndicador);
+        }
+
+        [HttpGet]
+        public ActionResult Clone(string id)
+        {
+            CargarDatosEnVistas();
+            ViewBag.ModoFormulario = ((int) Accion.Clonar).ToString();
+            ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloClonarIndicador;
+
+            if (string.IsNullOrEmpty(id))
+                return View("Index");
+
+            Indicador objIndicador = null;
+            try
+            {
+                objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.SingleOrDefault();
+            }
+            catch (Exception) { };
+
+            if (objIndicador == null)
+                return View("Index");
+
+            objIndicador.Codigo = string.Empty;
+            objIndicador.Nombre = string.Empty;
+
+            return View("Create", objIndicador);
         }
 
         #endregion
@@ -212,16 +247,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         /// <summary>
-        /// 16/08/2022
+        /// 08/09/2022
         /// José Navarro Acuña
-        /// Función que verifica si el indicador se encuentra en algún formulario web
+        /// Función que verifica si el indicador se encuentra en algún formulario web o una formula de calculo
         /// </summary>
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<string> VerificarIndicadorEnFormularioWeb(string pIdIndicador)
+        public async Task<string> VerificarUsoIndicador(string pIdIndicador)
         {
-            RespuestaConsulta<List<FormularioWeb>> resultado = new RespuestaConsulta<List<FormularioWeb>>();
+            RespuestaConsulta<List<string>> resultado = new RespuestaConsulta<List<string>>();
             
             if (string.IsNullOrEmpty(pIdIndicador))
             {
@@ -232,7 +267,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = indicadorBL.ObtenerFormulariosWebSegunIndicador(new Indicador()
+                resultado = indicadorBL.VerificarUsoIndicador(new Indicador()
                 {
                     id = pIdIndicador
                 });
@@ -583,7 +618,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 02/09/2022
         /// José Navarro Acuña
-        /// Función que permite obtener los detalles categoria de un indicador
+        /// Función que permite obtener los detalles categoria de un indicador de manera agrupada
         /// </summary>
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
@@ -603,13 +638,95 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 resultado = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
                 {
+                    DetallesAgrupados = true,
                     idIndicadorString = pIdIndicador
                 });
-
             });
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 05/09/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener las categorías de desagregación
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerCategoriasDesagregacionTipoAtributo()
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+
+            await Task.Run(() =>
+            {
+                resultado = categoriasDesagregacionBL.ObtenerDatos(new CategoriasDesagregacion() {
+                    IdTipoCategoria = (int)TipoCategoriaEnum.Atributo
+                });
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 06/09/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener los detalles de una categorías de desagregación.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerDetallesDeCategoriaDesagregacion(string pIdCategoria)
+        {
+            RespuestaConsulta<List<DetalleCategoriaTexto>> resultado = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
+
+            if (string.IsNullOrEmpty(pIdCategoria))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+            await Task.Run(() =>
+            {
+                // TEMPORALMENTE se utiliza detalleCategoriasTextoBL
+                resultado = detalleCategoriasTextoBL.ObtenerDatos(new DetalleCategoriaTexto() { categoriaid = pIdCategoria });
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 07/09/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener los detalles de una categorías de desagregación a manera de listado
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesDeCategoriaGuardada(string pIdIndicador, string pIdCategoria)
+        {
+
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            if (string.IsNullOrEmpty(pIdCategoria))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicadorYCategoria(new DetalleIndicadorCategoria()
+                {
+                    DetallesAgrupados = false,
+                    idIndicadorString = pIdIndicador,
+                    idCategoriaString = pIdCategoria
+                });
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
         #endregion
 
         #region Funciones privadas
@@ -744,6 +861,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             
         }
 
+        /// <summary>
+        /// 07/09/2022
+        /// José Navarro Acuña
+        /// Método que permite cargar los datos necesarios del formulario de indicadores Fonatel
+        /// </summary>
+        private void CargarDatosEnVistas()
+        {
+            ViewBag.TiposIndicadores = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores()).objetoRespuesta;
+            ViewBag.FrecuenciasEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
+            ViewBag.Clasificaciones = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores()).objetoRespuesta;
+            ViewBag.TipoMedidas = tipoMedidaBL.ObtenerDatos(new TipoMedida()).objetoRespuesta;
+            ViewBag.Grupos = grupoIndicadorBL.ObtenerDatos(new GrupoIndicadores()).objetoRespuesta;
+            ViewBag.UsosIndicador = indicadorBL.ObtenerListaUsosIndicador().objetoRespuesta;
+            ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
+            ViewBag.UnidadesEstudio = unidadEstudioBL.ObtenerDatos(new UnidadEstudio()).objetoRespuesta;
+            ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
+        }
         #endregion
     }
 }

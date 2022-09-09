@@ -221,7 +221,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.NombreRegistrado)
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.NombreRegistrado || ex.Message == Errores.CodigoRegistrado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }

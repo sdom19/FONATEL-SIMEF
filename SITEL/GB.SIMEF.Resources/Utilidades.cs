@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JsonDiffPatchDotNet;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,7 +37,18 @@ namespace GB.SIMEF.Resources
             return fecha.ToString("dd-MM-yy");
         }
 
+        public static string jsonDiff(string json1, string json2)
+        {
+            string result = "";
+            if (!String.IsNullOrEmpty(json1))
+            {
+                var diffObj = new JsonDiffPatch();
+                result = diffObj.Diff(json1, json2);
+                
+            }
+            return result;
 
+        }
         public static string ConcatenadoCombos(string  codigo, string nombre)
         {
             return string.Format("{0} / {1}",codigo,nombre) ;

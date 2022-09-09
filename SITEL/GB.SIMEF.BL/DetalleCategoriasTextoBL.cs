@@ -21,8 +21,12 @@ namespace GB.SIMEF.BL
         private RespuestaConsulta<List<DetalleCategoriaTexto>> ResultadoConsulta;
         string modulo = Etiquetas.DetalleCategorias;
 
-        public DetalleCategoriasTextoBL()
+        string user = string.Empty;
+
+        public DetalleCategoriasTextoBL(string modulo, string user)
         {
+            this.user = user;
+            this.modulo = modulo;
             clsDatos = new DetalleCategoriaTextoDAL();
             clsDatosCategoria = new CategoriasDesagregacionDAL();
             ResultadoConsulta = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
@@ -35,7 +39,8 @@ namespace GB.SIMEF.BL
                 objeto.Estado = true;
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
-                ResultadoConsulta.Usuario = objeto.usuario;
+                ResultadoConsulta.Usuario = user;
+                objeto.usuario=user;
                 if (!string.IsNullOrEmpty(objeto.categoriaid))
                 {
                     int temp = 0;
@@ -99,7 +104,8 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
-                ResultadoConsulta.Usuario = objeto.usuario;
+                ResultadoConsulta.Usuario = user;
+                objeto.usuario = user;
                 DetalleCategoriaTexto registroActializar;
 
                 if (!String.IsNullOrEmpty(objeto.id))
@@ -172,7 +178,8 @@ namespace GB.SIMEF.BL
                                             - objeto.CategoriasDesagregacion.DetalleCategoriaTexto.Count();
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
-                ResultadoConsulta.Usuario = objeto.usuario;
+                ResultadoConsulta.Usuario = user;
+                objeto.usuario = user;
                 if (cantidadDisponible <= 0)
                 {
                     throw new Exception(Errores.CantidadRegistros);

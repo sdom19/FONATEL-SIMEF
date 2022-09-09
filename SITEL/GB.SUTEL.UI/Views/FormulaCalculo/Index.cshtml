@@ -1,11 +1,12 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 @{
     ViewBag.Title = "Fórmulas de Cálculo";
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
 @section scripts {
-    @Scripts.Render("~/bundles/FONATEL/FormulaCalculo")
+    @*@Scripts.Render("~/bundles/FONATEL/FormulaCalculo")*@
 }
 <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
 <div class="container body-content">
@@ -31,4 +32,4 @@
     </div>
 
 </div>
-
+<script src="~/Scripts/Fonatel/JsFormulasCalculo.js"></script>

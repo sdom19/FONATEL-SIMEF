@@ -1,0 +1,15 @@
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\bin\Release\GB.SUTEL.Entities.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\bin\Release\GB.SUTEL.Entities.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\bin\Release\GB.SUTEL.Resources.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\bin\Release\Newtonsoft.Json.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\bin\Release\GB.SUTEL.Resources.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\bin\Release\GB.SUTEL.Resources.dll.config
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\bin\Release\en\GB.SUTEL.Resources.resources.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\obj\Release\GB.SUTEL.Entities.csproj.AssemblyReference.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\obj\Release\GB.SUTEL.Entities.Metadata.EntityDisplays.resources
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\obj\Release\GB.SUTEL.Entities.Metadata.EntityErrors.resources
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\obj\Release\GB.SUTEL.Entities.csproj.GenerateResource.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\obj\Release\GB.SUTEL.Entities.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\obj\Release\GB.SUTEL.Entities.csproj.CopyComplete
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\obj\Release\GB.SUTEL.Entities.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Entities\obj\Release\GB.SUTEL.Entities.pdb

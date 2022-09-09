@@ -101,6 +101,19 @@ namespace GB.SIMEF.DAL
             }
             return resultado;
         }
+
+        /// <summary>
+        /// Valida el existencia de la solicitud si tiene envío o programación automatica
+        /// </summary>
+        /// <param name="objSolicitud"></param>
+        /// <returns></returns>
+        public List<string> ValidarSolicitud(Solicitud objSolicitud)
+        {
+            List<string> resultado = new List<string>();
+            resultado = db.Database.SqlQuery<string>("execute spObtenerFormularioXSolicitud @idSolicitud"
+                ,new SqlParameter("@idSolicitud", objSolicitud.idSolicitud)).ToList();
+            return resultado;
+        }
         #endregion
 
 

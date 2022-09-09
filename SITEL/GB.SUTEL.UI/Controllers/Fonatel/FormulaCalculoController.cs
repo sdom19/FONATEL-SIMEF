@@ -1,13 +1,25 @@
-﻿using System;
+﻿using GB.SIMEF.BL;
+using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class FormulaCalculoController : Controller
     {
+
+        public FormulaCalculoController()
+        {
+            
+        }
+
         // GET: Solicitud
         public ActionResult Index()
         {
@@ -19,11 +31,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             return View();
         }
-
-        // GET: Solicitud/Create
+        
+        [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            ViewBag.ModoFormulario = ((int)Accion.Insertar).ToString();
+            ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
+            return View(new FormulasCalculo());
         }
 
         // POST: Solicitud/Create
@@ -45,7 +59,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         // GET: Solicitud/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewBag.ModoFormulario = ((int)Accion.Editar).ToString();
+            ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloEditar;
+            return View("Create");
         }
 
         // POST: Solicitud/Edit/5
@@ -84,6 +100,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 return View();
             }
+        }
+
+        // GET: Solicitud/Clone/5
+        public ActionResult Clone(int id)
+        {
+            ViewBag.ModoFormulario = ((int)Accion.Clonar).ToString();
+            ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloClonar;
+            return View("Create");
+        }
+        
+        // GET: Solicitud/View/5
+        public ActionResult View(int id)
+        {
+            ViewBag.ModoFormulario = ((int)Accion.Consultar).ToString();
+            ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloVisualizar;
+            return View("Create");
         }
     }
 }

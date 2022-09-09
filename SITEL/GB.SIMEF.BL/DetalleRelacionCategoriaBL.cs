@@ -7,6 +7,7 @@ using System.Web;
 using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using OfficeOpenXml;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
@@ -30,7 +31,41 @@ namespace GB.SIMEF.BL
 
         public void CargarExcel(HttpPostedFileBase file)
         {
+            using (var package = new ExcelPackage(file.InputStream))
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
+                string Codigo = worksheet.Name;
 
+                RelacionCategoria relacion = clsDatosRelacionCategoria.ObtenerDatos(new RelacionCategoria() { Codigo = Codigo }).SingleOrDefault();
+
+                relacion.DetalleRelacionCategoria = new List<DetalleRelacionCategoria>();
+
+                for (int i = 0; i < relacion.CantidadCategoria; i++)
+                {
+                    int fila = i + 2;
+
+                    if (worksheet.Cells[fila, 1].Value != null || worksheet.Cells[fila, 2].Value != null)
+                    {
+                        int codigo = 0;
+                        string CategoriaAtributoValor = string.Empty;
+
+                        int.TryParse(worksheet.Cells[fila, 1].Value.ToString().Trim(), out codigo);
+                        CategoriaAtributoValor = worksheet.Cells[fila, 2].Value.ToString().Trim();
+
+
+                        var detallerelacion = new DetalleRelacionCategoria()
+                        {
+                            IdRelacionCategoria = relacion.idRelacionCategoria,
+                            idCategoriaAtributo = codigo,
+                            CategoriaAtributoValor = CategoriaAtributoValor,
+                            Estado = true
+                        };
+
+                        InsertarDatos(detallerelacion);
+                    }
+
+                }
+            }
         }
 
         public RespuestaConsulta<List<DetalleRelacionCategoria>> ActualizarElemento(DetalleRelacionCategoria objeto)
@@ -42,23 +77,21 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 ResultadoConsulta.Usuario = objeto.usuario;
 
-                if (!string.IsNullOrEmpty(objeto.relacionid))
+                if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objeto.relacionid), out temp);
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
                     objeto.IdRelacionCategoria = temp;
                 }
-
+              
                 var RegistrosEncontrados = clsDatos.ObtenerDatos(new DetalleRelacionCategoria()
                 { IdRelacionCategoria = objeto.IdRelacionCategoria }).ToList();
 
                 RegistrosEncontrados = RegistrosEncontrados.Where(x => x.idCategoriaAtributo != objeto.idCategoriaAtributo).ToList();
 
-
-
-                if (RegistrosEncontrados.Where(x => x.CategoriaAtributoValor.ToUpper() == objeto.CategoriaAtributoValor.ToUpper()).Count() > 0)
+                if (clsDatos.ObtenerDatos(new DetalleRelacionCategoria() { CategoriaAtributoValor = objeto.CategoriaAtributoValor, IdRelacionCategoria = objeto.IdRelacionCategoria }).Count() > 0)
                 {
-                    throw new Exception(Errores.DetalleRegistrado);
+                    throw new Exception(Errores.NombreRegistrado);
                 }
                 else
                 {
@@ -77,7 +110,7 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.DetalleRegistrado)
+                if (ex.Message == Errores.NombreRegistrado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }

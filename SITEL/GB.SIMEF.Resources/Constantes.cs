@@ -56,7 +56,12 @@ namespace GB.SIMEF.Resources
             Eliminar = 4,
             Clonar = 5,
             Activar=6,
-            Inactiva=7
+            Inactiva=7,
+            Descargar=8,
+            Visualizar=9,
+            EnviarSolicitud=10,
+            ProgramarEnvio=11,
+            EjecutarFormula=12
         }
         /// <summary>
         /// Enum Clasificación indicador
