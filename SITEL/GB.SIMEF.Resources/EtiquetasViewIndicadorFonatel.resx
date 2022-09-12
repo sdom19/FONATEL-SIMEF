@@ -157,7 +157,7 @@
     <value>Solicitud</value>
   </data>
   <data name="CrearIndicador_LabelTipo" xml:space="preserve">
-    <value>Tipo indicador</value>
+    <value>Tipo Indicador</value>
   </data>
   <data name="CrearIndicador_LabelTipoMedida" xml:space="preserve">
     <value>Tipo de Medida</value>
