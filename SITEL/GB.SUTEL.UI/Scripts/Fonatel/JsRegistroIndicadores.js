@@ -109,7 +109,7 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnllenadoweb, func
 
 //DESCARGAR
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario", null, "Descargar Registro")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
             window.open(jsUtilidades.Variables.urlOrigen + "/RegistroIndicadorFonatel/DescargarExcel");
             jsRegistroIndicadorFonatel.Metodos.CargarExcel();
