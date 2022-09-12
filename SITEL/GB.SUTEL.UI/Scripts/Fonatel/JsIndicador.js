@@ -237,7 +237,7 @@
         },
 
         VerificarUsoIndicador: function (pIdIndicador) {
-            return execAjaxCall('/IndicadorFonatel/VerificarUsoIndicador?pIdIndicador=' + pIdIndicador, 'GET');
+            return execAjaxCall('/IndicadorFonatel/VerificarUsoIndicador', 'GET', { pIdIndicador: pIdIndicador });
         }
     },
 
@@ -340,7 +340,9 @@ CreateView = {
             form: "#formCrearVariable",
             btnSiguiente: "#btnSiguienteVariable",
             btnAtras: "#btnAtrasVariable",
-            tablaDetallesVariable: "#tableDetallesVariable tbody",
+            inputs: "#formCrearVariable input, #formCrearVariable textarea, #formCrearVariable select",
+            tablaDetallesVariable: "#tableDetallesVariable",
+            tablaDetallesVariable_tbody: "#tableDetallesVariable tbody",
             btnEditarVariable: "#tableDetallesVariable tbody tr td .btn-edit",
             btnEliminarVariable: "#tableDetallesVariable tbody tr td .btn-delete",
 
@@ -352,7 +354,8 @@ CreateView = {
             form: "#formCrearCategoria",
             btnSiguiente: "#btnSiguienteCategoria",
             btnAtras: "#btnAtrasCategoria",
-            tablaDetallesCategoria: "#tableDetallesCategoria tbody",
+            tablaDetallesCategoria: "#tableDetallesCategoria",
+            tablaDetallesCategoria_tbody: "#tableDetallesCategoria tbody",
             btnEditarCategoria: "#tableDetallesCategoria tbody tr td .btn-edit",
             btnEliminarCategoria: "#tableDetallesCategoria tbody tr td .btn-delete",
 
@@ -378,7 +381,8 @@ CreateView = {
 
     Variables: {
         indexViewURL: "/Fonatel/IndicadorFonatel/index",
-        btnDeleteModal: (pValue) => `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${pValue}></button>`,
+        btnEdit: (pValue) => `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${pValue}></button>`,
+        btnDelete: (pValue) => `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${pValue}></button>`,
 
         hizoCargaDetallesVariables: false,
         hizoCargaDetallesCategorias: false,
@@ -389,13 +393,132 @@ CreateView = {
     },
 
     Metodos: {
+        ValidarFormulario: function (pInputs) {
+            let inputsPendientesCompletar = [...$(pInputs)].filter(i => { return $.trim(i.value) == "" || i.value == null; });
+            return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
+        },
+
+        // Formulario Indicador
+        CrearObjFormularioIndicador: function (esGuardadoParcial) {
+            let controles = CreateView.Controles.formIndicador;
+
+            var formData = {
+                Codigo: $(controles.inputCodigo).val(),
+                Nombre: $(controles.inputNombre).val(),
+                Descripcion: $(controles.inputDescripcion).val(),
+                CantidadVariableDato: $(controles.inputCantidadVariableDatosIndicador).val(),
+                CantidadCategoriasDesagregacion: $(controles.inputCantidadCategoriaIndicador).val(),
+                Interno: $(controles.ddlUsoIndicador).val(),
+                Solicitud: $(controles.ddlUsoSolicitud).val(),
+                Fuente: $(controles.inputFuenteIndicador).val(),
+                Notas: $(controles.inputNota).val(),
+                TipoIndicadores: {
+                    id: $(controles.ddlTipo).val()
+                },
+                ClasificacionIndicadores: {
+                    id: $(controles.ddlClasificacion).val()
+                },
+                GrupoIndicadores: {
+                    id: $(controles.ddlGrupo).val()
+                },
+                UnidadEstudio: {
+                    id: $(controles.ddlUnidadEstudio).val()
+                },
+                TipoMedida: {
+                    id: $(controles.ddlTipoMedida).val()
+                },
+                FrecuenciaEnvio: {
+                    id: $(controles.ddlClasificacion).val()
+                },
+                esGuardadoParcial: esGuardadoParcial ? true : false
+            };
+            return formData;
+        },
+
+        CrearIndicador: function () {
+            if (this.ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
+                $("#loading").fadeIn();
+                CreateView.Consultas.CrearIndicador(this.CrearObjFormularioIndicador(false))
+                    .then(data => {
+                        InsertarParametroUrl("id", data.objetoRespuesta[0].id);
+                        $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
+
+                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado").set('onok', function (closeEvent) { });
+                    })
+                    .catch(error => {
+                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        }
+                    })
+                    .finally(() => {
+                        $("#loading").fadeOut();
+                    });
+            }
+        },
+
+        CrearIndicadorGuardadoParcial: function () {
+            let mensaje = "";
+            let prefijoHelp = CreateView.Controles.prefijoLabelsHelp;
+            let validacionFormulario = this.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
+            let camposObligatoriosPendientes = false;
+
+            $(CreateView.Controles.formIndicador.inputCodigo + prefijoHelp).css("display", "none");
+            $(CreateView.Controles.formIndicador.inputNombre + prefijoHelp).css("display", "none");
+
+            if (validacionFormulario.objetos.some(x => $(x).attr("id") === $(CreateView.Controles.formIndicador.inputCodigo).attr("id"))) {
+                $(CreateView.Controles.formIndicador.inputCodigo + prefijoHelp).css("display", "block");
+                camposObligatoriosPendientes = true;
+            }
+            if (validacionFormulario.objetos.some(x => $(x).attr("id") === $(CreateView.Controles.formIndicador.inputNombre).attr("id"))) {
+                $(CreateView.Controles.formIndicador.inputNombre + prefijoHelp).css("display", "block");
+                camposObligatoriosPendientes = true;
+            }
+
+            if (camposObligatoriosPendientes) {
+                return;
+            }
+
+            if (!validacionFormulario.puedeContinuar) {
+                mensaje = "Existen campos vacíos. ";
+            }
+
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + "¿Desea realizar un guardado parcial del Indicador?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function () { resolve(true); })
+                    .set("oncancel", function () { })
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.CrearIndicador(this.CrearObjFormularioIndicador(true));
+                })
+                .then(data => {
+                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
+                        .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
+                })
+                .catch(error => {
+                    console.log(error);
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
         // Modal Tipo Indicador
         AbrirModalTipoIndicador: function () {
             $("#loading").fadeIn();
 
             CreateView.Consultas.ConsultarListaTipoIndicador()
                 .then(data => {
-                    CreateView.Metodos.InsertarDatosTablaModalTipoIndicador(data.objetoRespuesta);
+                    this.InsertarDatosTablaModalTipoIndicador(data.objetoRespuesta);
                 })
                 .then(_ => {
                     setTimeout(() => {
@@ -419,7 +542,7 @@ CreateView = {
                 html += "<tr>";
                 html += `<th scope='row'>${item.Nombre}</th>`;
                 html += "<td>"
-                html += CreateView.Variables.btnDeleteModal(item.id)
+                html += CreateView.Variables.btnDelete(item.id)
                 html += "</td>"
                 html += "</tr>";
             });
@@ -482,7 +605,7 @@ CreateView = {
 
                     InsertarItemDataTable(
                         CreateView.Controles.tableModalTipoIndicador,
-                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
+                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)]);
 
                     jsMensajes.Metodos.OkAlertModal("El tipo ha sido agregado")
                         .set('onok', function (closeEvent) { });
@@ -507,7 +630,7 @@ CreateView = {
 
             CreateView.Consultas.ConsultarListaGrupoIndicador()
                 .then(data => {
-                    CreateView.Metodos.InsertarDatosTablaModalGrupoIndicador(data.objetoRespuesta);
+                    this.InsertarDatosTablaModalGrupoIndicador(data.objetoRespuesta);
                 })
                 .then(_ => {
                     setTimeout(() => {
@@ -531,7 +654,7 @@ CreateView = {
                 html += "<tr>";
                 html += `<th scope='row'>${item.Nombre}</th>`;
                 html += "<td>"
-                html += CreateView.Variables.btnDeleteModal(item.id)
+                html += CreateView.Variables.btnDelete(item.id)
                 html += "</td>"
                 html += "</tr>";
             });
@@ -594,7 +717,7 @@ CreateView = {
 
                     InsertarItemDataTable(
                         CreateView.Controles.tableModalGrupoIndicador,
-                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
+                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)]);
 
                     jsMensajes.Metodos.OkAlertModal("El grupo ha sido agregado")
                         .set('onok', function (closeEvent) { });
@@ -642,7 +765,7 @@ CreateView = {
                 html += "<tr>";
                 html += `<th scope='row'>${item.Nombre}</th>`;
                 html += "<td>"
-                html += CreateView.Variables.btnDeleteModal(item.id)
+                html += CreateView.Variables.btnDelete(item.id)
                 html += "</td>"
                 html += "</tr>";
             });
@@ -705,131 +828,12 @@ CreateView = {
 
                     InsertarItemDataTable(
                         CreateView.Controles.tableModalUnidadEstudio,
-                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
+                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)]);
 
                     jsMensajes.Metodos.OkAlertModal("La unidad de estudio ha sido agregada")
                         .set('onok', function (closeEvent) { });
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
-                    }
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        // Formulario Indicador
-        CrearObjFormularioIndicador: function (esGuardadoParcial) {
-            let controles = CreateView.Controles.formIndicador;
-
-            var formData = {
-                Codigo: $(controles.inputCodigo).val(),
-                Nombre: $(controles.inputNombre).val(),
-                Descripcion: $(controles.inputDescripcion).val(),
-                CantidadVariableDato: $(controles.inputCantidadVariableDatosIndicador).val(),
-                CantidadCategoriasDesagregacion: $(controles.inputCantidadCategoriaIndicador).val(),
-                Interno: $(controles.ddlUsoIndicador).val(),
-                Solicitud: $(controles.ddlUsoSolicitud).val(),
-                Fuente: $(controles.inputFuenteIndicador).val(),
-                Notas: $(controles.inputNota).val(),
-                TipoIndicadores: {
-                    id: $(controles.ddlTipo).val()
-                },
-                ClasificacionIndicadores: {
-                    id: $(controles.ddlClasificacion).val()
-                },
-                GrupoIndicadores: {
-                    id: $(controles.ddlGrupo).val()
-                },
-                UnidadEstudio: {
-                    id: $(controles.ddlUnidadEstudio).val()
-                },
-                TipoMedida: {
-                    id: $(controles.ddlTipoMedida).val()
-                },
-                FrecuenciaEnvio: {
-                    id: $(controles.ddlClasificacion).val()
-                },
-                esGuardadoParcial: esGuardadoParcial ? true : false
-            };
-            return formData;
-        },
-
-        ValidarFormularioIndicador: function () {
-            let inputsPendientesCompletar = [...$(CreateView.Controles.formIndicador.inputs)].filter(i => { return $.trim(i.value) == "" || i.value == null; });
-            return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
-        },
-
-        CrearIndicador: function () {
-            if (CreateView.Metodos.ValidarFormularioIndicador().puedeContinuar) {
-                $("#loading").fadeIn();
-                CreateView.Consultas.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador(false))
-                    .then(data => {
-                        InsertarParametroUrl("id", data.objetoRespuesta[0].id);
-                        $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
-
-                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado").set('onok', function (closeEvent) { });
-                    })
-                    .catch(error => {
-                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-                        }
-                        else {
-                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
-                        }
-                    })
-                    .finally(() => {
-                        $("#loading").fadeOut();
-                    });
-            }
-        },
-
-        CrearIndicadorGuardadoParcial: function () {
-            let mensaje = "";
-            let prefijoHelp = CreateView.Controles.prefijoLabelsHelp;
-            let validacionFormulario = CreateView.Metodos.ValidarFormularioIndicador();
-            let camposObligatoriosPendientes = false;
-
-            $(CreateView.Controles.formIndicador.inputCodigo + prefijoHelp).css("display", "none");
-            $(CreateView.Controles.formIndicador.inputNombre + prefijoHelp).css("display", "none");
-
-            if (validacionFormulario.objetos.some(x => $(x).attr("id") === $(CreateView.Controles.formIndicador.inputCodigo).attr("id"))) {
-                $(CreateView.Controles.formIndicador.inputCodigo + prefijoHelp).css("display", "block");
-                camposObligatoriosPendientes = true;
-            }
-            if (validacionFormulario.objetos.some(x => $(x).attr("id") === $(CreateView.Controles.formIndicador.inputNombre).attr("id"))) {
-                $(CreateView.Controles.formIndicador.inputNombre + prefijoHelp).css("display", "block");
-                camposObligatoriosPendientes = true;
-            }
-
-            if (camposObligatoriosPendientes) {
-                return;
-            }
-
-            if (!validacionFormulario.puedeContinuar) {
-                mensaje = "Existen campos vacíos. ";
-            }
-
-            new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + "¿Desea realizar un guardado parcial del Indicador?", jsMensajes.Variables.actionType.agregar)
-                    .set('onok', function () { resolve(true); })
-                    .set("oncancel", function () { })
-            })
-                .then(data => {
-                    $("#loading").fadeIn();
-                    return CreateView.Consultas.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador(true));
-                })
-                .then(data => {
-                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
-                        .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
-                })
-                .catch(error => {
-                    console.log(error);
                     if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
@@ -848,8 +852,9 @@ CreateView = {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ConsultarDetallesVariable(pIndicador) // tabla
                     .then(data => {
-                        CreateView.Metodos.InsertarDatosTablaDetallesVariable(data.objetoRespuesta);
-                        CreateView.Variables.listaVariablesDato = data.objetoRespuesta;
+                        this.InsertarDatosTablaDetallesVariable(data.objetoRespuesta);
+                        // crear un objeto donde cada item es un map que contiene los datos la variable-dato
+                        CreateView.Variables.listaVariablesDato = data.objetoRespuesta.reduce((map, obj) => (map[obj.id] = obj, map), {});
                         CreateView.Variables.hizoCargaDetallesVariables = true;
                     })
                     .catch(error => {
@@ -867,7 +872,7 @@ CreateView = {
         },
 
         InsertarDatosTablaDetallesVariable: function (listaVariables) {
-            EliminarDatasource();
+            EliminarDatasource(CreateView.Controles.formVariable.tablaDetallesVariable);
             let html = "";
 
             listaVariables?.forEach((item, index) => {
@@ -875,23 +880,45 @@ CreateView = {
                 html += `<th scope='row'>${item.NombreVariable}</th>`;
                 html += `<th scope='row'>${item.Descripcion}</th>`;
                 html += "<td>"
-                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit" value=${index}></button>` 
+                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit" value=${index.id}></button>` 
                 html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete" value=${item.id}></button>`
                 html += "</td>"
                 html += "</tr>";
             });
-            $(CreateView.Controles.formVariable.tablaDetallesVariable).html(html);
-            CargarDatasource();
+            $(CreateView.Controles.formVariable.tablaDetallesVariable_tbody).html(html);
+            CargarDatasource(CreateView.Controles.formVariable.tablaDetallesVariable);
         },
 
-        CargarFormularioEditarDetallesVariable: function (pIndex) {
-            let variable = CreateView.Variables.listaVariablesDato[pIndex];
+        CargarFormularioEditarDetallesVariable: function (pId) {
+            let variable = CreateView.Variables.listaVariablesDato[pId];
             CreateView.Variables.objEditarDetallesVariableDato = variable;
             $(CreateView.Controles.formVariable.inputNombreVariable).val(variable.NombreVariable);
             $(CreateView.Controles.formVariable.inputDescripcionVariable).val(variable.Descripcion);
         },
 
-        EditarDetallesVariable: function () {
+        CrearObjDetallesVariable: function (pIndicador) {
+            let controles = CreateView.Controles.formVariable;
+            var formData = {
+                idIndicadorString: pIndicador,
+                NombreVariable: $(controles.inputNombreVariable).val(),
+                Descripcion: $(controles.inputDescripcionVariable).val()
+            };
+            return formData;
+        },
+
+        ValidarFormularioEditarDetallesVariable: function () {
+            $(CreateView.Controles.formVariable.inputNombreVariable + CreateView.Controles.prefijoLabelsHelp).css("display", "none");
+            $(CreateView.Controles.formVariable.inputDescripcionVariable + CreateView.Controles.prefijoLabelsHelp).css("display", "none");
+
+            let validacion = this.ValidarFormulario(CreateView.Controles.formVariable.inputs);
+
+            for (let input of validacion.objetos) {
+                $("#" + $(input).attr("id") + CreateView.Controles.prefijoLabelsHelp).css("display", "block");
+            }
+            return validacion.puedeContinuar;
+        },
+
+        EditarDetallesVariable: function (pIdIndicador) {
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
@@ -903,14 +930,47 @@ CreateView = {
                 });
         },
 
-        CrearDetallesVariables: function () {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
+        CrearDetallesVariables: function (pIdIndicador) {
+            let formValido = this.ValidarFormularioEditarDetallesVariable();
+
+            if (!formValido) {
+                return;
+            }
+
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.CrearDetalleVariableDato(this.CrearObjDetallesVariable(pIdIndicador));
+                })
+                .then(data => {
+                    $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
+                    $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
+
+                    console.log(data);
+
+                    //InsertarItemDataTable(
+                    //    CreateView.Controles.formVariable.tablaDetallesVariable,
+                    //    [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)]);
+
                     jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
-                        .set('onok', function (closeEvent) {
-                            $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
-                            $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
-                        });
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    console.log(error)
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
                 });
         },
 
@@ -938,7 +998,7 @@ CreateView = {
                     }).
                     then(data => {
                         if (data) {
-                            CreateView.Metodos.InsertarDatosTablaDetallesCategoria(data.objetoRespuesta);
+                            this.InsertarDatosTablaDetallesCategoria(data.objetoRespuesta);
                         }
                         CreateView.Variables.hizoCargaDetallesCategorias = true;
                     })
@@ -957,7 +1017,7 @@ CreateView = {
         },
 
         InsertarDatosTablaDetallesCategoria: function (listaVariables) {
-            EliminarDatasource();
+            EliminarDatasource(CreateView.Controles.formCategoria.tablaDetallesCategoria);
             let html = "";
 
             listaVariables?.forEach((item, index) => {
@@ -971,8 +1031,8 @@ CreateView = {
                 html += "</td>"
                 html += "</tr>";
             });
-            $(CreateView.Controles.formCategoria.tablaDetallesCategoria).html(html);
-            CargarDatasource();
+            $(CreateView.Controles.formCategoria.tablaDetallesCategoria_tbody).html(html);
+            CargarDatasource(CreateView.Controles.formCategoria.tablaDetallesCategoria);
         },
 
         CargarDetallesDeLaCategoria: function (pIdCategoria, pIdIndicador = null) { // combo detalles
@@ -1027,7 +1087,7 @@ CreateView = {
 
         CargarFormularioEditarDetallesCategoria: function (pIdCategoria, pIdIndicador) {
             SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, pIdCategoria);
-            CreateView.Metodos.CargarDetallesDeLaCategoria(pIdCategoria, pIdIndicador);
+            this.CargarDetallesDeLaCategoria(pIdCategoria, pIdIndicador);
         },
 
         EditarDetallesCategoria: function () {
@@ -1113,6 +1173,10 @@ CreateView = {
         ConsultarListaDetallesDeCategoriaGuardada: function (pIdIndicador, pIdCategoria) {
             return execAjaxCall('/IndicadorFonatel/ObtenerListaDetallesDeCategoriaGuardada', 'GET', { pIdIndicador: pIdIndicador, pIdCategoria: pIdCategoria });
         },
+
+        CrearDetalleVariableDato: function (pDetalleIndicadorVariables) {
+            return execAjaxCall('/IndicadorFonatel/CrearDetalleVariableDato', 'POST', { pDetalleIndicadorVariables: pDetalleIndicadorVariables });
+        }
     },
 
     Eventos: function () {
@@ -1169,12 +1233,12 @@ CreateView = {
         });
 
         $(CreateView.Controles.formIndicador.inputs).on("keyup", function (e) {
-            let validacion = CreateView.Metodos.ValidarFormularioIndicador();
+            let validacion = CreateView.Metodos.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             $(CreateView.Controles.formIndicador.btnSiguiente).prop('disabled', !validacion.puedeContinuar);
         });
 
         $(CreateView.Controles.formIndicador.selects2).on('select2:select', function (e) {
-            let validacion = CreateView.Metodos.ValidarFormularioIndicador();
+            let validacion = CreateView.Metodos.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             $(CreateView.Controles.formIndicador.btnSiguiente).prop('disabled', !validacion.puedeContinuar);
         });
 
@@ -1204,11 +1268,15 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.btnGuardarVariable, function (e) {
-            if (CreateView.Variables.objEditarDetallesVariableDato != null) {
-                CreateView.Metodos.EditarDetallesVariable();
-            }
-            else {
-                CreateView.Metodos.CrearDetallesVariables();
+            let idIndicador = ObtenerValorParametroUrl("id");
+
+            if (idIndicador != null || $.trim(idIndicador) != "") {
+                if (CreateView.Variables.objEditarDetallesVariableDato != null) {
+                    CreateView.Metodos.EditarDetallesVariable(idIndicador);
+                }
+                else {
+                    CreateView.Metodos.CrearDetallesVariables(idIndicador);
+                }
             }
         });
 
@@ -1302,7 +1370,7 @@ CreateView = {
         console.log(modo);
 
         if (jsUtilidades.Variables.Acciones.Editar == modo) {
-            let validacion = CreateView.Metodos.ValidarFormularioIndicador();
+            let validacion = CreateView.Metodos.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             $(CreateView.Controles.formIndicador.btnSiguiente).prop('disabled', !validacion.puedeContinuar);
         }
         else if (jsUtilidades.Variables.Acciones.Clonar == modo) {

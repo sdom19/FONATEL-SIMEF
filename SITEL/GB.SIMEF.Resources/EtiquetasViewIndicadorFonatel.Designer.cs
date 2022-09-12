@@ -178,7 +178,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tipo indicador.
+        ///   Looks up a localized string similar to Tipo Indicador.
         /// </summary>
         public static string CrearIndicador_LabelTipo {
             get {
