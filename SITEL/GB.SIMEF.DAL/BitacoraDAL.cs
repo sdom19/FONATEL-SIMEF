@@ -68,17 +68,19 @@ namespace GB.SIMEF.DAL
 
                 ListaBitacora = ListaBitacora.Select(x => new Bitacora()
                 {
-                    idBitacora=x.idBitacora,
-                    Accion=x.Accion,
-                    Codigo=x.Codigo,
-                    Pantalla=x.Pantalla,
-                    Usuario=x.Usuario,
-                    Fecha=x.Fecha,
-                    ValorActual= x.Accion==(int)Accion.Editar? Utilidades.jsonDiff(x.ValorAnterior,  x.ValorActual):string.Empty,
-                    ValorInicial=    x.ValorInicial,
-                    ValorAnterior=x.ValorAnterior,
-                    AccionNombre= Enum.GetName(typeof(Accion), x.Accion)
-            }).ToList();
+                    idBitacora = x.idBitacora,
+                    Accion = x.Accion,
+                    Codigo = x.Codigo,
+                    Pantalla = x.Pantalla,
+                    Usuario = x.Usuario,
+                    Fecha = x.Fecha,
+                    ValorActual = x.ValorActual,
+                    ValorInicial = x.ValorInicial,
+                    ValorAnterior = x.ValorAnterior,
+
+                    ValorDiferencial = x.Accion == (int)Accion.Editar ? Utilidades.jsonDiff(x.ValorAnterior, x.ValorActual) : string.Empty,
+                    AccionNombre = Enum.GetName(typeof(Accion), x.Accion)
+                }).ToList();
             }
             return ListaBitacora;
         }

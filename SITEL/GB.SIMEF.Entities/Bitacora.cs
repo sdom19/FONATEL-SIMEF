@@ -43,5 +43,8 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string AccionNombre { get; set; }
 
+        [NotMapped]
+        public string ValorDiferencial { get; set; }
+
     }
 }

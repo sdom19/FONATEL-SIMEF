@@ -233,9 +233,9 @@ namespace GB.SIMEF.BL
             {
                 List<CategoriasDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
 
-                string jsonInicial = SerializarObjetoBitacora(listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single());
+               
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Editar;
+                ResultadoConsulta.Accion = (int)Accion.Clonar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
                 string codigo = objeto.Codigo;
@@ -246,7 +246,8 @@ namespace GB.SIMEF.BL
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp );
                     objeto.idCategoria = temp;
                 }
-            
+
+                string jsonInicial = SerializarObjetoBitacora(listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single());
                 objeto = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
               
 

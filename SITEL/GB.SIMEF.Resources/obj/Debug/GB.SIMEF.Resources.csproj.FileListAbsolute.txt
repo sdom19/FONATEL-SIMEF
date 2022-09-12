@@ -63,3 +63,4 @@ C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\D
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.csproj.CopyComplete
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Resources\obj\Debug\GB.SIMEF.Resources.csproj.AssemblyReference.cache
