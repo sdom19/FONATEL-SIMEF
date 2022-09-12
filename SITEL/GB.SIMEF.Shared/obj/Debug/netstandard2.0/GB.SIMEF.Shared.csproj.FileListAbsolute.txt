@@ -37,6 +37,7 @@ C:\Fonatel\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.pdb
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\bin\Debug\netstandard2.0\GB.SIMEF.Shared.deps.json
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\bin\Debug\netstandard2.0\GB.SIMEF.Shared.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\bin\Debug\netstandard2.0\GB.SIMEF.Shared.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.csproj.AssemblyReference.cache
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.AssemblyInfoInputs.cache
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.AssemblyInfo.cs

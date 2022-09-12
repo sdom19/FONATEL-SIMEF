@@ -20,7 +20,7 @@ $(document).on("click", JsEditarFormularioWeb.Controles.btndescarga, function ()
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
-                .set('onok', function (closeEvent) { window.location.href = "/" });
+                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index" });
         });
 });
 
@@ -39,7 +39,7 @@ $(document).on("click", JsEditarFormularioWeb.Controles.btnCancela, function () 
 $(document).on("click", JsEditarFormularioWeb.Controles.btnEdit, function () {
     let id = 1;
 
-    window.location.href = "/RegistroIndicadorFonatel/Edit?id="+id;       
+    window.location.href = "/EditarFormulario/Edit?id="+id;       
 });
 
 

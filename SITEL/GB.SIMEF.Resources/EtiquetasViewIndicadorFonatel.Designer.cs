@@ -304,7 +304,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Definiciones.
+        ///   Looks up a localized string similar to Definición de Indicadores.
         /// </summary>
         public static string TituloDefiniciones {
             get {

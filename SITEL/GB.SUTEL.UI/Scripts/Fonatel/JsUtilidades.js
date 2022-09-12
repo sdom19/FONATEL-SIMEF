@@ -67,6 +67,14 @@ $(document).ready(function () {
         placeholder: "Seleccione",
         width: 'resolve' 
     });
+
+
+    $('.listasDesplegables_todos').select2({
+        placeholder: "Todos",
+        width: 'resolve'
+    });
+
+
     $('.nav-tabs > li a[title]').tooltip();
 });
 
@@ -118,9 +126,9 @@ function EliminarDatasource(pDataTable = ".datatable_simef") {
 
 
 function CargarDatasourceV2 (table) {
-    $(table).DataTable({
-        pageLength: 25,
-        lengthMenu: [[25, 50, 100], [25, 50, 100]],
+  let t=  $(table).DataTable({
+        pageLength: 5,
+        lengthMenu: [[5,25, 50, 100], [5,25, 50, 100]],
         "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
         buttons: [
             {
@@ -152,7 +160,7 @@ function CargarDatasourceV2 (table) {
             },
             { "className": "dt-center", "targets": "_all" }
         ],
-        scrollY: 450,
+        scrollY: 350,
         scrollX: true,
         language: {
             "decimal": "",
@@ -176,7 +184,16 @@ function CargarDatasourceV2 (table) {
                 "previous": "Anterior"
             }
         }
-    });
+  });
+
+
+    t.on('order.dt search.dt', function () {
+        let i = 1;
+
+        t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+            this.data(i++);
+        });
+    }).draw();
 
 };
 

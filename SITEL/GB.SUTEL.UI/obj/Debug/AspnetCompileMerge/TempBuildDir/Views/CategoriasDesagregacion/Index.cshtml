@@ -1,32 +1,38 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 @{
-    ViewBag.Title = "Categoría de Desagregación";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Etiquetas.Categorias;
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
-
+@section scripts {
+    @*@Scripts.Render("~/bundles/FONATEL/CategoriaDesagregacion")*@
+}
 
 <div class="container body-content">
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="@Url.Action( "index","Home")">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Categoría Desagregación</li>
+                <li class="breadcrumb-item"><a href="@Url.Action( "index","Home")">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Etiquetas.Categorias</li>
             </ol>
         </nav>
     </div>
-    <div class="row">
+    <div id="FormularioIndex" class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Categorías de Desagregación</h2>
+            <h2 class="page-title-fonatel text-center">@Etiquetas.Categorias</h2>
             <hr />
         </div>
         <div class="col-lg-12 mt-4">
-            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="Crear" alt="Crear" href="@Url.Action( "create","CategoriasDesagregacion")"  >Crear</a>
+            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCrear" alt="@Etiquetas.BotonCrear" href="@Url.Action( "create","CategoriasDesagregacion")">@Etiquetas.BotonCrear</a>
         </div>
         <div class="col-lg-12 mt-4">
             @Html.Partial("_TablaCategoriaDesagregacion")
+            <input id='inputFileCargarDetalle' type='file' accept='.csv,.xlsx,.xls' style='display: none;' />
         </div>
     </div>
 
 </div>
+
+<script src="~/Scripts/Fonatel/JsCategoria.js"></script>
 

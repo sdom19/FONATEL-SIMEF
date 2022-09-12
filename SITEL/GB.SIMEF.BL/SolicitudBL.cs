@@ -72,7 +72,7 @@ namespace GB.SIMEF.BL
                 }
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
-                var resul = clsDatos.ObtenerDatos(objeto).Single();
+                listaExistencias.objetoRespuesta = clsDatos.ValidarSolicitud(objeto);
 
             }
             catch (Exception ex)

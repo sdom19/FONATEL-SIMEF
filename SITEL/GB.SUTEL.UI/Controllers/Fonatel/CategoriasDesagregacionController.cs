@@ -90,6 +90,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     ViewBag.titulo = EtiquetasViewCategorias.Clonar;
                     objCategoria.Codigo = string.Empty;
                     objCategoria.id = string.Empty;
+                    objCategoria.NombreCategoria = string.Empty;
                 }
                 else
                 {

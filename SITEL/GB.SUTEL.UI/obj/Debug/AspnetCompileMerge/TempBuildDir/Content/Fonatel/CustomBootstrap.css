@@ -5,19 +5,23 @@
 :root {
     --green-fonatel: #55924E;
     --light-1-green-fonatel: #7CB342;
-    --purple-fonatel: #7A3DAB;
+    --purple-fonatel: #7A3CAA;
     --blue-fonatel: #1A5EAB;
+    --blue-2-fonatel: #007588;
+    --blue-2-fonatel-rgb-75: rgb(0 117 136 / 75%);
+    --blue-2-fonatel-rgb-50: rgb(0 117 136 / 50%);
+    --blue-2-fonatel-rgb-25: rgb(0 117 136 / 25%);
+    --light-1-blue-2-fonatel: #4098a6;
     --light-1-blue-fonatel: #00B3E6;
     --light-2-blue-fonatel: #EDF1F7;
-    --orange-fonatel: #F58A3B;
+    --orange-fonatel: #D8691E;
     --red-fonatel: #FF0007;
     --gray-fonatel: #F6F8FD;
-
+    --gray-fonatel-footer: #E0E0E0;
     --blue-fonatel-rgb-60: rgb(26 94 171 / 60%);
-
     --default-border-color: #cccccc;
-
     --default-stepper-btn-circle: #BDBDBD;
+    --default-input-length: 280px;
 }
 
 .page-title-fonatel {
@@ -47,6 +51,15 @@
     color: var(--red-fonatel);
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 /*
     ===============================================================
                          Navigation Bar
@@ -70,6 +83,8 @@
             color: black;
             -webkit-transition: 0.15s;
             transition: 0.15s;
+            border: 1px solid var(--light-1-blue-fonatel);
+            border-bottom-width: 0px;
         }
 
         .nav-tabs-fonatel > li.active > a,
@@ -94,25 +109,34 @@
     padding: 8px 20px 8px 20px;
     border-radius: 9px !important;
     min-width: 130px;
-    /*-webkit-transition: 0.15s;
-    transition: 0.15s;*/
+    margin: 5px;
 }
 
-    .btn-fonatel:hover,
-    .btn-fonatel:focus {
-        /*-moz-box-shadow: inset 0 0 5px #000000;
-        -webkit-box-shadow: inset 0 0 5px #000000;
-        box-shadow: inset 0 0 5px #000000;*/
+    .btn-fonatel.btn-goback {
+        display: inline-flex;
+        min-width: auto;
+        font-size: 1.8rem;
+        background-color: transparent;
+        text-transform: capitalize;
+        padding: 4px 12px;
     }
+
+        .btn-fonatel.btn-goback span {
+            height: 23px;
+            width: 20px;
+            background-image: url("../../Images/icon-arrow-back.svg");
+            background-repeat: no-repeat;
+            /*background-size: cover;*/
+        }
 
 .btn-success-fonatel {
     color: #ffffff;
     background-color: var(--green-fonatel);
 }
 
-.btn-success-2-fonatel {
+.btn-next-fonatel {
     color: #ffffff;
-    background-color: var(--light-1-green-fonatel);
+    background-color: var(--blue-2-fonatel);
 }
 
 .btn-error-fonatel {
@@ -125,87 +149,209 @@
     background-color: var(--blue-fonatel);
 }
 
-    .btn-success-fonatel:hover,
-    .btn-success-fonatel:focus,
-    .btn-success-2-fonatel:hover,
-    .btn-success-2-fonatel:focus,
-    .btn-error-fonatel:hover,
-    .btn-error-fonatel:focus,
-    .btn-info-fonatel:hover,
-    .btn-info-fonatel:focus {
-        color: #ffffff;
-    }
+.btn-warning-fonatel {
+    color: #ffffff;
+    background-color: var(--orange-fonatel);
+}
+
+.btn-purple-fonatel {
+    color: #ffffff;
+    background-color: var(--purple-fonatel);
+}
+
+.btn-success-fonatel:hover, .btn-success-fonatel:focus,
+.btn-next-fonatel:hover, .btn-next-fonatel:focus,
+.btn-error-fonatel:hover, .btn-error-fonatel:focus,
+.btn-info-fonatel:hover, .btn-info-fonatel:focus,
+.btn-warning-fonatel:hover, .btn-warning-fonatel:focus,
+.btn-purple-fonatel:hover, .btn-purple-fonatel:focus {
+    color: #ffffff;
+}
 
 .btn-icon-base {
-    opacity: 1;
-    width: 20px;
-    height: 20px;
-    margin: 10px;
+    width: 22px;
+    height: 22px;
+    padding: 0px;
+    margin: 8px;
+}
+
+.btn-icon-base-bg { /* igual a la clase de arriba pero con la opción de incrustar un fondo como si fuera un botón */
+    width: 33px;
+    height: 33px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 6px;
+}
+
+.btn-icon-base,
+.btn-icon-base-bg {
     border: none;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: transparent;
     transition: 0.15s;
+    background-color: transparent;
 }
 
-.btn-icon-base:hover {
-    opacity:0.6;
-}
+    .btn-icon-base:hover,
+    .btn-icon-base-bg:hover {
+        opacity: 0.6;
+    }
 
-.btn-add {
+    .btn-icon-base[disabled],
+    .btn-icon-base-bg[disabled] {
+        opacity: 0.5;
+    }
+
+    .btn-icon-base-bg:before,
+    .btn-icon-base:before {
+        display: block;
+        height: 23px;
+        width: 23px;
+        content: ' ';
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: center;
+    }
+
+    .btn-icon-base-bg.btn-white {
+        background-color: white;
+    }
+
+
+.btn.disabled, .btn[disabled] {
+    background-color: var(--default-stepper-btn-circle);
+    opacity:1!important;
+}
+.btn-add:before {
     background-image: url("../../Images/icon-add.svg");
 }
 
-.btn-calendar {
+.btn-calendar:before {
     background-image: url("../../Images/icon-calendar.svg");
 }
 
-.btn-sent {
-    background-image: url("../../Images/icon-sent.svg");
-}
-
-.btn-calendar-disabled {
+.btn-calendar-disabled:before {
     background-image: url("../../Images/icon-calendar-disabled.svg");
 }
 
-.btn-home {
+
+.btn-edit-form:before {
+    background-image: url("../../Images/icon-form.svg");
+}
+
+.btn-sent:before {
+    background-image: url("../../Images/icon-sent.svg");
+}
+
+.btn-sent-disabled:before {
+    background-image: url("../../Images/icon-sent-disabled.svg");
+}
+
+.btn-home:before {
     background-image: url("../../Images/icon-home.svg");
 }
 
-.btn-edit {
+.btn-edit:before {
     background-image: url("../../Images/icon-edit.svg");
 }
 
-.btn-delete {
+.btn-delete:before {
     background-image: url("../../Images/icon-delete.svg");
 }
 
-.btn-clone {
+.btn-view:before {
+    background-image: url("../../Images/icon-view.svg");
+}
+
+.btn-clone:before {
     background-image: url("../../Images/icon-clone.svg");
 }
 
-.btn-download {
+.btn-download:before {
     background-image: url("../../Images/icon-download.svg");
 }
 
-.btn-upload {
+.btn-upload:before {
     background-image: url("../../Images/icon-upload.svg");
 }
 
-.btn-power-off {
+.btn-power-off:before {
     background-image: url("../../Images/icon-power-off.svg");
 }
 
-.btn-power-on {
+.btn-power-on:before {
     background-image: url("../../Images/icon-power-on.svg");
 }
 
-.btn-yes {
-    content: url("../../Images/icon-power-on.svg");
+.btn-yes:before {
+    background-image: url("../../Images/icon-power-on.svg");
 }
 
-.btn-cancel {
+.btn-cancel:before {
     background-image: url("../../Images/icon-cancel.svg");
+}
+
+.btn-addition:before {
+    background-image: url("../../Images/icon-math-addition.svg");
+}
+
+.btn-division:before {
+    background-image: url("../../Images/icon-math-division.svg");
+}
+
+.btn-multiplication:before {
+    background-image: url("../../Images/icon-math-multiplication.svg");
+}
+
+.btn-parentheses-close:before {
+    background-image: url("../../Images/icon-math-parentheses-close.svg");
+}
+
+.btn-parentheses-open:before {
+    background-image: url("../../Images/icon-math-parentheses-open.svg");
+}
+
+.btn-subtraction:before {
+    background-image: url("../../Images/icon-math-subtraction.svg");
+}
+
+.btn-less-than:before {
+    background-image: url("../../Images/icon-less-than.svg");
+}
+
+.btn-greater-than:before {
+    background-image: url("../../Images/icon-greater-than.svg");
+}
+
+.btn-less-than-or-equal-to:before {
+    background-image: url("../../Images/icon-less-than-or-equal-to.svg");
+}
+
+.btn-greater-than-or-equal-to:before {
+    background-image: url("../../Images/icon-greater-than-or-equal-to.svg");
+}
+
+.btn-equal-to:before {
+    background-image: url("../../Images/icon-equal-to.svg");
+}
+
+.btn-numberic-constants:before {
+    background-image: url("../../Images/icon-number-constants.svg");
+}
+
+.btn-reload:before {
+    background-image: url("../../Images/icon-reload.svg");
+}
+
+.btn-save:before {
+    background-image: url("../../Images/icon-save.svg");
+}
+
+.btn-touch:before {
+    background-image: url("../../Images/icon-touch.svg")
+}
+
+.btn-touch-disabled:before {
+    background-image: url("../../Images/icon-touch-disabled.svg")
 }
 
 /*
@@ -417,6 +563,11 @@
     border-top: 0px;
 }
 
+.table-wrapper-fonatel table.table-bordered.dataTable thead tr:first-child th.highlighted {
+    background-color: var(--light-1-blue-2-fonatel);
+}
+
+
 .table-wrapper-fonatel .top-position,
 .table-wrapper-fonatel .bottom-position {
     display: flex;
@@ -451,6 +602,10 @@
     width: 100%;
 }
 
+.table-wrapper-fonatel table tfoot {
+    background-color: var(--gray-fonatel-footer) !important;
+}
+
 /*
     ===============================================================
                             Inputs/Forms
@@ -459,8 +614,8 @@
 
 .form-control-fonatel,                                                              /* Inputs de texto */
 .text-input-wrapper-btn input,                                                      /* Inputs de texto + botón de modal */
-.select2-btn-wrapper .select2-container--default .select2-selection--single,        /* Input Select2 + boton de modal */
-.select2-wrapper .select2-container--default .select2-selection--single {           /* Input Select2 individual */
+.select2-btn-wrapper .select2-container--default .select2-selection,        /* Input Select2 + boton de modal */
+.select2-wrapper .select2-container--default .select2-selection {           /* Input Select2 individual */
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 5px 5px 0px 0px;
 }
@@ -484,6 +639,12 @@ textarea.form-control-fonatel {
     background-image: url("../../Images/icon-calendar.svg")
 }
 
+.form-group.center {
+    max-width: var(--default-input-length);
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .text-input-wrapper-btn {
     display: inline-flex;
 }
@@ -505,18 +666,21 @@ textarea.form-control-fonatel {
         width: 100% !important;
     }
 
-    .select2-btn-wrapper .select2-container--default .select2-selection--single,
-    .select2-wrapper .select2-container--default .select2-selection--single {
+    .select2-btn-wrapper .select2-container--default .select2-selection,
+    .select2-wrapper .select2-container--default .select2-selection {
         padding: 2.5px 6px 6px 6px;
         height: 34px;
         position: relative;
         border: 1px solid var(--default-border-color);
     }
 
-.select2-wrapper .select2.select2-container.select2-container--default
+    .select2-wrapper .select2-container--default .select2-selection--multiple {
+        height: auto;
+    }
+
 /*.select2-btn-wrapper .select2.select2-container.select2-container--default*/ 
-{
-    max-width: 280px;
+.select2-wrapper .select2.select2-container.select2-container--default {
+    max-width: var(--default-input-length);
     width: 100% !important;
 }
 
@@ -525,8 +689,8 @@ textarea.form-control-fonatel {
     transform: rotate(180deg) !important;
 }
 
-.select2-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow,
-.select2-btn-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow {
+.select2-wrapper .select2-container--default .select2-selection .select2-selection__arrow,
+.select2-btn-wrapper .select2-container--default .select2-selection .select2-selection__arrow {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -539,8 +703,8 @@ textarea.form-control-fonatel {
     /*transition: transform 0.2s ease-in-out;*/
 }
 
-    .select2-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow b,
-    .select2-btn-wrapper .select2-container--default .select2-selection--single .select2-selection__arrow b {
+    .select2-wrapper .select2-container--default .select2-selection .select2-selection__arrow b,
+    .select2-btn-wrapper .select2-container--default .select2-selection .select2-selection__arrow b {
         height: 18px !important;
         width: 18px !important;
         border: none !important;
@@ -552,10 +716,17 @@ textarea.form-control-fonatel {
         background-size: contain;
     }
 
+/* select disabled */
+.select2-wrapper .select2-container--default.select2-container--disabled .select2-selection {
+    opacity: 0.6;
+    background-color: lightgrey;
+}
+
 /*No existe un wrapper*/
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
     background-color: var(--blue-fonatel);
 }
+
 
 /*
     ===============================================================
@@ -602,6 +773,10 @@ textarea.form-control-fonatel {
     max-width: 450px !important;
     border: 0px !important;
 }
+
+    .alertify .ajs-dialog .ajs-primary.ajs-buttons .ajs-button {
+        min-width: 96px;
+    }
 
 .alertify .ajs-content {
     font-size: 1.8rem;
