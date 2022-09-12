@@ -15,7 +15,11 @@
         "txtNotasDefinicion": "#txtNotasDefinicion",
         "txtNotasDefinicionHelp":"#txtNotasDefinicionHelp",
         "txtFuenteDefinicionHelp": "#txtFuenteDefinicionHelp",
-        "txtDefinicionHelp":"#txtDefinicionHelp"
+        "txtDefinicionHelp": "#txtDefinicionHelp",
+        "ddlindicador": "#ddlindicador",
+        "txtCodigoIndicador": "#txtCodigoIndicador",
+        "txtNombreIndicador": "#txtNombreIndicador",
+        "txtTipoIndicador":"#txtTipoIndicador"
     },
     "Variables":{
         "ListadoDefiniciones": [],
@@ -65,17 +69,17 @@
                     "<td>" + TieneDefinicion + "</td>";
                 if (TieneDefinicion=="NO") {
                     html = html + "<td><button type='button' data-toggle='tooltip' value=" + Definiciones.Indicador.id+"  data-placement='top' title='Agregar' class='btn-icon-base btn-add'></button>" +
-                        "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Editar/Eliminar' class='btn-icon-base btn-edit'></button>" +
+                        "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Editar' class='btn-icon-base btn-edit'></button>" +
                         "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Clonar' class='btn-icon-base btn-clone'></button>" +
                         "<button type='button' data-toggle='tooltip' disabled  data-placement='top' title='Visualizar Detalle' class='btn-icon-base btn-view'></button>" +
                         "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Eliminar Definición' class='btn-icon-base btn-delete'></button></td>";
                 }
                 else {
                     html = html + "<td><button type='button' data-toggle='tooltip' disabled data-placement='top' title='Agregar' class='btn-icon-base btn-add'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.Indicador.id+" title='Editar/Eliminar' class='btn-icon-base btn-edit'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.idDefinicion + " title='Clonar' class='btn-icon-base btn-clone'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.idDefinicion + " title='Visualizar Detalle' class='btn-icon-base btn-view'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.idDefinicion +" title='Eliminar Definición' class='btn-icon-base btn-delete'></button></td>";
+                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.Indicador.id+" title='Editar' class='btn-icon-base btn-edit'></button>" +
+                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.id + " title='Clonar' class='btn-icon-base btn-clone'></button>" +
+                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.id + " title='Visualizar Detalle' class='btn-icon-base btn-view'></button>" +
+                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + Definiciones.id +" title='Eliminar Definición' class='btn-icon-base btn-delete'></button></td>";
                 }
              
 
@@ -105,7 +109,7 @@
 
         "EliminarDefinicion": function (idDefinicion) {
             let definicion = new Object();
-            definicion.idDefinicion = idDefinicion;
+            definicion.id = idDefinicion;
             $("#loading").fadeIn();
             execAjaxCall("/DefinicionIndicadores/EliminarDefinicion", "POST", definicion)
                 .then((obj) => {
@@ -125,6 +129,31 @@
                 });
            },
 
+        "SelecionarIndicador": function (id) {
+            let indicador = new Object();
+            indicador.id = id;
+            $("#loading").fadeIn();
+            execAjaxCall("/DefinicionIndicadores/SeleccionarIndicador", "POST", indicador)
+                .then((data) => {
+                    if (!data.HayError) {
+                        if (data.objetoRespuesta.length!=0) {
+                            let indicador = data.objetoRespuesta[0];
+
+                            $(JsDefiniciones.Controles.txtCodigoIndicador).val(indicador.Codigo);
+                            $(JsDefiniciones.Controles.txtNombreIndicador).val(indicador.Nombre);
+                            $(JsDefiniciones.Controles.txtTipoIndicador).val(indicador.TipoIndicadores.Nombre);
+                        }
+                        
+                     
+
+                    }
+                }).catch((data) => {
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { location.reload(); });
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
 
     }
 
@@ -137,6 +166,17 @@ $(document).on("click", JsDefiniciones.Controles.btnCancelar, function (e) {
             window.location.href = "/Fonatel/DefinicionIndicadores/Index";
         });
 });
+
+
+$(document).on("change", JsDefiniciones.Controles.ddlindicador, function () {
+    let id = $(this).val();
+
+
+
+    JsDefiniciones.Consultas.SelecionarIndicador(id);
+});
+
+
 
 $(document).on("click", JsDefiniciones.Controles.btnAddDefiniciones, function () {
 

@@ -13,13 +13,18 @@ namespace GB.SIMEF.BL
     public class FormularioWebBL : IMetodos<FormularioWeb>
     {
         private readonly FormularioWebDAL clsDatos;
+        private readonly DetalleFormularioWebDAL clsDatos2;
 
         private RespuestaConsulta<List<FormularioWeb>> ResultadoConsulta;
-        string modulo = EtiquetasViewFormulario.Formulario;
+        string modulo = string.Empty;
+        string user = string.Empty;
 
-        public FormularioWebBL()
+        public FormularioWebBL(string modulo, string user)
         {
+            this.modulo = modulo;
+            this.user = user;
             this.clsDatos = new FormularioWebDAL();
+            this.clsDatos2 = new DetalleFormularioWebDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<FormularioWeb>>();
         }
 
@@ -30,7 +35,28 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FormularioWeb>> CambioEstado(FormularioWeb objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                
+                ResultadoConsulta.Clase = modulo;
+                objeto.UsuarioModificacion = user;
+                ResultadoConsulta.Accion =  objeto.idEstado==(int)EstadosRegistro.Activo? (int)Accion.Activar:(int)Accion.Inactiva;
+                var resul = clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.Usuario = user;
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<FormularioWeb>> ClonarDatos(FormularioWeb objeto)
@@ -40,7 +66,28 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FormularioWeb>> EliminarElemento(FormularioWeb objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                ResultadoConsulta.Clase = modulo;
+                objeto.UsuarioModificacion = user;
+                ResultadoConsulta.Accion = (int)EstadosRegistro.Eliminado;
+                ResultadoConsulta.Usuario = user;
+                var resul = clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<FormularioWeb>> InsertarDatos(FormularioWeb objeto)
@@ -76,7 +123,60 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<FormularioWeb>> ValidarDatos(FormularioWeb objeto)
+        public RespuestaConsulta<List<string>> ValidarDatos(FormularioWeb objeto)
+        {
+             RespuestaConsulta<List<string>> Resultado=new RespuestaConsulta<List<string>>();
+            try
+            {
+                Resultado.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ValidarFuente(objeto);
+                Resultado.objetoRespuesta = resul;
+                Resultado.CantidadRegistros = resul.Count();
+
+            }
+            catch (Exception ex)
+            {
+                Resultado.HayError = (int)Constantes.Error.ErrorSistema;
+                Resultado.MensajeError = ex.Message;
+            }
+            return Resultado;
+        }
+
+
+        public RespuestaConsulta<List<Indicador>> ObtenerIndicadoresFormulario(FormularioWeb objeto)
+        {
+            RespuestaConsulta<List<Indicador>> ResultadoConsultaIndicadores = new RespuestaConsulta<List<Indicador>>();
+            try
+            {
+                 
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.idFormulario = temp;
+                    }
+                }
+                ResultadoConsultaIndicadores.Clase = modulo;
+                ResultadoConsultaIndicadores.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ObtenerIndicadoresFormulario(objeto.idFormulario);
+
+                ResultadoConsultaIndicadores.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsultaIndicadores.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsultaIndicadores.MensajeError = ex.Message;
+            }
+            return ResultadoConsultaIndicadores;
+        }
+
+
+
+        RespuestaConsulta<List<FormularioWeb>> IMetodos<FormularioWeb>.ValidarDatos(FormularioWeb objeto)
         {
             throw new NotImplementedException();
         }

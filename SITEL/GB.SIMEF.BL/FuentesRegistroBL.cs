@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
-using GB.SUTEL.DAL.Seguridad;
-using GB.SUTEL.Entities;
+using Newtonsoft.Json;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
@@ -18,17 +17,27 @@ namespace GB.SIMEF.BL
         private readonly FuentesRegistroDAL clsDatos;
         private readonly FuentesRegistroDestinatarioDAL clsDatosUsuario;
 
-        private UsersDA objUserDA;
-
         private RespuestaConsulta<List<FuentesRegistro>> ResultadoConsulta;
-        string modulo = EtiquetasViewFuentesRegistro.FuentesRegistro;
+        string modulo = string.Empty;
+        string user = string.Empty;
 
-        public FuentesRegistroBL()
+        public FuentesRegistroBL(string modulo, string user)
         {
+            this.modulo = modulo;
+            this.user = user;
             this.clsDatos = new FuentesRegistroDAL();
             this.clsDatosUsuario = new FuentesRegistroDestinatarioDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<FuentesRegistro>>();
         }
+
+        private string SerializarObjetoBitacora(FuentesRegistro objFuente)
+        {
+            return JsonConvert.SerializeObject(objFuente, new JsonSerializerSettings
+            { ContractResolver = new JsonIgnoreResolver(objFuente.NoSerialize) });
+        }
+
+
+
         /// <summary>
         /// Evalua si la fuente genero cambios para actualizar
         /// Michael Hernández Cordero
@@ -39,8 +48,6 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FuentesRegistro>> ActualizarElemento(FuentesRegistro objeto)
         {
-
-
             try
             {
                 if (!String.IsNullOrEmpty(objeto.id))
@@ -53,12 +60,15 @@ namespace GB.SIMEF.BL
                     }
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion =  (int) Constantes. Accion.Editar;
-                    ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
+                    ResultadoConsulta.Usuario = user;
+
+                    objeto.UsuarioModificacion = user;
 
                     string fuente = objeto.Fuente.Trim();
                     int Cantidad = objeto.CantidadDestinatario;
 
                     var resul = clsDatos.ObtenerDatos(new FuentesRegistro());
+                    string valorAnterior = SerializarObjetoBitacora(resul.Where(x=>x.idFuente==objeto.idFuente).Single())  ;
                     objeto = resul.Where(x => x.idFuente == objeto.idFuente).Single();
 
 
@@ -91,12 +101,17 @@ namespace GB.SIMEF.BL
                         objeto.Fuente = fuente;
                         objeto.CantidadDestinatario = Cantidad;
 
-                        resul = clsDatos.ActualizarDatos(objeto);
+                        clsDatos.ActualizarDatos(objeto);
+
+                        var nuevovalor = clsDatos.ObtenerDatos(objeto).Single();
+
+                        string jsonNuevoValor = SerializarObjetoBitacora(nuevovalor);
+                    
                         ResultadoConsulta.objetoRespuesta = resul;
                         ResultadoConsulta.CantidadRegistros = resul.Count();
                         clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                                ResultadoConsulta.Usuario,
-                               ResultadoConsulta.Clase, objeto.Fuente);
+                               ResultadoConsulta.Clase,nuevovalor.Fuente, jsonNuevoValor,valorAnterior);
                     }
                 }
             }
@@ -140,7 +155,8 @@ namespace GB.SIMEF.BL
                 }
                 ResultadoConsulta.Clase = modulo;
                 int nuevoEstado = (int)Constantes.EstadosRegistro.Activo;
-                ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
+                ResultadoConsulta.Usuario = user;     
+                objeto.UsuarioModificacion=user;
                 var resul = clsDatos.ObtenerDatos(objeto).ToList();
                 var fuente = resul.Single();
                 if (resul.Count() == 0)
@@ -218,7 +234,8 @@ namespace GB.SIMEF.BL
                 }
                 ResultadoConsulta.Clase = modulo;
                 int nuevoEstado = (int)Constantes.EstadosRegistro.Eliminado;
-                ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioModificacion=user;
                 var resul = clsDatos.ObtenerDatos(objeto).ToList();
 
                 if (resul.Count() == 0)
@@ -273,7 +290,9 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Insertar;
-                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                ResultadoConsulta.Usuario = user;
+
+                objeto.UsuarioCreacion = user;
                 objeto.Fuente = objeto.Fuente.Trim();
                 objeto.idEstado = (int)EstadosRegistro.EnProceso;
                 var consultardatos = clsDatos.ObtenerDatos(new FuentesRegistro());
@@ -294,9 +313,10 @@ namespace GB.SIMEF.BL
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
+                string JsonNuevoValor = SerializarObjetoBitacora(resul.Where(x=>x.Fuente==objeto.Fuente.ToUpper()).Single());
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                      ResultadoConsulta.Usuario,
-                     ResultadoConsulta.Clase, objeto.Fuente);
+                     ResultadoConsulta.Clase, objeto.Fuente,"","",JsonNuevoValor);
             }
             catch (Exception ex)
             {

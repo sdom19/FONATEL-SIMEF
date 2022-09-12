@@ -1,0 +1,41 @@
+﻿@using GB.SIMEF.Resources;
+
+@{
+    ViewBag.Title = EtiquetasViewHistorico.Titulo;
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+  
+}
+
+<div class="container body-content">
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active"><a href="/HistoricoFonatel/index">@EtiquetasViewHistorico.Descarga</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewHistorico.Titulo</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewHistorico.Titulo</h2>
+            <hr />
+        </div>
+        <div class="col-lg-12">
+
+            @Html.Partial("_DetalleHistorico")
+        </div>
+
+        <div class="col-12 pull-right mt-4">
+            <button type="button" id="btnAtrasHistorico" class="btn btn-fonatel btn-goback" aria-label="Left Align">
+                <span aria-hidden="true"></span>@Etiquetas.BotonAtras
+            </button>
+        </div>
+
+    </div>
+
+</div>
+<script src="~/Scripts/Fonatel/JsHistorico.js"></script>

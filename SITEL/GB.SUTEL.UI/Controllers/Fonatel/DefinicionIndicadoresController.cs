@@ -23,8 +23,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         private readonly DefinicionIndicadorBL definicionBL;
 
+        private readonly IndicadorFonatelBL indicadorBl;
+
         public DefinicionIndicadoresController()
         {
+            indicadorBl = new IndicadorFonatelBL(EtiquetasViewDefinicionIndicadores.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
             definicionBL = new DefinicionIndicadorBL(EtiquetasViewDefinicionIndicadores.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
@@ -41,7 +44,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ActionResult Detalle(string id)
         {
             int temp;
-            int.TryParse(id, out temp);
+            int.TryParse(Utilidades.Desencriptar(id), out temp);
+            
             var model = definicionBL.ObtenerDatos(new DefinicionIndicador() { idDefinicion = temp }).objetoRespuesta.Single();
             return View(model);
         }
@@ -51,9 +55,19 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Clonar(string id)
         {
+
+            ViewBag.ListaIndicadores =
+                definicionBL.ObtenerDatos(new DefinicionIndicador()).objetoRespuesta.Where( x=>x. idDefinicion == 0)
+                            .Select(x => new SelectListItem()  {  Value = x.Indicador.id, Text = Utilidades.ConcatenadoCombos(x.Indicador.Codigo, x.Indicador.Nombre) }).ToList();
+                
+
             int temp;
-            int.TryParse(Utilidades.Desencriptar(id), out temp);
-            var model = definicionBL.ObtenerDatos(new DefinicionIndicador() { idIndicador = temp }).objetoRespuesta.Single();
+            int.TryParse( Utilidades.Desencriptar( id), out temp);
+            var model = definicionBL.ObtenerDatos(new DefinicionIndicador() { idDefinicion = temp }).objetoRespuesta.Single();
+            model.Indicador.Codigo = string.Empty;
+            model.Indicador.Nombre = string.Empty;
+            model.Indicador.id = string.Empty;
+            model.Indicador.TipoIndicadores.Nombre = string.Empty;
             return View(model);
         }
 
@@ -122,7 +136,28 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-        
+        [HttpPost]
+        public async Task<string> SeleccionarIndicador(Indicador indicador)
+        {
+            RespuestaConsulta<List<Indicador>> result = null;
+            await Task.Run(() =>
+            {
+
+                int temp = 0;
+                int.TryParse(Utilidades.Desencriptar(indicador.id), out temp);
+                indicador.idIndicador = temp;
+
+
+                result = indicadorBl.ObtenerDatos(indicador);
+            });
+
+            return JsonConvert.SerializeObject(result);
+
+
+        }
+
+
+
         #endregion
 
 

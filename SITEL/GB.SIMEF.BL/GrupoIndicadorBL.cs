@@ -111,7 +111,7 @@ namespace GB.SIMEF.BL
             try
             {
                 List<GrupoIndicadores> grupos = grupoIndicadorDAL.ObtenerDatos(new GrupoIndicadores());
-                GrupoIndicadores grupoExiste = grupos.FirstOrDefault(x => x.Nombre.ToUpper() == pGrupoIndicador.Nombre.ToUpper());
+                GrupoIndicadores grupoExiste = grupos.FirstOrDefault(x => x.Nombre.ToUpper().Equals(pGrupoIndicador.Nombre.ToUpper()));
 
                 if (grupoExiste != null)
                 {

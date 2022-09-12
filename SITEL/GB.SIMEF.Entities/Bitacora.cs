@@ -28,7 +28,13 @@ namespace GB.SIMEF.Entities
         public string Usuario { get; set; }
         public string Pantalla { get; set; }
         public int Accion { get; set; }
-       
+
+        public string ValorInicial { get; set; }
+
+        public string ValorAnterior { get; set; }
+
+        public string ValorActual { get; set; }
+
         public string Codigo { get; set; }
         [NotMapped]
         public string FechaDesde { get; set; }
@@ -36,5 +42,9 @@ namespace GB.SIMEF.Entities
         public string FechaHasta { get; set; }
         [NotMapped]
         public string AccionNombre { get; set; }
+
+        [NotMapped]
+        public string ValorDiferencial { get; set; }
+
     }
 }

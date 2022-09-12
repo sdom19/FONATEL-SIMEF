@@ -24,7 +24,7 @@ namespace GB.SIMEF.DAL
 
             IndicadorFonatelDAL indicadorDal = new IndicadorFonatelDAL();
 
-            var listaIndicador = indicadorDal.ObtenerDatos(new Indicador() { idIndicador = objDefinicion.idIndicador }).ToList();
+            var listaIndicador = indicadorDal.ObtenerDatos(new Indicador()).ToList();
            
 
             List<DefinicionIndicador> ListaDefiniciones = new List<DefinicionIndicador>();
@@ -36,20 +36,21 @@ namespace GB.SIMEF.DAL
                         new SqlParameter("@idIndicador", objDefinicion.idIndicador),
                         new SqlParameter("@idEstado", objDefinicion.idEstado)
                     ).ToList();
-
-
             }
-
             ListaDefiniciones = ListaDefiniciones.Select(x => new DefinicionIndicador()
             {
                 idDefinicion = x.idDefinicion,
-                Definicion=x.Definicion,
+                Definicion = x.Definicion,
                 idIndicador = x.idIndicador,
                 Fuente = x.Fuente,
                 Notas = x.Notas,
                 idEstado = x.idEstado,
-                Indicador = listaIndicador.Where(i => i.idIndicador == x.idIndicador).Single()
+                id=Utilidades.Encriptar(x.idDefinicion.ToString()),
+                Indicador = listaIndicador
+                .Where(i => i.id==Utilidades.Encriptar(x.idIndicador.ToString()) ).Single()
             }).ToList();
+
+
 
 
 

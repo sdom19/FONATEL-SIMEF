@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AtributosValidos" xml:space="preserve">
-    <value>Atributos válidos</value>
+    <value>Atributos Válidos</value>
   </data>
   <data name="Clonar" xml:space="preserve">
     <value>Clonar Reglas de Validación</value>
@@ -136,7 +136,7 @@
     <value>Descripción</value>
   </data>
   <data name="LabelIndicador" xml:space="preserve">
-    <value>Indicador</value>
+    <value>Indicador a Aplicar</value>
   </data>
   <data name="LabelNombre" xml:space="preserve">
     <value>Nombre</value>
@@ -148,6 +148,6 @@
     <value>Tipo de Regla</value>
   </data>
   <data name="Variable" xml:space="preserve">
-    <value>Variable dato</value>
+    <value>Variable Dato</value>
   </data>
 </root>

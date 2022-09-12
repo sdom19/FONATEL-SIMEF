@@ -128,7 +128,7 @@
                 JsCategoria.Variables.ListadoCategoriaDetalle = [];
             },
             "CerrarFormulario": function () {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Salir del Formulario?", jsMensajes.Variables.actionType.cancelar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea salir del Formulario?", jsMensajes.Variables.actionType.cancelar)
                     .set('onok', function (closeEvent) {
                         
                     }); 
@@ -314,7 +314,7 @@
                             $(JsCategoria.Controles.txtCodigoDetalle).val(JsCategoria.Variables.ListadoCategoriaDetalle[0].Codigo);
                             $(JsCategoria.Controles.txtEtiquetaDetalle).val(JsCategoria.Variables.ListadoCategoriaDetalle[0].Etiqueta);
                             $(JsCategoria.Controles.txtCodigoDetalle).prop("disabled", true)
-
+                            $(JsCategoria.Controles.btnGuardarDetalleCategoria).prop("disabled", false);
                         }
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -337,7 +337,7 @@
                 DetalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val().trim();
                 execAjaxCall("/CategoriasDesagregacion/InsertarCategoriasDetalle", "POST", DetalleCategoria)
                     .then((obj) => {
-                        jsMensajes.Metodos.OkAlertModal("El detalle ha sido agregado")
+                        jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
                             .set('onok', function (closeEvent) {
                                 location.reload();
                             });
@@ -537,7 +537,7 @@
                 detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val().trim();
                 execAjaxCall("/CategoriasDesagregacion/ModificaCategoriasDetalle", "POST", detalleCategoria)
                     .then((obj) => {
-                        jsMensajes.Metodos.OkAlertModal("El detalle ha sido modificado")
+                        jsMensajes.Metodos.OkAlertModal("El Detalle ha sido modificado")
                             .set('onok', function (closeEvent) {
                                 location.reload();
                             });
@@ -709,6 +709,7 @@ $(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) 
 
 $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, function (e) {
     e.preventDefault();
+
     if (!JsCategoria.Variables.ModoEditarAtributo) {
         if (JsCategoria.Metodos.ValidarFormularioDetalle()) {
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
@@ -762,6 +763,7 @@ $(document).on("click", JsCategoria.Controles.btnEliminarDetalle, function (e) {
 });
 $(document).on("click", JsCategoria.Controles.btnEditarDetalle, function (e) {
     JsCategoria.Variables.ModoEditarAtributo = true;
+
     let id = $(this).val();
     JsCategoria.Consultas.ConsultaCategoriaDetalle(id);
 });
@@ -792,11 +794,11 @@ $(function () {
             $(JsCategoria.Controles.ddlTipoDetalle).prop("disabled", true);
             $(JsCategoria.Controles.ddlTipoCategoria).prop("disabled", true);
 
-            $(JsCategoria.Controles.txtCantidadDetalleCategoria).prop("disabled", true);
-            $(JsCategoria.Controles.txtRangoMaximaCategoria).prop("disabled", true);
-            $(JsCategoria.Controles.txtRangoMinimaCategoria).prop("disabled", true);
-            $(JsCategoria.Controles.txtFechaMaximaCategoria).prop("disabled", true);
-            $(JsCategoria.Controles.txtFechaMinimaCategoria).prop("disabled", true);
+            //$(JsCategoria.Controles.txtCantidadDetalleCategoria).prop("disabled", true);
+            //$(JsCategoria.Controles.txtRangoMaximaCategoria).prop("disabled", true);
+            //$(JsCategoria.Controles.txtRangoMinimaCategoria).prop("disabled", true);
+            //$(JsCategoria.Controles.txtFechaMaximaCategoria).prop("disabled", true);
+            //$(JsCategoria.Controles.txtFechaMinimaCategoria).prop("disabled", true);
 
         }
         var selected = $(JsCategoria.Controles.ddlTipoDetalle).val();

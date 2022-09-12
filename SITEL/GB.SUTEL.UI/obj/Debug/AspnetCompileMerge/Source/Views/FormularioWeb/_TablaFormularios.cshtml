@@ -1,58 +1,33 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 <div class="table-responsive table-wrapper-fonatel">
 
-    <table id="TablaFormulario" class="dataTable datatable_simef  table-bordered table-condensed table-hover">
+    <table id="TablaFormulario" class="dataTable datatable_simef table-bordered table-condensed table-hover">
         <thead>
             <tr>
-                <th>Código</th>
-                <th>Nombre</th>
-                <th>Indicador</th>
-                <th>Frecuencia de Envío</th>
-                <th>Estado</th>
-                <th>Acciones</th>
+                <th style="max-width:80px">@EtiquetasViewFormulario.Codigo</th>
+                <th style="max-width:170px">@EtiquetasViewFormulario.Nombre</th>
+                <th style="max-width:250px">@EtiquetasViewFormulario.Indicador</th>
+                <th style="max-width:150px">@EtiquetasViewFormulario.FrecuenciaEnvio</th>
+                <th style="max-width:60px">@EtiquetasViewFormulario.Estado</th>
+                <th class="noExport">@EtiquetasViewFormulario.Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>From1-1</th>
-                <td>Estado Programa 1</td>
-                <td>1P1-1</td>
-                <td>Mensual</td>
-                <td>Activado</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" value="5" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn-icon-base btn-clone"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn-icon-base btn-power-on"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
-            <tr>
-                <th>From1-2</th>
-                <td>Estado Programa 2</td>
-                <td>1P1-2</td>
-                <td>Quinsenal</td>
-                <td>Desactivado</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" value="5" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn-icon-base btn-clone"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn-icon-base btn-power-off"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
-            <tr>
-                <th>From1-1</th>
-                <td>Estado Programa 1</td>
-                <td>1P1-1</td>
-                <td>Mensual</td>
-                <td>Activado</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" value="5" title="Editar" class="btn-icon-base btn-edit"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Clonar" class="btn-icon-base btn-clone"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" class="btn-icon-base btn-power-on"></button>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                </td>
-            </tr>
         </tbody>
+
+
+        <tfoot>
+            <tr>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th></th>
+            </tr>
+
+        </tfoot>
 
     </table>
 

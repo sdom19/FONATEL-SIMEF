@@ -129,6 +129,9 @@
   <data name="Editar" xml:space="preserve">
     <value>Editar Definición</value>
   </data>
+  <data name="Indicador" xml:space="preserve">
+    <value>Indicador</value>
+  </data>
   <data name="LabelCodigo" xml:space="preserve">
     <value>Código</value>
   </data>

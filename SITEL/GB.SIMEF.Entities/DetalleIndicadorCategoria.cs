@@ -12,23 +12,45 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("DetalleIndicadorCategoria")]
     public partial class DetalleIndicadorCategoria
     {
-      
-       
         public DetalleIndicadorCategoria()
         {
-            this.DetalleRegistroIndicadorCategoria = new HashSet<DetalleRegistroIndicadorCategoria>();
+            
         }
+
         [Key]
         public int idDetalleIndicador { get; set; }
         public int idIndicador { get; set; }
+        public int idCategoria { get; set; }
+        public int idCategoriaDetalle { get; set; }
         public bool Estado { get; set; }
-    
-        public virtual DetalleRelacionCategoria DetalleRelacionCategoria { get; set; }
 
-        public virtual ICollection<DetalleRegistroIndicadorCategoria> DetalleRegistroIndicadorCategoria { get; set; }
-        public virtual Indicador Indicador { get; set; }
+        [NotMapped]
+        public string id { get; set; }
+
+        [NotMapped]
+        public string idIndicadorString { get; set; }
+
+        [NotMapped]
+        public string idCategoriaString { get; set; }
+
+        [NotMapped]
+        public string idCategoriaDetalleString { get; set; }
+
+        [NotMapped]
+        public string Etiquetas { get; set; }
+
+        [NotMapped]
+        public string Codigo { get; set; }
+
+        [NotMapped]
+        public string NombreCategoria { get; set; }
+
+        [NotMapped]
+        public bool DetallesAgrupados { get; set; }
     }
 }

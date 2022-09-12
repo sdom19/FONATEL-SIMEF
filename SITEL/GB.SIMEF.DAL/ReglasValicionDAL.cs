@@ -56,6 +56,25 @@ namespace GB.SIMEF.DAL
             }
             return ListaCategoriaDetalle;
         }
+        /// <summary>
+        /// Valida si existen Reglas de Validación en indicadores
+        /// Michael Hernández Cordero
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public List<string> ValidarDatos(ReglaValidacion objeto)
+        {
+            List<string> listaValicion = new List<string>();
+            using (db = new SIMEFContext())
+            {
+                listaValicion = db.Database.SqlQuery<string>
+                    ("exec spValidarRegla @idRegla",
+                       new SqlParameter("@idRegla", objeto.idRegla)
+                    ).ToList();
+            }
+
+            return listaValicion;
+        }
 
 
         #endregion

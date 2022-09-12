@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
-using OfficeOpenXml;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
@@ -20,9 +16,11 @@ namespace GB.SIMEF.BL
 
         private RespuestaConsulta<List<ReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
-
-        public ReglaValidacionBL()
+        string user;
+        public ReglaValidacionBL(string modulo, string  user)
         {
+            this.modulo = modulo;
+            this.user = user;
             clsDatos = new ReglasValicionDAL();
             ResultadoConsulta = new RespuestaConsulta<List<ReglaValidacion>>();
         }
@@ -77,7 +75,27 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<ReglaValidacion>> ValidarDatos(ReglaValidacion objeto)
+        public RespuestaConsulta<List<string>> ValidarDatos(ReglaValidacion objeto)
+        {
+            RespuestaConsulta<List<string>> resultado = new RespuestaConsulta<List<string>>(); 
+            try
+            {
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ValidarDatos(objeto);
+                resultado.objetoRespuesta = resul;
+                resultado.CantidadRegistros = resul.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+
+            }
+            return resultado;
+        }
+
+        RespuestaConsulta<List<ReglaValidacion>> IMetodos<ReglaValidacion>.ValidarDatos(ReglaValidacion objeto)
         {
             throw new NotImplementedException();
         }

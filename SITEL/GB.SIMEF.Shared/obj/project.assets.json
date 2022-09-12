@@ -179,23 +179,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jose.molina\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Administrador\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Desarrollo\\Sutel\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.Shared\\GB.SIMEF.Shared.csproj",
+      "projectUniqueName": "C:\\Users\\Administrador\\Source\\Repos\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.Shared\\GB.SIMEF.Shared.csproj",
       "projectName": "GB.SIMEF.Shared",
-      "projectPath": "D:\\Desarrollo\\Sutel\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.Shared\\GB.SIMEF.Shared.csproj",
-      "packagesPath": "C:\\Users\\jose.molina\\.nuget\\packages\\",
-      "outputPath": "D:\\Desarrollo\\Sutel\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.Shared\\obj\\",
+      "projectPath": "C:\\Users\\Administrador\\Source\\Repos\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.Shared\\GB.SIMEF.Shared.csproj",
+      "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Administrador\\Source\\Repos\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.Shared\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\jose.molina\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -238,7 +239,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.411\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+@* Implementar la section de _Layout *@
+@section stylesheets {
+
+    @* Declararle a las subvistas hijas la misma section para que la implementen (false: es opcional) *@
+    @RenderSection("stylesheets", false)
+}
+
+@RenderBody()
+
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL")
+
+    @RenderSection("scripts", false)
+}
+
+<div id="loading" class="loading">
+    <div class="loadingcontent">
+        <div class="spinner">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <strong>Cargando...</strong>
+        </div>
+    </div>
+</div>
+

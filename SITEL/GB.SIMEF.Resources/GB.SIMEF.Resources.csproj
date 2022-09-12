@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JsonDiffPatchDotNet, Version=2.3.0.0, Culture=neutral, PublicKeyToken=a407b9994a6d66d5, processorArchitecture=MSIL">
+      <HintPath>..\packages\JsonDiffPatch.Net.2.3.0\lib\net45\JsonDiffPatchDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -71,6 +77,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewFuentesRegistro.resx</DependentUpon>
     </Compile>
+    <Compile Include="EtiquetasViewHistorico.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewHistorico.resx</DependentUpon>
+    </Compile>
     <Compile Include="EtiquetasViewIndicadorFonatel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -80,6 +91,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewPublicaciones.resx</DependentUpon>
+    </Compile>
+    <Compile Include="EtiquetasViewRegistroIndicadorFonatel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewRegistroIndicadorFonatel.resx</DependentUpon>
     </Compile>
     <Compile Include="EtiquetasViewReglasValidacion.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -96,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewSolicitudes.resx</DependentUpon>
     </Compile>
+    <Compile Include="JsonIgnoreResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EtiquetasViewDefinicionIndicadores.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -140,6 +157,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewFuentesRegistro.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewHistorico.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewHistorico.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="EtiquetasViewIndicadorFonatel.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewIndicadorFonatel.Designer.cs</LastGenOutput>
@@ -151,6 +172,10 @@
     <EmbeddedResource Include="EtiquetasViewPublicaciones.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewPublicaciones.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewRegistroIndicadorFonatel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewRegistroIndicadorFonatel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="EtiquetasViewReglasValidacion.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -164,6 +189,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewSolicitudes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

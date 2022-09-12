@@ -1,14 +1,11 @@
-﻿using System;
+﻿using GB.SIMEF.DAL;
+using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ClosedXML.Excel;
-using GB.SIMEF.DAL;
-using GB.SIMEF.Entities;
-using GB.SIMEF.Resources;
-using Newtonsoft.Json;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
@@ -27,7 +24,7 @@ namespace GB.SIMEF.BL
             this.ResultadoConsulta = new RespuestaConsulta<List<Solicitud>>();
         }
 
-   
+
 
         public RespuestaConsulta<List<Solicitud>> ObtenerDatos(Solicitud objeto)
         {
@@ -57,9 +54,9 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-       
 
-        public RespuestaConsulta<List<string>> ValidarExistencia(Solicitud objeto)
+
+        public RespuestaConsulta<List<string>> ValidarExistenciaSolicitudEliminar(Solicitud objeto)
         {
             RespuestaConsulta<List<string>> listaExistencias = new RespuestaConsulta<List<string>>();
             try
@@ -75,7 +72,7 @@ namespace GB.SIMEF.BL
                 }
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
-                var resul = clsDatos.ObtenerDatos(objeto).Single();
+                listaExistencias.objetoRespuesta = clsDatos.ValidarSolicitud(objeto);
 
             }
             catch (Exception ex)
@@ -90,7 +87,7 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                
+
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
                             ResultadoConsulta.Clase, objeto.Codigo);
@@ -98,9 +95,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if ( ex.Message == Errores.NoRegistrosActualizar || 
-                    ex.Message == Errores.NombreRegistrado || ex.Message== Errores.CantidadRegistrosLimite 
-                    || ex.Message==Errores.ValorMinimo || ex.Message==Errores.ValorFecha)
+                if (ex.Message == Errores.NoRegistrosActualizar ||
+                    ex.Message == Errores.NombreRegistrado || ex.Message == Errores.CantidadRegistrosLimite
+                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }
@@ -128,16 +125,16 @@ namespace GB.SIMEF.BL
                         objeto.idSolicitud = temp;
                     }
                 }
-    
+
 
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                        ResultadoConsulta.Usuario,
-                       ResultadoConsulta.Clase,objeto.Codigo);
+                       ResultadoConsulta.Clase, objeto.Codigo);
 
             }
             catch (Exception ex)
-            { 
+            {
                 ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -148,7 +145,7 @@ namespace GB.SIMEF.BL
         {
             try
             {
-              
+
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
                             ResultadoConsulta.Clase, objeto.Codigo);
@@ -184,16 +181,16 @@ namespace GB.SIMEF.BL
         {
             try
             {
-               
 
-                    clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                            ResultadoConsulta.Usuario,
-                                ResultadoConsulta.Clase, objeto.Codigo);
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado 
-                    || ex.Message== Errores.ValorMinimo || ex.Message==Errores.ValorFecha)
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado
+                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }

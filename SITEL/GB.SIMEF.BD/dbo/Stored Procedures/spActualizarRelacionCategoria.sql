@@ -1,4 +1,4 @@
-﻿create procedure [dbo].[spActualizarRelacionCategoria]
+﻿CREATE procedure [dbo].[spActualizarRelacionCategoria]
 	   @idRelacionCategoria int 
       ,@Codigo varchar(30)
       ,@Nombre varchar(300)
@@ -14,13 +14,13 @@ BEGIN TRY
 	BEGIN TRAN;
 		MERGE dbo.RelacionCategoria AS TARGET
 			USING (VALUES( @idRelacionCategoria 
-						  ,@Codigo
-						  ,@Nombre 
+						  ,upper(@Codigo)
+						  ,upper(@Nombre) 
 						  ,@CantidadCategoria
 						  ,@idCategoria 
 					      ,@idCategoriaValor   
-						  ,@UsuarioCreacion
-						  ,@UsuarioModificacion
+						  ,upper(@UsuarioCreacion)
+						  ,upper(@UsuarioModificacion)
 						  ,@idEstado   ))AS SOURCE (idRelacionCategoria 
 													,Codigo
 													,Nombre 
@@ -61,6 +61,22 @@ BEGIN TRY
 											UsuarioModificacion=Source.UsuarioModificacion,
 											idEstado=Source.idEstado;
 	COMMIT TRAN
+	SELECT [idRelacionCategoria]
+      ,[Codigo]
+      ,[Nombre]
+      ,[CantidadCategoria]
+      ,[idCategoria]
+      ,[idCategoriaValor]
+      ,[FechaCreacion]
+      ,[UsuarioCreacion]
+      ,[FechaModificacion]
+      ,[UsuarioModificacion]
+      ,[idEstado]
+  FROM [dbo].[RelacionCategoria]
+where idEstado!=4
+
+
+
 END TRY
 BEGIN CATCH
 	IF @@TRANCOUNT > 0

@@ -1,49 +1,31 @@
-﻿
+﻿@using GB.SIMEF.Resources;
 
 <div class="table-responsive table-wrapper-fonatel" style="min-width:300px">
     <table id="TablaPublicar" class="dataTable datatable_simef  table-bordered table-condensed table-hover">
         <thead>
             <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Grupo</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Publicado</th>
-                <th scope="col">Acciones</th>
+                <th>@EtiquetasViewPublicaciones.Codigo</th>
+                <th>@EtiquetasViewPublicaciones.Nombre</th>
+                <th>@EtiquetasViewPublicaciones.Grupo</th>
+                <th>@EtiquetasViewPublicaciones.Tipo</th>
+                <th>@EtiquetasViewPublicaciones.Publicado</th>
+                <th class="noExport">@Etiquetas.Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">IP1Tor</th>
-                <td>Torres según estado</td>
-                <td>Programa 1</td>
-                <td>Gestión</td>
-                <td>SI</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar Publicación" class="btn-icon-base btn-power-on"></button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">IP1CPSP</th>
-                <td>CPSP Conectados</td>
-                <td>Programa 2</td>
-                <td>Cumplimiento</td>
-                <td>NO</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Publicar" class="btn-icon-base btn-power-off"></button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">IP2Hog</th>
-                <td>Hogares Beneficiarios</td>
-                <td>Programa 2</td>
-                <td>Beneficiario</td>
-                <td>SI</td>
-                <td>
-                    <button type="button" data-toggle="tooltip" data-placement="top" title="Desactivar Publicación" class="btn-icon-base btn-power-on"></button>
-                </td>
-            </tr>
         </tbody>
+
+        <tfoot>
+            <tr>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th class="select2-wrapper"></th>
+                <th></th>
+            </tr>
+
+        </tfoot>
 
     </table>
 </div>

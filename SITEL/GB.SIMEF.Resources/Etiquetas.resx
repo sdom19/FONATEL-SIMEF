@@ -159,6 +159,9 @@
   <data name="BotonValidar" xml:space="preserve">
     <value>Validar</value>
   </data>
+  <data name="BotonVisualizar" xml:space="preserve">
+    <value>Visualizar</value>
+  </data>
   <data name="CampoRequerido" xml:space="preserve">
     <value>Campo requerido</value>
   </data>
@@ -173,6 +176,15 @@
   </data>
   <data name="Estado" xml:space="preserve">
     <value>Estado</value>
+  </data>
+  <data name="Formulario" xml:space="preserve">
+    <value>Formulario Web</value>
+  </data>
+  <data name="Frecuencia" xml:space="preserve">
+    <value>FrecuenciaEnvio</value>
+  </data>
+  <data name="Indicador" xml:space="preserve">
+    <value>Indicador</value>
   </data>
   <data name="LabelInicio" xml:space="preserve">
     <value>Inicio</value>

@@ -1,54 +1,40 @@
-﻿
+﻿@using GB.SIMEF.Resources;
 
-<form>
+<form id="formCrearCategoria">
     <div class="row">
 
-        <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
-            <div class="form-group row">
-                <label for="ddlCategoriaIndicador" class="col-sm-12  col-form-label ">Categoría</label>
-                <div class="col-sm-12">
-                    <div class="select2-wrapper">
-                        <select class="listasDesplegables" aria-label="Default select example" id="ddlCategoriaIndicador">
-                            <option></option>
-                            <option value="1">Provincia</option>
-                            <option value="2">Cantón</option>
-
-                        </select>
-                    </div>
-                    <small id="ddlCategoriaHelp" class="form-text form-text-danger-fonatel">La Variable es Requerida</small>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group center">
+                <label for="ddlCategoriaIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearCategoria_LabelCategoriaIndicador</label>
+                <div class="select2-wrapper">
+                    @*@Html.DropDownListFor(model => model.idCategoria, Enumerable.Empty<SelectListItem>(), "Seleccione", new { @class = "listasDesplegables", id = "ddlCategoriaIndicador" })*@
+                    <select class="listasDesplegables" aria-label="Categorías de Desagregación" id="ddlCategoriaIndicador">
+                        <option></option>
+                    </select>
                 </div>
+                <small id="ddlCategoríaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
 
-        <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
-                <div class="form-group row">
-                    <label for="ddlCategoriaDetalleIndicador" class="col-sm-12  col-form-label ">Detalle</label>              
-                    <div class="col-sm-12">
-                        <div class="select2-wrapper">
-                            <select class="listasDesplegables" multiple aria-label="Default select example" id="ddlCategoriaDetalleIndicador">
-                                <option></option>
-                                <option value="1">San jose</option>
-                                <option value="2">Limón</option>
-                                <option value="2">Cartago</option>
-
-                                <option value="1">Guanacaste</option>
-                                <option value="2">Heredía</option>
-                                <option value="2">Puntarenas</option>
-                            </select>
-
-                        </div>
-                        <small id="ddlCategoriaDetalleHelp" class="form-text form-text-danger-fonatel">El Detalle es Requerido</small>
-                    </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group center">
+                <label for="ddlCategoriaDetalleIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearCategoria_LabelDetalleIndicador</label>
+                <div class="select2-wrapper">
+                    @*@Html.DropDownListFor(model => model.idDetalleIndicador, Enumerable.Empty<SelectListItem>(), "Seleccione", new { @class = "listasDesplegables multiple-Select", id = "ddlCategoriaDetalleIndicador", multiple = "multiple" })*@
+                    <select class="listasDesplegables multiple-Select" multiple aria-label="Detalles de Categoríes de Desagregación" id="ddlCategoriaDetalleIndicador">
+                        @*<option></option>*@
+                    </select>
                 </div>
+                <small id="ddlCategoriaDetalleIndicadorHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
+            </div>
         </div>
-
 
     </div>
     <div class="row mt-5">
         <div class="col-lg-12 text-center">
 
-            <button type="submit" id="btnGuardarCategoria" class="btn btn-fonatel btn-success-fonatel">Guardar</button>
-            <button type="submit" class="btn btn-fonatel btn-error-fonatel">Cancelar</button>
+            <button type="button" id="btnGuardarCategoria" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="button" id="btnCancelarIndicador" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
 
         </div>
     </div>

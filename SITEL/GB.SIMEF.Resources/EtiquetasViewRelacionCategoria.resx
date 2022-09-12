@@ -121,21 +121,42 @@
     <value>Acciones</value>
   </data>
   <data name="Cantidad" xml:space="preserve">
-    <value>Cantidad</value>
+    <value>Cantidad de atributos</value>
+  </data>
+  <data name="CategoriaAtributo" xml:space="preserve">
+    <value>Categoría Atributo</value>
   </data>
   <data name="Codigo" xml:space="preserve">
-    <value>Codigó</value>
+    <value>Código</value>
+  </data>
+  <data name="CrearRelacion" xml:space="preserve">
+    <value>Crear Relaciones entre Categorías</value>
   </data>
   <data name="Detalle" xml:space="preserve">
-    <value>Detalle</value>
+    <value>Agregar atributos</value>
+  </data>
+  <data name="DetalleAtributo" xml:space="preserve">
+    <value>Detalle Relación Atributo</value>
+  </data>
+  <data name="DetalleRelacion" xml:space="preserve">
+    <value>Detalle de Relaciones entre Categorías</value>
+  </data>
+  <data name="DetalleRelacionCategoria" xml:space="preserve">
+    <value>Detalles de Relaciones entre Categorías</value>
+  </data>
+  <data name="EditarRelacion" xml:space="preserve">
+    <value>Editar Relaciones entre Categorías</value>
   </data>
   <data name="Estado" xml:space="preserve">
     <value>Estado</value>
   </data>
   <data name="Nombre" xml:space="preserve">
-    <value>Nombre</value>
+    <value>Nombre de Relación</value>
+  </data>
+  <data name="NombreRelacion" xml:space="preserve">
+    <value>Nombre de Relación</value>
   </data>
   <data name="RelacionCategoria" xml:space="preserve">
-    <value>Relación entre Categorías</value>
+    <value>Relaciones entre Categorías</value>
   </data>
 </root>

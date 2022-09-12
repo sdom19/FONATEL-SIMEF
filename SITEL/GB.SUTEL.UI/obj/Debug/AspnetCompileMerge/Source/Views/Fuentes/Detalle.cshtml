@@ -1,7 +1,12 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 @{
     ViewBag.Title = "Fuentes Destinatarios";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/Fuentes")
 }
 
 <div class="container body-content">
@@ -9,7 +14,7 @@
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
                 <li class="breadcrumb-item"><a href="/Fuentes">Lista de Fuentes</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detalle de Destinatarios</li>
             </ol>
@@ -25,7 +30,7 @@
             @Html.Partial("_CrearDetalle")
         </div>
         <div class="col-lg-12">
-       
+
             @Html.Partial("_TablaDetalleFuentes")
         </div>
     </div>
