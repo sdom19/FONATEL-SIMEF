@@ -50,7 +50,8 @@
         "ddlAtributosValidosRegla": "#ddlAtributosValidosRegla",
         "ddlCategoríaActualizableRegla": "#ddlCategoríaActualizableRegla",
         "ddlIndicadorSalidaRegla": "#ddlIndicadorSalidaRegla",
-
+        "formularioReglasInput": "#formularioReglas input, textarea",
+        "formularioReglasSelect": "#formularioReglas select",
         "chkAtributosValidosRegla": "#chkAtributosValidosRegla"
 
     },
@@ -260,6 +261,29 @@
             return validarTipo;
         },
 
+
+        "ValidarOpcionSiguiente": function () {
+            let codigo = $(JsReglas.Controles.txtCodigo).val().trim();
+            let nombre = $(JsReglas.Controles.txtNombre).val().trim();
+            let Indicador = $(JsReglas.Controles.ddlIndicadorRegla).val();
+            let Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val().trim();
+            let validar = false;
+
+            if (codigo.length == 0) {
+                validar = true;
+            }
+            if (nombre.length == 0) {
+                validar = true;
+            }
+            if (Indicador.length == 0) {
+                validar = true;
+            }
+            if (Descripcion.length == 0) {
+                validar = true;
+            }
+            $(JsReglas.Controles.btnSiguienteRegla).prop("disabled", validar);
+        }
+
         
     },
 
@@ -346,6 +370,14 @@ $(document).on("click", JsReglas.Controles.btnCancelar, function (e) {
         });
 });
 
+$(document).on("keyup", JsReglas.Controles.formularioReglasInput, function()
+{
+    JsReglas.Metodos.ValidarOpcionSiguiente();
+});
+
+$(document).on("change", JsReglas.Controles.formularioReglasSelect, function () {
+    JsReglas.Metodos.ValidarOpcionSiguiente();
+});
 
 $(document).on("click", JsReglas.Controles.btnEditarRegla, function () {
     let id = $(this).val();
@@ -380,13 +412,29 @@ $(document).on("click", JsReglas.Controles.btnEliminaTipoRegla, function (e) {
 
 $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("Se ha configurado una regla a la Variable")
-                .set('onok', function (closeEvent) {
-                    $("a[href='#step-2']").trigger('click');
-                });
-        });
+
+
+    if (JsReglas.Metodos.ValidarControles()) {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                jsMensajes.Metodos.OkAlertModal("Se ha configurado una regla a la Variable")
+                    .set('onok', function (closeEvent) {
+                        window.location = "/ReglasValidacion/index";
+                    });
+            });
+
+    } else {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                jsMensajes.Metodos.OkAlertModal("Se ha configurado una regla a la Variable")
+                    .set('onok', function (closeEvent) {
+                        window.location = "/ReglasValidacion/index";
+                    });
+            });
+    }
+
+
+   
 });
 
 

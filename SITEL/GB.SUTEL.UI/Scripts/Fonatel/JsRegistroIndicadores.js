@@ -7,14 +7,15 @@
         "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
         "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
 
-        "btnDescargarPlantillaRegistro": "#btnDescargarPlantillaRegistro",
-        "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
+        "btnDescargarPlantillaRegistro": "div.tab-pane.active #btnDescargarPlantillaRegistro",
+        "btnCargarPlantillaRegistro": "div.tab-pane.active #btnCargarPlantillaRegistro",
+        "inputFileCargarPlantilla": "#inputFileCargarPlantilla",
 
         "fileCargaRegistro": "#fileCargaRegistro",
         "btnCancelar": "#btnCancelarRegistroIndicador",
-        "btnGuardar": "#btnGuardarRegistroIndicador",
+        "btnGuardar": "div.tab-pane.active #btnGuardarRegistroIndicador",
         "btnGuardarRegistroIndicadorEdicion": "#btnGuardarRegistroIndicadorEdicion",
-        "btnValidar": "#btnValidarRegistroIndicador",
+        "btnValidar": "div.tab-pane.active #btnValidarRegistroIndicador",
         "IndicadorCorrecto": "#Indicador1",
         "IndicadorErroneo": "#Indicador2",
         "btnCarga": "#btnCargaRegistroIndicador",
@@ -154,6 +155,12 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
 
 
     if (event.keyCode == 13) {
+        $(jsRegistroIndicadorFonatel.Controles.tablaIndicador).removeClass("hidden");
+        $(jsRegistroIndicadorFonatel.Controles.btnValidar).prop("disabled", false);
+        $(jsRegistroIndicadorFonatel.Controles.btnGuardar).prop("disabled", false);
+        EliminarDatasource(jsRegistroIndicadorFonatel.Controles.tablaIndicador);
+
+        CargarDatasourceV2(jsRegistroIndicadorFonatel.Controles.tablaIndicador);
         var table = $(jsRegistroIndicadorFonatel.Controles.tablaIndicador).DataTable();
         table.clear().draw();
 
@@ -201,6 +208,7 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
 
             eventNextPrevDatatable();
         }
+        
     }
 });
 
@@ -244,10 +252,6 @@ function setSelect2() {
 
 
     $(document).ready(function () {
-
-
-        CargarDatasourceV2(jsRegistroIndicadorFonatel.Controles.tablaIndicador);
-
         $(jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicador).prop("disabled", true);
         $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", true);
         $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", true);

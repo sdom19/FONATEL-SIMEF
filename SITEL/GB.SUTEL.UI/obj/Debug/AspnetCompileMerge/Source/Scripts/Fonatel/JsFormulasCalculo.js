@@ -346,7 +346,7 @@ $(document).on("click", JsFormulasCalculo.Controles.btnEliminar_modalFechaFormul
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("El Argumento de Fecha ha sido eliminado")
                 .set('onok', function (closeEvent) {
-
+                    $(JsFormulasCalculo.Controles.modalFechaFormulaCalculo).modal('hide');
                 });
         });
 });
