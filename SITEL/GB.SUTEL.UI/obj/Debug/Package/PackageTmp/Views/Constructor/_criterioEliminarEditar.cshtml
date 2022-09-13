@@ -1,0 +1,39 @@
+﻿@model GB.SUTEL.Entities.ConstructorCriterio
+
+<div class="modal fade" id="modalCriterioEliminar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">@GB.SUTEL.Resources.EtiquetasMantenimiento.ttlEliminar</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+
+
+                    <div class="form-group">
+                        @Html.Label("¿Desea eliminar el criterio del constructor ")
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.IdCriterio, new { @id = "IDCriterioEliminar" })
+                            @Html.HiddenFor(model => model.IdConstructor, new { @id = "IDConstructor" })
+                            @Html.HiddenFor(model => model.Ayuda, new { @id = "txtAyuda" })
+
+                        </div>
+                        @Html.Label(" ?")
+                    </div>
+
+                    <div class="alert alert-danger" hidden role="alert" id="divMensajeErrorCriterioEliminar">
+                        <strong>Error!</strong>
+                        <div id="idMensajeErrorCuerpoCriterioEliminar"></div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" onclick="funEliminarCriterioEditar();">Si</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

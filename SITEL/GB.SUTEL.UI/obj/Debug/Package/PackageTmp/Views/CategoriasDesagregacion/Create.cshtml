@@ -1,0 +1,43 @@
+﻿@using GB.SIMEF.Resources;
+
+@model GB.SIMEF.Entities.CategoriasDesagregacion
+
+@{
+    ViewBag.Title = ViewBag.titulo;
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+    @*@Scripts.Render("~/bundles/FONATEL/CategoriaDesagregacion")*@
+}
+
+<div class="container body-content">
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action( "index","Home")">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active"><a href="@Url.Action( "index","CategoriasDesagregacion")">Categorías de Desagregación</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewBag.titulo</li>
+            </ol>
+        </nav>
+    </div>
+    <div  class="row">
+
+        <div class="col-lg-12">
+            <h2 class="page-title-fonatel text-center">@ViewBag.titulo</h2>
+            <hr />
+
+        </div>
+
+        <div class="col-lg-12">
+            <form id="FormularioCategorias">
+
+                @Html.Partial("_CrearCategoria", Model)
+            </form>
+               
+            
+        </div>
+    </div>
+
+</div>
+<script src="~/Scripts/Fonatel/JsCategoria.js"></script>

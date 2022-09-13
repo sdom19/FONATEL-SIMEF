@@ -1,0 +1,46 @@
+﻿@model GB.SUTEL.UI.Models.DetalleAgrupacionViewModels
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Mantenimientos/DetalleAgrupacion.js")"></script>
+}
+
+<form id="frmFormulario" enctype="multipart/form-data">
+
+    <div class="modal fade" id="modalCargarExcel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Cargar Plantilla</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="d-flex justify-content-center align-items-center container ">
+
+                        <div class="form-group">
+                            <input class="col-sm-5 form-control" type="text" id="txtPlantilla" placeholder="" disabled>
+                            <input type="file" name="selectedFile" id="selectedFile" style="display: none;" multiple=false accept=".xlsx" />
+                            <!-- Indicates a dangerous or potentially negative action -->
+                            &nbsp;
+                            <input type="button" id="btnBuscarPlantilla" class="btn btn-primary" value="Buscar" />
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="alert alert-success hidden" role="alert" id="divMensajePlantilla">
+                        <p id="MensajeExitoPlantilla"></p>
+                    </div>
+                    <div class="alert alert-danger hidden" role="alert" id="divMensajeErrorPlantilla">
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--<input type="submit" value="Crear" class="btn btn-success" alt="Crear" title="Crear" />-->
+                    <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Subir plantilla" id="buttonSubir" disabled>Cargar plantilla</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" title="Cancelar">Cancelar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</form>

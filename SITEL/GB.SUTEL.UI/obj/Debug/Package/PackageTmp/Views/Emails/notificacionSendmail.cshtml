@@ -1,0 +1,96 @@
+@model Tuple<List<string>,GB.SUTEL.UI.Models.MailingModel,List<string>>
+
+    <!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title></title>
+    </head>
+    <body>
+
+        <img src="@Model.Item2.ImagenSutel" style="max-height: 55px;" />
+        <table style="border-collapse:collapse; background-color:#eeeeee; word-wrap:break-word; width:100%!important;line-height:100%!important ">
+            <tbody>
+                <tr>
+                    <td style="font-family:Helvetica,Arial,sans-serif; font-size:12px; color:#000; padding:25px 35px 25px 35px;">
+                        <table style="border-collapse:collapse; width:100%;background-color:#fff;">
+                            <tr>
+                                <td style="font-family:Helvetica,Arial,sans-serif;   font-size:15px;padding:
+                                15px 5px 5px 15px; color:#0072c6;  text-decoration:none; border:0; text-align:left">
+                                    <b>Sistema de Indicadores de Telecomunicaciones (SITEL)</b>
+                                </td>
+                            </tr>
+                           
+                                @if (Model.Item1 != null && Model.Item1.Count != 0)
+                                    {
+                                    <tr>
+                                        <td style="text-align:left;padding-top:25px;padding-left:15px;">
+                                           <p>Estimada SUTEL: </p> 
+                                            @if (Model.Item1.Count > 1)
+                                            {
+                                                <p> Se le informa que se ha notificado exitosamente a los siguientes operadores:</p>
+                                            }
+                                            else
+                                            {
+                                               <p>Se le informa que se ha notificado exitosamente al siguiente operador: </p>
+                                            }
+
+                                            <p>
+
+                                                <ul>
+                                                    @foreach (var item in Model.Item1)
+                                                    {
+                                                        <li> <strong>Operador:</strong> @item.Split('/')[0] | <strong>Solicitud:</strong> @item.Split('/')[1]</li>
+                                                    }
+                                                </ul>
+
+                                            </p>
+                                        </td>
+
+                                    </tr>
+                             }
+                            
+                            
+                            @if (Model.Item3 != null && Model.Item3.Count != 0)
+                            {
+                                <tr>
+                                <td style="text-align:left;padding-top:25px;padding-left:15px;">
+                                     @if (Model.Item3.Count > 1)
+                                      {
+
+                                    <p> Se le informa que el envío del correo a los siguientes operadores,<strong> no fue exitoso:</strong> </p>
+                                      }
+                                     else
+                                     {
+                                        <p> Se le informa que el envío del correo al siguiente operador,<strong> no fue exitoso:</strong> </p>
+                                     }
+                                    <p>
+
+                                        <ul>
+                                            @foreach (var item in Model.Item3)
+                                            {
+                                                <li><strong>Operador:</strong> @item.Split('/')[0] | <strong>Solicitud:</strong> @item.Split('/')[1]</li>
+                                            }
+                                        </ul>
+
+                                    </p>
+                                </td>
+                             </tr>
+
+                            }
+
+                            <tr>
+                                <td style="text-align:left;padding-left:15px;font-size:11px;">
+                                    <hr>
+                                   
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;padding-left:15px;font-size:11px;"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

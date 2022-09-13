@@ -129,13 +129,13 @@
             let destinatario = new Object()
             destinatario.NombreDestinatario = $(JsFuentes.Controles.txtNombre).val();
             destinatario.CorreoElectronico = $(JsFuentes.Controles.txtCorreo).val();
-            destinatario.fuenteId = $(JsFuentes.Controles.txtidFuente).val();
+            destinatario.fuenteId = $.urlParam('id');
             destinatario.idDetalleFuente = $(JsFuentes.Controles.txtidDetalleFuente).val();
             $("#loading").fadeIn();
             execAjaxCall("/Fuentes/AgregarDestinatario", "POST", destinatario)
                 .then((data) => {
                     let mensaje = "El destinatario ha sido creado";
-                    if (destinatario.idDetalleFuente > 0) {
+                    if (destinatario.fuenteId!= null) {
                         mensaje = "El destinatario ha sido editado"
                     }
                     jsMensajes.Metodos.OkAlertModal(mensaje)
@@ -163,11 +163,15 @@
             let objetoFuente = new Object()
             objetoFuente.Fuente = $(JsFuentes.Controles.txtFuente).val();
             objetoFuente.CantidadDestinatario = $(JsFuentes.Controles.txtCantidad).val();
-            objetoFuente.id = $(JsFuentes.Controles.txtidFuente).val();
+            objetoFuente.id = $.urlParam("id");
             execAjaxCall("/Fuentes/AgregarFuente", "POST", objetoFuente)
                 .then((obj) => {
                     if (parcial) {
-                        jsMensajes.Metodos.OkAlertModal("La Fuente ha sido creada")
+                        let mensaje = "La Fuente ha sido creada";
+                        if (objetoFuente.id != null) {
+                            mensaje = "La Fuente ha sido editada";
+                        }
+                        jsMensajes.Metodos.OkAlertModal(mensaje)
                             .set('onok', function (closeEvent) {
                                 window.location.href = "/Fonatel/Fuentes/Index";
                             });

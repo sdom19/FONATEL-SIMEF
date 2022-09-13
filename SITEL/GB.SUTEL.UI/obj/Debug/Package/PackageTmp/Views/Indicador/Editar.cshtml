@@ -1,0 +1,151 @@
+﻿<script type="text/javascript">
+    var allDirecciones = [];
+    var allIndicadoresUIT = [];
+</script>
+
+
+@model Tuple<GB.SUTEL.Entities.Indicador, List<GB.SUTEL.Entities.TipoIndicador>>
+@using GB.SUTEL.UI.Helpers;
+
+
+    <div>
+
+        <div class="form-horizontal">
+            <form id="formEditarIndicador" method="post">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <h4>Editar Indicador</h4>
+                <hr />
+
+                <div class="form-group">
+
+                    @Html.LabelFor(model => Model.Item1.NombreIndicador, new { @class = "col-md-3 control-label", @for = "txtIDNombreIndicadorEditar" })
+                    <div class="col-sm-9">
+                        @Html.HiddenFor(model => model.Item1.IdIndicador, new { @id = "IDIndicadorEditar" })
+                        @Html.EditorFor(model => Model.Item1.NombreIndicador, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre", @id = "txtIDNombreIndicadorEditar" } })
+                        @Html.ValidationMessageFor(model => Model.Item1.NombreIndicador, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Item1.IdTipoInd, new { @class = "col-md-3 control-label", @for = "slttipoindicadoreditarindicador" })
+                    <div class="col-sm-9">
+
+                        @Html.DropDownListFor(model => Model.Item1.IdTipoInd,
+                    new SelectList(Model.Item2,
+                    "IdTipoInd", "DesTipoInd"),
+                    "Seleccione",
+
+                    new { @class = "form-control", @id = "slttipoindicadoreditarindicador" })
+
+                        @Html.ValidationMessageFor(model => Model.Item1.IdTipoInd, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    @Html.LabelFor(model => Model.Item1.DescIndicador, new { @class = "col-md-3 control-label", @for = "txtEditarDescripcionIndicador" })
+                    <div class="col-sm-9">
+                        @Html.TextAreaFor(model => Model.Item1.DescIndicador, new { @class = "form-control", @placeholder = "Descripción", @id = "txtEditarDescripcionIndicador" })
+                        @Html.ValidationMessageFor(model => Model.Item1.DescIndicador, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+            </form>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-3 control-label">Indicadores UIT</label>
+                    <div class="col-sm-9" style="max-width:320px;">
+                        <div id="tableIndicadorUIT">
+                            @Html.Action("_tableIndicadoresUIT", Model.Item1)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail4" class="col-sm-3 control-label">Dirección</label>
+                    <div class="col-sm-9" style="max-width:320px;">
+                        <div id="tableDireccion">
+                            @Html.Action("_tableDireccion", Model.Item1)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="alert alert-danger col-sm-offset-3 col-sm-9" hidden style="max-width:300px;" role="alert" id="divMensajeErroEditarIndicador">
+                        <strong>Error!</strong>
+                        <div id="divMsgErrorEditarIndicador"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+
+                        @if (rolValidation.ValidateScreenFunctions(this.Context, "Indicador", "Editar"))
+                        {
+                            <button type="button" class="btn btn-success" id="btnGuardarCambiosEditarIndicador">Guardar Cambios</button>
+                        }                            
+
+                        <a class="btn btn-danger" href="/Indicador" role="button">Cancelar</a>
+                    </div>
+                </div>
+
+</div>
+
+    </div>
+<script type="text/javascript">
+
+    $("#btnGuardarCambiosEditarIndicador").click(function (e) {
+        $("#formEditarIndicador").submit();
+    });
+
+    $("#formEditarIndicador").submit(function (e) {
+        
+        if (!$("#formEditarIndicador").valid()) {
+            return false;
+        }
+
+        $("#divMensajeErroEditarIndicador").hide();              
+        // extrae los atributos del form
+        var idIndicador=$("#IDIndicadorEditar").val();
+        var nombreIndicador=$("#txtIDNombreIndicadorEditar").val();
+        var idTipoIndicador=$("#slttipoindicadoreditarindicador").val();
+        var descripcion = $("#txtEditarDescripcionIndicador").val();
+        var json = {
+            "idIndicador": idIndicador,
+            "nombreIndicador": nombreIndicador,
+            "idTipoIndicador": idTipoIndicador,
+            "descripcion": descripcion,
+            "direcciones": allDirecciones,
+            "indicadoresUIT": allIndicadoresUIT
+        }        
+
+        if (allDirecciones.length <= 0) {
+            $("#divMensajeErroEditarIndicador").show();
+            $("#divMsgErrorEditarIndicador").html("");
+            $("#divMsgErrorEditarIndicador").append("Debe seleccionar al menos una dirección.");
+            return false;
+        }       
+
+        var options = {
+            type: "post",
+            dataType: "json",
+            url: "/Indicador/EditarIndicador",
+            data: { "data": json },
+            success: function (data) {
+                if (data.ok === "True") {                    
+                    window.location = "/Indicador?mostrarMensajeActualizo=true";
+                } else {
+                    $("#divMensajeErroEditarIndicador").show();
+                    $("#divMsgErrorEditarIndicador").html("");
+                    $("#divMsgErrorEditarIndicador").append(data.strMensaje);
+                }
+            },
+            error: function (error) {
+                window.location = "/Indicador?mostrarMensajeActualizo=true";
+            }
+        };
+        
+        $.ajax(options);
+        e.preventDefault();
+    });
+</script>

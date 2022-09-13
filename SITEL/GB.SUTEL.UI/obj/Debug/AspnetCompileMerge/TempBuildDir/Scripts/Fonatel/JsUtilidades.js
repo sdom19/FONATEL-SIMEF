@@ -67,6 +67,14 @@ $(document).ready(function () {
         placeholder: "Seleccione",
         width: 'resolve' 
     });
+
+
+    $('.listasDesplegables_todos').select2({
+        placeholder: "Todos",
+        width: 'resolve'
+    });
+
+
     $('.nav-tabs > li a[title]').tooltip();
 });
 

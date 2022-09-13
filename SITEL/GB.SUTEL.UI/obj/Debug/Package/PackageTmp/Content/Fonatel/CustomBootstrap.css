@@ -1,0 +1,811 @@
+﻿/* 
+    root font-size: 10 pixel.
+*/
+
+:root {
+    --green-fonatel: #55924E;
+    --light-1-green-fonatel: #7CB342;
+    --purple-fonatel: #7A3CAA;
+    --blue-fonatel: #1A5EAB;
+    --blue-2-fonatel: #007588;
+    --blue-2-fonatel-rgb-75: rgb(0 117 136 / 75%);
+    --blue-2-fonatel-rgb-50: rgb(0 117 136 / 50%);
+    --blue-2-fonatel-rgb-25: rgb(0 117 136 / 25%);
+    --light-1-blue-2-fonatel: #4098a6;
+    --light-1-blue-fonatel: #00B3E6;
+    --light-2-blue-fonatel: #EDF1F7;
+    --orange-fonatel: #D8691E;
+    --red-fonatel: #FF0007;
+    --gray-fonatel: #F6F8FD;
+    --gray-fonatel-footer: #E0E0E0;
+    --blue-fonatel-rgb-60: rgb(26 94 171 / 60%);
+    --default-border-color: #cccccc;
+    --default-stepper-btn-circle: #BDBDBD;
+    --default-input-length: 280px;
+}
+
+.page-title-fonatel {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--blue-fonatel);
+}
+
+.text-primary-simef {
+    color: #005fbf;
+}
+
+.nav {
+    width: 100% !important;
+}
+
+.body-content {
+    padding-top: 15px !important
+}
+
+.form-text-danger-fonatel {
+    display: inline-block;
+    margin: 5px 0px 0px 15px;
+    font-size: 1.4rem;
+    font-style: italic;
+    letter-spacing: 0.13px;
+    color: var(--red-fonatel);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/*
+    ===============================================================
+                         Navigation Bar
+    ===============================================================
+*/
+
+.nav-tabs-fonatel {
+    overflow: auto;
+    white-space: nowrap;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .nav-tabs-fonatel > li {
+        float: none;
+        margin-bottom: 0px;
+        display: inline-block;
+    }
+
+        .nav-tabs-fonatel > li a {
+            color: black;
+            -webkit-transition: 0.15s;
+            transition: 0.15s;
+            border: 1px solid var(--light-1-blue-fonatel);
+            border-bottom-width: 0px;
+        }
+
+        .nav-tabs-fonatel > li.active > a,
+        .nav-tabs-fonatel > li.active > a:hover,
+        .nav-tabs-fonatel > li.active > a:focus {
+            color: white;
+            font-weight: bold;
+            background-color: var(--blue-fonatel);
+        }
+
+
+/*
+    ===============================================================
+                            Buttons
+    ===============================================================
+*/
+.btn-fonatel {
+    letter-spacing: 0.13px;
+    font-weight: bold;
+    font-size: 1.4rem; /* 14px */
+    text-transform: uppercase;
+    padding: 8px 20px 8px 20px;
+    border-radius: 9px !important;
+    min-width: 130px;
+    margin: 5px;
+}
+
+    .btn-fonatel.btn-goback {
+        display: inline-flex;
+        min-width: auto;
+        font-size: 1.8rem;
+        background-color: transparent;
+        text-transform: capitalize;
+        padding: 4px 12px;
+    }
+
+        .btn-fonatel.btn-goback span {
+            height: 23px;
+            width: 20px;
+            background-image: url("../../Images/icon-arrow-back.svg");
+            background-repeat: no-repeat;
+            /*background-size: cover;*/
+        }
+
+.btn-success-fonatel {
+    color: #ffffff;
+    background-color: var(--green-fonatel);
+}
+
+.btn-next-fonatel {
+    color: #ffffff;
+    background-color: var(--blue-2-fonatel);
+}
+
+.btn-error-fonatel {
+    color: #ffffff;
+    background-color: var(--red-fonatel);
+}
+
+.btn-info-fonatel {
+    color: #ffffff;
+    background-color: var(--blue-fonatel);
+}
+
+.btn-warning-fonatel {
+    color: #ffffff;
+    background-color: var(--orange-fonatel);
+}
+
+.btn-purple-fonatel {
+    color: #ffffff;
+    background-color: var(--purple-fonatel);
+}
+
+.btn-success-fonatel:hover, .btn-success-fonatel:focus,
+.btn-next-fonatel:hover, .btn-next-fonatel:focus,
+.btn-error-fonatel:hover, .btn-error-fonatel:focus,
+.btn-info-fonatel:hover, .btn-info-fonatel:focus,
+.btn-warning-fonatel:hover, .btn-warning-fonatel:focus,
+.btn-purple-fonatel:hover, .btn-purple-fonatel:focus {
+    color: #ffffff;
+}
+
+.btn-icon-base {
+    width: 22px;
+    height: 22px;
+    padding: 0px;
+    margin: 8px;
+}
+
+.btn-icon-base-bg { /* igual a la clase de arriba pero con la opción de incrustar un fondo como si fuera un botón */
+    width: 33px;
+    height: 33px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 6px;
+}
+
+.btn-icon-base,
+.btn-icon-base-bg {
+    border: none;
+    transition: 0.15s;
+    background-color: transparent;
+}
+
+    .btn-icon-base:hover,
+    .btn-icon-base-bg:hover {
+        opacity: 0.6;
+    }
+
+    .btn-icon-base[disabled],
+    .btn-icon-base-bg[disabled] {
+        opacity: 0.5;
+    }
+
+    .btn-icon-base-bg:before,
+    .btn-icon-base:before {
+        display: block;
+        height: 23px;
+        width: 23px;
+        content: ' ';
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: center;
+    }
+
+    .btn-icon-base-bg.btn-white {
+        background-color: white;
+    }
+
+
+.btn.disabled, .btn[disabled] {
+    background-color: var(--default-stepper-btn-circle);
+    opacity:1!important;
+}
+.btn-add:before {
+    background-image: url("../../Images/icon-add.svg");
+}
+
+.btn-calendar:before {
+    background-image: url("../../Images/icon-calendar.svg");
+}
+
+.btn-calendar-disabled:before {
+    background-image: url("../../Images/icon-calendar-disabled.svg");
+}
+
+
+.btn-edit-form:before {
+    background-image: url("../../Images/icon-form.svg");
+}
+
+.btn-sent:before {
+    background-image: url("../../Images/icon-sent.svg");
+}
+
+.btn-sent-disabled:before {
+    background-image: url("../../Images/icon-sent-disabled.svg");
+}
+
+.btn-home:before {
+    background-image: url("../../Images/icon-home.svg");
+}
+
+.btn-edit:before {
+    background-image: url("../../Images/icon-edit.svg");
+}
+
+.btn-delete:before {
+    background-image: url("../../Images/icon-delete.svg");
+}
+
+.btn-view:before {
+    background-image: url("../../Images/icon-view.svg");
+}
+
+.btn-clone:before {
+    background-image: url("../../Images/icon-clone.svg");
+}
+
+.btn-download:before {
+    background-image: url("../../Images/icon-download.svg");
+}
+
+.btn-upload:before {
+    background-image: url("../../Images/icon-upload.svg");
+}
+
+.btn-power-off:before {
+    background-image: url("../../Images/icon-power-off.svg");
+}
+
+.btn-power-on:before {
+    background-image: url("../../Images/icon-power-on.svg");
+}
+
+.btn-yes:before {
+    background-image: url("../../Images/icon-power-on.svg");
+}
+
+.btn-cancel:before {
+    background-image: url("../../Images/icon-cancel.svg");
+}
+
+.btn-addition:before {
+    background-image: url("../../Images/icon-math-addition.svg");
+}
+
+.btn-division:before {
+    background-image: url("../../Images/icon-math-division.svg");
+}
+
+.btn-multiplication:before {
+    background-image: url("../../Images/icon-math-multiplication.svg");
+}
+
+.btn-parentheses-close:before {
+    background-image: url("../../Images/icon-math-parentheses-close.svg");
+}
+
+.btn-parentheses-open:before {
+    background-image: url("../../Images/icon-math-parentheses-open.svg");
+}
+
+.btn-subtraction:before {
+    background-image: url("../../Images/icon-math-subtraction.svg");
+}
+
+.btn-less-than:before {
+    background-image: url("../../Images/icon-less-than.svg");
+}
+
+.btn-greater-than:before {
+    background-image: url("../../Images/icon-greater-than.svg");
+}
+
+.btn-less-than-or-equal-to:before {
+    background-image: url("../../Images/icon-less-than-or-equal-to.svg");
+}
+
+.btn-greater-than-or-equal-to:before {
+    background-image: url("../../Images/icon-greater-than-or-equal-to.svg");
+}
+
+.btn-equal-to:before {
+    background-image: url("../../Images/icon-equal-to.svg");
+}
+
+.btn-numberic-constants:before {
+    background-image: url("../../Images/icon-number-constants.svg");
+}
+
+.btn-reload:before {
+    background-image: url("../../Images/icon-reload.svg");
+}
+
+.btn-save:before {
+    background-image: url("../../Images/icon-save.svg");
+}
+
+.btn-touch:before {
+    background-image: url("../../Images/icon-touch.svg")
+}
+
+.btn-touch-disabled:before {
+    background-image: url("../../Images/icon-touch-disabled.svg")
+}
+
+/*
+    ===============================================================
+                            Breadcrumb
+    ===============================================================
+*/
+
+ .breadcrumb {
+    padding: 8px 15px;
+    margin-bottom: 20px;
+    list-style: none;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.breadcrumb > li {
+     display: inline-block;
+}
+
+    .breadcrumb > li + li:before {
+        padding: 0 5px;
+        color: var(--default-border-color);
+        content: "/\00a0";
+    }
+
+.breadcrumb > .active {
+     color: #999999;
+}
+
+/*
+    ===============================================================
+                            Margins
+    ===============================================================
+*/
+
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.mt-1 {
+    margin-top: 0.25rem !important;
+}
+
+.mt-2 {
+    margin-top: 0.5rem !important;
+}
+
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+
+.mt-5 {
+    margin-top: 3rem !important;
+}
+
+.mt-auto {
+    margin-top: auto !important;
+}
+
+/*
+    ===============================================================
+                            Table
+    ===============================================================
+*/
+
+.table-wrapper-fonatel table {
+    width: 99.9%; /* hace posible ocultar el scroll cuando la tabla abarca la justa longitud */
+}
+
+.table-wrapper-fonatel .dataTables_length select {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    padding-right: 2.5rem;
+    color: #555555;
+    vertical-align: middle;
+    background-color: var(--light-2-blue-fonatel);
+    border: 1px solid var(--default-border-color);
+    border-radius: 9px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.table-wrapper-fonatel .dataTables_length label,
+.table-wrapper-fonatel .dataTables_filter label,
+.table-wrapper-fonatel .dataTables_info {
+    font-weight: bold !important;
+}
+
+.table-wrapper-fonatel .dataTables_length select:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.table-wrapper-fonatel .dataTables_filter input {
+    width: calc(100% - 60px) !important;
+    padding: 9px 35px 9px 10px;
+    border-radius: 9px;
+    background: transparent url("../../Images/icon-search.svg") no-repeat 96% center;
+    background-color: var(--light-2-blue-fonatel);
+}
+
+.table-responsive {
+    border: none !important;
+}
+
+.table-wrapper-fonatel table.table-bordered.dataTable tbody th,
+.table-wrapper-fonatel table.table-bordered.dataTable tbody td {
+    border-bottom-width: 0;
+    font-weight: normal;
+}
+
+.table-wrapper-fonatel table.table-bordered.dataTable th,
+.table-wrapper-fonatel table.table-bordered.dataTable td {
+    border-left-width: 0 !important;
+}
+
+.table-wrapper-fonatel table.dataTable thead tr {
+    background: var(--blue-fonatel);
+    color: #fff;
+    height: 43px;
+}
+
+.table-wrapper-fonatel table.dataTable tbody tr:nth-child(odd) {
+    background: var(--light-2-blue-fonatel);
+}
+
+.table-wrapper-fonatel .pagination > .active > a,
+.table-wrapper-fonatel .pagination > .active > span, .pagination > .active > a:hover,
+.table-wrapper-fonatel .pagination > .active > span:hover,
+.table-wrapper-fonatel .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background: var(--blue-fonatel);
+    color: #fff;
+}
+
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting:before,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_asc:before,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_desc:before,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_asc_disabled:before,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_desc_disabled:before,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting:before,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_asc:before,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_desc:before,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_asc_disabled:before,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_desc_disabled:before {
+    bottom: 55%;
+    width: 20px;
+    right: 3px;
+    content: url("../../Images/icon-arrow-up-table.svg");
+}
+
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting:after,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_asc:after,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_desc:after,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_asc_disabled:after,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_desc_disabled:after,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting:after,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_asc:after,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_desc:after,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_asc_disabled:after,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_desc_disabled:after {
+    top: 55%;
+    width: 20px;
+    right: 3px;
+    content: url("../../Images/icon-arrow-down-table.svg");
+}
+
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting:before,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting:after,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_asc:before,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_asc:after,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_desc:before,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_desc:after,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_asc_disabled:before,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_asc_disabled:after,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_desc_disabled:before,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_desc_disabled:after,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting:before,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting:after,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_asc:before,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_asc:after,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_desc:before,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_desc:after,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_asc_disabled:before,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_asc_disabled:after,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_desc_disabled:before,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_desc_disabled:after {
+    opacity: 0.5;
+}
+
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_asc:before,
+.table-wrapper-fonatel table.dataTable thead > tr > th.sorting_desc:after,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_asc:before,
+.table-wrapper-fonatel table.dataTable thead > tr > td.sorting_desc:after {
+    opacity: 1;
+}
+
+.table-wrapper-fonatel table.table-bordered.dataTable thead tr:first-child th,
+.table-wrapper-fonatel table.table-bordered.dataTable thead tr:first-child td {
+    border-top: 0px;
+}
+
+.table-wrapper-fonatel table.table-bordered.dataTable thead tr:first-child th.highlighted {
+    background-color: var(--light-1-blue-2-fonatel);
+}
+
+
+.table-wrapper-fonatel .top-position,
+.table-wrapper-fonatel .bottom-position {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.table-wrapper-fonatel .bottom-position {
+    align-items: flex-start;
+}
+
+.table-wrapper-fonatel div.dt-buttons {
+    margin-bottom: 1em;
+}
+
+@media screen and (max-width: 597px) {
+    .table-wrapper-fonatel .top-position {
+        display: list-item;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .table-wrapper-fonatel .bottom-position {
+        display: block;
+    }
+}
+
+.table-wrapper-fonatel .content-table {
+    overflow: auto;
+    position: relative;
+    border: 0px;
+    width: 100%;
+}
+
+.table-wrapper-fonatel table tfoot {
+    background-color: var(--gray-fonatel-footer) !important;
+}
+
+/*
+    ===============================================================
+                            Inputs/Forms
+    ===============================================================
+*/
+
+.form-control-fonatel,                                                              /* Inputs de texto */
+.text-input-wrapper-btn input,                                                      /* Inputs de texto + botón de modal */
+.select2-btn-wrapper .select2-container--default .select2-selection,        /* Input Select2 + boton de modal */
+.select2-wrapper .select2-container--default .select2-selection {           /* Input Select2 individual */
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 5px 5px 0px 0px;
+}
+
+    .form-control-fonatel:focus,
+    .text-input-wrapper-btn input:focus {
+        border-color: var(--blue-fonatel);
+        -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px var(--blue-fonatel-rgb-60);
+        box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px var(--blue-fonatel-rgb-60);
+    }
+
+textarea.form-control-fonatel {
+    resize: vertical;
+    max-width: initial;
+    max-height: none;
+}
+
+.form-control-fonatel[type="date"]::-webkit-calendar-picker-indicator {
+    height: 20px;
+    width: 20px;
+    background-image: url("../../Images/icon-calendar.svg")
+}
+
+.form-group.center {
+    max-width: var(--default-input-length);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-input-wrapper-btn {
+    display: inline-flex;
+}
+
+.select2-btn-wrapper {
+    display: flex;
+}
+
+    .text-input-wrapper-btn .btn-icon-base,
+    .select2-btn-wrapper .btn-icon-base {
+        margin-top: 4.5px;
+        margin-bottom: 4.5px;
+        width: 25px;
+        height: 25px;
+    }
+
+    .select2-btn-wrapper .select2.select2-container.select2-container--default {
+        max-width: 239px;
+        width: 100% !important;
+    }
+
+    .select2-btn-wrapper .select2-container--default .select2-selection,
+    .select2-wrapper .select2-container--default .select2-selection {
+        padding: 2.5px 6px 6px 6px;
+        height: 34px;
+        position: relative;
+        border: 1px solid var(--default-border-color);
+    }
+
+    .select2-wrapper .select2-container--default .select2-selection--multiple {
+        height: auto;
+    }
+
+/*.select2-btn-wrapper .select2.select2-container.select2-container--default*/ 
+.select2-wrapper .select2.select2-container.select2-container--default {
+    max-width: var(--default-input-length);
+    width: 100% !important;
+}
+
+.select2-wrapper .select2-container--open .select2-selection__arrow,
+.select2-btn-wrapper .select2-container--open .select2-selection__arrow {
+    transform: rotate(180deg) !important;
+}
+
+.select2-wrapper .select2-container--default .select2-selection .select2-selection__arrow,
+.select2-btn-wrapper .select2-container--default .select2-selection .select2-selection__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    width: 34px;
+    top: 50%;
+    right: 0px;
+    margin-top: -17px;
+    border-radius: 50%;
+    /*transition: transform 0.2s ease-in-out;*/
+}
+
+    .select2-wrapper .select2-container--default .select2-selection .select2-selection__arrow b,
+    .select2-btn-wrapper .select2-container--default .select2-selection .select2-selection__arrow b {
+        height: 18px !important;
+        width: 18px !important;
+        border: none !important;
+        margin: auto !important;
+        top: auto !important;
+        left: auto !important;
+        background-image: url("../../Images/icon-arrow-down.svg");
+        background-color: transparent;
+        background-size: contain;
+    }
+
+/* select disabled */
+.select2-wrapper .select2-container--default.select2-container--disabled .select2-selection {
+    opacity: 0.6;
+    background-color: lightgrey;
+}
+
+/*No existe un wrapper*/
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: var(--blue-fonatel);
+}
+
+
+/*
+    ===============================================================
+                           Alertify/Modal
+    ===============================================================
+*/
+
+.modal-fonatel .modal-content {
+    border-radius: 0px 0px 28px 28px;
+}
+
+.modal-fonatel .modal-header,
+.alertify .ajs-header {
+    height: 43px;
+    padding: 9px 24px !important;
+    color: #fff !important;
+    background-color: #1a5eab !important;
+    border-radius: 0px !important;
+}
+
+    .modal-fonatel .modal-header .modal-title {
+        font-size: 1.8rem;
+    }
+
+.alertify .ajs-commands {
+    margin-top: -18px !important;
+}
+
+    .modal-fonatel .modal-header .close,
+    .alertify .ajs-commands button.ajs-close {
+        background-image: url("../../Images/icon-close.svg") !important;
+    }
+
+    .modal-fonatel .modal-header .close {
+        width: 30px;
+        height: 30px;
+        margin-top: -4px;
+        opacity: 1;
+    }
+
+.alertify .ajs-dialog {
+    border-radius: 0px 0px 28px 28px !important;
+    background-color: var(--gray-fonatel) !important;
+    max-width: 450px !important;
+    border: 0px !important;
+}
+
+    .alertify .ajs-dialog .ajs-primary.ajs-buttons .ajs-button {
+        min-width: 96px;
+    }
+
+.alertify .ajs-content {
+    font-size: 1.8rem;
+}
+
+.alertify .icon {
+    width: 57px;
+    height: 57px;
+    margin: 12.5px auto 23.75px;
+}
+
+.alertify .ajs-footer .ajs-buttons.ajs-primary {
+    text-align: center !important;
+}
+
+.alertify .ajs-footer {
+    border-radius: 0px 0px 28px 28px !important;
+    background-color: var(--gray-fonatel) !important;
+    border-top: 0px !important;
+}
+
+.question-icon {
+    content: url("../../Images/question.svg");
+}
+
+.warning-icon {
+    content: url("../../Images/warning.svg");
+}
+
+.success-icon:before {
+    content: url("../../Images/icon-success.svg");
+}
