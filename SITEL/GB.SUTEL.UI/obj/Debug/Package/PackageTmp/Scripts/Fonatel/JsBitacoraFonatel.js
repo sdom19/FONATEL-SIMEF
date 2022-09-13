@@ -126,13 +126,6 @@
             execAjaxCall("/BitacoraFonatel/ObtenerListaBitacora", "POST", bitacora)
                 .then((obj) => {
                     JsBitacora.Variables.ListaBitacora = obj.objetoRespuesta;
-
-
-
-
-
-
-
                     JsBitacora.Metodos.CargarTablaBitacora();
                 }).catch((data) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
