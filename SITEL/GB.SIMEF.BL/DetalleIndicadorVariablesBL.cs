@@ -103,7 +103,9 @@ namespace GB.SIMEF.BL
         /// <returns></returns>
         public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerDatosPorIndicador(DetalleIndicadorVariables pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>> {
+                HayError = (int)Error.NoError,
+            };
             bool errorControlado = false;
 
             try
@@ -135,7 +137,7 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 12/09/2022
         /// José Navarro Acuña
-        /// Función que validar el objeto DetalleIndicadorVariables. Verifica si el
+        /// Función que validar el objeto DetalleIndicadorVariables
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
@@ -151,12 +153,33 @@ namespace GB.SIMEF.BL
 
             try
             {
+                // validar si el indicador existe
                 indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pDetalleIndicadorVariables.idIndicador);
 
                 if (indicadorExistente == null)
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // validar la cantidad de detalles registrados actualmente
+                RespuestaConsulta<List<DetalleIndicadorVariables>> detallesActuales = ObtenerDatosPorIndicador(pDetalleIndicadorVariables);
+
+                if (detallesActuales.HayError != (int)Error.NoError)
+                {
+                    errorControlado = true;
+                    throw new Exception(detallesActuales.MensajeError);
+                }
+
+                bool modoEdicion = detallesActuales.objetoRespuesta.Exists(x => x.id == pDetalleIndicadorVariables.id);
+
+                if (!modoEdicion) // solo en modo creación se realiza la validación de la cantidad
+                {
+                    if (detallesActuales.CantidadRegistros + 1 > indicadorExistente.CantidadVariableDato)
+                    {
+                        errorControlado = true;
+                        throw new Exception(Errores.CantidadRegistros);
+                    }
                 }
             }
             catch (Exception ex)

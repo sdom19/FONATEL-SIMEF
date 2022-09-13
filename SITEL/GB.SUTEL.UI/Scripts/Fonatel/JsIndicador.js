@@ -386,8 +386,7 @@ CreateView = {
 
         hizoCargaDetallesVariables: false,
         hizoCargaDetallesCategorias: false,
-        listaVariablesDato: [],
-        listaCategorias: [],
+        listaVariablesDato: {},
         objEditarDetallesVariableDato: null,
         objEditarDetallesCategoria: null
     },
@@ -880,7 +879,7 @@ CreateView = {
                 html += `<th scope='row'>${item.NombreVariable}</th>`;
                 html += `<th scope='row'>${item.Descripcion}</th>`;
                 html += "<td>"
-                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit" value=${index.id}></button>` 
+                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit" value=${item.id}></button>` 
                 html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete" value=${item.id}></button>`
                 html += "</td>"
                 html += "</tr>";
@@ -896,9 +895,10 @@ CreateView = {
             $(CreateView.Controles.formVariable.inputDescripcionVariable).val(variable.Descripcion);
         },
 
-        CrearObjDetallesVariable: function (pIndicador) {
+        CrearObjDetallesVariable: function (pIndicador, pIdDetalle = null) {
             let controles = CreateView.Controles.formVariable;
             var formData = {
+                id = pIdDetalle,
                 idIndicadorString: pIndicador,
                 NombreVariable: $(controles.inputNombreVariable).val(),
                 Descripcion: $(controles.inputDescripcionVariable).val()
@@ -919,14 +919,54 @@ CreateView = {
         },
 
         EditarDetallesVariable: function (pIdIndicador) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
+            let formValido = this.ValidarFormularioEditarDetallesVariable();
+
+            if (!formValido) {
+                return;
+            }
+
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.EditarDetalleVariableDato(
+                        this.CrearObjDetallesVariable(pIdIndicador),
+                        CreateView.Variables.objEditarDetallesVariableDato.id
+                    );
+                })
+                .then(data => {
+                    $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
+                    $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
+                    CreateView.Variables.objEditarDetallesVariableDato = null;
+
+                    CreateView.Variables.listaVariablesDato[data.objetoRespuesta[0].id] = data.objetoRespuesta[0]; // guardar el item localmente
+
+                    let item = [ // crear el item que se inserta en la tabla
+                        data.objetoRespuesta[0].NombreVariable,
+                        data.objetoRespuesta[0].Descripcion,
+                        CreateView.Variables.btnEdit(data.objetoRespuesta[0].id) + CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)
+                    ];
+
+                    //InsertarItemDataTable(CreateView.Controles.formVariable.tablaDetallesVariable, item);
+
                     jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
-                        .set('onok', function (closeEvent) {
-                            CreateView.Variables.objEditarDetallesVariableDato = null;
-                            $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
-                            $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
-                        });
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    console.log(error)
+                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
                 });
         },
 
@@ -951,11 +991,15 @@ CreateView = {
                     $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
                     $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
 
-                    console.log(data);
+                    CreateView.Variables.listaVariablesDato[data.objetoRespuesta[0].id] = data.objetoRespuesta[0]; // guardar el item localmente
 
-                    //InsertarItemDataTable(
-                    //    CreateView.Controles.formVariable.tablaDetallesVariable,
-                    //    [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)]);
+                    let item = [ // crear el item que se inserta en la tabla
+                        data.objetoRespuesta[0].NombreVariable,
+                        data.objetoRespuesta[0].Descripcion,
+                        CreateView.Variables.btnEdit(data.objetoRespuesta[0].id) + CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)
+                    ];
+
+                    InsertarItemDataTable(CreateView.Controles.formVariable.tablaDetallesVariable, item);
 
                     jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
                         .set('onok', function (closeEvent) { });
@@ -1176,6 +1220,10 @@ CreateView = {
 
         CrearDetalleVariableDato: function (pDetalleIndicadorVariables) {
             return execAjaxCall('/IndicadorFonatel/CrearDetalleVariableDato', 'POST', { pDetalleIndicadorVariables: pDetalleIndicadorVariables });
+        },
+
+        EditarDetalleVariableDato: function (pDetalleIndicadorVariables) {
+            return execAjaxCall('/IndicadorFonatel/EditarDetalleVariableDato', 'POST', { pDetalleIndicadorVariables: pDetalleIndicadorVariables });
         }
     },
 

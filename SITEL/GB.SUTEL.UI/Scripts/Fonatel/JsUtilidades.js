@@ -421,16 +421,7 @@ $(document).on("keypress", '.solo_operacion', function (e) {
 
 
 $(document).on("keypress", '.alfa_numerico', function (e) {
-    var regex = new RegExp("^[0-9]|[a-z]|[\s]|[A-Z]+$");
-    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-    if (!regex.test(key)) {
-        e.preventDefault();
-        return false;
-    }
-});
-
-$(document).on("keypress", '.alfa_numerico_v2', function (e) {
-    var regex = new RegExp("^[0-9]|[A-Za-zÁÉÍÓÚáéíóúñÑ]|[\\s]+$");
+    var regex = new RegExp("^[0-9A-Za-zÁÉÍÓÚáéíóúñÑ ]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         e.preventDefault();
@@ -439,7 +430,7 @@ $(document).on("keypress", '.alfa_numerico_v2', function (e) {
 });
 
 $(document).on("keypress", '.solo_texto', function (e) {
-    var regex = new RegExp("^[a-z]|[A-Z]|[\\s]+$");
+    var regex = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         e.preventDefault();
