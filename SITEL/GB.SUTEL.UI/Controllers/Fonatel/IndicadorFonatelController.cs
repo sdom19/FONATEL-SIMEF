@@ -779,6 +779,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
+            if (string.IsNullOrEmpty(pDetalleIndicadorVariables.id))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
             pDetalleIndicadorVariables.Estado = true;
 
             await Task.Run(() =>

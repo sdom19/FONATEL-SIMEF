@@ -898,7 +898,7 @@ CreateView = {
         CrearObjDetallesVariable: function (pIndicador, pIdDetalle = null) {
             let controles = CreateView.Controles.formVariable;
             var formData = {
-                id = pIdDetalle,
+                id: pIdDetalle,
                 idIndicadorString: pIndicador,
                 NombreVariable: $(controles.inputNombreVariable).val(),
                 Descripcion: $(controles.inputDescripcionVariable).val()
@@ -934,8 +934,7 @@ CreateView = {
                 .then(data => {
                     $("#loading").fadeIn();
                     return CreateView.Consultas.EditarDetalleVariableDato(
-                        this.CrearObjDetallesVariable(pIdIndicador),
-                        CreateView.Variables.objEditarDetallesVariableDato.id
+                        this.CrearObjDetallesVariable(pIdIndicador, CreateView.Variables.objEditarDetallesVariableDato.id)
                     );
                 })
                 .then(data => {
