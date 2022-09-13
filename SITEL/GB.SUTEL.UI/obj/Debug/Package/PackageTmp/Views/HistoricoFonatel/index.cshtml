@@ -1,0 +1,72 @@
+﻿@using GB.SIMEF.Resources;
+
+@{
+    ViewBag.Title = "Histórico Fonatel";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+    @*@Scripts.Render("~/bundles/FONATEL/HistoricoFonatel")*@
+}
+
+<div class="container body-content">
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action( "index","Home")">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewHistorico.Descarga</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewHistorico.Descarga</h2>
+        </div>
+        <div class="col-lg-12 text-center mt-4">
+            <div class="row mt-4">
+                <label for="ddlNombreHistorico" class="col-sm-12 col-form-label ">@EtiquetasViewHistorico.CodigoNombre</label>
+                    <div class="col-sm-12">
+
+                        <div class="select2-wrapper">
+                            @Html.DropDownList("ddlNombreHistorico",  new SelectList(ViewBag.ListadoDatosHistoricos, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables multiple-Select", id = "ddlNombreHistorico", multiple=true })
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="modal-footer text-center">
+                <div class="text-center">
+                    <button id="btnDescargarHistorico" class="btn btn-fonatel btn-purple-fonatel" disabled>@Etiquetas.BotonDescarga</button>
+
+                    <button id="btnVisualizarHistorico" class="btn btn-fonatel btn-next-fonatel" disabled >@Etiquetas.BotonVisualizar</button>
+
+                    <button id="btnCancelarHistorico" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">@Etiquetas.BotonCancelar</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script src="~/Scripts/Fonatel/JsHistorico.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,151 @@
+﻿<script type="text/javascript">
+    var allDirecciones = [];
+    var allIndicadoresUIT = [];
+</script>
+
+@model Tuple<GB.SUTEL.Entities.Indicador, List<GB.SUTEL.Entities.TipoIndicador>>
+
+    <div class="form-horizontal">
+        
+        <h4>Crear Indicador</h4>
+        <hr />
+
+        
+
+        <form id="formCrearIndicador" method="post">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+
+                @Html.LabelFor(model => Model.Item1.IdIndicador, new { @class = "col-md-3 control-label", @for = "txtIDIndicadorCrear" })
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => Model.Item1.IdIndicador, new { htmlAttributes = new { @class = "form-control", @placeholder = "Id", @id = "txtIDIndicadorCrear" } })
+                    @Html.ValidationMessageFor(model => Model.Item1.IdIndicador, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                @Html.LabelFor(model => Model.Item1.NombreIndicador, new { @class = "col-md-3 control-label", @for = "txtIDNombreIndicadorCrear" })
+                <div class="col-sm-9">
+                    @Html.EditorFor(model => Model.Item1.NombreIndicador, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre", @id = "txtIDNombreIndicadorCrear" } })
+                    @Html.ValidationMessageFor(model => Model.Item1.NombreIndicador, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Item1.IdTipoInd, new { @class = "col-md-3 control-label", @for = "sltTipoIndicadorCrearIndicador" })
+                <div class="col-sm-9">
+
+                    @Html.DropDownListFor(model => Model.Item1.IdTipoInd,
+                                             new SelectList(Model.Item2,
+                                                      "IdTipoInd", "DesTipoInd"),
+                                                      "Seleccione",
+
+                                             new { @class = "form-control", @id = "sltTipoIndicadorCrearIndicador" })
+
+                    @Html.ValidationMessageFor(model => Model.Item1.IdTipoInd, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                @Html.LabelFor(model => Model.Item1.DescIndicador, new { @class = "col-md-3 control-label", @for = "txtCrearDescripcionIndicador" })
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(model => Model.Item1.DescIndicador, new { @class = "form-control", @placeholder = "Descripción", @id = "txtCrearDescripcionIndicador" })
+                    @Html.ValidationMessageFor(model => Model.Item1.DescIndicador, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </form>
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-3 control-label">Indicadores UIT</label>
+                <div class="col-sm-9" style="max-width:320px;">
+                    <div id="tableIndicadorUIT">
+                        @Html.Action("_tableIndicadoresUIT", Model.Item1)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputEmail4" class="col-sm-3 control-label">Dirección</label>
+                <div class="col-sm-9" style="max-width:320px;">
+                    <div id="tableDireccion">
+                        @Html.Action("_tableDireccion", Model.Item1)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="alert alert-danger col-sm-offset-3 col-sm-9" hidden style="max-width:300px;" role="alert" id="divMensajeErrorCrearIndicador">
+                    <strong>Error!</strong>
+                    <div id="divMsgErrorCrearIndicador" style="text-align: justify; text-justify: inter-word;"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="button" class="btn btn-success" id="btnGuardarNuevoIndicador">Crear</button>
+                    <a class="btn btn-danger" href="/Indicador" role="button">Cancelar</a>
+                </div>
+            </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $("#btnGuardarNuevoIndicador").click(function (e) {
+        $("#formCrearIndicador").submit();        
+    });
+
+    $("#formCrearIndicador").submit(function (e) {
+
+        if (!$("#formCrearIndicador").valid()) {
+            return false;
+        }
+
+        $("#divMensajeErrorCrearIndicador").hide();
+        // extrae los atributos del form
+        var idIndicador = $("#txtIDIndicadorCrear").val();
+        var nombreIndicador = $("#txtIDNombreIndicadorCrear").val();
+        var idTipoIndicador = $("#sltTipoIndicadorCrearIndicador").val();
+        var descripcion = $("#txtCrearDescripcionIndicador").val();
+        var json = {
+            "idIndicador": idIndicador,
+            "nombreIndicador": nombreIndicador,
+            "idTipoIndicador": idTipoIndicador,
+            "descripcion": descripcion,
+            "direcciones": allDirecciones,
+            "indicadoresUIT": allIndicadoresUIT
+        }
+
+        if (allDirecciones.length <= 0) {
+            $("#divMensajeErrorCrearIndicador").show();
+            $("#divMsgErrorCrearIndicador").html("");
+            $("#divMsgErrorCrearIndicador").append("Debe seleccionar al menos una dirección.");
+            return false;
+        }
+
+        var options = {
+            type: "post",
+            dataType: "json",
+            url: "/Indicador/Crear",
+            data: { "data": json },
+            success: function (data) {
+                if (data.ok === "True") {
+                    window.location = "/Indicador?mostrarMensajeGuardo=true";
+                } else {
+                    $("#divMensajeErrorCrearIndicador").show();
+                    $("#divMsgErrorCrearIndicador").html("");
+                    $("#divMsgErrorCrearIndicador").append(data.strMensaje);
+                }
+            },
+            error: function (error) {
+                window.location = "/Indicador?mostrarMensajeGuardo=true";
+            }
+        };
+
+        $.ajax(options);
+        e.preventDefault();
+    });
+</script>

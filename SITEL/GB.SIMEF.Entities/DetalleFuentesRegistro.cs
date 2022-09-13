@@ -42,6 +42,22 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string Contrasena { get; set; }
 
+
+        [NotMapped]
+
+        public List<string> NoSerialize = new List<string>()
+        {
+            "idDetalleFuente",
+            "idFuente",
+            "Estado",
+            "FuenteId",
+            "Usuario",
+            "Contrasena"
+
+
+        };
+
+
         #endregion
 
     }

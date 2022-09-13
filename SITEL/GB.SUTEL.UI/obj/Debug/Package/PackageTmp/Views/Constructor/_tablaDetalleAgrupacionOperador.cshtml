@@ -1,0 +1,53 @@
+﻿@using GB.SUTEL.Entities
+@model List<ConstructorCriterioDetalleAgrupacion>
+               <table class="display" cellspacing="0" data-table-grid="true" data-table-grid-display-rows="4" >
+                   <thead>
+                       <tr>
+                           <th>
+                               Operador
+                           </th>
+                          
+
+                           <th class="no-sort" style="min-width:40px;"></th>
+                       </tr>
+                   </thead>
+                   <tfoot>
+                       <tr>
+                           <td colspan="2">@Html.TextBox("txtFiltroDetalleOperador", null, new { size = "10", onkeyup = "filtrarDetalleOperador(event);", @placeholder = "Operador" })</td>
+                    </tr>
+                   </tfoot>
+                   <tbody>
+                       @if (Model != null && Model.Count() > 0)
+                       {
+                           foreach (var item in Model)
+                           {
+                               <tr>
+                                   <td onclick="functEditarArbolDetalleAgrupacion('@item.IdOperador','@item.DetalleAgrupacion.Operador.NombreOperador')">
+                                       @Html.DisplayFor(modelItem => item.DetalleAgrupacion.Operador.NombreOperador)
+                                   </td>
+                                   
+
+
+                                   <td>
+                                       <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalSeleccionarClonarOperador"
+                                               data-select="true" title="Clona el detalle de la agrupación de los Operadores que desee seleccionar."
+                                               data-json-selected='{"idOperadorClonar":" @item.IdOperador"}'>
+                                           <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                                       </button>
+
+                                       <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="modal" data-target="#modalDetalleAgrupacionEliminar"
+                                               data-select="true" title="Eliminar"
+                                               data-json-selected='{"IDOperadorEliminar":" @item.IdOperador ", "txtOperadorEliminar": " @item.DetalleAgrupacion.Operador.NombreOperador"}'>
+                                           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                       </button>
+                                       
+
+                                   </td>
+                               </tr>
+                           }
+                       }
+                   </tbody>
+               </table>
+
+
+

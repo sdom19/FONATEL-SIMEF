@@ -1,0 +1,64 @@
+﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.ReglaValidacion
+
+
+
+
+@Html.Hidden("txtmodoregla", (string)ViewBag.Modo)
+
+@Html.HiddenFor(model => model.id, new { id = "txtidCodigo" })
+
+<form class="mt-5">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+
+            <div class="form-group row">
+                <label for="txtCodigo" class="col-form-label">@EtiquetasViewReglasValidacion.LabelCodigo</label>
+                @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewReglasValidacion.LabelCodigo, id = "txtCodigo" } })
+                @* <input type="text" class="form-control form-control-fonatel" id="txtCodigo" placeholder="Codigo">*@
+                <small id="CodigoHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+
+            <div class="form-group">
+                <label for="txtNombre" class="col-form-label">@EtiquetasViewReglasValidacion.LabelNombre</label>
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewReglasValidacion.LabelNombre, id = "txtNombre" } })
+                @*<input type="text" class="form-control form-control-fonatel" id="txtNombre" placeholder="Nombre de Regla">*@
+                <small id="nombreHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            
+            <div class="form-group">
+                <label for="ddlIndicadorRegla" class="col-form-label">@EtiquetasViewReglasValidacion.LabelIndicador</label>
+                <div class="select2-wrapper">
+                    @Html.DropDownListFor(model => model.idIndicador, new SelectList(ViewBag.ListaIndicadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorRegla" })
+                </div>
+                <small id="TipoIndicadorHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.LabelDescripcion  </label>
+                @Html.TextAreaFor(model => model.Descripcion,new { @class = "form-control form-control-fonatel textarea", placeholder = EtiquetasViewReglasValidacion.LabelDescripcion, id = "txtDescripcionRegla" })
+                @*<textarea class="form-control form-control-fonatel textarea" id="txtDescripcionRegla" placeholder="Descripción"></textarea>*@
+                <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-center mt-5">
+            <button type="submit" id="btnGuardarRegla" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="submit" id="btnSiguienteRegla" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+            <button type="submit" id="btnCancelarRegla" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
+        </div>
+    </div>
+
+</form>
+
