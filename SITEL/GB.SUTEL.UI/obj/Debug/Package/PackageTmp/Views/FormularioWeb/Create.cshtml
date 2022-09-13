@@ -1,0 +1,85 @@
+﻿@using GB.SIMEF.Resources;
+
+@{
+    ViewBag.Title = "Formulario Web";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+    @*@Scripts.Render("~/bundles/FONATEL/FormularioWeb")*@
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="text-right">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                    <li class="breadcrumb-item active"><a href="/Fonatel/FormularioWeb/index">@Etiquetas.Formulario</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewBag.ModoTitulo</li>
+                </ol>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="stepwizard">
+    <div class="stepwizard-row setup-panel step_navigation_indicador">
+        <div class="stepwizard-step" data-step="0">
+            <p>@EtiquetasViewFormulario.Formulario</p>
+            <a href="#step-1" type="button" class="btn btn-circle">1</a>
+
+        </div>
+        <div class="stepwizard-step" data-step="1">
+            <p>@EtiquetasViewFormulario.Indicadores</p>
+            <a href="#step-2" type="button" class="btn btn-circle">2</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="stepwizard-content-container hidden" id="step-1">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="page-title-fonatel text-center">@ViewBag.ModoTitulo</h2>
+            <hr />
+        </div>
+        <form id="FormFormulario">
+            <div class="col-sm-12">
+                @Html.Partial("_CrearFormulario")
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="stepwizard-content-container hidden" id="step-2">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewFormulario.AgregarIndicadores</h2>
+            <hr />
+        </div>
+        <div class="col-sm-12">
+            @Html.Partial("_CrearIndicador")
+        </div>
+        <div class="col-sm-12 mt-4">
+            @Html.Partial("_TablaIndicador")
+        </div>
+
+        <div class="col-sm-12 text-center">
+            <button type="submit" id="btnGuardarFormularioCompleto" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
+        </div>
+
+        <div class="col-12 pull-right mt-4">
+            <button type="button" id="btnAtrasFormularioRegla" class="btn btn-fonatel btn-goback" aria-label="Left Align">
+                <span aria-hidden="true"></span>@Etiquetas.BotonAtras
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Fonatel/JsFormularios.js"></script>

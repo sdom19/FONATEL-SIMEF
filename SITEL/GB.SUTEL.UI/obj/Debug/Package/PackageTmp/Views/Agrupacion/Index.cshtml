@@ -1,0 +1,37 @@
+﻿@using GB.SUTEL.Entities
+@model Tuple<List<Agrupacion>, Agrupacion>
+@using GB.SUTEL.UI.Helpers;
+
+
+
+<h4>@GB.SUTEL.Resources.EtiquetasMantenimiento.ttlAdministracionAgrupacion</h4>
+
+<p>
+    @if (rolValidation.ValidateScreenFunctions(this.Context, "Agrupación", "Crear"))
+    {
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCrearAgrupacion">Nuevo</button>
+    }
+    <div id="tablaAgrupacion">
+        @Html.Action("_table")
+    </div>
+    @if (Model != null && Model.Item2 != null)
+    {
+        @Html.Partial("CrearAgrupacion", Model.Item2)
+        @Html.Partial("EditarAgrupacion", Model.Item2)
+        @Html.Partial("EliminarAgrupacion", Model.Item2)
+    }
+    else
+    {
+
+        @Html.Partial("CrearAgrupacion", new Agrupacion())
+        @Html.Partial("EditarAgrupacion", new Agrupacion())
+        @Html.Partial("EliminarAgrupacion", new Agrupacion())
+    }
+
+    <script>
+        function onSuccessCreate() {
+            var formId = "frmFiltroAgrupacion";
+            $("#" + formId)[0].reset();
+            $("#" + formId).submit();
+        }
+    </script>

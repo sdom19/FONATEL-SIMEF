@@ -6,7 +6,7 @@
         <div class="form-group center">
             <label for="ddlPantalla" class="col-sm-12 col-form-label ">Pantallas</label>
             <div class="select2-wrapper">
-                @Html.DropDownList("ddlPantalla", new SelectList(ViewBag.Pantalla, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables multiple-Select", id = "ddlPantalla", multiple = true })
+                @Html.DropDownList("ddlPantalla", new SelectList(ViewBag.Pantalla, "Value", "Text"), new { @class = "listasDesplegables_todos multiple-Select", id = "ddlPantalla", multiple = true })
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
             <label for="ddlUsuario" class="col-sm-12 col-form-label ">Usuarios</label>
 
             <div class="select2-wrapper">
-                @Html.DropDownList("ddlUsuario", new SelectList(ViewBag.Usuario, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables multiple-Select", id = "ddlUsuario", multiple = true })
+                @Html.DropDownList("ddlUsuario", new SelectList(ViewBag.Usuario, "Value", "Text"), new { @class = "listasDesplegables_todos multiple-Select", id = "ddlUsuario", multiple = true })
 
             </div>
         </div>
@@ -45,7 +45,7 @@
             <label for="ddlAccion" class="col-sm-12 col-form-label ">Acciones</label>
 
             <div class="select2-wrapper">
-                @Html.DropDownList("ddlAccion", new SelectList(ViewBag.Accion, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables multiple-Select", id = "ddlAccion", multiple = true })
+                @Html.DropDownList("ddlAccion", new SelectList(ViewBag.Accion, "Value", "Text"), "Todos", new { @class = "listasDesplegables_todos multiple-Select", id = "ddlAccion", multiple = true })
 
             </div>
         </div>
