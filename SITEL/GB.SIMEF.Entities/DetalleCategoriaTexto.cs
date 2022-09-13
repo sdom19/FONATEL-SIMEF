@@ -44,6 +44,23 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public bool Completo { get; set; }
 
+
+        [NotMapped]
+
+        public List<string> NoSerialize = new List<string>()
+        {
+
+            "idCategoriaDetalle",
+            "idCategoria",
+            "Estado",
+            "usuario",
+            "Completo",
+            "CategoriasDesagregacion",
+            "id",
+            "categoriaid"
+        };
+
+
         #endregion
     }
 }

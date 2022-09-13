@@ -7,14 +7,15 @@
         "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
         "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
 
-        "btnDescargarPlantillaRegistro": "#btnDescargarPlantillaRegistro",
-        "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
+        "btnDescargarPlantillaRegistro": "div.tab-pane.active #btnDescargarPlantillaRegistro",
+        "btnCargarPlantillaRegistro": "div.tab-pane.active #btnCargarPlantillaRegistro",
+        "inputFileCargarPlantilla": "#inputFileCargarPlantilla",
 
         "fileCargaRegistro": "#fileCargaRegistro",
         "btnCancelar": "#btnCancelarRegistroIndicador",
-        "btnGuardar": "#btnGuardarRegistroIndicador",
+        "btnGuardar": "div.tab-pane.active #btnGuardarRegistroIndicador",
         "btnGuardarRegistroIndicadorEdicion": "#btnGuardarRegistroIndicadorEdicion",
-        "btnValidar": "#btnValidarRegistroIndicador",
+        "btnValidar": "div.tab-pane.active #btnValidarRegistroIndicador",
         "IndicadorCorrecto": "#Indicador1",
         "IndicadorErroneo": "#Indicador2",
         "btnCarga": "#btnCargaRegistroIndicador",
@@ -125,10 +126,7 @@ $(document).on("change", jsRegistroIndicadorFonatel.Controles.inputFileCargarPla
 });
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.IndicadorCorrecto, function () {
-
-
     jsRegistroIndicadorFonatel.Variables.Validacion = false;
-
 });
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.IndicadorErroneo, function () {
@@ -154,9 +152,6 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar, functio
 
 });
 
-
-
-
 /*
  Evento para cada input Cantidad de Registros de cada tab o indicador.
  */
@@ -164,6 +159,12 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
 
 
     if (event.keyCode == 13) {
+        $(jsRegistroIndicadorFonatel.Controles.tablaIndicador).removeClass("hidden");
+        $(jsRegistroIndicadorFonatel.Controles.btnValidar).prop("disabled", false);
+        $(jsRegistroIndicadorFonatel.Controles.btnGuardar).prop("disabled", false);
+        EliminarDatasource(jsRegistroIndicadorFonatel.Controles.tablaIndicador);
+
+        CargarDatasourceV2(jsRegistroIndicadorFonatel.Controles.tablaIndicador);
         var table = $(jsRegistroIndicadorFonatel.Controles.tablaIndicador).DataTable();
         table.clear().draw();
 
@@ -196,8 +197,13 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
                 });
                 table.row.add(listaColumnasVariablesDato).draw(false);
 
-                $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", false);
-                $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", false);
+                // Este método es de visualizar en el modulo Formulario Web, es de la Etapa de diseño
+                //SE ENCUENTRA QUEMADO DE MOMENTO POR CONTRATIEMPOS DE ENTRAGA SIMEF - ANDERSON
+                let modo = $.urlParam('modo');
+                if (modo != '6') {
+                    $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", false);
+                    $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", false);
+                }
             }
 
             jsRegistroIndicadorFonatel.Variables.paginasActualizadasConSelect2_tablaIndicador[tabActual].push(0);
@@ -206,6 +212,7 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
 
             eventNextPrevDatatable();
         }
+        
     }
 });
 
@@ -241,163 +248,22 @@ function setSelect2() {
 }
 
 
-$(function () {
+
+
+
+
+ 
+
+
     $(document).ready(function () {
+        $(jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicador).prop("disabled", true);
+        $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", true);
+        $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", true);
 
-        var t = $('#TableRegistroIndicadorFonatel').DataTable({
-            'scrollY': '400px',
-
-
-            language: {
-                "decimal": "",
-                "emptyTable": "No hay información",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                "infoPostFix": "",
-                "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ Entradas",
-                "loadingRecords": "Cargando...",
-                "processing": "Procesando...",
-                "search": "Buscar:",
-                "searchPlaceholder": "",
-                "zeroRecords": "Sin resultados encontrados",
-
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Ultimo",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                }
-
-            },
-
-            columnDefs: [
-                {
-                    searchable: false,
-                    orderable: false,
-                    targets: 0,
-                },
-            ],
-            order: [[1, 'asc']],
-        });
-
-        t.on('order.dt search.dt', function () {
-            let i = 1;
-
-            t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-                this.data(i++);
-            });
-        }).draw();
-
-        //SE ENCUENTRA QUEMADO DE MOMENTO POR CONTRATIEMPOS DE ENTRAGA SIMEF - ANDERSON
         let modo = $.urlParam('modo');
         if (modo == '6') {
             $("#loading").fadeIn();
             jsRegistroIndicadorFonatel.Metodos.CargarDatosVisualizar();
             $("#loading").fadeOut();
         }
-
-    });
-
-    $(document).ready(function () {
-        var t = $('#tablaIndicador').DataTable({
-            'scrollY': '400px',
-
-            language: {
-                "decimal": "",
-                "emptyTable": "No hay información",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                "infoPostFix": "",
-                "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ Entradas",
-                "loadingRecords": "Cargando...",
-                "processing": "Procesando...",
-                "search": "Buscar:",
-                "searchPlaceholder": "",
-                "zeroRecords": "Sin resultados encontrados",
-
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Ultimo",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                }
-
-            },
-
-            columnDefs: [
-                {
-                    searchable: false,
-                    orderable: false,
-                    targets: 0,
-                },
-            ],
-            order: [[1, 'asc']],
-        });
-
-        t.on('order.dt search.dt', function () {
-            let i = 1;
-
-            t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-                this.data(i++);
-            });
-        }).draw();
-    });
-
-    $(document).ready(function () {
-        var t = $('#tablaEditarIndicador').DataTable({
-            'scrollY': '400px',
-
-            language: {
-                "decimal": "",
-                "emptyTable": "No hay información",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                "infoPostFix": "",
-                "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ Entradas",
-                "loadingRecords": "Cargando...",
-                "processing": "Procesando...",
-                "search": "Buscar:",
-                "searchPlaceholder": "",
-                "zeroRecords": "Sin resultados encontrados",
-
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Ultimo",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                }
-
-            },
-
-            columnDefs: [
-                {
-                    searchable: false,
-                    orderable: false,
-                    targets: 0,
-                },
-            ],
-            order: [[1, 'asc']],
-        });
-
-        t.on('order.dt search.dt', function () {
-            let i = 1;
-
-            t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-                this.data(i++);
-            });
-        }).draw();
-    });
-
-    $(document).ready(function () {
-        $(jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicador).prop("disabled", true);
-        $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", true);
-        $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", true);
-    });
-
-})
+   });

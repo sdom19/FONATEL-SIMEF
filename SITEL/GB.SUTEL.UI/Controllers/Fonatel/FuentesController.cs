@@ -23,10 +23,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public FuentesController()
         {
-            FuenteBL = new FuentesRegistroBL();
-            FuenteDestinatariosBL = new FuentesRegistroDestinatariosBL();
+            FuenteBL = new FuentesRegistroBL(EtiquetasViewFuentesRegistro.FuentesRegistro, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            FuenteDestinatariosBL = new FuentesRegistroDestinatariosBL(EtiquetasViewFuentesRegistro.FuentesRegistro, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
-
 
         // GET: FuentesRegistro
 
@@ -111,8 +110,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<FuentesRegistro>> result = null;
             await Task.Run(() =>
             {
-          
-                fuente.UsuarioModificacion = user;
                 result = FuenteBL.EliminarElemento(fuente);
             });
 
@@ -131,7 +128,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 if (String.IsNullOrEmpty(objetoFuente.id))
                 {
-                    objetoFuente.UsuarioCreacion = user;
                     result = FuenteBL.InsertarDatos(objetoFuente);
                 }
                 else
@@ -159,7 +155,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<FuentesRegistro>> result = null;
             await Task.Run(() =>
             {
-                fuente.UsuarioModificacion = user;
                 result = FuenteBL.CambioEstado(fuente);
             });
 
@@ -176,6 +171,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> ValidarFuente(FuentesRegistro fuente)
         {
+
             RespuestaConsulta<List<string>> result = null;
             await Task.Run(() =>
             {
@@ -220,11 +216,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> AgregarDestinatario(DetalleFuentesRegistro destinatario)
         {
-            user = User.Identity.GetUserId();
             RespuestaConsulta<List<DetalleFuentesRegistro>> result = null;
             await Task.Run(() =>
             {
-                destinatario.Usuario = user;
                 if (destinatario.idDetalleFuente==0)
                 {
                     result = FuenteDestinatariosBL.InsertarDatos(destinatario);
@@ -248,12 +242,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public async Task<string> EliminarDestinatario(DetalleFuentesRegistro destinatario)
         {
-            user = User.Identity.GetUserId();
             RespuestaConsulta<List<DetalleFuentesRegistro>> result = null;
             await Task.Run(() =>
             {
-
-                destinatario.Usuario = user;
 
                 result = FuenteDestinatariosBL.EliminarElemento(destinatario);
             });

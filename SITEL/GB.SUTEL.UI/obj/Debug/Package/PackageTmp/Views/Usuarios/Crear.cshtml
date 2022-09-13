@@ -1,0 +1,162 @@
+@model GB.SUTEL.Entities.Usuario
+@using GB.SUTEL.Entities.Metadata;
+<form id="formCreate" method="post"
+      action="@Url.Action("Crear")" data-ajax="true" data-ajax-target="#tableRol"
+      data-ajax-message="Guardando datos...">
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>Crear Usuario</h4>
+        <hr />
+
+        @*Interno*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.UsuarioInterno, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("UsuarioInterno", new SelectList(new List<Tuple<int, string>>{new Tuple<int,string>(1,"Interno"),
+           new Tuple<int,string>(0,"Externo")}, "Item1", "Item2"),
+                     "Seleccione", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UsuarioInterno, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*Nombre*@
+        <div class="form-group tipoExterno">
+            @Html.LabelFor(model => model.NombreUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NombreUsuario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NombreUsuario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*Acceso de usuario ACCESO*@
+        <div class="form-group tipoExterno">
+            @Html.LabelFor(model => model.AccesoUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AccesoUsuario, new { htmlAttributes = new { @class = "form-control" } })
+                <span class="text-danger field-validation-error" data-valmsg-for="NameRepeated" data-valmsg-replace="true"></span>
+                @Html.ValidationMessageFor(model => model.AccesoUsuario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*Acceso usuario AD*@
+        <div class="form-group tipoInterno">
+            @Html.LabelFor(model => model.AccesoUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="ACCESOAD" class="form-control required"></select>
+                <span class="text-danger field-validation-error" data-valmsg-for="NameRepeated" data-valmsg-replace="true"></span>
+                <span class="text-danger field-validation-error" data-valmsg-for="ACCESOAD" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        @*Nombre AD*@
+        <div class="form-group tipoInterno">
+            @Html.LabelFor(model => model.NombreUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input readonly class="form-control" id="NOMBREAD" name="NOMBREAD" value="" />
+            </div>
+        </div>
+        @*Clave@
+        <div class="form-group tipoExterno">
+            @Html.LabelFor(model => model.Contrasena, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Contrasena, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Contrasena, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Repetir Clave@
+        <div class="form-group tipoExterno">
+            <label class="control-label col-md-2">@GB.SUTEL.Entities.Metadata.EntityDisplays.USUARIO_contrasenia_repeat</label>
+            <div class="col-md-10">
+                <input type="password" name="passRepeat" class="form-control" />
+                <span class="text-danger field-validation-error" data-valmsg-for="passRepeat" data-valmsg-replace="true">@GB.SUTEL.Entities.Metadata.EntityErrors.ClaveNoCoincide</span>
+            </div>
+        </div>*@
+        @*Correo*@
+        <div class="form-group tipoExterno">
+            @Html.LabelFor(model => model.CorreoUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CorreoUsuario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CorreoUsuario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @* Operador *@
+        <div class="form-group tipoExterno">
+            @Html.LabelFor(model => model.IdOperador, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (ViewBag.Operadores != null)
+                {
+                    @Html.DropDownList("IdOperador", new SelectList(ViewBag.Operadores, "IdOperador", "NombreOperador"), "Seleccione", htmlAttributes: new { @class = "form-control required" })
+
+                }
+                else
+                {
+                    <select name="IdOperador" class="form-control"><option value>Seleccione</option></select>
+                }
+                <span class="text-danger field-validation-error" data-valmsg-for="IdOperador" data-valmsg-replace="true">
+                    <span for="IdOperador" class=""></span>
+                </span>
+            </div>
+        </div>
+        @*Activo*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Activo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="checkbox" name="ISACTIVE" checked />
+                @*@Html.CheckBox("Activo", true, new { htmlAttributes = new { @class = "form-control" } })*@
+                @*@Html.ValidationMessageFor(model =>model.Activo, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        @*Empieza Datasoft*@
+
+        @*Mercados*@
+        <div class="form-group">
+            <div class="form-check">
+                @Html.LabelFor(model => model.Mercado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(m => m.Mercado.HasValue, htmlAttributes: new { @class = "form-check-input " })
+                </div>
+            </div>
+        </div>
+        @*Calidad*@
+        <div class="form-group">
+            <div class="form-check">
+                @Html.LabelFor(model => model.Calidad, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(m => m.Calidad.HasValue, htmlAttributes: new { @class = "form-check-input " })
+                </div>
+            </div>
+        </div>
+
+        @*FONATEL*@
+        <div class="form-group">
+            <div class="form-check">
+                @Html.LabelFor(model => model.FONATEL, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(m => m.FONATEL.HasValue, htmlAttributes: new { @class = "form-check-input " })
+                </div>
+            </div>
+        </div>
+
+        @*Termina Datasoft*@
+
+        @*Error*@
+        <div class="form-group">
+            <div class="alert alert-danger" hidden role="alert" name="error">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear" class="btn btn-success" />
+                @Html.ActionLink("Cancelar", "Index", "Usuarios", null, new { @class = "btn btn-danger" })
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts{
+    @Scripts.Render("~/Scripts/Seguridad/Usuarios/Create.js")
+    <script>
+        jQuery.extend(jQuery.validator.messages, {
+            email: "@GB.SUTEL.Entities.Metadata.EntityErrors.EmailAddress"
+        });
+        RequiredMessage = "@GB.SUTEL.Entities.Metadata.EntityErrors.Requerido";
+    </script>
+}

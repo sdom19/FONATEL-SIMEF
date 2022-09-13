@@ -7,6 +7,7 @@ using System.Web;
 using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 using static GB.SIMEF.Resources.Constantes;
 
@@ -21,12 +22,24 @@ namespace GB.SIMEF.BL
         private RespuestaConsulta<List<DetalleCategoriaTexto>> ResultadoConsulta;
         string modulo = Etiquetas.DetalleCategorias;
 
-        public DetalleCategoriasTextoBL()
+        string user = string.Empty;
+
+        public DetalleCategoriasTextoBL(string modulo, string user)
         {
+            this.user = user;
+            this.modulo = modulo;
             clsDatos = new DetalleCategoriaTextoDAL();
             clsDatosCategoria = new CategoriasDesagregacionDAL();
             ResultadoConsulta = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
         }
+
+
+        private string SerializarObjetoBitacora(DetalleCategoriaTexto objCategoria)
+        {
+            return JsonConvert.SerializeObject(objCategoria, new JsonSerializerSettings
+            { ContractResolver = new JsonIgnoreResolver(objCategoria.NoSerialize) });
+        }
+
 
         public RespuestaConsulta<List<DetalleCategoriaTexto>> ActualizarElemento(DetalleCategoriaTexto objeto)
         {
@@ -35,7 +48,8 @@ namespace GB.SIMEF.BL
                 objeto.Estado = true;
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
-                ResultadoConsulta.Usuario = objeto.usuario;
+                ResultadoConsulta.Usuario = user;
+                objeto.usuario=user;
                 if (!string.IsNullOrEmpty(objeto.categoriaid))
                 {
                     int temp = 0;
@@ -44,9 +58,12 @@ namespace GB.SIMEF.BL
                 }
                 var auxTemp = clsDatos.ObtenerDatos(new DetalleCategoriaTexto()
                 { idCategoria = objeto.idCategoria }).ToList();
-                auxTemp = auxTemp.Where(x => x.Codigo != objeto.Codigo).ToList();
 
-              
+                string jsonAnterior = SerializarObjetoBitacora(auxTemp.Where(x=>x.Codigo==objeto.Codigo).Single());
+
+                auxTemp = auxTemp.Where(x => x.Codigo != objeto.Codigo).ToList();
+            
+
 
                 if (auxTemp.Where(x => x.Etiqueta.ToUpper()==objeto.Etiqueta.ToUpper()).Count()>0)
                 {
@@ -58,10 +75,15 @@ namespace GB.SIMEF.BL
                       .ObtenerDatos(new CategoriasDesagregacion() { idCategoria = objeto.idCategoria }).Single();
                     ResultadoConsulta.objetoRespuesta= clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+
+                    string jsonActual = SerializarObjetoBitacora(objeto);
+
+
+
                     clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                      ResultadoConsulta.Usuario,
                      ResultadoConsulta.Clase, string.Format("{0}/{1}",
-                     categoria.Codigo, objeto.Codigo));
+                     categoria.Codigo, objeto.Codigo),jsonActual,jsonAnterior);
                 }
             }
             catch (Exception ex)
@@ -99,7 +121,8 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
-                ResultadoConsulta.Usuario = objeto.usuario;
+                ResultadoConsulta.Usuario = user;
+                objeto.usuario = user;
                 DetalleCategoriaTexto registroActializar;
 
                 if (!String.IsNullOrEmpty(objeto.id))
@@ -172,7 +195,8 @@ namespace GB.SIMEF.BL
                                             - objeto.CategoriasDesagregacion.DetalleCategoriaTexto.Count();
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
-                ResultadoConsulta.Usuario = objeto.usuario;
+                ResultadoConsulta.Usuario = user;
+                objeto.usuario = user;
                 if (cantidadDisponible <= 0)
                 {
                     throw new Exception(Errores.CantidadRegistros);
@@ -197,10 +221,11 @@ namespace GB.SIMEF.BL
                         clsDatosCategoria.ActualizarDatos(objeto.CategoriasDesagregacion);
                     }
 
+                    string jsonInicial = SerializarObjetoBitacora(objeto);
                       clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                        ResultadoConsulta.Usuario,
                        ResultadoConsulta.Clase, string.Format("{0}/{1}",
-                       objeto.CategoriasDesagregacion.Codigo, objeto.Codigo));
+                       objeto.CategoriasDesagregacion.Codigo, objeto.Codigo),"","",jsonInicial);
                     
                 }
             }

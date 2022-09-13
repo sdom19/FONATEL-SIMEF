@@ -12,14 +12,14 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("FormulasCalculo")]
     public partial class FormulasCalculo
     {
         
         public FormulasCalculo()
         {
-            this.FormulaNivelCalculoCategoria = new HashSet<FormulaNivelCalculoCategoria>();
-            this.FormulasCalculoDetalle = new HashSet<FormulasCalculoDetalle>();
         }
         [Key]
         public int idFormula { get; set; }
@@ -28,16 +28,12 @@ namespace GB.SIMEF.Entities
         public string Descripcion { get; set; }
         public bool NivelCalculoTotal { get; set; }
         public string UsuarioModificacion { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime FechaCalculo { get; set; }
         public Nullable<System.DateTime> FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
-    
-        public virtual DetalleIndicadorVariables DetalleIndicadorVariables { get; set; }
-        public virtual EstadoRegistro EstadoRegistro { get; set; }
-
-        public virtual ICollection<FormulaNivelCalculoCategoria> FormulaNivelCalculoCategoria { get; set; }
-        public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
-
-        public virtual ICollection<FormulasCalculoDetalle> FormulasCalculoDetalle { get; set; }
     }
 }

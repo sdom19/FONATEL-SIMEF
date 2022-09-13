@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JsonDiffPatchDotNet, Version=2.3.0.0, Culture=neutral, PublicKeyToken=a407b9994a6d66d5, processorArchitecture=MSIL">
+      <HintPath>..\packages\JsonDiffPatch.Net.2.3.0\lib\net45\JsonDiffPatchDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,10 +67,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewFormulario.resx</DependentUpon>
     </Compile>
+    <Compile Include="EtiquetasViewFormulasCalculo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewFormulasCalculo.resx</DependentUpon>
+    </Compile>
     <Compile Include="EtiquetasViewFuentesRegistro.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewFuentesRegistro.resx</DependentUpon>
+    </Compile>
+    <Compile Include="EtiquetasViewHistorico.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewHistorico.resx</DependentUpon>
     </Compile>
     <Compile Include="EtiquetasViewIndicadorFonatel.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -96,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewSolicitudes.resx</DependentUpon>
     </Compile>
+    <Compile Include="JsonIgnoreResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EtiquetasViewDefinicionIndicadores.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -132,9 +149,17 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewFormulario.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewFormulasCalculo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewFormulasCalculo.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="EtiquetasViewFuentesRegistro.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewFuentesRegistro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewHistorico.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewHistorico.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="EtiquetasViewIndicadorFonatel.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -164,6 +189,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewSolicitudes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

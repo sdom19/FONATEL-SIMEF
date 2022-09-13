@@ -70,7 +70,6 @@
     <Build Include="dbo\Tables\TipoDetalleCategoria.sql" />
     <Build Include="dbo\Tables\TipoCategoria.sql" />
     <Build Include="dbo\Tables\SolicitudEnvioProgramado.sql" />
-    <Build Include="dbo\Tables\SolicitudDetalleFuentes.sql" />
     <Build Include="dbo\Tables\Solicitud.sql" />
     <Build Include="dbo\Tables\RelacionCategoria.sql" />
     <Build Include="dbo\Tables\ReglaValidacionTipo.sql" />
@@ -82,7 +81,6 @@
     <Build Include="dbo\Tables\RegistroIndicador.sql" />
     <Build Include="dbo\Tables\Registro.sql" />
     <Build Include="dbo\Tables\ProgramacionSolicitudes.sql" />
-    <Build Include="dbo\Tables\Operadores.sql" />
     <Build Include="dbo\Tables\Mes.sql" />
     <Build Include="dbo\Tables\Indicador.sql" />
     <Build Include="dbo\Tables\GrupoIndicadores.sql" />
@@ -110,7 +108,6 @@
     <Build Include="dbo\Tables\DetalleCategoriaTexto.sql" />
     <Build Include="dbo\Tables\DetalleCategoriaNumerico.sql" />
     <Build Include="dbo\Tables\DetalleCategoriaFecha.sql" />
-    <Build Include="dbo\Tables\DefinicionIndicadores.sql" />
     <Build Include="dbo\Tables\ClasificacionIndicadores.sql" />
     <Build Include="dbo\Tables\CategoriasDesagregacion.sql" />
     <Build Include="dbo\Tables\Bitacora.sql" />
@@ -123,7 +120,6 @@
     <Build Include="dbo\Views\calendar.sql" />
     <Build Include="dbo\Stored Procedures\spObtenerTipoDetalleCategoria.sql" />
     <Build Include="dbo\Stored Procedures\spObtenerTipoCategoria.sql" />
-    <Build Include="dbo\Stored Procedures\spObtenerDetalleCategoriaTexto.sql" />
     <Build Include="dbo\Stored Procedures\spObtenerCategoriasDesagregacion.sql" />
     <Build Include="dbo\Stored Procedures\spObtenerBitacora.sql" />
     <Build Include="dbo\Stored Procedures\spActualizarDetalleCategoriaTexto.sql" />
@@ -136,5 +132,30 @@
     <Build Include="dbo\Stored Procedures\spActualizarRelacionCategoria.sql" />
     <Build Include="dbo\Stored Procedures\spActualizarCategoriasDesagregacionNumerico.sql" />
     <Build Include="dbo\Stored Procedures\spActualizarCategoriasDesagregacionFecha.sql" />
+    <Build Include="dbo\Tables\OperadorArismetico_1.sql" />
+    <Build Include="dbo\Tables\DetalleDatoHistoricoFila.sql" />
+    <Build Include="dbo\Tables\DetalleDatoHistoricoColumna.sql" />
+    <Build Include="dbo\Tables\DefinicionIndicador_1.sql" />
+    <Build Include="dbo\Tables\DatoHistorico_1.sql" />
+    <Build Include="dbo\Stored Procedures\spValidarRegla.sql" />
+    <Build Include="dbo\Stored Procedures\spValidarFuente_1.sql" />
+    <Build Include="dbo\Stored Procedures\spValidarFormulario.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerSolicitudes_1.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerListadoIndicadoresXFormulario_1.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerIndicadoresFonatel_1.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerFuentesRegistrosDestinatarios_1.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerFuentesRegistros_1.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerFrecuenciasEnvio_1.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerFormularioXSolicitud.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerFormulariosWeb_1.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerDetalleRelacionCategoria_1.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerDetalleCategoriasTexto_1.sql" />
+    <Build Include="dbo\Stored Procedures\spObtenerDefinicionesIndicador_1.sql" />
+    <Build Include="dbo\Stored Procedures\spCrearUsuario_1.sql" />
+    <Build Include="dbo\Stored Procedures\spActualizarIndicadorFonatel_1.sql" />
+    <Build Include="dbo\Stored Procedures\spActualizarFuentesRegistroDetalle_1.sql" />
+    <Build Include="dbo\Stored Procedures\spActualizarFuentesRegistro_1.sql" />
+    <Build Include="dbo\Stored Procedures\spActualizarDetalleRelacionCategoria_1.sql" />
+    <Build Include="dbo\Stored Procedures\spActualizarDefinicionIndicador_1.sql" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.DAL
@@ -20,14 +21,18 @@ namespace GB.SIMEF.DAL
             }
         }
 
-        public void RegistrarBitacora(int accion, string usuario, string pantalla, string codigo )
+        public void RegistrarBitacora(int accion, string usuario, string pantalla, string codigo, string valorActual="", string ValorAnterior="", string ValorInicial="" )
         {
             Bitacora bitacora = new Bitacora()
             {
                 Accion = accion,
                 Usuario = usuario,
                 Pantalla = pantalla,
-                Codigo = codigo.ToUpper() 
+                Codigo = codigo.ToUpper(),
+                ValorInicial=ValorInicial,
+                ValorActual=valorActual,
+                ValorAnterior=ValorAnterior
+                
             };
             using (db = new SIMEFContext())
             {
@@ -49,24 +54,33 @@ namespace GB.SIMEF.DAL
         {
 
             List<Bitacora> ListaBitacora= new List<Bitacora>();
+           
             using (db = new SIMEFContext())
             {
                 ListaBitacora = db.Database.SqlQuery<Bitacora>
-                    ("execute spObtenerBitacora @fechaDesde, @fechaHasta ",
+                    ("execute spObtenerBitacora @fechaDesde, @fechaHasta, @Pantalla, @Acciones, @Usuario ",
                      new SqlParameter("@fechaDesde", string.IsNullOrEmpty(bitacora.FechaDesde) ? DBNull.Value.ToString(): bitacora.FechaDesde),
-                     new SqlParameter("@fechaHasta", string.IsNullOrEmpty(bitacora.FechaHasta) ? DBNull.Value.ToString() : bitacora.FechaHasta)
+                     new SqlParameter("@fechaHasta", string.IsNullOrEmpty(bitacora.FechaHasta) ? DBNull.Value.ToString() : bitacora.FechaHasta),
+                     new SqlParameter("@Pantalla", string.IsNullOrEmpty(bitacora.Pantalla) ? DBNull.Value.ToString() : bitacora.Pantalla),
+                     new SqlParameter("@Acciones", string.IsNullOrEmpty(bitacora.AccionNombre) ? DBNull.Value.ToString() : bitacora.AccionNombre),
+                     new SqlParameter("@Usuario", string.IsNullOrEmpty(bitacora.Usuario) ? DBNull.Value.ToString() : bitacora.Usuario)
                     ).ToList();
 
                 ListaBitacora = ListaBitacora.Select(x => new Bitacora()
                 {
-                    idBitacora=x.idBitacora,
-                    Accion=x.Accion,
-                    Codigo=x.Codigo,
-                    Pantalla=x.Pantalla,
-                    Usuario=x.Usuario,
-                    Fecha=x.Fecha,
-                    AccionNombre= Enum.GetName(typeof(Accion), x.Accion)
-            }).ToList();
+                    idBitacora = x.idBitacora,
+                    Accion = x.Accion,
+                    Codigo = x.Codigo,
+                    Pantalla = x.Pantalla,
+                    Usuario = x.Usuario,
+                    Fecha = x.Fecha,
+                    ValorActual = x.ValorActual,
+                    ValorInicial = x.ValorInicial,
+                    ValorAnterior = x.ValorAnterior,
+
+                    ValorDiferencial = x.Accion == (int)Accion.Editar ? Utilidades.jsonDiff(x.ValorAnterior, x.ValorActual) : string.Empty,
+                    AccionNombre = Enum.GetName(typeof(Accion), x.Accion)
+                }).ToList();
             }
             return ListaBitacora;
         }

@@ -56,3 +56,17 @@ C:\Fonatel\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.csproj.CoreComp
 C:\Fonatel\SITEL\GB.SUTEL.Resources\obj\Debug\en\GB.SUTEL.Resources.resources.dll
 C:\Fonatel\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.dll
 C:\Fonatel\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\bin\Debug\GB.SUTEL.Resources.dll.config
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\bin\Debug\GB.SUTEL.Resources.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\bin\Debug\GB.SUTEL.Resources.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\bin\Debug\en\GB.SUTEL.Resources.resources.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.EtiquetasBotones.resources
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.EtiquetasMantenimiento.resources
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.Mensajes.resources
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.Resources.resources
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.Resources.en.resources
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.csproj.GenerateResource.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\en\GB.SUTEL.Resources.resources.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.pdb

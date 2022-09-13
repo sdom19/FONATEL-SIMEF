@@ -1,0 +1,82 @@
+﻿@model Tuple<List<GB.SUTEL.Entities.Operador>, List<GB.SUTEL.Entities.Servicio>, List<GB.SUTEL.Entities.ServicioOperador>>
+<table class="display" cellspacing="0" data-table-grid="true">
+
+    <thead>
+        <tr>
+
+            <th class="no-sort" style="min-width:40px;"></th>
+            <th>Servicios</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.Item2)
+        {
+            <tr style="vertical-align:top; border-spacing: 1px; ">
+                <td>
+                    @foreach (var item2 in Model.Item3)
+                    {
+                        if (item.IdServicio == item2.IdeServicio)
+                        {
+                            if (item2.Verificar == true)
+                            {
+                                <input type="checkbox" value="@item.IdServicio" id="@item.IdServicio" name="@item.IdServicio" disabled="disabled" checked="checked" onchange="verificarServicio(@item.IdServicio)" />
+                            }
+                            else
+                            {<input type="checkbox" value="@item.IdServicio" id="@item.IdServicio" name="@item.IdServicio" onchange="verificarServicio(@item.IdServicio)" />}
+
+                        }
+                    }
+
+
+                </td>
+                <td>
+                    <label for="@Html.DisplayFor(modelIten => item.IdServicio)" style="cursor:pointer;font-weight:normal;width:100%">
+                        @Html.DisplayFor(modelIten => item.DesServicio)
+                    </label>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td>
+                <form id="frmFiltroServicios" method="post"
+                      action="@Url.Action("_Servicios")" data-ajax="true" data-ajax-target="#tablaServicios"
+                      data-ajax-message="Cargando datos...">
+                    <input placeholder="Nombre" name="NombreOperador" id="NombreOperador" value="@ViewBag.searchTerm_NOMBREOPERADOR" style="margin-left: -2%" />
+                    <button type="button" id="btnBuscarOperadores" hidden>Submit</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        AjaxifyMyForm("frmFiltroServicios",
+            function (data) {
+                console.log(data);
+                data = "<div id='tablaServicios'>" + data + "</div>";
+                console.log(data);
+                var $form = $(data);
+                $("#tablaServicios").replaceWith(data);
+            },
+            function (error) {
+
+            });
+        $("#divMensajeError").hide();
+    });
+
+    if (typeof initDataGrid !== 'undefined') {
+        $('table[data-table-grid="true"]').ready(initDataGrid);
+    }
+
+    $('#frmFiltroServicios input').keyup(function (event) {
+        if (event.keyCode === 13) {
+            $('#frmFiltroServicios').submit();
+        }
+    });
+
+</script>

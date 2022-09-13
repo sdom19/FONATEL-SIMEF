@@ -1,10 +1,12 @@
-﻿using GB.SIMEF.Entities;
-using GB.SIMEF.Resources;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
+
 
 namespace GB.SIMEF.DAL
 {

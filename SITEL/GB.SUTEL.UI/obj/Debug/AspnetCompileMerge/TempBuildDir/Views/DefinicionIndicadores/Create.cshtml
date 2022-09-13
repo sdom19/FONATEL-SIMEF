@@ -1,21 +1,27 @@
-﻿@{
-    ViewBag.Title = "Definición";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@using GB.SIMEF.Resources;
+
+@{
+    ViewBag.Title = ViewBag.Titulo;
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
-<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+@section scripts {
+    @Scripts.Render("~/bundles/FONATEL/DefinicionIndicador")
+}
+
 <div class="container body-content">
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                <li class="breadcrumb-item active"><a href="/Fonatel/DefinicionIndicadores/index">Definiciones</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Crear Definición</li>
+                <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active"><a href="/Fonatel/DefinicionIndicadores/index">@EtiquetasViewIndicadorFonatel.TituloDefiniciones</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewBag.Titulo</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Definición</h2>
+            <h2 class="page-title-fonatel text-center">@ViewBag.Titulo</h2>
             <hr />
         </div>
         <div class="col-lg-12">

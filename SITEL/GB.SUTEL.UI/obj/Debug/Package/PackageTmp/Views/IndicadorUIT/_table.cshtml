@@ -1,0 +1,117 @@
+﻿@model List<GB.SUTEL.Entities.IndicadorUIT>
+@using GB.SUTEL.UI.Helpers;
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Indicador UIT", "Consultar"))
+{
+    <form id="frmFiltroIndicadorUIT" method="post"
+          action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tablaIndicadorUIT"
+          data-ajax-message="Cargando datos...">
+        <table class="display" cellspacing="0" data-table-grid="true">
+            <thead>
+                <tr>
+                    <th>
+                        Código
+                        @* @Html.DisplayNameFor(model => model.IdIndicadorUIT)*@
+                    </th>
+                    <th>
+                        Indicador UIT
+                        @* @Html.DisplayNameFor(model => model.DescIndicadorUIT)*@
+                    </th>
+
+                    <th class="no-sort" style="min-width:40px;"></th>
+                </tr>
+            </thead>
+            <tfoot>
+
+                <tr>
+
+                    <td>
+
+                        <input placeholder="Código" name="IdIndicadorUIT" value="@(ViewBag.searchTerm.IdIndicadorUIT == 0 ? "" : ViewBag.searchTerm.IdIndicadorUIT)" />
+                    </td>
+                    <td colspan="2">
+                        <input placeholder="Indicador UIT" name="DescIndicadorUIT" value="@ViewBag.searchTerm.DescIndicadorUIT" />
+                        <button type="submit" class="hidden">Submit</button>
+
+                    </td>
+                </tr>
+            </tfoot>
+            <tbody>
+
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td data-toggle="modal" data-target="#modalEditarIndicadorUIT"
+                                data-select="true" data-json-selected='{"IDIndicadorUITEditar":" @item.IdIndicadorUIT ", "txtIDNombreIndicadorUITEditar": " @item.DescIndicadorUIT"}'>
+                                @Html.DisplayFor(modelItem => item.IdIndicadorUIT)
+                            </td>
+                            <td data-toggle="modal" data-target="#modalEditarIndicadorUIT"
+                                data-select="true" data-json-selected='{"IDIndicadorUITEditar":" @item.IdIndicadorUIT ", "txtIDNombreIndicadorUITEditar": " @item.DescIndicadorUIT"}'>
+                                @Html.DisplayFor(modelItem => item.DescIndicadorUIT)
+                            </td>
+
+                            <td>
+                                @if (rolValidation.ValidateScreenFunctions(this.Context, "Indicador UIT", "Eliminar"))
+                                {
+                                    <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="modal" data-target="#modalEliminarIndicadorUIT"
+                                            data-select="true"
+                                            data-json-selected='{"IDIndicadorUITEliminar":" @item.IdIndicadorUIT ", "txtIDNombreIndicadorUITEliminar": " @item.DescIndicadorUIT"}'>
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="3">No se encontraron datos</td></tr>
+                }
+            </tbody>
+        </table>
+    </form>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        No tiene permisos para consultar.
+    </div>
+}
+<script type="text/javascript">
+
+
+    $(document).ready(
+        function () {
+            AjaxifyMyForm("frmFiltroIndicadorUIT",
+            function (data) {
+                data = "<div id='tablaIndicadorUIT'>" + data + "</div>";
+
+                var $form = $(data);
+                $("#tablaIndicadorUIT").replaceWith(data);
+            },
+            function (error) {
+
+            });
+        });
+
+
+    if (typeof initDataGrid !== 'undefined') {
+        $('table[data-table-grid="true"]').ready(initDataGrid);
+    }
+
+    $('#frmFiltroIndicadorUIT input').keyup(function (event) {
+        if (event.keyCode === 13) {
+            $('#frmFiltroIndicadorUIT').submit();
+        }
+    });
+
+</script>
