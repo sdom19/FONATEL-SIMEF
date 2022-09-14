@@ -38,7 +38,9 @@
     "Metodos": {
 
         "CargarExcel": function () {
+
             jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
+                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
         },
     }
 
@@ -60,7 +62,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardar, fun
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RegistroIndicadorFonatel/Index";});
+                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index";});
         });
 });
 
@@ -71,7 +73,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardarRegis
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
-                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/index"; });
+                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
         });
 });
 
@@ -102,7 +104,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnllenadoweb, 
 });
 //DESCARGAR
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario", null, "Descargar Registro")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
             window.open(jsUtilidades.Variables.urlOrigen + "/EditarFormulario/DescargarExcel");
             jsRegistroIndicadorFonatelEdit.Metodos.CargarExcel();
@@ -115,7 +117,8 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCargarPlanti
 });
 
 $(document).on("change", jsRegistroIndicadorFonatelEdit.Controles.inputFileCargarPlantilla, function (e) {
-    jsMensajes.Metodos.OkAlertErrorModal("El Formulario ha sido cargado")
+    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido cargado")
+//        .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
 });
 
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.IndicadorCorrecto, function () {

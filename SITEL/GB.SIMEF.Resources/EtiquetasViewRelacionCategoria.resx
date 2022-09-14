@@ -121,7 +121,7 @@
     <value>Acciones</value>
   </data>
   <data name="Cantidad" xml:space="preserve">
-    <value>Cantidad de atributos</value>
+    <value>Cantidad de Atributos</value>
   </data>
   <data name="CategoriaAtributo" xml:space="preserve">
     <value>Categoría Atributo</value>
@@ -133,7 +133,7 @@
     <value>Crear Relaciones entre Categorías</value>
   </data>
   <data name="Detalle" xml:space="preserve">
-    <value>Agregar atributos</value>
+    <value>Agregar Atributos</value>
   </data>
   <data name="DetalleAtributo" xml:space="preserve">
     <value>Detalle Relación Atributo</value>

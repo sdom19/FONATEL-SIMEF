@@ -73,7 +73,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult DescargarExcel()
         {
-            string nombre = "RegistroIndicadorExcel";
+            string nombre = "PruebaExcel";
 
             MemoryStream stream = new MemoryStream();
 
