@@ -159,11 +159,11 @@ $(document).on('draw.dt', jsRegistroIndicadorFonatel.Controles.tablaIndicador, f
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar, function () {
     if (jsRegistroIndicadorFonatel.Variables.Validacion == false) {
 
-        jsMensajes.Metodos.OkAlertModal("La información ingresada cumple con los criterios de validación.");
+        jsMensajes.Metodos.OkAlertModal("Validación Exitosa <br><br> La información ingresada cumple con los criterios de validación.");
         $(jsRegistroIndicadorFonatel.Controles.btnCarga).prop("disabled", false);
 
     } else {
-        jsMensajes.Metodos.OkAlertErrorModal("La información ingresada no es congruente con el registro del mes anterior.");
+        jsMensajes.Metodos.OkAlertErrorModal("Fórmula de cambio mensual <br><br> La información ingresada no es congruente con el registro del mes anterior");
     }
 
 });
@@ -181,7 +181,7 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar2, functi
         $(jsRegistroIndicadorFonatel.Controles.btnCarga).prop("disabled", false);
 
     } else {
-        jsMensajes.Metodos.OkAlertErrorModal("La información ingresada no es congruente con el registro del mes anterior.");
+        jsMensajes.Metodos.OkAlertErrorModal("Fórmula actualización secuencial <br><br>La información ingresada no cumple con la secuencia con respecto a los registros del periodo anterior");
     }
 
 });
