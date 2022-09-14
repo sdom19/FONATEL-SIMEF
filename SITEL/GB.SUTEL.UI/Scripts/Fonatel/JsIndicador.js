@@ -111,11 +111,11 @@
                     window.location.href = IndexView.Variables.indexViewURL
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -170,11 +170,11 @@
                     window.location.href = IndexView.Variables.indexViewURL
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -206,11 +206,11 @@
                     window.location.href = IndexView.Variables.indexViewURL
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -445,11 +445,11 @@ CreateView = {
                         jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado").set('onok', function (closeEvent) { });
                     })
                     .catch(error => {
-                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                        if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                         }
                         else {
-                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                         }
                     })
                     .finally(() => {
@@ -498,12 +498,11 @@ CreateView = {
                         .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
                 .catch(error => {
-                    console.log(error);
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -574,11 +573,11 @@ CreateView = {
                     })
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -610,12 +609,11 @@ CreateView = {
                         .set('onok', function (closeEvent) { });
                 })
                 .catch(error => {
-                    console.log(error);
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -686,11 +684,11 @@ CreateView = {
                     })
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -722,11 +720,11 @@ CreateView = {
                         .set('onok', function (closeEvent) { });
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -797,11 +795,11 @@ CreateView = {
                     })
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -833,11 +831,11 @@ CreateView = {
                         .set('onok', function (closeEvent) { });
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -845,7 +843,7 @@ CreateView = {
                 });
         },
 
-        // Formularo Detalles Variable
+        // Formulario Detalles Variable
         CargarDetallesVariable: function (pIndicador) {
             if (!CreateView.Variables.hizoCargaDetallesVariables) {
                 $("#loading").fadeIn();
@@ -857,11 +855,11 @@ CreateView = {
                         CreateView.Variables.hizoCargaDetallesVariables = true;
                     })
                     .catch(error => {
-                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                        if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                         }
                         else {
-                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                         }
                     })
                     .finally(() => {
@@ -893,6 +891,7 @@ CreateView = {
             CreateView.Variables.objEditarDetallesVariableDato = variable;
             $(CreateView.Controles.formVariable.inputNombreVariable).val(variable.NombreVariable);
             $(CreateView.Controles.formVariable.inputDescripcionVariable).val(variable.Descripcion);
+            this.LimpiarMensajesValidacionFormularioDetallesVariable();
         },
 
         CrearObjDetallesVariable: function (pIndicador, pIdDetalle = null) {
@@ -906,20 +905,27 @@ CreateView = {
             return formData;
         },
 
-        ValidarFormularioEditarDetallesVariable: function () {
-            $(CreateView.Controles.formVariable.inputNombreVariable + CreateView.Controles.prefijoLabelsHelp).css("display", "none");
-            $(CreateView.Controles.formVariable.inputDescripcionVariable + CreateView.Controles.prefijoLabelsHelp).css("display", "none");
+        ValidarFormularioDetallesVariable: function () {
+            this.LimpiarMensajesValidacionFormularioDetallesVariable();
 
             let validacion = this.ValidarFormulario(CreateView.Controles.formVariable.inputs);
 
             for (let input of validacion.objetos) {
                 $("#" + $(input).attr("id") + CreateView.Controles.prefijoLabelsHelp).css("display", "block");
+                $("#" + $(input).attr("id")).parent().addClass("has-error");
             }
             return validacion.puedeContinuar;
         },
 
+        LimpiarMensajesValidacionFormularioDetallesVariable: function () {
+            $(CreateView.Controles.formVariable.inputNombreVariable + CreateView.Controles.prefijoLabelsHelp).css("display", "none");
+            $(CreateView.Controles.formVariable.inputDescripcionVariable + CreateView.Controles.prefijoLabelsHelp).css("display", "none");
+            $(CreateView.Controles.formVariable.inputNombreVariable).parent().removeClass("has-error");
+            $(CreateView.Controles.formVariable.inputDescripcionVariable).parent().removeClass("has-error");
+        },
+
         EditarDetallesVariable: function (pIdIndicador) {
-            let formValido = this.ValidarFormularioEditarDetallesVariable();
+            let formValido = this.ValidarFormularioDetallesVariable();
 
             if (!formValido) {
                 return;
@@ -956,12 +962,11 @@ CreateView = {
                         .set('onok', function (closeEvent) { });
                 })
                 .catch(error => {
-                    console.log(error)
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -970,7 +975,7 @@ CreateView = {
         },
 
         CrearDetallesVariables: function (pIdIndicador) {
-            let formValido = this.ValidarFormularioEditarDetallesVariable();
+            let formValido = this.ValidarFormularioDetallesVariable();
 
             if (!formValido) {
                 return;
@@ -1004,12 +1009,11 @@ CreateView = {
                         .set('onok', function (closeEvent) { });
                 })
                 .catch(error => {
-                    console.log(error)
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -1046,11 +1050,11 @@ CreateView = {
                         CreateView.Variables.hizoCargaDetallesCategorias = true;
                     })
                     .catch(error => {
-                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                        if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                         }
                         else {
-                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                         }
                     })
                     .finally(() => {
@@ -1116,11 +1120,11 @@ CreateView = {
                 })
                 .catch(error => {
                     console.log(error)
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {

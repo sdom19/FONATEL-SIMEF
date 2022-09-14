@@ -25,9 +25,60 @@ namespace GB.SIMEF.BL
             indicadorFonatelDAL = new IndicadorFonatelDAL();
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ActualizarElemento(DetalleIndicadorVariables objeto)
+        /// <summary>
+        /// 14/09/2022
+        /// José Navarro Acuña
+        /// Función que permite actualizar un detalle de variable dato de un indicador
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<DetalleIndicadorVariables>> ActualizarElemento(DetalleIndicadorVariables pDetalleIndicadorVariables)
         {
-            throw new NotImplementedException();
+            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            bool errorControlado = false;
+
+            try
+            {
+                RespuestaConsulta<List<DetalleIndicadorVariables>> detalleRegistrado = ObtenerDatos(pDetalleIndicadorVariables);
+
+                if (detalleRegistrado.HayError != (int) Error.NoError)
+                {
+                    return detalleRegistrado;
+                }
+
+                if (detalleRegistrado.objetoRespuesta.Count == 0) // el detalle existe?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                resultado = ValidarDatos(pDetalleIndicadorVariables);
+
+                if (resultado.HayError != (int)Error.NoError)
+                {
+                    return resultado;
+                }
+
+                resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ActualizarDatos(pDetalleIndicadorVariables);
+
+                resultado.Usuario = user;
+                resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Editar;
+
+                //indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                //        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
         }
 
         public RespuestaConsulta<List<DetalleIndicadorVariables>> CambioEstado(DetalleIndicadorVariables objeto)
@@ -89,47 +140,29 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerDatos(DetalleIndicadorVariables objeto)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// 01/09/2022
         /// José Navarro Acuña
-        /// Función que permite obtener los detalles variables dato de un indicador
+        /// Función que permite obtener los detalles variables dato. Según el objeto que se envia se pueden realizar filtros por IDs
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerDatosPorIndicador(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerDatos(DetalleIndicadorVariables pDetalleIndicadorVariables)
         {
             RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>> {
                 HayError = (int)Error.NoError,
             };
-            bool errorControlado = false;
 
             try
             {
-                int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorVariables.idIndicadorString), out int number);
-                pDetalleIndicadorVariables.idIndicador = number;
-
-                if (pDetalleIndicadorVariables.idIndicador == 0) // ¿ID descencriptado con éxito?
-                {
-                    errorControlado = true;
-                    throw new Exception(Errores.NoRegistrosActualizar);
-                }
-
+                PrepararObjetoDetalle(pDetalleIndicadorVariables);
                 resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ObtenerDatos(pDetalleIndicadorVariables).ToList();
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
             }
             catch (Exception ex)
             {
                 resultado.MensajeError = ex.Message;
-
-                if (errorControlado)
-                    resultado.HayError = (int)Error.ErrorControlado;
-                else
-                    resultado.HayError = (int)Error.ErrorSistema;
+                resultado.HayError = (int)Error.ErrorSistema;
             }
             return resultado;
         }
@@ -137,7 +170,7 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 12/09/2022
         /// José Navarro Acuña
-        /// Función que validar el objeto DetalleIndicadorVariables
+        /// Función que valida el objeto DetalleIndicadorVariables. Valida la existencia del indicador relacioado y la cantidad de detalles restantes del mismo
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
@@ -163,7 +196,7 @@ namespace GB.SIMEF.BL
                 }
 
                 // validar la cantidad de detalles registrados actualmente
-                RespuestaConsulta<List<DetalleIndicadorVariables>> detallesActuales = ObtenerDatosPorIndicador(pDetalleIndicadorVariables);
+                RespuestaConsulta<List<DetalleIndicadorVariables>> detallesActuales = ObtenerDatos(pDetalleIndicadorVariables);
 
                 if (detallesActuales.HayError != (int)Error.NoError)
                 {

@@ -606,7 +606,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = detalleIndicadorVariablesBL.ObtenerDatosPorIndicador(new DetalleIndicadorVariables()
+                resultado = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
                 {
                     idIndicadorString = pIdIndicador
                 });
@@ -785,8 +785,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado.MensajeError = Errores.NoRegistrosActualizar;
                 return JsonConvert.SerializeObject(resultado);
             }
-
-            pDetalleIndicadorVariables.Estado = true;
 
             await Task.Run(() =>
             {
