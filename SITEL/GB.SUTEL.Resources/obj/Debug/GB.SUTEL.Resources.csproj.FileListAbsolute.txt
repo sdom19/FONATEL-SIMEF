@@ -70,3 +70,4 @@ C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\D
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\en\GB.SUTEL.Resources.resources.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Resources\obj\Debug\GB.SUTEL.Resources.csproj.AssemblyReference.cache

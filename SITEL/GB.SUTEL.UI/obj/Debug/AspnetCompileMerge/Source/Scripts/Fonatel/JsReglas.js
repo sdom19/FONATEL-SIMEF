@@ -503,11 +503,16 @@ $(document).on("click", JsReglas.Controles.chkAtributosValidosRegla, function ()
     }
 });
 $(function () {
+   
     if ($("#TableReglaDesagregacion").length > 0) {
         JsReglas.Consultas.ConsultaListaReglas();
     }
-    else if ($(JsReglas.Controles.txtmodoregla).val() == jsUtilidades.Variables.Acciones.Editar) {
+    else if ($.urlParam("modo")== jsUtilidades.Variables.Acciones.Editar) {
         $(JsReglas.Controles.txtCodigo).prop("disabled", true);
+        JsReglas.Metodos.ValidarOpcionSiguiente();
+    }
+    else if ($.urlParam("modo") == jsUtilidades.Variables.Acciones.Clonar) {
+        JsReglas.Metodos.ValidarOpcionSiguiente();
     }
   
 

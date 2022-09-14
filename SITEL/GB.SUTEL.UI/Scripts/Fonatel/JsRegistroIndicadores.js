@@ -6,7 +6,7 @@
         "tabActivoRegistroIndicador": "div.tab-pane.active",
         "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
         "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
-
+        "table": "",
         "btnGuardarCategoría": "#btnGuardarCategoría",
         "btnDescargarPlantillaRegistro": "div.tab-pane.active #btnDescargarPlantillaRegistro",
         "btnCargarPlantillaRegistro": "div.tab-pane.active #btnCargarPlantillaRegistro",
@@ -148,9 +148,15 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.IndicadorErroneo, f
 });
 
 
+
+$(document).on('draw.dt', jsRegistroIndicadorFonatel.Controles.tablaIndicador, function (e) {
+    setSelect2();
+});
+
+
+
+
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar, function () {
-
-
     if (jsRegistroIndicadorFonatel.Variables.Validacion == false) {
 
         jsMensajes.Metodos.OkAlertModal("La información ingresada cumple con los criterios de validación.");
@@ -161,6 +167,8 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar, functio
     }
 
 });
+
+
 
 
 //BTN VALIDAR SEGUNDO INDICADOR SOLO PARA ENTREGA DOCUMENTO SIMER REVISAR LINEA 293 - FRANCISCO VINDAS RUIZ
@@ -248,9 +256,6 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
 
             jsRegistroIndicadorFonatel.Variables.paginasActualizadasConSelect2_tablaIndicador[tabActual].push(0);
 
-            setSelect2();
-
-            eventNextPrevDatatable();
         }
         
     }
@@ -261,20 +266,6 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
  Se maneja una variable que almacena las paginas visitadas de cada tab o indicador, 
  para así refrescar los select2.
  */
-function eventNextPrevDatatable() {
-    $(jsRegistroIndicadorFonatel.Controles.tablaIndicador).on('page.dt', function () {
-        var nextPage = $(this).DataTable().page.info().page;
-        let listaPages = jsRegistroIndicadorFonatel.Variables.paginasActualizadasConSelect2_tablaIndicador[getTabActivoRegistroIndicador()];
-
-        if (!listaPages.includes(nextPage)) {
-            setTimeout(() => {
-                setSelect2()
-            }, 0);
-
-            listaPages.push(nextPage);
-        }
-    });
-}
 
 function getTabActivoRegistroIndicador() {
     return $(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).attr("id");
