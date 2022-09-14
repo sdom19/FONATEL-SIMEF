@@ -14,6 +14,13 @@ namespace GB.SIMEF.DAL
         {
         }
 
+
+        public virtual DbSet<DatoHistorico> DatoHistorico { get; set; }
+
+        public virtual DbSet<DetalleDatoHistoricoColumna> DetalleDatoHistoricoColumna { get; set; }
+
+        public virtual DbSet<DetalleDatoHistoricoFila> DetalleDatoHistoricoFila { get; set; }
+
         public virtual DbSet<CategoriasDesagregacion> CategoriasDesagregacion { get; set; }
         public virtual DbSet<DetalleCategoriaTexto> DetalleCategoriaTexto { get; set; }
         public virtual DbSet<EstadoRegistro> EstadoRegistro { get; set; }
@@ -32,14 +39,14 @@ namespace GB.SIMEF.DAL
 
         public virtual DbSet<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
         public virtual DbSet<DetalleFuentesRegistro> DetalleFuentesRegistro { get; set; }
-        //public virtual DbSet<DetalleIndicadorCategoria> DetalleIndicadorCategoria { get; set; }
-        //public virtual DbSet<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
+        public virtual DbSet<DetalleIndicadorCategoria> DetalleIndicadorCategoria { get; set; }
+        public virtual DbSet<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
         //public virtual DbSet<DetalleRegistroIndicadorCategoria> DetalleRegistroIndicadorCategoria { get; set; }
         //public virtual DbSet<DetalleRegistroIndicadorVariable> DetalleRegistroIndicadorVariable { get; set; }
         public virtual DbSet<DetalleRelacionCategoria> DetalleRelacionCategoria { get; set; }
         
         public virtual DbSet<DetalleSolicitudFormulario> DetalleSolicitudFormulario { get; set; }
-        //public virtual DbSet<EnvioSolicitudes> EnvioSolicitudes { get; set; }
+        public virtual DbSet<EnvioSolicitudes> EnvioSolicitudes { get; set; }
 
         //public virtual DbSet<FormulaIndicadorDSF> FormulaIndicadorDSF { get; set; }
         //public virtual DbSet<FormulaIndicadorFecha> FormulaIndicadorFecha { get; set; }
@@ -60,22 +67,22 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<ProgramacionSolicitudes> ProgramacionSolicitudes { get; set; }
         //public virtual DbSet<Registro> Registro { get; set; }
         //public virtual DbSet<RegistroIndicador> RegistroIndicador { get; set; }
-        //public virtual DbSet<ReglaAtributosValidos> ReglaAtributosValidos { get; set; }
-        //public virtual DbSet<ReglaComparacionConstante> ReglaComparacionConstante { get; set; }
-        //public virtual DbSet<ReglaComparacionIndicador> ReglaComparacionIndicador { get; set; }
-        //public virtual DbSet<ReglaSecuencial> ReglaSecuencial { get; set; }
-        //public virtual DbSet<ReglaValidacion> ReglaValidacion { get; set; }
+        public virtual DbSet<ReglaAtributosValidos> ReglaAtributosValidos { get; set; }
+        public virtual DbSet<ReglaComparacionConstante> ReglaComparacionConstante { get; set; }
+        public virtual DbSet<ReglaComparacionIndicador> ReglaComparacionIndicador { get; set; }
+        public virtual DbSet<ReglaSecuencial> ReglaSecuencial { get; set; }
+        public virtual DbSet<ReglaValidacion> ReglaValidacion { get; set; }
         //public virtual DbSet<ReglaValidacionTipo> ReglaValidacionTipo { get; set; }
         public virtual DbSet<RelacionCategoria> RelacionCategoria { get; set; }
         public virtual DbSet<Solicitud> Solicitud { get; set; }
-        //public virtual DbSet<SolicitudDetalleFuentes> SolicitudDetalleFuentes { get; set; }
+        public virtual DbSet<SolicitudDetalleFuentes> SolicitudDetalleFuentes { get; set; }
         public virtual DbSet<SolicitudEnvioProgramado> SolicitudEnvioProgramado { get; set; }
 
         public virtual DbSet<TipoIndicadores> TipoIndicadores { get; set; }
         public virtual DbSet<TipoMedida> TipoMedida { get; set; }
         public virtual DbSet<TipoReglaValidacion> TipoReglaValidacion { get; set; }
-        //public virtual DbSet<TiposDetalleCategoria> TiposDetalleCategoria { get; set; }
+       //ublic virtual DbSet<Tippd> TiposDetalleCategoria { get; set; }
         public virtual DbSet<UnidadEstudio> UnidadEstudio { get; set; }
-        //public virtual DbSet<DefinicionIndicadores> DefinicionIndicadores { get; set; }
+        public virtual DbSet<DefinicionIndicador> DefinicionIndicadores { get; set; }
     }
 }

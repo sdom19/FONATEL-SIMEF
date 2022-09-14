@@ -54,3 +54,17 @@ C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.csproj.CoreCompileInp
 C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.csproj.CopyComplete
 C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.dll
 C:\Fonatel\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.Shared.dll.config
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.Shared.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.Shared.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.ExceptionHandler.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.ExceptionHandler.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\bin\Debug\GB.SUTEL.ExceptionHandler.dll.config
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.csproj.AssemblyReference.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.ErrorTemplate.resources
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.Logica.resources
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.csproj.GenerateResource.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.csproj.CopyComplete
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.Shared\obj\Debug\GB.SUTEL.Shared.pdb

@@ -1,7 +1,9 @@
 ﻿CREATE TABLE [dbo].[UnidadEstudio] (
-    [idUnidad] INT          NOT NULL,
+    [IdUnidad] INT          IDENTITY (1, 1) NOT NULL,
     [Nombre]   VARCHAR (50) NOT NULL,
     [Estado]   BIT          NOT NULL,
-    CONSTRAINT [PK_UnidadEstudio] PRIMARY KEY CLUSTERED ([idUnidad] ASC)
+    CONSTRAINT [PK_UnidadEstudio] PRIMARY KEY CLUSTERED ([IdUnidad] ASC)
 );
+
+
 

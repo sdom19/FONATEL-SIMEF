@@ -12,8 +12,8 @@ namespace GB.SIMEF.BL
 {
     public class IndicadorFonatelBL : IMetodos<Indicador>
     {
-        readonly string modulo = "";
-        readonly string user = "";
+        private readonly string modulo = "";
+        private readonly string user = "";
         private readonly IndicadorFonatelDAL indicadorFonatelDAL;
         private readonly TipoIndicadorDAL tipoIndicadorDAL;
         private readonly FrecuenciaEnvioDAL frecuenciaEnvioDAL;
@@ -37,37 +37,7 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<Indicador>> ActualizarElemento(Indicador pIndicador)
         {
-            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
-            bool errorControlado = false;
-
-            try
-            {
-                PrepararObjetoIndicador(pIndicador);
-                if (resultado.HayError != 0)
-                {
-                    return resultado;
-                }
-                resultado.objetoRespuesta = indicadorFonatelDAL.ActualizarDatos(pIndicador);
-
-                resultado.Usuario = user;
-                pIndicador.UsuarioModificacion = user;
-                resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
-                resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Insertar;
-
-                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
-            }
-            catch (Exception ex)
-            {
-                resultado.MensajeError = ex.Message;
-
-                if (errorControlado)
-                    resultado.HayError = (int)Error.ErrorControlado;
-                else
-                    resultado.HayError = (int)Error.ErrorSistema;
-            }
-            return resultado;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -153,14 +123,14 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 16/08/2022
         /// José Navarro Acuña
-        /// Función que retorna todos los formularios web relacionados a indicador.
-        /// Se puede realizar un filtrado de acuerdo al objecto que se envia y obtener un compilado de varios indicadores.
+        /// Función que verifica si el indicador se encuentra en algún formulario web o una formula de calculo.
+        /// Retorna un listado indicando las dependencias según corresponda
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FormularioWeb>> ObtenerFormulariosWebSegunIndicador(Indicador pIndicador)
+        public RespuestaConsulta<List<string>> VerificarUsoIndicador(Indicador pIndicador)
         {
-            RespuestaConsulta<List<FormularioWeb>> resultado = new RespuestaConsulta<List<FormularioWeb>>();
+            RespuestaConsulta<List<string>> resultado = new RespuestaConsulta<List<string>>();
             bool errorControlado = false;
 
             try
@@ -177,7 +147,7 @@ namespace GB.SIMEF.BL
                 pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
 
                 PrepararObjetoIndicador(pIndicador);
-                var result = indicadorFonatelDAL.ObtenerFormulariosWebSegunIndicador(pIndicador);
+                var result = indicadorFonatelDAL.VerificarUsoIndicador(pIndicador);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -348,6 +318,7 @@ namespace GB.SIMEF.BL
 
             try
             {
+                PrepararObjetoIndicador(pIndicador);
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
                 var result = indicadorFonatelDAL.ObtenerDatos(pIndicador);
@@ -422,42 +393,42 @@ namespace GB.SIMEF.BL
                 pIndicador.idIndicador = number;
             }
 
-            if (!string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
+            if (!string.IsNullOrEmpty(pIndicador.TipoIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoIndicadores.id), out int number);
                 pIndicador.IdTipoIndicador = number;
                 pIndicador.TipoIndicadores.IdTipoIdicador = pIndicador.TipoIndicadores != null ? number : 0;
             }
             
-            if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
+            if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.ClasificacionIndicadores.id), out int number);
                 pIndicador.IdClasificacion = number;
                 pIndicador.ClasificacionIndicadores.idClasificacion = pIndicador.ClasificacionIndicadores != null ? number : 0;
             }
             
-            if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
+            if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.GrupoIndicadores.id), out int number);
                 pIndicador.idGrupo = number;
                 pIndicador.GrupoIndicadores.idGrupo = pIndicador.GrupoIndicadores != null ? number: 0;
             }
             
-            if (!string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
+            if (!string.IsNullOrEmpty(pIndicador.UnidadEstudio?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.UnidadEstudio.id), out int number);
                 pIndicador.IdUnidadEstudio = number;
                 pIndicador.UnidadEstudio.idUnidad = pIndicador.UnidadEstudio != null ? number : 0;
             }
 
-            if (!string.IsNullOrEmpty(pIndicador.TipoMedida.id))
+            if (!string.IsNullOrEmpty(pIndicador.TipoMedida?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoMedida.id), out int number);
                 pIndicador.idTipoMedida = number;
                 pIndicador.TipoMedida.idMedida = pIndicador.TipoMedida != null ? number : 0;
             }
 
-            if (!string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
+            if (!string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.FrecuenciaEnvio.id), out int number);
                 pIndicador.IdFrecuencia = number;

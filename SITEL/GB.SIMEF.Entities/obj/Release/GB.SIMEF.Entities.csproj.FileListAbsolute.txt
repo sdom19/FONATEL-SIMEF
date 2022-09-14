@@ -1,0 +1,9 @@
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Release\GB.SIMEF.Entities.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Release\GB.SIMEF.Entities.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Release\GB.SIMEF.Resources.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Release\GB.SIMEF.Resources.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Release\GB.SIMEF.Entities.csproj.AssemblyReference.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Release\GB.SIMEF.Entities.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Release\GB.SIMEF.Entities.csproj.CopyComplete
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Release\GB.SIMEF.Entities.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Release\GB.SIMEF.Entities.pdb

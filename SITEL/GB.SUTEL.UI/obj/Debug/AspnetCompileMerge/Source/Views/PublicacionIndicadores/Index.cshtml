@@ -1,76 +1,37 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 @{
     ViewBag.Title = "Publicación de Indicadores";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
+
+@section scripts {
+    @*@Scripts.Render("~/bundles/FONATEL/PublicacionIndicador")*@
+}
+
 <div class="container body-content">
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Publicación de Indicadores</li>
+                <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewPublicaciones.PublicacionIndicadores</li>
             </ol>
         </nav>
     </div>
     <div class="row card">
-        <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Publicación de Indicadores</h2>
+        <div class="col-lg-12 mt-5">
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewPublicaciones.PublicacionIndicadores</h2>
             <hr />
         </div>
-        <div class="col-lg-12 mt-5">
-            <div class="row">
-                <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
-                    <div class="form-group row">
-                        <label for="ddlGrupoIdicadorDefinicion" class="col-sm-12  col-form-label">Grupo</label>
-                        <div class="col-sm-12" >
-                            <div class="select2-wrapper">
-                                <select class="listasDesplegables" id="ddlGrupoIdicadorDefinicion">
-                                    <option></option>
-                                    <option>Grupo 1</option>
-                                    <option>Grupo 2</option>
-                                </select>
-                            </div>
-                          
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
-
-                    <div class="form-group row">
-                        <label for="ddlTipoIndicadorDefinicion" class="col-sm-12  col-form-label ">Tipo</label>
-                        <div class="col-sm-12">
-                            <div class="select2-wrapper">
-                                <select class="listasDesplegables" id="ddlTipoIndicadorDefinicion">
-                                    <option></option>
-                                    <option>Tipo 1</option>
-                                    <option>Tipo 2</option>
-                                </select>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <button class="btn btn-fonatel btn-info-fonatel">Buscar</button>
-                    </div>
-                </div>
-            </div>
-      
-    </div>
-
-
-    <div class="row mt-5">
         <div class="col-md-12">
-            <div class="col-lg-12 mt-4">
+            <div class="col-lg-12 mt-5">
                 @Html.Partial("_TablaIndicadores")
             </div>
         </div>
+
     </div>
-
 </div>
-
+<script src="~/Scripts/Fonatel/JsPublicar.js"></script>
 
 
 

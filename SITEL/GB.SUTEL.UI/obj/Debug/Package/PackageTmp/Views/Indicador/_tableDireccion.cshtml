@@ -1,0 +1,141 @@
+﻿<script type="text/javascript">    
+    function loadDireccion(idDireccion) {
+
+        var inList = false;
+
+        for (var i = 0; i < allDirecciones.length; i++) {
+            if (idDireccion == allDirecciones[i]) {
+                inList = true;
+            }            
+        }
+
+        if (!inList) {
+            allDirecciones.push(idDireccion);
+        }
+    };
+
+    for (var i = 0; i < allDirecciones.length; i++) {
+        $("#checkDireccion_" + allDirecciones[i]).prop('checked', true);
+    }
+</script>
+
+
+@model Tuple<List<GB.SUTEL.Entities.Direccion>,GB.SUTEL.Entities.Indicador>
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>Direccion
+    </div>
+}
+
+<table class="display" cellspacing="0" data-table-grid="true" data-table-grid-display-rows="4">
+    <thead>
+        <tr>    
+            <th width="2px" class="no-sort"></th>
+            <th>Nombre</th>                        
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Item1)
+        {
+            <tr>    
+                <td>                    
+                    @if (item.Indicador.Count > 0)
+                    {
+                        bool exist = false;
+                        foreach (var item2 in item.Indicador)
+                        {                            
+                            if (item2.IdIndicador == Model.Item2.IdIndicador)
+                            {
+                                <input type="checkbox" value="@item.IdDireccion" checked onchange="addNewDireccion(@item.IdDireccion)" id="checkDireccion_@item.IdDireccion">
+                                <script>loadDireccion(@item.IdDireccion)</script>
+                                exist = true; break;
+                            }
+                        }
+                        if(!exist){
+                             <input type="checkbox" value="@item.IdDireccion" onchange="addNewDireccion(@item.IdDireccion)" id="checkDireccion_@item.IdDireccion">                                
+                        }
+                    }
+                    else
+                    {
+                        <input type="checkbox" value="@item.IdDireccion" onchange="addNewDireccion(@item.IdDireccion)" id="checkDireccion_@item.IdDireccion">
+                    }                    
+                </td>             
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>                                
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+                <form id="frmFilterDireccion" method="post"
+                      action="@Url.Action("_tableDireccion")" data-ajax="true" data-ajax-target="#tableDireccion"
+                      data-ajax-message="Cargando datos...">
+                    <input name="idIndicador" hidden value="@Model.Item2.IdIndicador" />
+                    <input placeholder="Nombre" name="Nombre" value="@ViewBag.searchTermDireccion.Nombre" />
+                    <button type="submit" hidden>Submit</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+ 
+<script type="text/javascript">
+
+    $(document).ready(
+        function () {
+            AjaxifyMyForm("frmFilterDireccion",
+            function (data) {
+                data = "<div id='tableDireccion'>" + data + "</div>";
+                
+                var $form = $(data);
+                $("#tableDireccion").replaceWith(data);                
+                $('table[data-table-grid="true"]').ready(initDataGrid);
+            },
+            function (error) {
+
+            }, 10000);
+     });
+    //Consulta permisos de roles por usuario
+    
+    $('#frmFilterDireccion').submit(function (event) {
+        event.preventDefault(); // stop the actual submit
+        // ajax code goes here to submit data
+    });
+    function hrefEditarIndicador(id)
+    {
+        window.location = "Indicador/Editar/"+id;
+    }
+
+    function addNewDireccion(id) {
+
+        var element = $("#checkDireccion_" + id);
+        var valueChecked = element.prop('checked');
+
+        var inList = false;
+        var indexArray = null;
+        for (var i = 0; i < allDirecciones.length; i++) {
+            if (allDirecciones[i] == id) {
+                inList = true;
+                indexArray = i;
+                break;
+            }
+        }
+        if (!inList && valueChecked) {
+            allDirecciones.push(id);
+        }
+        else {
+            if (inList && !valueChecked) {
+                allDirecciones.splice(indexArray, 1);
+            }
+        }
+    };
+    $('#frmFilterDireccion input').keyup(function (event) {
+        if (event.keyCode === 13) {
+            $('#frmFilterDireccion').submit();
+        }
+    });
+</script>

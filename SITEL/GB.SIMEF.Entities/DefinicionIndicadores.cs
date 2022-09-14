@@ -35,5 +35,9 @@ namespace GB.SIMEF.Entities
         
         [NotMapped]
         public virtual Indicador Indicador { get; set; }
+
+
+        [NotMapped]
+        public virtual string id { get; set; }
     }
 }

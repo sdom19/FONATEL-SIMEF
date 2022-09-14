@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -24,6 +25,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
+            var lista = BitacoraBL.ObtenerDatos( new Bitacora()).objetoRespuesta;
+
+            var listaUsuario = lista.Select(x => x.Usuario).Distinct();
+            var listaPantalla = lista.Select(x => x.Pantalla).Distinct();
+
+            var ListaAcciones = lista.Select(x => x.Accion).Distinct();
+
+            ViewBag.Pantalla = listaPantalla.Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
+            ViewBag.Usuario = listaUsuario.Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
+
+            ViewBag.Accion = ListaAcciones.Select(x => new SelectListItem() { Selected = false, Value = x.ToString(), Text = Enum.GetName(typeof(Accion), x) }).ToList();
+
             return View();
         }
 

@@ -1,12 +1,16 @@
 ﻿CREATE TABLE [dbo].[ReglaComparacionConstante] (
-    [idCompara]             INT          NOT NULL,
-    [idTipoReglaValidacion] INT          NOT NULL,
+    [IdCompara]             INT          NOT NULL,
+    [IdTipoReglaValidacion] INT          NOT NULL,
     [Constante]             VARCHAR (60) NOT NULL,
-    [idOperador]            INT          NOT NULL,
+    [IdOperador]            INT          NOT NULL,
     [idvariable]            INT          NULL,
     [Estado]                INT          NOT NULL,
-    CONSTRAINT [PK_ReglaComparacionCostante] PRIMARY KEY CLUSTERED ([idCompara] ASC),
-    CONSTRAINT [FK_ReglaComparacionConstante_OperadorReglaValidacion] FOREIGN KEY ([idOperador]) REFERENCES [dbo].[Operadores] ([IdOperador]),
-    CONSTRAINT [FK_ReglaComparacionConstante_ReglaValidacionTipo] FOREIGN KEY ([idTipoReglaValidacion]) REFERENCES [dbo].[ReglaValidacionTipo] ([idReglasValidacionTipo])
+    CONSTRAINT [PK_ReglaComparacionCostante] PRIMARY KEY CLUSTERED ([IdCompara] ASC),
+    CONSTRAINT [FK_ReglaComparacionConstante_OperadorReglaValidacion] FOREIGN KEY ([IdOperador]) REFERENCES [dbo].[OperadorArismetico] ([IdOperador]),
+    CONSTRAINT [FK_ReglaComparacionConstante_ReglaValidacionTipo] FOREIGN KEY ([IdTipoReglaValidacion]) REFERENCES [dbo].[ReglaValidacionTipo] ([IdReglasValidacionTipo])
 );
+
+
+
+
 

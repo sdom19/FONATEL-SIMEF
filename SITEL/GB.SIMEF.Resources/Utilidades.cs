@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JsonDiffPatchDotNet;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,11 @@ namespace GB.SIMEF.Resources
     {
 
 
+        /// <summary>
+        /// 22/08/2022
+        /// José Navarro Acuña
+        /// Valida si la cadena es alfanumérica: Letras del alfabeto, números, tildes (utilizadas en español) y la eñe (ñ). Acepta espacios entre los caracteres válidos
+        /// </summary>
         public static Regex rx_alfanumerico_v2 = new Regex(@"^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+([ ][A-Za-z0-9ÁÉÍÓÚáéíóúñÑ]+)*$", RegexOptions.Compiled);
 
 
@@ -21,9 +27,28 @@ namespace GB.SIMEF.Resources
             return email != null && Regex.IsMatch(email, "^(([\\w-]+\\.)+[\\w -]+|([a-zA-Z]{1}|[\\w -]{2,}))@(([a-zA -Z]+[\\w-]+\\.){1,2}[a-zA-Z]{2,4})$");
         }
 
+        public static string fechaColumna(DateTime fecha)
+        {
+            return fecha.ToString("MMM") +"-"+fecha.ToString("yyyy");
+        }
 
+        public static string fechaSinHora(DateTime fecha)
+        {
+            return fecha.ToString("dd-MM-yy");
+        }
 
+        public static string jsonDiff(string json1, string json2)
+        {
+            string result = "";
+            if (!String.IsNullOrEmpty(json1))
+            {
+                var diffObj = new JsonDiffPatch();
+                result = diffObj.Diff(json1, json2);
+                
+            }
+            return result;
 
+        }
         public static string ConcatenadoCombos(string  codigo, string nombre)
         {
             return string.Format("{0} / {1}",codigo,nombre) ;
@@ -31,6 +56,19 @@ namespace GB.SIMEF.Resources
 
 
 
+
+        
+
+        /// <summary>
+        /// 29/08/2022
+        /// José Navarro Acuña
+        /// Obtener el valor encriptado por defecto de los componentes dropdown
+        /// </summary>
+        /// <returns></returns>
+        public static string GetDefaultDropDownValue()
+        {
+            return Encriptar(Constantes.defaultDropDownValue.ToString());
+        }
 
         /// <summary>
         /// 
@@ -56,8 +94,23 @@ namespace GB.SIMEF.Resources
             return result;
         }
 
+        public static string DesencriptarArray(string _cadenaAdesencriptar)
+        {
+            string result = string.Empty;
 
+            string[] cadenaArray = _cadenaAdesencriptar.Split(',');
 
+            for (int i = 0; i<cadenaArray.Length; i++)
+            {
+                _cadenaAdesencriptar = cadenaArray[i];
+
+                byte[] decryted = Convert.FromBase64String(_cadenaAdesencriptar.Replace(' ', '+'));
+                decryted = DesencriptarByte(decryted);
+                result =result+","+ System.Text.Encoding.Unicode.GetString(decryted);
+            }
+
+            return result.Trim(',');
+        }
 
 
 
@@ -85,7 +138,6 @@ namespace GB.SIMEF.Resources
       
             return valorEncriptado;
         }
-
 
         private static byte[] DesencriptarByte(byte[] btValor)
         {

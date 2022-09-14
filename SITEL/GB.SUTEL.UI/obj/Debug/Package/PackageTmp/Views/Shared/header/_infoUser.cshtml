@@ -1,0 +1,92 @@
+@using GB.SUTEL.UI.Models;
+@using GB.SUTEL.UI.Helpers;
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <div class="navbar-right">
+            <button type="button" id="btnMainHeaderUser" data-placement="bottom" class="btn btn-default navbar-btn " data-toggle="popover" title="Opciones:">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                @User.Identity.Name
+            </button>
+
+            @if (!usuarioHelper.isInterno(User))
+            {
+
+
+            <button style="margin-right:-15%" type="button" id="" data-placement="bottom" class="btn btn-default navbar-btn" data-toggle="tooltip" title="Descargar brochure" onclick="descargarBrochure()">
+                <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                Ayuda
+            </button>
+
+
+            }
+
+
+        </div>
+        <div id="popover_content_wrapper_User_Info" style="display: none">
+            <div>
+                <form action="@Url.Action("LogOff", "Login")" method="post" class="form-horizontal">
+
+                    @if (!usuarioHelper.isInterno(User))
+                    {
+                        <a class="btn btn-default" href="@Url.Action("Index", "CambiarClave")" role="button" style="width: 175px;">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            Cambiar contrase&ntilde;a
+                        </a>
+                        <p></p>
+                    }
+
+                    <button type="submit" class="btn btn-default" data-toggle="tooltip" style="pointer-events: all;width:175px;"
+                            data-placement="bottom" title="@Resources.LogOff">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        Cerrar Sesi&oacute;n
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                $('#btnMainHeaderUser').popover(
+                    {
+                        html: true,
+                        content: function () {
+                            var html = $('#popover_content_wrapper_User_Info').html();
+                            $('#popover_content_wrapper_User_Info').remove();
+                            return html;
+                        }
+                    }
+                );
+
+                $('html').on('click', function (e) {
+                    //did not click a popover toggle or popover
+                    if ($(e.target).data('toggle') !== 'popover'
+                        && $(e.target).parents('.popover.in').length === 0) {
+                        $('[data-toggle="popover"]').popover('hide');
+                    }
+                });
+            });
+
+
+            function descargarBrochure() {
+
+                window.open("/RegistroIndicador/descargarBrochure", "_blank");
+
+
+            }
+
+        </script>
+
+    }
+    else
+    {
+        <form action="@Url.Action("Index","Login")" method="get">
+            <button type="submit" class="btn btn-default navbar-btn navbar-right infoUser" data-toggle="tooltip" data-placement="bottom" title="@Resources.LogOn">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span>@Resources.LogOn</span>
+            </button>
+        </form>
+    }
+}

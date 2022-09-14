@@ -75,7 +75,7 @@
             let html = "";
             for (var i = 0; i < JsSolicitud.Variables.ListadoSolicitudes.length; i++) {
                 let solicitud = JsSolicitud.Variables.ListadoSolicitudes[i];
-                let listaFormularios = solicitud.SolicitudFormulario.length == 0 ? "N/A" : solicitud.SolicitudFormulario.join(", ");
+                let listaFormularios =  solicitud.FormulariosString;
                 let envioProgramado = solicitud.EnvioProgramado == null ? "NO" : "SI";
 
                 html = html + "<tr>";
@@ -103,6 +103,7 @@
             CargarDatasource();
             JsSolicitud.Variables.ListadoSolicitudes = [];
         },
+
 
         "ValidarControles": function () {
             let validar = true;
@@ -183,6 +184,58 @@
     },
 
     "Consultas": {
+
+
+
+        "ValidarExistenciaSolicitud": function (idSolicitud, Eliminado=true) {
+            $("#loading").fadeIn();
+            let solicitud = new Object()
+            solicitud.id = idSolicitud;
+            execAjaxCall("/SolicitudFonatel/ValidarExistenciaSolicitud", "POST", solicitud)
+                .then((obj) => {
+                    if (obj.objetoRespuesta.length == 0) {
+
+                    } else {
+                        let dependencias = '';
+                        for (var i = 0; i < obj.objetoRespuesta.length; i++) {
+                            dependencias= dependencias + obj.objetoRespuesta[i] + "<br>"
+                        }
+                        if (Eliminado) {
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                                .set('onok', function (closeEvent) {
+                                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido eliminada")
+                                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+                                });
+                        }
+                        else {
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud ya está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                                .set('onok', function (closeEvent) {
+                                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido desactivada")
+                                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+                                });
+                        }
+
+                      
+                    }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },  
+
+
         "ConsultaListaSolicitudes": function () {
             $("#loading").fadeIn();
             execAjaxCall("/SolicitudFonatel/ObtenerListaSolicitudes", "GET")
@@ -225,11 +278,10 @@ $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el formulario a la Solicitud?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-
-            if ($(JsSolicitud.Controles.ddlFormularioWeb).val().length > 0) {
-                $(JsSolicitud.Controles.ddlVariableIndicadorHelp).addClass("hidden");
+    if ($(JsSolicitud.Controles.ddlFormularioWeb).val().length > 0) {
+        $(JsSolicitud.Controles.ddlVariableIndicadorHelp).addClass("hidden");
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el formulario a la Solicitud?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
                 jsMensajes.Metodos.OkAlertModal("El Formulario ha sido agregado")
                     .set('onok', function (closeEvent) { $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change'); });
             }
@@ -281,10 +333,11 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
 });
 
 $(document).on("click", JsSolicitud.Controles.btnDeleteSolicitud, function (e) {
+
+    let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Solicitud?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido eliminada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+            JsSolicitud.Consultas.ValidarExistenciaSolicitud(id);
         });
 });
 
@@ -307,10 +360,10 @@ $(document).on("click", JsSolicitud.Controles.btnDesactivadoSolicitud, function 
 
 $(document).on("click", JsSolicitud.Controles.btnActivadoSolicitud, function (e) {
     e.preventDefault();
+    let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido desactivada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+            JsSolicitud.Consultas.ValidarExistenciaSolicitud(id, false);
         });
 });
 

@@ -1,7 +1,12 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 @{
-    ViewBag.Title = "Reglas de Validación";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = ViewBag.titulo;
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+   @* @Scripts.Render("~/bundles/FONATEL/ReglasValidacion")*@
 }
 <div class="container body-content">
     <div class="row">
@@ -9,16 +14,16 @@
             <div class="text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
                         <li class="breadcrumb-item active"><a href="/Fonatel/ReglasValidacion/index">Reglas de Validación</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Crear Regla de Validación</li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewBag.titulo</li>
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
 
-    <div class="stepwizard col-sm-offset-3">
+    <div class="stepwizard">
         <div class="stepwizard-row setup-panel step_navigation_indicador">
             <div class="stepwizard-step" data-step="0">
                 <p>Regla</p>
@@ -35,7 +40,7 @@
     <div class="row mt-5">
         <div class="col-lg-12 stepwizard-content-container hidden" id="step-1">
             <div class="col-lg-12">
-                <h2 class="page-title-fonatel text-center">Crear Regla de Validación</h2>
+                <h2 class="page-title-fonatel text-center">@ViewBag.titulo</h2>
                 <hr />
             </div>
             <div class="col-lg-12">
@@ -52,11 +57,16 @@
                     @Html.Partial("_CrearTipoRegla")
                 </div>
                 <div class="col-sm-12 mt-5">
-                    @Html.Partial("_TablaDetalleVariable")
+                    @Html.Partial("_TablaTipoRegla")
                 </div>
                 <div class="col-sm-12 text-center">
-                    <button type="submit" id="btnAtrasTipoRegla" class="btn btn-fonatel btn-info-fonatel">Atras</button>
-                    <button type="submit" id="btnSiguienteTipoSiguiente" class="btn btn-fonatel btn-info-fonatel">Finalizar</button>
+                    <button type="submit" id="btnSiguienteTipoSiguiente" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
+                </div>
+
+                <div class="col-12 pull-right mt-4">
+                    <button type="button" id="btnAtrasTipoRegla" class="btn btn-fonatel btn-goback" aria-label="Left Align">
+                        <span aria-hidden="true"></span>@Etiquetas.BotonAtras
+                    </button>
                 </div>
 
             </div>
@@ -67,3 +77,4 @@
 </div>
 
 
+<script src="~/Scripts/Fonatel/JsReglas.js"></script>

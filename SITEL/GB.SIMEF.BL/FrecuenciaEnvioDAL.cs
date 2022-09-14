@@ -38,6 +38,7 @@ namespace GB.SIMEF.DAL
             lista = lista.Select(x => new FrecuenciaEnvio()
             {
                 id = Utilidades.Encriptar(x.idFrecuencia.ToString()),
+                idFrecuencia=x.idFrecuencia,
                 Nombre = x.Nombre,
                 CantidadDias = x.CantidadDias,
                 Estado = x.Estado

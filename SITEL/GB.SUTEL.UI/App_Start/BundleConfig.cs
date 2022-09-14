@@ -118,6 +118,9 @@ namespace GB.SUTEL.UI
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/RegistroIndicadorFonatel").Include(
                 "~/Scripts/Fonatel/JsRegistroIndicadores.js"
                 ));
+            bundles.Add(new ScriptBundle("~/bundles/FONATEL/RegistroIndicadorFonatelEdit").Include(
+                "~/Scripts/Fonatel/JsRegistroIndicadoresEdit.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/EditarFormulario").Include(
                 "~/Scripts/Fonatel/JsEditarFormularioWeb.js"

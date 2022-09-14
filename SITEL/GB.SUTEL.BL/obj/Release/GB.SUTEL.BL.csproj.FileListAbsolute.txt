@@ -1,0 +1,3 @@
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.BL\obj\Release\GB.SUTEL.BL.csproj.AssemblyReference.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.BL\obj\Release\GB.SUTEL.BL.csproj.ResolveComReference.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.BL\obj\Release\GB.SUTEL.BL.csproj.CoreCompileInputs.cache

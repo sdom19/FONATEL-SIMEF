@@ -1,0 +1,1362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SITELModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Accion">
+      <EntityTypeMapping TypeName="SITELModel.Accion">
+        <MappingFragment StoreEntitySet="Accion">
+          <ScalarProperty Name="IdAccion" ColumnName="IdAccion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Agrupacion">
+      <EntityTypeMapping TypeName="SITELModel.Agrupacion">
+        <MappingFragment StoreEntitySet="Agrupacion">
+          <ScalarProperty Name="IdAgrupacion" ColumnName="IdAgrupacion" />
+          <ScalarProperty Name="DescAgrupacion" ColumnName="DescAgrupacion" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArchivoBandaAngostaCsv">
+      <EntityTypeMapping TypeName="SITELModel.ArchivoBandaAngostaCsv">
+        <MappingFragment StoreEntitySet="ArchivoBandaAngostaCsv">
+          <ScalarProperty Name="IdArchivoCsv" ColumnName="IdArchivoCsv" />
+          <ScalarProperty Name="FechaCapturaArchivo" ColumnName="FechaCapturaArchivo" />
+          <ScalarProperty Name="CodigoConsecutivo" ColumnName="CodigoConsecutivo" />
+          <ScalarProperty Name="Estacion" ColumnName="Estacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArchivoCsv">
+      <EntityTypeMapping TypeName="SITELModel.ArchivoCsv">
+        <MappingFragment StoreEntitySet="ArchivoCsv">
+          <ScalarProperty Name="IdArchivoCsv" ColumnName="IdArchivoCsv" />
+          <ScalarProperty Name="CodigoSitio" ColumnName="CodigoSitio" />
+          <ScalarProperty Name="FechaCapturaArchivo" ColumnName="FechaCapturaArchivo" />
+          <ScalarProperty Name="CodigoConsecutivo" ColumnName="CodigoConsecutivo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArchivoExcel">
+      <EntityTypeMapping TypeName="SITELModel.ArchivoExcel">
+        <MappingFragment StoreEntitySet="ArchivoExcel">
+          <ScalarProperty Name="IdArchivoExcel" ColumnName="IdArchivoExcel" />
+          <ScalarProperty Name="IdSolicitudIndicador" ColumnName="IdSolicitudIndicador" />
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="ArchivoExcelGenerado" ColumnName="ArchivoExcelGenerado" />
+          <ScalarProperty Name="ArchivoExcelBytes" ColumnName="ArchivoExcelBytes" />
+          <ScalarProperty Name="FechaHoraSolicitud" ColumnName="FechaHoraSolicitud" />
+          <ScalarProperty Name="FechaHoraGeneracionAutomatica" ColumnName="FechaHoraGeneracionAutomatica" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="Descarga" ColumnName="Descarga" />
+          <ScalarProperty Name="FormularioWeb" ColumnName="FormularioWeb" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArchivoIMTFijasCsv">
+      <EntityTypeMapping TypeName="SITELModel.ArchivoIMTFijasCsv">
+        <MappingFragment StoreEntitySet="ArchivoIMTFijasCsv">
+          <ScalarProperty Name="IdArchivoCsv" ColumnName="IdArchivoCsv" />
+          <ScalarProperty Name="FechaCapturaArchivo" ColumnName="FechaCapturaArchivo" />
+          <ScalarProperty Name="CodigoConsecutivo" ColumnName="CodigoConsecutivo" />
+          <ScalarProperty Name="Estacion" ColumnName="Estacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArchivoMif">
+      <EntityTypeMapping TypeName="SITELModel.ArchivoMif">
+        <MappingFragment StoreEntitySet="ArchivoMif">
+          <ScalarProperty Name="IdArchivoMif" ColumnName="IdArchivoMif" />
+          <ScalarProperty Name="NombreArchivoMif" ColumnName="NombreArchivoMif" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArchivoTelevisionDigitalCsv">
+      <EntityTypeMapping TypeName="SITELModel.ArchivoTelevisionDigitalCsv">
+        <MappingFragment StoreEntitySet="ArchivoTelevisionDigitalCsv">
+          <ScalarProperty Name="IdArchivoCsv" ColumnName="IdArchivoCsv" />
+          <ScalarProperty Name="CodigoSitio" ColumnName="CodigoSitio" />
+          <ScalarProperty Name="FechaCapturaArchivo" ColumnName="FechaCapturaArchivo" />
+          <ScalarProperty Name="CodigoConsecutivo" ColumnName="CodigoConsecutivo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bitacora">
+      <EntityTypeMapping TypeName="SITELModel.Bitacora">
+        <MappingFragment StoreEntitySet="Bitacora">
+          <ScalarProperty Name="IdBitacora" ColumnName="IdBitacora" />
+          <ScalarProperty Name="Pantalla" ColumnName="Pantalla" />
+          <ScalarProperty Name="Accion" ColumnName="Accion" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="FechaBitacora" ColumnName="FechaBitacora" />
+          <ScalarProperty Name="RegistroAnterior" ColumnName="RegistroAnterior" />
+          <ScalarProperty Name="RegistroNuevo" ColumnName="RegistroNuevo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BitacoraArchivosMifCsv">
+      <EntityTypeMapping TypeName="SITELModel.BitacoraArchivosMifCsv">
+        <MappingFragment StoreEntitySet="BitacoraArchivosMifCsv">
+          <ScalarProperty Name="IdBitacora" ColumnName="IdBitacora" />
+          <ScalarProperty Name="IdArchivo" ColumnName="IdArchivo" />
+          <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+          <ScalarProperty Name="Accion" ColumnName="Accion" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Maquina" ColumnName="Maquina" />
+          <ScalarProperty Name="TipoArchivo" ColumnName="TipoArchivo" />
+          <ScalarProperty Name="AccionExitosa" ColumnName="AccionExitosa" />
+          <ScalarProperty Name="DetalleTransaccion" ColumnName="DetalleTransaccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BitacoraExcepcion">
+      <EntityTypeMapping TypeName="SITELModel.BitacoraExcepcion">
+        <MappingFragment StoreEntitySet="BitacoraExcepcion">
+          <ScalarProperty Name="IdExcepcion" ColumnName="IdExcepcion" />
+          <ScalarProperty Name="NombreAplicacion" ColumnName="NombreAplicacion" />
+          <ScalarProperty Name="NombreServidor" ColumnName="NombreServidor" />
+          <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+          <ScalarProperty Name="NivelExcepcion" ColumnName="NivelExcepcion" />
+          <ScalarProperty Name="Capa" ColumnName="Capa" />
+          <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+          <ScalarProperty Name="Stacktrace" ColumnName="Stacktrace" />
+          <ScalarProperty Name="InnerException" ColumnName="InnerException" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BitacoraIndicador">
+      <EntityTypeMapping TypeName="SITELModel.BitacoraIndicador">
+        <MappingFragment StoreEntitySet="BitacoraIndicador">
+          <ScalarProperty Name="IdBitacoIndicador" ColumnName="IdBitacoIndicador" />
+          <ScalarProperty Name="IdDetalleRegistroIndicador" ColumnName="IdDetalleRegistroIndicador" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="ValorAnterior" ColumnName="ValorAnterior" />
+          <ScalarProperty Name="ValorNuevo" ColumnName="ValorNuevo" />
+          <ScalarProperty Name="Justificacion" ColumnName="Justificacion" />
+          <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BitacoraParametrizacionIndicador">
+      <EntityTypeMapping TypeName="SITELModel.BitacoraParametrizacionIndicador">
+        <MappingFragment StoreEntitySet="BitacoraParametrizacionIndicador">
+          <ScalarProperty Name="IdBitacoraParametrizacionIndicador" ColumnName="IdBitacoraParametrizacionIndicador" />
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+          <ScalarProperty Name="Visualiza" ColumnName="Visualiza" />
+          <ScalarProperty Name="AnnoPorOperador" ColumnName="AnnoPorOperador" />
+          <ScalarProperty Name="MesPorOperador" ColumnName="MesPorOperador" />
+          <ScalarProperty Name="AnnoPorTotal" ColumnName="AnnoPorTotal" />
+          <ScalarProperty Name="MesPorTotal" ColumnName="MesPorTotal" />
+          <ScalarProperty Name="FechaPublicacion" ColumnName="FechaPublicacion" />
+          <ScalarProperty Name="HoraPublicacion" ColumnName="HoraPublicacion" />
+          <ScalarProperty Name="UsuarioPublicador" ColumnName="UsuarioPublicador" />
+          <ScalarProperty Name="AnnoDesde" ColumnName="AnnoDesde" />
+          <ScalarProperty Name="MesDesde" ColumnName="MesDesde" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Canton">
+      <EntityTypeMapping TypeName="SITELModel.Canton">
+        <MappingFragment StoreEntitySet="Canton">
+          <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+          <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="CodigoOficial" ColumnName="CodigoOficial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Constructor">
+      <EntityTypeMapping TypeName="SITELModel.Constructor">
+        <MappingFragment StoreEntitySet="Constructor">
+          <ScalarProperty Name="IdConstructor" ColumnName="IdConstructor" />
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="IdFrecuencia" ColumnName="IdFrecuencia" />
+          <ScalarProperty Name="IdDesglose" ColumnName="IdDesglose" />
+          <ScalarProperty Name="FechaCreacionConstructor" ColumnName="FechaCreacionConstructor" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConstructorCriterio">
+      <EntityTypeMapping TypeName="SITELModel.ConstructorCriterio">
+        <MappingFragment StoreEntitySet="ConstructorCriterio">
+          <ScalarProperty Name="IdConstructor" ColumnName="IdConstructor" />
+          <ScalarProperty Name="IdCriterio" ColumnName="IdCriterio" />
+          <ScalarProperty Name="Ayuda" ColumnName="Ayuda" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConstructorCriterioDetalleAgrupacion">
+      <EntityTypeMapping TypeName="SITELModel.ConstructorCriterioDetalleAgrupacion">
+        <MappingFragment StoreEntitySet="ConstructorCriterioDetalleAgrupacion">
+          <ScalarProperty Name="IdConstructorCriterio" ColumnName="IdConstructorCriterio" />
+          <ScalarProperty Name="IdConstructor" ColumnName="IdConstructor" />
+          <ScalarProperty Name="IdCriterio" ColumnName="IdCriterio" />
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="IdAgrupacion" ColumnName="IdAgrupacion" />
+          <ScalarProperty Name="IdConstructorDetallePadre" ColumnName="IdConstructorDetallePadre" />
+          <ScalarProperty Name="IdTipoValor" ColumnName="IdTipoValor" />
+          <ScalarProperty Name="IdNivelDetalle" ColumnName="IdNivelDetalle" />
+          <ScalarProperty Name="IdNivel" ColumnName="IdNivel" />
+          <ScalarProperty Name="UltimoNivel" ColumnName="UltimoNivel" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="IdDetalleAgrupacion" ColumnName="IdDetalleAgrupacion" />
+          <ScalarProperty Name="Orden" ColumnName="Orden" />
+          <ScalarProperty Name="UsaReglaEstadisticaConNivelDetalle" ColumnName="UsaReglaEstadisticaConNivelDetalle" />
+          <ScalarProperty Name="UsaReglaEstadistica" ColumnName="UsaReglaEstadistica" />
+          <ScalarProperty Name="OrdenCorregido" ColumnName="OrdenCorregido" />
+          <ScalarProperty Name="IdNivelDetalleGenero" ColumnName="IdNivelDetalleGenero" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoordenadasArchivoMif">
+      <EntityTypeMapping TypeName="SITELModel.CoordenadasArchivoMif">
+        <MappingFragment StoreEntitySet="CoordenadasArchivoMif">
+          <ScalarProperty Name="IdCoordenadasArchivoMif" ColumnName="IdCoordenadasArchivoMif" />
+          <ScalarProperty Name="IdArchivoMif" ColumnName="IdArchivoMif" />
+          <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+          <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CorreosEquipoIndicadores">
+      <EntityTypeMapping TypeName="SITELModel.CorreosEquipoIndicadores">
+        <MappingFragment StoreEntitySet="CorreosEquipoIndicadores">
+          <ScalarProperty Name="IdCorreosGrupoIndicadores" ColumnName="IdCorreosGrupoIndicadores" />
+          <ScalarProperty Name="CorreosGrupoIndicadores" ColumnName="CorreosGrupoIndicadores" />
+          <ScalarProperty Name="Iddireccion" ColumnName="Iddireccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Criterio">
+      <EntityTypeMapping TypeName="SITELModel.Criterio">
+        <MappingFragment StoreEntitySet="Criterio">
+          <ScalarProperty Name="IdCriterio" ColumnName="IdCriterio" />
+          <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+          <ScalarProperty Name="DescCriterio" ColumnName="DescCriterio" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleAgrupacion">
+      <EntityTypeMapping TypeName="SITELModel.DetalleAgrupacion">
+        <MappingFragment StoreEntitySet="DetalleAgrupacion">
+          <ScalarProperty Name="IdDetalleAgrupacion" ColumnName="IdDetalleAgrupacion" />
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="IdAgrupacion" ColumnName="IdAgrupacion" />
+          <ScalarProperty Name="DescDetalleAgrupacion" ColumnName="DescDetalleAgrupacion" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="DescHexa" ColumnName="DescHexa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleArchivoCsv">
+      <EntityTypeMapping TypeName="SITELModel.DetalleArchivoCsv">
+        <MappingFragment StoreEntitySet="DetalleArchivoCsv">
+          <ScalarProperty Name="IdDetalleArchivoCsv" ColumnName="IdDetalleArchivoCsv" />
+          <ScalarProperty Name="IdArchivoCsv" ColumnName="IdArchivoCsv" />
+          <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
+          <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+          <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleArchivoIMTFijasCsv">
+      <EntityTypeMapping TypeName="SITELModel.DetalleArchivoIMTFijasCsv">
+        <MappingFragment StoreEntitySet="DetalleArchivoIMTFijasCsv">
+          <ScalarProperty Name="IdDetalleArchivoCsv" ColumnName="IdDetalleArchivoCsv" />
+          <ScalarProperty Name="IdArchivoCsv" ColumnName="IdArchivoCsv" />
+          <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
+          <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="ArchivoInfo" ColumnName="ArchivoInfo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleArchivoTelevisionDigitalCsv">
+      <EntityTypeMapping TypeName="SITELModel.DetalleArchivoTelevisionDigitalCsv">
+        <MappingFragment StoreEntitySet="DetalleArchivoTelevisionDigitalCsv">
+          <ScalarProperty Name="idDetalle" ColumnName="idDetalle" />
+          <ScalarProperty Name="IdArchivoCsv" ColumnName="IdArchivoCsv" />
+          <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
+          <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
+          <ScalarProperty Name="NombreSistema" ColumnName="NombreSistema" />
+          <ScalarProperty Name="ISDBT" ColumnName="ISDBT" />
+          <ScalarProperty Name="Acimut" ColumnName="Acimut" />
+          <ScalarProperty Name="Logitud" ColumnName="Logitud" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="ArchInfo" ColumnName="ArchInfo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleBandaAngostaCsv">
+      <EntityTypeMapping TypeName="SITELModel.DetalleBandaAngostaCsv">
+        <MappingFragment StoreEntitySet="DetalleBandaAngostaCsv">
+          <ScalarProperty Name="IdDetalleArchivoCsv" ColumnName="IdDetalleArchivoCsv" />
+          <ScalarProperty Name="IdArchivoCsv" ColumnName="IdArchivoCsv" />
+          <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
+          <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="ArchivoInfo" ColumnName="ArchivoInfo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleIndicadorCruzado">
+      <EntityTypeMapping TypeName="SITELModel.DetalleIndicadorCruzado">
+        <MappingFragment StoreEntitySet="DetalleIndicadorCruzado">
+          <ScalarProperty Name="IdDetalleIndicadorCruzado" ColumnName="IdDetalleIndicadorCruzado" />
+          <ScalarProperty Name="IdIndicadorCruzado" ColumnName="IdIndicadorCruzado" />
+          <ScalarProperty Name="IdIndicadorExterno" ColumnName="IdIndicadorExterno" />
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="IdIndicadorInterno" ColumnName="IdIndicadorInterno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleRegistroIndicador">
+      <EntityTypeMapping TypeName="SITELModel.DetalleRegistroIndicador">
+        <MappingFragment StoreEntitySet="DetalleRegistroIndicador">
+          <ScalarProperty Name="IdDetalleRegistroindicador" ColumnName="IdDetalleRegistroindicador" />
+          <ScalarProperty Name="IdRegistroIndicador" ColumnName="IdRegistroIndicador" />
+          <ScalarProperty Name="IdConstructorCriterio" ColumnName="IdConstructorCriterio" />
+          <ScalarProperty Name="IdTipoValor" ColumnName="IdTipoValor" />
+          <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+          <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+          <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+          <ScalarProperty Name="Anno" ColumnName="Anno" />
+          <ScalarProperty Name="NumeroDesglose" ColumnName="NumeroDesglose" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="Modificado" ColumnName="Modificado" />
+          <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+          <ScalarProperty Name="IdDistrito" ColumnName="IdDistrito" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Direccion">
+      <EntityTypeMapping TypeName="SITELModel.Direccion">
+        <MappingFragment StoreEntitySet="Direccion">
+          <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Distrito">
+      <EntityTypeMapping TypeName="SITELModel.Distrito">
+        <MappingFragment StoreEntitySet="Distrito">
+          <ScalarProperty Name="IdDistrito" ColumnName="IdDistrito" />
+          <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EjecucionMotor">
+      <EntityTypeMapping TypeName="SITELModel.EjecucionMotor">
+        <MappingFragment StoreEntitySet="EjecucionMotor">
+          <ScalarProperty Name="idejecucion" ColumnName="idejecucion" />
+          <ScalarProperty Name="periodoEjecucion" ColumnName="periodoEjecucion" />
+          <ScalarProperty Name="anioEjecucion" ColumnName="anioEjecucion" />
+          <ScalarProperty Name="usuarioEjecucion" ColumnName="usuarioEjecucion" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+          <ScalarProperty Name="Ejecutado" ColumnName="Ejecutado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EstadoSolicitud">
+      <EntityTypeMapping TypeName="SITELModel.EstadoSolicitud">
+        <MappingFragment StoreEntitySet="EstadoSolicitud">
+          <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Frecuencia">
+      <EntityTypeMapping TypeName="SITELModel.Frecuencia">
+        <MappingFragment StoreEntitySet="Frecuencia">
+          <ScalarProperty Name="IdFrecuencia" ColumnName="IdFrecuencia" />
+          <ScalarProperty Name="NombreFrecuencia" ColumnName="NombreFrecuencia" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="CantidadMeses" ColumnName="CantidadMeses" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FuenteExterna">
+      <EntityTypeMapping TypeName="SITELModel.FuenteExterna">
+        <MappingFragment StoreEntitySet="FuenteExterna">
+          <ScalarProperty Name="IdFuenteExterna" ColumnName="IdFuenteExterna" />
+          <ScalarProperty Name="NombreFuenteExterna" ColumnName="NombreFuenteExterna" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Genero">
+      <EntityTypeMapping TypeName="SITELModel.Genero">
+        <MappingFragment StoreEntitySet="Genero">
+          <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Indicador">
+      <EntityTypeMapping TypeName="SITELModel.Indicador">
+        <MappingFragment StoreEntitySet="Indicador">
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="IdTipoInd" ColumnName="IdTipoInd" />
+          <ScalarProperty Name="NombreIndicador" ColumnName="NombreIndicador" />
+          <ScalarProperty Name="DescIndicador" ColumnName="DescIndicador" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="DefinicionIndicador" ColumnName="DefinicionIndicador" />
+          <ScalarProperty Name="FuenteIndicador" ColumnName="FuenteIndicador" />
+          <ScalarProperty Name="NotaAlPie" ColumnName="NotaAlPie" />
+          <ScalarProperty Name="FechaUltimaModificacion" ColumnName="FechaUltimaModificacion" />
+          <ScalarProperty Name="HoraUltimaModificacion" ColumnName="HoraUltimaModificacion" />
+          <ScalarProperty Name="UsuarioUltimaModificacion" ColumnName="UsuarioUltimaModificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndicadorCruzado">
+      <EntityTypeMapping TypeName="SITELModel.IndicadorCruzado">
+        <MappingFragment StoreEntitySet="IndicadorCruzado">
+          <ScalarProperty Name="IdIndicadorCruzado" ColumnName="IdIndicadorCruzado" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndicadorExterno">
+      <EntityTypeMapping TypeName="SITELModel.IndicadorExterno">
+        <MappingFragment StoreEntitySet="IndicadorExterno">
+          <ScalarProperty Name="IdIndicadorExterno" ColumnName="IdIndicadorExterno" />
+          <ScalarProperty Name="IdFuenteExterna" ColumnName="IdFuenteExterna" />
+          <ScalarProperty Name="IdTipoValor" ColumnName="IdTipoValor" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndicadorUIT">
+      <EntityTypeMapping TypeName="SITELModel.IndicadorUIT">
+        <MappingFragment StoreEntitySet="IndicadorUIT">
+          <ScalarProperty Name="IdIndicadorUIT" ColumnName="IdIndicadorUIT" />
+          <ScalarProperty Name="DescIndicadorUIT" ColumnName="DescIndicadorUIT" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InformacionArchivoCsv">
+      <EntityTypeMapping TypeName="SITELModel.InformacionArchivoCsv">
+        <MappingFragment StoreEntitySet="InformacionArchivoCsv">
+          <ScalarProperty Name="IdInformacionArchivoCsv" ColumnName="IdInformacionArchivoCsv" />
+          <ScalarProperty Name="IdArchivoCsv" ColumnName="IdArchivoCsv" />
+          <ScalarProperty Name="InformacionArchivoCsv1" ColumnName="InformacionArchivoCsv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InidicadorUmbralPeso">
+      <EntityTypeMapping TypeName="SITELModel.InidicadorUmbralPeso">
+        <MappingFragment StoreEntitySet="InidicadorUmbralPeso">
+          <ScalarProperty Name="IdUmbralPeso" ColumnName="IdUmbralPeso" />
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="Umbral" ColumnName="Umbral" />
+          <ScalarProperty Name="PesoRelativo" ColumnName="PesoRelativo" />
+          <ScalarProperty Name="FechaUltimaModificacion" ColumnName="FechaUltimaModificacion" />
+          <ScalarProperty Name="UsuarioUltimaModificacion" ColumnName="UsuarioUltimaModificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LogFormulas">
+      <EntityTypeMapping TypeName="SITELModel.LogFormulas">
+        <MappingFragment StoreEntitySet="LogFormulas">
+          <ScalarProperty Name="Idlog" ColumnName="Idlog" />
+          <ScalarProperty Name="Indicador" ColumnName="Indicador" />
+          <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="FormulaAntiguaCumpli" ColumnName="FormulaAntiguaCumpli" />
+          <ScalarProperty Name="FormulaNuevaCumpli" ColumnName="FormulaNuevaCumpli" />
+          <ScalarProperty Name="FormulaAntiguaPor" ColumnName="FormulaAntiguaPor" />
+          <ScalarProperty Name="FormulaNuevaPor" ColumnName="FormulaNuevaPor" />
+          <ScalarProperty Name="TipoAccion" ColumnName="TipoAccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Nivel">
+      <EntityTypeMapping TypeName="SITELModel.Nivel">
+        <MappingFragment StoreEntitySet="Nivel">
+          <ScalarProperty Name="IdNivel" ColumnName="IdNivel" />
+          <ScalarProperty Name="DescNivel" ColumnName="DescNivel" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NivelDetalleReglaEstadistica">
+      <EntityTypeMapping TypeName="SITELModel.NivelDetalleReglaEstadistica">
+        <MappingFragment StoreEntitySet="NivelDetalleReglaEstadistica">
+          <ScalarProperty Name="IdNivelDetalleReglaEstadistica" ColumnName="IdNivelDetalleReglaEstadistica" />
+          <ScalarProperty Name="IdConstructorCriterioDetalleAgrupacion" ColumnName="IdConstructorCriterioDetalleAgrupacion" />
+          <ScalarProperty Name="ValorLimiteSuperior" ColumnName="ValorLimiteSuperior" />
+          <ScalarProperty Name="ValorLimiteInferior" ColumnName="ValorLimiteInferior" />
+          <ScalarProperty Name="IdNivelDetalle" ColumnName="IdNivelDetalle" />
+          <ScalarProperty Name="IdGenerico" ColumnName="IdGenerico" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Operador">
+      <EntityTypeMapping TypeName="SITELModel.Operador">
+        <MappingFragment StoreEntitySet="Operador">
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="NombreOperador" ColumnName="NombreOperador" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OperadorSync">
+      <EntityTypeMapping TypeName="SITELModel.OperadorSync">
+        <MappingFragment StoreEntitySet="OperadorSync">
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="NombreOperador" ColumnName="NombreOperador" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pantalla">
+      <EntityTypeMapping TypeName="SITELModel.Pantalla">
+        <MappingFragment StoreEntitySet="Pantalla">
+          <ScalarProperty Name="IdPantalla" ColumnName="IdPantalla" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParametroIndicador">
+      <EntityTypeMapping TypeName="SITELModel.ParametroIndicador">
+        <MappingFragment StoreEntitySet="ParametroIndicador">
+          <ScalarProperty Name="IdParametroIndicador" ColumnName="IdParametroIndicador" />
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="Visualiza" ColumnName="Visualiza" />
+          <ScalarProperty Name="AnnoPorOperador" ColumnName="AnnoPorOperador" />
+          <ScalarProperty Name="MesPorOperador" ColumnName="MesPorOperador" />
+          <ScalarProperty Name="AnnoPorTotal" ColumnName="AnnoPorTotal" />
+          <ScalarProperty Name="MesPorTotal" ColumnName="MesPorTotal" />
+          <ScalarProperty Name="Publicar" ColumnName="Publicar" />
+          <ScalarProperty Name="FechaUltimaPublicacion" ColumnName="FechaUltimaPublicacion" />
+          <ScalarProperty Name="HoraUltimaPublicacion" ColumnName="HoraUltimaPublicacion" />
+          <ScalarProperty Name="UsuarioUltimoPublicador" ColumnName="UsuarioUltimoPublicador" />
+          <ScalarProperty Name="AnnoDesde" ColumnName="AnnoDesde" />
+          <ScalarProperty Name="MesDesde" ColumnName="MesDesde" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParametrosGenerales">
+      <EntityTypeMapping TypeName="SITELModel.ParametrosGenerales">
+        <MappingFragment StoreEntitySet="ParametrosGenerales">
+          <ScalarProperty Name="IdParametros" ColumnName="IdParametros" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParamFormulas">
+      <EntityTypeMapping TypeName="SITELModel.ParamFormulas">
+        <MappingFragment StoreEntitySet="ParamFormulas">
+          <ScalarProperty Name="IdParamFormulas" ColumnName="IdParamFormulas" />
+          <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="FormulaPorcentaje" ColumnName="FormulaPorcentaje" />
+          <ScalarProperty Name="FormulaCumplimiento" ColumnName="FormulaCumplimiento" />
+          <ScalarProperty Name="Criterios" ColumnName="Criterios" />
+          <ScalarProperty Name="FromArray" ColumnName="FromArray" />
+          <ScalarProperty Name="FechaUltimaActualizacion" ColumnName="FechaUltimaActualizacion" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Periodicidad" ColumnName="Periodicidad" />
+          <ScalarProperty Name="ArrayIf" ColumnName="ArrayIf" />
+          <ScalarProperty Name="ArrayVerdadero" ColumnName="ArrayVerdadero" />
+          <ScalarProperty Name="ArrayFalso" ColumnName="ArrayFalso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Periodicidad">
+      <EntityTypeMapping TypeName="SITELModel.Periodicidad">
+        <MappingFragment StoreEntitySet="Periodicidad">
+          <ScalarProperty Name="IdPeridiocidad" ColumnName="IdPeridiocidad" />
+          <ScalarProperty Name="DescPeriodicidad" ColumnName="DescPeriodicidad" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Provincia">
+      <EntityTypeMapping TypeName="SITELModel.Provincia">
+        <MappingFragment StoreEntitySet="Provincia">
+          <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RegionIndicadorExterno">
+      <EntityTypeMapping TypeName="SITELModel.RegionIndicadorExterno">
+        <MappingFragment StoreEntitySet="RegionIndicadorExterno">
+          <ScalarProperty Name="IdRegionIndicadorExterno" ColumnName="IdRegionIndicadorExterno" />
+          <ScalarProperty Name="DescRegionIndicadorExterno" ColumnName="DescRegionIndicadorExterno" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RegistroIndicador">
+      <EntityTypeMapping TypeName="SITELModel.RegistroIndicador">
+        <MappingFragment StoreEntitySet="RegistroIndicador">
+          <ScalarProperty Name="IdRegistroIndicador" ColumnName="IdRegistroIndicador" />
+          <ScalarProperty Name="IdSolicitudConstructor" ColumnName="IdSolicitudConstructor" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="FechaRegistroIndicador" ColumnName="FechaRegistroIndicador" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="Justificado" ColumnName="Justificado" />
+          <ScalarProperty Name="Bloqueado" ColumnName="Bloqueado" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RegistroIndicadorExterno">
+      <EntityTypeMapping TypeName="SITELModel.RegistroIndicadorExterno">
+        <MappingFragment StoreEntitySet="RegistroIndicadorExterno">
+          <ScalarProperty Name="IdRegistroIndicadorExterno" ColumnName="IdRegistroIndicadorExterno" />
+          <ScalarProperty Name="IdPeridiocidad" ColumnName="IdPeridiocidad" />
+          <ScalarProperty Name="IdRegionIndicadorExterno" ColumnName="IdRegionIndicadorExterno" />
+          <ScalarProperty Name="IdZonaIndicadorExterno" ColumnName="IdZonaIndicadorExterno" />
+          <ScalarProperty Name="IdIndicadorExterno" ColumnName="IdIndicadorExterno" />
+          <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+          <ScalarProperty Name="ValorIndicador" ColumnName="ValorIndicador" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="Anno" ColumnName="Anno" />
+          <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+          <ScalarProperty Name="IdTrimestre" ColumnName="IdTrimestre" />
+          <ScalarProperty Name="Modificado" ColumnName="Modificado" />
+          <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Regla">
+      <EntityTypeMapping TypeName="SITELModel.Regla">
+        <MappingFragment StoreEntitySet="Regla">
+          <ScalarProperty Name="IdConstructorCriterio" ColumnName="IdConstructorCriterio" />
+          <ScalarProperty Name="ValorLimiteInferior" ColumnName="ValorLimiteInferior" />
+          <ScalarProperty Name="ValorLimiteSuperior" ColumnName="ValorLimiteSuperior" />
+          <ScalarProperty Name="FechaCreacionRegla" ColumnName="FechaCreacionRegla" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rol">
+      <EntityTypeMapping TypeName="SITELModel.Rol">
+        <MappingFragment StoreEntitySet="Rol">
+          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+          <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RolAccionPantalla">
+      <EntityTypeMapping TypeName="SITELModel.RolAccionPantalla">
+        <MappingFragment StoreEntitySet="RolAccionPantalla">
+          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+          <ScalarProperty Name="IdPantalla" ColumnName="IdPantalla" />
+          <ScalarProperty Name="IdAccion" ColumnName="IdAccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SemaforoFormularioWEB">
+      <EntityTypeMapping TypeName="SITELModel.SemaforoFormularioWEB">
+        <MappingFragment StoreEntitySet="SemaforoFormularioWEB">
+          <ScalarProperty Name="IdSemaforo" ColumnName="IdSemaforo" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Servicio">
+      <EntityTypeMapping TypeName="SITELModel.Servicio">
+        <MappingFragment StoreEntitySet="Servicio">
+          <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+          <ScalarProperty Name="DesServicio" ColumnName="DesServicio" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServicioDefinicion">
+      <EntityTypeMapping TypeName="SITELModel.ServicioDefinicion">
+        <MappingFragment StoreEntitySet="ServicioDefinicion">
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServicioIndicador">
+      <EntityTypeMapping TypeName="SITELModel.ServicioIndicador">
+        <MappingFragment StoreEntitySet="ServicioIndicador">
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+          <ScalarProperty Name="Mercado" ColumnName="Mercado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServicioOperador">
+      <EntityTypeMapping TypeName="SITELModel.ServicioOperador">
+        <MappingFragment StoreEntitySet="ServicioOperador">
+          <ScalarProperty Name="IdeServicio" ColumnName="IdeServicio" />
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="Verificar" ColumnName="Verificar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SolicitudConstructor">
+      <EntityTypeMapping TypeName="SITELModel.SolicitudConstructor">
+        <MappingFragment StoreEntitySet="SolicitudConstructor">
+          <ScalarProperty Name="IdSolicitudContructor" ColumnName="IdSolicitudContructor" />
+          <ScalarProperty Name="IdSolicitudIndicador" ColumnName="IdSolicitudIndicador" />
+          <ScalarProperty Name="IdConstructor" ColumnName="IdConstructor" />
+          <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="OrdenIndicadorEnExcel" ColumnName="OrdenIndicadorEnExcel" />
+          <ScalarProperty Name="Cargado" ColumnName="Cargado" />
+          <ScalarProperty Name="CantidadCarga" ColumnName="CantidadCarga" />
+          <ScalarProperty Name="IdSemaforo" ColumnName="IdSemaforo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SolicitudGeneral">
+      <EntityTypeMapping TypeName="SITELModel.SolicitudGeneral">
+        <MappingFragment StoreEntitySet="SolicitudGeneral">
+          <ScalarProperty Name="IdSolicitud" ColumnName="IdSolicitud" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="FechaFinal" ColumnName="FechaFinal" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="NotificacionEnviada" ColumnName="NotificacionEnviada" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SolicitudIndicador">
+      <EntityTypeMapping TypeName="SITELModel.SolicitudIndicador">
+        <MappingFragment StoreEntitySet="SolicitudIndicador">
+          <ScalarProperty Name="IdSolicitudIndicador" ColumnName="IdSolicitudIndicador" />
+          <ScalarProperty Name="IdFrecuencia" ColumnName="IdFrecuencia" />
+          <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+          <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+          <ScalarProperty Name="DescFormulario" ColumnName="DescFormulario" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="FechaBaseParaCrearExcel" ColumnName="FechaBaseParaCrearExcel" />
+          <ScalarProperty Name="FormularioWeb" ColumnName="FormularioWeb" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SolicitudOperador">
+      <EntityTypeMapping TypeName="SITELModel.SolicitudOperador">
+        <MappingFragment StoreEntitySet="SolicitudOperador">
+          <ScalarProperty Name="IdSolicitud" ColumnName="IdSolicitud" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="Respuesta" ColumnName="Respuesta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="SITELModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TEMPDetalleRegistroIndicador">
+      <EntityTypeMapping TypeName="SITELModel.TEMPDetalleRegistroIndicador">
+        <MappingFragment StoreEntitySet="TEMPDetalleRegistroIndicador">
+          <ScalarProperty Name="IdDetalleRegistroindicador" ColumnName="IdDetalleRegistroindicador" />
+          <ScalarProperty Name="IdRegistroIndicador" ColumnName="IdRegistroIndicador" />
+          <ScalarProperty Name="IdConstructorCriterio" ColumnName="IdConstructorCriterio" />
+          <ScalarProperty Name="IdTipoValor" ColumnName="IdTipoValor" />
+          <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+          <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+          <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+          <ScalarProperty Name="Anno" ColumnName="Anno" />
+          <ScalarProperty Name="NumeroDesglose" ColumnName="NumeroDesglose" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="Modificado" ColumnName="Modificado" />
+          <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+          <ScalarProperty Name="IdDistrito" ColumnName="IdDistrito" />
+          <ScalarProperty Name="IdSemaforo" ColumnName="IdSemaforo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TEMPRegistroIndicador">
+      <EntityTypeMapping TypeName="SITELModel.TEMPRegistroIndicador">
+        <MappingFragment StoreEntitySet="TEMPRegistroIndicador">
+          <ScalarProperty Name="IdRegistroIndicador" ColumnName="IdRegistroIndicador" />
+          <ScalarProperty Name="IdSolicitudConstructor" ColumnName="IdSolicitudConstructor" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="FechaRegistroIndicador" ColumnName="FechaRegistroIndicador" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="Justificado" ColumnName="Justificado" />
+          <ScalarProperty Name="Bloqueado" ColumnName="Bloqueado" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoIndicador">
+      <EntityTypeMapping TypeName="SITELModel.TipoIndicador">
+        <MappingFragment StoreEntitySet="TipoIndicador">
+          <ScalarProperty Name="IdTipoInd" ColumnName="IdTipoInd" />
+          <ScalarProperty Name="DesTipoInd" ColumnName="DesTipoInd" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoIndicadorServicio">
+      <EntityTypeMapping TypeName="SITELModel.TipoIndicadorServicio">
+        <MappingFragment StoreEntitySet="TipoIndicadorServicio">
+          <ScalarProperty Name="IdTipoInd" ColumnName="IdTipoInd" />
+          <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoNivelDetalle">
+      <EntityTypeMapping TypeName="SITELModel.TipoNivelDetalle">
+        <MappingFragment StoreEntitySet="TipoNivelDetalle">
+          <ScalarProperty Name="IdNivelDetalle" ColumnName="IdNivelDetalle" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Tabla" ColumnName="Tabla" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoValor">
+      <EntityTypeMapping TypeName="SITELModel.TipoValor">
+        <MappingFragment StoreEntitySet="TipoValor">
+          <ScalarProperty Name="IdTipoValor" ColumnName="IdTipoValor" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Formato" ColumnName="Formato" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trimestre">
+      <EntityTypeMapping TypeName="SITELModel.Trimestre">
+        <MappingFragment StoreEntitySet="Trimestre">
+          <ScalarProperty Name="IdTrimestre" ColumnName="IdTrimestre" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="SITELModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="AccesoUsuario" ColumnName="AccesoUsuario" />
+          <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+          <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+          <ScalarProperty Name="CorreoUsuario" ColumnName="CorreoUsuario" />
+          <ScalarProperty Name="UsuarioInterno" ColumnName="UsuarioInterno" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="Mercado" ColumnName="Mercado" />
+          <ScalarProperty Name="Calidad" ColumnName="Calidad" />
+          <ScalarProperty Name="FONATEL" ColumnName="FONATEL" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsuarioLogin">
+      <EntityTypeMapping TypeName="SITELModel.UsuarioLogin">
+        <MappingFragment StoreEntitySet="UsuarioLogin">
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="PrimerLogueo" ColumnName="PrimerLogueo" />
+          <ScalarProperty Name="Intentos" ColumnName="Intentos" />
+          <ScalarProperty Name="UltimoLogueoFallido" ColumnName="UltimoLogueoFallido" />
+          <ScalarProperty Name="UltimoLogueoExitoso" ColumnName="UltimoLogueoExitoso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ZonaIndicadorExterno">
+      <EntityTypeMapping TypeName="SITELModel.ZonaIndicadorExterno">
+        <MappingFragment StoreEntitySet="ZonaIndicadorExterno">
+          <ScalarProperty Name="IdZonaIndicadorExterno" ColumnName="IdZonaIndicadorExterno" />
+          <ScalarProperty Name="DescZonaIndicadorExterno" ColumnName="DescZonaIndicadorExterno" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BitacoraSync">
+      <EntityTypeMapping TypeName="SITELModel.BitacoraSync">
+        <MappingFragment StoreEntitySet="BitacoraSync">
+          <ScalarProperty Name="IdProcess" ColumnName="IdProcess" />
+          <ScalarProperty Name="DateSync" ColumnName="DateSync" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RowsInsert" ColumnName="RowsInsert" />
+          <ScalarProperty Name="RowsUpdate" ColumnName="RowsUpdate" />
+          <ScalarProperty Name="Error" ColumnName="Error" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleAgrupacionNEW">
+      <EntityTypeMapping TypeName="SITELModel.DetalleAgrupacionNEW">
+        <MappingFragment StoreEntitySet="DetalleAgrupacionNEW">
+          <ScalarProperty Name="IdDetalleAgrupacion" ColumnName="IdDetalleAgrupacion" />
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="IdAgrupacion" ColumnName="IdAgrupacion" />
+          <ScalarProperty Name="DescDetalleAgrupacion" ColumnName="DescDetalleAgrupacion" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="DescHexa" ColumnName="DescHexa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="IndicadorDireccion" TypeName="SITELModel.IndicadorDireccion" StoreEntitySet="IndicadorDireccion">
+      <EndProperty Name="Direccion">
+        <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+      </EndProperty>
+      <EndProperty Name="Indicador">
+        <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="IndicadorIndicadorUIT" TypeName="SITELModel.IndicadorIndicadorUIT" StoreEntitySet="IndicadorIndicadorUIT">
+      <EndProperty Name="IndicadorUIT">
+        <ScalarProperty Name="IdIndicadorUIT" ColumnName="IdIndicadorUIT" />
+      </EndProperty>
+      <EndProperty Name="Indicador">
+        <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RolUsuario" TypeName="SITELModel.RolUsuario" StoreEntitySet="RolUsuario">
+      <EndProperty Name="Rol">
+        <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+      </EndProperty>
+      <EndProperty Name="Usuario">
+        <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionName="SITELModel.Store.fn_Split" FunctionImportName="fn_Split">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.fn_Split_Result">
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="value" ColumnName="value" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_ClonarArbol" FunctionName="SITELModel.Store.pa_ClonarArbol" />
+    <FunctionImportMapping FunctionImportName="pa_ClonarConstructor" FunctionName="SITELModel.Store.pa_ClonarConstructor" />
+    <FunctionImportMapping FunctionImportName="pa_ConstructorModificar" FunctionName="SITELModel.Store.pa_ConstructorModificar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_ConstructorModificar_Result">
+          <ScalarProperty Name="IdSolicitudIndicador" ColumnName="IdSolicitudIndicador" />
+          <ScalarProperty Name="IdFrecuencia" ColumnName="IdFrecuencia" />
+          <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+          <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+          <ScalarProperty Name="DescFormulario" ColumnName="DescFormulario" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="FechaBaseParaCrearExcel" ColumnName="FechaBaseParaCrearExcel" />
+          <ScalarProperty Name="FormularioWeb" ColumnName="FormularioWeb" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_ConsultarDetalleRegistroIndicador" FunctionName="SITELModel.Store.pa_ConsultarDetalleRegistroIndicador" />
+    <FunctionImportMapping FunctionImportName="pa_DescargarArchivoExcel" FunctionName="SITELModel.Store.pa_DescargarArchivoExcel" />
+    <FunctionImportMapping FunctionImportName="pa_DescripcionHexadecimal" FunctionName="SITELModel.Store.pa_DescripcionHexadecimal" />
+    <FunctionImportMapping FunctionImportName="pa_EditarIdConstructorDetallePadre" FunctionName="SITELModel.Store.pa_EditarIdConstructorDetallePadre" />
+    <FunctionImportMapping FunctionImportName="pa_EditarIdConstructorDetallePadreporOperador" FunctionName="SITELModel.Store.pa_EditarIdConstructorDetallePadreporOperador" />
+    <FunctionImportMapping FunctionImportName="pa_EjecucionMotor" FunctionName="SITELModel.Store.pa_EjecucionMotor">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_EjecucionMotor_Result">
+          <ScalarProperty Name="idejecucion" ColumnName="idejecucion" />
+          <ScalarProperty Name="anioEjecucion" ColumnName="anioEjecucion" />
+          <ScalarProperty Name="usuarioEjecucion" ColumnName="usuarioEjecucion" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+          <ScalarProperty Name="Ejecutado" ColumnName="Ejecutado" />
+          <ScalarProperty Name="periodoEjecucion" ColumnName="periodoEjecucion" />
+          <ScalarProperty Name="idPeriodoEjecucion" ColumnName="idPeriodoEjecucion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_EliminadoFisicoDetalleAgrupacion" FunctionName="SITELModel.Store.pa_EliminadoFisicoDetalleAgrupacion" />
+    <FunctionImportMapping FunctionImportName="pa_EliminarConstructorCriterio" FunctionName="SITELModel.Store.pa_EliminarConstructorCriterio" />
+    <FunctionImportMapping FunctionImportName="pa_EliminarDetallesdeAgrupacion" FunctionName="SITELModel.Store.pa_EliminarDetallesdeAgrupacion" />
+    <FunctionImportMapping FunctionImportName="pa_EliminarDetallesdeAgrupacionporOperador" FunctionName="SITELModel.Store.pa_EliminarDetallesdeAgrupacionporOperador" />
+    <FunctionImportMapping FunctionImportName="pa_EliminarReglaEstadistica" FunctionName="SITELModel.Store.pa_EliminarReglaEstadistica" />
+    <FunctionImportMapping FunctionImportName="pa_EneviarCorreoUsuario" FunctionName="SITELModel.Store.pa_EneviarCorreoUsuario">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_EneviarCorreoUsuario_Result">
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="AccesoUsuario" ColumnName="AccesoUsuario" />
+          <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+          <ScalarProperty Name="CorreoUsuario" ColumnName="CorreoUsuario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_EnviarNotificacionesGeneral" FunctionName="SITELModel.Store.pa_EnviarNotificacionesGeneral" />
+    <FunctionImportMapping FunctionImportName="pa_Envio_Notificaciones" FunctionName="SITELModel.Store.pa_Envio_Notificaciones" />
+    <FunctionImportMapping FunctionImportName="pa_ExtraerCantoXprovincia" FunctionName="SITELModel.Store.pa_ExtraerCantoXprovincia">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_ExtraerCantoXprovincia_Result">
+          <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+          <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="CodigoOficial" ColumnName="CodigoOficial" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_ExtraerDistritoXCanton" FunctionName="SITELModel.Store.pa_ExtraerDistritoXCanton">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_ExtraerDistritoXCanton_Result">
+          <ScalarProperty Name="IdDistrito" ColumnName="IdDistrito" />
+          <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_ExtraerGenero" FunctionName="SITELModel.Store.pa_ExtraerGenero">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_ExtraerGenero_Result">
+          <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_ExtraerSolicitudesPendientes" FunctionName="SITELModel.Store.pa_ExtraerSolicitudesPendientes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_ExtraerSolicitudesPendientes_Result">
+          <ScalarProperty Name="IdArchivoExcel" ColumnName="IdArchivoExcel" />
+          <ScalarProperty Name="IdSolicitudIndicador" ColumnName="IdSolicitudIndicador" />
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_GetCriteriosXIndicador" FunctionName="SITELModel.Store.pa_GetCriteriosXIndicador">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_GetCriteriosXIndicador_Result">
+          <ScalarProperty Name="IdCriterio" ColumnName="IdCriterio" />
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+          <ScalarProperty Name="criteriosCkech" ColumnName="criteriosCkech" />
+          <ScalarProperty Name="DescCriterio" ColumnName="DescCriterio" />
+          <ScalarProperty Name="FormulaCumplimiento" ColumnName="FormulaCumplimiento" />
+          <ScalarProperty Name="FormulaPorcentaje" ColumnName="FormulaPorcentaje" />
+          <ScalarProperty Name="Criterios" ColumnName="Criterios" />
+          <ScalarProperty Name="FromArray" ColumnName="FromArray" />
+          <ScalarProperty Name="ArrayIf" ColumnName="ArrayIf" />
+          <ScalarProperty Name="ArrayVerdadero" ColumnName="ArrayVerdadero" />
+          <ScalarProperty Name="ArrayFalso" ColumnName="ArrayFalso" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="FechaUltimaActualizacion" ColumnName="FechaUltimaActualizacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_getDetalleAgrupacionesPorOperador" FunctionName="SITELModel.Store.pa_getDetalleAgrupacionesPorOperador">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_getDetalleAgrupacionesPorOperador_Result">
+          <ScalarProperty Name="Id_Detalle_Agrupacion" ColumnName="Id_Detalle_Agrupacion" />
+          <ScalarProperty Name="Nombre_Detalle_Agrupacion" ColumnName="Nombre_Detalle_Agrupacion" />
+          <ScalarProperty Name="Nombre_Agrupacion" ColumnName="Nombre_Agrupacion" />
+          <ScalarProperty Name="Nombre_Operador" ColumnName="Nombre_Operador" />
+          <ScalarProperty Name="Nombre_Criterio" ColumnName="Nombre_Criterio" />
+          <ScalarProperty Name="ID_Frecuencia" ColumnName="ID_Frecuencia" />
+          <ScalarProperty Name="Nombre_Frecuencia" ColumnName="Nombre_Frecuencia" />
+          <ScalarProperty Name="Cantidad_Meses_Frecuencia" ColumnName="Cantidad_Meses_Frecuencia" />
+          <ScalarProperty Name="ID_Desglose" ColumnName="ID_Desglose" />
+          <ScalarProperty Name="Nombre_Desglose" ColumnName="Nombre_Desglose" />
+          <ScalarProperty Name="Cantidad_Meses_Desglose" ColumnName="Cantidad_Meses_Desglose" />
+          <ScalarProperty Name="ID_Indicador" ColumnName="ID_Indicador" />
+          <ScalarProperty Name="Nombre_Indicador" ColumnName="Nombre_Indicador" />
+          <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+          <ScalarProperty Name="Valor_Inferior" ColumnName="Valor_Inferior" />
+          <ScalarProperty Name="Valor_Superior" ColumnName="Valor_Superior" />
+          <ScalarProperty Name="Id_Tipo_Valor" ColumnName="Id_Tipo_Valor" />
+          <ScalarProperty Name="Tipo_Valor" ColumnName="Tipo_Valor" />
+          <ScalarProperty Name="Valor_Formato" ColumnName="Valor_Formato" />
+          <ScalarProperty Name="Id_ConstructorCriterio" ColumnName="Id_ConstructorCriterio" />
+          <ScalarProperty Name="Id_Padre_ConstructorCriterio" ColumnName="Id_Padre_ConstructorCriterio" />
+          <ScalarProperty Name="Id_Padre_Detalle_Agrupacion" ColumnName="Id_Padre_Detalle_Agrupacion" />
+          <ScalarProperty Name="Nombre_Padre_Detalle_Agrupacion" ColumnName="Nombre_Padre_Detalle_Agrupacion" />
+          <ScalarProperty Name="Fecha_Inicio" ColumnName="Fecha_Inicio" />
+          <ScalarProperty Name="Fecha_Fin" ColumnName="Fecha_Fin" />
+          <ScalarProperty Name="FechaBaseParaCrearExcel" ColumnName="FechaBaseParaCrearExcel" />
+          <ScalarProperty Name="UsaReglaEstadisticaConNivelDetalle" ColumnName="UsaReglaEstadisticaConNivelDetalle" />
+          <ScalarProperty Name="Constructor_Criterio_Ayuda" ColumnName="Constructor_Criterio_Ayuda" />
+          <ScalarProperty Name="Descripcion_Criterio" ColumnName="Descripcion_Criterio" />
+          <ScalarProperty Name="Id_Solicitud_Indicador" ColumnName="Id_Solicitud_Indicador" />
+          <ScalarProperty Name="Id_Solicitud_Constructor" ColumnName="Id_Solicitud_Constructor" />
+          <ScalarProperty Name="Nombre_Direccion" ColumnName="Nombre_Direccion" />
+          <ScalarProperty Name="Nombre_Servicio" ColumnName="Nombre_Servicio" />
+          <ScalarProperty Name="Tipo_Nivel_Detalle" ColumnName="Tipo_Nivel_Detalle" />
+          <ScalarProperty Name="Id_Tipo_Nivel_Detalle" ColumnName="Id_Tipo_Nivel_Detalle" />
+          <ScalarProperty Name="Tabla_Tipo_Nivel_Detalle" ColumnName="Tabla_Tipo_Nivel_Detalle" />
+          <ScalarProperty Name="IDNIVELDETALLEGENERO" ColumnName="IDNIVELDETALLEGENERO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_GetIndicadorXservicio" FunctionName="SITELModel.Store.pa_GetIndicadorXservicio">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_GetIndicadorXservicio_Result">
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="NombreIndicador" ColumnName="NombreIndicador" />
+          <ScalarProperty Name="DescIndicador" ColumnName="DescIndicador" />
+          <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+          <ScalarProperty Name="Umbral" ColumnName="Umbral" />
+          <ScalarProperty Name="PesoRelativo" ColumnName="PesoRelativo" />
+          <ScalarProperty Name="UsuarioUltimaModificacion" ColumnName="UsuarioUltimaModificacion" />
+          <ScalarProperty Name="FechaUltimaModificacion" ColumnName="FechaUltimaModificacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_getListaIndicadoresSolicitud" FunctionName="SITELModel.Store.pa_getListaIndicadoresSolicitud">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_getListaIndicadoresSolicitud_Result">
+          <ScalarProperty Name="IDINDICADOR" ColumnName="IDINDICADOR" />
+          <ScalarProperty Name="IDCONSTRUCTOR" ColumnName="IDCONSTRUCTOR" />
+          <ScalarProperty Name="NOMBREINDICADOR" ColumnName="NOMBREINDICADOR" />
+          <ScalarProperty Name="NOMBREFRECUENCIA" ColumnName="NOMBREFRECUENCIA" />
+          <ScalarProperty Name="NOMBREDESGLOSE" ColumnName="NOMBREDESGLOSE" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_getListaIndicadoresXSolicitud" FunctionName="SITELModel.Store.pa_getListaIndicadoresXSolicitud">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_getListaIndicadoresXSolicitud_Result">
+          <ScalarProperty Name="IDINDICADOR" ColumnName="IDINDICADOR" />
+          <ScalarProperty Name="IDOPERADOR" ColumnName="IDOPERADOR" />
+          <ScalarProperty Name="IDCONSTRUCTOR" ColumnName="IDCONSTRUCTOR" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_getNombreIndicadorByIdSolicitudConstructor" FunctionName="SITELModel.Store.pa_getNombreIndicadorByIdSolicitudConstructor" />
+    <FunctionImportMapping FunctionImportName="pa_getOperadoresDetalleAgrupacionPorIdConstructorAndIdCriterio" FunctionName="SITELModel.Store.pa_getOperadoresDetalleAgrupacionPorIdConstructorAndIdCriterio">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_getOperadoresDetalleAgrupacionPorIdConstructorAndIdCriterio_Result">
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="NombreOperador" ColumnName="NombreOperador" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_getValoresRegistradosPorOperador_Canton" FunctionName="SITELModel.Store.pa_getValoresRegistradosPorOperador_Canton">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_getValoresRegistradosPorOperador_Canton_Result">
+          <ScalarProperty Name="IdCanton" ColumnName="IdCanton" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_getValoresRegistradosPorOperador_Genero" FunctionName="SITELModel.Store.pa_getValoresRegistradosPorOperador_Genero">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_getValoresRegistradosPorOperador_Genero_Result">
+          <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_getValoresRegistradosPorOperador_Provincia" FunctionName="SITELModel.Store.pa_getValoresRegistradosPorOperador_Provincia">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_getValoresRegistradosPorOperador_Provincia_Result">
+          <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_getValoresRegistradosPorOperador_SinDetalleNivel" FunctionName="SITELModel.Store.pa_getValoresRegistradosPorOperador_SinDetalleNivel" />
+    <FunctionImportMapping FunctionImportName="pa_getValoresReglaEstadisticaConNivelDetalle" FunctionName="SITELModel.Store.pa_getValoresReglaEstadisticaConNivelDetalle">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_getValoresReglaEstadisticaConNivelDetalle_Result">
+          <ScalarProperty Name="ValorLimiteInferior" ColumnName="ValorLimiteInferior" />
+          <ScalarProperty Name="ValorLimiteSuperior" ColumnName="ValorLimiteSuperior" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_InsertarArchivoExcel" FunctionName="SITELModel.Store.pa_InsertarArchivoExcel" />
+    <FunctionImportMapping FunctionImportName="pa_InsertarDetalleArchivoCsv" FunctionName="SITELModel.Store.pa_InsertarDetalleArchivoCsv" />
+    <FunctionImportMapping FunctionImportName="pa_InsertarSolicitudArchivoExcel" FunctionName="SITELModel.Store.pa_InsertarSolicitudArchivoExcel" />
+    <FunctionImportMapping FunctionImportName="pa_InsertarUsuario" FunctionName="SITELModel.Store.pa_InsertarUsuario" />
+    <FunctionImportMapping FunctionImportName="pa_ListadoModificacionMasiva" FunctionName="SITELModel.Store.pa_ListadoModificacionMasiva">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_ListadoModificacionMasiva_Result">
+          <ScalarProperty Name="IdDetalleRegistroindicador" ColumnName="IdDetalleRegistroindicador" />
+          <ScalarProperty Name="IdOperador" ColumnName="IdOperador" />
+          <ScalarProperty Name="NombreOperador" ColumnName="NombreOperador" />
+          <ScalarProperty Name="DescFormulario" ColumnName="DescFormulario" />
+          <ScalarProperty Name="DesServicio" ColumnName="DesServicio" />
+          <ScalarProperty Name="DesTipoInd" ColumnName="DesTipoInd" />
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="NombreIndicador" ColumnName="NombreIndicador" />
+          <ScalarProperty Name="IdCriterio" ColumnName="IdCriterio" />
+          <ScalarProperty Name="DescCriterio" ColumnName="DescCriterio" />
+          <ScalarProperty Name="Nivel_Superior" ColumnName="Nivel_Superior" />
+          <ScalarProperty Name="Penultimo_Nivel" ColumnName="Penultimo_Nivel" />
+          <ScalarProperty Name="Ultimo_Nivel" ColumnName="Ultimo_Nivel" />
+          <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
+          <ScalarProperty Name="Anno" ColumnName="Anno" />
+          <ScalarProperty Name="NumeroDesglose" ColumnName="NumeroDesglose" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_LogErrores" FunctionName="SITELModel.Store.pa_LogErrores" />
+    <FunctionImportMapping FunctionImportName="pa_MetodosIndicarXServicio" FunctionName="SITELModel.Store.pa_MetodosIndicarXServicio">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_MetodosIndicarXServicio_Result">
+          <ScalarProperty Name="IdUmbralPeso" ColumnName="IdUmbralPeso" />
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="Umbral" ColumnName="Umbral" />
+          <ScalarProperty Name="PesoRelativo" ColumnName="PesoRelativo" />
+          <ScalarProperty Name="FechaUltimaModificacion" ColumnName="FechaUltimaModificacion" />
+          <ScalarProperty Name="UsuarioUltimaModificacion" ColumnName="UsuarioUltimaModificacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_ParamFormulasTrans" FunctionName="SITELModel.Store.pa_ParamFormulasTrans">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_ParamFormulasTrans_Result">
+          <ScalarProperty Name="IdParamFormulas" ColumnName="IdParamFormulas" />
+          <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+          <ScalarProperty Name="IdIndicador" ColumnName="IdIndicador" />
+          <ScalarProperty Name="FormulaPorcentaje" ColumnName="FormulaPorcentaje" />
+          <ScalarProperty Name="FormulaCumplimiento" ColumnName="FormulaCumplimiento" />
+          <ScalarProperty Name="Criterios" ColumnName="Criterios" />
+          <ScalarProperty Name="FromArray" ColumnName="FromArray" />
+          <ScalarProperty Name="FechaUltimaActualizacion" ColumnName="FechaUltimaActualizacion" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Periodicidad" ColumnName="Periodicidad" />
+          <ScalarProperty Name="ArrayIf" ColumnName="ArrayIf" />
+          <ScalarProperty Name="ArrayVerdadero" ColumnName="ArrayVerdadero" />
+          <ScalarProperty Name="ArrayFalso" ColumnName="ArrayFalso" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_RegistrarExcepcion" FunctionName="SITELModel.Store.pa_RegistrarExcepcion" />
+    <FunctionImportMapping FunctionImportName="pa_RptBitacora" FunctionName="SITELModel.Store.pa_RptBitacora">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_RptBitacora_Result">
+          <ScalarProperty Name="PANTALLA" ColumnName="PANTALLA" />
+          <ScalarProperty Name="ACCION" ColumnName="ACCION" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="FECHABITACORA" ColumnName="FECHABITACORA" />
+          <ScalarProperty Name="REGISTROANTERIOR" ColumnName="REGISTROANTERIOR" />
+          <ScalarProperty Name="REGISTRONUEVO" ColumnName="REGISTRONUEVO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_RptDetalleAgrupacionPorAgrupacion" FunctionName="SITELModel.Store.pa_RptDetalleAgrupacionPorAgrupacion">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_RptDetalleAgrupacionPorAgrupacion_Result">
+          <ScalarProperty Name="IDOPERADOR" ColumnName="IDOPERADOR" />
+          <ScalarProperty Name="NOMBREOPERADOR" ColumnName="NOMBREOPERADOR" />
+          <ScalarProperty Name="IDAGRUPACION" ColumnName="IDAGRUPACION" />
+          <ScalarProperty Name="DESCAGRUPACION" ColumnName="DESCAGRUPACION" />
+          <ScalarProperty Name="IDDETALLEAGRUPACION" ColumnName="IDDETALLEAGRUPACION" />
+          <ScalarProperty Name="DESCDETALLEAGRUPACION" ColumnName="DESCDETALLEAGRUPACION" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_RptIndicadoresPorOperador" FunctionName="SITELModel.Store.pa_RptIndicadoresPorOperador">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_RptIndicadoresPorOperador_Result">
+          <ScalarProperty Name="IDOPERADOR" ColumnName="IDOPERADOR" />
+          <ScalarProperty Name="NOMBREOPERADOR" ColumnName="NOMBREOPERADOR" />
+          <ScalarProperty Name="IDSERVICIO" ColumnName="IDSERVICIO" />
+          <ScalarProperty Name="DESSERVICIO" ColumnName="DESSERVICIO" />
+          <ScalarProperty Name="IDINDICADOR" ColumnName="IDINDICADOR" />
+          <ScalarProperty Name="NOMBREINDICADOR" ColumnName="NOMBREINDICADOR" />
+          <ScalarProperty Name="DESCINDICADOR" ColumnName="DESCINDICADOR" />
+          <ScalarProperty Name="DESCTIPOINDICADOR" ColumnName="DESCTIPOINDICADOR" />
+          <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_RptIndicadoresPorServicio" FunctionName="SITELModel.Store.pa_RptIndicadoresPorServicio">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_RptIndicadoresPorServicio_Result">
+          <ScalarProperty Name="IDSERVICIO" ColumnName="IDSERVICIO" />
+          <ScalarProperty Name="DESCSERVICIO" ColumnName="DESCSERVICIO" />
+          <ScalarProperty Name="IDINDICADOR" ColumnName="IDINDICADOR" />
+          <ScalarProperty Name="NOMINDICADOR" ColumnName="NOMINDICADOR" />
+          <ScalarProperty Name="DESCINDICADOR" ColumnName="DESCINDICADOR" />
+          <ScalarProperty Name="DESCTIPOINDICADOR" ColumnName="DESCTIPOINDICADOR" />
+          <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_RptTiposIndicadorPorServicio" FunctionName="SITELModel.Store.pa_RptTiposIndicadorPorServicio">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_RptTiposIndicadorPorServicio_Result">
+          <ScalarProperty Name="SERVICIO" ColumnName="SERVICIO" />
+          <ScalarProperty Name="TIPOINDICADOR" ColumnName="TIPOINDICADOR" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_SendEmail" FunctionName="SITELModel.Store.pa_SendEmail" />
+    <FunctionImportMapping FunctionImportName="pa_SolicitudConstructorActualizar" FunctionName="SITELModel.Store.pa_SolicitudConstructorActualizar" />
+    <FunctionImportMapping FunctionImportName="pa_SolicitudesPorParametros" FunctionName="SITELModel.Store.pa_SolicitudesPorParametros">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.pa_SolicitudesPorParametros_Result">
+          <ScalarProperty Name="IdSolicitudIndicador" ColumnName="IdSolicitudIndicador" />
+          <ScalarProperty Name="IdFrecuencia" ColumnName="IdFrecuencia" />
+          <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+          <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+          <ScalarProperty Name="DescFormulario" ColumnName="DescFormulario" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+          <ScalarProperty Name="FechaBaseParaCrearExcel" ColumnName="FechaBaseParaCrearExcel" />
+          <ScalarProperty Name="FormularioWeb" ColumnName="FormularioWeb" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="pa_SolicitudesVencidas" FunctionName="SITELModel.Store.pa_SolicitudesVencidas" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="SITELModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="SITELModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="SITELModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="SITELModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="SITELModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SITELModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SITELModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SITELModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

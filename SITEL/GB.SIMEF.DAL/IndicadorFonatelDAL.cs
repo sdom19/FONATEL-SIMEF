@@ -51,7 +51,8 @@ namespace GB.SIMEF.DAL
 
                 listaIndicadores = listaIndicadores.Select(x => new Indicador()
                 {
-                    id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                    id = Utilidades.Encriptar(x.idIndicador.ToString()), 
+                    idIndicador=x.idIndicador,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),
@@ -80,56 +81,26 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
-        /// 16/08/2022
+        /// 08/09/2022
         /// José Navarro Acuña
-        /// Función que retorna todos los formularios web relacionados a indicador.
-        /// Se puede realizar un filtrado de acuerdo al objecto que se envia y obtener un compilado de varios indicadores.
+        /// Función que verifica si el indicador se encuentra en algún formulario web o una formula de calculo.
+        /// Retorna un listado indicando las dependencias según corresponda
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
-        public List<FormularioWeb> ObtenerFormulariosWebSegunIndicador(Indicador pIndicador)
+        public List<string> VerificarUsoIndicador(Indicador pIndicador)
         {
-            List<FormularioWeb> listaFormularioWeb = new List<FormularioWeb>();
+            List<string> listaValidacion = new List<string>();
 
             using (db = new SIMEFContext())
             {
-                listaFormularioWeb = db.Database.SqlQuery<FormularioWeb>
-                    ("execute spObtenerFormulariosWebSegunIndicadorFonatel " +
-                    "@pIdIndicador," +
-                    "@pIdTipoIndicador," +
-                    "@pIdClasificacion," +
-                    "@pIdGrupo," +
-                    "@pIdUnidadEstudio," +
-                    "@pIdTipoMedida," +
-                    "@pIdFrecuencia," +
-                    "@pIdEstado",
-                     new SqlParameter("@pIdIndicador", pIndicador.idIndicador),
-                     new SqlParameter("@pIdTipoIndicador", pIndicador.IdTipoIndicador),
-                     new SqlParameter("@pIdClasificacion", pIndicador.IdClasificacion),
-                     new SqlParameter("@pIdGrupo", pIndicador.idGrupo),
-                     new SqlParameter("@pIdUnidadEstudio", pIndicador.IdUnidadEstudio != null ? pIndicador.IdUnidadEstudio : 0),
-                     new SqlParameter("@pIdTipoMedida", pIndicador.idTipoMedida),
-                     new SqlParameter("@pIdFrecuencia", pIndicador.IdFrecuencia),
-                     new SqlParameter("@pIdEstado", pIndicador.idEstado)
+                listaValidacion = db.Database.SqlQuery<string>
+                    ("exec spValidarUsoIndicadorFonatel @pIdIndicador",
+                       new SqlParameter("@pIdIndicador", pIndicador.idIndicador)
                     ).ToList();
-
-                listaFormularioWeb = listaFormularioWeb.Select(x => new FormularioWeb()
-                {
-                    id = Utilidades.Encriptar(x.idFormulario.ToString()),
-                    Codigo = x.Codigo,
-                    Nombre = x.Nombre,
-                    Descripcion = x.Descripcion,
-                    CantidadIndicadores = x.CantidadIndicadores,
-                    FrecuenciaEnvio = ObtenerFrecuenciaEnvia(x.idFrecuencia),
-                    FechaCreacion = x.FechaCreacion,
-                    UsuarioCreacion = x.UsuarioCreacion,
-                    FechaModificacion = x.FechaModificacion,
-                    UsuarioModificacion = x.UsuarioModificacion,
-                    EstadoRegistro = ObtenerEstadoRegistro(x.idEstado)
-                }).ToList();
             }
 
-            return listaFormularioWeb;
+            return listaValidacion;
         }
 
         /// <summary>
@@ -188,6 +159,32 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pVisualizaSigitel", pIndicador.VisualizaSigitel),
                      new SqlParameter("@pIdEstado", pIndicador.idEstado)
                     ).ToList();
+
+                listaIndicadores = listaIndicadores.Select(x => new Indicador()
+                {
+                    id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                    Codigo = x.Codigo,
+                    Nombre = x.Nombre,
+                    TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),
+                    ClasificacionIndicadores = ObtenerClasificacionIndicador(x.IdClasificacion),
+                    GrupoIndicadores = ObtenerGrupoIndicadores(x.idGrupo),
+                    Descripcion = x.Descripcion,
+                    CantidadVariableDato = x.CantidadVariableDato,
+                    CantidadCategoriasDesagregacion = x.CantidadCategoriasDesagregacion,
+                    UnidadEstudio = x.IdUnidadEstudio != null ? ObtenerUnidadEstudio((int)x.IdUnidadEstudio) : null,
+                    TipoMedida = ObtenerTipoMedida(x.idTipoMedida),
+                    FrecuenciaEnvio = ObtenerFrecuenciaEnvia(x.IdFrecuencia),
+                    Interno = x.Interno,
+                    Solicitud = x.Solicitud,
+                    Fuente = x.Fuente,
+                    Notas = x.Notas,
+                    FechaCreacion = x.FechaCreacion,
+                    UsuarioCreacion = x.UsuarioCreacion,
+                    FechaModificacion = x.FechaModificacion,
+                    UsuarioModificacion = x.UsuarioModificacion,
+                    VisualizaSigitel = x.VisualizaSigitel,
+                    EstadoRegistro = ObtenerEstadoRegistro(x.idEstado)
+                }).ToList();
             }
 
             return listaIndicadores;

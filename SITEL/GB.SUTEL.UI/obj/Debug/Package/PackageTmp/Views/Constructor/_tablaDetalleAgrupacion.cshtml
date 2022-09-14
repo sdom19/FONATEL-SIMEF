@@ -1,0 +1,59 @@
+﻿@using GB.SUTEL.Entities
+@model List<DetalleAgrupacion>
+
+
+
+                <table class="display" cellspacing="0" data-table-grid="true" data-table-grid-display-rows="4">
+                    <thead>
+                        <tr>
+                            <th>
+                                Agrupación
+                            </th>
+                            <th>
+                                Detalle Agrupación
+                            </th>
+                            
+
+                            <th class="no-sort" style="min-width:40px;"></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td>@Html.TextBox("txtFiltroAgrupacion", null, new { size = "10", onkeyup = "filtrarDetalleAgrupacion(event);", @placeholder = "Agrupación" })</td>
+                            <td colspan ="2">@Html.TextBox("txtFiltroDetalleAgrupacion", null, new { size = "15", onkeyup = "filtrarDetalleAgrupacion(event);", @placeholder = "Detalle Agrupación" })</td>
+
+                           
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @if (Model != null && Model.Count() > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Agrupacion.DescAgrupacion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DescDetalleAgrupacion)
+                                    </td>
+                                   
+
+
+                                    <td>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal"
+                                                data-select="true" data-target="#divDetalleAgrupacion"
+                                                data-json-selected='{"descAgrupacion":" @item.Agrupacion.DescAgrupacion ","descDetalleAgrupacion":" @item.DescDetalleAgrupacion ", "IdAgrupacion": " @item.IdAgrupacion", "IdDetalleAgrupacion": " @item.IdDetalleAgrupacion", "idDetalleOperadorAgrupacion": " @item.IdOperador"}'>
+                                            <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+                                        </button>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+  
+
+
+

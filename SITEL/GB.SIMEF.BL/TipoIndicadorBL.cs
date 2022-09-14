@@ -112,7 +112,7 @@ namespace GB.SIMEF.BL
             try
             {
                 List<TipoIndicadores> tipos = tipoIndicadorDAL.ObtenerDatos(new TipoIndicadores());
-                TipoIndicadores indicadorExiste = tipos.FirstOrDefault(x => x.Nombre.ToUpper() == pTipoIndicadores.Nombre.ToUpper());
+                TipoIndicadores indicadorExiste = tipos.FirstOrDefault(x => x.Nombre.ToUpper().Equals(pTipoIndicadores.Nombre.ToUpper()));
 
                 if (indicadorExiste != null)
                 {

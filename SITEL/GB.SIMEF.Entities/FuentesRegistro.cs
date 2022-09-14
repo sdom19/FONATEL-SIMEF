@@ -43,5 +43,22 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public List<DetalleFuentesRegistro> DetalleFuentesRegistro { get; set; }
 
+
+        [NotMapped]
+
+        public List<string> NoSerialize = new List<string>()
+        {
+            "id",
+            "idFuente",         
+            "EstadoRegistro",
+            "idEstado",
+            "FechaModificacion",
+            "UsuarioCreacion",
+            "FechaCreacion",
+            "UsuarioModificacion",
+            "DetalleFuentesRegistro"
+
+        };
+
     }
 }

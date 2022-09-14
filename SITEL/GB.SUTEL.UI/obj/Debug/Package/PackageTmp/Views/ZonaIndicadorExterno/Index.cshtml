@@ -1,0 +1,31 @@
+﻿@using GB.SUTEL.UI.Helpers;
+
+<h4>Mantenimiento de Zona Indicador Externo</h4>
+<hr>
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Zona Indicador Externo", "Crear"))
+{
+    <p>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCrear">
+            Nuevo
+        </button>
+    </p>
+}
+<div id="tabla">
+    @Html.Action("_table")
+</div>
+
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Zona Indicador Externo", "Crear"))
+{
+    @Html.Partial("_crear");
+}
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Zona Indicador Externo", "Editar"))
+{
+    @Html.Partial("_editar");
+}
+@if (rolValidation.ValidateScreenFunctions(this.Context, "Zona Indicador Externo", "Eliminar"))
+{
+    @Html.Partial("_eliminar");
+}
+@section scripts{
+    @Scripts.Render("~/Scripts/Mantenimientos/source.js")
+}

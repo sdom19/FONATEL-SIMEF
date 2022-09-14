@@ -16,3 +16,15 @@ D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Ent
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.csproj.CopyComplete
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.dll
 D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\GB.SIMEF.Entities.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\GB.SIMEF.Entities.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\GB.SIMEF.Resources.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\JsonDiffPatchDotNet.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\GB.SIMEF.Resources.pdb
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.csproj.AssemblyReference.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.csproj.CopyComplete
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.dll
+C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.pdb

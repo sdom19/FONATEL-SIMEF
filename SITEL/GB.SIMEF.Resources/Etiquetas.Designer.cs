@@ -187,6 +187,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Visualizar.
+        /// </summary>
+        public static string BotonVisualizar {
+            get {
+                return ResourceManager.GetString("BotonVisualizar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Campo requerido.
         /// </summary>
         public static string CampoRequerido {
@@ -228,6 +237,33 @@ namespace GB.SIMEF.Resources {
         public static string Estado {
             get {
                 return ResourceManager.GetString("Estado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Formulario Web.
+        /// </summary>
+        public static string Formulario {
+            get {
+                return ResourceManager.GetString("Formulario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a FrecuenciaEnvio.
+        /// </summary>
+        public static string Frecuencia {
+            get {
+                return ResourceManager.GetString("Frecuencia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Indicador.
+        /// </summary>
+        public static string Indicador {
+            get {
+                return ResourceManager.GetString("Indicador", resourceCulture);
             }
         }
         

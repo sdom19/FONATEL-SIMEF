@@ -97,6 +97,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Indicador.
+        /// </summary>
+        public static string Indicador {
+            get {
+                return ResourceManager.GetString("Indicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Código.
         /// </summary>
         public static string LabelCodigo {
