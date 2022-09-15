@@ -795,6 +795,36 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 15/09/2022
+        /// José Navarro Acuña
+        /// Función que permite eliminar un detalle de variable dato de un indicador
+        /// </summary>
+        /// <param name="pDetalleIndicadorVariables"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EliminarDetalleVariableDato(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        {
+            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+
+            if (string.IsNullOrEmpty(pDetalleIndicadorVariables.idIndicadorString) ||
+                string.IsNullOrEmpty(pDetalleIndicadorVariables.id)
+                )
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            pDetalleIndicadorVariables.Estado = false;
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorVariablesBL.CambioEstado(pDetalleIndicadorVariables);
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
         #endregion
 
         #region Funciones privadas

@@ -928,6 +928,35 @@ CreateView = {
             $(CreateView.Controles.formVariable.inputDescripcionVariable).parent().removeClass("has-error");
         },
 
+        EliminarDetallesVariable: function (pIdIndicador, pIdDetalle) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Variable?", jsMensajes.Variables.actionType.eliminar)
+                    .set('onok', function (closeEvent) { resolve(true) });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.EliminarDetalleVariableDato(this.CrearObjDetallesVariable(pIdIndicador, pIdDetalle));
+                })
+                .then(data => {
+                    delete CreateView.Variables.listaVariablesDato[pIdDetalle];
+                    RemoverItemDataTable(CreateView.Controles.formVariable.tablaDetallesVariable, `button[value='${pIdDetalle}']`);
+
+                    jsMensajes.Metodos.OkAlertModal("La Variable ha sido eliminada")
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
         EditarDetallesVariable: function (pIdIndicador) {
             let formValido = this.ValidarFormularioDetallesVariable();
 
@@ -1238,6 +1267,10 @@ CreateView = {
 
         EditarDetalleVariableDato: function (pDetalleIndicadorVariables) {
             return execAjaxCall('/IndicadorFonatel/EditarDetalleVariableDato', 'POST', { pDetalleIndicadorVariables: pDetalleIndicadorVariables });
+        },
+
+        EliminarDetalleVariableDato: function (pDetalleIndicadorVariables) {
+            return execAjaxCall('/IndicadorFonatel/EliminarDetalleVariableDato', 'POST', { pDetalleIndicadorVariables: pDetalleIndicadorVariables });
         }
     },
 
@@ -1342,6 +1375,14 @@ CreateView = {
             }
         });
 
+        $(document).on("click", CreateView.Controles.formVariable.btnEliminarVariable, function () {
+            let idIndicador = ObtenerValorParametroUrl("id");
+
+            if (idIndicador != null || $.trim(idIndicador) != "") {
+                CreateView.Metodos.EliminarDetallesVariable(idIndicador, $(this).val());
+            }
+        });
+
         $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).on('select2:select', function (event) {
             let idCategoria = $(this).val();
             if (idCategoria != null || $.trim(idCategoria) != "") {
@@ -1395,15 +1436,6 @@ CreateView = {
         //$(document).on("click", CreateView.Controles.btnAddIndicadorVariable, function () {
         //    let id = 1;
         //    window.location.href = "/Fonatel/IndicadorFonatel/DetalleVariables?id=" + id;
-        //});
-
-        //$(document).on("click", CreateView.Controles.btnEliminarVariable, function () {
-        //    let id = 1;
-        //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Variable?", jsMensajes.Variables.actionType.eliminar)
-        //        .set('onok', function (closeEvent) {
-        //            jsMensajes.Metodos.OkAlertModal("La Variable ha sido eliminada")
-        //                .set('onok', function (closeEvent) { });
-        //        });
         //});
 
         //$(document).on("click", CreateView.Controles.btnEliminarCategoria, function () {

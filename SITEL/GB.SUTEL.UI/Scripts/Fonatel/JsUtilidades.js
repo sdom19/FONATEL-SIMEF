@@ -284,7 +284,7 @@ function CargarDatasource(pDataTable = ".datatable_simef") {
  * @param {any} pItem item a eliminar.
  */
 function RemoverItemDataTable (pDataTable, pItem) {
-    $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
+    $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw(false);
 }
 
 /**
@@ -317,14 +317,17 @@ function InsertarItemDataTable (pDataTable, pItem) {
  */
 function ActualizarItemDataTable(pDataTable, pItem, pContenido, pPagina = null) {
     let dataTable = $(pDataTable).DataTable();
-    if (pPagina != null) {
-        // se debe cambiar la página donde se encuentra el registro, 
-        // ya que no es posible actualizar el item y ocurre un error
-        dataTable.page(pPagina).draw(false);
-    }
 
-    let item = dataTable.row($(pItem).parents('tr'));
-    dataTable.row(item).data(pContenido).draw();
+    dataTable.row($(pItem).parents('tr')).data(pContenido).invalidate().draw()
+
+    //if (pPagina != null) {
+    //    // se debe cambiar la página donde se encuentra el registro, 
+    //    // ya que no es posible actualizar el item y ocurre un error
+    //    dataTable.page(pPagina).draw(false);
+    //}
+
+    //let item = dataTable.row($(pItem).parents('tr'));
+    //dataTable.row(item).data(pContenido).draw();
 }
 
 /**

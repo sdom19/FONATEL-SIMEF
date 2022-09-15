@@ -81,9 +81,63 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> CambioEstado(DetalleIndicadorVariables objeto)
+        /// <summary>
+        /// 15/09/2022
+        /// José Navarro Acuña
+        /// Función que permite cambiar el estado de un detalle de variable dato de un indicador
+        /// </summary>
+        /// <param name="pDetalleIndicadorVariables"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<DetalleIndicadorVariables>> CambioEstado(DetalleIndicadorVariables pDetalleIndicadorVariables)
         {
-            throw new NotImplementedException();
+            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            bool errorControlado = false;
+
+            try
+            {
+                RespuestaConsulta<List<DetalleIndicadorVariables>> detalleRegistrado = ObtenerDatos(pDetalleIndicadorVariables);
+
+                if (detalleRegistrado.HayError != (int)Error.NoError)
+                {
+                    return detalleRegistrado;
+                }
+
+                if (detalleRegistrado.objetoRespuesta.Count == 0) // el detalle existe?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // actualizar el estado
+                DetalleIndicadorVariables detalle = detalleRegistrado.objetoRespuesta[0];
+                detalle.Estado = pDetalleIndicadorVariables.Estado;
+                detalle.idDetalleIndicador = pDetalleIndicadorVariables.idDetalleIndicador;
+                detalle.idIndicador = pDetalleIndicadorVariables.idIndicador;
+                resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ActualizarDatos(detalle);
+
+                // actualizar el indicador
+                Indicador indicadorDelDetalle = indicadorFonatelDAL.ObtenerDatos(new Indicador() { idIndicador = pDetalleIndicadorVariables.idIndicador }).FirstOrDefault();
+                indicadorDelDetalle.CantidadVariableDato--;
+                indicadorFonatelDAL.ActualizarCantidadVariablesDato(indicadorDelDetalle);
+
+                resultado.Usuario = user;
+                resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Eliminar;
+
+                //indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                //        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
         }
 
         public RespuestaConsulta<List<DetalleIndicadorVariables>> ClonarDatos(DetalleIndicadorVariables objeto)
@@ -170,7 +224,7 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 12/09/2022
         /// José Navarro Acuña
-        /// Función que valida el objeto DetalleIndicadorVariables. Valida la existencia del indicador relacioado y la cantidad de detalles restantes del mismo
+        /// Función que valida el objeto DetalleIndicadorVariables. Valida la existencia del indicador relacionado y la cantidad de detalles restantes del mismo
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
