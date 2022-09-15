@@ -786,6 +786,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
+            pDetalleIndicadorVariables.Estado = true;
+
             await Task.Run(() =>
             {
                 resultado = detalleIndicadorVariablesBL.ActualizarElemento(pDetalleIndicadorVariables);

@@ -388,6 +388,7 @@ CreateView = {
         hizoCargaDetallesCategorias: false,
         listaVariablesDato: {},
         objEditarDetallesVariableDato: null,
+        paginaObjEditarDetallesVariableDato: 0,
         objEditarDetallesCategoria: null
     },
 
@@ -889,8 +890,11 @@ CreateView = {
         CargarFormularioEditarDetallesVariable: function (pId) {
             let variable = CreateView.Variables.listaVariablesDato[pId];
             CreateView.Variables.objEditarDetallesVariableDato = variable;
+            CreateView.Variables.paginaObjEditarDetallesVariableDato = ObtenerPaginaActual(CreateView.Controles.formVariable.tablaDetallesVariable);
+
             $(CreateView.Controles.formVariable.inputNombreVariable).val(variable.NombreVariable);
             $(CreateView.Controles.formVariable.inputDescripcionVariable).val(variable.Descripcion);
+
             this.LimpiarMensajesValidacionFormularioDetallesVariable();
         },
 
@@ -946,9 +950,8 @@ CreateView = {
                 .then(data => {
                     $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
                     $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
-                    CreateView.Variables.objEditarDetallesVariableDato = null;
 
-                    CreateView.Variables.listaVariablesDato[data.objetoRespuesta[0].id] = data.objetoRespuesta[0]; // guardar el item localmente
+                    CreateView.Variables.listaVariablesDato[data.objetoRespuesta[0].id] = data.objetoRespuesta[0]; // actualizar el item localmente
 
                     let item = [ // crear el item que se inserta en la tabla
                         data.objetoRespuesta[0].NombreVariable,
@@ -956,12 +959,20 @@ CreateView = {
                         CreateView.Variables.btnEdit(data.objetoRespuesta[0].id) + CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)
                     ];
 
-                    //InsertarItemDataTable(CreateView.Controles.formVariable.tablaDetallesVariable, item);
+                    ActualizarItemDataTable(
+                        CreateView.Controles.formVariable.tablaDetallesVariable,
+                        `button[value='${CreateView.Variables.objEditarDetallesVariableDato.id}']`,
+                        item,
+                        CreateView.Variables.paginaObjEditarDetallesVariableDato
+                    );
+
+                    CreateView.Variables.objEditarDetallesVariableDato = null;
 
                     jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
                         .set('onok', function (closeEvent) { });
                 })
                 .catch(error => {
+                    console.log(error);
                     if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
                         jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
