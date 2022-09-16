@@ -532,10 +532,6 @@
             })
         },
 
-        "ImportarExcelDiseño": function () {
-            jsMensajes.Metodos.OkAlertModal("El Detalle ha sido cargado");
-        },
-
         "DetalleCompletos": function () {
 
             let formularioCompleto = JsRelacion.Variables.ListadoDetalleRelaciones.length == 0 ? false : JsRelacion.Variables.ListadoDetalleRelaciones[0].Completo;
@@ -683,7 +679,7 @@ $(document).on("click", JsRelacion.Controles.btnCargarDetalle, function (e) {
 
 
 $(document).on("change", JsRelacion.Controles.inputFileCargarDetalle, function (e) {
-    JsRelacion.Consultas.ImportarExcelDiseño();
+    JsRelacion.Consultas.ImportarExcel();
 });
 
 
@@ -708,7 +704,14 @@ $(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
 //EVENTO BOTON FINALIZAR DETALLE
 $(document).on("click", JsRelacion.Controles.btnFinalizarDetalleRelacion, function (e) {
     e.preventDefault();
-    window.location.href = "/Fonatel/RelacionCategoria/Index";
+
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar “El Elemento”?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Elemento ha sido creado")                                                               
+                .set('onok', function (closeEvent) {
+                    window.location.href = "/Fonatel/RelacionCategoria/Index";
+                });
+        });;
 });
 
 //EVENTO PARA DESCARGAR EXCEL
