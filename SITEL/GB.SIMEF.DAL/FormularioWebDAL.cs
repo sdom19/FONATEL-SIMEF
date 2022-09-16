@@ -71,10 +71,10 @@ namespace GB.SIMEF.DAL
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     idGrupo = x.idGrupo,
-                    idTipoIndicador = x.idTipoIndicador,
+                    IdTipoIndicador = x.IdTipoIndicador,
                     idEstado = x.idEstado,
                     GrupoIndicadores = db.GrupoIndicadores.Where(g => g.idGrupo == x.idGrupo).FirstOrDefault(),
-                    TipoIndicadores = db.TipoIndicadores.Where(i => i.IdTipoIdicador == x.idTipoIndicador).FirstOrDefault(),
+                    TipoIndicadores = db.TipoIndicadores.Where(i => i.IdTipoIdicador == x.IdTipoIndicador).FirstOrDefault(),
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
                 }).ToList();
             }
