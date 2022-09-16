@@ -47,8 +47,6 @@ namespace GB.SIMEF.Entities
         public bool VisualizaSigitel { get; set; }
         public int idEstado { get; set; }
 
-        public int idTipoIndicador { get; set; }
-
         #region Variables que no forman parte del contexto
         [NotMapped]
         public virtual ClasificacionIndicadores ClasificacionIndicadores { get; set; }
