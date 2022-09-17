@@ -6,7 +6,7 @@
         "tabActivoRegistroIndicador": "div.tab-pane.active",
         "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
         "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
-
+        "table": "",
         "btnGuardarCategoría": "#btnGuardarCategoría",
         "btnDescargarPlantillaRegistro": "div.tab-pane.active #btnDescargarPlantillaRegistro",
         "btnCargarPlantillaRegistro": "div.tab-pane.active #btnCargarPlantillaRegistro",
@@ -150,21 +150,20 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.IndicadorErroneo, f
 
 
 $(document).on('draw.dt', jsRegistroIndicadorFonatel.Controles.tablaIndicador, function (e) {
-    console.log(e);
-
     setSelect2();
- 
 });
+
+
 
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar, function () {
     if (jsRegistroIndicadorFonatel.Variables.Validacion == false) {
 
-        jsMensajes.Metodos.OkAlertModal("La información ingresada cumple con los criterios de validación.");
+        jsMensajes.Metodos.OkAlertModal("Validación Exitosa <br><br> La información ingresada cumple con los criterios de validación.");
         $(jsRegistroIndicadorFonatel.Controles.btnCarga).prop("disabled", false);
 
     } else {
-        jsMensajes.Metodos.OkAlertErrorModal("La información ingresada no es congruente con el registro del mes anterior.");
+        jsMensajes.Metodos.OkAlertErrorModal("Fórmula de cambio mensual <br><br> La información ingresada no es congruente con el registro del mes anterior");
     }
 
 });
@@ -182,7 +181,7 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar2, functi
         $(jsRegistroIndicadorFonatel.Controles.btnCarga).prop("disabled", false);
 
     } else {
-        jsMensajes.Metodos.OkAlertErrorModal("La información ingresada no es congruente con el registro del mes anterior.");
+        jsMensajes.Metodos.OkAlertErrorModal("Fórmula actualización secuencial <br><br>La información ingresada no cumple con la secuencia con respecto a los registros del periodo anterior");
     }
 
 });
@@ -256,6 +255,7 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
             }
 
             jsRegistroIndicadorFonatel.Variables.paginasActualizadasConSelect2_tablaIndicador[tabActual].push(0);
+
         }
         
     }

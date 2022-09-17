@@ -639,8 +639,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
                 {
                     DetallesAgrupados = true,
-                    idIndicadorString = pIdIndicador
-                });
+                    idIndicadorString = pIdIndicador,
+                    Estado = true
+                }) ;
+                
             });
             return JsonConvert.SerializeObject(resultado);
         }
@@ -728,6 +730,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+
+        /// <summary>
+        /// 12/09/2022
+        /// Michael Hernandez 
+        /// Función que permite crear un nuevo detalle de variable dato para un indicador
+        /// </summary>
+        /// <param name="pDetalleIndicadorCategoria"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CrearDetalleCategoriaDesagregacion(List< DetalleIndicadorCategoria> pDetalleIndicadorCategoria)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+            await Task.Run(() =>
+            {
+                
+                resultado = detalleIndicadorCategoriaBL.InsertarDatos(pDetalleIndicadorCategoria);
+
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+
+
+
+
         /// <summary>
         /// 12/09/2022
         /// José Navarro Acuña
@@ -748,11 +775,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado.MensajeError = mensajeValidacion;
                 return JsonConvert.SerializeObject(resultado);
             }
-
-            pDetalleIndicadorVariables.Estado = true;
-
             await Task.Run(() =>
             {
+              
                 resultado = detalleIndicadorVariablesBL.InsertarDatos(pDetalleIndicadorVariables);
             });
             return JsonConvert.SerializeObject(resultado);
@@ -786,7 +811,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
-            pDetalleIndicadorVariables.Estado = true;
+          
 
             await Task.Run(() =>
             {
@@ -824,6 +849,27 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
             return JsonConvert.SerializeObject(resultado);
         }
+
+
+
+
+
+
+        [HttpPost]
+        public async Task<string> EliminarDetalleCategoria(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorCategoriaBL.EliminarElemento(pDetalleIndicadorCategoria);
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+
+
 
         #endregion
 

@@ -58,7 +58,7 @@ namespace GB.SIMEF.BL
                 {
                     return resultado;
                 }
-
+                pDetalleIndicadorVariables.Estado = true;
                 resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ActualizarDatos(pDetalleIndicadorVariables);
 
                 resultado.Usuario = user;
@@ -171,7 +171,7 @@ namespace GB.SIMEF.BL
                 {
                     return resultado;
                 }
-
+                pDetalleIndicadorVariables.Estado = true;
                 resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ActualizarDatos(pDetalleIndicadorVariables);
 
                 resultado.Usuario = user;

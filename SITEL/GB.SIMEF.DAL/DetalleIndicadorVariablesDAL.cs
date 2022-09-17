@@ -31,15 +31,18 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pIdDetalleIndicador", pDetalleIndicadorVariables.idDetalleIndicador),
                      new SqlParameter("@pIdIndicador", pDetalleIndicadorVariables.idIndicador)
                     ).ToList();
+
+                listaDetalles = listaDetalles.Select(x => new DetalleIndicadorVariables()
+                {
+                    id = Utilidades.Encriptar(x.idDetalleIndicador.ToString()),
+                    NombreVariable = x.NombreVariable,
+                    Descripcion = x.Descripcion,
+                    Estado = x.Estado,
+                    CantidadEstablecida = db.Database.SqlQuery<int>("SELECT isnull([CantidadVariableDato],0) CantidadEstablecida FROM [dbo].[Indicador] where IdIndicador="+pDetalleIndicadorVariables.idIndicador).Single()
+                }).ToList();
             }
 
-            listaDetalles = listaDetalles.Select(x => new DetalleIndicadorVariables()
-            {
-                id = Utilidades.Encriptar(x.idDetalleIndicador.ToString()),
-                NombreVariable = x.NombreVariable,
-                Descripcion = x.Descripcion,
-                Estado = x.Estado
-            }).ToList();
+           
 
             return listaDetalles;
         }
