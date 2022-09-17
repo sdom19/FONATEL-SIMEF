@@ -6,8 +6,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group center">
                 <label for="inputNombreVariable" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable</label>
-                @*@Html.EditorFor(model => model.NombreVariable, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico_v2", placeholder = EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable, id = "inputNombreVariable" } })*@
-                <input type="text" class="form-control form-control-fonatel alfa_numerico_v2" id="inputNombreVariable" placeholder="@EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable">
+                <input type="text" class="form-control form-control-fonatel solo_texto" maxlength="350" id="inputNombreVariable" placeholder="@EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable">
                 <small id="inputNombreVariableHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
@@ -15,8 +14,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group center">
                 <label for="inputDescripcionVariable" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable</label>
-                @*@Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable, id = "inputDescripcionVariable" })*@
-                <textarea class="form-control form-control-fonatel " maxlength="2000" id="inputDescripcionVariable" placeholder="@EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable"></textarea>
+                <textarea class="form-control form-control-fonatel solo_texto" maxlength="2000" id="inputDescripcionVariable" placeholder="@EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable"></textarea>
                 <small id="inputDescripcionVariableHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
         </div>

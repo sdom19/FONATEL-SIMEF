@@ -111,11 +111,11 @@
                     window.location.href = IndexView.Variables.indexViewURL
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -170,11 +170,11 @@
                     window.location.href = IndexView.Variables.indexViewURL
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -206,11 +206,11 @@
                     window.location.href = IndexView.Variables.indexViewURL
                 })
                 .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -237,7 +237,7 @@
         },
 
         VerificarUsoIndicador: function (pIdIndicador) {
-            return execAjaxCall('/IndicadorFonatel/VerificarUsoIndicador?pIdIndicador=' + pIdIndicador, 'GET');
+            return execAjaxCall('/IndicadorFonatel/VerificarUsoIndicador', 'GET', { pIdIndicador: pIdIndicador });
         }
     },
 
@@ -340,7 +340,9 @@ CreateView = {
             form: "#formCrearVariable",
             btnSiguiente: "#btnSiguienteVariable",
             btnAtras: "#btnAtrasVariable",
-            tablaDetallesVariable: "#tableDetallesVariable tbody",
+            inputs: "#formCrearVariable input, #formCrearVariable textarea, #formCrearVariable select",
+            tablaDetallesVariable: "#tableDetallesVariable",
+            tablaDetallesVariable_tbody: "#tableDetallesVariable tbody",
             btnEditarVariable: "#tableDetallesVariable tbody tr td .btn-edit",
             btnEliminarVariable: "#tableDetallesVariable tbody tr td .btn-delete",
 
@@ -352,7 +354,8 @@ CreateView = {
             form: "#formCrearCategoria",
             btnSiguiente: "#btnSiguienteCategoria",
             btnAtras: "#btnAtrasCategoria",
-            tablaDetallesCategoria: "#tableDetallesCategoria tbody",
+            tablaDetallesCategoria: "#tableDetallesCategoria",
+            tablaDetallesCategoria_tbody: "#tableDetallesCategoria tbody",
             btnEditarCategoria: "#tableDetallesCategoria tbody tr td .btn-edit",
             btnEliminarCategoria: "#tableDetallesCategoria tbody tr td .btn-delete",
 
@@ -378,349 +381,21 @@ CreateView = {
 
     Variables: {
         indexViewURL: "/Fonatel/IndicadorFonatel/index",
-        btnDeleteModal: (pValue) => `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${pValue}></button>`,
+        btnEdit: (pValue) => `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${pValue}></button>`,
+        btnDelete: (pValue) => `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${pValue}></button>`,
 
         hizoCargaDetallesVariables: false,
         hizoCargaDetallesCategorias: false,
-        listaVariablesDato: [],
-        listaCategorias: [],
+        listaVariablesDato: {},
         objEditarDetallesVariableDato: null,
+        paginaObjEditarDetallesVariableDato: 0,
         objEditarDetallesCategoria: null
     },
 
     Metodos: {
-        // Modal Tipo Indicador
-        AbrirModalTipoIndicador: function () {
-            $("#loading").fadeIn();
-
-            CreateView.Consultas.ConsultarListaTipoIndicador()
-                .then(data => {
-                    CreateView.Metodos.InsertarDatosTablaModalTipoIndicador(data.objetoRespuesta);
-                })
-                .then(_ => {
-                    setTimeout(() => {
-                        $(CreateView.Controles.modalTipoIndicador).modal('show');
-                    }, 500);
-                })
-                .catch(error => {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { });
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        InsertarDatosTablaModalTipoIndicador: function (pListaTipoIndicador) {
-            EliminarDatasource(CreateView.Controles.tableModalTipoIndicador);
-            let html = "";
-
-            pListaTipoIndicador?.forEach(item => {
-                html += "<tr>";
-                html += `<th scope='row'>${item.Nombre}</th>`;
-                html += "<td>"
-                html += CreateView.Variables.btnDeleteModal(item.id)
-                html += "</td>"
-                html += "</tr>";
-            });
-            $(CreateView.Controles.tableModalTipoIndicador_tbody).html(html);
-            CargarDatasource(CreateView.Controles.tableModalTipoIndicador);
-        },
-
-        EliminarTipoIndicador: function (pIdTipoIndicador) {
-            new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Tipo Indicador?", jsMensajes.Variables.actionType.eliminar)
-                    .set('onok', function (closeEvent) {
-                        resolve(true);
-                    });
-            })
-                .then(data => {
-                    $("#loading").fadeIn();
-                    return CreateView.Consultas.EliminarTipoIndicador(pIdTipoIndicador);
-                })
-                .then(data => {
-                    RemoverItemSelect2(CreateView.Controles.formIndicador.ddlTipo, pIdTipoIndicador);
-                    RemoverItemDataTable(CreateView.Controles.tableModalTipoIndicador, `button[value='${pIdTipoIndicador}']`);
-
-                    $("#loading").fadeOut();
-
-                    return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Tipo Indicador ha sido eliminado")
-                            .set('onok', function (closeEvent) {
-                                resolve(true);
-                            });
-                    })
-                })
-                .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
-                    }
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        CrearTipoIndicador: function (pNombre) {
-            if ($.trim(pNombre).length <= 0) {
-                $(CreateView.Controles.inputModalTipoHelp).css("display", "block");
-                return;
-            }
-            $(CreateView.Controles.inputModalTipoHelp).css("display", "none");
-            $("#loading").fadeIn();
-
-            CreateView.Consultas.CrearTipoIndicador(pNombre)
-                .then(data => {
-                    $(CreateView.Controles.inputModalTipo).val(null);
-
-                    InsertarItemSelect2(
-                        CreateView.Controles.formIndicador.ddlTipo,
-                        data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
-
-                    InsertarItemDataTable(
-                        CreateView.Controles.tableModalTipoIndicador,
-                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
-
-                    jsMensajes.Metodos.OkAlertModal("El tipo ha sido agregado")
-                        .set('onok', function (closeEvent) { });
-                })
-                .catch(error => {
-                    console.log(error);
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
-                    }
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        // Modal Grupo Indicador
-        AbrirModalGrupoIndicador: function () {
-            $("#loading").fadeIn();
-
-            CreateView.Consultas.ConsultarListaGrupoIndicador()
-                .then(data => {
-                    CreateView.Metodos.InsertarDatosTablaModalGrupoIndicador(data.objetoRespuesta);
-                })
-                .then(_ => {
-                    setTimeout(() => {
-                        $(CreateView.Controles.modalGrupoIndicador).modal('show');
-                    }, 500);
-                })
-                .catch(error => {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { });
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        InsertarDatosTablaModalGrupoIndicador: function (pListaGrupoIndicador) {
-            EliminarDatasource(CreateView.Controles.tableModalGrupoIndicador);
-            let html = "";
-
-            pListaGrupoIndicador?.forEach(item => {
-                html += "<tr>";
-                html += `<th scope='row'>${item.Nombre}</th>`;
-                html += "<td>"
-                html += CreateView.Variables.btnDeleteModal(item.id)
-                html += "</td>"
-                html += "</tr>";
-            });
-            $(CreateView.Controles.tableModalGrupoIndicador_tbody).html(html);
-            CargarDatasource(CreateView.Controles.tableModalGrupoIndicador);
-        },
-
-        EliminarGrupoIndicador: function (pIdGrupoIndicador) {
-            new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Grupo Indicador?", jsMensajes.Variables.actionType.eliminar)
-                    .set('onok', function (closeEvent) {
-                        resolve(true);
-                    });
-            })
-                .then(data => {
-                    $("#loading").fadeIn();
-                    return CreateView.Consultas.EliminarGrupoIndicador(pIdGrupoIndicador);
-                })
-                .then(data => {
-                    RemoverItemSelect2(CreateView.Controles.formIndicador.ddlGrupo, pIdGrupoIndicador);
-                    RemoverItemDataTable(CreateView.Controles.tableModalGrupoIndicador, `button[value='${pIdGrupoIndicador}']`);
-
-                    $("#loading").fadeOut();
-
-                    return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Grupo Indicador ha sido eliminado")
-                            .set('onok', function (closeEvent) {
-                                resolve(true);
-                            });
-                    })
-                })
-                .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
-                    }
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        CrearGrupoIndicador: function (pNombre) {
-            if ($.trim(pNombre).length <= 0) {
-                $(CreateView.Controles.inputModalGrupoHelp).css("display", "block");
-                return;
-            }
-            $(CreateView.Controles.inputModalGrupoHelp).css("display", "none");
-            $("#loading").fadeIn();
-
-            CreateView.Consultas.CrearGrupoIndicador(pNombre)
-                .then(data => {
-                    $(CreateView.Controles.inputModalGrupo).val(null);
-
-                    InsertarItemSelect2(
-                        CreateView.Controles.formIndicador.ddlGrupo,
-                        data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
-
-                    InsertarItemDataTable(
-                        CreateView.Controles.tableModalGrupoIndicador,
-                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
-
-                    jsMensajes.Metodos.OkAlertModal("El grupo ha sido agregado")
-                        .set('onok', function (closeEvent) { });
-                })
-                .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
-                    }
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        // Modal Unidad Estudio
-        AbrirModalUnidadEstudio: function () {
-            $("#loading").fadeIn();
-
-            CreateView.Consultas.ConsultarListaUnidadEstudio()
-                .then(data => {
-                    CreateView.Metodos.InsertarDatosTablaModalUnidadEstudio(data.objetoRespuesta);
-                })
-                .then(_ => {
-                    setTimeout(() => {
-                        $(CreateView.Controles.modalUnidadEstudio).modal('show');
-                    }, 500);
-                })
-                .catch(error => {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { });
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        InsertarDatosTablaModalUnidadEstudio: function (pListaUnidadEstudio) {
-            EliminarDatasource(CreateView.Controles.tableModalUnidadEstudio);
-            let html = "";
-
-            pListaUnidadEstudio?.forEach(item => {
-                html += "<tr>";
-                html += `<th scope='row'>${item.Nombre}</th>`;
-                html += "<td>"
-                html += CreateView.Variables.btnDeleteModal(item.id)
-                html += "</td>"
-                html += "</tr>";
-            });
-            $(CreateView.Controles.tableModalUnidadEstudio_tbody).html(html);
-            CargarDatasource(CreateView.Controles.tableModalUnidadEstudio);
-        },
-
-        EliminarUnidadEstudio: function (pIdUnidadEstudio) {
-            new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Unidad de Estudio?", jsMensajes.Variables.actionType.eliminar)
-                    .set('onok', function (closeEvent) {
-                        resolve(true);
-                    });
-            })
-                .then(data => {
-                    $("#loading").fadeIn();
-                    return CreateView.Consultas.EliminarUnidadEstudio(pIdUnidadEstudio);
-                })
-                .then(data => {
-                    RemoverItemSelect2(CreateView.Controles.formIndicador.ddlUnidadEstudio, pIdUnidadEstudio);
-                    RemoverItemDataTable(CreateView.Controles.tableModalUnidadEstudio, `button[value='${pIdUnidadEstudio}']`);
-
-                    $("#loading").fadeOut();
-
-                    return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("La Unidad de Estudio ha sido eliminada")
-                            .set('onok', function (closeEvent) {
-                                resolve(true);
-                            });
-                    })
-                })
-                .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
-                    }
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        CrearUnidadEstudio: function (pNombre) {
-            if ($.trim(pNombre).length <= 0) {
-                $(CreateView.Controles.inputModalUnidadEstudioHelp).css("display", "block");
-                return;
-            }
-            $(CreateView.Controles.inputModalUnidadEstudioHelp).css("display", "none");
-            $("#loading").fadeIn();
-
-            CreateView.Consultas.CrearUnidadEstudio(pNombre)
-                .then(data => {
-                    $(CreateView.Controles.inputModalUnidadEstudio).val(null);
-
-                    InsertarItemSelect2(
-                        CreateView.Controles.formIndicador.ddlUnidadEstudio,
-                        data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
-
-                    InsertarItemDataTable(
-                        CreateView.Controles.tableModalUnidadEstudio,
-                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDeleteModal(data.objetoRespuesta[0].id)]);
-
-                    jsMensajes.Metodos.OkAlertModal("La unidad de estudio ha sido agregada")
-                        .set('onok', function (closeEvent) { });
-                })
-                .catch(error => {
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
-                    }
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
+        ValidarFormulario: function (pInputs) {
+            let inputsPendientesCompletar = [...$(pInputs)].filter(i => { return $.trim(i.value) == "" || i.value == null; });
+            return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
         },
 
         // Formulario Indicador
@@ -760,15 +435,10 @@ CreateView = {
             return formData;
         },
 
-        ValidarFormularioIndicador: function () {
-            let inputsPendientesCompletar = [...$(CreateView.Controles.formIndicador.inputs)].filter(i => { return $.trim(i.value) == "" || i.value == null; });
-            return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
-        },
-
         CrearIndicador: function () {
-            if (CreateView.Metodos.ValidarFormularioIndicador().puedeContinuar) {
+            if (this.ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
                 $("#loading").fadeIn();
-                CreateView.Consultas.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador(false))
+                CreateView.Consultas.CrearIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
                         InsertarParametroUrl("id", data.objetoRespuesta[0].id);
                         $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
@@ -776,11 +446,11 @@ CreateView = {
                         jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado").set('onok', function (closeEvent) { });
                     })
                     .catch(error => {
-                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                        if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                         }
                         else {
-                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                         }
                     })
                     .finally(() => {
@@ -792,7 +462,7 @@ CreateView = {
         CrearIndicadorGuardadoParcial: function () {
             let mensaje = "";
             let prefijoHelp = CreateView.Controles.prefijoLabelsHelp;
-            let validacionFormulario = CreateView.Metodos.ValidarFormularioIndicador();
+            let validacionFormulario = this.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             let camposObligatoriosPendientes = false;
 
             $(CreateView.Controles.formIndicador.inputCodigo + prefijoHelp).css("display", "none");
@@ -822,19 +492,18 @@ CreateView = {
             })
                 .then(data => {
                     $("#loading").fadeIn();
-                    return CreateView.Consultas.CrearIndicador(CreateView.Metodos.CrearObjFormularioIndicador(true));
+                    return CreateView.Consultas.CrearIndicador(this.CrearObjFormularioIndicador(true));
                 })
                 .then(data => {
                     jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
                         .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
                 .catch(error => {
-                    console.log(error);
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -842,22 +511,356 @@ CreateView = {
                 });
         },
 
-        // Formularo Detalles Variable
+        // Modal Tipo Indicador
+        AbrirModalTipoIndicador: function () {
+            $("#loading").fadeIn();
+
+            CreateView.Consultas.ConsultarListaTipoIndicador()
+                .then(data => {
+                    this.InsertarDatosTablaModalTipoIndicador(data.objetoRespuesta);
+                })
+                .then(_ => {
+                    setTimeout(() => {
+                        $(CreateView.Controles.modalTipoIndicador).modal('show');
+                    }, 500);
+                })
+                .catch(error => {
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { });
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        InsertarDatosTablaModalTipoIndicador: function (pListaTipoIndicador) {
+            EliminarDatasource(CreateView.Controles.tableModalTipoIndicador);
+            let html = "";
+
+            pListaTipoIndicador?.forEach(item => {
+                html += "<tr>";
+                html += `<th scope='row'>${item.Nombre}</th>`;
+                html += "<td>"
+                html += CreateView.Variables.btnDelete(item.id)
+                html += "</td>"
+                html += "</tr>";
+            });
+            $(CreateView.Controles.tableModalTipoIndicador_tbody).html(html);
+            CargarDatasource(CreateView.Controles.tableModalTipoIndicador);
+        },
+
+        EliminarTipoIndicador: function (pIdTipoIndicador) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Tipo Indicador?", jsMensajes.Variables.actionType.eliminar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.EliminarTipoIndicador(pIdTipoIndicador);
+                })
+                .then(data => {
+                    RemoverItemSelect2(CreateView.Controles.formIndicador.ddlTipo, pIdTipoIndicador);
+                    RemoverItemDataTable(CreateView.Controles.tableModalTipoIndicador, `button[value='${pIdTipoIndicador}']`);
+
+                    $("#loading").fadeOut();
+
+                    return new Promise((resolve, reject) => {
+                        jsMensajes.Metodos.OkAlertModal("El Tipo Indicador ha sido eliminado")
+                            .set('onok', function (closeEvent) {
+                                resolve(true);
+                            });
+                    })
+                })
+                .catch(error => {
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        CrearTipoIndicador: function (pNombre) {
+            if ($.trim(pNombre).length <= 0) {
+                $(CreateView.Controles.inputModalTipoHelp).css("display", "block");
+                return;
+            }
+            $(CreateView.Controles.inputModalTipoHelp).css("display", "none");
+            $("#loading").fadeIn();
+
+            CreateView.Consultas.CrearTipoIndicador(pNombre)
+                .then(data => {
+                    $(CreateView.Controles.inputModalTipo).val(null);
+
+                    InsertarItemSelect2(
+                        CreateView.Controles.formIndicador.ddlTipo,
+                        data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
+
+                    InsertarItemDataTable(
+                        CreateView.Controles.tableModalTipoIndicador,
+                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)]);
+
+                    jsMensajes.Metodos.OkAlertModal("El tipo ha sido agregado")
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        // Modal Grupo Indicador
+        AbrirModalGrupoIndicador: function () {
+            $("#loading").fadeIn();
+
+            CreateView.Consultas.ConsultarListaGrupoIndicador()
+                .then(data => {
+                    this.InsertarDatosTablaModalGrupoIndicador(data.objetoRespuesta);
+                })
+                .then(_ => {
+                    setTimeout(() => {
+                        $(CreateView.Controles.modalGrupoIndicador).modal('show');
+                    }, 500);
+                })
+                .catch(error => {
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { });
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        InsertarDatosTablaModalGrupoIndicador: function (pListaGrupoIndicador) {
+            EliminarDatasource(CreateView.Controles.tableModalGrupoIndicador);
+            let html = "";
+
+            pListaGrupoIndicador?.forEach(item => {
+                html += "<tr>";
+                html += `<th scope='row'>${item.Nombre}</th>`;
+                html += "<td>"
+                html += CreateView.Variables.btnDelete(item.id)
+                html += "</td>"
+                html += "</tr>";
+            });
+            $(CreateView.Controles.tableModalGrupoIndicador_tbody).html(html);
+            CargarDatasource(CreateView.Controles.tableModalGrupoIndicador);
+        },
+
+        EliminarGrupoIndicador: function (pIdGrupoIndicador) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Grupo Indicador?", jsMensajes.Variables.actionType.eliminar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.EliminarGrupoIndicador(pIdGrupoIndicador);
+                })
+                .then(data => {
+                    RemoverItemSelect2(CreateView.Controles.formIndicador.ddlGrupo, pIdGrupoIndicador);
+                    RemoverItemDataTable(CreateView.Controles.tableModalGrupoIndicador, `button[value='${pIdGrupoIndicador}']`);
+
+                    $("#loading").fadeOut();
+
+                    return new Promise((resolve, reject) => {
+                        jsMensajes.Metodos.OkAlertModal("El Grupo Indicador ha sido eliminado")
+                            .set('onok', function (closeEvent) {
+                                resolve(true);
+                            });
+                    })
+                })
+                .catch(error => {
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        CrearGrupoIndicador: function (pNombre) {
+            if ($.trim(pNombre).length <= 0) {
+                $(CreateView.Controles.inputModalGrupoHelp).css("display", "block");
+                return;
+            }
+            $(CreateView.Controles.inputModalGrupoHelp).css("display", "none");
+            $("#loading").fadeIn();
+
+            CreateView.Consultas.CrearGrupoIndicador(pNombre)
+                .then(data => {
+                    $(CreateView.Controles.inputModalGrupo).val(null);
+
+                    InsertarItemSelect2(
+                        CreateView.Controles.formIndicador.ddlGrupo,
+                        data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
+
+                    InsertarItemDataTable(
+                        CreateView.Controles.tableModalGrupoIndicador,
+                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)]);
+
+                    jsMensajes.Metodos.OkAlertModal("El grupo ha sido agregado")
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        // Modal Unidad Estudio
+        AbrirModalUnidadEstudio: function () {
+            $("#loading").fadeIn();
+
+            CreateView.Consultas.ConsultarListaUnidadEstudio()
+                .then(data => {
+                    CreateView.Metodos.InsertarDatosTablaModalUnidadEstudio(data.objetoRespuesta);
+                })
+                .then(_ => {
+                    setTimeout(() => {
+                        $(CreateView.Controles.modalUnidadEstudio).modal('show');
+                    }, 500);
+                })
+                .catch(error => {
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { });
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        InsertarDatosTablaModalUnidadEstudio: function (pListaUnidadEstudio) {
+            EliminarDatasource(CreateView.Controles.tableModalUnidadEstudio);
+            let html = "";
+
+            pListaUnidadEstudio?.forEach(item => {
+                html += "<tr>";
+                html += `<th scope='row'>${item.Nombre}</th>`;
+                html += "<td>"
+                html += CreateView.Variables.btnDelete(item.id)
+                html += "</td>"
+                html += "</tr>";
+            });
+            $(CreateView.Controles.tableModalUnidadEstudio_tbody).html(html);
+            CargarDatasource(CreateView.Controles.tableModalUnidadEstudio);
+        },
+
+        EliminarUnidadEstudio: function (pIdUnidadEstudio) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Unidad de Estudio?", jsMensajes.Variables.actionType.eliminar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.EliminarUnidadEstudio(pIdUnidadEstudio);
+                })
+                .then(data => {
+                    RemoverItemSelect2(CreateView.Controles.formIndicador.ddlUnidadEstudio, pIdUnidadEstudio);
+                    RemoverItemDataTable(CreateView.Controles.tableModalUnidadEstudio, `button[value='${pIdUnidadEstudio}']`);
+
+                    $("#loading").fadeOut();
+
+                    return new Promise((resolve, reject) => {
+                        jsMensajes.Metodos.OkAlertModal("La Unidad de Estudio ha sido eliminada")
+                            .set('onok', function (closeEvent) {
+                                resolve(true);
+                            });
+                    })
+                })
+                .catch(error => {
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        CrearUnidadEstudio: function (pNombre) {
+            if ($.trim(pNombre).length <= 0) {
+                $(CreateView.Controles.inputModalUnidadEstudioHelp).css("display", "block");
+                return;
+            }
+            $(CreateView.Controles.inputModalUnidadEstudioHelp).css("display", "none");
+            $("#loading").fadeIn();
+
+            CreateView.Consultas.CrearUnidadEstudio(pNombre)
+                .then(data => {
+                    $(CreateView.Controles.inputModalUnidadEstudio).val(null);
+
+                    InsertarItemSelect2(
+                        CreateView.Controles.formIndicador.ddlUnidadEstudio,
+                        data.objetoRespuesta[0].Nombre, data.objetoRespuesta[0].id);
+
+                    InsertarItemDataTable(
+                        CreateView.Controles.tableModalUnidadEstudio,
+                        [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)]);
+
+                    jsMensajes.Metodos.OkAlertModal("La unidad de estudio ha sido agregada")
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        // Formulario Detalles Variable
         CargarDetallesVariable: function (pIndicador) {
             if (!CreateView.Variables.hizoCargaDetallesVariables) {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ConsultarDetallesVariable(pIndicador) // tabla
                     .then(data => {
-                        CreateView.Metodos.InsertarDatosTablaDetallesVariable(data.objetoRespuesta);
-                        CreateView.Variables.listaVariablesDato = data.objetoRespuesta;
+                        this.InsertarDatosTablaDetallesVariable(data.objetoRespuesta);
+                        // crear un objeto donde cada item es un map que contiene los datos la variable-dato
+                        CreateView.Variables.listaVariablesDato = data.objetoRespuesta.reduce((map, obj) => (map[obj.id] = obj, map), {});
                         CreateView.Variables.hizoCargaDetallesVariables = true;
                     })
                     .catch(error => {
-                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                        if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                         }
                         else {
-                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                         }
                     })
                     .finally(() => {
@@ -867,7 +870,7 @@ CreateView = {
         },
 
         InsertarDatosTablaDetallesVariable: function (listaVariables) {
-            EliminarDatasource();
+            EliminarDatasource(CreateView.Controles.formVariable.tablaDetallesVariable);
             let html = "";
 
             listaVariables?.forEach((item, index) => {
@@ -875,42 +878,186 @@ CreateView = {
                 html += `<th scope='row'>${item.NombreVariable}</th>`;
                 html += `<th scope='row'>${item.Descripcion}</th>`;
                 html += "<td>"
-                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit" value=${index}></button>` 
+                html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit" value=${item.id}></button>` 
                 html += `<button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete" value=${item.id}></button>`
                 html += "</td>"
                 html += "</tr>";
             });
-            $(CreateView.Controles.formVariable.tablaDetallesVariable).html(html);
-            CargarDatasource();
+            $(CreateView.Controles.formVariable.tablaDetallesVariable_tbody).html(html);
+            CargarDatasource(CreateView.Controles.formVariable.tablaDetallesVariable);
         },
 
-        CargarFormularioEditarDetallesVariable: function (pIndex) {
-            let variable = CreateView.Variables.listaVariablesDato[pIndex];
+        CargarFormularioEditarDetallesVariable: function (pId) {
+            let variable = CreateView.Variables.listaVariablesDato[pId];
             CreateView.Variables.objEditarDetallesVariableDato = variable;
+            CreateView.Variables.paginaObjEditarDetallesVariableDato = ObtenerPaginaActual(CreateView.Controles.formVariable.tablaDetallesVariable);
+
             $(CreateView.Controles.formVariable.inputNombreVariable).val(variable.NombreVariable);
             $(CreateView.Controles.formVariable.inputDescripcionVariable).val(variable.Descripcion);
+
+            this.LimpiarMensajesValidacionFormularioDetallesVariable();
         },
 
-        EditarDetallesVariable: function () {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
-                    jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
-                        .set('onok', function (closeEvent) {
-                            CreateView.Variables.objEditarDetallesVariableDato = null;
-                            $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
-                            $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
-                        });
+        CrearObjDetallesVariable: function (pIndicador, pIdDetalle = null) {
+            let controles = CreateView.Controles.formVariable;
+            var formData = {
+                id: pIdDetalle,
+                idIndicadorString: pIndicador,
+                NombreVariable: $(controles.inputNombreVariable).val(),
+                Descripcion: $(controles.inputDescripcionVariable).val()
+            };
+            return formData;
+        },
+
+        ValidarFormularioDetallesVariable: function () {
+            this.LimpiarMensajesValidacionFormularioDetallesVariable();
+
+            let validacion = this.ValidarFormulario(CreateView.Controles.formVariable.inputs);
+
+            for (let input of validacion.objetos) {
+                $("#" + $(input).attr("id") + CreateView.Controles.prefijoLabelsHelp).css("display", "block");
+                $("#" + $(input).attr("id")).parent().addClass("has-error");
+            }
+            return validacion.puedeContinuar;
+        },
+
+        LimpiarMensajesValidacionFormularioDetallesVariable: function () {
+            $(CreateView.Controles.formVariable.inputNombreVariable + CreateView.Controles.prefijoLabelsHelp).css("display", "none");
+            $(CreateView.Controles.formVariable.inputDescripcionVariable + CreateView.Controles.prefijoLabelsHelp).css("display", "none");
+            $(CreateView.Controles.formVariable.inputNombreVariable).parent().removeClass("has-error");
+            $(CreateView.Controles.formVariable.inputDescripcionVariable).parent().removeClass("has-error");
+        },
+
+        EliminarDetallesVariable: function (pIdIndicador, pIdDetalle) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Variable?", jsMensajes.Variables.actionType.eliminar)
+                    .set('onok', function (closeEvent) { resolve(true) });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.EliminarDetalleVariableDato(this.CrearObjDetallesVariable(pIdIndicador, pIdDetalle));
+                })
+                .then(data => {
+                    delete CreateView.Variables.listaVariablesDato[pIdDetalle];
+                    RemoverItemDataTable(CreateView.Controles.formVariable.tablaDetallesVariable, `button[value='${pIdDetalle}']`);
+
+                    jsMensajes.Metodos.OkAlertModal("La Variable ha sido eliminada")
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
                 });
         },
 
-        CrearDetallesVariables: function () {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
+        EditarDetallesVariable: function (pIdIndicador) {
+            let formValido = this.ValidarFormularioDetallesVariable();
+
+            if (!formValido) {
+                return;
+            }
+
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.EditarDetalleVariableDato(
+                        this.CrearObjDetallesVariable(pIdIndicador, CreateView.Variables.objEditarDetallesVariableDato.id)
+                    );
+                })
+                .then(data => {
+                    $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
+                    $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
+
+                    CreateView.Variables.listaVariablesDato[data.objetoRespuesta[0].id] = data.objetoRespuesta[0]; // actualizar el item localmente
+
+                    let item = [ // crear el item que se inserta en la tabla
+                        data.objetoRespuesta[0].NombreVariable,
+                        data.objetoRespuesta[0].Descripcion,
+                        CreateView.Variables.btnEdit(data.objetoRespuesta[0].id) + CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)
+                    ];
+
+                    ActualizarItemDataTable(
+                        CreateView.Controles.formVariable.tablaDetallesVariable,
+                        `button[value='${CreateView.Variables.objEditarDetallesVariableDato.id}']`,
+                        item,
+                        CreateView.Variables.paginaObjEditarDetallesVariableDato
+                    );
+
+                    CreateView.Variables.objEditarDetallesVariableDato = null;
+
                     jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
-                        .set('onok', function (closeEvent) {
-                            $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
-                            $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
-                        });
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    console.log(error);
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        CrearDetallesVariables: function (pIdIndicador) {
+            let formValido = this.ValidarFormularioDetallesVariable();
+
+            if (!formValido) {
+                return;
+            }
+
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.CrearDetalleVariableDato(this.CrearObjDetallesVariable(pIdIndicador));
+                })
+                .then(data => {
+                    $(CreateView.Controles.formVariable.inputNombreVariable).val(null);
+                    $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
+
+                    CreateView.Variables.listaVariablesDato[data.objetoRespuesta[0].id] = data.objetoRespuesta[0]; // guardar el item localmente
+
+                    let item = [ // crear el item que se inserta en la tabla
+                        data.objetoRespuesta[0].NombreVariable,
+                        data.objetoRespuesta[0].Descripcion,
+                        CreateView.Variables.btnEdit(data.objetoRespuesta[0].id) + CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)
+                    ];
+
+                    InsertarItemDataTable(CreateView.Controles.formVariable.tablaDetallesVariable, item);
+
+                    jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => {
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    }
+                })
+                .finally(() => {
+                    $("#loading").fadeOut();
                 });
         },
 
@@ -938,16 +1085,16 @@ CreateView = {
                     }).
                     then(data => {
                         if (data) {
-                            CreateView.Metodos.InsertarDatosTablaDetallesCategoria(data.objetoRespuesta);
+                            this.InsertarDatosTablaDetallesCategoria(data.objetoRespuesta);
                         }
                         CreateView.Variables.hizoCargaDetallesCategorias = true;
                     })
                     .catch(error => {
-                        if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                        if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                         }
                         else {
-                            jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                            jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                         }
                     })
                     .finally(() => {
@@ -957,7 +1104,7 @@ CreateView = {
         },
 
         InsertarDatosTablaDetallesCategoria: function (listaVariables) {
-            EliminarDatasource();
+            EliminarDatasource(CreateView.Controles.formCategoria.tablaDetallesCategoria);
             let html = "";
 
             listaVariables?.forEach((item, index) => {
@@ -971,8 +1118,8 @@ CreateView = {
                 html += "</td>"
                 html += "</tr>";
             });
-            $(CreateView.Controles.formCategoria.tablaDetallesCategoria).html(html);
-            CargarDatasource();
+            $(CreateView.Controles.formCategoria.tablaDetallesCategoria_tbody).html(html);
+            CargarDatasource(CreateView.Controles.formCategoria.tablaDetallesCategoria);
         },
 
         CargarDetallesDeLaCategoria: function (pIdCategoria, pIdIndicador = null) { // combo detalles
@@ -1013,11 +1160,11 @@ CreateView = {
                 })
                 .catch(error => {
                     console.log(error)
-                    if (error.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+                    if (error?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal(error.MensajeError).set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
                     }
                 })
                 .finally(() => {
@@ -1027,7 +1174,7 @@ CreateView = {
 
         CargarFormularioEditarDetallesCategoria: function (pIdCategoria, pIdIndicador) {
             SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, pIdCategoria);
-            CreateView.Metodos.CargarDetallesDeLaCategoria(pIdCategoria, pIdIndicador);
+            this.CargarDetallesDeLaCategoria(pIdCategoria, pIdIndicador);
         },
 
         EditarDetallesCategoria: function () {
@@ -1113,6 +1260,18 @@ CreateView = {
         ConsultarListaDetallesDeCategoriaGuardada: function (pIdIndicador, pIdCategoria) {
             return execAjaxCall('/IndicadorFonatel/ObtenerListaDetallesDeCategoriaGuardada', 'GET', { pIdIndicador: pIdIndicador, pIdCategoria: pIdCategoria });
         },
+
+        CrearDetalleVariableDato: function (pDetalleIndicadorVariables) {
+            return execAjaxCall('/IndicadorFonatel/CrearDetalleVariableDato', 'POST', { pDetalleIndicadorVariables: pDetalleIndicadorVariables });
+        },
+
+        EditarDetalleVariableDato: function (pDetalleIndicadorVariables) {
+            return execAjaxCall('/IndicadorFonatel/EditarDetalleVariableDato', 'POST', { pDetalleIndicadorVariables: pDetalleIndicadorVariables });
+        },
+
+        EliminarDetalleVariableDato: function (pDetalleIndicadorVariables) {
+            return execAjaxCall('/IndicadorFonatel/EliminarDetalleVariableDato', 'POST', { pDetalleIndicadorVariables: pDetalleIndicadorVariables });
+        }
     },
 
     Eventos: function () {
@@ -1169,12 +1328,12 @@ CreateView = {
         });
 
         $(CreateView.Controles.formIndicador.inputs).on("keyup", function (e) {
-            let validacion = CreateView.Metodos.ValidarFormularioIndicador();
+            let validacion = CreateView.Metodos.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             $(CreateView.Controles.formIndicador.btnSiguiente).prop('disabled', !validacion.puedeContinuar);
         });
 
         $(CreateView.Controles.formIndicador.selects2).on('select2:select', function (e) {
-            let validacion = CreateView.Metodos.ValidarFormularioIndicador();
+            let validacion = CreateView.Metodos.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             $(CreateView.Controles.formIndicador.btnSiguiente).prop('disabled', !validacion.puedeContinuar);
         });
 
@@ -1204,11 +1363,23 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.btnGuardarVariable, function (e) {
-            if (CreateView.Variables.objEditarDetallesVariableDato != null) {
-                CreateView.Metodos.EditarDetallesVariable();
+            let idIndicador = ObtenerValorParametroUrl("id");
+
+            if (idIndicador != null || $.trim(idIndicador) != "") {
+                if (CreateView.Variables.objEditarDetallesVariableDato != null) {
+                    CreateView.Metodos.EditarDetallesVariable(idIndicador);
+                }
+                else {
+                    CreateView.Metodos.CrearDetallesVariables(idIndicador);
+                }
             }
-            else {
-                CreateView.Metodos.CrearDetallesVariables();
+        });
+
+        $(document).on("click", CreateView.Controles.formVariable.btnEliminarVariable, function () {
+            let idIndicador = ObtenerValorParametroUrl("id");
+
+            if (idIndicador != null || $.trim(idIndicador) != "") {
+                CreateView.Metodos.EliminarDetallesVariable(idIndicador, $(this).val());
             }
         });
 
@@ -1267,15 +1438,6 @@ CreateView = {
         //    window.location.href = "/Fonatel/IndicadorFonatel/DetalleVariables?id=" + id;
         //});
 
-        //$(document).on("click", CreateView.Controles.btnEliminarVariable, function () {
-        //    let id = 1;
-        //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Variable?", jsMensajes.Variables.actionType.eliminar)
-        //        .set('onok', function (closeEvent) {
-        //            jsMensajes.Metodos.OkAlertModal("La Variable ha sido eliminada")
-        //                .set('onok', function (closeEvent) { });
-        //        });
-        //});
-
         //$(document).on("click", CreateView.Controles.btnEliminarCategoria, function () {
         //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Categoría?", jsMensajes.Variables.actionType.eliminar)
         //        .set('onok', function (closeEvent) {
@@ -1302,7 +1464,7 @@ CreateView = {
         console.log(modo);
 
         if (jsUtilidades.Variables.Acciones.Editar == modo) {
-            let validacion = CreateView.Metodos.ValidarFormularioIndicador();
+            let validacion = CreateView.Metodos.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             $(CreateView.Controles.formIndicador.btnSiguiente).prop('disabled', !validacion.puedeContinuar);
         }
         else if (jsUtilidades.Variables.Acciones.Clonar == modo) {
