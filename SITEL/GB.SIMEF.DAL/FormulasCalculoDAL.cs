@@ -14,10 +14,50 @@ namespace GB.SIMEF.DAL
     {
         private SIMEFContext db;
 
-       /// <summary>
-       /// Listado de formulas 
-       /// </summary>
-       /// <returns></returns>
+
+
+
+
+        /// <summary>
+        /// Actualiza los datos e inserta por medio de merge
+        /// 17/08/2022
+        /// michael Hernández C
+        /// </summary>
+        /// <param name="objFormula"></param>
+        /// <returns></returns>
+        public List<FormulasCalculo> ActualizarDatos(FormulasCalculo objFormula)
+        {
+            List<FormulasCalculo> Listaformulas = new List<FormulasCalculo>();
+            using (db = new SIMEFContext())
+            {
+                Listaformulas = db.Database.SqlQuery<FormulasCalculo>
+                ("execute dbo.spActualizarFormulaCalculo " +
+                " @IdFormula,@Codigo, @Nombre,@IdIndicador, @IdIndicadorVariable,@Descripcion,@NivelCalculoTotal,@IdFrecuencia,@UsuarioModificacion,@UsuarioCreacion,@IdEstado",
+                     new SqlParameter("@IdFormula", objFormula.idFormula),
+                     new SqlParameter("@Codigo", objFormula.Codigo),
+                     new SqlParameter("@Nombre", objFormula.Nombre),
+                     new SqlParameter("@IdIndicador", objFormula.IdIndicador),
+                     new SqlParameter("@IdIndicadorVariable", objFormula.IdIndicadorVariable),
+                     new SqlParameter("@Descripcion", objFormula.Descripcion),
+                     new SqlParameter("@NivelCalculoTotal", objFormula.NivelCalculoTotal),
+                     new SqlParameter("@IdFrecuencia", objFormula.IdFrecuencia),
+                     new SqlParameter("@UsuarioCreacion", string.IsNullOrEmpty(objFormula.UsuarioCreacion) ? DBNull.Value.ToString() : objFormula.UsuarioCreacion),
+                     new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objFormula.UsuarioModificacion) ? DBNull.Value.ToString() : objFormula.UsuarioModificacion),
+                     new SqlParameter("@IdEstado", objFormula.IdEstado)
+
+                    ).ToList();
+
+              
+            }
+            return Listaformulas;
+        }
+
+
+
+        /// <summary>
+        /// Listado de formulas 
+        /// </summary>
+        /// <returns></returns>
         public List<FormulasCalculo> ObtenerDatos(FormulasCalculo pformulasCalculo)
         {
             List<FormulasCalculo> listaFormulasCalculo = new List<FormulasCalculo>();

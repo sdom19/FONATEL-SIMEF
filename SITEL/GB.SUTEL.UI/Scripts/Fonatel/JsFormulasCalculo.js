@@ -119,6 +119,88 @@
     },
 
     "Consultas": {
+
+        "EliminarFormulaCalculo": function (idFormula) {
+
+            let formulaCalculo = new Object();
+            formulaCalculo.id = idFormula;
+
+
+            $("#loading").fadeIn();
+            execAjaxCall("/FormulaCalculo/EliminarFormula", "POST", { formulaCalculo: formulaCalculo })
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido eliminada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/FormulaCalculo/Index";
+                        }); 
+                }).catch((obj) => {
+
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+            
+        },
+
+        "ActivarFormulaCalculo": function (idFormula) {
+            let formulaCalculo = new Object();
+            formulaCalculo.id = idFormula;
+            $("#loading").fadeIn();
+            execAjaxCall("/FormulaCalculo/ActivarFormula", "POST", { formulaCalculo: formulaCalculo })
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido activada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/FormulaCalculo/Index";
+                        });
+                }).catch((obj) => {
+
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+
+        },
+
+        "DesactivarFormulaCalculo": function (idFormula) {
+            let formulaCalculo = new Object();
+            formulaCalculo.id = idFormula;
+            $("#loading").fadeIn();
+            execAjaxCall("/FormulaCalculo/DesactivarFormula", "POST", { formulaCalculo: formulaCalculo })
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido desactivada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/FormulaCalculo/Index";
+                        });
+                }).catch((obj) => {
+
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+
+        },
+
         "ConsultaListaFormulas": function () {
             $("#loading").fadeIn();
             execAjaxCall("/FormulaCalculo/ObtenerListaFormulas", "GET")
@@ -152,24 +234,20 @@ $(document).on("click", JsFormulasCalculo.Controles.btnCancelar, function (e) {
 
 $(document).on("click", JsFormulasCalculo.Controles.btnEliminarFormula, function (e) {
     e.preventDefault();
+    let idFormula = $(this).val();
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Fórmula?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido eliminada")
-                .set('onok', function (closeEvent) {
-                    window.location.href = "/Fonatel/FormulaCalculo/Index";
-                });
+            JsFormulasCalculo.Consultas.EliminarFormulaCalculo(idFormula);
         });
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnDesactivarFormula, function (e) {
     e.preventDefault();
+    let idFormula = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Fórmula?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-
-            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido activada")
-                .set('onok', function (closeEvent) {
-                    window.location.href = "/Fonatel/FormulaCalculo/Index";
-                });
+            JsFormulasCalculo.Consultas.ActivarFormulaCalculo(idFormula);
         });
 });
 
@@ -190,13 +268,11 @@ $(document).on("click", JsFormulasCalculo.Controles.btnVerFormula, function () {
 
 $(document).on("click", JsFormulasCalculo.Controles.btnActivarFormula, function (e) {
     e.preventDefault();
+    let idFormula = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Fórmula?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
 
-            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido desactivada")
-                .set('onok', function (closeEvent) {
-                    window.location.href = "/Fonatel/FormulaCalculo/Index";
-                });
+            JsFormulasCalculo.Consultas.DesactivarFormulaCalculo(idFormula);
         });
 });
 

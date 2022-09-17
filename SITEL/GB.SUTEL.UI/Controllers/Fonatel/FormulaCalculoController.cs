@@ -150,5 +150,68 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         }
+
+
+
+
+        [HttpPost]
+        public async Task<string> EliminarFormula(FormulasCalculo formulaCalculo)
+        {
+            RespuestaConsulta<List<FormulasCalculo>> result = null;
+      
+            await Task.Run(() =>
+            {
+                return formulaBL.ObtenerDatos(formulaCalculo);
+
+            }).ContinueWith(data =>
+            {
+                var objetoValidar = data.Result.objetoRespuesta.Single();
+                objetoValidar.IdEstado = (int)Constantes.EstadosRegistro.Eliminado;
+                result = formulaBL.EliminarElemento(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+        [HttpPost]
+        public async Task<string> ActivarFormula(FormulasCalculo formulaCalculo)
+        {
+            RespuestaConsulta<List<FormulasCalculo>> result = null;
+
+            await Task.Run(() =>
+            {
+                return formulaBL.ObtenerDatos(formulaCalculo);
+
+            }).ContinueWith(data =>
+            {
+                var objetoValidar = data.Result.objetoRespuesta.Single();
+                objetoValidar.IdEstado = (int)Constantes.EstadosRegistro.Activo;
+                result = formulaBL.CambioEstado(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+        [HttpPost]
+        public async Task<string> DesactivarFormula(FormulasCalculo formulaCalculo)
+        {
+            RespuestaConsulta<List<FormulasCalculo>> result = null;
+
+            await Task.Run(() =>
+            {
+                return formulaBL.ObtenerDatos(formulaCalculo);
+
+            }).ContinueWith(data =>
+            {
+                var objetoValidar = data.Result.objetoRespuesta.Single();
+                objetoValidar.IdEstado = (int)Constantes.EstadosRegistro.Desactivado;
+                result = formulaBL.CambioEstado(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
     }
 }

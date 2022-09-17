@@ -14,11 +14,16 @@ namespace GB.SIMEF.BL
     {
         readonly string modulo = "";
         readonly string user = "";
-        private readonly FormulasCalculoDAL FormulasCalculoDAL;
+        private readonly FormulasCalculoDAL formulasCalculoDAL;
+
+        private RespuestaConsulta<List<FormulasCalculo>> ResultadoConsulta;
 
         public FormulasCalculoBL(string modulo, string user)
         {
-            FormulasCalculoDAL = new FormulasCalculoDAL();
+            this.modulo = modulo;
+            this.user = user;
+            formulasCalculoDAL = new FormulasCalculoDAL();
+            ResultadoConsulta = new RespuestaConsulta<List<FormulasCalculo>>();
         }
 
         public RespuestaConsulta<List<FormulasCalculo>> ActualizarElemento(FormulasCalculo objeto)
@@ -28,7 +33,28 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FormulasCalculo>> CambioEstado(FormulasCalculo objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                ResultadoConsulta.Clase = modulo;
+                objeto.UsuarioModificacion = user;
+                ResultadoConsulta.Accion =  objeto.IdEstado;
+                ResultadoConsulta.Usuario = user;
+                var resul = formulasCalculoDAL.ActualizarDatos(objeto);
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                formulasCalculoDAL.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<FormulasCalculo>> ClonarDatos(FormulasCalculo objeto)
@@ -38,7 +64,28 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FormulasCalculo>> EliminarElemento(FormulasCalculo objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                ResultadoConsulta.Clase = modulo;
+                objeto.UsuarioModificacion = user;
+                ResultadoConsulta.Accion = (int)EstadosRegistro.Eliminado;
+                ResultadoConsulta.Usuario = user;
+                var resul = formulasCalculoDAL.ActualizarDatos(objeto);
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                formulasCalculoDAL.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<FormulasCalculo>> InsertarDatos(FormulasCalculo objeto)
@@ -49,22 +96,33 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FormulasCalculo>> ObtenerDatos(FormulasCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+           
 
             try
             {
-                resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Consultar;
-                var result = FormulasCalculoDAL.ObtenerDatos(pFormulasCalculo);
-                resultado.objetoRespuesta = result;
-                resultado.CantidadRegistros = result.Count();
+
+                if (!String.IsNullOrEmpty(pFormulasCalculo.id))
+                {
+                    pFormulasCalculo.id = Utilidades.Desencriptar(pFormulasCalculo.id);
+                    if (int.TryParse(pFormulasCalculo.id, out int temp))
+                    {
+                        pFormulasCalculo.idFormula = temp;
+                    }
+                }
+
+
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                var result = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo);
+                ResultadoConsulta.objetoRespuesta = result;
+                ResultadoConsulta.CantidadRegistros = result.Count();
             }
             catch (Exception ex)
             {
-                resultado.HayError = (int)Constantes.Error.ErrorSistema;
-                resultado.MensajeError = ex.Message;
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
             }
-            return resultado;
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<FormulasCalculo>> ValidarDatos(FormulasCalculo objeto)
