@@ -53,7 +53,7 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<FormulaIndicadorMC> FormulaIndicadorMC { get; set; }
         //public virtual DbSet<FormulaNivelCalculoCategoria> FormulaNivelCalculoCategoria { get; set; }
         public virtual DbSet<FormularioWeb> FormularioWeb { get; set; }
-        //public virtual DbSet<FormulasCalculo> FormulasCalculo { get; set; }
+        public virtual DbSet<FormulasCalculo> FormulasCalculo { get; set; }
         //public virtual DbSet<FormulasCalculoDetalle> FormulasCalculoDetalle { get; set; }
         //public virtual DbSet<FormulasOperador> FormulasOperador { get; set; }
         public virtual DbSet<FrecuenciaEnvio> FrecuenciaEnvio { get; set; }

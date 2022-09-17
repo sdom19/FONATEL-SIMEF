@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class FormulaCalculoController : Controller
     {
+        #region Variables Públicas del controller
+        private readonly FormulasCalculoBL formulaBL;
 
+
+        #endregion
         public FormulaCalculoController()
         {
-            
+            formulaBL = new FormulasCalculoBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
         // GET: Solicitud
         public ActionResult Index()
         {
+
+
+
+
             return View();
         }
 
@@ -116,6 +125,30 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.ModoFormulario = ((int)Accion.Consultar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloVisualizar;
             return View("Create");
+        }
+
+
+
+
+        /// <summary>
+        /// Fecha 04-08-2022
+        /// Michael Hernández Cordero
+        /// Obtiene datos para la table de categorías INDEX
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpGet]
+        public async Task<string> ObtenerListaFormulas()
+        {
+            RespuestaConsulta<List<FormulasCalculo>> result = null;
+            await Task.Run(() =>
+            {
+                result = formulaBL.ObtenerDatos(new FormulasCalculo());
+            });
+
+            return JsonConvert.SerializeObject(result);
+
+
         }
     }
 }
