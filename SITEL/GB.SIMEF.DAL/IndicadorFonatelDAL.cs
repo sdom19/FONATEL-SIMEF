@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.DAL
 {
@@ -193,7 +194,7 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 29/08/2022
         /// José Navarro Acuña
-        /// Función que permite buscar y verificar la existencia de un indicador, por código o nombre
+        /// Función que permite buscar y verificar por código o nombre la existencia de un indicador en estado diferente de eliminado,
         /// </summary>
         /// <param name="pIndicador"></param>
         public Indicador VerificarExistenciaIndicador(Indicador pIndicador)
@@ -202,13 +203,61 @@ namespace GB.SIMEF.DAL
 
             using (db = new SIMEFContext())
             {
-                indicador = db.Indicador.Where(x => x.Nombre.Trim().ToUpper() == pIndicador.Nombre.Trim().ToUpper() || x.Codigo.Trim().ToUpper() == pIndicador.Codigo.Trim().ToUpper()).FirstOrDefault();
+                indicador = db.Indicador.Where(x =>
+                        (x.Nombre.Trim().ToUpper() == pIndicador.Nombre.Trim().ToUpper() || x.Codigo.Trim().ToUpper() == pIndicador.Codigo.Trim().ToUpper()) &&
+                        x.idEstado != (int)EstadosRegistro.Eliminado
+                    ).FirstOrDefault();
             }
 
             return indicador;
         }
 
+        /// <summary>
+        /// 29/08/2022
+        /// José Navarro Acuña
+        /// Función que permite buscar y verificar por medio del identificador la existencia de un indicador en estado diferente de eliminado
+        /// </summary>
+        /// <param name="pIdIdentificador"></param>
+        /// <returns></returns>
+        public Indicador VerificarExistenciaIndicadorPorID(int pIdIdentificador)
+        {
+            Indicador indicador = null;
+
+            using (db = new SIMEFContext())
+            {
+                indicador = db.Indicador.Where(x => x.idIndicador == pIdIdentificador && x.idEstado != (int) EstadosRegistro.Eliminado).FirstOrDefault();
+            }
+
+            return indicador;
+        }
+
+        /// <summary>
+        /// 29/08/2022
+        /// José Navarro Acuña
+        /// Función que permite actualizar la cantidad de variables datos de un indicador
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public void ActualizarCantidadVariablesDato(Indicador pIndicador)
+        {
+            using (db = new SIMEFContext())
+            {
+                db.Indicador.Attach(pIndicador);
+                db.Entry(pIndicador).Property(x => x.CantidadVariableDato).IsModified = true;
+                db.SaveChanges();
+            }
+        }
+
         #region Métodos privados
+
+        /// <summary>
+        /// 16/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de indicadores
+        /// </summary>
+        /// <param name="pId"></param>
+        /// <param name="pUnicamenteActivos"></param>
+        /// <returns></returns>
         private TipoIndicadores ObtenerTipoIndicador(int pId, bool pUnicamenteActivos = false)
         {
             TipoIndicadores tipoIndicadores = pUnicamenteActivos ?
@@ -224,6 +273,14 @@ namespace GB.SIMEF.DAL
             return tipoIndicadores;
         }
 
+        /// <summary>
+        /// 16/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna las clasificaciones de indicadores
+        /// </summary>
+        /// <param name="pId"></param>
+        /// <param name="pUnicamenteActivos"></param>
+        /// <returns></returns>
         private ClasificacionIndicadores ObtenerClasificacionIndicador(int pId, bool pUnicamenteActivos = false)
         {
             ClasificacionIndicadores clasificacion = pUnicamenteActivos ?
@@ -239,6 +296,14 @@ namespace GB.SIMEF.DAL
             return clasificacion;
         }
 
+        /// <summary>
+        /// 16/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna los grupos de indicadores
+        /// </summary>
+        /// <param name="pId"></param>
+        /// <param name="pUnicamenteActivos"></param>
+        /// <returns></returns>
         private GrupoIndicadores ObtenerGrupoIndicadores(int pId, bool pUnicamenteActivos = false)
         {
             GrupoIndicadores grupo = pUnicamenteActivos ?
@@ -254,6 +319,14 @@ namespace GB.SIMEF.DAL
             return grupo;
         }
 
+        /// <summary>
+        /// 16/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna las unidades de estudio de los indicadores
+        /// </summary>
+        /// <param name="pId"></param>
+        /// <param name="pUnicamenteActivos"></param>
+        /// <returns></returns>
         private UnidadEstudio ObtenerUnidadEstudio(int pId, bool pUnicamenteActivos = false)
         {
             UnidadEstudio unidad = pUnicamenteActivos ?
@@ -269,6 +342,14 @@ namespace GB.SIMEF.DAL
             return unidad;
         }
 
+        /// <summary>
+        /// 16/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de medidas de los indicadores
+        /// </summary>
+        /// <param name="pId"></param>
+        /// <param name="pUnicamenteActivos"></param>
+        /// <returns></returns>
         private TipoMedida ObtenerTipoMedida(int pId, bool pUnicamenteActivos = false)
         {
             TipoMedida tipoMedida = pUnicamenteActivos ?
@@ -284,6 +365,14 @@ namespace GB.SIMEF.DAL
             return tipoMedida;
         }
 
+        /// <summary>
+        /// 16/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de frecuencias de envio de de indicadores
+        /// </summary>
+        /// <param name="pId"></param>
+        /// <param name="pUnicamenteActivos"></param>
+        /// <returns></returns>
         private FrecuenciaEnvio ObtenerFrecuenciaEnvia(int pId, bool pUnicamenteActivos = false)
         {
             FrecuenciaEnvio frecuencia = pUnicamenteActivos ?
@@ -299,6 +388,14 @@ namespace GB.SIMEF.DAL
             return frecuencia;
         }
 
+        /// <summary>
+        /// 16/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de estados de registro
+        /// </summary>
+        /// <param name="pId"></param>
+        /// <param name="pUnicamenteActivos"></param>
+        /// <returns></returns>
         private EstadoRegistro ObtenerEstadoRegistro(int pId, bool pUnicamenteActivos = false)
         {
             EstadoRegistro estado = pUnicamenteActivos ?
