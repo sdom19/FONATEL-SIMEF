@@ -57,6 +57,7 @@
         "btnVerFormula": "#Tablaformulasdetalle tbody tr td .btn-view",
         "btnCloneFormula": "#Tablaformulasdetalle tbody tr td .btn-clone",
         "btnDesactivarFormula": "#Tablaformulasdetalle tbody tr td .btn-power-off",
+        "tablaFormulas": "#Tablaformulasdetalle tbody",
         //Modal Fechas - Formula de cálculo
         "ddlTipoFechaFinalModalFechaFormula": "#ddlTipoFechaFinalModalFechaFormula",
         "ddlTipoFechaInicioModalFechaFormula": "#ddlTipoFechaInicioModalFechaFormula",
@@ -78,12 +79,147 @@
             "ACTUAL": "3",
             "Categoría": "2",
             "FECHA": "1"
-        }
-
+        },
+        "ListadoFormulas":[]
     },
 
     "Metodos": {
+        "CargarTablaFormulas": function () {
+            EliminarDatasource();
+            let html = "";
+            for (var i = 0; i < JsFormulasCalculo.Variables.ListadoFormulas.length; i++) {
+                let Formula = JsFormulasCalculo.Variables.ListadoFormulas[i];
+                html = html + "<tr><td scope='row'>" + Formula.Codigo + "</td>";
+                html = html + "<td>" + Formula.Nombre + "</td>";
+                html = html + "<td>" + Formula.Descripcion + "</td>";
+                html = html + "<td>" + Formula.EstadoRegistro.Nombre + "</td>";
+                html = html + "<td>"+
+                 "<button type='button' data-toggle='tooltip' data-placement='top' title='Editar' class='btn-icon-base btn-edit'></button>"+
+                 "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' class='btn-icon-base btn-clone' ></button >"+
+                 "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar' class='btn-icon-base btn-view'></button>";
 
+
+               
+
+                if (Formula.IdEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value='" + Formula.id + "' class='btn-icon-base btn-power-off'></button>";
+                } else {
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value='" + Formula.id + "' class='btn-icon-base btn-power-on'></button>";
+
+                }
+               
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value='" + Formula.id + "'  class='btn-icon-base btn-delete'></button>";
+
+                html = html + "</td></tr>"
+            }
+            $(JsFormulasCalculo.Controles.tablaFormulas).html(html);
+            CargarDatasource();
+            JsFormulasCalculo.Variables.ListadoFormulas = [];
+        },
+    },
+
+    "Consultas": {
+
+        "EliminarFormulaCalculo": function (idFormula) {
+
+            let formulaCalculo = new Object();
+            formulaCalculo.id = idFormula;
+
+
+            $("#loading").fadeIn();
+            execAjaxCall("/FormulaCalculo/EliminarFormula", "POST", { formulaCalculo: formulaCalculo })
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido eliminada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/FormulaCalculo/Index";
+                        }); 
+                }).catch((obj) => {
+
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+            
+        },
+
+        "ActivarFormulaCalculo": function (idFormula) {
+            let formulaCalculo = new Object();
+            formulaCalculo.id = idFormula;
+            $("#loading").fadeIn();
+            execAjaxCall("/FormulaCalculo/ActivarFormula", "POST", { formulaCalculo: formulaCalculo })
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido activada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/FormulaCalculo/Index";
+                        });
+                }).catch((obj) => {
+
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+
+        },
+
+        "DesactivarFormulaCalculo": function (idFormula) {
+            let formulaCalculo = new Object();
+            formulaCalculo.id = idFormula;
+            $("#loading").fadeIn();
+            execAjaxCall("/FormulaCalculo/DesactivarFormula", "POST", { formulaCalculo: formulaCalculo })
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido desactivada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/FormulaCalculo/Index";
+                        });
+                }).catch((obj) => {
+
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+
+        },
+
+        "ConsultaListaFormulas": function () {
+            $("#loading").fadeIn();
+            execAjaxCall("/FormulaCalculo/ObtenerListaFormulas", "GET")
+                .then((obj) => {
+                    JsFormulasCalculo.Variables.ListadoFormulas = obj.objetoRespuesta;
+                    JsFormulasCalculo.Metodos.CargarTablaFormulas();
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
     }
 
 };
@@ -98,24 +234,20 @@ $(document).on("click", JsFormulasCalculo.Controles.btnCancelar, function (e) {
 
 $(document).on("click", JsFormulasCalculo.Controles.btnEliminarFormula, function (e) {
     e.preventDefault();
+    let idFormula = $(this).val();
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Fórmula?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido eliminada")
-                .set('onok', function (closeEvent) {
-                    window.location.href = "/Fonatel/FormulaCalculo/Index";
-                });
+            JsFormulasCalculo.Consultas.EliminarFormulaCalculo(idFormula);
         });
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnDesactivarFormula, function (e) {
     e.preventDefault();
+    let idFormula = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Fórmula?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-
-            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido activada")
-                .set('onok', function (closeEvent) {
-                    window.location.href = "/Fonatel/FormulaCalculo/Index";
-                });
+            JsFormulasCalculo.Consultas.ActivarFormulaCalculo(idFormula);
         });
 });
 
@@ -136,13 +268,11 @@ $(document).on("click", JsFormulasCalculo.Controles.btnVerFormula, function () {
 
 $(document).on("click", JsFormulasCalculo.Controles.btnActivarFormula, function (e) {
     e.preventDefault();
+    let idFormula = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Fórmula?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
 
-            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido desactivada")
-                .set('onok', function (closeEvent) {
-                    window.location.href = "/Fonatel/FormulaCalculo/Index";
-                });
+            JsFormulasCalculo.Consultas.DesactivarFormulaCalculo(idFormula);
         });
 });
 
@@ -362,7 +492,14 @@ $(document).on("click", JsFormulasCalculo.Controles.btnEliminar_modalDetalle, fu
 });
 
 $(function () {
-    let modo = $(JsFormulasCalculo.Controles.modoFormulario).val();
+    let modo = $.urlParam("modo");
+
+    if ($(JsFormulasCalculo.Controles.tablaFormulas).length > 0) {
+        JsFormulasCalculo.Consultas.ConsultaListaFormulas();
+    }
+    
+
+
 
     if (modo == jsUtilidades.Variables.Acciones.Editar) {
         $(JsFormulasCalculo.Controles.txtCodigoFormula).prop("disabled", true);
