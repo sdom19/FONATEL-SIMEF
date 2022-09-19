@@ -851,7 +851,7 @@ CreateView = {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ConsultarDetallesVariable(pIndicador) // tabla
                     .then(data => {
-                        let CantidadEstablecida = data.objetoRespuesta.length == 0 ? 0 :data.objetoRespuesta[0].CantidadEstablecida;
+                        let CantidadEstablecida = data.objetoRespuesta.length == 0 ? $(CreateView.Controles.formIndicador.inputCantidadVariableDatosIndicador).val() :data.objetoRespuesta[0].CantidadEstablecida;
 
                         if (CantidadEstablecida > data.objetoRespuesta.length) {
                             $(CreateView.Controles.formVariable.btnSiguiente).prop("disabled", true);
@@ -1084,7 +1084,8 @@ CreateView = {
                     }).
                     then(data => {
                         if (data) {
-                            let CantidadEstablecida = data.objetoRespuesta.length == 0 ? 0 : data.objetoRespuesta[0].CantidadEstablecida;
+                        
+                            let CantidadEstablecida = data.objetoRespuesta.length == 0 ? $(CreateView.Controles.formIndicador.inputCantidadCategoriaIndicador).val() : data.objetoRespuesta[0].CantidadEstablecida;
                             if (CantidadEstablecida > data.objetoRespuesta.length) {
                                     $(CreateView.Controles.btnGuardarCategoria).prop("disabled", false);
                                     $(CreateView.Controles.btnFinalizar).prop("disabled", true);

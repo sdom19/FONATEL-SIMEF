@@ -851,7 +851,9 @@ CreateView = {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ConsultarDetallesVariable(pIndicador) // tabla
                     .then(data => {
-                        if (data.objetoRespuesta[0].CantidadEstablecida > data.objetoRespuesta.length) {
+                        let CantidadEstablecida = data.objetoRespuesta.length == 0 ? 0 :data.objetoRespuesta[0].CantidadEstablecida;
+
+                        if (CantidadEstablecida > data.objetoRespuesta.length) {
                             $(CreateView.Controles.formVariable.btnSiguiente).prop("disabled", true);
                             $(CreateView.Controles.btnGuardarVariable).prop("disabled", false);
 
@@ -1082,8 +1084,8 @@ CreateView = {
                     }).
                     then(data => {
                         if (data) {
-                            if (data.objetoRespuesta.length > 0) {
-                                if (data.objetoRespuesta[0].CantidadEstablecida > data.objetoRespuesta.length) {
+                            let CantidadEstablecida = data.objetoRespuesta.length == 0 ? 0 : data.objetoRespuesta[0].CantidadEstablecida;
+                            if (CantidadEstablecida > data.objetoRespuesta.length) {
                                     $(CreateView.Controles.btnGuardarCategoria).prop("disabled", false);
                                     $(CreateView.Controles.btnFinalizar).prop("disabled", true);
                                 }
@@ -1091,13 +1093,6 @@ CreateView = {
                                     $(CreateView.Controles.btnGuardarCategoria).prop("disabled", true);
                                     $(CreateView.Controles.btnFinalizar).prop("disabled", false);
                                 }
-                            }
-                           
-                            else {
-                                $(CreateView.Controles.btnGuardarCategoria).prop("disabled", false);
-                                $(CreateView.Controles.btnFinalizar).prop("disabled", true);
-                            }
-
                             this.InsertarDatosTablaDetallesCategoria(data.objetoRespuesta);
 
                         }
