@@ -45,5 +45,9 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public EstadoRegistro EstadoRegistro { get; set; }
+
+
+        [NotMapped]
+        public DateTime FechaCalculo { get; set; }
     }
 }
