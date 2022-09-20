@@ -87,6 +87,7 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
+                    FechaCalculo=x.FechaCalculo
                 }).ToList();
             }
 

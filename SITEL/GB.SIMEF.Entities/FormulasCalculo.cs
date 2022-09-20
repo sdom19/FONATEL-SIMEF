@@ -42,6 +42,9 @@ namespace GB.SIMEF.Entities
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
 
+
+        public DateTime FechaCalculo { get; set; }
+
         [NotMapped]
 
         public string id { get; set; }
@@ -50,7 +53,7 @@ namespace GB.SIMEF.Entities
         public EstadoRegistro EstadoRegistro { get; set; }
 
 
-        [NotMapped]
-        public DateTime FechaCalculo { get; set; }
+ 
+        
     }
 }
