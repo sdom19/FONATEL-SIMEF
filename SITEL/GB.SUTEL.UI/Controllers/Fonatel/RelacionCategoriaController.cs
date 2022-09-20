@@ -399,7 +399,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #endregion
 
-        #region Metodo para descargar y cargar excel
+        #region Metodo para descargar - cargar excel - Validar Relacion Categoria 
 
         /// <summary>
         /// Francisco Vindas
@@ -481,6 +481,27 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 DetalleRelacionCategoriaBL.CargarExcel(file);
                 file.SaveAs(path);
             }
+        }
+
+
+        /// <summary>
+        /// Fecha 16/09/2022
+        /// Francisco Vindas Ruiz
+        /// Validar existencia en Indicadores
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ValidarCategoria(RelacionCategoria relacion)
+        {
+            RespuestaConsulta<List<string>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = RelacionCategoriaBL.ValidarExistencia(relacion);
+            });
+
+            return JsonConvert.SerializeObject(result);
         }
 
         #endregion
