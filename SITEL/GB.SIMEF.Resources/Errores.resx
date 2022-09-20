@@ -159,6 +159,9 @@
   <data name="FuentesCantidadDestiatarios" xml:space="preserve">
     <value>La cantidad de destinatarios debe ser mayor que 0</value>
   </data>
+  <data name="IndicadorFormularioRegistrado" xml:space="preserve">
+    <value>El Indicador ingresado ya se encuentra registrado</value>
+  </data>
   <data name="NombreRegistrado" xml:space="preserve">
     <value>El Nombre ingresado ya se encuentra registrado</value>
   </data>

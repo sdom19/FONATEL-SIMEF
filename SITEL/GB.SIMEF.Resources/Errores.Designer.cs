@@ -187,6 +187,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El Indicador ingresado ya se encuentra registrado.
+        /// </summary>
+        public static string IndicadorFormularioRegistrado {
+            get {
+                return ResourceManager.GetString("IndicadorFormularioRegistrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El Nombre ingresado ya se encuentra registrado.
         /// </summary>
         public static string NombreRegistrado {

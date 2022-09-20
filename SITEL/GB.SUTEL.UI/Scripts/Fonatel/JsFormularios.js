@@ -6,10 +6,19 @@
         "TableIndicadorFormulario": "#TableIndicadorFormulario",
         "TableIndicadorFormularioBody": "#TableIndicadorFormulario tbody",
         "txtCodigoFormulario": "#txtCodigoFormulario",
+        "txtNombreFormulario": "#txtNombreFormulario",
+        "txtDescripcionFormulario": "#txtDescripcionFormulario",
+        "txtCantidadIndicadoresFormulario": "#txtCantidadIndicadoresFormulario",
+        "ddlFrecuanciaEnvio": "#ddlFrecuanciaEnvio",
+        "txtCodigoFormularioHelp": "#txtCodigoFormularioHelp",
+        "txtNombreFormularioHelp": "#txtNombreFormularioHelp",
+        "txtDescripcionFormularioHelp": "#txtDescripcionFormularioHelp",
+        "txtCantidadIndicadoresFormularioHelp": "#txtCantidadIndicadoresFormularioHelp",
+        "ddlFrecuenciaHelp": "#ddlFrecuenciaHelp",
         "btnAgregarFormulario": "#TablaFormulario tbody tr td .btn-add",
         "btnEditarFormulario": "#TablaFormulario tbody tr td .btn-edit",
         "btnDeleteFormulario": "#TablaFormulario tbody tr td .btn-delete",
-        "btnVizualizarFormulario": "#TablaFormulario tbody tr td .btn-view",
+        "btnVisualizarFormulario": "#TablaFormulario tbody tr td .btn-view",
         "btnDeleteIndicador": "#TableIndicadorFormulario tbody tr td .btn-delete",
         "btnEditarIndicadores":"#TableIndicadorFormulario tbody tr td .btn-edit",
         
@@ -33,11 +42,74 @@
     },
     "Variables": {
         "ListadoFormulario":[],
+        "ListadoDetalleIndicadores": [],
 
     },
 
     "Metodos": {
 
+        "ValidarFormularioWebParcial": function () {
+            let validar = true;
+
+            $(JsFormulario.Controles.txtCodigoFormularioHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtNombreFormularioHelp).addClass("hidden");
+
+            let codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
+            let nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
+
+            if (codigo == 0) {
+                $(JsFormulario.Controles.txtCodigoFormularioHelp).removeClass("hidden");
+                validar = false;
+            }
+
+            if (nombre == 0) {
+                $(JsFormulario.Controles.txtNombreFormularioHelp).removeClass("hidden");
+                validar = false;
+            }
+            return validar;
+        },
+
+        "ValidarFormularioWebTotal": function () {
+            let validar = true;
+
+            $(JsFormulario.Controles.txtCodigoFormularioHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtNombreFormularioHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtDescripcionFormularioHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtCantidadIndicadoresFormularioHelp).addClass("hidden");
+            $(JsFormulario.Controles.ddlFrecuenciaHelp).addClass("hidden");
+
+            let codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
+            let nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
+            let descripcion = $(JsFormulario.Controles.txtDescripcionFormulario).val().trim();
+            let cantidadIndicadores = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
+            let idFrecuencia = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
+
+            if (codigo == 0) {
+                $(JsFormulario.Controles.txtCodigoFormularioHelp).removeClass("hidden");
+                validar = false;
+            }
+
+            if (nombre == 0) {
+                $(JsFormulario.Controles.txtNombreFormularioHelp).removeClass("hidden");
+                validar = false;
+            }
+
+            if (descripcion == 0) {
+                $(JsFormulario.Controles.txtDescripcionFormularioHelp).removeClass("hidden");
+                validar = false;
+            }
+
+            if (cantidadIndicadores == 0) {
+                $(JsFormulario.Controles.txtCantidadIndicadoresFormularioHelp).removeClass("hidden");
+                validar = false;
+            }
+
+            if (idFrecuencia == 0) {
+                $(JsFormulario.Controles.ddlFrecuenciaHelp).removeClass("hidden");
+                validar = false;
+            }
+            return validar;
+        },
 
         "ValidarFormularioIndicador": function () {
             let validar = true;
@@ -49,15 +121,15 @@
             let indicador = $(JsFormulario.Controles.ddlIndicador).val();
             let hoja = $(JsFormulario.Controles.txtTituloHoja).val().trim();
 
-            if (hoja.length == 0) {
-                $(JsFormulario.Controles.txtTituloHojaHelp).removeClass("hidden");
+            //if (hoja.length == 0) {
+            //    $(JsFormulario.Controles.txtTituloHojaHelp).removeClass("hidden");
 
-                validar = false;
-            }
-            if (notas.length == 0) {
-                $(JsFormulario.Controles.txtNotasEncargadoFormularioHelp).removeClass("hidden");
-                validar = false;
-            }
+            //    validar = false;
+            //}
+            //if (notas.length == 0) {
+            //    $(JsFormulario.Controles.txtNotasEncargadoFormularioHelp).removeClass("hidden");
+            //    validar = false;
+            //}
 
             if (indicador == "") {
                 $(JsFormulario.Controles.ddlIndicadorHelp).removeClass("hidden");
@@ -66,6 +138,11 @@
             return validar;
         },
 
+        "ValidarEstadoParcialFormulario": function (obj) {
+            if (obj.Descripcion === '' || obj.CantidadIndicadores == 0 || obj.idFrecuencia == '')
+                return jsUtilidades.Variables.EstadoRegistros.EnProceso;
+            return jsUtilidades.Variables.EstadoRegistros.Activo;
+        },
 
         "CargarTablasFormulario": function () {
             EliminarDatasource();
@@ -95,19 +172,30 @@
 
 
                 html = html + "</tr>"
-                //if (formulario.ListaIndicadores.length == null) {
-                //    html = html + JsFormulario.Metodos.CrearTablaFormulario(formulario, "N/A");
-                //}
-                //else {
-                //    html = html + JsFormulario.Metodos.CrearTablaFormulario(formulario, formulario.ListaIndicadores);
-                //}
-                //for (var j = 0; j < formulario.ListaIndicadores.length; j++) {
-                //    html = html + JsFormulario.Metodos.CrearTablaFormulario(formulario, formulario.ListaIndicadores[j]);
-                //}
             }
             $(JsFormulario.Controles.tablaFormulario).html(html);
             CargarDatasource();
             JsFormulario.Variables.ListadoFormulario = [];
+        },
+
+        "CargarTablasIndicadores": function () {
+            EliminarDatasource();
+            let html = "";
+            for (var i = 0; i < JsFormulario.Variables.ListadoDetalleIndicadores.length; i++) {
+                let indicadores = JsFormulario.Variables.ListadoDetalleIndicadores[i];
+                html = html + "<tr>"
+                html = html + "<td class='dt-center'>" + indicadores.Codigo + " </td>";
+                html = html + "<td class='dt-center'>" + indicadores.Nombre + " </td>";
+                html = html + "<td class='dt-center'>" + indicadores.GrupoIndicadores.Nombre + " </td>";
+                html = html + "<td class='dt-center'>" + indicadores.TipoIndicadores.Nombre + " </td>";
+                html = html + "<td class='dt-center'>" + indicadores.EstadoRegistro.Nombre + " </td>";
+                html = html + "<td class='dt-center'><button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value=" + indicadores.idIndicador + " class='btn-icon-base btn-edit'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar'  value=" + indicadores.idIndicador + " class='btn-icon-base btn-delete'></button></td>";
+                html = html + "</tr>"
+            }
+            $(JsFormulario.Controles.TableIndicadorFormularioBody).html(html);
+            CargarDatasource();
+            JsFormulario.Variables.ListadoDetalleIndicadores = [];
         },
 
         "CrearTablaFormulario": function (formulario, indicador) {
@@ -142,6 +230,67 @@
 
     "Consultas": {
 
+        "InsertarFormularioWeb": function () {
+            $("#loading").fadeIn();
+            let formulario = new Object();
+            formulario.Codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
+            formulario.Nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
+            formulario.Descripcion = $(JsFormulario.Controles.txtDescripcionFormulario).val().trim();
+            formulario.CantidadIndicadores = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
+            formulario.idFrecuencia = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
+            formulario.IdEstado = JsFormulario.Metodos.ValidarEstadoParcialFormulario(formulario);
+            execAjaxCall("/FormularioWeb/InsertarFormularioWeb", "POST", formulario)
+                .then((obj) => {
+                    InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                    $("a[href='#step-2']").trigger('click');
+                });
+        },
+
+        "InsertarIndicadores": function () {
+            $("#loading").fadeIn();
+            let detalleFormulario = new Object();
+            let formularioweb = new Object();
+            detalleFormulario.TituloHojas = $(JsFormulario.Controles.txtTituloHoja).val().trim();
+            detalleFormulario.NotasEncargado = $(JsFormulario.Controles.txtNotasEncargadoFormulario).val().trim();
+            detalleFormulario.idIndicador = $(JsFormulario.Controles.ddlIndicador).val();
+            formularioweb.id = ObtenerValorParametroUrl("id");
+            detalleFormulario.formularioweb = formularioweb;
+            execAjaxCall("/FormularioWeb/InsertarIndicadoresFormulario", "POST", detalleFormulario)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido agregado")
+                        .set('onok', function (closeEvent) {
+                            JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
 
         "EliminarFormulario": function (idFormulario)
         {
@@ -225,6 +374,22 @@
                 });
         },
 
+        "ConsultaListaIndicadoresFormulario": function () {
+            $("#loading").fadeIn();
+            let id = ObtenerValorParametroUrl("id");
+            execAjaxCall("/FormularioWeb/ObtenerIndicadoresFormulario?idFormulario="+id, "GET")
+                .then((obj) => {
+                    JsFormulario.Variables.ListadoDetalleIndicadores = obj.objetoRespuesta;
+                    JsFormulario.Metodos.CargarTablasIndicadores();
+                }).catch((obj) => {
+                    jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                        .set('onok', function (closeEvent) {
+                        });
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
         "ConsultaDetalleFormularioWebAjax": function (idIndicador, idFormulario) {
             $.ajax({
                 url: jsUtilidades.Variables.urlOrigen + '/FormularioWeb/ObtenerDetalleFormularioWeb',
@@ -261,6 +426,7 @@
 
 }
 
+// CANCELAR
 $(document).on("click", JsFormulario.Controles.btnCancelar, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
@@ -269,53 +435,51 @@ $(document).on("click", JsFormulario.Controles.btnCancelar, function (e) {
         });
 });
 
-
-
+// GUARDAR INDICADOR
 $(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e) {
     e.preventDefault();
-
     if (JsFormulario.Metodos.ValidarFormularioIndicador()) {
         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.cancelar)
             .set('onok', function (closeEvent) {
-                jsMensajes.Metodos.OkAlertModal("El Indicador ha sido agregado")
-                    .set('onok', function (closeEvent) { });
+                JsFormulario.Consultas.InsertarIndicadores();
             });
     }     
 });
 
-
+// EDITAR INDICADORES
 $(document).on("click", JsFormulario.Controles.btnEditarIndicadores, function () {
     let idIndicador = $(this).val();
     let idFormulario = $.urlParam('id');
     JsFormulario.Consultas.ConsultaDetalleFormularioWebAjax(idIndicador, idFormulario);
 });
 
-
-
+// EDITAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnEditarFormulario, function () {
     let id = $(this).val();
     window.location.href = "/Fonatel/FormularioWeb/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
 
+// CLONAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnCloneFormulario, function () {
     let id = $(this).val();
     window.location.href = "/Fonatel/FormularioWeb/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
 });
 
-
-
+// GUARDAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido creado")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
-
-        });
+    if (JsFormulario.Metodos.ValidarFormularioWebParcial()) {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsFormulario.Consultas.InsertarFormularioWeb();
+                jsMensajes.Metodos.OkAlertModal("El Formulario ha sido creado")
+                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+            });
+    }
 });
 
-
-$(document).on("click", JsFormulario.Controles.btnVizualizarFormulario, function (e) {
+// VISUALIZAR FORMULARIO
+$(document).on("click", JsFormulario.Controles.btnVisualizarFormulario, function (e) {
     // Esta quemado por el tema del tiempo, para no generar conflictos con los posibles cambios de otros compañeros
     //let id = $(this).val();
     // valor quemado
@@ -324,21 +488,29 @@ $(document).on("click", JsFormulario.Controles.btnVizualizarFormulario, function
     //window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Visualizar;
 });
 
-
+// SIGUIENTE FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, function (e) {
     e.preventDefault();
-    $("a[href='#step-2']").trigger('click');
+    let modo = $.urlParam('modo');
+    if (modo == undefined) {
+        if (JsFormulario.Metodos.ValidarFormularioWebTotal())
+            JsFormulario.Consultas.InsertarFormularioWeb();
+    }
+    else
+        $("a[href='#step-2']").trigger('click');
+
 });
 
-
+// DELETE(BORRAR) FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnDeleteFormulario, function (e) {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Formulario?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsFormulario.Consultas.ValidarExistenciaFormulario(id, true);
         });
 });
 
+// DELETE(BORRAR) INDICADOR
 $(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Indicador?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
@@ -347,7 +519,7 @@ $(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) 
         });
 });
 
-
+// DESACTIVAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnDesactivadoFormulario, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Formulario?", jsMensajes.Variables.actionType.estado)
@@ -356,6 +528,8 @@ $(document).on("click", JsFormulario.Controles.btnDesactivadoFormulario, functio
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
         });
 });
+
+// ACTIVAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (e) {
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Formulario?", jsMensajes.Variables.actionType.estado)
@@ -364,15 +538,13 @@ $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (
         });
 });
 
-
-
-
+// ATRAS
 $(document).on("click", JsFormulario.Controles.btnAtrasFormularioRegla, function (e) {
     e.preventDefault();
     $("a[href='#step-1']").trigger('click');
 });
 
-
+// GUARDAR FORMULARIO COMPLETO
 $(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Formulario?", jsMensajes.Variables.actionType.agregar)

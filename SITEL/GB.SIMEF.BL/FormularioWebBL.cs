@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,6 @@ namespace GB.SIMEF.BL
     public class FormularioWebBL : IMetodos<FormularioWeb>
     {
         private readonly FormularioWebDAL clsDatos;
-        private readonly DetalleFormularioWebDAL clsDatos2;
 
         private RespuestaConsulta<List<FormularioWeb>> ResultadoConsulta;
         string modulo = string.Empty;
@@ -24,8 +24,27 @@ namespace GB.SIMEF.BL
             this.modulo = modulo;
             this.user = user;
             this.clsDatos = new FormularioWebDAL();
-            this.clsDatos2 = new DetalleFormularioWebDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<FormularioWeb>>();
+        }
+
+        private string SerializarObjetoBitacora(FormularioWeb objFormularioWeb)
+        {
+            return JsonConvert.SerializeObject(objFormularioWeb, new JsonSerializerSettings
+            { ContractResolver = new JsonIgnoreResolver(objFormularioWeb.NoSerialize) });
+        }
+
+        // Valida si existen formularios con el mismo nombre o código
+        private bool ValidarDatosRepetidos(FormularioWeb objFormularioWeb) {
+            List<FormularioWeb> buscarRegistro = clsDatos.ObtenerDatos(new FormularioWeb());
+            if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objFormularioWeb.Codigo.ToUpper()).ToList().Count() > 0)
+            {
+                throw new Exception(Errores.CodigoRegistrado);
+            }
+            else if (buscarRegistro.Where(x => x.Nombre.ToUpper() == objFormularioWeb.Nombre.ToUpper()).ToList().Count() > 0)
+            {
+                throw new Exception(Errores.NombreRegistrado);
+            }
+            return true;
         }
 
         public RespuestaConsulta<List<FormularioWeb>> ActualizarElemento(FormularioWeb objeto)
@@ -92,7 +111,43 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FormularioWeb>> InsertarDatos(FormularioWeb objeto)
         {
-            throw new NotImplementedException();
+            try 
+            {
+                objeto.idFormulario = 0;
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioCreacion = user;
+                if (ValidarDatosRepetidos(objeto))
+                {
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                }
+
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+
+                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+
+                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                //            ResultadoConsulta.Usuario,
+                //                ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado
+                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<FormularioWeb>> ObtenerDatos(FormularioWeb objeto)
