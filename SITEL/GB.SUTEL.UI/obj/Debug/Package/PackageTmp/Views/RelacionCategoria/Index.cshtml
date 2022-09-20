@@ -1,0 +1,37 @@
+﻿@using GB.SIMEF.Resources;
+
+@{
+    ViewBag.Title = EtiquetasViewRelacionCategoria.RelacionCategoria;
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+    @*@Scripts.Render("~/bundles/FONATEL/RelacionCategoria")*@
+}
+
+<div id="divRelacionCategoriaIndex" class="container body-content">
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewRelacionCategoria.RelacionCategoria</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewRelacionCategoria.RelacionCategoria</h2>
+            <hr />
+        </div>
+        <div class="col-lg-12">
+            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCrear" alt="@Etiquetas.BotonCrear" href="@Url.Action( "create","RelacionCategoria")">@Etiquetas.BotonCrear</a>
+        </div>
+        <div class="col-lg-12 mt-4 ">
+            @Html.Partial("_TablaRelacionCategoria")
+            <input id='inputFileCargarDetalle' type='file' accept='.csv,.xlsx,.xls' style='display: none;' />
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Scripts/Fonatel/JsRelacionCategoria.js"></script>

@@ -6,15 +6,22 @@
         "tabActivoRegistroIndicador": "div.tab-pane.active",
         "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
         "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
-
-        "btnDescargarPlantillaRegistro": "#btnDescargarPlantillaRegistro",
-        "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
+        "table": "",
+        "btnGuardarCategoría": "#btnGuardarCategoría",
+        "btnDescargarPlantillaRegistro": "div.tab-pane.active #btnDescargarPlantillaRegistro",
+        "btnCargarPlantillaRegistro": "div.tab-pane.active #btnCargarPlantillaRegistro",
+        "inputFileCargarPlantilla": "#inputFileCargarPlantilla",
 
         "fileCargaRegistro": "#fileCargaRegistro",
         "btnCancelar": "#btnCancelarRegistroIndicador",
-        "btnGuardar": "#btnGuardarRegistroIndicador",
-        "btnGuardarRegistroIndicadorEdicion": "#btnGuardarRegistroIndicadorEdicion",
-        "btnValidar": "#btnValidarRegistroIndicador",
+
+        "btnGuardar": "div.tab-pane.active #btnGuardarRegistroIndicador",
+        "btnValidar": "div.tab-pane.active #btnValidarRegistroIndicador",
+
+        "btnCargarPlantillaRegistro2": "#btnCargarPlantillaRegistro2",
+        "btnGuardarRegistroIndicador2": "#btnGuardarRegistroIndicador2",
+        "btnValidar2":"#btnValidarRegistroIndicador2",
+
         "IndicadorCorrecto": "#Indicador1",
         "IndicadorErroneo": "#Indicador2",
         "btnCarga": "#btnCargaRegistroIndicador",
@@ -25,8 +32,6 @@
                                                     <option></option>${option}</select ></div >`,
         "InputDate": id => `<input type="date" class="form-control form-control-fonatel" id="${id}">`,
         "InputText": (id, placeholder) => `<input type="text" aria-label="${placeholder}" class="form-control form-control-fonatel alfa_numerico" id="${id}" placeholder="${placeholder}" style="min-width:150px;">`,
-
-        "inputFileCargarPlantilla": "#inputFileCargarPlantilla"
 
     },
     "Variables": {
@@ -42,6 +47,10 @@
             $('textarea').prop('disabled', true);
         },
 
+        "CargarExcel": function () {
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
+        },
+
     }
 
 }
@@ -55,7 +64,7 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCancelar, functi
         });
 });
 
-//GUARDAR MODO INFORMARTE
+
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardar, function (e) {
     e.preventDefault();
     e.preventDefault();
@@ -66,18 +75,19 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardar, functio
         });
 });
 
-//GUARDAR MODO ENCARGADO
-$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroIndicadorEdicion, function (e) {
+
+//BTN GUARDAR REGISTRO SEGUNDO INDICADOR SOLO PARA ENTREGA DOCUMENTO SIMER REVISAR LINEA 293 - FRANCISCO VINDAS RUIZ
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroIndicador2, function (e) {
     e.preventDefault();
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
-                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/index"; });
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RegistroIndicadorFonatel/Index"; });
         });
 });
 
-//CARGAR MODO INFORMARTE
+
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCarga, function (e) {
     e.preventDefault();
     e.preventDefault();
@@ -88,31 +98,36 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCarga, function 
         });
 });
 
-//CARGAR MODO ENCARGADO
-$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicadorEdicion, function (e) {
-    e.preventDefault();
-    e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga de la información?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La carga de información ha sido completada")
-                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/index"; });
-        });
-});
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnllenadoweb, function () {
     let id = 1;
     window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create?id=" + id;
 });
-//DESCARGAR
+
+//DESCARGAR EXCEL
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario", null, "Descargar Registro")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
             window.open(jsUtilidades.Variables.urlOrigen + "/RegistroIndicadorFonatel/DescargarExcel");
             jsRegistroIndicadorFonatel.Metodos.CargarExcel();
-
         });
 });
 
+//DESCARGAR EXCEL
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarCategoría, function () {
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
+        .set('onok', function (closeEvent) {
+            window.open(jsUtilidades.Variables.urlOrigen + "/RegistroIndicadorFonatel/DescargarExcel");
+            jsRegistroIndicadorFonatel.Metodos.CargarExcel();
+        });
+});
+
+
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro, function () {
+    $(jsRegistroIndicadorFonatel.Controles.inputFileCargarPlantilla).click();
+});
+
+//BTN CARGAR SEGUNDO INDICADOR SOLO PARA ENTREGA DOCUMENTO SIMER REVISAR LINEA 293 - FRANCISCO VINDAS RUIZ
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro2, function () {
     $(jsRegistroIndicadorFonatel.Controles.inputFileCargarPlantilla).click();
 });
 
@@ -121,28 +136,52 @@ $(document).on("change", jsRegistroIndicadorFonatel.Controles.inputFileCargarPla
 });
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.IndicadorCorrecto, function () {
+
     jsRegistroIndicadorFonatel.Variables.Validacion = false;
 });
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.IndicadorErroneo, function () {
-    $(jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicadorEdicion).prop("disabled", true);
+
     $(jsRegistroIndicadorFonatel.Controles.btnCarga).prop("disabled", true);
     jsRegistroIndicadorFonatel.Variables.Validacion = true;
+    
+});
+
+
+
+$(document).on('draw.dt', jsRegistroIndicadorFonatel.Controles.tablaIndicador, function (e) {
+    setSelect2();
+});
+
+
+
+
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar, function () {
+    if (jsRegistroIndicadorFonatel.Variables.Validacion == false) {
+
+        jsMensajes.Metodos.OkAlertModal("Validación Exitosa <br><br> La información ingresada cumple con los criterios de validación.");
+        $(jsRegistroIndicadorFonatel.Controles.btnCarga).prop("disabled", false);
+
+    } else {
+        jsMensajes.Metodos.OkAlertErrorModal("Fórmula de cambio mensual <br><br> La información ingresada no es congruente con el registro del mes anterior");
+    }
 
 });
 
 
-$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar, function () {
+
+
+//BTN VALIDAR SEGUNDO INDICADOR SOLO PARA ENTREGA DOCUMENTO SIMER REVISAR LINEA 293 - FRANCISCO VINDAS RUIZ
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar2, function () {
 
 
     if (jsRegistroIndicadorFonatel.Variables.Validacion == false) {
 
         jsMensajes.Metodos.OkAlertModal("La información ingresada cumple con los criterios de validación.");
-        $(jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicadorEdicion).prop("disabled", false);
         $(jsRegistroIndicadorFonatel.Controles.btnCarga).prop("disabled", false);
 
     } else {
-        jsMensajes.Metodos.OkAlertErrorModal("La información ingresada no es congruente con el registro del mes anterior.");
+        jsMensajes.Metodos.OkAlertErrorModal("Fórmula actualización secuencial <br><br>La información ingresada no cumple con la secuencia con respecto a los registros del periodo anterior");
     }
 
 });
@@ -154,6 +193,26 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
 
 
     if (event.keyCode == 13) {
+        $(jsRegistroIndicadorFonatel.Controles.tablaIndicador).removeClass("hidden");
+
+        if (jsRegistroIndicadorFonatel.Variables.Validacion == false) {
+
+            $(jsRegistroIndicadorFonatel.Controles.btnValidar).prop("disabled", false);
+            $(jsRegistroIndicadorFonatel.Controles.btnGuardar).prop("disabled", false);
+
+
+        }else {
+
+            $(jsRegistroIndicadorFonatel.Controles.btnGuardarCategoría).prop("disabled", false);
+            $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro2).prop("disabled", false);
+            $(jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroIndicador2).prop("disabled", false);
+            $(jsRegistroIndicadorFonatel.Controles.btnValidar2).prop("disabled", false);
+       
+
+        }
+        EliminarDatasource(jsRegistroIndicadorFonatel.Controles.tablaIndicador);
+
+        CargarDatasourceV2(jsRegistroIndicadorFonatel.Controles.tablaIndicador);
         var table = $(jsRegistroIndicadorFonatel.Controles.tablaIndicador).DataTable();
         table.clear().draw();
 
@@ -186,16 +245,19 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
                 });
                 table.row.add(listaColumnasVariablesDato).draw(false);
 
-                $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", false);
-                $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", false);
+                // Este método es de visualizar en el modulo Formulario Web, es de la Etapa de diseño
+                //SE ENCUENTRA QUEMADO DE MOMENTO POR CONTRATIEMPOS DE ENTRAGA SIMEF - ANDERSON
+                let modo = $.urlParam('modo');
+                if (modo != '6') {
+                    $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", false);
+                    $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", false);
+                }
             }
 
             jsRegistroIndicadorFonatel.Variables.paginasActualizadasConSelect2_tablaIndicador[tabActual].push(0);
 
-            setSelect2();
-
-            eventNextPrevDatatable();
         }
+        
     }
 });
 
@@ -204,20 +266,6 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
  Se maneja una variable que almacena las paginas visitadas de cada tab o indicador, 
  para así refrescar los select2.
  */
-function eventNextPrevDatatable() {
-    $(jsRegistroIndicadorFonatel.Controles.tablaIndicador).on('page.dt', function () {
-        var nextPage = $(this).DataTable().page.info().page;
-        let listaPages = jsRegistroIndicadorFonatel.Variables.paginasActualizadasConSelect2_tablaIndicador[getTabActivoRegistroIndicador()];
-
-        if (!listaPages.includes(nextPage)) {
-            setTimeout(() => {
-                setSelect2()
-            }, 0);
-
-            listaPages.push(nextPage);
-        }
-    });
-}
 
 function getTabActivoRegistroIndicador() {
     return $(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).attr("id");
@@ -232,20 +280,18 @@ function setSelect2() {
 
 
 
+$(document).ready(function () {
 
-
-
- 
-
-
-    $(document).ready(function () {
-
-
-        CargarDatasourceV2(jsRegistroIndicadorFonatel.Controles.tablaIndicador);
-
-        $(jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicador).prop("disabled", true);
-        $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", true);
-        $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", true);
+    //BLOQUEO DE BOTONES HAY QUE REVISAR PORQUE NO FUNCIONAN CON LA CLASE .ACTIVE APARTIR DEL SEGUNDO TAB - FRANCISCO VINDAS
+    $(jsRegistroIndicadorFonatel.Controles.btnValidar).prop("disabled", true);
+    $(jsRegistroIndicadorFonatel.Controles.btnGuardar).prop("disabled", true);
+    $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", true);
+    $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", true);
+    $(jsRegistroIndicadorFonatel.Controles.btnCarga).prop("disabled", true);
+    $(jsRegistroIndicadorFonatel.Controles.btnGuardarCategoría).prop("disabled", true);
+    $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro2).prop("disabled", true);
+    $(jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroIndicador2).prop("disabled", true);
+    $(jsRegistroIndicadorFonatel.Controles.btnValidar2).prop("disabled", true);
 
         let modo = $.urlParam('modo');
         if (modo == '6') {

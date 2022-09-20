@@ -1,0 +1,46 @@
+﻿@using GB.SIMEF.Resources;
+
+@{
+    ViewBag.Title = "Definición de Indicadores";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+ @*   @Scripts.Render("~/bundles/FONATEL/DefinicionIndicador")*@
+}
+
+<div class="container body-content">
+    <div class="text-right">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewIndicadorFonatel.TituloDefiniciones</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-12">
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewIndicadorFonatel.TituloDefiniciones</h2>
+            <hr />
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12">
+                @Html.Partial("_TablaIndicadores")
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<script src="~/Scripts/Fonatel/JsDefiniciones.js"></script>
+
+

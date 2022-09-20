@@ -1,0 +1,462 @@
+﻿@using GB.SUTEL.Entities
+@using GB.SUTEL.UI.Models
+@model Tuple<List<Operador>, SolicitudViewModels>
+        <p></p>
+
+        @if (Model.Item2.itemSolicitudIndicador != null)
+        {
+            <input type="hidden" value="@Model.Item2.itemSolicitudIndicador.IdSolicitudIndicador" id="hiddenIDSOLICITUDINDICADOR">
+        }
+        else
+        {
+            <input type="hidden" value="" id="hiddenIDSOLICITUDINDICADOR">
+        }
+
+
+
+
+        <table style="width:100%" >
+            <tr>
+               
+                    <td style="width:35%; vertical-align:top">
+                        <div class="form-group" style="text-align:right">
+                            <div>
+                                <button type="button" class="btn btn-success" id="btnGuardarIndicadores" data-tooltip="true" title="Asignar/Eliminar Indicadores a los operadores seleccionados">Guardar Cambios</button>
+                                &nbsp;&nbsp;
+                            </div>
+                        </div>
+                    <td style="width:5%" ; vertical-align:top>&nbsp;</td>
+                    <td style="width:60%; vertical-align:top">
+</tr>
+            <tr>
+               <td style="width:35%; vertical-align:top">
+
+                    @if (Model.Item1 != null && Model.Item1.Count() > 0)
+                    {
+
+                            <table class="display" data-table-grid="true">
+
+                                <thead>
+                                    <tr>
+
+                                        <th width="1%">
+
+                                        </th>
+
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Item1.First().NombreOperador)
+                                        </th>
+
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model.Item1)
+                                    {
+                                        <tr name="trOperador">
+
+                                      
+                                            <td id='@item.IdOperador'>
+                                                <input type="checkbox" value="@item.IdOperador" id="check_@item.IdOperador" class="checkOperador" onclick="AgregarNuevoOperador('@item.IdOperador')" />
+                                            </td>
+                                            @*onclick="tdClick('@item.IdOperador');"*@
+                                            <td name="trOperador" class="buttonTDO" id=@item.IdOperador.ToString()  data-select="true" data-json-selected='{"IdOperadorSeleccionado":" @item.IdOperador "}'>
+                                                @Html.DisplayFor(modelIten => item.NombreOperador)
+                                                <input type="hidden" id="IdOperadorSeleccionado" value="" />
+                                                <button type="button" style="display:none" class="btn btn-primary buscarOperadorSeleccionado" aria-label="Left Align"
+                                                        data-select="true" name="cmdOperadorSeleccionado" data-json-selected='{"IdOperadorSeleccionado":" @item.IdOperador "}'>
+
+                                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td width="1%"></td>
+                                        <td width="1%">
+                                            <input placeholder="Operador" id="filtrarOperador" onkeyup="funcFiltrarOperador(event);" />
+                                            <button type="submit" style="display:none">Buscar</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                    }
+                    else
+                    {
+                         <table class="display" data-table-grid="true" style="width:100%">
+
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        Operador
+                                    </th>
+
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                    
+                                    <tr>
+
+                                        <td >
+
+                               
+
+                                
+                                        </td>
+
+
+                                    </tr>
+                        
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td width="1%">
+                                        @*<form id="frmFiltrarOperadores" method="post"
+                                              onsubmit="funcFiltrarOperador()" data-ajax="true" data-ajax-target="#tableOperadores"
+                                              data-ajax-message="Cargando datos...">*@
+                                
+
+                                                <input placeholder="Operador"  id="filtrarOperador"  onkeyup="funcFiltrarOperador(event);" />
+                                
+                                            <button type="submit" style="display:none">Buscar</button>
+                                      @*  </form>*@
+                                    </td>
+                                </tr>
+                            </tfoot>
+                       </table>
+                
+                         <div class="alert alert-danger" role="alert" id="divMensajeErrorListarOperadores">
+                            <span id="MyerrorMensajeListadoOperadores">No existen operadores para el servicio seleccionado...</span>
+                        </div>
+                    }
+               </td>
+
+               <td style="width:5%" ; vertical-align:top>&nbsp;</td>
+               <td style="width:60%; vertical-align:top">
+
+                    @if (Model.Item2.listadoIndicadores != null && Model.Item2.listadoIndicadores.Count() > 0)
+                    {
+                      <!--TABLA INDICADORES-->
+                     
+                        <table class="display" data-table-grid="true" >
+
+                            <thead>
+                                <tr>
+
+                                    <th></th>
+                                    <th>
+                                        Indicador
+                                    </th>                                    
+                                    <th>ID</th>
+                                    <th>Frecuencia</th>
+                                    <th>Desglose</th>
+                                    <th>Orden</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model.Item2.listadoIndicadores)
+                                {
+                                    <tr name="trIndicador">
+                                        <td id="item.IDCONSTRUCTOR.ToString()" data-toggle="tooltip" title="Para seleccionar, indique el orden primero.">
+
+                                            <input type="checkbox" value="@item.IDINDICADOR" id="checkIndicador_@(item.IDCONSTRUCTOR.ToString())" onclick="AgregarNuevoIndicador('@item.IDCONSTRUCTOR')"  />
+                                        </td>
+                                        <td name="tdIndicador"class="buttonTD" id=@item.IDCONSTRUCTOR.ToString()>
+                                            @Html.DisplayFor(modelIten => item.NOMBREINDICADOR)
+                                        </td>
+                                        <td>  <!--Agregado ID -->
+                                            @Html.DisplayFor(modelIten => item.IDINDICADOR)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelIten => item.NOMBREFRECUENCIA)
+
+                                        </td>                                        
+                                        <td>
+                                            @Html.DisplayFor(modelIten => item.NOMBREDESGLOSE)
+                                        </td>
+                                        <td id="@item.IDINDICADOR">
+                                            <div>
+                                                <input type="number" id="ordenIndicador_@(item.IDCONSTRUCTOR.ToString())" style="border: 2px solid #dadada; border-radius: 7px; width:75px; " onchange="OnOrderChange(this, '@item.IDCONSTRUCTOR')" min="0" step="any" onkeyup="OnOrderChange(this, '@item.IDCONSTRUCTOR')">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            @*<tfoot>
+                                    <tr>
+                                        <td width="1%" colspan="2">
+                                            <form id="frmFiltrarOperadores" method="post"
+                                                  action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tableOperadores"
+                                                  data-ajax-message="Cargando datos...">
+                                                @if (ViewBag.TerminosBusquedaOPERADOR != null)
+                                                {
+
+                                                    <input placeholder="Formulario" name="DescFormulario" value="@ViewBag.TerminosBusquedaOPERADOR" />
+
+
+
+                                                }
+                                                else
+                                                {
+                                                    <input placeholder="Formulario" name="DescFormulario" value="" />
+
+
+
+                                                }
+                                                <button type="submit" style="display:none">Buscar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tfoot>*@
+                        </table>
+                                }
+                                else
+                                {
+                                <div class="alert alert-danger" role="alert" id="divMensajeErrorListarIndicadores">
+                                    <span id="MyerrorMensajeListadoIndicadores">No existen indicadores...</span>
+                                </div>
+                                }
+                </td>
+            </tr>
+       </table>
+
+        <br />
+        <div class="alert alert-danger hidden" role="alert" id="divMensajeErrorCrearIndicadores">
+            <span id="MyerrorMensajeIndicadores"></span>
+        </div>
+
+        <script language="text/javascript">
+    $(function () {
+        $("body").append("<div class='darkScreen' hidden><div class='img-waiter'></div></div>");
+        cagarIndicadoresChecked();
+    });
+    $(function () {
+        $('.buttonTD').click(function () {
+            //alert("jose si sirve");
+            var IdicadorId = $(this).attr('id');
+            var IndicadorCheck = "#checkIndicador_" + IdicadorId;
+            var valueOrden = $("#ordenIndicador_" + IdicadorId).val();
+            if (valueOrden == null || valueOrden == "") {
+                $(IndicadorCheck).prop("checked", false);
+            }
+            else {
+                if ($(IndicadorCheck).is(":checked")) {
+                    $(IndicadorCheck).prop("checked", false);
+                     AgregarNuevoIndicador(IdicadorId)
+                }
+                else {
+                    $(IndicadorCheck).prop("checked", true);
+                    AgregarNuevoIndicador(IdicadorId);
+                }
+            }
+            
+        });
+    });
+            $(function () {
+                $('.buttonTDO').click(function () {
+                    //alert("jose si sirve");
+                    var OperadorId = $(this).attr('id');
+                    //alert(OperadorId);
+                    var OperadorCheck = "#check_" + OperadorId;
+                  //  var valueOrden = $("#ordenIndicador_" + IdicadorId).val();
+                    
+                    if ($(OperadorCheck).is(":checked")) {
+                        $(OperadorCheck).prop("checked", false);
+                            AgregarNuevoOperador(OperadorId);
+                        }
+                        else {
+                        $(OperadorCheck).prop("checked", true);
+                         AgregarNuevoOperador(OperadorId);
+                    }
+                  
+
+                });
+            });
+    
+    //##############################Guardar Indicadores//
+    $("#btnGuardarIndicadores").click(function (e) {
+
+        $(".darkScreen").fadeIn(100);
+        $("#alertaNoCriterios").hide();
+        // extrae los atributos del form
+        var IdSolicitudIndicador = $("#hiddenIDSOLICITUDINDICADOR").val();
+        var OrdenIndicadores = allIndicadores;
+
+
+
+        var json = new Object();
+        json.IdSolicitudIndicador = IdSolicitudIndicador;
+        json.Indicadores = OrdenIndicadores;
+        json.Operadores = arrayDeOperadoresSeleccionados;
+
+
+        var options = {
+            type: "post",
+            dataType: "json",
+            url: "/Solicitud/GuardarIndicadores",
+            data: { "data": json },
+            success: function (data) {
+                if (data.ok == "True") {
+                    $(".darkScreen").fadeOut(100, function () {
+                        $(this).remove();
+                    });
+                    window.location = "/Solicitud";
+                }
+                else {
+
+                    if (data.strMensaje == "NoAsociado") {
+
+                        var lista = data.data;
+                        var Mensaje = "<p>Los Siguientes Operadores e indicadores no se encuentran relacionados</p><table cellspacing='11'><Thead><TH>OPERADOR</TH><TH>INDICADOR NO RELACIONADO</TH></Thead>";
+                        for (var i = 0 ; i < lista.length; i++) {
+                            Mensaje = Mensaje + "<tr><td>" + lista[i].split("|")[1] + "</td><td>" + lista[i].split("|")[0] + "</td></tr>";
+                        }
+
+                        $("#alertText").html(Mensaje + "</table>");
+                    } else {
+                        $("#alertText").html(data.strMensaje);
+
+
+                    }
+                    $("#alertaNoCriterios").show();
+
+                    $(".darkScreen").fadeOut(100, function () {
+                        $(this).remove();
+                    });
+
+                }
+            },
+            error: function (error) {
+                window.location = "/Solicitud?e=1";
+            }
+        };
+
+        $.ajax(options);
+
+    }); // termina guardar indicadores
+
+    $('.buscarOperadorSeleccionado').click(function () {
+        //se quitan todos los check
+        $('[type=checkbox]').each(function (index) {
+            var checkbox = this;
+            $(checkbox).prop('checked', false);
+        });
+    });
+
+
+
+    function tdClick(idOperadorSeleccionado) {
+        //se quitan todos los check
+        $('[type=checkbox]').each(function (index) {
+            var checkbox = this;
+            $(checkbox).prop('checked', false);
+        });
+
+        for (var i = 0; i < allIndicadores.length; i++) {
+            
+
+            var idOperador = allIndicadores[i].substring(0, 5);
+            var idIndicador = allIndicadores[i].substring(6, allIndicadores[i].length);
+
+            if (idOperadorSeleccionado == idOperador)
+                $("#checkIndicador_" + idIndicador).prop('checked', true);
+                console.log(idOperadorSeleccionado);
+        }
+        //var element = $("#" + idOperador);
+        //var valueChecked = element.prop('checked', true);
+
+    }
+
+
+            @* KEVIN METHOD *@
+                function AgregarNuevoOperador(idOperador) {
+
+                    //alert("mae si llego" + idOperador);
+                    var OperadorCheck = "#check_" + idOperador;
+                    if ($(OperadorCheck).is(":checked")){
+                       // alert("si entre" + "#check_" + idOperador);
+                        arrayDeOperadoresSeleccionados.push(idOperador);
+
+                    } else {
+                      //  alert("no encontro el id");
+                        for (var i = 0; i < arrayDeOperadoresSeleccionados.length; i++) {
+
+                            if (arrayDeOperadoresSeleccionados[i] == idOperador)
+                                arrayDeOperadoresSeleccionados.splice(i, 1);
+                        }
+
+
+                    }
+                }
+
+   function AgregarValoresListaCheck(operador)
+   {
+       arrayDeOperadoresSeleccionados.push(operador);
+       console.log(arrayDeOperadoresSeleccionados);
+   };
+
+   function AgregarValoresListaUnCheck(operador)
+   {
+       for (var i = 0; i < arrayDeOperadoresSeleccionados.length; i++) {
+           if (arrayDeOperadoresSeleccionados[i] == operador)
+               arrayDeOperadoresSeleccionados.splice(i, 1);
+       }
+       console.log(arrayDeOperadoresSeleccionados);
+   };
+                  
+       function AgregarNuevoClick(idOperador) {
+            var element = $("#" + idOperador);
+            var valueChecked = element.prop('checked', true);
+                       
+        }
+
+    //#############################################################
+    //Funcion se ejecuta al seleccionar un Indicador
+    // Creado por Diego Navarrete
+    //11/03/2016
+    function cagarIndicadoresChecked() {
+
+        if (allIndicadores != null) {
+
+            for (var i = 0; i < allIndicadores.length; i++) {
+
+                var idIndicador = allIndicadores[i].split("|")[0];
+                var value = allIndicadores[i].split("|")[1];
+
+                $("#checkIndicador_" + idIndicador).prop("disabled", false);
+                var element = $("#checkIndicador_" + idIndicador);
+                var valueChecked = element.prop('checked', true);
+                var valueOrden = $("#ordenIndicador_" + idIndicador).val(value);
+            }
+
+        }
+
+        if (arrayDeOperadoresSeleccionados != null) {
+
+            for (var i = 0; i < arrayDeOperadoresSeleccionados.length; i++) {
+
+                var idOperador = arrayDeOperadoresSeleccionados[i];
+                var element = $("#check_" + idOperador);
+                var valueChecked = element.prop('checked', true);
+
+            }
+
+
+        }
+
+
+    }
+
+
+
+   </script>

@@ -613,6 +613,7 @@ input[type=number] {
 */
 
 .form-control-fonatel,                                                              /* Inputs de texto */
+.has-error .form-control-fonatel,
 .text-input-wrapper-btn input,                                                      /* Inputs de texto + botón de modal */
 .select2-btn-wrapper .select2-container--default .select2-selection,        /* Input Select2 + boton de modal */
 .select2-wrapper .select2-container--default .select2-selection {           /* Input Select2 individual */
@@ -626,6 +627,16 @@ input[type=number] {
         -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px var(--blue-fonatel-rgb-60);
         box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px var(--blue-fonatel-rgb-60);
     }
+
+    .has-error .form-control-fonatel {
+        border-color: var(--red-fonatel);
+    }
+
+        .has-error .form-control-fonatel:focus {
+            border-color: var(--red-fonatel);
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392
+        }
 
 textarea.form-control-fonatel {
     resize: vertical;

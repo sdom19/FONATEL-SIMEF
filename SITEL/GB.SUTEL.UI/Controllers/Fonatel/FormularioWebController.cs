@@ -226,7 +226,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View(objDetalleFormularioWeb);
         }
 
-
+        [HttpGet]
+        public ActionResult Visualizar(int? id, int? modo)
+        {
+            return View();
+        }
 
         [HttpGet]
         public async Task<string> ObtenerDetalleFormularioWeb(int idIndicador, string idFormulario)

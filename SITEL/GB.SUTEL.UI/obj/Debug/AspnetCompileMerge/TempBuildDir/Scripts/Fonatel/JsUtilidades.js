@@ -67,6 +67,14 @@ $(document).ready(function () {
         placeholder: "Seleccione",
         width: 'resolve' 
     });
+
+
+    $('.listasDesplegables_todos').select2({
+        placeholder: "Todos",
+        width: 'resolve'
+    });
+
+
     $('.nav-tabs > li a[title]').tooltip();
 });
 
@@ -115,7 +123,6 @@ $(document).on("keypress",'.solo_numeros', function (e) {
 function EliminarDatasource(pDataTable = ".datatable_simef") {
     $(pDataTable).DataTable().destroy();
 }
-
 
 function CargarDatasourceV2 (table) {
   let t=  $(table).DataTable({
@@ -188,7 +195,6 @@ function CargarDatasourceV2 (table) {
     }).draw();
 
 };
-
 
 function CargarDatasource(pDataTable = ".datatable_simef") {
    
@@ -288,53 +294,88 @@ function CargarDatasource(pDataTable = ".datatable_simef") {
     $('.datatable_simef > tbody tr td button').tooltip();
 }
 
-function ConcatenarItems(lista, nombreObj) { // concatenar una serie de objectos de una lista, según el parámetro enviado
-    let resultado = "";
-    lista.forEach(item => {
-        resultado += item[nombreObj].trim() + ", ";
-    });
-    return resultado.slice(0, resultado.length - 2) + ".";
-}
-
-function execAjaxCall(pURL, pHttpMethod, pParams = null) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: jsUtilidades.Variables.urlOrigen + pURL,
-            type: pHttpMethod,
-            dataType: "JSON",
-            data: pParams,
-            success: function (obj) {
-                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                    resolve(obj);
-                }
-                else {
-                    reject(obj);
-                }
-            },
-            error: function () {
-                reject()
-            }
-        })
-    })
-}
-
+/**
+ * José Navarro Acuña.
+ * Permite remover un item de una tabla DataTable.
+ * @param {any} pDataTable tabla DataTable.
+ * @param {any} pItem item a eliminar.
+ */
 function RemoverItemDataTable (pDataTable, pItem) {
-    $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
+    $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw(false);
 }
 
+/**
+ * José Navarro Acuña.
+ * Permite remover un item de un combobox select2.
+ * @param {any} pSelect2 combobox select2 de la vista.
+ * @param {any} pValor valor del item a remover
+ */
 function RemoverItemSelect2 (pSelect2, pValor) {
     $(`${pSelect2} option[value='${pValor}']`).remove();
 }
 
-function InsertarItemDataTable (pDataTable, pListaItems) {
-    $(pDataTable).DataTable().row.add(pListaItems).draw(false);
+/**
+ * José Navarro Acuña.
+ * Permite insertar un item en una tabla DataTable.
+ * @param {any} pDataTable tabla DataTable.
+ * @param {any} pItem item a insertar.
+ */
+function InsertarItemDataTable (pDataTable, pItem) {
+    $(pDataTable).DataTable().row.add(pItem).draw(false);
 }
 
+/**
+ * José Navarro Acuña.
+ * Actualiza un registro de una tabla DataTable.
+ * @param {any} pDataTable tabla DataTable.
+ * @param {any} pItem item a actualizar.
+ * @param {any} pContenido nuevo contenido del item
+ * @param {any} pPagina (opcional) número de página donde se encuentra el item
+ */
+function ActualizarItemDataTable(pDataTable, pItem, pContenido, pPagina = null) {
+    let dataTable = $(pDataTable).DataTable();
+
+    dataTable.row($(pItem).parents('tr')).data(pContenido).invalidate().draw()
+
+    //if (pPagina != null) {
+    //    // se debe cambiar la página donde se encuentra el registro, 
+    //    // ya que no es posible actualizar el item y ocurre un error
+    //    dataTable.page(pPagina).draw(false);
+    //}
+
+    //let item = dataTable.row($(pItem).parents('tr'));
+    //dataTable.row(item).data(pContenido).draw();
+}
+
+/**
+ * José Navarro Acuña.
+ * Obtener la página que se encuentra activa de una tabla DataTable.
+ * @param {any} pDataTable
+ */
+function ObtenerPaginaActual(pDataTable) {
+    return $(pDataTable).DataTable().page()
+}
+
+/**
+ * José Navarro Acuña.
+ * Permite insertar un item en un combobox select2.
+ * @param {any} pSelect2 combobox select2 de la vista.
+ * @param {any} pTexto texto que se muestra en las opciones.
+ * @param {any} pValor valor del item dentro del combobox select2.
+ * @param {any} pDefaultSelected indica si por defecto el valor se selecciona.
+ * @param {any} pSelect indica si se debe seleccionar el item.
+ */
 function InsertarItemSelect2 (pSelect2, pTexto, pValor, pDefaultSelected = false, pSelect = false) {
     var newOption = new Option(pTexto, pValor, pDefaultSelected, pSelect);
     $(pSelect2).append(newOption).trigger('change');
 }
 
+/**
+ * José Navarro Acuña.
+ * Permite insertar un conjunto de opciones a un combobox select2.
+ * @param {any} pSelect2 combobox select2 de la vista.
+ * @param {any} pDataSet listado de opciones a insertar. IMPORTANTE: la forma de la lista debe ser [{ text: <texto>, value: <valor> }, {..}, ..., {..}]
+ */
 function InsertarDataSetSelect2(pSelect2, pDataSet) {
     if (pDataSet.length > 0) {
         pDataSet.forEach(option => {
@@ -345,6 +386,14 @@ function InsertarDataSetSelect2(pSelect2, pDataSet) {
     }
 }
 
+/**
+ * José Navarro Acuña.
+ * Útil para cuando se edita un formulario y se deben seleccionar items de un combobox select2 multiple.
+ * @param {any} pSelect2 combobox select2 de la vista.
+ * @param {any} pDataSet las opciones a seleccionar en el combobox múltiple.
+ * @param {any} pLlave valor mediante el cuál se obtiene el valor de 'pDataSet', comúnmente es 'value' o algún ID.
+ * @param {any} pActivarEventoOnChange (opcional) - hace posible visualizar los cambios en el input.
+ */
 function SeleccionarItemsSelect2Multiple(pSelect2, pDataSet, pLlave, pActivarEventoOnChange = false) {
     if (pDataSet.length > 0) {
         let list = [];
@@ -352,16 +401,23 @@ function SeleccionarItemsSelect2Multiple(pSelect2, pDataSet, pLlave, pActivarEve
             list.push(option[pLlave]);
         });
         $(pSelect2).val(list);
-        $(pSelect2).trigger('change');
+        $(pSelect2).trigger('change'); // trigger a nivel interno
 
         if (pActivarEventoOnChange) {
-            $(pSelect2).trigger({
+            $(pSelect2).trigger({ // trigger a nivel visual
                 type: 'select2:select'
             });
         }
     }
 }
 
+/**
+ * José Navarro Acuña.
+ * Seleccionar una opción de un combobox select2.
+ * @param {any} pSelect2 combobox select2 de la vista.
+ * @param {any} pValue valor utilizado en el combobox como atributo 'value'.
+ * @param {any} pActivarEventoOnChange (opcional) - hace posible visualizar los cambios en el input.
+ */
 function SeleccionarItemSelect2(pSelect2, pValue, pActivarEventoOnChange = false) {
     $(pSelect2).val(pValue);
     $(pSelect2).trigger('change');
@@ -373,30 +429,45 @@ function SeleccionarItemSelect2(pSelect2, pValue, pActivarEventoOnChange = false
     }
 }
 
+/**
+ * José Navarro Acuña.
+ * Inserta en un combobox select2 múltiple la opción 'Todos'.
+ * @param {any} pSelect2 input select2 de la vista.
+ */
 function InsertarOpcionTodosSelect2Multiple(pSelect2) {
     var newOption = new Option("Todos", "all", false, false);
     $(pSelect2).append(newOption).trigger('change');
 }
 
+/**
+ * José Navarro Acuña.
+ * Inserta un parámetro en la URL del navegador. Afecta al state del history. No recarga página.
+ * @param {any} pParametro parámetro valor llave.
+ * @param {any} pValor valor del parámetro.
+ */
 function InsertarParametroUrl (pParametro, pValor) {
     const url = new URL(window.location);
     url.searchParams.set(pParametro, pValor);
     window.history.pushState(null, '', url.toString());
 }
 
+/**
+ * José Navarro Acuña.
+ * Obtener el valor de un parámetro de la URL.
+ * @param {any} pParametro parámetro del valor a obtener.
+ */
 function ObtenerValorParametroUrl (pParametro) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(pParametro);
 }
 
-function ConcatenarItems(lista, nombreObj) { // concatenar una serie de objectos de una lista, según el parámetro enviado
-    let resultado = "";
-    lista.forEach(item => {
-        resultado += item[nombreObj].trim() + ", ";
-    });
-    return resultado.slice(0, resultado.length - 2) + ".";
-}
-
+/**
+ * José Navarro Acuña.
+ * Permite realizar llamados ajax asincrónicos.
+ * @param {any} pURL dirección URL.
+ * @param {any} pHttpMethod método Http a ejecutar.
+ * @param {any} pParams parámetros a enviar durante la consulta, comúnmente son objetos o valores individuales.
+ */
 function execAjaxCall(pURL, pHttpMethod, pParams = null) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -430,16 +501,7 @@ $(document).on("keypress", '.solo_operacion', function (e) {
 
 
 $(document).on("keypress", '.alfa_numerico', function (e) {
-    var regex = new RegExp("^[0-9]|[a-z]|[\s]|[A-Z]+$");
-    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-    if (!regex.test(key)) {
-        e.preventDefault();
-        return false;
-    }
-});
-
-$(document).on("keypress", '.alfa_numerico_v2', function (e) {
-    var regex = new RegExp("^[0-9]|[A-Za-zÁÉÍÓÚáéíóúñÑ]|[\\s]+$");
+    var regex = new RegExp("^[0-9A-Za-zÁÉÍÓÚáéíóúñÑ ]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         e.preventDefault();
@@ -448,7 +510,7 @@ $(document).on("keypress", '.alfa_numerico_v2', function (e) {
 });
 
 $(document).on("keypress", '.solo_texto', function (e) {
-    var regex = new RegExp("^[a-z]|[A-Z]|[\\s]+$");
+    var regex = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         e.preventDefault();
@@ -462,46 +524,4 @@ $.urlParam = function (name) {
         return null;
     }
     return decodeURI(results[1]) || 0;
-}
-function InsertarDataSetSelect2(pSelect2, pDataSet) {
-    if (pDataSet.length > 0) {
-        pDataSet.forEach(option => {
-            var newOption = new Option(option.text, option.value, false, false);
-            $(pSelect2).append(newOption);
-        });
-        $(pSelect2).trigger('change');
-    }
-}
-
-function SeleccionarItemsSelect2Multiple(pSelect2, pDataSet, pLlave, pActivarEventoOnChange = false) {
-    if (pDataSet.length > 0) {
-        let list = [];
-        pDataSet.forEach(option => {
-            list.push(option[pLlave]);
-        });
-        $(pSelect2).val(list);
-        $(pSelect2).trigger('change');
-
-        if (pActivarEventoOnChange) {
-            $(pSelect2).trigger({
-                type: 'select2:select'
-            });
-        }
-    }
-}
-
-function SeleccionarItemSelect2(pSelect2, pValue, pActivarEventoOnChange = false) {
-    $(pSelect2).val(pValue);
-    $(pSelect2).trigger('change');
-
-    if (pActivarEventoOnChange) {
-        $(pSelect2).trigger({
-            type: 'select2:select'
-        });
-    }
-}
-
-function InsertarOpcionTodosSelect2Multiple(pSelect2) {
-    var newOption = new Option("Todos", "all", false, false);
-    $(pSelect2).append(newOption).trigger('change');
 }

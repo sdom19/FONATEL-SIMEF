@@ -70,7 +70,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cantidad de Detalles.
+        ///   Looks up a localized string similar to Cantidad de Detalle.
         /// </summary>
         public static string Cantidad {
             get {
@@ -106,7 +106,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Agregar Detalle.
+        ///   Looks up a localized string similar to Detalle.
         /// </summary>
         public static string Detalle {
             get {
@@ -151,7 +151,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fecha Hasta.
+        ///   Looks up a localized string similar to Fecha Final.
         /// </summary>
         public static string FechaHasta {
             get {

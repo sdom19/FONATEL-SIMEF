@@ -148,7 +148,7 @@
     <value>Etiqueta de Detalle</value>
   </data>
   <data name="FechaHasta" xml:space="preserve">
-    <value>Fecha Hasta</value>
+    <value>Fecha Final</value>
   </data>
   <data name="FechaInicio" xml:space="preserve">
     <value>Fecha Inicio</value>

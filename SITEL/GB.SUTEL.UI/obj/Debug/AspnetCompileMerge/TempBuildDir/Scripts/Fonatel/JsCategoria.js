@@ -128,7 +128,7 @@
                 JsCategoria.Variables.ListadoCategoriaDetalle = [];
             },
             "CerrarFormulario": function () {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Salir del Formulario?", jsMensajes.Variables.actionType.cancelar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea salir del Formulario?", jsMensajes.Variables.actionType.cancelar)
                     .set('onok', function (closeEvent) {
                         
                     }); 
@@ -337,7 +337,7 @@
                 DetalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val().trim();
                 execAjaxCall("/CategoriasDesagregacion/InsertarCategoriasDetalle", "POST", DetalleCategoria)
                     .then((obj) => {
-                        jsMensajes.Metodos.OkAlertModal("El detalle ha sido agregado")
+                        jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
                             .set('onok', function (closeEvent) {
                                 location.reload();
                             });
@@ -537,7 +537,7 @@
                 detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val().trim();
                 execAjaxCall("/CategoriasDesagregacion/ModificaCategoriasDetalle", "POST", detalleCategoria)
                     .then((obj) => {
-                        jsMensajes.Metodos.OkAlertModal("El detalle ha sido modificado")
+                        jsMensajes.Metodos.OkAlertModal("El Detalle ha sido modificado")
                             .set('onok', function (closeEvent) {
                                 location.reload();
                             });

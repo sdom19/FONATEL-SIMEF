@@ -1,0 +1,417 @@
+@using GB.SUTEL.UI.Helpers;
+@if (User.Identity.IsAuthenticated)
+{
+    var AccionesPantalla = rolValidation.pantallas(this.Context);
+    var m1 = false; string mantenimientos = "";
+    var m2 = false; string procesos = "";
+    var m3 = false; string fuentes = "";
+    var m4 = false; string seguridad = "";
+    var mConstructor = false; string constructor = "";
+    var m5 = false; string reportes = "";
+    var m6 = false; string espectro = "";
+    var m7 = false; string calidad = "";
+    var m8 = false; string SIGITEL = "";
+    var m9 = true; string Fonatel = "";
+
+
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Administrador Fonatel"))
+    {
+        Fonatel += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>FONATEL<span class='caret'></span></a><ul class='dropdown-menu' role='menu'>";
+
+        Fonatel += "<li class='menu-item dropdown dropdown-submenu'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>Gestión de Indicadores</a><ul class='dropdown-menu'>";
+
+        Fonatel += "<li class='menu-item'><a href='/Fonatel/CategoriasDesagregacion/index'>Categorías de Desagregación</a></li>";
+
+        Fonatel += "<li class='menu-item'><a href='/Fonatel/RelacionCategoria/index'>Relaciones entre Categorías</a></li>";
+
+        Fonatel += "<li class='menu-item'><a href='/fonatel/IndicadorFonatel/index'>Indicadores</a></li>";
+
+        Fonatel += "<li class='menu-item'><a href='/fonatel/ReglasValidacion/index'>Reglas de Validación</a></li>";
+
+        Fonatel += "</ul></li>";
+
+        Fonatel += "<li class='divider'></li>";
+
+        Fonatel += "<li class='menu-item dropdown dropdown-submenu'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>Gestión de Formularios</a><ul class='dropdown-menu'>";
+
+        Fonatel += "<li class='menu-item'><a href='/Fonatel/Fuentes/index'>Fuentes de Registro</a></li>";
+
+        Fonatel += "<li class='menu-item'><a href='/Fonatel/FormularioWeb/index'>Formulario Web</a></li>";
+
+        Fonatel += "<li class='menu-item'><a href='/fonatel/SolicitudFonatel/index'>Solicitudes de Información</a></li>";
+
+
+
+
+        Fonatel += "</ul></li>";
+
+        Fonatel += "<li class='divider'></li>";
+
+        Fonatel += "<li><a href='/FormulaCalculo/index'>Gestión de Cálculo</a></li>";
+
+        Fonatel += "<li><a href='/EditarFormulario/index'>Descarga y Edición de Formulario</a></li>";
+
+        Fonatel += "<li class='menu-item dropdown dropdown-submenu'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>Gestión Publicación SIGITEL</a><ul class='dropdown-menu'>";
+
+        Fonatel += "<li><a href='/DefinicionIndicadores'>Definición</a></li>";
+        Fonatel += "<li><a href='/PublicacionIndicadores'>Publicación de Indicadores</a></li>";
+
+        Fonatel += "</ul></li>";
+
+        Fonatel += "<li class='divider'></li>";
+
+        Fonatel += "<li><a href='/BitacoraFonatel'>Gestión de Bitácoras</a></li>";
+
+        Fonatel += "<li><a href='/HistoricoFonatel'>Gestión de Consulta de Datos Históricos</a></li>";
+
+        Fonatel += "</ul></li>";
+
+        m9 = true;
+    }
+
+
+
+    mantenimientos = "<li class='menu-item dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>Mantenimientos <span class='caret'></span></a><ul class='dropdown-menu' role='menu'>";
+
+    //Espectro
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Espectro"))
+    {
+
+        espectro += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>Espectro<span class='caret'></span></a><ul class='dropdown-menu' role='menu'>";
+
+
+        espectro += "<li><a href='/Espectro/Espectro'>Subir archivo</a></li>"; m6 = true;
+    }
+    espectro += "</ul></li>";
+    calidad += "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>Calidad<span class='caret'></span></a><ul class='dropdown-menu' role='menu'>";
+    //Umbrales y pesos relativos
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Calidad Umbrales"))
+    {
+
+        calidad += "<li><a href='/IndicadorUmbral'>Umbrales y Pesos Relativos</a></li>"; m7 = true;
+
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Calidad Formulas"))
+    {
+
+        calidad += "<li><a href='/FormCumplimientoPorcen'>Fórmulas de Porcentaje y Cumplimiento</a></li>"; m7 = true;
+
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Calidad Motor"))
+    {
+        calidad += "<li><a href='/FormCumplimientoPorcen/EjecutarFormulas'>Programación de ejecucion (Fórmulas)</a></li>"; m7 = true;
+    }
+    calidad += "</ul></li>";
+
+    //Mantenimiento Nivel
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Nivel"))
+    {
+        mantenimientos += "<li><a href='/Nivel'>Nivel</a></li>"; m1 = true;
+    }
+
+    //Mantenimiento Frecuencia
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Frecuencia"))
+    {
+        mantenimientos += "<li><a href='/Frecuencia'>Frecuencia</a></li>"; m1 = true;
+    }
+
+    //Mantenimiento Tipo Indicador
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Tipo Indicador"))
+    {
+        mantenimientos += "<li><a href='/TipoIndicador'>Tipo Indicador</a></li>"; m1 = true;
+    }
+
+    //Mantenimiento Indicador UIT
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Indicador UIT"))
+    {
+        mantenimientos += "<li><a href='/IndicadorUIT'>Indicador UIT</a></li>"; m1 = true;
+    }
+
+    //Mantenimiento Agrupacion
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Agrupacion"))
+    {
+        if (m1)
+        {
+            mantenimientos += "<li class='divider'></li>";
+        }
+        mantenimientos += "<li><a href='/Agrupacion'>Agrupaci&oacute;n</a></li>"; m1 = true;
+    }
+
+    //Mantenimiento Detalle de Agrupacion
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Detalle de Agrupacion"))
+    {
+        mantenimientos += "<li><a href='/DetalleAgrupacion'>Detalle de Agrupaci&oacute;n</a></li>"; m1 = true;
+        mantenimientos += "<li class='divider'></li>";
+    }
+
+    //Mantenimiento Indicadores
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Indicador"))
+    {
+        mantenimientos += "<li><a href='/Indicador'>Indicador</a></li>"; m1 = true;
+    }
+
+    //Mantenimiento Indicador Cruzado
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Indicador Cruzado"))
+    {
+        mantenimientos += "<li><a href='/IndicadorCruzado'>Indicador Cruzado</a></li>"; m1 = true;
+    }
+
+    mantenimientos += "<li class='divider'></li>";
+
+
+    //Mantenimiento Criterios
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Criterios"))
+    {
+        mantenimientos += "<li><a href='/Criterio'>Criterios</a></li>"; m1 = true;
+        mantenimientos += "<li class='divider'></li>";
+    }
+
+    //Mantenimiento Servicios
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Servicios"))
+    {
+        mantenimientos += "<li><a href='/Servicio'>Servicios</a></li>"; m1 = true;
+    }
+
+    //Mantenimiento Servicios Operador
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Servicios Operador"))
+    {
+        mantenimientos += "<li><a href='/serviciosoperador'>Servicios Operador</a></li>"; m1 = true;
+    }
+
+    //Mantenimiento Servicios Indicador
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Servicio Indicador"))
+    {
+        mantenimientos += "<li><a href='/ServicioIndicador'>Servicios Indicador</a></li>"; m1 = true;
+    }
+
+    mantenimientos += "<li class='divider'></li>";
+
+
+    //Fuentes Externas
+    fuentes = "<li class='menu-item dropdown dropdown-submenu'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>Fuente Externa</a><ul class='dropdown-menu'>";
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Fuentes Externas"))
+    {
+        fuentes += "<li class='menu-item'><a href='/FuenteExterna'>Fuentes Externas</a></li>"; m3 = true;
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Indicador Externo"))
+    {
+        fuentes += "<li class='menu-item'><a href='/IndicadorExterno'>Indicador Externo</a></li>"; m3 = true;
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Periodicidad"))
+    {
+        fuentes += "<li class='menu-item'><a href='/Periodicidad'>Periodicidad</a></li>"; m3 = true;
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Region Indicador Externo"))
+    {
+        fuentes += "<li class='menu-item'><a href='/RegionIndicadorExterno'>Regi&oacute;n</a></li>"; m3 = true;
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Zona Indicador Externo"))
+    {
+        fuentes += "<li class='menu-item'><a href='/ZonaIndicadorExterno'>Zona</a></li>"; m3 = true;
+    }
+    fuentes += "</ul></li>";
+
+
+
+    if (m3)
+    {
+        mantenimientos += fuentes;
+    }
+
+    mantenimientos += "<li class='divider'></li>";
+
+    //Consulta Operador
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Operador"))
+    {
+        mantenimientos += "<li><a href='/Operador'>Consultar Operadores</a></li>"; m1 = true;
+    }
+
+
+    //    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Constructor"))
+    //{
+    //                mantenimientos+="<li><a href='/Constructor'>Constructor</a></li>";m1=true;}
+
+    //    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Indicador para Indicador UIT"))
+    //{
+    //                mantenimientos+="<li><a href='#'>Indicador para Indicador UIT</a></li>";m1=true;}
+
+    //    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Servicios Tipo Indicador"))
+    //{
+    //                mantenimientos+="<li><a href='#'>Servicios Tipo Indicador</a></li>";m1=true;}
+
+
+
+    mantenimientos += "</ul></li>";
+
+    //Constructor
+    constructor = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>Constructor<span class='caret'></span></a><ul class='dropdown-menu' role='menu'>";
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Constructor"))
+    {
+        constructor += "<li><a href='/Constructor'>Constructor</a></li>"; mConstructor = true;
+    }
+    constructor += "</ul></li>";
+
+
+    //Procesos
+    procesos = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>Procesos <span class='caret'></span></a><ul class='dropdown-menu' role='menu'>";
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Registro Indicador Externo"))
+    {
+        procesos += "<li class='menu-item'><a href='/RegistroIndicadorExterno'>Registro Indicador Externo</a></li>"; m2 = true;
+    }
+
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Fuente Fonatel"))
+    {
+        procesos += "<li><a href='/RegistroIndicadorFonatel/index'>Registro Indicadores</a></li>"; m2 = true;
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Registro Indicadores"))
+    {
+        procesos += "<li><a href='/RegistroIndicador'>Registro Indicadores</a></li>"; m2 = true;
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Modificacion Indicador Interno"))
+    {
+        procesos += "<li><a href='/ModificionRegistroIndicadorInterno'>Modificación Indicador Interno</a></li>"; m2 = true;
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Solicitud"))
+    {
+        procesos += "<li class='divider'></li>";
+        procesos += "<li><a href='/solicitud'>Solicitud</a></li>"; m2 = true;
+    }
+
+    //Configuracion de Servicios
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Configuracion de Servicios"))
+    {
+        procesos += "<li><a href='/ConfiguracionServicios'>Confirmación de Servicios</a></li>"; m2 = true;
+    }
+
+
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Solicitud General Index"))
+    {
+        procesos += "<li class='divider'></li>";
+        procesos += "<li><a href='/SolicitudGenerals/Index'>Solicitud General</a></li>"; m2 = true;
+    }
+
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Solicitud General Responder"))
+    {
+
+        procesos += "<li><a href='/SolicitudOperadors/Index?Nombre="+User.Identity.Name+"'>Solicitud General</a></li>"; m2 = true;
+    }
+
+    procesos += "</ul></li>";
+
+
+
+    seguridad = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>Seguridad <span class='caret'></span></a><ul class='dropdown-menu' role='menu'>";
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Usuarios"))
+    {
+        seguridad += "<li><a href='/Usuarios'>Usuarios</a></li>"; m4 = true;
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Roles"))
+    {
+        seguridad += "<li><a href='/Rol'>Roles</a></li>"; m4 = true;
+    }
+    @*@if (rolValidation.ValidateMenuFunctions(User, "Acciones"))
+        {
+            <li><a href='#'>Acciones</a></li>}*@
+    seguridad += "</ul></li>";
+
+    //Procesos
+    reportes = "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>Reportes <span class='caret'></span></a><ul class='dropdown-menu' role='menu'>";
+
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Tipo de Indicador por Servicio"))
+    {
+        reportes += "<li class='menu-item'><a href='/Reporte/_ReporteTipoIndicadorServicio'>Tipo Indicador por Servicio</a></li>"; m5 = true;
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Indicadores por Servicio"))
+    {
+        reportes += "<li class='menu-item'><a href='/Reporte/_ReporteIndicadorPorServicio'>Indicadores por Servicio</a></li>"; m5 = true;
+    }
+
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Indicadores por Operador"))
+    {
+        reportes += "<li class='menu-item'><a href='/Reporte/_ReporteIndicadorPorOperador'>Indicadores por Operador</a></li>"; m5 = true;
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Detalle Agrupación  por Agrupación"))
+    {
+        reportes += "<li class='menu-item'><a href='/Reporte/_ReporteDetalleAgrupacionPorAgrupacion'>Detalle Agrupación  por Agrupación </a></li>"; m5 = true;
+    }
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Bitacora"))
+    {
+        reportes += "<li class='menu-item'><a href='/Reporte/_ReporteBitacora'>Bitacora </a></li>"; m5 = true;
+    }
+
+    reportes += "</ul></li>";
+
+SIGITEL += "  <li class='dropdown'>    <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-expanded='false'>SIGITEL<span class='caret'></span></a> ";
+
+    SIGITEL += " <ul class='dropdown-menu' role='menu'>";
+
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Definicion de Indicadores"))
+    {
+        SIGITEL += "<li> <a href='/Mantenimiento/DefinicionIndicadores' > Definición de Indicadores </a> </li> "; m8 = true;
+
+    }
+
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Parametros de Indicadores"))
+    {
+        SIGITEL += "<li> <a href='/Mantenimiento/ParametrosIndicadores' >Parámetros de Indicadores </a> </li> "; m8 = true;
+
+    }
+
+    if (rolValidation.ValidateMenuFunctions(AccionesPantalla, "Reporte"))
+    {
+        SIGITEL += "<li> <a href='/Mantenimiento/Reporte' >Reporte </a> </li> "; m8 = true;
+
+    }
+
+    SIGITEL += "  </ul> </li>";
+
+
+
+<ul class='nav navbar-nav'>
+    @if (m1)
+    {
+        @Html.Raw(mantenimientos)
+    }
+
+    @if (mConstructor)
+    {
+        @Html.Raw(constructor)
+    }
+
+    @if (m2)
+    {
+        @Html.Raw(procesos)
+
+    }
+
+    @if (m4)
+    {
+        @Html.Raw(seguridad)
+    }
+    @if (m5)
+    {
+        @Html.Raw(reportes)
+    }
+
+    @if (m6)
+    {
+        @Html.Raw(espectro)
+    }
+
+    @if (m7)
+    {
+        @Html.Raw(calidad)
+    }
+
+    @if (m8)
+    {
+        @Html.Raw(SIGITEL)
+    }
+
+    @if (m9)
+    {
+        @Html.Raw(Fonatel);
+    }
+
+</ul>
+}

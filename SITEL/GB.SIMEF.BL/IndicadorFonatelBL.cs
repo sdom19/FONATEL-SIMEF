@@ -37,7 +37,44 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<Indicador>> ActualizarElemento(Indicador pIndicador)
         {
-            throw new NotImplementedException();
+
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            bool errorControlado = false;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
+                pIndicador.idIndicador = number;
+                // actualizar el estado del indicador
+                PrepararObjetoIndicador(pIndicador);
+                pIndicador.UsuarioModificacion = user;
+                var indicadorActualizado = indicadorFonatelDAL.PublicacionSigitel(pIndicador);
+
+                if (indicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+
+                resultado.Accion = pIndicador.VisualizaSigitel == true? (int)Accion.Publicado:(int)Accion.NoPublicado;
+                resultado.Clase = modulo;
+                resultado.Usuario = user;
+                resultado.CantidadRegistros = indicadorActualizado.Count();
+
+                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
         }
 
         /// <summary>

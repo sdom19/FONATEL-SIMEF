@@ -1,0 +1,129 @@
+﻿@model GB.SUTEL.UI.Models.ConstructorViewModel
+@using GB.SUTEL.Entities
+
+
+<h4>@GB.SUTEL.Resources.EtiquetasMantenimiento.ttlAdministracionConstrutor</h4>
+<h5>@GB.SUTEL.Resources.EtiquetasMantenimiento.ttlEditar</h5>
+
+<script type="text/javascript">
+</script>
+@if(@ViewBag.Error != null) { 
+    <div class="alert alert-warning" role="alert">
+      <strong>Alerta!</strong> @ViewBag.Error
+    </div>
+}
+@if (@TempData["Error"] != null)
+{
+    <div class="alert alert-warning" role="alert">
+        <strong>Alerta!</strong> @TempData["Error"]
+    </div>
+}
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div >
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#indicador" aria-controls="indicador" role="tab" data-toggle="tab">Indicador</a></li>
+        <li><a href="EditarCriterio?id=@Model.constructor.IdConstructor">Criterios</a></li>
+        <li><a onclick="funcMostrarMensajeIOperadores();">Operadores</a></li>
+        <li><a onclick="funcMostrarMensajeIArbol();">Árbol</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="indicador">
+                <form method="post"  action="@Url.Action("Editar")"  >
+                    <br />
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true)
+
+
+                        <div class="form-group" id="divIndicador">
+                            @Html.Label("Indicador", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <div class="input-group" style="width:400px;">
+                                    @Html.TextAreaFor(model => model.constructor.Indicador.NombreIndicador, new { @class = "form-control", @placeholder = "Indicador", @id = "nombreIndicadorCrear", disabled = true, @cols = "100", @rows = "3" })
+                                    @Html.HiddenFor(model => model.constructor.IdIndicador, new { @id = "IdIndicadorCrear" })
+                                    @Html.HiddenFor(model => model.constructor.IdConstructor, new { @id = "IdConstructor" })
+                                    @Html.HiddenFor(model => model.constructor.IdDireccion, new { @id = "IdDireccion" })
+                                    @Html.ValidationMessageFor(model => model.constructor.Indicador)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.constructor.IdFrecuencia, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.constructor.IdFrecuencia,
+                                             new SelectList(Model.listaFrecuencia,
+                                          "IdFrecuencia", "NombreFrecuencia"),
+                                                               "Seleccione", new { @class = "form-control" })
+
+                                @Html.ValidationMessageFor(model => model.constructor.IdFrecuencia)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.constructor.IdDesglose, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.constructor.IdDesglose,
+                                             new SelectList(Model.listaFrecuencia,
+                                          "IdFrecuencia", "NombreFrecuencia"),
+                                                               "Seleccione", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.constructor.IdDesglose)
+                            </div>
+                        </div>
+
+                    </div>
+                    </br>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>                      
+                        <div class="col-md-4">
+                            @if(@ViewBag.Error == null) { 
+                            <input type="submit" value="Guardar y Continuar" class="btn btn-success" alt="Guardar Cambios" title="Guardar Cambios" />
+                            }
+                            <button type="button" class="btn btn-danger " onclick="gLlamadaControles('@Url.Action("Index", "Constructor")', '');" title="Cancelar">Cancelar</button>
+                        </div>   
+                        <div class="col-md-4"></div>                  
+                    </div>                  
+                </form>
+            </div>
+        </div>
+
+        <div class="alert alert-danger" hidden role="alert" id="divMensajeErroCrearConstructor">
+            <strong>Error!</strong>
+            <div id="idMensajeErrorCuerpoConstructor"></div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="divMensaje">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="Cerrar">×</button>
+                <h4 class="modal-title" id="tituloMensaje">Mensaje</h4>
+            </div>
+            <div class="modal-body" id="contenidoMensaje">
+                <p>One fine body…</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" title="Aceptar">Aceptar</button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section scripts{
+    @Scripts.Render("~/Scripts/Mantenimientos/Constructor/ConstructorEditarCriterio.js")
+    @Scripts.Render("~/Scripts/Mantenimientos/Constructor/ConstructorGeneral.js")
+    @Scripts.Render("~/Scripts/jsUtilidad.js")
+}
+

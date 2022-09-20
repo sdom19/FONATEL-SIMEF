@@ -1,0 +1,147 @@
+﻿@{
+    List<Mantenimiento.DireccionViewModel> direcciones = ViewBag.Direcciones;
+}
+@*Links*@
+<link href="~/Content/Mantenimiento.css" rel="stylesheet" />
+<link href="~/Content/DataTables/DataTables-1.10.18/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/datepicker-master/dist/datepicker.css" rel="stylesheet" />
+<link href="~/Content/DataTables/Responsive-2.2.2/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+
+
+<div class="row">
+    @*Panel Filtros*@
+    <div class="panel" style="border-color:#006672;width: 90%;margin-left: 5%;">
+        @*Título*@
+        <div class="panel-heading" style="background-color:#006672" ;>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2 class="panel-title" style="color:#ffffff">
+                        Reportes
+                    </h2>
+                </div>
+                <div class="col-sm-6" style="text-align:end">
+                    <img src="~/Content/Images/analytics (1).png" />
+                </div>
+            </div>
+        </div>
+        @*Filtros*@
+        <div class="panel-body">
+            <div class="container" id="Filtros" style="display:none">
+                <div class="row">
+                    @*Dirección*@
+                    <div class="col-sm-3">
+                        <label for="direccionSelect">Seleccione la Dirección</label>
+                        <select class="form-control" id="direccionSelect"></select>
+                    </div>
+                    @*Servicio*@
+                    <div class="col-sm-3">
+                        <label for="servicioSelect">Seleccione el servicio</label>
+                        <select class="form-control" id="servicioSelect"></select>
+                    </div>
+                    @*Fecha Inicio*@
+                    <div class="col-sm-2 ">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Desde</label>
+                            <div class="input-icon-wrap">
+                                <input class="form-control datepicker" id="desde" type="text" data-toggle="datepicker">
+                                <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled="">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    @*Fecha Fin*@
+                    <div class="col-sm-2 ">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Hasta</label>
+                            <div class="input-icon-wrap">
+                                <input class="form-control datepicker" id="hasta" type="text" data-toggle="datepicker">
+                                <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled="">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    @*Buscar*@
+                    <div class="col-sm-2" style="margin-top: 2.5%;">
+                        <div class="form-group">
+                            <button id="Search" class="btn sutelColor" type="submit" onclick="verReporte()" style="width: 100%;"><i class="fa fa-search" style="color:#ffffff"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+@*Loader*@
+<div class="loader" id="loader" style="display:block"></div>
+@*Div de tabla*@
+<div id="tabla-reporte" style="display: none;">
+    <div class="row">
+        @*Tabla*@
+        <table class="table table-striped " id="ReporteTable" style="width:100%">
+            <thead class="sutelColor">
+                <tr>
+                    <th rowspan="2">Usuario</th>
+                    <th rowspan="2">Fecha de publicación</th>
+                    <th rowspan="2">Servicio</th>
+                    <th rowspan="2">Indicador</th>
+                    <th colspan="2">Visualizar por operador</th>
+                    <th colspan="2">Visualizar por nivel</th>
+                </tr>
+                <tr>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+@*Scripts*@
+<script src="~/Scripts/Moment.js"></script>
+<script src="~/Scripts/ScriptMantenimiento.js"></script>
+<script src="~/Content/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/DataTables/DataTables-1.10.18/js/dataTables.bootstrap.min.js"></script>
+<script src="~/Content/DataTables/Buttons-1.5.4/js/dataTables.buttons.min.js"></script>
+<script src="~/Content/DataTables/Buttons-1.5.4/js/buttons.print.min.js"></script>
+<script src="~/Content/datepicker-master/dist/datepicker.js"></script>
+<script src="~/Content/DataTables/Responsive-2.2.2/js/dataTables.responsive.min.js"></script>
+<script src="~/Content/DataTables/Responsive-2.2.2/js/responsive.bootstrap4.min.js"></script>
+<script>
+     //Ocultar estilos
+    var styleSheets = document.styleSheets;
+    var href = "/Content/DataTables-1.10.5/media/css/jquery.dataTables.min.css";
+    for (var i = 0; i < styleSheets.length; i++) {
+        if (styleSheets[i].href.includes(href)) {
+            styleSheets[i].disabled = true;
+            break;
+        }
+    }
+    //DatePicker
+    $('[data-toggle="datepicker"]').datepicker({ autoHide: true , format: 'dd/mm/yyyy'});
+    $('[data-toggle="datepicker"]').datepicker('pick');
+    $(document).ready(function () {
+
+          //Obtener direcciones y crear select
+        var arrayDirecciones = @Html.Raw(Json.Encode(direcciones));
+        arrayDirecciones.forEach(function(direccion) {
+            $('#direccionSelect').append($('<option>', {
+            value: direccion.IdDireccion,
+                text: direccion.Nombre + " (" + direccion.Cantidad + ")"
+            }));
+        });
+         //On Change de Direcciones
+       $("#direccionSelect").change(function () {
+            getServicios(this.value);
+       });
+        //Valores iniciales
+        getServicios($('#direccionSelect').val());
+        $('#loader').hide();
+        $('#Filtros').show();
+    });
+</script>

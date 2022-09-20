@@ -1,0 +1,70 @@
+﻿@using GB.SUTEL.Entities
+@model List<ConstructorCriterio>
+    <table class="display" cellspacing="0" data-table-grid="true" data-table-grid-display-rows="4">
+        <thead>
+            <tr>
+                <th>
+                    Código
+                </th>
+                <th>
+                    Criterio
+                </th>
+                <th>
+                   Ayuda
+                </th>
+
+
+                <th class="no-sort" style="min-width:40px;"></th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td>@Html.TextBox("txtFiltroCodigoCriterio", null, new { size = "5", onkeyup = "filtrarCriterioSeleccionado(event);", @placeholder = "Código" })</td>
+                <td>@Html.TextBox("txtFiltroCriterio", null, new { size = "10", onkeyup = "filtrarCriterioSeleccionado(event);", @placeholder = "Criterio" })</td>
+                <td colspan="2">@Html.TextBox("txtFiltroAyuda", null, new { size = "10", onkeyup = "filtrarCriterioSeleccionado(event);", @placeholder = "Ayuda" })</td>
+
+            </tr>
+        </tfoot>
+        <tbody>
+            @if (Model != null && Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td onclick="funEditarCriterio('@item.Criterio.IdCriterio','@item.Criterio.DescCriterio')"
+                            data-select="true" data-json-selected='{"txtAyuda":"  @item.Ayuda.Replace("\n", " ")"}'>
+                            @Html.DisplayFor(modelItem => item.Criterio.IdCriterio)
+                        </td>
+                        <td onclick="funEditarCriterio('@item.Criterio.IdCriterio','@item.Criterio.DescCriterio')"
+                            data-select="true" data-json-selected='{"txtAyuda":"   @item.Ayuda.Replace("\n", " ") "}'>
+                            @Html.DisplayFor(modelItem => item.Criterio.DescCriterio)
+                        </td>
+                        <td onclick="funEditarCriterio('@item.Criterio.IdCriterio','@item.Criterio.DescCriterio')"
+                            data-select="true" data-json-selected='{"txtAyuda":" @item.Ayuda.Replace("\n", " ") "}'>
+                            @Html.DisplayFor(modelItem => item.Ayuda)
+                        </td>
+
+
+                        <td>
+                            <button type="button" class="btn btn-danger" aria-label="Left Align" data-toggle="modal" data-target="#modalCriterioEliminar"
+                                    data-select="true"
+                                    data-json-selected='{"IDCriterioEliminar":" @item.Criterio.IdCriterio ", "txtCriterioEliminar": " @item.Criterio.DescCriterio"}'>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+        </br>
+        </br>
+        <div class="row">            
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <input type="submit" value="Guardar y Continuar" class="btn btn-success" alt="Guardar Cambios" title="Guardar Cambios" />
+                <button type="button" class="btn btn-danger " onclick="gLlamadaControles('@Url.Action("Index", "Constructor")', '');" title="Cancelar">Cancelar</button>
+            </div>
+      </div>     

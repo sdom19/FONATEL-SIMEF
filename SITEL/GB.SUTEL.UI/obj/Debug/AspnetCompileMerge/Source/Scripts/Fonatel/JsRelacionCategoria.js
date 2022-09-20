@@ -69,7 +69,7 @@
 
                 html = html + "<td><button type ='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + "  data-original-title='Cargar Detalle'  title='Cargar Detalle' class='btn-icon-base btn-upload' ></button >" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + " data-original-title='Descargar Plantilla' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + " data-original-title='Agregar Detalle' title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
+                    "<button type='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + " data-original-title='Agregar Detalle' title='Agregar atributos' class='btn-icon-base btn-add'></button></td>";
 
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value='" + detalle.id + "' title='Editar' class='btn-icon-base btn-edit'></button>" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' value='" + detalle.id + "' title='Eliminar' class='btn-icon-base btn-delete'></button></td>";
@@ -235,7 +235,7 @@
 
                 .then((obj) => {
 
-                    let html = "";
+                    let html = "<option value=''/>";
 
                     for (var i = 0; i < obj.objetoRespuesta.length; i++) {
 
@@ -259,7 +259,7 @@
 
                 .then((obj) => {
 
-                    let html = "";
+                    let html = "<option value=''/>";
 
                     for (var i = 0; i < obj.objetoRespuesta.length; i++) {
                         html = html + "<option value='" + obj.objetoRespuesta[i].toUpperCase() + "'>" + obj.objetoRespuesta[i] + "</option>"
@@ -416,7 +416,7 @@
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) {
                                 location.reload();
-                                
+
                             });
                     }
                 }).finally(() => {
@@ -532,6 +532,9 @@
             })
         },
 
+        "ImportarExcelDiseño": function () {
+            jsMensajes.Metodos.OkAlertModal("El detalle ha sido cargado")
+        },
         "DetalleCompletos": function () {
 
             let formularioCompleto = JsRelacion.Variables.ListadoDetalleRelaciones.length == 0 ? false : JsRelacion.Variables.ListadoDetalleRelaciones[0].Completo;
@@ -574,13 +577,13 @@ $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
     }
 
     if (modo == jsUtilidades.Variables.Acciones.Editar) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación entre Categoría?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.EditarRelacion();
             });
     }
     else {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación entre Categoría?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.InsertarRelacion();
             });
@@ -597,7 +600,7 @@ $(document).on("click", JsRelacion.Controles.btnEditarRelacion, function () {
 //EVENTO PARA ELIMINAR RELACION ENTRE CATEGORIAS 
 $(document).on("click", JsRelacion.Controles.btnDeleteRelacion, function (e) {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Relación entre Categoría?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Relación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
 
             JsRelacion.Consultas.EliminarRelacionCategoria(id);
@@ -637,7 +640,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
 
     if (!JsRelacion.Variables.ModoEditarAtributo) {
         if (JsRelacion.Metodos.ValidarFormularioDetalle()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsRelacion.Consultas.InsertarDetalleRelacion();
                 });
@@ -679,7 +682,7 @@ $(document).on("click", JsRelacion.Controles.btnCargarDetalle, function (e) {
 
 
 $(document).on("change", JsRelacion.Controles.inputFileCargarDetalle, function (e) {
-    JsRelacion.Consultas.ImportarExcel();
+    JsRelacion.Consultas.ImportarExcelDiseño();
 });
 
 
@@ -704,7 +707,14 @@ $(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
 //EVENTO BOTON FINALIZAR DETALLE
 $(document).on("click", JsRelacion.Controles.btnFinalizarDetalleRelacion, function (e) {
     e.preventDefault();
-    window.location.href = "/Fonatel/RelacionCategoria/Index";
+
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar La Relacion?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("La Relacion ha sido creada")                                                               
+                .set('onok', function (closeEvent) {
+                    window.location.href = "/Fonatel/RelacionCategoria/Index";
+                });
+        });;
 });
 
 //EVENTO PARA DESCARGAR EXCEL
@@ -714,6 +724,8 @@ $(document).on("click", JsRelacion.Controles.btnDescargarDetalle, function () {
 });
 
 $(function () {
+
+    //FUNCIONES AL CARGAR LA PAGINA RELACION CATEGORIA
 
     if ($(JsRelacion.Controles.FormularioCrearRelacion).length > 0) {
 

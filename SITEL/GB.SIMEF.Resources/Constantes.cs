@@ -61,7 +61,9 @@ namespace GB.SIMEF.Resources
             Visualizar=9,
             EnviarSolicitud=10,
             ProgramarEnvio=11,
-            EjecutarFormula=12
+            EjecutarFormula=12,
+            Publicado=13,
+            NoPublicado=14
         }
         /// <summary>
         /// Enum Clasificación indicador

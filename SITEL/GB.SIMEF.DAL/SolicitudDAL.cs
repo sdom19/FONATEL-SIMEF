@@ -54,7 +54,8 @@ namespace GB.SIMEF.DAL
                     Fuente = db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single(),
                     EnvioProgramado = db.SolicitudEnvioProgramado.Where(i => i.IdSolicitud == x.idSolicitud).SingleOrDefault(),
                     SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud).ToList(),
-                    FormulariosString= ObtenerListaFormularioString(x.idSolicitud)
+                    FormulariosString= ObtenerListaFormularioString(x.idSolicitud),
+                    FormularioWeb= ObtenerListaFormulario(x.idSolicitud)
 
 
                 }).ToList();
@@ -82,6 +83,22 @@ namespace GB.SIMEF.DAL
             }
             return ListaSolicitud;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objSolicitud"></param>
+        /// <returns></returns>
+        public List<FormularioWeb> ObtenerListaFormulario(int objSolicitud)
+        {
+            List<FormularioWeb> resultado = db.Database.SqlQuery<FormularioWeb>
+                  ("execute spObtenerFormularioXSolicitudLista @idSolicitud",
+                  new SqlParameter("@idSolicitud", objSolicitud)
+                    ).ToList();
+            return resultado;
+        }
+
+
+
 
         /// <summary>
         /// Obtener el listado de formularios en una fila string

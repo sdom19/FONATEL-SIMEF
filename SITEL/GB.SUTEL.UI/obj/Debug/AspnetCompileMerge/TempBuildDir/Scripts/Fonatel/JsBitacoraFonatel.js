@@ -21,8 +21,8 @@
                 let Bitacora = JsBitacora.Variables.ListaBitacora[i];
 
 
-                if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Editar) {
-                    let json = JSON.parse(Bitacora.ValorActual);
+                if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Editar && Bitacora.ValorDiferencial!='') {
+                    let json = JSON.parse(Bitacora.ValorDiferencial);
 
                     for (var objeto in json) {
                         if (objeto !="NoSerialize") {
@@ -45,7 +45,7 @@
                         }
                     }
                 }
-                else if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Insertar)
+                else if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Insertar && Bitacora.ValorInicial!='')
                 {
                     let json = JSON.parse(Bitacora.ValorInicial);
                     for (var objeto in json) {  
@@ -63,6 +63,32 @@
                                 html = html + "<th>N/A</th>";
                                 html = html + "<th>N/A</th>";
                                 html = html + "</tr>";
+                        }
+                    }
+                }
+
+                else if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Clonar) {
+                    let json = JSON.parse(Bitacora.ValorInicial);
+                    let jsonActual = JSON.parse(Bitacora.ValorActual);
+
+
+
+                    for (var objeto in json) {
+                        if (objeto != "NoSerialize") {
+                            let array = json[objeto];
+                            let array2 = jsonActual[objeto];
+                            html = html + "<tr>"
+                            html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
+                            html = html + "<th>" + Bitacora.Codigo + "</th>";
+                            html = html + "<th>" + Bitacora.AccionNombre + "</th>";
+                            html = html + "<th>" + moment(Bitacora.Fecha).format('MM/DD/YYYY') + "</th>";
+                            html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
+                            html = html + "<th>" + Bitacora.Usuario + "</th>";
+                            html = html + "<th>" + objeto + "</th>";
+                            html = html + "<th>" + array + "</th>";
+                            html = html + "<th>N/A</th>";
+                            html = html + "<th>" + array2+"</th>";
+                            html = html + "</tr>";
                         }
                     }
                 }
@@ -100,13 +126,6 @@
             execAjaxCall("/BitacoraFonatel/ObtenerListaBitacora", "POST", bitacora)
                 .then((obj) => {
                     JsBitacora.Variables.ListaBitacora = obj.objetoRespuesta;
-
-
-
-
-
-
-
                     JsBitacora.Metodos.CargarTablaBitacora();
                 }).catch((data) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -143,6 +162,7 @@ $(document).on("click", JsBitacora.Controles.btnCancelar, function (e) {
 $(function () {
     $(JsBitacora.Controles.txtFechaDesde).val("");
     $(JsBitacora.Controles.txtFechaHasta).val("");
+   
 })
 
 

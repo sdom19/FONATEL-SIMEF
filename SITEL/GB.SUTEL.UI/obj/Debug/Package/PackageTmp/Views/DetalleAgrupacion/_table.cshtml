@@ -1,0 +1,146 @@
+﻿@model GB.SUTEL.UI.Models.DetalleAgrupacionViewModels
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert-danger">
+        <span>@ViewBag.Error.Id</span>
+        <span>@ViewBag.Error.Message</span>
+    </div>
+}
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Mantenimientos/DetalleAgrupacion.js")"></script>
+}
+
+
+
+<table class="display" data-table-grid="true" data-tabla-ajax-url="/Nivel/Buscar">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.itemDetalleAgrupacion.IdAgrupacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemDetalleAgrupacion.IdOperador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemDetalleAgrupacion.DescDetalleAgrupacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model != null && Model.listadoDetalleAgrupacion != null)
+        {
+
+            if (GB.SUTEL.UI.Helpers.rolValidation.ValidateScreenFunctions(this.Context, "Detalle de Agrupación", "Eliminar"))
+            {
+                foreach (var item in Model.listadoDetalleAgrupacion)
+                {
+
+                    <tr>
+                        <td data-toggle="modal" data-target="#modalEditarDetalle"
+                            data-select="true" data-json-selected='{"IdDetalleAgrupacion": "@item.IdDetalleAgrupacion","IdAgrupacion":" @item.IdAgrupacion ", "IdOperador" : " @item.IdOperador ","txtDetalle": " @item.DescDetalleAgrupacion"}'>
+                            @Html.DisplayFor(modelIten => item.Agrupacion.DescAgrupacion)
+                        </td>
+                        <td data-toggle="modal" data-target="#modalEditarDetalle"
+                            data-select="true" data-json-selected='{"IdDetalleAgrupacion": "@item.IdDetalleAgrupacion","IdAgrupacion":" @item.IdAgrupacion ", "IdOperador" : " @item.IdOperador ","txtDetalle": " @item.DescDetalleAgrupacion"}'>
+
+                            @Html.DisplayFor(modelIten => item.Operador.NombreOperador)
+                        </td>
+                        <td data-toggle="modal" data-target="#modalEditarDetalle"
+                            data-select="true" data-json-selected='{"IdDetalleAgrupacion": "@item.IdDetalleAgrupacion","IdAgrupacion":" @item.IdAgrupacion ", "IdOperador" : " @item.IdOperador ","txtDetalle": " @item.DescDetalleAgrupacion"}'>
+
+                            @Html.DisplayFor(modelIten => item.DescDetalleAgrupacion)
+                        </td>
+                        <td>
+
+                            <button type="button" class="btn btn-danger myDelete" data-toggle="modal" data-target="#modalEliminarDetalle" data-id0="@item.IdDetalleAgrupacion" data-id1="@item.IdOperador" data-id2="@item.IdAgrupacion">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                foreach (var item in Model.listadoDetalleAgrupacion)
+                {
+
+                    <tr>
+                        <td data-toggle="modal" data-target="#modalEditarDetalle"
+                            data-select="true" data-json-selected='{"IdDetalleAgrupacion": "@item.IdDetalleAgrupacion","IdAgrupacion":" @item.IdAgrupacion ", "IdOperador" : " @item.IdOperador ","txtDetalle": " @item.DescDetalleAgrupacion"}'>
+                            @Html.DisplayFor(modelIten => item.Agrupacion.DescAgrupacion)
+                        </td>
+                        <td data-toggle="modal" data-target="#modalEditarDetalle"
+                            data-select="true" data-json-selected='{"IdDetalleAgrupacion": "@item.IdDetalleAgrupacion","IdAgrupacion":" @item.IdAgrupacion ", "IdOperador" : " @item.IdOperador ","txtDetalle": " @item.DescDetalleAgrupacion"}'>
+
+                            @Html.DisplayFor(modelIten => item.Operador.NombreOperador)
+                        </td>
+                        <td data-toggle="modal" data-target="#modalEditarDetalle"
+                            data-select="true" data-json-selected='{"IdDetalleAgrupacion": "@item.IdDetalleAgrupacion","IdAgrupacion":" @item.IdAgrupacion ", "IdOperador" : " @item.IdOperador ","txtDetalle": " @item.DescDetalleAgrupacion"}'>
+
+                            @Html.DisplayFor(modelIten => item.DescDetalleAgrupacion)
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td width="1%" colspan="4">
+                <form id="frmFiltrarDetalleAgrupacion" method="post"
+                      action="@Url.Action("_table")" data-ajax="true" data-ajax-target="#tableDetalle"
+                      data-ajax-message="Cargando datos...">
+
+
+                    <input placeholder="Agrupación" name="Agrupacion" value="@(ViewBag.TerminosBusqueda_AGRUPACION)" />
+
+                    <input placeholder="Operador" name="Operador" value="@ViewBag.TerminosBusqueda_OPERADOR" />
+
+                    <input placeholder="Descripción" name="DESCDETALLE" value="@ViewBag.TerminosBusqueda_DESCRIPCION" />
+
+                    <button type="submit" style="display:none">Buscar</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+
+        AjaxifyMyForm("frmFiltrarDetalleAgrupacion",
+        function (data) {
+            data = "<div id='vistaDetalle'>" + data + "</div>";
+
+            var $form = $(data);
+
+            $("#vistaDetalle").replaceWith(data);
+        },
+        function (error) {
+
+        }, 10000);
+
+        ActivarEliminar();
+    });
+
+    if (typeof initDataGrid !== 'undefined') {
+        $('table[data-table-grid="true"]').ready(initDataGrid);
+    }
+
+
+    $('#frmFiltrarDetalleAgrupacion input').keyup(function (event) {
+        if (event.keyCode === 13) {
+            $('#frmFiltrarDetalleAgrupacion').submit();
+        }
+    });
+</script>
+

@@ -28,8 +28,9 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
-                ("execute spObtenerRelacionCategorias @idRelacionCategoria,@idCategoria,@idEstado",
+                ("execute spObtenerRelacionCategorias @idRelacionCategoria,@codigo,@idCategoria,@idEstado",
                 new SqlParameter("@idRelacionCategoria", objRelacionCategoria.idRelacionCategoria),
+                new SqlParameter("@codigo", string.IsNullOrEmpty(objRelacionCategoria.Codigo) ? DBNull.Value.ToString() : objRelacionCategoria.Codigo),
                 new SqlParameter("@idCategoria", objRelacionCategoria.idCategoria),
                 new SqlParameter("@idEstado", objRelacionCategoria.idEstado)
                 ).ToList();
@@ -100,6 +101,27 @@ namespace GB.SIMEF.DAL
                 }).ToList();
             }
             return ListaRelacionCategoria;
+        }
+
+        /// <summary>
+        /// Fecha 16/09/2022
+        /// Francisco Vindas Ruiz
+        /// Validar existencia en Indicadores
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+        public List<string> ValidarCategoria(RelacionCategoria objeto)
+        {
+            List<string> listaValicion = new List<string>();
+            using (db = new SIMEFContext())
+            {
+                listaValicion = db.Database.SqlQuery<string>
+                    ("exec spValidarRelacionCategoria @idRelacionCategoria",
+                       new SqlParameter("@idRelacionCategoria", objeto.idRelacionCategoria)
+                    ).ToList();
+            }
+
+            return listaValicion;
         }
 
         #endregion

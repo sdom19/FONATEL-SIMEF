@@ -61,6 +61,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fórmula de Cálculo.
+        /// </summary>
+        public static string Pantalla {
+            get {
+                return ResourceManager.GetString("Pantalla", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clonar Fórmula de Cálculo.
         /// </summary>
         public static string TituloClonar {

@@ -21,10 +21,11 @@
 
                 html = html + "<tr><th>" + Publicacion.Codigo + "</th><td>" + Publicacion.Nombre + "</td><td>" + Publicacion.GrupoIndicadores.Nombre + "</td><td>" + Publicacion.TipoIndicadores.Nombre + "</td>";
                 if (Publicacion.VisualizaSigitel) {
-                    html = html + "<td>NO</td><td><button type='button' data-toggle='tooltip' data-placement='top' value=" + Publicacion.id+" title='Publicar' class='btn-icon-base btn-power-off'></button></td>";
+                    html = html + "<td>SI</td><td><button type='button' data-toggle='tooltip' data-placement='top' value=" + Publicacion.id + " title='Eliminar Publicado' class='btn-icon-base btn-power-on'></button></td>";
                 }
                 else {
-                    html = html + "<td>SI</td><td><button type='button' data-toggle='tooltip' data-placement='top' value=" + Publicacion.id +" title='Eliminar Publicado' class='btn-icon-base btn-power-on'></button></td>";
+                    html = html + "<td>NO</td><td><button type='button' data-toggle='tooltip' data-placement='top' value=" + Publicacion.id + " title='Publicar' class='btn-icon-base btn-power-off'></button></td>";
+                   
                 }
                 html = html + "</tr>";
             }
