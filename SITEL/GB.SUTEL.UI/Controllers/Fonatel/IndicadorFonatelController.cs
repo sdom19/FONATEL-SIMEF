@@ -752,9 +752,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-
-
-
         /// <summary>
         /// 12/09/2022
         /// José Navarro Acuña
