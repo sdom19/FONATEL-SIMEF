@@ -94,6 +94,11 @@ namespace GB.SIMEF.DAL
                   ("execute spObtenerFormularioXSolicitudLista @idSolicitud",
                   new SqlParameter("@idSolicitud", objSolicitud)
                     ).ToList();
+
+            if (resultado==null)
+            {
+                resultado = new List<FormularioWeb>();
+            }
             return resultado;
         }
 

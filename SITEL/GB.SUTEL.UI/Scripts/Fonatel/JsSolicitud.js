@@ -288,7 +288,8 @@ $(document).on("click", JsSolicitud.Controles.btnFinalizarSolicitud, function (e
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Solicitud?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
-            window.location.href = "/Fonatel/SolicitudFonatel/Index";
+            jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/Index";})         
         });
 });
 
