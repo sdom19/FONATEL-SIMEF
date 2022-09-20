@@ -5,39 +5,39 @@
         <div class="col-md-6 col-sm-10">
             <div class="form-group center">
                 <label for="txtCodigoFormula" class="col-form-label">Código</label>
-                <input type="text" class="form-control form-control-fonatel " id="txtCodigoFormula" placeholder="Código">
+
+                @Html.EditorFor(model => Model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", id = "txtCodigoFormula", placeholder = "Código" } })
+
                 <small id="txtCodigoFormulaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group center">
                 <label for="txtNombreFormula" class="col-form-label">Nombre</label>
-                <input type="text" class="form-control form-control-fonatel " id="txtNombreFormula" placeholder="Nombre">
+               
+                @Html.EditorFor(model => Model.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel", id = "txtNombreFormula", placeholder = "Nombre" } })
                 <small id="txtNombreFormulaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group center">
                 <label for="ddlFrecuenciaFormulario" class="col-form-label">Frecuencia de Cálculo</label>
                 <div class="select2-wrapper">
-                    <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlFrecuenciaFormulario">
-                        <option></option>
-                        <option value="1">Mensual</option>
-                        <option value="2">Trimestral</option>
-                    </select>
+                    @Html.DropDownListFor(model => Model.IdFrecuencia, new SelectList(ViewBag.FrecuanciaEnvio, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlFrecuenciaFormulario" })
                 </div>
+               
                 <small id="ddlFrecuenciaFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group center">
                 <label for="txtFechaCalculo" class="col-form-label">Fecha de cálculo</label>
 
-                @Html.EditorFor(model => model.FechaCalculo,  new { htmlAttributes = new { @class = "form-control form-control-fonatel", id = "txtFechaCalculo"} })
+                @Html.EditorFor(model => Model.FechaCalculo,  new { htmlAttributes = new { @class = "form-control form-control-fonatel", id = "txtFechaCalculo"} })
                       
                 <small id="txtFechaCalculoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group center">
                 <label for="txtDescripcionFormula" class="col-form-label">Descripción</label>
-                <textarea id="txtDescripcionFormula" class="form-control form-control-fonatel" placeholder="Descripción"></textarea>
+                @Html.EditorFor(model => Model.Descripcion, new { htmlAttributes = new { @class = "form-control form-control-fonatel", id = "txtDescripcionFormula", placeholder = "Descripción" } })
                 <small id="txtDescripcionFormulaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
@@ -69,14 +69,32 @@
 
             <div class="form-group center">
                 <label for="ddlVariableFormulario" class="col-form-label ">Nivel de Cálculo</label>
-                <label class="radio-inline" style="display: block;">
-                    <input type="radio" id="radioTotal" name="nivelCalculo" value="">
-                    Total
-                </label>
-                <label class="radio-inline mt-3" style="display: block;">
-                    <input type="radio" id="radioCategoríaDesagregacion" name="nivelCalculo" value="">
-                    Categoría de desagregación
-                </label>
+
+                @if (Model.NivelCalculoTotal)
+                {
+                    <label class="radio-inline" style="display: block;">
+                        <input type="radio" checked id="radioTotal" name="nivelCalculo" value="">
+                        Total
+                    </label>
+                    <label class="radio-inline mt-3" style="display: block;">
+                        <input type="radio" id="radioCategoríaDesagregacion" name="nivelCalculo" value="">
+                        Categoría de desagregación
+                    </label>
+                }
+                else
+                {
+                    <label class="radio-inline" style="display: block;">
+                        <input type="radio"  id="radioTotal" name="nivelCalculo" value="">
+                        Total
+                    </label>
+                    <label class="radio-inline mt-3" style="display: block;">
+                        <input type="radio" checked id="radioCategoríaDesagregacion" name="nivelCalculo" value="">
+                        Categoría de desagregación
+                    </label>
+                }
+
+
+
                 <small id="ddlVariableFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
             </div>
 

@@ -29,6 +29,9 @@ namespace GB.SIMEF.Entities
         public int IdFrecuencia { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
+
+        [MaxLength(3000)]
+        [DataType(DataType.MultilineText)]
         public string Descripcion { get; set; }
         public bool NivelCalculoTotal { get; set; }
         public string UsuarioModificacion { get; set; }
