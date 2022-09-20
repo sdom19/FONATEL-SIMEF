@@ -413,5 +413,41 @@ namespace GB.SIMEF.BL
         {
             throw new NotImplementedException();
         }
+
+
+        /// <summary>
+        /// Fecha 16/09/2022
+        /// Francisco Vindas Ruiz
+        /// Validar existencia en Indicadores
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<string>> ValidarExistencia(RelacionCategoria objeto)
+        {
+            RespuestaConsulta<List<string>> listaExistencias = new RespuestaConsulta<List<string>>();
+            try
+            {
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.idCategoria = temp;
+                    }
+                }
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ObtenerDatos(objeto).Single();
+                listaExistencias.objetoRespuesta = clsDatos.ValidarCategoria(resul);
+
+            }
+            catch (Exception ex)
+            {
+                listaExistencias.HayError = (int)Constantes.Error.ErrorSistema;
+                listaExistencias.MensajeError = ex.Message;
+            }
+            return listaExistencias;
+        }
     }
 }

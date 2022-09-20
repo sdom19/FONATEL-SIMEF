@@ -29,31 +29,31 @@ namespace GB.SIMEF.BL
             ResultadoConsulta = new RespuestaConsulta<List<DetalleRelacionCategoria>>();
         }
 
-        public void CargarExcel(HttpPostedFileBase file)
+        public void CargarExcel(HttpPostedFileBase file) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
         {
             using (var package = new ExcelPackage(file.InputStream))
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
-                string Codigo = worksheet.Name;
+                ExcelWorksheet worksheet = package.Workbook.Worksheets[1]; //POSICION DEL CODIGO y NOMBRE
+                string Codigo = worksheet.Name; //POSICION DEL CODIGO
 
                 RelacionCategoria relacion = clsDatosRelacionCategoria.ObtenerDatos(new RelacionCategoria() { Codigo = Codigo }).SingleOrDefault();
 
-                relacion.DetalleRelacionCategoria = new List<DetalleRelacionCategoria>();
+                relacion.DetalleRelacionCategoria = new List<DetalleRelacionCategoria>(); //TRAE LA CANTIDAD 
 
-                for (int i = 0; i < relacion.CantidadCategoria; i++)
+                for (int i = 0; i < relacion.CantidadCategoria; i++) //CANTIDAD
                 {
-                    int fila = i + 2;
+                    int fila = i + 2; //2
 
-                    if (worksheet.Cells[fila, 1].Value != null || worksheet.Cells[fila, 2].Value != null)
+                    if (worksheet.Cells[fila, 1].Value != null || worksheet.Cells[fila, 2].Value != null) //RECORRE LA FILA
                     {
                         int codigo = 0;
                         string CategoriaAtributoValor = string.Empty;
 
-                        int.TryParse(worksheet.Cells[fila, 1].Value.ToString().Trim(), out codigo);
-                        CategoriaAtributoValor = worksheet.Cells[fila, 2].Value.ToString().Trim();
+                        int.TryParse(worksheet.Cells[fila, 1].Value.ToString().Trim(), out codigo); //CODIGO
+                        CategoriaAtributoValor = worksheet.Cells[fila, 2].Value.ToString().Trim(); //ETIQUETA
 
 
-                        var detallerelacion = new DetalleRelacionCategoria()
+                        var detallerelacion = new DetalleRelacionCategoria() // HACE EL INSERTAR FILA POR FILA
                         {
                             IdRelacionCategoria = relacion.idRelacionCategoria,
                             idCategoriaAtributo = codigo,
