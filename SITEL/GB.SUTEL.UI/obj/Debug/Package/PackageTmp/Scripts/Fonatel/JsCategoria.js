@@ -518,7 +518,7 @@
                     },
                     success: function (obj) {
                         $("#loading").fadeOut();
-                        jsMensajes.Metodos.OkAlertModal("El archivo ha sido importado")
+                        jsMensajes.Metodos.OkAlertModal("Los Detalles han sido cargados")
                             .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
 
                     }
