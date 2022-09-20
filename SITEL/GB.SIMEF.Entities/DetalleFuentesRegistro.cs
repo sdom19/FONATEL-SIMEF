@@ -57,6 +57,9 @@ namespace GB.SIMEF.Entities
 
         };
 
+        [NotMapped]
+        public bool Completo { get; set; }
+
 
         #endregion
 
