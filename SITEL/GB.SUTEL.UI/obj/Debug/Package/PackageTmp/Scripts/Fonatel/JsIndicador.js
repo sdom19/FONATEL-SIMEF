@@ -365,9 +365,6 @@ CreateView = {
 
         //btnstep: ".step_navigation_indicador div",
         //divContenedor: ".stepwizard-content-container",
-        //btnEliminarCategoria: "#TablaDetalleCategoriaIndicador tbody tr td .btn-delete",
-        //btnAddIndicadorVariable: "#TableIndicador tbody tr td .variable",
-        //btnAddIndicadorCategoria: "#TableIndicador tbody tr td .Categoría",
         
         btnFinalizar: "#btnFinalizarIndicador",
         btnGuardarVariable: "#btnGuardarVariable",
@@ -851,7 +848,7 @@ CreateView = {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ConsultarDetallesVariable(pIndicador) // tabla
                     .then(data => {
-                        let CantidadEstablecida = data.objetoRespuesta.length == 0 ? $(CreateView.Controles.formIndicador.inputCantidadVariableDatosIndicador).val() :data.objetoRespuesta[0].CantidadEstablecida;
+                        let CantidadEstablecida = data.objetoRespuesta.length == 0 ? $(CreateView.Controles.formIndicador.inputCantidadVariableDatosIndicador).val() : data.objetoRespuesta[0].CantidadEstablecida;
 
                         if (CantidadEstablecida > data.objetoRespuesta.length) {
                             $(CreateView.Controles.formVariable.btnSiguiente).prop("disabled", true);
@@ -1084,16 +1081,15 @@ CreateView = {
                     }).
                     then(data => {
                         if (data) {
-                        
                             let CantidadEstablecida = data.objetoRespuesta.length == 0 ? $(CreateView.Controles.formIndicador.inputCantidadCategoriaIndicador).val() : data.objetoRespuesta[0].CantidadEstablecida;
                             if (CantidadEstablecida > data.objetoRespuesta.length) {
-                                    $(CreateView.Controles.btnGuardarCategoria).prop("disabled", false);
-                                    $(CreateView.Controles.btnFinalizar).prop("disabled", true);
-                                }
-                                else {
-                                    $(CreateView.Controles.btnGuardarCategoria).prop("disabled", true);
-                                    $(CreateView.Controles.btnFinalizar).prop("disabled", false);
-                                }
+                                $(CreateView.Controles.btnGuardarCategoria).prop("disabled", false);
+                                $(CreateView.Controles.btnFinalizar).prop("disabled", true);
+                            }
+                            else {
+                                $(CreateView.Controles.btnGuardarCategoria).prop("disabled", true);
+                                $(CreateView.Controles.btnFinalizar).prop("disabled", false);
+                            }
                             this.InsertarDatosTablaDetallesCategoria(data.objetoRespuesta);
 
                         }
@@ -1134,8 +1130,6 @@ CreateView = {
             CargarDatasource(CreateView.Controles.formCategoria.tablaDetallesCategoria);
         },
 
-
-
         EliminarDetalleCategoria: function (pIdIndicador, pIdDetalle) {
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Categoría?", jsMensajes.Variables.actionType.eliminar)
@@ -1172,9 +1166,6 @@ CreateView = {
                     $("#loading").fadeOut();
                 });
         },
-
-
-
 
         CargarDetallesDeLaCategoria: function (pIdCategoria, pIdIndicador = null) { // combo detalles
             $("#loading").fadeIn();
@@ -1246,7 +1237,7 @@ CreateView = {
         CrearDetallesCategoria: function () {      
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -1260,7 +1251,7 @@ CreateView = {
                     for (var i = 0; i < listadoCategoriasDesagracion.length; i++) {
 
                         let detalle = new Object();
-                        detalle.idIndicadorString = $.urlParam("id");
+                        detalle.idIndicadorString = ObtenerValorParametroUrl("id");
                         detalle.idCategoriaString = $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val();
                         detalle.idCategoriaDetalleString = listadoCategoriasDesagracion[i];
                         pDetalleIndicadorCategoria.push(detalle);
@@ -1377,7 +1368,7 @@ CreateView = {
 
     Eventos: function () {
         $(document).on("click", CreateView.Controles.formIndicador.btnSiguiente, function (e) {
-            let idIndicador = $.urlParam("id")
+            let idIndicador = ObtenerValorParametroUrl("id")
             if (idIndicador == null) {
                 CreateView.Metodos.CrearIndicador();
             }
@@ -1396,7 +1387,7 @@ CreateView = {
                 .set('onok', function (closeEvent) {
                     $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val("").trigger('change');
                     $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).val("").trigger('change');
-                    let pIdIndicador = $.urlParam("id");
+                    let pIdIndicador = ObtenerValorParametroUrl("id");
                     if (pIdIndicador != null) {
                         CreateView.Variables.hizoCargaDetallesCategorias = false;
                         CreateView.Metodos.CargarDetallesCategoria(pIdIndicador);
@@ -1409,7 +1400,7 @@ CreateView = {
             e.preventDefault();
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
-                    let pIdIndicador = $.urlParam("id");
+                    let pIdIndicador = ObtenerValorParametroUrl("id");
                     $(CreateView.Controles.formVariable.inputNombreVariable).val("");
                     $(CreateView.Controles.formVariable.inputDescripcionVariable).val("");
                     if (pIdIndicador != null) {
