@@ -42,6 +42,8 @@ namespace GB.SIMEF.Entities
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 
         public DateTime FechaCalculo { get; set; }
 
