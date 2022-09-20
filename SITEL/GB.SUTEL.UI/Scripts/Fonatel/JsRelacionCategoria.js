@@ -708,9 +708,9 @@ $(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
 $(document).on("click", JsRelacion.Controles.btnFinalizarDetalleRelacion, function (e) {
     e.preventDefault();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar “El Elemento”?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar “La Relacion”?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Elemento ha sido creado")                                                               
+            jsMensajes.Metodos.OkAlertModal("La Relacion ha sido creada")                                                               
                 .set('onok', function (closeEvent) {
                     window.location.href = "/Fonatel/RelacionCategoria/Index";
                 });
