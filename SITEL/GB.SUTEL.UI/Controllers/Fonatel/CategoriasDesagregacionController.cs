@@ -303,8 +303,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                HttpFileCollectionBase files = Request.Files;
                HttpPostedFileBase file = files[0];
                string fileName = file.FileName;  
-               Directory.CreateDirectory(Server.MapPath("~/Simef/"));
-               string path = Path.Combine(Server.MapPath("~/Simef/"), fileName);
+               Directory.CreateDirectory(@"E:\SIMEF\CATEGORIAS");
+               string path = Path.Combine(@"E:\SIMEF\CATEGORIAS", fileName);
 
                categoriaDetalleBL.CargarExcel(file);
                file.SaveAs(path);             
