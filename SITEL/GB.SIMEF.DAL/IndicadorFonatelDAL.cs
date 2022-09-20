@@ -104,6 +104,7 @@ namespace GB.SIMEF.DAL
             return listaValidacion;
         }
 
+
         /// <summary>
         /// 16/08/2022
         /// José Navarro Acuña
@@ -190,6 +191,49 @@ namespace GB.SIMEF.DAL
 
             return listaIndicadores;
         }
+
+
+        /// <summary>
+        /// 
+        /// Michael Hernéndez Cordero 
+        /// Activa o desactiva la visalización en sigitel
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public List<Indicador> PublicacionSigitel(Indicador pIndicador)
+        {
+            List<Indicador> listaIndicadores = new List<Indicador>();
+
+            using (db = new SIMEFContext())
+            {
+                listaIndicadores = db.Database.SqlQuery<Indicador>
+                    ("execute spActualizarPublicadoSigitel " +
+                    "@pIdIndicador," +
+                    "@pUsuarioModificacion," + // opcional
+                    "@pVisualizaSigitel",
+                     new SqlParameter("@pIdIndicador", pIndicador.idIndicador),
+                     new SqlParameter("@pUsuarioModificacion", string.IsNullOrEmpty(pIndicador.UsuarioModificacion) ? DBNull.Value.ToString() : pIndicador.UsuarioModificacion),
+                     new SqlParameter("@pVisualizaSigitel", pIndicador.VisualizaSigitel)
+                    ).ToList();
+            }
+
+            return listaIndicadores;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// 29/08/2022
