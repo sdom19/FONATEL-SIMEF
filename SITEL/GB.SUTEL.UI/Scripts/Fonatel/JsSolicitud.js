@@ -75,7 +75,7 @@
             let html = "";
             for (var i = 0; i < JsSolicitud.Variables.ListadoSolicitudes.length; i++) {
                 let solicitud = JsSolicitud.Variables.ListadoSolicitudes[i];
-                let listaFormularios =  solicitud.FormulariosString;
+                let listaFormularios = solicitud.FormulariosString;
                 let envioProgramado = solicitud.EnvioProgramado == null ? "NO" : "SI";
 
                 html = html + "<tr>";
@@ -104,6 +104,24 @@
             JsSolicitud.Variables.ListadoSolicitudes = [];
         },
 
+        "ValidarNombreyCodigo": function () {
+            let validar = true;
+            $(JsSolicitud.Controles.CodigoHelp).addClass("hidden");
+            $(JsSolicitud.Controles.nombreHelp).addClass("hidden");
+
+            let codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
+            let nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
+
+            if (codigo.length == 0) {
+                $(JsSolicitud.Controles.CodigoHelp).removeClass("hidden");
+                Validar = false;
+            }
+            if (nombre.length == 0) {
+                $(JsSolicitud.Controles.nombreHelp).removeClass("hidden");
+                validar = false;
+            }
+            return validar;
+        },
 
         "ValidarControles": function () {
             let validar = true;
@@ -191,7 +209,7 @@
 
 
 
-        "ValidarExistenciaSolicitud": function (idSolicitud, Eliminado=true) {
+        "ValidarExistenciaSolicitud": function (idSolicitud, Eliminado = true) {
             $("#loading").fadeIn();
             let solicitud = new Object()
             solicitud.id = idSolicitud;
@@ -202,7 +220,7 @@
                     } else {
                         let dependencias = '';
                         for (var i = 0; i < obj.objetoRespuesta.length; i++) {
-                            dependencias= dependencias + obj.objetoRespuesta[i] + "<br>"
+                            dependencias = dependencias + obj.objetoRespuesta[i] + "<br>"
                         }
                         if (Eliminado) {
                             jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
@@ -219,7 +237,7 @@
                                 });
                         }
 
-                      
+
                     }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -237,7 +255,7 @@
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
-        },  
+        },
 
 
         "ConsultaListaSolicitudes": function () {
@@ -330,14 +348,17 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
 $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) {
     e.preventDefault();
     let CamposVacios = "Existen campos vacíos. "
-    if (JsSolicitud.Metodos.ValidarControles()) {
-        CamposVacios = ""
+    if (JsSolicitud.Metodos.ValidarNombreyCodigo()) {
+
+        if (JsSolicitud.Metodos.ValidarControles()) {
+            CamposVacios = ""
+        }
+        jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                jsMensajes.Metodos.OkAlertModal("La Solicitud a sido creada")
+                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+            });
     }
-       jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios +"¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Solicitud a sido creada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
-        });
 });
 
 $(document).on("click", JsSolicitud.Controles.btnDeleteSolicitud, function (e) {
