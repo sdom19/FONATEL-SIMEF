@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,24 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class FormulaCalculoController : Controller
     {
+        #region Variables Públicas del controller
+        private readonly FormulasCalculoBL formulaBL;
+        private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
 
+        #endregion
         public FormulaCalculoController()
         {
-            
+            this.frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            formulaBL = new FormulasCalculoBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
         // GET: Solicitud
         public ActionResult Index()
         {
+
+
+
+
             return View();
         }
 
@@ -33,11 +43,39 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
         
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(string id=null, int modo=0)
         {
-            ViewBag.ModoFormulario = ((int)Accion.Insertar).ToString();
-            ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
-            return View(new FormulasCalculo());
+            var modelo = new FormulasCalculo();
+            ViewBag.FrecuanciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
+                .objetoRespuesta.Select(x => new SelectListItem()
+                {
+                    Selected = false,
+                    Value = x.idFrecuencia.ToString(),
+                    Text =  x.Nombre
+                }).ToList();
+            if (modo==(int)Constantes.Accion.Clonar && !string.IsNullOrEmpty(id))
+            {
+                ViewBag.ModoFormulario = ((int)Accion.Clonar).ToString();
+                ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloClonar;
+                modelo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
+                modelo.Nombre = string.Empty;
+                modelo.Codigo = string.Empty;
+            }
+            else if(modo == (int)Constantes.Accion.Editar && !string.IsNullOrEmpty(id))
+            {
+                ViewBag.ModoFormulario = ((int)Accion.Editar).ToString();
+                ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloEditar;
+                modelo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
+            }
+            else
+            {
+                ViewBag.ModoFormulario = ((int)Accion.Insertar).ToString();
+                ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
+            }
+
+
+         
+            return View(modelo);
         }
 
         // POST: Solicitud/Create
@@ -57,7 +95,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         // GET: Solicitud/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             ViewBag.ModoFormulario = ((int)Accion.Editar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloEditar;
@@ -103,7 +141,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         // GET: Solicitud/Clone/5
-        public ActionResult Clone(int id)
+        public ActionResult Clone(string id)
         {
             ViewBag.ModoFormulario = ((int)Accion.Clonar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloClonar;
@@ -111,11 +149,98 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
         
         // GET: Solicitud/View/5
-        public ActionResult View(int id)
+        public ActionResult View(string id)
         {
             ViewBag.ModoFormulario = ((int)Accion.Consultar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloVisualizar;
             return View("Create");
         }
+
+
+
+
+        /// <summary>
+        /// Fecha 04-08-2022
+        /// Michael Hernández Cordero
+        /// Obtiene datos para la table de categorías INDEX
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpGet]
+        public async Task<string> ObtenerListaFormulas()
+        {
+            RespuestaConsulta<List<FormulasCalculo>> result = null;
+            await Task.Run(() =>
+            {
+                result = formulaBL.ObtenerDatos(new FormulasCalculo());
+            });
+
+            return JsonConvert.SerializeObject(result);
+
+
+        }
+
+
+
+
+        [HttpPost]
+        public async Task<string> EliminarFormula(FormulasCalculo formulaCalculo)
+        {
+            RespuestaConsulta<List<FormulasCalculo>> result = null;
+      
+            await Task.Run(() =>
+            {
+                return formulaBL.ObtenerDatos(formulaCalculo);
+
+            }).ContinueWith(data =>
+            {
+                var objetoValidar = data.Result.objetoRespuesta.Single();
+                objetoValidar.IdEstado = (int)Constantes.EstadosRegistro.Eliminado;
+                result = formulaBL.EliminarElemento(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+        [HttpPost]
+        public async Task<string> ActivarFormula(FormulasCalculo formulaCalculo)
+        {
+            RespuestaConsulta<List<FormulasCalculo>> result = null;
+
+            await Task.Run(() =>
+            {
+                return formulaBL.ObtenerDatos(formulaCalculo);
+
+            }).ContinueWith(data =>
+            {
+                var objetoValidar = data.Result.objetoRespuesta.Single();
+                objetoValidar.IdEstado = (int)Constantes.EstadosRegistro.Activo;
+                result = formulaBL.CambioEstado(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+        [HttpPost]
+        public async Task<string> DesactivarFormula(FormulasCalculo formulaCalculo)
+        {
+            RespuestaConsulta<List<FormulasCalculo>> result = null;
+
+            await Task.Run(() =>
+            {
+                return formulaBL.ObtenerDatos(formulaCalculo);
+
+            }).ContinueWith(data =>
+            {
+                var objetoValidar = data.Result.objetoRespuesta.Single();
+                objetoValidar.IdEstado = (int)Constantes.EstadosRegistro.Desactivado;
+                result = formulaBL.CambioEstado(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
     }
 }

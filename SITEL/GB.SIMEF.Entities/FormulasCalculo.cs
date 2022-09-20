@@ -23,17 +23,34 @@ namespace GB.SIMEF.Entities
         }
         [Key]
         public int idFormula { get; set; }
+
+        public int IdIndicador { get; set; }
+        public int IdIndicadorVariable { get; set; }
+        public int IdFrecuencia { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
+
+        [MaxLength(3000)]
+        [DataType(DataType.MultilineText)]
         public string Descripcion { get; set; }
         public bool NivelCalculoTotal { get; set; }
         public string UsuarioModificacion { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime FechaCalculo { get; set; }
+        public int IdEstado { get; set; }
+        
+        //public DateTime FechaCalculo { get; set; }
         public Nullable<System.DateTime> FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
+
+        [NotMapped]
+
+        public string id { get; set; }
+
+        [NotMapped]
+        public EstadoRegistro EstadoRegistro { get; set; }
+
+
+        [NotMapped]
+        public DateTime FechaCalculo { get; set; }
     }
 }

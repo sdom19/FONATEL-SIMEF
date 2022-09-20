@@ -21,7 +21,7 @@
                 let Bitacora = JsBitacora.Variables.ListaBitacora[i];
 
 
-                if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Editar) {
+                if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Editar && Bitacora.ValorDiferencial!='') {
                     let json = JSON.parse(Bitacora.ValorDiferencial);
 
                     for (var objeto in json) {
@@ -45,7 +45,7 @@
                         }
                     }
                 }
-                else if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Insertar)
+                else if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Insertar && Bitacora.ValorInicial!='')
                 {
                     let json = JSON.parse(Bitacora.ValorInicial);
                     for (var objeto in json) {  

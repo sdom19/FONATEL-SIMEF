@@ -40,13 +40,96 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleIndicadorCategoria>> EliminarElemento(DetalleIndicadorCategoria objeto)
         {
-            throw new NotImplementedException();
+     
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+            bool errorControlado = false;
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.idIndicadorString), out int idindicador);
+                int.TryParse(Utilidades.Desencriptar(objeto.idCategoriaString), out int idcategoria);
+
+
+                objeto.idIndicador = idindicador;
+                objeto.idCategoria = idcategoria;
+                objeto.DetallesAgrupados = false;
+                var listaDetalle = detalleIndicadorCategoriaDAL.ObtenerDatos(objeto);
+
+
+                resultado.objetoRespuesta = new List<DetalleIndicadorCategoria>();
+                foreach (var item in listaDetalle)
+                {
+                    int.TryParse(Utilidades.Desencriptar(item.idCategoriaDetalleString), out int idcategoriaDetalle);
+                    item.idCategoriaDetalle = idcategoriaDetalle;
+                    item.idIndicador = idindicador;
+                    item.idCategoria = idcategoria;
+                    item.Estado = false;
+                    resultado.objetoRespuesta.AddRange(detalleIndicadorCategoriaDAL.ActualizarDatos(item));
+                }
+
+                
+
+
+                resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
         }
 
         public RespuestaConsulta<List<DetalleIndicadorCategoria>> InsertarDatos(DetalleIndicadorCategoria objeto)
         {
             throw new NotImplementedException();
         }
+
+
+
+
+        public RespuestaConsulta<List<DetalleIndicadorCategoria>> InsertarDatos(List< DetalleIndicadorCategoria> pDetalleIndicadorCategoria)
+        {
+
+
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+            bool errorControlado = false;
+            try
+            {
+                resultado.objetoRespuesta = new List<DetalleIndicadorCategoria>();
+                foreach (var DetalleIndicadorCategoria in pDetalleIndicadorCategoria)
+                {
+                    int.TryParse(Utilidades.Desencriptar(DetalleIndicadorCategoria.idCategoriaString), out int idCategoria);
+                    int.TryParse(Utilidades.Desencriptar(DetalleIndicadorCategoria.idIndicadorString), out int idindicador);
+                    int.TryParse(Utilidades.Desencriptar(DetalleIndicadorCategoria.idCategoriaDetalleString), out int idCategoriaDetalle);
+                    DetalleIndicadorCategoria.Estado = true;
+                    DetalleIndicadorCategoria.idCategoria = idCategoria;
+                    DetalleIndicadorCategoria.idIndicador = idindicador;
+                    DetalleIndicadorCategoria.idCategoriaDetalle = idCategoriaDetalle;
+                   var result = detalleIndicadorCategoriaDAL.ActualizarDatos(DetalleIndicadorCategoria);
+                   resultado.objetoRespuesta.AddRange(result);
+                }
+                resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+
+        }
+
+
+
+
 
         public RespuestaConsulta<List<DetalleIndicadorCategoria>> ObtenerDatos(DetalleIndicadorCategoria objeto)
         {
@@ -77,6 +160,10 @@ namespace GB.SIMEF.BL
                 }
 
                 resultado.objetoRespuesta = detalleIndicadorCategoriaDAL.ObtenerDatos(pDetalleIndicadorCategoria).ToList();
+                if (pDetalleIndicadorCategoria.Estado && resultado.objetoRespuesta.Count>0)
+                {
+                    resultado.objetoRespuesta = resultado.objetoRespuesta.Where(x => x.Estado == true).ToList();
+                }
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
             }
             catch (Exception ex)

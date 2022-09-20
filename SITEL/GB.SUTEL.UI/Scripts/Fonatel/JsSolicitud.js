@@ -167,7 +167,11 @@
         },
 
         "ValidarFormularioCrear": function () {
-            if ($(JsSolicitud.Controles.txtCodigo).val().trim().length > 0 && $(JsSolicitud.Controles.txtNombre).val().trim().length > 0
+
+            let codigo = $(JsSolicitud.Controles.txtCodigo).val() == undefined ? "" : $(JsSolicitud.Controles.txtCodigo).val().trim();
+            let nombre = $(JsSolicitud.Controles.txtNombre).val() == undefined ? "" : $(JsSolicitud.Controles.txtNombre).val().trim();
+
+            if (codigo.length > 0 && nombre.length > 0
                 && $(JsSolicitud.Controles.txtFechaInicio).val().trim() != "0001-01-01" && $(JsSolicitud.Controles.txtFechaFin).val().trim() != "0001-01-01"
                 && $(JsSolicitud.Controles.ddlFuentes).val().trim().length > 0 && $(JsSolicitud.Controles.TxtCantidadFormulario).val().trim() != 0
                 && $(JsSolicitud.Controles.ddlMesSolicitud).val().trim().length > 0 && $(JsSolicitud.Controles.ddlAnoSolicitud).val().trim().length > 0
@@ -282,14 +286,18 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e)
         $(JsSolicitud.Controles.ddlVariableIndicadorHelp).addClass("hidden");
         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el formulario a la Solicitud?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
+
                 jsMensajes.Metodos.OkAlertModal("El Formulario ha sido agregado")
-                    .set('onok', function (closeEvent) { $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change'); });
-            }
-            else {
-                $(JsSolicitud.Controles.ddlVariableIndicadorHelp).removeClass("hidden");
-            }
-        });
+                    .set('onok', function (closeEvent) { $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change'); })
+
+            });
+    }
+    else {
+            $(JsSolicitud.Controles.ddlVariableIndicadorHelp).removeClass("hidden");
+         }
 });
+
+
 $(document).on("click", JsSolicitud.Controles.btnCancelarFormulario, function (e) {
     e.preventDefault();
     $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change');
@@ -415,15 +423,16 @@ $(document).on("change", JsSolicitud.Controles.ControlesStep1, function (e) {
 });
 
 $(function () {
-    JsSolicitud.Metodos.ValidarFormularioCrear();
-    let modo = $(JsSolicitud.Controles.txtmodoSolicitud).val();
+    
+    let modo = $.urlParam("modo");
     if ($(JsSolicitud.Controles.TablaSolicitud).length > 0) {
         JsSolicitud.Consultas.ConsultaListaSolicitudes();
     }
     else if (modo == jsUtilidades.Variables.Acciones.Editar) {
         $(JsSolicitud.Controles.txtCodigo).prop("disabled", true);
+        JsSolicitud.Metodos.ValidarFormularioCrear();
     }
     else {
-
+        JsSolicitud.Metodos.ValidarFormularioCrear();
     }
 });

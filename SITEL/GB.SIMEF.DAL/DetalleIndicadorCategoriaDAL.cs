@@ -28,22 +28,27 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listado = db.Database.SqlQuery<Model_spObtenerDetallesIndicadorCategoria>
-                    ("execute spObtenerDetallesIndicadorCategoria @pIdIndicador, @pIdCategoria, @pDetallesAgrupados",
+                    ("execute spObtenerDetallesIndicadorCategoria  @pIdIndicador, @pIdCategoria, @pDetallesAgrupados",
                      new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.idIndicador),
                      new SqlParameter("@pIdCategoria", pDetalleIndicadorCategoria.idCategoria),
                      new SqlParameter("@pDetallesAgrupados", pDetalleIndicadorCategoria.DetallesAgrupados)
                     ).ToList();
+
+                listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
+                {
+                    idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
+                    idCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString()),
+                    idCategoriaDetalleString = Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()),
+                    idDetalleIndicador=x.IdIndicador,
+                    Estado=x.Estado,
+                    Etiquetas = x.Etiquetas,
+                    Codigo = x.Codigo,
+                    NombreCategoria = x.NombreCategoria,
+                    CantidadEstablecida = db.Database.SqlQuery<int>("SELECT isnull(CantidadCategoriasDesagregacion,0) CantidadEstablecida FROM [dbo].[Indicador] where IdIndicador=" + pDetalleIndicadorCategoria.idIndicador).Single()
+                }).ToList();
             }
 
-            listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
-            {
-                idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
-                idCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString()),
-                idCategoriaDetalleString = Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()),
-                Etiquetas = x.Etiquetas,
-                Codigo = x.Codigo,
-                NombreCategoria = x.NombreCategoria,
-            }).ToList();
+          
 
             return listaDetalles;
         }
@@ -53,6 +58,40 @@ namespace GB.SIMEF.DAL
         /// José Navarro Acuña
         /// Modelo privado para obtener el resultado del procedimiento almacenado: spObtenerDetallesIndicadorCategoria
         /// </summary>
+        /// 
+
+
+        public List<DetalleIndicadorCategoria> ActualizarDatos(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
+        {
+            List<DetalleIndicadorCategoria> listaDetalles = new List<DetalleIndicadorCategoria>();
+
+            using (db = new SIMEFContext())
+            {
+                listaDetalles = db.Database.SqlQuery<DetalleIndicadorCategoria>
+                    ("execute spActualizarIndicadorCategoria @pIdDetalleIndicador, @pIdIndicador,@pidCategoria ,@pidCategoriaDetalle, @pEstado ",
+                     new SqlParameter("@pIdDetalleIndicador", pDetalleIndicadorCategoria.idDetalleIndicador),
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.idIndicador),
+                     new SqlParameter("@pidCategoria", pDetalleIndicadorCategoria.idCategoria),
+                     new SqlParameter("@pidCategoriaDetalle", pDetalleIndicadorCategoria.idCategoriaDetalle),
+                     new SqlParameter("@pEstado", pDetalleIndicadorCategoria.Estado)
+                    ).ToList();
+            }
+
+            listaDetalles = listaDetalles.Select(x => new DetalleIndicadorCategoria()
+            {
+                id = Utilidades.Encriptar(x.idDetalleIndicador.ToString()),
+                idCategoriaString=Utilidades.Encriptar(x.idCategoria.ToString()),
+                idIndicadorString=Utilidades.Encriptar(x.idIndicador.ToString()),
+                Estado = x.Estado
+            }).ToList();
+
+            return listaDetalles;
+        }
+
+
+
+
+
         private class Model_spObtenerDetallesIndicadorCategoria
         {
             public int IdIndicador { get; set; }
@@ -61,6 +100,8 @@ namespace GB.SIMEF.DAL
             public string Etiquetas { get; set; }
             public string Codigo { get; set; }
             public string NombreCategoria { get; set; }
+
+            public bool Estado { get; set; }
         }
     }
 }
