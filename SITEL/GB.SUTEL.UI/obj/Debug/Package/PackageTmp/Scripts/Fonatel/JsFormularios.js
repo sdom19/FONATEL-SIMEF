@@ -21,7 +21,6 @@
         "btnVizualizarFormulario": "#TablaFormulario tbody tr td .btn-view",
         "btnDeleteIndicador": "#TableIndicadorFormulario tbody tr td .btn-delete",
         "btnEditarIndicadores": "#TableIndicadorFormulario tbody tr td .btn-edit",
-        "ControlesStep1": "#formCrearFormulario input, #formCrearFormulario textarea, #formCrearFormulario select",
 
         "btnSiguienteFormulario": "#btnSiguienteFormulario",
         "btnCloneFormulario": "#TablaFormulario tbody tr td .btn-clone",
@@ -138,15 +137,6 @@
 
 
                 html = html + "</tr>"
-                //if (formulario.ListaIndicadores.length == null) {
-                //    html = html + JsFormulario.Metodos.CrearTablaFormulario(formulario, "N/A");
-                //}
-                //else {
-                //    html = html + JsFormulario.Metodos.CrearTablaFormulario(formulario, formulario.ListaIndicadores);
-                //}
-                //for (var j = 0; j < formulario.ListaIndicadores.length; j++) {
-                //    html = html + JsFormulario.Metodos.CrearTablaFormulario(formulario, formulario.ListaIndicadores[j]);
-                //}
             }
             $(JsFormulario.Controles.tablaFormulario).html(html);
             CargarDatasource();
@@ -368,12 +358,9 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
 
 
 $(document).on("click", JsFormulario.Controles.btnVizualizarFormulario, function (e) {
-    // Esta quemado por el tema del tiempo, para no generar conflictos con los posibles cambios de otros compañeros
-    //let id = $(this).val();
     // valor quemado
     let id = 1;
-    window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create?id=" + id + "&modo=" + 6;
-    //window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Visualizar;
+    window.location.href = "/Fonatel/FormularioWeb/Visualizar?id=" + id + "&modo=" + 6;
 });
 
 
@@ -442,6 +429,8 @@ $(function () {
     $(JsFormulario.Controles.ddlFrecuenciaHelp).addClass("hidden");
     $(JsFormulario.Controles.txtCantidadIndicadoresFormularioHelp).addClass("hidden");
     $(JsFormulario.Controles.txtDescripcionFormularioHelp).addClass("hidden");
+
+    $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true);
 
     if ($(JsFormulario.Controles.formCrearFormulario).length > 0) {
         JsFormulario.Metodos.ValidarFormularioWebCrear();
