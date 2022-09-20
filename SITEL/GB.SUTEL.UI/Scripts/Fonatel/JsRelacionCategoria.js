@@ -416,7 +416,7 @@
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) {
                                 location.reload();
-                                
+
                             });
                     }
                 }).finally(() => {
@@ -532,6 +532,9 @@
             })
         },
 
+        "ImportarExcelDiseño": function () {
+            jsMensajes.Metodos.OkAlertModal("El detalle ha sido cargado")
+        },
         "DetalleCompletos": function () {
 
             let formularioCompleto = JsRelacion.Variables.ListadoDetalleRelaciones.length == 0 ? false : JsRelacion.Variables.ListadoDetalleRelaciones[0].Completo;
@@ -574,13 +577,13 @@ $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
     }
 
     if (modo == jsUtilidades.Variables.Acciones.Editar) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación entre Categoría?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.EditarRelacion();
             });
     }
     else {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación entre Categoría?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.InsertarRelacion();
             });
@@ -637,7 +640,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
 
     if (!JsRelacion.Variables.ModoEditarAtributo) {
         if (JsRelacion.Metodos.ValidarFormularioDetalle()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsRelacion.Consultas.InsertarDetalleRelacion();
                 });
@@ -679,7 +682,7 @@ $(document).on("click", JsRelacion.Controles.btnCargarDetalle, function (e) {
 
 
 $(document).on("change", JsRelacion.Controles.inputFileCargarDetalle, function (e) {
-    JsRelacion.Consultas.ImportarExcel();
+    JsRelacion.Consultas.ImportarExcelDiseño();
 });
 
 
