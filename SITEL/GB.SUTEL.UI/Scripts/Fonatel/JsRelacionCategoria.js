@@ -355,7 +355,8 @@
             execAjaxCall("/RelacionCategoria/EliminarRelacionCategoria", "POST", { idRelacionCategoria: idRelacionCategoria })
                 .then((obj) => {
 
-                    jsMensajes.Metodos.ConfirmYesOrNoModal("La Relación ya está en uso en el/los Indicadores:<br><br> Indicadores Asociados<br> <br> ¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                    jsMensajes.Metodos.ConfirmYesOrNoModal("La Relación está en uso en el/los<br><br> Indicadores Asociados<br><br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                    //jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminarla la Relación?", jsMensajes.Variables.actionType.eliminar)
                         .set('onok', function (closeEvent) {
 
                             JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
@@ -368,13 +369,6 @@
 
                         });
 
-                    //JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
-
-                    //    jsMensajes.Metodos.OkAlertModal("La Relación ha sido eliminada")
-                    //        .set('onok', function (closeEvent) {
-
-                    //            JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
-                    //});
 
                 }).catch((obj) => {
 
@@ -563,6 +557,57 @@
 
         },
 
+        "ValidarExistenciaRelacion": function (idRelacionCategoria) {
+
+            $("#loading").fadeIn();
+            let relacion = new Object()
+
+            relacion.id = idRelacionCategoria;
+
+            execAjaxCall("/RelacionCategoria/ValidarRelacion", "POST", relacion)
+                .then((obj) => {
+
+                    if (obj.objetoRespuesta.length == 0) {
+
+                        JsRelacion.Consultas.EliminarRelacionCategoria(idRelacionCategoria);
+
+                    }
+                    else {
+
+                        let dependencias = '';
+
+                        for (var i = 0; i < obj.objetoRespuesta.length; i++) {
+                            dependencias = obj.objetoRespuesta[i] + "<br>"
+                        }
+
+                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Relación está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.estado)
+                            .set('onok', function (closeEvent) {
+
+                                JsRelacion.Consultas.EliminarRelacionCategoria(idRelacionCategoria);
+
+                            });
+                    }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+
+
+        },
+
+
     }
 }
 
@@ -603,7 +648,11 @@ $(document).on("click", JsRelacion.Controles.btnDeleteRelacion, function (e) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Relación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
 
+            //ELIMINADO DIRECTO SIN ELIMINACION
             JsRelacion.Consultas.EliminarRelacionCategoria(id);
+
+            //ELIMINADO CON VALIDACION
+            //JsRelacion.Consultas.ValidarExistenciaRelacion(id);
 
         });
 

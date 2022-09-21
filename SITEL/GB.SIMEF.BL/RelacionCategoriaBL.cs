@@ -425,6 +425,7 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<string>> ValidarExistencia(RelacionCategoria objeto)
         {
             RespuestaConsulta<List<string>> listaExistencias = new RespuestaConsulta<List<string>>();
+
             try
             {
                 if (!String.IsNullOrEmpty(objeto.id))
@@ -433,13 +434,15 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.id, out temp))
                     {
-                        objeto.idCategoria = temp;
+                        objeto.idRelacionCategoria = temp;
                     }
                 }
+
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
                 var resul = clsDatos.ObtenerDatos(objeto).Single();
-                listaExistencias.objetoRespuesta = clsDatos.ValidarCategoria(resul);
+
+                listaExistencias.objetoRespuesta = clsDatos.ValidarRelacion(resul);
 
             }
             catch (Exception ex)

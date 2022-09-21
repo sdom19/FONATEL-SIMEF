@@ -23,13 +23,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
     {
         string user;
 
-        // : RELACION ENTRE CATEGORIAS
 
+        // : RELACION ENTRE CATEGORIAS
         private readonly RelacionCategoriaBL RelacionCategoriaBL;
         private readonly DetalleRelacionCategoriaBL DetalleRelacionCategoriaBL;
 
-        // : CATEGORIAS DESAGREGACION
 
+        // : CATEGORIAS DESAGREGACION
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBl;
         private readonly DetalleCategoriasTextoBL DetalleCategoriasTextoBL;
 
@@ -492,7 +492,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="categoria"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> ValidarCategoria(RelacionCategoria relacion)
+        public async Task<string> ValidarRelacion(RelacionCategoria relacion)
         {
             RespuestaConsulta<List<string>> result = null;
 
