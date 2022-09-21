@@ -18,12 +18,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region Variables Públicas del controller
         private readonly FormulasCalculoBL formulaBL;
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
+        private readonly IndicadorFonatelBL indicadorFonatelBL;
+        private readonly DetalleIndicadorVariablesBL indicadorVariableBL;
 
         #endregion
         public FormulaCalculoController()
         {
             this.frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            formulaBL = new FormulasCalculoBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            this.formulaBL = new FormulasCalculoBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            this.indicadorFonatelBL = new IndicadorFonatelBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            this.indicadorVariableBL = new DetalleIndicadorVariablesBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
         // GET: Solicitud
@@ -53,6 +57,25 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     Value = x.idFrecuencia.ToString(),
                     Text =  x.Nombre
                 }).ToList();
+
+            ViewBag.IndicadorSalida =
+               indicadorFonatelBL.ObtenerDatos(new Indicador() { IdClasificacion = (int)Constantes.ClasificacionIndicadorEnum.Salida }).objetoRespuesta
+               .Select(x => new SelectListItem()
+               {
+                   Value = Utilidades.Desencriptar(x.id),
+                   Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre),
+                   Selected = false
+               }).ToList();
+
+            ViewBag.VariableIndicador =
+                  indicadorVariableBL.ObtenerDatos(new DetalleIndicadorVariables()).objetoRespuesta
+                  .Select(x => new SelectListItem()
+                  {
+                      Value = Utilidades.Desencriptar(x.id),
+                      Text = x.NombreVariable,
+                      Selected = false
+                  }).ToList();
+
             if (modo==(int)Constantes.Accion.Clonar && !string.IsNullOrEmpty(id))
             {
                 ViewBag.ModoFormulario = ((int)Accion.Clonar).ToString();
