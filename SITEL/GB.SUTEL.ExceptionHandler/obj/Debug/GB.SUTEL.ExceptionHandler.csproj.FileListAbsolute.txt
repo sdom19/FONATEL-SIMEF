@@ -31,3 +31,10 @@ C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandle
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.pdb
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.csproj.AssemblyReference.cache
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\bin\Debug\GB.SUTEL.ExceptionHandler.dll.config
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\bin\Debug\GB.SUTEL.ExceptionHandler.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\bin\Debug\GB.SUTEL.ExceptionHandler.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.csprojAssemblyReference.cache
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.csproj.CoreCompileInputs.cache
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.ExceptionHandler\obj\Debug\GB.SUTEL.ExceptionHandler.pdb

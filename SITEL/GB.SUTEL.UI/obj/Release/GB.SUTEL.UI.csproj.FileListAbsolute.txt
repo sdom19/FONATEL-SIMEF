@@ -129,3 +129,8 @@ D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Release\GB.SUTEL.
 D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
 D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.dll
 D:\Desarrollo\Sutel\SitelP\QA_EVOLUTIVOS_MAYOR\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.csprojAssemblyReference.cache
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.csproj.ResolveComReference.cache
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.pdb

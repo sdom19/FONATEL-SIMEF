@@ -145,7 +145,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>w+uRCTT1fW8R7fZtecOptob/FcQBQgaya6+dV8NI1Xw=</dsig:DigestValue>
+        <dsig:DigestValue>7lUr1rLN18jdmrKq9GfBYIt5dchZix2S+reczBLUwr4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -157,7 +157,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5TJq3LdIGapoW4hxgSW+qDOXuP8jd7wA7ilnBFdaJkU=</dsig:DigestValue>
+        <dsig:DigestValue>L0AYkUwKwePVDYRUFMOH/Jcy7sN29a4Dg9Itygzu6bc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -169,7 +169,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>OeCaG28QZ9LKGq7dcRui+9gao1N3/8vQ6nVA3EXIqPE=</dsig:DigestValue>
+        <dsig:DigestValue>Od51rQAF0VWhQpSmUeO/tYgEGFuiQwtI0/3obKH73KM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -217,7 +217,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>yU5BN4fmjnT1Upu/GnPuzIBSNPpB7ncAhHggAyy3mgo=</dsig:DigestValue>
+        <dsig:DigestValue>1GogtgrQrSiktVos9/ibnf+lvnL0SaGrJ2y7dT3hTPU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -294,14 +294,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SutelSolution.exe" size="79360">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SutelSolution.exe" size="78848">
       <assemblyIdentity name="SutelSolution" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NcdDr8mDQzSFg6/lfXRLLrtmNNq1sVCx9JhS73zVpDs=</dsig:DigestValue>
+        <dsig:DigestValue>mFRntOyGodaFhFT4OZ6wzH7l+rsCuzRCeuNwY/VPLVE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

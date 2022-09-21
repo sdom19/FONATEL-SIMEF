@@ -44,3 +44,12 @@ C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debu
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.csproj.CoreCompileInputs.cache
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\bin\Debug\netstandard2.0\GB.SIMEF.Shared.deps.json
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\bin\Debug\netstandard2.0\GB.SIMEF.Shared.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\bin\Debug\netstandard2.0\GB.SIMEF.Shared.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.csprojAssemblyReference.cache
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.AssemblyInfoInputs.cache
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.AssemblyInfo.cs
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.csproj.CoreCompileInputs.cache
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Shared\obj\Debug\netstandard2.0\GB.SIMEF.Shared.pdb
