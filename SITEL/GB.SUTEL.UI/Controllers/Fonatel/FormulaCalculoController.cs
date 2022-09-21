@@ -67,7 +67,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     Selected = false
                 }).ToList();
 
-
+            ViewBag.VariableIndicador =
+                   indicadorVariableBL.ObtenerDatos(new DetalleIndicadorVariables()).objetoRespuesta
+                   .Select(x => new SelectListItem()
+                   {
+                       Value = Utilidades.Desencriptar(x.id),
+                       Text = x.NombreVariable,
+                       Selected = false
+                   }).ToList();
 
             if (modo==(int)Constantes.Accion.Clonar && !string.IsNullOrEmpty(id))
             {
@@ -90,14 +97,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
 
-            ViewBag.VariableIndicador =
-                    indicadorVariableBL.ObtenerDatos(new DetalleIndicadorVariables()  ).objetoRespuesta
-                    .Select(x => new SelectListItem()
-                    {
-                        Value = Utilidades.Desencriptar(x.id),
-                        Text = x.NombreVariable,
-                        Selected = false
-                    }).ToList();
+           
 
 
 
