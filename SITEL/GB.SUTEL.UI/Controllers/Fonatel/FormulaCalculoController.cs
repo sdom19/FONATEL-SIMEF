@@ -19,8 +19,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly FormulasCalculoBL formulaBL;
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
         private readonly IndicadorFonatelBL indicadorFonatelBL;
-
         private readonly DetalleIndicadorVariablesBL indicadorVariableBL;
+
         #endregion
         public FormulaCalculoController()
         {
@@ -59,22 +59,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }).ToList();
 
             ViewBag.IndicadorSalida =
-                indicadorFonatelBL.ObtenerDatos(new Indicador() { IdClasificacion = (int)Constantes.ClasificacionIndicadorEnum.Salida }).objetoRespuesta
-                .Select(x => new SelectListItem()
-                {
-                    Value = Utilidades.Desencriptar(x.id),
-                    Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre),
-                    Selected = false
-                }).ToList();
+               indicadorFonatelBL.ObtenerDatos(new Indicador() { IdClasificacion = (int)Constantes.ClasificacionIndicadorEnum.Salida }).objetoRespuesta
+               .Select(x => new SelectListItem()
+               {
+                   Value = Utilidades.Desencriptar(x.id),
+                   Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre),
+                   Selected = false
+               }).ToList();
 
             ViewBag.VariableIndicador =
-                   indicadorVariableBL.ObtenerDatos(new DetalleIndicadorVariables()).objetoRespuesta
-                   .Select(x => new SelectListItem()
-                   {
-                       Value = Utilidades.Desencriptar(x.id),
-                       Text = x.NombreVariable,
-                       Selected = false
-                   }).ToList();
+                  indicadorVariableBL.ObtenerDatos(new DetalleIndicadorVariables()).objetoRespuesta
+                  .Select(x => new SelectListItem()
+                  {
+                      Value = Utilidades.Desencriptar(x.id),
+                      Text = x.NombreVariable,
+                      Selected = false
+                  }).ToList();
 
             if (modo==(int)Constantes.Accion.Clonar && !string.IsNullOrEmpty(id))
             {
@@ -90,15 +90,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloEditar;
                 modelo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
             }
-            else
+            else if (modo == (int)Constantes.Accion.Consultar && !string.IsNullOrEmpty(id))
+            {
+                ViewBag.ModoFormulario = ((int)Accion.Consultar).ToString();
+                ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
+                modelo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
+            }
+            else 
             {
                 ViewBag.ModoFormulario = ((int)Accion.Insertar).ToString();
                 ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
             }
-
-
-           
-
 
 
 
