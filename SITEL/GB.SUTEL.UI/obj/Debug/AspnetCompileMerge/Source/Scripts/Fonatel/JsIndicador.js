@@ -399,8 +399,10 @@ CreateView = {
         // Formulario Indicador
         CrearObjFormularioIndicador: function (esGuardadoParcial) {
             let controles = CreateView.Controles.formIndicador;
-
+            let modopantalla = $(CreateView.Controles.modoFormulario).val();
             var formData = {
+                id: $.urlParam("id"),
+                Modo: modopantalla,
                 Codigo: $(controles.inputCodigo).val(),
                 Nombre: $(controles.inputNombre).val(),
                 Descripcion: $(controles.inputDescripcion).val(),
