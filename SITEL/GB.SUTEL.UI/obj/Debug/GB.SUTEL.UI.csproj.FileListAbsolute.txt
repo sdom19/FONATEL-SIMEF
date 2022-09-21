@@ -733,3 +733,7 @@ C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.csproj.CopyComplete
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Debug\GB.SUTEL.UI.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\JsonDiffPatchDotNet.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.BL.dll.config
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.DAL.dll.config
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\bin\GB.SIMEF.Entities.dll.config

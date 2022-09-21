@@ -28,3 +28,6 @@ C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\De
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.csproj.CopyComplete
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\obj\Debug\GB.SIMEF.Entities.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\DocumentFormat.OpenXml.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\Newtonsoft.Json.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.Entities\bin\Debug\JsonDiffPatchDotNet.dll
