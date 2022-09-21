@@ -16,3 +16,12 @@ C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\po
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\predeploy.sql
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\GB.SIMEF.BD.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\GB.SIMEF.BD.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\bin\Debug\GB.SIMEF.BD.dacpac
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\bin\Debug\GB.SIMEF.BD.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\bin\Debug\GB.SIMEF.BD.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\GB.SIMEF.BD.dll
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\GB.SIMEF.BD.pdb
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\Model.xml
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\refactor.xml
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\postdeploy.sql
+D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\predeploy.sql

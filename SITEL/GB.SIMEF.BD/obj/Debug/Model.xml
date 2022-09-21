@@ -12,7 +12,7 @@
 		</CustomData>
 		<CustomData Category="Reference" Type="Assembly">
 			<Metadata Name="LogicalName" Value="GB.SIMEF.BD.dll" />
-			<Metadata Name="FileName" Value="C:\USERS\ADMINISTRADOR\SOURCE\REPOS\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\OBJ\DEBUG\GB.SIMEF.BD.DLL" />
+			<Metadata Name="FileName" Value="D:\DESARROLLO\SUTEL\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\OBJ\DEBUG\GB.SIMEF.BD.DLL" />
 			<Metadata Name="AssemblyName" Value="GB.SIMEF.BD" />
 			<Metadata Name="PermissionSet" Value="SAFE" />
 			<Metadata Name="Owner" Value="" />
@@ -20,7 +20,7 @@
 			<Metadata Name="IsVisible" Value="True" />
 			<Metadata Name="IsModelAware" Value="True" />
 			<Metadata Name="SkipCreationIfEmpty" Value="True" />
-			<Metadata Name="AssemblySymbolsName" Value="C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\GB.SIMEF.BD.pdb" />
+			<Metadata Name="AssemblySymbolsName" Value="D:\Desarrollo\Sutel\FONATEL-SIMEF\SITEL\GB.SIMEF.BD\obj\Debug\GB.SIMEF.BD.pdb" />
 		</CustomData>
 		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
 	</Header>

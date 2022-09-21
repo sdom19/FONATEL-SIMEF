@@ -35,6 +35,7 @@
         "txtFechaCalculoHelp": "#txtFechaCalculoHelp",
         "btnRemoverItemFormula": "#btnRemoverItemFormula",
         "btnGuardar_modalFechaFormulaCalculo": "#btnGuardar_modalFechaFormulaCalculo",
+        "btnCancelar_modalFechaFormulaCalculo": "#btnCancelar_modalFechaFormulaCalculo",
         "btnEliminar_modalFechaFormulaCalculo": "#btnEliminar_modalFechaFormulaCalculo",
         "chkValorTotal": "#chkValorTotal",
         "txtCodigoFormulaHelp": "#txtCodigoFormulaHelp",
@@ -46,6 +47,8 @@
         "ddlVariableFormularioHelp": "#ddlVariableFormularioHelp",
         "ddlNivelCalculoHelp": "#ddlNivelCalculoHelp",
         "ddlCategoríaDesagregacionHelp": "#ddlCategoríaDesagregacionHelp",
+        "btnAgregarArgumento": "#TableaIndicadoresVariable tbody tr td .btn-add",
+        "btnEjecutarFormula": "#btnEjecutarFormula",
 
         //Modal detalle
         "columnaDetalleTabla": "#columnaDetalleTabla",
@@ -77,6 +80,7 @@
         "divCategoríaFechaFinalFormulaCalculo": "#divCategoríaFechaFinalFormulaCalculo",
         "ControlesStep1": "#formCrearFormula input, #formCrearFormula textarea, #formCrearFormula select",
         "step2": "a[href='#step-2']",
+        "divStep2": "#step-2 input, #step-2 select, #step-2 button",
 
         "modoFormulario": "#modoFormulario"
     },
@@ -329,7 +333,7 @@ $(document).on("click", JsFormulasCalculo.Controles.btnEditFormula, function () 
 
 $(document).on("click", JsFormulasCalculo.Controles.btnVerFormula, function () {
     let id = $(this).val();
-    window.location.href = "/Fonatel/FormulaCalculo/Create?id=" + id;
+    window.location.href = "/Fonatel/FormulaCalculo/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Consultar;
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnActivarFormula, function (e) {
@@ -494,7 +498,15 @@ $(document).on("click", JsFormulasCalculo.Controles.btnCancelarGestionFormulaCal
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
+            window.location.href = "/Fonatel/FormulaCalculo/Index";
+        });
+});
 
+$(document).on("click", JsFormulasCalculo.Controles.btnCancelar_modalFechaFormulaCalculo, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            $(JsFormulasCalculo.Controles.modalFechaFormulaCalculo).modal('hide');
         });
 });
 
@@ -515,16 +527,17 @@ $(document).on("click", JsFormulasCalculo.Controles.radioCategoríaDesagregacion
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnGuardar_modalDetalle, function () {
-    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido creado")
+    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
         .set('onok', function (closeEvent) {
             $(JsFormulasCalculo.Controles.modalFormulaDetalleAgregacion).modal('hide');
+            $(JsFormulasCalculo.Controles.chkValorTotal).prop("disabled", true);
         });
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnRemoverItemFormula, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Fórmula?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar El Argumento?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido eliminada")
+            jsMensajes.Metodos.OkAlertModal("El Argumento ha sido eliminado")
                 .set('onok', function (closeEvent) {
 
                 });
@@ -539,7 +552,7 @@ $(document).on("click", JsFormulasCalculo.Controles.btnGuardar_modalFechaFormula
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnEliminar_modalFechaFormulaCalculo, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Eliminar el Argumento de Fecha?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Argumento de Fecha?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("El Argumento de Fecha ha sido eliminado")
                 .set('onok', function (closeEvent) {
@@ -548,8 +561,28 @@ $(document).on("click", JsFormulasCalculo.Controles.btnEliminar_modalFechaFormul
         });
 });
 
+$(document).on("click", JsFormulasCalculo.Controles.btnAgregarArgumento, function () {
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Argumento?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Argumento ha sido agregado")
+                .set('onok', function (closeEvent) {
+
+                });
+        });
+});
+
+$(document).on("click", JsFormulasCalculo.Controles.btnEjecutarFormula, function () {
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea ejecutar la Fórmula?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido ejecutada")
+                .set('onok', function (closeEvent) {
+
+                });
+        });
+});
+
 $(document).on("click", JsFormulasCalculo.Controles.btnEliminar_modalDetalle, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("El Detalle ha sido eliminado")
                 .set('onok', function (closeEvent) {
@@ -580,6 +613,23 @@ $(function () {
     if (modo == jsUtilidades.Variables.Acciones.Editar) {
         JsFormulasCalculo.Metodos.ValidarFormularioCrear();
         $(JsFormulasCalculo.Controles.txtCodigoFormula).prop("disabled", true);
+    }
+
+    if (modo == jsUtilidades.Variables.Acciones.Clonar) {
+        JsFormulasCalculo.Metodos.ValidarFormularioCrear();
+        $(JsFormulasCalculo.Controles.txtCodigoFormula).val("");
+        $(JsFormulasCalculo.Controles.txtNombreFormula).val("");
+    }
+
+    if (modo == jsUtilidades.Variables.Acciones.Consultar) {
+        JsFormulasCalculo.Metodos.ValidarFormularioCrear();
+        $(JsFormulasCalculo.Controles.ControlesStep1).prop("disabled", true);
+        $(JsFormulasCalculo.Controles.divStep2).prop("disabled", true);
+        $(JsFormulasCalculo.Controles.btnGuardarFormulaCalculo).prop("disabled", true);
+        $(JsFormulasCalculo.Controles.btnGuardarGestionFormulaCalculo).prop("disabled", true);
+        $(JsFormulasCalculo.Controles.btnFinalizarFormulaCalculo).prop("disabled", true);
+        $(JsFormulasCalculo.Controles.btnCancelarGestionFormulaCalculo).prop("disabled", false);
+        $(JsFormulasCalculo.Controles.btnAtrasGestionFormula).prop("disabled", false);
     }
 
 });
