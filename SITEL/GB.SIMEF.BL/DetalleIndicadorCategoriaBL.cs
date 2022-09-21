@@ -99,6 +99,7 @@ namespace GB.SIMEF.BL
             bool errorControlado = false;
             try
             {
+                pDetalleIndicadorCategoria = pDetalleIndicadorCategoria.Where(x => x.idCategoriaDetalleString != "all").ToList();
                 resultado.objetoRespuesta = new List<DetalleIndicadorCategoria>();
                 foreach (var DetalleIndicadorCategoria in pDetalleIndicadorCategoria)
                 {

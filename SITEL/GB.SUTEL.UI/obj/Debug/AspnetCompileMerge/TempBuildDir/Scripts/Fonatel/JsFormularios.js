@@ -48,6 +48,25 @@
 
     "Metodos": {
 
+        // quemado y a lo bestia
+        "ValidarButonFinalizar": function () {
+            let id = $.urlParam('id');
+            
+            if (id == "UWrsqGGm3zrBU+AkRi3Q1w==") {
+                $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", false);
+                $(JsFormulario.Controles.btnGuardarIndicador).prop("disabled", true);
+            }
+            if (id == "HwEGzCzU4ppRk5V3JgRfqA==") {
+                $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true);
+                
+            }
+            if (id == null) {
+                $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true);
+            }
+            //if (id == "UWrsqGGm3zrBU+AkRi3Q1w==")
+                
+        },
+
         "ValidarNombreyCodigo": function () {
             let validar = true;
             $(JsFormulario.Controles.txtCodigoFormularioHelp).addClass("hidden");
@@ -334,6 +353,7 @@ $(document).on("click", JsFormulario.Controles.btnEditarIndicadores, function ()
 
 $(document).on("click", JsFormulario.Controles.btnEditarFormulario, function () {
     let id = $(this).val();
+    //JsFormulario..Metodos.ValidarButonFinalizar(id);
     window.location.href = "/Fonatel/FormularioWeb/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
 
@@ -389,9 +409,9 @@ $(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) 
 
 $(document).on("click", JsFormulario.Controles.btnDesactivadoFormulario, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Formulario?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar el Formulario?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Formulario ha sido activada")
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido activada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
         });
 });
@@ -416,7 +436,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, fun
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Formulario ha sido creado")
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido creado")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
         });
 });
@@ -430,7 +450,9 @@ $(function () {
     $(JsFormulario.Controles.txtCantidadIndicadoresFormularioHelp).addClass("hidden");
     $(JsFormulario.Controles.txtDescripcionFormularioHelp).addClass("hidden");
 
-    $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true);
+  
+    JsFormulario.Metodos.ValidarButonFinalizar();
+    //$(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true);
 
     if ($(JsFormulario.Controles.formCrearFormulario).length > 0) {
         JsFormulario.Metodos.ValidarFormularioWebCrear();

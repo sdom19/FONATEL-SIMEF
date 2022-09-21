@@ -323,7 +323,10 @@ $(document).on("click", JsSolicitud.Controles.btnEditarSolicitud, function () {
 
 $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
     let id = $(this).val();
-    window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Solicitud?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
+     }); 
 });
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e) {

@@ -227,6 +227,8 @@ namespace GB.SIMEF.BL
                         return resultado;
                     }
                 }
+
+
                 pIndicador.UsuarioCreacion = user;
                 resultado.objetoRespuesta = indicadorFonatelDAL.ActualizarDatos(pIndicador);
                 

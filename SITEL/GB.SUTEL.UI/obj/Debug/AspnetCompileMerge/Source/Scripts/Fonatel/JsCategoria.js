@@ -618,7 +618,7 @@ $(document).on("click", JsCategoria.Controles.btnCancelarDetalle, function (e) {
     JsCategoria.Variables.ModoEditarAtributo = false;
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
-            location.reload();
+            window.location.href = "/Fonatel/CategoriasDesagregacion/Index";
         });
 });
 

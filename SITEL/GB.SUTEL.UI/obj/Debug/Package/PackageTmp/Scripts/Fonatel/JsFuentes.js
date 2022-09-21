@@ -134,9 +134,9 @@
             $("#loading").fadeIn();
             execAjaxCall("/Fuentes/AgregarDestinatario", "POST", destinatario)
                 .then((data) => {
-                    let mensaje = "El destinatario ha sido creado";
+                    let mensaje = "El Destinatario ha sido agregado";
                     if (destinatario.fuenteId!= null) {
-                        mensaje = "El destinatario ha sido editado"
+                        mensaje = "El Destinatario ha sido agregado"
                     }
                     jsMensajes.Metodos.OkAlertModal(mensaje)
                         .set('onok', function (closeEvent) {
@@ -340,7 +340,7 @@ $(document).on("click", JsFuentes.Controles.step2, function (e) {
 $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function (e) {
     e.preventDefault();
  
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Fuente?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea crear la Fuente?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsFuentes.Consultas.ActivarFuente();
         });
@@ -354,9 +354,9 @@ $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e)
 
 
     if (validar) {
-        let mensaje = "¿Desea agregar el destinatario a la Fuente?";
+        let mensaje = "¿Desea agregar el Destinatario?";
         if ($(JsFuentes.Controles.txtidDetalleFuente).val() > 0) {
-            mensaje = "¿Desea editar el destinatario?";
+            mensaje = "¿Desea agregar el Destinatario?";
         }
 
         jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje, jsMensajes.Variables.actionType.agregar)

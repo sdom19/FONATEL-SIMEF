@@ -399,8 +399,10 @@ CreateView = {
         // Formulario Indicador
         CrearObjFormularioIndicador: function (esGuardadoParcial) {
             let controles = CreateView.Controles.formIndicador;
-
+            let modopantalla = $(CreateView.Controles.modoFormulario).val();
             var formData = {
+                id: $.urlParam("id"),
+                Modo: modopantalla,
                 Codigo: $(controles.inputCodigo).val(),
                 Nombre: $(controles.inputNombre).val(),
                 Descripcion: $(controles.inputDescripcion).val(),
@@ -848,7 +850,7 @@ CreateView = {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ConsultarDetallesVariable(pIndicador) // tabla
                     .then(data => {
-                        let CantidadEstablecida = data.objetoRespuesta.length == 0 ? $(CreateView.Controles.formIndicador.inputCantidadVariableDatosIndicador).val() : data.objetoRespuesta[0].CantidadEstablecida;
+                        let CantidadEstablecida = $(CreateView.Controles.formIndicador.inputCantidadVariableDatosIndicador).val() == "" ? 0 : $(CreateView.Controles.formIndicador.inputCantidadVariableDatosIndicador).val();
 
                         if (CantidadEstablecida > data.objetoRespuesta.length) {
                             $(CreateView.Controles.formVariable.btnSiguiente).prop("disabled", true);
@@ -1081,7 +1083,7 @@ CreateView = {
                     }).
                     then(data => {
                         if (data) {
-                            let CantidadEstablecida = data.objetoRespuesta.length == 0 ? $(CreateView.Controles.formIndicador.inputCantidadCategoriaIndicador).val() : data.objetoRespuesta[0].CantidadEstablecida;
+                            let CantidadEstablecida = $(CreateView.Controles.formIndicador.inputCantidadCategoriaIndicador).val() == "" ? 0 : $(CreateView.Controles.formIndicador.inputCantidadCategoriaIndicador).val();
                             if (CantidadEstablecida > data.objetoRespuesta.length) {
                                 $(CreateView.Controles.btnGuardarCategoria).prop("disabled", false);
                                 $(CreateView.Controles.btnFinalizar).prop("disabled", true);
