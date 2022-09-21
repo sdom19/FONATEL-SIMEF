@@ -9,6 +9,7 @@
         "btnClonarRegla": "#TableReglaDesagregacion tbody tr td .btn-clone",
         "btnBorrarRegla": "#TableReglaDesagregacion tbody tr td .btn-delete",
         "btnEliminaTipoRegla": "#TableTipoRegla tbody tr td .btn-delete",
+        "btnEditTipoRegla": "#TableTipoRegla tbody tr td .btn-edit",
         "btnAddRegla": "#TableReglaDesagregacion tbody tr td .btn-add",
         "btnRemoveReglaDetalle": "#TableReglaDesagregacionDetalle tbody tr td .btn-delete",
         "divFormulaCambioMensual": "#divFormulaCambioMensual",
@@ -135,6 +136,19 @@
             CargarDatasource();
         },
 
+        "CargarDatosSetp2": function (id) {
+            if (id == 1) {
+                $(JsReglas.Controles.ddlTipoRegla).val(6).change();
+                $(JsReglas.Controles.ddlVariableRegla).val(1).change();
+                $(JsReglas.Controles.ddlOperadorRegla).val(4).change();
+            }
+            else {
+                $(JsReglas.Controles.ddlTipoRegla).val(5).change();
+                $(JsReglas.Controles.ddlVariableRegla).val(2).change();
+                $(JsReglas.Controles.ddlOperadorRegla).val(5).change();
+            }
+        },
+
         "ValidarControles": function () {
             let validar = true;
             $(JsReglas.Controles.CodigoHelp).addClass("hidden");
@@ -178,6 +192,22 @@
             $(JsReglas.Controles.ddlIndicadorComparacionRegla).val(null).trigger('change');
             $(JsReglas.Controles.ddlVariableComparacionRegla).val(null).trigger('change');
         },
+
+        "RestablecerCamposStep2": function () {
+            $(JsReglas.Controles.ddlTipoRegla).val(null).trigger('change');
+            $(JsReglas.Controles.ddlOperadorRegla).val(null).trigger('change');
+            $(JsReglas.Controles.ddlVariableRegla).val(null).trigger('change');
+            $(JsReglas.Controles.ddlIndicadorComparacionRegla).val(null).trigger('change');
+            $(JsReglas.Controles.ddlVariableComparacionRegla).val(null).trigger('change');
+            $(JsReglas.Controles.txtConstanteRegla).val(null).trigger('change');
+            $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val(null).trigger('change');
+            $(JsReglas.Controles.ddlAtributosValidosRegla).val(null).trigger('change');
+            $(JsReglas.Controles.ddlCategoríaActualizableRegla).val(null).trigger('change');
+            $(JsReglas.Controles.ddlIndicadorSalidaRegla).val(null).trigger('change');
+            $(JsReglas.Controles.ddlIndicadorComparacionRegla).val(null).trigger('change');
+            $(JsReglas.Controles.ddlVariableComparacionRegla).val(null).trigger('change');
+        },
+
         "ValidarControlesTipo": function () {
 
             let validarTipo = true;
@@ -391,7 +421,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
             .set('onok', function (closeEvent) {
                 jsMensajes.Metodos.OkAlertModal("El Tipo de Regla ha sido agregado")
                     .set('onok', function (closeEvent) {
-
+                        JsReglas.Metodos.RestablecerCamposStep2();
                     });
             });
     };
@@ -408,6 +438,10 @@ $(document).on("click", JsReglas.Controles.btnEliminaTipoRegla, function (e) {
         });
 });
 
+$(document).on("click", JsReglas.Controles.btnEditTipoRegla, function (e) {
+    let id = $(this).val();
+    JsReglas.Metodos.CargarDatosSetp2(id);
+});
 
 
 $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
@@ -417,7 +451,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
     if (JsReglas.Metodos.ValidarControles()) {
         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
-                jsMensajes.Metodos.OkAlertModal("Se ha configurado una regla a la Variable")
+                jsMensajes.Metodos.OkAlertModal("La Regla de Validación ha sido creada")
                     .set('onok', function (closeEvent) {
                         window.location = "/ReglasValidacion/index";
                     });
@@ -426,7 +460,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
     } else {
         jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
-                jsMensajes.Metodos.OkAlertModal("Se ha configurado una regla a la Variable")
+                jsMensajes.Metodos.OkAlertModal("La Regla de Validación ha sido creada")
                     .set('onok', function (closeEvent) {
                         window.location = "/ReglasValidacion/index";
                     });
@@ -510,11 +544,12 @@ $(function () {
     else if ($.urlParam("modo")== jsUtilidades.Variables.Acciones.Editar) {
         $(JsReglas.Controles.txtCodigo).prop("disabled", true);
         JsReglas.Metodos.ValidarOpcionSiguiente();
+
     }
     else if ($.urlParam("modo") == jsUtilidades.Variables.Acciones.Clonar) {
         JsReglas.Metodos.ValidarOpcionSiguiente();
     }
-  
+    JsReglas.Metodos.RestablecerCamposStep2();
 
 });
 
