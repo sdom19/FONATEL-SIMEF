@@ -19,8 +19,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly FormulasCalculoBL formulaBL;
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
         private readonly IndicadorFonatelBL indicadorFonatelBL;
-        private readonly DetalleIndicadorVariablesBL indicadorVariableBL;
 
+        private readonly DetalleIndicadorVariablesBL indicadorVariableBL;
         #endregion
         public FormulaCalculoController()
         {
@@ -59,22 +59,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }).ToList();
 
             ViewBag.IndicadorSalida =
-               indicadorFonatelBL.ObtenerDatos(new Indicador() { IdClasificacion = (int)Constantes.ClasificacionIndicadorEnum.Salida }).objetoRespuesta
-               .Select(x => new SelectListItem()
-               {
-                   Value = Utilidades.Desencriptar(x.id),
-                   Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre),
-                   Selected = false
-               }).ToList();
+                indicadorFonatelBL.ObtenerDatos(new Indicador() { IdClasificacion = (int)Constantes.ClasificacionIndicadorEnum.Salida }).objetoRespuesta
+                .Select(x => new SelectListItem()
+                {
+                    Value = Utilidades.Desencriptar(x.id),
+                    Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre),
+                    Selected = false
+                }).ToList();
 
-            ViewBag.VariableIndicador =
-                  indicadorVariableBL.ObtenerDatos(new DetalleIndicadorVariables()).objetoRespuesta
-                  .Select(x => new SelectListItem()
-                  {
-                      Value = Utilidades.Desencriptar(x.id),
-                      Text = x.NombreVariable,
-                      Selected = false
-                  }).ToList();
+
 
             if (modo==(int)Constantes.Accion.Clonar && !string.IsNullOrEmpty(id))
             {
@@ -97,7 +90,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
 
-         
+            ViewBag.VariableIndicador =
+                    indicadorVariableBL.ObtenerDatos(new DetalleIndicadorVariables()  ).objetoRespuesta
+                    .Select(x => new SelectListItem()
+                    {
+                        Value = Utilidades.Desencriptar(x.id),
+                        Text = x.NombreVariable,
+                        Selected = false
+                    }).ToList();
+
+
+
+
             return View(modelo);
         }
 

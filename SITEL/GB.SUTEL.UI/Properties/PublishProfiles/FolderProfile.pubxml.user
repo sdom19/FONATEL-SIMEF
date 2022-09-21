@@ -7,17 +7,17 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\PublicadoSutel</_PublishTargetUrl>
-    <History>True|2022-09-20T19:19:22.6638285Z;True|2022-09-20T17:56:16.3822267+00:00;True|2022-09-20T17:45:41.0768839+00:00;True|2022-09-20T17:38:37.1191439+00:00;True|2022-09-20T15:17:45.0332755+00:00;True|2022-09-19T23:33:16.1864964+00:00;True|2022-09-19T23:32:39.6895787+00:00;True|2022-09-19T22:14:18.5251283+00:00;True|2022-09-19T20:31:30.5799640+00:00;True|2022-09-19T20:26:00.6093860+00:00;True|2022-09-19T19:43:52.4408899+00:00;True|2022-09-17T23:34:52.5558141+00:00;True|2022-09-17T19:15:58.7575206+00:00;True|2022-09-17T18:57:31.2902047+00:00;True|2022-09-14T18:47:47.8680388+00:00;True|2022-09-14T16:47:17.9093966+00:00;True|2022-09-14T16:35:51.4306152+00:00;True|2022-09-14T15:50:16.1100575+00:00;True|2022-09-13T19:25:41.5488681+00:00;True|2022-09-12T18:43:51.7348407+00:00;True|2022-09-12T18:37:37.2045265+00:00;True|2022-09-09T22:33:25.2756338+00:00;True|2022-09-09T22:11:53.2265242+00:00;True|2022-09-09T18:53:54.1882793+00:00;False|2022-09-09T18:52:13.8604087+00:00;</History>
+    <History>True|2022-09-21T01:07:46.8112625Z;True|2022-09-20T22:58:37.0920668+00:00;True|2022-09-20T21:52:16.8192497+00:00;True|2022-09-20T20:41:01.7313713+00:00;True|2022-09-20T20:37:24.6145194+00:00;True|2022-09-20T19:19:22.6638285+00:00;True|2022-09-20T17:56:16.3822267+00:00;True|2022-09-20T17:45:41.0768839+00:00;True|2022-09-20T17:38:37.1191439+00:00;True|2022-09-20T15:17:45.0332755+00:00;True|2022-09-19T23:33:16.1864964+00:00;True|2022-09-19T23:32:39.6895787+00:00;True|2022-09-19T22:14:18.5251283+00:00;True|2022-09-19T20:31:30.5799640+00:00;True|2022-09-19T20:26:00.6093860+00:00;True|2022-09-19T19:43:52.4408899+00:00;True|2022-09-17T23:34:52.5558141+00:00;True|2022-09-17T19:15:58.7575206+00:00;True|2022-09-17T18:57:31.2902047+00:00;True|2022-09-14T18:47:47.8680388+00:00;True|2022-09-14T16:47:17.9093966+00:00;True|2022-09-14T16:35:51.4306152+00:00;True|2022-09-14T15:50:16.1100575+00:00;True|2022-09-13T19:25:41.5488681+00:00;True|2022-09-12T18:43:51.7348407+00:00;True|2022-09-12T18:37:37.2045265+00:00;True|2022-09-09T22:33:25.2756338+00:00;True|2022-09-09T22:11:53.2265242+00:00;True|2022-09-09T18:53:54.1882793+00:00;False|2022-09-09T18:52:13.8604087+00:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/07/2022 16:01:01</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>09/20/2022 19:19:15</publishTime>
+      <publishTime>09/21/2022 01:07:41</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>09/20/2022 19:19:15</publishTime>
+      <publishTime>09/21/2022 01:07:41</publishTime>
     </File>
     <File Include="bin/BotDetect.dll">
       <publishTime>09/07/2022 16:01:01</publishTime>
@@ -62,22 +62,22 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/07/2022 16:01:01</publishTime>
     </File>
     <File Include="bin/GB.SIMEF.BL.dll">
-      <publishTime>09/20/2022 19:10:46</publishTime>
+      <publishTime>09/20/2022 21:39:23</publishTime>
     </File>
     <File Include="bin/GB.SIMEF.BL.dll.config">
       <publishTime>09/07/2022 16:01:36</publishTime>
     </File>
     <File Include="bin/GB.SIMEF.BL.pdb">
-      <publishTime>09/20/2022 19:10:46</publishTime>
+      <publishTime>09/20/2022 21:39:23</publishTime>
     </File>
     <File Include="bin/GB.SIMEF.DAL.dll">
-      <publishTime>09/20/2022 19:10:46</publishTime>
+      <publishTime>09/20/2022 21:39:23</publishTime>
     </File>
     <File Include="bin/GB.SIMEF.DAL.dll.config">
       <publishTime>09/07/2022 16:01:36</publishTime>
     </File>
     <File Include="bin/GB.SIMEF.DAL.pdb">
-      <publishTime>09/20/2022 19:10:46</publishTime>
+      <publishTime>09/20/2022 21:39:23</publishTime>
     </File>
     <File Include="bin/GB.SIMEF.Entities.dll">
       <publishTime>09/20/2022 18:43:50</publishTime>
@@ -146,10 +146,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/17/2022 01:49:32</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.UI.dll">
-      <publishTime>09/20/2022 19:10:50</publishTime>
+      <publishTime>09/21/2022 00:42:58</publishTime>
     </File>
     <File Include="bin/GB.SUTEL.UI.pdb">
-      <publishTime>09/20/2022 19:10:50</publishTime>
+      <publishTime>09/21/2022 00:42:58</publishTime>
     </File>
     <File Include="bin/ICSharpCode.SharpZipLib.dll">
       <publishTime>09/07/2022 16:01:01</publishTime>
@@ -3005,7 +3005,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/07/2022 16:01:01</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>09/20/2022 19:19:07</publishTime>
+      <publishTime>09/21/2022 01:07:33</publishTime>
     </File>
     <File Include="Recursos/Imagenes/Indicadores.jpg">
       <publishTime>09/07/2022 16:01:01</publishTime>
@@ -3101,7 +3101,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/18/2022 05:39:08</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsCategoria.js">
-      <publishTime>09/12/2022 18:15:36</publishTime>
+      <publishTime>09/20/2022 20:54:53</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsDefiniciones.js">
       <publishTime>09/07/2022 16:01:38</publishTime>
@@ -3116,10 +3116,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/07/2022 16:01:38</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsFormularios.js">
-      <publishTime>09/09/2022 17:27:09</publishTime>
+      <publishTime>09/20/2022 22:56:47</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsFormulasCalculo.js">
-      <publishTime>09/19/2022 21:19:43</publishTime>
+      <publishTime>09/20/2022 21:28:09</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsFuentes.js">
       <publishTime>09/12/2022 18:23:39</publishTime>
@@ -3128,16 +3128,16 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/09/2022 17:26:40</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsIndicador.js">
-      <publishTime>09/19/2022 20:23:45</publishTime>
+      <publishTime>09/20/2022 20:36:51</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsMensaje.js">
       <publishTime>09/07/2022 16:01:38</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsPublicar.js">
-      <publishTime>09/20/2022 19:17:52</publishTime>
+      <publishTime>09/20/2022 22:32:21</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsRegistroIndicadores.js">
-      <publishTime>09/14/2022 17:59:49</publishTime>
+      <publishTime>09/20/2022 22:56:47</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsRegistroIndicadoresEdit.js">
       <publishTime>09/14/2022 17:59:49</publishTime>
@@ -3149,13 +3149,13 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/20/2022 18:07:43</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsSolicitud.js">
-      <publishTime>09/19/2022 23:27:49</publishTime>
+      <publishTime>09/20/2022 22:21:42</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsStepper.js">
       <publishTime>09/07/2022 16:01:38</publishTime>
     </File>
     <File Include="Scripts/Fonatel/JsUtilidades.js">
-      <publishTime>09/17/2022 01:47:02</publishTime>
+      <publishTime>09/20/2022 20:36:51</publishTime>
     </File>
     <File Include="Scripts/Formulas/FormulasCumplimiento.js">
       <publishTime>09/07/2022 16:01:01</publishTime>
@@ -3659,7 +3659,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/09/2022 18:38:54</publishTime>
     </File>
     <File Include="Views/FormulaCalculo/_CrearFormula.cshtml">
-      <publishTime>09/19/2022 22:10:35</publishTime>
+      <publishTime>09/20/2022 20:36:51</publishTime>
     </File>
     <File Include="Views/FormulaCalculo/_FormulaCalculo.cshtml">
       <publishTime>09/09/2022 18:38:54</publishTime>
@@ -3680,13 +3680,16 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/09/2022 18:38:54</publishTime>
     </File>
     <File Include="Views/FormularioWeb/Create.cshtml">
-      <publishTime>09/07/2022 19:30:31</publishTime>
+      <publishTime>09/20/2022 20:36:51</publishTime>
     </File>
     <File Include="Views/FormularioWeb/Index.cshtml">
       <publishTime>09/07/2022 22:01:56</publishTime>
     </File>
+    <File Include="Views/FormularioWeb/Visualizar.cshtml">
+      <publishTime>09/20/2022 22:56:47</publishTime>
+    </File>
     <File Include="Views/FormularioWeb/_CrearFormulario.cshtml">
-      <publishTime>09/07/2022 22:01:56</publishTime>
+      <publishTime>09/20/2022 20:36:51</publishTime>
     </File>
     <File Include="Views/FormularioWeb/_CrearIndicador.cshtml">
       <publishTime>09/07/2022 22:01:56</publishTime>
@@ -3731,7 +3734,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/07/2022 16:01:01</publishTime>
     </File>
     <File Include="Views/Fuentes/Create.cshtml">
-      <publishTime>09/07/2022 16:01:38</publishTime>
+      <publishTime>09/21/2022 00:42:52</publishTime>
     </File>
     <File Include="Views/Fuentes/Detalle.cshtml">
       <publishTime>09/07/2022 16:01:38</publishTime>
@@ -3740,7 +3743,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/07/2022 16:01:38</publishTime>
     </File>
     <File Include="Views/Fuentes/_CrearDetalle.cshtml">
-      <publishTime>09/07/2022 16:01:38</publishTime>
+      <publishTime>09/21/2022 00:42:52</publishTime>
     </File>
     <File Include="Views/Fuentes/_CrearFuente.cshtml">
       <publishTime>09/09/2022 17:26:40</publishTime>
@@ -4322,7 +4325,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/07/2022 16:01:01</publishTime>
     </File>
     <File Include="Views/SolicitudFonatel/Create.cshtml">
-      <publishTime>09/07/2022 16:01:38</publishTime>
+      <publishTime>09/20/2022 21:46:27</publishTime>
     </File>
     <File Include="Views/SolicitudFonatel/Detalle.cshtml">
       <publishTime>07/01/2022 11:03:45</publishTime>
@@ -4331,7 +4334,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/07/2022 16:01:38</publishTime>
     </File>
     <File Include="Views/SolicitudFonatel/_AgregarFormulario.cshtml">
-      <publishTime>09/07/2022 16:01:38</publishTime>
+      <publishTime>09/20/2022 21:49:44</publishTime>
     </File>
     <File Include="Views/SolicitudFonatel/_CrearDetalle.cshtml">
       <publishTime>06/17/2022 10:19:44</publishTime>

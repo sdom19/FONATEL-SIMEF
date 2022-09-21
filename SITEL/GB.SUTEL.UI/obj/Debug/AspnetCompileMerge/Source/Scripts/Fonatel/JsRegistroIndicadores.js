@@ -252,6 +252,9 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
                     $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", false);
                     $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", false);
                 }
+                if (modo == '6') {
+                    jsRegistroIndicadorFonatel.Metodos.CargarDatosVisualizar();
+                }
             }
 
             jsRegistroIndicadorFonatel.Variables.paginasActualizadasConSelect2_tablaIndicador[tabActual].push(0);

@@ -326,29 +326,6 @@ function InsertarItemDataTable (pDataTable, pItem) {
 
 /**
  * José Navarro Acuña.
- * Actualiza un registro de una tabla DataTable.
- * @param {any} pDataTable tabla DataTable.
- * @param {any} pItem item a actualizar.
- * @param {any} pContenido nuevo contenido del item
- * @param {any} pPagina (opcional) número de página donde se encuentra el item
- */
-function ActualizarItemDataTable(pDataTable, pItem, pContenido, pPagina = null) {
-    let dataTable = $(pDataTable).DataTable();
-
-    dataTable.row($(pItem).parents('tr')).data(pContenido).invalidate().draw()
-
-    //if (pPagina != null) {
-    //    // se debe cambiar la página donde se encuentra el registro, 
-    //    // ya que no es posible actualizar el item y ocurre un error
-    //    dataTable.page(pPagina).draw(false);
-    //}
-
-    //let item = dataTable.row($(pItem).parents('tr'));
-    //dataTable.row(item).data(pContenido).draw();
-}
-
-/**
- * José Navarro Acuña.
  * Obtener la página que se encuentra activa de una tabla DataTable.
  * @param {any} pDataTable
  */

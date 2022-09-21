@@ -53,7 +53,9 @@
         "ddlMesSolicitudHelp": "#ddlMesSolicitudHelp",
         "ddlAnoSolicitudHelp": "#ddlAnoSolicitudHelp",
         "ControlesStep1": "#formCrearSolicitud input, #formCrearSolicitud textarea, #formCrearSolicitud select",
-        "txtMensajeSolicitudHelp": "#txtMensajeSolicitudHelp"
+        "txtMensajeSolicitudHelp": "#txtMensajeSolicitudHelp",
+        "TablaFormularioElininado": "#TablaFormulario tbody tr td .btn-delete",
+        "btnFinalizarSolicitud":"#btnFinalizarSolicitud"
 
     },
     "Variables": {
@@ -93,10 +95,11 @@
                     "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button>" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' title='Envío' class='btn-icon-base btn-sent'></button>";
                 if (envioProgramado == "SI") {
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
                 else {
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
+                   
                 }
             }
             $(JsSolicitud.Controles.TablaSolicitud).html(html);
@@ -280,6 +283,19 @@
     }
 }
 
+
+
+$(document).on("click", JsSolicitud.Controles.btnFinalizarSolicitud, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Solicitud?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
+                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/Index";})         
+        });
+});
+
+
+
 $(document).on("click", JsSolicitud.Controles.btnCancelar, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
@@ -287,6 +303,18 @@ $(document).on("click", JsSolicitud.Controles.btnCancelar, function (e) {
             window.location.href = "/Fonatel/SolicitudFonatel/Index";
         });
 });
+
+
+$(document).on("click", JsSolicitud.Controles.TablaFormularioElininado, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
+                .set('onok', function (closeEvent) {  })
+        });
+});
+
+
 
 $(document).on("click", JsSolicitud.Controles.btnEditarSolicitud, function () {
     let id = $(this).val();

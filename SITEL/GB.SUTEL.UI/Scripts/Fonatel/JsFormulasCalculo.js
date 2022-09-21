@@ -6,7 +6,6 @@
         "dllServicio": "#dllServicio",
         "ddlTipoFonatel": "#ddlTipoFonatel",
         "ddlIndicador": "#ddlIndicador",
-        "ddlCategoríaDesagregacion": "#ddlCategoríaDesagregacion",
         "modalFormulaDetalleAgregacion": "#modalFormulaDetalleAgregacion",
         "modalFechaFormulaCalculo": "#modalFechaFormulaCalculo",
         "btnAgregarDetalleAgregacion": "#btnAgregarDetalleAgregacion",
@@ -37,15 +36,6 @@
         "btnGuardar_modalFechaFormulaCalculo": "#btnGuardar_modalFechaFormulaCalculo",
         "btnEliminar_modalFechaFormulaCalculo": "#btnEliminar_modalFechaFormulaCalculo",
         "chkValorTotal": "#chkValorTotal",
-        "txtCodigoFormulaHelp": "#txtCodigoFormulaHelp",
-        "txtNombreFormulaHelp": "#txtNombreFormulaHelp",
-        "ddlFrecuenciaFormularioHelp": "#ddlFrecuenciaFormularioHelp",
-        "txtFechaCalculoHelp": "#txtFechaCalculoHelp",
-        "txtDescripcionFormulaHelp": "#txtDescripcionFormulaHelp",
-        "ddlIndicadorFormularioHelp": "#ddlIndicadorFormularioHelp",
-        "ddlVariableFormularioHelp": "#ddlVariableFormularioHelp",
-        "ddlNivelCalculoHelp": "#ddlNivelCalculoHelp",
-        "ddlCategoríaDesagregacionHelp": "#ddlCategoríaDesagregacionHelp",
 
         //Modal detalle
         "columnaDetalleTabla": "#columnaDetalleTabla",
@@ -75,8 +65,6 @@
         "divCategoríaFechaInicioFormulaCalculo": "#divCategoríaFechaInicioFormulaCalculo",
         "divFechaFinalFormulaCalculo": "#divFechaFinalFormulaCalculo",
         "divCategoríaFechaFinalFormulaCalculo": "#divCategoríaFechaFinalFormulaCalculo",
-        "ControlesStep1": "#formCrearFormula input, #formCrearFormula textarea, #formCrearFormula select",
-        "step2": "a[href='#step-2']",
 
         "modoFormulario": "#modoFormulario"
     },
@@ -96,7 +84,6 @@
     },
 
     "Metodos": {
-
         "CargarTablaFormulas": function () {
             EliminarDatasource();
             let html = "";
@@ -128,61 +115,6 @@
             $(JsFormulasCalculo.Controles.tablaFormulas).html(html);
             CargarDatasource();
             JsFormulasCalculo.Variables.ListadoFormulas = [];
-        },
-
-        "ValidarNombreyCodigo": function () {
-            let validar = true;
-            $(JsFormulasCalculo.Controles.txtCodigoFormulaHelp).addClass("hidden");
-            $(JsFormulasCalculo.Controles.txtNombreFormulaHelp).addClass("hidden");
-
-            let codigo = $(JsFormulasCalculo.Controles.txtCodigoFormula).val().trim();
-            let nombre = $(JsFormulasCalculo.Controles.txtNombreFormula).val().trim();
-
-            if (codigo.length == 0) {
-                $(JsFormulasCalculo.Controles.txtCodigoFormulaHelp).removeClass("hidden");
-                Validar = false;
-            }
-            if (nombre.length == 0) {
-                $(JsFormulasCalculo.Controles.txtNombreFormulaHelp).removeClass("hidden");
-                validar = false;
-            }
-            return validar;
-        },
-
-        "ValidarFormularioCrear": function () {
-            $(JsFormulasCalculo.Controles.txtCodigoFormulaHelp).addClass("hidden");
-            $(JsFormulasCalculo.Controles.txtNombreFormulaHelp).addClass("hidden");
-            $(JsFormulasCalculo.Controles.ddlFrecuenciaFormularioHelp).addClass("hidden");
-            $(JsFormulasCalculo.Controles.txtFechaCalculoHelp).addClass("hidden");
-            $(JsFormulasCalculo.Controles.txtDescripcionFormulaHelp).addClass("hidden");
-            $(JsFormulasCalculo.Controles.ddlIndicadorFormularioHelp).addClass("hidden");
-            $(JsFormulasCalculo.Controles.ddlNivelCalculoHelp).addClass("hidden");
-            $(JsFormulasCalculo.Controles.ddlVariableFormularioHelp).addClass("hidden");
-            $(JsFormulasCalculo.Controles.ddlCategoríaDesagregacionHelp).addClass("hidden");
-            if ($(JsFormulasCalculo.Controles.txtCodigoFormula).val() != null && $(JsFormulasCalculo.Controles.txtCodigoFormula).val().trim().length > 0
-                && $(JsFormulasCalculo.Controles.txtNombreFormula).val() != null && $(JsFormulasCalculo.Controles.txtNombreFormula).val().trim().length > 0
-                && $(JsFormulasCalculo.Controles.txtFechaCalculo).val().trim() != "0001-01-01" && $(JsFormulasCalculo.Controles.ddlFrecuenciaFormulario).val().trim().length > 0
-                && $(JsFormulasCalculo.Controles.txtDescripcionFormula).val().trim().length > 0 && $(JsFormulasCalculo.Controles.ddlIndicadorFormulario).val().trim().length > 0
-                && $(JsFormulasCalculo.Controles.ddlVariableFormulario).val().trim().length > 0) {
-
-                if (radioTotal.checked) {
-                    $(JsFormulasCalculo.Controles.btnSiguienteFormulaCalculo).prop("disabled", false);
-                    $(JsFormulasCalculo.Controles.step2).prop("disabled", false);
-                }
-                else if ($(JsFormulasCalculo.Controles.ddlCategoríaDesagregacion).val() != null && $(JsFormulasCalculo.Controles.ddlCategoríaDesagregacion).val().length > 0) {
-
-                    $(JsFormulasCalculo.Controles.btnSiguienteFormulaCalculo).prop("disabled", false);
-                    $(JsFormulasCalculo.Controles.step2).prop("disabled", false);
-                }
-                else {
-                    $(JsFormulasCalculo.Controles.btnSiguienteFormulaCalculo).prop("disabled", true);
-                    $(JsFormulasCalculo.Controles.step2).prop("disabled", true);
-                }
-            }
-            else {
-                $(JsFormulasCalculo.Controles.btnSiguienteFormulaCalculo).prop("disabled", true);
-                $(JsFormulasCalculo.Controles.step2).prop("disabled", true);
-            }
         },
     },
 
@@ -266,6 +198,7 @@
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
+
         },
 
         "ConsultaListaFormulas": function () {
@@ -302,6 +235,7 @@ $(document).on("click", JsFormulasCalculo.Controles.btnCancelar, function (e) {
 $(document).on("click", JsFormulasCalculo.Controles.btnEliminarFormula, function (e) {
     e.preventDefault();
     let idFormula = $(this).val();
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Fórmula?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsFormulasCalculo.Consultas.EliminarFormulaCalculo(idFormula);
@@ -337,6 +271,7 @@ $(document).on("click", JsFormulasCalculo.Controles.btnActivarFormula, function 
     let idFormula = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Fórmula?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
+
             JsFormulasCalculo.Consultas.DesactivarFormulaCalculo(idFormula);
         });
 });
@@ -452,15 +387,13 @@ $(document).on("click", JsFormulasCalculo.Controles.btnAtrasGestionFormula, func
 
 $(document).on("click", JsFormulasCalculo.Controles.btnGuardarFormulaCalculo, function (e) {
     e.preventDefault();
-    if (JsFormulasCalculo.Metodos.ValidarNombreyCodigo()) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Fórmula de Cálculo?", jsMensajes.Variables.actionType.agregar)
-            .set('onok', function (closeEvent) {
-                jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido creada")
-                    .set('onok', function (closeEvent) {
-                        window.location.href = "/Fonatel/FormulaCalculo/Index";
-                    });
-            });
-    }
+    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Fórmula de Cálculo?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido creada")
+                .set('onok', function (closeEvent) {
+                    window.location.href = "/Fonatel/FormulaCalculo/Index";
+                });
+        });
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnSiguienteFormulaCalculo, function (e) {
@@ -557,13 +490,6 @@ $(document).on("click", JsFormulasCalculo.Controles.btnEliminar_modalDetalle, fu
                 });
         });
 });
-$(document).on("keyup", JsFormulasCalculo.Controles.ControlesStep1, function (e) {
-    JsFormulasCalculo.Metodos.ValidarFormularioCrear();
-});
-
-$(document).on("change", JsFormulasCalculo.Controles.ControlesStep1, function (e) {
-    JsFormulasCalculo.Metodos.ValidarFormularioCrear();
-});
 
 $(function () {
     let modo = $.urlParam("modo");
@@ -572,13 +498,7 @@ $(function () {
         JsFormulasCalculo.Consultas.ConsultaListaFormulas();
     }
 
-    if (modo == null) {
-        JsFormulasCalculo.Metodos.ValidarFormularioCrear();
-        $(JsFormulasCalculo.Controles.radioCategoríaDesagregacion).prop("checked", false);
-    }
-
     if (modo == jsUtilidades.Variables.Acciones.Editar) {
-        JsFormulasCalculo.Metodos.ValidarFormularioCrear();
         $(JsFormulasCalculo.Controles.txtCodigoFormula).prop("disabled", true);
     }
 

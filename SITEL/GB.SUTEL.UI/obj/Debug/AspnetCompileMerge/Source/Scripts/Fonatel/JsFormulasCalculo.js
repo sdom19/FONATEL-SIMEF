@@ -80,7 +80,7 @@
             "Categoría": "2",
             "FECHA": "1"
         },
-        "ListadoFormulas":[]
+        "ListadoFormulas": []
     },
 
     "Metodos": {
@@ -93,13 +93,13 @@
                 html = html + "<td>" + Formula.Nombre + "</td>";
                 html = html + "<td>" + Formula.Descripcion + "</td>";
                 html = html + "<td>" + Formula.EstadoRegistro.Nombre + "</td>";
-                html = html + "<td>"+
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value='" + Formula.id + "' class='btn-icon-base btn-edit'></button>"+
-                    "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' value='" + Formula.id + "' class='btn-icon-base btn-clone' ></button >"+
-                 "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar' value='" + Formula.id + "' class='btn-icon-base btn-view'></button>";
+                html = html + "<td>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value='" + Formula.id + "' class='btn-icon-base btn-edit'></button>" +
+                    "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' value='" + Formula.id + "' class='btn-icon-base btn-clone' ></button >" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar' value='" + Formula.id + "' class='btn-icon-base btn-view'></button>";
 
 
-               
+
 
                 if (Formula.IdEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value='" + Formula.id + "' class='btn-icon-base btn-power-off'></button>";
@@ -107,7 +107,7 @@
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value='" + Formula.id + "' class='btn-icon-base btn-power-on'></button>";
 
                 }
-               
+
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value='" + Formula.id + "'  class='btn-icon-base btn-delete'></button>";
 
                 html = html + "</td></tr>"
@@ -132,7 +132,7 @@
                     jsMensajes.Metodos.OkAlertModal("La Fórmula ha sido eliminada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/FormulaCalculo/Index";
-                        }); 
+                        });
                 }).catch((obj) => {
 
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -146,7 +146,7 @@
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
-            
+
         },
 
         "ActivarFormulaCalculo": function (idFormula) {
@@ -258,7 +258,7 @@ $(document).on("click", JsFormulasCalculo.Controles.btnCloneFormula, function ()
 
 $(document).on("click", JsFormulasCalculo.Controles.btnEditFormula, function () {
     let id = $(this).val();
-    window.location.href = "/Fonatel/FormulaCalculo/Create?id=" + id+ "&modo=" + jsUtilidades.Variables.Acciones.Editar;
+    window.location.href = "/Fonatel/FormulaCalculo/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
 
 $(document).on("click", JsFormulasCalculo.Controles.btnVerFormula, function () {
@@ -497,9 +497,9 @@ $(function () {
     if ($(JsFormulasCalculo.Controles.tablaFormulas).length > 0) {
         JsFormulasCalculo.Consultas.ConsultaListaFormulas();
     }
-   
+
     if (modo == jsUtilidades.Variables.Acciones.Editar) {
         $(JsFormulasCalculo.Controles.txtCodigoFormula).prop("disabled", true);
     }
-    
+
 });

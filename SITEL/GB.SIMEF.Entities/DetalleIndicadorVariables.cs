@@ -35,7 +35,5 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string idIndicadorString { get; set; }
 
-        [NotMapped]
-        public int CantidadEstablecida { get; set; }
     }
 }
