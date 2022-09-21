@@ -44,7 +44,7 @@ namespace GB.SIMEF.DAL
                     Etiquetas = x.Etiquetas,
                     Codigo = x.Codigo,
                     NombreCategoria = x.NombreCategoria,
-                    CantidadEstablecida = db.Database.SqlQuery<int>("SELECT isnull(CantidadCategoriasDesagregacion,0) CantidadEstablecida FROM [dbo].[Indicador] where IdIndicador=" + pDetalleIndicadorCategoria.idIndicador).Single()
+                   
                 }).ToList();
             }
 

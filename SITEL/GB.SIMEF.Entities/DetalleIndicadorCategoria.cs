@@ -52,8 +52,5 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public bool DetallesAgrupados { get; set; }
-
-        [NotMapped]
-        public int  CantidadEstablecida { get; set; }
     }
 }

@@ -37,8 +37,7 @@ namespace GB.SIMEF.DAL
                     id = Utilidades.Encriptar(x.idDetalleIndicador.ToString()),
                     NombreVariable = x.NombreVariable,
                     Descripcion = x.Descripcion,
-                    Estado = x.Estado,
-                    CantidadEstablecida = db.Database.SqlQuery<int>("SELECT isnull([CantidadVariableDato],0) CantidadEstablecida FROM [dbo].[Indicador] where IdIndicador="+pDetalleIndicadorVariables.idIndicador).Single()
+                    Estado = x.Estado
                 }).ToList();
             }
 
