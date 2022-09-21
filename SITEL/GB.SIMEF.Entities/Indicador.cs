@@ -67,6 +67,8 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public int nuevoEstado { get; set; }
         [NotMapped]
+        public int Modo { get; set; }
+        [NotMapped]
         public bool esGuardadoParcial { get; set; }
         #endregion
     }

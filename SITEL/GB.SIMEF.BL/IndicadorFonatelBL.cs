@@ -215,13 +215,18 @@ namespace GB.SIMEF.BL
             try
             {
                 PrepararObjetoIndicador(pIndicador);
-                resultado = ValidarDatos(pIndicador);
-
-                if (resultado.HayError != 0)
+                if (pIndicador.Modo == 5)//clonar
                 {
-                    return resultado;
+                    pIndicador.idIndicador = 0;
                 }
-
+                if (pIndicador.esGuardadoParcial == false)
+                {
+                    resultado = ValidarDatos(pIndicador);
+                    if (resultado.HayError != 0)
+                    {
+                        return resultado;
+                    }
+                }
                 pIndicador.UsuarioCreacion = user;
                 resultado.objetoRespuesta = indicadorFonatelDAL.ActualizarDatos(pIndicador);
                 
