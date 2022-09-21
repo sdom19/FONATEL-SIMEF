@@ -27,6 +27,13 @@ namespace GB.SIMEF.DAL
                     new SqlParameter("@idFuentesRegistro", objDetalleFuentesRegistro.idFuente)
                 ).ToList();
 
+                ListaDetalleFuentesRegistro = ListaDetalleFuentesRegistro.Select(x => new DetalleFuentesRegistro()
+                {
+                    idDetalleFuente = x.idDetalleFuente,
+                    idFuente = x.idFuente,
+                    Estado = x.Estado,
+                    Completo = db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single().CantidadDestinatario == ListaDetalleFuentesRegistro.Count() ? true : false,
+                }).ToList();
 
                 return ListaDetalleFuentesRegistro;
             }
