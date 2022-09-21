@@ -90,14 +90,20 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloEditar;
                 modelo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
             }
-            else
+            else if (modo == (int)Constantes.Accion.Consultar && !string.IsNullOrEmpty(id))
+            {
+                ViewBag.ModoFormulario = ((int)Accion.Consultar).ToString();
+                ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
+                modelo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
+            }
+            else 
             {
                 ViewBag.ModoFormulario = ((int)Accion.Insertar).ToString();
                 ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
             }
 
 
-         
+
             return View(modelo);
         }
 
