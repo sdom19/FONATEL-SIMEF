@@ -74,11 +74,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 else
                 {
                     ViewBag.titulo = EtiquetasViewSolicitudes.Editar;
+                  
                 }
             }
             else
             {
                 ViewBag.titulo = EtiquetasViewSolicitudes.Crear;
+                
             }
             return View(model);
         }
