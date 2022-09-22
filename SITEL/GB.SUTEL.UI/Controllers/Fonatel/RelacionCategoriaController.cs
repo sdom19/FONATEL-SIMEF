@@ -101,7 +101,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.IdUnico,
                 idEstado = (int)Constantes.EstadosRegistro.Activo
 
-            }).objetoRespuesta;
+            }).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList(); ;
 
             if (string.IsNullOrEmpty(id))
             {
