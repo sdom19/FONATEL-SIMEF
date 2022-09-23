@@ -286,7 +286,6 @@ namespace GB.SIMEF.BL
 
                 var listaRelacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { idCategoria = Categoria.idCategoria }).ToList();
 
-
                 if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
                 {
                     DateTime fecha = Categoria.DetalleCategoriaFecha.FechaMinima;
@@ -306,6 +305,7 @@ namespace GB.SIMEF.BL
                 {
 
                     int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
+
                     for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
                     {
 
@@ -320,8 +320,8 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    //ACA FALTA UNA VALIDACION
 
+                    //ACA FALTA UNA VALIDACION
                     result.objetoRespuesta = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
                 }
 

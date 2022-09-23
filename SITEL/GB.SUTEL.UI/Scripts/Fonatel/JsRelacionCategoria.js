@@ -106,6 +106,25 @@
 
         },
 
+        "ValidarNombreCodigo": function () {
+            let validar = true;
+            $(JsRelacion.Controles.nombreHelp).addClass("hidden");
+            $(JsRelacion.Controles.CodigoHelp).addClass("hidden");
+
+            let codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
+            let nombre = $(JsRelacion.Controles.txtNombre).val().trim();
+
+            if (codigo.length == 0) {
+                $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
+                Validar = false;
+            }
+            if (nombre.length == 0) {
+                $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
+                validar = false;
+            }
+            return validar;
+        },
+
         "ValidarFormularioRelacion": function () {
 
             let validar = true;
@@ -363,21 +382,6 @@
                             JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
                         });
 
-                    //jsMensajes.Metodos.ConfirmYesOrNoModal("La Relación está en uso en el/los<br><br> Indicadores Asociados<br><br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
-                    //jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminarla la Relación?", jsMensajes.Variables.actionType.eliminar)
-                    //    .set('onok', function (closeEvent) {
-
-                    //        JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
-
-                    //        jsMensajes.Metodos.OkAlertModal("La Relación ha sido eliminada")
-                    //            .set('onok', function (closeEvent) {
-
-                    //                JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
-                    //            });
-
-                    //    });
-
-
                 }).catch((obj) => {
 
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -533,11 +537,6 @@
             })
         },
 
-        //SOLO PARA ETAPA DE DISEÑO - BORRAR PROXIMENTE
-        //"ImportarExcelDiseño": function () {
-        //    jsMensajes.Metodos.OkAlertModal("El detalle ha sido cargado")
-        //},
-
         "DetalleCompletos": function () {
 
             let formularioCompleto = JsRelacion.Variables.ListadoDetalleRelaciones.length == 0 ? false : JsRelacion.Variables.ListadoDetalleRelaciones[0].Completo;
@@ -620,12 +619,14 @@
     }
 }
 
+
 //EVENTO PARA GUARDAR RELACION ENTRE CATEGORIAS
 $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
 
     e.preventDefault();
     let modo = $(JsRelacion.Controles.txtmodoRelacion).val();
-    let validar = JsRelacion.Metodos.ValidarFormularioRelacion();
+    let validar = JsRelacion.Metodos.ValidarNombreCodigo();
+
     if (!validar) {
         return;
     }
@@ -644,6 +645,32 @@ $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
     }
 
 });
+
+//EVENTO PARA GUARDAR RELACION ENTRE CATEGORIAS
+//$(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
+
+//    e.preventDefault();
+//    let modo = $(JsRelacion.Controles.txtmodoRelacion).val();
+//    let validar = JsRelacion.Metodos.ValidarFormularioRelacion();
+
+//    if (!validar) {
+//        return;
+//    }
+
+//    if (modo == jsUtilidades.Variables.Acciones.Editar) {
+//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
+//            .set('onok', function (closeEvent) {
+//                JsRelacion.Consultas.EditarRelacion();
+//            });
+//    }
+//    else {
+//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
+//            .set('onok', function (closeEvent) {
+//                JsRelacion.Consultas.InsertarRelacion();
+//            });
+//    }
+
+//});
 
 //EVENTO PARA EDITAR RELACION ENTRE CATEGORIAS
 $(document).on("click", JsRelacion.Controles.btnEditarRelacion, function () {

@@ -118,6 +118,7 @@ namespace GB.SIMEF.DAL
             {
 
                 listaValicion = db.Database.SqlQuery<string>
+
                     ("exec spValidarRelacionCategoria @idRelacionCategoria",
                        new SqlParameter("@idRelacionCategoria", objeto.idRelacionCategoria)
                     ).ToList();

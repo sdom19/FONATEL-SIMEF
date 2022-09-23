@@ -15,7 +15,7 @@
             <div class="form-group row">
                 <label for="txtNombre" class="col-sm-12 col-form-label">@EtiquetasViewRelacionCategoria.NombreRelacion</label>
                 <div class="col-sm-12">
-                    @Html.EditorFor(model => model.Nombre , new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_texto", placeholder = EtiquetasViewRelacionCategoria.Nombre, id = "txtNombre" } })
+                    @Html.EditorFor(model => model.Nombre , new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewRelacionCategoria.Nombre, id = "txtNombre" } })
                     <small id="nombreHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
