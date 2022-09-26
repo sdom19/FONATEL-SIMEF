@@ -107,21 +107,23 @@
         },
 
         "ValidarNombreCodigo": function () {
+
             let validar = true;
+
             $(JsRelacion.Controles.nombreHelp).addClass("hidden");
             $(JsRelacion.Controles.CodigoHelp).addClass("hidden");
 
-            let codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
-            let nombre = $(JsRelacion.Controles.txtNombre).val().trim();
 
-            if (codigo.length == 0) {
-                $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
-                Validar = false;
-            }
-            if (nombre.length == 0) {
-                $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
+            if ($(JsRelacion.Controles.txtCodigo).val().length == 0) {
                 validar = false;
+                $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
             }
+
+            if ($(JsRelacion.Controles.txtNombre).val().length == 0) {
+                validar = false;
+                $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
+            }
+
             return validar;
         },
 
@@ -625,25 +627,29 @@ $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
 
     e.preventDefault();
     let modo = $(JsRelacion.Controles.txtmodoRelacion).val();
-    let validar = JsRelacion.Metodos.ValidarNombreCodigo();
 
-    if (!validar) {
-        return;
-    }
+    if (JsRelacion.Metodos.ValidarNombreCodigo()) {
 
-    if (modo == jsUtilidades.Variables.Acciones.Editar) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
-            .set('onok', function (closeEvent) {
-                JsRelacion.Consultas.EditarRelacion();
-            });
-    }
-    else {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
-            .set('onok', function (closeEvent) {
-                JsRelacion.Consultas.InsertarRelacion();
-            });
-    }
 
+        if (modo == jsUtilidades.Variables.Acciones.Editar) {
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    JsRelacion.Consultas.EditarRelacion();
+                })
+                .set('oncancel', function (closeEvent) {
+                    JsRelacion.Metodos.ValidarFormularioRelacion();
+                });
+        }
+        else {
+            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Relación?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    JsRelacion.Consultas.InsertarRelacion();
+                })
+                .set('oncancel', function (closeEvent) {
+                    JsRelacion.Metodos.ValidarFormularioRelacion();
+                });
+        }
+    }
 });
 
 //EVENTO PARA GUARDAR RELACION ENTRE CATEGORIAS

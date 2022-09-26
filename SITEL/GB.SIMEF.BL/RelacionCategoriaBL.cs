@@ -157,7 +157,7 @@ namespace GB.SIMEF.BL
 
                 //REGISTRAMOS EN BITACORA 
                 //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                //        ResultadoConsulta.Usuario,
+                //       ResultadoConsulta.Usuario,
                 //            ResultadoConsulta.Clase, objeto.Codigo);
 
             }
@@ -182,10 +182,27 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                //VALIDACIONES DE CODIGOS REGISTRADOS Y NOMBRES REGISTRADOS NO SE REPITAN
+                
 
                 //OBTENEMOS UNA LISTA DE RELACION CATEGORIA
                 List<RelacionCategoria> BuscarRegistros = clsDatos.ObtenerDatos(new RelacionCategoria());
+
+
+                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
+                if (objeto.idCategoria == 0)
+                {
+                    objeto.idCategoria = 11;
+                }
+
+                if (objeto.CantidadCategoria == null)
+                {
+                    objeto.CantidadCategoria = 0;
+                }
+
+                if (objeto.idCategoriaValor == null)
+                {
+                    objeto.idCategoriaValor = "1";
+                }
 
                 //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() > 0)
