@@ -106,6 +106,25 @@
 
         },
 
+        "ValidarNombreCodigo": function () {
+            let validar = true;
+            $(JsRelacion.Controles.nombreHelp).addClass("hidden");
+            $(JsRelacion.Controles.CodigoHelp).addClass("hidden");
+
+            let codigo = $(JsRelacion.Controles.txtCodigo).val().trim();
+            let nombre = $(JsRelacion.Controles.txtNombre).val().trim();
+
+            if (codigo.length == 0) {
+                $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
+                Validar = false;
+            }
+            if (nombre.length == 0) {
+                $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
+                validar = false;
+            }
+            return validar;
+        },
+
         "ValidarFormularioRelacion": function () {
 
             let validar = true;
@@ -355,26 +374,13 @@
             execAjaxCall("/RelacionCategoria/EliminarRelacionCategoria", "POST", { idRelacionCategoria: idRelacionCategoria })
                 .then((obj) => {
 
-                    jsMensajes.Metodos.ConfirmYesOrNoModal("La Relación ya está en uso en el/los Indicadores:<br><br> Indicadores Asociados<br> <br> ¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                    JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
+
+                    jsMensajes.Metodos.OkAlertModal("La Relación ha sido eliminada")
                         .set('onok', function (closeEvent) {
 
-                            JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
-
-                            jsMensajes.Metodos.OkAlertModal("La Relación ha sido eliminada")
-                                .set('onok', function (closeEvent) {
-
-                                    JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
-                                });
-
+                            JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
                         });
-
-                    //JsRelacion.Metodos.RemoverItemDataTable(JsRelacion.Controles.TablaRelacionCategoriaElemento, `button[value='${idRelacionCategoria}']`)
-
-                    //    jsMensajes.Metodos.OkAlertModal("La Relación ha sido eliminada")
-                    //        .set('onok', function (closeEvent) {
-
-                    //            JsRelacion.Variables.ListadoRelaciones = obj.objetoRespuesta;
-                    //});
 
                 }).catch((obj) => {
 
@@ -486,7 +492,6 @@
 
                             JsRelacion.Variables.ListadoDetalleRelaciones = obj.objetoRespuesta;
                             JsRelacion.Consultas.DetalleCompletos();
-                            location.reload();
 
                         });
                 }).catch((obj) => {
@@ -532,9 +537,6 @@
             })
         },
 
-        "ImportarExcelDiseño": function () {
-            jsMensajes.Metodos.OkAlertModal("El detalle ha sido cargado")
-        },
         "DetalleCompletos": function () {
 
             let formularioCompleto = JsRelacion.Variables.ListadoDetalleRelaciones.length == 0 ? false : JsRelacion.Variables.ListadoDetalleRelaciones[0].Completo;
@@ -563,15 +565,68 @@
 
         },
 
+        "ValidarExistenciaRelacion": function (idRelacionCategoria) {
+
+            $("#loading").fadeIn();
+            let relacion = new Object()
+
+            relacion.id = idRelacionCategoria;
+
+            execAjaxCall("/RelacionCategoria/ValidarRelacion", "POST", relacion)
+                .then((obj) => {
+
+                    if (obj.objetoRespuesta.length == 0) {
+
+                        JsRelacion.Consultas.EliminarRelacionCategoria(idRelacionCategoria);
+
+                    }
+                    else {
+
+                        let dependencias = '';
+
+                        for (var i = 0; i < obj.objetoRespuesta.length; i++) {
+                            dependencias = obj.objetoRespuesta[i] + "<br>"
+                        }
+
+                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Relación está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.estado)
+                            .set('onok', function (closeEvent) {
+
+                                JsRelacion.Consultas.EliminarRelacionCategoria(idRelacionCategoria);
+
+                            });
+                    }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+
+
+        },
+
+
     }
 }
+
 
 //EVENTO PARA GUARDAR RELACION ENTRE CATEGORIAS
 $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
 
     e.preventDefault();
     let modo = $(JsRelacion.Controles.txtmodoRelacion).val();
-    let validar = JsRelacion.Metodos.ValidarFormularioRelacion();
+    let validar = JsRelacion.Metodos.ValidarNombreCodigo();
+
     if (!validar) {
         return;
     }
@@ -591,6 +646,32 @@ $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
 
 });
 
+//EVENTO PARA GUARDAR RELACION ENTRE CATEGORIAS
+//$(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
+
+//    e.preventDefault();
+//    let modo = $(JsRelacion.Controles.txtmodoRelacion).val();
+//    let validar = JsRelacion.Metodos.ValidarFormularioRelacion();
+
+//    if (!validar) {
+//        return;
+//    }
+
+//    if (modo == jsUtilidades.Variables.Acciones.Editar) {
+//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
+//            .set('onok', function (closeEvent) {
+//                JsRelacion.Consultas.EditarRelacion();
+//            });
+//    }
+//    else {
+//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
+//            .set('onok', function (closeEvent) {
+//                JsRelacion.Consultas.InsertarRelacion();
+//            });
+//    }
+
+//});
+
 //EVENTO PARA EDITAR RELACION ENTRE CATEGORIAS
 $(document).on("click", JsRelacion.Controles.btnEditarRelacion, function () {
     let id = $(this).val();
@@ -603,7 +684,11 @@ $(document).on("click", JsRelacion.Controles.btnDeleteRelacion, function (e) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Relación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
 
-            JsRelacion.Consultas.EliminarRelacionCategoria(id);
+            //ELIMINADO DIRECTO SIN VALIDACION
+            //JsRelacion.Consultas.EliminarRelacionCategoria(id);
+
+            //ELIMINADO CON VALIDACION
+            JsRelacion.Consultas.ValidarExistenciaRelacion(id);
 
         });
 
@@ -640,7 +725,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
 
     if (!JsRelacion.Variables.ModoEditarAtributo) {
         if (JsRelacion.Metodos.ValidarFormularioDetalle()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsRelacion.Consultas.InsertarDetalleRelacion();
                 });
@@ -649,7 +734,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
     else {
 
         if (JsRelacion.Metodos.ValidarFormularioDetalle()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea modificar el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea modificar el Detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsRelacion.Consultas.ModificarDetalleRelacion();
                 });
@@ -668,7 +753,7 @@ $(document).on("click", JsRelacion.Controles.btnEditarDetalle, function () {
 //EVENTO PARA ELIMINAR DETALLE RELACION ENTRE CATEGORIAS 
 $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, function (e) {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el detalle?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsRelacion.Consultas.EliminarDetalleRelacion(id);
         });
@@ -682,7 +767,7 @@ $(document).on("click", JsRelacion.Controles.btnCargarDetalle, function (e) {
 
 
 $(document).on("change", JsRelacion.Controles.inputFileCargarDetalle, function (e) {
-    JsRelacion.Consultas.ImportarExcelDiseño();
+    JsRelacion.Consultas.ImportarExcel();
 });
 
 
@@ -708,7 +793,7 @@ $(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
 $(document).on("click", JsRelacion.Controles.btnFinalizarDetalleRelacion, function (e) {
     e.preventDefault();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar La Relacion?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             jsMensajes.Metodos.OkAlertModal("La Relacion ha sido creada")                                                               
                 .set('onok', function (closeEvent) {

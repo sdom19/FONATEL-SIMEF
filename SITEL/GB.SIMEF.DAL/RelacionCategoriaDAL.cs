@@ -110,15 +110,19 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="categoria"></param>
         /// <returns></returns>
-        public List<string> ValidarCategoria(RelacionCategoria objeto)
+        public List<string> ValidarRelacion(RelacionCategoria objeto)
         {
             List<string> listaValicion = new List<string>();
+
             using (db = new SIMEFContext())
             {
+
                 listaValicion = db.Database.SqlQuery<string>
+
                     ("exec spValidarRelacionCategoria @idRelacionCategoria",
                        new SqlParameter("@idRelacionCategoria", objeto.idRelacionCategoria)
                     ).ToList();
+
             }
 
             return listaValicion;
