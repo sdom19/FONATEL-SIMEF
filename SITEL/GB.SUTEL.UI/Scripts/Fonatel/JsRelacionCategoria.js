@@ -347,7 +347,7 @@
 
             execAjaxCall("/RelacionCategoria/EditarRelacionCategoria", "POST", RelacionCategoria)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Relación ha sido editada")
+                    jsMensajes.Metodos.OkAlertModal("La Relación ha sido creada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/RelacionCategoria/Index";
                         });
@@ -409,7 +409,7 @@
 
             execAjaxCall("/RelacionCategoria/InsertarDetalleRelacion", "POST", RelacionDetalle)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido creado")
+                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
                         .set('onok', function (closeEvent) {
                             location.reload();
                         });
@@ -417,14 +417,13 @@
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) {
-                                location.reload();
+                                
                             });
                     }
                     else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) {
-                                location.reload();
-
+                                
                             });
                     }
                 }).finally(() => {
@@ -632,7 +631,9 @@ $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
 
 
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
+            //jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Relación?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Relación?", jsMensajes.Variables.actionType.agregar)
+
                 .set('onok', function (closeEvent) {
                     JsRelacion.Consultas.EditarRelacion();
                 })
@@ -652,36 +653,12 @@ $(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
     }
 });
 
-//EVENTO PARA GUARDAR RELACION ENTRE CATEGORIAS
-//$(document).on("click", JsRelacion.Controles.btnGuardar, function (e) {
-
-//    e.preventDefault();
-//    let modo = $(JsRelacion.Controles.txtmodoRelacion).val();
-//    let validar = JsRelacion.Metodos.ValidarFormularioRelacion();
-
-//    if (!validar) {
-//        return;
-//    }
-
-//    if (modo == jsUtilidades.Variables.Acciones.Editar) {
-//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
-//            .set('onok', function (closeEvent) {
-//                JsRelacion.Consultas.EditarRelacion();
-//            });
-//    }
-//    else {
-//        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
-//            .set('onok', function (closeEvent) {
-//                JsRelacion.Consultas.InsertarRelacion();
-//            });
-//    }
-
-//});
-
 //EVENTO PARA EDITAR RELACION ENTRE CATEGORIAS
 $(document).on("click", JsRelacion.Controles.btnEditarRelacion, function () {
+
     let id = $(this).val();
     window.location.href = "/Fonatel/RelacionCategoria/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
+
 });
 
 //EVENTO PARA ELIMINAR RELACION ENTRE CATEGORIAS 
@@ -731,7 +708,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
 
     if (!JsRelacion.Variables.ModoEditarAtributo) {
         if (JsRelacion.Metodos.ValidarFormularioDetalle()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Detalle?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsRelacion.Consultas.InsertarDetalleRelacion();
                 });
@@ -740,7 +717,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
     else {
 
         if (JsRelacion.Metodos.ValidarFormularioDetalle()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea modificar el Detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Detalle?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsRelacion.Consultas.ModificarDetalleRelacion();
                 });

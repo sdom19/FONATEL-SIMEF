@@ -122,12 +122,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
                 {
                     idCategoria = model.idCategoria
-                }).objetoRespuesta.Single();
+
+                }).objetoRespuesta.FirstOrDefault();
+
 
                 var listavalores = RelacionCategoriaBL.ObtenerListaCategoria(categoria).objetoRespuesta
                     .Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
+
                 listavalores.Add(new SelectListItem() { Value = model.idCategoriaValor, Text = model.idCategoriaValor, Selected = true });
+
                 ViewBag.ListaCatergoriaValor = listavalores;
+
                 return View(model);
             }
         }

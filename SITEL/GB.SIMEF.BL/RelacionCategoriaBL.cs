@@ -51,6 +51,22 @@ namespace GB.SIMEF.BL
                     objeto.idRelacionCategoria = temp;
                 }
 
+                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
+                if (objeto.idCategoria == 0)
+                {
+                    objeto.idCategoria = 0;
+                }
+
+                if (objeto.CantidadCategoria == null)
+                {
+                    objeto.CantidadCategoria = 0;
+                }
+
+                if (objeto.idCategoriaValor == null)
+                {
+                    objeto.idCategoriaValor = "";
+                }
+
                 //GUARDAMOS EL OBJETO EN UNA VARIBALE SEGUN EL ID
                 var result = Registros.Where(x => x.idRelacionCategoria == objeto.idRelacionCategoria).Single();
 
@@ -191,7 +207,7 @@ namespace GB.SIMEF.BL
                 //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
                 if (objeto.idCategoria == 0)
                 {
-                    objeto.idCategoria = 11;
+                    objeto.idCategoria = 0;
                 }
 
                 if (objeto.CantidadCategoria == null)
@@ -201,7 +217,7 @@ namespace GB.SIMEF.BL
 
                 if (objeto.idCategoriaValor == null)
                 {
-                    objeto.idCategoriaValor = "1";
+                    objeto.idCategoriaValor = "";
                 }
 
                 //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
@@ -326,19 +342,13 @@ namespace GB.SIMEF.BL
                     for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
                     {
 
-                        //if (listaRelacionCategoria.Where(x => x.idCategoriaValor == numeroMinimo.ToString()).Count() == 0)
-                        //{
-                        //    result.Add(i.ToString());
-                        //}
-
                         result.objetoRespuesta.Add(i.ToString());
 
                     }
                 }
+
                 else
                 {
-
-                    //ACA FALTA UNA VALIDACION
                     result.objetoRespuesta = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
                 }
 
