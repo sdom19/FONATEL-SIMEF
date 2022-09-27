@@ -397,11 +397,11 @@ CreateView = {
         },
 
         // Formulario Indicador
-        CrearObjFormularioIndicador: function (esGuardadoParcial) {
+        CrearObjFormularioIndicador: function (pEsGuardadoParcial) {
             let controles = CreateView.Controles.formIndicador;
             let modopantalla = $(CreateView.Controles.modoFormulario).val();
             var formData = {
-                id: $.urlParam("id"),
+                id: ObtenerValorParametroUrl("id"),
                 Modo: modopantalla,
                 Codigo: $(controles.inputCodigo).val(),
                 Nombre: $(controles.inputNombre).val(),
@@ -430,7 +430,7 @@ CreateView = {
                 FrecuenciaEnvio: {
                     id: $(controles.ddlClasificacion).val()
                 },
-                esGuardadoParcial: esGuardadoParcial ? true : false
+                esGuardadoParcial: pEsGuardadoParcial ? true : false
             };
             return formData;
         },
@@ -459,36 +459,59 @@ CreateView = {
             }
         },
 
-        CrearIndicadorGuardadoParcial: function () {
-            let mensaje = "";
+        ValidarFormularioIndicador: function (pEsGuardadoParcial) {
             let prefijoHelp = CreateView.Controles.prefijoLabelsHelp;
-            let validacionFormulario = this.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
-            let camposObligatoriosPendientes = false;
+            let camposObligatoriosGuardadoParcial = true;
 
             $(CreateView.Controles.formIndicador.inputCodigo + prefijoHelp).css("display", "none");
+            $(CreateView.Controles.formIndicador.inputCodigo).parent().removeClass("has-error");
             $(CreateView.Controles.formIndicador.inputNombre + prefijoHelp).css("display", "none");
+            $(CreateView.Controles.formIndicador.inputNombre).parent().removeClass("has-error");
+
+            let validacionFormulario = this.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
 
             if (validacionFormulario.objetos.some(x => $(x).attr("id") === $(CreateView.Controles.formIndicador.inputCodigo).attr("id"))) {
                 $(CreateView.Controles.formIndicador.inputCodigo + prefijoHelp).css("display", "block");
-                camposObligatoriosPendientes = true;
-            }
-            if (validacionFormulario.objetos.some(x => $(x).attr("id") === $(CreateView.Controles.formIndicador.inputNombre).attr("id"))) {
-                $(CreateView.Controles.formIndicador.inputNombre + prefijoHelp).css("display", "block");
-                camposObligatoriosPendientes = true;
+                $(CreateView.Controles.formIndicador.inputCodigo).parent().addClass("has-error");
+                camposObligatoriosGuardadoParcial = false;
             }
 
-            if (camposObligatoriosPendientes) {
+            if (validacionFormulario.objetos.some(x => $(x).attr("id") === $(CreateView.Controles.formIndicador.inputNombre).attr("id"))) {
+                $(CreateView.Controles.formIndicador.inputNombre + prefijoHelp).css("display", "block");
+                $(CreateView.Controles.formIndicador.inputNombre).parent().addClass("has-error");
+                camposObligatoriosGuardadoParcial = false;
+            }
+
+            if (!pEsGuardadoParcial) {
+                for (let input of validacionFormulario.objetos) {
+                    $("#" + $(input).attr("id") + prefijoHelp).css("display", "block");
+                    $("#" + $(input).attr("id")).parent().addClass("has-error");
+                }
+            }
+            return { guardadoParcial: camposObligatoriosGuardadoParcial, guardadoCompleto: validacionFormulario.puedeContinuar };
+        },
+
+        CrearIndicadorGuardadoParcial: function () {
+            let mensaje = "";
+
+            let validacion = this.ValidarFormularioIndicador(true);
+
+            if (!validacion.guardadoParcial) {
                 return;
             }
 
-            if (!validacionFormulario.puedeContinuar) {
+            if (!validacion.guardadoCompleto) {
                 mensaje = "Existen campos vacíos. ";
             }
+
+            let rootObj = this;
 
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + "¿Desea realizar un guardado parcial del Indicador?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
-                    .set("oncancel", function () { })
+                    .set("oncancel", function () {
+                        rootObj.ValidarFormularioIndicador(false);
+                    })
             })
                 .then(data => {
                     $("#loading").fadeIn();
@@ -1412,7 +1435,6 @@ CreateView = {
                 });
         });
 
-
         $(document).on("click", CreateView.Controles.formVariable.btnAtras, function (e) {
             $(CreateView.Controles.step1Indicador).trigger('click');
         });
@@ -1515,9 +1537,6 @@ CreateView = {
             }
         });
 
-
-
-
         $(document).on("click", CreateView.Controles.formCategoria.btnEliminarCategoria, function () {
             let idIndicador = ObtenerValorParametroUrl("id");
 
@@ -1525,13 +1544,6 @@ CreateView = {
                 CreateView.Metodos.EliminarDetalleCategoria(idIndicador, $(this).val());
             }
         });
-
-
-
-
-
-
-
 
         $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).on('select2:select', function (event) {
             let idCategoria = $(this).val();
