@@ -32,17 +32,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public IndicadorFonatelController()
         {
             string usuario = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            indicadorBL = new IndicadorFonatelBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
-            tipoIndicadorBL = new TipoIndicadorBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
-            grupoIndicadorBL = new GrupoIndicadorBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
-            unidadEstudioBL = new UnidadEstudioBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
-            frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
-            clasificacionIndicadorBL = new ClasificacionIndicadorBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
-            tipoMedidaBL = new TipoMedidaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
-            detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
-            detalleIndicadorCategoriaBL = new DetalleIndicadorCategoriaBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
-            categoriasDesagregacionBL = new CategoriasDesagregacionBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
-            detalleCategoriasTextoBL = new DetalleCategoriasTextoBL(EtiquetasViewIndicadorFonatel.TituloIndex, usuario);
+            string view = EtiquetasViewIndicadorFonatel.TituloIndex;
+            indicadorBL = new IndicadorFonatelBL(view, usuario);
+            tipoIndicadorBL = new TipoIndicadorBL(view, usuario);
+            grupoIndicadorBL = new GrupoIndicadorBL(view, usuario);
+            unidadEstudioBL = new UnidadEstudioBL(view, usuario);
+            frecuenciaEnvioBL = new FrecuenciaEnvioBL(view, usuario);
+            clasificacionIndicadorBL = new ClasificacionIndicadorBL(view, usuario);
+            tipoMedidaBL = new TipoMedidaBL(view, usuario);
+            detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(view, usuario);
+            detalleIndicadorCategoriaBL = new DetalleIndicadorCategoriaBL(view, usuario);
+            categoriasDesagregacionBL = new CategoriasDesagregacionBL(view, usuario);
+            detalleCategoriasTextoBL = new DetalleCategoriasTextoBL(view, usuario);
 
             defaultDropDownValue = Utilidades.GetDefaultDropDownValue();
         }
@@ -907,7 +908,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
             }
-            else if (!Utilidades.rx_alfanumerico.Match(pIndicador.Codigo.Trim()).Success    // validar el formato correcto
+            else if (!Utilidades.rx_soloTexto.Match(pIndicador.Codigo.Trim()).Success       // validar el formato correcto
                 || pIndicador.Codigo.Trim().Length > 30)                                    // validar la cantidad de caracteres
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
@@ -917,25 +918,55 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
             }
-            else if (!Utilidades.rx_alfanumerico.Match(pIndicador.Nombre.Trim()).Success    // validar el formato correcto
+            else if (!Utilidades.rx_soloTexto.Match(pIndicador.Nombre.Trim()).Success       // validar el formato correcto
                 || pIndicador.Nombre.Trim().Length > 300)                                   // validar la cantidad de caracteres
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
             }
 
-            if (pIndicador.Descripcion?.Trim().Length > 3000)                               // validar la cantidad de caracteres
+            // verificar formato de los campos opcionales
+
+            if (!string.IsNullOrEmpty(pIndicador.Descripcion?.Trim())) // ¿se ingresó el dato?
             {
-                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelDescripcion);
+                if (!Utilidades.rx_soloTexto.Match(pIndicador.Descripcion).Success          // la descripción solo debe contener texto como valor
+                    || pIndicador.Descripcion.Trim().Length > 3000)                         // validar la cantidad de caracteres
+                {
+                    return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelDescripcion);
+                }
             }
 
-            if (pIndicador.Notas?.Trim().Length > 3000)                                     // validar la cantidad de caracteres
+            if (!string.IsNullOrEmpty(pIndicador.Notas?.Trim())) // ¿se ingresó el dato?
             {
-                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas);
+                if (!Utilidades.rx_soloTexto.Match(pIndicador.Notas).Success                // las notas solo deben contener texto como valor
+                    || pIndicador.Notas.Trim().Length > 3000)                               // validar la cantidad de caracteres
+                {
+                    return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas);
+                }
             }
 
-            if (pIndicador.Fuente?.Trim().Length > 300)                                     // validar la cantidad de caracteres
+            if (!string.IsNullOrEmpty(pIndicador.Fuente?.Trim())) // ¿se ingresó el dato?
             {
-                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador);
+                if (!Utilidades.rx_soloTexto.Match(pIndicador.Fuente).Success               // la fuente solo debe contener texto como valor
+                    || pIndicador.Fuente.Trim().Length > 300)                               // validar la cantidad de caracteres
+                {
+                    return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador);
+                }
+            }
+
+            if (pIndicador.CantidadVariableDato != null)
+            {
+                if (pIndicador.CantidadVariableDato < 1) // ¿menor o igual 0?
+                {
+                    return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador);
+                }
+            }
+            
+            if (pIndicador.CantidadCategoriasDesagregacion != null)
+            {
+                if (pIndicador.CantidadCategoriasDesagregacion < 1) // ¿menor o igual 0?
+                {
+                    return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador);
+                }
             }
 
             return null;
