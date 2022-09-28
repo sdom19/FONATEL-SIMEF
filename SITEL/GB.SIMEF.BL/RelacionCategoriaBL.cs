@@ -435,12 +435,10 @@ namespace GB.SIMEF.BL
 
         }
 
-
         public RespuestaConsulta<List<RelacionCategoria>> ValidarDatos(RelacionCategoria objeto)
         {
             throw new NotImplementedException();
         }
-
 
         /// <summary>
         /// Fecha 16/09/2022
@@ -479,5 +477,8 @@ namespace GB.SIMEF.BL
             }
             return listaExistencias;
         }
+
+
+
     }
 }

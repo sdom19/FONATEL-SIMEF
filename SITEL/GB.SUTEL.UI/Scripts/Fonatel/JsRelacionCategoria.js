@@ -186,6 +186,10 @@
             return validar;
         },
 
+        "DescargarExcel": function () {
+            jsMensajes.Metodos.OkAlertModal("La Plantilla ha sido descargada")
+        },
+
         "CerrarFormulario": function () {
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea Salir del Formulario?", jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
@@ -417,13 +421,13 @@
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) {
-                                
+
                             });
                     }
                     else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) {
-                                
+
                             });
                     }
                 }).finally(() => {
@@ -526,12 +530,12 @@
                 },
                 success: function (obj) {
                     $("#loading").fadeOut();
-                    jsMensajes.Metodos.OkAlertModal("El archivo ha sido importado")
+                    jsMensajes.Metodos.OkAlertModal("Los Detalles han sido cargados")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
 
                 }
             }).fail(function (obj) {
-                jsMensajes.Metodos.OkAlertErrorModal()
+                jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Detalles")
                     .set('onok', function (closeEvent) { })
                 $("#loading").fadeOut();
 
@@ -550,7 +554,7 @@
                     $(JsRelacion.Controles.btnFinalizarDetalleRelacion).prop("disabled", true);
 
                 }
-                
+
             } else {
 
                 if (formularioCompleto) {
@@ -612,8 +616,38 @@
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
+        },
 
+        "CambioEstado": function (idRelacionCategoria) {
 
+            $("#loading").fadeIn();
+
+            let relacion = new Object()
+
+            relacion.id = idRelacionCategoria;
+
+            execAjaxCall("/RelacionCategoria/CambioEstado", "POST", relacion)
+
+                .then((obj) => {
+
+                    alert("HOLA");
+
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
         },
 
 
@@ -686,12 +720,6 @@ $(document).on("change", JsRelacion.Controles.ddlCategoriaId, function () {
 
 });
 
-//EVENTO PARA AGREGAR DETALLE 
-$(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
-    let id = $(this).val();
-    window.location.href = "/Fonatel/RelacionCategoria/Detalle?idRelacionCategoria=" + id;
-});
-
 //EVENTO DE CAMBIO PARA CARGAR DETALLE CATEGORIAS DESAGREGACION 
 $(document).on("change", JsRelacion.Controles.ddlCategoriaDetalle, function () {
 
@@ -699,6 +727,12 @@ $(document).on("change", JsRelacion.Controles.ddlCategoriaDetalle, function () {
     if (selected != 0) {
         JsRelacion.Consultas.ConsultarDetalleDesagregacionId(selected);
     }
+});
+
+//EVENTO PARA AGREGAR DETALLE 
+$(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
+    let id = $(this).val();
+    window.location.href = "/Fonatel/RelacionCategoria/Detalle?idRelacionCategoria=" + id;
 });
 
 //EVENTO PARA GUARDAR DETALLE RELACION ENTRE CATEGORIAS 
@@ -735,24 +769,14 @@ $(document).on("click", JsRelacion.Controles.btnEditarDetalle, function () {
 
 //EVENTO PARA ELIMINAR DETALLE RELACION ENTRE CATEGORIAS 
 $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, function (e) {
+
     let id = $(this).val();
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsRelacion.Consultas.EliminarDetalleRelacion(id);
         });
 });
-
-//EVENTO PARA AGREGAR DETALLE POR EXCEL
-$(document).on("click", JsRelacion.Controles.btnCargarDetalle, function (e) {
-
-    $(JsRelacion.Controles.inputFileCargarDetalle).click();
-});
-
-
-$(document).on("change", JsRelacion.Controles.inputFileCargarDetalle, function (e) {
-    JsRelacion.Consultas.ImportarExcel();
-});
-
 
 //EVENTO PARA CANCELAR DETALLE RELACION CATEGORIA
 $(document).on("click", JsRelacion.Controles.btnCancelarDetalle, function (e) {
@@ -774,21 +798,50 @@ $(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
 
 //EVENTO BOTON FINALIZAR DETALLE
 $(document).on("click", JsRelacion.Controles.btnFinalizarDetalleRelacion, function (e) {
-    e.preventDefault();
+
+    let id = $(JsRelacion.Controles.id).val();
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Relacion ha sido creada")                                                               
-                .set('onok', function (closeEvent) {
-                    window.location.href = "/Fonatel/RelacionCategoria/Index";
-                });
-        });;
+            JsRelacion.Consultas.CambioEstado(id);
+        });
+
+
+    //jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
+    //    .set('onok', function (closeEvent) {
+
+    //        jsMensajes.Metodos.OkAlertModal("La Relacion ha sido creada")
+    //            .set('onok', function (closeEvent) {
+    //                window.location.href = "/Fonatel/RelacionCategoria/Index";
+    //            });
+
+    //    });;
+});
+
+//EVENTO PARA AGREGAR DETALLE POR EXCEL
+$(document).on("click", JsRelacion.Controles.btnCargarDetalle, function (e) {
+
+    $(JsRelacion.Controles.inputFileCargarDetalle).click();
+});
+
+$(document).on("change", JsRelacion.Controles.inputFileCargarDetalle, function (e) {
+    JsRelacion.Consultas.ImportarExcel();
 });
 
 //EVENTO PARA DESCARGAR EXCEL
 $(document).on("click", JsRelacion.Controles.btnDescargarDetalle, function () {
+
     let id = $(this).val();
-    window.open(jsUtilidades.Variables.urlOrigen + "/RelacionCategoria/DescargarExcel?id=" + id);
+
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar la Plantilla?", jsMensajes.Variables.actionType.descargar)
+        .set('onok', function (closeEvent) {
+
+            window.open(jsUtilidades.Variables.urlOrigen + "/RelacionCategoria/DescargarExcel?id=" + id);
+
+            JsRelacion.Metodos.DescargarExcel();
+
+        });
+
 });
 
 $(function () {

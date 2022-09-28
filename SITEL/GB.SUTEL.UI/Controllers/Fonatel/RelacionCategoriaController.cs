@@ -121,7 +121,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
                 {
-                    idCategoria = model.idCategoria
+                    idCategoria = model.idCategoria                    
 
                 }).objetoRespuesta.FirstOrDefault();
 
@@ -133,12 +133,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 ViewBag.ListaCatergoriaValor = listavalores;
 
+
                 return View(model);
             }
         }
-
-
-
 
         #endregion
 
@@ -400,7 +398,33 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Francisco Vindas Ruiz 
+        /// 29/08/2022
+        /// Pase el estado a falso para el eliminado del detalle 
+        /// </summary>
+        /// <param name="idDetalleRelacion"></param>
+        /// <returns>JSON</returns>
+        [HttpPost]
+        public async Task<string> CambioEstado(string idRelacionCategoria)
+        {
+            user = User.Identity.GetUserId();
 
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = RelacionCategoriaBL.EliminarElemento(new RelacionCategoria()
+                {
+
+                    id = idRelacionCategoria,
+                    UsuarioModificacion = user
+
+                });
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
 
         #endregion
 

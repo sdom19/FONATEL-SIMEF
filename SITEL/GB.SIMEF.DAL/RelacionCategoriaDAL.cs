@@ -128,6 +128,23 @@ namespace GB.SIMEF.DAL
             return listaValicion;
         }
 
+        /// <summary>
+        /// 28/09/2022
+        /// Francisco Vindas Ruiz
+        /// Función que permite actualizar unicamente el estado
+        /// </summary>
+        /// <param name="idRelacion"></param>
+        /// <returns></returns>
+        public void CambiarEstado(RelacionCategoria idRelacion)
+        {
+            using (db = new SIMEFContext())
+            {
+                db.RelacionCategoria.Attach(idRelacion);
+                db.Entry(idRelacion).Property(x => x.EstadoRegistro).IsModified = true;
+                db.SaveChanges();
+            }
+        }
+
         #endregion
 
     }
