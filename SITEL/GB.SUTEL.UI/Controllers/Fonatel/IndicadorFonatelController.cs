@@ -570,7 +570,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 PrepararObjetoIndicadorGuardadoParcial(pIndicador);
             }
 
-            pIndicador.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+            pIndicador.idEstado = (int)EstadosRegistro.EnProceso;
             // evitar datos indeseados en los ids
             pIndicador.IdTipoIndicador = 0;
             pIndicador.IdFrecuencia = 0;
