@@ -220,21 +220,6 @@ namespace GB.SIMEF.DAL
             return listaIndicadores;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /// <summary>
         /// 29/08/2022
         /// José Navarro Acuña
@@ -273,23 +258,6 @@ namespace GB.SIMEF.DAL
             }
 
             return indicador;
-        }
-
-        /// <summary>
-        /// 29/08/2022
-        /// José Navarro Acuña
-        /// Función que permite actualizar la cantidad de variables datos de un indicador
-        /// </summary>
-        /// <param name="pIndicador"></param>
-        /// <returns></returns>
-        public void ActualizarCantidadVariablesDato(Indicador pIndicador)
-        {
-            using (db = new SIMEFContext())
-            {
-                db.Indicador.Attach(pIndicador);
-                db.Entry(pIndicador).Property(x => x.CantidadVariableDato).IsModified = true;
-                db.SaveChanges();
-            }
         }
 
         #region Métodos privados

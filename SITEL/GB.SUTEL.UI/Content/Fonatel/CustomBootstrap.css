@@ -629,8 +629,9 @@ input[type=number] {
     }
 
     .has-error .form-control-fonatel,
-    .select2-wrapper.has-error .select2-selection {
-        border-color: var(--red-fonatel);
+    .select2-wrapper.has-error .select2-selection,
+    .select2-btn-wrapper.has-error .select2-selection {
+        border-color: var(--red-fonatel) !important;
     }
 
         .has-error .form-control-fonatel:focus {

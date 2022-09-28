@@ -115,18 +115,13 @@ namespace GB.SIMEF.BL
                 detalle.idIndicador = pDetalleIndicadorVariables.idIndicador;
                 resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ActualizarDatos(detalle);
 
-                // actualizar el indicador
-                Indicador indicadorDelDetalle = indicadorFonatelDAL.ObtenerDatos(new Indicador() { idIndicador = pDetalleIndicadorVariables.idIndicador }).FirstOrDefault();
-                indicadorDelDetalle.CantidadVariableDato--;
-                indicadorFonatelDAL.ActualizarCantidadVariablesDato(indicadorDelDetalle);
-
                 resultado.Usuario = user;
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Eliminar;
 
-                //indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                //        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
+                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
             }
             catch (Exception ex)
             {

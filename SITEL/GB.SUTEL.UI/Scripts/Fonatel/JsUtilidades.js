@@ -495,13 +495,6 @@ $(document).on("keypress", '.solo_texto', function (e) {
     }
 });
 
-$(document).on("keyup", '.mayor_que_cero', function (event) {
-    let value = $(this).val();
-    if (value != value.replace(/^[0]+/g, '')) {
-        $(this).val(1);
-    }
-});
-
 $.urlParam = function (name) {
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
     if (results == null) {
