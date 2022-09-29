@@ -87,7 +87,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }).ContinueWith(data =>
             {
                 FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
-                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Eliminado;
+                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Eliminado;
                 result = formularioWebBL.EliminarElemento(objetoValidar);
             }
             );
@@ -123,7 +123,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<FormularioWeb>> result = null;
             await Task.Run(() =>
             {
-                return formularioWebBL.ObtenerDatos(objFormulario);
+                    return formularioWebBL.ObtenerDatos(objFormulario);
 
             }).ContinueWith(data =>
             {

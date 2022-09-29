@@ -93,10 +93,16 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaFormulariosWeb = db.Database.SqlQuery<FormularioWeb>
-                    ("execute spObtenerFormulariosWeb @idFormulario, @idEstado, @codigo",
+                    ("execute spActualizarFormularioWeb @idFormulario, @Codigo, @Nombre, @Descripcion, @CantidadIndicadores, @idFrecuencia, @UsuarioCreacion, @UsuarioModificacion, @idEstado",
                     new SqlParameter("@idFormulario", objFormulario.idFormulario),
-                    new SqlParameter("@idEstado", objFormulario.idEstado),
-                    new SqlParameter("@codigo", string.IsNullOrEmpty(objFormulario.Codigo) ? DBNull.Value.ToString() : objFormulario.Codigo)
+                    new SqlParameter("@Codigo", string.IsNullOrEmpty(objFormulario.Codigo) ? DBNull.Value.ToString() : objFormulario.Codigo),
+                    new SqlParameter("@Nombre", string.IsNullOrEmpty(objFormulario.Nombre) ? DBNull.Value.ToString() : objFormulario.Nombre),
+                    new SqlParameter("@Descripcion", string.IsNullOrEmpty(objFormulario.Descripcion) ? DBNull.Value.ToString() : objFormulario.Descripcion),
+                    new SqlParameter("@CantidadIndicadores", objFormulario.CantidadIndicadores),
+                    new SqlParameter("@idFrecuencia", objFormulario.idFrecuencia),
+                    new SqlParameter("@UsuarioCreacion", string.IsNullOrEmpty(objFormulario.UsuarioCreacion) ? DBNull.Value.ToString() : objFormulario.UsuarioCreacion),
+                    new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objFormulario.UsuarioModificacion) ? DBNull.Value.ToString() : objFormulario.UsuarioModificacion),
+                    new SqlParameter("@idEstado", objFormulario.idEstado)
                     ).ToList();
 
                 ListaFormulariosWeb = ListaFormulariosWeb.Select(x => new FormularioWeb()

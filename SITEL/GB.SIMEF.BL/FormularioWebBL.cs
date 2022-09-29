@@ -66,9 +66,9 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 
-                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                //        ResultadoConsulta.Usuario,
-                //            ResultadoConsulta.Clase, objeto.Codigo);
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
 
             }
             catch (Exception ex)
@@ -128,9 +128,9 @@ namespace GB.SIMEF.BL
 
                 string jsonValorInicial = SerializarObjetoBitacora(objeto);
 
-                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                //            ResultadoConsulta.Usuario,
-                //                ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);
 
             }
             catch (Exception ex)

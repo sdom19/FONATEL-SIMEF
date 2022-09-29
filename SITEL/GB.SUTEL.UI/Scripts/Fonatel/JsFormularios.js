@@ -333,14 +333,24 @@
         },
 
         "EliminarFormulario": function (idFormulario) {
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+            // EliminarElemento
+            let objFormulario = new Object()
+            objFormulario.id = idFormulario;
+            execAjaxCall("/FormularioWeb/EliminarFormulario", "POST", objFormulario)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
+                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+                }).catch((obj) => {
+                    JsFormulario.Metodos.MensajeError(obj);
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
         },
 
         "DesactivarFormulario": function (idFormulario) {
             let objFormulario = new Object()
             objFormulario.id = idFormulario;
-            execAjaxCall("/FormularioWeb/ValidarFormulario", "POST", objFormulario)
+            execAjaxCall("/FormularioWeb/DesactivarFormulario", "POST", objFormulario)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Formulario ha sido desactivado")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
@@ -365,13 +375,7 @@
                     jsMensajes.Metodos.OkAlertModal("El Formulario ha sido activado")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
                 }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
-                    } else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { });
-                    }
+                    JsFormulario.Metodos.MensajeError(obj);
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -394,13 +398,13 @@
                     } else {
                         let dependencias = obj.objetoRespuesta[0] + "<br>"
                         if (eliminado) {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario ya está en uso en las<br>" + dependencias + "<br>¿Desea Eliminar?", jsMensajes.Variables.actionType.eliminar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario ya está en uso en las<br>" + dependencias + "<br>¿Desea Eliminarlo?", jsMensajes.Variables.actionType.eliminar)
                                 .set('onok', function (closeEvent) {
                                     JsFormulario.Consultas.EliminarFormulario(idFormulario);
                                 })
                         }
                         else {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario ya está en uso en las<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario ya está en uso en las<br>" + dependencias + "<br>¿Desea desactivarlo?", jsMensajes.Variables.actionType.estado)
                                 .set('onok', function (closeEvent) {
                                     JsFormulario.Consultas.DesactivarFormulario(idFormulario);
                                 })
@@ -588,7 +592,7 @@ $(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, async fun
 // DELETE(BORRAR) FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnDeleteFormulario, function (e) {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Formulario?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsFormulario.Consultas.ValidarExistenciaFormulario(id, true);
         });

@@ -13,6 +13,52 @@ namespace GB.SIMEF.DAL
     {
         private SIMEFContext db;
 
+        public List<DetalleFormularioWeb> ActualizarDatos(DetalleFormularioWeb objDetalleFormulario)
+        {
+            List<DetalleFormularioWeb> ListaDetalleFormulariosWeb = new List<DetalleFormularioWeb>();
+            using (db = new SIMEFContext())
+            {
+                ListaDetalleFormulariosWeb = db.Database.SqlQuery<DetalleFormularioWeb>
+                    ("execute spActualizarDetalleFormularioWeb @idDetalle, @idFormulario, @idIndicador, @TituloHojas, @NotasInformante, " +
+                    "@NotasEncargado, @Estado",
+                    new SqlParameter("@idDetalle", objDetalleFormulario.idDetalle),
+                    new SqlParameter("@idFormulario", objDetalleFormulario.idFormulario),
+                    new SqlParameter("@idIndicador", objDetalleFormulario.idIndicador),
+                    new SqlParameter("@TituloHojas", string.IsNullOrEmpty(objDetalleFormulario.TituloHojas) ? DBNull.Value.ToString() : objDetalleFormulario.TituloHojas),
+                    new SqlParameter("@NotasInformante", string.IsNullOrEmpty(objDetalleFormulario.NotasInformante) ? DBNull.Value.ToString() : objDetalleFormulario.NotasInformante),
+                    new SqlParameter("@NotasEncargado", string.IsNullOrEmpty(objDetalleFormulario.NotasEncargado) ? DBNull.Value.ToString() : objDetalleFormulario.NotasEncargado),
+                    new SqlParameter("@Estado", objDetalleFormulario.Estado)
+                    ).ToList();
+
+                ListaDetalleFormulariosWeb = ListaDetalleFormulariosWeb.Select(x => new DetalleFormularioWeb()
+                {
+                    idDetalle = x.idDetalle,
+                    idFormulario = x.idFormulario,
+                    idIndicador = x.idIndicador,
+                    TituloHojas = x.TituloHojas,
+                    NotasInformante = x.NotasInformante,
+                    NotasEncargado = x.NotasEncargado,
+                    Estado = x.Estado,
+
+                    Indicador = db.Indicador.Where(i => i.idIndicador == x.idIndicador).FirstOrDefault(),
+                    formularioweb = db.FormularioWeb.Where(i => i.idFormulario == x.idFormulario).FirstOrDefault(),
+
+                }).ToList();
+            }
+            return ListaDetalleFormulariosWeb;
+        }
+
+        public int ObtenerCantidadIndicadores(int idFormulario) {
+            int cantidadFaltante = 0;
+            using (db = new SIMEFContext())
+            {
+                cantidadFaltante = db.Database.SqlQuery<int>("execute spObtenerFormularioWebCantidadIndicadores @idFormulario",
+                    new SqlParameter("@idFormulario", idFormulario)
+                    ).Single();
+            }
+            return cantidadFaltante;
+        }
+
         public List<DetalleFormularioWeb> ObtenerDatos(DetalleFormularioWeb objDetalleFormulario)
         {
             List<DetalleFormularioWeb> ListaDetalleFormulariosWeb = new List<DetalleFormularioWeb>();
