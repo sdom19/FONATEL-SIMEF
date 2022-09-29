@@ -21,6 +21,8 @@ namespace GB.SIMEF.BL
         private readonly TipoMedidaDAL tipoMedidaDAL;
         private readonly GrupoIndicadorDAL grupoIndicadorDAL;
         private readonly UnidadEstudioDAL unidadEstudioDAL;
+        private readonly DetalleIndicadorVariablesDAL detalleIndicadorVariablesDAL;
+        private readonly DetalleIndicadorCategoriaDAL detalleIndicadorCategoriaDAL;
 
         public IndicadorFonatelBL(string pView, string pUser)
         {
@@ -33,6 +35,8 @@ namespace GB.SIMEF.BL
             tipoMedidaDAL = new TipoMedidaDAL();
             grupoIndicadorDAL = new GrupoIndicadorDAL();
             unidadEstudioDAL = new UnidadEstudioDAL();
+            detalleIndicadorVariablesDAL = new DetalleIndicadorVariablesDAL();
+            detalleIndicadorCategoriaDAL = new DetalleIndicadorCategoriaDAL();
         }
 
         public RespuestaConsulta<List<Indicador>> ActualizarElemento(Indicador pIndicador)
@@ -215,21 +219,13 @@ namespace GB.SIMEF.BL
             try
             {
                 PrepararObjetoIndicador(pIndicador);
-                if (pIndicador.Modo == 5)//clonar
+                resultado = ValidarDatos(pIndicador);
+
+                if (resultado.HayError != 0)
                 {
-                    pIndicador.idIndicador = 0;
-                }
-                if (pIndicador.esGuardadoParcial == false)
-                {
-                    resultado = ValidarDatos(pIndicador);
-                    if (resultado.HayError != 0)
-                    {
-                        return resultado;
-                    }
+                    return resultado;
                 }
 
-
-                pIndicador.UsuarioCreacion = user;
                 resultado.objetoRespuesta = indicadorFonatelDAL.ActualizarDatos(pIndicador);
                 
                 resultado.Usuario = user;
@@ -267,23 +263,26 @@ namespace GB.SIMEF.BL
 
             try
             {
-                Indicador indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicador(pIndicador);
+                // validar la existencia del indicador por medio del nombre y/o código
+                Indicador indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicadorPorCodigoNombre(pIndicador);
                 if (indicadorExistente != null) {
-                    errorControlado = true;
 
                     if (indicadorExistente.Codigo.Trim().ToUpper().Equals(pIndicador.Codigo.Trim().ToUpper()))
                     {
+                        errorControlado = true;
                         throw new Exception(string.Format(Errores.CodigoRegistrado, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo));
                     }
                     else
                     {
+                        errorControlado = true;
                         throw new Exception(string.Format(Errores.NombreRegistrado, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre));
                     }
                 }
 
+                // validar si el valor selecionado en los comboboxes existe y se encuentra habilitado
                 if ((pIndicador.esGuardadoParcial && pIndicador.TipoIndicadores.IdTipoIdicador != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
-                    if (tipoIndicadorDAL.ObtenerDatos(pIndicador.TipoIndicadores).Count <= 0)
+                    if (tipoIndicadorDAL.ObtenerDatos(pIndicador.TipoIndicadores).Count <= 0) 
                     {
                         errorControlado = true;
                         throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo));
@@ -332,6 +331,32 @@ namespace GB.SIMEF.BL
                     {
                         errorControlado = true;
                         throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio));
+                    }
+                }
+
+                // validar la cantidad de variables dato y categorias establecidas en el indicador según lo registrado respectivamente en cada detalle
+                if (pIndicador.idIndicador != 0)
+                {
+                    if (pIndicador.CantidadVariableDato != null)
+                    {
+                        List<DetalleIndicadorVariables> detallesDato = detalleIndicadorVariablesDAL.ObtenerDatos(new DetalleIndicadorVariables() { idIndicador = pIndicador.idIndicador } );
+
+                        if (pIndicador.CantidadVariableDato < detallesDato.Count())
+                        {
+                            errorControlado = true;
+                            throw new Exception("El campo ");
+                        }
+                    }
+
+                    if (pIndicador.CantidadCategoriasDesagregacion != null)
+                    {
+                        List<DetalleIndicadorCategoria> detallesCategoria = detalleIndicadorCategoriaDAL.ObtenerDatos(new DetalleIndicadorCategoria() { idIndicador = pIndicador.idIndicador } );
+
+                        if (pIndicador.CantidadCategoriasDesagregacion < detallesCategoria.Count())
+                        {
+                            errorControlado = true;
+                            throw new Exception("ola bb");
+                        }
                     }
                 }
             }
