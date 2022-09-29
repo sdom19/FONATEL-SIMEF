@@ -27,12 +27,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
         private readonly DetalleCategoriasTextoBL detalleCategoriasTextoBL;
         private readonly string defaultDropDownValue;
+        private readonly string usuario = string.Empty;
+        private readonly string view = string.Empty;
 
 
         public IndicadorFonatelController()
         {
-            string usuario = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            string view = EtiquetasViewIndicadorFonatel.TituloIndex;
+            usuario = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            view = EtiquetasViewIndicadorFonatel.TituloIndex;
             indicadorBL = new IndicadorFonatelBL(view, usuario);
             tipoIndicadorBL = new TipoIndicadorBL(view, usuario);
             grupoIndicadorBL = new GrupoIndicadorBL(view, usuario);
@@ -571,7 +573,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             pIndicador.idEstado = (int)EstadosRegistro.EnProceso;
+            pIndicador.UsuarioCreacion = usuario;
+
             // evitar datos indeseados en los ids
+            pIndicador.idIndicador = 0;
             pIndicador.IdTipoIndicador = 0;
             pIndicador.IdFrecuencia = 0;
             pIndicador.IdClasificacion = 0;
@@ -584,6 +589,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = indicadorBL.InsertarDatos(pIndicador);
             });
             return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 24/08/2022
+        /// José Navarro Acuña
+        /// Función que permite editar un indicador.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EditarIndicador(Indicador pIndicador)
+        {
+            if (string.IsNullOrEmpty(pIndicador.id))
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            pIndicador.UsuarioModificacion = usuario;
+            return await CrearIndicador(pIndicador); // reutilizar la función de crear
         }
 
         /// <summary>
@@ -1022,54 +1047,41 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (string.IsNullOrEmpty(pIndicador.TipoIndicadores.id))
                 pIndicador.TipoIndicadores.id = defaultDropDownValue;
             
-
             if (string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id))
                 pIndicador.FrecuenciaEnvio.id = defaultDropDownValue;
             
-
             if (pIndicador.Descripcion == null || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()))
                 pIndicador.Descripcion = defaultInputTextValue;
             
-
             if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
                 pIndicador.ClasificacionIndicadores.id = defaultDropDownValue;
             
-
             if (string.IsNullOrEmpty(pIndicador.TipoMedida.id))
                 pIndicador.TipoMedida.id = defaultDropDownValue;
             
-
             if (string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id))
                 pIndicador.GrupoIndicadores.id = defaultDropDownValue;
             
-
             if (pIndicador.Interno == null) // Uso
                 pIndicador.Interno = false;
-
 
             if (pIndicador.Notas == null || string.IsNullOrEmpty(pIndicador.Notas.Trim()))
                 pIndicador.Notas = defaultInputTextValue;
             
-
-            if (pIndicador.CantidadVariableDato == null)
-                pIndicador.CantidadVariableDato = defaultInputNumberValue;
+            //if (pIndicador.CantidadVariableDato == null)
+            //    pIndicador.CantidadVariableDato = defaultInputNumberValue;
             
-
-            if (pIndicador.CantidadCategoriasDesagregacion == null)
-                pIndicador.CantidadCategoriasDesagregacion = defaultInputNumberValue;
+            //if (pIndicador.CantidadCategoriasDesagregacion == null)
+            //    pIndicador.CantidadCategoriasDesagregacion = defaultInputNumberValue;
             
-
             if (string.IsNullOrEmpty(pIndicador.UnidadEstudio.id))
                 pIndicador.UnidadEstudio.id = defaultDropDownValue;
             
-
             if (pIndicador.Solicitud == null)
                 pIndicador.Solicitud = false;
             
-
             if (pIndicador.Fuente == null || string.IsNullOrEmpty(pIndicador.Fuente.Trim()))
                 pIndicador.Fuente = defaultInputTextValue;
-            
         }
 
         /// <summary>

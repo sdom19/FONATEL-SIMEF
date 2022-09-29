@@ -147,8 +147,14 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pIdClasificacion", pIndicador.IdClasificacion),
                      new SqlParameter("@pIdGrupo", pIndicador.idGrupo),
                      new SqlParameter("@pDescripcion", string.IsNullOrEmpty(pIndicador.Descripcion) ? DBNull.Value.ToString() : pIndicador.Descripcion),
-                     new SqlParameter("@pCantidadVariableDato", pIndicador.CantidadVariableDato),
-                     new SqlParameter("@pCantidadCategoriasDesagregacion", pIndicador.CantidadCategoriasDesagregacion),
+                     pIndicador.CantidadVariableDato == null ? 
+                        new SqlParameter("@pCantidadVariableDato", DBNull.Value) 
+                        : 
+                        new SqlParameter("@pCantidadVariableDato", pIndicador.CantidadVariableDato),
+                     pIndicador.CantidadCategoriasDesagregacion == null ?
+                        new SqlParameter("@pCantidadCategoriasDesagregacion", DBNull.Value)
+                        :
+                        new SqlParameter("@pCantidadCategoriasDesagregacion", pIndicador.CantidadCategoriasDesagregacion),
                      new SqlParameter("@pIdUnidadEstudio", pIndicador.IdUnidadEstudio),
                      new SqlParameter("@pIdTipoMedida", pIndicador.idTipoMedida),
                      new SqlParameter("@pIdFrecuencia", pIndicador.IdFrecuencia),
@@ -157,7 +163,10 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pFuente", string.IsNullOrEmpty(pIndicador.Fuente) ? DBNull.Value.ToString() : pIndicador.Fuente),
                      new SqlParameter("@pNotas", string.IsNullOrEmpty(pIndicador.Notas) ? DBNull.Value.ToString() : pIndicador.Notas),
                      new SqlParameter("@pUsuarioCreacion", pIndicador.UsuarioCreacion),
-                     new SqlParameter("@pUsuarioModificacion", string.IsNullOrEmpty(pIndicador.UsuarioModificacion) ? DBNull.Value.ToString() : pIndicador.UsuarioModificacion),
+                     string.IsNullOrEmpty(pIndicador.UsuarioModificacion) ?
+                        new SqlParameter("@pUsuarioModificacion", DBNull.Value)
+                        :
+                        new SqlParameter("@pUsuarioModificacion", pIndicador.UsuarioModificacion),
                      new SqlParameter("@pVisualizaSigitel", pIndicador.VisualizaSigitel),
                      new SqlParameter("@pIdEstado", pIndicador.idEstado)
                     ).ToList();
@@ -226,14 +235,15 @@ namespace GB.SIMEF.DAL
         /// Función que permite buscar y verificar por código o nombre la existencia de un indicador en estado diferente de eliminado,
         /// </summary>
         /// <param name="pIndicador"></param>
-        public Indicador VerificarExistenciaIndicador(Indicador pIndicador)
+        public Indicador VerificarExistenciaIndicadorPorCodigoNombre(Indicador pIndicador)
         {
             Indicador indicador = null;
 
             using (db = new SIMEFContext())
             {
                 indicador = db.Indicador.Where(x =>
-                        (x.Nombre.Trim().ToUpper() == pIndicador.Nombre.Trim().ToUpper() || x.Codigo.Trim().ToUpper() == pIndicador.Codigo.Trim().ToUpper()) &&
+                        (x.Nombre.Trim().ToUpper().Equals(pIndicador.Nombre.Trim().ToUpper()) || x.Codigo.Trim().ToUpper().Equals(pIndicador.Codigo.Trim().ToUpper())) &&
+                        x.idIndicador != pIndicador.idIndicador &&
                         x.idEstado != (int)EstadosRegistro.Eliminado
                     ).FirstOrDefault();
             }
