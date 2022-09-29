@@ -137,8 +137,7 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleRelacionCategoria>> EliminarElemento(DetalleRelacionCategoria objeto)
         {
-            DetalleRelacionCategoria objrelacion = (DetalleRelacionCategoria)objeto;
-
+            
             try
             {
                 ResultadoConsulta.Clase = modulo;
@@ -146,15 +145,27 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = objeto.usuario;
                 DetalleRelacionCategoria registroActualizar;
 
-                if (!string.IsNullOrEmpty(objrelacion.id))
+                if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objrelacion.id), out temp);
-                    objrelacion.idDetalleRelacionCategoria = temp;
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.idDetalleRelacionCategoria = temp;
                 }
 
-                var resul = clsDatos.ObtenerDatos(objrelacion);
+                if (!string.IsNullOrEmpty(objeto.relacionid))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.relacionid), out temp);
+                    objeto.IdRelacionCategoria = temp;
+                }
 
+                var resul = clsDatos.ObtenerDatos(objeto);
+
+                objeto.RelacionCategoria =
+                    clsDatosRelacionCategoria.ObtenerDatos(new RelacionCategoria() { idRelacionCategoria = objeto.IdRelacionCategoria }).Single();
+
+                int cantidadDisponible = (int)objeto.RelacionCategoria.CantidadCategoria
+                            - objeto.RelacionCategoria.DetalleRelacionCategoria.Count();
 
                 if (resul.Count() == 0)
                 {
@@ -166,6 +177,13 @@ namespace GB.SIMEF.BL
                     registroActualizar = resul.SingleOrDefault();
                     registroActualizar.Estado = false;
                     resul = clsDatos.ActualizarDatos(registroActualizar);
+
+
+                    if (cantidadDisponible == 0)
+                    {
+                        objeto.RelacionCategoria.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                        clsDatosRelacionCategoria.CambiarEstado(objeto.RelacionCategoria);
+                    }
                 }
 
                 ResultadoConsulta.objetoRespuesta = resul;
@@ -174,7 +192,6 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                ResultadoConsulta.MensajeError = ex.Message;
 
                 if (ex.Message == Errores.NoRegistrosActualizar)
                 {
@@ -185,6 +202,8 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }
 
+                ResultadoConsulta.MensajeError = ex.Message;
+
             }    
 
             return ResultadoConsulta;
@@ -194,6 +213,9 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = objeto.usuario;
 
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
@@ -203,14 +225,12 @@ namespace GB.SIMEF.BL
                     objeto.Estado = true;
                 }
 
+
                 objeto.RelacionCategoria = 
                     clsDatosRelacionCategoria.ObtenerDatos(new RelacionCategoria() { idRelacionCategoria = objeto.IdRelacionCategoria}).Single();
 
                 int cantidadDisponible = (int)objeto.RelacionCategoria.CantidadCategoria
                             - objeto.RelacionCategoria.DetalleRelacionCategoria.Count();
-                ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
-                ResultadoConsulta.Usuario = objeto.usuario;
 
 
                 if (cantidadDisponible <= 0)

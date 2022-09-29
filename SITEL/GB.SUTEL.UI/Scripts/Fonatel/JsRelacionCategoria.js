@@ -482,11 +482,11 @@
             }
         },
 
-        "EliminarDetalleRelacion": function (idDetalleRelacionCategoria) {
+        "EliminarDetalleRelacion": function (idDetalleRelacionCategoria, idRelacionCategoria) {
 
             $("#loading").fadeIn();
 
-            execAjaxCall("/RelacionCategoria/EliminarDetalleRelacion", "POST", { idDetalleRelacionCategoria: idDetalleRelacionCategoria })
+            execAjaxCall("/RelacionCategoria/EliminarDetalleRelacion", "POST", { idDetalleRelacionCategoria: idDetalleRelacionCategoria, idRelacionCategoria: idRelacionCategoria})
 
                 .then((obj) => {
 
@@ -622,27 +622,28 @@
 
             $("#loading").fadeIn();
 
-            let relacion = new Object()
 
-            relacion.id = idRelacionCategoria;
-
-            execAjaxCall("/RelacionCategoria/CambioEstado", "POST", relacion)
+            execAjaxCall("/RelacionCategoria/CambioEstado", "POST", { idRelacionCategoria: idRelacionCategoria })
 
                 .then((obj) => {
 
-                    alert("HOLA");
+                 jsMensajes.Metodos.OkAlertModal("La Relacion ha sido creada")
+                     .set('onok', function (closeEvent) {
 
+                        window.location.href = "/Fonatel/RelacionCategoria/Index";
+
+                    });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) {
-                                location.reload();
+
                             });
                     }
                     else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) {
-                                location.reload();
+                               
                             });
                     }
                 }).finally(() => {
@@ -772,9 +773,11 @@ $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, functio
 
     let id = $(this).val();
 
+    let relacionid = $(JsRelacion.Controles.id).val();
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            JsRelacion.Consultas.EliminarDetalleRelacion(id);
+            JsRelacion.Consultas.EliminarDetalleRelacion(id, relacionid);
         });
 });
 
@@ -806,16 +809,6 @@ $(document).on("click", JsRelacion.Controles.btnFinalizarDetalleRelacion, functi
             JsRelacion.Consultas.CambioEstado(id);
         });
 
-
-    //jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
-    //    .set('onok', function (closeEvent) {
-
-    //        jsMensajes.Metodos.OkAlertModal("La Relacion ha sido creada")
-    //            .set('onok', function (closeEvent) {
-    //                window.location.href = "/Fonatel/RelacionCategoria/Index";
-    //            });
-
-    //    });;
 });
 
 //EVENTO PARA AGREGAR DETALLE POR EXCEL

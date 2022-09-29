@@ -140,7 +140,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 db.RelacionCategoria.Attach(idRelacion);
-                db.Entry(idRelacion).Property(x => x.EstadoRegistro).IsModified = true;
+                db.Entry(idRelacion).Property(x => x.idEstado).IsModified = true;
                 db.SaveChanges();
             }
         }

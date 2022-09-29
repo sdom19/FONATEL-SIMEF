@@ -381,7 +381,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idDetalleRelacion"></param>
         /// <returns>JSON</returns>
         [HttpPost]
-        public async Task<string> EliminarDetalleRelacion(string idDetalleRelacionCategoria)
+        public async Task<string> EliminarDetalleRelacion(string idDetalleRelacionCategoria, string idRelacionCategoria)
         {
             user = User.Identity.GetUserId();
             RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
@@ -390,6 +390,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 result = DetalleRelacionCategoriaBL.EliminarElemento(new DetalleRelacionCategoria()
                 {
                     id = idDetalleRelacionCategoria,
+                    relacionid = idRelacionCategoria,
                     usuario = user
                 });
 
@@ -414,7 +415,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                result = RelacionCategoriaBL.EliminarElemento(new RelacionCategoria()
+                result = RelacionCategoriaBL.CambiarEstado(new RelacionCategoria()
                 {
 
                     id = idRelacionCategoria,
