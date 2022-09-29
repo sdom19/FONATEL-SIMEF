@@ -18,13 +18,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly FormularioWebBL formularioWebBL;
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
         private readonly IndicadorFonatelBL indicadorBL;
-        private readonly DetalleFormularioWebBL detalleFormularioWeb;
+        private readonly DetalleFormularioWebBL detalleFormularioWebBL;
 
         #endregion
 
         public FormularioWebController()
         {
-            this.detalleFormularioWeb = new DetalleFormularioWebBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            this.detalleFormularioWebBL = new DetalleFormularioWebBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
             this.formularioWebBL = new FormularioWebBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
             this.frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
             this.indicadorBL = new IndicadorFonatelBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
@@ -62,7 +62,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
+        [HttpGet]
+        public async Task<string> ObtenerIndicadoresFormulario(string idFormulario)
+        {
+            FormularioWeb objFormularioWeb = new FormularioWeb();
+            objFormularioWeb.id = idFormulario;
+            RespuestaConsulta<List<Indicador>> result = null;
+            await Task.Run(() =>
+            {
+                result = formularioWebBL.ObtenerIndicadoresFormulario(objFormularioWeb);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
 
         [HttpPost]
         public async Task<string> EliminarFormulario(FormularioWeb objFormulario)
@@ -97,7 +108,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }).ContinueWith(data =>
             {
                 FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
-                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Desactivado;
+                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Desactivado;
                 result = formularioWebBL.CambioEstado(objetoValidar);
             }
             );
@@ -117,7 +128,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }).ContinueWith(data =>
             {
                 FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
-                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Activo;
                 result = formularioWebBL.CambioEstado(objetoValidar);
             }
             );
@@ -151,7 +162,27 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        [HttpPost]
+        public async Task<string> InsertarFormularioWeb(FormularioWeb formulario)
+        {
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = formularioWebBL.InsertarDatos(formulario);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
 
+        [HttpPost]
+        public async Task<string> InsertarIndicadoresFormulario(DetalleFormularioWeb detalleformulario)
+        {
+            RespuestaConsulta<List<DetalleFormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = detalleFormularioWebBL.InsertarDatos(detalleformulario);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
 
         [HttpGet]
         public ActionResult Create(string id, int? modo)
@@ -208,7 +239,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             objDetalleFormularioWeb.idIndicador = idIndicador;
             await Task.Run(() =>
             {
-                objDetalleFormularioWeb = detalleFormularioWeb.ObtenerDatos(objDetalleFormularioWeb).objetoRespuesta.FirstOrDefault();
+                objDetalleFormularioWeb = detalleFormularioWebBL.ObtenerDatos(objDetalleFormularioWeb).objetoRespuesta.FirstOrDefault();
             });
             return JsonConvert.SerializeObject(objDetalleFormularioWeb);
         }

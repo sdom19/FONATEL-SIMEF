@@ -32,7 +32,20 @@ namespace GB.SIMEF.Entities
         public virtual Indicador Indicador { get; set; }
         [NotMapped]
         public virtual FormularioWeb formularioweb { get; set; }
+
         [NotMapped]
-        public virtual Indicador indicador { get; set; }
+        public List<string> NoSerialize = new List<string>()
+        {
+            "idDetalle",
+            "IdFormulario",
+            "IdIndicador",
+            "TituloHojas",
+            "NotasInformante",
+            "NotasEncargado",
+            "Estado",
+            "Indicador",
+            "formularioweb",
+            "indicador"
+        };
     }
 }

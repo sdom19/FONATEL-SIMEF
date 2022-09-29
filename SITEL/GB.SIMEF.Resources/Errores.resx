@@ -141,6 +141,9 @@
   <data name="CantidadRegistrosLimite" xml:space="preserve">
     <value>La cantidad de detalle a establecer, es inferior la lista actual</value>
   </data>
+  <data name="CatidadIndicadoresExcedido" xml:space="preserve">
+    <value>Se excedió la cantidad de registros establecidos</value>
+  </data>
   <data name="CodigoRegistrado" xml:space="preserve">
     <value>El Código ingresado ya se encuentra registrado</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="FuentesCantidadDestiatarios" xml:space="preserve">
     <value>La cantidad de destinatarios debe ser mayor que 0</value>
+  </data>
+  <data name="IndicadorFormularioRegistrado" xml:space="preserve">
+    <value>El Indicador ingresado ya se encuentra registrado</value>
   </data>
   <data name="NombreRegistrado" xml:space="preserve">
     <value>El Nombre ingresado ya se encuentra registrado</value>

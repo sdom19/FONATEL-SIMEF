@@ -133,6 +133,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se excedió la cantidad de registros establecidos.
+        /// </summary>
+        public static string CatidadIndicadoresExcedido {
+            get {
+                return ResourceManager.GetString("CatidadIndicadoresExcedido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El Código ingresado ya se encuentra registrado.
         /// </summary>
         public static string CodigoRegistrado {
@@ -183,6 +192,15 @@ namespace GB.SIMEF.Resources {
         public static string FuentesCantidadDestiatarios {
             get {
                 return ResourceManager.GetString("FuentesCantidadDestiatarios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El Indicador ingresado ya se encuentra registrado.
+        /// </summary>
+        public static string IndicadorFormularioRegistrado {
+            get {
+                return ResourceManager.GetString("IndicadorFormularioRegistrado", resourceCulture);
             }
         }
         
