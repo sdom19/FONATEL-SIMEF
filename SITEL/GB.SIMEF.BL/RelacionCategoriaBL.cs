@@ -51,6 +51,22 @@ namespace GB.SIMEF.BL
                     objeto.idRelacionCategoria = temp;
                 }
 
+                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
+                if (objeto.idCategoria == 0)
+                {
+                    objeto.idCategoria = 0;
+                }
+
+                if (objeto.CantidadCategoria == null)
+                {
+                    objeto.CantidadCategoria = 0;
+                }
+
+                if (objeto.idCategoriaValor == null)
+                {
+                    objeto.idCategoriaValor = "";
+                }
+
                 //GUARDAMOS EL OBJETO EN UNA VARIBALE SEGUN EL ID
                 var result = Registros.Where(x => x.idRelacionCategoria == objeto.idRelacionCategoria).Single();
 
@@ -157,7 +173,7 @@ namespace GB.SIMEF.BL
 
                 //REGISTRAMOS EN BITACORA 
                 //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                //        ResultadoConsulta.Usuario,
+                //       ResultadoConsulta.Usuario,
                 //            ResultadoConsulta.Clase, objeto.Codigo);
 
             }
@@ -182,10 +198,27 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                //VALIDACIONES DE CODIGOS REGISTRADOS Y NOMBRES REGISTRADOS NO SE REPITAN
+                
 
                 //OBTENEMOS UNA LISTA DE RELACION CATEGORIA
                 List<RelacionCategoria> BuscarRegistros = clsDatos.ObtenerDatos(new RelacionCategoria());
+
+
+                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
+                if (objeto.idCategoria == 0)
+                {
+                    objeto.idCategoria = 0;
+                }
+
+                if (objeto.CantidadCategoria == null)
+                {
+                    objeto.CantidadCategoria = 0;
+                }
+
+                if (objeto.idCategoriaValor == null)
+                {
+                    objeto.idCategoriaValor = "";
+                }
 
                 //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() > 0)
@@ -309,19 +342,13 @@ namespace GB.SIMEF.BL
                     for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
                     {
 
-                        //if (listaRelacionCategoria.Where(x => x.idCategoriaValor == numeroMinimo.ToString()).Count() == 0)
-                        //{
-                        //    result.Add(i.ToString());
-                        //}
-
                         result.objetoRespuesta.Add(i.ToString());
 
                     }
                 }
+
                 else
                 {
-
-                    //ACA FALTA UNA VALIDACION
                     result.objetoRespuesta = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
                 }
 
@@ -408,12 +435,10 @@ namespace GB.SIMEF.BL
 
         }
 
-
         public RespuestaConsulta<List<RelacionCategoria>> ValidarDatos(RelacionCategoria objeto)
         {
             throw new NotImplementedException();
         }
-
 
         /// <summary>
         /// Fecha 16/09/2022
@@ -452,5 +477,72 @@ namespace GB.SIMEF.BL
             }
             return listaExistencias;
         }
+
+        /// <summary>
+        /// Fecha 29/09/2022
+        /// Francisco Vindas Ruiz
+        /// Cambia a estado Activo la relacion entre categoria
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<RelacionCategoria>> CambiarEstado(RelacionCategoria objeto)
+        {
+            RelacionCategoria objrelacion = (RelacionCategoria)objeto;
+
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Activar;
+                ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
+                RelacionCategoria registroActualizar;
+
+                //DESENCRIPTAR EL ID
+                if (!string.IsNullOrEmpty(objrelacion.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objrelacion.id), out temp);
+                    objrelacion.idRelacionCategoria = temp;
+                }
+
+                var resul = clsDatos.ObtenerDatos(objrelacion);
+
+                if (resul.Count() == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+
+                }
+                else
+                {
+                    registroActualizar = resul.SingleOrDefault();
+                    registroActualizar.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                    clsDatos.CambiarEstado(registroActualizar);
+                }
+
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+            }
+            catch (Exception ex)
+            {
+                
+                if (ex.Message == Errores.NoRegistrosActualizar)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsulta;
+        }
+
+
+
+
     }
 }

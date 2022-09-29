@@ -137,8 +137,7 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleRelacionCategoria>> EliminarElemento(DetalleRelacionCategoria objeto)
         {
-            DetalleRelacionCategoria objrelacion = (DetalleRelacionCategoria)objeto;
-
+            
             try
             {
                 ResultadoConsulta.Clase = modulo;
@@ -146,15 +145,27 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = objeto.usuario;
                 DetalleRelacionCategoria registroActualizar;
 
-                if (!string.IsNullOrEmpty(objrelacion.id))
+                if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objrelacion.id), out temp);
-                    objrelacion.idDetalleRelacionCategoria = temp;
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.idDetalleRelacionCategoria = temp;
                 }
 
-                var resul = clsDatos.ObtenerDatos(objrelacion);
+                if (!string.IsNullOrEmpty(objeto.relacionid))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.relacionid), out temp);
+                    objeto.IdRelacionCategoria = temp;
+                }
 
+                var resul = clsDatos.ObtenerDatos(objeto);
+
+                objeto.RelacionCategoria =
+                    clsDatosRelacionCategoria.ObtenerDatos(new RelacionCategoria() { idRelacionCategoria = objeto.IdRelacionCategoria }).Single();
+
+                int cantidadDisponible = (int)objeto.RelacionCategoria.CantidadCategoria
+                            - objeto.RelacionCategoria.DetalleRelacionCategoria.Count();
 
                 if (resul.Count() == 0)
                 {
@@ -166,6 +177,13 @@ namespace GB.SIMEF.BL
                     registroActualizar = resul.SingleOrDefault();
                     registroActualizar.Estado = false;
                     resul = clsDatos.ActualizarDatos(registroActualizar);
+
+
+                    if (cantidadDisponible == 0)
+                    {
+                        objeto.RelacionCategoria.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                        clsDatosRelacionCategoria.CambiarEstado(objeto.RelacionCategoria);
+                    }
                 }
 
                 ResultadoConsulta.objetoRespuesta = resul;
@@ -174,7 +192,6 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                ResultadoConsulta.MensajeError = ex.Message;
 
                 if (ex.Message == Errores.NoRegistrosActualizar)
                 {
@@ -185,6 +202,8 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }
 
+                ResultadoConsulta.MensajeError = ex.Message;
+
             }    
 
             return ResultadoConsulta;
@@ -194,6 +213,9 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = objeto.usuario;
 
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
@@ -203,14 +225,12 @@ namespace GB.SIMEF.BL
                     objeto.Estado = true;
                 }
 
+
                 objeto.RelacionCategoria = 
                     clsDatosRelacionCategoria.ObtenerDatos(new RelacionCategoria() { idRelacionCategoria = objeto.IdRelacionCategoria}).Single();
 
                 int cantidadDisponible = (int)objeto.RelacionCategoria.CantidadCategoria
                             - objeto.RelacionCategoria.DetalleRelacionCategoria.Count();
-                ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
-                ResultadoConsulta.Usuario = objeto.usuario;
 
 
                 if (cantidadDisponible <= 0)
@@ -230,11 +250,14 @@ namespace GB.SIMEF.BL
 
                     if (cantidadDisponible == 1)
                     {
-                        objeto.RelacionCategoria.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                        
+                        //objeto.RelacionCategoria.idEstado = (int)Constantes.EstadosRegistro.Activo;
+
                         objeto.RelacionCategoria.UsuarioModificacion = objeto.usuario;
                         clsDatosRelacionCategoria.ActualizarDatos(objeto.RelacionCategoria);
                     }
 
+                  
                     clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                      ResultadoConsulta.Usuario,
                      ResultadoConsulta.Clase, string.Format("{0}/{1}",
@@ -302,41 +325,6 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        //public void CargarExcel(HttpPostedFileBase file)
-        //{
-
-        //    using (var package = new ExcelPackage(file.InputStream))
-        //    {
-        //        ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
-        //        string Codigo = worksheet.Name;
-
-        //        CategoriasDesagregacion categoria =
-        //                             clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { Codigo = Codigo })
-        //                            .SingleOrDefault();
-        //        categoria.DetalleCategoriaTexto = new List<DetalleCategoriaTexto>();
-
-        //        for (int i = 0; i < categoria.CantidadDetalleDesagregacion; i++)
-        //        {
-        //            int fila = i + 2;
-        //            if (worksheet.Cells[fila, 1].Value != null || worksheet.Cells[fila, 2].Value != null)
-        //            {
-        //                int codigo = 0;
-        //                string Etiqueta = string.Empty;
-        //                int.TryParse(worksheet.Cells[fila, 1].Value.ToString().Trim(), out codigo);
-        //                Etiqueta = worksheet.Cells[fila, 2].Value.ToString().Trim();
-
-        //                var detallecategoria = new DetalleCategoriaTexto()
-        //                {
-        //                    idCategoria = categoria.idCategoria,
-        //                    Codigo = codigo,
-        //                    Etiqueta = Etiqueta,
-        //                    Estado = true
-        //                };
-        //                InsertarDatos(detallecategoria);
-        //            }
-        //        }
-        //    }
-        //}
 
     }
   

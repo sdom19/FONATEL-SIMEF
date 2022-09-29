@@ -52,6 +52,10 @@
                 <div class="col-sm-12">
                     <div class="select2-wrapper">
 
+                        @*<select class="form-control form-control-fonatel  required listasDesplegables" aria-label="Default select example" id="ddlDetalleDesagregacionId">
+                            <option></option>
+                        </select>*@
+
                         @Html.DropDownListFor(model => model.idCategoriaValor, new SelectList(ViewBag.ListaCatergoriaValor, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlDetalleDesagregacionId" })
 
                     </div>

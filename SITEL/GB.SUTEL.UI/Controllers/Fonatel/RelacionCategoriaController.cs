@@ -121,19 +121,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
                 {
-                    idCategoria = model.idCategoria
-                }).objetoRespuesta.Single();
+                    idCategoria = model.idCategoria                    
+
+                }).objetoRespuesta.FirstOrDefault();
+
 
                 var listavalores = RelacionCategoriaBL.ObtenerListaCategoria(categoria).objetoRespuesta
                     .Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
+
                 listavalores.Add(new SelectListItem() { Value = model.idCategoriaValor, Text = model.idCategoriaValor, Selected = true });
+
                 ViewBag.ListaCatergoriaValor = listavalores;
+
+
                 return View(model);
             }
         }
-
-
-
 
         #endregion
 
@@ -378,7 +381,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idDetalleRelacion"></param>
         /// <returns>JSON</returns>
         [HttpPost]
-        public async Task<string> EliminarDetalleRelacion(string idDetalleRelacionCategoria)
+        public async Task<string> EliminarDetalleRelacion(string idDetalleRelacionCategoria, string idRelacionCategoria)
         {
             user = User.Identity.GetUserId();
             RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
@@ -387,6 +390,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 result = DetalleRelacionCategoriaBL.EliminarElemento(new DetalleRelacionCategoria()
                 {
                     id = idDetalleRelacionCategoria,
+                    relacionid = idRelacionCategoria,
                     usuario = user
                 });
 
@@ -395,7 +399,33 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Francisco Vindas Ruiz 
+        /// 29/08/2022
+        /// Pase el estado a falso para el eliminado del detalle 
+        /// </summary>
+        /// <param name="idDetalleRelacion"></param>
+        /// <returns>JSON</returns>
+        [HttpPost]
+        public async Task<string> CambioEstado(string idRelacionCategoria)
+        {
+            user = User.Identity.GetUserId();
 
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = RelacionCategoriaBL.CambiarEstado(new RelacionCategoria()
+                {
+
+                    id = idRelacionCategoria,
+                    UsuarioModificacion = user
+
+                });
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
 
         #endregion
 
