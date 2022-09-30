@@ -94,8 +94,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
-
         [HttpPost]
         public async Task<string> DesactivarFormulario(FormularioWeb objFormulario)
         {
@@ -114,7 +112,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             );
             return JsonConvert.SerializeObject(result);
         }
-
 
         [HttpPost]
         public async Task<string> ActivarFormulario(FormularioWeb objFormulario)
@@ -135,9 +132,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        [HttpPost]
+        public async Task<string> ClonarFormulario(FormularioWeb objFormulario)
+        {
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = formularioWebBL.ClonarDatos(objFormulario);
+            });
 
-
-
+            return JsonConvert.SerializeObject(result);
+        }
 
         /// <summary>
         /// Validar si el formulario está en una solicitud 
@@ -184,6 +189,34 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        [HttpPost]
+        public async Task<string> EliminarIndicadoresFormulario(DetalleFormularioWeb detalleformulario) 
+        {
+            int temp = 0;
+            int.TryParse(Utilidades.Desencriptar(detalleformulario.formularioweb.id), out temp);
+            detalleformulario.idFormulario = temp;
+            RespuestaConsulta<List<DetalleFormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = detalleFormularioWebBL.EliminarElemento(detalleformulario);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpPost]
+        public async Task<string> EditarIndicadoresFormulario(DetalleFormularioWeb detalleformulario)
+        {
+            int temp = 0;
+            int.TryParse(Utilidades.Desencriptar(detalleformulario.formularioweb.id), out temp);
+            detalleformulario.idFormulario = temp;
+            RespuestaConsulta<List<DetalleFormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = detalleFormularioWebBL.ActualizarElemento(detalleformulario);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
         [HttpGet]
         public ActionResult Create(string id, int? modo)
         {
@@ -201,6 +234,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 objFormularioWeb.id = id;
                 objFormularioWeb = formularioWebBL.ObtenerDatos(objFormularioWeb).objetoRespuesta.SingleOrDefault();
                 objFormularioWeb.ListaIndicadoresObj = formularioWebBL.ObtenerIndicadoresFormulario(objFormularioWeb).objetoRespuesta.ToList();
+
+                int idFormulario = 0;
+                int.TryParse(Utilidades.Desencriptar(id), out idFormulario);
+                objFormularioWeb.CantidadActual = detalleFormularioWebBL.ObtenerCantidadIndicadores(idFormulario);
                 
                 if (modo == (int)Constantes.Accion.Clonar)
                 {

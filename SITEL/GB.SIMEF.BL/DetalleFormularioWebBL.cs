@@ -43,17 +43,47 @@ namespace GB.SIMEF.BL
             return true;
         }
 
-        private int ValidarCantidadIndicadores(int id)
+        public int ObtenerCantidadIndicadores(int id)
         {
-            var cantidad = clsDatos.ObtenerCantidadIndicadores(id);
-            if (cantidad <= 0)
-                throw new Exception(Errores.CatidadIndicadoresExcedido);
-            return cantidad;
+            //var cantidad = clsDatos.ObtenerCantidadIndicadores(id);
+            //if (cantidad <= 0)
+            //    throw new Exception(Errores.CatidadIndicadoresExcedido);
+            //return cantidad;
+            return clsDatos.ObtenerCantidadIndicadores(id);
         }
 
         public RespuestaConsulta<List<DetalleFormularioWeb>> ActualizarElemento(DetalleFormularioWeb objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Editar;
+                ResultadoConsulta.Usuario = user;
+                if (!String.IsNullOrEmpty(objeto.formularioweb.id))
+                {
+                    objeto.formularioweb.id = Utilidades.Desencriptar(objeto.formularioweb.id);
+                    int temp;
+                    if (int.TryParse(objeto.formularioweb.id, out temp))
+                    {
+                        objeto.idFormulario = temp;
+                    }
+                }
+                DetalleFormularioWeb detalleFormularioWeb = clsDatos.ObtenerDatos(objeto).Single();
+                objeto.idDetalle = detalleFormularioWeb.idDetalle;
+                objeto.Estado = true;
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+
+                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, "", "", "", jsonValorInicial);
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<DetalleFormularioWeb>> CambioEstado(DetalleFormularioWeb objeto)
@@ -68,7 +98,28 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleFormularioWeb>> EliminarElemento(DetalleFormularioWeb objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = user;
+                
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+                objeto.Estado = false;
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+
+                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Indicador.Codigo, "", "", jsonValorInicial);
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<DetalleFormularioWeb>> InsertarDatos(DetalleFormularioWeb objeto)
@@ -89,30 +140,29 @@ namespace GB.SIMEF.BL
                         objeto.idFormulario = temp;
                     }
                 }
-                ValidarCantidadIndicadores(objeto.idFormulario);
+                int cantidad = ObtenerCantidadIndicadores(objeto.idFormulario);
+                if (cantidad <= 0)
+                    throw new Exception(Errores.CatidadIndicadoresExcedido);
                 if (ValidarDatosRepetidos(objeto))
                 {
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                    // Se le resta 1 porque para este momento ya se agregó uno nuevo 
+                    ResultadoConsulta.objetoRespuesta[0].formularioweb.CantidadActual = cantidad - 1;
                 }
-
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
 
-                //string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                string jsonValorInicial = SerializarObjetoBitacora(objeto);
 
-                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                //            ResultadoConsulta.Usuario,
-                //                ResultadoConsulta.Clase, objeto.Indicador.Codigo, "", "", jsonValorInicial);
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Indicador.Codigo, "", "", jsonValorInicial);
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.IndicadorFormularioRegistrado)
+                if (ex.Message == Errores.IndicadorFormularioRegistrado || ex.Message == Errores.CatidadIndicadoresExcedido)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-                if (ex.Message == Errores.CatidadIndicadoresExcedido)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
+                } 
                 else
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;

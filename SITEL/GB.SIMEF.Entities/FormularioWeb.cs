@@ -45,6 +45,10 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string id { get; set; }
+        
+        [NotMapped]
+        public int CantidadActual { get; set; }
+
         [NotMapped]
         public virtual ICollection<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
         [NotMapped]

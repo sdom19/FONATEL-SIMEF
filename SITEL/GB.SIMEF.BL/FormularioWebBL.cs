@@ -81,7 +81,43 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FormularioWeb>> ClonarDatos(FormularioWeb objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                objeto.idFormulario = 0;
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Clonar;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioCreacion = user;
+                if (ValidarDatosRepetidos(objeto))
+                {
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                }
+
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+
+                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado
+                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<FormularioWeb>> EliminarElemento(FormularioWeb objeto)
