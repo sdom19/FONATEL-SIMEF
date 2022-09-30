@@ -41,8 +41,9 @@
         "ddlIndicadorHelp": "#ddlIndicadorHelp",
         "txtTituloHojaHelp": "#txtTituloHojaHelp",
         "step2": "a[href='#step-2']",
-        "txtNotasEncargadoFormularioHelp": "#txtNotasEncargadoFormularioHelp"
+        "txtNotasEncargadoFormularioHelp": "#txtNotasEncargadoFormularioHelp",
 
+        "CantidadIndicadoresMax": "#CantidadIndicadoresMax",
     },
     "Variables": {
         "ListadoFormulario": [],
@@ -165,12 +166,10 @@
         },
 
         "ValidarButonFinalizar": function () {
-            if (JsFormulario.Variables.CantidadActual === 0) {
-                $(JsFormulario.Controles.btnGuardarFormularioCompleto).removeAttr("disabled");
-            }
-            else {
-                $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true);
-            }
+            if (JsFormulario.Variables.CantidadActual != $(JsFormulario.Controles.CantidadIndicadoresMax).val())
+                $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true); // gris
+            else
+                $(JsFormulario.Controles.btnGuardarFormularioCompleto).removeAttr("disabled");// azul
         },
 
         "CargarTablasFormulario": function () {
@@ -291,6 +290,46 @@
             //formulario.IdEstado = JsFormulario.Metodos.ValidarEstadoParcialFormulario(formulario);
             await execAjaxCall("/FormularioWeb/InsertarFormularioWeb", "POST", formulario)
                 .then((obj) => {
+                    let cantidadMax = obj.objetoRespuesta[0].CantidadIndicadores;
+                    $(JsFormulario.Controles.CantidadIndicadoresMax).val(cantidadMax);
+                    InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
+                    JsFormulario.Variables.HayError = false;
+                    JsFormulario.Metodos.ValidarButonFinalizar();
+                }).catch((obj) => {
+                    JsFormulario.Variables.HayError = true;
+                    JsFormulario.Metodos.MensajeError(obj);
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "GuardadoCompleto": async function () {
+            let formulario = new Object();
+            formulario.id = ObtenerValorParametroUrl("id");
+            await execAjaxCall("/FormularioWeb/GuardadoCompleto", "POST", formulario)
+                .then((obj) => {
+                    InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
+                    JsFormulario.Variables.HayError = false;
+                }).catch((obj) => {
+                    JsFormulario.Variables.HayError = true;
+                    JsFormulario.Metodos.MensajeError(obj);
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "EditarFormularioWeb": async function () {
+            $("#loading").fadeIn();
+            let formulario = new Object();
+            formulario.Codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
+            formulario.Nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
+            formulario.Descripcion = $(JsFormulario.Controles.txtDescripcionFormulario).val().trim();
+            formulario.CantidadIndicadores = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
+            formulario.idFrecuencia = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
+            formulario.id = ObtenerValorParametroUrl("id");
+            //formulario.IdEstado = jsUtilidades.Variables.EstadoRegistros.EnProceso;
+            await execAjaxCall("/FormularioWeb/EditarFormularioWeb", "POST", formulario)
+                .then((obj) => {
                     InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
                     JsFormulario.Variables.HayError = false;
                 }).catch((obj) => {
@@ -333,10 +372,10 @@
             detalleFormulario.formularioweb = formularioweb;
             execAjaxCall("/FormularioWeb/InsertarIndicadoresFormulario", "POST", detalleFormulario)
                 .then((obj) => {
-                    JsFormulario.Variables.CantidadActual = obj.objetoRespuesta[0].formularioweb.CantidadActual;
+                    let cantidadMax = obj.objetoRespuesta[0].formularioweb.CantidadIndicadores;
+                    $(JsFormulario.Controles.CantidadIndicadoresMax).val(cantidadMax);
                     jsMensajes.Metodos.OkAlertModal("El Indicador ha sido agregado")
                         .set('onok', function (closeEvent) {
-                            JsFormulario.Metodos.ValidarButonFinalizar();
                             JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
                             JsFormulario.Metodos.ReestablecerIndicadores();
                         });
@@ -501,12 +540,14 @@
             execAjaxCall("/FormularioWeb/ObtenerIndicadoresFormulario?idFormulario=" + id, "GET")
                 .then((obj) => {
                     JsFormulario.Variables.ListadoDetalleIndicadores = obj.objetoRespuesta;
+                    JsFormulario.Variables.CantidadActual = JsFormulario.Variables.ListadoDetalleIndicadores.length
                     JsFormulario.Metodos.CargarTablasIndicadores();
-                    if (JsFormulario.Variables.CantidadActual > 0) {
-                        jsMensajes.Metodos.OkAlertModal("Recuerde que puede agregar más de un Indicador")
-                            .set('onok', function (closeEvent) {
-                            });
-                    }
+                    JsFormulario.Metodos.ValidarButonFinalizar();
+                    //if (JsFormulario.Variables.CantidadActual > 0) {
+                    //    jsMensajes.Metodos.OkAlertModal("Recuerde que puede agregar más de un Indicador")
+                    //        .set('onok', function (closeEvent) {
+                    //        });
+                    //}
                 }).catch((obj) => {
                     jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                         .set('onok', function (closeEvent) {
@@ -533,21 +574,6 @@
                 $("#loading").fadeOut();
             })
         },
-        // NO ME ESTA FUNCIONANDO
-        "ConsultaDetalleFormularioWeb": function (idIndicador, idFormulario) {
-            $("#loading").fadeIn();
-            execAjaxCall("/FormularioWeb/ObtenerDetalleFormularioWeb", "GET", { idIndicador, idFormulario })
-                .then((obj) => {
-                    $("#loading").fadeOut();
-                    JsFormulario.Metodos.CargarIndicadores(obj);
-                }).catch((obj) => {
-                    $("#loading").fadeOut();
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { location.reload(); });
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        }
     }
 
 }
@@ -625,9 +651,22 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
     if (JsFormulario.Metodos.ValidarDatosMinimos()) {
         jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
             .set('onok', async function (closeEvent) {
-                await JsFormulario.Consultas.InsertarFormularioWeb();
+                let modo = $.urlParam('modo');
+                let modoMsj = "";
+                if (modo == undefined) { // Crear
+                    await JsFormulario.Consultas.InsertarFormularioWeb();
+                    modoMsj = "creado";
+                }
+                if (modo == jsUtilidades.Variables.Acciones.Clonar) {
+                    await JsFormulario.Consultas.ClonarFormularioWeb();
+                    modoMsj = "clonado";
+                }
+                if (modo == jsUtilidades.Variables.Acciones.Editar) {
+                    await JsFormulario.Consultas.EditarFormularioWeb();
+                    modoMsj = "modificado";
+                }
                 if (JsFormulario.Variables.HayError === false) {
-                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido creado")
+                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido " + modoMsj)
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
                 }
             })
@@ -655,6 +694,9 @@ $(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, async fun
         if (modo == jsUtilidades.Variables.Acciones.Clonar) {
             await JsFormulario.Consultas.ClonarFormularioWeb();
         }
+        if (modo == jsUtilidades.Variables.Acciones.Editar) {
+            await JsFormulario.Consultas.EditarFormularioWeb();
+        }
         if (JsFormulario.Variables.HayError === false) {
             $("a[href='#step-2']").trigger('click');
         }
@@ -673,7 +715,7 @@ $(document).on("click", JsFormulario.Controles.btnDeleteFormulario, function (e)
 // DELETE(BORRAR) INDICADOR
 $(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) {
     let idIndicador = $(this).val();
-    let idFormulario = $.urlParam('id');
+    let idFormulario = ObtenerValorParametroUrl("id");
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Indicador?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsFormulario.Consultas.EliminarIndicadores(idIndicador, idFormulario);
@@ -710,9 +752,15 @@ $(document).on("click", JsFormulario.Controles.btnAtrasFormularioRegla, function
 $(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Formulario?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido creado")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+        .set('onok', async function (closeEvent) {
+            let modo = $.urlParam('modo');
+            if (modo == jsUtilidades.Variables.Acciones.Editar) {
+                await JsFormulario.Consultas.GuardadoCompleto();
+            }
+            if (JsFormulario.Variables.HayError === false) {
+                jsMensajes.Metodos.OkAlertModal("El Formulario ha sido creado")
+                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+            }
         });
 });
 
@@ -723,12 +771,16 @@ $(function () {
     $(JsFormulario.Controles.txtCantidadIndicadoresFormularioHelp).addClass("hidden");
     $(JsFormulario.Controles.txtDescripcionFormularioHelp).addClass("hidden");
     $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true);
-
+    JsFormulario.Metodos.ValidarButonFinalizar();
     if ($(JsFormulario.Controles.FormFormulario).length > 0) {
         JsFormulario.Metodos.ValidarFormularioWebCrear();
         let modo = $.urlParam('modo');
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
             $(JsFormulario.Controles.txtCodigoFormulario).prop("disabled", true);
+            JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
+        }
+        if (modo == undefined) {
+            JsFormulario.Metodos.ValidarButonFinalizar();
         }
     }
     if ($(JsFormulario.Controles.FormularioIndex).length > 0) {

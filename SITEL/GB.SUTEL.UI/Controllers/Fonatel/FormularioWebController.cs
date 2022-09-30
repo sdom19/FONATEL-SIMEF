@@ -133,6 +133,25 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        public async Task<string> GuardadoCompleto(FormularioWeb objFormulario)
+        {
+
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
+                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                result = formularioWebBL.CambioEstado(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpPost]
         public async Task<string> ClonarFormulario(FormularioWeb objFormulario)
         {
             RespuestaConsulta<List<FormularioWeb>> result = null;
@@ -144,6 +163,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        [HttpPost]
+        public async Task<string> EditarFormularioWeb(FormularioWeb objFormulario)
+        {
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = formularioWebBL.ActualizarElemento(objFormulario);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+        
         /// <summary>
         /// Validar si el formulario está en una solicitud 
         /// Michael Hernandez Cordero
@@ -174,6 +205,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 result = formularioWebBL.InsertarDatos(formulario);
+                ViewBag.CantidadMax = result.objetoRespuesta[0].CantidadIndicadores;
             });
             return JsonConvert.SerializeObject(result);
         }
@@ -234,11 +266,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 objFormularioWeb.id = id;
                 objFormularioWeb = formularioWebBL.ObtenerDatos(objFormularioWeb).objetoRespuesta.SingleOrDefault();
                 objFormularioWeb.ListaIndicadoresObj = formularioWebBL.ObtenerIndicadoresFormulario(objFormularioWeb).objetoRespuesta.ToList();
-
+                
+                ViewBag.CantidadMax = objFormularioWeb.CantidadIndicadores;
                 int idFormulario = 0;
                 int.TryParse(Utilidades.Desencriptar(id), out idFormulario);
-                objFormularioWeb.CantidadActual = detalleFormularioWebBL.ObtenerCantidadIndicadores(idFormulario);
-                
                 if (modo == (int)Constantes.Accion.Clonar)
                 {
                     ViewBag.ModoTitulo = EtiquetasViewFormulario.ClonarFormulario;
@@ -254,6 +285,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
             else
             {
+                ViewBag.CantidadMax = 0;
                 ViewBag.ModoTitulo = EtiquetasViewFormulario.CrearFormulario;
                 objDetalleFormularioWeb.formularioweb = new FormularioWeb();
             }

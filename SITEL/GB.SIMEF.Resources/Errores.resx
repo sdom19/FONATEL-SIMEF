@@ -135,6 +135,9 @@
   <data name="CantidadDestinatariosIncorrecta" xml:space="preserve">
     <value>La cantidad de destinatarios no es la correcta</value>
   </data>
+  <data name="CantidadIndicadoresMenor" xml:space="preserve">
+    <value>La cantidad ingresada en Cantidad de Indicadores no puede ser menor al valor actual</value>
+  </data>
   <data name="CantidadRegistros" xml:space="preserve">
     <value>Se excedio la cantidad de registros establecidos</value>
   </data>

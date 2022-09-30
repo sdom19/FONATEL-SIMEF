@@ -48,16 +48,62 @@ namespace GB.SIMEF.BL
             return true;
         }
 
+        private void ValidarCantidadIndicadoresEditado(FormularioWeb formularioWebNuevo) 
+        {
+            FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
+            if (formularioWebViejo.CantidadIndicadores > formularioWebNuevo.CantidadIndicadores)
+                throw new Exception(Errores.CantidadIndicadoresMenor);
+        }
+
         public RespuestaConsulta<List<FormularioWeb>> ActualizarElemento(FormularioWeb objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.idFormulario = temp;
+                    }
+                }
+                ValidarCantidadIndicadoresEditado(objeto);
+                objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
+
+                ResultadoConsulta.Clase = modulo;
+                objeto.UsuarioModificacion = user;
+                ResultadoConsulta.Accion = objeto.idEstado == (int)EstadosRegistro.Activo ? (int)Accion.Activar : (int)Accion.Inactiva;
+                var resul = clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.Usuario = user;
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.CantidadIndicadoresMenor)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<FormularioWeb>> CambioEstado(FormularioWeb objeto)
         {
             try
             {
-                
+
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
                 ResultadoConsulta.Accion =  objeto.idEstado==(int)EstadosRegistro.Activo? (int)Accion.Activar:(int)Accion.Inactiva;

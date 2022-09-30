@@ -43,13 +43,13 @@ namespace GB.SIMEF.BL
             return true;
         }
 
-        public int ObtenerCantidadIndicadores(int id)
+        private int ObtenerCantidadIndicadores(int id)
         {
-            //var cantidad = clsDatos.ObtenerCantidadIndicadores(id);
-            //if (cantidad <= 0)
-            //    throw new Exception(Errores.CatidadIndicadoresExcedido);
-            //return cantidad;
-            return clsDatos.ObtenerCantidadIndicadores(id);
+            var cantidad = clsDatos.ObtenerCantidadIndicadores(id);
+            if (cantidad <= 0)
+                throw new Exception(Errores.CatidadIndicadoresExcedido);
+            return cantidad;
+            //return clsDatos.ObtenerCantidadIndicadores(id);
         }
 
         public RespuestaConsulta<List<DetalleFormularioWeb>> ActualizarElemento(DetalleFormularioWeb objeto)
@@ -141,8 +141,8 @@ namespace GB.SIMEF.BL
                     }
                 }
                 int cantidad = ObtenerCantidadIndicadores(objeto.idFormulario);
-                if (cantidad <= 0)
-                    throw new Exception(Errores.CatidadIndicadoresExcedido);
+                //if (cantidad <= 0)
+                //    throw new Exception(Errores.CatidadIndicadoresExcedido);
                 if (ValidarDatosRepetidos(objeto))
                 {
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);

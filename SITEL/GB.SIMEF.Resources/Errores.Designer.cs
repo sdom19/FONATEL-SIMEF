@@ -115,6 +115,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La cantidad ingresada en Cantidad de Indicadores no puede ser menor al valor actual.
+        /// </summary>
+        public static string CantidadIndicadoresMenor {
+            get {
+                return ResourceManager.GetString("CantidadIndicadoresMenor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se excedio la cantidad de registros establecidos.
         /// </summary>
         public static string CantidadRegistros {
