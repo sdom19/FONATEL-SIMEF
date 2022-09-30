@@ -84,7 +84,7 @@
 
         "ValidarFormularioWebCrear": function () {
             if ($(JsFormulario.Controles.txtCodigoFormulario).val().trim().length > 0 && $(JsFormulario.Controles.txtNombreFormulario).val().trim().length > 0
-                && $(JsFormulario.Controles.ddlFrecuanciaEnvio).val().trim().length > 0 && $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim().length > 0
+                && $(JsFormulario.Controles.ddlFrecuanciaEnvio).val().trim().length > 0 && $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val() > 0
                 && $(JsFormulario.Controles.txtDescripcionFormulario).val().trim().length > 0) {
 
                     $(JsFormulario.Controles.btnSiguienteFormulario).prop("disabled", false);

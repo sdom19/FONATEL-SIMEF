@@ -49,7 +49,6 @@ namespace GB.SIMEF.BL
             if (cantidad <= 0)
                 throw new Exception(Errores.CatidadIndicadoresExcedido);
             return cantidad;
-            //return clsDatos.ObtenerCantidadIndicadores(id);
         }
 
         public RespuestaConsulta<List<DetalleFormularioWeb>> ActualizarElemento(DetalleFormularioWeb objeto)
