@@ -123,6 +123,9 @@
   <data name="CampoConValorInvalido" xml:space="preserve">
     <value>El campo {0} presenta un valor inválido</value>
   </data>
+  <data name="CampoConValorMenorAlActual" xml:space="preserve">
+    <value>La cantidad ingresada en el campo {0} no puede ser menor al valor actual</value>
+  </data>
   <data name="CampoRequeridoV2" xml:space="preserve">
     <value>El campo {0} es requerido</value>
   </data>
