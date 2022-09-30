@@ -382,8 +382,8 @@ CreateView = {
         hizoCargaDetallesCategorias: false,
         listaVariablesDato: {},
         objEditarDetallesVariableDato: null,
-        paginaObjEditarDetallesVariableDato: 0,
-        objEditarDetallesCategoria: null
+        objEditarDetallesCategoria: null,
+        elIndicadorFueClonado: false
     },
 
     Metodos: {
@@ -496,7 +496,6 @@ CreateView = {
 
         CrearIndicadorGuardadoParcial: function () {
             let mensaje = "";
-
             let validacion = this.VerificarCamposIncompletosFormularioIndicador(true);
 
             if (!validacion.guardadoParcial) {
@@ -535,7 +534,7 @@ CreateView = {
                 $("#loading").fadeIn();
                 CreateView.Consultas.EditarIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
-                        $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
+                        $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos}
 
                         jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado").set('onok', function (closeEvent) { });
                     })
@@ -548,7 +547,6 @@ CreateView = {
 
         EditarIndicadorGuardadoParcial: function () {
             let mensaje = "";
-
             let validacion = this.VerificarCamposIncompletosFormularioIndicador(true);
 
             if (!validacion.guardadoParcial) {
@@ -571,6 +569,58 @@ CreateView = {
                 .then(data => {
                     $("#loading").fadeIn();
                     return CreateView.Consultas.EditarIndicador(this.CrearObjFormularioIndicador(true));
+                })
+                .then(data => {
+                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
+                        .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
+                })
+                .catch(error => { this.ManejoDeExcepciones(error); })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        ClonarIndicador: function () {
+            if (this.ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
+                $("#loading").fadeIn();
+                CreateView.Consultas.ClonarIndicador(this.CrearObjFormularioIndicador(false))
+                    .then(data => {
+                        $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
+                        CreateView.Variables.elIndicadorFueClonado = true;
+
+                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado").set('onok', function (closeEvent) { });
+                    })
+                    .catch(error => { this.ManejoDeExcepciones(error); })
+                    .finally(() => {
+                        $("#loading").fadeOut();
+                    });
+            }
+        },
+
+        ClonarIndicadorGuardadoParcial: function () {
+            let mensaje = "";
+            let validacion = this.VerificarCamposIncompletosFormularioIndicador(true);
+
+            if (!validacion.guardadoParcial) {
+                return;
+            }
+
+            if (!validacion.guardadoCompleto) {
+                mensaje = "Existen campos vacíos. ";
+            }
+
+            let rootObj = this;
+
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + "¿Desea realizar un guardado parcial del Indicador?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function () { resolve(true); })
+                    .set("oncancel", function () {
+                        rootObj.VerificarCamposIncompletosFormularioIndicador(false);
+                    })
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.ClonarIndicador(this.CrearObjFormularioIndicador(true));
                 })
                 .then(data => {
                     jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
@@ -924,7 +974,6 @@ CreateView = {
         CargarFormularioEditarDetallesVariable: function (pId) {
             let variable = CreateView.Variables.listaVariablesDato[pId];
             CreateView.Variables.objEditarDetallesVariableDato = variable;
-            CreateView.Variables.paginaObjEditarDetallesVariableDato = ObtenerPaginaActual(CreateView.Controles.formVariable.tablaDetallesVariable);
 
             $(CreateView.Controles.formVariable.inputNombreVariable).val(variable.NombreVariable);
             $(CreateView.Controles.formVariable.inputDescripcionVariable).val(variable.Descripcion);
@@ -1405,8 +1454,7 @@ CreateView = {
     Eventos: function () {
         // Formulario Indicador
         $(document).on("click", CreateView.Controles.formIndicador.btnSiguienteCrearIndicador, function (e) {
-            let idIndicador = ObtenerValorParametroUrl("id")
-            if (idIndicador == null) {
+            if (ObtenerValorParametroUrl("id") == null) {
                 CreateView.Metodos.CrearIndicador();
             }
             else {
@@ -1429,11 +1477,18 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.formIndicador.btnSiguienteClonarIndicador, function (e) {
-            console.log("Siguiente, Clonar indicador");
+            if (ObtenerValorParametroUrl("id") != null) {
+                if (CreateView.Variables.elIndicadorFueClonado) {
+                    CreateView.Metodos.EditarIndicador();
+                }
+                else {
+                    CreateView.Metodos.ClonarIndicador();
+                }
+            }
         });
 
         $(document).on("click", CreateView.Controles.formIndicador.btnGuardarClonarIndicador, function (e) {
-            console.log("Guardar, Clonar indicador");
+            CreateView.Metodos.ClonarIndicadorGuardadoParcial();
         });
 
         $(document).on("click", CreateView.Controles.formIndicador.btnCancelar, function (e) {

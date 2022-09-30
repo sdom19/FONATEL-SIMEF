@@ -129,7 +129,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (objIndicador == null)
                 return View("Index");
 
-            objIndicador.idIndicador = 0;
             objIndicador.Codigo = string.Empty;
             objIndicador.Nombre = string.Empty;
 
@@ -622,14 +621,19 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> ClonarIndicador(Indicador pIndicador)
         {
-            if (string.IsNullOrEmpty(pIndicador.id))
+            pIndicador.id = string.Empty;
+            pIndicador.idIndicador = 0;
+
+            string creacionIndicador = await CrearIndicador(pIndicador);
+
+            RespuestaConsulta<List<Indicador>> indicadorDeserializado = (RespuestaConsulta<List<Indicador>>)JsonConvert.DeserializeObject(creacionIndicador); // reutilizar la función de crear
+
+            if (indicadorDeserializado.objetoRespuesta == null)
             {
-                return JsonConvert.SerializeObject(
-                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+                return creacionIndicador;
             }
 
-            pIndicador.UsuarioModificacion = usuario;
-            return await CrearIndicador(pIndicador); // reutilizar la función de crear
+            return null;
         }
 
         /// <summary>
