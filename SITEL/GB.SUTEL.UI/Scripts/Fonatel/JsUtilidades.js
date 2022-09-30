@@ -326,15 +326,6 @@ function InsertarItemDataTable (pDataTable, pItem) {
 
 /**
  * José Navarro Acuña.
- * Obtener la página que se encuentra activa de una tabla DataTable.
- * @param {any} pDataTable
- */
-function ObtenerPaginaActual(pDataTable) {
-    return $(pDataTable).DataTable().page()
-}
-
-/**
- * José Navarro Acuña.
  * Permite insertar un item en un combobox select2.
  * @param {any} pSelect2 combobox select2 de la vista.
  * @param {any} pTexto texto que se muestra en las opciones.
