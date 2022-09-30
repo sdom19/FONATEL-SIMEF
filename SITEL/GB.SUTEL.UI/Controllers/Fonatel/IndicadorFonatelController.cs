@@ -129,6 +129,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (objIndicador == null)
                 return View("Index");
 
+            objIndicador.idIndicador = 0;
             objIndicador.Codigo = string.Empty;
             objIndicador.Nombre = string.Empty;
 
@@ -600,6 +601,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         public async Task<string> EditarIndicador(Indicador pIndicador)
+        {
+            if (string.IsNullOrEmpty(pIndicador.id))
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            pIndicador.UsuarioModificacion = usuario;
+            return await CrearIndicador(pIndicador); // reutilizar la función de crear
+        }
+
+        /// <summary>
+        /// 30/08/2022
+        /// José Navarro Acuña
+        /// Función que permite clonar un indicador.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ClonarIndicador(Indicador pIndicador)
         {
             if (string.IsNullOrEmpty(pIndicador.id))
             {

@@ -79,6 +79,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La cantidad ingresada en el campo {0} no puede ser menor al valor actual.
+        /// </summary>
+        public static string CampoConValorMenorAlActual {
+            get {
+                return ResourceManager.GetString("CampoConValorMenorAlActual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El campo {0} es requerido.
         /// </summary>
         public static string CampoRequeridoV2 {

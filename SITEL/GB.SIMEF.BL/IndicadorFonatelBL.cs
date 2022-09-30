@@ -334,28 +334,29 @@ namespace GB.SIMEF.BL
                     }
                 }
 
-                // validar la cantidad de variables dato y categorias establecidas en el indicador según lo registrado respectivamente en cada detalle
+                // validar la cantidad de variables dato y categorias establecidas en el indicador según lo registrado respectivamente en cada detalle, sucede en caso de actualizar
                 if (pIndicador.idIndicador != 0)
                 {
-                    if (pIndicador.CantidadVariableDato != null)
-                    {
-                        List<DetalleIndicadorVariables> detallesDato = detalleIndicadorVariablesDAL.ObtenerDatos(new DetalleIndicadorVariables() { idIndicador = pIndicador.idIndicador } );
+                    Indicador indicadorRegistradoActualmente = indicadorFonatelDAL.ObtenerDatos(new Indicador() { idIndicador = pIndicador.idIndicador }).FirstOrDefault();
 
-                        if (pIndicador.CantidadVariableDato < detallesDato.Count())
+                    if (indicadorRegistradoActualmente != null)
+                    {
+                        if (pIndicador.CantidadVariableDato != null && indicadorRegistradoActualmente.CantidadVariableDato != null)
                         {
-                            errorControlado = true;
-                            throw new Exception("El campo ");
+                            if (pIndicador.CantidadVariableDato < indicadorRegistradoActualmente.CantidadVariableDato) // la nueva cantidad registrada debe ser mayor o igual a la actual
+                            {
+                                errorControlado = true;
+                                throw new Exception(string.Format(Errores.CampoConValorMenorAlActual, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador));
+                            }
                         }
-                    }
 
-                    if (pIndicador.CantidadCategoriasDesagregacion != null)
-                    {
-                        List<DetalleIndicadorCategoria> detallesCategoria = detalleIndicadorCategoriaDAL.ObtenerDatos(new DetalleIndicadorCategoria() { idIndicador = pIndicador.idIndicador } );
-
-                        if (pIndicador.CantidadCategoriasDesagregacion < detallesCategoria.Count())
+                        if (pIndicador.CantidadCategoriasDesagregacion != null && indicadorRegistradoActualmente.CantidadCategoriasDesagregacion != null)
                         {
-                            errorControlado = true;
-                            throw new Exception("ola bb");
+                            if (pIndicador.CantidadCategoriasDesagregacion < indicadorRegistradoActualmente.CantidadCategoriasDesagregacion)
+                            {
+                                errorControlado = true;
+                                throw new Exception(string.Format(Errores.CampoConValorMenorAlActual, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador));
+                            }
                         }
                     }
                 }
