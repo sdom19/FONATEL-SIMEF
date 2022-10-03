@@ -410,13 +410,14 @@ function InsertarOpcionTodosSelect2Multiple(pSelect2) {
 /**
  * José Navarro Acuña.
  * Inserta un parámetro en la URL del navegador. Afecta al state del history. No recarga página.
+ * Nota: se realiza un replace del state.
  * @param {any} pParametro parámetro valor llave.
  * @param {any} pValor valor del parámetro.
  */
-function InsertarParametroUrl (pParametro, pValor) {
+function InsertarParametroUrl(pParametro, pValor) {
     const url = new URL(window.location);
     url.searchParams.set(pParametro, pValor);
-    window.history.pushState(null, '', url.toString());
+    window.history.replaceState(null, '', url.toString());
 }
 
 /**

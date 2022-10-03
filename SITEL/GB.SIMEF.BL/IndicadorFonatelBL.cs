@@ -448,6 +448,46 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
+        /// 03/10/2022
+        /// José Navarro Acuña
+        /// Función que permite clonar los detalles variables dato y detalles categoria de un indicador hacia otro indicador
+        /// </summary>
+        /// <param name="pIdIndicadorAClonar"></param>
+        /// <param name="pIdIndicadorDestino"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<Indicador> ClonarDetallesDeIndicador(string pIdIndicadorAClonar, string pIdIndicadorDestino)
+        {
+            RespuestaConsulta<Indicador> resultado = new RespuestaConsulta<Indicador>();
+            int idIndicadorAClonar, idIndicadorDestino;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pIdIndicadorAClonar), out int number);
+                idIndicadorAClonar = number;
+                
+                int.TryParse(Utilidades.Desencriptar(pIdIndicadorDestino), out number);
+                idIndicadorDestino = number;
+
+                indicadorFonatelDAL.ClonarDetallesDeIndicador(idIndicadorAClonar, idIndicadorDestino);
+
+                resultado.objetoRespuesta = new Indicador() { id = pIdIndicadorDestino };
+
+                resultado.Usuario = user;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Clonar;
+
+                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, idIndicadorDestino.ToString());
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+                resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
         /// 23/08/2022
         /// José Navarro Acuña
         /// Prepara un objeto indicador para ser enviado al servicio DAL.

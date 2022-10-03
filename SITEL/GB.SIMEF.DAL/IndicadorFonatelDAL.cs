@@ -104,7 +104,6 @@ namespace GB.SIMEF.DAL
             return listaValidacion;
         }
 
-
         /// <summary>
         /// 16/08/2022
         /// José Navarro Acuña
@@ -201,7 +200,6 @@ namespace GB.SIMEF.DAL
             return listaIndicadores;
         }
 
-
         /// <summary>
         /// 
         /// Michael Hernéndez Cordero 
@@ -227,6 +225,28 @@ namespace GB.SIMEF.DAL
             }
 
             return listaIndicadores;
+        }
+
+        /// <summary>
+        /// 03/10/2022
+        /// José Andrés Navarro
+        /// Función que clona los detalles de variables dato y detalles categorias de un indicador hacia otro indicador
+        /// </summary>
+        /// <param name="pIdIndicadorAClonar"></param>
+        /// <param name="pIdIndicadorDestino"></param>
+        /// <returns></returns>
+        public bool ClonarDetallesDeIndicador(int pIdIndicadorAClonar, int pIdIndicadorDestino)
+        {
+            using (db = new SIMEFContext())
+            {
+                db.Database.SqlQuery<object>
+                    ("execute spClonarDetallesDeIndicador @pIdIndicadorAClonar, @pIdIndicadorDestino",
+                     new SqlParameter("@pIdIndicadorAClonar", pIdIndicadorAClonar),
+                     new SqlParameter("@pIdIndicadorDestino", pIdIndicadorDestino)
+                    ).ToList();
+            }
+
+            return true;
         }
 
         /// <summary>

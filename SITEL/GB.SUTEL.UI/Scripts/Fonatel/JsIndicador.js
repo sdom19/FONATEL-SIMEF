@@ -585,8 +585,10 @@ CreateView = {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ClonarIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
-                        $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
                         CreateView.Variables.elIndicadorFueClonado = true;
+                        InsertarParametroUrl("id", data.objetoRespuesta.id); // actualizar el id del URL (previamente se tiene el id del indicador para clonar)
+
+                        $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
 
                         jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado").set('onok', function (closeEvent) { });
                     })
@@ -1041,7 +1043,7 @@ CreateView = {
                 .then(data => {
                     delete CreateView.Variables.listaVariablesDato[pIdDetalle];
 
-                    if (pIdDetalle == CreateView.Variables.objEditarDetallesVariableDato.id) { // en caso de que se este editando, no actualicen y se presione el boton de eliminar
+                    if (pIdDetalle === CreateView.Variables.objEditarDetallesVariableDato?.id) { // en caso de que se este editando, no actualicen y se presione el boton de eliminar
                         CreateView.Variables.objEditarDetallesVariableDato = null;
                         this.LimpiarValoresFormularioDetallesVariable();
                     }
