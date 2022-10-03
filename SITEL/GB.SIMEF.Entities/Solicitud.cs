@@ -29,15 +29,17 @@ namespace GB.SIMEF.Entities
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public System.DateTime FechaInicio { get; set; }
+        public Nullable<System.DateTime> FechaInicio { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public System.DateTime FechaFin { get; set; }
+        public Nullable<System.DateTime> FechaFin { get; set; }
+
         public int CantidadFormularios { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Mensaje { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
+        public Nullable<System.DateTime> FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
@@ -62,6 +64,7 @@ namespace GB.SIMEF.Entities
         [NotMapped]
 
         public FuentesRegistro Fuente { get; set; }
+
         [NotMapped]
         public List<FormularioWeb> FormularioWeb { get; set; }
 

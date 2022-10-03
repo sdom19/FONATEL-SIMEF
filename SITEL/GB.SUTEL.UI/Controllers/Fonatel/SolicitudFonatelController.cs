@@ -49,6 +49,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View();
         }
 
+
+        #region METODOS DE PAGINA
+
         // GET: Solicitud/Create
         public ActionResult Create(string id, int? modo)
         {
@@ -84,6 +87,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
             return View(model);
         }
+
+        #endregion
+
+
+        #region METODOS DE SOLICITUDES
+
         [HttpGet]
         public async Task<string> ObtenerListaSolicitudes()
         {
@@ -94,9 +103,36 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
 
             return JsonConvert.SerializeObject(result);
-
-
         }
+
+        /// <summary>
+        /// Fecha: 03/10/2022
+        /// Francisco Vindas
+        /// Metodo para insertar solicitudes de informacion
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> InsertarSolicitud(Solicitud solicitud)
+        {
+            
+            user = User.Identity.GetUserId();
+            solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+
+            RespuestaConsulta<List<Solicitud>> result = null;
+
+            await Task.Run(() =>
+            {
+                solicitud.UsuarioCreacion = user;
+
+                result = SolicitudesBL.InsertarDatos(solicitud);
+
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+
 
         [HttpPost]
         public async Task<string> ValidarExistenciaSolicitud(Solicitud solicitud )
@@ -109,11 +145,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return JsonConvert.SerializeObject(result);
 
-
         }
 
 
-        
+        #endregion
+
+
 
 
     }

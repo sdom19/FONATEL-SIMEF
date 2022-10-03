@@ -9,7 +9,6 @@
         "btnEnvioSolicitud": "#TablaSolicitud tbody tr td .btn-calendar",
         "btnEliminarProgramacion": "#TablaSolicitud tbody tr td .btn-calendar-disabled",
         "btnsent": "#TablaSolicitud tbody tr td .btn-sent",
-        "btnGuardarSolicitud": "#btnGuardarSolicitud",
         "btnCancelar": "#btnCancelarSolicitud",
         "btnDesactivadoSolicitud": "#TablaSolicitud tbody tr td .btn-power-off",
         "btnActivadoSolicitud": "#TablaSolicitud tbody tr td .btn-power-on",
@@ -26,7 +25,6 @@
         "txtCampoRequerido": ".form-text-danger-fonatel",
         "TablaSolicitud": "#TablaSolicitud tbody",
         "txtmodoSolicitud": "#txtmodoSolicitud",
-        "txtCodigo": "#txtCodigo",
         "btnGuardarSolicitud": "#btnGuardarSolicitud",
         "btnSiguienteSolicitud": "#btnSiguienteSolicitud",
         "step2": "a[href='#step-2']",
@@ -64,6 +62,7 @@
     },
 
     "Metodos": {
+
         "CargarDiasMesCombo": function () {
             let html = "<option></option>";
             for (var i = 1; i <= JsSolicitud.Variables.CantidadMaxDias; i++) {
@@ -205,6 +204,46 @@
                 $(JsSolicitud.Controles.btnSiguienteSolicitud).prop("disabled", true);
                 $(JsSolicitud.Controles.step2).prop("disabled", true);
             }
+        },
+
+        "InsertarSolicitud": function () {
+
+            //ENCRIPTAR IDS
+
+            $("#loading").fadeIn();
+
+            let Solicitud = new Object();
+
+            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
+            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
+
+            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
+            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
+
+            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
+            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
+            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
+            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
+
+            execAjaxCall("/SolicitudFonatel/InsertarSolicitud", "POST", Solicitud)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud a sido creada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/Fonatel/SolicitudFonatel/index";
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
         },
     },
 
@@ -377,18 +416,23 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
 });
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) {
+
     e.preventDefault();
+
     let CamposVacios = "Existen campos vacíos. "
+
     if (JsSolicitud.Metodos.ValidarNombreyCodigo()) {
 
-        if (JsSolicitud.Metodos.ValidarControles()) {
-            CamposVacios = ""
-        }
+        //if (JsSolicitud.Metodos.ValidarControles()) {
+        //    CamposVacios = ""
+        //}
         jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
-                jsMensajes.Metodos.OkAlertModal("La Solicitud a sido creada")
-                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
-            });
+                JsSolicitud.Metodos.InsertarSolicitud();
+            })
+        .set('oncancel', function (closeEvent) {
+            JsSolicitud.Metodos.ValidarControles();
+        });
     }
 });
 
