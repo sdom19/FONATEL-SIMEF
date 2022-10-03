@@ -260,7 +260,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.Indicador = listaValores;
             DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();
             ViewBag.Modo = modo.ToString();
-            if (id != null)
+            if (id != null) 
             {
                 FormularioWeb objFormularioWeb = new FormularioWeb();
                 objFormularioWeb.id = id;
