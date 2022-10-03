@@ -140,8 +140,6 @@ namespace GB.SIMEF.BL
                     }
                 }
                 int cantidad = ObtenerCantidadIndicadores(objeto.idFormulario);
-                //if (cantidad <= 0)
-                //    throw new Exception(Errores.CatidadIndicadoresExcedido);
                 if (ValidarDatosRepetidos(objeto))
                 {
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
