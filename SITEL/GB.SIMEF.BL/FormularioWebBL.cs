@@ -14,6 +14,7 @@ namespace GB.SIMEF.BL
     public class FormularioWebBL : IMetodos<FormularioWeb>
     {
         private readonly FormularioWebDAL clsDatos;
+        private readonly DetalleFormularioWebDAL detalleFormularioWebDAL;
 
         private RespuestaConsulta<List<FormularioWeb>> ResultadoConsulta;
         string modulo = string.Empty;
@@ -24,7 +25,23 @@ namespace GB.SIMEF.BL
             this.modulo = modulo;
             this.user = user;
             this.clsDatos = new FormularioWebDAL();
+            this.detalleFormularioWebDAL = new DetalleFormularioWebDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<FormularioWeb>>();
+        }
+
+        private int DesencriptarId(string id)
+        {
+            int idFormulario = 0;
+            if (!String.IsNullOrEmpty(id))
+            {
+                id = Utilidades.Desencriptar(id);
+                int temp;
+                if (int.TryParse(id, out temp))
+                {
+                    idFormulario = temp;
+                }
+            }
+            return idFormulario;
         }
 
         private string SerializarObjetoBitacora(FormularioWeb objFormularioWeb)
@@ -48,7 +65,8 @@ namespace GB.SIMEF.BL
             return true;
         }
 
-        private void ValidarCantidadIndicadoresEditado(FormularioWeb formularioWebNuevo) 
+        // La cantidad de Indicadores no puede ser inferior
+        private void ValidarCantidadIndicadores(FormularioWeb formularioWebNuevo)
         {
             FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
             if (formularioWebViejo.CantidadIndicadores > formularioWebNuevo.CantidadIndicadores)
@@ -59,21 +77,13 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                if (!String.IsNullOrEmpty(objeto.id))
-                {
-                    objeto.id = Utilidades.Desencriptar(objeto.id);
-                    int temp;
-                    if (int.TryParse(objeto.id, out temp))
-                    {
-                        objeto.idFormulario = temp;
-                    }
-                }
-                ValidarCantidadIndicadoresEditado(objeto);
+                objeto.idFormulario = DesencriptarId(objeto.id);
+                ValidarCantidadIndicadores(objeto);
                 objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
 
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
-                ResultadoConsulta.Accion = objeto.idEstado == (int)EstadosRegistro.Activo ? (int)Accion.Activar : (int)Accion.Inactiva;
+                ResultadoConsulta.Accion = (int)Accion.Editar;
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.objetoRespuesta = resul;
@@ -103,10 +113,9 @@ namespace GB.SIMEF.BL
         {
             try
             {
-
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
-                ResultadoConsulta.Accion =  objeto.idEstado==(int)EstadosRegistro.Activo? (int)Accion.Activar:(int)Accion.Inactiva;
+                ResultadoConsulta.Accion = objeto.idEstado == (int)EstadosRegistro.Activo ? (int)Accion.Activar : (int)Accion.Inactiva;
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.objetoRespuesta = resul;
@@ -129,20 +138,26 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                objeto.idFormulario = 0;
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Clonar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
+
+                objeto.idFormulario = DesencriptarId(objeto.id);
+                ValidarCantidadIndicadores(new FormularioWeb() { idFormulario = objeto.idFormulario, Codigo = "", CantidadIndicadores = objeto.CantidadIndicadores });
+                var ListaDetalleFormulariosWeb = ObtenerDetalleFormularioWeb(objeto.idFormulario);
+
+                // resetear el id original
+                objeto.idFormulario = 0;
                 if (ValidarDatosRepetidos(objeto))
                 {
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                 }
 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
+                ClonarDetalleFormularioWeb(ListaDetalleFormulariosWeb, objeto.idFormulario);
 
                 string jsonValorInicial = SerializarObjetoBitacora(objeto);
-
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
                                 ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);
@@ -150,8 +165,8 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado
-                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
+                if (ex.Message == Errores.CantidadIndicadoresMenor || 
+                    ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }
@@ -170,7 +185,6 @@ namespace GB.SIMEF.BL
         {
             try
             {
-
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
                 ResultadoConsulta.Accion = (int)EstadosRegistro.Eliminado;
@@ -217,8 +231,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado
-                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
+                if ( ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }
@@ -233,26 +246,16 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-
         public RespuestaConsulta<List<FormularioWeb>> ObtenerDatos(FormularioWeb objeto)
         {
             try
             {
-                if (!String.IsNullOrEmpty(objeto.id))
-                {
-                    objeto.id = Utilidades.Desencriptar(objeto.id);
-                    int temp;
-                    if (int.TryParse(objeto.id, out temp))
-                    {
-                        objeto.idFormulario = temp;
-                    }
-                }
+                objeto.idFormulario = DesencriptarId(objeto.id); 
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
-
             }
             catch (Exception ex)
             {
@@ -281,22 +284,12 @@ namespace GB.SIMEF.BL
             return Resultado;
         }
 
-
         public RespuestaConsulta<List<Indicador>> ObtenerIndicadoresFormulario(FormularioWeb objeto)
         {
             RespuestaConsulta<List<Indicador>> ResultadoConsultaIndicadores = new RespuestaConsulta<List<Indicador>>();
             try
             {
-                 
-                if (!String.IsNullOrEmpty(objeto.id))
-                {
-                    objeto.id = Utilidades.Desencriptar(objeto.id);
-                    int temp;
-                    if (int.TryParse(objeto.id, out temp))
-                    {
-                        objeto.idFormulario = temp;
-                    }
-                }
+                objeto.idFormulario = DesencriptarId(objeto.id);
                 ResultadoConsultaIndicadores.Clase = modulo;
                 ResultadoConsultaIndicadores.Accion = (int)Accion.Consultar;
                 var resul = clsDatos.ObtenerIndicadoresFormulario(objeto.idFormulario);
@@ -313,8 +306,25 @@ namespace GB.SIMEF.BL
             return ResultadoConsultaIndicadores;
         }
 
+        private List<DetalleFormularioWeb> ObtenerDetalleFormularioWeb(int idFormulario)
+        {
+            DetalleFormularioWeb objDetalleFormulario = new DetalleFormularioWeb();
+            objDetalleFormulario.idDetalle = 0;
+            objDetalleFormulario.idFormulario = idFormulario;
+            objDetalleFormulario.idIndicador = 0;
+            return detalleFormularioWebDAL.ObtenerDatos(objDetalleFormulario);
+        }
 
-
+        private List<DetalleFormularioWeb> ClonarDetalleFormularioWeb(List<DetalleFormularioWeb> ListaDetalleFormulariosWeb, int nuevoIdFormulario)
+        {
+            foreach (DetalleFormularioWeb df in ListaDetalleFormulariosWeb)
+            {
+                df.idFormulario = nuevoIdFormulario;
+                df.idDetalle = 0;
+                detalleFormularioWebDAL.ActualizarDatos(df);
+            }
+            return ListaDetalleFormulariosWeb;
+        }
         RespuestaConsulta<List<FormularioWeb>> IMetodos<FormularioWeb>.ValidarDatos(FormularioWeb objeto)
         {
             throw new NotImplementedException();

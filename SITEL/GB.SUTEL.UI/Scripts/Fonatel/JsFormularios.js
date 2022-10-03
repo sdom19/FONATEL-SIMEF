@@ -330,8 +330,10 @@
             //formulario.IdEstado = jsUtilidades.Variables.EstadoRegistros.EnProceso;
             await execAjaxCall("/FormularioWeb/EditarFormularioWeb", "POST", formulario)
                 .then((obj) => {
+                    $(JsFormulario.Controles.CantidadIndicadoresMax).val(obj.objetoRespuesta[0].CantidadIndicadores)
                     InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
                     JsFormulario.Variables.HayError = false;
+                    JsFormulario.Metodos.ValidarButonFinalizar();
                 }).catch((obj) => {
                     JsFormulario.Variables.HayError = true;
                     JsFormulario.Metodos.MensajeError(obj);
@@ -343,25 +345,27 @@
         "ClonarFormularioWeb": async function () {
             $("#loading").fadeIn();
             let formulario = new Object();
+            formulario.id = ObtenerValorParametroUrl("id");
             formulario.Codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
             formulario.Nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
             formulario.Descripcion = $(JsFormulario.Controles.txtDescripcionFormulario).val().trim();
             formulario.CantidadIndicadores = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
             formulario.idFrecuencia = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
             formulario.IdEstado = jsUtilidades.Variables.EstadoRegistros.EnProceso;
-            //await execAjaxCall("/FormularioWeb/ClonarFormulario", "POST", formulario)
-            //    .then((obj) => {
-            //        InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
-            //        JsFormulario.Variables.HayError = false;
-            //    }).catch((obj) => {
-            //        JsFormulario.Variables.HayError = true;
-            //        JsFormulario.Metodos.MensajeError(obj);
-            //    }).finally(() => {
-            //        $("#loading").fadeOut();
-            //    });
+            await execAjaxCall("/FormularioWeb/ClonarFormulario", "POST", formulario)
+                .then((obj) => {
+                    $(JsFormulario.Controles.CantidadIndicadoresMax).val(obj.objetoRespuesta[0].CantidadIndicadores)
+                    InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
+                    JsFormulario.Variables.HayError = false;
+                }).catch((obj) => {
+                    JsFormulario.Variables.HayError = true;
+                    JsFormulario.Metodos.MensajeError(obj);
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
         },
 
-        "InsertarIndicadores": function () {
+        "InsertarIndicadores": async function () {
             $("#loading").fadeIn();
             let detalleFormulario = new Object();
             let formularioweb = new Object();
@@ -370,7 +374,7 @@
             detalleFormulario.idIndicador = $(JsFormulario.Controles.ddlIndicador).val();
             formularioweb.id = ObtenerValorParametroUrl("id");
             detalleFormulario.formularioweb = formularioweb;
-            execAjaxCall("/FormularioWeb/InsertarIndicadoresFormulario", "POST", detalleFormulario)
+            await execAjaxCall("/FormularioWeb/InsertarIndicadoresFormulario", "POST", detalleFormulario)
                 .then((obj) => {
                     let cantidadMax = obj.objetoRespuesta[0].formularioweb.CantidadIndicadores;
                     $(JsFormulario.Controles.CantidadIndicadoresMax).val(cantidadMax);
@@ -410,14 +414,14 @@
                 });
         },
 
-        "EliminarIndicadores": function (idIndicador, idFormulario) {
+        "EliminarIndicadores": async function (idIndicador, idFormulario) {
             $("#loading").fadeIn();
             let detalleFormulario = new Object();
             let formularioweb = new Object();
             detalleFormulario.idIndicador = idIndicador;
             formularioweb.id  = idFormulario;
             detalleFormulario.formularioweb = formularioweb;
-            execAjaxCall("/FormularioWeb/EliminarIndicadoresFormulario", "POST", detalleFormulario)
+            await execAjaxCall("/FormularioWeb/EliminarIndicadoresFormulario", "POST", detalleFormulario)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado")
                         .set('onok', function (closeEvent) {
@@ -543,11 +547,6 @@
                     JsFormulario.Variables.CantidadActual = JsFormulario.Variables.ListadoDetalleIndicadores.length
                     JsFormulario.Metodos.CargarTablasIndicadores();
                     JsFormulario.Metodos.ValidarButonFinalizar();
-                    //if (JsFormulario.Variables.CantidadActual > 0) {
-                    //    jsMensajes.Metodos.OkAlertModal("Recuerde que puede agregar más de un Indicador")
-                    //        .set('onok', function (closeEvent) {
-                    //        });
-                    //}
                 }).catch((obj) => {
                     jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                         .set('onok', function (closeEvent) {
@@ -609,8 +608,13 @@ $(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e)
     if (JsFormulario.Metodos.ValidarFormularioIndicador()) {
         if (JsFormulario.Variables.NuevoIndicador === true) {
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.cancelar)
-                .set('onok', function (closeEvent) {
-                    JsFormulario.Consultas.InsertarIndicadores();
+                .set('onok', async function (closeEvent) {
+                    await JsFormulario.Consultas.InsertarIndicadores();
+                    //if (JsFormulario.Variables.CantidadActual != $(JsFormulario.Controles.CantidadIndicadoresMax).val()) {
+                    //    jsMensajes.Metodos.OkAlertModal("Recuerde que puede agregar más de un Indicador")
+                    //        .set('onok', function (closeEvent) {
+                    //        });
+                    //}
                 });
         }
         else {
@@ -693,6 +697,7 @@ $(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, async fun
         }
         if (modo == jsUtilidades.Variables.Acciones.Clonar) {
             await JsFormulario.Consultas.ClonarFormularioWeb();
+            JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
         }
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
             await JsFormulario.Consultas.EditarFormularioWeb();
@@ -717,8 +722,8 @@ $(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) 
     let idIndicador = $(this).val();
     let idFormulario = ObtenerValorParametroUrl("id");
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina el Indicador?", jsMensajes.Variables.actionType.eliminar)
-        .set('onok', function (closeEvent) {
-            JsFormulario.Consultas.EliminarIndicadores(idIndicador, idFormulario);
+        .set('onok', async function (closeEvent) {
+            await JsFormulario.Consultas.EliminarIndicadores(idIndicador, idFormulario);
         });
 });
 
@@ -755,6 +760,9 @@ $(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, fun
         .set('onok', async function (closeEvent) {
             let modo = $.urlParam('modo');
             if (modo == jsUtilidades.Variables.Acciones.Editar) {
+                await JsFormulario.Consultas.GuardadoCompleto();
+            }
+            if (modo == jsUtilidades.Variables.Acciones.Clonar) {
                 await JsFormulario.Consultas.GuardadoCompleto();
             }
             if (JsFormulario.Variables.HayError === false) {
