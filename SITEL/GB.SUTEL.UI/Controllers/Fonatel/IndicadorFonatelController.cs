@@ -621,19 +621,34 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> ClonarIndicador(Indicador pIndicador)
         {
+            if (string.IsNullOrEmpty(pIndicador.id))
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            string idIndicadorAClonar = pIndicador.id;
             pIndicador.id = string.Empty;
             pIndicador.idIndicador = 0;
 
-            string creacionIndicador = await CrearIndicador(pIndicador);
+            string creacionIndicador = await CrearIndicador(pIndicador); // reutilizar la función de crear para registrar el nuevo indicador
 
-            RespuestaConsulta<List<Indicador>> indicadorDeserializado = (RespuestaConsulta<List<Indicador>>)JsonConvert.DeserializeObject(creacionIndicador); // reutilizar la función de crear
+            RespuestaConsulta<List<Indicador>> indicadorDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<Indicador>>>(creacionIndicador); // reutilizar la función de crear
 
-            if (indicadorDeserializado.objetoRespuesta == null)
+            if (indicadorDeserializado.HayError != (int)Error.NoError) // se creó correctamente?
             {
                 return creacionIndicador;
             }
 
-            return null;
+            RespuestaConsulta<Indicador> resultado = new RespuestaConsulta<Indicador>();
+
+            await Task.Run(() =>
+            {
+                // se envia el id del indicador a clonar y el id del indicador creado anteriormente
+                resultado = indicadorBL.ClonarDetallesDeIndicador(idIndicadorAClonar, indicadorDeserializado.objetoRespuesta[0].id);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>
@@ -781,7 +796,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
-
         /// <summary>
         /// 12/09/2022
         /// Michael Hernandez 
@@ -801,7 +815,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
             return JsonConvert.SerializeObject(resultado);
         }
-
 
         /// <summary>
         /// 12/09/2022
@@ -898,11 +911,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
-
-
-
-
-
         [HttpPost]
         public async Task<string> EliminarDetalleCategoria(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
         {
@@ -915,9 +923,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
             return JsonConvert.SerializeObject(resultado);
         }
-
-
-
 
         #endregion
 

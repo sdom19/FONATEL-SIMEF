@@ -121,7 +121,7 @@ namespace GB.SIMEF.BL
                 resultado.Accion = (int)Accion.Eliminar;
 
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
+                        resultado.Usuario, resultado.Clase, detalle.NombreVariable);
             }
             catch (Exception ex)
             {
