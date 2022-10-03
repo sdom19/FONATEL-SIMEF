@@ -182,6 +182,42 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+
+                //OBTENEMOS UNA LISTA DE SOLICITUDES PARA LAS VALIDACIONES
+                List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
+
+                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
+                //if (objeto.idCategoria == 0)
+                //{
+                //    objeto.idCategoria = 0;
+                //}
+
+                //if (objeto.CantidadCategoria == null)
+                //{
+                //    objeto.CantidadCategoria = 0;
+                //}
+
+                //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
+                if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
+                {
+                    //ENVIE EL ERROR CODIGO REGISTRADO
+                    throw new Exception(Errores.CodigoRegistrado);
+                }
+
+                //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
+                if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
+                {
+                    //ENVIE EL ERROR NOMBRE REGISTRADO
+                    throw new Exception(Errores.NombreRegistrado);
+                }
+                else
+                {
+                    var resul = clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.objetoRespuesta = resul;
+                }
 
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
@@ -203,6 +239,7 @@ namespace GB.SIMEF.BL
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
+
             return ResultadoConsulta;
         }
 
