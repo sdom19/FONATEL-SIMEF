@@ -148,11 +148,10 @@
             let indicador = $(JsFormulario.Controles.ddlIndicador).val();
             let hoja = $(JsFormulario.Controles.txtTituloHoja).val().trim();
 
-            //if (hoja.length == 0) {
-            //    $(JsFormulario.Controles.txtTituloHojaHelp).removeClass("hidden");
-
-            //    validar = false;
-            //}
+            if (hoja.length == 0) {
+                $(JsFormulario.Controles.txtTituloHojaHelp).removeClass("hidden");
+                validar = false;
+            }
             //if (notas.length == 0) {
             //    $(JsFormulario.Controles.txtNotasEncargadoFormularioHelp).removeClass("hidden");
             //    validar = false;
@@ -327,7 +326,6 @@
             formulario.CantidadIndicadores = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
             formulario.idFrecuencia = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
             formulario.id = ObtenerValorParametroUrl("id");
-            //formulario.IdEstado = jsUtilidades.Variables.EstadoRegistros.EnProceso;
             await execAjaxCall("/FormularioWeb/EditarFormularioWeb", "POST", formulario)
                 .then((obj) => {
                     $(JsFormulario.Controles.CantidadIndicadoresMax).val(obj.objetoRespuesta[0].CantidadIndicadores)
@@ -702,7 +700,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
 // VISUALIZAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnVizualizarFormulario, function (e) {
     // valor quemado
-    let id = 1;
+    let id = $(this).val();
     window.location.href = "/Fonatel/FormularioWeb/Visualizar?id=" + id + "&modo=" + 6;
 });
 

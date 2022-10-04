@@ -66,11 +66,25 @@ namespace GB.SIMEF.BL
         }
 
         // La cantidad de Indicadores no puede ser inferior
-        private void ValidarCantidadIndicadores(FormularioWeb formularioWebNuevo)
+        private bool ValidarCantidadIndicadores(FormularioWeb formularioWebNuevo)
         {
+            formularioWebNuevo.idEstado = 0;
             FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
             if (formularioWebViejo.CantidadIndicadores > formularioWebNuevo.CantidadIndicadores)
                 throw new Exception(Errores.CantidadIndicadoresMenor);
+            if (formularioWebViejo.CantidadIndicadores < formularioWebNuevo.CantidadIndicadores)
+                return true;
+            else
+                return false;
+        }
+
+        private int ValidarEstado(FormularioWeb obj)
+        {
+            if (ValidarCantidadIndicadores(obj) || obj.Descripcion == null || obj.Descripcion == "" ||
+                    obj.CantidadIndicadores == 0 || obj.idFrecuencia == 0)
+                return (int)Constantes.EstadosRegistro.EnProceso;
+            else
+                return (int)Constantes.EstadosRegistro.Activo;
         }
 
         public RespuestaConsulta<List<FormularioWeb>> ActualizarElemento(FormularioWeb objeto)
@@ -78,9 +92,7 @@ namespace GB.SIMEF.BL
             try
             {
                 objeto.idFormulario = DesencriptarId(objeto.id);
-                ValidarCantidadIndicadores(objeto);
-                objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
-
+                objeto.idEstado = ValidarEstado(objeto);
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
@@ -313,6 +325,18 @@ namespace GB.SIMEF.BL
             objDetalleFormulario.idFormulario = idFormulario;
             objDetalleFormulario.idIndicador = 0;
             return detalleFormularioWebDAL.ObtenerDatos(objDetalleFormulario);
+        }
+
+        public List<DetalleFormularioWeb> ObtenerTodosDetalleFormularioWeb(FormularioWeb objeto)
+        {
+            var idformulario = objeto.idFormulario;
+            List<DetalleFormularioWeb> lista = new List<DetalleFormularioWeb>();
+            foreach (Indicador i in objeto.ListaIndicadoresObj) 
+            {
+                var df= detalleFormularioWebDAL.ObtenerDatos(new DetalleFormularioWeb() { idFormulario=idformulario, idIndicador=i.idIndicador }).Single();
+                lista.Add(df);
+            }
+            return lista;
         }
 
         private List<DetalleFormularioWeb> ClonarDetalleFormularioWeb(List<DetalleFormularioWeb> ListaDetalleFormulariosWeb, int nuevoIdFormulario)
