@@ -45,6 +45,10 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string id { get; set; }
+        
+        [NotMapped]
+        public int CantidadActual { get; set; }
+
         [NotMapped]
         public virtual ICollection<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
         [NotMapped]
@@ -57,5 +61,27 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public List<Indicador> ListaIndicadoresObj { get; set; }
 
+        [NotMapped]
+        public List<string> NoSerialize = new List<string>()
+        {
+            "id",
+            "idFormulario",
+            "Codigo",
+            "Nombre",
+            "Descripcion",
+            "CantidadIndicadores",
+            "idFrecuencia",
+            "ListaIndicadores",
+            "DetalleFormularioWeb",
+            "DetalleSolicitudFormulario",
+            "FrecuenciaEnvio",
+            "ListaIndicadoresObj",
+            "EstadoRegistro",
+            "FechaModificacion",
+            "UsuarioCreacion",
+            "FechaCreacion",
+            "UsuarioModificacion",
+            "idEstado"
+        };
     }
 }

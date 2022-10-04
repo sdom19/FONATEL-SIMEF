@@ -18,13 +18,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly FormularioWebBL formularioWebBL;
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
         private readonly IndicadorFonatelBL indicadorBL;
-        private readonly DetalleFormularioWebBL detalleFormularioWeb;
+        private readonly DetalleFormularioWebBL detalleFormularioWebBL;
 
         #endregion
 
         public FormularioWebController()
         {
-            this.detalleFormularioWeb = new DetalleFormularioWebBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            this.detalleFormularioWebBL = new DetalleFormularioWebBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
             this.formularioWebBL = new FormularioWebBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
             this.frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
             this.indicadorBL = new IndicadorFonatelBL(EtiquetasViewFormulario.Formulario, System.Web.HttpContext.Current.User.Identity.GetUserId());
@@ -62,7 +62,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
+        [HttpGet]
+        public async Task<string> ObtenerIndicadoresFormulario(string idFormulario)
+        {
+            FormularioWeb objFormularioWeb = new FormularioWeb();
+            objFormularioWeb.id = idFormulario;
+            RespuestaConsulta<List<Indicador>> result = null;
+            await Task.Run(() =>
+            {
+                result = formularioWebBL.ObtenerIndicadoresFormulario(objFormularioWeb);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
 
         [HttpPost]
         public async Task<string> EliminarFormulario(FormularioWeb objFormulario)
@@ -76,14 +87,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }).ContinueWith(data =>
             {
                 FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
-                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Eliminado;
+                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Eliminado;
                 result = formularioWebBL.EliminarElemento(objetoValidar);
             }
             );
             return JsonConvert.SerializeObject(result);
         }
-
-
 
         [HttpPost]
         public async Task<string> DesactivarFormulario(FormularioWeb objFormulario)
@@ -97,16 +106,34 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }).ContinueWith(data =>
             {
                 FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
-                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Desactivado;
+                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Desactivado;
                 result = formularioWebBL.CambioEstado(objetoValidar);
             }
             );
             return JsonConvert.SerializeObject(result);
         }
 
-
         [HttpPost]
         public async Task<string> ActivarFormulario(FormularioWeb objFormulario)
+        {
+
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                    return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
+                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                result = formularioWebBL.CambioEstado(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpPost]
+        public async Task<string> GuardadoCompleto(FormularioWeb objFormulario)
         {
 
             RespuestaConsulta<List<FormularioWeb>> result = null;
@@ -117,17 +144,37 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }).ContinueWith(data =>
             {
                 FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
-                objFormulario.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Activo;
                 result = formularioWebBL.CambioEstado(objetoValidar);
             }
             );
             return JsonConvert.SerializeObject(result);
         }
 
+        [HttpPost]
+        public async Task<string> ClonarFormulario(FormularioWeb objFormulario)
+        {
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = formularioWebBL.ClonarDatos(objFormulario);
+            });
 
+            return JsonConvert.SerializeObject(result);
+        }
 
+        [HttpPost]
+        public async Task<string> EditarFormularioWeb(FormularioWeb objFormulario)
+        {
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = formularioWebBL.ActualizarElemento(objFormulario);
+            });
 
-
+            return JsonConvert.SerializeObject(result);
+        }
+        
         /// <summary>
         /// Validar si el formulario está en una solicitud 
         /// Michael Hernandez Cordero
@@ -151,26 +198,84 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        [HttpPost]
+        public async Task<string> InsertarFormularioWeb(FormularioWeb formulario)
+        {
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = formularioWebBL.InsertarDatos(formulario);
+                if (result.objetoRespuesta != null)
+                    ViewBag.CantidadMax = result.objetoRespuesta[0].CantidadIndicadores;
+                else
+                    ViewBag.CantidadMax = 0;
+            });
+            return JsonConvert.SerializeObject(result);
+        }
 
+        [HttpPost]
+        public async Task<string> InsertarIndicadoresFormulario(DetalleFormularioWeb detalleformulario)
+        {
+            RespuestaConsulta<List<DetalleFormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = detalleFormularioWebBL.InsertarDatos(detalleformulario);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpPost]
+        public async Task<string> EliminarIndicadoresFormulario(DetalleFormularioWeb detalleformulario) 
+        {
+            int temp = 0;
+            int.TryParse(Utilidades.Desencriptar(detalleformulario.formularioweb.id), out temp);
+            detalleformulario.idFormulario = temp;
+            RespuestaConsulta<List<DetalleFormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = detalleFormularioWebBL.EliminarElemento(detalleformulario);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpPost]
+        public async Task<string> EditarIndicadoresFormulario(DetalleFormularioWeb detalleformulario)
+        {
+            int temp = 0;
+            int.TryParse(Utilidades.Desencriptar(detalleformulario.formularioweb.id), out temp);
+            detalleformulario.idFormulario = temp;
+            RespuestaConsulta<List<DetalleFormularioWeb>> result = null;
+            await Task.Run(() =>
+            {
+                result = detalleFormularioWebBL.ActualizarElemento(detalleformulario);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
 
         [HttpGet]
         public ActionResult Create(string id, int? modo)
         {
             ViewBag.FrecuanciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
                 .objetoRespuesta;
-            var indicadores = indicadorBL.ObtenerDatos(new Indicador() { })
+            var indicadores = indicadorBL.ObtenerDatos(new Indicador() {idEstado=2 })
                 .objetoRespuesta;
+            //indicadores = indicadores.Where(x => x.IdClasificacion == 3 || x.IdClasificacion == 4).ToList();
+            indicadores = indicadores.Where(x => x.ClasificacionIndicadores.Nombre == "Entrada/salida"
+                        || x.ClasificacionIndicadores.Nombre == "Entrada").ToList();
             var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
             ViewBag.Indicador = listaValores;
             DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();
             ViewBag.Modo = modo.ToString();
-            if (id != null)
+            if (id != null) 
             {
                 FormularioWeb objFormularioWeb = new FormularioWeb();
                 objFormularioWeb.id = id;
                 objFormularioWeb = formularioWebBL.ObtenerDatos(objFormularioWeb).objetoRespuesta.SingleOrDefault();
                 objFormularioWeb.ListaIndicadoresObj = formularioWebBL.ObtenerIndicadoresFormulario(objFormularioWeb).objetoRespuesta.ToList();
                 
+                ViewBag.CantidadMax = objFormularioWeb.CantidadIndicadores;
+                int idFormulario = 0;
+                int.TryParse(Utilidades.Desencriptar(id), out idFormulario);
                 if (modo == (int)Constantes.Accion.Clonar)
                 {
                     ViewBag.ModoTitulo = EtiquetasViewFormulario.ClonarFormulario;
@@ -186,6 +291,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
             else
             {
+                ViewBag.CantidadMax = 0;
                 ViewBag.ModoTitulo = EtiquetasViewFormulario.CrearFormulario;
                 objDetalleFormularioWeb.formularioweb = new FormularioWeb();
             }
@@ -193,8 +299,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
-        public ActionResult Visualizar(int? id, int? modo)
+        public ActionResult Visualizar(string? id, int? modo)
         {
+            FormularioWeb objFormularioWeb = new FormularioWeb();
+            objFormularioWeb.id = id;
+            objFormularioWeb.ListaIndicadoresObj = formularioWebBL.ObtenerIndicadoresFormulario(objFormularioWeb).objetoRespuesta.ToList();
+            
+            DetalleFormularioWeb detalleFormulario = new DetalleFormularioWeb();
+            ViewBag.ListaDetalle = formularioWebBL.ObtenerTodosDetalleFormularioWeb(objFormularioWeb);
+            
+            ViewBag.ListaIndicadores = objFormularioWeb.ListaIndicadoresObj;
             return View();
         }
 
@@ -208,7 +322,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             objDetalleFormularioWeb.idIndicador = idIndicador;
             await Task.Run(() =>
             {
-                objDetalleFormularioWeb = detalleFormularioWeb.ObtenerDatos(objDetalleFormularioWeb).objetoRespuesta.FirstOrDefault();
+                objDetalleFormularioWeb = detalleFormularioWebBL.ObtenerDatos(objDetalleFormularioWeb).objetoRespuesta.FirstOrDefault();
             });
             return JsonConvert.SerializeObject(objDetalleFormularioWeb);
         }

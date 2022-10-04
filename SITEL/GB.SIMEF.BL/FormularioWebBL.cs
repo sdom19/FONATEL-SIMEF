@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace GB.SIMEF.BL
     public class FormularioWebBL : IMetodos<FormularioWeb>
     {
         private readonly FormularioWebDAL clsDatos;
-        private readonly DetalleFormularioWebDAL clsDatos2;
+        private readonly DetalleFormularioWebDAL detalleFormularioWebDAL;
 
         private RespuestaConsulta<List<FormularioWeb>> ResultadoConsulta;
         string modulo = string.Empty;
@@ -24,23 +25,109 @@ namespace GB.SIMEF.BL
             this.modulo = modulo;
             this.user = user;
             this.clsDatos = new FormularioWebDAL();
-            this.clsDatos2 = new DetalleFormularioWebDAL();
+            this.detalleFormularioWebDAL = new DetalleFormularioWebDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<FormularioWeb>>();
+        }
+
+        private int DesencriptarId(string id)
+        {
+            int idFormulario = 0;
+            if (!String.IsNullOrEmpty(id))
+            {
+                id = Utilidades.Desencriptar(id);
+                int temp;
+                if (int.TryParse(id, out temp))
+                {
+                    idFormulario = temp;
+                }
+            }
+            return idFormulario;
+        }
+
+        private string SerializarObjetoBitacora(FormularioWeb objFormularioWeb)
+        {
+            return JsonConvert.SerializeObject(objFormularioWeb, new JsonSerializerSettings
+            { ContractResolver = new JsonIgnoreResolver(objFormularioWeb.NoSerialize) });
+        }
+
+        // Valida si existen formularios con el mismo nombre o código
+        private bool ValidarDatosRepetidos(FormularioWeb objFormularioWeb)
+        {
+            List<FormularioWeb> buscarRegistro = clsDatos.ObtenerDatos(new FormularioWeb());
+            if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objFormularioWeb.Codigo.ToUpper()).ToList().Count() > 0)
+            {
+                throw new Exception(Errores.CodigoRegistrado);
+            }
+            else if (buscarRegistro.Where(x => x.Nombre.ToUpper() == objFormularioWeb.Nombre.ToUpper()).ToList().Count() > 0)
+            {
+                throw new Exception(Errores.NombreRegistrado);
+            }
+            return true;
+        }
+
+        // La cantidad de Indicadores no puede ser inferior
+        private bool ValidarCantidadIndicadores(FormularioWeb formularioWebNuevo)
+        {
+            formularioWebNuevo.idEstado = 0;
+            FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
+            if (formularioWebViejo.CantidadIndicadores > formularioWebNuevo.CantidadIndicadores)
+                throw new Exception(Errores.CantidadIndicadoresMenor);
+            if (formularioWebViejo.CantidadIndicadores < formularioWebNuevo.CantidadIndicadores)
+                return true;
+            else
+                return false;
+        }
+
+        private int ValidarEstado(FormularioWeb obj)
+        {
+            if (ValidarCantidadIndicadores(obj) || obj.Descripcion == null || obj.Descripcion == "" ||
+                    obj.CantidadIndicadores == 0 || obj.idFrecuencia == 0)
+                return (int)Constantes.EstadosRegistro.EnProceso;
+            else
+                return (int)Constantes.EstadosRegistro.Activo;
         }
 
         public RespuestaConsulta<List<FormularioWeb>> ActualizarElemento(FormularioWeb objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                objeto.idFormulario = DesencriptarId(objeto.id);
+                objeto.idEstado = ValidarEstado(objeto);
+                ResultadoConsulta.Clase = modulo;
+                objeto.UsuarioModificacion = user;
+                ResultadoConsulta.Accion = (int)Accion.Editar;
+                var resul = clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.Usuario = user;
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.CantidadIndicadoresMenor)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<FormularioWeb>> CambioEstado(FormularioWeb objeto)
         {
             try
             {
-                
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
-                ResultadoConsulta.Accion =  objeto.idEstado==(int)EstadosRegistro.Activo? (int)Accion.Activar:(int)Accion.Inactiva;
+                ResultadoConsulta.Accion = objeto.idEstado == (int)EstadosRegistro.Activo ? (int)Accion.Activar : (int)Accion.Inactiva;
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.objetoRespuesta = resul;
@@ -61,14 +148,55 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FormularioWeb>> ClonarDatos(FormularioWeb objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Clonar;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioCreacion = user;
+
+                objeto.idFormulario = DesencriptarId(objeto.id);
+                ValidarCantidadIndicadores(new FormularioWeb() { idFormulario = objeto.idFormulario, Codigo = "", CantidadIndicadores = objeto.CantidadIndicadores });
+                var ListaDetalleFormulariosWeb = ObtenerDetalleFormularioWeb(objeto.idFormulario);
+
+                // resetear el id original
+                objeto.idFormulario = 0;
+                if (ValidarDatosRepetidos(objeto))
+                {
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                }
+
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+                ClonarDetalleFormularioWeb(ListaDetalleFormulariosWeb, objeto.idFormulario);
+
+                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.CantidadIndicadoresMenor || 
+                    ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<FormularioWeb>> EliminarElemento(FormularioWeb objeto)
         {
             try
             {
-
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
                 ResultadoConsulta.Accion = (int)EstadosRegistro.Eliminado;
@@ -92,28 +220,54 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FormularioWeb>> InsertarDatos(FormularioWeb objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                objeto.idFormulario = 0;
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioCreacion = user;
+                if (ValidarDatosRepetidos(objeto))
+                {
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                }
+
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+
+                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);
+
+            }
+            catch (Exception ex)
+            {
+                if ( ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<FormularioWeb>> ObtenerDatos(FormularioWeb objeto)
         {
             try
             {
-                if (!String.IsNullOrEmpty(objeto.id))
-                {
-                    objeto.id = Utilidades.Desencriptar(objeto.id);
-                    int temp;
-                    if (int.TryParse(objeto.id, out temp))
-                    {
-                        objeto.idFormulario = temp;
-                    }
-                }
+                objeto.idFormulario = DesencriptarId(objeto.id); 
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
-
             }
             catch (Exception ex)
             {
@@ -142,22 +296,12 @@ namespace GB.SIMEF.BL
             return Resultado;
         }
 
-
         public RespuestaConsulta<List<Indicador>> ObtenerIndicadoresFormulario(FormularioWeb objeto)
         {
             RespuestaConsulta<List<Indicador>> ResultadoConsultaIndicadores = new RespuestaConsulta<List<Indicador>>();
             try
             {
-                 
-                if (!String.IsNullOrEmpty(objeto.id))
-                {
-                    objeto.id = Utilidades.Desencriptar(objeto.id);
-                    int temp;
-                    if (int.TryParse(objeto.id, out temp))
-                    {
-                        objeto.idFormulario = temp;
-                    }
-                }
+                objeto.idFormulario = DesencriptarId(objeto.id);
                 ResultadoConsultaIndicadores.Clase = modulo;
                 ResultadoConsultaIndicadores.Accion = (int)Accion.Consultar;
                 var resul = clsDatos.ObtenerIndicadoresFormulario(objeto.idFormulario);
@@ -174,8 +318,37 @@ namespace GB.SIMEF.BL
             return ResultadoConsultaIndicadores;
         }
 
+        private List<DetalleFormularioWeb> ObtenerDetalleFormularioWeb(int idFormulario)
+        {
+            DetalleFormularioWeb objDetalleFormulario = new DetalleFormularioWeb();
+            objDetalleFormulario.idDetalle = 0;
+            objDetalleFormulario.idFormulario = idFormulario;
+            objDetalleFormulario.idIndicador = 0;
+            return detalleFormularioWebDAL.ObtenerDatos(objDetalleFormulario);
+        }
 
+        public List<DetalleFormularioWeb> ObtenerTodosDetalleFormularioWeb(FormularioWeb objeto)
+        {
+            var idformulario = objeto.idFormulario;
+            List<DetalleFormularioWeb> lista = new List<DetalleFormularioWeb>();
+            foreach (Indicador i in objeto.ListaIndicadoresObj) 
+            {
+                var df= detalleFormularioWebDAL.ObtenerDatos(new DetalleFormularioWeb() { idFormulario=idformulario, idIndicador=i.idIndicador }).Single();
+                lista.Add(df);
+            }
+            return lista;
+        }
 
+        private List<DetalleFormularioWeb> ClonarDetalleFormularioWeb(List<DetalleFormularioWeb> ListaDetalleFormulariosWeb, int nuevoIdFormulario)
+        {
+            foreach (DetalleFormularioWeb df in ListaDetalleFormulariosWeb)
+            {
+                df.idFormulario = nuevoIdFormulario;
+                df.idDetalle = 0;
+                detalleFormularioWebDAL.ActualizarDatos(df);
+            }
+            return ListaDetalleFormulariosWeb;
+        }
         RespuestaConsulta<List<FormularioWeb>> IMetodos<FormularioWeb>.ValidarDatos(FormularioWeb objeto)
         {
             throw new NotImplementedException();
