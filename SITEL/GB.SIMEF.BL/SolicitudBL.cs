@@ -55,8 +55,6 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-
-
         public RespuestaConsulta<List<string>> ValidarExistenciaSolicitudEliminar(Solicitud objeto)
         {
             RespuestaConsulta<List<string>> listaExistencias = new RespuestaConsulta<List<string>>();
@@ -88,6 +86,90 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Editar;
+                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                objeto.UsuarioModificacion = objeto.UsuarioCreacion;
+
+
+                //OBTENEMOS UNA LISTA DE SOLICITUDES PARA LAS VALIDACIONES
+                List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
+
+                //DESENCRIPTAR EL ID
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.idSolicitud = temp;
+                }
+
+                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
+
+                if (objeto.FechaInicio == null)
+                {
+                    objeto.FechaInicio = DateTime.Today;
+                }
+
+                if (objeto.FechaFin == null)
+                {
+                    objeto.FechaFin = DateTime.Today;
+                }
+
+                if (objeto.idMes == 0)
+                {
+                    objeto.idMes = 0;
+                }
+
+                if (objeto.idAnno == 0)
+                {
+                    objeto.idAnno = 0;
+                }
+
+                if (objeto.CantidadFormularios == 0)
+                {
+                    objeto.CantidadFormularios = 0;
+                }
+
+                if (objeto.idFuente == 0)
+                {
+                    objeto.idFuente = 0;
+                }
+
+                if (objeto.Mensaje == null)
+                {
+                    objeto.Mensaje = " ";
+                }
+
+                //GUARDAMOS EL OBJETO EN UNA VARIBALE SEGUN EL ID
+                var result = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
+
+                //VALIDA SI NO SE ENCONTRARON REGISTROS
+                if (BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Count() == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+                else if (result.CantidadFormularios > objeto.CantidadFormularios)
+                {
+                    //FALTA EL CONTADOR DE DETALLE
+                    throw new Exception(Errores.CantidadRegistrosLimite);
+                }
+                else if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() >= 1)
+                {
+                    throw new Exception(Errores.NombreRegistrado);
+                }
+                //VALIDAR QUE NO EXCEDA EL LIMITE DE REGISTROS
+                else if (result.FormularioWeb.Count() > objeto.CantidadFormularios)
+                {
+                    //FALTA EL CONTADOR DE DETALLE
+                    throw new Exception(Errores.CantidadRegistrosLimite);
+                }
+                else
+                {
+
+                    result = clsDatos.ActualizarDatos(objeto)
+                    .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+
+                }
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
@@ -110,6 +192,7 @@ namespace GB.SIMEF.BL
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
+
             return ResultadoConsulta;
         }
 
@@ -146,6 +229,71 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Clonar;
+                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+
+                //OBTENEMOS UNA LISTA DE SOLICITUDES PARA LAS VALIDACIONES
+                List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
+
+                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
+
+                if (objeto.FechaInicio == null)
+                {
+                    objeto.FechaInicio = DateTime.Today;
+                }
+
+                if (objeto.FechaFin == null)
+                {
+                    objeto.FechaFin = DateTime.Today;
+                }
+
+                if (objeto.idMes == 0)
+                {
+                    objeto.idMes = 0;
+                }
+
+                if (objeto.idAnno == 0)
+                {
+                    objeto.idAnno = 0;
+                }
+
+                if (objeto.CantidadFormularios == 0)
+                {
+                    objeto.CantidadFormularios = 0;
+                }
+
+                if (objeto.idFuente == 0)
+                {
+                    objeto.idFuente = 0;
+                }
+
+                if (objeto.Mensaje == null)
+                {
+                    objeto.Mensaje = " ";
+                }
+
+
+
+                //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
+                if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
+                {
+                    //ENVIE EL ERROR CODIGO REGISTRADO
+                    throw new Exception(Errores.CodigoRegistrado);
+                }
+
+                //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
+                if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
+                {
+                    //ENVIE EL ERROR NOMBRE REGISTRADO
+                    throw new Exception(Errores.NombreRegistrado);
+                }
+                else
+                {
+                    var resul = clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.objetoRespuesta = resul;
+                }
+
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
@@ -153,8 +301,8 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado
+                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }
@@ -166,6 +314,7 @@ namespace GB.SIMEF.BL
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
+
             return ResultadoConsulta;
         }
 
@@ -190,15 +339,43 @@ namespace GB.SIMEF.BL
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
                 //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
-                //if (objeto.idCategoria == 0)
-                //{
-                //    objeto.idCategoria = 0;
-                //}
 
-                //if (objeto.CantidadCategoria == null)
-                //{
-                //    objeto.CantidadCategoria = 0;
-                //}
+                if (objeto.FechaInicio == null)
+                {
+                    objeto.FechaInicio = DateTime.Today;
+                }
+
+                if (objeto.FechaFin == null)
+                {
+                    objeto.FechaFin = DateTime.Today;
+                }
+
+                if (objeto.idMes == 0)
+                {
+                    objeto.idMes = 0;
+                }
+
+                if (objeto.idAnno == 0)
+                {
+                    objeto.idAnno = 0;
+                }
+
+                if (objeto.CantidadFormularios == 0)
+                {
+                    objeto.CantidadFormularios = 0;
+                }
+
+                if (objeto.idFuente == 0)
+                {
+                    objeto.idFuente = 0;
+                }
+
+                if (objeto.Mensaje == null)
+                {
+                    objeto.Mensaje = " ";
+                }
+
+
 
                 //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
