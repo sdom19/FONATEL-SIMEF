@@ -115,7 +115,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> InsertarSolicitud(Solicitud solicitud)
         {
-            
+
             user = User.Identity.GetUserId();
             solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
@@ -131,6 +131,61 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return JsonConvert.SerializeObject(result);
         }
+
+        /// <summary>
+        /// Fecha: 04
+        /// Francisco Vindas
+        /// Metodo para editar solicitudes de informacion
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EditarSolicitud(Solicitud solicitud)
+        {
+            
+            user = User.Identity.GetUserId();
+            solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+
+            RespuestaConsulta<List<Solicitud>> result = null;
+
+            await Task.Run(() =>
+            {
+                solicitud.UsuarioCreacion = user;
+
+                result = SolicitudesBL.ActualizarElemento(solicitud);
+
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha: 04/10/2022
+        /// Francisco Vindas
+        /// Metodo para insertar solicitudes de informacion
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ClonarSolicitud(Solicitud solicitud)
+        {
+
+            user = User.Identity.GetUserId();
+            solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+
+            RespuestaConsulta<List<Solicitud>> result = null;
+
+            await Task.Run(() =>
+            {
+                solicitud.UsuarioCreacion = user;
+
+                result = SolicitudesBL.ClonarDatos(solicitud);
+
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
 
 
 
