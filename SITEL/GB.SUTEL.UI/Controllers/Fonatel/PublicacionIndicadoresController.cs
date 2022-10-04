@@ -81,7 +81,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
              {
                 Indicador objetoActualizar = data.Result.objetoRespuesta.Single();
                 objetoActualizar.VisualizaSigitel = indicador.VisualizaSigitel;
-                result = indicadorfonatelBL.ActualizarElemento(objetoActualizar);
+                result = indicadorfonatelBL.PublicacionSigitel(objetoActualizar);
              }
             );
             return JsonConvert.SerializeObject(result);
