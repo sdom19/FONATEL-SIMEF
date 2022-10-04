@@ -206,6 +206,12 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+
+        private string PlantillaCorreo(string usuario, string contrasena)
+        {
+            return @"<div><style>.rps_4de0 h1{text - align:center}.rps_4de0 p{font - family:'Times New Roman'; font-size:20px}</style><div class='rps_4de0'><div><img data-imagetype='External' data-imageerror='RelWithoutBase' originalsrc='../Images/logos/logo-Sutel_11_3.png' style='max-height:55px'><table style = 'border-collapse:collapse;background-color:#eee!important;overflow-wrap:break-word;width:100%!important;line-height:100%!important' >< tbody ><tr><td style='font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#000!important;padding:25px 35px'><table style = 'border-collapse:collapse;width:100%;background-color:#fff!important'><tbody><tr><td style='font-family:Helvetica,Arial,sans-serif;font-size:15px;padding:15px 5px 5px 15px;color:#0072c6!important;text-decoration:none;border:0;text-align:left'><b>Sistema de Indicadores de Telecomunicaciones(SITEL)</b></td></tr><tr><td style = 'text-align:left;padding-top:25px;padding-left:15px' > Estimado usuario<b>{0}:</b></td></tr><tr><td style = 'text-align:left;padding-bottom:15px;padding-top:15px;padding-left:15px'> Puede ingresar con la contraseña temporal y cambiarla en el siguiente inicio de sesión.</td></tr><tr><td style = 'text-align:left;padding-left:15px' >< ul >< li > Contraseña temporal:<b>{1}</ b ></ li ></ ul ></td></tr><tr><tdstyle = 'text-align:left;padding-left:15px;font-size:11px' >< hr > Por favor, no responder a este correo ya que no es monitoreado.</td></tr><tr><td style='text-align:left;padding-left:15px;font-size:11px'>Cualquier duda o consulta diríjase al correo: sitel @sutel.go.cr</td></tr></tbody></table></td></tr></tbody></table></div></div></div>";
+        }
+
         public RespuestaConsulta<List<FuentesRegistro>> ClonarDatos(FuentesRegistro objeto)
         {
             throw new NotImplementedException();
@@ -413,10 +419,20 @@ namespace GB.SIMEF.BL
         {
             foreach (var item in fuente.DetalleFuentesRegistro)
             {
+                
                 item.Estado = fuente.idEstado == (int)Constantes.EstadosRegistro.Activo ? true : false;
-                item.Contrasena = generatePassword();
-                item.Contrasena = HashPassword(item.Contrasena);
+                string contrasena = generatePassword();    
+                item.Contrasena = HashPassword(contrasena);
                 clsDatosUsuario.ActualizarUsuario(item);
+                string html = Resources.PlantillasCorreo.HtmlCrearUsuario.Replace("{0}", item.NombreDestinatario).Replace("{1}", contrasena);
+                CorreoDal correoDal = new CorreoDal(item.CorreoElectronico,"",html, "Sutel: Creación de Usuario");
+                int result = correoDal.EnviarCorreo();
+                if (result==0)
+                {
+                    throw new Exception("Error enviando correo: "+ item.CorreoElectronico);
+                }
+
+
             }
 
          }

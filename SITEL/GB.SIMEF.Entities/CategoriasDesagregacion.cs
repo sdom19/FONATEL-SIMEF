@@ -54,7 +54,8 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public virtual TipoCategoria TipoCategoria { get; set; }
         [NotMapped]
-
+   
+        public bool EsParcial { get; set; }
         public virtual List<DetalleCategoriaTexto> DetalleCategoriaTexto { get; set; }
         [NotMapped]
         public virtual EstadoRegistro EstadoRegistro { get; set; }
@@ -94,7 +95,8 @@ namespace GB.SIMEF.Entities
             "FechaModificacion",
             "UsuarioCreacion",
             "FechaCreacion",
-            "UsuarioModificacion"
+            "UsuarioModificacion",
+            "EsParcial"
 
         };
 

@@ -249,7 +249,8 @@
                         let destinatario = JsFuentes.Variables.ListaDestinatarios[0];
                         $(JsFuentes.Controles.txtidDetalleFuente).val(destinatario.idDetalleFuente);
                         $(JsFuentes.Controles.txtNombre).val(destinatario.NombreDestinatario);
-                        $(JsFuentes.Controles.txtCorreo).val(destinatario.CorreoElectronico)
+                        $(JsFuentes.Controles.txtCorreo).val(destinatario.CorreoElectronico);
+                        $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);
                     }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
