@@ -274,7 +274,8 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 29/08/2022
         /// José Navarro Acuña
-        /// Función que permite buscar y verificar por medio del identificador la existencia de un indicador en estado diferente de eliminado
+        /// Función que permite buscar y verificar por medio del identificador la existencia de un indicador en estado diferente de eliminado.
+        /// Importante: No encripta IDs
         /// </summary>
         /// <param name="pIdIdentificador"></param>
         /// <returns></returns>

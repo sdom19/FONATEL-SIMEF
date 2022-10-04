@@ -634,6 +634,25 @@ CreateView = {
                 });
         },
 
+        GuardadoDefinitivoIndicador: function (pIdIndicador) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) { resolve(true); });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.GuardadoDefinitivoIndicador(pIdIndicador);
+                })
+                .then(data => {
+                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
+                        .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
+                })
+                .catch(error => { this.ManejoDeExcepciones(error); })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
         // Modal Tipo Indicador
         AbrirModalTipoIndicador: function () {
             $("#loading").fadeIn();
@@ -937,8 +956,8 @@ CreateView = {
                         if (cantidadEstablecida > data.objetoRespuesta.length) {
                             $(CreateView.Controles.formVariable.btnSiguiente).prop("disabled", true);
                             $(CreateView.Controles.formVariable.btnGuardar).prop("disabled", false);
-
-                        } else {
+                        }
+                        else {
                             $(CreateView.Controles.formVariable.btnSiguiente).prop("disabled", false);
                             $(CreateView.Controles.formVariable.btnGuardar).prop("disabled", true);
                         }
@@ -1411,6 +1430,10 @@ CreateView = {
             return execAjaxCall('/IndicadorFonatel/ClonarIndicador', 'POST', { pIndicador: pIndicador });
         },
 
+        GuardadoDefinitivoIndicador: function (pIdIndicador) {
+            return execAjaxCall('/IndicadorFonatel/GuardadoDefinitivoIndicador', 'POST', { pIdIndicador: pIdIndicador });
+        },
+
         ConsultarDetallesVariable: function (pIdIndicador) {
             return execAjaxCall('/IndicadorFonatel/ObtenerListaDetallesVariable', 'GET', { pIdIndicador: pIdIndicador });
         },
@@ -1450,7 +1473,6 @@ CreateView = {
         EliminarDetalleCategoria: function (pDetalleIndicadorCategoria) {
             return execAjaxCall('/IndicadorFonatel/EliminarDetalleCategoria', 'POST', { pDetalleIndicadorCategoria: pDetalleIndicadorCategoria });
         }
-
     },
 
     Eventos: function () {
@@ -1659,11 +1681,10 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.btnFinalizar, function (e) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.cancelar)
-                .set('onok', function (closeEvent) {
-                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido agregado")
-                        .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL });
-                });
+            let id = ObtenerValorParametroUrl("id");
+            if (id != null || $.trim(id) != "") {
+                CreateView.Metodos.GuardadoDefinitivoIndicador(id);
+            }
         });
 
         //$(document).on("click", CreateView.Controles.btnAddIndicadorCategoria, function () {
@@ -1698,7 +1719,6 @@ CreateView = {
         CreateView.Eventos();
 
         let modo = $(CreateView.Controles.modoFormulario).val();
-        console.log(modo);
 
         CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(true);
 
@@ -1707,7 +1727,7 @@ CreateView = {
             CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
         }
         else if (jsUtilidades.Variables.Acciones.Clonar == modo) {
-            console.log("Clonando");
+
         }
     }
 }

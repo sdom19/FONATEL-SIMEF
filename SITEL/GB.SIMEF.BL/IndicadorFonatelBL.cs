@@ -12,8 +12,8 @@ namespace GB.SIMEF.BL
 {
     public class IndicadorFonatelBL : IMetodos<Indicador>
     {
-        private readonly string modulo = "";
-        private readonly string user = "";
+        private readonly string modulo = string.Empty;
+        private readonly string user = string.Empty;
         private readonly IndicadorFonatelDAL indicadorFonatelDAL;
         private readonly TipoIndicadorDAL tipoIndicadorDAL;
         private readonly FrecuenciaEnvioDAL frecuenciaEnvioDAL;
@@ -41,44 +41,7 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<Indicador>> ActualizarElemento(Indicador pIndicador)
         {
-
-            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
-            bool errorControlado = false;
-
-            try
-            {
-                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
-                pIndicador.idIndicador = number;
-                // actualizar el estado del indicador
-                PrepararObjetoIndicador(pIndicador);
-                pIndicador.UsuarioModificacion = user;
-                var indicadorActualizado = indicadorFonatelDAL.PublicacionSigitel(pIndicador);
-
-                if (indicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
-                {
-                    errorControlado = true;
-                    throw new Exception(Errores.NoRegistrosActualizar);
-                }
-
-
-                resultado.Accion = pIndicador.VisualizaSigitel == true? (int)Accion.Publicado:(int)Accion.NoPublicado;
-                resultado.Clase = modulo;
-                resultado.Usuario = user;
-                resultado.CantidadRegistros = indicadorActualizado.Count();
-
-                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
-            }
-            catch (Exception ex)
-            {
-                resultado.MensajeError = ex.Message;
-
-                if (errorControlado)
-                    resultado.HayError = (int)Error.ErrorControlado;
-                else
-                    resultado.HayError = (int)Error.ErrorSistema;
-            }
-            return resultado;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -105,19 +68,18 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
+                pIndicador = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pIndicador.idIndicador);
 
-                // actualizar el estado del indicador
-                PrepararObjetoIndicador(pIndicador);
-                pIndicador.UsuarioModificacion = user;
-                pIndicador.idEstado = nuevoEstado;
-                var indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
-
-                if (indicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
+                if (pIndicador == null) // ¿el indicador existe?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
+
+                // actualizar el estado del indicador
+                pIndicador.UsuarioModificacion = user;
+                pIndicador.idEstado = nuevoEstado;
+                var indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
 
                 // construir respuesta
                 int accion = 0;
@@ -129,6 +91,8 @@ namespace GB.SIMEF.BL
                         accion = (int)Accion.Activar; break;
                     case (int)EstadosRegistro.Desactivado:
                         accion = (int)Accion.Inactiva; break;
+                    case (int)EstadosRegistro.EnProceso:
+                        accion = (int)Accion.Editar; break;
                 }
 
                 resultado.Accion = accion;
@@ -185,7 +149,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
+                pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).FirstOrDefault();
 
                 PrepararObjetoIndicador(pIndicador);
                 var result = indicadorFonatelDAL.VerificarUsoIndicador(pIndicador);
@@ -235,6 +199,50 @@ namespace GB.SIMEF.BL
 
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
                         resultado.Usuario, resultado.Clase, pIndicador.Codigo);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 04/10/2022
+        /// José Navarro Acuña
+        /// Función que permite realizar un guardado definitivo de un indicador
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> GuardadoDefinitivoIndicador(Indicador pIndicador)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            bool errorControlado = false;
+
+            try
+            {
+                List<DetalleIndicadorVariables> objDetallesVariables = detalleIndicadorVariablesDAL.ObtenerDatos(
+                    new DetalleIndicadorVariables() { idIndicador = pIndicador.idIndicador });
+
+                List<DetalleIndicadorCategoria> objDetallesCategoria = detalleIndicadorCategoriaDAL.ObtenerDatos(
+                    new DetalleIndicadorCategoria() { idIndicador = pIndicador.idIndicador, DetallesAgrupados = true });
+
+                // verificar que los detalles esten completos en cuanto a cantidad
+                if (pIndicador.CantidadVariableDato != objDetallesVariables.Count() ||
+                    pIndicador.CantidadCategoriasDesagregacion != objDetallesCategoria.Count())
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.CamposIncompletos);
+                }
+
+                pIndicador.nuevoEstado = (int)EstadosRegistro.Activo;
+
+                return CambioEstado(pIndicador); // reutilizar la función de cambio de estado
             }
             catch (Exception ex)
             {
@@ -397,7 +405,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                resultado.HayError = (int)Constantes.Error.ErrorSistema;
+                resultado.HayError = (int)Error.ErrorSistema;
                 resultado.MensajeError = ex.Message;
             }
             return resultado;
@@ -459,14 +467,27 @@ namespace GB.SIMEF.BL
         {
             RespuestaConsulta<Indicador> resultado = new RespuestaConsulta<Indicador>();
             int idIndicadorAClonar, idIndicadorDestino;
+            bool errorControlado = false;
 
             try
             {
                 int.TryParse(Utilidades.Desencriptar(pIdIndicadorAClonar), out int number);
                 idIndicadorAClonar = number;
-                
+
+                if (idIndicadorAClonar == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
                 int.TryParse(Utilidades.Desencriptar(pIdIndicadorDestino), out number);
                 idIndicadorDestino = number;
+
+                if (idIndicadorDestino == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
 
                 indicadorFonatelDAL.ClonarDetallesDeIndicador(idIndicadorAClonar, idIndicadorDestino);
 
@@ -482,7 +503,57 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
                 resultado.MensajeError = ex.Message;
-                resultado.HayError = (int)Error.ErrorSistema;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// Michael Hernandez
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> PublicacionSigitel(Indicador pIndicador)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            bool errorControlado = false;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
+                pIndicador.idIndicador = number;
+                // actualizar el estado del indicador
+                PrepararObjetoIndicador(pIndicador);
+                pIndicador.UsuarioModificacion = user;
+                var indicadorActualizado = indicadorFonatelDAL.PublicacionSigitel(pIndicador);
+
+                if (indicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+
+                resultado.Accion = pIndicador.VisualizaSigitel == true ? (int)Accion.Publicado : (int)Accion.NoPublicado;
+                resultado.Clase = modulo;
+                resultado.Usuario = user;
+                resultado.CantidadRegistros = indicadorActualizado.Count();
+
+                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
             }
             return resultado;
         }

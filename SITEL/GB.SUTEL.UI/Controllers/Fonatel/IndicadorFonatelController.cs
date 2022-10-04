@@ -99,7 +99,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             Indicador objIndicador = null;
             try
             {
-                objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.SingleOrDefault();
+                objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.FirstOrDefault();
             }
             catch (Exception) { };
 
@@ -122,7 +122,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             Indicador objIndicador = null;
             try
             {
-                objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.SingleOrDefault();
+                objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.FirstOrDefault();
             }
             catch (Exception) { };
 
@@ -242,7 +242,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = indicadorBL.CambioEstado(new Indicador()
                 {
                     id = pIdIndicador,
-                    nuevoEstado = (int)EstadosRegistro.Activo // nuevo estado
+                    nuevoEstado = (int)EstadosRegistro.EnProceso // nuevo estado
                 });
 
             });
@@ -556,15 +556,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> CrearIndicador(Indicador pIndicador)
         {
-            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
-
             string mensajeValidacionIndicador = ValidarObjetoIndicador(pIndicador, pIndicador.esGuardadoParcial);
 
-            if (mensajeValidacionIndicador != null)
+            if (!string.IsNullOrEmpty(mensajeValidacionIndicador))
             {
-                resultado.HayError = (int)Error.ErrorControlado;
-                resultado.MensajeError = mensajeValidacionIndicador;
-                return JsonConvert.SerializeObject(resultado);
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = mensajeValidacionIndicador });
             }
 
             if (pIndicador.esGuardadoParcial)
@@ -584,6 +581,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             pIndicador.idGrupo = 0;
             pIndicador.IdUnidadEstudio = 0;
 
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
             await Task.Run(() =>
             {
                 resultado = indicadorBL.InsertarDatos(pIndicador);
@@ -601,7 +600,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EditarIndicador(Indicador pIndicador)
         {
-            if (string.IsNullOrEmpty(pIndicador.id))
+            if (string.IsNullOrEmpty(pIndicador.id)) // id indicador requerido
             {
                 return JsonConvert.SerializeObject(
                     new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
@@ -621,7 +620,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> ClonarIndicador(Indicador pIndicador)
         {
-            if (string.IsNullOrEmpty(pIndicador.id))
+            if (string.IsNullOrEmpty(pIndicador.id)) // id indicador requerido
             {
                 return JsonConvert.SerializeObject(
                     new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
@@ -632,10 +631,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             pIndicador.idIndicador = 0;
 
             string creacionIndicador = await CrearIndicador(pIndicador); // reutilizar la función de crear para registrar el nuevo indicador
+            RespuestaConsulta<List<Indicador>> indicadorDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<Indicador>>>(creacionIndicador);
 
-            RespuestaConsulta<List<Indicador>> indicadorDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<Indicador>>>(creacionIndicador); // reutilizar la función de crear
-
-            if (indicadorDeserializado.HayError != (int)Error.NoError) // se creó correctamente?
+            if (indicadorDeserializado.HayError != (int)Error.NoError) // se creó el indicador correctamente?
             {
                 return creacionIndicador;
             }
@@ -646,6 +644,48 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 // se envia el id del indicador a clonar y el id del indicador creado anteriormente
                 resultado = indicadorBL.ClonarDetallesDeIndicador(idIndicadorAClonar, indicadorDeserializado.objetoRespuesta[0].id);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 03/10/2022
+        /// José Navarro Acuña
+        /// Función que permite realizar un guardado definitivo de un indicador.
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> GuardadoDefinitivoIndicador(string pIdIndicador)
+        {
+            if (string.IsNullOrEmpty(pIdIndicador)) // id indicador requerido
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            Indicador indicadorRegistrado = indicadorBL.ObtenerDatos(new Indicador() { id = pIdIndicador }).objetoRespuesta.FirstOrDefault();
+
+            if (indicadorRegistrado == null) // el indicador existe?
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            string validacionCamposRequeridos = ValidarObjetoIndicador(indicadorRegistrado, false); // reutilizar las validacion de campos requeridos de crear y editar
+
+            if (!string.IsNullOrEmpty(validacionCamposRequeridos)) // el indicador tiene todos los datos completos?
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = validacionCamposRequeridos });
+            }
+
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            await Task.Run(() =>
+            {
+                resultado = indicadorBL.GuardadoDefinitivoIndicador(indicadorRegistrado);
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -931,11 +971,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 30/08/2022
         /// José Navarro Acuña
-        /// Función que permite verificar los datos de un objeto indicador.
+        /// Función que permite verificar los datos requeridos de un objeto indicador.
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
-        private string ValidarObjetoIndicador(Indicador pIndicador, bool esGuardadoParcial)
+        public string ValidarObjetoIndicador(Indicador pIndicador, bool esGuardadoParcial)
         {
             if (!esGuardadoParcial)
             {
