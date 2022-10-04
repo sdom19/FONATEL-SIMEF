@@ -205,7 +205,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 result = formularioWebBL.InsertarDatos(formulario);
-                ViewBag.CantidadMax = result.objetoRespuesta[0].CantidadIndicadores;
+                if (result.objetoRespuesta != null)
+                    ViewBag.CantidadMax = result.objetoRespuesta[0].CantidadIndicadores;
+                else
+                    ViewBag.CantidadMax = 0;
             });
             return JsonConvert.SerializeObject(result);
         }
@@ -254,8 +257,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             ViewBag.FrecuanciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
                 .objetoRespuesta;
-            var indicadores = indicadorBL.ObtenerDatos(new Indicador() { })
+            var indicadores = indicadorBL.ObtenerDatos(new Indicador() {idEstado=2 })
                 .objetoRespuesta;
+            //indicadores = indicadores.Where(x => x.IdClasificacion == 3 || x.IdClasificacion == 4).ToList();
+            indicadores = indicadores.Where(x => x.ClasificacionIndicadores.Nombre == "Entrada/salida"
+                        || x.ClasificacionIndicadores.Nombre == "Entrada").ToList();
             var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
             ViewBag.Indicador = listaValores;
             DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();

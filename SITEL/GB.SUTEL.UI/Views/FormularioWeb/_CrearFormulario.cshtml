@@ -57,7 +57,7 @@
             <div class="form-group row">
                 <label for="txtDescripcionFormulario" class="col-sm-12 col-form-label">@EtiquetasViewFormulario.Descripcion</label>
                 <div class="col-sm-12">
-                    @Html.TextAreaFor(model => model.formularioweb.Descripcion, new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewFormulario.Mensaje, id = "txtDescripcionFormulario" })
+                    @Html.TextAreaFor(model => model.formularioweb.Descripcion, new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewFormulario.Descripcion, id = "txtDescripcionFormulario" })
                     <small id="txtDescripcionFormularioHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
