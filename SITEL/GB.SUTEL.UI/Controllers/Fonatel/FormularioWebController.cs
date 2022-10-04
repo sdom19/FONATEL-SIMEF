@@ -308,8 +308,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             DetalleFormularioWeb detalleFormulario = new DetalleFormularioWeb();
             ViewBag.ListaDetalle = formularioWebBL.ObtenerTodosDetalleFormularioWeb(objFormularioWeb);
             
-            //detalleFormulario.formularioweb = objFormularioWeb;
-
             ViewBag.ListaIndicadores = objFormularioWeb.ListaIndicadoresObj;
             return View();
         }
