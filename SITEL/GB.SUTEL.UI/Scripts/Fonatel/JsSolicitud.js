@@ -24,6 +24,7 @@
         "ddlFormularios": "#ddlFormularios",
         "txtCampoRequerido": ".form-text-danger-fonatel",
         "TablaSolicitud": "#TablaSolicitud tbody",
+        "TablaSolicitudElemento": "#TablaSolicitud",
         "txtmodoSolicitud": "#txtmodoSolicitud",
         "btnGuardarSolicitud": "#btnGuardarSolicitud",
         "btnSiguienteSolicitud": "#btnSiguienteSolicitud",
@@ -91,22 +92,34 @@
                 html = html + "<td>" + envioProgramado + "</td>";
                 html = html + "<td>" + solicitud.Estado.Nombre + "</td >";
 
-                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Editar' class='btn-icon-base btn-edit'></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Clonar' class='btn-icon-base btn-clone'></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Desactivar' class='btn-icon-base btn-power-on'></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Envío' class='btn-icon-base btn-sent'></button>";
+                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Editar' class='btn-icon-base btn-edit'></button>";
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Clonar' class='btn-icon-base btn-clone'></button>";
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Desactivar' class='btn-icon-base btn-power-on'></button>";
+                //if (solicitud.IdEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
+                //    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + solicitud.id + " class='btn-icon-base btn-power-off'></button></td >";
+                //}
+                //else {
+                //    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + solicitud.id + " class='btn-icon-base btn-power-on'></button></td >";
+                //}
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button>";
+
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Envío' class='btn-icon-base btn-sent'></button>";
+
                 if (envioProgramado == "SI") {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
                 else {
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
-                   
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";                   
                 }
             }
+
             $(JsSolicitud.Controles.TablaSolicitud).html(html);
             CargarDatasource();
             JsSolicitud.Variables.ListadoSolicitudes = [];
+        },
+
+        "RemoverItemDataTable": function (pDataTable, pItem) {
+            $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
         },
 
         "ValidarNombreyCodigo": function () {
@@ -328,17 +341,128 @@
                     $("#loading").fadeOut();
                 });
         },
+
+        "CambiarEstadoDesactivado": function (idSolicitud) {
+
+            $("#loading").fadeIn();
+            let Solicitud = new Object()
+
+            Solicitud.id = idSolicitud;
+
+            execAjaxCall("/SolicitudFonatel/CambiarEstadoDesactivado", "POST", Solicitud)
+                .then((obj) => {
+                        jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido desactivada")
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    
+                }).catch((data) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "CambiarEstadoActivado": function (idSolicitud) {
+
+            $("#loading").fadeIn();
+            let Solicitud = new Object()
+            Solicitud.id = idSolicitud;
+
+            execAjaxCall("/SolicitudFonatel/CambiarEstadoActivado", "POST", Solicitud)
+                .then((obj) => {
+                        jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido activada")
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+ 
+                }).catch((data) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "EliminarSolicitud": function (idSolicitud) {
+
+            $("#loading").fadeIn();
+
+            execAjaxCall("/SolicitudFonatel/EliminarSolicitud", "POST", { idSolicitud: idSolicitud })
+                .then((obj) => {
+
+                    JsSolicitud.Metodos.RemoverItemDataTable(JsSolicitud.Controles.TablaSolicitudElemento, `button[value='${idSolicitud}']`)
+
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido eliminada")
+                        .set('onok', function (closeEvent) {
+                            JsSolicitud.Variables.ListadoSolicitudes = obj.objetoRespuesta;
+                        });
+
+                }).catch((obj) => {
+
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
     },
 
     "Consultas": {
 
         "ValidarExistenciaSolicitud": function (idSolicitud, Eliminado = true) {
+
             $("#loading").fadeIn();
+
             let solicitud = new Object()
+
             solicitud.id = idSolicitud;
+
             execAjaxCall("/SolicitudFonatel/ValidarExistenciaSolicitud", "POST", solicitud)
                 .then((obj) => {
                     if (obj.objetoRespuesta.length == 0) {
+
+                        if (Eliminado) {
+
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Solicitud?", jsMensajes.Variables.actionType.eliminar)
+                                .set('onok', function (closeEvent) {
+                                    JsSolicitud.Metodos.EliminarSolicitud(idSolicitud);
+                                });
+
+                        } else {
+
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.estado)
+                                .set('onok', function (closeEvent) {
+                                    JsSolicitud.Metodos.CambiarEstadoDesactivado(idSolicitud);
+                                });
+                        }
 
                     } else {
                         let dependencias = '';
@@ -347,16 +471,14 @@
                         }
                         if (Eliminado) {
                             jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
-                                .set('onok', function (closeEvent) {
-                                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido eliminada")
-                                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+                                .set('onok', function (closeEvent) {                                   
+                                    JsSolicitud.Metodos.EliminarSolicitud(idSolicitud);
                                 });
                         }
                         else {
                             jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud ya está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
                                 .set('onok', function (closeEvent) {
-                                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido desactivada")
-                                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+                                    JsSolicitud.Metodos.CambiarEstadoDesactivado(idSolicitud);
                                 });
                         }
 
@@ -379,7 +501,6 @@
                     $("#loading").fadeOut();
                 });
         },
-
 
         "ConsultaListaSolicitudes": function () {
             $("#loading").fadeIn();
@@ -546,10 +667,9 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
 $(document).on("click", JsSolicitud.Controles.btnDeleteSolicitud, function (e) {
 
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Solicitud?", jsMensajes.Variables.actionType.eliminar)
-        .set('onok', function (closeEvent) {
-            JsSolicitud.Consultas.ValidarExistenciaSolicitud(id);
-        });
+    
+    JsSolicitud.Consultas.ValidarExistenciaSolicitud(id);
+        
 });
 
 $(document).on("click", JsSolicitud.Controles.btnsent, function (e) {
@@ -561,21 +681,31 @@ $(document).on("click", JsSolicitud.Controles.btnsent, function (e) {
 });
 
 $(document).on("click", JsSolicitud.Controles.btnDesactivadoSolicitud, function (e) {
+
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Solicitud?", jsMensajes.Variables.actionType.agregar)
+
+    let id = $(this).val();
+
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Solicitud?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido activada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+            JsSolicitud.Metodos.CambiarEstadoActivado(id);
         });
 });
 
 $(document).on("click", JsSolicitud.Controles.btnActivadoSolicitud, function (e) {
+
     e.preventDefault();
+
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.agregar)
+    let Eliminado = false;
+
+    JsSolicitud.Consultas.ValidarExistenciaSolicitud(id, Eliminado);
+
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            JsSolicitud.Consultas.ValidarExistenciaSolicitud(id, false);
+            JsSolicitud.Consultas.ValidarExistenciaSolicitud(id, Eliminado);
         });
+
 });
 
 $(document).on("click", JsSolicitud.Controles.btnSiguienteSolicitud, function (e) {

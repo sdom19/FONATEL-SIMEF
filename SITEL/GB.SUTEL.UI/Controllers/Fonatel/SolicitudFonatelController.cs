@@ -186,6 +186,100 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Fecha 05/10/2022
+        /// Francisco Vindas Ruiz
+        /// Cambio el estado de registro a desactivado y activado 
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CambiarEstadoEliminado(Solicitud solicitud)
+        {
+            RespuestaConsulta<List<Solicitud>> result = null;
+
+            solicitud.IdEstado = (int)Constantes.EstadosRegistro.Eliminado;
+
+            await Task.Run(() =>
+            {
+                result = SolicitudesBL.CambioEstado(solicitud);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary> 
+        /// 05/10/2022
+        /// Francisco Vindas Ruiz
+        /// Metodo para eliminar solicitud
+        /// </summary>
+        /// <param name="idSolicitud></param>
+        /// <returns>JSON</returns>
+        [HttpPost]
+        public async Task<string> EliminarSolicitud(string idSolicitud)
+        {
+            user = User.Identity.GetUserId();
+
+            RespuestaConsulta<List<Solicitud>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = SolicitudesBL.EliminarElemento(new Solicitud()
+                {
+
+                    id = idSolicitud,
+                    UsuarioModificacion = user
+
+                });
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha 05/10/2022
+        /// Francisco Vindas Ruiz
+        /// Cambio el estado de registro a desactivado y activado 
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CambiarEstadoActivado(Solicitud solicitud)
+        {
+            RespuestaConsulta<List<Solicitud>> result = null;
+
+            solicitud.IdEstado = (int)Constantes.EstadosRegistro.Activo;
+
+            await Task.Run(() =>
+            {
+                result = SolicitudesBL.CambioEstado(solicitud);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha 05/10/2022
+        /// Francisco Vindas Ruiz
+        /// Cambio el estado de registro a desactivado y activado 
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CambiarEstadoDesactivado(Solicitud solicitud)
+        {
+            RespuestaConsulta<List<Solicitud>> result = null;
+
+            solicitud.IdEstado = (int)Constantes.EstadosRegistro.Desactivado;
+
+            await Task.Run(() =>
+            {
+                result = SolicitudesBL.CambioEstado(solicitud);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
 
 
 
