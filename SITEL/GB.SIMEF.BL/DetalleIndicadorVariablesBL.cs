@@ -66,8 +66,8 @@ namespace GB.SIMEF.BL
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Editar;
 
-                //indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                //        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
+                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
             }
             catch (Exception ex)
             {
@@ -166,6 +166,7 @@ namespace GB.SIMEF.BL
                 {
                     return resultado;
                 }
+
                 pDetalleIndicadorVariables.Estado = true;
                 resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ActualizarDatos(pDetalleIndicadorVariables);
 
@@ -174,8 +175,8 @@ namespace GB.SIMEF.BL
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Insertar;
 
-                //indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                //        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
+                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
             }
             catch (Exception ex)
             {
@@ -231,17 +232,25 @@ namespace GB.SIMEF.BL
                 objetoRespuesta = new List<DetalleIndicadorVariables>()
             };
             bool errorControlado = false;
-            Indicador indicadorExistente = null;
 
             try
             {
                 // validar si el indicador existe
-                indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pDetalleIndicadorVariables.idIndicador);
+                Indicador indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pDetalleIndicadorVariables.idIndicador);
 
                 if (indicadorExistente == null)
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // validar que el indicador tenga sus datos completos
+                string msgIndicadorCompleto = IndicadorFonatelBL.VerificarDatosCompletosIndicador(indicadorExistente);
+
+                if (!string.IsNullOrEmpty(msgIndicadorCompleto))
+                {
+                    errorControlado = true;
+                    throw new Exception(msgIndicadorCompleto);
                 }
 
                 // validar la cantidad de detalles registrados actualmente
@@ -257,7 +266,7 @@ namespace GB.SIMEF.BL
 
                 if (!modoEdicion) // solo en modo creación se realiza la validación de la cantidad
                 {
-                    if (detallesActuales.CantidadRegistros + 1 > indicadorExistente.CantidadVariableDato)
+                    if (detallesActuales.CantidadRegistros + 1 > indicadorExistente.CantidadVariableDato) // se supera la cantidad establecida en el indicador?
                     {
                         errorControlado = true;
                         throw new Exception(Errores.CantidadRegistros);

@@ -79,7 +79,7 @@ namespace GB.SIMEF.BL
                 // actualizar el estado del indicador
                 pIndicador.UsuarioModificacion = user;
                 pIndicador.idEstado = nuevoEstado;
-                var indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
+                List<Indicador> indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
 
                 // construir respuesta
                 int accion = 0;
@@ -226,15 +226,42 @@ namespace GB.SIMEF.BL
 
             try
             {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
+                pIndicador.idIndicador = number;
+
+                if (pIndicador.idIndicador == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // validar si el indicador existe
+                Indicador indicadorRegistrado = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pIndicador.idIndicador);
+
+                if (indicadorRegistrado == null) // el indicador existe?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // validar que el indicador tenga sus datos completos
+                string msgIndicadorCompleto = VerificarDatosCompletosIndicador(indicadorRegistrado);
+
+                if (!string.IsNullOrEmpty(msgIndicadorCompleto))
+                {
+                    errorControlado = true;
+                    throw new Exception(msgIndicadorCompleto);
+                }
+
                 List<DetalleIndicadorVariables> objDetallesVariables = detalleIndicadorVariablesDAL.ObtenerDatos(
-                    new DetalleIndicadorVariables() { idIndicador = pIndicador.idIndicador });
+                    new DetalleIndicadorVariables() { idIndicador = indicadorRegistrado.idIndicador });
 
                 List<DetalleIndicadorCategoria> objDetallesCategoria = detalleIndicadorCategoriaDAL.ObtenerDatos(
-                    new DetalleIndicadorCategoria() { idIndicador = pIndicador.idIndicador, DetallesAgrupados = true });
+                    new DetalleIndicadorCategoria() { idIndicador = indicadorRegistrado.idIndicador, DetallesAgrupados = true });
 
                 // verificar que los detalles esten completos en cuanto a cantidad
-                if (pIndicador.CantidadVariableDato != objDetallesVariables.Count() ||
-                    pIndicador.CantidadCategoriasDesagregacion != objDetallesCategoria.Count())
+                if (indicadorRegistrado.CantidadVariableDato != objDetallesVariables.Count() ||
+                    indicadorRegistrado.CantidadCategoriasDesagregacion != objDetallesCategoria.Count())
                 {
                     errorControlado = true;
                     throw new Exception(Errores.CamposIncompletos);
@@ -556,6 +583,39 @@ namespace GB.SIMEF.BL
                     resultado.HayError = (int)Error.ErrorSistema;
             }
             return resultado;
+        }
+
+        /// <summary>
+        /// 05/10/2022
+        /// José Navarro Acuña
+        /// Función que verifica si todos los campos de un indicador estan completos.
+        /// Nota: es un método estáctico.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public static string VerificarDatosCompletosIndicador(Indicador pIndicador)
+        {
+            if (
+                pIndicador.Codigo == null || string.IsNullOrEmpty(pIndicador.Codigo.Trim()) ||
+                pIndicador.Nombre == null || string.IsNullOrEmpty(pIndicador.Nombre.Trim()) ||
+                pIndicador.IdTipoIndicador == 0 || pIndicador.IdTipoIndicador == defaultDropDownValue ||
+                pIndicador.IdClasificacion == 0 || pIndicador.IdClasificacion == defaultDropDownValue ||
+                pIndicador.idGrupo == 0 || pIndicador.idGrupo == defaultDropDownValue ||
+                pIndicador.Descripcion == null || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()) ||
+                pIndicador.CantidadVariableDato == null ||
+                pIndicador.CantidadCategoriasDesagregacion == null ||
+                pIndicador.IdUnidadEstudio == null || pIndicador.IdUnidadEstudio == defaultDropDownValue ||
+                pIndicador.idTipoMedida == 0 || pIndicador.idTipoMedida == defaultDropDownValue ||
+                pIndicador.IdFrecuencia == 0 || pIndicador.IdFrecuencia == defaultDropDownValue ||
+                pIndicador.Interno == null ||
+                pIndicador.Solicitud == null ||
+                pIndicador.Fuente == null || string.IsNullOrEmpty(pIndicador.Fuente.Trim()) ||
+                pIndicador.Notas == null || string.IsNullOrEmpty(pIndicador.Notas.Trim())
+                )
+            {
+                return Errores.CamposIncompletos;
+            }
+            return string.Empty;
         }
 
         /// <summary>
