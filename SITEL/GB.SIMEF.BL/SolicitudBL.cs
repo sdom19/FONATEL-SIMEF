@@ -17,6 +17,7 @@ namespace GB.SIMEF.BL
 
         private RespuestaConsulta<List<Solicitud>> ResultadoConsulta;
         string modulo = EtiquetasViewSolicitudes.Solicitudes;
+        string user = string.Empty;
 
         public SolicitudBL()
         {
@@ -210,6 +211,21 @@ namespace GB.SIMEF.BL
                     }
                 }
 
+                ResultadoConsulta.Clase = modulo;
+                int nuevoEstado = objeto.IdEstado;
+                objeto.IdEstado = 0;
+                ResultadoConsulta.Usuario = user;
+
+
+                var resul = clsDatos.ObtenerDatos(objeto);
+                objeto = resul.Single();
+                objeto.IdEstado = nuevoEstado;
+
+                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.IdEstado ? (int)Accion.Activar : (int)Accion.Inactiva;
+                resul = clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
 
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
@@ -320,7 +336,58 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<Solicitud>> EliminarElemento(Solicitud objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Eliminar;
+                ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
+                Solicitud registroActualizar;
+
+                //DESENCRIPTAR EL ID
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.idSolicitud = temp;
+                }
+
+                var resul = clsDatos.ObtenerDatos(objeto);
+                if (resul.Count() == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+
+                }
+                else
+                {
+                    registroActualizar = resul.SingleOrDefault();
+                    registroActualizar.IdEstado = 4;
+                    resul = clsDatos.ActualizarDatos(registroActualizar);
+                }
+
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                //REGISTRAMOS EN BITACORA 
+                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                //       ResultadoConsulta.Usuario,
+                //            ResultadoConsulta.Clase, objeto.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.MensajeError = ex.Message;
+                if (ex.Message == Errores.NoRegistrosActualizar)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
+            }
+
+            return ResultadoConsulta;
         }
         /// <summary>
         /// 
