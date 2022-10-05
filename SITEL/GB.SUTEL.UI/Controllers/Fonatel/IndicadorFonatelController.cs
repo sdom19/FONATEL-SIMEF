@@ -29,6 +29,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly string defaultDropDownValue;
         private readonly string usuario = string.Empty;
         private readonly string view = string.Empty;
+        private readonly string keyModoFormulario = "modoFormulario";
 
 
         public IndicadorFonatelController()
@@ -606,6 +607,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
             }
 
+            // debido a que la función puede ser llamada por crear o clonar (en esos modos tambien se puede actualizar),
+            // se debe identificar cuando se esta editando un indicador existente producto de la seleccion de la tabla de la vista de inicio,
+            // y de esta manera se realiza la validación respecto al código, ya que no puede ser modificado
+            string modoFormulario = TempData[keyModoFormulario].ToString(); // valor proveniente de la vista Create
+            TempData.Keep(keyModoFormulario);
+
+            if (modoFormulario.Equals(((int)Accion.Editar).ToString()))
+            {
+                try
+                {
+                    Indicador objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = pIndicador.id }).objetoRespuesta.FirstOrDefault();
+                    pIndicador.Codigo = objIndicador.Codigo;
+                }
+                catch (Exception)
+                {
+                    return JsonConvert.SerializeObject(
+                        new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+                };
+            }
+
             pIndicador.UsuarioModificacion = usuario;
             return await CrearIndicador(pIndicador); // reutilizar la función de crear
         }
@@ -665,27 +686,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
             }
 
-            Indicador indicadorRegistrado = indicadorBL.ObtenerDatos(new Indicador() { id = pIdIndicador }).objetoRespuesta.FirstOrDefault();
-
-            if (indicadorRegistrado == null) // el indicador existe?
-            {
-                return JsonConvert.SerializeObject(
-                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
-            }
-
-            string validacionCamposRequeridos = ValidarObjetoIndicador(indicadorRegistrado, false); // reutilizar las validacion de campos requeridos de crear y editar
-
-            if (!string.IsNullOrEmpty(validacionCamposRequeridos)) // el indicador tiene todos los datos completos?
-            {
-                return JsonConvert.SerializeObject(
-                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = validacionCamposRequeridos });
-            }
-
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
 
             await Task.Run(() =>
             {
-                resultado = indicadorBL.GuardadoDefinitivoIndicador(indicadorRegistrado);
+                resultado = indicadorBL.GuardadoDefinitivoIndicador(new Indicador() { id = pIdIndicador });
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -878,7 +883,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
             await Task.Run(() =>
             {
-              
                 resultado = detalleIndicadorVariablesBL.InsertarDatos(pDetalleIndicadorVariables);
             });
             return JsonConvert.SerializeObject(resultado);
@@ -971,7 +975,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 30/08/2022
         /// José Navarro Acuña
-        /// Función que permite verificar los datos requeridos de un objeto indicador.
+        /// Función que permite verificar los datos requeridos y el formato de los mismos de un indicador al momento de crear o actualizar
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
@@ -980,19 +984,19 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (!esGuardadoParcial)
             {
                 if ( // el nombre y código siempre son obligatorios
-                pIndicador.TipoIndicadores == null          || string.IsNullOrEmpty(pIndicador.TipoIndicadores.id) ||
-                pIndicador.FrecuenciaEnvio == null          || string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id) ||
-                pIndicador.Descripcion == null              || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()) ||
-                pIndicador.ClasificacionIndicadores == null || string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id) ||
-                pIndicador.TipoMedida == null               || string.IsNullOrEmpty(pIndicador.TipoMedida.id) ||
-                pIndicador.GrupoIndicadores == null         || string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id) ||
-                pIndicador.Interno == null ||
-                pIndicador.Notas == null                    || string.IsNullOrEmpty(pIndicador.Notas.Trim()) ||
-                pIndicador.CantidadVariableDato == null ||
-                pIndicador.CantidadCategoriasDesagregacion == null ||
-                pIndicador.UnidadEstudio == null            || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id) ||
-                pIndicador.Solicitud == null ||
-                pIndicador.Fuente == null                   || string.IsNullOrEmpty(pIndicador.Fuente.Trim())
+                    pIndicador.TipoIndicadores == null          || string.IsNullOrEmpty(pIndicador.TipoIndicadores.id) ||
+                    pIndicador.FrecuenciaEnvio == null          || string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id) ||
+                    pIndicador.Descripcion == null              || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()) ||
+                    pIndicador.ClasificacionIndicadores == null || string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id) ||
+                    pIndicador.TipoMedida == null               || string.IsNullOrEmpty(pIndicador.TipoMedida.id) ||
+                    pIndicador.GrupoIndicadores == null         || string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id) ||
+                    pIndicador.Interno == null ||
+                    pIndicador.Notas == null                    || string.IsNullOrEmpty(pIndicador.Notas.Trim()) ||
+                    pIndicador.CantidadVariableDato == null ||
+                    pIndicador.CantidadCategoriasDesagregacion == null ||
+                    pIndicador.UnidadEstudio == null            || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id) ||
+                    pIndicador.Solicitud == null ||
+                    pIndicador.Fuente == null                   || string.IsNullOrEmpty(pIndicador.Fuente.Trim())
                 )
                 {
                     return Errores.CamposIncompletos;

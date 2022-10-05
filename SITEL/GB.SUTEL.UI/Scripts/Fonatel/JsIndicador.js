@@ -17,6 +17,18 @@
         cloneViewURL: "/Fonatel/IndicadorFonatel/clone?id="
     },
 
+    Mensajes: {
+        preguntaEliminarIndicador: "¿Desea eliminar el Indicador?",
+        preguntaEliminarIndicadorDependencias: (pListado) => { return `El Indicador ya está en uso en el/los<br>${pListado}<br>¿Desea eliminarlo?` },
+        exitoEliminarIndicador: "El Indicador ha sido eliminado",
+        preguntaDesactivarIndicador: "¿Desea desactivar el Indicador?",
+        preguntaDesactivarIndicadorDependencias: (pListado) => { return `El Indicador ya está en uso en el/los<br>${pListado}<br>¿Desea desactivarlo?`; },
+        exitoDesactivarIndicador: "El Indicador ha sido desactivado",
+        preguntaActivarIndicador: "¿Desea activar el Indicador?",
+        exitoActivarIndicador: "El Indicador ha sido activado",
+        preguntaClonarIndicador: "¿Desea clonar el Indicador?"
+    },
+
     Metodos: {
         ManejoDeExcepciones: function (pError) {
             if (pError?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
@@ -54,28 +66,28 @@
                 html += `<th scope='row'>${ item.GrupoIndicadores.Nombre }</th>`;
                 html += `<th scope='row'>${ item.TipoIndicadores.Nombre }</th>`;
                 html += `<th scope='row'>${ item.EstadoRegistro.Nombre }</th>`;
-                html += "<td>"
-                html += `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${item.id}></button>`
-                html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id}></button>`
+                html += "<td>";
+                html += `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${item.id}></button>`;
+                html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id}></button>`;
 
-                if (item.EstadoRegistro.Nombre == "Activo") {
-                    html += `<button class="btn-icon-base btn-power-on" type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" value=${item.id}></button>`
+                if (item.idEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso || item.idEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
+                    html += `<button class="btn-icon-base btn-power-on" type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" value=${item.id}></button>`;
                 }
                 else {
-                    html += `<button class="btn-icon-base btn-power-off" type="button" data-toggle="tooltip" data-placement="top" title="Activar" value=${item.id}></button>`
+                    html += `<button class="btn-icon-base btn-power-off" type="button" data-toggle="tooltip" data-placement="top" title="Activar" value=${item.id}></button>`;
                 }
 
-                html += `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${ item.id }></button>`
-                html += "</td>"
+                html += `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${item.id}></button>`;
+                html += "</td>";
                 html += "</tr>";
             });
             $(IndexView.Controles.tablaIndicador).html(html);
             CargarDatasource();
         },
 
-        EliminarIndicador: async function (pIdIndicador) {
+        EliminarIndicador: function (pIdIndicador) {
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaEliminarIndicador, jsMensajes.Variables.actionType.eliminar)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -93,7 +105,7 @@
 
                         $("#loading").fadeOut();
                         return new Promise((resolve, reject) => {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Indicador ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarlo?", jsMensajes.Variables.actionType.eliminar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaEliminarIndicadorDependencias(dependencias), jsMensajes.Variables.actionType.eliminar)
                                 .set('onok', function (closeEvent) {
                                     $("#loading").fadeIn();
                                     resolve(true);
@@ -110,7 +122,7 @@
                 .then(data => {
                     $("#loading").fadeOut();
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado")
+                        jsMensajes.Metodos.OkAlertModal(IndexView.Mensajes.exitoEliminarIndicador)
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -125,9 +137,9 @@
                 });
         },
 
-        DesactivarIndicador: async function (pIdIndicador) {
+        DesactivarIndicador: function (pIdIndicador) {
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Indicador?", jsMensajes.Variables.actionType.estado)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaDesactivarIndicador, jsMensajes.Variables.actionType.estado)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -145,7 +157,7 @@
 
                         $("#loading").fadeOut();
                         return new Promise((resolve, reject) => {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Indicador ya está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarlo?", jsMensajes.Variables.actionType.estado)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaDesactivarIndicadorDependencias(dependencias), jsMensajes.Variables.actionType.estado)
                                 .set('onok', function (closeEvent) {
                                     $("#loading").fadeIn();
                                     resolve(true);
@@ -162,7 +174,7 @@
                 .then(data => {
                     $("#loading").fadeOut();
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido desactivado")
+                        jsMensajes.Metodos.OkAlertModal(IndexView.Mensajes.exitoDesactivarIndicador)
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -177,9 +189,9 @@
                 });
         },
 
-        ActivarIndicador: async function (pIdIndicador) {
+        ActivarIndicador: function (pIdIndicador) {
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar el Indicador?", jsMensajes.Variables.actionType.estado)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaActivarIndicador, jsMensajes.Variables.actionType.estado)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -191,7 +203,7 @@
                 .then(data => {
                     $("#loading").fadeOut();
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido activado")
+                        jsMensajes.Metodos.OkAlertModal(IndexView.Mensajes.exitoActivarIndicador)
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -203,6 +215,18 @@
                 .catch(error => { this.ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
+                });
+        },
+
+        ClonarIndicador: function (pIdIndicador) {
+            new Promise((resolve, rejected) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaClonarIndicador, jsMensajes.Variables.actionType.clonar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    window.location.href = IndexView.Variables.cloneViewURL + pIdIndicador;
                 });
         }
     },
@@ -247,15 +271,7 @@
         });
 
         $(document).on("click", IndexView.Controles.btnClonarIndicador, function () {
-            new Promise((resolve, rejected) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar el Indicador?", jsMensajes.Variables.actionType.clonar)
-                    .set('onok', function (closeEvent) {
-                        resolve(true);
-                    });
-            })
-                .then(data => {
-                    window.location.href = IndexView.Variables.cloneViewURL + $(this).val();
-                });
+            IndexView.Metodos.ClonarIndicador($(this).val());
         });
     },
 
@@ -386,9 +402,44 @@ CreateView = {
         elIndicadorFueClonado: false
     },
 
+    Mensajes: {
+        preguntaCancelarAccion: "¿Desea cancelar la acción?",
+
+        exitoCrearIndicador: "El Indicador ha sido creado",
+        preguntaGuardadoParcialIndicador: "¿Desea realizar un guardado parcial del Indicador?",
+        preguntaAgregarIndicador: "¿Desea agregar el Indicador?",
+
+        preguntaEliminarTipoIndicador: "¿Desea eliminar el Tipo Indicador?",
+        exitoEliminarTipoIndicador: "El Tipo Indicador ha sido eliminado",
+        exitoAgregarTipoIndicador: "El tipo ha sido agregado",
+
+        preguntaEliminarGrupo: "¿Desea eliminar el Grupo Indicador?",
+        exitoEliminarGrupo: "El Grupo Indicador ha sido eliminado",
+        exitoAgregarGrupo: "El grupo ha sido agregado",
+
+        preguntaEliminarUnidad: "¿Desea eliminar la Unidad de Estudio?",
+        exitoEliminarUnidad: "La Unidad de Estudio ha sido eliminada",
+        exitoAgregarUnidad: "La unidad de estudio ha sido agregada",
+
+        preguntaEliminarVariable: "¿Desea eliminar la Variable?",
+        exitoEliminarVariable: "La Variable ha sido eliminada",
+        preguntaAgregarVariable: "¿Desea agregar la Variable?",
+        exitoEditarVariable: "La Variable ha sido editada",
+        exitoAgregarVariable: "La Variable ha sido agregada",
+
+        preguntaEliminarCategoria: "¿Desea eliminar la Categoría?",
+        exitoEliminarCategoria: "La Categoría ha sido eliminada",
+        preguntaAgregarCategoria: "¿Desea agregar la Categoría?",
+        exitoAgregarCategoria: "La Categoría ha sido agregada",
+    },
+
     Metodos: {
-        ValidarFormulario: function (pInputs) {
-            let inputsPendientesCompletar = [...$(pInputs)].filter(i => { return $.trim(i.value) == "" || i.value == null; });
+        ValidarFormulario: function (pInputs, pExcepciones = []) {
+            let inputsPendientesCompletar = [...$(pInputs)].filter(i => {
+                if (pExcepciones.includes($(i).attr("id"))) return false;
+                if (pExcepciones.includes($(i).attr("class"))) return false;
+                return $.trim(i.value) == "" || i.value == null;
+            });
             return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
         },
 
@@ -485,7 +536,7 @@ CreateView = {
                         InsertarParametroUrl("id", data.objetoRespuesta[0].id);
                         $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
 
-                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado").set('onok', function (closeEvent) {});
+                        jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador).set('onok', function (closeEvent) { });
                     })
                     .catch(error => { this.ManejoDeExcepciones(error); })
                     .finally(() => {
@@ -509,7 +560,7 @@ CreateView = {
             let rootObj = this;
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + "¿Desea realizar un guardado parcial del Indicador?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + CreateView.Mensajes.preguntaGuardadoParcialIndicador, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
                     .set("oncancel", function () {
                         rootObj.VerificarCamposIncompletosFormularioIndicador(false);
@@ -520,7 +571,7 @@ CreateView = {
                     return CreateView.Consultas.CrearIndicador(this.CrearObjFormularioIndicador(true));
                 })
                 .then(data => {
-                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador)
                         .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
                 .catch(error => { this.ManejoDeExcepciones(error); })
@@ -536,7 +587,7 @@ CreateView = {
                     .then(data => {
                         $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos}
 
-                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado").set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador).set('onok', function (closeEvent) { });
                     })
                     .catch(error => { this.ManejoDeExcepciones(error); })
                     .finally(() => {
@@ -560,7 +611,7 @@ CreateView = {
             let rootObj = this;
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + "¿Desea realizar un guardado parcial del Indicador?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + CreateView.Mensajes.preguntaGuardadoParcialIndicador, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
                     .set("oncancel", function () {
                         rootObj.VerificarCamposIncompletosFormularioIndicador(false);
@@ -571,7 +622,7 @@ CreateView = {
                     return CreateView.Consultas.EditarIndicador(this.CrearObjFormularioIndicador(true));
                 })
                 .then(data => {
-                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador)
                         .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
                 .catch(error => { this.ManejoDeExcepciones(error); })
@@ -590,7 +641,7 @@ CreateView = {
 
                         $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
 
-                        jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado").set('onok', function (closeEvent) { });
+                        jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador).set('onok', function (closeEvent) { });
                     })
                     .catch(error => { this.ManejoDeExcepciones(error); })
                     .finally(() => {
@@ -614,7 +665,7 @@ CreateView = {
             let rootObj = this;
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + "¿Desea realizar un guardado parcial del Indicador?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + CreateView.Mensajes.preguntaGuardadoParcialIndicador, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
                     .set("oncancel", function () {
                         rootObj.VerificarCamposIncompletosFormularioIndicador(false);
@@ -625,7 +676,7 @@ CreateView = {
                     return CreateView.Consultas.ClonarIndicador(this.CrearObjFormularioIndicador(true));
                 })
                 .then(data => {
-                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador)
                         .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
                 .catch(error => { this.ManejoDeExcepciones(error); })
@@ -636,7 +687,7 @@ CreateView = {
 
         GuardadoDefinitivoIndicador: function (pIdIndicador) {
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarIndicador, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) { resolve(true); });
             })
                 .then(data => {
@@ -644,7 +695,7 @@ CreateView = {
                     return CreateView.Consultas.GuardadoDefinitivoIndicador(pIdIndicador);
                 })
                 .then(data => {
-                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido creado")
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador)
                         .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
                 .catch(error => { this.ManejoDeExcepciones(error); })
@@ -693,7 +744,7 @@ CreateView = {
 
         EliminarTipoIndicador: function (pIdTipoIndicador) {
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Tipo Indicador?", jsMensajes.Variables.actionType.eliminar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaEliminarTipoIndicador, jsMensajes.Variables.actionType.eliminar)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -709,7 +760,7 @@ CreateView = {
                     $("#loading").fadeOut();
 
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Tipo Indicador ha sido eliminado")
+                        jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoEliminarTipoIndicador)
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -724,9 +775,11 @@ CreateView = {
         CrearTipoIndicador: function (pNombre) {
             if ($.trim(pNombre).length <= 0) {
                 $(CreateView.Controles.inputModalTipoHelp).css("display", "block");
+                $(CreateView.Controles.inputModalTipo).parent().addClass("has-error");
                 return;
             }
             $(CreateView.Controles.inputModalTipoHelp).css("display", "none");
+            $(CreateView.Controles.inputModalTipo).parent().removeClass("has-error");
             $("#loading").fadeIn();
 
             CreateView.Consultas.CrearTipoIndicador(pNombre)
@@ -741,7 +794,7 @@ CreateView = {
                         CreateView.Controles.tableModalTipoIndicador,
                         [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)]);
 
-                    jsMensajes.Metodos.OkAlertModal("El tipo ha sido agregado")
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarTipoIndicador)
                         .set('onok', function (closeEvent) { });
                 })
                 .catch(error => { this.ManejoDeExcepciones(error); })
@@ -790,7 +843,7 @@ CreateView = {
 
         EliminarGrupoIndicador: function (pIdGrupoIndicador) {
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Grupo Indicador?", jsMensajes.Variables.actionType.eliminar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaEliminarGrupo, jsMensajes.Variables.actionType.eliminar)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -806,7 +859,7 @@ CreateView = {
                     $("#loading").fadeOut();
 
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("El Grupo Indicador ha sido eliminado")
+                        jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoEliminarGrupo)
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -821,9 +874,11 @@ CreateView = {
         CrearGrupoIndicador: function (pNombre) {
             if ($.trim(pNombre).length <= 0) {
                 $(CreateView.Controles.inputModalGrupoHelp).css("display", "block");
+                $(CreateView.Controles.inputModalGrupo).parent().addClass("has-error");
                 return;
             }
             $(CreateView.Controles.inputModalGrupoHelp).css("display", "none");
+            $(CreateView.Controles.inputModalGrupo).parent().removeClass("has-error");
             $("#loading").fadeIn();
 
             CreateView.Consultas.CrearGrupoIndicador(pNombre)
@@ -838,7 +893,7 @@ CreateView = {
                         CreateView.Controles.tableModalGrupoIndicador,
                         [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)]);
 
-                    jsMensajes.Metodos.OkAlertModal("El grupo ha sido agregado")
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarGrupo)
                         .set('onok', function (closeEvent) { });
                 })
                 .catch(error => { this.ManejoDeExcepciones(error); })
@@ -887,7 +942,7 @@ CreateView = {
 
         EliminarUnidadEstudio: function (pIdUnidadEstudio) {
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Unidad de Estudio?", jsMensajes.Variables.actionType.eliminar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaEliminarUnidad, jsMensajes.Variables.actionType.eliminar)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -903,7 +958,7 @@ CreateView = {
                     $("#loading").fadeOut();
 
                     return new Promise((resolve, reject) => {
-                        jsMensajes.Metodos.OkAlertModal("La Unidad de Estudio ha sido eliminada")
+                        jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoEliminarUnidad)
                             .set('onok', function (closeEvent) {
                                 resolve(true);
                             });
@@ -918,9 +973,11 @@ CreateView = {
         CrearUnidadEstudio: function (pNombre) {
             if ($.trim(pNombre).length <= 0) {
                 $(CreateView.Controles.inputModalUnidadEstudioHelp).css("display", "block");
+                $(CreateView.Controles.inputModalUnidadEstudio).parent().addClass("has-error");
                 return;
             }
             $(CreateView.Controles.inputModalUnidadEstudioHelp).css("display", "none");
+            $(CreateView.Controles.inputModalUnidadEstudio).parent().removeClass("has-error");
             $("#loading").fadeIn();
 
             CreateView.Consultas.CrearUnidadEstudio(pNombre)
@@ -935,7 +992,7 @@ CreateView = {
                         CreateView.Controles.tableModalUnidadEstudio,
                         [data.objetoRespuesta[0].Nombre, CreateView.Variables.btnDelete(data.objetoRespuesta[0].id)]);
 
-                    jsMensajes.Metodos.OkAlertModal("La unidad de estudio ha sido agregada")
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarUnidad)
                         .set('onok', function (closeEvent) { });
                 })
                 .catch(error => { this.ManejoDeExcepciones(error); })
@@ -1039,7 +1096,7 @@ CreateView = {
 
         CancelarFormularioDetallesVariable: function () {
             let rootObj = this;
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
                     CreateView.Variables.objEditarDetallesVariableDato = null;
 
@@ -1052,7 +1109,7 @@ CreateView = {
 
         EliminarDetallesVariable: function (pIdIndicador, pIdDetalle) {
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Variable?", jsMensajes.Variables.actionType.eliminar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaEliminarVariable, jsMensajes.Variables.actionType.eliminar)
                     .set('onok', function (closeEvent) { resolve(true) });
             })
                 .then(data => {
@@ -1067,11 +1124,10 @@ CreateView = {
                         this.LimpiarValoresFormularioDetallesVariable();
                     }
 
-                    jsMensajes.Metodos.OkAlertModal("La Variable ha sido eliminada")
-                        .set('onok', function (closeEvent) {
-                            CreateView.Variables.hizoCargaDetallesVariables = false;
-                            CreateView.Metodos.CargarDetallesVariable(pIdIndicador);
-                        });
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoEliminarVariable).set('onok', function (closeEvent) {
+                        CreateView.Variables.hizoCargaDetallesVariables = false;
+                        CreateView.Metodos.CargarDetallesVariable(pIdIndicador);
+                    });
                 })
                 .catch(error => { this.ManejoDeExcepciones(error); })
                 .finally(() => {
@@ -1087,7 +1143,7 @@ CreateView = {
             }
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarVariable, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -1104,7 +1160,7 @@ CreateView = {
 
                     CreateView.Variables.listaVariablesDato[data.objetoRespuesta[0].id] = data.objetoRespuesta[0]; // actualizar el item localmente
 
-                    jsMensajes.Metodos.OkAlertModal("La Variable ha sido editada")
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoEditarVariable)
                         .set('onok', function (closeEvent) {
                             CreateView.Variables.hizoCargaDetallesVariables = false;
                             CreateView.Metodos.CargarDetallesVariable(pIdIndicador);
@@ -1122,7 +1178,7 @@ CreateView = {
             if (!formValido) { return; }
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Variable?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarVariable, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -1135,7 +1191,7 @@ CreateView = {
                     this.LimpiarValoresFormularioDetallesVariable();
                     CreateView.Variables.listaVariablesDato[data.objetoRespuesta[0].id] = data.objetoRespuesta[0]; // guardar el item localmente
 
-                    jsMensajes.Metodos.OkAlertModal("La Variable ha sido agregada")
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarVariable)
                         .set('onok', function (closeEvent) {
                             CreateView.Variables.hizoCargaDetallesVariables = false;
                             CreateView.Metodos.CargarDetallesVariable(pIdIndicador);
@@ -1264,8 +1320,8 @@ CreateView = {
         ValidarFormularioDetallesCategoria: function () {
             this.LimpiarMensajesValidacionFormularioDetallesCategoria();
 
-            let validacion = this.ValidarFormulario(CreateView.Controles.formCategoria.inputs);
-
+            let validacion = this.ValidarFormulario(CreateView.Controles.formCategoria.inputs, ["select2-search__field"]);
+            console.log(validacion);
             for (let input of validacion.objetos) {
                 $("#" + $(input).attr("id") + CreateView.Controles.prefijoLabelsHelp).css("display", "block");
                 $(input).parent().addClass("has-error");
@@ -1282,7 +1338,7 @@ CreateView = {
 
         CancelarFormularioDetallesCategoria: function () {
             let rootObj = this;
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
                     CreateView.Variables.objEditarDetallesCategoria = null;
 
@@ -1295,7 +1351,7 @@ CreateView = {
 
         EliminarDetalleCategoria: function (pIdIndicador, pIdDetalle) {
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Categoría?", jsMensajes.Variables.actionType.eliminar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaEliminarCategoria, jsMensajes.Variables.actionType.eliminar)
                     .set('onok', function (closeEvent) { resolve(true) });
             })
                 .then(data => {
@@ -1304,18 +1360,15 @@ CreateView = {
                     pDetalleCategoria.idIndicadorString = pIdIndicador;
                     pDetalleCategoria.idCategoriaString = pIdDetalle;
                    
-
-
                     return CreateView.Consultas.EliminarDetalleCategoria(pDetalleCategoria);
                 })
                 .then(data => {
                     delete CreateView.Variables.listaVariablesDato[pIdDetalle];
-                    jsMensajes.Metodos.OkAlertModal("La Categoría ha sido eliminada")
-                        .set('onok', function (closeEvent) {
-                          
-                            CreateView.Variables.hizoCargaDetallesCategorias = false;
-                            CreateView.Metodos.CargarDetallesCategoria(pIdIndicador);
-                        });
+
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoEliminarCategoria).set('onok', function (closeEvent) {
+                        CreateView.Variables.hizoCargaDetallesCategorias = false;
+                        CreateView.Metodos.CargarDetallesCategoria(pIdIndicador);
+                    });
                 })
                 .catch(error => { this.ManejoDeExcepciones(error); })
                 .finally(() => {
@@ -1324,9 +1377,9 @@ CreateView = {
         },
 
         EditarDetallesCategoria: function () {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarCategoria, jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
-                    jsMensajes.Metodos.OkAlertModal("La Categoría ha sido agregada")
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarCategoria)
                         .set('onok', function (closeEvent) {
                             $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).empty();
                             SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, "");
@@ -1336,11 +1389,11 @@ CreateView = {
 
         CrearDetallesCategoria: function () {      
             let formValido = this.ValidarFormularioDetallesCategoria();
-
+            
             if (!formValido) { return; }
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarCategoria, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -1364,7 +1417,7 @@ CreateView = {
                 .then(data => {
                     let pIdIndicador = data.objetoRespuesta[0].idIndicadorString;
 
-                    jsMensajes.Metodos.OkAlertModal("La Categoría ha sido agregada")
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarCategoria)
                         .set('onok', function (closeEvent) {
                             $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val("").trigger('change');
                             $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).val("").trigger('change');
@@ -1516,7 +1569,7 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.formIndicador.btnCancelar, function (e) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
                     window.location.href = CreateView.Variables.indexViewURL;
                 });
@@ -1734,10 +1787,10 @@ CreateView = {
 
 $(function () {
     if ($(IndexView.Controles.IndexView).length > 0) {
-        IndexView.Init(); console.log("indexView");
+        IndexView.Init();
     }
 
     if ($(CreateView.Controles.CreateView).length > 0) {
-        CreateView.Init(); console.log("createView");
+        CreateView.Init();
     }
 });
