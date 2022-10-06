@@ -31,6 +31,9 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+
                 if (!String.IsNullOrEmpty(objeto.id))
                 {
                     objeto.id = Utilidades.Desencriptar(objeto.id);
@@ -40,8 +43,7 @@ namespace GB.SIMEF.BL
                         objeto.idSolicitud = temp;
                     }
                 }
-                ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Consultar;
+
                 var resul = clsDatos.ObtenerDatos(objeto);
 
                 ResultadoConsulta.objetoRespuesta = resul;

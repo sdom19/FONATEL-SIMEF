@@ -55,8 +55,7 @@ namespace GB.SIMEF.DAL
                     EnvioProgramado = db.SolicitudEnvioProgramado.Where(i => i.IdSolicitud == x.idSolicitud).SingleOrDefault(),
                     SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud).ToList(),
                     FormulariosString= ObtenerListaFormularioString(x.idSolicitud),
-                    FormularioWeb= ObtenerListaFormulario(x.idSolicitud)
-
+                    FormularioWeb= ObtenerListaFormulario(x.idSolicitud),
 
                 }).ToList();
             }
@@ -155,7 +154,7 @@ namespace GB.SIMEF.DAL
                     ).SingleOrDefault();
             if (string.IsNullOrEmpty(resultado))
             {
-                resultado = "N/A";
+                resultado = "No Definido";
             }
             return resultado;
         }
