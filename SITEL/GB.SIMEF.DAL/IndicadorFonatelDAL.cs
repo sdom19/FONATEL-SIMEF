@@ -74,6 +74,7 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     VisualizaSigitel = x.VisualizaSigitel,
+                    idEstado = x.idEstado,
                     EstadoRegistro = ObtenerEstadoRegistro(x.idEstado)
                 }).ToList();
             }
@@ -103,7 +104,6 @@ namespace GB.SIMEF.DAL
 
             return listaValidacion;
         }
-
 
         /// <summary>
         /// 16/08/2022
@@ -147,8 +147,14 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pIdClasificacion", pIndicador.IdClasificacion),
                      new SqlParameter("@pIdGrupo", pIndicador.idGrupo),
                      new SqlParameter("@pDescripcion", string.IsNullOrEmpty(pIndicador.Descripcion) ? DBNull.Value.ToString() : pIndicador.Descripcion),
-                     new SqlParameter("@pCantidadVariableDato", pIndicador.CantidadVariableDato),
-                     new SqlParameter("@pCantidadCategoriasDesagregacion", pIndicador.CantidadCategoriasDesagregacion),
+                     pIndicador.CantidadVariableDato == null ? 
+                        new SqlParameter("@pCantidadVariableDato", DBNull.Value) 
+                        : 
+                        new SqlParameter("@pCantidadVariableDato", pIndicador.CantidadVariableDato),
+                     pIndicador.CantidadCategoriasDesagregacion == null ?
+                        new SqlParameter("@pCantidadCategoriasDesagregacion", DBNull.Value)
+                        :
+                        new SqlParameter("@pCantidadCategoriasDesagregacion", pIndicador.CantidadCategoriasDesagregacion),
                      new SqlParameter("@pIdUnidadEstudio", pIndicador.IdUnidadEstudio),
                      new SqlParameter("@pIdTipoMedida", pIndicador.idTipoMedida),
                      new SqlParameter("@pIdFrecuencia", pIndicador.IdFrecuencia),
@@ -157,7 +163,10 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pFuente", string.IsNullOrEmpty(pIndicador.Fuente) ? DBNull.Value.ToString() : pIndicador.Fuente),
                      new SqlParameter("@pNotas", string.IsNullOrEmpty(pIndicador.Notas) ? DBNull.Value.ToString() : pIndicador.Notas),
                      new SqlParameter("@pUsuarioCreacion", pIndicador.UsuarioCreacion),
-                     new SqlParameter("@pUsuarioModificacion", string.IsNullOrEmpty(pIndicador.UsuarioModificacion) ? DBNull.Value.ToString() : pIndicador.UsuarioModificacion),
+                     string.IsNullOrEmpty(pIndicador.UsuarioModificacion) ?
+                        new SqlParameter("@pUsuarioModificacion", DBNull.Value)
+                        :
+                        new SqlParameter("@pUsuarioModificacion", pIndicador.UsuarioModificacion),
                      new SqlParameter("@pVisualizaSigitel", pIndicador.VisualizaSigitel),
                      new SqlParameter("@pIdEstado", pIndicador.idEstado)
                     ).ToList();
@@ -192,7 +201,6 @@ namespace GB.SIMEF.DAL
             return listaIndicadores;
         }
 
-
         /// <summary>
         /// 
         /// Michael Hernéndez Cordero 
@@ -220,20 +228,27 @@ namespace GB.SIMEF.DAL
             return listaIndicadores;
         }
 
+        /// <summary>
+        /// 03/10/2022
+        /// José Andrés Navarro
+        /// Función que clona los detalles de variables dato y detalles categorias de un indicador hacia otro indicador
+        /// </summary>
+        /// <param name="pIdIndicadorAClonar"></param>
+        /// <param name="pIdIndicadorDestino"></param>
+        /// <returns></returns>
+        public bool ClonarDetallesDeIndicador(int pIdIndicadorAClonar, int pIdIndicadorDestino)
+        {
+            using (db = new SIMEFContext())
+            {
+                db.Database.SqlQuery<object>
+                    ("execute spClonarDetallesDeIndicador @pIdIndicadorAClonar, @pIdIndicadorDestino",
+                     new SqlParameter("@pIdIndicadorAClonar", pIdIndicadorAClonar),
+                     new SqlParameter("@pIdIndicadorDestino", pIdIndicadorDestino)
+                    ).ToList();
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+            return true;
+        }
 
         /// <summary>
         /// 29/08/2022
@@ -241,14 +256,15 @@ namespace GB.SIMEF.DAL
         /// Función que permite buscar y verificar por código o nombre la existencia de un indicador en estado diferente de eliminado,
         /// </summary>
         /// <param name="pIndicador"></param>
-        public Indicador VerificarExistenciaIndicador(Indicador pIndicador)
+        public Indicador VerificarExistenciaIndicadorPorCodigoNombre(Indicador pIndicador)
         {
             Indicador indicador = null;
 
             using (db = new SIMEFContext())
             {
                 indicador = db.Indicador.Where(x =>
-                        (x.Nombre.Trim().ToUpper() == pIndicador.Nombre.Trim().ToUpper() || x.Codigo.Trim().ToUpper() == pIndicador.Codigo.Trim().ToUpper()) &&
+                        (x.Nombre.Trim().ToUpper().Equals(pIndicador.Nombre.Trim().ToUpper()) || x.Codigo.Trim().ToUpper().Equals(pIndicador.Codigo.Trim().ToUpper())) &&
+                        x.idIndicador != pIndicador.idIndicador &&
                         x.idEstado != (int)EstadosRegistro.Eliminado
                     ).FirstOrDefault();
             }
@@ -259,7 +275,8 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 29/08/2022
         /// José Navarro Acuña
-        /// Función que permite buscar y verificar por medio del identificador la existencia de un indicador en estado diferente de eliminado
+        /// Función que permite buscar y verificar por medio del identificador la existencia de un indicador en estado diferente de eliminado.
+        /// Importante: No encripta IDs
         /// </summary>
         /// <param name="pIdIdentificador"></param>
         /// <returns></returns>
@@ -273,23 +290,6 @@ namespace GB.SIMEF.DAL
             }
 
             return indicador;
-        }
-
-        /// <summary>
-        /// 29/08/2022
-        /// José Navarro Acuña
-        /// Función que permite actualizar la cantidad de variables datos de un indicador
-        /// </summary>
-        /// <param name="pIndicador"></param>
-        /// <returns></returns>
-        public void ActualizarCantidadVariablesDato(Indicador pIndicador)
-        {
-            using (db = new SIMEFContext())
-            {
-                db.Indicador.Attach(pIndicador);
-                db.Entry(pIndicador).Property(x => x.CantidadVariableDato).IsModified = true;
-                db.SaveChanges();
-            }
         }
 
         #region Métodos privados

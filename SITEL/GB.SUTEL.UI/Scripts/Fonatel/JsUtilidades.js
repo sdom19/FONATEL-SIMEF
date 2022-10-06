@@ -326,15 +326,6 @@ function InsertarItemDataTable (pDataTable, pItem) {
 
 /**
  * José Navarro Acuña.
- * Obtener la página que se encuentra activa de una tabla DataTable.
- * @param {any} pDataTable
- */
-function ObtenerPaginaActual(pDataTable) {
-    return $(pDataTable).DataTable().page()
-}
-
-/**
- * José Navarro Acuña.
  * Permite insertar un item en un combobox select2.
  * @param {any} pSelect2 combobox select2 de la vista.
  * @param {any} pTexto texto que se muestra en las opciones.
@@ -419,13 +410,14 @@ function InsertarOpcionTodosSelect2Multiple(pSelect2) {
 /**
  * José Navarro Acuña.
  * Inserta un parámetro en la URL del navegador. Afecta al state del history. No recarga página.
+ * Nota: se realiza un replace del state.
  * @param {any} pParametro parámetro valor llave.
  * @param {any} pValor valor del parámetro.
  */
-function InsertarParametroUrl (pParametro, pValor) {
+function InsertarParametroUrl(pParametro, pValor) {
     const url = new URL(window.location);
     url.searchParams.set(pParametro, pValor);
-    window.history.pushState(null, '', url.toString());
+    window.history.replaceState(null, '', url.toString());
 }
 
 /**

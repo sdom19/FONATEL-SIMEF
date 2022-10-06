@@ -12,8 +12,8 @@ namespace GB.SIMEF.BL
 {
     public class IndicadorFonatelBL : IMetodos<Indicador>
     {
-        private readonly string modulo = "";
-        private readonly string user = "";
+        private readonly string modulo = string.Empty;
+        private readonly string user = string.Empty;
         private readonly IndicadorFonatelDAL indicadorFonatelDAL;
         private readonly TipoIndicadorDAL tipoIndicadorDAL;
         private readonly FrecuenciaEnvioDAL frecuenciaEnvioDAL;
@@ -21,6 +21,8 @@ namespace GB.SIMEF.BL
         private readonly TipoMedidaDAL tipoMedidaDAL;
         private readonly GrupoIndicadorDAL grupoIndicadorDAL;
         private readonly UnidadEstudioDAL unidadEstudioDAL;
+        private readonly DetalleIndicadorVariablesDAL detalleIndicadorVariablesDAL;
+        private readonly DetalleIndicadorCategoriaDAL detalleIndicadorCategoriaDAL;
 
         public IndicadorFonatelBL(string pView, string pUser)
         {
@@ -33,48 +35,13 @@ namespace GB.SIMEF.BL
             tipoMedidaDAL = new TipoMedidaDAL();
             grupoIndicadorDAL = new GrupoIndicadorDAL();
             unidadEstudioDAL = new UnidadEstudioDAL();
+            detalleIndicadorVariablesDAL = new DetalleIndicadorVariablesDAL();
+            detalleIndicadorCategoriaDAL = new DetalleIndicadorCategoriaDAL();
         }
 
         public RespuestaConsulta<List<Indicador>> ActualizarElemento(Indicador pIndicador)
         {
-
-            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
-            bool errorControlado = false;
-
-            try
-            {
-                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
-                pIndicador.idIndicador = number;
-                // actualizar el estado del indicador
-                PrepararObjetoIndicador(pIndicador);
-                pIndicador.UsuarioModificacion = user;
-                var indicadorActualizado = indicadorFonatelDAL.PublicacionSigitel(pIndicador);
-
-                if (indicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
-                {
-                    errorControlado = true;
-                    throw new Exception(Errores.NoRegistrosActualizar);
-                }
-
-
-                resultado.Accion = pIndicador.VisualizaSigitel == true? (int)Accion.Publicado:(int)Accion.NoPublicado;
-                resultado.Clase = modulo;
-                resultado.Usuario = user;
-                resultado.CantidadRegistros = indicadorActualizado.Count();
-
-                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
-            }
-            catch (Exception ex)
-            {
-                resultado.MensajeError = ex.Message;
-
-                if (errorControlado)
-                    resultado.HayError = (int)Error.ErrorControlado;
-                else
-                    resultado.HayError = (int)Error.ErrorSistema;
-            }
-            return resultado;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -101,19 +68,18 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
+                pIndicador = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pIndicador.idIndicador);
 
-                // actualizar el estado del indicador
-                PrepararObjetoIndicador(pIndicador);
-                pIndicador.UsuarioModificacion = user;
-                pIndicador.idEstado = nuevoEstado;
-                var indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
-
-                if (indicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
+                if (pIndicador == null) // ¿el indicador existe?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
+
+                // actualizar el estado del indicador
+                pIndicador.UsuarioModificacion = user;
+                pIndicador.idEstado = nuevoEstado;
+                List<Indicador> indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
 
                 // construir respuesta
                 int accion = 0;
@@ -125,6 +91,8 @@ namespace GB.SIMEF.BL
                         accion = (int)Accion.Activar; break;
                     case (int)EstadosRegistro.Desactivado:
                         accion = (int)Accion.Inactiva; break;
+                    case (int)EstadosRegistro.EnProceso:
+                        accion = (int)Accion.Editar; break;
                 }
 
                 resultado.Accion = accion;
@@ -181,7 +149,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
+                pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).FirstOrDefault();
 
                 PrepararObjetoIndicador(pIndicador);
                 var result = indicadorFonatelDAL.VerificarUsoIndicador(pIndicador);
@@ -215,21 +183,13 @@ namespace GB.SIMEF.BL
             try
             {
                 PrepararObjetoIndicador(pIndicador);
-                if (pIndicador.Modo == 5)//clonar
+                resultado = ValidarDatos(pIndicador);
+
+                if (resultado.HayError != 0)
                 {
-                    pIndicador.idIndicador = 0;
-                }
-                if (pIndicador.esGuardadoParcial == false)
-                {
-                    resultado = ValidarDatos(pIndicador);
-                    if (resultado.HayError != 0)
-                    {
-                        return resultado;
-                    }
+                    return resultado;
                 }
 
-
-                pIndicador.UsuarioCreacion = user;
                 resultado.objetoRespuesta = indicadorFonatelDAL.ActualizarDatos(pIndicador);
                 
                 resultado.Usuario = user;
@@ -239,6 +199,77 @@ namespace GB.SIMEF.BL
 
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
                         resultado.Usuario, resultado.Clase, pIndicador.Codigo);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 04/10/2022
+        /// José Navarro Acuña
+        /// Función que permite realizar un guardado definitivo de un indicador
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> GuardadoDefinitivoIndicador(Indicador pIndicador)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            bool errorControlado = false;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
+                pIndicador.idIndicador = number;
+
+                if (pIndicador.idIndicador == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // validar si el indicador existe
+                Indicador indicadorRegistrado = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pIndicador.idIndicador);
+
+                if (indicadorRegistrado == null) // el indicador existe?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // validar que el indicador tenga sus datos completos
+                string msgIndicadorCompleto = VerificarDatosCompletosIndicador(indicadorRegistrado);
+
+                if (!string.IsNullOrEmpty(msgIndicadorCompleto))
+                {
+                    errorControlado = true;
+                    throw new Exception(msgIndicadorCompleto);
+                }
+
+                List<DetalleIndicadorVariables> objDetallesVariables = detalleIndicadorVariablesDAL.ObtenerDatos(
+                    new DetalleIndicadorVariables() { idIndicador = indicadorRegistrado.idIndicador });
+
+                List<DetalleIndicadorCategoria> objDetallesCategoria = detalleIndicadorCategoriaDAL.ObtenerDatos(
+                    new DetalleIndicadorCategoria() { idIndicador = indicadorRegistrado.idIndicador, DetallesAgrupados = true });
+
+                // verificar que los detalles esten completos en cuanto a cantidad
+                if (indicadorRegistrado.CantidadVariableDato != objDetallesVariables.Count() ||
+                    indicadorRegistrado.CantidadCategoriasDesagregacion != objDetallesCategoria.Count())
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.CamposIncompletos);
+                }
+
+                pIndicador.nuevoEstado = (int)EstadosRegistro.Activo;
+
+                return CambioEstado(pIndicador); // reutilizar la función de cambio de estado
             }
             catch (Exception ex)
             {
@@ -267,23 +298,26 @@ namespace GB.SIMEF.BL
 
             try
             {
-                Indicador indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicador(pIndicador);
+                // validar la existencia del indicador por medio del nombre y/o código
+                Indicador indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicadorPorCodigoNombre(pIndicador);
                 if (indicadorExistente != null) {
-                    errorControlado = true;
 
                     if (indicadorExistente.Codigo.Trim().ToUpper().Equals(pIndicador.Codigo.Trim().ToUpper()))
                     {
+                        errorControlado = true;
                         throw new Exception(string.Format(Errores.CodigoRegistrado, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo));
                     }
                     else
                     {
+                        errorControlado = true;
                         throw new Exception(string.Format(Errores.NombreRegistrado, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre));
                     }
                 }
 
+                // validar si el valor selecionado en los comboboxes existe y se encuentra habilitado
                 if ((pIndicador.esGuardadoParcial && pIndicador.TipoIndicadores.IdTipoIdicador != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
-                    if (tipoIndicadorDAL.ObtenerDatos(pIndicador.TipoIndicadores).Count <= 0)
+                    if (tipoIndicadorDAL.ObtenerDatos(pIndicador.TipoIndicadores).Count <= 0) 
                     {
                         errorControlado = true;
                         throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo));
@@ -334,6 +368,33 @@ namespace GB.SIMEF.BL
                         throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio));
                     }
                 }
+
+                // validar la cantidad de variables dato y categorias establecidas en el indicador según lo registrado respectivamente en cada detalle, sucede en caso de actualizar
+                if (pIndicador.idIndicador != 0)
+                {
+                    Indicador indicadorRegistradoActualmente = indicadorFonatelDAL.ObtenerDatos(new Indicador() { idIndicador = pIndicador.idIndicador }).FirstOrDefault();
+
+                    if (indicadorRegistradoActualmente != null)
+                    {
+                        if (pIndicador.CantidadVariableDato != null && indicadorRegistradoActualmente.CantidadVariableDato != null)
+                        {
+                            if (pIndicador.CantidadVariableDato < indicadorRegistradoActualmente.CantidadVariableDato) // la nueva cantidad registrada debe ser mayor o igual a la actual
+                            {
+                                errorControlado = true;
+                                throw new Exception(string.Format(Errores.CampoConValorMenorAlActual, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador));
+                            }
+                        }
+
+                        if (pIndicador.CantidadCategoriasDesagregacion != null && indicadorRegistradoActualmente.CantidadCategoriasDesagregacion != null)
+                        {
+                            if (pIndicador.CantidadCategoriasDesagregacion < indicadorRegistradoActualmente.CantidadCategoriasDesagregacion)
+                            {
+                                errorControlado = true;
+                                throw new Exception(string.Format(Errores.CampoConValorMenorAlActual, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador));
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -371,7 +432,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                resultado.HayError = (int)Constantes.Error.ErrorSistema;
+                resultado.HayError = (int)Error.ErrorSistema;
                 resultado.MensajeError = ex.Message;
             }
             return resultado;
@@ -419,6 +480,142 @@ namespace GB.SIMEF.BL
             resultado.objetoRespuesta = listado;
             resultado.CantidadRegistros = listado.Count;
             return resultado;
+        }
+
+        /// <summary>
+        /// 03/10/2022
+        /// José Navarro Acuña
+        /// Función que permite clonar los detalles variables dato y detalles categoria de un indicador hacia otro indicador
+        /// </summary>
+        /// <param name="pIdIndicadorAClonar"></param>
+        /// <param name="pIdIndicadorDestino"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<Indicador> ClonarDetallesDeIndicador(string pIdIndicadorAClonar, string pIdIndicadorDestino)
+        {
+            RespuestaConsulta<Indicador> resultado = new RespuestaConsulta<Indicador>();
+            int idIndicadorAClonar, idIndicadorDestino;
+            bool errorControlado = false;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pIdIndicadorAClonar), out int number);
+                idIndicadorAClonar = number;
+
+                if (idIndicadorAClonar == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                int.TryParse(Utilidades.Desencriptar(pIdIndicadorDestino), out number);
+                idIndicadorDestino = number;
+
+                if (idIndicadorDestino == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                indicadorFonatelDAL.ClonarDetallesDeIndicador(idIndicadorAClonar, idIndicadorDestino);
+
+                resultado.objetoRespuesta = new Indicador() { id = pIdIndicadorDestino };
+
+                resultado.Usuario = user;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Clonar;
+
+                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, idIndicadorDestino.ToString());
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// Michael Hernandez
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> PublicacionSigitel(Indicador pIndicador)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            bool errorControlado = false;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
+                pIndicador.idIndicador = number;
+                // actualizar el estado del indicador
+                PrepararObjetoIndicador(pIndicador);
+                pIndicador.UsuarioModificacion = user;
+                var indicadorActualizado = indicadorFonatelDAL.PublicacionSigitel(pIndicador);
+
+                if (indicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+
+                resultado.Accion = pIndicador.VisualizaSigitel == true ? (int)Accion.Publicado : (int)Accion.NoPublicado;
+                resultado.Clase = modulo;
+                resultado.Usuario = user;
+                resultado.CantidadRegistros = indicadorActualizado.Count();
+
+                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 05/10/2022
+        /// José Navarro Acuña
+        /// Función que verifica si todos los campos de un indicador estan completos.
+        /// Nota: es un método estáctico.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public static string VerificarDatosCompletosIndicador(Indicador pIndicador)
+        {
+            if (
+                pIndicador.Codigo == null || string.IsNullOrEmpty(pIndicador.Codigo.Trim()) ||
+                pIndicador.Nombre == null || string.IsNullOrEmpty(pIndicador.Nombre.Trim()) ||
+                pIndicador.IdTipoIndicador == 0 || pIndicador.IdTipoIndicador == defaultDropDownValue ||
+                pIndicador.IdClasificacion == 0 || pIndicador.IdClasificacion == defaultDropDownValue ||
+                pIndicador.idGrupo == 0 || pIndicador.idGrupo == defaultDropDownValue ||
+                pIndicador.Descripcion == null || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()) ||
+                pIndicador.CantidadVariableDato == null ||
+                pIndicador.CantidadCategoriasDesagregacion == null ||
+                pIndicador.IdUnidadEstudio == null || pIndicador.IdUnidadEstudio == defaultDropDownValue ||
+                pIndicador.idTipoMedida == 0 || pIndicador.idTipoMedida == defaultDropDownValue ||
+                pIndicador.IdFrecuencia == 0 || pIndicador.IdFrecuencia == defaultDropDownValue ||
+                pIndicador.Interno == null ||
+                pIndicador.Solicitud == null ||
+                pIndicador.Fuente == null || string.IsNullOrEmpty(pIndicador.Fuente.Trim()) ||
+                pIndicador.Notas == null || string.IsNullOrEmpty(pIndicador.Notas.Trim())
+                )
+            {
+                return Errores.CamposIncompletos;
+            }
+            return string.Empty;
         }
 
         /// <summary>
