@@ -10,9 +10,11 @@ using GB.SIMEF.BL;
 using Microsoft.AspNet.Identity;
 using GB.SIMEF.Resources;
 using static GB.SIMEF.Resources.Constantes;
+using GB.SUTEL.UI.Helpers;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class IndicadorFonatelController : Controller
     {
         private readonly IndicadorFonatelBL indicadorBL;
