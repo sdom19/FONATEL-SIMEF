@@ -94,17 +94,18 @@
 
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Editar' class='btn-icon-base btn-edit'></button>";
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Clonar' class='btn-icon-base btn-clone'></button>";
-                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Desactivar' class='btn-icon-base btn-power-on'></button>";
-                //if (solicitud.IdEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
-                //    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + solicitud.id + " class='btn-icon-base btn-power-off'></button></td >";
-                //}
-                //else {
-                //    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + solicitud.id + " class='btn-icon-base btn-power-on'></button></td >";
-                //}
+
+                if (solicitud.IdEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
+                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + solicitud.id + " class='btn-icon-base btn-power-off'></button>";
+                }
+                else {
+                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + solicitud.id + " class='btn-icon-base btn-power-on'></button>";
+                }
+
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button>";
 
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Envío' class='btn-icon-base btn-sent'></button>";
-
+       
                 if (envioProgramado == "SI") {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
@@ -244,7 +245,7 @@
 
             execAjaxCall("/SolicitudFonatel/InsertarSolicitud", "POST", Solicitud)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud a sido creada")
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/SolicitudFonatel/index";
                         });
@@ -286,7 +287,7 @@
 
             execAjaxCall("/SolicitudFonatel/EditarSolicitud", "POST", Solicitud)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud a sido editada")
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido editada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/SolicitudFonatel/index";
                         });
@@ -324,7 +325,7 @@
 
             execAjaxCall("/SolicitudFonatel/ClonarSolicitud", "POST", Solicitud)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud a sido creada")
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/SolicitudFonatel/index";
                         });
@@ -451,11 +452,8 @@
 
                         if (Eliminado) {
 
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Solicitud?", jsMensajes.Variables.actionType.eliminar)
-                                .set('onok', function (closeEvent) {
                                     JsSolicitud.Metodos.EliminarSolicitud(idSolicitud);
-                                });
-
+                                
                         } else {
 
                             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.estado)
@@ -562,9 +560,10 @@ $(document).on("click", JsSolicitud.Controles.btnEditarSolicitud, function () {
     window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;;
 });
 
+
 $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Solicitud?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Solicitud?", jsMensajes.Variables.actionType.Clonar)
         .set('onok', function (closeEvent) {
             window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
      }); 
@@ -612,7 +611,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la programación a las Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Programación a sido creada")
+            jsMensajes.Metodos.OkAlertModal("La Programación ha sido creada")
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
         });
 });
@@ -667,8 +666,12 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
 $(document).on("click", JsSolicitud.Controles.btnDeleteSolicitud, function (e) {
 
     let id = $(this).val();
+
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Solicitud?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            JsSolicitud.Consultas.ValidarExistenciaSolicitud(id);
+        });
     
-    JsSolicitud.Consultas.ValidarExistenciaSolicitud(id);
         
 });
 
