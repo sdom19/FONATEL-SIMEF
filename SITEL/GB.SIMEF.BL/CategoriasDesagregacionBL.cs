@@ -118,7 +118,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioModificacion = user;
-          
+                
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
@@ -136,27 +136,32 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    objeto.idEstado = result.idEstado;
-                    clsDatos.ActualizarDatos(objeto);
+                    objeto.idEstado = objeto.EsParcial==true? (int) Constantes.EstadosRegistro.EnProceso  :result.idEstado;           
                     if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
-                        if (objeto.DetalleCategoriaFecha.FechaMinima > objeto.DetalleCategoriaFecha.FechaMaxima)
+                        if (objeto.DetalleCategoriaFecha.FechaMinima >= objeto.DetalleCategoriaFecha.FechaMaxima && !objeto.EsParcial)
                         {
                             throw new Exception(Errores.ValorFecha);
                         }
+                        clsDatos.ActualizarDatos(objeto);
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaFecha.Estado = true;
                         clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
                     }
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
-                        if (objeto.DetalleCategoriaNumerico.Minimo > objeto.DetalleCategoriaNumerico.Maximo)
+                        if (objeto.DetalleCategoriaNumerico.Minimo >= objeto.DetalleCategoriaNumerico.Maximo && !objeto.EsParcial)
                         {
                             throw new Exception(Errores.ValorMinimo);
                         }
+                        clsDatos.ActualizarDatos(objeto);
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaNumerico.Estado = true;
                         clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
+                    }
+                    else
+                    {
+                        clsDatos.ActualizarDatos(objeto);
                     }
                 }
               
@@ -193,25 +198,15 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                if (!String.IsNullOrEmpty(objeto.id))
-                {
-                    objeto.id = Utilidades.Desencriptar(objeto.id);
-                    int temp;
-                    if (int.TryParse(objeto.id, out temp))
-                    {
-                        objeto.idCategoria = temp;
-                    }
-                }
-                ResultadoConsulta.Clase = modulo;
-                int nuevoEstado = objeto.idEstado;
-                objeto.idEstado = 0;
-                ResultadoConsulta.Usuario = user;
-                var resul = clsDatos.ObtenerDatos(objeto);
-                objeto = resul.Single();
-                objeto.idEstado = nuevoEstado;
                 objeto.UsuarioModificacion =user;
+                ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.Accion= (int)EstadosRegistro.Activo == objeto.idEstado ? (int)Accion.Activar : (int)Accion.Inactiva;
-                resul = clsDatos.ActualizarDatos(objeto);
+                //if (objeto.CantidadDetalleDesagregacion!=objeto.DetalleCategoriaTexto.Count() && objeto.idEstado == (int)Accion.Activar)
+                //{
+                //    throw new Exception("No se cumple con la cantidad de atributos configurados");
+                //}
+
+                var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
@@ -340,29 +335,42 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    objeto.idEstado = (int)EstadosRegistro.Desactivado;
-                    var result =clsDatos.ActualizarDatos(objeto)
-                        .Where(x=>x.Codigo.ToUpper()==objeto.Codigo.ToUpper()).FirstOrDefault();
-                    if (objeto.idTipoDetalle== (int)TipoDetalleCategoriaEnum.Fecha)
+                    if (objeto.EsParcial || objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Texto || objeto.idTipoDetalle==(int)TipoDetalleCategoriaEnum.Alfanumerico)
                     {
-                        if (objeto.DetalleCategoriaFecha.FechaMinima> objeto.DetalleCategoriaFecha.FechaMaxima)
+                        objeto.idEstado = (int)EstadosRegistro.EnProceso;
+                    }
+                    else
+                    {
+                        objeto.idEstado = (int)EstadosRegistro.Activo;
+                    }
+                    if (objeto.idTipoDetalle== (int)TipoDetalleCategoriaEnum.Fecha )
+                    {
+                        if (objeto.DetalleCategoriaFecha.FechaMinima>= objeto.DetalleCategoriaFecha.FechaMaxima & objeto.EsParcial==false)
                         {
                             throw new Exception(Errores.ValorFecha);
                         }
+                        var result = clsDatos.ActualizarDatos(objeto)
+                           .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaFecha.Estado = true;
                         clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
                     }
                     else if(objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
-                        if (objeto.DetalleCategoriaNumerico.Minimo>objeto.DetalleCategoriaNumerico.Maximo)
+                        if (objeto.DetalleCategoriaNumerico.Minimo>=objeto.DetalleCategoriaNumerico.Maximo & objeto.EsParcial==false)
                         {
                             throw new Exception(Errores.ValorMinimo);
                         }
-
+                        var result = clsDatos.ActualizarDatos(objeto)
+                           .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaNumerico.Estado = true;
                         clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
+                    }
+                    else
+                    {
+                        var result = clsDatos.ActualizarDatos(objeto)
+                                .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
                     }
 
   

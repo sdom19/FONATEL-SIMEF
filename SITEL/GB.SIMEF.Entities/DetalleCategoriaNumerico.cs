@@ -20,8 +20,8 @@ namespace GB.SIMEF.Entities
         [Key]
         public int idCategoriaDetalle { get; set; }
         public int idCategoria { get; set; }
-        public Nullable<int> Minimo { get; set; }
-        public Nullable<int> Maximo { get; set; }
+        public int Minimo { get; set; }
+        public int Maximo { get; set; }
         public bool Estado { get; set; }
     }
 }

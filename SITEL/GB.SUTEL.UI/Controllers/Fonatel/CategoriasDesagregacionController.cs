@@ -208,14 +208,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
 
-        public async Task<string> CambiarEstadoCategoria(CategoriasDesagregacion Categoria)
+        public async Task<string> CambiarEstadoCategoria(CategoriasDesagregacion categoria)
         {
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
             await Task.Run(() =>
             {
-                 result = categoriaBL.CambioEstado(Categoria); 
-            });
+                int nuevoestado = categoria.idEstado;
+                categoria = categoriaBL.ObtenerDatos(
+                    new CategoriasDesagregacion() {id=categoria.id }).objetoRespuesta.Single();
+                categoria.idEstado = nuevoestado;
+                return categoria;
 
+            }).ContinueWith(data =>
+            {
+
+                result = categoriaBL.CambioEstado(data.Result);
+            }
+            );
             return JsonConvert.SerializeObject(result);
         }
 
@@ -443,6 +452,33 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
             return JsonConvert.SerializeObject(result);
         }
+
+
+
+        /// <summary>
+        /// Cambiar estado a Finalizado Categorías
+        /// </summary>
+        /// <param name="indicador"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CambiarEstadoFinalizado(CategoriasDesagregacion categoria)
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            await Task.Run(() =>
+            {
+                categoria=  categoriaBL.ObtenerDatos(categoria).objetoRespuesta.Single();
+                categoria.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                return categoria;
+
+            }).ContinueWith(data =>
+            {
+
+                result = categoriaBL.CambioEstado(data.Result);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
 
 
         #endregion

@@ -213,14 +213,6 @@ namespace GB.SIMEF.BL
                 {
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
-
-                    if (cantidadDisponible == 1)
-                    {
-                        objeto.CategoriasDesagregacion.idEstado = (int)Constantes.EstadosRegistro.Activo;
-                        objeto.CategoriasDesagregacion.UsuarioModificacion = objeto.usuario;
-                        clsDatosCategoria.ActualizarDatos(objeto.CategoriasDesagregacion);
-                    }
-
                     string jsonInicial = SerializarObjetoBitacora(objeto);
                       clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                        ResultadoConsulta.Usuario,
