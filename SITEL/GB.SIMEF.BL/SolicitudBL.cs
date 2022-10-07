@@ -106,43 +106,6 @@ namespace GB.SIMEF.BL
                     objeto.idSolicitud = temp;
                 }
 
-                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
-
-                if (objeto.FechaInicio == null)
-                {
-                    objeto.FechaInicio = DateTime.Today;
-                }
-
-                if (objeto.FechaFin == null)
-                {
-                    objeto.FechaFin = DateTime.Today;
-                }
-
-                if (objeto.idMes == 0)
-                {
-                    objeto.idMes = 0;
-                }
-
-                if (objeto.idAnno == 0)
-                {
-                    objeto.idAnno = 0;
-                }
-
-                if (objeto.CantidadFormularios == 0)
-                {
-                    objeto.CantidadFormularios = 0;
-                }
-
-                if (objeto.idFuente == 0)
-                {
-                    objeto.idFuente = 0;
-                }
-
-                if (objeto.Mensaje == null)
-                {
-                    objeto.Mensaje = " ";
-                }
-
                 //GUARDAMOS EL OBJETO EN UNA VARIBALE SEGUN EL ID
                 var result = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
 
@@ -165,6 +128,10 @@ namespace GB.SIMEF.BL
                 {
                     //FALTA EL CONTADOR DE DETALLE
                     throw new Exception(Errores.CantidadRegistrosLimite);
+                }
+                else if (objeto.FechaFin < objeto.FechaInicio)
+                {
+                    throw new Exception(Errores.ValorFecha);
                 }
                 else
                 {
@@ -254,45 +221,6 @@ namespace GB.SIMEF.BL
                 //OBTENEMOS UNA LISTA DE SOLICITUDES PARA LAS VALIDACIONES
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
-                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
-
-                if (objeto.FechaInicio == null)
-                {
-                    objeto.FechaInicio = DateTime.Today;
-                }
-
-                if (objeto.FechaFin == null)
-                {
-                    objeto.FechaFin = DateTime.Today;
-                }
-
-                if (objeto.idMes == 0)
-                {
-                    objeto.idMes = 0;
-                }
-
-                if (objeto.idAnno == 0)
-                {
-                    objeto.idAnno = 0;
-                }
-
-                if (objeto.CantidadFormularios == 0)
-                {
-                    objeto.CantidadFormularios = 0;
-                }
-
-                if (objeto.idFuente == 0)
-                {
-                    objeto.idFuente = 0;
-                }
-
-                if (objeto.Mensaje == null)
-                {
-                    objeto.Mensaje = " ";
-                }
-
-
-
                 //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
@@ -301,10 +229,14 @@ namespace GB.SIMEF.BL
                 }
 
                 //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
-                if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
+                else if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
                     //ENVIE EL ERROR NOMBRE REGISTRADO
                     throw new Exception(Errores.NombreRegistrado);
+                }
+                else if (objeto.FechaFin < objeto.FechaInicio)
+                {
+                    throw new Exception(Errores.ValorFecha);
                 }
                 else
                 {
@@ -407,45 +339,6 @@ namespace GB.SIMEF.BL
                 //OBTENEMOS UNA LISTA DE SOLICITUDES PARA LAS VALIDACIONES
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
-                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
-
-                if (objeto.FechaInicio == null)
-                {
-                    objeto.FechaInicio = DateTime.Today;
-                }
-
-                if (objeto.FechaFin == null)
-                {
-                    objeto.FechaFin = DateTime.Today;
-                }
-
-                if (objeto.idMes == 0)
-                {
-                    objeto.idMes = 0;
-                }
-
-                if (objeto.idAnno == 0)
-                {
-                    objeto.idAnno = 0;
-                }
-
-                if (objeto.CantidadFormularios == 0)
-                {
-                    objeto.CantidadFormularios = 0;
-                }
-
-                if (objeto.idFuente == 0)
-                {
-                    objeto.idFuente = 0;
-                }
-
-                if (objeto.Mensaje == null)
-                {
-                    objeto.Mensaje = " ";
-                }
-
-
-
                 //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
@@ -458,6 +351,10 @@ namespace GB.SIMEF.BL
                 {
                     //ENVIE EL ERROR NOMBRE REGISTRADO
                     throw new Exception(Errores.NombreRegistrado);
+                }
+                else if (objeto.FechaFin < objeto.FechaInicio)
+                {
+                    throw new Exception(Errores.ValorFecha);
                 }
                 else
                 {

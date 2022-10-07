@@ -81,13 +81,19 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@idSolicitud", objeto.idSolicitud),
                      new SqlParameter("@Codigo", string.IsNullOrEmpty(objeto.Codigo) ? DBNull.Value.ToString() : objeto.Codigo),
                      new SqlParameter("@Nombre", string.IsNullOrEmpty(objeto.Nombre) ? DBNull.Value.ToString() : objeto.Nombre),
-                     new SqlParameter("@FechaInicio", objeto.FechaInicio),
-                     new SqlParameter("@FechaFin", objeto.FechaFin),
+                     objeto.FechaInicio == null ?
+                        new SqlParameter("@FechaInicio", DBNull.Value)
+                        :
+                        new SqlParameter("@FechaInicio", objeto.FechaInicio),
+                     objeto.FechaFin == null ?
+                        new SqlParameter("@FechaFin", DBNull.Value)
+                        :
+                        new SqlParameter("@FechaFin", objeto.FechaFin),
                      new SqlParameter("@idMes", objeto.idMes),
                      new SqlParameter("@idAnno", objeto.idAnno),
                      new SqlParameter("@CantidadFormularios", objeto.CantidadFormularios),
                      new SqlParameter("@idFuente", objeto.idFuente),
-                     new SqlParameter("@Mensaje", objeto.Mensaje),
+                     new SqlParameter("@Mensaje", string.IsNullOrEmpty(objeto.Mensaje) ? DBNull.Value.ToString() : objeto.Mensaje),
                      new SqlParameter("@UsuarioCreacion", objeto.UsuarioCreacion),
                      new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objeto.UsuarioModificacion) ? DBNull.Value.ToString() : objeto.UsuarioModificacion),
                      new SqlParameter("@idEstado", objeto.IdEstado)

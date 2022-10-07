@@ -40,9 +40,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
-
-
-
         // GET: Solicitud
         public ActionResult Index()
         {
@@ -115,6 +112,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> InsertarSolicitud(Solicitud solicitud)
         {
+
+            //VALIDACIONES DE NOMBRES CODIGOS ETC
 
             user = User.Identity.GetUserId();
             solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
@@ -298,8 +297,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         #endregion
-
-
 
 
     }

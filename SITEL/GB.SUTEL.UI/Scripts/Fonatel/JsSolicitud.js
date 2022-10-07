@@ -1,4 +1,5 @@
 ﻿JsSolicitud = {
+
     "Controles": {
         "btnGuardarFormulario": "#btnGuardarFormulario",
         "btnAgregarSolicitud": "#TablaSolicitud tbody tr td .btn-add",
@@ -60,8 +61,11 @@
         "id": "#txtidsolicitud",
 
     },
+
     "Variables": {
+
         "CantidadMaxDias": 28,
+
         "ListadoSolicitudes": []
     },
 
@@ -124,21 +128,34 @@
         },
 
         "ValidarNombreyCodigo": function () {
+
             let validar = true;
+
             $(JsSolicitud.Controles.CodigoHelp).addClass("hidden");
             $(JsSolicitud.Controles.nombreHelp).addClass("hidden");
+            $(JsSolicitud.Controles.txtCodigo).parent().addClass("has-error");
+            $(JsSolicitud.Controles.txtNombre).parent().addClass("has-error");
 
             let codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
             let nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
 
             if (codigo.length == 0) {
                 $(JsSolicitud.Controles.CodigoHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.txtCodigo).parent().addClass("has-error");
                 Validar = false;
+            } else {
+                $(JsSolicitud.Controles.txtCodigo).parent().removeClass("has-error");
             }
+
             if (nombre.length == 0) {
                 $(JsSolicitud.Controles.nombreHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.txtNombre).parent().addClass("has-error");
                 validar = false;
+            } else{
+                $(JsSolicitud.Controles.txtNombre).parent().removeClass("has-error");
+                Validar = false;
             }
+
             return validar;
         },
 
