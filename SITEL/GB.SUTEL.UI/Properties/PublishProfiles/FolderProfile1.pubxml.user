@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\PublicadoSutel</_PublishTargetUrl>
-    <History>True|2022-09-07T22:42:23.4913725Z;True|2022-09-07T22:39:05.2751331+00:00;False|2022-09-07T22:28:23.8952590+00:00;True|2022-09-07T22:24:19.1358807+00:00;True|2022-09-07T22:21:10.7216108+00:00;True|2022-09-07T22:12:04.9937420+00:00;</History>
+    <History>False|2022-10-10T14:17:35.3447485Z;True|2022-09-07T16:42:23.4913725-06:00;True|2022-09-07T16:39:05.2751331-06:00;False|2022-09-07T16:28:23.8952590-06:00;True|2022-09-07T16:24:19.1358807-06:00;True|2022-09-07T16:21:10.7216108-06:00;True|2022-09-07T16:12:04.9937420-06:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">

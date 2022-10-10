@@ -139,3 +139,5 @@ C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Release\
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.csproj.CoreCompileInputs.cache
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.dll
 C:\Users\Administrador\Source\Repos\FONATEL-SIMEF\SITEL\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.pdb
+C:\agent\_work\1\s\SITEL\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.dll
+C:\agent\_work\1\s\SITEL\GB.SUTEL.UI\obj\Release\GB.SUTEL.UI.pdb

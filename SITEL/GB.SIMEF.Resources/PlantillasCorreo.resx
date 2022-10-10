@@ -118,6 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HtmlCrearUsuario" xml:space="preserve">
-    <value>&lt;div&gt;&lt;style&gt;.rps_4de0 h1{text-align:center}.rps_4de0 p{font-family:'Times New Roman'; font-size:20px}&lt;/style&gt;&lt;div class='rps_4de0'&gt;&lt;div&gt;&lt;img data-imagetype='External' data-imageerror='RelWithoutBase' originalsrc='../Images/logos/logo-Sutel_11_3.png' style='max-height:55px'&gt;&lt;table style='border-collapse:collapse;background-color:#eee!important;overflow-wrap:break-word;width:100%!important;line-height:100%!important'&gt;&lt;tbody &gt;&lt;tr&gt;&lt;td style='font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#000!important;padding:25px 35px'&gt;&lt;table style = 'border-collapse:collapse;width:100%;background-color:#fff!important'&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='font-family:Helvetica,Arial,sans-serif;font-size:15px;padding:15px 5px 5px 15px;color:#0072c6!important;text-decoration:none;border:0;text-align:left'&gt;&lt;b&gt;Sistema de Indicadores de Telecomunicaciones(SITEL)&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align:left;padding-top:25px;padding-left:15px'&gt; Estimado usuario &lt;b&gt;{0}:&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style = 'text-align:left;padding-bottom:15px;padding-top:15px;padding-left:15px'&gt;Puede ingresar con la contraseña temporal y cambiarla en el siguiente inicio de sesión.&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style = 'text-align:left;padding-left:15px'&gt;&lt;ul&gt;&lt;li&gt;Contraseña temporal:&lt;b&gt; {1}&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;tdstyle = 'text-align:left;padding-left:15px;font-size:11px'&gt;&lt;hr&gt; Por favor, no responder a este correo ya que no es monitoreado.&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align:left;padding-left:15px;font-size:11px'&gt;Cualquier duda o consulta diríjase al correo: sitel @sutel.go.cr&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</value>
+    <value>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Envío de credenciales&lt;/title&gt;	
+	&lt;link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+	&lt;b&gt;Sistema de Indicadores de Telecomunicaciones(SITEL)&lt;/b&gt;
+	&lt;b&gt;Estimado usuario {0}:&lt;/b&gt;
+    &lt;p&gt;Puede ingresar con la contraseña temporal y cambiarla en el siguiente inicio de sesión.&lt;/p&gt;
+	&lt;p&gt;Contraseña temporal: {1}&lt;/p&gt;
+	&lt;p&gt;Por favor, no responder a este correo ya que no es monitoreado.&lt;/p&gt;
+	&lt;p&gt;Cualquier duda o consulta diríjase al correo: sitel @sutel.go.cr&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</value>
   </data>
 </root>

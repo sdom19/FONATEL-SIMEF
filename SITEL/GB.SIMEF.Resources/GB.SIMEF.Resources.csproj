@@ -113,6 +113,11 @@
       <DependentUpon>EtiquetasViewSolicitudes.resx</DependentUpon>
     </Compile>
     <Compile Include="JsonIgnoreResolver.cs" />
+    <Compile Include="PlantillasCorreo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlantillasCorreo.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EtiquetasViewDefinicionIndicadores.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -188,6 +193,10 @@
     <EmbeddedResource Include="EtiquetasViewSolicitudes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewSolicitudes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlantillasCorreo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PlantillasCorreo.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

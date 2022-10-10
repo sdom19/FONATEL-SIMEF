@@ -424,7 +424,7 @@ namespace GB.SIMEF.BL
                 string contrasena = generatePassword();    
                 item.Contrasena = HashPassword(contrasena);
                 clsDatosUsuario.ActualizarUsuario(item);
-                string html = Resources.PlantillasCorreo.HtmlCrearUsuario.Replace("{0}", item.NombreDestinatario).Replace("{1}", contrasena);
+                string html = string.Format( Resources.PlantillasCorreo.HtmlCrearUsuario, item.NombreDestinatario, contrasena);
                 CorreoDal correoDal = new CorreoDal(item.CorreoElectronico,"",html, "Sutel: Creación de Usuario");
                 int result = correoDal.EnviarCorreo();
                 if (result==0)
