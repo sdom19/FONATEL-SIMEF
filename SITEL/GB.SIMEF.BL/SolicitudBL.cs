@@ -25,8 +25,6 @@ namespace GB.SIMEF.BL
             this.ResultadoConsulta = new RespuestaConsulta<List<Solicitud>>();
         }
 
-
-
         public RespuestaConsulta<List<Solicitud>> ObtenerDatos(Solicitud objeto)
         {
             try
@@ -94,11 +92,8 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
                 objeto.UsuarioModificacion = objeto.UsuarioCreacion;
 
-
-                //OBTENEMOS UNA LISTA DE SOLICITUDES PARA LAS VALIDACIONES
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
-                //DESENCRIPTAR EL ID
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
@@ -106,10 +101,8 @@ namespace GB.SIMEF.BL
                     objeto.idSolicitud = temp;
                 }
 
-                //GUARDAMOS EL OBJETO EN UNA VARIBALE SEGUN EL ID
                 var result = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
 
-                //VALIDA SI NO SE ENCONTRARON REGISTROS
                 if (BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Count() == 0)
                 {
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -135,10 +128,8 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-
                     result = clsDatos.ActualizarDatos(objeto)
                     .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
-
                 }
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
@@ -154,11 +145,9 @@ namespace GB.SIMEF.BL
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 }
-
                 else
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -218,20 +207,15 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Clonar;
                 ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
 
-                //OBTENEMOS UNA LISTA DE SOLICITUDES PARA LAS VALIDACIONES
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
-                //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
-                    //ENVIE EL ERROR CODIGO REGISTRADO
                     throw new Exception(Errores.CodigoRegistrado);
                 }
 
-                //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
                 else if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
-                    //ENVIE EL ERROR NOMBRE REGISTRADO
                     throw new Exception(Errores.NombreRegistrado);
                 }
                 else if (objeto.FechaFin < objeto.FechaInicio)
@@ -277,7 +261,6 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
                 Solicitud registroActualizar;
 
-                //DESENCRIPTAR EL ID
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
@@ -336,20 +319,15 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
                 ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
 
-                //OBTENEMOS UNA LISTA DE SOLICITUDES PARA LAS VALIDACIONES
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
-                //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
-                    //ENVIE EL ERROR CODIGO REGISTRADO
                     throw new Exception(Errores.CodigoRegistrado);
                 }
 
-                //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
                 if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
-                    //ENVIE EL ERROR NOMBRE REGISTRADO
                     throw new Exception(Errores.NombreRegistrado);
                 }
                 else if (objeto.FechaFin < objeto.FechaInicio)
@@ -361,7 +339,6 @@ namespace GB.SIMEF.BL
                     var resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                 }
-
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,

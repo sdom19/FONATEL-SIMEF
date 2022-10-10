@@ -58,6 +58,10 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
 
+        public string Formularioid { get; set; }
+
+        [NotMapped]
+
         public EstadoRegistro Estado { get; set; }
 
 

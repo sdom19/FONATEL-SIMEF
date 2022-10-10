@@ -23,6 +23,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly MesBL MesBL;
         private readonly FuentesRegistroBL fuenteBl;
         private readonly FormularioWebBL formularioWebBL;
+        private readonly DetalleSolicitudesBL detalleSolicitudesBL;
+
 
 
         string user;
@@ -37,7 +39,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             MesBL = new MesBL();
             fuenteBl = new FuentesRegistroBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
             formularioWebBL = new FormularioWebBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
-
+            detalleSolicitudesBL = new DetalleSolicitudesBL();
         }
 
         // GET: Solicitud
@@ -86,7 +88,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         #endregion
-
 
         #region METODOS DE SOLICITUDES
 
@@ -298,6 +299,32 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #endregion
 
+        #region METODOS DE DETALLES DE SOLICITUDES
+
+        /// <summary>
+        /// Fecha: 03/10/2022
+        /// Francisco Vindas
+        /// Metodo para insertar solicitudes de informacion
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> InsertarDetalleSolicitud(DetalleSolicitudFormulario detalleSolicitud)
+        {
+
+            RespuestaConsulta<List<DetalleSolicitudFormulario>> result = null;
+
+            detalleSolicitud.Estado = true;
+
+            await Task.Run(() =>
+            {
+                result = detalleSolicitudesBL.InsertarDatos(detalleSolicitud);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        #endregion
 
     }
 }

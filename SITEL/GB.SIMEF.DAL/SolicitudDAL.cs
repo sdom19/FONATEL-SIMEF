@@ -143,9 +143,6 @@ namespace GB.SIMEF.DAL
             return resultado;
         }
 
-
-
-
         /// <summary>
         /// Obtener el listado de formularios en una fila string
         /// </summary>

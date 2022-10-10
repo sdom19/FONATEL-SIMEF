@@ -54,7 +54,7 @@
         "ddlAnoSolicitudHelp": "#ddlAnoSolicitudHelp",
         "ControlesStep1": "#formCrearSolicitud input, #formCrearSolicitud textarea, #formCrearSolicitud select",
         "txtMensajeSolicitudHelp": "#txtMensajeSolicitudHelp",
-        "TablaFormularioElininado": "#TablaFormulario tbody tr td .btn-delete",
+        "TablaFormularioEliminado": "#TablaFormulario tbody tr td .btn-delete",
         "btnFinalizarSolicitud": "#btnFinalizarSolicitud",
 
         "txtModo": "#txtmodo",
@@ -86,6 +86,7 @@
                 let solicitud = JsSolicitud.Variables.ListadoSolicitudes[i];
                 let listaFormularios = solicitud.FormulariosString;
                 let envioProgramado = solicitud.EnvioProgramado == null ? "NO" : "SI";
+                let EnProceso = solicitud.IdEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso ? "SI" : "NO";
 
                 html = html + "<tr>";
 
@@ -99,12 +100,21 @@
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Editar' class='btn-icon-base btn-edit'></button>";
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Clonar' class='btn-icon-base btn-clone'></button>";
 
-                if (solicitud.IdEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
-                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + solicitud.id + " class='btn-icon-base btn-power-off'></button>";
+                if (EnProceso == "SI") {
+
+                        html += "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + solicitud.id + " class='btn-icon-base btn-power-on'></button>";
+        
+                } else {
+
+                    if (solicitud.IdEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
+                        html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + solicitud.id + " class='btn-icon-base btn-power-off'></button>";
+                    }
+                    else {
+                        html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + solicitud.id + " class='btn-icon-base btn-power-on'></button>";
+                    }
+
                 }
-                else {
-                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + solicitud.id + " class='btn-icon-base btn-power-on'></button>";
-                }
+
 
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button>";
 
@@ -451,6 +461,36 @@
                     $("#loading").fadeOut();
                 });
         },
+
+        "InsertarDetalleSolicitud": function () {
+
+            $("#loading").fadeIn();
+
+            let SolicitudDetalle = new Object();
+
+            SolicitudDetalle.id = $(JsSolicitud.Controles.id).val();
+            SolicitudDetalle.Formularioid = $(JsSolicitud.Controles.ddlFormularioWeb).val();
+
+            execAjaxCall("/SolicitudFonatel/InsertarDetalleSolicitud", "POST", SolicitudDetalle)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido agregado")
+                        .set('onok', function (closeEvent) {
+                            $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change');
+                            location.reload();
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
     },
 
     "Consultas": {
@@ -539,8 +579,6 @@
     }
 }
 
-
-
 $(document).on("click", JsSolicitud.Controles.btnFinalizarSolicitud, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Solicitud?", jsMensajes.Variables.actionType.cancelar)
@@ -561,7 +599,7 @@ $(document).on("click", JsSolicitud.Controles.btnCancelar, function (e) {
 });
 
 
-$(document).on("click", JsSolicitud.Controles.TablaFormularioElininado, function (e) {
+$(document).on("click", JsSolicitud.Controles.TablaFormularioEliminado, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
@@ -587,14 +625,21 @@ $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
 });
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e) {
+
     e.preventDefault();
+
     if ($(JsSolicitud.Controles.ddlFormularioWeb).val().length > 0) {
+
         $(JsSolicitud.Controles.ddlVariableIndicadorHelp).addClass("hidden");
         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el formulario a la Solicitud?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
 
-                jsMensajes.Metodos.OkAlertModal("El Formulario ha sido agregado")
-                    .set('onok', function (closeEvent) { $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change'); })
+                JsSolicitud.Metodos.InsertarDetalleSolicitud();
+
+                //jsMensajes.Metodos.OkAlertModal("El Formulario ha sido agregado")
+                //    .set('onok', function (closeEvent) {
+                //        $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change');
+                //    })
 
             });
     }

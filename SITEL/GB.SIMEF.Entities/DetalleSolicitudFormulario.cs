@@ -23,7 +23,16 @@ namespace GB.SIMEF.Entities
         public int IdSolicitud { get; set; }
         public int IdFormulario { get; set; }
         public bool Estado { get; set; }
-    
+
+        #region VARIABLES QUE NO FORMAN PARTE DE LA ENTIDAD
+
+        [NotMapped]
+        public string id { get; set; }
+
+        [NotMapped]
+        public string Formularioid { get; set; }
+
+        #endregion
 
         //public virtual ICollection<Registro> Registro { get; set; }
         //public virtual Solicitud Solicitud { get; set; }

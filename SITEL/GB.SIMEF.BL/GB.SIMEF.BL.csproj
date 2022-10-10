@@ -71,6 +71,7 @@
     <Compile Include="DetalleIndicadorCategoriaBL.cs" />
     <Compile Include="DetalleIndicadorVariablesBL.cs" />
     <Compile Include="DetalleRelacionCategoriaBL.cs" />
+    <Compile Include="DetalleSolicitudesBL.cs" />
     <Compile Include="FormularioWebBL.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
