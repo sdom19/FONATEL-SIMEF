@@ -607,10 +607,10 @@
 
                         if (obj=="True") {
                             jsMensajes.Metodos.OkAlertModal("Los Detalles han sido cargados")
-                                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+                                .set('onok', function (closeEvent) { location.reload(); });
                         } else {
                             jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Detalles")
-                                .set('onok', function (closeEvent) { })
+                                .set('onok', function (closeEvent) { location.reload(); })
                         }
                     }
                 }).fail(function (obj) {
@@ -663,7 +663,7 @@
                                 dependencias = obj.objetoRespuesta[i] + "<br>"
                             }
                             if (estado == jsUtilidades.Variables.EstadoRegistros.Eliminado) {
-                                jsMensajes.Metodos.ConfirmYesOrNoModal("La Categoría ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.estado)
+                                jsMensajes.Metodos.ConfirmYesOrNoModal("La Categoría ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
                                     .set('onok', function (closeEvent) {
                                         JsCategoria.Consultas.CambiarEstadoCategoria(idCategoria, estado);
                                     });
@@ -772,7 +772,7 @@ $(document).on("click", JsCategoria.Controles.btnEliminarCategoria, function () 
 
     let id = $(this).val();
     let estado = jsUtilidades.Variables.EstadoRegistros.Eliminado;
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Categoría?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Categoría?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
 
             JsCategoria.Consultas.ValidarExistenciaCategoria(id, estado);;

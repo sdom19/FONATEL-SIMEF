@@ -73,17 +73,29 @@ namespace GB.SIMEF.BL
                 //VALIDA SI NO SE ENCONTRARON REGISTROS
                 if (Registros.Where(x => x.idRelacionCategoria == objeto.idRelacionCategoria).Count() == 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
                 else if (result.DetalleRelacionCategoria.Count() >= objeto.CantidadCategoria)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CantidadRegistrosLimite);
                 }
-
+                else if (!Utilidades.rx_soloTexto.Match(objeto.Nombre.Trim()).Success)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "nombre de Categoría"));
+                }
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.Codigo.Trim()).Success)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "código de Categoría"));
+                }
                 //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
                 //if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper()).ToList().Count() > 0)
                 if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() >= 1)   
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
                 else
@@ -104,16 +116,10 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.NombreRegistrado || ex.Message == Errores.CantidadRegistrosLimite)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-
-                else
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }
-
                 ResultadoConsulta.MensajeError = ex.Message;
             }
 
@@ -152,6 +158,7 @@ namespace GB.SIMEF.BL
                 var resul = clsDatos.ObtenerDatos(objrelacion);
                 if (resul.Count() == 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
 
                 }
@@ -173,16 +180,11 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                ResultadoConsulta.MensajeError = ex.Message;
-                if (ex.Message == Errores.NoRegistrosActualizar)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-                else
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
                 }
+                ResultadoConsulta.MensajeError = ex.Message;
             }
 
             return ResultadoConsulta;
@@ -217,15 +219,25 @@ namespace GB.SIMEF.BL
                 //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() > 0)
                 {
-                    //ENVIE EL ERROR CODIGO REGISTRADO
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
                 }
 
                 //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
                 if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() > 0)
                 {
-                    //ENVIE EL ERROR NOMBRE REGISTRADO
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
+                }
+                else if (!Utilidades.rx_soloTexto.Match(objeto.Nombre.Trim()).Success)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "nombre de Categoría"));
+                }
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.Codigo.Trim()).Success)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "código de Categoría"));
                 }
                 else
                 {
@@ -248,12 +260,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.NombreRegistrado || ex.Message == Errores.CodigoRegistrado)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-
-                else
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }

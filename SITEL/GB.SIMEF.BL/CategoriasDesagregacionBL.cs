@@ -134,6 +134,16 @@ namespace GB.SIMEF.BL
                 {
                     throw new Exception(Errores.CantidadRegistrosLimite);
                 }
+                else if (!Utilidades.rx_soloTexto.Match(objeto.NombreCategoria.Trim()).Success)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "nombre de Categoría"));
+                }
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.Codigo.Trim()).Success)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "código de Categoría"));
+                }
                 else
                 {
                     objeto.idEstado = objeto.EsParcial==true? (int) Constantes.EstadosRegistro.EnProceso  :result.idEstado;           
@@ -177,17 +187,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if ( ex.Message == Errores.NoRegistrosActualizar || 
-                    ex.Message == Errores.NombreRegistrado || ex.Message== Errores.CantidadRegistrosLimite 
-                    || ex.Message==Errores.ValorMinimo || ex.Message==Errores.ValorFecha)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-
-                else
+                   if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -222,6 +224,8 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+
+
         public RespuestaConsulta<List<CategoriasDesagregacion>> ClonarDatos(CategoriasDesagregacion objeto)
         {
             try
@@ -248,11 +252,23 @@ namespace GB.SIMEF.BL
 
                 if (listadoCategorias.Where(x=>x.Codigo.ToUpper()==codigo.ToUpper().Trim()).Count()>0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
                 }
                 else if(listadoCategorias.Where(x => x.NombreCategoria.ToUpper() == Nombre.ToUpper()).Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
+                }
+                else if (!Utilidades.rx_soloTexto.Match(objeto.NombreCategoria.Trim()).Success)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido,"nombre de Categoría"));
+                }
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.Codigo.Trim()).Success)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "código de Categoría"));
                 }
                 else
                 {
@@ -290,15 +306,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-
-                else
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -332,6 +342,16 @@ namespace GB.SIMEF.BL
                 else if (buscarRegistro.Where(x => x.NombreCategoria.ToUpper() == objeto.NombreCategoria.ToUpper()).ToList().Count() > 0)
                 {
                     throw new Exception(Errores.NombreRegistrado);
+                }
+                else if (!Utilidades.rx_soloTexto.Match(objeto.NombreCategoria.Trim()).Success)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "nombre de Categoría"));
+                }
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.Codigo.Trim()).Success)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "código de Categoría"));
                 }
                 else
                 {
@@ -390,16 +410,9 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado 
-                    || ex.Message== Errores.ValorMinimo || ex.Message==Errores.ValorFecha)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-
-                else
-                {
+                   if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                { 
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }

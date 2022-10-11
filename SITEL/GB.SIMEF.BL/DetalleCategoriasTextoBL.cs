@@ -32,15 +32,11 @@ namespace GB.SIMEF.BL
             clsDatosCategoria = new CategoriasDesagregacionDAL();
             ResultadoConsulta = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
         }
-
-
         private string SerializarObjetoBitacora(DetalleCategoriaTexto objCategoria)
         {
             return JsonConvert.SerializeObject(objCategoria, new JsonSerializerSettings
             { ContractResolver = new JsonIgnoreResolver(objCategoria.NoSerialize) });
         }
-
-
         public RespuestaConsulta<List<DetalleCategoriaTexto>> ActualizarElemento(DetalleCategoriaTexto objeto)
         {
             try
@@ -62,12 +58,25 @@ namespace GB.SIMEF.BL
                 string jsonAnterior = SerializarObjetoBitacora(auxTemp.Where(x=>x.Codigo==objeto.Codigo).Single());
 
                 auxTemp = auxTemp.Where(x => x.Codigo != objeto.Codigo).ToList();
-            
+
+
+                objeto.CategoriasDesagregacion =
+                       clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { idCategoria = objeto.idCategoria }).Single();
 
 
                 if (auxTemp.Where(x => x.Etiqueta.ToUpper()==objeto.Etiqueta.ToUpper()).Count()>0)
                 {
                     throw new Exception(Errores.EtiquetaRegistrada);
+                }
+                else if (!Utilidades.rx_soloTexto.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Texto)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Etiqueta"));
+                }
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Etiqueta"));
                 }
                 else
                 {
@@ -89,15 +98,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.EtiquetaRegistrada)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-
-                else
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -124,7 +127,6 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = user;
                 objeto.usuario = user;
                 DetalleCategoriaTexto registroActializar;
-
                 if (!String.IsNullOrEmpty(objeto.id))
                 {
                     objCategoria.id = Utilidades.Desencriptar(objCategoria.id);
@@ -134,8 +136,6 @@ namespace GB.SIMEF.BL
                         objCategoria.idCategoriaDetalle = temp;
                     }
                 }
-
-
                 var resul = clsDatos.ObtenerDatos(objCategoria);
                 if (resul.Count() == 0)
                 {
@@ -213,6 +213,11 @@ namespace GB.SIMEF.BL
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(string.Format( Errores.CampoConFormatoInvalido,"Etiqueta"));
+                }
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Etiqueta"));
                 }
                 else
                 {
@@ -309,7 +314,8 @@ namespace GB.SIMEF.BL
                             Estado = true
                         };
 
-                        DetalleCategoriaTexto consultarCategoria = ObtenerDatos(detallecategoria).objetoRespuesta.SingleOrDefault();
+                        DetalleCategoriaTexto consultarCategoria = ObtenerDatos(new DetalleCategoriaTexto() 
+                                { Codigo = detallecategoria.Codigo, idCategoria = detallecategoria.idCategoria }  ).objetoRespuesta.SingleOrDefault();
 
                         if (consultarCategoria==null)
                         {
