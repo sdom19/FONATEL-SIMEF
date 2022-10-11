@@ -128,10 +128,12 @@ namespace GB.SIMEF.BL
                 var result = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
                 if (listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Count()==0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
                 else if (result.DetalleCategoriaTexto.Count()>objeto.CantidadDetalleDesagregacion)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CantidadRegistrosLimite);
                 }
                 else if (!Utilidades.rx_soloTexto.Match(objeto.NombreCategoria.Trim()).Success)
