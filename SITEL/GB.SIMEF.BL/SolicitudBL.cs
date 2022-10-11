@@ -306,6 +306,7 @@ namespace GB.SIMEF.BL
 
             return ResultadoConsulta;
         }
+
         /// <summary>
         /// 
         /// </summary>

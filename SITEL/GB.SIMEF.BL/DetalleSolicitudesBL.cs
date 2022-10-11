@@ -35,7 +35,54 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleSolicitudFormulario>> CambioEstado(DetalleSolicitudFormulario objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Eliminar;
+
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.IdSolicitud = temp;
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(objeto.Formularioid))
+                {
+                    objeto.Formularioid = Utilidades.Desencriptar(objeto.Formularioid);
+                    int temp;
+                    if (int.TryParse(objeto.Formularioid, out temp))
+                    {
+                        objeto.IdFormulario = temp;
+                    }
+                }
+
+
+                var resul = clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.objetoRespuesta = resul;
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado
+                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<DetalleSolicitudFormulario>> ClonarDatos(DetalleSolicitudFormulario objeto)

@@ -101,6 +101,7 @@ namespace GB.SIMEF.DAL
 
                 ListaSolicitud = ListaSolicitud.Select(x => new Solicitud()
                 {
+                    id = Utilidades.Encriptar(x.idSolicitud.ToString()),
                     idSolicitud = x.idSolicitud,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,

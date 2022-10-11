@@ -302,25 +302,49 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region METODOS DE DETALLES DE SOLICITUDES
 
         /// <summary>
-        /// Fecha: 03/10/2022
+        /// Fecha: 10/10/2022
         /// Francisco Vindas
-        /// Metodo para insertar solicitudes de informacion
+        /// Metodo para insertar detalles solicitudes de informacion
         /// </summary>
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> InsertarDetalleSolicitud(DetalleSolicitudFormulario detalleSolicitud)
+        public async Task<string> InsertarDetalleSolicitud(DetalleSolicitudFormulario Solicitud)
         {
 
             RespuestaConsulta<List<DetalleSolicitudFormulario>> result = null;
 
-            detalleSolicitud.Estado = true;
+            Solicitud.Estado = true;
 
             await Task.Run(() =>
             {
-                result = detalleSolicitudesBL.InsertarDatos(detalleSolicitud);
+                result = detalleSolicitudesBL.InsertarDatos(Solicitud);
             });
 
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary> 
+        /// 05/10/2022
+        /// Francisco Vindas Ruiz
+        /// Metodo para eliminar solicitud
+        /// </summary>
+        /// <param name="idDetalleSolicitud></param>
+        /// <returns>JSON</returns>
+        [HttpPost]
+        public async Task<string> EliminarDetallesSolicitud(DetalleSolicitudFormulario Solicitud)
+        {
+            user = User.Identity.GetUserId();
+
+            RespuestaConsulta<List<DetalleSolicitudFormulario>> result = null;
+
+            Solicitud.Estado = false;
+
+            await Task.Run(() =>
+            {
+                result = detalleSolicitudesBL.CambioEstado(Solicitud);
+                
+            });
             return JsonConvert.SerializeObject(result);
         }
 
