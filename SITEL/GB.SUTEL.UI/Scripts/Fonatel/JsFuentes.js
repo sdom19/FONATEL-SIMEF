@@ -129,7 +129,7 @@
             let destinatario = new Object()
             destinatario.NombreDestinatario = $(JsFuentes.Controles.txtNombre).val();
             destinatario.CorreoElectronico = $(JsFuentes.Controles.txtCorreo).val();
-            destinatario.fuenteId = $.urlParam('id');
+            destinatario.fuenteId =ObtenerValorParametroUrl('id');
             destinatario.idDetalleFuente = $(JsFuentes.Controles.txtidDetalleFuente).val();
             $("#loading").fadeIn();
             execAjaxCall("/Fuentes/AgregarDestinatario", "POST", destinatario)
@@ -163,7 +163,7 @@
             let objetoFuente = new Object()
             objetoFuente.Fuente = $(JsFuentes.Controles.txtFuente).val();
             objetoFuente.CantidadDestinatario = $(JsFuentes.Controles.txtCantidad).val();
-            objetoFuente.id = $.urlParam("id");
+            objetoFuente.id =ObtenerValorParametroUrl("id");
             execAjaxCall("/Fuentes/AgregarFuente", "POST", objetoFuente)
                 .then((obj) => {
                     if (parcial) {

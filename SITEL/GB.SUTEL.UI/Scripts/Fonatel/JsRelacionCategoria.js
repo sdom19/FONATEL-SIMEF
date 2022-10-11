@@ -235,7 +235,7 @@
             $("#loading").fadeIn();
 
             let detalleRelacionCategoria = new Object();
-            detalleRelacionCategoria.relacionid = $.urlParam("idRelacionCategoria");
+            detalleRelacionCategoria.relacionid =ObtenerValorParametroUrl("idRelacionCategoria");
            execAjaxCall("/RelacionCategoria/ObtenerCategoriasDetalle", "POST", detalleRelacionCategoria)
                 .then((obj) => {
                     JsRelacion.Variables.ListadoDetalleRelaciones = obj.objetoRespuesta;

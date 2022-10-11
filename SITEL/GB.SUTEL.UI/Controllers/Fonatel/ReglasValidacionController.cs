@@ -210,7 +210,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
                 else
                 {
-                    objetoRegla.UsuarioModificacion = user;
+         
                     result = reglaBL.ActualizarElemento(objetoRegla);
                 }
 

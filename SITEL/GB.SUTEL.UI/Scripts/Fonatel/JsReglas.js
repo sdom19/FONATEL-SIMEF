@@ -515,7 +515,7 @@
         "ConsultaListaDetalleReglas": function () {
 
 
-            let idRegla = $.urlParam("id");
+            let idRegla =ObtenerValorParametroUrl("id");
             if (idRegla != null) {
 
                 $("#loading").fadeIn();
@@ -551,7 +551,7 @@
                 objetoRegla.id = "";
             }
             else {
-                objetoRegla.id = $.urlParam("id");
+                objetoRegla.id =ObtenerValorParametroUrl("id");
             }
             execAjaxCall("/ReglasValidacion/AgregarRegla", "POST", objetoRegla)
                 .then((obj) => {
@@ -583,7 +583,9 @@
 
         "AgregarReglaSiguiente": async function (parcial) {
             $("#loading").fadeIn();
-            let objetoRegla = new Object()
+
+            let objetoRegla = {};
+            objetoRegla.id = ObtenerValorParametroUrl("id");
             objetoRegla.Codigo = $(JsReglas.Controles.txtCodigo).val();
             objetoRegla.Nombre = $(JsReglas.Controles.txtNombre).val();
             objetoRegla.idIndicador = $(JsReglas.Controles.ddlIndicadorRegla).val();
@@ -591,11 +593,9 @@
 
             execAjaxCall("/ReglasValidacion/AgregarRegla", "POST", objetoRegla)
                 .then((obj) => {
-                    console.log(obj);
+                    
                     InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
-                    if (JsReglas.Metodos.ValidarControles()) {
-                        $("a[href='#step-2']").trigger('click');
-                    }
+                    $("a[href='#step-2']").trigger('click');    
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -620,7 +620,7 @@
                 objetoTipoRegla.id = "";
             }
             else {
-                objetoTipoRegla.id = $.urlParam("id");
+                objetoTipoRegla.id =ObtenerValorParametroUrl("id");
             }
             execAjaxCall("/ReglasValidacion/AgregarDetalleRegla", "POST", objetoTipoRegla)
                 .then((obj) => {
@@ -683,7 +683,6 @@ $(document).on("click", JsReglas.Controles.btnCancelar, function (e) {
 $(document).on("click", JsReglas.Controles.btnSiguienteRegla, function (e) {
     e.preventDefault();
     if (JsReglas.Metodos.ValidarControles()) {
-        $("a[href='#step-2']").trigger('click');
         JsReglas.Consultas.AgregarReglaSiguiente();
     }
 });

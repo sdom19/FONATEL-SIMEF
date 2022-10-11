@@ -159,7 +159,7 @@ $(document).on("click", JsHistorico.Controles.btnDescargarHistorico, function (e
 
 $(function () {
     if ($(JsHistorico.Controles.divHistorica).length > 0) {
-        let id = $.urlParam('id');
+        let id =ObtenerValorParametroUrl('id');
         if (id != null) {
             JsHistorico.Consulta.ConsultaListaHistorica(id);
         }
