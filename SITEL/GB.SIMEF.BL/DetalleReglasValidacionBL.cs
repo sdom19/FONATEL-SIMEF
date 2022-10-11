@@ -9,90 +9,68 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class ReglaValidacionBL : IMetodos<ReglaValidacion>
+    public class DetalleReglaValidacionBL : IMetodos<DetalleReglaValidacion>
     {
-        private readonly ReglasValicionDAL clsDatos;
-
-   
-
-        private RespuestaConsulta<List<ReglaValidacion>> ResultadoConsulta;
+        private readonly DetalleReglasValicionDAL clsDatos;
+        private readonly DetalleIndicadorVariablesDAL clsDatosIndicadorVariable;
+        private RespuestaConsulta<List<DetalleReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
         string user;
-        public ReglaValidacionBL(string modulo, string  user)
+
+        public DetalleReglaValidacionBL(string modulo, string user)
         {
             this.modulo = modulo;
             this.user = user;
-            clsDatos = new ReglasValicionDAL();
-            ResultadoConsulta = new RespuestaConsulta<List<ReglaValidacion>>();
+            clsDatos = new DetalleReglasValicionDAL();
+            clsDatosIndicadorVariable = new DetalleIndicadorVariablesDAL();
+            ResultadoConsulta = new RespuestaConsulta<List<DetalleReglaValidacion>>();
         }
-        private string SerializarObjetoBitacora(ReglaValidacion objRegla)
+
+        private string SerializarObjetoBitacora(DetalleReglaValidacion objRegla)
         {
             return JsonConvert.SerializeObject(objRegla, new JsonSerializerSettings
             { ContractResolver = new JsonIgnoreResolver(objRegla.NoSerialize) });
         }
 
-        public RespuestaConsulta<List<ReglaValidacion>> ActualizarElemento(ReglaValidacion objeto)
+        public RespuestaConsulta<List<DetalleReglaValidacion>> ActualizarElemento(DetalleReglaValidacion objeto)
         {
             try
             {
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
-                    objeto.id = Utilidades.Desencriptar(objeto.id);
-                    int temp;
-                    if (int.TryParse(objeto.id, out temp))
-                    {
-                        objeto.idRegla = temp;
-                    }
+                    DesencriptarObjReglasValidacion(objeto);
+
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
                     ResultadoConsulta.Usuario = user;
 
-                    string Codigo = objeto.Codigo.Trim();
-                    string Nombre = objeto.Nombre;
-                    int Indicador = objeto.idIndicador;
-                    string Descripcion = objeto.Descripcion;
-                    //int Variable = objeto.CatidadVariableDato;
-                    //int IndicadorComparacion = objeto.IndicadorComparacion;
-                    //int VariableComparacion = objeto.VariableComparacion;
-                    //objeto.Constante;
-                    //objeto.Categoria;
-                    //objeto.Atributos;
-                    //objeto.CategoriaActualizable;
-                    //objeto.IndicadorSalida;
+                    int IdReglasValidacionTipo = objeto.idReglasValidacionTipo;
+                    int IdRegla = objeto.idRegla;
+                    int IdOperador = objeto.IdOperador;
+                    int Indicador = objeto.IdIndicador;
+                    int idindicadorVariable = objeto.idIndicadorVariable;
 
-                    var resul = clsDatos.ObtenerDatos(new ReglaValidacion());
-                    string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.idRegla == objeto.idRegla).Single());
+                    var resul = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
+                    //string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.idReglasValidacionTipo == objeto.idReglasValidacionTipo).Single());
                     objeto = resul.Where(x => x.idRegla == objeto.idRegla).Single();
 
 
-                    if (resul.Where(x => x.idRegla == objeto.idRegla).Count() == 0)
-                    {
-                        throw new Exception(Errores.NoRegistrosActualizar);
-                    }
-                    else if (resul.Where(x => x.idRegla != objeto.idRegla && x.Codigo.ToUpper() == Codigo.ToUpper()).Count() > 0)
-                    {
-                        throw new Exception(Errores.ReglaRegistrada);
-                    }
-                    else
-                    {
-                        objeto.UsuarioModificacion = user;
-                        objeto.Codigo = Codigo;
-                        objeto.Nombre = Nombre;
-                        objeto.idIndicador = Indicador;
-                        objeto.Descripcion = Descripcion;
+                    objeto.idIndicadorVariable = idindicadorVariable;
+                    objeto.IdIndicador = Indicador;
+                    objeto.IdOperador = IdOperador;
 
-                        clsDatos.ActualizarDatos(objeto);
+                    clsDatos.ActualizarDatos(objeto);
 
-                        var nuevovalor = clsDatos.ObtenerDatos(objeto).Single();
+                    var nuevoValor = clsDatos.ObtenerDatos(objeto).Single();
 
-                        string jsonNuevoValor = SerializarObjetoBitacora(nuevovalor);
+                    string jsonNuevoValor = SerializarObjetoBitacora(nuevoValor);
 
-                        ResultadoConsulta.objetoRespuesta = resul;
-                        ResultadoConsulta.CantidadRegistros = resul.Count();
-                        //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                        //       ResultadoConsulta.Usuario,
-                        //       ResultadoConsulta.Clase, nuevovalor.Codigo, jsonNuevoValor, valorAnterior);
-                    }
+                    ResultadoConsulta.objetoRespuesta = resul;
+                    ResultadoConsulta.CantidadRegistros = resul.Count();
+                    //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                    //       ResultadoConsulta.Usuario,
+                    //       ResultadoConsulta.Clase, nuevovalor.Codigo, jsonNuevoValor, valorAnterior);
+
                 }
             }
             catch (Exception ex)
@@ -113,33 +91,26 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<ReglaValidacion>> CambioEstado(ReglaValidacion objeto)
+        public RespuestaConsulta<List<DetalleReglaValidacion>> CambioEstado(DetalleReglaValidacion objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<ReglaValidacion>> ClonarDatos(ReglaValidacion objeto)
+        public RespuestaConsulta<List<DetalleReglaValidacion>> ClonarDatos(DetalleReglaValidacion objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<ReglaValidacion>> EliminarElemento(ReglaValidacion objeto)
+        public RespuestaConsulta<List<DetalleReglaValidacion>> EliminarElemento(DetalleReglaValidacion objeto)
         {
             try
             {
-                if (!String.IsNullOrEmpty(objeto.id))
+                if (!String.IsNullOrEmpty(objeto.id) || !String.IsNullOrEmpty(objeto.idReglasValidacionTipoString))
                 {
-                    objeto.id = Utilidades.Desencriptar(objeto.id);
-                    int temp;
-                    if (int.TryParse(objeto.id, out temp))
-                    {
-                        objeto.idRegla = temp;
-                    }
+                    DesencriptarObjReglasValidacion(objeto);
                 }
                 ResultadoConsulta.Clase = modulo;
-                int nuevoEstado = (int)Constantes.EstadosRegistro.Eliminado;
                 ResultadoConsulta.Usuario = user;
-                objeto.UsuarioModificacion = user;
                 var resul = clsDatos.ObtenerDatos(objeto).ToList();
 
                 if (resul.Count() == 0)
@@ -149,8 +120,7 @@ namespace GB.SIMEF.BL
                 else
                 {
                     objeto = resul.Single();
-                    objeto.idEstado = nuevoEstado;
-                    objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
+                    objeto.Estado = false;
                     ResultadoConsulta.Accion = (int)Constantes.Accion.Eliminar;
                     resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
@@ -178,7 +148,7 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<ReglaValidacion>> InsertarDatos(ReglaValidacion objeto)
+        public RespuestaConsulta<List<DetalleReglaValidacion>> InsertarDatos(DetalleReglaValidacion objeto)
         {
             try
             {
@@ -186,16 +156,20 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
 
-                objeto.UsuarioCreacion = user;
-                objeto.Codigo = objeto.Codigo.Trim();
-                objeto.idEstado = (int)EstadosRegistro.EnProceso;
-                var consultardatos = clsDatos.ObtenerDatos(new ReglaValidacion());
+                DesencriptarObjReglasValidacion(objeto);
 
-                if (consultardatos.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).Count() > 0)
+                objeto.idIndicadorVariable = objeto.idIndicadorVariable;
+                objeto.IdOperador = objeto.IdOperador;
+                objeto.idRegla = objeto.idRegla;
+                objeto.Estado = true;
+                List<DetalleIndicadorVariables> listaDetallesIndicadorVariable = clsDatosIndicadorVariable.ObtenerDatos(new DetalleIndicadorVariables(){idDetalleIndicador = objeto.idIndicadorVariable});
+                if (listaDetallesIndicadorVariable.Count < 1)
                 {
-                    throw new Exception(Errores.ReglaRegistrada);
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                    throw new Exception();
                 }
-
+                objeto.idIndicadorString = listaDetallesIndicadorVariable[0].idIndicadorString;
+                DesencriptarObjReglasValidacion(objeto);
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -221,18 +195,15 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<ReglaValidacion>> ObtenerDatos(ReglaValidacion objeto)
+        public RespuestaConsulta<List<DetalleReglaValidacion>> ObtenerDatos(DetalleReglaValidacion objeto)
         {
             try
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
-                if (!string.IsNullOrEmpty(objeto.id))
-                {
-                    int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idRegla= temp;
-                }
+
+                DesencriptarObjReglasValidacion(objeto);
+
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -246,9 +217,9 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<string>> ValidarDatos(ReglaValidacion objeto)
+        public RespuestaConsulta<List<string>> ValidarDatos(DetalleReglaValidacion objeto)
         {
-            RespuestaConsulta<List<string>> resultado = new RespuestaConsulta<List<string>>(); 
+            RespuestaConsulta<List<string>> resultado = new RespuestaConsulta<List<string>>();
             try
             {
                 resultado.Clase = modulo;
@@ -266,9 +237,34 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        RespuestaConsulta<List<ReglaValidacion>> IMetodos<ReglaValidacion>.ValidarDatos(ReglaValidacion objeto)
+        RespuestaConsulta<List<DetalleReglaValidacion>> IMetodos<DetalleReglaValidacion>.ValidarDatos(DetalleReglaValidacion objeto)
         {
             throw new NotImplementedException();
+        }
+
+        private void DesencriptarObjReglasValidacion(DetalleReglaValidacion detalleReglaValidacion)
+        {
+            if (!string.IsNullOrEmpty(detalleReglaValidacion.id))
+            {
+                int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.id), out int temp);
+                detalleReglaValidacion.idRegla = temp;
+            }
+            if (!string.IsNullOrEmpty(detalleReglaValidacion.idIndicadorVariableString))
+            {
+                int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idIndicadorVariableString), out int temp);
+                detalleReglaValidacion.idIndicadorVariable = temp;
+            }
+            if (!string.IsNullOrEmpty(detalleReglaValidacion.idIndicadorString))
+            {
+                int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idIndicadorString), out int temp);
+                detalleReglaValidacion.IdIndicador = temp;
+            }
+            if (!string.IsNullOrEmpty(detalleReglaValidacion.idReglasValidacionTipoString))
+            {
+                int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idReglasValidacionTipoString), out int temp);
+                detalleReglaValidacion.idReglasValidacionTipo = temp;
+            }
+
         }
     }
 }

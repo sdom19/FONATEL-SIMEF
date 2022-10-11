@@ -160,6 +160,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Etiqueta.
+        /// </summary>
+        public static string Etiqueta {
+            get {
+                return ResourceManager.GetString("Etiqueta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Formulario Web.
         /// </summary>
         public static string Formulario {
@@ -250,6 +259,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operador.
+        /// </summary>
+        public static string Operador {
+            get {
+                return ResourceManager.GetString("Operador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Solicitud.
         /// </summary>
         public static string Solicitud {
@@ -264,6 +282,15 @@ namespace GB.SIMEF.Resources {
         public static string Tipo {
             get {
                 return ResourceManager.GetString("Tipo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo Regla.
+        /// </summary>
+        public static string TipoRegla {
+            get {
+                return ResourceManager.GetString("TipoRegla", resourceCulture);
             }
         }
         

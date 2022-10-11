@@ -35,6 +35,7 @@ namespace GB.SIMEF.DAL
                 listaDetalles = listaDetalles.Select(x => new DetalleIndicadorVariables()
                 {
                     id = Utilidades.Encriptar(x.idDetalleIndicador.ToString()),
+                    idIndicadorString = Utilidades.Encriptar(x.idIndicador.ToString()),
                     NombreVariable = x.NombreVariable,
                     Descripcion = x.Descripcion,
                     Estado = x.Estado

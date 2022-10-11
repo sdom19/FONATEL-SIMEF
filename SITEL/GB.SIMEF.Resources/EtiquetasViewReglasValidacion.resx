@@ -120,14 +120,29 @@
   <data name="AtributosValidos" xml:space="preserve">
     <value>Atributos Válidos</value>
   </data>
+  <data name="CategoriaActualizable" xml:space="preserve">
+    <value>Categoría Actualizable</value>
+  </data>
+  <data name="CategoriaID" xml:space="preserve">
+    <value>Categoría ID</value>
+  </data>
   <data name="Clonar" xml:space="preserve">
     <value>Clonar Reglas de Validación</value>
+  </data>
+  <data name="Comparacion" xml:space="preserve">
+    <value>Comparación</value>
   </data>
   <data name="Crear" xml:space="preserve">
     <value>Crear Reglas de Validación</value>
   </data>
   <data name="Editar" xml:space="preserve">
     <value>Editar Reglas de Validación</value>
+  </data>
+  <data name="IndicadorComparacion" xml:space="preserve">
+    <value>Indicador Comparación</value>
+  </data>
+  <data name="IndicadorSalida" xml:space="preserve">
+    <value>Indicador de Salida</value>
   </data>
   <data name="LabelCodigo" xml:space="preserve">
     <value>Código</value>
@@ -141,11 +156,17 @@
   <data name="LabelNombre" xml:space="preserve">
     <value>Nombre</value>
   </data>
+  <data name="Operador" xml:space="preserve">
+    <value>Operador</value>
+  </data>
   <data name="ReglasValidacion" xml:space="preserve">
     <value>Reglas de Validación</value>
   </data>
   <data name="TipoRegla" xml:space="preserve">
     <value>Tipo de Regla</value>
+  </data>
+  <data name="ValorConstante" xml:space="preserve">
+    <value>Valor Constante</value>
   </data>
   <data name="Variable" xml:space="preserve">
     <value>Variable Dato</value>

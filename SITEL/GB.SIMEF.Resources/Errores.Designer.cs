@@ -241,6 +241,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La Regla ingresada ya se encuentra registrada.
+        /// </summary>
+        public static string ReglaRegistrada {
+            get {
+                return ResourceManager.GetString("ReglaRegistrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La Fecha Final debe ser mayor que la Fecha Inicial.
         /// </summary>
         public static string ValorFecha {

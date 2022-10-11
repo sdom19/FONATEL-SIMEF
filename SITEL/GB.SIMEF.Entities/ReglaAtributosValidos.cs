@@ -21,6 +21,6 @@ namespace GB.SIMEF.Entities
         public int idCategoriaAtributo { get; set; }
         public bool Estado { get; set; }
     
-        public virtual ReglaValidacionTipo ReglaValidacionTipo { get; set; }
+        public virtual DetalleReglaValidacion ReglaValidacionTipo { get; set; }
     }
 }
