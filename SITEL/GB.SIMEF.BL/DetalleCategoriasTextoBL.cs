@@ -186,28 +186,33 @@ namespace GB.SIMEF.BL
                 }
                 objeto.CategoriasDesagregacion =
                         clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { idCategoria = objeto.idCategoria }).Single();
-
-                List<DetalleCategoriaTexto> ObtenerListaParaComparar = clsDatos.ObtenerDatos(
-                    new DetalleCategoriaTexto() { idCategoria = objeto.idCategoria }
-                    );
-
                 int cantidadDisponible = (int)objeto.CategoriasDesagregacion.CantidadDetalleDesagregacion
                                             - objeto.CategoriasDesagregacion.DetalleCategoriaTexto.Count();
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
                 objeto.usuario = user;
+                List< DetalleCategoriaTexto> detalleCategoria = clsDatos.ObtenerDatos(new DetalleCategoriaTexto() { idCategoria = objeto.idCategoria });
+
                 if (cantidadDisponible <= 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CantidadRegistros);
                 }
-                else if (clsDatos.ObtenerDatos(new DetalleCategoriaTexto() { Codigo = objeto.Codigo, idCategoria = objeto.idCategoria }).Count() > 0)
+                else if (detalleCategoria.Where(x=>x.Codigo == objeto.Codigo).Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
                 }
-                else if (clsDatos.ObtenerDatos(new DetalleCategoriaTexto() { Etiqueta = objeto.Etiqueta, idCategoria = objeto.idCategoria }).Count() > 0)
+                else if (detalleCategoria.Where(x=>x.Etiqueta == objeto.Etiqueta.ToUpper()).Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.EtiquetaRegistrada);
+                }
+                else if (!Utilidades.rx_soloTexto.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Texto)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format( Errores.CampoConFormatoInvalido,"Etiqueta"));
                 }
                 else
                 {
@@ -224,15 +229,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.EtiquetaRegistrada)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-
-                else
-                {
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                { 
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -279,9 +278,9 @@ namespace GB.SIMEF.BL
         }
 
 
-        public void CargarExcel(HttpPostedFileBase file)
+        public bool CargarExcel(HttpPostedFileBase file)
         {
-
+            bool resultado = true;
             using (var package = new ExcelPackage(file.InputStream))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
@@ -309,10 +308,32 @@ namespace GB.SIMEF.BL
                             Etiqueta = Etiqueta,
                             Estado = true
                         };
-                        InsertarDatos(detallecategoria);
+
+                        DetalleCategoriaTexto consultarCategoria = ObtenerDatos(detallecategoria).objetoRespuesta.SingleOrDefault();
+
+                        if (consultarCategoria==null)
+                        {
+                            if (InsertarDatos(detallecategoria).HayError != 0)
+                            {
+                                resultado = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (ActualizarElemento(detallecategoria).HayError != 0)
+                            {
+                                resultado = false;
+                                break;
+                            }
+                        }
+
+                       
                     }
                 }
             }
+
+            return resultado;
         }
     }
 }

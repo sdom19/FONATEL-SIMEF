@@ -35,7 +35,7 @@ namespace GB.SIMEF.Entities
         public virtual List<CategoriasDesagregacion> DetalleCategoriaTexto { get; set; }
 
         [NotMapped]
-        public virtual CategoriasDesagregacion CategoriaDesagracion { get; set; }
+        public string NombreCategoria{ get; set; }
 
         [NotMapped]
         public string usuario { get; set; }

@@ -70,11 +70,20 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cantidad de Detalle.
+        ///   Looks up a localized string similar to Cantidad de Detalles.
         /// </summary>
         public static string Cantidad {
             get {
                 return ResourceManager.GetString("Cantidad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorías de Desagregación.
+        /// </summary>
+        public static string Categorias {
+            get {
+                return ResourceManager.GetString("Categorias", resourceCulture);
             }
         }
         
@@ -106,7 +115,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Detalle.
+        ///   Looks up a localized string similar to Agregar Detalle.
         /// </summary>
         public static string Detalle {
             get {

@@ -75,7 +75,7 @@ namespace GB.SIMEF.BL
                 {
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
-                else if (result.DetalleRelacionCategoria.Count() > objeto.CantidadCategoria)
+                else if (result.DetalleRelacionCategoria.Count() >= objeto.CantidadCategoria)
                 {
                     throw new Exception(Errores.CantidadRegistrosLimite);
                 }
@@ -85,12 +85,6 @@ namespace GB.SIMEF.BL
                 if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() >= 1)   
                 {
                     throw new Exception(Errores.NombreRegistrado);
-                }
-
-                //VALIDAR QUE NO EXCEDA EL LIMITE DE REGISTROS
-                else if (result.idCategoriaValor.Count() > objeto.CantidadCategoria)
-                {
-                    throw new Exception(Errores.CantidadRegistrosLimite);
                 }
                 else
                 {
@@ -315,13 +309,13 @@ namespace GB.SIMEF.BL
 
             try
             {
-                CategoriasDesagregacion Categoria = clsDatosTexto.ObtenerDatos(obj).Single();
+                CategoriasDesagregacion Categoria = obj;
 
                 var listaRelacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { idCategoria = Categoria.idCategoria }).ToList();
 
                 if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
                 {
-                    DateTime fecha = Categoria.DetalleCategoriaFecha.FechaMinima;
+                    DateTime fecha = (DateTime)Categoria.DetalleCategoriaFecha.FechaMinima;
 
                     while (fecha <= Categoria.DetalleCategoriaFecha.FechaMaxima)
                     {
@@ -336,15 +330,19 @@ namespace GB.SIMEF.BL
                 }
                 else if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
                 {
-
-                    int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
-
-                    for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
+                    if (Categoria.DetalleCategoriaNumerico!=null)
                     {
+                        int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
+                        for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
+                        {
+                            if (listaRelacionCategoria.Where(x => x.idCategoriaValor == i.ToString()).Count() == 0)
+                            {
+                                result.objetoRespuesta.Add(i.ToString());
+                            }
 
-                        result.objetoRespuesta.Add(i.ToString());
-
+                        }
                     }
+                   
                 }
 
                 else
@@ -392,7 +390,7 @@ namespace GB.SIMEF.BL
 
                 if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
                 {
-                    DateTime fecha = Categoria.DetalleCategoriaFecha.FechaMinima;
+                    DateTime fecha = (DateTime)Categoria.DetalleCategoriaFecha.FechaMinima;
 
                     while (fecha <= Categoria.DetalleCategoriaFecha.FechaMaxima)
                     {

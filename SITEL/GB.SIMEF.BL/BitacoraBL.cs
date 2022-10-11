@@ -17,7 +17,6 @@ namespace GB.SIMEF.BL
 
 
         private RespuestaConsulta<List<Bitacora>> ResultadoConsulta;
-        string modulo = Etiquetas.Categorias;
 
         public BitacoraBL()
         {
@@ -70,7 +69,7 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Clase = "Bitacora";
                 ResultadoConsulta.Accion = (int)Accion.Consultar;      
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;

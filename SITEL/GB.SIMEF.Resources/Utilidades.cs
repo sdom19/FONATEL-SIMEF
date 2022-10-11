@@ -14,6 +14,21 @@ namespace GB.SIMEF.Resources
     {
 
 
+        public static string RutaCarpeta(string rutaCapeta, string opcion="")
+        {
+            if (opcion==EtiquetasViewCategorias.Categorias)
+            {
+                return string.Format(@"{0}\Categorias", rutaCapeta);
+            }
+            else
+            {
+                return string.Format(@"{0}\Relaciones", rutaCapeta);
+            }
+            
+        }
+
+ 
+
         /// <summary>
         /// 22/08/2022
         /// José Navarro Acuña

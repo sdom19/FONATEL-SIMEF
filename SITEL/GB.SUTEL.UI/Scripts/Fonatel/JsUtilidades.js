@@ -120,6 +120,13 @@ $(document).on("keypress",'.solo_numeros', function (e) {
     }
 });
 
+
+
+$(document).on("paste", 'input', function (e) {
+    e.preventDefault();
+});
+
+
 function EliminarDatasource(pDataTable = ".datatable_simef") {
     $(pDataTable).DataTable().destroy();
 }

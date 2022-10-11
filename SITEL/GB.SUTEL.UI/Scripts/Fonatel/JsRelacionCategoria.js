@@ -92,7 +92,7 @@
 
                 html = html + "<tr>"
 
-                html = html + "<td scope='row'>" + detalle.CategoriaDesagracion.NombreCategoria + "</td>";
+                html = html + "<td scope='row'>" + detalle.NombreCategoria + "</td>";
 
                 html = html + "<td scope='row'>" + detalle.CategoriaAtributoValor + "</td>";
 
@@ -233,8 +233,10 @@
         "ConsultaListaRelacionDetalle": function () {
 
             $("#loading").fadeIn();
-            let idRelacion = $(JsRelacion.Controles.id).val();
-            execAjaxCall("/RelacionCategoria/ObtenerListaCategoriasDetalle?IdRelacionCategoria=" + idRelacion, "GET")
+
+            let detalleRelacionCategoria = new Object();
+            detalleRelacionCategoria.relacionid = $.urlParam("idRelacionCategoria");
+           execAjaxCall("/RelacionCategoria/ObtenerCategoriasDetalle", "POST", detalleRelacionCategoria)
                 .then((obj) => {
                     JsRelacion.Variables.ListadoDetalleRelaciones = obj.objetoRespuesta;
                     JsRelacion.Metodos.CargarTablaDetalleRelacion();
@@ -255,22 +257,16 @@
 
         "ConsultarDesagregacionId": function (selected) {
 
-
+            $("#loading").fadeIn();
             execAjaxCall("/RelacionCategoria/ObtenerDetalleDesagregacionId?selected=" + selected, "GET")
 
                 .then((obj) => {
-
                     let html = "<option value=''/>";
-
                     for (var i = 0; i < obj.objetoRespuesta.length; i++) {
-
                         html = html + "<option value='" + obj.objetoRespuesta[i] + "'>" + obj.objetoRespuesta[i] + "</option>"
                     }
-
                     $(JsRelacion.Controles.ddlDetalleDesagregacionId).html(html);
-
                 }).catch((obj) => {
-                    console.log(obj);
                     jsMensajes.Metodos.OkAlertErrorModal()
                         .set('onok', function (closeEvent) { location.reload(); })
                 }).finally(() => {
@@ -469,13 +465,11 @@
         },
 
         "CargarDetalleDesagregacion": function (index) {
-
-
             if (JsRelacion.Variables.ListadoDetalleRelaciones.length > index) {
                 JsRelacion.Variables.esModoEdicion = true;
                 JsRelacion.Consultas.DetalleCompletos();
                 JsRelacion.Variables.objEditarDetalleAtributo = JsRelacion.Variables.ListadoDetalleRelaciones[index];
-                $(JsRelacion.Controles.ddlCategoriaDetalle).val(JsRelacion.Variables.objEditarDetalleAtributo.CategoriaDesagracion.idCategoria);
+                $(JsRelacion.Controles.ddlCategoriaDetalle).val(JsRelacion.Variables.objEditarDetalleAtributo.idCategoriaAtributo);
                 $(JsRelacion.Controles.ddlCategoriaDetalle).trigger("change");
 
                 $(JsRelacion.Controles.detalleid).val(JsRelacion.Variables.objEditarDetalleAtributo.idDetalleRelacionCategoria);

@@ -17,10 +17,14 @@ namespace GB.SIMEF.BL
 
 
         private RespuestaConsulta<List<TipoDetalleCategoria>> ResultadoConsulta;
-        string modulo = Etiquetas.Categorias;
+        string modulo = "";
 
-        public TipoDetalleCategoriaBL()
+        string user = "";
+
+        public TipoDetalleCategoriaBL(string modulo, string user)
         {
+            this.modulo = modulo;
+            this.user = user;
             this.clsDatos = new TipoDetalleCategoriaDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<TipoDetalleCategoria>>();
         }

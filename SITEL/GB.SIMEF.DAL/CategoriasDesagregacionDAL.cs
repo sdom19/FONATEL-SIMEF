@@ -144,7 +144,7 @@ namespace GB.SIMEF.DAL
             {
                 detalleFecha= db.Database.SqlQuery<DetalleCategoriaFecha>("exec spActualizarCategoriasDesagregacionFecha  @idCategoria, @FechaMinima, @FechaMaxima, @Estado",
                      new SqlParameter("@idCategoria", detalleFecha.idCategoria),
-                     new SqlParameter("@FechaMinima", detalleFecha.FechaMinima),
+                     new SqlParameter("@FechaMinima",  detalleFecha.FechaMinima),
                      new SqlParameter("@FechaMaxima", detalleFecha.FechaMaxima),
                      new SqlParameter("@Estado", detalleFecha.Estado)
                 ).Single();

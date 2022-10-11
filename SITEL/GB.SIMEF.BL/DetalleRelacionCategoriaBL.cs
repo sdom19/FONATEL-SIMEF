@@ -87,9 +87,9 @@ namespace GB.SIMEF.BL
                 var RegistrosEncontrados = clsDatos.ObtenerDatos(new DetalleRelacionCategoria()
                 { IdRelacionCategoria = objeto.IdRelacionCategoria }).ToList();
 
-                RegistrosEncontrados = RegistrosEncontrados.Where(x => x.idCategoriaAtributo != objeto.idCategoriaAtributo).ToList();
+                RegistrosEncontrados = RegistrosEncontrados.Where(x => x.idCategoriaAtributo == objeto.idCategoriaAtributo).ToList();
 
-                if (clsDatos.ObtenerDatos(new DetalleRelacionCategoria() { CategoriaAtributoValor = objeto.CategoriaAtributoValor, IdRelacionCategoria = objeto.IdRelacionCategoria }).Count() > 0)
+                if (RegistrosEncontrados.Where(x=>x.CategoriaAtributoValor == objeto.CategoriaAtributoValor).Count() > 0)
                 {
                     throw new Exception(Errores.NombreRegistrado);
                 }
@@ -305,7 +305,7 @@ namespace GB.SIMEF.BL
                     objeto.IdRelacionCategoria = temp;
                 }
 
-                var resul = clsDatos.ObtenerDatos(objeto);
+                List<DetalleRelacionCategoria> resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 

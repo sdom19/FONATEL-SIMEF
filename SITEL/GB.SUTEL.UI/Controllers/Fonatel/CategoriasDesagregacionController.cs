@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -37,10 +38,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public CategoriasDesagregacionController()
         {
-            categoriaBL = new CategoriasDesagregacionBL(Etiquetas.Categorias, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            categoriaDetalleBL = new DetalleCategoriasTextoBL(Etiquetas.Categorias, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            TipoCategoriaBL = new TipoCategoriaBL();
-            TipoDetalleCategoriaBL = new TipoDetalleCategoriaBL();
+            categoriaBL = new CategoriasDesagregacionBL(EtiquetasViewCategorias.Categorias, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            categoriaDetalleBL = new DetalleCategoriasTextoBL(EtiquetasViewCategorias.Categorias, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            TipoCategoriaBL = new TipoCategoriaBL(EtiquetasViewCategorias.Categorias, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            TipoDetalleCategoriaBL = new TipoDetalleCategoriaBL(EtiquetasViewCategorias.Categorias, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
         }
 
@@ -305,19 +306,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
 
         [HttpPost]
-        public void CargaExcel()
+        public bool CargaExcel()
         {
+            bool resultado = true;
+            string ruta = Utilidades.RutaCarpeta(ConfigurationManager.AppSettings["rutaCarpetaSimef"], EtiquetasViewCategorias.Categorias);
             if (Request.Files.Count > 0)
             {       
                HttpFileCollectionBase files = Request.Files;
                HttpPostedFileBase file = files[0];
-               string fileName = file.FileName;  
-               Directory.CreateDirectory(@"E:\SIMEF\CATEGORIAS");
-               string path = Path.Combine(@"E:\SIMEF\CATEGORIAS", fileName);
-
-               categoriaDetalleBL.CargarExcel(file);
+               string fileName = file.FileName;
+               Directory.CreateDirectory(ruta);
+               string path = Path.Combine(ruta, fileName);
+               resultado= categoriaDetalleBL.CargarExcel(file);
                file.SaveAs(path);             
             }
+            return resultado;
         }
 
         /// <summary>

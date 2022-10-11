@@ -123,6 +123,9 @@
   <data name="Cantidad" xml:space="preserve">
     <value>Cantidad de Detalles</value>
   </data>
+  <data name="Categorias" xml:space="preserve">
+    <value>Categorías de Desagregación</value>
+  </data>
   <data name="Clonar" xml:space="preserve">
     <value>Clonar Categoría de Desagregación</value>
   </data>

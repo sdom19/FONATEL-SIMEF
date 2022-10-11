@@ -19,8 +19,8 @@ namespace GB.SIMEF.Entities
     {
         public DetalleCategoriaFecha()
         {
-            FechaMaxima = DateTime.Now;
-            FechaMinima = DateTime.Now;
+            FechaMaxima = null;
+            FechaMinima = null;
         }
 
         [Key]
@@ -30,11 +30,11 @@ namespace GB.SIMEF.Entities
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 
-        public System.DateTime FechaMinima { get; set; }
+        public Nullable<System.DateTime> FechaMinima { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public System.DateTime FechaMaxima { get; set; }
+        public Nullable<System.DateTime> FechaMaxima { get; set; }
         public bool Estado { get; set; }
     }
 }

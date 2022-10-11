@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -268,12 +269,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
+                return categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
                 {
                     idCategoria = selected
                 }).objetoRespuesta.Single();
-
-                result = RelacionCategoriaBL.ObtenerListaCategoria(categoria);
+            }).ContinueWith(data =>
+            {
+                result = RelacionCategoriaBL.ObtenerListaCategoria(data.Result);
             });
             return JsonConvert.SerializeObject(result);
         }
@@ -288,15 +290,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Obtiene los datos en la vista principal en el Detalle Relacion Categoria 
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<string> ObtenerListaCategoriasDetalle(string IdRelacionCategoria)
+        [HttpPost]
+        public async Task<string> ObtenerCategoriasDetalle(DetalleRelacionCategoria detalleRelacionCategoria)
         {
             RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
-
+     
             await Task.Run(() =>
             {
-                result = DetalleRelacionCategoriaBL.ObtenerDatos(new DetalleRelacionCategoria()
-                { relacionid = IdRelacionCategoria });
+                result = DetalleRelacionCategoriaBL.ObtenerDatos(detalleRelacionCategoria);
 
             });
             return JsonConvert.SerializeObject(result);
@@ -459,7 +460,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 worksheetInicio.Cells["A1"].LoadFromCollection(relacion.DetalleRelacionCategoria
 
-                    .Select(i => new { i.CategoriaDesagracion.NombreCategoria, i.CategoriaAtributoValor }), true);
+                    .Select(i => new { i.NombreCategoria, i.CategoriaAtributoValor }), true);
 
                 worksheetInicio.Cells["A1"].Value = "Categoría Atributo";
                 worksheetInicio.Cells["B1"].Value = "Detalle Relación Atributo";
@@ -500,13 +501,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public void CargarExcel()
         {
+            string ruta = Utilidades.RutaCarpeta(ConfigurationManager.AppSettings["rutaCarpetaSimef"]);
             if (Request.Files.Count > 0)
             {
                 HttpFileCollectionBase files = Request.Files;
                 HttpPostedFileBase file = files[0];
                 string fileName = file.FileName;
-                Directory.CreateDirectory(Server.MapPath("~/Simef/"));
-                string path = Path.Combine(Server.MapPath("~/Simef/"), fileName);
+                Directory.CreateDirectory(ruta);
+                string path = Path.Combine(ruta, fileName);
 
                 DetalleRelacionCategoriaBL.CargarExcel(file);
                 file.SaveAs(path);

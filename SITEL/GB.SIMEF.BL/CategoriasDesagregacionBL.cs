@@ -353,7 +353,11 @@ namespace GB.SIMEF.BL
                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaFecha.Estado = true;
-                        clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
+                        if (objeto.DetalleCategoriaFecha.FechaMaxima!=null && objeto.DetalleCategoriaFecha.FechaMinima != null)
+                        {
+                            clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
+                        }
+                       
                     }
                     else if(objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {

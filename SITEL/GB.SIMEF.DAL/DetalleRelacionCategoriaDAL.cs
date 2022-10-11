@@ -39,10 +39,12 @@ namespace GB.SIMEF.DAL
                 {
                     idDetalleRelacionCategoria = x.idDetalleRelacionCategoria,
                     IdRelacionCategoria = x.IdRelacionCategoria,
-                    CategoriaDesagracion = ObtenerCategoriaDesagracion(x.idCategoriaAtributo),
+                    idCategoriaAtributo = x.idCategoriaAtributo,
+                    NombreCategoria = ObtenerCategoriaDesagregacion(x.idCategoriaAtributo).NombreCategoria,
+
                     CategoriaAtributoValor = x.CategoriaAtributoValor,
                     Estado = x.Estado,
-                    Completo = db.RelacionCategoria.Where(i => i.idRelacionCategoria == x.IdRelacionCategoria).Single().CantidadCategoria == ListaDetalle.Count()?true:false,
+                    Completo = db.RelacionCategoria.Where(i => i.idRelacionCategoria == x.IdRelacionCategoria).Single().CantidadCategoria == ListaDetalle.Count() ? true : false,
                     id = Utilidades.Encriptar(x.idDetalleRelacionCategoria.ToString()),
                 }).ToList();
             }
@@ -82,10 +84,13 @@ namespace GB.SIMEF.DAL
         }
 
 
-        private CategoriasDesagregacion ObtenerCategoriaDesagracion(int id)
+        private CategoriasDesagregacion ObtenerCategoriaDesagregacion(int id)
         {
-            return
-            db.CategoriasDesagregacion.Where(x => x.idCategoria == id && x.idEstado == 2).FirstOrDefault();
+            CategoriasDesagregacion result = new CategoriasDesagregacion();
+            result=
+            db.CategoriasDesagregacion.Where(x => x.idCategoria == id).Single();
+
+            return result;
         }
 
     }

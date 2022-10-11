@@ -14,9 +14,9 @@ namespace GB.SIMEF.Resources
 
         public enum TipoCategoriaEnum : int
         {
-            IdUnico=1,
-            Atributo=2,
-            Actualizable=3
+            IdUnico = 1,
+            Atributo = 2,
+            Actualizable = 3
         }
 
 
@@ -25,10 +25,10 @@ namespace GB.SIMEF.Resources
         /// </summary>
         public enum TipoDetalleCategoriaEnum : int
         {
-            Numerico=1,
-            Alfanumerico=2,
-            Texto=3,
-            Fecha=4
+            Numerico = 1,
+            Alfanumerico = 2,
+            Texto = 3,
+            Fecha = 4
         }
         /// <summary>
         /// Estados de los registros
@@ -50,27 +50,27 @@ namespace GB.SIMEF.Resources
 
         public enum Accion : int
         {
-            Insertar=1,
-            Consultar=2,
-            Editar=3,        
+            Insertar = 1,
+            Consultar = 2,
+            Editar = 3,
             Eliminar = 4,
             Clonar = 5,
-            Activar=6,
-            Inactiva=7,
-            Descargar=8,
-            Visualizar=9,
-            EnviarSolicitud=10,
-            ProgramarEnvio=11,
-            EjecutarFormula=12,
-            Publicado=13,
-            NoPublicado=14
+            Activar = 6,
+            Inactiva = 7,
+            Descargar = 8,
+            Visualizar = 9,
+            EnviarSolicitud = 10,
+            ProgramarEnvio = 11,
+            EjecutarFormula = 12,
+            Publicado = 13,
+            NoPublicado = 14
         }
         /// <summary>
         /// Enum Clasificación indicador
         /// </summary>
         public enum ClasificacionIndicadorEnum : int
         {
-            SinDefinir=1,
+            SinDefinir = 1,
             Entrada = 4,
             Salida = 2,
             EntradaSalida = 3

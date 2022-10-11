@@ -364,7 +364,14 @@
                 $("#loading").fadeIn();
                 execAjaxCall("/CategoriasDesagregacion/CambiarEstadoFinalizado", "POST", categoria= categoria)
                     .then((obj) => {
-                        window.location.href = "/Fonatel/CategoriasDesagregacion/Index";
+
+
+                        jsMensajes.Metodos.OkAlertModal("La Categoria ha sido creada")
+                            .set('onok', function (closeEvent) {
+                                window.location.href = "/Fonatel/CategoriasDesagregacion/Index";
+                            });
+
+                   
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                             jsMensajes.Metodos.OkAlertErrorModal()
@@ -597,9 +604,14 @@
                     },
                     success: function (obj) {
                         $("#loading").fadeOut();
-                        jsMensajes.Metodos.OkAlertModal("Los Detalles han sido cargados")
-                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
 
+                        if (obj=="True") {
+                            jsMensajes.Metodos.OkAlertModal("Los Detalles han sido cargados")
+                                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
+                        } else {
+                            jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Detalles")
+                                .set('onok', function (closeEvent) { })
+                        }
                     }
                 }).fail(function (obj) {
                     jsMensajes.Metodos.OkAlertErrorModal()
@@ -611,7 +623,7 @@
             "ModificarDetalleCategoria": function () {
                 $("#loading").fadeIn();
                 let detalleCategoria = new Object();
-                detalleCategoria.categoriaid = $.urlParam("id");
+                detalleCategoria.categoriaid = $.urlParam("IdCategoria");
                 detalleCategoria.Codigo = $(JsCategoria.Controles.txtCodigoDetalle).val().trim();
                 detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val().trim();
                 execAjaxCall("/CategoriasDesagregacion/ModificaCategoriasDetalle", "POST", detalleCategoria)
@@ -650,10 +662,18 @@
                             for (var i = 0; i < obj.objetoRespuesta.length; i++) {
                                 dependencias = obj.objetoRespuesta[i] + "<br>"
                             }
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("La categoría ya está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
-                                .set('onok', function (closeEvent) {
-                                    JsCategoria.Consultas.CambiarEstadoCategoria(idCategoria, estado);
-                                });
+                            if (estado == jsUtilidades.Variables.EstadoRegistros.Eliminado) {
+                                jsMensajes.Metodos.ConfirmYesOrNoModal("La Categoría ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.estado)
+                                    .set('onok', function (closeEvent) {
+                                        JsCategoria.Consultas.CambiarEstadoCategoria(idCategoria, estado);
+                                    });
+                            }
+                            else {
+                                jsMensajes.Metodos.ConfirmYesOrNoModal("La Categoría ya está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                                    .set('onok', function (closeEvent) {
+                                        JsCategoria.Consultas.CambiarEstadoCategoria(idCategoria, estado);
+                                    });
+                            }                           
                         }
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -685,7 +705,12 @@ $(document).on("click", JsCategoria.Controles.btnCancelar, function (e) {
 
 $(document).on("click", JsCategoria.Controles.btnFinalizarDetalle, function (e) {
     e.preventDefault();
-    JsCategoria.Consultas.FinalizarCategoria();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Categoría?", jsMensajes.Variables.actionType.estado)
+        .set('onok', function (closeEvent) {
+            JsCategoria.Consultas.FinalizarCategoria();
+        });
+
+    
 });
 
 
@@ -878,17 +903,20 @@ $(function () {
         let modo = $.urlParam("modo");
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
             $(JsCategoria.Controles.txtCodigoCategoria).prop("disabled", true);
+            if ($(JsCategoria.Controles.ddlTipoDetalle).val()!="") {
+                $(JsCategoria.Controles.ddlTipoDetalle).prop("disabled", true);
+            }
+            if ($(JsCategoria.Controles.ddlTipoCategoria).val() != "") {
+                $(JsCategoria.Controles.ddlTipoCategoria).prop("disabled", true);
+            }           
         }
         else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
-            $(JsCategoria.Controles.ddlTipoDetalle).prop("disabled", true);
-            $(JsCategoria.Controles.ddlTipoCategoria).prop("disabled", true);
-
-            //$(JsCategoria.Controles.txtCantidadDetalleCategoria).prop("disabled", true);
-            //$(JsCategoria.Controles.txtRangoMaximaCategoria).prop("disabled", true);
-            //$(JsCategoria.Controles.txtRangoMinimaCategoria).prop("disabled", true);
-            //$(JsCategoria.Controles.txtFechaMaximaCategoria).prop("disabled", true);
-            //$(JsCategoria.Controles.txtFechaMinimaCategoria).prop("disabled", true);
-
+            if ($(JsCategoria.Controles.ddlTipoDetalle).val() != 0) {
+                $(JsCategoria.Controles.ddlTipoDetalle).prop("disabled", true);
+            }
+            if ($(JsCategoria.Controles.ddlTipoCategoria).val() != 0) {
+                $(JsCategoria.Controles.ddlTipoCategoria).prop("disabled", true);
+            }
         }
         var selected = $(JsCategoria.Controles.ddlTipoDetalle).val();
         if (selected > 0) {
