@@ -13,40 +13,47 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("ReglaValidacion")]
-    public partial class ReglaValidacion
+    
+    [Table("DetalleReglaValidacion") ]
+    public partial class DetalleReglaValidacion
     {
-       
-        public ReglaValidacion()
+      
+        public DetalleReglaValidacion()
         {
-            DetalleReglaValidacion = new List<DetalleReglaValidacion>();
+            
         }
         [Key]
+        public int idReglasValidacionTipo { get; set; }
+        public int IdOperador { get; set; }
+        public int IdIndicador { get; set; }
+        public int idIndicadorVariable { get; set; }
         public int idRegla { get; set; }
-        public string Codigo { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public int idIndicador { get; set; }
-
-        public int idEstado { get; set; }
-        public System.DateTime FechaCreacion { get; set; }
-        public string UsuarioCreacion { get; set; }
-        public Nullable<System.DateTime> FechaModificacion { get; set; }
-        public string UsuarioModificacion { get; set; }
+        public int idTipo { get; set; }
+        public bool Estado { get; set; }
     
         [NotMapped]
-
-        public EstadoRegistro EstadoRegistro { get; set; }
-
+        public string id { get; set; }
+        
         [NotMapped]
-        public String id{ get; set; }
-
+        public string idIndicadorVariableString { get; set; }
+        
         [NotMapped]
-        public string ListadoTipoReglas { get; set; }
-
+        public string idIndicadorString { get; set; }
+        
         [NotMapped]
-        public List<DetalleReglaValidacion> DetalleReglaValidacion { get; set; }
+        public string idReglasValidacionTipoString { get; set; }
+        
+        [NotMapped]
+        public ReglaValidacion reglaValidacion { get; set; }
+        
+        [NotMapped]
+        public virtual TipoReglaValidacion tipoReglaValidacion { get; set; }
+        
+        [NotMapped]
+        public virtual OperadorArismetico operadorArismetico { get; set; }
+        
+        [NotMapped]
+        public virtual DetalleIndicadorVariables detalleIndicadorVariables { get; set; }
 
         [NotMapped]
         public List<string> NoSerialize = new List<string>()
