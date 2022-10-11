@@ -106,7 +106,7 @@ namespace GB.SIMEF.Resources
             public const string no = "NO";
         }
 
-        public readonly static string defaultInputTextValue = "NA";
+        public readonly static string defaultInputTextValue = "No definido";
         public readonly static int defaultInputNumberValue = 0;
         public readonly static int defaultDropDownValue = 1; // Representa el valor: "Sin definir". En Utilidades.cs existe un método para encriptarlo
 
