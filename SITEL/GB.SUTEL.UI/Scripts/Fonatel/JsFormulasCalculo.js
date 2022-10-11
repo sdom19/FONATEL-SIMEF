@@ -599,7 +599,7 @@ $(document).on("change", JsFormulasCalculo.Controles.ControlesStep1, function (e
 });
 
 $(function () {
-    let modo = $.urlParam("modo");
+    let modo =ObtenerValorParametroUrl("modo");
 
     if ($(JsFormulasCalculo.Controles.tablaFormulas).length > 0) {
         JsFormulasCalculo.Consultas.ConsultaListaFormulas();

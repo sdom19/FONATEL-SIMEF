@@ -23,6 +23,6 @@ namespace GB.SIMEF.Entities
         public bool Estado { get; set; }
     
    
-        public virtual ReglaValidacionTipo ReglaValidacionTipo { get; set; }
+        public virtual DetalleReglaValidacion ReglaValidacionTipo { get; set; }
     }
 }

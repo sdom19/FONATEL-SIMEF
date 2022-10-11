@@ -150,6 +150,9 @@
   <data name="Estado" xml:space="preserve">
     <value>Estado</value>
   </data>
+  <data name="Etiqueta" xml:space="preserve">
+    <value>Etiqueta</value>
+  </data>
   <data name="Formulario" xml:space="preserve">
     <value>Formulario Web</value>
   </data>
@@ -180,11 +183,17 @@
   <data name="NotasEncargado" xml:space="preserve">
     <value>Notas de FONATEL para el Informante</value>
   </data>
+  <data name="Operador" xml:space="preserve">
+    <value>Operador</value>
+  </data>
   <data name="Solicitud" xml:space="preserve">
     <value>Solicitud</value>
   </data>
   <data name="Tipo" xml:space="preserve">
     <value>Tipo</value>
+  </data>
+  <data name="TipoRegla" xml:space="preserve">
+    <value>Tipo Regla</value>
   </data>
   <data name="TituloHoja" xml:space="preserve">
     <value>Título de Hoja</value>

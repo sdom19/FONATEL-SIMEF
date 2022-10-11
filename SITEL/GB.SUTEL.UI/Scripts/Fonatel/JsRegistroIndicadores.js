@@ -247,7 +247,7 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
 
                 // Este método es de visualizar en el modulo Formulario Web, es de la Etapa de diseño
                 //SE ENCUENTRA QUEMADO DE MOMENTO POR CONTRATIEMPOS DE ENTRAGA SIMEF - ANDERSON
-                let modo = $.urlParam('modo');
+                let modo =ObtenerValorParametroUrl('modo');
                 if (modo != '6') {
                     $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop("disabled", false);
                     $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop("disabled", false);
@@ -296,7 +296,7 @@ $(document).ready(function () {
     $(jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroIndicador2).prop("disabled", true);
     $(jsRegistroIndicadorFonatel.Controles.btnValidar2).prop("disabled", true);
 
-        let modo = $.urlParam('modo');
+        let modo =ObtenerValorParametroUrl('modo');
         if (modo == '6') {
             $("#loading").fadeIn();
             jsRegistroIndicadorFonatel.Metodos.CargarDatosVisualizar();

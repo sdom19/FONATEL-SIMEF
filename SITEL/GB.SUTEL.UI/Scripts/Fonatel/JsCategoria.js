@@ -257,7 +257,7 @@
             },
             "PrepararObjetoCategoria":function () {
                 let categoria = new Object();
-                categoria.Id = $.urlParam("id");
+                categoria.Id =ObtenerValorParametroUrl("id");
                 categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val().trim();
                 categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val().trim();
                 categoria.CantidadDetalleDesagregacion = $(JsCategoria.Controles.txtCantidadDetalleCategoria).val();
@@ -292,7 +292,7 @@
                 }).then(result => {
 
                     if (result) {
-                        let modo = $.urlParam("modo");
+                        let modo =ObtenerValorParametroUrl("modo");
                         if (modo == jsUtilidades.Variables.Acciones.Editar) {
                             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar  la Categoría?", jsMensajes.Variables.actionType.agregar)
                                 .set('onok', function (closeEvent) {
@@ -340,7 +340,7 @@
             },
             "ConsultaListaCategoriaDetalle": function () {
                 $("#loading").fadeIn();
-                let idCategoria = $.urlParam("IdCategoria");
+                let idCategoria =ObtenerValorParametroUrl("IdCategoria");
                 execAjaxCall("/CategoriasDesagregacion/ObtenerListaCategoriasDetalle?idCategoria="+ idCategoria, "GET")
                     .then((obj) => {
                         JsCategoria.Variables.ListadoCategoriaDetalle = obj.objetoRespuesta;
@@ -360,7 +360,7 @@
             },
             "FinalizarCategoria": function () {
                 let categoria = new Object();
-                categoria.id = $.urlParam("IdCategoria");
+                categoria.id =ObtenerValorParametroUrl("IdCategoria");
                 $("#loading").fadeIn();
                 execAjaxCall("/CategoriasDesagregacion/CambiarEstadoFinalizado", "POST", categoria= categoria)
                     .then((obj) => {
@@ -436,7 +436,7 @@
             "InsertarDetalleCategoria": function () {
                 $("#loading").fadeIn();
                 let DetalleCategoria = new Object();
-                DetalleCategoria.categoriaid = $.urlParam("IdCategoria");
+                DetalleCategoria.categoriaid =ObtenerValorParametroUrl("IdCategoria");
                 DetalleCategoria.Codigo = $(JsCategoria.Controles.txtCodigoDetalle).val().trim();
                 DetalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val().trim();
                 execAjaxCall("/CategoriasDesagregacion/InsertarCategoriasDetalle", "POST", DetalleCategoria)
@@ -554,7 +554,7 @@
             "ClonarCategoria": function () {
                 $("#loading").fadeIn();
                 let categoria = new Object();
-                categoria.Id = $.urlParam("id");
+                categoria.Id =ObtenerValorParametroUrl("id");
                 categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val().trim();
                 categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val().trim();
                 categoria.CantidadDetalleDesagregacion = $(JsCategoria.Controles.txtCantidadDetalleCategoria).val();
@@ -623,7 +623,7 @@
             "ModificarDetalleCategoria": function () {
                 $("#loading").fadeIn();
                 let detalleCategoria = new Object();
-                detalleCategoria.categoriaid = $.urlParam("IdCategoria");
+                detalleCategoria.categoriaid =ObtenerValorParametroUrl("IdCategoria");
                 detalleCategoria.Codigo = $(JsCategoria.Controles.txtCodigoDetalle).val().trim();
                 detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val().trim();
                 execAjaxCall("/CategoriasDesagregacion/ModificaCategoriasDetalle", "POST", detalleCategoria)
@@ -900,7 +900,7 @@ $(document).on("click", JsCategoria.Controles.btnEditarDetalle, function (e) {
 //}, false);
 $(function () {
     if ($(JsCategoria.Controles.FormularioCategorias).length > 0) {
-        let modo = $.urlParam("modo");
+        let modo =ObtenerValorParametroUrl("modo");
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
             $(JsCategoria.Controles.txtCodigoCategoria).prop("disabled", true);
             if ($(JsCategoria.Controles.ddlTipoDetalle).val()!="") {

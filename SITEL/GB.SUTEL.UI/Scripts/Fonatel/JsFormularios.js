@@ -646,7 +646,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e)
 // EDITAR INDICADORES
 $(document).on("click", JsFormulario.Controles.btnEditarIndicadores, function () {
     let idIndicador = $(this).val();
-    let idFormulario = $.urlParam('id');
+    let idFormulario =ObtenerValorParametroUrl('id');
     JsFormulario.Variables.NuevoIndicador = false;
     JsFormulario.Consultas.ConsultaDetalleFormularioWebAjax(idIndicador, idFormulario);
 });
@@ -672,7 +672,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
     if (JsFormulario.Metodos.ValidarDatosMinimos()) {
         jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
             .set('onok', async function (closeEvent) {
-                let modo = $.urlParam('modo');
+                let modo =ObtenerValorParametroUrl('modo');
                 let modoMsj = "";
                 if (modo == undefined) { // Crear
                     await JsFormulario.Consultas.InsertarFormularioWeb();
@@ -707,7 +707,7 @@ $(document).on("click", JsFormulario.Controles.btnVizualizarFormulario, function
 // SIGUIENTE FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, async function (e) {
     e.preventDefault();
-    let modo = $.urlParam('modo');
+    let modo =ObtenerValorParametroUrl('modo');
     if (JsFormulario.Metodos.ValidarFormularioWebTotal()) {
         if (modo == undefined) { // Crear
             await JsFormulario.Consultas.InsertarFormularioWeb();
@@ -796,7 +796,7 @@ $(function () {
     }
     if ($(JsFormulario.Controles.FormFormulario).length > 0) {
         JsFormulario.Metodos.ValidarFormularioWebCrear();
-        let modo = $.urlParam('modo');
+        let modo =ObtenerValorParametroUrl('modo');
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
             $(JsFormulario.Controles.txtCodigoFormulario).prop("disabled", true);
             JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
