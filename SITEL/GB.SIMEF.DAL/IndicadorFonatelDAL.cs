@@ -86,11 +86,11 @@ namespace GB.SIMEF.DAL
         /// 08/09/2022
         /// José Navarro Acuña
         /// Función que verifica si el indicador se encuentra en algún formulario web o una formula de calculo.
-        /// Retorna un listado indicando las dependencias según corresponda
+        /// Retorna una cadena de texto con un listado indicando las dependencias según corresponda
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
-        public List<string> VerificarUsoIndicador(Indicador pIndicador)
+        public List<string> VerificarDependenciasIndicador(Indicador pIndicador)
         {
             List<string> listaValidacion = new List<string>();
 

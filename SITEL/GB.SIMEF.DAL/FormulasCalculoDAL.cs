@@ -14,10 +14,6 @@ namespace GB.SIMEF.DAL
     {
         private SIMEFContext db;
 
-
-
-
-
         /// <summary>
         /// Actualiza los datos e inserta por medio de merge
         /// 17/08/2022
@@ -45,14 +41,10 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objFormula.UsuarioModificacion) ? DBNull.Value.ToString() : objFormula.UsuarioModificacion),
                      new SqlParameter("@IdEstado", objFormula.IdEstado)
 
-                    ).ToList();
-
-              
+                    ).ToList();              
             }
             return Listaformulas;
         }
-
-
 
         /// <summary>
         /// Listado de formulas 
@@ -68,7 +60,6 @@ namespace GB.SIMEF.DAL
                     ("execute spObtenerFormulasCalculo  @IdFormula",
                      new SqlParameter("@IdFormula", pformulasCalculo.idFormula)
                     ).ToList();
-
 
                 listaFormulasCalculo = listaFormulasCalculo.Select(x => new FormulasCalculo()
                 {
@@ -94,6 +85,45 @@ namespace GB.SIMEF.DAL
             return listaFormulasCalculo;
         }
 
-  
+        /// <summary>
+        /// 11/10/2022
+        /// José Navarro Acuña
+        /// Función que busca y retorna una lista de fórmulas de cálculo donde el Indicador proporcionado este relacionado
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        public List<FormulasCalculo> ObtenerDependenciasIndicadorConFormulasCalculo(int pIdIndicador)
+        {
+            List<FormulasCalculo> lista = new List<FormulasCalculo>();
+
+            using (db = new SIMEFContext())
+            {
+                lista = db.Database.SqlQuery<FormulasCalculo>
+                    ("execute spObtenerDependenciasIndicadorConFormulasCalculo @pIdIndicador",
+                     new SqlParameter("@pIdIndicador", pIdIndicador)
+                    ).ToList();
+
+                lista = lista.Select(x => new FormulasCalculo()
+                {
+                    id = Utilidades.Encriptar(x.idFormula.ToString()),
+                    idFormula = x.idFormula,
+                    Codigo = x.Codigo,
+                    Nombre = x.Nombre,
+                    Descripcion = x.Descripcion,
+                    IdEstado = x.IdEstado,
+                    NivelCalculoTotal = x.NivelCalculoTotal,
+                    IdFrecuencia = x.IdFrecuencia,
+                    IdIndicador = x.IdIndicador,
+                    IdIndicadorVariable = x.IdIndicadorVariable,
+                    FechaCreacion = x.FechaCreacion,
+                    FechaModificacion = x.FechaModificacion,
+                    UsuarioCreacion = x.UsuarioCreacion,
+                    UsuarioModificacion = x.UsuarioModificacion,
+                    FechaCalculo = x.FechaCalculo
+                }).ToList();
+            }
+
+            return lista;
+        }
     }
 }

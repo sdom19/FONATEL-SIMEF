@@ -70,8 +70,11 @@
                 html += `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${item.id}></button>`;
                 html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id}></button>`;
 
-                if (item.idEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso || item.idEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
+                if (item.idEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
                     html += `<button class="btn-icon-base btn-power-on" type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" value=${item.id}></button>`;
+                }
+                else if (item.idEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+                    html += `<button class="btn-icon-base btn-power-on" type="button" disabled></button>`;
                 }
                 else {
                     html += `<button class="btn-icon-base btn-power-off" type="button" data-toggle="tooltip" data-placement="top" title="Activar" value=${item.id}></button>`;
