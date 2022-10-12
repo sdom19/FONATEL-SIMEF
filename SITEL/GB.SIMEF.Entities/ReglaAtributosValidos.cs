@@ -17,10 +17,12 @@ namespace GB.SIMEF.Entities
     {
         [Key]
         public int idCompara { get; set; }
+
+        public int IdTipoReglaValidacion { get; set; }
         public int idCategoria { get; set; }
         public int idCategoriaAtributo { get; set; }
         public bool Estado { get; set; }
     
-        public virtual DetalleReglaValidacion ReglaValidacionTipo { get; set; }
+     
     }
 }
