@@ -23,6 +23,8 @@ namespace GB.SIMEF.BL
         private readonly UnidadEstudioDAL unidadEstudioDAL;
         private readonly DetalleIndicadorVariablesDAL detalleIndicadorVariablesDAL;
         private readonly DetalleIndicadorCategoriaDAL detalleIndicadorCategoriaDAL;
+        private readonly FormularioWebDAL formularioWebDAL;
+        private readonly FormulasCalculoDAL formulasCalculoDAL;
 
         public IndicadorFonatelBL(string pView, string pUser)
         {
@@ -37,6 +39,8 @@ namespace GB.SIMEF.BL
             unidadEstudioDAL = new UnidadEstudioDAL();
             detalleIndicadorVariablesDAL = new DetalleIndicadorVariablesDAL();
             detalleIndicadorCategoriaDAL = new DetalleIndicadorCategoriaDAL();
+            formularioWebDAL = new FormularioWebDAL();
+            formulasCalculoDAL = new FormulasCalculoDAL();
         }
 
         public RespuestaConsulta<List<Indicador>> ActualizarElemento(Indicador pIndicador)
@@ -74,6 +78,17 @@ namespace GB.SIMEF.BL
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // validación para cuando se desactiva un indicador. 
+                if (nuevoEstado == (int)EstadosRegistro.Desactivado)
+                {
+                    if (pIndicador.idEstado == (int)EstadosRegistro.EnProceso) { // Para desactivar tiene que estar en estado "Activo"
+                        errorControlado = true;
+                        throw new Exception(Errores.NoRegistrosActualizar);
+                    }
+
+                    CambioEstadoDependenciasIndicador(pIndicador, EstadosRegistro.EnProceso); // cambiar de estado las dependencias del indicador
                 }
 
                 // actualizar el estado del indicador
@@ -152,7 +167,7 @@ namespace GB.SIMEF.BL
                 pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).FirstOrDefault();
 
                 PrepararObjetoIndicador(pIndicador);
-                var result = indicadorFonatelDAL.VerificarUsoIndicador(pIndicador);
+                List<string> result = indicadorFonatelDAL.VerificarDependenciasIndicador(pIndicador);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -675,6 +690,36 @@ namespace GB.SIMEF.BL
                 pIndicador.IdFrecuencia = number;
                 pIndicador.FrecuenciaEnvio.idFrecuencia = pIndicador.FrecuenciaEnvio != null ? number : 0;
             }
+        }
+
+        /// <summary>
+        /// 11/10/2022
+        /// José Navarro Acuña
+        /// Permite cambiar de estado todas las dependencias que se encuentren asociadas al indicador proporcionado
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        private bool CambioEstadoDependenciasIndicador(Indicador pIndicador, EstadosRegistro pNuevoEstado)
+        {
+            List<FormularioWeb> listaFormularioWeb = formularioWebDAL.ObtenerDependenciasIndicadorConFormulariosWeb(pIndicador.idIndicador);
+
+            foreach (FormularioWeb formulario in listaFormularioWeb)
+            {
+                formulario.idEstado = (int)pNuevoEstado;
+                formulario.UsuarioModificacion = user;
+                formularioWebDAL.ActualizarDatos(formulario);
+            }
+            
+            List<FormulasCalculo> listaFormulas = formulasCalculoDAL.ObtenerDependenciasIndicadorConFormulasCalculo(pIndicador.idIndicador);
+
+            foreach (FormulasCalculo formula in listaFormulas)
+            {
+                formula.IdEstado = (int)pNuevoEstado;
+                formula.UsuarioModificacion = user;
+                formulasCalculoDAL.ActualizarDatos(formula);
+            }
+
+            return true;
         }
     }
 }
