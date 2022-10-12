@@ -42,5 +42,27 @@ namespace GB.SIMEF.DAL
 
             return ListaDetalle;
         }
+
+        public List<FormularioWeb> ObtenerListaFormularios(DetalleSolicitudFormulario detalleSolicitud)
+        {
+
+            List<FormularioWeb> listaFormularios  = new List<FormularioWeb>();
+
+            using (db = new SIMEFContext())
+            {
+                listaFormularios = db.Database.SqlQuery<FormularioWeb>(
+                    "execute spObtenerFormularioXSolicitudLista @idSolicitud",
+                    new SqlParameter("@idSolicitud", detalleSolicitud.IdSolicitud)
+                    ).ToList();
+
+                listaFormularios = listaFormularios.Select(x => new FormularioWeb()
+                {
+                    Codigo = x.Codigo,
+                    Nombre = x.Nombre,
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
+                }).ToList();
+            }
+            return listaFormularios;
+        }
     }
 }

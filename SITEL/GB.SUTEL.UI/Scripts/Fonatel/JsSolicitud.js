@@ -121,7 +121,6 @@
 
                 }
 
-
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button>";
 
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Envío' class='btn-icon-base btn-sent'></button>";
@@ -139,122 +138,30 @@
             JsSolicitud.Variables.ListadoSolicitudes = [];
         },
 
+        "CargarTablaFormulario": function () {
+
+            EliminarDatasource();
+            let html = "";
+            for (var i = 0; i < JsSolicitud.Variables.ListadoFormulario.length; i++) {
+                let solicitud = JsSolicitud.Variables.ListadoFormulario[i];
+
+                html = html + "<tr>";
+
+                html = html + "<td>" + solicitud.Codigo + "</td>";
+                html = html + "<td>" + solicitud.Nombre + "</td>";
+
+                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button></td></tr>";
+
+            }
+
+            $(JsSolicitud.Controles.TablaFormulario).html(html);
+            CargarDatasource();
+            JsSolicitud.Variables.ListadoFormulario = [];
+        },
+
         "RemoverItemDataTable": function (pDataTable, pItem) {
 
             $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
-        },
-
-        "ValidarNombreyCodigo": function () {
-
-            let validar = true;
-
-            $(JsSolicitud.Controles.CodigoHelp).addClass("hidden");
-            $(JsSolicitud.Controles.nombreHelp).addClass("hidden");
-            $(JsSolicitud.Controles.txtCodigo).parent().addClass("has-error");
-            $(JsSolicitud.Controles.txtNombre).parent().addClass("has-error");
-
-            let codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
-            let nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
-
-            if (codigo.length == 0) {
-                $(JsSolicitud.Controles.CodigoHelp).removeClass("hidden");
-                $(JsSolicitud.Controles.txtCodigo).parent().addClass("has-error");
-                Validar = false;
-            } else {
-                $(JsSolicitud.Controles.txtCodigo).parent().removeClass("has-error");
-            }
-
-            if (nombre.length == 0) {
-                $(JsSolicitud.Controles.nombreHelp).removeClass("hidden");
-                $(JsSolicitud.Controles.txtNombre).parent().addClass("has-error");
-                validar = false;
-            } else{
-                $(JsSolicitud.Controles.txtNombre).parent().removeClass("has-error");
-                Validar = false;
-            }
-
-            return validar;
-        },
-
-        "ValidarControles": function () {
-            let validar = true;
-            $(JsSolicitud.Controles.CodigoHelp).addClass("hidden");
-            $(JsSolicitud.Controles.nombreHelp).addClass("hidden");
-            $(JsSolicitud.Controles.FechaInicioHelp).addClass("hidden");
-            $(JsSolicitud.Controles.FechaFinHelp).addClass("hidden");
-            $(JsSolicitud.Controles.FuentesHelp).addClass("hidden");
-            $(JsSolicitud.Controles.FormulariosHelp).addClass("hidden");
-            $(JsSolicitud.Controles.ddlMesSolicitudHelp).addClass("hidden");
-            $(JsSolicitud.Controles.ddlAnoSolicitudHelp).addClass("hidden");
-            $(JsSolicitud.Controles.txtMensajeSolicitudHelp).addClass("hidden");
-
-            let codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
-            let nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
-            let fechainicio = $(JsSolicitud.Controles.txtFechaInicio).val().trim();
-            let fechaFin = $(JsSolicitud.Controles.txtFechaFin).val().trim();
-            let fuentes = $(JsSolicitud.Controles.ddlFuentes).val().trim();
-            let CantidadFormulario = $(JsSolicitud.Controles.TxtCantidadFormulario).val().trim();
-            let mes = $(JsSolicitud.Controles.ddlMesSolicitud).val().trim();
-            let anno = $(JsSolicitud.Controles.ddlAnoSolicitud).val().trim();
-            let mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
-
-            if (codigo.length == 0) {
-                $(JsSolicitud.Controles.CodigoHelp).removeClass("hidden");
-                Validar = false;
-            }
-            if (nombre.length == 0) {
-                $(JsSolicitud.Controles.nombreHelp).removeClass("hidden");
-                validar = false;
-            }
-            if (fechainicio == "0001-01-01") {
-                $(JsSolicitud.Controles.FechaInicioHelp).removeClass("hidden");
-                validar = false;
-            }
-            if (fechaFin == "0001-01-01") {
-                $(JsSolicitud.Controles.FechaFinHelp).removeClass("hidden");
-                validar = false;
-            }
-            if (fuentes.length == 0) {
-                $(JsSolicitud.Controles.FuentesHelp).removeClass("hidden");
-                validar = false;
-            }
-            if (CantidadFormulario == 0) {
-                $(JsSolicitud.Controles.FormulariosHelp).removeClass("hidden");
-                validar = false;
-            }
-            if (mes.length == 0) {
-                $(JsSolicitud.Controles.ddlMesSolicitudHelp).removeClass("hidden");
-                validar = false;
-            }
-            if (anno.length == 0) {
-                $(JsSolicitud.Controles.ddlAnoSolicitudHelp).removeClass("hidden");
-                validar = false;
-            }
-            if (mensaje.length == 0) {
-                $(JsSolicitud.Controles.txtMensajeSolicitudHelp).removeClass("hidden");
-                validar = false;
-            }
-            return validar;
-        },
-
-        "ValidarFormularioCrear": function () {
-
-            let codigo = $(JsSolicitud.Controles.txtCodigo).val() == undefined ? "" : $(JsSolicitud.Controles.txtCodigo).val().trim();
-            let nombre = $(JsSolicitud.Controles.txtNombre).val() == undefined ? "" : $(JsSolicitud.Controles.txtNombre).val().trim();
-
-            if (codigo.length > 0 && nombre.length > 0
-                && $(JsSolicitud.Controles.txtFechaInicio).val().trim() != "0001-01-01" && $(JsSolicitud.Controles.txtFechaFin).val().trim() != "0001-01-01"
-                && $(JsSolicitud.Controles.ddlFuentes).val().trim().length > 0 && $(JsSolicitud.Controles.TxtCantidadFormulario).val().trim() != 0
-                && $(JsSolicitud.Controles.ddlMesSolicitud).val().trim().length > 0 && $(JsSolicitud.Controles.ddlAnoSolicitud).val().trim().length > 0
-                && $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim().length > 0) {
-
-                $(JsSolicitud.Controles.btnSiguienteSolicitud).prop("disabled", false);
-                $(JsSolicitud.Controles.step2).prop("disabled", false);
-            }
-            else {
-                $(JsSolicitud.Controles.btnSiguienteSolicitud).prop("disabled", true);
-                $(JsSolicitud.Controles.step2).prop("disabled", true);
-            }
         },
 
         "InsertarSolicitud": function () {
@@ -318,7 +225,7 @@
                     console.log(obj);
                     InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
 
-                    if (JsSolicitud.Metodos.ValidarControles()) {
+                    if (JsSolicitud.Consultas.ValidarControles()) {
                         $(JsSolicitud.Controles.step2).trigger('click');
                     }
 
@@ -524,6 +431,7 @@
 
                             $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change');
 
+                            JsSolicitud.Metodos.CargarTablaFormulario();
 
                         });
                 }).catch((obj) => {
@@ -631,6 +539,119 @@
                 });
         },
 
+        "ValidarNombreyCodigo": function () {
+
+            let validar = true;
+
+            $(JsSolicitud.Controles.CodigoHelp).addClass("hidden");
+            $(JsSolicitud.Controles.nombreHelp).addClass("hidden");
+            $(JsSolicitud.Controles.txtCodigo).parent().addClass("has-error");
+            $(JsSolicitud.Controles.txtNombre).parent().addClass("has-error");
+
+            let codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
+            let nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
+
+            if (codigo.length == 0) {
+                $(JsSolicitud.Controles.CodigoHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.txtCodigo).parent().addClass("has-error");
+                Validar = false;
+            } else {
+                $(JsSolicitud.Controles.txtCodigo).parent().removeClass("has-error");
+            }
+
+            if (nombre.length == 0) {
+                $(JsSolicitud.Controles.nombreHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.txtNombre).parent().addClass("has-error");
+                validar = false;
+            } else {
+                $(JsSolicitud.Controles.txtNombre).parent().removeClass("has-error");
+                Validar = false;
+            }
+
+            return validar;
+        },
+
+        "ValidarControles": function () {
+            let validar = true;
+            $(JsSolicitud.Controles.CodigoHelp).addClass("hidden");
+            $(JsSolicitud.Controles.nombreHelp).addClass("hidden");
+            $(JsSolicitud.Controles.FechaInicioHelp).addClass("hidden");
+            $(JsSolicitud.Controles.FechaFinHelp).addClass("hidden");
+            $(JsSolicitud.Controles.FuentesHelp).addClass("hidden");
+            $(JsSolicitud.Controles.FormulariosHelp).addClass("hidden");
+            $(JsSolicitud.Controles.ddlMesSolicitudHelp).addClass("hidden");
+            $(JsSolicitud.Controles.ddlAnoSolicitudHelp).addClass("hidden");
+            $(JsSolicitud.Controles.txtMensajeSolicitudHelp).addClass("hidden");
+
+            let codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
+            let nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
+            let fechainicio = $(JsSolicitud.Controles.txtFechaInicio).val().trim();
+            let fechaFin = $(JsSolicitud.Controles.txtFechaFin).val().trim();
+            let fuentes = $(JsSolicitud.Controles.ddlFuentes).val().trim();
+            let CantidadFormulario = $(JsSolicitud.Controles.TxtCantidadFormulario).val().trim();
+            let mes = $(JsSolicitud.Controles.ddlMesSolicitud).val().trim();
+            let anno = $(JsSolicitud.Controles.ddlAnoSolicitud).val().trim();
+            let mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
+
+            if (codigo.length == 0) {
+                $(JsSolicitud.Controles.CodigoHelp).removeClass("hidden");
+                Validar = false;
+            }
+            if (nombre.length == 0) {
+                $(JsSolicitud.Controles.nombreHelp).removeClass("hidden");
+                validar = false;
+            }
+            if (fechainicio == "0001-01-01") {
+                $(JsSolicitud.Controles.FechaInicioHelp).removeClass("hidden");
+                validar = false;
+            }
+            if (fechaFin == "0001-01-01") {
+                $(JsSolicitud.Controles.FechaFinHelp).removeClass("hidden");
+                validar = false;
+            }
+            if (fuentes.length == 0) {
+                $(JsSolicitud.Controles.FuentesHelp).removeClass("hidden");
+                validar = false;
+            }
+            if (CantidadFormulario == 0) {
+                $(JsSolicitud.Controles.FormulariosHelp).removeClass("hidden");
+                validar = false;
+            }
+            if (mes.length == 0) {
+                $(JsSolicitud.Controles.ddlMesSolicitudHelp).removeClass("hidden");
+                validar = false;
+            }
+            if (anno.length == 0) {
+                $(JsSolicitud.Controles.ddlAnoSolicitudHelp).removeClass("hidden");
+                validar = false;
+            }
+            if (mensaje.length == 0) {
+                $(JsSolicitud.Controles.txtMensajeSolicitudHelp).removeClass("hidden");
+                validar = false;
+            }
+            return validar;
+        },
+
+        "ValidarFormularioCrear": function () {
+
+            let codigo = $(JsSolicitud.Controles.txtCodigo).val() == undefined ? "" : $(JsSolicitud.Controles.txtCodigo).val().trim();
+            let nombre = $(JsSolicitud.Controles.txtNombre).val() == undefined ? "" : $(JsSolicitud.Controles.txtNombre).val().trim();
+
+            if (codigo.length > 0 && nombre.length > 0
+                && $(JsSolicitud.Controles.txtFechaInicio).val().trim() != "0001-01-01" && $(JsSolicitud.Controles.txtFechaFin).val().trim() != "0001-01-01"
+                && $(JsSolicitud.Controles.ddlFuentes).val().trim().length > 0 && $(JsSolicitud.Controles.TxtCantidadFormulario).val().trim() != 0
+                && $(JsSolicitud.Controles.ddlMesSolicitud).val().trim().length > 0 && $(JsSolicitud.Controles.ddlAnoSolicitud).val().trim().length > 0
+                && $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim().length > 0) {
+
+                $(JsSolicitud.Controles.btnSiguienteSolicitud).prop("disabled", false);
+                $(JsSolicitud.Controles.step2).prop("disabled", false);
+            }
+            else {
+                $(JsSolicitud.Controles.btnSiguienteSolicitud).prop("disabled", true);
+                $(JsSolicitud.Controles.step2).prop("disabled", true);
+            }
+        },
+
         "ConsultaListaSolicitudes": function () {
 
             $("#loading").fadeIn();
@@ -650,7 +671,32 @@
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
-        }
+        },
+
+        "ConsultaListaFormulario": function () {
+
+            $("#loading").fadeIn();
+
+            let Solicitud = new Object();
+            Solicitud.id = ObtenerValorParametroUrl("id");
+
+            execAjaxCall("/FormularioWeb/ObtenerFormulariosWeb", "POST", Solicitud)
+                .then((obj) => {
+                    JsSolicitud.Variables.ListadoFormulario = obj.objetoRespuesta;
+                    JsSolicitud.Metodos.CargarTablaFormulario();
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
     }
 }
 
@@ -750,9 +796,9 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
 
     let CamposVacios = "Existen campos vacíos. "
 
-    if (JsSolicitud.Metodos.ValidarNombreyCodigo()) {
+    if (JsSolicitud.Consultas.ValidarNombreyCodigo()) {
 
-        //if (JsSolicitud.Metodos.ValidarControles()) {
+        //if (JsSolicitud.Consultas.ValidarControles()) {
         //    CamposVacios = ""
         //}
 
@@ -763,7 +809,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
                     JsSolicitud.Metodos.EditarSolicitud();
                 })
                 .set('oncancel', function (closeEvent) {
-                    JsSolicitud.Metodos.ValidarControles();
+                    JsSolicitud.Consultas.ValidarControles();
                 });
 
         } else if (modo == jsUtilidades.Variables.Acciones.Clonar)
@@ -773,7 +819,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
                     JsSolicitud.Metodos.ClonarSolicitud();
                 })
                 .set('oncancel', function (closeEvent) {
-                    JsSolicitud.Metodos.ValidarControles();
+                    JsSolicitud.Consultas.ValidarControles();
                 });
 
         }
@@ -783,7 +829,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
                     JsSolicitud.Metodos.InsertarSolicitud();
                 })
                 .set('oncancel', function (closeEvent) {
-                    JsSolicitud.Metodos.ValidarControles();
+                    JsSolicitud.Consultas.ValidarControles();
                 });
         }
     }
@@ -847,13 +893,13 @@ $(document).on("click", JsSolicitud.Controles.btnSiguienteSolicitud, function (e
 
     if (modo == jsUtilidades.Variables.Acciones.Editar) {
 
-        if (JsSolicitud.Metodos.ValidarControles()) {
+        if (JsSolicitud.Consultas.ValidarControles()) {
             $(JsSolicitud.Controles.step2).trigger('click');
         }
 
     } else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
 
-        if (JsSolicitud.Metodos.ValidarControles()) {
+        if (JsSolicitud.Consultas.ValidarControles()) {
             $(JsSolicitud.Controles.step2).trigger('click');
         }
 
@@ -896,11 +942,11 @@ $(document).on("click", JsSolicitud.Controles.btnAtrasSolicitud, function (e) {
 });
 
 $(document).on("keyup", JsSolicitud.Controles.ControlesStep1, function (e) {
-    JsSolicitud.Metodos.ValidarFormularioCrear();
+    JsSolicitud.Consultas.ValidarFormularioCrear();
 });
 
 $(document).on("change", JsSolicitud.Controles.ControlesStep1, function (e) {
-    JsSolicitud.Metodos.ValidarFormularioCrear();
+    JsSolicitud.Consultas.ValidarFormularioCrear();
 });
 
 $(function () {
@@ -912,10 +958,14 @@ $(function () {
     }
     else if (modo == jsUtilidades.Variables.Acciones.Editar) {
         $(JsSolicitud.Controles.txtCodigo).prop("disabled", true);
-        JsSolicitud.Metodos.ValidarFormularioCrear();
+        JsSolicitud.Consultas.ValidarFormularioCrear();
     }
     else {
-        JsSolicitud.Metodos.ValidarFormularioCrear();
+        JsSolicitud.Consultas.ValidarFormularioCrear();
+    }
+
+    if ($(JsSolicitud.Controles.TablaFormulario).length > 0) {
+        JsSolicitud.Consultas.ConsultaListaFormulario();
     }
 
     if ($(JsSolicitud.Controles.TxtCantidadFormulario).val() == 0) {

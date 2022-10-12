@@ -147,14 +147,60 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<DetalleSolicitudFormulario>> ObtenerDatos(DetalleSolicitudFormulario objeto)
+        public RespuestaConsulta<List<FormularioWeb>> ObtenerListaFormularios(DetalleSolicitudFormulario objeto)
         {
-            throw new NotImplementedException();
+
+            RespuestaConsulta<List<FormularioWeb>> ResulFormularios = new RespuestaConsulta<List<FormularioWeb>>();
+
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.IdSolicitud = temp;
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(objeto.Formularioid))
+                {
+                    objeto.Formularioid = Utilidades.Desencriptar(objeto.Formularioid);
+                    int temp;
+                    if (int.TryParse(objeto.Formularioid, out temp))
+                    {
+                        objeto.IdFormulario = temp;
+                    }
+                }
+
+                var resul = clsDatos.ObtenerListaFormularios(objeto);
+
+                ResulFormularios.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+            }
+            catch (Exception ex)
+            {
+                ResulFormularios.HayError = (int)Constantes.Error.ErrorSistema;
+                ResulFormularios.MensajeError = ex.Message;
+            }
+
+            return ResulFormularios;
         }
 
         public RespuestaConsulta<List<DetalleSolicitudFormulario>> ValidarDatos(DetalleSolicitudFormulario objeto)
         {
             throw new NotImplementedException();
         }
+
+        public RespuestaConsulta<List<DetalleSolicitudFormulario>> ObtenerDatos(DetalleSolicitudFormulario objeto)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

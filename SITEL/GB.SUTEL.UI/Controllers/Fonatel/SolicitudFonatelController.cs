@@ -302,6 +302,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region METODOS DE DETALLES DE SOLICITUDES
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaFormulario(DetalleSolicitudFormulario Solicitud)
+        {
+            RespuestaConsulta<List<FormularioWeb>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = detalleSolicitudesBL.ObtenerListaFormularios(Solicitud);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
         /// Fecha: 10/10/2022
         /// Francisco Vindas
         /// Metodo para insertar detalles solicitudes de informacion
