@@ -180,6 +180,9 @@
   <data name="NoRegistrosActualizar" xml:space="preserve">
     <value>No se encuentran registros</value>
   </data>
+  <data name="ReglaRegistrada" xml:space="preserve">
+    <value>La Regla ya se encuentra registada</value>
+  </data>
   <data name="ValorFecha" xml:space="preserve">
     <value>La Fecha Final debe ser mayor que la Fecha Inicial</value>
   </data>

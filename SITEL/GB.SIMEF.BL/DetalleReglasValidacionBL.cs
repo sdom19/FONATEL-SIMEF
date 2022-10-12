@@ -68,12 +68,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.ReglaRegistrada)
+                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
                 {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
-                {
+                 
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
 
@@ -145,7 +142,7 @@ namespace GB.SIMEF.BL
             switch (objeto.IdTipo)
             {
                 case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
-                    clsDatosIndicadorVariable.ActualizarDatos(objeto.ReglaAtributosValidos);
+                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.ReglaAtributosValidos);
                     break;
                 default:
                     break;
@@ -167,6 +164,7 @@ namespace GB.SIMEF.BL
                 //bjeto.idIndicadorString = listaDetallesIndicadorVariable[0].idIndicadorString;
                 DesencriptarObjReglasValidacion(objeto);
                 var resul = clsDatos.ActualizarDatos(objeto);
+                //AgregarTipoDetalleReglaValidacion(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 
