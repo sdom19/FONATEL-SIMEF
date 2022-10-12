@@ -48,18 +48,9 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.Usuario = user;
 
                     string Codigo = objeto.Codigo.Trim();
-                    string Nombre = objeto.Nombre;
+                    string Nombre = objeto.Nombre.Trim();
                     int Indicador = objeto.idIndicador;
                     string Descripcion = objeto.Descripcion;
-                    //int Variable = objeto.CatidadVariableDato;
-                    //int IndicadorComparacion = objeto.IndicadorComparacion;
-                    //int VariableComparacion = objeto.VariableComparacion;
-                    //objeto.Constante;
-                    //objeto.Categoria;
-                    //objeto.Atributos;
-                    //objeto.CategoriaActualizable;
-                    //objeto.IndicadorSalida;
-
                     var resul = clsDatos.ObtenerDatos(new ReglaValidacion());
                     string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.idRegla == objeto.idRegla).Single());
                     objeto = resul.Where(x => x.idRegla == objeto.idRegla).Single();
@@ -67,10 +58,12 @@ namespace GB.SIMEF.BL
 
                     if (resul.Where(x => x.idRegla == objeto.idRegla).Count() == 0)
                     {
+                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.NoRegistrosActualizar);
                     }
                     else if (resul.Where(x => x.idRegla != objeto.idRegla && x.Codigo.ToUpper() == Codigo.ToUpper()).Count() > 0)
                     {
+                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.ReglaRegistrada);
                     }
                     else
@@ -97,18 +90,11 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-
-                if (ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.ReglaRegistrada)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
-                }
-
-
                 ResultadoConsulta.MensajeError = ex.Message;
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
             }
             return ResultadoConsulta;
         }
@@ -193,6 +179,7 @@ namespace GB.SIMEF.BL
 
                 if (consultardatos.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.ReglaRegistrada);
                 }
 
@@ -206,12 +193,9 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.ReglaRegistrada)
+                if (ResultadoConsulta.HayError!= (int)Constantes.Error.ErrorControlado)
                 {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
-                {
+                  
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
 

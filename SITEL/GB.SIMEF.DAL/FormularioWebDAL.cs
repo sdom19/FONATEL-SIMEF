@@ -138,6 +138,44 @@ namespace GB.SIMEF.DAL
                     ).Single();
         }
 
+        /// <summary>
+        /// 11/10/2022
+        /// José Navarro Acuña
+        /// Función que busca y retorna una lista de formularios web donde el Indicador proporcionado este relacionado
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        public List<FormularioWeb> ObtenerDependenciasIndicadorConFormulariosWeb(int pIdIndicador)
+        {
+            List<FormularioWeb> lista = new List<FormularioWeb>();
+
+            using (db = new SIMEFContext())
+            {
+                lista = db.Database.SqlQuery<FormularioWeb>
+                    ("execute spObtenerDependenciasIndicadorConFormulariosWeb @pIdIndicador",
+                     new SqlParameter("@pIdIndicador", pIdIndicador)
+                    ).ToList();
+
+                lista = lista.Select(x => new FormularioWeb()
+                {
+                    id = Utilidades.Encriptar(x.idFormulario.ToString()),
+                    idFormulario = x.idFormulario,
+                    Codigo = x.Codigo,
+                    Nombre = x.Nombre,
+                    Descripcion = x.Descripcion,
+                    CantidadIndicadores = x.CantidadIndicadores,
+                    idFrecuencia = x.idFrecuencia,
+                    FechaCreacion = x.FechaCreacion,
+                    UsuarioCreacion = x.UsuarioCreacion,
+                    FechaModificacion = x.FechaModificacion,
+                    UsuarioModificacion = x.UsuarioModificacion,
+                    idEstado = x.idEstado,
+                }).ToList();
+            }
+
+            return lista;
+        }
+
         #endregion
 
         private ICollection<DetalleFormularioWeb> ListaDetalleFormularioWeb(int id)

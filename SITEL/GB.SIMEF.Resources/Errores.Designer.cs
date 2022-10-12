@@ -151,6 +151,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La cantidad ingresada en Cantidad de Atributos no puede ser menor al valor actual.
+        /// </summary>
+        public static string CantidadRegistrosLimiteRelaciones {
+            get {
+                return ResourceManager.GetString("CantidadRegistrosLimiteRelaciones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se excedió la cantidad de registros establecidos.
         /// </summary>
         public static string CatidadIndicadoresExcedido {
@@ -241,7 +250,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La Regla ingresada ya se encuentra registrada.
+        ///   Looks up a localized string similar to La Regla ya se encuentra registada.
         /// </summary>
         public static string ReglaRegistrada {
             get {

@@ -13,6 +13,8 @@ namespace GB.SIMEF.BL
     {
         private readonly DetalleReglasValicionDAL clsDatos;
         private readonly DetalleIndicadorVariablesDAL clsDatosIndicadorVariable;
+        private readonly ReglaValidacionAtributosValidosDAL clsReglaValidacionAtributosValidosDAL;
+
         private RespuestaConsulta<List<DetalleReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
         string user;
@@ -21,8 +23,9 @@ namespace GB.SIMEF.BL
         {
             this.modulo = modulo;
             this.user = user;
-            clsDatos = new DetalleReglasValicionDAL();
-            clsDatosIndicadorVariable = new DetalleIndicadorVariablesDAL();
+            this.clsDatos = new DetalleReglasValicionDAL();
+            this.clsDatosIndicadorVariable = new DetalleIndicadorVariablesDAL();
+            this.clsReglaValidacionAtributosValidosDAL = new ReglaValidacionAtributosValidosDAL();
             ResultadoConsulta = new RespuestaConsulta<List<DetalleReglaValidacion>>();
         }
 
@@ -43,26 +46,15 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
                     ResultadoConsulta.Usuario = user;
-
-                    int IdReglasValidacionTipo = objeto.idReglasValidacionTipo;
-                    int IdRegla = objeto.idRegla;
+                    int IdReglasValidacionTipo = objeto.IdReglasValidacionTipo;
+                    int IdRegla = objeto.IdRegla;
                     int IdOperador = objeto.IdOperador;
-                    int Indicador = objeto.IdIndicador;
-                    int idindicadorVariable = objeto.idIndicadorVariable;
-
                     var resul = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
-                    //string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.idReglasValidacionTipo == objeto.idReglasValidacionTipo).Single());
-                    objeto = resul.Where(x => x.idRegla == objeto.idRegla).Single();
-
-
-                    objeto.idIndicadorVariable = idindicadorVariable;
-                    objeto.IdIndicador = Indicador;
+                    //string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.IdReglasValidacionTipo == objeto.IdReglasValidacionTipo).Single());
+                    objeto = resul.Where(x => x.IdRegla == objeto.IdRegla).Single();
                     objeto.IdOperador = IdOperador;
-
                     clsDatos.ActualizarDatos(objeto);
-
                     var nuevoValor = clsDatos.ObtenerDatos(objeto).Single();
-
                     string jsonNuevoValor = SerializarObjetoBitacora(nuevoValor);
 
                     ResultadoConsulta.objetoRespuesta = resul;
@@ -76,12 +68,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.ReglaRegistrada)
+                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
                 {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
-                {
+                 
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
 
@@ -148,6 +137,19 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        private void AgregarTipoDetalleReglaValidacion(DetalleReglaValidacion objeto)
+        {
+            switch (objeto.IdTipo)
+            {
+                case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
+                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.ReglaAtributosValidos);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
         public RespuestaConsulta<List<DetalleReglaValidacion>> InsertarDatos(DetalleReglaValidacion objeto)
         {
             try
@@ -155,36 +157,21 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
-
-                DesencriptarObjReglasValidacion(objeto);
-
-                objeto.idIndicadorVariable = objeto.idIndicadorVariable;
                 objeto.IdOperador = objeto.IdOperador;
-                objeto.idRegla = objeto.idRegla;
+                objeto.IdRegla = objeto.IdRegla;
                 objeto.Estado = true;
-                List<DetalleIndicadorVariables> listaDetallesIndicadorVariable = clsDatosIndicadorVariable.ObtenerDatos(new DetalleIndicadorVariables(){idDetalleIndicador = objeto.idIndicadorVariable});
-                if (listaDetallesIndicadorVariable.Count < 1)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
-                    throw new Exception();
-                }
-                objeto.idIndicadorString = listaDetallesIndicadorVariable[0].idIndicadorString;
+                //List<DetalleIndicadorVariables> listaDetallesIndicadorVariable = clsDatosIndicadorVariable.ObtenerDatos(new DetalleIndicadorVariables(){idDetalleIndicador = objeto.idIndicadorVariable});
+                //bjeto.idIndicadorString = listaDetallesIndicadorVariable[0].idIndicadorString;
                 DesencriptarObjReglasValidacion(objeto);
                 var resul = clsDatos.ActualizarDatos(objeto);
+                //AgregarTipoDetalleReglaValidacion(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
-                //string JsonNuevoValor = SerializarObjetoBitacora(resul.Where(x => x.Codigo == objeto.Codigo.ToUpper()).Single());
-                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                //     ResultadoConsulta.Usuario,
-                //     ResultadoConsulta.Clase, objeto.Codigo, "", "", JsonNuevoValor);
+
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.ReglaRegistrada)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
+                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
@@ -247,22 +234,12 @@ namespace GB.SIMEF.BL
             if (!string.IsNullOrEmpty(detalleReglaValidacion.id))
             {
                 int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.id), out int temp);
-                detalleReglaValidacion.idRegla = temp;
-            }
-            if (!string.IsNullOrEmpty(detalleReglaValidacion.idIndicadorVariableString))
-            {
-                int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idIndicadorVariableString), out int temp);
-                detalleReglaValidacion.idIndicadorVariable = temp;
-            }
-            if (!string.IsNullOrEmpty(detalleReglaValidacion.idIndicadorString))
-            {
-                int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idIndicadorString), out int temp);
-                detalleReglaValidacion.IdIndicador = temp;
+                detalleReglaValidacion.IdRegla = temp;
             }
             if (!string.IsNullOrEmpty(detalleReglaValidacion.idReglasValidacionTipoString))
             {
                 int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idReglasValidacionTipoString), out int temp);
-                detalleReglaValidacion.idReglasValidacionTipo = temp;
+                detalleReglaValidacion.IdReglasValidacionTipo = temp;
             }
 
         }

@@ -139,6 +139,7 @@ namespace GB.SIMEF.BL
                 var resul = clsDatos.ObtenerDatos(objCategoria);
                 if (resul.Count() == 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
 
                 }
@@ -160,14 +161,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
                 ResultadoConsulta.MensajeError = ex.Message;
-                if (ex.Message == Errores.NoRegistrosActualizar)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-                else
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
                 }
             }
             return ResultadoConsulta;

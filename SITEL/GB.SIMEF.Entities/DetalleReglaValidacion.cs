@@ -23,12 +23,10 @@ namespace GB.SIMEF.Entities
             
         }
         [Key]
-        public int idReglasValidacionTipo { get; set; }
+        public int IdReglasValidacionTipo { get; set; }
         public int IdOperador { get; set; }
-        public int IdIndicador { get; set; }
-        public int idIndicadorVariable { get; set; }
-        public int idRegla { get; set; }
-        public int idTipo { get; set; }
+        public int IdRegla { get; set; }
+        public int IdTipo { get; set; }
         public bool Estado { get; set; }
     
         [NotMapped]
@@ -54,6 +52,10 @@ namespace GB.SIMEF.Entities
         
         [NotMapped]
         public virtual DetalleIndicadorVariables detalleIndicadorVariables { get; set; }
+
+        [NotMapped]
+        public virtual ReglaAtributosValidos ReglaAtributosValidos { get; set; }
+
 
         [NotMapped]
         public List<string> NoSerialize = new List<string>()

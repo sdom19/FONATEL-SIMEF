@@ -79,7 +79,7 @@ namespace GB.SIMEF.BL
                 else if (result.DetalleRelacionCategoria.Count() >= objeto.CantidadCategoria)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.CantidadRegistrosLimite);
+                    throw new Exception(Errores.CantidadRegistrosLimiteRelaciones);
                 }
                 else if (!Utilidades.rx_soloTexto.Match(objeto.Nombre.Trim()).Success)
                 {
