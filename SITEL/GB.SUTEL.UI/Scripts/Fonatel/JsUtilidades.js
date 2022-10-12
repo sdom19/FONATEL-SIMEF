@@ -26,6 +26,17 @@
             "Activo" : 2,
             "Desactivado":3,
             "Eliminado": 4
+        },
+        "TipoReglasDetalle":
+        {
+            'NoRegistrado': 0,
+            'FormulaCambioMensual': 1,
+            'FormulaContraOtroIndicadorEntrada': 2,
+            'FormulaContraConstante': 3,
+            'FormulaContraAtributosValidos': 4,
+            'FormulaActualizacionSecuencial': 5,
+            'FormulaContraOtroIndicadorSalida': 6,
+            'FormulaContraOtroIndicadorEntradaSalida': 7
         }
     }
 }
