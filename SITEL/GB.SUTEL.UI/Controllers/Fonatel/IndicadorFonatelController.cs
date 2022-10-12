@@ -1009,7 +1009,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
             }
-            else if (!Utilidades.rx_soloTexto.Match(pIndicador.Codigo.Trim()).Success       // validar el formato correcto
+            else if (!Utilidades.rx_alfanumerico.Match(pIndicador.Codigo.Trim()).Success    // validar el formato correcto
                 || pIndicador.Codigo.Trim().Length > 30)                                    // validar la cantidad de caracteres
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo);
