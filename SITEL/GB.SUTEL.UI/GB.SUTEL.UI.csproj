@@ -1433,6 +1433,7 @@
     <Content Include="Views\HistoricoFonatel\_DetalleHistorico.cshtml" />
     <Content Include="Views\EditarFormulario\Edit.cshtml" />
     <Content Include="Views\FormularioWeb\Visualizar.cshtml" />
+    <Content Include="Views\HistoricoFonatel\DescargarExcel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

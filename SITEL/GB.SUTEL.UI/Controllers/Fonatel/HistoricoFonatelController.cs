@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity;
 using GB.SIMEF.Resources;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.IO;
+using OfficeOpenXml;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -44,74 +46,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View();
         }
 
-        // GET: Solicitud/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Solicitud/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Solicitud/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Solicitud/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Solicitud/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Solicitud/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-
         /// <summary>
         /// Fecha 04-08-2022
         /// Michael Hernández Cordero
@@ -133,7 +67,46 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-
-
+        [HttpGet]
+        public async Task<ActionResult> DescargarExcel(string id)
+        {
+            await Task.Run(() =>
+            {
+                return historicoBl.ObtenerDatos(new DatoHistorico() { id = id });
+            }).ContinueWith(data => {
+                MemoryStream stream = new MemoryStream();
+                using (ExcelPackage package = new ExcelPackage(stream))
+                {
+                    foreach (var worksheet in data.Result.objetoRespuesta)
+                    {
+                        ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(worksheet.NombrePrograma);
+                       
+                        foreach (var columnas in worksheet.DetalleDatoHistoricoColumna)
+                        {
+                            int cell = columnas.NumeroColumna+1 ;
+                            worksheetInicio.Cells[1, cell].Value = columnas.Nombre;
+                            worksheetInicio.Cells[1, cell].Style.Font.Bold = true;
+                            worksheetInicio.Cells[1, cell].Style.Font.Size = 12;
+                            worksheetInicio.Cells[1, cell].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            worksheetInicio.Cells[1, cell].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
+                            worksheetInicio.Cells[1, cell].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                            worksheetInicio.Cells[1, cell].Style.Font.Bold = true;
+                            worksheetInicio.Cells[1, cell].Style.Font.Size = 12;
+                            worksheetInicio.Cells[1, cell].AutoFitColumns();
+                            List<DetalleDatoHistoricoFila> listaFila = worksheet.DetalleDatoHistoricoFila.Where(x => x.IdDetalleColumna == columnas.IdDetalleDato).ToList();
+                            foreach (var fila in listaFila)
+                            {
+                                int cell2 = fila.NumeroFila + 1;
+                                worksheetInicio.Cells[cell2, cell].Value = fila.Atributo;
+                            }
+                        }             
+                    }
+                    Response.BinaryWrite(package.GetAsByteArray());
+                    Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
+                    Response.AddHeader("content-disposition", "attachment;  filename=ReporteHistorico.xlsx");
+                }
+            });
+            return null;
+        }
     }
 }

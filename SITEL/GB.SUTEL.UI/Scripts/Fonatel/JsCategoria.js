@@ -813,9 +813,6 @@ $(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) 
     if (!validar) {
         return;
     }
-
- 
-
     JsCategoria.Metodos.ValidacionTipoGuardado();
 });
 
