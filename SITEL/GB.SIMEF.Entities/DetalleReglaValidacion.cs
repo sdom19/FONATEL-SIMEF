@@ -54,7 +54,7 @@ namespace GB.SIMEF.Entities
         public virtual DetalleIndicadorVariables detalleIndicadorVariables { get; set; }
 
         [NotMapped]
-        public virtual ReglaAtributosValidos ReglaAtributosValidos { get; set; }
+        public virtual ReglaAtributosValidos reglaAtributosValidos { get; set; }
 
 
         [NotMapped]

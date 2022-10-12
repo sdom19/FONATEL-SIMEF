@@ -53,11 +53,10 @@ namespace GB.SIMEF.BL
                     //string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.IdReglasValidacionTipo == objeto.IdReglasValidacionTipo).Single());
                     objeto = resul.Where(x => x.IdRegla == objeto.IdRegla).Single();
                     objeto.IdOperador = IdOperador;
-                    clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                     var nuevoValor = clsDatos.ObtenerDatos(objeto).Single();
                     string jsonNuevoValor = SerializarObjetoBitacora(nuevoValor);
 
-                    ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
                     //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                     //       ResultadoConsulta.Usuario,
@@ -142,7 +141,9 @@ namespace GB.SIMEF.BL
             switch (objeto.IdTipo)
             {
                 case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
-                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.ReglaAtributosValidos);
+
+                    objeto.reglaAtributosValidos.IdTipoReglaValidacion = objeto.IdReglasValidacionTipo;
+                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
                     break;
                 default:
                     break;
@@ -164,7 +165,8 @@ namespace GB.SIMEF.BL
                 //bjeto.idIndicadorString = listaDetallesIndicadorVariable[0].idIndicadorString;
                 DesencriptarObjReglasValidacion(objeto);
                 var resul = clsDatos.ActualizarDatos(objeto);
-                //AgregarTipoDetalleReglaValidacion(objeto);
+                objeto.IdReglasValidacionTipo = resul.Single().IdReglasValidacionTipo;
+                AgregarTipoDetalleReglaValidacion(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 

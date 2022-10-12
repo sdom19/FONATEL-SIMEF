@@ -103,6 +103,7 @@ namespace GB.SIMEF.DAL
                 ListaDetalleReglaValidacion = ListaDetalleReglaValidacion.Select(X => new DetalleReglaValidacion
                 {
                     id = Utilidades.Encriptar(X.IdReglasValidacionTipo.ToString()),
+                    IdReglasValidacionTipo = X.IdReglasValidacionTipo,
                     IdRegla = X.IdRegla,
                     IdTipo = X.IdTipo,
                     IdOperador = X.IdOperador,
