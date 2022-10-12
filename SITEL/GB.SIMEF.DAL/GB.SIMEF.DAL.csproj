@@ -61,6 +61,7 @@
     <Compile Include="DetalleIndicadorCategoriaDAL.cs" />
     <Compile Include="DetalleIndicadorVariablesDAL.cs" />
     <Compile Include="DetalleRelacionCategoriaDAL.cs" />
+    <Compile Include="ReglaValidacionAtributosValidosDAL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
     <Compile Include="FormulasCalculoDAL.cs" />
     <Compile Include="OperadorArismeticoDAL.cs" />

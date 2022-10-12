@@ -189,7 +189,7 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                   if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                 if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }

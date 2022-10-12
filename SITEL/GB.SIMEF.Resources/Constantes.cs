@@ -40,6 +40,23 @@ namespace GB.SIMEF.Resources
             Desactivado = 3,
             Eliminado = 4
         }
+        /// <summary>
+        /// TiposReglasDetalle
+        /// </summary>
+        /// 
+        public enum TipoReglasDetalle : int
+        {
+            NoRegistrado=0,
+            FormulaCambioMensual=1,
+            FormulaContraOtroIndicadorEntrada=2,
+            FormulaContraConstante=3,
+            FormulaContraAtributosValidos=4,
+            FormulaActualizacionSecuencial=5,
+            FormulaContraOtroIndicadorSalida=6,
+            FormulaContraOtroIndicadorEntradaSalida=7
+        }
+
+
         public enum Error : int
         {
             NoError = 0,

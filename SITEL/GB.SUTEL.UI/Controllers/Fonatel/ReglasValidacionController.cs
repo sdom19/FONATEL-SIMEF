@@ -231,7 +231,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
             await Task.Run(() =>
             {
-                if (objetoTipoRegla.idReglasValidacionTipo == 0)
+                if (objetoTipoRegla.IdReglasValidacionTipo == 0)
                 {
                     result = detalleReglaBL.InsertarDatos(objetoTipoRegla);
                 }

@@ -388,10 +388,10 @@
 
     "Consultas": {
 
-        "EliminarRegla": function (idRegla) {
+        "EliminarRegla": function (IdRegla) {
             $("#loading").fadeIn();
             let objRegla = new Object()
-            objRegla.id = idRegla;
+            objRegla.id = IdRegla;
             execAjaxCall("/ReglasValidacion/EliminarRegla", "POST", objRegla)
                 .then((data) => {
                     jsMensajes.Metodos.OkAlertModal("La Regla de Validación ha sido eliminada ")
@@ -404,20 +404,20 @@
                 });
         },
 
-        "ValidarExistenciaReglas": function (idRegla) {
+        "ValidarExistenciaReglas": function (IdRegla) {
 
             $("#loading").fadeIn();
             let objRegla = new Object()
-            objRegla.id = idRegla;
+            objRegla.id = IdRegla;
             execAjaxCall("/ReglasValidacion/ValidarRegla", "POST", objRegla)
                 .then((obj) => {
                     if (obj.objetoRespuesta.length == 0) {
-                        JsReglas.Consultas.EliminarFormulario(idRegla);
+                        JsReglas.Consultas.EliminarFormulario(IdRegla);
                     } else {
                         let dependencias = obj.objetoRespuesta[0] + "<br>"
                         jsMensajes.Metodos.ConfirmYesOrNoModal("La Regla de Validación ya está en uso en los<br>" + dependencias + "<br>¿Desea Eliminar?", jsMensajes.Variables.actionType.eliminado)
                             .set('onok', function (closeEvent) {
-                                JsReglas.Consultas.EliminarRegla(idRegla);
+                                JsReglas.Consultas.EliminarRegla(IdRegla);
                             });
                     }
                 }).catch((obj) => {
@@ -437,7 +437,7 @@
         "EliminarDetalleRegla": function (idDetalleRegla) {
             $("#loading").fadeIn();
             let objRegla = new Object()
-            objRegla.idReglasValidacionTipoString = idDetalleRegla;
+            objRegla.IdReglasValidacionTipoString = idDetalleRegla;
             execAjaxCall("/ReglasValidacion/EliminarDetalleRegla", "POST", objRegla)
                 .then((data) => {
                     jsMensajes.Metodos.OkAlertModal("La Tipo de Regla ha sido eliminado")
@@ -515,11 +515,11 @@
         "ConsultaListaDetalleReglas": function () {
 
 
-            let idRegla =ObtenerValorParametroUrl("id");
-            if (idRegla != null) {
+            let IdRegla =ObtenerValorParametroUrl("id");
+            if (IdRegla != null) {
 
                 $("#loading").fadeIn();
-                execAjaxCall("/ReglasValidacion/ObtenerListaDetalleReglasValidacion?idReglasValidacionTipo=" + idRegla, "GET")
+                execAjaxCall("/ReglasValidacion/ObtenerListaDetalleReglasValidacion?IdReglasValidacionTipo=" + IdRegla, "GET")
                     .then((obj) => {
                         JsReglas.Variables.ListaDetalleReglas = obj.objetoRespuesta;
                         JsReglas.Metodos.CargarTablaDetalleReglas();
@@ -547,7 +547,7 @@
             objetoRegla.idIndicador = $(JsReglas.Controles.ddlIndicadorRegla).val();
             objetoRegla.Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val();
 
-            if ($.urlParam("modo") == jsUtilidades.Variables.Acciones.Clonar) {
+            if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Clonar) {
                 objetoRegla.id = "";
             }
             else {
@@ -566,7 +566,7 @@
                             });
                     }
                     else {
-                        $(JsReglas.Controles.idRegla).val(obj.objetoRespuesta[0].id);
+                        $(JsReglas.Controles.IdRegla).val(obj.objetoRespuesta[0].id);
                     }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -616,7 +616,7 @@
             objetoTipoRegla.idIndicadorVariableString = $(JsReglas.Controles.ddlVariableRegla).val();
             objetoTipoRegla.IdTipo = $(JsReglas.Controles.ddlTipoRegla).val();
 
-            if ($.urlParam("modo") == jsUtilidades.Variables.Acciones.Clonar) {
+            if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Clonar) {
                 objetoTipoRegla.id = "";
             }
             else {
@@ -635,7 +635,7 @@
                             });
                     }
                     else {
-                        $(JsReglas.Controles.idRegla).val(obj.objetoRespuesta[0].id);
+                        $(JsReglas.Controles.IdRegla).val(obj.objetoRespuesta[0].id);
                     }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -775,11 +775,11 @@ $(function () {
     if ($("#TableReglaDesagregacion").length > 0) {
         JsReglas.Consultas.ConsultaListaReglas();
     }
-    else if ($.urlParam("modo") == jsUtilidades.Variables.Acciones.Editar) {
+    else if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Editar) {
         $(JsReglas.Controles.txtCodigo).prop("disabled", true);
         JsReglas.Metodos.ValidarOpcionSiguiente();
     }
-    else if ($.urlParam("modo") == jsUtilidades.Variables.Acciones.Clonar) {
+    else if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Clonar) {
         JsReglas.Metodos.ValidarOpcionSiguiente();
     }
 

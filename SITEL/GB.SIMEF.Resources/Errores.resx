@@ -147,6 +147,9 @@
   <data name="CantidadRegistrosLimite" xml:space="preserve">
     <value>La cantidad de detalle a establecer, es inferior la lista actual</value>
   </data>
+  <data name="CantidadRegistrosLimiteRelaciones" xml:space="preserve">
+    <value>La cantidad ingresada en Cantidad de Atributos no puede ser menor al valor actual</value>
+  </data>
   <data name="CatidadIndicadoresExcedido" xml:space="preserve">
     <value>Se excedió la cantidad de registros establecidos</value>
   </data>
