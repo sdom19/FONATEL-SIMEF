@@ -281,8 +281,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-
-
         [HttpPost]
         public async Task<string> ValidarExistenciaSolicitud(Solicitud solicitud )
         {
@@ -295,7 +293,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
 
         }
-
 
         #endregion
 
@@ -349,18 +346,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idDetalleSolicitud></param>
         /// <returns>JSON</returns>
         [HttpPost]
-        public async Task<string> EliminarDetallesSolicitud(DetalleSolicitudFormulario Solicitud)
+        public async Task<string> EliminarDetalleSolicitud(string idSolicitud, string idFormulario)
         {
+
             user = User.Identity.GetUserId();
 
             RespuestaConsulta<List<DetalleSolicitudFormulario>> result = null;
 
-            Solicitud.Estado = false;
-
             await Task.Run(() =>
             {
-                result = detalleSolicitudesBL.CambioEstado(Solicitud);
-                
+                result = detalleSolicitudesBL.EliminarElemento(new DetalleSolicitudFormulario()
+                {
+
+                    id = idSolicitud,
+                    Formularioid = idFormulario
+
+                });
+
             });
             return JsonConvert.SerializeObject(result);
         }

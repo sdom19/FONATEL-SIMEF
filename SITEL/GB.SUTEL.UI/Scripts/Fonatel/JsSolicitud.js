@@ -431,7 +431,9 @@
 
                             $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change');
 
-                            JsSolicitud.Metodos.CargarTablaFormulario();
+                            if ($(JsSolicitud.Controles.TablaFormulario).length > 0) {
+                                JsSolicitud.Consultas.ConsultaListaFormulario();
+                            }
 
                         });
                 }).catch((obj) => {
@@ -448,16 +450,18 @@
                 });
         },
 
-        "EliminarDetalleSolicitud": function (idFormulario) {
+        "EliminarDetalleSolicitud": function (idSolicitud, idFormulario) {
 
             $("#loading").fadeIn();
 
-            execAjaxCall("/SolicitudFonatel/EliminarDetalleSolicitud", "POST", { idFormulario: idFormulario })
+            execAjaxCall("/SolicitudFonatel/EliminarDetalleSolicitud", "POST", { idSolicitud: idSolicitud, idFormulario: idFormulario })
                 .then((obj) => {
+
+                    JsSolicitud.Metodos.RemoverItemDataTable(JsSolicitud.Controles.TablaFormularioElemento, `button[value='${idFormulario}']`)
 
                     jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
                         .set('onok', function (closeEvent) {
-
+                            JsSolicitud.Variables.ListadoFormulario = obj.objetoRespuesta;
                         })
 
                 }).catch((obj) => {
@@ -680,10 +684,12 @@
             let Solicitud = new Object();
             Solicitud.id = ObtenerValorParametroUrl("id");
 
-            execAjaxCall("/FormularioWeb/ObtenerFormulariosWeb", "POST", Solicitud)
+            execAjaxCall("/SolicitudFonatel/ObtenerListaFormulario", "GET", Solicitud)
                 .then((obj) => {
+
                     JsSolicitud.Variables.ListadoFormulario = obj.objetoRespuesta;
                     JsSolicitud.Metodos.CargarTablaFormulario();
+
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -719,14 +725,15 @@ $(document).on("click", JsSolicitud.Controles.btnCancelar, function (e) {
 
 $(document).on("click", JsSolicitud.Controles.btnDeleteFormulario, function (e) {
 
-    let id = $(this).val();
+    let idSolicitud = ObtenerValorParametroUrl("id");
 
-    console.log(id);
+    let idFormulario = $(this).val();
 
-    //jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.cancelar)
-    //    .set('onok', function (closeEvent) {
-    //        JsSolicitud.Metodos.EliminarDetalleSolicitud(id);
-    //    });
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+
+                JsSolicitud.Metodos.EliminarDetalleSolicitud(idSolicitud, idFormulario);
+        });
 });
 
 $(document).on("click", JsSolicitud.Controles.btnEditarSolicitud, function () {

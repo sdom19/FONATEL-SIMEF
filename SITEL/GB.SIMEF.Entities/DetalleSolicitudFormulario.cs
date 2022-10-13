@@ -32,6 +32,8 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string Formularioid { get; set; }
 
+        [NotMapped]
+        public Solicitud Solicitud { get; set; }
         #endregion
 
         //public virtual ICollection<Registro> Registro { get; set; }

@@ -18,7 +18,36 @@ namespace GB.SIMEF.DAL
         /// Fecha: 24/08/2022
         /// Ejecutar procedimiento almacenado para insertar y editar datos detalle relacion categoria
         /// </summary>
-        /// <param name="objRelacionCategoria"></param>
+        /// <param name="detalleSolicitud"></param>
+        /// <returns></returns>
+        public List<DetalleSolicitudFormulario> ObtenerDatos(DetalleSolicitudFormulario detalleSolicitud)
+        {
+            List<DetalleSolicitudFormulario> ListaDetalle = new List<DetalleSolicitudFormulario>();
+
+            using (db = new SIMEFContext())
+            {
+                ListaDetalle = db.Database.SqlQuery<DetalleSolicitudFormulario>
+                    ("execute spObtenerDetalleSolicitud @pidSolicitud",
+                      new SqlParameter("@pidSolicitud", detalleSolicitud.IdSolicitud)
+                    ).ToList();
+
+                ListaDetalle = ListaDetalle.Select(x => new DetalleSolicitudFormulario()
+                {
+                    IdSolicitud = x.IdSolicitud,
+                    IdFormulario = x.IdFormulario,
+                    Estado = x.Estado
+                }).ToList();
+            }
+
+            return ListaDetalle;
+        }
+
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 24/08/2022
+        /// Ejecutar procedimiento almacenado para insertar y editar datos detalle relacion categoria
+        /// </summary>
+        /// <param name="detalleSolicitud"></param>
         /// <returns></returns>
         public List<DetalleSolicitudFormulario> ActualizarDatos(DetalleSolicitudFormulario detalleSolicitud)
         {
@@ -57,6 +86,8 @@ namespace GB.SIMEF.DAL
 
                 listaFormularios = listaFormularios.Select(x => new FormularioWeb()
                 {
+                    id = Utilidades.Encriptar(x.idFormulario.ToString()),
+                    idFormulario = x.idFormulario,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),

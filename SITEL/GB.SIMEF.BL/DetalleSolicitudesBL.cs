@@ -35,54 +35,7 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleSolicitudFormulario>> CambioEstado(DetalleSolicitudFormulario objeto)
         {
-            try
-            {
-                ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Eliminar;
-
-                if (!String.IsNullOrEmpty(objeto.id))
-                {
-                    objeto.id = Utilidades.Desencriptar(objeto.id);
-                    int temp;
-                    if (int.TryParse(objeto.id, out temp))
-                    {
-                        objeto.IdSolicitud = temp;
-                    }
-                }
-
-                if (!String.IsNullOrEmpty(objeto.Formularioid))
-                {
-                    objeto.Formularioid = Utilidades.Desencriptar(objeto.Formularioid);
-                    int temp;
-                    if (int.TryParse(objeto.Formularioid, out temp))
-                    {
-                        objeto.IdFormulario = temp;
-                    }
-                }
-
-
-                var resul = clsDatos.ActualizarDatos(objeto);
-                ResultadoConsulta.objetoRespuesta = resul;
-
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado
-                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-
-                else
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
-                }
-
-                ResultadoConsulta.MensajeError = ex.Message;
-            }
-
-            return ResultadoConsulta;
+            throw new NotImplementedException();
         }
 
         public RespuestaConsulta<List<DetalleSolicitudFormulario>> ClonarDatos(DetalleSolicitudFormulario objeto)
@@ -92,7 +45,52 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleSolicitudFormulario>> EliminarElemento(DetalleSolicitudFormulario objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Eliminar;
+
+                DetalleSolicitudFormulario registroActualizar;
+
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.IdSolicitud = temp;
+                }
+
+                if (!string.IsNullOrEmpty(objeto.Formularioid))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.Formularioid), out temp);
+                    objeto.IdFormulario = temp;
+                }
+
+                var resul = clsDatos.ObtenerDatos(objeto);
+
+                registroActualizar = resul.Single(x => x.IdSolicitud == objeto.IdSolicitud && x.IdFormulario == objeto.IdFormulario);
+
+                registroActualizar.Estado = false;
+                resul = clsDatos.ActualizarDatos(registroActualizar);
+
+                ResultadoConsulta.objetoRespuesta = resul;
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.NoRegistrosActualizar)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<DetalleSolicitudFormulario>> InsertarDatos(DetalleSolicitudFormulario objeto)
