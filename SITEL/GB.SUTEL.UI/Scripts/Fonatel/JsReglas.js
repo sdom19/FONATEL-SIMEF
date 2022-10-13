@@ -621,6 +621,10 @@
                 objetoTipoRegla.reglaAtributosValidos.idCategoria = $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val();
                 objetoTipoRegla.reglaAtributosValidos.idCategoriaAtributo = $(JsReglas.Controles.ddlAtributosValidosRegla).val();
             }
+            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraConstante) {
+                objetoTipoRegla.reglaComparacionConstante = {};
+                objetoTipoRegla.reglaComparacionConstante.Constante = $(JsReglas.Controles.txtConstanteRegla).val();
+            }
 
             if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Clonar) {
                 objetoTipoRegla.id = "";

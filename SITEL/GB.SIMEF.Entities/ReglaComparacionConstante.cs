@@ -19,9 +19,7 @@ namespace GB.SIMEF.Entities
         public int idCompara { get; set; }
         public string Constante { get; set; }
         public Nullable<int> idvariable { get; set; }
-        public int Estado { get; set; }
+        public int idDetalleReglaValidacion { get; set; }
     
-    
-        public virtual DetalleReglaValidacion ReglaValidacionTipo { get; set; }
     }
 }

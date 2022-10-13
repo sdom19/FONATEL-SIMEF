@@ -14,6 +14,7 @@ namespace GB.SIMEF.BL
         private readonly DetalleReglasValicionDAL clsDatos;
         private readonly DetalleIndicadorVariablesDAL clsDatosIndicadorVariable;
         private readonly ReglaValidacionAtributosValidosDAL clsReglaValidacionAtributosValidosDAL;
+        private readonly ReglaComparacionConstanteDAL clsReglaComparacionConstante;
 
         private RespuestaConsulta<List<DetalleReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
@@ -136,21 +137,6 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        private void AgregarTipoDetalleReglaValidacion(DetalleReglaValidacion objeto)
-        {
-            switch (objeto.IdTipo)
-            {
-                case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
-
-                    objeto.reglaAtributosValidos.IdTipoReglaValidacion = objeto.IdReglasValidacionTipo;
-                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-
         public RespuestaConsulta<List<DetalleReglaValidacion>> InsertarDatos(DetalleReglaValidacion objeto)
         {
             try
@@ -229,6 +215,25 @@ namespace GB.SIMEF.BL
         RespuestaConsulta<List<DetalleReglaValidacion>> IMetodos<DetalleReglaValidacion>.ValidarDatos(DetalleReglaValidacion objeto)
         {
             throw new NotImplementedException();
+        }
+
+        private void AgregarTipoDetalleReglaValidacion(DetalleReglaValidacion objeto)
+        {
+            switch (objeto.IdTipo)
+            {
+                case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
+                    objeto.reglaAtributosValidos.IdTipoReglaValidacion = objeto.IdReglasValidacionTipo;
+                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
+                    break;
+
+                case (int)Constantes.TipoReglasDetalle.FormulaContraConstante:
+                    objeto.reglaComparacionConstante.idDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
+                    clsReglaComparacionConstante.ActualizarDatos(objeto.reglaComparacionConstante);
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         private void DesencriptarObjReglasValidacion(DetalleReglaValidacion detalleReglaValidacion)

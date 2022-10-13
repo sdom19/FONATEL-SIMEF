@@ -55,6 +55,9 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public virtual ReglaAtributosValidos reglaAtributosValidos { get; set; }
+        
+        [NotMapped]
+        public virtual ReglaComparacionConstante reglaComparacionConstante { get; set; }
 
 
         [NotMapped]
