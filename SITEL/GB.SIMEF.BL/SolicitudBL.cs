@@ -368,5 +368,57 @@ namespace GB.SIMEF.BL
         {
             throw new NotImplementedException();
         }
+
+        public RespuestaConsulta<Solicitud> ClonarDetallesDeSolicitudes(string pidSolicitudAClonar, string pidSolicitudDestino)
+        {
+            RespuestaConsulta<Solicitud> resultado = new RespuestaConsulta<Solicitud>();
+
+            int idSolicitudAClonar, idSolicitudDestino;
+            bool errorControlado = false;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pidSolicitudAClonar), out int number);
+                idSolicitudAClonar = number;
+
+                if (idSolicitudAClonar == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                int.TryParse(Utilidades.Desencriptar(pidSolicitudDestino), out number);
+                idSolicitudDestino = number;
+
+                if (idSolicitudDestino == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                clsDatos.ClonarDetallesDeSolicitudes(idSolicitudAClonar, idSolicitudDestino);
+
+                resultado.objetoRespuesta = new Solicitud() { id = pidSolicitudDestino };
+
+                resultado.Usuario = user;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Clonar;
+
+                clsDatos.RegistrarBitacora(resultado.Accion,
+                resultado.Usuario, resultado.Clase, idSolicitudDestino.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+
+            return resultado;
+        }
     }
 }

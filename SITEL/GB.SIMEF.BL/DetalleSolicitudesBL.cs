@@ -197,7 +197,38 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleSolicitudFormulario>> ObtenerDatos(DetalleSolicitudFormulario objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Eliminar;
+
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.IdSolicitud = temp;
+                }
+
+                var resul = clsDatos.ObtenerDatos(objeto);
+
+                ResultadoConsulta.objetoRespuesta = resul;
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.NoRegistrosActualizar)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsulta;
         }
 
     }

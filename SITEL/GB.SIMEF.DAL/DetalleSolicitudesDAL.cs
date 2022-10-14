@@ -15,8 +15,8 @@ namespace GB.SIMEF.DAL
 
         /// <summary>
         /// Autor: Francisco Vindas Ruiz
-        /// Fecha: 24/08/2022
-        /// Ejecutar procedimiento almacenado para insertar y editar datos detalle relacion categoria
+        /// Fecha: 13/10/2022
+        /// Consultar los datos de Detalles
         /// </summary>
         /// <param name="detalleSolicitud"></param>
         /// <returns></returns>
@@ -62,11 +62,13 @@ namespace GB.SIMEF.DAL
                       new SqlParameter("@Estado", detalleSolicitud.Estado)
                     ).ToList();
 
-                //ListaDetalle = ListaDetalle.Select(x => new DetalleRelacionCategoria()
-                //{
-                //    Completo = db.RelacionCategoria.Where(i => i.idRelacionCategoria == x.IdRelacionCategoria).Single().CantidadCategoria == ListaDetalle.Count() ? true : false
 
-                //}).ToList();
+                ListaDetalle = ListaDetalle.Select(x => new DetalleSolicitudFormulario()
+                {
+                    Completo = db.Solicitud.Where(i => i.idSolicitud == x.IdSolicitud).Single().CantidadFormularios == ListaDetalle.Count() ? true : false
+
+                }).ToList();
+
             }
 
             return ListaDetalle;
@@ -93,6 +95,7 @@ namespace GB.SIMEF.DAL
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
                 }).ToList();
             }
+
             return listaFormularios;
         }
     }

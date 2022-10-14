@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -169,21 +170,37 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> ClonarSolicitud(Solicitud solicitud)
         {
-
             user = User.Identity.GetUserId();
             solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
-            RespuestaConsulta<List<Solicitud>> result = null;
+            if (string.IsNullOrEmpty(solicitud.id)) // id indicador requerido
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            string idSolicitudAClonar = solicitud.id;
+            solicitud.id = string.Empty;
+            solicitud.idSolicitud = 0;
+
+            string creacionSolicitud = await InsertarSolicitud(solicitud); // reutilizar la función de crear para registrar el nueva Solicitud
+            RespuestaConsulta<List<Solicitud>> SolicitudDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<Solicitud>>>(creacionSolicitud);
+
+            if (SolicitudDeserializado.HayError != (int)Error.NoError) // se creó el indicador correctamente?
+            {
+                return creacionSolicitud;
+            }
+
+            RespuestaConsulta<Solicitud> resultado = new RespuestaConsulta<Solicitud>();
 
             await Task.Run(() =>
             {
-                solicitud.UsuarioCreacion = user;
-
-                result = SolicitudesBL.ClonarDatos(solicitud);
-
+                // se envia el id del indicador a clonar y el id del indicador creado anteriormente
+                resultado = SolicitudesBL.ClonarDetallesDeSolicitudes(idSolicitudAClonar, SolicitudDeserializado.objetoRespuesta[0].id);
             });
 
-            return JsonConvert.SerializeObject(result);
+
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>
@@ -299,7 +316,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region METODOS DE DETALLES DE SOLICITUDES
 
         /// <summary>
-        /// 
+        /// Fecha: 13/10/2022
+        /// Autor: Francisco Vindas
+        /// Metodo para obtener los formularios asociados a solicitudes de informacion
         /// </summary>
         /// <returns></returns>
         [HttpGet]

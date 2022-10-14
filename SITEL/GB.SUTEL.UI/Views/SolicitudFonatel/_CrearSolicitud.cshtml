@@ -20,9 +20,7 @@
                 <div class="form-group row">
                     <label for="txtCodigo" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.Codigo</label>
                     <div class="col-sm-12">
-
-
-                        @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewSolicitudes.Codigo, id = "txtCodigo" } })
+                        @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", @maxlength = "30",  placeholder = EtiquetasViewSolicitudes.Codigo, id = "txtCodigo" } })
                         <small id="CodigoHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
@@ -30,7 +28,7 @@
                 <div class="form-group row">
                     <label for="txtNombre" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.Nombre</label>
                     <div class="col-sm-12">
-                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewSolicitudes.Nombre, id = "txtNombre" } })
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_texto", @maxlength = "300", placeholder = EtiquetasViewSolicitudes.Nombre, id = "txtNombre" } })
                         <small id="nombreHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>

@@ -178,9 +178,31 @@ namespace GB.SIMEF.DAL
             }
             return resultado;
         }
+
+        /// <summary>
+        /// 14/10/2022
+        /// Francisco Vindas Ruiz
+        /// Función que clona los detalles de las solicitudes
+        /// </summary>
+        /// <param name="pIdSolicitudAClonar"></param>
+        /// <param name="pIdSolicitudDestino"></param>
+        /// <returns></returns>
+        public bool ClonarDetallesDeSolicitudes(int pIdSolicitudAClonar, int pIdSolicitudDestino)
+        {
+            using (db = new SIMEFContext())
+            {
+                db.Database.SqlQuery<object>
+                    ("execute spClonarDetallesDeSolicitudes @pIdSolicitudAClonar, @pIdSolicitudDestino",
+                     new SqlParameter("@pIdSolicitudAClonar", pIdSolicitudAClonar),
+                     new SqlParameter("@pIdSolicitudDestino", pIdSolicitudDestino)
+                    ).ToList();
+            }
+
+            return true;
+        }
+
+
         #endregion
-
-
 
     }
 }
