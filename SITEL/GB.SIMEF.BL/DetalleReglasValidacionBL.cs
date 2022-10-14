@@ -12,9 +12,10 @@ namespace GB.SIMEF.BL
     public class DetalleReglaValidacionBL : IMetodos<DetalleReglaValidacion>
     {
         private readonly DetalleReglasValicionDAL clsDatos;
-        private readonly DetalleIndicadorVariablesDAL clsDatosIndicadorVariable;
+        private readonly DetalleIndicadorVariablesDAL clsDatosIndicadorVariableDAL;
         private readonly ReglaValidacionAtributosValidosDAL clsReglaValidacionAtributosValidosDAL;
-        private readonly ReglaComparacionConstanteDAL clsReglaComparacionConstante;
+        private readonly ReglaComparacionConstanteDAL clsReglaComparacionConstanteDAL;
+        private readonly ReglaSecuencialDAL clsReglaSecuencialDAL;
 
         private RespuestaConsulta<List<DetalleReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
@@ -25,8 +26,10 @@ namespace GB.SIMEF.BL
             this.modulo = modulo;
             this.user = user;
             this.clsDatos = new DetalleReglasValicionDAL();
-            this.clsDatosIndicadorVariable = new DetalleIndicadorVariablesDAL();
+            this.clsDatosIndicadorVariableDAL = new DetalleIndicadorVariablesDAL();
             this.clsReglaValidacionAtributosValidosDAL = new ReglaValidacionAtributosValidosDAL();
+            this.clsReglaComparacionConstanteDAL = new ReglaComparacionConstanteDAL();
+            this.clsReglaSecuencialDAL = new ReglaSecuencialDAL();
             ResultadoConsulta = new RespuestaConsulta<List<DetalleReglaValidacion>>();
         }
 
@@ -227,8 +230,15 @@ namespace GB.SIMEF.BL
                     break;
 
                 case (int)Constantes.TipoReglasDetalle.FormulaContraConstante:
-                    objeto.reglaComparacionConstante.idDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
-                    clsReglaComparacionConstante.ActualizarDatos(objeto.reglaComparacionConstante);
+                    objeto.reglaComparacionConstante.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
+                    objeto.reglaComparacionConstante.idvariable = 0;
+                    clsReglaComparacionConstanteDAL.ActualizarDatos(objeto.reglaComparacionConstante);
+                    break;
+
+                case (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial:
+                    objeto.reglaSecuencial.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
+                    objeto.reglaSecuencial.idvariable = 0;
+                    clsReglaSecuencialDAL.ActualizarDatos(objeto.reglaSecuencial);
                     break;
 
                 default:

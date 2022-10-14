@@ -14,8 +14,6 @@ namespace GB.SIMEF.DAL
         private SIMEFContext db;
         
         /// <summary>
-        /// 23/08/2022
-        /// José Navarro Acuña
         /// Función que retorna todos las frecuencias de envio registradas en estado activo.
         /// Se puede filtrar por el ID del objecto
         /// </summary>
@@ -38,11 +36,11 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaReglaComparacionConstante = db.Database.SqlQuery<ReglaComparacionConstante>
-                ("execute spActualizarReglaComparacionConstante @IdCompara,@Constante,@idvariable,@idDetalleReglaValidacion",
+                ("execute spActualizarReglaComparacionConstante @IdCompara,@Constante,@idvariable,@IdDetalleReglaValidacion",
                     new SqlParameter("@IdCompara", pReglaComparacionConstante.idCompara),
-                    new SqlParameter("@IdTipoReglaValidacion", pReglaComparacionConstante.Constante),
-                    new SqlParameter("@IdCategoria", pReglaComparacionConstante.idvariable),
-                    new SqlParameter("@IdCategoriaAtributo", pReglaComparacionConstante.idDetalleReglaValidacion)
+                    new SqlParameter("@Constante", pReglaComparacionConstante.Constante),
+                    new SqlParameter("@idvariable", pReglaComparacionConstante.idvariable),
+                    new SqlParameter("@IdDetalleReglaValidacion", pReglaComparacionConstante.IdDetalleReglaValidacion)
                 ).ToList();
 
                 ListaReglaComparacionConstante = ListaReglaComparacionConstante.Select(X => new ReglaComparacionConstante
@@ -50,7 +48,7 @@ namespace GB.SIMEF.DAL
                     idCompara = X.idCompara,
                     Constante = X.Constante,
                     idvariable = X.idvariable,
-                    idDetalleReglaValidacion = X.idDetalleReglaValidacion
+                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion
 
                 }).ToList();
 

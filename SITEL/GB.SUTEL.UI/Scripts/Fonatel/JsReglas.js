@@ -149,14 +149,12 @@
 
                 html = html + "<tr>"
 
-                html = html + "<td scope='row'>" + detalleReglas.detalleIndicadorVariables.NombreVariable + "</td>";
+                html = html + "<td></td>";
                 html = html + "<td>" + detalleReglas.tipoReglaValidacion.Nombre + "</td>";
                 html = html + "<td>" + detalleReglas.operadorArismetico.Nombre + "</td>";
 
-                html = html + "<td><button type='button' data - toggle='tooltip' data - placement='top' value = '" + detalleReglas.id + "' title = 'Editar' class='btn-icon-base btn-edit' ></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value = '" + detalleReglas.id + "' class='btn-icon-base btn-delete'></button></td>";
-
-                html = html + "</tr>"
+                html = html + "<td><button type='button' data - toggle='tooltip' data - placement='top' value = '" + detalleReglas.id + "' title = 'Editar' class='btn-icon-base btn-edit' ></button></td>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value = '" + detalleReglas.id + "' class='btn-icon-base btn-delete'></button></td></tr>";
             }
             $(JsReglas.Controles.TablaDetalleReglas).html(html);
             CargarDatasource();
@@ -625,6 +623,10 @@
                 objetoTipoRegla.reglaComparacionConstante = {};
                 objetoTipoRegla.reglaComparacionConstante.Constante = $(JsReglas.Controles.txtConstanteRegla).val();
             }
+            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
+                objetoTipoRegla.reglaSecuencial = {};
+                objetoTipoRegla.reglaSecuencial.idCategoriaId = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
+            }
 
             if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Clonar) {
                 objetoTipoRegla.id = "";
@@ -641,7 +643,7 @@
                         }
                         jsMensajes.Metodos.OkAlertModal(mensaje)
                             .set('onok', function (closeEvent) {
-
+                                location.reload();
                             });
                     }
                     else {

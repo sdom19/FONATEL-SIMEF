@@ -58,6 +58,9 @@ namespace GB.SIMEF.Entities
         
         [NotMapped]
         public virtual ReglaComparacionConstante reglaComparacionConstante { get; set; }
+        
+        [NotMapped]
+        public virtual ReglaSecuencial reglaSecuencial { get; set; }
 
 
         [NotMapped]
