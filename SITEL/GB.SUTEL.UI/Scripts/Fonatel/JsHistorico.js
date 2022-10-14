@@ -100,15 +100,10 @@ $(document).on("click", JsHistorico.Controles.btnCancelarHistorico, function (e)
         });  
 
 });
-
-
 $(document).on("click", JsHistorico.Controles.btnAtrasHistorico, function (e) {
     e.preventDefault();
     window.location.href = "/HistoricoFonatel/Index";
 });
-
-
-
 $(document).on("change", JsHistorico.Controles.ddlNombreHistorico, function (e) {
 
     let id = $(JsHistorico.Controles.ddlNombreHistorico).val();
@@ -122,26 +117,15 @@ $(document).on("change", JsHistorico.Controles.ddlNombreHistorico, function (e) 
         $(JsHistorico.Controles.btnVisualizarHistorico).prop("disabled", false);
     }
 });
-
-
-
-
-
 $(document).on("click", JsHistorico.Controles.btnVisualizarHistorico, function (e) {
     e.preventDefault();
     let id = $(JsHistorico.Controles.ddlNombreHistorico).val();
     window.location.href = "/Fonatel/HistoricoFonatel/Detalle?id=" + id; 
 });
-
-
-
-
-
-
 $(document).on("click", JsHistorico.Controles.btnDescargarHistorico, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea generar el Reporte?", "", "Generar Registro")
         .set('onok', function (closeEvent) {
-            return new Promise((resolve, reject) => {
+              new Promise((resolve, reject) => {
                 let id = "";
                 if ($(JsHistorico.Controles.ddlNombreHistorico).length == 0) {
                     id = ObtenerValorParametroUrl('id');
@@ -150,6 +134,7 @@ $(document).on("click", JsHistorico.Controles.btnDescargarHistorico, function ()
                     id = $(JsHistorico.Controles.ddlNombreHistorico).val();
                 }
                 window.open(jsUtilidades.Variables.urlOrigen + "/HistoricoFonatel/DescargarExcel?id=" + id);
+                resolve(true);
             }).then((obj) => {
                 jsMensajes.Metodos.OkAlertModal("El Reporte ha sido generado")
                     .set('onok', function (closeEvent) { location.reload() });
@@ -157,8 +142,6 @@ $(document).on("click", JsHistorico.Controles.btnDescargarHistorico, function ()
             );
         });
 });
-
-
 $(function () {
     if ($(JsHistorico.Controles.divHistorica).length > 0) {
         let id =ObtenerValorParametroUrl('id');

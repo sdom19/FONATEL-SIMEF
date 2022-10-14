@@ -26,9 +26,56 @@ namespace GB.SIMEF.BL
             ResultadoConsulta = new RespuestaConsulta<List<DefinicionIndicador>>();
         }
 
+
+
+        private void ValidarObjeto(DefinicionIndicador objeto)
+        {
+            if (objeto == null)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(Errores.NoRegistrosActualizar);
+            }
+            else if (!Utilidades.rx_alfanumerico.Match(objeto.Notas.Trim()).Success)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Notas"));
+            }
+            else if (!Utilidades.rx_alfanumerico.Match(objeto.Definicion.Trim()).Success)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Definición"));
+            }
+            else if (!Utilidades.rx_alfanumerico.Match(objeto.Fuente.Trim()).Success)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Fuente"));
+            }
+        }
+
         public RespuestaConsulta<List<DefinicionIndicador>> ActualizarElemento(DefinicionIndicador objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ValidarObjeto(objeto);
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Usuario = user;
+                ResultadoConsulta.Accion = (int)Accion.Editar;
+                ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsulta.Accion,
+                ResultadoConsulta.Usuario,
+                ResultadoConsulta.Clase, objeto.Indicador.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                if (ResultadoConsulta.HayError != (int) Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<DefinicionIndicador>> CambioEstado(DefinicionIndicador objeto)
@@ -45,21 +92,17 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                int temp = 0;
-                if (!string.IsNullOrEmpty(objeto.id))
+                if (objeto==null)
                 {
-                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idDefinicion = temp;
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(Errores.NoRegistrosActualizar);
                 }
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Usuario = user;
-                var resul = DefinicionIndicadorDAL.ObtenerDatos(objeto);
-                objeto = resul.Single();
                 objeto.idEstado = (int)EstadosRegistro.Eliminado;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar ;
-                resul = DefinicionIndicadorDAL.ActualizarDatos(objeto);
-                ResultadoConsulta.objetoRespuesta = resul;
-                ResultadoConsulta.CantidadRegistros = resul.Count();
+                ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
                 DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsulta.Accion,
                        ResultadoConsulta.Usuario,
                        ResultadoConsulta.Clase, objeto.Indicador.Codigo);
@@ -67,7 +110,10 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }           
                 ResultadoConsulta.MensajeError = ex.Message;
             }
             return ResultadoConsulta;

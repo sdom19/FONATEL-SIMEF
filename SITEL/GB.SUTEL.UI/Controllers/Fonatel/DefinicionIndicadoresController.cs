@@ -124,16 +124,59 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EliminarDefinicion(DefinicionIndicador definicion)
         {
+
             RespuestaConsulta<List<DefinicionIndicador>> result = null;
             await Task.Run(() =>
             {
-                result = definicionBL.EliminarElemento(definicion);
+                return definicionBL.ObtenerDatos(new DefinicionIndicador()
+                        {id=definicion.id }).objetoRespuesta.Single();
+            }).ContinueWith((obj)=> {
+                DefinicionIndicador pdefinicion = obj.Result;
+                result = definicionBL.EliminarElemento(obj.Result);
             });
-
             return JsonConvert.SerializeObject(result);
-
-
         }
+
+
+
+        [HttpPost]
+        public async Task<string> ActualizarDefinicion(DefinicionIndicador definicion)
+        {
+
+            RespuestaConsulta<List<DefinicionIndicador>> result = null;
+            await Task.Run(() =>
+            {
+                return definicionBL.ObtenerDatos(new DefinicionIndicador()
+                { id = definicion.id }).objetoRespuesta.Single();
+            }).ContinueWith((obj) => {
+                DefinicionIndicador pdefinicion = obj.Result;
+                pdefinicion.Notas = definicion.Notas.Trim();
+                pdefinicion.Definicion = definicion.Definicion.Trim();
+                pdefinicion.Fuente = definicion.Fuente.Trim();
+                result = definicionBL.EliminarElemento(obj.Result);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
+        [HttpPost]
+        public async Task<string> ClonarDefinicion(DefinicionIndicador definicion)
+        {
+
+            RespuestaConsulta<List<DefinicionIndicador>> result = null;
+            await Task.Run(() =>
+            {
+                return definicionBL.ObtenerDatos(new DefinicionIndicador()
+                { id = definicion.id }).objetoRespuesta.Single();
+            }).ContinueWith((obj) => {
+                DefinicionIndicador pdefinicion = obj.Result;
+                pdefinicion.idIndicador = definicion.idIndicador;
+                result = definicionBL.EliminarElemento(obj.Result);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
 
 
         [HttpPost]

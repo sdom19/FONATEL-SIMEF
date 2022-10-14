@@ -124,7 +124,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
          [HttpGet]
         public ActionResult DescargarExcel(string id)
         {
-
             var categoria = categoriaBL
                     .ObtenerDatos(new CategoriasDesagregacion() { id = id }).objetoRespuesta.Single();
 
@@ -135,8 +134,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             using (ExcelPackage package = new ExcelPackage(stream))
             {
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(categoria.Codigo);
-                
-
                 worksheetInicio.Cells["A1"].LoadFromCollection(categoria.DetalleCategoriaTexto
                    
                     .Select(i => new { i.Codigo, i.Etiqueta }), true);
