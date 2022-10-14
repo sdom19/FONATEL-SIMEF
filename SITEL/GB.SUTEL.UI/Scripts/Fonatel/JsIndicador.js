@@ -485,7 +485,7 @@ CreateView = {
                     id: $(controles.ddlTipoMedida).val()
                 },
                 FrecuenciaEnvio: {
-                    id: $(controles.ddlClasificacion).val()
+                    id: $(controles.ddlFrecuencias).val()
                 },
                 esGuardadoParcial: pEsGuardadoParcial ? true : false
             };
@@ -538,8 +538,6 @@ CreateView = {
                     .then(data => {
                         InsertarParametroUrl("id", data.objetoRespuesta[0].id);
                         $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
-
-                        jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador).set('onok', function (closeEvent) { });
                     })
                     .catch(error => { this.ManejoDeExcepciones(error); })
                     .finally(() => {
@@ -589,8 +587,6 @@ CreateView = {
                 CreateView.Consultas.EditarIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
                         $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos}
-
-                        jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador).set('onok', function (closeEvent) { });
                     })
                     .catch(error => { this.ManejoDeExcepciones(error); })
                     .finally(() => {
@@ -643,8 +639,6 @@ CreateView = {
                         InsertarParametroUrl("id", data.objetoRespuesta.id); // actualizar el id del URL (previamente se tiene el id del indicador para clonar)
 
                         $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
-
-                        jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador).set('onok', function (closeEvent) { });
                     })
                     .catch(error => { this.ManejoDeExcepciones(error); })
                     .finally(() => {
