@@ -485,7 +485,7 @@ CreateView = {
                     id: $(controles.ddlTipoMedida).val()
                 },
                 FrecuenciaEnvio: {
-                    id: $(controles.ddlClasificacion).val()
+                    id: $(controles.ddlFrecuencias).val()
                 },
                 esGuardadoParcial: pEsGuardadoParcial ? true : false
             };
