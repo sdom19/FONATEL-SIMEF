@@ -107,20 +107,13 @@ namespace GB.SIMEF.BL
                 {
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
-                else if (result.CantidadFormularios > objeto.CantidadFormularios)
+                else if (result.SolicitudFormulario.Count > objeto.CantidadFormularios)
                 {
-                    //FALTA EL CONTADOR DE DETALLE
                     throw new Exception(Errores.CantidadRegistrosLimite);
                 }
                 else if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() >= 1)
                 {
                     throw new Exception(Errores.NombreRegistrado);
-                }
-                //VALIDAR QUE NO EXCEDA EL LIMITE DE REGISTROS
-                else if (result.FormularioWeb.Count() > objeto.CantidadFormularios)
-                {
-                    //FALTA EL CONTADOR DE DETALLE
-                    throw new Exception(Errores.CantidadRegistrosLimite);
                 }
                 else if (objeto.FechaFin < objeto.FechaInicio)
                 {

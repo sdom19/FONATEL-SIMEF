@@ -120,10 +120,10 @@ namespace GB.SIMEF.BL
                     }
                 }
 
-               
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
-                
+
+
             }
             catch (Exception ex)
             {

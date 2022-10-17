@@ -173,7 +173,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             user = User.Identity.GetUserId();
             solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
-            if (string.IsNullOrEmpty(solicitud.id)) // id indicador requerido
+            if (string.IsNullOrEmpty(solicitud.id))
             {
                 return JsonConvert.SerializeObject(
                     new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
@@ -186,7 +186,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             string creacionSolicitud = await InsertarSolicitud(solicitud); // reutilizar la función de crear para registrar el nueva Solicitud
             RespuestaConsulta<List<Solicitud>> SolicitudDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<Solicitud>>>(creacionSolicitud);
 
-            if (SolicitudDeserializado.HayError != (int)Error.NoError) // se creó el indicador correctamente?
+            if (SolicitudDeserializado.HayError != (int)Error.NoError) // se creó la solicitud correctamente?
             {
                 return creacionSolicitud;
             }
@@ -195,7 +195,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                // se envia el id del indicador a clonar y el id del indicador creado anteriormente
+                // se envia el id del indicador a clonar y el id de la Solicitud creado anteriormente
                 resultado = SolicitudesBL.ClonarDetallesDeSolicitudes(idSolicitudAClonar, SolicitudDeserializado.objetoRespuesta[0].id);
             });
 
