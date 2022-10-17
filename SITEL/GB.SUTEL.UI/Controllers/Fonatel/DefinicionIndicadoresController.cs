@@ -46,24 +46,24 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             int temp;
             int.TryParse(Utilidades.Desencriptar(id), out temp);
             
-            var model = definicionBL.ObtenerDatos(new DefinicionIndicador() { idDefinicion = temp }).objetoRespuesta.Single();
+            var model = definicionBL.ObtenerDatos(new DefinicionIndicador() { idIndicador = temp }).objetoRespuesta.Single();
             return View(model);
         }
 
 
 
         [HttpGet]
-        public ActionResult Clonar(string id)
+        public ActionResult Clonar(string id, int? modo)
         {
 
             ViewBag.ListaIndicadores =
-                definicionBL.ObtenerDatos(new DefinicionIndicador()).objetoRespuesta.Where( x=>x. idDefinicion == 0)
+                definicionBL.ObtenerDatos(new DefinicionIndicador()).objetoRespuesta.Where( x=>x.idEstado!=(int)Constantes.EstadosRegistro.Activo)
                             .Select(x => new SelectListItem()  {  Value = x.Indicador.id, Text = Utilidades.ConcatenadoCombos(x.Indicador.Codigo, x.Indicador.Nombre) }).ToList();
                 
 
             int temp;
             int.TryParse( Utilidades.Desencriptar( id), out temp);
-            var model = definicionBL.ObtenerDatos(new DefinicionIndicador() { idDefinicion = temp }).objetoRespuesta.Single();
+            var model = definicionBL.ObtenerDatos(new DefinicionIndicador() { idIndicador = temp }).objetoRespuesta.Single();
             model.Indicador.Codigo = string.Empty;
             model.Indicador.Nombre = string.Empty;
             model.Indicador.id = string.Empty;
@@ -129,10 +129,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 return definicionBL.ObtenerDatos(new DefinicionIndicador()
-                        {id=definicion.id }).objetoRespuesta.Single();
+                        {id=definicion.id });
             }).ContinueWith((obj)=> {
-                DefinicionIndicador pdefinicion = obj.Result;
-                result = definicionBL.EliminarElemento(obj.Result);
+                DefinicionIndicador pdefinicion = null;
+                if (obj.Result.CantidadRegistros == 1)
+                {
+                    pdefinicion = obj.Result.objetoRespuesta.Single();
+                }
+                result = definicionBL.EliminarElemento(pdefinicion);
             });
             return JsonConvert.SerializeObject(result);
         }
@@ -140,20 +144,25 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
-        public async Task<string> ActualizarDefinicion(DefinicionIndicador definicion)
+        public async Task<string> ActualizarDefinicion(DefinicionIndicador objDefinicion)
         {
 
             RespuestaConsulta<List<DefinicionIndicador>> result = null;
             await Task.Run(() =>
             {
                 return definicionBL.ObtenerDatos(new DefinicionIndicador()
-                { id = definicion.id }).objetoRespuesta.Single();
+                { id = objDefinicion.id });
             }).ContinueWith((obj) => {
-                DefinicionIndicador pdefinicion = obj.Result;
-                pdefinicion.Notas = definicion.Notas.Trim();
-                pdefinicion.Definicion = definicion.Definicion.Trim();
-                pdefinicion.Fuente = definicion.Fuente.Trim();
-                result = definicionBL.EliminarElemento(obj.Result);
+                DefinicionIndicador pdefinicion = null;
+                if (obj.Result.CantidadRegistros ==1)
+                {
+                    pdefinicion = obj.Result.objetoRespuesta.Single();
+                    pdefinicion.ExisteValor = obj.Result.CantidadRegistros > 0;
+                    pdefinicion.Notas = objDefinicion.Notas.Trim();
+                    pdefinicion.Definicion = objDefinicion.Definicion.Trim();
+                    pdefinicion.Fuente = objDefinicion.Fuente.Trim();
+                }                    
+                result = definicionBL.ActualizarElemento(pdefinicion);
             });
             return JsonConvert.SerializeObject(result);
         }
@@ -161,18 +170,41 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
-        public async Task<string> ClonarDefinicion(DefinicionIndicador definicion)
+        public async Task<string> ClonarDefinicion(DefinicionIndicador objDefinicion)
         {
 
             RespuestaConsulta<List<DefinicionIndicador>> result = null;
             await Task.Run(() =>
             {
                 return definicionBL.ObtenerDatos(new DefinicionIndicador()
-                { id = definicion.id }).objetoRespuesta.Single();
+                { id = objDefinicion.id });
             }).ContinueWith((obj) => {
-                DefinicionIndicador pdefinicion = obj.Result;
-                pdefinicion.idIndicador = definicion.idIndicador;
-                result = definicionBL.EliminarElemento(obj.Result);
+                var definicionSeleccionada = obj.Result.objetoRespuesta.Single();
+                if (!string.IsNullOrEmpty(definicionSeleccionada.Definicion))
+                {
+                    objDefinicion = null;
+                }
+                result = definicionBL.InsertarDatos(objDefinicion);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpPost]
+        public async Task<string> AgregarDefinicion(DefinicionIndicador objDefinicion)
+        {
+
+            RespuestaConsulta<List<DefinicionIndicador>> result = null;
+            await Task.Run(() =>
+            {
+                return definicionBL.ObtenerDatos(new DefinicionIndicador()
+                { id = objDefinicion .id });
+            }).ContinueWith((obj) => {
+                var definicionSeleccionada = obj.Result.objetoRespuesta.Single();
+                if (!string.IsNullOrEmpty(definicionSeleccionada.Definicion))
+                {
+                    objDefinicion = null;
+                }
+                result = definicionBL.InsertarDatos(objDefinicion);
             });
             return JsonConvert.SerializeObject(result);
         }

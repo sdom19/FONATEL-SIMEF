@@ -496,6 +496,18 @@ $(document).on("keypress", '.alfa_numerico', function (e) {
     }
 });
 
+
+
+$(document).on("keypress", '.alfa_numerico2', function (e) {
+    var regex = new RegExp("^[0-9A-Za-zÁÉÍÓÚáéíóúñÑ.,; ]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+
 $(document).on("keypress", '.solo_texto', function (e) {
     var regex = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);

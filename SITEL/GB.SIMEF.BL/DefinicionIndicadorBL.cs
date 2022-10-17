@@ -35,17 +35,17 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.NoRegistrosActualizar);
             }
-            else if (!Utilidades.rx_alfanumerico.Match(objeto.Notas.Trim()).Success)
+            else if (!Utilidades.rx_alfanumerico2.Match(objeto.Notas.Trim()).Success)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Notas"));
             }
-            else if (!Utilidades.rx_alfanumerico.Match(objeto.Definicion.Trim()).Success)
+            else if (!Utilidades.rx_alfanumerico2.Match(objeto.Definicion.Trim()).Success)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Definición"));
             }
-            else if (!Utilidades.rx_alfanumerico.Match(objeto.Fuente.Trim()).Success)
+            else if (!Utilidades.rx_alfanumerico2.Match(objeto.Fuente.Trim()).Success)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Fuente"));
@@ -85,7 +85,35 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DefinicionIndicador>> ClonarDatos(DefinicionIndicador objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                int temp = 0;
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.idIndicador = temp;
+                }
+                objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                ValidarObjeto(objeto);
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Usuario = user;
+                ResultadoConsulta.Accion = (int)Accion.Clonar;
+                ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsulta.Accion,
+                ResultadoConsulta.Usuario,
+                ResultadoConsulta.Clase, objeto.Indicador.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<DefinicionIndicador>> EliminarElemento(DefinicionIndicador objeto)
@@ -122,7 +150,36 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DefinicionIndicador>> InsertarDatos(DefinicionIndicador objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                int temp = 0;
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.idIndicador = temp;
+                }
+                objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                ValidarObjeto(objeto);
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Usuario = user;
+                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
+                objeto = ResultadoConsulta.objetoRespuesta.Single();
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsulta.Accion,
+                ResultadoConsulta.Usuario,
+                ResultadoConsulta.Clase, objeto.Indicador.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
 
@@ -134,7 +191,7 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(pDefinicionIndicador.id))
                 {
                     int.TryParse(Utilidades.Desencriptar(pDefinicionIndicador.id), out temp);
-                    pDefinicionIndicador.idDefinicion = temp;
+                    pDefinicionIndicador.idIndicador = temp;
                 }      
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;

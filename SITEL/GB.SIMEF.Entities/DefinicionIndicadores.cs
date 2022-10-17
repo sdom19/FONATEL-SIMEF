@@ -18,8 +18,9 @@ namespace GB.SIMEF.Entities
     public partial class DefinicionIndicador
     {
         [Key]
-        public int idDefinicion { get; set; }
-        
+
+        public int idIndicador { get; set; }
+
         [MaxLength(3000)]
         [DataType(DataType.MultilineText)]
         public string Fuente { get; set; }
@@ -30,7 +31,8 @@ namespace GB.SIMEF.Entities
         [MaxLength(3000)]
         [DataType(DataType.MultilineText)]
         public string Definicion { get; set; }
-        public int idIndicador { get; set; }
+
+
         public int idEstado { get; set; }
         
         [NotMapped]
@@ -39,5 +41,10 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public virtual string id { get; set; }
+
+
+        [NotMapped]
+        public bool ExisteValor { get; set; }
+
     }
 }

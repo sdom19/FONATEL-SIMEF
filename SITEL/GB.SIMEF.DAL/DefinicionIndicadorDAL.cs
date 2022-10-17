@@ -22,30 +22,26 @@ namespace GB.SIMEF.DAL
         public List<DefinicionIndicador> ObtenerDatos(DefinicionIndicador objDefinicion)
         {
 
-            IndicadorFonatelDAL indicadorDal = new IndicadorFonatelDAL();
 
-            var listaIndicador = indicadorDal.ObtenerDatos(new Indicador()).ToList();
-           
 
+            var listaIndicador = ObtenerIndicadores();
             List<DefinicionIndicador> ListaDefiniciones = new List<DefinicionIndicador>();
             using (db = new SIMEFContext())
             {
                 ListaDefiniciones = db.Database.SqlQuery<DefinicionIndicador>
-                    ("execute spObtenerDefinicionesIndicador @IdDefinicion, @idIndicador, @idEstado",
-                        new SqlParameter("@IdDefinicion", objDefinicion.idDefinicion),
+                    ("execute spObtenerDefinicionesIndicador @idIndicador, @idEstado",
                         new SqlParameter("@idIndicador", objDefinicion.idIndicador),
                         new SqlParameter("@idEstado", objDefinicion.idEstado)
                     ).ToList();
             }
             ListaDefiniciones = ListaDefiniciones.Select(x => new DefinicionIndicador()
             {
-                idDefinicion = x.idDefinicion,
                 Definicion = x.Definicion,
                 idIndicador = x.idIndicador,
                 Fuente = x.Fuente,
                 Notas = x.Notas,
                 idEstado = x.idEstado,
-                id=Utilidades.Encriptar(x.idDefinicion.ToString()),
+                id=Utilidades.Encriptar(x.idIndicador.ToString()),
                 Indicador = listaIndicador
                 .Where(i => i.id==Utilidades.Encriptar(x.idIndicador.ToString()) ).Single()
             }).ToList();
@@ -69,12 +65,12 @@ namespace GB.SIMEF.DAL
         public List<DefinicionIndicador> ActualizarDatos(DefinicionIndicador objDefinicion)
         {
             List<DefinicionIndicador> Definiciones = new List<DefinicionIndicador>();
+
             using (db = new SIMEFContext())
             {
                 Definiciones = db.Database.SqlQuery<DefinicionIndicador>
                 ("execute " +
-                "dbo.spActualizarDefinicionIndicador @idDefinicion,@Fuente,@Notas,@idIndicador,@idEstado,@Definicion",
-                     new SqlParameter("@idDefinicion", objDefinicion.idDefinicion),
+                "dbo.spActualizarDefinicionIndicador @Fuente,@Notas,@idIndicador,@idEstado,@Definicion",
                      new SqlParameter("@Fuente", objDefinicion.Fuente),
                      new SqlParameter("@Notas", objDefinicion.Notas),
                      new SqlParameter("@idIndicador", objDefinicion.idIndicador),
@@ -84,7 +80,34 @@ namespace GB.SIMEF.DAL
 
             
             }
+            var listaIndicador = ObtenerIndicadores();
+            Definiciones = Definiciones.Select(x => new DefinicionIndicador()
+            {
+                Definicion = x.Definicion,
+                idIndicador = x.idIndicador,
+                Fuente = x.Fuente,
+                Notas = x.Notas,
+                idEstado = x.idEstado,
+                id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                Indicador = listaIndicador
+               .Where(i => i.id == Utilidades.Encriptar(x.idIndicador.ToString())).Single()
+            }).ToList();
+
+
+
+
+
             return Definiciones;
+        }
+
+
+        private List<Indicador> ObtenerIndicadores()
+        {
+            IndicadorFonatelDAL indicadorDal = new IndicadorFonatelDAL();
+
+            return indicadorDal.ObtenerDatos(new Indicador()).ToList();
+
+
         }
 
 
