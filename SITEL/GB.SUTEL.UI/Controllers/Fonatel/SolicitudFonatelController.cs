@@ -25,6 +25,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly FuentesRegistroBL fuenteBl;
         private readonly FormularioWebBL formularioWebBL;
         private readonly DetalleSolicitudesBL detalleSolicitudesBL;
+        private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
+        private readonly SolicitudEnvioProgramadoBL EnvioProgramadoBL;
 
 
 
@@ -41,11 +43,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             fuenteBl = new FuentesRegistroBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
             formularioWebBL = new FormularioWebBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
             detalleSolicitudesBL = new DetalleSolicitudesBL();
+            EnvioProgramadoBL = new SolicitudEnvioProgramadoBL();
+            frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
         // GET: Solicitud
         public ActionResult Index()
         {
+            ViewBag.ListaFrecuencia = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
+
             return View();
         }
 
@@ -114,8 +120,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> InsertarSolicitud(Solicitud solicitud)
         {
-
-            //VALIDACIONES DE NOMBRES CODIGOS ETC
 
             user = User.Identity.GetUserId();
             solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
@@ -383,6 +387,36 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 });
 
             });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        #endregion
+
+        #region METODO DE ENVIO DE CORREOS
+
+        /// <summary>
+        /// Fecha: 18/10/2022
+        /// Francisco Vindas
+        /// Metodo para insertar solicitudes de informacion
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> InsertarEnvioProgramado(SolicitudEnvioProgramado objeto)
+        {
+
+            user = User.Identity.GetUserId();
+            objeto.Estado = true;
+
+            RespuestaConsulta<List<SolicitudEnvioProgramado>> result = null;
+
+            await Task.Run(() =>
+            {
+
+                result = EnvioProgramadoBL.InsertarDatos(objeto);
+
+            });
+
             return JsonConvert.SerializeObject(result);
         }
 

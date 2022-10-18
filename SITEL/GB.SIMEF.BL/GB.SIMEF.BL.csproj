@@ -84,6 +84,7 @@
     <Compile Include="ReglasValidacionBL.cs" />
     <Compile Include="RelacionCategoriaBL.cs" />
     <Compile Include="SolicitudBL.cs" />
+    <Compile Include="SolicitudEnvioProgramadoBL.cs" />
     <Compile Include="TipoDetalleCategoriaBL.cs" />
     <Compile Include="TipoCategoriaBL.cs" />
     <Compile Include="DetalleCategoriasTextoBL.cs" />

@@ -300,11 +300,6 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="objeto"></param>
-        /// <returns></returns>
         public RespuestaConsulta<List<Solicitud>> InsertarDatos(Solicitud objeto)
         {
             try
@@ -413,5 +408,6 @@ namespace GB.SIMEF.BL
 
             return resultado;
         }
+
     }
 }
