@@ -477,6 +477,24 @@ function execAjaxCall(pURL, pHttpMethod, pParams = null) {
     })
 }
 
+/**
+ * José Navarro Acuña.
+ * Permite validar los inputs completados de un formulario.
+ * Retorna un objeto con: 
+ * - puedeContinuar: booleano que indica si todos los campos estan completos
+ * - objetos: listado de inputs pendientes por completar
+ * @param {any} pInputs colección de inputs a validar.
+ * @param {any} pExcepciones colección de inputs a ignorar en la validación.
+ */
+function ValidarFormulario(pInputs, pExcepciones = []) {
+    let inputsPendientesCompletar = [...$(pInputs)].filter(i => {
+        if (pExcepciones.includes($(i).attr("id"))) return false;
+        if (pExcepciones.includes($(i).attr("class"))) return false;
+        return $.trim(i.value) == "" || i.value == null;
+    });
+    return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
+}
+
 $(document).on("keypress", '.solo_operacion', function (e) {
     var regex = new RegExp("^[0-9]|[-+*>=</]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
