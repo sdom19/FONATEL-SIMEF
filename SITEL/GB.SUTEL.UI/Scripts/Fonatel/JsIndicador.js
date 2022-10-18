@@ -437,15 +437,6 @@ CreateView = {
     },
 
     Metodos: {
-        ValidarFormulario: function (pInputs, pExcepciones = []) {
-            let inputsPendientesCompletar = [...$(pInputs)].filter(i => {
-                if (pExcepciones.includes($(i).attr("id"))) return false;
-                if (pExcepciones.includes($(i).attr("class"))) return false;
-                return $.trim(i.value) == "" || i.value == null;
-            });
-            return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
-        },
-
         ManejoDeExcepciones: function (pError) {
             if (pError?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
                 jsMensajes.Metodos.OkAlertErrorModal(pError.MensajeError).set('onok', function (closeEvent) { });
@@ -501,7 +492,7 @@ CreateView = {
                 $("#" + $(input).attr("id") + prefijoHelp).css("display", "none");
             }
 
-            let validacionFormulario = this.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
+            let validacionFormulario = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
 
             if (validacionFormulario.objetos.some(x => $(x).attr("id") === $(CreateView.Controles.formIndicador.inputCodigo).attr("id"))) {
                 $(CreateView.Controles.formIndicador.inputCodigo + prefijoHelp).css("display", "block");
@@ -532,7 +523,7 @@ CreateView = {
         },
 
         CrearIndicador: function () {
-            if (this.ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
+            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
                 $("#loading").fadeIn();
                 CreateView.Consultas.CrearIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
@@ -582,7 +573,7 @@ CreateView = {
         },
 
         EditarIndicador: function () {
-            if (this.ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
+            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
                 $("#loading").fadeIn();
                 CreateView.Consultas.EditarIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
@@ -631,7 +622,7 @@ CreateView = {
         },
 
         ClonarIndicador: function () {
-            if (this.ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
+            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ClonarIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
@@ -1070,7 +1061,7 @@ CreateView = {
         ValidarFormularioDetallesVariable: function () {
             this.LimpiarMensajesValidacionFormularioDetallesVariable();
 
-            let validacion = this.ValidarFormulario(CreateView.Controles.formVariable.inputs);
+            let validacion = ValidarFormulario(CreateView.Controles.formVariable.inputs);
 
             for (let input of validacion.objetos) {
                 $("#" + $(input).attr("id") + CreateView.Controles.prefijoLabelsHelp).css("display", "block");
@@ -1317,8 +1308,8 @@ CreateView = {
         ValidarFormularioDetallesCategoria: function () {
             this.LimpiarMensajesValidacionFormularioDetallesCategoria();
 
-            let validacion = this.ValidarFormulario(CreateView.Controles.formCategoria.inputs, ["select2-search__field"]);
-            console.log(validacion);
+            let validacion = ValidarFormulario(CreateView.Controles.formCategoria.inputs, ["select2-search__field"]);
+
             for (let input of validacion.objetos) {
                 $("#" + $(input).attr("id") + CreateView.Controles.prefijoLabelsHelp).css("display", "block");
                 $(input).parent().addClass("has-error");
@@ -1581,12 +1572,12 @@ CreateView = {
                     $(this).val("");
             }
 
-            let validacion = CreateView.Metodos.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
+            let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
         });
 
         $(CreateView.Controles.formIndicador.selects2).on('select2:select', function (e) {
-            let validacion = CreateView.Metodos.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
+            let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
         });
 
@@ -1773,7 +1764,7 @@ CreateView = {
         CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(true);
 
         if (jsUtilidades.Variables.Acciones.Editar == modo) {
-            let validacion = CreateView.Metodos.ValidarFormulario(CreateView.Controles.formIndicador.inputs);
+            let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
         }
         else if (jsUtilidades.Variables.Acciones.Clonar == modo) {
