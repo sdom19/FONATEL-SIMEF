@@ -80,18 +80,22 @@ namespace GB.SIMEF.BL
                     }
                     else if (resul.Where(x => x.idFuente == objeto.idFuente).Count() == 0)
                     {
+                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.NoRegistrosActualizar);
                     }
                    else if (resul.Where(x => x.idFuente != objeto.idFuente && x.Fuente.ToUpper()==fuente.ToUpper()).Count() > 0)
                     {
+                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.FuenteRegistrada);
                     }
                     else if (Cantidad <= 0)
                     {
-                        throw new Exception(Errores.FuentesCantidadDestiatarios);
+                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                        throw new Exception(Errores.FuentesCantidadDestinatarios);
                     }
                     else if (Cantidad < objeto.DetalleFuentesRegistro.Count())
                     {
+                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.CantidadRegistrosLimite);
                     }
                    
@@ -111,24 +115,17 @@ namespace GB.SIMEF.BL
                         ResultadoConsulta.CantidadRegistros = resul.Count();
                         clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                                ResultadoConsulta.Usuario,
-                               ResultadoConsulta.Clase,nuevovalor.Fuente, jsonNuevoValor,valorAnterior);
+                               ResultadoConsulta.Clase,nuevovalor.Fuente, jsonNuevoValor,valorAnterior,"");
                     }
                 }
             }
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.FuentesCantidadDestiatarios 
-                    || ex.Message == Errores.CantidadRegistrosLimite || ex.Message== Errores.FuenteRegistrada)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
+                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
-
-
                 ResultadoConsulta.MensajeError = ex.Message;
             }
             return ResultadoConsulta;
@@ -161,15 +158,18 @@ namespace GB.SIMEF.BL
                 var fuente = resul.Single();
                 if (resul.Count() == 0)
                 {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
                 else if (fuente.CantidadDestinatario != fuente.DetalleFuentesRegistro.Count())
                 {
+                    ResultadoConsulta.HayError= (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.CantidadDestinatariosIncorrecta);
                 }
                 else if (fuente.CantidadDestinatario ==0)
                 {
-                    throw new Exception(Errores.FuentesCantidadDestiatarios);
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.FuentesCantidadDestinatarios);
                 }
                 else
                 {
@@ -180,9 +180,6 @@ namespace GB.SIMEF.BL
                     resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
-
-                    CrearUsuarios(fuente);
-
                     clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                            ResultadoConsulta.Usuario,
                            ResultadoConsulta.Clase, objeto.Fuente);
@@ -191,25 +188,13 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.NoRegistrosActualizar || ex.Message== Errores.CantidadDestinatariosIncorrecta || ex.Message== Errores.FuentesCantidadDestiatarios)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
-                {
+                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
+                { 
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
-
-
                 ResultadoConsulta.MensajeError = ex.Message;
             }
             return ResultadoConsulta;
-        }
-
-
-        private string PlantillaCorreo(string usuario, string contrasena)
-        {
-            return @"<div><style>.rps_4de0 h1{text - align:center}.rps_4de0 p{font - family:'Times New Roman'; font-size:20px}</style><div class='rps_4de0'><div><img data-imagetype='External' data-imageerror='RelWithoutBase' originalsrc='../Images/logos/logo-Sutel_11_3.png' style='max-height:55px'><table style = 'border-collapse:collapse;background-color:#eee!important;overflow-wrap:break-word;width:100%!important;line-height:100%!important' >< tbody ><tr><td style='font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#000!important;padding:25px 35px'><table style = 'border-collapse:collapse;width:100%;background-color:#fff!important'><tbody><tr><td style='font-family:Helvetica,Arial,sans-serif;font-size:15px;padding:15px 5px 5px 15px;color:#0072c6!important;text-decoration:none;border:0;text-align:left'><b>Sistema de Indicadores de Telecomunicaciones(SITEL)</b></td></tr><tr><td style = 'text-align:left;padding-top:25px;padding-left:15px' > Estimado usuario<b>{0}:</b></td></tr><tr><td style = 'text-align:left;padding-bottom:15px;padding-top:15px;padding-left:15px'> Puede ingresar con la contraseña temporal y cambiarla en el siguiente inicio de sesión.</td></tr><tr><td style = 'text-align:left;padding-left:15px' >< ul >< li > Contraseña temporal:<b>{1}</ b ></ li ></ ul ></td></tr><tr><tdstyle = 'text-align:left;padding-left:15px;font-size:11px' >< hr > Por favor, no responder a este correo ya que no es monitoreado.</td></tr><tr><td style='text-align:left;padding-left:15px;font-size:11px'>Cualquier duda o consulta diríjase al correo: sitel @sutel.go.cr</td></tr></tbody></table></td></tr></tbody></table></div></div></div>";
         }
 
         public RespuestaConsulta<List<FuentesRegistro>> ClonarDatos(FuentesRegistro objeto)
@@ -246,6 +231,7 @@ namespace GB.SIMEF.BL
 
                 if (resul.Count() == 0)
                 {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
                 else
@@ -269,11 +255,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.NoRegistrosActualizar)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
+                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
@@ -302,20 +284,15 @@ namespace GB.SIMEF.BL
                 objeto.Fuente = objeto.Fuente.Trim();
                 objeto.idEstado = (int)EstadosRegistro.EnProceso;
                 var consultardatos = clsDatos.ObtenerDatos(new FuentesRegistro());
-
                 if (consultardatos.Where(x=>x.Fuente.ToUpper()==objeto.Fuente.ToUpper()).Count()>0)
                 {
                     throw new Exception(Errores.FuenteRegistrada);
                 }
-
-
                 if (objeto.CantidadDestinatario<=0)
                 {
-                    throw new Exception(Errores.FuentesCantidadDestiatarios);
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.FuentesCantidadDestinatarios);
                 }
-
-
-
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -326,11 +303,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message== Errores.FuenteRegistrada || ex.Message == Errores.FuentesCantidadDestiatarios)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
+                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
@@ -411,60 +384,6 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<FuentesRegistro>> ValidarDatos(FuentesRegistro objeto)
         {
             throw new NotImplementedException();
-        }
-
-
-
-        public void CrearUsuarios( FuentesRegistro fuente)
-        {
-            foreach (var item in fuente.DetalleFuentesRegistro)
-            {
-                
-                item.Estado = fuente.idEstado == (int)Constantes.EstadosRegistro.Activo ? true : false;
-                string contrasena = generatePassword();    
-                item.Contrasena = HashPassword(contrasena);
-                clsDatosUsuario.ActualizarUsuario(item);
-                string html = string.Format( Resources.PlantillasCorreo.HtmlCrearUsuario, item.NombreDestinatario, contrasena);
-                CorreoDal correoDal = new CorreoDal(item.CorreoElectronico,"",html, "Sutel: Creación de Usuario");
-                int result = correoDal.EnviarCorreo();
-                if (result==0)
-                {
-                    throw new Exception("Error enviando correo: "+ item.CorreoElectronico);
-                }
-
-
-            }
-
-         }
-
-        private static string HashPassword(string password)
-        {
-            byte[] salt;
-            byte[] buffer2;
-            if (password == null)
-            {
-                throw new ArgumentNullException("password");
-            }
-            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8))
-            {
-                salt = bytes.Salt;
-                buffer2 = bytes.GetBytes(0x20);
-            }
-            byte[] dst = new byte[0x31];
-            Buffer.BlockCopy(salt, 0, dst, 1, 0x10);
-            Buffer.BlockCopy(buffer2, 0, dst, 0x11, 0x20);
-            return Convert.ToBase64String(dst);
-        }
-
-        public string generatePassword()
-        {
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            var random = new Random();
-            var pass = new string(
-                Enumerable.Repeat(chars, 8)
-                          .Select(s => s[random.Next(s.Length)])
-                          .ToArray());
-            return pass;
         }
     }
 }

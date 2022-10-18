@@ -9,6 +9,7 @@
 
 namespace GB.SIMEF.Entities
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -21,14 +22,14 @@ namespace GB.SIMEF.Entities
 
         public int idIndicador { get; set; }
 
-        [MaxLength(3000)]
+        [MaxLength(300)]
         [DataType(DataType.MultilineText)]
         public string Fuente { get; set; }
         [DataType(DataType.MultilineText)]
         [MaxLength(3000)]
         public string Notas { get; set; }
 
-        [MaxLength(3000)]
+        [MaxLength(2000)]
         [DataType(DataType.MultilineText)]
         public string Definicion { get; set; }
 
@@ -38,13 +39,34 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public virtual Indicador Indicador { get; set; }
 
+        [NotMapped]
+        public virtual string NombreIndicador { get; set; }
+
+
+        [NotMapped]
+        [JsonIgnore]
+        public virtual string json { get; set; }
+
 
         [NotMapped]
         public virtual string id { get; set; }
 
 
         [NotMapped]
-        public bool ExisteValor { get; set; }
+        public virtual string idClonado { get; set; }
+
+        [NotMapped]
+
+        public List<string> NoSerialize = new List<string>()
+        {
+            "idIndicador",
+            "id",
+            "idEstado",
+            "Indicador",
+            "idClonado"
+        };
+
+
 
     }
 }

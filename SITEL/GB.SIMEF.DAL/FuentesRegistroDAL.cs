@@ -91,6 +91,7 @@ namespace GB.SIMEF.DAL
                     id = Utilidades.Encriptar(X.idFuente.ToString()),
                     idFuente = X.idFuente,
                     Fuente = X.Fuente,
+                    idEstado = X.idEstado,
                     CantidadDestinatario = X.CantidadDestinatario,
                     FechaCreacion = X.FechaCreacion,
                     UsuarioCreacion = X.UsuarioCreacion,

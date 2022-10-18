@@ -178,7 +178,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El correo ingresado ya se encuentra registrado.
+        ///   Looks up a localized string similar to El Correo ingresado ya se encuentra registrado.
         /// </summary>
         public static string CorreoRegistrado {
             get {
@@ -216,9 +216,9 @@ namespace GB.SIMEF.Resources {
         /// <summary>
         ///   Looks up a localized string similar to La cantidad de destinatarios debe ser mayor que 0.
         /// </summary>
-        public static string FuentesCantidadDestiatarios {
+        public static string FuentesCantidadDestinatarios {
             get {
-                return ResourceManager.GetString("FuentesCantidadDestiatarios", resourceCulture);
+                return ResourceManager.GetString("FuentesCantidadDestinatarios", resourceCulture);
             }
         }
         

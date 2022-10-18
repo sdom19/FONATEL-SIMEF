@@ -181,10 +181,11 @@
 
         "ClonarDefinicion": function () {
             let objDefinicion = new Object();
-            objDefinicion.id = $(JsDefiniciones.Controles.ddlindicador).val().trim();
+            objDefinicion.id = ObtenerValorParametroUrl("id");
             objDefinicion.fuente = $(JsDefiniciones.Controles.txtFuenteDefinicion).val().trim();
             objDefinicion.notas = $(JsDefiniciones.Controles.txtNotasDefinicion).val().trim();
             objDefinicion.definicion = $(JsDefiniciones.Controles.txtDefinicion).val().trim();
+            objDefinicion.idClonado = $(JsDefiniciones.Controles.ddlindicador).val().trim();          
             $("#loading").fadeIn();
             execAjaxCall("/DefinicionIndicadores/ClonarDefinicion", "POST", objDefinicion = objDefinicion)
                 .then((obj) => {
@@ -280,19 +281,19 @@ $(document).on("click", JsDefiniciones.Controles.btnGuardar, function (e) {
     if (JsDefiniciones.Metodos.ValidarControles()) {
         let modo = ObtenerValorParametroUrl("modo");
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar  la Definicion?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar  la Definición?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsDefiniciones.Consultas.EditarDefinicion();
                 });
         }
         else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Definicion?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Definición?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsDefiniciones.Consultas.ClonarDefinicion();
                 });
         }
         else {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Definicion?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Definición?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsDefiniciones.Consultas.AgregarDefinicion();
                    
@@ -303,7 +304,7 @@ $(document).on("click", JsDefiniciones.Controles.btnGuardar, function (e) {
 
 $(document).on("click", JsDefiniciones.Controles.btnDeleteDefiniciones, function (e) {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea elimina la Definición?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Definición?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsDefiniciones.Consultas.EliminarDefinicion(id);
         });

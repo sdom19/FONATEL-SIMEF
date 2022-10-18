@@ -30,7 +30,9 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<DetalleCategoriaFecha> DetalleCategoriaFecha { get; set; }
         public virtual DbSet<DetalleCategoriaNumerico> DetalleCategoriaNumerico { get; set; }
 
+        public virtual DbSet<UsuarioFonatel> UsuarioFonatel { get; set; }
 
+        public virtual DbSet<PlantillaHtml> PlantillaHtml { get; set; }
 
         public virtual DbSet<Anno> Anno { get; set; }
 

@@ -43,7 +43,9 @@ namespace GB.SIMEF.DAL
                 idEstado = x.idEstado,
                 id=Utilidades.Encriptar(x.idIndicador.ToString()),
                 Indicador = listaIndicador
-                .Where(i => i.id==Utilidades.Encriptar(x.idIndicador.ToString()) ).Single()
+                .Where(i => i.id==Utilidades.Encriptar(x.idIndicador.ToString()) ).Single(),
+                NombreIndicador = listaIndicador
+               .Where(i => i.id == Utilidades.Encriptar(x.idIndicador.ToString())).Single().Nombre,
             }).ToList();
 
 
@@ -90,7 +92,9 @@ namespace GB.SIMEF.DAL
                 idEstado = x.idEstado,
                 id = Utilidades.Encriptar(x.idIndicador.ToString()),
                 Indicador = listaIndicador
-               .Where(i => i.id == Utilidades.Encriptar(x.idIndicador.ToString())).Single()
+               .Where(i => i.id == Utilidades.Encriptar(x.idIndicador.ToString())).Single(),
+                NombreIndicador  = listaIndicador
+               .Where(i => i.id == Utilidades.Encriptar(x.idIndicador.ToString())).Single().Nombre,
             }).ToList();
 
 

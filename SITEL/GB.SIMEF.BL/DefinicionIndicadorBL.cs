@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,11 @@ namespace GB.SIMEF.BL
         }
 
 
+       public string SerializarObjetoBitacora(DefinicionIndicador objdefinicion)
+        {
+            return JsonConvert.SerializeObject(objdefinicion, new JsonSerializerSettings
+            { ContractResolver = new JsonIgnoreResolver(objdefinicion.NoSerialize) });
+        }
 
         private void ValidarObjeto(DefinicionIndicador objeto)
         {
@@ -52,7 +58,47 @@ namespace GB.SIMEF.BL
             }
         }
 
-        public RespuestaConsulta<List<DefinicionIndicador>> ActualizarElemento(DefinicionIndicador objeto)
+
+       public RespuestaConsulta<DefinicionIndicador> VisualizarElemento(DefinicionIndicador objeto)
+        {
+             RespuestaConsulta<DefinicionIndicador> ResultadoConsultaValorUnico=new RespuestaConsulta<DefinicionIndicador>();
+            try
+            {
+
+                int temp = 0;
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.idIndicador = temp;
+                }
+                ResultadoConsultaValorUnico.Clase = modulo;
+                ResultadoConsultaValorUnico.Accion = (int)Accion.Visualizar;
+                ResultadoConsultaValorUnico.Usuario = user;
+                var result = DefinicionIndicadorDAL.ObtenerDatos(objeto);
+                ResultadoConsultaValorUnico.CantidadRegistros = result.Count();
+                if (ResultadoConsultaValorUnico.CantidadRegistros > 1)
+                {
+                    ResultadoConsultaValorUnico.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.CatidadIndicadoresExcedido);
+                }
+
+
+                ResultadoConsultaValorUnico.objetoRespuesta = result.Single();
+
+                DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsultaValorUnico.Accion,
+                ResultadoConsultaValorUnico.Usuario,
+                ResultadoConsultaValorUnico.Clase, ResultadoConsultaValorUnico.objetoRespuesta.Indicador.Codigo);
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsultaValorUnico.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsultaValorUnico.MensajeError = ex.Message;
+            }
+            return ResultadoConsultaValorUnico;
+        }
+
+       public RespuestaConsulta<List<DefinicionIndicador>> ActualizarElemento(DefinicionIndicador objeto)
         {
             try
             {
@@ -60,11 +106,14 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
+                string jsonInicial = objeto.json;
                 ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
+                objeto = ResultadoConsulta.objetoRespuesta.Single();
+                string JsonFinal = SerializarObjetoBitacora(objeto);
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
                 DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsulta.Accion,
                 ResultadoConsulta.Usuario,
-                ResultadoConsulta.Clase, objeto.Indicador.Codigo);
+                ResultadoConsulta.Clase, objeto.Indicador.Codigo, JsonFinal, jsonInicial,"");
 
             }
             catch (Exception ex)
@@ -88,21 +137,26 @@ namespace GB.SIMEF.BL
             try
             {
                 int temp = 0;
-                if (!string.IsNullOrEmpty(objeto.id))
+                if (!string.IsNullOrEmpty(objeto.idClonado))
                 {
-                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    int.TryParse(Utilidades.Desencriptar(objeto.idClonado), out temp);
                     objeto.idIndicador = temp;
                 }
+
+               
                 objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
                 ValidarObjeto(objeto);
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.Accion = (int)Accion.Clonar;
+                string jsonInicial = objeto.json;
                 ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                objeto = ResultadoConsulta.objetoRespuesta.Single();
+                string jsonFinal = SerializarObjetoBitacora(objeto);    
                 DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsulta.Accion,
                 ResultadoConsulta.Usuario,
-                ResultadoConsulta.Clase, objeto.Indicador.Codigo);
+                ResultadoConsulta.Clase, objeto.Indicador.Codigo, jsonFinal,"",jsonInicial);
 
             }
             catch (Exception ex)
@@ -166,9 +220,11 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
                 objeto = ResultadoConsulta.objetoRespuesta.Single();
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+
                 DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsulta.Accion,
                 ResultadoConsulta.Usuario,
-                ResultadoConsulta.Clase, objeto.Indicador.Codigo);
+                ResultadoConsulta.Clase, objeto.Indicador.Codigo,"","",jsonValorInicial);
 
             }
             catch (Exception ex)
@@ -196,6 +252,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
                 var result = DefinicionIndicadorDAL.ObtenerDatos(pDefinicionIndicador);
+                
                 ResultadoConsulta.objetoRespuesta = result;
                 ResultadoConsulta.CantidadRegistros = result.Count();
             }

@@ -232,9 +232,7 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                List<CategoriasDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
-
-               
+                List<CategoriasDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriasDesagregacion());        
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Clonar;
                 ResultadoConsulta.Usuario = user;
@@ -336,7 +334,6 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario =user ;
                 objeto.UsuarioCreacion = user;
                 List<CategoriasDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
-
                 if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).ToList().Count() > 0)
                 {
                     throw new Exception(Errores.CodigoRegistrado);

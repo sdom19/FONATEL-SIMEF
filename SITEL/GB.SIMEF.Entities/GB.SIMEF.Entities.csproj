@@ -55,6 +55,7 @@
     <Compile Include="DetalleDatoHistoricoColumna.cs" />
     <Compile Include="DetalleReglaValidacion.cs" />
     <Compile Include="EstadoLogico.cs" />
+    <Compile Include="PlantillaHtml.cs" />
     <Compile Include="RespuestaConsulta.cs" />
     <Compile Include="CategoriasDesagregacion.cs" />
     <Compile Include="ClasificacionIndicadores.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="TipoReglaValidacion.cs" />
     <Compile Include="TiposDetalleCategoria.cs" />
     <Compile Include="UnidadEstudio.cs" />
+    <Compile Include="UsuarioFonatel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GB.SIMEF.Resources\GB.SIMEF.Resources.csproj">

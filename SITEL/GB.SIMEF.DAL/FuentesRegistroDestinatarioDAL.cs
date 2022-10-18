@@ -21,12 +21,25 @@ namespace GB.SIMEF.DAL
 
             using (db = new SIMEFContext())
             {
+             
+
                 ListaDetalleFuentesRegistro = db.Database.SqlQuery<DetalleFuentesRegistro>
                 ("execute spObtenerFuentesRegistrosDestinatarios @idDetalleFuente, @idFuentesRegistro",
                     new SqlParameter("@idDetalleFuente", objDetalleFuentesRegistro.idDetalleFuente),
                     new SqlParameter("@idFuentesRegistro", objDetalleFuentesRegistro.idFuente)
                 ).ToList();
-
+                ListaDetalleFuentesRegistro = ListaDetalleFuentesRegistro.Select(x => new DetalleFuentesRegistro()
+                {
+                    idDetalleFuente = x.idDetalleFuente,
+                    idFuente = x.idFuente,
+                    NombreDestinatario = x.NombreDestinatario,
+                    CorreoElectronico = x.CorreoElectronico,
+                    Estado = x.Estado,
+                    idUsuario = x.idUsuario,
+                    NombreFuente = db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single().Fuente,
+                    CantidadDisponible = ListaDetalleFuentesRegistro.Count() - db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single().CantidadDestinatario,
+                    CorreoEnviado = x.CorreoEnviado
+                }).ToList();
 
                 return ListaDetalleFuentesRegistro;
             }
@@ -42,14 +55,27 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaDetalleFuentesRegistro = db.Database.SqlQuery<DetalleFuentesRegistro>
-                ("execute spActualizarFuentesRegistroDetalle @idDetalleFuente, @idFuente, @Nombre, @CorreoElectronico, @Estado",
+                ("execute spActualizarFuentesRegistroDetalle @idDetalleFuente, @idFuente, @Nombre, @CorreoElectronico, @Estado, @IdUsuario",
                     new SqlParameter("@idDetalleFuente", objDetalleFuentesRegistro.idDetalleFuente),
                     new SqlParameter("@idFuente", objDetalleFuentesRegistro.idFuente),
                     new SqlParameter("@Nombre", string.IsNullOrEmpty(objDetalleFuentesRegistro.NombreDestinatario)?DBNull.Value.ToString(): objDetalleFuentesRegistro.NombreDestinatario),
                     new SqlParameter("@CorreoElectronico", string.IsNullOrEmpty(objDetalleFuentesRegistro.CorreoElectronico) ? DBNull.Value.ToString() : objDetalleFuentesRegistro.CorreoElectronico),
-                    new SqlParameter("@Estado", objDetalleFuentesRegistro.Estado)
+                    new SqlParameter("@Estado", objDetalleFuentesRegistro.Estado),
+                     new SqlParameter("@IdUsuario", objDetalleFuentesRegistro.idUsuario)
                 ).ToList();
 
+                ListaDetalleFuentesRegistro = ListaDetalleFuentesRegistro.Select(x => new DetalleFuentesRegistro()
+                {
+                    idDetalleFuente=x.idDetalleFuente,
+                    idFuente=x.idFuente,
+                    NombreDestinatario=x.NombreDestinatario,
+                    CorreoElectronico=x.CorreoElectronico,
+                    Estado=x.Estado,
+                    idUsuario=x.idUsuario,
+                    NombreFuente = db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single().Fuente,
+                    CantidadDisponible = ListaDetalleFuentesRegistro.Count() - db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single().CantidadDestinatario,
+                    CorreoEnviado = x.CorreoEnviado
+                }).ToList();
 
                 return ListaDetalleFuentesRegistro;
             }
@@ -58,19 +84,7 @@ namespace GB.SIMEF.DAL
 
 
 
-        public List<DetalleFuentesRegistro> ActualizarUsuario(DetalleFuentesRegistro objUser)
-        {
-            using (db = new SIMEFContext())
-            {
-                return db.Database.SqlQuery<DetalleFuentesRegistro>("exec spCrearUsuario @idFuente,@Correo,@Nombre,@Contrasena,@Estado",
-                new SqlParameter("@idFuente", objUser.idFuente),
-                new SqlParameter("@Correo", objUser.CorreoElectronico),
-                new SqlParameter("@Nombre", objUser.NombreDestinatario),
-                new SqlParameter("@Contrasena", objUser.Contrasena),
-                new SqlParameter("@Estado", objUser.Estado)).ToList();
-            }
-
-        }
+  
 
 
 

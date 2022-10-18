@@ -79,6 +79,7 @@
     <Compile Include="FuentesRegistroDestinatariosBL.cs" />
     <Compile Include="GrupoIndicadorBL.cs" />
     <Compile Include="FormulasCalculoBL.cs" />
+    <Compile Include="UsuarioFonatelBL.cs" />
     <Compile Include="MesBL.cs" />
     <Compile Include="OperadorArismeticoBL.cs" />
     <Compile Include="ReglasValidacionBL.cs" />

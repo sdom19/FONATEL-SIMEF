@@ -19,6 +19,11 @@ namespace GB.SIMEF.Resources
             Actualizable = 3
         }
 
+        public enum PlantillaCorreoEnum : int
+        {
+            CrearUsuario = 1
+        }
+
 
         /// <summary>
         /// Tipos de Categorías

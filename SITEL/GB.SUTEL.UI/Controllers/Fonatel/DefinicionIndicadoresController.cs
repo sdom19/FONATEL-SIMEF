@@ -46,7 +46,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             int temp;
             int.TryParse(Utilidades.Desencriptar(id), out temp);
             
-            var model = definicionBL.ObtenerDatos(new DefinicionIndicador() { idIndicador = temp }).objetoRespuesta.Single();
+            var model = definicionBL.VisualizarElemento(new DefinicionIndicador() { idIndicador = temp }).objetoRespuesta;
+           
             return View(model);
         }
 
@@ -157,10 +158,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 if (obj.Result.CantidadRegistros ==1)
                 {
                     pdefinicion = obj.Result.objetoRespuesta.Single();
-                    pdefinicion.ExisteValor = obj.Result.CantidadRegistros > 0;
+                    pdefinicion.json = definicionBL.SerializarObjetoBitacora(pdefinicion);
                     pdefinicion.Notas = objDefinicion.Notas.Trim();
                     pdefinicion.Definicion = objDefinicion.Definicion.Trim();
                     pdefinicion.Fuente = objDefinicion.Fuente.Trim();
+                    
                 }                    
                 result = definicionBL.ActualizarElemento(pdefinicion);
             });
@@ -180,11 +182,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 { id = objDefinicion.id });
             }).ContinueWith((obj) => {
                 var definicionSeleccionada = obj.Result.objetoRespuesta.Single();
-                if (!string.IsNullOrEmpty(definicionSeleccionada.Definicion))
+                objDefinicion.json = definicionBL.SerializarObjetoBitacora(definicionSeleccionada);
+                if (obj.Result.CantidadRegistros==0)
                 {
                     objDefinicion = null;
                 }
-                result = definicionBL.InsertarDatos(objDefinicion);
+                result = definicionBL.ClonarDatos(objDefinicion);
             });
             return JsonConvert.SerializeObject(result);
         }
@@ -221,14 +224,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 int temp = 0;
                 int.TryParse(Utilidades.Desencriptar(indicador.id), out temp);
                 indicador.idIndicador = temp;
-
-
                 result = indicadorBl.ObtenerDatos(indicador);
             });
-
             return JsonConvert.SerializeObject(result);
-
-
         }
 
 

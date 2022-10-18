@@ -9,6 +9,7 @@
 
 namespace GB.SIMEF.Entities
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -30,19 +31,27 @@ namespace GB.SIMEF.Entities
         public string CorreoElectronico { get; set; }
         public bool Estado { get; set; }
 
+        public int idUsuario { get; set; }
+
+        public bool CorreoEnviado { get; set; }
+
 
         #region Atributos no forman parte del contexto
 
         [NotMapped]
         public string FuenteId { get; set; }
 
+        [JsonIgnore]
         [NotMapped]
-        public string Usuario { get; set; }
-
+        public string Json { get; set; }
         [NotMapped]
         public string Contrasena { get; set; }
 
+        [NotMapped]
+        public string NombreFuente { get; set; }
 
+        [NotMapped]
+        public int CantidadDisponible { get; set; }
         [NotMapped]
 
         public List<string> NoSerialize = new List<string>()
@@ -51,7 +60,6 @@ namespace GB.SIMEF.Entities
             "idFuente",
             "Estado",
             "FuenteId",
-            "Usuario",
             "Contrasena"
 
 

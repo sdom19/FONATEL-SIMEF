@@ -19,12 +19,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         FuentesRegistroBL FuenteBL;
         FuentesRegistroDestinatariosBL FuenteDestinatariosBL;
+        UsuarioFonatelBL usuarioFonatelBL;
         string user;
 
         public FuentesController()
         {
             FuenteBL = new FuentesRegistroBL(EtiquetasViewFuentesRegistro.FuentesRegistro, System.Web.HttpContext.Current.User.Identity.GetUserId());
             FuenteDestinatariosBL = new FuentesRegistroDestinatariosBL(EtiquetasViewFuentesRegistro.FuentesRegistro, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            usuarioFonatelBL = new UsuarioFonatelBL(EtiquetasViewFuentesRegistro.FuentesRegistro, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
         // GET: FuentesRegistro
@@ -50,14 +52,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 ViewBag.titulo = EtiquetasViewFuentesRegistro.CrearFuente;
                 return View(new FuentesRegistro());
-            }else
+            } else
             {
                 ViewBag.titulo = EtiquetasViewFuentesRegistro.Editar;
-                FuentesRegistro fuente = 
+                FuentesRegistro fuente =
                     FuenteBL.ObtenerDatos(new FuentesRegistro() { id = id }).objetoRespuesta.Single();
                 return View(fuente);
             }
-            
+
         }
 
         public ActionResult Deatlle(int id)
@@ -91,8 +93,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
 
             return JsonConvert.SerializeObject(result);
-
-
         }
 
         /// <summary>
@@ -122,7 +122,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> AgregarFuente(FuentesRegistro objetoFuente)
         {
-            user = User.Identity.GetUserId();
             RespuestaConsulta<List<FuentesRegistro>> result = null;
             await Task.Run(() =>
             {
@@ -132,7 +131,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
                 else
                 {
-                    objetoFuente.UsuarioModificacion = user;
                     result = FuenteBL.ActualizarElemento(objetoFuente);
                 }
            
@@ -156,6 +154,19 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 result = FuenteBL.CambioEstado(fuente);
+
+                return result;
+            }).ContinueWith(objFuente=> {
+                FuentesRegistro fuente = result.objetoRespuesta.Single(); 
+                foreach (var item in fuente.DetalleFuentesRegistro)
+                {
+                    if (!item.CorreoEnviado)
+                    {
+                        usuarioFonatelBL.CambioEstado(new UsuarioFonatel()
+                        { IdUsuario = item.idUsuario });
+                    }        
+                }
+            
             });
 
             return JsonConvert.SerializeObject(result);
@@ -193,12 +204,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> ConsultarDestinatarios(DetalleFuentesRegistro destinatario)
         {
-            user = User.Identity.GetUserId();
             RespuestaConsulta<List<DetalleFuentesRegistro>> result = null;
             await Task.Run(() =>
             {
-
-                destinatario.Usuario = user;
                 result = FuenteDestinatariosBL.ObtenerDatos(destinatario);
             });
 
@@ -217,18 +225,60 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public async Task<string> AgregarDestinatario(DetalleFuentesRegistro destinatario)
         {
             RespuestaConsulta<List<DetalleFuentesRegistro>> result = null;
+            UsuarioFonatel usuario = new UsuarioFonatel()
+            {
+                NombreUsuario = destinatario.NombreDestinatario,
+                CorreoUsuario = destinatario.CorreoElectronico
+            };
             await Task.Run(() =>
             {
-                if (destinatario.idDetalleFuente==0)
+                if (destinatario.idDetalleFuente == 0)
                 {
-                    result = FuenteDestinatariosBL.InsertarDatos(destinatario);
+                    return usuarioFonatelBL.InsertarDatos(usuario);
+                }
+                else
+                {
+                    result= FuenteDestinatariosBL
+                            .ObtenerDatos(new DetalleFuentesRegistro()
+                            { idDetalleFuente = destinatario.idDetalleFuente });
+                    if (result.CantidadRegistros==1)
+                    {
+                        usuario.IdUsuario = result.objetoRespuesta.Single().idUsuario; 
+
+                    }
+                    return usuarioFonatelBL.ActualizarElemento(usuario);
+                }
+            }).ContinueWith(resultado=> {
+                
+                if (destinatario.idDetalleFuente == 0)
+                {
+                    if (resultado.Result.HayError==0)
+                    {
+                        destinatario.idUsuario = resultado.Result.objetoRespuesta.Single().IdUsuario;
+                        result = FuenteDestinatariosBL.InsertarDatos(destinatario);
+                    }
+                    else
+                    {
+                        result = new RespuestaConsulta<List<DetalleFuentesRegistro>>();
+                        result.HayError = resultado.Result.HayError;
+                        result.MensajeError = resultado.Result.MensajeError;
+                    }
+                   
                 }
                 else
                 {
 
-                    result = FuenteDestinatariosBL.ActualizarElemento(destinatario);
+                    if (resultado.Result.HayError == 0)
+                    {
+                        result = FuenteDestinatariosBL.ActualizarElemento(destinatario);
+                    }
+                    else
+                    {
+                        result = new RespuestaConsulta<List<DetalleFuentesRegistro>>();
+                        result.HayError = resultado.Result.HayError;
+                        result.MensajeError = resultado.Result.MensajeError;
+                    }             
                 }
-              
             });
 
             return JsonConvert.SerializeObject(result);
@@ -247,6 +297,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
 
                 result = FuenteDestinatariosBL.EliminarElemento(destinatario);
+                return result;
+            }).ContinueWith(resultado => {
+
+                usuarioFonatelBL.EliminarElemento(new UsuarioFonatel()
+                {
+                    IdUsuario = resultado.Result.objetoRespuesta.Single().idUsuario
+                });
             });
 
             return JsonConvert.SerializeObject(result);

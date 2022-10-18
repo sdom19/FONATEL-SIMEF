@@ -157,7 +157,7 @@
     <value>El Código ingresado ya se encuentra registrado</value>
   </data>
   <data name="CorreoRegistrado" xml:space="preserve">
-    <value>El correo ingresado ya se encuentra registrado</value>
+    <value>El Correo ingresado ya se encuentra registrado</value>
   </data>
   <data name="DetalleRegistrado" xml:space="preserve">
     <value>El Detalle ingresado ya se encuentra registrado</value>
@@ -168,7 +168,7 @@
   <data name="FuenteRegistrada" xml:space="preserve">
     <value>La Fuente ingresada ya se encuentra registrada</value>
   </data>
-  <data name="FuentesCantidadDestiatarios" xml:space="preserve">
+  <data name="FuentesCantidadDestinatarios" xml:space="preserve">
     <value>La cantidad de destinatarios debe ser mayor que 0</value>
   </data>
   <data name="IndicadorFormularioRegistrado" xml:space="preserve">
