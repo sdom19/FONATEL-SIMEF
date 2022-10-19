@@ -420,6 +420,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary> 
+        /// 19/10/2022
+        /// Francisco Vindas Ruiz
+        /// Metodo para eliminar envio programado
+        /// </summary>
+        /// <param name="idSolicitud></param>
+        /// <returns>JSON</returns>
+        [HttpPost]
+        public async Task<string> EliminarEnvioProgramado(SolicitudEnvioProgramado objeto)
+        {
+            user = User.Identity.GetUserId();
+
+            RespuestaConsulta<List<SolicitudEnvioProgramado>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = EnvioProgramadoBL.EliminarElemento(new SolicitudEnvioProgramado()
+                {
+                    id = objeto.id
+                });
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
         #endregion
 
     }

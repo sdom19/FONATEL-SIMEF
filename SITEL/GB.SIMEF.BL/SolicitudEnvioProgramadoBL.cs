@@ -46,7 +46,43 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<SolicitudEnvioProgramado>> EliminarElemento(SolicitudEnvioProgramado objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Eliminar;
+
+                SolicitudEnvioProgramado registroActualizar;
+
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                    objeto.IdSolicitud = temp;
+                }
+
+                var resul = clsDatos.ObtenerDatos(objeto);
+                registroActualizar = resul.Single();
+                registroActualizar.Estado = false;
+                resul = clsDatos.ActualizarDatos(registroActualizar);
+
+                ResultadoConsulta.objetoRespuesta = resul;
+
+            }
+            catch (Exception ex)
+            {
+                //if (ex.Message == Errores.NoRegistrosActualizar)
+                //{
+                //    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                //}
+                //else
+                //{
+                //    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                //}
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<SolicitudEnvioProgramado>> InsertarDatos(SolicitudEnvioProgramado objeto)
@@ -69,11 +105,19 @@ namespace GB.SIMEF.BL
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
 
-
             }
             catch (Exception ex)
             {
-                     ResultadoConsulta.MensajeError = ex.Message;
+                //if (ex.Message == Errores.NoRegistrosActualizar)
+                //{
+                //    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                //}
+                //else
+                //{
+                //    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                //}
+
+                ResultadoConsulta.MensajeError = ex.Message;
             }
 
             return ResultadoConsulta;

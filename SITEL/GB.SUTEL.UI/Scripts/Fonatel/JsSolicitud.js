@@ -61,18 +61,21 @@ JsSolicitud = {
         "btnFinalizarSolicitud": "#btnFinalizarSolicitud",
         "txtModo": "#txtmodo",
         "id": "#txtidsolicitud",
+
         "idEnvioProgramado": "txtSolicitudEnvio",
         "txtSolicitudModal": "#txtSolicitudModal",
         "txtSolicitudEnvio": "#txtSolicitudEnvio",
         "ddlFrecuencia": "#ddlFrecuencia",
-        "txtFechaCiclo": "#txtFechaCiclo"
+        "txtFechaCiclo": "#txtFechaCiclo",
+        "ddlFrecuenciaHelp": "#ddlFrecuenciaHelp",
+        "txtRepeticionesSolicitudesHelp": "#txtRepeticionesSolicitudesHelp",
+        "txtFechaEnvioSolicitudHelp":"#txtFechaEnvioSolicitudHelp"
+
     },
 
     "Variables": {
 
         "CantidadMaxDias": 28,
-
-        "EnvioPragramado": "",
 
         "DetallesCompletos": false,
 
@@ -100,7 +103,11 @@ JsSolicitud = {
             for (var i = 0; i < JsSolicitud.Variables.ListadoSolicitudes.length; i++) {
                 let solicitud = JsSolicitud.Variables.ListadoSolicitudes[i];
                 let listaFormularios = solicitud.FormulariosString;
+
                 let envioProgramado = solicitud.EnvioProgramado == null ? "NO" : "SI";
+
+                //let envioActivo = solicitud.EnvioProgramado.Estado == true ? "NO" : "SI";
+
                 let EnProceso = solicitud.IdEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso ? "SI" : "NO";
 
                 html = html + "<tr>";
@@ -132,11 +139,29 @@ JsSolicitud = {
 
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button>";
 
-                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + "  title='Envío' class='btn-icon-base btn-sent'></button>";
+                if (EnProceso == "NO") {
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + "  title='Envío' class='btn-icon-base btn-sent'></button>";
+                } else {
+                    html = html + "<button type='button' data-toggle='tooltip' disabled data-placement='top' value=" + solicitud.id + "  title='Envío' class='btn-icon-base btn-sent'></button>";
 
-                if (envioProgramado == "SI") {
+                }
+
+                if (envioProgramado == "NO" && EnProceso == "SI") {
+                    html = html + "<button type='button' data-toggle='tooltip'  disabled  data-placement='top' value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
+                }
+
+                else if (envioProgramado == "NO" && EnProceso == "SI") {
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
+                }
+
+                if (envioProgramado == "SI" && EnProceso == "SI") {
+
+                    html = html + "<button type='button' data-toggle='tooltip' disabled data-placement='top' value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
+                }
+                else if (envioProgramado == "SI" && EnProceso == "NO") {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
+
                 else {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
                 }
@@ -394,7 +419,8 @@ JsSolicitud = {
             Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
 
             execAjaxCall("/SolicitudFonatel/ClonarSolicitud", "POST", Solicitud)
-                .then((obj) => {                        
+                .then((obj) => {
+                            InsertarParametroUrl("id", obj.objetoRespuesta.id);
                             $(JsSolicitud.Controles.step2).trigger('click');
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -603,7 +629,7 @@ JsSolicitud = {
                 });
         },
 
-        "InsertarEnvioProgramado": function (idSolicitud) {
+        "InsertarEnvioProgramado": function () {
 
             $("#loading").fadeIn();
 
@@ -617,7 +643,36 @@ JsSolicitud = {
             execAjaxCall("/SolicitudFonatel/InsertarEnvioProgramado", "POST", objeto)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("La Programación ha sido creada")
-                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+                        .set('onok', function (closeEvent) {
+                            location.reload();
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "EliminarEnvioProgramado": function () {
+
+            $("#loading").fadeIn();
+
+            let objeto = new Object();
+            objeto.id = $(JsSolicitud.Controles.txtSolicitudEnvio).val();
+
+            execAjaxCall("/SolicitudFonatel/EliminarEnvioProgramado", "POST", objeto)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Programación ha sido eliminada")
+                        .set('onok', function (closeEvent) {
+                            location.reload();
+                        });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -810,6 +865,39 @@ JsSolicitud = {
             }
         },
 
+        "ValidarEnvioProgramado": function () {
+
+            let validar = true;
+
+            let frecuencia = $(JsSolicitud.Controles.ddlFrecuencia).val().trim();
+            let repeticiones = $(JsSolicitud.Controles.txtCantidadRepeticiones).val().trim();
+            let fecha = $(JsSolicitud.Controles.txtFechaCiclo).val().trim();
+
+            if (frecuencia.length == 0) {
+                $(JsSolicitud.Controles.ddlFrecuenciaHelp).removeClass("hidden");
+                Validar = false;
+            } else {
+                $(JsSolicitud.Controles.ddlFrecuenciaHelp).addClass("hidden");
+            }
+
+            if (repeticiones.length == 0) {
+                $(JsSolicitud.Controles.txtRepeticionesSolicitudesHelp).removeClass("hidden");
+                Validar = false;
+            }
+            else {
+                $(JsSolicitud.Controles.txtRepeticionesSolicitudesHelp).addClass("hidden");
+            }
+
+            if (fecha.length == 0) {
+                $(JsSolicitud.Controles.txtFechaEnvioSolicitudHelp).removeClass("hidden");
+                validar = false;
+            } else {
+                $(JsSolicitud.Controles.txtFechaEnvioSolicitudHelp).addClass("hidden");
+            }
+
+            return validar;
+        },
+
         "ConsultaListaSolicitudes": function () {
 
             $("#loading").fadeIn();
@@ -946,28 +1034,31 @@ $(document).on("click", JsSolicitud.Controles.btnCancelarFormulario, function (e
 });
 
 $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function () {
-    $(JsSolicitud.Controles.idSolicitudProgramacion).val("aqui va algun ID");
 
-    $(JsSolicitud.Controles.txtCantidadRepeticiones).addClass("disabled");
-    $(JsSolicitud.Controles.txtFechaEnvio).addClass("disabled");
-    $(JsSolicitud.Controles.txtFechaInicioCiclo).addClass("disabled");
-    $(JsSolicitud.Controles.ddlFormularios).select2("enable", false);
-    $(JsSolicitud.Controles.txtCampoRequerido).addClass("hidden");
+    let id = $(this).val();
+    $(JsSolicitud.Controles.txtSolicitudEnvio).val(id);
 
+    $(JsSolicitud.Controles.ddlFrecuenciaHelp).addClass("hidden");
+    $(JsSolicitud.Controles.txtRepeticionesSolicitudesHelp).addClass("hidden");
+    $(JsSolicitud.Controles.txtFechaEnvioSolicitudHelp).addClass("hidden");
     $(JsSolicitud.Controles.btnEliminarSolicituProgramardEnvio).show();
     $(JsSolicitud.Controles.btnGuardarEnvio).hide();
-
     $(JsSolicitud.Controles.modalEnvio).modal('show');
+
 });
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
 
     e.preventDefault();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la programación a las Solicitud?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            JsSolicitud.Metodos.InsertarEnvioProgramado();
+    if (JsSolicitud.Consultas.ValidarEnvioProgramado()) {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la programación a las Solicitud?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                $(JsSolicitud.Controles.modalEnvio).modal('hide');
+                JsSolicitud.Metodos.InsertarEnvioProgramado();
         });
+    }
+
 });
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) {
@@ -1095,18 +1186,21 @@ $(document).on("click", JsSolicitud.Controles.btnEnvioSolicitud, function (e) {
 
     let id = $(this).val();
     $(JsSolicitud.Controles.txtSolicitudEnvio).val(id);
+
+    $(JsSolicitud.Controles.ddlFrecuenciaHelp).addClass("hidden");
+    $(JsSolicitud.Controles.txtRepeticionesSolicitudesHelp).addClass("hidden");
+    $(JsSolicitud.Controles.txtFechaEnvioSolicitudHelp).addClass("hidden");
     $(JsSolicitud.Controles.btnEliminarSolicituProgramardEnvio).hide();
     $(JsSolicitud.Controles.txtSolicitudModal).prop("disabled", true);
     $(JsSolicitud.Controles.btnGuardarEnvio).show();
     $(JsSolicitud.Controles.modalEnvio).modal('show');
-
 });
 
 $(document).on("click", JsSolicitud.Controles.btnEliminarSolicituProgramardEnvio, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Programación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Programación ha sido eliminada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+            $(JsSolicitud.Controles.modalEnvio).modal('hide');
+            JsSolicitud.Metodos.EliminarEnvioProgramado();
         });
 });
 

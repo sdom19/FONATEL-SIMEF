@@ -13,6 +13,39 @@ namespace GB.SIMEF.DAL
     {
         private SIMEFContext db;
 
+
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 19/10/2022
+        /// Consultar los envios programados 
+        /// </summary>
+        /// <param name="idSolicitud"></param>
+        /// <returns></returns>
+        public List<SolicitudEnvioProgramado> ObtenerDatos(SolicitudEnvioProgramado objeto)
+        {
+            List<SolicitudEnvioProgramado> ListaEnvios = new List<SolicitudEnvioProgramado>();
+
+            using (db = new SIMEFContext())
+            {
+                ListaEnvios = db.Database.SqlQuery<SolicitudEnvioProgramado>
+                    ("execute spObtenerEnviosProgramados @pidSolicitud",
+                      new SqlParameter("@pidSolicitud", objeto.IdSolicitud)
+                    ).ToList();
+
+                ListaEnvios = ListaEnvios.Select(x => new SolicitudEnvioProgramado()
+                {
+                    IdEnvioProgramado = x.IdEnvioProgramado,
+                    IdSolicitud = x.IdSolicitud,
+                    IdFrecuencia = x.IdFrecuencia,
+                    CantidadRepiticiones = x.CantidadRepiticiones,
+                    FechaCiclo = x.FechaCiclo,
+                    Estado = x.Estado
+                }).ToList();
+            }
+
+            return ListaEnvios;
+        }
+
         /// <summary>
         /// Autor: Francisco Vindas Ruiz
         /// Fecha: 18/10/2022
