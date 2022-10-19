@@ -20,7 +20,6 @@
         "nombreHelp":"#nombreHelp",
         "txtNombre": "#txtNombre",
         "txtCorreo": "#txtCorreo",
-        "txtidFuente": "#txtidFuente",
         "txtidDetalleFuente":"#txtidDetalleFuente",
         "FuenteHelp": "#FuenteHelp",
         "CantidadDetalleHelp": "#CantidadDetalleHelp",
@@ -61,6 +60,17 @@
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + destinatario.idDetalleFuente + " title='Editar' class='btn-icon-base btn-edit'></button>";
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + destinatario.idDetalleFuente + " title='Eliminar' class='btn-icon-base btn-delete '></button></td></tr>";
                 html = html + "</tr>"
+                if (i == 0) {
+                    if (destinatario.CantidadDisponible >= 0) {
+                        $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", true);
+                        $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", false);
+                    }
+                    else {
+                        $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);
+                        $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", true);
+                    }
+                    
+                }
             }
             $(JsFuentes.Controles.tabladetalle).html(html);
             CargarDatasource();
@@ -125,23 +135,22 @@
                     $("#loading").fadeOut();
              });
         },
-        "AgregarDestinatario": function () {
+        "AgregarDestinatario": function (id) {
             let destinatario = new Object()
             destinatario.NombreDestinatario = $(JsFuentes.Controles.txtNombre).val();
             destinatario.CorreoElectronico = $(JsFuentes.Controles.txtCorreo).val();
-            destinatario.fuenteId = $.urlParam('id');
-            destinatario.idDetalleFuente = $(JsFuentes.Controles.txtidDetalleFuente).val();
+            destinatario.fuenteId =ObtenerValorParametroUrl('id');
+            destinatario.idDetalleFuente = id;
             $("#loading").fadeIn();
             execAjaxCall("/Fuentes/AgregarDestinatario", "POST", destinatario)
                 .then((data) => {
                     let mensaje = "El Destinatario ha sido agregado";
-                    if (destinatario.fuenteId!= null) {
-                        mensaje = "El Destinatario ha sido agregado"
+                    if (destinatario.idDetalleFuente!= "") {
+                        mensaje = "El Destinatario ha sido editado"
                     }
                     jsMensajes.Metodos.OkAlertModal(mensaje)
                         .set('onok', function (closeEvent) {
-                            JsFuentes.Variables.ListaDestinatarios = data.objetoRespuesta;
-                            JsFuentes.Metodos.CargarTablaDestinatarios();
+                            JsFuentes.Consultas.ConsultarListaDestinatarios();
                             $(JsFuentes.Controles.txtNombre).val("");
                             $(JsFuentes.Controles.txtCorreo).val("");
                             $(JsFuentes.Controles.txtidDetalleFuente).val("");
@@ -163,7 +172,7 @@
             let objetoFuente = new Object()
             objetoFuente.Fuente = $(JsFuentes.Controles.txtFuente).val();
             objetoFuente.CantidadDestinatario = $(JsFuentes.Controles.txtCantidad).val();
-            objetoFuente.id = $.urlParam("id");
+            objetoFuente.id =ObtenerValorParametroUrl("id");
             execAjaxCall("/Fuentes/AgregarFuente", "POST", objetoFuente)
                 .then((obj) => {
                     if (parcial) {
@@ -177,13 +186,15 @@
                             });
                     }
                     else {
-                        $(JsFuentes.Controles.txtidFuente).val(obj.objetoRespuesta[0].id);
+                        //$(JsFuentes.Controles.txtidFuente).val(obj.objetoRespuesta[0].id);
+                        InsertarParametroUrl("id", obj.objetoRespuesta[0].id)
                     }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
                     } else {
+                        $(JsFuentes.Controles.step1).trigger('click');
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) { });
                     }
@@ -194,14 +205,13 @@
         },
         "EliminarDestinatario": function (id) {
          let destinatario = new Object();
-         destinatario.idDetalleFuente = id;
-         destinatario.fuenteId = $(JsFuentes.Controles.txtidFuente).val();
+            destinatario.idDetalleFuente = id;
+            destinatario.fuenteId = ObtenerValorParametroUrl("id");
          execAjaxCall("/Fuentes/EliminarDestinatario", "POST", destinatario)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Destinatario ha sido eliminado")
                         .set('onok', function (closeEvent) {
-                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta;
-                            JsFuentes.Metodos.CargarTablaDestinatarios();
+                            JsFuentes.Consultas.ConsultarListaDestinatarios();
                             $(JsFuentes.Controles.txtNombre).val("");
                             $(JsFuentes.Controles.txtCorreo).val("");
                         });
@@ -220,7 +230,7 @@
         "ActivarFuente": function () {
             $("#loading").fadeIn();
             let fuente = new Object()
-            fuente.id = $(JsFuentes.Controles.txtidFuente).val();
+            fuente.id = ObtenerValorParametroUrl("id");
             execAjaxCall("/Fuentes/ActivarFuente", "POST", fuente)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("La Fuente ha sido creada")
@@ -249,8 +259,30 @@
                         let destinatario = JsFuentes.Variables.ListaDestinatarios[0];
                         $(JsFuentes.Controles.txtidDetalleFuente).val(destinatario.idDetalleFuente);
                         $(JsFuentes.Controles.txtNombre).val(destinatario.NombreDestinatario);
-                        $(JsFuentes.Controles.txtCorreo).val(destinatario.CorreoElectronico)
+                        $(JsFuentes.Controles.txtCorreo).val(destinatario.CorreoElectronico);
+                        $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);
                     }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    } else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "ConsultarListaDestinatarios": function (id) {
+            $("#loading").fadeIn();
+            let destinatario = new Object();
+            destinatario.FuenteId = ObtenerValorParametroUrl("id");
+            execAjaxCall("/Fuentes/ConsultarDestinatarios", "POST", destinatario = destinatario)
+                .then((obj) => {
+                    JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta;
+                    JsFuentes.Metodos.CargarTablaDestinatarios();
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -274,7 +306,7 @@
                     } else {
                         let dependencias = obj.objetoRespuesta[0] + "<br>"
 
-                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Fuentes ya está en uso en las<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Fuente ya está en uso en las<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
                             .set('onok', function (closeEvent) {
                                 JsFuentes.Consultas.EliminarFuente(idfuente);
                             })
@@ -308,17 +340,23 @@ $(document).on("click", JsFuentes.Controles.btnCancelar, function (e) {
 
 $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
     e.preventDefault();
-    JsFuentes.Metodos.ValidarFuente();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para la Fuente?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            JsFuentes.Consultas.AgregarFuente(true);
-        });
+    let validar = JsFuentes.Metodos.ValidarFuente();
+    if (validar) {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para la Fuente?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsFuentes.Consultas.AgregarFuente(true);
+            });
+    }
+
 });
 
 
 $(document).on("click", JsFuentes.Controles.btnSiguienteFuente, function (e) {
     e.preventDefault();
-    $(JsFuentes.Controles.step2).trigger('click');
+    let validar = JsFuentes.Metodos.ValidarFuente();
+    if (validar) {
+        $(JsFuentes.Controles.step2).trigger('click');
+    }
 });
 
 
@@ -355,13 +393,14 @@ $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e)
 
     if (validar) {
         let mensaje = "¿Desea agregar el Destinatario?";
-        if ($(JsFuentes.Controles.txtidDetalleFuente).val() > 0) {
+        let id = $(JsFuentes.Controles.txtidDetalleFuente).val();
+        if (id=="") {
             mensaje = "¿Desea agregar el Destinatario?";
         }
 
         jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje, jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
-                JsFuentes.Consultas.AgregarDestinatario();
+                JsFuentes.Consultas.AgregarDestinatario(id);
             });
     }
 });

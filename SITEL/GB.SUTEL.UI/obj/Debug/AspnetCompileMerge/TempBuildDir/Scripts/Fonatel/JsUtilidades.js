@@ -26,6 +26,17 @@
             "Activo" : 2,
             "Desactivado":3,
             "Eliminado": 4
+        },
+        "TipoReglasDetalle":
+        {
+            'NoRegistrado': 0,
+            'FormulaCambioMensual': 1,
+            'FormulaContraOtroIndicadorEntrada': 2,
+            'FormulaContraConstante': 3,
+            'FormulaContraAtributosValidos': 4,
+            'FormulaActualizacionSecuencial': 5,
+            'FormulaContraOtroIndicadorSalida': 6,
+            'FormulaContraOtroIndicadorEntradaSalida': 7
         }
     }
 }
@@ -119,6 +130,13 @@ $(document).on("keypress",'.solo_numeros', function (e) {
         return false;
     }
 });
+
+
+
+$(document).on("paste", 'input', function (e) {
+    e.preventDefault();
+});
+
 
 function EliminarDatasource(pDataTable = ".datatable_simef") {
     $(pDataTable).DataTable().destroy();
@@ -326,15 +344,6 @@ function InsertarItemDataTable (pDataTable, pItem) {
 
 /**
  * José Navarro Acuña.
- * Obtener la página que se encuentra activa de una tabla DataTable.
- * @param {any} pDataTable
- */
-function ObtenerPaginaActual(pDataTable) {
-    return $(pDataTable).DataTable().page()
-}
-
-/**
- * José Navarro Acuña.
  * Permite insertar un item en un combobox select2.
  * @param {any} pSelect2 combobox select2 de la vista.
  * @param {any} pTexto texto que se muestra en las opciones.
@@ -419,13 +428,14 @@ function InsertarOpcionTodosSelect2Multiple(pSelect2) {
 /**
  * José Navarro Acuña.
  * Inserta un parámetro en la URL del navegador. Afecta al state del history. No recarga página.
+ * Nota: se realiza un replace del state.
  * @param {any} pParametro parámetro valor llave.
  * @param {any} pValor valor del parámetro.
  */
-function InsertarParametroUrl (pParametro, pValor) {
+function InsertarParametroUrl(pParametro, pValor) {
     const url = new URL(window.location);
     url.searchParams.set(pParametro, pValor);
-    window.history.pushState(null, '', url.toString());
+    window.history.replaceState(null, '', url.toString());
 }
 
 /**
@@ -467,6 +477,24 @@ function execAjaxCall(pURL, pHttpMethod, pParams = null) {
     })
 }
 
+/**
+ * José Navarro Acuña.
+ * Permite validar los inputs completados de un formulario.
+ * Retorna un objeto con: 
+ * - puedeContinuar: booleano que indica si todos los campos estan completos
+ * - objetos: listado de inputs pendientes por completar
+ * @param {any} pInputs colección de inputs a validar.
+ * @param {any} pExcepciones colección de inputs a ignorar en la validación.
+ */
+function ValidarFormulario(pInputs, pExcepciones = []) {
+    let inputsPendientesCompletar = [...$(pInputs)].filter(i => {
+        if (pExcepciones.includes($(i).attr("id"))) return false;
+        if (pExcepciones.includes($(i).attr("class"))) return false;
+        return $.trim(i.value) == "" || i.value == null;
+    });
+    return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
+}
+
 $(document).on("keypress", '.solo_operacion', function (e) {
     var regex = new RegExp("^[0-9]|[-+*>=</]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
@@ -485,6 +513,18 @@ $(document).on("keypress", '.alfa_numerico', function (e) {
         return false;
     }
 });
+
+
+
+$(document).on("keypress", '.alfa_numerico2', function (e) {
+    var regex = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúñÑ.,; ]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        e.preventDefault();
+        return false;
+    }
+});
+
 
 $(document).on("keypress", '.solo_texto', function (e) {
     var regex = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$");

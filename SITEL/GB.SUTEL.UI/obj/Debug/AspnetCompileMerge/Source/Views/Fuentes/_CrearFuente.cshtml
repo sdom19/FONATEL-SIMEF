@@ -1,14 +1,13 @@
 ﻿@using GB.SIMEF.Resources;
  @model GB.SIMEF.Entities.FuentesRegistro
 <form>
-    @Html.HiddenFor(model => model.id, new { id = "txtidFuente" })
     <div class="row">
         <div class="col-md-4 col-sm-10 col-md-offset-2 col-sm-offset-2">
             <div class="form-group row">
                 <label for="txtFuente" class="col-sm-12 col-form-label">Fuente</label>
                 <div class="col-sm-12">
 
-                    @Html.EditorFor(model => model.Fuente, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numericoV2", placeholder = EtiquetasViewFuentesRegistro.FuentesRegistro, id = "txtFuente" } })
+                    @Html.EditorFor(model => model.Fuente, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_texto", placeholder = EtiquetasViewFuentesRegistro.FuentesRegistro, id = "txtFuente" } })
                     <small id="FuenteHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>

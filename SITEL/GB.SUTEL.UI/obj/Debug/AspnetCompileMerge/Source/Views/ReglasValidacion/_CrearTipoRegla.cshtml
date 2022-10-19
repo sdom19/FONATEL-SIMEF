@@ -1,74 +1,61 @@
 ﻿@using GB.SIMEF.Resources;
-@model GB.SIMEF.Entities.ReglaValidacion
+
 
 <div class="row">
     <div class="col-md-6 col-sm-12">
-
         <div class="form-group center">
-            <label for="ddlTipoRegla" class="col-form-label ">Tipo de Regla</label>
+            <label for="ddlTipoRegla" class="col-form-label ">@EtiquetasViewReglasValidacion.TipoRegla</label>
             <div class="select2-wrapper">
-
-                @Html.DropDownListFor(model => model.IdTipo, new SelectList(ViewBag.ListaTipoReglas, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipoRegla" })
-
-
-
+                @Html.DropDownList("ddlTipoRegla", new SelectList(ViewBag.ListaTipoReglas, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipoRegla" })
             </div>
             <small id="TipoReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
-
         </div>
-
-
-
 
         <div class="form-group center">
-            <label for="ddlOperadorRegla" class="col-form-label">Operador</label>
+            <label for="ddlOperadorRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Operador</label>
             <div class="select2-wrapper">
-                @Html.DropDownListFor(model => model.idOperador, new SelectList(ViewBag.ListaOperadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlOperadorRegla" })
+                @Html.DropDownList("ddlOperadorRegla", new SelectList(ViewBag.ListaOperadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlOperadorRegla" })
             </div>
-
             <small id="OperadorHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
         </div>
-
     </div>
 
     <div class="col-md-6 col-sm-12">
         <div class="form-group center">
             <label for="ddlVariableRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Variable</label>
             <div class="select2-wrapper">
-                <select class="listasDesplegables" id="ddlVariableRegla">
+                @*<select class="listasDesplegables" id="ddlVariableRegla">
                     <option></option>
                     <option value="1">Cantidad Torres</option>
                     <option value="2">Estado de Torres</option>
-                </select>
+                </select>*@
+                @Html.DropDownList("ddlVariableRegla", new SelectList(ViewBag.ListaIndicadoresVariable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlVariableRegla" })
             </div>
             <small id="VariableHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
         </div>
 
-
         <div class="hidden" id="divFormulaContraConstante">
             <div class="form-group center">
-                <label for="txtConstanteRegla" class="col-form-label">Valor Constante</label>
+                <label for="txtConstanteRegla" class="col-form-label">@EtiquetasViewReglasValidacion.ValorConstante</label>
+                @*@Html.DropDownList("ddlVariableRegla", new SelectList(ViewBag.ListaIndicadoresVariable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlVariableRegla" })*@
                 <input type="text" class="form-control form-control-fonatel  " id="txtConstanteRegla" placeholder="Constante">
                 <small id="txtConstanteReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
+
         <div class="hidden" id="divFormulaContraIndicador">
-
             <div class="form-group center">
-                <label for="ddlIndicadorComparacionRegla" class="col-form-label">Indicador Comparación</label>
+                <label for="ddlIndicadorComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.IndicadorComparacion</label>
                 <div class="select2-wrapper">
-
                     @Html.DropDownList("ddlIndicadorComparacionRegla", new SelectList(ViewBag.ListaIndicadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorComparacionRegla" })
-
                 </div>
                 <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
 
-
             <div class="form-group center">
-                <label for="ddlVariableComparacionRegla" class="col-form-label">Variable Comparación</label>
+                <label for="ddlVariableComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Comparacion</label>
                 <div class="select2-wrapper">
-
+                    @*@Html.DropDownList("ddlVariableComparacionRegla", new SelectList(ViewBag.ListaIndicadoresVariable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlVariableComparacionRegla" })*@
 
                     <select class="listasDesplegables" id="ddlVariableComparacionRegla">
                         <option></option>
@@ -79,58 +66,54 @@
                 <small id="ddlVariableComparacionReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
-        <div class="hidden" id="divFormulaContraAtributosValido">
 
+        <div class="hidden" id="divFormulaContraAtributosValido">
             <div class="form-group center">
-                <label for="ddlAtributosValidosCategoríaRegla" class="col-form-label">Categoría ID</label>
+                <label for="ddlAtributosValidosCategoríaRegla" class="col-form-label">@EtiquetasViewReglasValidacion.CategoriaID</label>
                 <div class="select2-wrapper">
                     @Html.DropDownList("ddlVariableComparacionRegla", new SelectList(ViewBag.ListaCategoria, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlAtributosValidosCategoríaRegla" })
                 </div>
                 <small id="ddlAtributosValidosCategoríaReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
 
-
             <div class="form-group center">
                 <label for="ddlAtributosValidosRegla" class="col-form-label">@EtiquetasViewReglasValidacion.AtributosValidos</label>
                 <div class="select2-wrapper">
+                    @*@Html.DropDownList("ddlAtributosValidosRegla", new SelectList(ViewBag.ListaIndicadoresVariable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlAtributosValidosRegla" })*@
+
                     <select multiple class="listasDesplegables multiple-Select" id="ddlAtributosValidosRegla">
                         <option value="all">Todos</option>
                         <option value="1">Provincia</option>
                         <option value="2">Cantón</option>
                         <option value="2">Distrito</option>
                     </select>
-
-
                 </div>                
                 <small id="ddlAtributosValidosReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
-        <div class="hidden" id="divFormulaActualizacionSecuencial">
 
+        <div class="hidden" id="divFormulaActualizacionSecuencial">
             <div class="form-group center">
-                <label for="ddlCategoríaActualizableRegla" class="col-form-label">Categoría Actualizable</label>
+                <label for="ddlCategoríaActualizableRegla" class="col-form-label">@EtiquetasViewReglasValidacion.CategoriaActualizable</label>
                 <div class="select2-wrapper">
                     @Html.DropDownList("ddlCategoríaActualizableRegla", new SelectList(ViewBag.ListaCategoriaActualizable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlCategoríaActualizableRegla" })
                 </div>
                 <small id="ddlCategoríaActualizableReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
+
         <div class="hidden" id="divFormulaContraIndicadorSalida">
             <div class="form-group center">
-                <label for="ddlIndicadorSalidaRegla" class="col-form-label">Indicador de Salida</label>
+                <label for="ddlIndicadorSalidaRegla" class="col-form-label">@EtiquetasViewReglasValidacion.IndicadorSalida</label>
                 <div class="select2-wrapper">
-
                     @Html.DropDownList("ddlIndicadorSalidaRegla", new SelectList(ViewBag.ListaIndicadoresSalida, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorSalidaRegla" })
-
                 </div>
                 <small id="ddlIndicadorSalidaReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
-
-
-
     </div>
 </div>
+
 <div class="row">
     <div class="col-sm-12 text-center mt-5">
         <button id="btnGuardarReglaTipo" type="submit" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>

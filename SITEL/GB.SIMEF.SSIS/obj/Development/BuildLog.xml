@@ -2,13 +2,18 @@
 <BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectInfo>
     <Name>GB.SIMEF.SSIS</Name>
-    <LastWriteTime>2022-10-19T16:28:59.8425762Z</LastWriteTime>
+    <LastWriteTime>2022-10-19T16:40:25.6574423Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
       <Name>Sigitel.Definiciones.dtsx</Name>
-      <LastWriteTime>2022-10-19T16:28:49.141588Z</LastWriteTime>
+      <LastWriteTime>2022-10-19T20:22:25.9269151Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>Sigitel.Orquestador.dtsx</Name>
+      <LastWriteTime>2022-10-19T16:40:25.6424441Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

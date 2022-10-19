@@ -74,13 +74,9 @@
             execAjaxCall("/HistoricoFonatel/ObtenerListaHistorica", "POST", datoHistorico )
                 .then((obj) => {
                     JsHistorico.Variables.ListaDatosHistorico = obj.objetoRespuesta;
-
-                    JsHistorico.Metodos.CargarTabla();
-                   
+                    JsHistorico.Metodos.CargarTabla();                  
                 }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-
-           
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {       
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
                     }
@@ -104,15 +100,10 @@ $(document).on("click", JsHistorico.Controles.btnCancelarHistorico, function (e)
         });  
 
 });
-
-
 $(document).on("click", JsHistorico.Controles.btnAtrasHistorico, function (e) {
     e.preventDefault();
     window.location.href = "/HistoricoFonatel/Index";
 });
-
-
-
 $(document).on("change", JsHistorico.Controles.ddlNombreHistorico, function (e) {
 
     let id = $(JsHistorico.Controles.ddlNombreHistorico).val();
@@ -125,41 +116,35 @@ $(document).on("change", JsHistorico.Controles.ddlNombreHistorico, function (e) 
         $(JsHistorico.Controles.btnDescargarHistorico).prop("disabled", false);
         $(JsHistorico.Controles.btnVisualizarHistorico).prop("disabled", false);
     }
-
-
-   
 });
-
-
-
-
-
 $(document).on("click", JsHistorico.Controles.btnVisualizarHistorico, function (e) {
     e.preventDefault();
     let id = $(JsHistorico.Controles.ddlNombreHistorico).val();
     window.location.href = "/Fonatel/HistoricoFonatel/Detalle?id=" + id; 
 });
-
-
-
-
-$(document).on("click", JsHistorico.Controles.btnDescargarHistorico, function (e) {
-    e.preventDefault();
-    let id = $(JsHistorico.Controles.ddlNombreHistorico).val();
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea generar el Reporte?", "", "Generar Registro")
-            .set('onok', function (closeEvent) {
-                JsHistorico.Consulta.ConsultaListaHistorica(id);
+$(document).on("click", JsHistorico.Controles.btnDescargarHistorico, function () {
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea generar el Reporte?", "", "Generar Registro")
+        .set('onok', function (closeEvent) {
+              new Promise((resolve, reject) => {
+                let id = "";
+                if ($(JsHistorico.Controles.ddlNombreHistorico).length == 0) {
+                    id = ObtenerValorParametroUrl('id');
+                }
+                else {
+                    id = $(JsHistorico.Controles.ddlNombreHistorico).val();
+                }
+                window.open(jsUtilidades.Variables.urlOrigen + "/HistoricoFonatel/DescargarExcel?id=" + id);
+                resolve(true);
+            }).then((obj) => {
                 jsMensajes.Metodos.OkAlertModal("El Reporte ha sido generado")
                     .set('onok', function (closeEvent) { location.reload() });
-            });
-    
-   
+                }
+            );
+        });
 });
-
-
 $(function () {
     if ($(JsHistorico.Controles.divHistorica).length > 0) {
-        let id = $.urlParam('id');
+        let id =ObtenerValorParametroUrl('id');
         if (id != null) {
             JsHistorico.Consulta.ConsultaListaHistorica(id);
         }

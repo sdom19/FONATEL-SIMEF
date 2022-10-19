@@ -4,9 +4,6 @@
 
 
 
-@Html.Hidden("txtmodoCategoria",  (string) ViewBag.Modo)
-
-@Html.HiddenFor(model => model.id, new { id = "txtidCategoria" })
 <div class="row">
 
     <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
@@ -15,7 +12,9 @@
             <div class="form-group row">
                 <label for="txtNombreCategoria" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.Nombre</label>
                 <div class="col-sm-12">
-                    @Html.EditorFor(model => model.NombreCategoria, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewCategorias.Nombre, id = "txtNombreCategoria" } })
+                    
+                    @*Cambio solicitado por Yerlin 10-10-2022*@
+                    @Html.EditorFor(model => model.NombreCategoria, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_texto", placeholder = EtiquetasViewCategorias.Nombre, id = "txtNombreCategoria" } })
                     <small id="txtnombreCategoriaHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>

@@ -476,7 +476,7 @@ $(document).on("change", JsSolicitud.Controles.ControlesStep1, function (e) {
 
 $(function () {
     
-    let modo = $.urlParam("modo");
+    let modo =ObtenerValorParametroUrl("modo");
     if ($(JsSolicitud.Controles.TablaSolicitud).length > 0) {
         JsSolicitud.Consultas.ConsultaListaSolicitudes();
     }

@@ -6,6 +6,7 @@
         "MensajeClonar": "Clonar Registro",
         "MensajeEliminar": "Eliminar Registro",
         "MensajeConfirmacion": "Proceso Exitoso",
+        "MensajeDescargarRegistro":"Descargar Registro",
         "ErrorTransaccion": "Error",
         "ContentDelete": (mensaje) => { return "<div class='text-center'><div class='icon warning-icon'></div> <strong>" + mensaje + "</strong></div>" },
         "ContentError": (mensaje) => { return "<div class='text-center'><div class='icon warning-icon'></div> <strong>" + mensaje + "</strong></div>" },
@@ -20,7 +21,8 @@
             clonar: 1,
             eliminar: 2,
             estado: 3,
-            cancelar:4
+            cancelar: 4,
+            descargar: 5
         }
 
     },
@@ -78,17 +80,30 @@
                 else if (actionType == jsMensajes.Variables.actionType.cancelar) { // se busca por medio del actionType
                     _question = jsMensajes.Variables.MensajeCancelar;
                 }
+                else if (actionType == jsMensajes.Variables.actionType.descargar) { // se busca por medio del actionType
+                    _question = jsMensajes.Variables.MensajeDescargarRegistro;
+                }
             }
             else {
                 _question = customTitleMessage;
             }
+
             let alertifyObject = null;
+
             if (actionType == jsMensajes.Variables.actionType.eliminar) {
                 alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })
                     .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
                     .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
                 alertifyObject.setContent(jsMensajes.Variables.ContentDelete(mensaje));
-            } else {
+            } else if (actionType == jsMensajes.Variables.actionType.descargar) {
+
+                alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })
+                    .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
+                    .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
+                alertifyObject.setContent(jsMensajes.Variables.ContentSuccess(mensaje));
+
+            }
+            else {
                 alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })
                     .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
                     .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })

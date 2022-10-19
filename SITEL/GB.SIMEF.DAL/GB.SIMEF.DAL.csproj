@@ -61,7 +61,9 @@
     <Compile Include="DetalleIndicadorCategoriaDAL.cs" />
     <Compile Include="DetalleIndicadorVariablesDAL.cs" />
     <Compile Include="DetalleRelacionCategoriaDAL.cs" />
+    <Compile Include="DetalleSolicitudesDAL.cs" />
     <Compile Include="PlantillaHtmlDAL.cs" />
+    <Compile Include="SolicitudEnvioProgramadoDAL.cs" />
     <Compile Include="UsuarioFonatelDAL.cs" />
     <Compile Include="ReglaValidacionAtributosValidosDAL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
