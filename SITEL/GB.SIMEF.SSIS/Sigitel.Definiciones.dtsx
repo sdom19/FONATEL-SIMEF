@@ -1,0 +1,820 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/5/2022 1:04:03 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CR-LAP-MICH-HER"
+  DTS:CreatorName="GB\michael.hernandez"
+  DTS:DTSID="{1A78596A-90C9-4357-875A-341C44453E92}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.845.0"
+  DTS:LocaleID="5130"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{6AEDAC96-8081-41CA-B442-D048F9FA172B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DWSIMEF]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}"
+      DTS:ObjectName="DWSIMEF">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=DWSIMEF;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}LocalHost.DWSIMEF;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SIMEFBD]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F18F5338-8C65-4779-BF3B-2095830FE784}"
+      DTS:ObjectName="SIMEFBD">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=SIMEFBD;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{F18F5338-8C65-4779-BF3B-2095830FE784}LocalHost.SIMEFBD;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Carga de definiciones"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{0CF5F31A-C88B-427E-B9C4-47AD4CD54E98}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga de definiciones"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga de definiciones\Carga de definiciones"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Carga de definiciones"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[SIGITEL].[DimDefinicionIndicador]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga de definiciones\Carga de definiciones.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DWSIMEF]"
+                  connectionManagerRefId="Package.ConnectionManagers[DWSIMEF]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].Columns[IdIndicador]"
+                      cachedDataType="i4"
+                      cachedName="IdIndicador"
+                      externalMetadataColumnId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdIndicador]" />
+                    <inputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].Columns[Codigo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="Codigo"
+                      externalMetadataColumnId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Codigo]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Codigo]" />
+                    <inputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].Columns[Nombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="350"
+                      cachedName="Nombre"
+                      externalMetadataColumnId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Nombre]" />
+                    <inputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].Columns[IdGrupo]"
+                      cachedDataType="i4"
+                      cachedName="IdGrupo"
+                      externalMetadataColumnId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[IdGrupo]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdGrupo]" />
+                    <inputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].Columns[Grupo]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="Grupo"
+                      externalMetadataColumnId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Grupo]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Grupo]" />
+                    <inputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].Columns[IdTipoIdicador]"
+                      cachedDataType="i4"
+                      cachedName="IdTipoIdicador"
+                      externalMetadataColumnId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[IdTipoIdicador]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdTipoIdicador]" />
+                    <inputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].Columns[Definicion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2000"
+                      cachedName="Definicion"
+                      externalMetadataColumnId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Definicion]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Definicion]" />
+                    <inputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].Columns[Fuente]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="300"
+                      cachedName="Fuente"
+                      externalMetadataColumnId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Fuente]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Fuente]" />
+                    <inputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].Columns[Notas]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3000"
+                      cachedName="Notas"
+                      externalMetadataColumnId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Notas]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Notas]" />
+                    <inputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].Columns[IdEstado]"
+                      cachedDataType="i4"
+                      cachedName="IdEstado"
+                      externalMetadataColumnId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[IdEstado]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdEstado]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[IdDefinicion]"
+                      dataType="i4"
+                      name="IdDefinicion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Codigo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="Codigo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[IdGrupo]"
+                      dataType="i4"
+                      name="IdGrupo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Grupo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="Grupo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[IdTipoIdicador]"
+                      dataType="i4"
+                      name="IdTipoIdicador" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[TipoIndicador]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      name="TipoIndicador" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Fuente]"
+                      codePage="1252"
+                      dataType="str"
+                      length="300"
+                      name="Fuente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Notas]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3000"
+                      name="Notas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
+                      dataType="i4"
+                      name="IdIndicador" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[IdEstado]"
+                      dataType="i4"
+                      name="IdEstado" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input].ExternalColumns[Definicion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3000"
+                      name="Definicion" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga de definiciones\Carga de definiciones.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga de definiciones\Carga de definiciones.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Carga de definiciones.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga de definiciones\Carga de definiciones.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga de definiciones\Lectura de deficiones"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Lectura de deficiones"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[SIGITEL].[Definiciones]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga de definiciones\Lectura de deficiones.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SIMEFBD]"
+                  connectionManagerRefId="Package.ConnectionManagers[SIMEFBD]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdIndicador]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdIndicador]"
+                      name="IdIndicador"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Codigo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Codigo]"
+                      length="30"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Codigo]"
+                      name="Codigo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
+                      length="350"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Nombre]"
+                      name="Nombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdGrupo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[IdGrupo]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdGrupo]"
+                      name="IdGrupo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Grupo]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Grupo]"
+                      length="60"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Grupo]"
+                      name="Grupo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdTipoIdicador]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[IdTipoIdicador]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdTipoIdicador]"
+                      name="IdTipoIdicador"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[TipoIdicador]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[TipoIdicador]"
+                      length="350"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[TipoIdicador]"
+                      name="TipoIdicador"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Definicion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Definicion]"
+                      length="2000"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Definicion]"
+                      name="Definicion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Fuente]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Fuente]"
+                      length="300"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Fuente]"
+                      name="Fuente"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Notas]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Notas]"
+                      length="3000"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[Notas]"
+                      name="Notas"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdEstado]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[IdEstado]"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].Columns[IdEstado]"
+                      name="IdEstado"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
+                      dataType="i4"
+                      name="IdIndicador" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Codigo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="Codigo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      name="Nombre" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[IdGrupo]"
+                      dataType="i4"
+                      name="IdGrupo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Grupo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="Grupo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[IdTipoIdicador]"
+                      dataType="i4"
+                      name="IdTipoIdicador" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[TipoIdicador]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      name="TipoIdicador" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Definicion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      name="Definicion" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Fuente]"
+                      codePage="1252"
+                      dataType="str"
+                      length="300"
+                      name="Fuente" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[Notas]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3000"
+                      name="Notas" />
+                    <externalMetadataColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output].ExternalColumns[IdEstado]"
+                      dataType="i4"
+                      name="IdEstado" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
+                      dataType="i4"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
+                      name="IdIndicador" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Codigo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Codigo]"
+                      name="Codigo" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Nombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Nombre]"
+                      name="Nombre" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[IdGrupo]"
+                      dataType="i4"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[IdGrupo]"
+                      name="IdGrupo" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Grupo]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Grupo]"
+                      name="Grupo" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[IdTipoIdicador]"
+                      dataType="i4"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[IdTipoIdicador]"
+                      name="IdTipoIdicador" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[TipoIdicador]"
+                      codePage="1252"
+                      dataType="str"
+                      length="350"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[TipoIdicador]"
+                      name="TipoIdicador" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Definicion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2000"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Definicion]"
+                      name="Definicion" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Fuente]"
+                      codePage="1252"
+                      dataType="str"
+                      length="300"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Fuente]"
+                      name="Fuente" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Notas]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3000"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[Notas]"
+                      name="Notas" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[IdEstado]"
+                      dataType="i4"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[IdEstado]"
+                      name="IdEstado" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga de definiciones.Paths[OLE DB Source Output]"
+              endId="Package\Carga de definiciones\Carga de definiciones.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Carga de definiciones\Lectura de deficiones.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A7537320-251A-4352-8431-5ACE41F44EF0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}"
+          SQLTask:SqlStatementSource="truncate table SIGITEL.DimDefinicionIndicador" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{1A7C7CFC-1D74-4F77-826B-8239B9DC0767}"
+      DTS:From="Package\Truncate"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Carga de definiciones" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{3B26D9B0-29A5-4CB8-9A88-4F9ACBBA8894}"
+      DTS:EventID="-1"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{0A2CF1BE-0323-48FE-94C7-041A2968374B}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables />
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Carga de definiciones"
+          TopLeft="352,215" />
+        <NodeLayout
+          Size="161,42"
+          Id="Package\Truncate"
+          TopLeft="341,94" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="421.5,136">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="23,79"
+              Start="0,0"
+              End="23,71.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.5"
+                    Point2="0,39.5"
+                    Point3="4,39.5" />
+                  <mssgle:LineSegment
+                    End="19,39.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="19,39.5"
+                    Point2="23,39.5"
+                    Point3="23,43.5" />
+                  <mssgle:LineSegment
+                    End="23,71.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga de definiciones">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Carga de definiciones\Lectura de deficiones"
+          TopLeft="232,167" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Carga de definiciones\Carga de definiciones"
+          TopLeft="323,325" />
+        <EdgeLayout
+          Id="Package\Carga de definiciones.Paths[OLE DB Source Output]"
+          TopLeft="323.5,209">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="92,116"
+              Start="0,0"
+              End="92,108.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,54"
+                    Point2="0,58"
+                    Point3="4,58" />
+                  <mssgle:LineSegment
+                    End="88,58" />
+                  <mssgle:CubicBezierSegment
+                    Point1="88,58"
+                    Point2="92,58"
+                    Point3="92,62" />
+                  <mssgle:LineSegment
+                    End="92,108.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga de definiciones\Carga de definiciones">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga de definiciones\Lectura de deficiones">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">View</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

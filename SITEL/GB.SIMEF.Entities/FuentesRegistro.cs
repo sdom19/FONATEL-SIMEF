@@ -25,7 +25,7 @@ namespace GB.SIMEF.Entities
         [Key]
         public int idFuente { get; set; }
         public string Fuente { get; set; }
-        public int CantidadDestinatario { get; set; }
+        public int? CantidadDestinatario { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }

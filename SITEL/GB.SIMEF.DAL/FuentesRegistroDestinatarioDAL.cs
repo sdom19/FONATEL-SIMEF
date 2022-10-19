@@ -37,7 +37,7 @@ namespace GB.SIMEF.DAL
                     Estado = x.Estado,
                     idUsuario = x.idUsuario,
                     NombreFuente = db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single().Fuente,
-                    CantidadDisponible = ListaDetalleFuentesRegistro.Count() - db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single().CantidadDestinatario,
+                    CantidadDisponible = ListaDetalleFuentesRegistro.Count() - (int)db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single().CantidadDestinatario,
                     CorreoEnviado = x.CorreoEnviado
                 }).ToList();
 
@@ -73,7 +73,7 @@ namespace GB.SIMEF.DAL
                     Estado=x.Estado,
                     idUsuario=x.idUsuario,
                     NombreFuente = db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single().Fuente,
-                    CantidadDisponible = ListaDetalleFuentesRegistro.Count() - db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single().CantidadDestinatario,
+                    CantidadDisponible = ListaDetalleFuentesRegistro.Count() - (int)db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single().CantidadDestinatario,
                     CorreoEnviado = x.CorreoEnviado
                 }).ToList();
 

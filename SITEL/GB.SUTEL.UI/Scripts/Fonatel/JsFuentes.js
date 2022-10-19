@@ -194,6 +194,7 @@
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { location.reload(); });
                     } else {
+                        $(JsFuentes.Controles.step1).trigger('click');
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) { });
                     }
@@ -305,7 +306,7 @@
                     } else {
                         let dependencias = obj.objetoRespuesta[0] + "<br>"
 
-                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Fuentes ya está en uso en las<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Fuente ya está en uso en las<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
                             .set('onok', function (closeEvent) {
                                 JsFuentes.Consultas.EliminarFuente(idfuente);
                             })
@@ -339,17 +340,23 @@ $(document).on("click", JsFuentes.Controles.btnCancelar, function (e) {
 
 $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
     e.preventDefault();
-    JsFuentes.Metodos.ValidarFuente();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para la Fuente?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            JsFuentes.Consultas.AgregarFuente(true);
-        });
+    let validar = JsFuentes.Metodos.ValidarFuente();
+    if (validar) {
+        jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para la Fuente?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsFuentes.Consultas.AgregarFuente(true);
+            });
+    }
+
 });
 
 
 $(document).on("click", JsFuentes.Controles.btnSiguienteFuente, function (e) {
     e.preventDefault();
-    $(JsFuentes.Controles.step2).trigger('click');
+    let validar = JsFuentes.Metodos.ValidarFuente();
+    if (validar) {
+        $(JsFuentes.Controles.step2).trigger('click');
+    }
 });
 
 

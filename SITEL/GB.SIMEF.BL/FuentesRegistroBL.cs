@@ -65,7 +65,7 @@ namespace GB.SIMEF.BL
                     objeto.UsuarioModificacion = user;
 
                     string fuente = objeto.Fuente.Trim();
-                    int Cantidad = objeto.CantidadDestinatario;
+                    int Cantidad = (int)objeto.CantidadDestinatario;
 
                     var resul = clsDatos.ObtenerDatos(new FuentesRegistro());
                     string valorAnterior = SerializarObjetoBitacora(resul.Where(x=>x.idFuente==objeto.idFuente).Single())  ;
@@ -96,7 +96,7 @@ namespace GB.SIMEF.BL
                     else if (Cantidad < objeto.DetalleFuentesRegistro.Count())
                     {
                         ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                        throw new Exception(Errores.CantidadRegistrosLimite);
+                        throw new Exception(Errores.CantidadRegistrosLimiteFuente);
                     }
                    
                     else

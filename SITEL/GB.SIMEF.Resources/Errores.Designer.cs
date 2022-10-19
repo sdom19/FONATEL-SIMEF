@@ -151,6 +151,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La cantidad ingresada en Cantidad de Destinatarios no puede ser menor al valor actual.
+        /// </summary>
+        public static string CantidadRegistrosLimiteFuente {
+            get {
+                return ResourceManager.GetString("CantidadRegistrosLimiteFuente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La cantidad ingresada en Cantidad de Atributos no puede ser menor al valor actual.
         /// </summary>
         public static string CantidadRegistrosLimiteRelaciones {
