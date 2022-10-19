@@ -123,6 +123,9 @@
   <data name="CantidadFormularios" xml:space="preserve">
     <value>Cantidad de Formularios</value>
   </data>
+  <data name="CantidadRepeticiones" xml:space="preserve">
+    <value>Cantidad de Repeticiones</value>
+  </data>
   <data name="Clonar" xml:space="preserve">
     <value>Clonar Solicitud</value>
   </data>
@@ -138,6 +141,9 @@
   <data name="Envio" xml:space="preserve">
     <value>Envío Programado</value>
   </data>
+  <data name="FechaCiclo" xml:space="preserve">
+    <value>Fecha Inicio del Ciclo</value>
+  </data>
   <data name="FechaFin" xml:space="preserve">
     <value>Fecha de Fin</value>
   </data>
@@ -150,6 +156,9 @@
   <data name="Formularios" xml:space="preserve">
     <value>Formularios Web</value>
   </data>
+  <data name="Frecuencia" xml:space="preserve">
+    <value>Frecuencía</value>
+  </data>
   <data name="Fuente" xml:space="preserve">
     <value>Fuente</value>
   </data>
@@ -161,6 +170,9 @@
   </data>
   <data name="Nombre" xml:space="preserve">
     <value>Nombre</value>
+  </data>
+  <data name="ProgramarEnvio" xml:space="preserve">
+    <value>Programar Envío Automático</value>
   </data>
   <data name="Solicitudes" xml:space="preserve">
     <value>Solicitud</value>

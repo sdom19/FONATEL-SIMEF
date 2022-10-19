@@ -24,11 +24,22 @@ namespace GB.SIMEF.Entities
 
         public int IdFrecuencia { get; set; }
         public int CantidadRepiticiones { get; set; }
-        public int Dia { get; set; }
-        public int IdMes { get; set; }
-        public System.DateTime FechaCiclo { get; set; }
+        //public int Dia { get; set; }
+        //public int IdMes { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> FechaCiclo { get; set; }
         public bool Estado { get; set; }
-    
+
+
+        #region VariablesNoMapaeadas
+
+        [NotMapped]
+        public string id { get; set; }
+
+
+        #endregion
         //public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
         //public virtual Solicitud Solicitud { get; set; }
     }

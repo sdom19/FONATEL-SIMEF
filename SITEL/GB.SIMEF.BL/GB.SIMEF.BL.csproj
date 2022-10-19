@@ -72,6 +72,7 @@
     <Compile Include="DetalleIndicadorVariablesBL.cs" />
     <Compile Include="DetalleReglasValidacionBL.cs" />
     <Compile Include="DetalleRelacionCategoriaBL.cs" />
+    <Compile Include="DetalleSolicitudesBL.cs" />
     <Compile Include="FormularioWebBL.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="ReglasValidacionBL.cs" />
     <Compile Include="RelacionCategoriaBL.cs" />
     <Compile Include="SolicitudBL.cs" />
+    <Compile Include="SolicitudEnvioProgramadoBL.cs" />
     <Compile Include="TipoDetalleCategoriaBL.cs" />
     <Compile Include="TipoCategoriaBL.cs" />
     <Compile Include="DetalleCategoriasTextoBL.cs" />

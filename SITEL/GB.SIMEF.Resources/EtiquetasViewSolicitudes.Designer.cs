@@ -79,6 +79,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cantidad de Repeticiones.
+        /// </summary>
+        public static string CantidadRepeticiones {
+            get {
+                return ResourceManager.GetString("CantidadRepeticiones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Clonar Solicitud.
         /// </summary>
         public static string Clonar {
@@ -124,6 +133,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Fecha Inicio del Ciclo.
+        /// </summary>
+        public static string FechaCiclo {
+            get {
+                return ResourceManager.GetString("FechaCiclo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Fecha de Fin.
         /// </summary>
         public static string FechaFin {
@@ -160,6 +178,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Frecuencía.
+        /// </summary>
+        public static string Frecuencia {
+            get {
+                return ResourceManager.GetString("Frecuencia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Fuente.
         /// </summary>
         public static string Fuente {
@@ -192,6 +219,15 @@ namespace GB.SIMEF.Resources {
         public static string Nombre {
             get {
                 return ResourceManager.GetString("Nombre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Programar Envío Automático.
+        /// </summary>
+        public static string ProgramarEnvio {
+            get {
+                return ResourceManager.GetString("ProgramarEnvio", resourceCulture);
             }
         }
         
