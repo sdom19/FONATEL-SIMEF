@@ -434,6 +434,8 @@ CreateView = {
         exitoEliminarCategoria: "La Categoría ha sido eliminada",
         preguntaAgregarCategoria: "¿Desea agregar la Categoría?",
         exitoAgregarCategoria: "La Categoría ha sido agregada",
+
+        existenCamposVacios: "Existen campos vacíos. "
     },
 
     Metodos: {
@@ -546,7 +548,7 @@ CreateView = {
             }
 
             if (!validacion.guardadoCompleto) {
-                mensaje = "Existen campos vacíos. ";
+                mensaje = CreateView.Mensajes.existenCamposVacios;
             }
 
             let rootObj = this;
@@ -595,7 +597,7 @@ CreateView = {
             }
 
             if (!validacion.guardadoCompleto) {
-                mensaje = "Existen campos vacíos. ";
+                mensaje = CreateView.Mensajes.existenCamposVacios;
             }
 
             let rootObj = this;
@@ -647,7 +649,7 @@ CreateView = {
             }
 
             if (!validacion.guardadoCompleto) {
-                mensaje = "Existen campos vacíos. ";
+                mensaje = CreateView.Mensajes.existenCamposVacios;
             }
 
             let rootObj = this;
