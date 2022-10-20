@@ -24,11 +24,6 @@
         <div class="form-group center">
             <label for="ddlVariableRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Variable</label>
             <div class="select2-wrapper">
-                @*<select class="listasDesplegables" id="ddlVariableRegla">
-                    <option></option>
-                    <option value="1">Cantidad Torres</option>
-                    <option value="2">Estado de Torres</option>
-                </select>*@
                 @Html.DropDownList("ddlVariableRegla", new SelectList(ViewBag.ListaIndicadoresVariable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlVariableRegla" })
             </div>
             <small id="VariableHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
@@ -37,7 +32,6 @@
         <div class="hidden" id="divFormulaContraConstante">
             <div class="form-group center">
                 <label for="txtConstanteRegla" class="col-form-label">@EtiquetasViewReglasValidacion.ValorConstante</label>
-                @*@Html.DropDownList("ddlVariableRegla", new SelectList(ViewBag.ListaIndicadoresVariable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlVariableRegla" })*@
                 <input type="text" class="form-control form-control-fonatel  " id="txtConstanteRegla" placeholder="Constante">
                 <small id="txtConstanteReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
@@ -54,9 +48,7 @@
 
             <div class="form-group center">
                 <label for="ddlVariableComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Comparacion</label>
-                <div class="select2-wrapper">
-                    @*@Html.DropDownList("ddlVariableComparacionRegla", new SelectList(ViewBag.ListaIndicadoresVariable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlVariableComparacionRegla" })*@
-
+                <div class="select2-wrapper">   
                     <select class="listasDesplegables" id="ddlVariableComparacionRegla">
                         <option></option>
                         <option value="1">Cantidad Torres</option>
@@ -79,8 +71,6 @@
             <div class="form-group center">
                 <label for="ddlAtributosValidosRegla" class="col-form-label">@EtiquetasViewReglasValidacion.AtributosValidos</label>
                 <div class="select2-wrapper">
-                    @*@Html.DropDownList("ddlAtributosValidosRegla", new SelectList(ViewBag.ListaIndicadoresVariable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlAtributosValidosRegla" })*@
-
                     <select multiple class="listasDesplegables multiple-Select" id="ddlAtributosValidosRegla">
                         <option value="all">Todos</option>
                         <option value="1">Provincia</option>

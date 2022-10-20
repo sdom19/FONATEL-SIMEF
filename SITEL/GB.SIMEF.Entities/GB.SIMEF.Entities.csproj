@@ -55,6 +55,9 @@
     <Compile Include="DetalleDatoHistoricoColumna.cs" />
     <Compile Include="DetalleReglaValidacion.cs" />
     <Compile Include="EstadoLogico.cs" />
+    <Compile Include="ReglaIndicadorEntradaSalida.cs" />
+    <Compile Include="ReglaIndicadorEntrada.cs" />
+    <Compile Include="ReglaIndicadorSalida.cs" />
     <Compile Include="RespuestaConsulta.cs" />
     <Compile Include="CategoriasDesagregacion.cs" />
     <Compile Include="ClasificacionIndicadores.cs" />

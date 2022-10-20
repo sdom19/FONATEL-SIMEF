@@ -61,6 +61,11 @@
     <Compile Include="DetalleIndicadorCategoriaDAL.cs" />
     <Compile Include="DetalleIndicadorVariablesDAL.cs" />
     <Compile Include="DetalleRelacionCategoriaDAL.cs" />
+    <Compile Include="ReglaIndicadorEntradaSalidaDAL.cs" />
+    <Compile Include="ReglaIndicadorEntradaDAL.cs" />
+    <Compile Include="ReglaIndicadorSalidaDAL.cs" />
+    <Compile Include="ReglaComparacionConstanteDAL.cs" />
+    <Compile Include="ReglaSecuencialDAL.cs" />
     <Compile Include="ReglaValidacionAtributosValidosDAL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
     <Compile Include="FormulasCalculoDAL.cs" />

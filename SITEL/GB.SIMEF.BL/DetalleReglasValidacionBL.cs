@@ -16,6 +16,9 @@ namespace GB.SIMEF.BL
         private readonly ReglaValidacionAtributosValidosDAL clsReglaValidacionAtributosValidosDAL;
         private readonly ReglaComparacionConstanteDAL clsReglaComparacionConstanteDAL;
         private readonly ReglaSecuencialDAL clsReglaSecuencialDAL;
+        private readonly ReglaIndicadorSalidaDAL clsReglaIndicadorSalidaDAL;
+        private readonly ReglaIndicadorEntradaDAL clsReglaIndicadorEntradaDAL;
+        private readonly ReglaIndicadorEntradaSalidaDAL clsReglaIndicadorEntradaSalidaDAL;
 
         private RespuestaConsulta<List<DetalleReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
@@ -30,6 +33,9 @@ namespace GB.SIMEF.BL
             this.clsReglaValidacionAtributosValidosDAL = new ReglaValidacionAtributosValidosDAL();
             this.clsReglaComparacionConstanteDAL = new ReglaComparacionConstanteDAL();
             this.clsReglaSecuencialDAL = new ReglaSecuencialDAL();
+            this.clsReglaIndicadorSalidaDAL = new ReglaIndicadorSalidaDAL();
+            this.clsReglaIndicadorEntradaDAL = new ReglaIndicadorEntradaDAL();
+            this.clsReglaIndicadorEntradaSalidaDAL = new ReglaIndicadorEntradaSalidaDAL();
             ResultadoConsulta = new RespuestaConsulta<List<DetalleReglaValidacion>>();
         }
 
@@ -239,6 +245,21 @@ namespace GB.SIMEF.BL
                     objeto.reglaSecuencial.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
                     objeto.reglaSecuencial.idvariable = 0;
                     clsReglaSecuencialDAL.ActualizarDatos(objeto.reglaSecuencial);
+                    break;
+                   
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida:
+                    objeto.reglaIndicadorSalida.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
+                    clsReglaIndicadorSalidaDAL.ActualizarDatos(objeto.reglaIndicadorSalida);
+                    break;
+                    
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada:
+                    objeto.reglaIndicadorEntrada.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
+                    clsReglaIndicadorEntradaDAL.ActualizarDatos(objeto.reglaIndicadorEntrada);
+                    break;
+                    
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida:
+                    objeto.reglaIndicadorEntradaSalida.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
+                    clsReglaIndicadorEntradaSalidaDAL.ActualizarDatos(objeto.reglaIndicadorEntradaSalida);
                     break;
 
                 default:

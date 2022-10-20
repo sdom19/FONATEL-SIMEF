@@ -61,6 +61,15 @@ namespace GB.SIMEF.Entities
         
         [NotMapped]
         public virtual ReglaSecuencial reglaSecuencial { get; set; }
+        
+        [NotMapped]
+        public virtual ReglaIndicadorSalida reglaIndicadorSalida { get; set; }
+        
+        [NotMapped]
+        public virtual ReglaIndicadorEntrada reglaIndicadorEntrada { get; set; }
+        
+        [NotMapped]
+        public virtual ReglaIndicadorEntradaSalida reglaIndicadorEntradaSalida { get; set; }
 
 
         [NotMapped]
