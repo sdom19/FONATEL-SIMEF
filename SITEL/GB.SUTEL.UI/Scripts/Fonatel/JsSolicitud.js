@@ -2,36 +2,22 @@
 JsSolicitud = {
 
     "Controles": {
-        "btnGuardarFormulario": "#btnGuardarFormulario",
+
+        //CONTROLES DE SOLICITUDES 
         "btnAgregarSolicitud": "#TablaSolicitud tbody tr td .btn-add",
         "btnEditarSolicitud": "#TablaSolicitud tbody tr td .btn-edit",
         "btnDeleteSolicitud": "#TablaSolicitud tbody tr td .btn-delete",
         "btnCloneSolicitud": "#TablaSolicitud tbody tr td .btn-clone",
-        "btnEliminarDetalleSolicitud": "#TablaSolicitud tbody tr td .btn-delete",
-        "btnEnvioSolicitud": "#TablaSolicitud tbody tr td .btn-calendar",
-        "btnEliminarProgramacion": "#TablaSolicitud tbody tr td .btn-calendar-disabled",
+        "TablaSolicitud": "#TablaSolicitud tbody",
+        "TablaSolicitudElemento": "#TablaSolicitud",
+        "txtmodoSolicitud": "#txtmodoSolicitud",
         "btnsent": "#TablaSolicitud tbody tr td .btn-sent",
         "btnCancelar": "#btnCancelarSolicitud",
         "btnDesactivadoSolicitud": "#TablaSolicitud tbody tr td .btn-power-off",
         "btnActivadoSolicitud": "#TablaSolicitud tbody tr td .btn-power-on",
-        "btnGuardarEnvio": "#btnGuardarSolicitudEnvio",
-        "btnEliminarSolicituProgramardEnvio": "#btnEliminarSolicituProgramardEnvio",
-        "btnCancelarEnvio": "#btnCancelarSolicitudEnvio",
-        "modalEnvio": "#modalEnvio",
-        "idSolicitudProgramacion": "#idSolicitudProgramacion",
-        "ddldiaSolicitudModal": "#ddldiaSolicitudModal",
-        "txtCantidadRepeticiones": "#txtCantidadRepeticiones",
-        "txtFechaEnvio": "#txtFechaEnvio",
-        "txtFechaInicioCiclo": "#txtFechaInicioCiclo",
         "ddlFormularios": "#ddlFormularios",
-        "txtCampoRequerido": ".form-text-danger-fonatel",
-        "TablaSolicitud": "#TablaSolicitud tbody",
-        "TablaSolicitudElemento": "#TablaSolicitud",
-        "txtmodoSolicitud": "#txtmodoSolicitud",
         "btnGuardarSolicitud": "#btnGuardarSolicitud",
         "btnSiguienteSolicitud": "#btnSiguienteSolicitud",
-        "step2": "a[href='#step-2']",
-        "step1": "a[href='#step-1']",
         "btnAtrasSolicitud": "#btnAtrasSolicitud",
         "txtCodigo": "#txtCodigo",
         "txtNombre": "#txtNombre",
@@ -42,9 +28,6 @@ JsSolicitud = {
         "ddlMesSolicitud": "#ddlMesSolicitud",
         "ddlAnoSolicitud": "#ddlAnoSolicitud",
         "txtMensajeSolicitud": "#txtMensajeSolicitud",
-        "ddlFormularioWeb": "#ddlFormularioWeb",
-        "ddlVariableIndicadorHelp": "#ddlVariableIndicadorHelp",
-        "btnCancelarFormulario": "#btnCancelarFormulario",
         "CodigoHelp": "#CodigoHelp",
         "nombreHelp": "#nombreHelp",
         "FechaInicioHelp": "#FechaInicioHelp",
@@ -53,15 +36,29 @@ JsSolicitud = {
         "FormulariosHelp": "#FormulariosHelp",
         "ddlMesSolicitudHelp": "#ddlMesSolicitudHelp",
         "ddlAnoSolicitudHelp": "#ddlAnoSolicitudHelp",
-        "ControlesStep1": "#formCrearSolicitud input, #formCrearSolicitud textarea, #formCrearSolicitud select",
         "txtMensajeSolicitudHelp": "#txtMensajeSolicitudHelp",
+
+        //CONTROLES DE FORMULARIOS / DETALLES DE LAS SOLICITUDES
+        "btnGuardarFormulario": "#btnGuardarFormulario",
+        "btnEliminarDetalleSolicitud": "#TablaSolicitud tbody tr td .btn-delete",
+        "ddlFormularioWeb": "#ddlFormularioWeb",
+        "ddlVariableIndicadorHelp": "#ddlVariableIndicadorHelp",
+        "btnCancelarFormulario": "#btnCancelarFormulario",
         "TablaFormulario": "#TablaFormulario tbody",
         "TablaFormularioElemento": "#TablaFormulario",
         "btnDeleteFormulario": "#TablaFormulario tbody tr td .btn-delete",
         "btnFinalizarSolicitud": "#btnFinalizarSolicitud",
-        "txtModo": "#txtmodo",
-        "id": "#txtidsolicitud",
 
+        //CONTROLES DE ENVIOS PROGRAMADOS
+        "btnEnvioSolicitud": "#TablaSolicitud tbody tr td .btn-calendar",
+        "btnEliminarProgramacion": "#TablaSolicitud tbody tr td .btn-calendar-disabled",
+        "btnGuardarEnvio": "#btnGuardarSolicitudEnvio",
+        "btnEliminarSolicituProgramardEnvio": "#btnEliminarSolicituProgramardEnvio",
+        "btnCancelarEnvio": "#btnCancelarSolicitudEnvio",
+        "modalEnvio": "#modalEnvio",
+        "txtCantidadRepeticiones": "#txtCantidadRepeticiones",
+        "txtFechaEnvio": "#txtFechaEnvio",
+        "txtFechaInicioCiclo": "#txtFechaInicioCiclo",
         "idEnvioProgramado": "txtSolicitudEnvio",
         "txtSolicitudModal": "#txtSolicitudModal",
         "txtSolicitudEnvio": "#txtSolicitudEnvio",
@@ -69,20 +66,23 @@ JsSolicitud = {
         "txtFechaCiclo": "#txtFechaCiclo",
         "ddlFrecuenciaHelp": "#ddlFrecuenciaHelp",
         "txtRepeticionesSolicitudesHelp": "#txtRepeticionesSolicitudesHelp",
-        "txtFechaEnvioSolicitudHelp":"#txtFechaEnvioSolicitudHelp"
+        "txtFechaEnvioSolicitudHelp":"#txtFechaEnvioSolicitudHelp",
 
+        //CONTROLES GENERALES PARA EL MODULO
+        "txtCampoRequerido": ".form-text-danger-fonatel",
+        "step2": "a[href='#step-2']",
+        "step1": "a[href='#step-1']",
+        "ControlesStep1": "#formCrearSolicitud input, #formCrearSolicitud textarea, #formCrearSolicitud select",
+        "txtModo": "#txtmodo",
+        "id": "#txtidsolicitud",
     },
 
     "Variables": {
 
         "CantidadMaxDias": 28,
-
         "DetallesCompletos": false,
-
         "SolicitudClonada": false,
-
         "ListadoSolicitudes": [],
-
         "ListadoFormulario": []
     },
 
@@ -1038,9 +1038,16 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function 
     let id = $(this).val();
     $(JsSolicitud.Controles.txtSolicitudEnvio).val(id);
 
+    $(JsSolicitud.Controles.txtSolicitudModal).prop("disabled", true);
+    $(JsSolicitud.Controles.ddlFrecuencia).prop("disabled", true);
+    $(JsSolicitud.Controles.txtCantidadRepeticiones).prop("disabled", true);
+    $(JsSolicitud.Controles.txtFechaCiclo).prop("disabled", true);
+
     $(JsSolicitud.Controles.ddlFrecuenciaHelp).addClass("hidden");
     $(JsSolicitud.Controles.txtRepeticionesSolicitudesHelp).addClass("hidden");
     $(JsSolicitud.Controles.txtFechaEnvioSolicitudHelp).addClass("hidden");
+
+
     $(JsSolicitud.Controles.btnEliminarSolicituProgramardEnvio).show();
     $(JsSolicitud.Controles.btnGuardarEnvio).hide();
     $(JsSolicitud.Controles.modalEnvio).modal('show');

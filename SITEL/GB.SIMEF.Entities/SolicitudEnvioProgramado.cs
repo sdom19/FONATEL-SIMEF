@@ -38,6 +38,9 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string id { get; set; }
 
+        [NotMapped]
+        public string Codigo { get; set; }
+
 
         #endregion
         //public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }

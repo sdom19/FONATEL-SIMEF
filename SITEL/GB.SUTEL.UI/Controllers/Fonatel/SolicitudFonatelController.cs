@@ -47,18 +47,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
-        // GET: Solicitud
-        public ActionResult Index()
-        {
-            ViewBag.ListaFrecuencia = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
-
-            return View();
-        }
 
 
         #region METODOS DE PAGINA
 
-        // GET: Solicitud/Create
+        [HttpGet]
+        public ActionResult Index()
+        {
+            ViewBag.ListaFrecuencia = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
+            ViewBag.ListaSolicitudes = SolicitudesBL.ObtenerDatos(new Solicitud()).objetoRespuesta;
+            ViewBag.ListaEnvios = EnvioProgramadoBL.ObtenerDatos(new SolicitudEnvioProgramado()).objetoRespuesta;
+
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult Create(string id, int? modo)
         {
             Solicitud model = new Solicitud();
