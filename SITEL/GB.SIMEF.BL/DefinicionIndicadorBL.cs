@@ -41,17 +41,17 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.NoRegistrosActualizar);
             }
-            else if (!Utilidades.rx_alfanumerico2.Match(objeto.Notas.Trim()).Success)
+            else if (!Utilidades.rx_alfanumerico.Match(objeto.Notas.Trim()).Success)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Notas"));
             }
-            else if (!Utilidades.rx_alfanumerico2.Match(objeto.Definicion.Trim()).Success)
+            else if (!Utilidades.rx_alfanumerico.Match(objeto.Definicion.Trim()).Success)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Definición"));
             }
-            else if (!Utilidades.rx_alfanumerico2.Match(objeto.Fuente.Trim()).Success)
+            else if (!Utilidades.rx_alfanumerico.Match(objeto.Fuente.Trim()).Success)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Fuente"));

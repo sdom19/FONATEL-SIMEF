@@ -46,54 +46,18 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 ResultadoConsulta.Usuario = user;
                 objeto.usuario=user;
-                if (!string.IsNullOrEmpty(objeto.categoriaid))
-                {
-                    int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objeto.categoriaid), out temp);
-                    objeto.idCategoria = temp;
-                }
-                var auxTemp = clsDatos.ObtenerDatos(new DetalleCategoriaTexto()
-                { idCategoria = objeto.idCategoria }).ToList();
+                objeto = ValidarObjeto(objeto, false);
+                string jsonAnterior = objeto.Json;
 
-                string jsonAnterior = SerializarObjetoBitacora(auxTemp.Where(x=>x.Codigo==objeto.Codigo).Single());
-
-                auxTemp = auxTemp.Where(x => x.Codigo != objeto.Codigo).ToList();
-
-
-                objeto.CategoriasDesagregacion =
-                       clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { idCategoria = objeto.idCategoria }).Single();
-
-
-                if (auxTemp.Where(x => x.Etiqueta.ToUpper()==objeto.Etiqueta.ToUpper()).Count()>0)
-                {
-                    throw new Exception(Errores.EtiquetaRegistrada);
-                }
-                else if (!Utilidades.rx_soloTexto.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Texto)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Etiqueta"));
-                }
-                else if (!Utilidades.rx_alfanumerico.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Etiqueta"));
-                }
-                else
-                {
-                    var categoria = clsDatosCategoria
-                      .ObtenerDatos(new CategoriasDesagregacion() { idCategoria = objeto.idCategoria }).Single();
-                    ResultadoConsulta.objetoRespuesta= clsDatos.ActualizarDatos(objeto);
-                    ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
-
-                    string jsonActual = SerializarObjetoBitacora(objeto);
-
-
-
+                ResultadoConsulta.objetoRespuesta= clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                objeto = ResultadoConsulta.objetoRespuesta.Single();
+                string jsonActual = SerializarObjetoBitacora(objeto);
                     clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                      ResultadoConsulta.Usuario,
                      ResultadoConsulta.Clase, string.Format("{0}/{1}",
-                     categoria.Codigo, objeto.Codigo),jsonActual,jsonAnterior);
-                }
+                     objeto.CodigoCategoria, objeto.Codigo),jsonActual,jsonAnterior);
+                
             }
             catch (Exception ex)
             {
@@ -154,7 +118,7 @@ namespace GB.SIMEF.BL
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion, ResultadoConsulta.Usuario,
                     ResultadoConsulta.Clase,
                    string.Format("{0}/{1}",
-                   registroActializar.CategoriasDesagregacion.Codigo,
+                   registroActializar.CodigoCategoria,
                    registroActializar.Codigo)
                  );
             }
@@ -169,63 +133,89 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        public DetalleCategoriaTexto ValidarObjeto(DetalleCategoriaTexto objeto, bool Agregar=true)
+        {
+
+            if (!string.IsNullOrEmpty(objeto.categoriaid))
+            {
+                int temp = 0;
+                int.TryParse(Utilidades.Desencriptar(objeto.categoriaid), out temp);
+                objeto.idCategoria = temp;
+            }
+            if (!string.IsNullOrEmpty(objeto.id))
+            {
+                int temp = 0;
+                int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
+                objeto.idCategoriaDetalle = temp;
+            }
+
+            objeto.usuario = user;
+            var categoria =
+                       clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { idCategoria = objeto.idCategoria }).Single();
+            int cantidadDisponible = (int)categoria.CantidadDetalleDesagregacion
+                                        - categoria.DetalleCategoriaTexto.Count();
+
+            List<DetalleCategoriaTexto> detalleCategoria = categoria.DetalleCategoriaTexto.
+                                 Where(x=>x.idCategoria == objeto.idCategoria ).ToList();
+
+            objeto.Json = Agregar == true ? string.Empty : SerializarObjetoBitacora(detalleCategoria.Where(x => x.Codigo == objeto.Codigo).Single());
+
+            if (cantidadDisponible <= 0 && Agregar)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(Errores.CantidadRegistros);
+            }
+            else if (detalleCategoria.Where(x => x.Codigo == objeto.Codigo && Agregar).Count() > 0)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(Errores.CodigoRegistrado);
+            }
+            else if (detalleCategoria.Where(x => x.Etiqueta == objeto.Etiqueta.ToUpper()).Count() > 0 && Agregar)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(Errores.EtiquetaRegistrada);
+            }
+            else if (detalleCategoria.Where(x => x.Codigo == objeto.Codigo && x.idCategoriaDetalle!=objeto.idCategoriaDetalle).Count() > 0 && !Agregar)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(Errores.CodigoRegistrado);
+            }
+            else if (detalleCategoria.Where(x => x.Etiqueta == objeto.Etiqueta.ToUpper() && x.idCategoriaDetalle != objeto.idCategoriaDetalle).Count() > 0 && !Agregar)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(Errores.EtiquetaRegistrada);
+            }
+
+            else if (!Utilidades.rx_soloTexto.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Texto)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Etiqueta"));
+            }
+            else if (!Utilidades.rx_alfanumerico.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Etiqueta"));
+            }
+            return objeto;
+        }
+
+
         public RespuestaConsulta<List<DetalleCategoriaTexto>> InsertarDatos(DetalleCategoriaTexto objeto)
         {
             try
             {
-                if (!string.IsNullOrEmpty(objeto.categoriaid))
-                {
-                    int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objeto.categoriaid), out temp);
-                    objeto.idCategoria = temp;
-                    objeto.Estado = true;
-                }
-                objeto.CategoriasDesagregacion =
-                        clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { idCategoria = objeto.idCategoria }).Single();
-                int cantidadDisponible = (int)objeto.CategoriasDesagregacion.CantidadDetalleDesagregacion
-                                            - objeto.CategoriasDesagregacion.DetalleCategoriaTexto.Count();
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
-                objeto.usuario = user;
-                List< DetalleCategoriaTexto> detalleCategoria = clsDatos.ObtenerDatos(new DetalleCategoriaTexto() { idCategoria = objeto.idCategoria });
-
-                if (cantidadDisponible <= 0)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.CantidadRegistros);
-                }
-                else if (detalleCategoria.Where(x=>x.Codigo == objeto.Codigo).Count() > 0)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.CodigoRegistrado);
-                }
-                else if (detalleCategoria.Where(x=>x.Etiqueta == objeto.Etiqueta.ToUpper()).Count() > 0)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.EtiquetaRegistrada);
-                }
-                else if (!Utilidades.rx_soloTexto.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Texto)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(string.Format( Errores.CampoConFormatoInvalido,"Etiqueta"));
-                }
-                else if (!Utilidades.rx_alfanumerico.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Etiqueta"));
-                }
-                else
-                {
-                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
-                    ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
-                    string jsonInicial = SerializarObjetoBitacora(objeto);
+                objeto = ValidarObjeto(objeto);
+                objeto.Estado = true;
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                string jsonInicial = SerializarObjetoBitacora(objeto);
                       clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                        ResultadoConsulta.Usuario,
                        ResultadoConsulta.Clase, string.Format("{0}/{1}",
-                       objeto.CategoriasDesagregacion.Codigo, objeto.Codigo),"","",jsonInicial);
-                    
-                }
+                       objeto.CategoriasDesagregacion.Codigo, objeto.Codigo),"","",jsonInicial);             
             }
             catch (Exception ex)
             {
@@ -279,9 +269,9 @@ namespace GB.SIMEF.BL
         }
 
 
-        public bool CargarExcel(HttpPostedFileBase file)
+        public RespuestaConsulta<List<DetalleCategoriaTexto>> CargarExcel(HttpPostedFileBase file)
         {
-            bool resultado = true;
+          
             using (var package = new ExcelPackage(file.InputStream))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
@@ -290,8 +280,7 @@ namespace GB.SIMEF.BL
                 CategoriasDesagregacion categoria =
                                      clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { Codigo = Codigo })
                                     .SingleOrDefault();
-                categoria.DetalleCategoriaTexto = new List<DetalleCategoriaTexto>();
-
+                ResultadoConsulta.objetoRespuesta = new List<DetalleCategoriaTexto>();
                 for (int i = 0; i < categoria.CantidadDetalleDesagregacion; i++)
                 {
                     int fila = i + 2;
@@ -310,14 +299,14 @@ namespace GB.SIMEF.BL
                             Estado = true
                         };
 
-                        DetalleCategoriaTexto consultarCategoria = ObtenerDatos(new DetalleCategoriaTexto() 
-                                { Codigo = detallecategoria.Codigo, idCategoria = detallecategoria.idCategoria }  ).objetoRespuesta.SingleOrDefault();
+                        DetalleCategoriaTexto consultarCategoria = categoria.DetalleCategoriaTexto.Where
+                                (x=>x.Codigo == detallecategoria.Codigo && x.idCategoria == detallecategoria.idCategoria  ).SingleOrDefault();
 
                         if (consultarCategoria==null)
                         {
                             if (InsertarDatos(detallecategoria).HayError != 0)
                             {
-                                resultado = false;
+                                ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                                 break;
                             }
                         }
@@ -325,17 +314,17 @@ namespace GB.SIMEF.BL
                         {
                             if (ActualizarElemento(detallecategoria).HayError != 0)
                             {
-                                resultado = false;
+                                ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                                 break;
                             }
                         }
-
+                        ResultadoConsulta.objetoRespuesta.Add(detallecategoria);
                        
                     }
                 }
             }
 
-            return resultado;
+            return ResultadoConsulta;
         }
     }
 }

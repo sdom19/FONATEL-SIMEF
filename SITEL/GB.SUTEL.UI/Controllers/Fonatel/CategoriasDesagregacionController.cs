@@ -20,7 +20,7 @@ using OfficeOpenXml;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
-    [AuthorizeUserAttribute]
+ 
     public class CategoriasDesagregacionController : Controller
     {
 
@@ -46,6 +46,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         #region Eventos de la Página
+        [AuthorizeUserAttribute]
         [HttpGet]
         public ActionResult Index()
         {
@@ -53,6 +54,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         // GET: CategoriasDesagregacion/Details/5
+        [AuthorizeUserAttribute]
         [HttpGet]
         public ActionResult Detalle(string idCategoria)
         {
@@ -73,6 +75,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        [AuthorizeUserAttribute]
         public ActionResult Create(string id, int? modo)
         {
             ViewBag.TipoCategoria = TipoCategoriaBL.ObtenerDatos(new TipoCategoria() { })
@@ -120,8 +123,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
 
+        [AuthorizeUserAttribute]
 
-         [HttpGet]
+        [HttpGet]
         public ActionResult DescargarExcel(string id)
         {
             var categoria = categoriaBL
@@ -303,21 +307,27 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
 
         [HttpPost]
-        public bool CargaExcel()
+        public async Task<String> CargaExcel()
         {
-            bool resultado = true;
-            string ruta = Utilidades.RutaCarpeta(ConfigurationManager.AppSettings["rutaCarpetaSimef"], EtiquetasViewCategorias.Categorias);
-            if (Request.Files.Count > 0)
-            {       
-               HttpFileCollectionBase files = Request.Files;
-               HttpPostedFileBase file = files[0];
-               string fileName = file.FileName;
-               Directory.CreateDirectory(ruta);
-               string path = Path.Combine(ruta, fileName);
-               resultado= categoriaDetalleBL.CargarExcel(file);
-               file.SaveAs(path);             
-            }
-            return resultado;
+            RespuestaConsulta<List<DetalleCategoriaTexto>> resultado = null;
+            await Task.Run(() =>
+            {
+                
+                string ruta = Utilidades.RutaCarpeta(ConfigurationManager.AppSettings["rutaCarpetaSimef"], EtiquetasViewCategorias.Categorias);
+                if (Request.Files.Count > 0)
+                {
+                    HttpFileCollectionBase files = Request.Files;
+                    HttpPostedFileBase file = files[0];
+                    string fileName = file.FileName;
+                    Directory.CreateDirectory(ruta);
+                    string path = Path.Combine(ruta, fileName);
+                    resultado = categoriaDetalleBL.CargarExcel(file);
+                    file.SaveAs(path);
+                }
+            });
+
+
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>
@@ -440,14 +450,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="idCategoriaDetalle"></param>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<string> ObtenerCategoriasDetalle(string idCategoriaDetalle)
+        [HttpPost]
+        public async Task<string> ObtenerCategoriasDetalle(DetalleCategoriaTexto DetalleCategoriaTexto)
         {
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
             await Task.Run(() =>
             {
-                result = categoriaDetalleBL.ObtenerDatos(new DetalleCategoriaTexto()
-                { id = idCategoriaDetalle });
+                result = categoriaDetalleBL.ObtenerDatos(DetalleCategoriaTexto);
 
             });
             return JsonConvert.SerializeObject(result);

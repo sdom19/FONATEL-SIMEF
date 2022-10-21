@@ -23,6 +23,10 @@ namespace GB.SIMEF.Entities
             this.DetalleCategoriaFecha = new DetalleCategoriaFecha();
             this.DetalleCategoriaTexto = new List<DetalleCategoriaTexto>();
             this.EstadoRegistro = new EstadoRegistro();
+            this.id = string.Empty;
+            this.TieneDetalle = false;
+            this.IndicadorAsociados = string.Empty;
+
         }
         [Key]
 
@@ -35,7 +39,7 @@ namespace GB.SIMEF.Entities
         public int CantidadDetalleDesagregacion { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
- 
+
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
 

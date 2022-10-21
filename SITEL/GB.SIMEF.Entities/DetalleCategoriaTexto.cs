@@ -9,6 +9,7 @@
 
 namespace GB.SIMEF.Entities
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -34,7 +35,13 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string usuario { get; set; }
         [NotMapped]
+        public bool Completo { get; set; }
+
+        [NotMapped]
         public CategoriasDesagregacion CategoriasDesagregacion { get; set; }
+        [NotMapped]
+        public string CodigoCategoria { get; set; }
+
         [NotMapped]
         public string id { get; set; }
 
@@ -42,8 +49,8 @@ namespace GB.SIMEF.Entities
         public string categoriaid { get; set; }
 
         [NotMapped]
-        public bool Completo { get; set; }
-
+        [JsonIgnore]
+        public string Json { get; set; }
 
         [NotMapped]
 
@@ -55,9 +62,11 @@ namespace GB.SIMEF.Entities
             "Estado",
             "usuario",
             "Completo",
-            "CategoriasDesagregacion",
             "id",
-            "categoriaid"
+            "categoriaid",
+            "CodigoCategoria",
+            "CategoriasDesagregacion",
+            "CodigoCategoria"
         };
 
 
