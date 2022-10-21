@@ -83,7 +83,9 @@ JsSolicitud = {
         "DetallesCompletos": false,
         "SolicitudClonada": false,
         "ListadoSolicitudes": [],
-        "ListadoFormulario": []
+        "ListadoFormulario": [],
+        "esModoEliminar": false,
+        "ObjetoSolicitudes": null,
     },
 
     "Metodos": {
@@ -103,11 +105,7 @@ JsSolicitud = {
             for (var i = 0; i < JsSolicitud.Variables.ListadoSolicitudes.length; i++) {
                 let solicitud = JsSolicitud.Variables.ListadoSolicitudes[i];
                 let listaFormularios = solicitud.FormulariosString;
-
                 let envioProgramado = solicitud.EnvioProgramado == null ? "NO" : "SI";
-
-                //let envioActivo = solicitud.EnvioProgramado.Estado == true ? "NO" : "SI";
-
                 let EnProceso = solicitud.IdEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso ? "SI" : "NO";
 
                 html = html + "<tr>";
@@ -147,29 +145,29 @@ JsSolicitud = {
                 }
 
                 if (envioProgramado == "NO" && EnProceso == "SI") {
-                    html = html + "<button type='button' data-toggle='tooltip'  disabled  data-placement='top' value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip'  disabled  data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
                 }
 
                 else if (envioProgramado == "NO" && EnProceso == "SI") {
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
 
                 if (envioProgramado == "SI" && EnProceso == "SI") {
 
-                    html = html + "<button type='button' data-toggle='tooltip' disabled data-placement='top' value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip' disabled data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
                 else if (envioProgramado == "SI" && EnProceso == "NO") {
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
 
                 else {
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
                 }
             }
 
             $(JsSolicitud.Controles.TablaSolicitud).html(html);
+
             CargarDatasource();
-            JsSolicitud.Variables.ListadoSolicitudes = [];
         },
 
         "CargarTablaFormulario": function () {
@@ -961,6 +959,27 @@ JsSolicitud = {
             }
         },
 
+        "CargarCodigo": function (index) {
+
+            if (JsSolicitud.Variables.esModoEliminar) {
+
+                if (JsSolicitud.Variables.ListadoSolicitudes.length > index) {
+                    JsSolicitud.Variables.ObjetoSolicitudes = JsSolicitud.Variables.ListadoSolicitudes[index];
+                    $(JsSolicitud.Controles.txtSolicitudModal).val(JsSolicitud.Variables.ObjetoSolicitudes.Codigo);
+                    $(JsSolicitud.Controles.ddlFrecuencia).val(JsSolicitud.Variables.ObjetoSolicitudes.EnvioProgramado.IdFrecuencia);
+                    $(JsSolicitud.Controles.ddlFrecuencia).trigger("change");
+                    $(JsSolicitud.Controles.txtCantidadRepeticiones).val(JsSolicitud.Variables.ObjetoSolicitudes.EnvioProgramado.CantidadRepiticiones);
+                    $(JsSolicitud.Controles.txtFechaCiclo).val(JsSolicitud.Variables.ObjetoSolicitudes.EnvioProgramado.FechaCiclo);
+                }
+            } else {
+                if (JsSolicitud.Variables.ListadoSolicitudes.length > index) {
+                    JsSolicitud.Variables.ObjetoSolicitudes = JsSolicitud.Variables.ListadoSolicitudes[index];
+                    $(JsSolicitud.Controles.txtSolicitudModal).val(JsSolicitud.Variables.ObjetoSolicitudes.Codigo);
+                }
+            }
+
+        },
+
     }
 }
 
@@ -1034,6 +1053,10 @@ $(document).on("click", JsSolicitud.Controles.btnCancelarFormulario, function (e
 });
 
 $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function () {
+
+    JsSolicitud.Variables.esModoEliminar = true;
+    let CargarCodigo = $(this).attr("data-index");
+    JsSolicitud.Consultas.CargarCodigo(CargarCodigo);
 
     let id = $(this).val();
     $(JsSolicitud.Controles.txtSolicitudEnvio).val(id);
@@ -1191,9 +1214,16 @@ $(document).on("click", JsSolicitud.Controles.btnSiguienteSolicitud, function (e
 
 $(document).on("click", JsSolicitud.Controles.btnEnvioSolicitud, function (e) {
 
+    let CargarCodigo = $(this).attr("data-index");
+    JsSolicitud.Consultas.CargarCodigo(CargarCodigo);
+
     let id = $(this).val();
     $(JsSolicitud.Controles.txtSolicitudEnvio).val(id);
 
+    $(JsSolicitud.Controles.txtSolicitudModal).prop("disabled", false);
+    $(JsSolicitud.Controles.ddlFrecuencia).prop("disabled", false);
+    $(JsSolicitud.Controles.txtCantidadRepeticiones).prop("disabled", false);
+    $(JsSolicitud.Controles.txtFechaCiclo).prop("disabled", false);
     $(JsSolicitud.Controles.ddlFrecuenciaHelp).addClass("hidden");
     $(JsSolicitud.Controles.txtRepeticionesSolicitudesHelp).addClass("hidden");
     $(JsSolicitud.Controles.txtFechaEnvioSolicitudHelp).addClass("hidden");
@@ -1206,6 +1236,7 @@ $(document).on("click", JsSolicitud.Controles.btnEnvioSolicitud, function (e) {
 $(document).on("click", JsSolicitud.Controles.btnEliminarSolicituProgramardEnvio, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Programación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
+
             $(JsSolicitud.Controles.modalEnvio).modal('hide');
             JsSolicitud.Metodos.EliminarEnvioProgramado();
         });
