@@ -63,6 +63,11 @@
     <Compile Include="DetalleRelacionCategoriaDAL.cs" />
     <Compile Include="DetalleSolicitudesDAL.cs" />
     <Compile Include="PlantillaHtmlDAL.cs" />
+    <Compile Include="ReglaComparacionConstanteDAL.cs" />
+    <Compile Include="ReglaIndicadorEntradaDAL.cs" />
+    <Compile Include="ReglaIndicadorEntradaSalidaDAL.cs" />
+    <Compile Include="ReglaIndicadorSalidaDAL.cs" />
+    <Compile Include="ReglaSecuencialDAL.cs" />
     <Compile Include="SolicitudEnvioProgramadoDAL.cs" />
     <Compile Include="UsuarioFonatelDAL.cs" />
     <Compile Include="ReglaValidacionAtributosValidosDAL.cs" />

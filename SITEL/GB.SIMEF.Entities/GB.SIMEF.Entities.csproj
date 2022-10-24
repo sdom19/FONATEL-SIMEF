@@ -56,6 +56,9 @@
     <Compile Include="DetalleReglaValidacion.cs" />
     <Compile Include="EstadoLogico.cs" />
     <Compile Include="PlantillaHtml.cs" />
+    <Compile Include="ReglaIndicadorEntrada.cs" />
+    <Compile Include="ReglaIndicadorEntradaSalida.cs" />
+    <Compile Include="ReglaIndicadorSalida.cs" />
     <Compile Include="RespuestaConsulta.cs" />
     <Compile Include="CategoriasDesagregacion.cs" />
     <Compile Include="ClasificacionIndicadores.cs" />
