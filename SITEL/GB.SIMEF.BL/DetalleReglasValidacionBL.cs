@@ -12,8 +12,13 @@ namespace GB.SIMEF.BL
     public class DetalleReglaValidacionBL : IMetodos<DetalleReglaValidacion>
     {
         private readonly DetalleReglasValicionDAL clsDatos;
-        private readonly DetalleIndicadorVariablesDAL clsDatosIndicadorVariable;
+        private readonly DetalleIndicadorVariablesDAL clsDatosIndicadorVariableDAL;
         private readonly ReglaValidacionAtributosValidosDAL clsReglaValidacionAtributosValidosDAL;
+        private readonly ReglaComparacionConstanteDAL clsReglaComparacionConstanteDAL;
+        private readonly ReglaSecuencialDAL clsReglaSecuencialDAL;
+        private readonly ReglaIndicadorSalidaDAL clsReglaIndicadorSalidaDAL;
+        private readonly ReglaIndicadorEntradaDAL clsReglaIndicadorEntradaDAL;
+        private readonly ReglaIndicadorEntradaSalidaDAL clsReglaIndicadorEntradaSalidaDAL;
 
         private RespuestaConsulta<List<DetalleReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
@@ -24,8 +29,13 @@ namespace GB.SIMEF.BL
             this.modulo = modulo;
             this.user = user;
             this.clsDatos = new DetalleReglasValicionDAL();
-            this.clsDatosIndicadorVariable = new DetalleIndicadorVariablesDAL();
+            this.clsDatosIndicadorVariableDAL = new DetalleIndicadorVariablesDAL();
             this.clsReglaValidacionAtributosValidosDAL = new ReglaValidacionAtributosValidosDAL();
+            this.clsReglaComparacionConstanteDAL = new ReglaComparacionConstanteDAL();
+            this.clsReglaSecuencialDAL = new ReglaSecuencialDAL();
+            this.clsReglaIndicadorSalidaDAL = new ReglaIndicadorSalidaDAL();
+            this.clsReglaIndicadorEntradaDAL = new ReglaIndicadorEntradaDAL();
+            this.clsReglaIndicadorEntradaSalidaDAL = new ReglaIndicadorEntradaSalidaDAL();
             ResultadoConsulta = new RespuestaConsulta<List<DetalleReglaValidacion>>();
         }
 
@@ -53,11 +63,10 @@ namespace GB.SIMEF.BL
                     //string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.IdReglasValidacionTipo == objeto.IdReglasValidacionTipo).Single());
                     objeto = resul.Where(x => x.IdRegla == objeto.IdRegla).Single();
                     objeto.IdOperador = IdOperador;
-                    clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                     var nuevoValor = clsDatos.ObtenerDatos(objeto).Single();
                     string jsonNuevoValor = SerializarObjetoBitacora(nuevoValor);
 
-                    ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
                     //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                     //       ResultadoConsulta.Usuario,
@@ -137,19 +146,6 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        private void AgregarTipoDetalleReglaValidacion(DetalleReglaValidacion objeto)
-        {
-            switch (objeto.IdTipo)
-            {
-                case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
-                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.ReglaAtributosValidos);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-
         public RespuestaConsulta<List<DetalleReglaValidacion>> InsertarDatos(DetalleReglaValidacion objeto)
         {
             try
@@ -164,7 +160,8 @@ namespace GB.SIMEF.BL
                 //bjeto.idIndicadorString = listaDetallesIndicadorVariable[0].idIndicadorString;
                 DesencriptarObjReglasValidacion(objeto);
                 var resul = clsDatos.ActualizarDatos(objeto);
-                //AgregarTipoDetalleReglaValidacion(objeto);
+                objeto.IdReglasValidacionTipo = resul.Single().IdReglasValidacionTipo;
+                AgregarTipoDetalleReglaValidacion(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 
@@ -175,7 +172,6 @@ namespace GB.SIMEF.BL
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
-
 
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -227,6 +223,47 @@ namespace GB.SIMEF.BL
         RespuestaConsulta<List<DetalleReglaValidacion>> IMetodos<DetalleReglaValidacion>.ValidarDatos(DetalleReglaValidacion objeto)
         {
             throw new NotImplementedException();
+        }
+
+        private void AgregarTipoDetalleReglaValidacion(DetalleReglaValidacion objeto)
+        {
+            switch (objeto.IdTipo)
+            {
+                case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
+                    objeto.reglaAtributosValidos.IdTipoReglaValidacion = objeto.IdReglasValidacionTipo;
+                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
+                    break;
+
+                case (int)Constantes.TipoReglasDetalle.FormulaContraConstante:
+                    objeto.reglaComparacionConstante.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
+                    objeto.reglaComparacionConstante.idvariable = 0;
+                    clsReglaComparacionConstanteDAL.ActualizarDatos(objeto.reglaComparacionConstante);
+                    break;
+
+                case (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial:
+                    objeto.reglaSecuencial.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
+                    objeto.reglaSecuencial.idvariable = 0;
+                    clsReglaSecuencialDAL.ActualizarDatos(objeto.reglaSecuencial);
+                    break;
+                   
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida:
+                    objeto.reglaIndicadorSalida.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
+                    clsReglaIndicadorSalidaDAL.ActualizarDatos(objeto.reglaIndicadorSalida);
+                    break;
+                    
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada:
+                    objeto.reglaIndicadorEntrada.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
+                    clsReglaIndicadorEntradaDAL.ActualizarDatos(objeto.reglaIndicadorEntrada);
+                    break;
+                    
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida:
+                    objeto.reglaIndicadorEntradaSalida.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
+                    clsReglaIndicadorEntradaSalidaDAL.ActualizarDatos(objeto.reglaIndicadorEntradaSalida);
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         private void DesencriptarObjReglasValidacion(DetalleReglaValidacion detalleReglaValidacion)

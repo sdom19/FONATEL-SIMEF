@@ -101,7 +101,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         ListadoIndicador.Select(x => new SelectListItem() { Selected = false, Value = Utilidades.Desencriptar(x.id), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
             
             ViewBag.ListaIndicadoresSalida =
-                       ListadoIndicador.Where(x => x.IdClasificacion == (int)Constantes.ClasificacionIndicadorEnum.Salida).Select(x => new SelectListItem() { Selected = false, Value = Utilidades.Desencriptar(x.id), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                       ListadoIndicador.Where(x => int.Parse(Utilidades.Desencriptar(x.ClasificacionIndicadores.id)) == (int)Constantes.ClasificacionIndicadorEnum.Salida).Select(x => new SelectListItem() { Selected = false, Value = Utilidades.Desencriptar(x.id), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
             ViewBag.Modo = modo.ToString();
 
@@ -130,6 +130,30 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View(objregla);
 
         }
+
+        [HttpGet]
+        public ActionResult Edit(string id)
+        {
+            ViewBag.ModoFormulario = ((int)Constantes.Accion.Editar).ToString();
+            ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloEditarIndicador;
+
+            if (string.IsNullOrEmpty(id))
+                return View("Index");
+
+            DetalleReglaValidacion objDetalle = null;
+            try
+            {
+                objDetalle = detalleReglaBL.ObtenerDatos(new DetalleReglaValidacion() { id = id }).objetoRespuesta.FirstOrDefault();
+            }
+            catch (Exception) { };
+
+            if (objDetalle == null)
+                return View("Index");
+
+            return View("Create", objDetalle);
+        }
+
+
 
         #region Metodos Async
 

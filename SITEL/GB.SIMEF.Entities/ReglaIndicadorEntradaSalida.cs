@@ -13,12 +13,12 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class ReglaComparacionConstante
+    public partial class ReglaIndicadorEntradaSalida
     {
         [Key]
-        public int idCompara { get; set; }
-        public string Constante { get; set; }
-        public Nullable<int> idvariable { get; set; }
+        public int IdReglaIndicadorEntradaSalida { get; set; }
+        public int IdIndicador { get; set; }
+        public int IdComparacion { get; set; }
         public int IdDetalleReglaValidacion { get; set; }
     
     }

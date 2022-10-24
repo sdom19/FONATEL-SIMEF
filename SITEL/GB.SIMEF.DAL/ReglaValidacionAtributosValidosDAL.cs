@@ -31,19 +31,32 @@ namespace GB.SIMEF.DAL
 
         }
 
-
-
         public List<ReglaAtributosValidos> ActualizarDatos(ReglaAtributosValidos pReglaAtributosValidos)
         {
             List<ReglaAtributosValidos> ListaReglaAtributosValidos = new List<ReglaAtributosValidos>();
-            ListaReglaAtributosValidos = db.Database.SqlQuery<ReglaAtributosValidos>
-                ("execute spObtenerFrecuenciasEnvio @idFrecuencia",
-                new SqlParameter("@idFrecuencia", 1)
+
+            using (db = new SIMEFContext())
+            {
+                ListaReglaAtributosValidos = db.Database.SqlQuery<ReglaAtributosValidos>
+                ("execute spActualizarReglaAtributosValidos @IdCompara,@IdTipoReglaValidacion,@IdCategoria,@IdCategoriaAtributo",
+                    new SqlParameter("@IdCompara", pReglaAtributosValidos.idCompara),
+                    new SqlParameter("@IdTipoReglaValidacion", pReglaAtributosValidos.IdTipoReglaValidacion),
+                    new SqlParameter("@IdCategoria", pReglaAtributosValidos.idCategoria),
+                    new SqlParameter("@IdCategoriaAtributo", pReglaAtributosValidos.idCategoriaAtributo)
                 ).ToList();
-            return ListaReglaAtributosValidos;
 
+                ListaReglaAtributosValidos = ListaReglaAtributosValidos.Select(X => new ReglaAtributosValidos
+                {
+                    idCompara = X.idCompara,
+                    IdTipoReglaValidacion = X.IdTipoReglaValidacion,
+                    idCategoria = X.idCategoria,
+                    idCategoriaAtributo = X.idCategoriaAtributo
+
+                }).ToList();
+
+                return ListaReglaAtributosValidos;
+            }
         }
-
 
     }
 }
