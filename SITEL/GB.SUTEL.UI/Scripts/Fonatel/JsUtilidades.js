@@ -438,6 +438,11 @@ function InsertarParametroUrl(pParametro, pValor) {
     window.history.replaceState(null, '', url.toString());
 }
 
+
+
+
+
+
 /**
  * José Navarro Acuña.
  * Obtener el valor de un parámetro de la URL.
@@ -477,6 +482,33 @@ function execAjaxCall(pURL, pHttpMethod, pParams = null) {
     })
 }
 
+
+function execAjaxCallFile(pURL, pParams = null) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: jsUtilidades.Variables.urlOrigen + pURL,
+            dataType: "JSON",
+            type: 'post',
+            contentType: false,
+            processData: false,
+            data: pParams,
+            success: function (obj) {
+                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                    resolve(obj);
+                }
+                else {
+                    reject(obj);
+                }
+            },
+            error: function () {
+                reject()
+            }
+        })
+    })
+}
+
+
+
 /**
  * José Navarro Acuña.
  * Permite validar los inputs completados de un formulario.
@@ -506,7 +538,7 @@ $(document).on("keypress", '.solo_operacion', function (e) {
 
 
 $(document).on("keypress", '.alfa_numerico', function (e) {
-    var regex = new RegExp("^[0-9A-Za-zÁÉÍÓÚáéíóúñÑ ]+$");
+    var regex = new RegExp("^[0-9A-Za-zÁÉÍÓÚáéíóúñÑ.,; ]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         e.preventDefault();
@@ -514,20 +546,10 @@ $(document).on("keypress", '.alfa_numerico', function (e) {
     }
 });
 
-
-
-$(document).on("keypress", '.alfa_numerico2', function (e) {
-    var regex = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúñÑ.,; ]+$");
-    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-    if (!regex.test(key)) {
-        e.preventDefault();
-        return false;
-    }
-});
 
 
 $(document).on("keypress", '.solo_texto', function (e) {
-    var regex = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$");
+    var regex = new RegExp("^[A-Za-zÁÉÍÓÚáéíóúñÑ.,; ]+$");
     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
     if (!regex.test(key)) {
         e.preventDefault();

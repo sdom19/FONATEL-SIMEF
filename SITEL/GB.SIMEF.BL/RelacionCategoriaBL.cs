@@ -16,10 +16,13 @@ namespace GB.SIMEF.BL
         private readonly CategoriasDesagregacionDAL clsDatosTexto;
 
         private RespuestaConsulta<List<RelacionCategoria>> ResultadoConsulta;
-        string modulo = EtiquetasViewRelacionCategoria.RelacionCategoria;
+        string modulo = string.Empty;
+        string user = string.Empty;
 
-        public RelacionCategoriaBL()
+        public RelacionCategoriaBL(string modulo, string user)
         {
+            this.modulo = modulo;
+            this.user = user;
             this.clsDatos = new RelacionCategoriaDAL();
             this.clsDatosTexto = new CategoriasDesagregacionDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<RelacionCategoria>>();
@@ -40,8 +43,8 @@ namespace GB.SIMEF.BL
 
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
-                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
-                objeto.UsuarioModificacion = objeto.UsuarioCreacion;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioModificacion = user ;
 
                 //DESENCRIPTAR EL ID
                 if (!string.IsNullOrEmpty(objeto.id))
@@ -144,7 +147,8 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
-                ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioModificacion = user;
                 RelacionCategoria registroActualizar;
 
                 //DESENCRIPTAR EL ID
@@ -244,11 +248,11 @@ namespace GB.SIMEF.BL
                     //HACEMOS LA INSERCION 
 
                     ResultadoConsulta.Clase = modulo;
+                    objeto.UsuarioCreacion = user;
                     ResultadoConsulta.Accion = (int)Accion.Insertar;
                     var resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
-                    ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
-
+                    ResultadoConsulta.Usuario = user;
                 }
 
                 //EVENTO PARA REGISTRAR EN BITACORA 
@@ -320,7 +324,7 @@ namespace GB.SIMEF.BL
 
                 var listaRelacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { idCategoria = Categoria.idCategoria }).ToList();
 
-                if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
+                if (Categoria.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
                 {
                     DateTime fecha = (DateTime)Categoria.DetalleCategoriaFecha.FechaMinima;
 
@@ -335,7 +339,7 @@ namespace GB.SIMEF.BL
                         fecha = fecha.AddDays(1);
                     }
                 }
-                else if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
+                else if (Categoria.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                 {
                     if (Categoria.DetalleCategoriaNumerico!=null)
                     {
@@ -498,7 +502,8 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Activar;
-                ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioModificacion=user;
                 RelacionCategoria registroActualizar;
 
                 //DESENCRIPTAR EL ID

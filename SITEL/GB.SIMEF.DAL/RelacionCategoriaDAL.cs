@@ -79,7 +79,7 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@CantidadCategoria", objeto.CantidadCategoria),
                      new SqlParameter("@idCategoria", objeto.idCategoria),
                      new SqlParameter("@idCategoriaValor", objeto.idCategoriaValor),
-                     new SqlParameter("@UsuarioCreacion", objeto.UsuarioCreacion),
+                     new SqlParameter("@UsuarioCreacion", string.IsNullOrEmpty(objeto.UsuarioCreacion) ? DBNull.Value.ToString() : objeto.UsuarioCreacion),
                      new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objeto.UsuarioModificacion) ? DBNull.Value.ToString() : objeto.UsuarioModificacion),
                      new SqlParameter("@idEstado", objeto.idEstado)
                     ).ToList();

@@ -20,10 +20,13 @@ namespace GB.SIMEF.BL
 
         private RespuestaConsulta<List<DetalleRelacionCategoria>> ResultadoConsulta;
 
-        string modulo = EtiquetasViewRelacionCategoria.DetalleRelacion;
+        string modulo = string.Empty;
+        string user = string.Empty;
 
-        public DetalleRelacionCategoriaBL()
+        public DetalleRelacionCategoriaBL(string modulo, string user)
         {
+            this.modulo = modulo;
+            this.user = user;
             clsDatos = new DetalleRelacionCategoriaDAL();
             clsDatosRelacionCategoria = new RelacionCategoriaDAL();
             ResultadoConsulta = new RespuestaConsulta<List<DetalleRelacionCategoria>>();
@@ -75,7 +78,8 @@ namespace GB.SIMEF.BL
                 objeto.Estado = true;
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
-                ResultadoConsulta.Usuario = objeto.usuario;
+                ResultadoConsulta.Usuario = user;
+                objeto.usuario = user;
 
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
@@ -142,7 +146,8 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
-                ResultadoConsulta.Usuario = objeto.usuario;
+                ResultadoConsulta.Usuario = user;
+                objeto.usuario = user;
                 DetalleRelacionCategoria registroActualizar;
 
                 if (!string.IsNullOrEmpty(objeto.id))
@@ -215,7 +220,8 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
-                ResultadoConsulta.Usuario = objeto.usuario;
+                ResultadoConsulta.Usuario = user;
+                objeto.usuario = user;
 
                 if (!string.IsNullOrEmpty(objeto.id))
                 {

@@ -22,8 +22,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class RelacionCategoriaController : Controller
     {
-        string user;
-
+       
 
         // : RELACION ENTRE CATEGORIAS
         private readonly RelacionCategoriaBL RelacionCategoriaBL;
@@ -37,13 +36,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public RelacionCategoriaController()
         {
 
-            categoriasDesagregacionBl = new CategoriasDesagregacionBL(EtiquetasViewReglasValidacion.ReglasValidacion, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            categoriasDesagregacionBl = new CategoriasDesagregacionBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-            DetalleCategoriasTextoBL = new DetalleCategoriasTextoBL(EtiquetasViewReglasValidacion.ReglasValidacion, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            DetalleCategoriasTextoBL = new DetalleCategoriasTextoBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-            RelacionCategoriaBL = new RelacionCategoriaBL();
+            RelacionCategoriaBL = new RelacionCategoriaBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-            DetalleRelacionCategoriaBL = new DetalleRelacionCategoriaBL();
+            DetalleRelacionCategoriaBL = new DetalleRelacionCategoriaBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
         }
 
@@ -174,7 +173,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
 
             //Identificamos el id del usuario
-            user = User.Identity.GetUserId();
             relacion.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
             //Creamos una variable resultado de tipo lista relacion categoria
@@ -183,7 +181,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 //Obtenemos el usuario de creacion en la variable user
-                relacion.UsuarioCreacion = user;
+               
 
                 //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
                 result = RelacionCategoriaBL.InsertarDatos(relacion);
@@ -205,7 +203,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
 
             //Identificamos el id del usuario
-            user = User.Identity.GetUserId();
             relacion.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
             //Creamos una variable resultado de tipo lista relacion categoria
@@ -213,8 +210,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                //Obtenemos el usuario de creacion en la variable user
-                relacion.UsuarioCreacion = user;
 
                 //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
                 result = RelacionCategoriaBL.ActualizarElemento(relacion);
@@ -235,7 +230,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EliminarRelacionCategoria(string idRelacionCategoria)
         {
-            user = User.Identity.GetUserId();
 
             RespuestaConsulta<List<RelacionCategoria>> result = null;
 
@@ -245,7 +239,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
 
                     id = idRelacionCategoria,
-                    UsuarioModificacion = user
 
                 });
 
@@ -339,8 +332,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> InsertarDetalleRelacion(DetalleRelacionCategoria relacion)
         {
-            user = User.Identity.GetUserId();
-            relacion.usuario = user;
             RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
             await Task.Run(() =>
             {
@@ -362,8 +353,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> ModificarDetalleRelacion(DetalleRelacionCategoria relacion)
         {
-            user = User.Identity.GetUserId();
-            relacion.usuario = user;
             RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
             await Task.Run(() =>
             {
@@ -384,7 +373,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EliminarDetalleRelacion(string idDetalleRelacionCategoria, string idRelacionCategoria)
         {
-            user = User.Identity.GetUserId();
             RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
             await Task.Run(() =>
             {
@@ -392,7 +380,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     id = idDetalleRelacionCategoria,
                     relacionid = idRelacionCategoria,
-                    usuario = user
                 });
 
             });
@@ -410,7 +397,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> CambioEstado(string idRelacionCategoria)
         {
-            user = User.Identity.GetUserId();
 
             RespuestaConsulta<List<RelacionCategoria>> result = null;
 
@@ -420,7 +406,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
 
                     id = idRelacionCategoria,
-                    UsuarioModificacion = user
 
                 });
 
@@ -443,7 +428,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult DescargarExcel(string id)
         {
-            user = User.Identity.GetUserId();
 
             var relacion = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = id }).objetoRespuesta.Single();
 
