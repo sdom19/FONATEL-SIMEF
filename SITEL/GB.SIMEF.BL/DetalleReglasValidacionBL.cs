@@ -173,7 +173,6 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
 
-
                 ResultadoConsulta.MensajeError = ex.Message;
             }
             return ResultadoConsulta;
