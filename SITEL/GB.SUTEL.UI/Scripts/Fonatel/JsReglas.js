@@ -73,6 +73,11 @@
         "objTipoRegla": null,
     },
 
+    "Mensajes": {
+
+        MensajeDetalleAgregado: "El Detalle ha sido creado",
+    },
+
     "Metodos": {
 
         "SeleccionarStep": function (div) {
@@ -357,17 +362,29 @@
             let validar = true;
             $(JsReglas.Controles.TipoReglaHelp).addClass("hidden");
             $(JsReglas.Controles.OperadorHelp).addClass("hidden");
+            $(JsReglas.Controles.txtCodigo).parent().addClass("has-error");
+            $(JsReglas.Controles.txtNombre).parent().addClass("has-error");
 
             let Codigo = $(JsReglas.Controles.txtCodigo).val().trim();
             let Nombre = $(JsReglas.Controles.txtNombre).val().trim();
 
             if (Codigo.length == 0) {
                 $(JsReglas.Controles.CodigoHelp).removeClass("hidden");
+                $(JsReglas.Controles.txtCodigo).parent().addClass("has-error");
                 validar = false;
+            } else {
+                $(JsReglas.Controles.txtCodigo).parent().removeClass("has-error");
+                $(JsReglas.Controles.CodigoHelp).addClass("hidden");
+                Validar = false;
             }
             if (Nombre.length == 0) {
                 $(JsReglas.Controles.nombreHelp).removeClass("hidden");
+                $(JsReglas.Controles.txtNombre).parent().addClass("has-error");
                 validar = false;
+            } else {
+                $(JsReglas.Controles.nombreHelp).addClass("hidden");
+                $(JsReglas.Controles.txtNombre).parent().removeClass("has-error");
+                Validar = false;
             }
             return validar;
         },
@@ -598,7 +615,6 @@
 
             execAjaxCall("/ReglasValidacion/AgregarRegla", "POST", objetoRegla)
                 .then((obj) => {
-
                     InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
                     $("a[href='#step-2']").trigger('click');
                 }).catch((obj) => {
@@ -657,23 +673,16 @@
             }
             execAjaxCall("/ReglasValidacion/AgregarDetalleRegla", "POST", objetoTipoRegla)
                 .then((obj) => {
-                    if (parcial) {
-                        let mensaje = "El Detalle de la Regla de Validación ha sido creada";
-                        if (objetoTipoRegla.id != null) {
-                            mensaje = "El detalle de la Regla de Validación ha sido editada";
-                        }
-                        jsMensajes.Metodos.OkAlertModal(mensaje)
+
+                    jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleAgregado)
                             .set('onok', function (closeEvent) {
-                                location.reload();
+                                JsReglas.Metodos.CargarTablaDetalleReglas();
                             });
-                    }
-                    else {
-                        $(JsReglas.Controles.IdRegla).val(obj.objetoRespuesta[0].id);
-                    }
+
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
+                            .set('onok', function (closeEvent) { });
                     } else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) { });
@@ -799,7 +808,6 @@ $(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Tipo de Regla?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsReglas.Consultas.AgregarDetalleRegla(true);
-                location.reload();
             });
     };
 });
