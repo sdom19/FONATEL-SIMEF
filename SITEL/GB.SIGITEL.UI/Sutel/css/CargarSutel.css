@@ -1,0 +1,129 @@
+*,
+:after,
+:before {
+    box-sizing: border-box;
+}
+
+div,
+p {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+    font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+.text-replace {
+    font-size: 0;
+    text-indent: -99999px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.logo--sutel {
+    background-image: url(http://micomparador.sutel.go.cr/images/logo-sutel.png);
+    width: 105px;
+    height: 49px;
+}
+
+.spinner {
+    text-align: center;
+}
+
+#loader {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 1000;
+    background-color: #FFF;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+}
+
+.spinner {
+    margin: 0 auto 30px;
+    width: 50px;
+    height: 40px;
+    font-size: 10px;
+}
+
+.spinner>div {
+    background-color: #FF8B31;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+    animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+}
+
+.spinner .rect4 {
+    -webkit-animation-delay: -.9s;
+    animation-delay: -.9s;
+}
+
+.spinner .rect5 {
+    -webkit-animation-delay: -.8s;
+    animation-delay: -.8s;
+}
+
+
+
+/*! CSS Used keyframes */
+@-webkit-keyframes sk-stretchdelay {
+
+    0%,
+    100%,
+    40% {
+        -webkit-transform: scaleY(.4);
+    }
+
+    20% {
+        -webkit-transform: scaleY(1);
+    }
+}
+
+@keyframes sk-stretchdelay {
+
+    0%,
+    100%,
+    40% {
+        transform: scaleY(.4);
+        -webkit-transform: scaleY(.4);
+    }
+
+    20% {
+        transform: scaleY(1);
+        -webkit-transform: scaleY(1);
+    }
+}
