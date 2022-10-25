@@ -16,14 +16,63 @@ namespace GB.SIMEF.BL
 
 
         private RespuestaConsulta<List<Solicitud>> ResultadoConsulta;
-        string modulo = EtiquetasViewSolicitudes.Solicitudes;
+        string modulo = string.Empty;
         string user = string.Empty;
-
-        public SolicitudBL()
+        private CorreoDal correoDal;
+        private PlantillaHtmlDAL plantillaDal;
+       
+        public SolicitudBL(string modulo, string user )
         {
             this.clsDatos = new SolicitudDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<Solicitud>>();
+            this.plantillaDal = new PlantillaHtmlDAL();
+            this.user = user;
+            this.modulo = modulo;
         }
+
+
+        public RespuestaConsulta<bool> EnvioCorreo(Solicitud solicitud)
+        {
+            RespuestaConsulta<bool> envioCorreo = new RespuestaConsulta<bool>();
+            try
+            {
+                envioCorreo.objetoRespuesta = false;
+                PlantillaHtml plantilla = plantillaDal.ObtenerDatos((int)Constantes.PlantillaCorreoEnum.EnvioSolicitud);
+                solicitud = clsDatos.ObtenerDatos(solicitud).Single();
+                if (solicitud.Fuente.idEstado==(int)Constantes.EstadosRegistro.Activo )
+                {
+                    foreach (var detalleFuente in solicitud.Fuente.DetalleFuentesRegistro.Where(x=>x.Estado==true))
+                    {
+                      
+                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html, "Envío de solicitud");
+                        var result=correoDal.EnviarCorreo();
+                        envioCorreo.objetoRespuesta = result == 0 ? false : true;
+                    }
+                }
+                else
+                {
+                    envioCorreo.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.SolicitudesFuenteRegistrada);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                if (envioCorreo.HayError != (int)Constantes.Error.ErrorControlado)
+                {
+                    envioCorreo.HayError = (int)Constantes.Error.ErrorSistema;
+                }
+                envioCorreo.MensajeError = ex.Message;
+            }
+            return envioCorreo;
+
+        }
+
+
+
+
+
 
         public RespuestaConsulta<List<Solicitud>> ObtenerDatos(Solicitud objeto)
         {
@@ -90,7 +139,8 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
-                objeto.UsuarioModificacion = objeto.UsuarioCreacion;
+                objeto.UsuarioModificacion = user;
+                objeto.UsuarioCreacion = user;
 
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
@@ -198,21 +248,25 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Clonar;
-                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioCreacion=user;
 
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
                 }
 
                 else if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
                 else if (objeto.FechaFin < objeto.FechaInicio)
                 {
+                    ResultadoConsulta.HayError= (int)Error.ErrorControlado;
                     throw new Exception(Errores.ValorFecha);
                 }
                 else
@@ -228,16 +282,9 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado
-                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-
-                else
-                {
+                if ( ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
+                { 
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -264,8 +311,8 @@ namespace GB.SIMEF.BL
                 var resul = clsDatos.ObtenerDatos(objeto);
                 if (resul.Count() == 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
-
                 }
                 else
                 {
@@ -286,11 +333,7 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
                 ResultadoConsulta.MensajeError = ex.Message;
-                if (ex.Message == Errores.NoRegistrosActualizar)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-                else
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
 
@@ -306,21 +349,25 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
-                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioCreacion = user;
 
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
                 }
 
                 if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
                 else if (objeto.FechaFin < objeto.FechaInicio)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.ValorFecha);
                 }
                 else
@@ -335,14 +382,8 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.NombreRegistrado
-                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-
-                else
-                {
+                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
+                { 
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
 
                 }

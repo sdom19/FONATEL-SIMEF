@@ -37,7 +37,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public SolicitudFonatelController()
         {
-            SolicitudesBL = new SolicitudBL();
+            SolicitudesBL = new SolicitudBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
             AnnoBL = new AnnoBL();
             MesBL = new MesBL();
             fuenteBl = new FuentesRegistroBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
@@ -394,6 +394,25 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #region METODO DE ENVIO DE CORREOS
 
+
+
+        /// <summary>
+        /// Fecha: 18/10/2022
+        /// Francisco Vindas
+        /// Metodo para insertar solicitudes de informacion
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EnvioCorreo(Solicitud objeto)
+        {
+            RespuestaConsulta<bool> result = null;
+            await Task.Run(() =>
+            {
+                result = SolicitudesBL.EnvioCorreo(objeto);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
         /// <summary>
         /// Fecha: 18/10/2022
         /// Francisco Vindas

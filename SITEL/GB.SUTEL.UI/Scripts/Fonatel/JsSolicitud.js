@@ -199,557 +199,15 @@ JsSolicitud = {
             $(pDataTable).DataTable().row($(pItem).parents('tr')).remove().draw();
         },
 
-        "InsertarSolicitud": function () {
-
-            $("#loading").fadeIn();
-
-            let Solicitud = new Object();
-
-            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
-            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
-
-            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
-            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
-
-            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
-            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
-            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
-            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
-            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
-
-            execAjaxCall("/SolicitudFonatel/InsertarSolicitud", "POST", Solicitud)
-                .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
-                        .set('onok', function (closeEvent) {
-                            window.location.href = "/Fonatel/SolicitudFonatel/index";
-                        });
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "InsertarSolicitudParcial": function () {
-
-            $("#loading").fadeIn();
-
-            let Solicitud = new Object();
-
-            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
-            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
-
-            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
-            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
-
-            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
-            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
-            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
-            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
-            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
-
-            execAjaxCall("/SolicitudFonatel/InsertarSolicitud", "POST", Solicitud)
-                .then((obj) => {
-                    InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
-
-                    if (JsSolicitud.Consultas.ValidarControles()) {
-                        $(JsSolicitud.Controles.step2).trigger('click');
-                    }
-
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "EditarSolicitud": function () {
-
-            //ENCRIPTAR IDS
-
-            $("#loading").fadeIn();
-
-            let Solicitud = new Object();
-
-            Solicitud.id = $(JsSolicitud.Controles.id).val();
-
-            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
-            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
-
-            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
-            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
-
-            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
-            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
-            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
-            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
-            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
-
-            execAjaxCall("/SolicitudFonatel/EditarSolicitud", "POST", Solicitud)
-                .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido editada")
-                        .set('onok', function (closeEvent) {
-                            window.location.href = "/Fonatel/SolicitudFonatel/index";
-                        });
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "EditarSolicitudParcial": function () {
-
-            //ENCRIPTAR IDS
-
-            $("#loading").fadeIn();
-
-            let Solicitud = new Object();
-
-            Solicitud.id = $(JsSolicitud.Controles.id).val();
-
-            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
-            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
-            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
-            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
-            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
-            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
-            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
-            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
-            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
-
-            execAjaxCall("/SolicitudFonatel/EditarSolicitud", "POST", Solicitud)
-                .then((obj) => {
-                           $(JsSolicitud.Controles.step2).trigger('click');
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "ClonarSolicitud": function () {
-
-            $("#loading").fadeIn();
-
-            let Solicitud = new Object();
-
-            let id = ObtenerValorParametroUrl("id");
-
-            Solicitud.id = id;
-            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
-            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
-
-            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
-            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
-
-            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
-            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
-            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
-            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
-            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
-
-            execAjaxCall("/SolicitudFonatel/ClonarSolicitud", "POST", Solicitud)
-                .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
-                        .set('onok', function (closeEvent) {
-                            window.location.href = "/Fonatel/SolicitudFonatel/index";
-                        });
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "ClonarSolicitudParcial": function () {
-
-            $("#loading").fadeIn();
-
-            let Solicitud = new Object();
-
-            let id = ObtenerValorParametroUrl("id");
-
-            Solicitud.id = id;
-            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
-            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
-
-            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
-            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
-
-            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
-            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
-            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
-            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
-            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
-
-            execAjaxCall("/SolicitudFonatel/ClonarSolicitud", "POST", Solicitud)
-                .then((obj) => {
-                            InsertarParametroUrl("id", obj.objetoRespuesta.id);
-                            $(JsSolicitud.Controles.step2).trigger('click');
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "CambiarEstadoDesactivado": function (idSolicitud) {
-
-            $("#loading").fadeIn();
-            let Solicitud = new Object()
-
-            Solicitud.id = idSolicitud;
-
-            execAjaxCall("/SolicitudFonatel/CambiarEstadoDesactivado", "POST", Solicitud)
-                .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido desactivada")
-                        .set('onok', function (closeEvent) {
-                            location.reload();
-                        });
-
-                }).catch((data) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) {
-
-                            });
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "CambiarEstadoActivado": function (idSolicitud) {
-
-            $("#loading").fadeIn();
-            let Solicitud = new Object()
-            Solicitud.id = idSolicitud;
-
-            execAjaxCall("/SolicitudFonatel/CambiarEstadoActivado", "POST", Solicitud)
-                .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido activada")
-                        .set('onok', function (closeEvent) {
-                            location.reload();
-                        });
-
-                }).catch((data) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) {
-
-                            });
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "CambiarEstadoFinalizado": function (idSolicitud) {
-
-            $("#loading").fadeIn();
-            let Solicitud = new Object()
-            Solicitud.id = idSolicitud;
-
-            execAjaxCall("/SolicitudFonatel/CambiarEstadoActivado", "POST", Solicitud)
-                .then((obj) => {
-
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
-                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/Index"; })
-
-                }).catch((data) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) {
-
-                            });
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "EliminarSolicitud": function (idSolicitud) {
-
-            $("#loading").fadeIn();
-
-            execAjaxCall("/SolicitudFonatel/EliminarSolicitud", "POST", { idSolicitud: idSolicitud })
-                .then((obj) => {
-
-                    JsSolicitud.Metodos.RemoverItemDataTable(JsSolicitud.Controles.TablaSolicitudElemento, `button[value='${idSolicitud}']`)
-
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido eliminada")
-                        .set('onok', function (closeEvent) {
-                            JsSolicitud.Variables.ListadoSolicitudes = obj.objetoRespuesta;
-                        });
-
-                }).catch((obj) => {
-
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "InsertarDetalleSolicitud": function () {
-
-            $("#loading").fadeIn();
-
-            let Solicitud = new Object();
-
-            Solicitud.id = ObtenerValorParametroUrl("id");
-            Solicitud.Formularioid = $(JsSolicitud.Controles.ddlFormularioWeb).val();
-
-            execAjaxCall("/SolicitudFonatel/InsertarDetalleSolicitud", "POST", Solicitud)
-                .then((obj) => {
-
-
-                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido agregado")
-                        .set('onok', function (closeEvent) {
-
-                            if (obj.objetoRespuesta[0].Completo) {
-                                JsSolicitud.Variables.DetallesCompletos = true;
-                                JsSolicitud.Consultas.Detalles();
-                            }
-
-                            $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change');
-
-                            if ($(JsSolicitud.Controles.TablaFormulario).length > 0) {
-                                JsSolicitud.Consultas.ConsultaListaFormulario();
-                            }
-
-                        });
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "EliminarDetalleSolicitud": function (idSolicitud, idFormulario) {
-
-            $("#loading").fadeIn();
-
-            execAjaxCall("/SolicitudFonatel/EliminarDetalleSolicitud", "POST", { idSolicitud: idSolicitud, idFormulario: idFormulario })
-                .then((obj) => {
-                    JsSolicitud.Variables.DetallesCompletos = false;
-                    JsSolicitud.Consultas.Detalles();
-                    JsSolicitud.Metodos.RemoverItemDataTable(JsSolicitud.Controles.TablaFormularioElemento, `button[value='${idFormulario}']`)
-
-                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
-                        .set('onok', function (closeEvent) {
-                            JsSolicitud.Variables.ListadoFormulario = obj.objetoRespuesta;
-                        })
-
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "InsertarEnvioProgramado": function () {
-
-            $("#loading").fadeIn();
-
-            let objeto = new Object();
-
-            objeto.id = $(JsSolicitud.Controles.txtSolicitudEnvio).val();
-            objeto.IdFrecuencia = $(JsSolicitud.Controles.ddlFrecuencia).val();
-            objeto.CantidadRepiticiones = $(JsSolicitud.Controles.txtCantidadRepeticiones).val();
-            objeto.FechaCiclo = $(JsSolicitud.Controles.txtFechaCiclo).val();
-
-            execAjaxCall("/SolicitudFonatel/InsertarEnvioProgramado", "POST", objeto)
-                .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Programación ha sido creada")
-                        .set('onok', function (closeEvent) {
-                            location.reload();
-                        });
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-
-        "EliminarEnvioProgramado": function () {
-
-            $("#loading").fadeIn();
-
-            let objeto = new Object();
-            objeto.id = $(JsSolicitud.Controles.txtSolicitudEnvio).val();
-
-            execAjaxCall("/SolicitudFonatel/EliminarEnvioProgramado", "POST", objeto)
-                .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Programación ha sido eliminada")
-                        .set('onok', function (closeEvent) {
-                            location.reload();
-                        });
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
-    },
-
-    "Consultas": {
-
-        "ValidarExistenciaSolicitud": function (idSolicitud, Eliminado = true) {
-
-            $("#loading").fadeIn();
-
-            let solicitud = new Object()
-
-            solicitud.id = idSolicitud;
-
-            execAjaxCall("/SolicitudFonatel/ValidarExistenciaSolicitud", "POST", solicitud)
-                .then((obj) => {
-                    if (obj.objetoRespuesta.length == 0) {
-
-                        if (Eliminado) {
-
-                            JsSolicitud.Metodos.EliminarSolicitud(idSolicitud);
-
-                        } else {
-
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.estado)
-                                .set('onok', function (closeEvent) {
-                                    JsSolicitud.Metodos.CambiarEstadoDesactivado(idSolicitud);
-                                });
-                        }
-
-                    } else {
-                        let dependencias = '';
-                        for (var i = 0; i < obj.objetoRespuesta.length; i++) {
-                            dependencias = dependencias + obj.objetoRespuesta[i] + "<br>"
-                        }
-                        if (Eliminado) {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
-                                .set('onok', function (closeEvent) {
-                                    JsSolicitud.Metodos.EliminarSolicitud(idSolicitud);
-                                });
-                        }
-                        else {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud ya está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
-                                .set('onok', function (closeEvent) {
-                                    JsSolicitud.Metodos.CambiarEstadoDesactivado(idSolicitud);
-                                });
-                        }
-
-
-                    }
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) {
-                                location.reload();
-                            });
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
+        "Detalles": function () {
+
+            if (JsSolicitud.Variables.DetallesCompletos) {
+                $(JsSolicitud.Controles.btnGuardarFormulario).prop("disabled", true);
+                $(JsSolicitud.Controles.btnFinalizarSolicitud).prop("disabled", false);
+            } else {
+                $(JsSolicitud.Controles.btnGuardarFormulario).prop("disabled", false);
+                $(JsSolicitud.Controles.btnFinalizarSolicitud).prop("disabled", true);
+            }
         },
 
         "ValidarNombreyCodigo": function () {
@@ -845,26 +303,6 @@ JsSolicitud = {
             return validar;
         },
 
-        "ValidarFormularioCrear": function () {
-
-            let codigo = $(JsSolicitud.Controles.txtCodigo).val() == undefined ? "" : $(JsSolicitud.Controles.txtCodigo).val().trim();
-            let nombre = $(JsSolicitud.Controles.txtNombre).val() == undefined ? "" : $(JsSolicitud.Controles.txtNombre).val().trim();
-
-            if (codigo.length > 0 && nombre.length > 0
-                && $(JsSolicitud.Controles.txtFechaInicio).val().trim() != "0001-01-01" && $(JsSolicitud.Controles.txtFechaFin).val().trim() != "0001-01-01"
-                && $(JsSolicitud.Controles.ddlFuentes).val().trim().length > 0 && $(JsSolicitud.Controles.TxtCantidadFormulario).val().trim() != 0
-                && $(JsSolicitud.Controles.ddlMesSolicitud).val().trim().length > 0 && $(JsSolicitud.Controles.ddlAnoSolicitud).val().trim().length > 0
-                && $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim().length > 0) {
-
-                $(JsSolicitud.Controles.btnSiguienteSolicitud).prop("disabled", false);
-                $(JsSolicitud.Controles.step2).prop("disabled", false);
-            }
-            else {
-                $(JsSolicitud.Controles.btnSiguienteSolicitud).prop("disabled", true);
-                $(JsSolicitud.Controles.step2).prop("disabled", true);
-            }
-        },
-
         "ValidarEnvioProgramado": function () {
 
             let validar = true;
@@ -896,6 +334,610 @@ JsSolicitud = {
             }
 
             return validar;
+        },
+
+     
+    },
+
+    "Consultas": {
+
+        "ValidarExistenciaSolicitud": function (idSolicitud, Eliminado = true) {
+
+            $("#loading").fadeIn();
+
+            let solicitud = new Object()
+
+            solicitud.id = idSolicitud;
+
+            execAjaxCall("/SolicitudFonatel/ValidarExistenciaSolicitud", "POST", solicitud)
+                .then((obj) => {
+                    if (obj.objetoRespuesta.length == 0) {
+
+                        if (Eliminado) {
+
+                            JsSolicitud.Consultas.EliminarSolicitud(idSolicitud);
+
+                        } else {
+
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.estado)
+                                .set('onok', function (closeEvent) {
+                                    JsSolicitud.Consultas.CambiarEstadoDesactivado(idSolicitud);
+                                });
+                        }
+
+                    } else {
+                        let dependencias = '';
+                        for (var i = 0; i < obj.objetoRespuesta.length; i++) {
+                            dependencias = dependencias + obj.objetoRespuesta[i] + "<br>"
+                        }
+                        if (Eliminado) {
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                                .set('onok', function (closeEvent) {
+                                    JsSolicitud.Consultas.EliminarSolicitud(idSolicitud);
+                                });
+                        }
+                        else {
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud ya está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                                .set('onok', function (closeEvent) {
+                                    JsSolicitud.Consultas.CambiarEstadoDesactivado(idSolicitud);
+                                });
+                        }
+
+
+                    }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "EditarSolicitudParcial": function () {
+
+            //ENCRIPTAR IDS
+
+            $("#loading").fadeIn();
+
+            let Solicitud = new Object();
+
+            Solicitud.id = $(JsSolicitud.Controles.id).val();
+
+            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
+            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
+            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
+            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
+            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
+            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
+            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
+            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
+
+            execAjaxCall("/SolicitudFonatel/EditarSolicitud", "POST", Solicitud)
+                .then((obj) => {
+                    $(JsSolicitud.Controles.step2).trigger('click');
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "ClonarSolicitud": function () {
+
+            $("#loading").fadeIn();
+
+            let Solicitud = new Object();
+
+            let id = ObtenerValorParametroUrl("id");
+
+            Solicitud.id = id;
+            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
+            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
+
+            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
+            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
+
+            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
+            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
+            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
+            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
+
+            execAjaxCall("/SolicitudFonatel/ClonarSolicitud", "POST", Solicitud)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/Fonatel/SolicitudFonatel/index";
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "CambiarEstadoDesactivado": function (idSolicitud) {
+
+            $("#loading").fadeIn();
+            let Solicitud = new Object()
+
+            Solicitud.id = idSolicitud;
+
+            execAjaxCall("/SolicitudFonatel/CambiarEstadoDesactivado", "POST", Solicitud)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido desactivada")
+                        .set('onok', function (closeEvent) {
+                            location.reload();
+                        });
+
+                }).catch((data) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "CambiarEstadoActivado": function (idSolicitud) {
+
+            $("#loading").fadeIn();
+            let Solicitud = new Object()
+            Solicitud.id = idSolicitud;
+
+            execAjaxCall("/SolicitudFonatel/CambiarEstadoActivado", "POST", Solicitud)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido activada")
+                        .set('onok', function (closeEvent) {
+                            location.reload();
+                        });
+
+                }).catch((data) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "InsertarDetalleSolicitud": function () {
+
+            $("#loading").fadeIn();
+
+            let Solicitud = new Object();
+
+            Solicitud.id = ObtenerValorParametroUrl("id");
+            Solicitud.Formularioid = $(JsSolicitud.Controles.ddlFormularioWeb).val();
+
+            execAjaxCall("/SolicitudFonatel/InsertarDetalleSolicitud", "POST", Solicitud)
+                .then((obj) => {
+
+
+                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido agregado")
+                        .set('onok', function (closeEvent) {
+
+                            if (obj.objetoRespuesta[0].Completo) {
+                                JsSolicitud.Variables.DetallesCompletos = true;
+                                JsSolicitud.Metodos.Detalles();
+                            }
+
+                            $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change');
+
+                            if ($(JsSolicitud.Controles.TablaFormulario).length > 0) {
+                                JsSolicitud.Consultas.ConsultaListaFormulario();
+                            }
+
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "EliminarDetalleSolicitud": function (idSolicitud, idFormulario) {
+
+            $("#loading").fadeIn();
+
+            execAjaxCall("/SolicitudFonatel/EliminarDetalleSolicitud", "POST", { idSolicitud: idSolicitud, idFormulario: idFormulario })
+                .then((obj) => {
+                    JsSolicitud.Variables.DetallesCompletos = false;
+                    JsSolicitud.Metodos.Detalles();
+                    JsSolicitud.Metodos.RemoverItemDataTable(JsSolicitud.Controles.TablaFormularioElemento, `button[value='${idFormulario}']`)
+
+                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
+                        .set('onok', function (closeEvent) {
+                            JsSolicitud.Variables.ListadoFormulario = obj.objetoRespuesta;
+                        })
+
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "InsertarEnvioProgramado": function () {
+
+            $("#loading").fadeIn();
+
+            let objeto = new Object();
+
+            objeto.id = $(JsSolicitud.Controles.txtSolicitudEnvio).val();
+            objeto.IdFrecuencia = $(JsSolicitud.Controles.ddlFrecuencia).val();
+            objeto.CantidadRepiticiones = $(JsSolicitud.Controles.txtCantidadRepeticiones).val();
+            objeto.FechaCiclo = $(JsSolicitud.Controles.txtFechaCiclo).val();
+
+            execAjaxCall("/SolicitudFonatel/InsertarEnvioProgramado", "POST", objeto)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Programación ha sido creada")
+                        .set('onok', function (closeEvent) {
+                            location.reload();
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "EditarSolicitud": function () {
+
+            //ENCRIPTAR IDS
+
+            $("#loading").fadeIn();
+
+            let Solicitud = new Object();
+
+            Solicitud.id = $(JsSolicitud.Controles.id).val();
+
+            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
+            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
+
+            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
+            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
+
+            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
+            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
+            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
+            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
+
+            execAjaxCall("/SolicitudFonatel/EditarSolicitud", "POST", Solicitud)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido editada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/Fonatel/SolicitudFonatel/index";
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "ClonarSolicitudParcial": function () {
+
+            $("#loading").fadeIn();
+
+            let Solicitud = new Object();
+
+            let id = ObtenerValorParametroUrl("id");
+
+            Solicitud.id = id;
+            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
+            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
+
+            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
+            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
+
+            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
+            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
+            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
+            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
+
+            execAjaxCall("/SolicitudFonatel/ClonarSolicitud", "POST", Solicitud)
+                .then((obj) => {
+                    InsertarParametroUrl("id", obj.objetoRespuesta.id);
+                    $(JsSolicitud.Controles.step2).trigger('click');
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "InsertarSolicitudParcial": function () {
+
+            $("#loading").fadeIn();
+
+            let Solicitud = new Object();
+
+            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
+            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
+
+            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
+            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
+
+            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
+            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
+            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
+            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
+
+            execAjaxCall("/SolicitudFonatel/InsertarSolicitud", "POST", Solicitud)
+                .then((obj) => {
+                    InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
+
+                    if (JsSolicitud.Metodos.ValidarControles()) {
+                        $(JsSolicitud.Controles.step2).trigger('click');
+                    }
+
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "CambiarEstadoFinalizado": function (idSolicitud) {
+            $("#loading").fadeIn();
+            let Solicitud = new Object()
+            Solicitud.id = idSolicitud;
+            execAjaxCall("/SolicitudFonatel/CambiarEstadoActivado", "POST", Solicitud)
+                .then((obj) => {
+
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
+                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/Index"; })
+
+                }).catch((data) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "EliminarSolicitud": function (idSolicitud) {
+
+            $("#loading").fadeIn();
+
+            execAjaxCall("/SolicitudFonatel/EliminarSolicitud", "POST", { idSolicitud: idSolicitud })
+                .then((obj) => {
+
+                    JsSolicitud.Metodos.RemoverItemDataTable(JsSolicitud.Controles.TablaSolicitudElemento, `button[value='${idSolicitud}']`)
+
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido eliminada")
+                        .set('onok', function (closeEvent) {
+                            JsSolicitud.Variables.ListadoSolicitudes = obj.objetoRespuesta;
+                        });
+
+                }).catch((obj) => {
+
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "InsertarSolicitud": function () {
+
+            $("#loading").fadeIn();
+
+            let Solicitud = new Object();
+
+            Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
+            Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
+
+            Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
+            Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
+
+            Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
+            Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
+            Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
+            Solicitud.idAnno = $(JsSolicitud.Controles.ddlAnoSolicitud).val();
+            Solicitud.Mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
+
+            execAjaxCall("/SolicitudFonatel/InsertarSolicitud", "POST", Solicitud)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/Fonatel/SolicitudFonatel/index";
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "EliminarEnvioProgramado": function () {
+
+            $("#loading").fadeIn();
+
+            let objeto = new Object();
+            objeto.id = $(JsSolicitud.Controles.txtSolicitudEnvio).val();
+
+            execAjaxCall("/SolicitudFonatel/EliminarEnvioProgramado", "POST", objeto)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Programación ha sido eliminada")
+                        .set('onok', function (closeEvent) {
+                            location.reload();
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "EnviarCorreo": function (id) {
+
+            $("#loading").fadeIn();
+
+            let objeto = new Object();
+            objeto.id = id;
+            execAjaxCall("/SolicitudFonatel/EnvioCorreo", "POST", objeto = objeto)
+                .then((obj) => {
+                    if (obj.objetoRespuesta) {
+                        jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido enviada")
+                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+                    } else {
+
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                  
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "ValidarFormularioCrear": function () {
+
+            let codigo = $(JsSolicitud.Controles.txtCodigo).val() == undefined ? "" : $(JsSolicitud.Controles.txtCodigo).val().trim();
+            let nombre = $(JsSolicitud.Controles.txtNombre).val() == undefined ? "" : $(JsSolicitud.Controles.txtNombre).val().trim();
+
+            if (codigo.length > 0 && nombre.length > 0
+                && $(JsSolicitud.Controles.txtFechaInicio).val().trim() != "0001-01-01" && $(JsSolicitud.Controles.txtFechaFin).val().trim() != "0001-01-01"
+                && $(JsSolicitud.Controles.ddlFuentes).val().trim().length > 0 && $(JsSolicitud.Controles.TxtCantidadFormulario).val().trim() != 0
+                && $(JsSolicitud.Controles.ddlMesSolicitud).val().trim().length > 0 && $(JsSolicitud.Controles.ddlAnoSolicitud).val().trim().length > 0
+                && $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim().length > 0) {
+
+                $(JsSolicitud.Controles.btnSiguienteSolicitud).prop("disabled", false);
+                $(JsSolicitud.Controles.step2).prop("disabled", false);
+            }
+            else {
+                $(JsSolicitud.Controles.btnSiguienteSolicitud).prop("disabled", true);
+                $(JsSolicitud.Controles.step2).prop("disabled", true);
+            }
         },
 
         "ConsultaListaSolicitudes": function () {
@@ -949,18 +991,6 @@ JsSolicitud = {
                     $("#loading").fadeOut();
                 });
         },
-
-        "Detalles": function () {
-
-            if (JsSolicitud.Variables.DetallesCompletos) {
-                $(JsSolicitud.Controles.btnGuardarFormulario).prop("disabled", true);
-                $(JsSolicitud.Controles.btnFinalizarSolicitud).prop("disabled", false);
-            } else {
-                $(JsSolicitud.Controles.btnGuardarFormulario).prop("disabled", false);
-                $(JsSolicitud.Controles.btnFinalizarSolicitud).prop("disabled", true);
-            }
-        },
-
     }
 }
 
@@ -971,7 +1001,7 @@ $(document).on("click", JsSolicitud.Controles.btnFinalizarSolicitud, function (e
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Solicitud?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
-            JsSolicitud.Metodos.CambiarEstadoFinalizado(id);
+            JsSolicitud.Consultas.CambiarEstadoFinalizado(id);
         });
 });
 
@@ -994,7 +1024,7 @@ $(document).on("click", JsSolicitud.Controles.btnDeleteFormulario, function (e) 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
 
-            JsSolicitud.Metodos.EliminarDetalleSolicitud(idSolicitud, idFormulario);
+            JsSolicitud.Consultas.EliminarDetalleSolicitud(idSolicitud, idFormulario);
         });
 });
 
@@ -1020,7 +1050,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e)
         $(JsSolicitud.Controles.ddlVariableIndicadorHelp).addClass("hidden");
         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el formulario a la Solicitud?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
-                JsSolicitud.Metodos.InsertarDetalleSolicitud();
+                JsSolicitud.Consultas.InsertarDetalleSolicitud();
             });
     }
     else {
@@ -1051,11 +1081,11 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
 
     e.preventDefault();
 
-    if (JsSolicitud.Consultas.ValidarEnvioProgramado()) {
+    if (JsSolicitud.Metodos.ValidarEnvioProgramado()) {
         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la programación a las Solicitud?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 $(JsSolicitud.Controles.modalEnvio).modal('hide');
-                JsSolicitud.Metodos.InsertarEnvioProgramado();
+                JsSolicitud.Consultas.InsertarEnvioProgramado();
         });
     }
 
@@ -1069,7 +1099,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
 
     let CamposVacios = "Existen campos vacíos. "
 
-    if (JsSolicitud.Consultas.ValidarNombreyCodigo()) {
+    if (JsSolicitud.Metodos.ValidarNombreyCodigo()) {
 
         //if (JsSolicitud.Consultas.ValidarControles()) {
         //    CamposVacios = ""
@@ -1079,29 +1109,29 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
 
             jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
-                    JsSolicitud.Metodos.EditarSolicitud();
+                    JsSolicitud.Consultas.EditarSolicitud();
                 })
                 .set('oncancel', function (closeEvent) {
-                    JsSolicitud.Consultas.ValidarControles();
+                    JsSolicitud.Metodos.ValidarControles();
                 });
 
         } else if (modo == jsUtilidades.Variables.Acciones.Clonar){
             jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
-                    JsSolicitud.Metodos.ClonarSolicitud();
+                    JsSolicitud.Consultas.ClonarSolicitud();
                 })
                 .set('oncancel', function (closeEvent) {
-                    JsSolicitud.Consultas.ValidarControles();
+                    JsSolicitud.Metodos.ValidarControles();
                 });
 
         }
         else {
             jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
-                    JsSolicitud.Metodos.InsertarSolicitud();
+                    JsSolicitud.Consultas.InsertarSolicitud();
                 })
                 .set('oncancel', function (closeEvent) {
-                    JsSolicitud.Consultas.ValidarControles();
+                    JsSolicitud.Metodos.ValidarControles();
                 });
         }
     }
@@ -1122,10 +1152,11 @@ $(document).on("click", JsSolicitud.Controles.btnDeleteSolicitud, function (e) {
 });
 
 $(document).on("click", JsSolicitud.Controles.btnsent, function (e) {
+    let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea enviar la Solicitud?", null, "Enviar Registro")
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido enviada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
+            
+            JsSolicitud.Consultas.EnviarCorreo(id);
         });
 });
 
@@ -1137,7 +1168,7 @@ $(document).on("click", JsSolicitud.Controles.btnDesactivadoSolicitud, function 
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Solicitud?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            JsSolicitud.Metodos.CambiarEstadoActivado(id);
+            JsSolicitud.Consultas.CambiarEstadoActivado(id);
         });
 });
 
@@ -1165,20 +1196,20 @@ $(document).on("click", JsSolicitud.Controles.btnSiguienteSolicitud, function (e
 
     if (modo == jsUtilidades.Variables.Acciones.Editar) {
 
-        if (JsSolicitud.Consultas.ValidarControles()) {
-            JsSolicitud.Metodos.EditarSolicitudParcial();
+        if (JsSolicitud.Metodos.ValidarControles()) {
+            JsSolicitud.Consultas.EditarSolicitudParcial();
         }
 
     } else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
 
-        if (JsSolicitud.Consultas.ValidarControles()) {
+        if (JsSolicitud.Metodos.ValidarControles()) {
             
-            JsSolicitud.Metodos.ClonarSolicitudParcial();
+            JsSolicitud.Consultas.ClonarSolicitudParcial();
         }
 
     }
     else {
-        JsSolicitud.Metodos.InsertarSolicitudParcial();
+        JsSolicitud.Consultas.InsertarSolicitudParcial();
     }
 });
 
@@ -1200,7 +1231,7 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarSolicituProgramardEnvio
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Programación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             $(JsSolicitud.Controles.modalEnvio).modal('hide');
-            JsSolicitud.Metodos.EliminarEnvioProgramado();
+            JsSolicitud.Consultas.EliminarEnvioProgramado();
         });
 });
 

@@ -51,16 +51,27 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     Estado = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
-                    Fuente = db.FuentesRegistro.Where(i => i.idFuente == x.idFuente).Single(),
+                    Fuente = ObtenerFuente(x.idFuente),
                     EnvioProgramado = db.SolicitudEnvioProgramado.Where(i => i.IdSolicitud == x.idSolicitud).SingleOrDefault(),
                     SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud).ToList(),
-                    FormulariosString= ObtenerListaFormularioString(x.idSolicitud),
-                    FormularioWeb= ObtenerListaFormulario(x.idSolicitud),
+                    FormulariosString = ObtenerListaFormularioString(x.idSolicitud),
+                    FormularioWeb = ObtenerListaFormulario(x.idSolicitud),
 
                 }).ToList();
             }
             return ListaSolicitud;
         }
+        private FuentesRegistro ObtenerFuente(int id)
+        {
+            FuentesRegistro fuente = db.FuentesRegistro.Where(i => i.idFuente == id).Single();
+            fuente.DetalleFuentesRegistro = db.DetalleFuentesRegistro.Where(i => i.idFuente == id).ToList();
+            return fuente;
+        }
+
+
+
+
+
 
         /// <summary>
         /// Actualiza los datos e inserta por medio de merge
