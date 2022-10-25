@@ -87,5 +87,8 @@ namespace GB.SIMEF.DAL
        //ublic virtual DbSet<Tippd> TiposDetalleCategoria { get; set; }
         public virtual DbSet<UnidadEstudio> UnidadEstudio { get; set; }
         public virtual DbSet<DefinicionIndicador> DefinicionIndicadores { get; set; }
+        public virtual DbSet<ReglaIndicadorSalida> ReglaIndicadorSalida { get; set; }
+        public virtual DbSet<ReglaIndicadorEntrada> ReglaIndicadorEntrada { get; set; }
+        public virtual DbSet<ReglaIndicadorEntradaSalida> ReglaIndicadorEntradaSalida { get; set; }
     }
 }

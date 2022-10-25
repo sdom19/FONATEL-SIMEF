@@ -13,7 +13,7 @@ namespace GB.SIMEF.DAL
     {
         private SIMEFContext db;
         #region Metodos Consulta Base de Datos
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -36,10 +36,18 @@ namespace GB.SIMEF.DAL
                 {
                     id = Utilidades.Encriptar(x.IdReglasValidacionTipo.ToString()),
                     IdRegla = x.IdRegla,
+                    IdReglasValidacionTipo = x.IdReglasValidacionTipo,
                     tipoReglaValidacion = ObtenerTipoRegla(x.IdTipo),
                     IdTipo = x.IdTipo,
                     IdOperador = x.IdOperador,
+                    idIndicadorVariableString = x.idIndicadorVariableString,
                     operadorArismetico = ObtenerOperador(x.IdOperador),
+                    reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdReglasValidacionTipo),
+                    //reglaComparacionConstante = ObtenerReglaContraConstante(x.IdReglasValidacionTipo),
+                    //reglaSecuencial = ObtenerReglaSecuencial(x.IdReglasValidacionTipo),
+                    //reglaIndicadorSalida = ObtenerReglaIndicadorSalida(x.IdReglasValidacionTipo),
+                    //reglaIndicadorEntrada = ObtenerReglaIndicadorEntrada(x.IdReglasValidacionTipo),
+                    //reglaIndicadorEntradaSalida = ObtenerReglaIndicadorEntradaSalida(x.IdReglasValidacionTipo),
                     Estado = x.Estado
                 }).ToList();
             }
@@ -66,18 +74,16 @@ namespace GB.SIMEF.DAL
             return listaValicion;
         }
 
-
         private string ObtenerListadoTipoReglas(int IdRegla)
         {
-            string tipoReglas= "";
-                tipoReglas = db.Database.SqlQuery<string>
-                    ("exec spObtenerListadoTipoReglaXReglaValidacion @IdRegla",
-                       new SqlParameter("@IdRegla", IdRegla)
-                    ).Single();
+            string tipoReglas = "";
+            tipoReglas = db.Database.SqlQuery<string>
+                ("exec spObtenerListadoTipoReglaXReglaValidacion @IdRegla",
+                   new SqlParameter("@IdRegla", IdRegla)
+                ).Single();
 
             return tipoReglas;
         }
-
 
         /// <summary>
         /// Creación y modificación
@@ -103,6 +109,7 @@ namespace GB.SIMEF.DAL
                 ListaDetalleReglaValidacion = ListaDetalleReglaValidacion.Select(X => new DetalleReglaValidacion
                 {
                     id = Utilidades.Encriptar(X.IdReglasValidacionTipo.ToString()),
+                    IdReglasValidacionTipo = X.IdReglasValidacionTipo,
                     IdRegla = X.IdRegla,
                     IdTipo = X.IdTipo,
                     IdOperador = X.IdOperador,
@@ -124,6 +131,72 @@ namespace GB.SIMEF.DAL
         {
             return
             db.OperadorArismetico.Where(x => x.IdOperador == id && x.Estado == true).FirstOrDefault();
+        }
+
+        private ReglaAtributosValidos ObtenerReglaAtributosValidos(int id)
+        {
+            ReglaAtributosValidos regla =
+                db.ReglaAtributosValidos.Where(x => x.IdTipoReglaValidacion == id).FirstOrDefault();
+            if (regla != null)
+            {
+
+            }
+            return regla;
+        }
+
+        private ReglaComparacionConstante ObtenerReglaContraConstante(int id)
+        {
+            ReglaComparacionConstante regla =
+                db.ReglaComparacionConstante.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
+            if (regla != null)
+            {
+
+            }
+            return regla;
+        }
+
+        private ReglaSecuencial ObtenerReglaSecuencial(int id)
+        {
+            ReglaSecuencial regla =
+                db.ReglaSecuencial.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
+            if (regla != null)
+            {
+
+            }
+            return regla;
+        }
+
+        private ReglaIndicadorSalida ObtenerReglaIndicadorSalida(int id)
+        {
+            ReglaIndicadorSalida regla =
+                db.ReglaIndicadorSalida.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
+            if (regla != null)
+            {
+                regla.IdReglaIndicadorSalida = 0;
+            }
+            return regla;
+        }
+
+        private ReglaIndicadorEntrada ObtenerReglaIndicadorEntrada(int id)
+        {
+            ReglaIndicadorEntrada regla =
+                db.ReglaIndicadorEntrada.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
+            if (regla != null)
+            {
+                regla.IdReglaIndicadorEntrada = 0;
+            }
+            return regla;
+        }
+
+        private ReglaIndicadorEntradaSalida ObtenerReglaIndicadorEntradaSalida(int id)
+        {
+            ReglaIndicadorEntradaSalida regla =
+                db.ReglaIndicadorEntradaSalida.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
+            if (regla != null)
+            {
+                regla.IdReglaIndicadorEntradaSalida = 0;
+            }
+            return regla;
         }
         #endregion
     }
