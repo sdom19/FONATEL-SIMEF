@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "MxAUaruqfFYt5eWPPjeDpYltwJPm6MHczKlw0M7eL6c19cmfEL8De4l8QrsMtw751E/MiLB+PG3ownschHqikw==",
+  "dgSpecHash": "qq7YWGmvBqNIneIrsR1WsMgjCj1bPwwgqbf6G4EyhRPGHE9Pix+7YhySJQu2NFV2ITPh+7LJ0GEsw37T70rlAg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrador\\Source\\Repos\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj",
+  "projectFilePath": "C:\\agent\\_work\\1\\s\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Administrador\\.nuget\\packages\\entityframework\\6.2.0\\entityframework.6.2.0.nupkg.sha512",
     "C:\\Users\\Administrador\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\Administrador\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\Administrador\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
@@ -95,5 +96,16 @@
     "C:\\Users\\Administrador\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Administrador\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'EntityFramework 6.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "EntityFramework",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

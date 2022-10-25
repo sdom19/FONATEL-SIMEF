@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrador\\Source\\Repos\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj": {}
+    "C:\\agent\\_work\\1\\s\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrador\\Source\\Repos\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj": {
+    "C:\\agent\\_work\\1\\s\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrador\\Source\\Repos\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj",
+        "projectUniqueName": "C:\\agent\\_work\\1\\s\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj",
         "projectName": "GB.SIMEF.API",
-        "projectPath": "C:\\Users\\Administrador\\Source\\Repos\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj",
+        "projectPath": "C:\\agent\\_work\\1\\s\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj",
         "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrador\\Source\\Repos\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.API\\obj\\",
+        "outputPath": "C:\\agent\\_work\\1\\s\\SITEL\\GB.SIMEF.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,6 +44,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.2.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.0, )"

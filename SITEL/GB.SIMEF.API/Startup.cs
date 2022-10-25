@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -7,10 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SIMEF.API.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+
 
 namespace GB.SIMEF.API
 {
@@ -19,6 +20,7 @@ namespace GB.SIMEF.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Connection.DWHSIMEF = Configuration.GetConnectionString("DWHSIMEF");
         }
 
         public IConfiguration Configuration { get; }
@@ -26,15 +28,15 @@ namespace GB.SIMEF.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<string>(options =>
-            //       options.UseSqlServer(Configuration.GetConnectionString("")));
+
+            services.AddDbContext<DWHSIMEFContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DWHSIMEF")));
             services.AddControllers();
 
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
-                { Title = "Api Caduca REST", Version = "v1" });
+                { Title = "SIMEFAPI REST", Version = "v1" });
             });
         }
 
@@ -65,9 +67,9 @@ namespace GB.SIMEF.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
-          
-
+            
+            app.UseCors(builder => builder
+            .AllowAnyOrigin());
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.)
             app.UseSwaggerUI();
 
