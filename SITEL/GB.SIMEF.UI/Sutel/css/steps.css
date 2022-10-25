@@ -1,0 +1,292 @@
+/*! CSS Used from: file:///C:/Users/Admin/Documents/Datasoft/SUTEL/Propuestas%20corregidas/P1/PrimeraPropuesta/bootzard-bootstrap-wizard-template/assets/bootstrap/css/bootstrap.min.css */
+nav{display:block;}
+a{background-color:transparent;}
+a:active,a:hover{outline:0;}
+button,input{margin:0;font:inherit;color:inherit;}
+button{overflow:visible;}
+button{text-transform:none;}
+button{-webkit-appearance:button;cursor:pointer;}
+button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0;}
+input{line-height:normal;}
+input[type=radio]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0;}
+fieldset{padding:.35em .625em .75em;margin:0 2px;border:1px solid silver;}
+table{border-spacing:0;border-collapse:collapse;}
+td,th{padding:0;}
+@media print{
+*,:after,:before{color:#000!important;text-shadow:none!important;background:0 0!important;-webkit-box-shadow:none!important;box-shadow:none!important;}
+a,a:visited{text-decoration:underline;}
+a[href]:after{content:" (" attr(href) ")";}
+a[href^="#"]:after{content:"";}
+thead{display:table-header-group;}
+tr{page-break-inside:avoid;}
+h3,p{orphans:3;widows:3;}
+h3{page-break-after:avoid;}
+.table{border-collapse:collapse!important;}
+.table td,.table th{background-color:#fff!important;}
+}
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+button,input{font-family:inherit;font-size:inherit;line-height:inherit;}
+a{color:#337ab7;text-decoration:none;}
+a:focus,a:hover{color:#23527c;text-decoration:underline;}
+a:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}
+h3,h4{font-family:inherit;font-weight:500;line-height:1.1;color:inherit;}
+h3{margin-top:20px;margin-bottom:10px;}
+h4{margin-top:10px;margin-bottom:10px;}
+h3{font-size:24px;}
+h4{font-size:18px;}
+p{margin:0 0 10px;}
+.text-center{text-align:center;}
+ul{margin-top:0;margin-bottom:10px;}
+.container{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto;}
+@media (min-width:768px){
+.container{width:750px;}
+}
+@media (min-width:992px){
+.container{width:970px;}
+}
+@media (min-width:1200px){
+.container{width:1170px;}
+}
+.row{margin-right:-15px;margin-left:-15px;}
+.col-md-12,.col-sm-12,.col-sm-2{position:relative;min-height:1px;padding-right:15px;padding-left:15px;}
+@media (min-width:768px){
+.col-sm-12,.col-sm-2{float:left;}
+.col-sm-12{width:100%;}
+.col-sm-2{width:16.66666667%;}
+}
+@media (min-width:992px){
+.col-md-12{float:left;}
+.col-md-12{width:100%;}
+}
+table{background-color:transparent;}
+th{text-align:left;}
+.table{width:100%;max-width:100%;margin-bottom:20px;}
+.table>tbody>tr>td,.table>thead>tr>th{padding:8px;line-height:1.42857143;vertical-align:top;border-top:1px solid #ddd;}
+.table>thead>tr>th{vertical-align:bottom;border-bottom:2px solid #ddd;}
+.table>thead:first-child>tr:first-child>th{border-top:0;}
+fieldset{min-width:0;padding:0;margin:0;border:0;}
+label{display:inline-block;max-width:100%;margin-bottom:5px;font-weight:700;}
+input[type=radio]{margin:4px 0 0;margin-top:1px\9;line-height:normal;}
+input[type=radio]:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}
+.checkbox{position:relative;display:block;margin-top:10px;margin-bottom:10px;}
+.btn{display:inline-block;padding:6px 12px;margin-bottom:0;font-size:14px;font-weight:400;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;border:1px solid transparent;border-radius:4px;}
+.btn:active:focus,.btn:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}
+.btn:focus,.btn:hover{color:#333;text-decoration:none;}
+.btn:active{background-image:none;outline:0;-webkit-box-shadow:inset 0 3px 5px rgba(0,0,0,.125);box-shadow:inset 0 3px 5px rgba(0,0,0,.125);}
+.pagination{display:inline-block;padding-left:0;margin:20px 0;border-radius:4px;}
+.pagination>li{display:inline;}
+.pagination>li>a{position:relative;float:left;padding:6px 12px;margin-left:-1px;line-height:1.42857143;color:#337ab7;text-decoration:none;background-color:#fff;border:1px solid #ddd;}
+.pagination>li:first-child>a{margin-left:0;border-top-left-radius:4px;border-bottom-left-radius:4px;}
+.pagination>li:last-child>a{border-top-right-radius:4px;border-bottom-right-radius:4px;}
+.pagination>li>a:focus,.pagination>li>a:hover{z-index:2;color:#23527c;background-color:#eee;border-color:#ddd;}
+.container:after,.container:before,.row:after,.row:before{display:table;content:" ";}
+.container:after,.row:after{clear:both;}
+/*! CSS Used from: file:///C:/Users/Admin/Documents/Datasoft/SUTEL/Propuestas%20corregidas/P1/PrimeraPropuesta/bootzard-bootstrap-wizard-template/assets/font-awesome/css/font-awesome.min.css */
+.fa{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.fa-check:before{content:"\f00c";}
+.fa-phone:before{content:"\f095";}
+.fa-twitter:before{content:"\f099";}
+.fa-feed:before{content:"\f09e";}
+.fa-users:before{content:"\f0c0";}
+.fa-mobile-phone:before{content:"\f10b";}
+.fa-tv:before{content:"\f26c";}
+/*! CSS Used from: file:///C:/Users/Admin/Documents/Datasoft/SUTEL/Propuestas%20corregidas/P1/PrimeraPropuesta/bootzard-bootstrap-wizard-template/assets/css/form-elements.css */
+label{font-weight:300;}
+button.btn{min-width:105px;height:40px;margin:0;padding:0 20px;vertical-align:middle;border:0;font-family:'Roboto', sans-serif;font-size:16px;font-weight:300;line-height:40px;color:#fff;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;text-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;-o-transition:all .3s;-moz-transition:all .3s;-webkit-transition:all .3s;-ms-transition:all .3s;transition:all .3s;}
+button.btn:hover{opacity:0.6;color:#fff;}
+button.btn:active{outline:0;opacity:0.6;color:#fff;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}
+button.btn:focus,button.btn:active:focus{outline:0;opacity:0.6;color:#fff;}
+button.btn.btn-next,button.btn.btn-next:focus,button.btn.btn-next:active:focus{background:#007788;}
+button.btn.btn-previous,button.btn.btn-previous:focus,button.btn.btn-previous:active:focus{background:#bbb;}
+/*! CSS Used from: file:///C:/Users/Admin/Documents/Datasoft/SUTEL/Propuestas%20corregidas/P1/PrimeraPropuesta/bootzard-bootstrap-wizard-template/assets/css/style.css */
+a,a:hover,a:focus{color:#007788;text-decoration:none;-o-transition:all .3s;-moz-transition:all .3s;-webkit-transition:all .3s;-ms-transition:all .3s;transition:all .3s;}
+h3{font-size:22px;font-weight:300;color:#555;line-height:30px;}
+h4{font-size:18px;font-weight:300;color:#555;line-height:26px;}
+::-moz-selection{background:#007788;color:#fff;text-shadow:none;}
+::selection{background:#007788;color:#fff;text-shadow:none;}
+.f1{padding:25px;background:#fff;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;}
+.x5{font-size:5rem;}
+.f1 h3{margin-top:0;margin-bottom:5px;text-transform:uppercase;}
+.f1-steps{overflow:hidden;position:relative;margin-top:20px;}
+.f1-progress{position:absolute;top:24px;left:0;width:100%;height:1px;background:#ddd;}
+.f1-progress-line{position:absolute;top:0;left:0;height:1px;background:#007788;}
+.f1-step{position:relative;float:left;width:33.3333%;padding:0 5px;text-align: center;}
+.f1-step-icon{display:inline-block;width:40px;height:40px;margin-top:4px;background:#ddd;font-size:16px;color:#fff;line-height:40px;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;}
+.f1-step.active .f1-step-icon{width:48px;height:48px;margin-top:0;background:#007788;font-size:22px;line-height:48px;}
+.f1-step p{color:#ccc;}
+.f1-step.active p{color:#007788!important;}
+.f1 fieldset{display:none;text-align:left;}
+.f1-buttons{text-align:right;}
+@media (max-width: 415px){
+.f1{padding-bottom:20px;}
+.f1-buttons button{margin-bottom:5px;}
+}
+.tabs{clear:both;position:relative;max-width:90%;margin:0 auto;}
+.tab{float:left;}
+.tab label{margin-right:20px;position:relative;top:0;cursor:pointer;color:#333;text-transform:uppercase;}
+.tab [type=radio]{display:none;}
+.tab__content{position:relative;top:40px;left:0;right:0;bottom:0;transition:opacity .2s cubic-bezier(.42,0,.34,1.01);opacity:0;}
+[type=radio]:checked ~ label{border-bottom:2px solid #1d1d1d;color:#1d1d1d;z-index:2;}
+[type=radio]:checked ~ label ~ .tab__content{z-index:1;opacity:1;}
+/*! CSS Used fontfaces */
+
+
+
+
+    /*! CSS Used from: file:///C:/Users/Admin/Documents/Datasoft/SUTEL/Propuestas%20corregidas/P1/SegundaPropuesta/assets/css/bootstrap.min.css */
+figcaption,figure{display:block;}
+a{background-color:transparent;}
+a:active,a:hover{outline:0;}
+figure{margin:1em 40px;}
+@media print{
+*,:after,:before{color:#000!important;text-shadow:none!important;background:0 0!important;-webkit-box-shadow:none!important;box-shadow:none!important;}
+a,a:visited{text-decoration:underline;}
+a[href]:after{content:" (" attr(href) ")";}
+}
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+a{color:#337ab7;text-decoration:none;}
+a:focus,a:hover{color:#23527c;text-decoration:underline;}
+a:focus{outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}
+figure{margin:0;}
+ul{margin-top:0;margin-bottom:10px;}
+.nav{padding-left:0;margin-bottom:0;list-style:none;}
+.nav>li{position:relative;display:block;}
+.nav>li>a{position:relative;display:block;}
+.nav>li>a:focus,.nav>li>a:hover{text-decoration:none;background-color:#eee;}
+.nav:after,.nav:before{display:table;content:" ";}
+.nav:after{clear:both;}
+/*! CSS Used from: file:///C:/Users/Admin/Documents/Datasoft/SUTEL/Propuestas%20corregidas/P1/SegundaPropuesta/assets/css/light-bootstrap-dashboard.css?v=1.4.0 */
+a{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:"Roboto","Helvetica Neue",Arial,sans-serif;font-weight:400;}
+a{color:#ffffff;}
+a:hover,a:focus{color:#42d0ed;text-decoration:none;}
+a:focus,a:active{outline:0;}
+.sidebar .nav a{-webkit-transition:all 150ms ease-in;-moz-transition:all 150ms ease-in;-o-transition:all 150ms ease-in;-ms-transition:all 150ms ease-in;transition:all 150ms ease-in;}
+.sidebar .nav{margin-top:20px;float:none;}
+#right-nav > li{border-bottom:solid;border-bottom-width:1px;}
+.nav > li > a:hover,.nav > li > a:focus{background-color:transparent;}
+@media (max-width: 991px){
+.sidebar .nav li > a{padding:10px 15px;}
+.sidebar .nav{margin-top:10px;}
+}
+/*! CSS Used from: file:///C:/Users/Admin/Documents/Datasoft/SUTEL/Propuestas%20corregidas/P1/SegundaPropuesta/assets/css/demo.css */
+figcaption,figure{display:block;}
+a{background-color:transparent;}
+a:active,a:hover{outline:0;}
+figure{margin:1em 40px;}
+@media print{
+*,*:before,*:after{color:#000!important;text-shadow:none!important;background:transparent!important;-webkit-box-shadow:none!important;box-shadow:none!important;}
+a,a:visited{text-decoration:underline;}
+a[href]:after{content:" (" attr(href) ")";}
+}
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+a{color:#337ab7;text-decoration:none;}
+a:hover,a:focus{color:#23527c;text-decoration:underline;}
+a:focus{outline:5px auto -webkit-focus-ring-color;outline-offset:-2px;}
+figure{margin:0;}
+ul{margin-top:0;margin-bottom:10px;}
+.nav{padding-left:0;margin-bottom:0;list-style:none;}
+.nav > li{position:relative;display:block;}
+.nav:before,.nav:after{display:table;content:" ";}
+.nav:after{clear:both;}
+figure.effect-bubba{background:#9e5406;}
+figure.effect-bubba figcaption::before,figure.effect-bubba figcaption::after{position:absolute;top:25px;right:30px;bottom:30px;left:30px;content:'';opacity:0;-webkit-transition:opacity 0.35s, -webkit-transform 0.35s;transition:opacity 0.35s, transform 0.35s;}
+figure.effect-bubba figcaption::before{border-top:1px solid #fff;border-bottom:1px solid #fff;-webkit-transform:scale(0,1);transform:scale(0,1);}
+figure.effect-bubba figcaption::after{border-right:1px solid #fff;border-left:1px solid #fff;-webkit-transform:scale(1,0);transform:scale(1,0);}
+figure.effect-bubba:hover figcaption::before,figure.effect-bubba:hover figcaption::after{opacity:1;-webkit-transform:scale(1);transform:scale(1);}
+a{outline:none!important;}
+a:hover,a:focus{text-decoration:none;}
+a:focus{text-decoration:none;}
+a{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;font-family:"Roboto","Helvetica Neue",Arial,sans-serif;font-weight:400;}
+a{color:#ffffff;}
+a:hover,a:focus{color:#ffffff;text-decoration:none;}
+a:focus,a:active{outline:0;}
+.sidebar .nav{margin-top:20px;float:none;}
+#right-nav > li{border-bottom:solid;border-bottom-width:1px;}
+@media (max-width: 991px){
+.sidebar .nav{margin-top:10px;}
+}
+/*! CSS Used from: Embedded */
+#right-nav > li{margin-bottom:15px;border:none!important;}
+figure.effect-bubba figcaption::before,figure.effect-bubba figcaption::after{position:absolute;top:10px;right:10px;bottom:10px;left:10px;content:'';opacity:0;-webkit-transition:opacity 0.35s, -webkit-transform 0.35s;transition:opacity 0.35s, transform 0.35s;}
+/*! CSS Used fontfaces */
+
+figure{
+    color:#ffffff;
+}
+
+
+
+
+/*! CSS Used from: file:///C:/Users/Admin/Documents/Datasoft/SUTEL/Propuestas%20corregidas/P1/PrimeraPropuesta/bootzard-bootstrap-wizard-template/assets/bootstrap/css/bootstrap.min.css */
+@media print{
+    *,:after,:before{color:#000!important;text-shadow:none!important;background:0 0!important;-webkit-box-shadow:none!important;box-shadow:none!important;}
+    p{orphans:3;widows:3;}
+    }
+    *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+    :after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+    p{margin:0 0 10px;}
+    /*! CSS Used from: file:///C:/Users/Admin/Documents/Datasoft/SUTEL/Propuestas%20corregidas/P1/PrimeraPropuesta/bootzard-bootstrap-wizard-template/assets/font-awesome/css/font-awesome.min.css */
+    .fa{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+    .fa-check:before{content:"\f00c";}
+    /*! CSS Used from: file:///C:/Users/Admin/Documents/Datasoft/SUTEL/Propuestas%20corregidas/P1/PrimeraPropuesta/bootzard-bootstrap-wizard-template/assets/css/style.css */
+    ::-moz-selection{background:#007788;color:#fff;text-shadow:none;}
+    ::selection{background:#007788;color:#fff;text-shadow:none;}
+    .f1-step{position:relative;float:left;width:33.3333%;padding:0 5px;}
+    .f1-step-icon{display:inline-block;width:40px;height:40px;margin-top:4px;background:#ddd;font-size:16px;color:#fff;line-height:40px;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;}
+    .f1-step.activated .f1-step-icon{background:#fff;border:1px solid #007788;color:#007788;line-height:38px;}
+    .f1-step p{color:#ccc;}
+    .f1-step.activated p{color:#007788;}
+    /*! CSS Used fontfaces */
+  
+    .border{
+        border-width: 1px !important;
+        border-color: #006671 !important;
+        border: solid; 
+        padding-top: 30px;
+        height: 22vh !important;
+        margin-left: 3%;
+    }
+    .title-border{
+        width: 145px;
+        margin-top: -45px;
+        margin-left: 5px;
+        background: white;
+        text-align: center;
+    }
+
+    .f1-buttons > a{
+        min-width: 105px;
+        height: 40px;
+        margin: 0;
+        padding: 0 20px;
+        vertical-align: middle;
+        border: 0;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 40px;
+        color: #fff;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        text-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        -o-transition: all .3s;
+        -moz-transition: all .3s;
+        -webkit-transition: all .3s;
+        -ms-transition: all .3s;
+        transition: all .3s;
+    }
+    a:hover{
+        color: #ffffff !important;
+    }
+.btn-next{
+    margin-right: 5px;
+    width: 16% !important;
+    padding: 0px !important;
+}
