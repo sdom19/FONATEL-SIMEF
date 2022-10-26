@@ -24,7 +24,9 @@
         <div class="form-group center">
             <label for="ddlVariableRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Variable</label>
             <div class="select2-wrapper">
-                @Html.DropDownList("ddlVariableRegla", new SelectList(ViewBag.ListaIndicadoresVariable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlVariableRegla" })
+                <select class="listasDesplegables" id="ddlVariableRegla">
+                    <option></option>
+                </select>
             </div>
             <small id="VariableHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
         </div>

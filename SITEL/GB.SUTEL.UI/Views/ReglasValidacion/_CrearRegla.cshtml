@@ -3,8 +3,7 @@
 
 
 
-
-@Html.Hidden("txtmodoregla", (string)ViewBag.Modo)
+@Html.Hidden("txtmodo", (string)ViewBag.Modo)
 
 @Html.HiddenFor(model => model.id, new { id = "txtidCodigo" })
 
@@ -28,23 +27,21 @@
         </div>
 
         <div class="col-md-4 col-sm-12">
-            
+
             <div class="form-group">
                 <label for="ddlIndicadorRegla" class="col-form-label">@EtiquetasViewReglasValidacion.LabelIndicador</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownListFor(model => model.idIndicador, new SelectList(ViewBag.ListaIndicadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorRegla" })
+                    @Html.DropDownListFor(model => model.id, new SelectList(ViewBag.ListaIndicadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorRegla" })
                 </div>
                 <small id="TipoIndicadorHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
-
-
     </div>
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.LabelDescripcion  </label>
-                @Html.TextAreaFor(model => model.Descripcion,new { @class = "form-control form-control-fonatel textarea", placeholder = EtiquetasViewReglasValidacion.LabelDescripcion, id = "txtDescripcionRegla" })
+                @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control form-control-fonatel textarea", placeholder = EtiquetasViewReglasValidacion.LabelDescripcion, id = "txtDescripcionRegla" })
                 <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>

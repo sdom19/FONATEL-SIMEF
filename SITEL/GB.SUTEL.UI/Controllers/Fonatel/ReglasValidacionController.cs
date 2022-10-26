@@ -54,6 +54,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Detalle(string idregla)
         {
+
             if (string.IsNullOrEmpty(idregla))
             {
                 return View("Index");
@@ -94,11 +95,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.ListaOperadores =
                 OperadoresBL.ObtenerDatos(new OperadorArismetico()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.IdOperador.ToString(), Text = x.Nombre }).ToList();
 
-            ViewBag.ListaIndicadoresVariable =
-                DetalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = x.NombreVariable }).ToList();
+            //ViewBag.ListaIndicadoresVariable =
+            //    DetalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables() { }).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = x.NombreVariable }).ToList();
 
             ViewBag.ListaIndicadores =
-                        ListadoIndicador.Select(x => new SelectListItem() { Selected = false, Value = Utilidades.Desencriptar(x.id), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                        ListadoIndicador.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
             
             ViewBag.ListaIndicadoresSalida =
                        ListadoIndicador.Where(x => int.Parse(Utilidades.Desencriptar(x.ClasificacionIndicadores.id)) == (int)Constantes.ClasificacionIndicadorEnum.Salida).Select(x => new SelectListItem() { Selected = false, Value = Utilidades.Desencriptar(x.id), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
@@ -110,6 +111,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 objregla.id = id;
                 objregla = reglaBL.ObtenerDatos(objregla).objetoRespuesta.SingleOrDefault();
+
                 if (modo == (int)Constantes.Accion.Clonar)
                 {
                     ViewBag.titulo = EtiquetasViewReglasValidacion.Clonar;
@@ -190,6 +192,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 { id = idReglasValidacionTipo });
 
             });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpGet]
+        public async Task<string> ObtenerListaVariablesDato(string idIndicadorString)
+        {
+            RespuestaConsulta<List<DetalleIndicadorVariables>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = DetalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
+                { id = idIndicadorString });
+
+            });
+
             return JsonConvert.SerializeObject(result);
         }
 

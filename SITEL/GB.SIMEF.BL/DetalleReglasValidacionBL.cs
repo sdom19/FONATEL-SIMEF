@@ -156,9 +156,9 @@ namespace GB.SIMEF.BL
                 objeto.IdOperador = objeto.IdOperador;
                 objeto.IdRegla = objeto.IdRegla;
                 objeto.Estado = true;
-                //List<DetalleIndicadorVariables> listaDetallesIndicadorVariable = clsDatosIndicadorVariable.ObtenerDatos(new DetalleIndicadorVariables(){idDetalleIndicador = objeto.idIndicadorVariable});
-                //bjeto.idIndicadorString = listaDetallesIndicadorVariable[0].idIndicadorString;
                 DesencriptarObjReglasValidacion(objeto);
+                //List<DetalleIndicadorVariables> listaDetallesIndicadorVariable = clsDatosIndicadorVariableDAL.ObtenerDatos(new DetalleIndicadorVariables(){id = objeto.idIndicadorString});
+                //objeto.idIndicadorString = listaDetallesIndicadorVariable[0].idIndicadorString;
                 var resul = clsDatos.ActualizarDatos(objeto);
                 objeto.IdReglasValidacionTipo = resul.Single().IdReglasValidacionTipo;
                 AgregarTipoDetalleReglaValidacion(objeto);

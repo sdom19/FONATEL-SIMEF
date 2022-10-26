@@ -57,6 +57,7 @@
         "formularioReglasSelect": "#formularioReglas select",
         "chkAtributosValidosRegla": "#chkAtributosValidosRegla",
         "FormularioDetalle": "#FormularioCrear",
+        "txtModo": "#txtmodo",
     },
 
     "Variables": {
@@ -69,13 +70,16 @@
         "FormulaContraIndicadorEntradaSalida": "7",
         "ListaReglas": [],
         "ListaDetalleReglas": [],
+        "ListaVariablesDato": [],
         "esModoEdicion": false,
         "objTipoRegla": null,
     },
 
     "Mensajes": {
 
-        MensajeDetalleAgregado: "El Detalle ha sido creado",
+        MensajeDetalleAgregado: "El Tipo de Regla ha sido creado",
+        MensajeEliminarRegla: "La Regla ha sido eliminada",
+        MensajeAgregarVariasReglas: "Recuerde que puede agregar más de una regla de validación para el indicador seleccionado",
     },
 
     "Metodos": {
@@ -409,6 +413,15 @@
             }
 
         },
+
+        "LimpiarCamposDetalles": function () {
+
+            $(JsReglas.Controles.ddlTipoRegla).val("").trigger('change');
+            $(JsReglas.Controles.ddlOperadorRegla).val("").trigger('change');
+            $(JsReglas.Controles.ddlVariableRegla).val("").trigger('change');
+
+        },
+
     },
 
     "Consultas": {
@@ -419,7 +432,7 @@
             objRegla.id = IdRegla;
             execAjaxCall("/ReglasValidacion/EliminarRegla", "POST", objRegla)
                 .then((data) => {
-                    jsMensajes.Metodos.OkAlertModal("La Regla de Validación ha sido eliminada ")
+                    jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeEliminarRegla)
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/ReglasValidacion/Index" });
                 }).catch((data) => {
                     jsMensajes.Metodos.OkAlertErrorModal()
@@ -437,10 +450,10 @@
             execAjaxCall("/ReglasValidacion/ValidarRegla", "POST", objRegla)
                 .then((obj) => {
                     if (obj.objetoRespuesta.length == 0) {
-                        JsReglas.Consultas.EliminarFormulario(IdRegla);
+                        JsReglas.Consultas.EliminarRegla(IdRegla);
                     } else {
                         let dependencias = obj.objetoRespuesta[0] + "<br>"
-                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Regla de Validación ya está en uso en los<br>" + dependencias + "<br>¿Desea Eliminar?", jsMensajes.Variables.actionType.eliminado)
+                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Regla ya está en uso en los<br>" + dependencias + "<br>¿Desea Eliminar?", jsMensajes.Variables.actionType.eliminado)
                             .set('onok', function (closeEvent) {
                                 JsReglas.Consultas.EliminarRegla(IdRegla);
                             });
@@ -466,10 +479,17 @@
             execAjaxCall("/ReglasValidacion/EliminarDetalleRegla", "POST", objRegla)
                 .then((data) => {
                     jsMensajes.Metodos.OkAlertModal("La Tipo de Regla ha sido eliminado")
-                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/ReglasValidacion/Index" });
+                        .set('onok', function (closeEvent) {
+
+                            JsReglas.Metodos.LimpiarCamposDetalles();
+                            if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
+                                JsReglas.Consultas.ConsultaListaDetalleReglas();
+                            }
+
+                        });
                 }).catch((data) => {
                     jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { location.reload(); });
+                        .set('onok', function (closeEvent) { });
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -506,19 +526,14 @@
         },
 
         "ConsultaListaReglas": function () {
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/ReglasValidacion/ObtenerListaReglasValidacion',
-                type: "GET",
-                contentType: "application/json; charset=utf-8",
-                dataType: "JSON",
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
-                        JsReglas.Variables.ListaReglas = obj.objetoRespuesta;
-                        JsReglas.Metodos.CargarTablaReglas();
-                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+
+            $("#loading").fadeIn();
+            execAjaxCall("/ReglasValidacion/ObtenerListaReglasValidacion", "GET")
+                .then((obj) => {
+                    JsReglas.Variables.ListaReglas = obj.objetoRespuesta;
+                    JsReglas.Metodos.CargarTablaReglas();
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { });
                     }
@@ -526,14 +541,10 @@
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { })
                     }
+                }).finally(() => {
                     $("#loading").fadeOut();
-                }
-            }).fail(function (obj) {
+                });
 
-                jsMensajes.Metodos.OkAlertErrorModal()
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-            })
         },
 
         "ConsultaListaDetalleReglas": function () {
@@ -559,6 +570,33 @@
                         $("#loading").fadeOut();
                     });
             }
+        },
+
+        "ConsultaVariablesDato": function (idIndicadorString) {
+
+            $("#loading").fadeIn();
+
+            execAjaxCall("/ReglasValidacion/ObtenerListaVariablesDato", "GET", { idIndicadorString })
+                .then((obj) => {
+
+                    let html = "<option value=''/>";
+                    for (var i = 0; i < obj.objetoRespuesta.length; i++) {
+                        html = html + "<option value='" + obj.objetoRespuesta[i].NombreVariable + "'>" + obj.objetoRespuesta[i].NombreVariable + "</option>"
+                    }
+                    $(JsReglas.Controles.ddlVariableRegla).html(html);
+
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
         },
 
         "AgregarRegla": async function (parcial) {
@@ -604,6 +642,7 @@
         },
 
         "AgregarReglaSiguiente": async function (parcial) {
+
             $("#loading").fadeIn();
 
             let objetoRegla = {};
@@ -620,7 +659,7 @@
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
+                            .set('onok', function (closeEvent) { });
                     } else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) { });
@@ -633,9 +672,9 @@
         "AgregarDetalleRegla": async function (parcial) {
             $("#loading").fadeIn();
             let objetoTipoRegla = new Object()
+            objetoTipoRegla.IdTipo = $(JsReglas.Controles.ddlTipoRegla).val();
             objetoTipoRegla.idOperador = $(JsReglas.Controles.ddlOperadorRegla).val();
             objetoTipoRegla.idIndicadorVariableString = $(JsReglas.Controles.ddlVariableRegla).val();
-            objetoTipoRegla.IdTipo = $(JsReglas.Controles.ddlTipoRegla).val();
 
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
                 objetoTipoRegla.reglaAtributosValidos = {};
@@ -672,12 +711,21 @@
                 objetoTipoRegla.id = ObtenerValorParametroUrl("id");
             }
             execAjaxCall("/ReglasValidacion/AgregarDetalleRegla", "POST", objetoTipoRegla)
-                .then((obj) => {
 
-                    jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleAgregado)
-                            .set('onok', function (closeEvent) {
-                                JsReglas.Metodos.CargarTablaDetalleReglas();
-                            });
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleAgregado)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    })
+            })
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeAgregarVariasReglas)
+                        .set('onok', function (closeEvent) {
+                                    JsReglas.Metodos.LimpiarCamposDetalles();
+                                    if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
+                                        JsReglas.Consultas.ConsultaListaDetalleReglas();
+                            }               
+                     });
 
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -754,10 +802,16 @@ $(document).on("click", JsReglas.Controles.btnCancelar, function (e) {
 });
 
 $(document).on("click", JsReglas.Controles.btnSiguienteRegla, function (e) {
+
     e.preventDefault();
+
+    let idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
+
     if (JsReglas.Metodos.ValidarControles()) {
+        JsReglas.Consultas.ConsultaVariablesDato(idIndicadorString);
         JsReglas.Consultas.AgregarReglaSiguiente();
     }
+
 });
 
 $(document).on("click", JsReglas.Controles.btnEditarRegla, function () {
