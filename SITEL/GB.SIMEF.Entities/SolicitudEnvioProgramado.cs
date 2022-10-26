@@ -23,7 +23,7 @@ namespace GB.SIMEF.Entities
         public int IdSolicitud { get; set; }
 
         public int IdFrecuencia { get; set; }
-        public int CantidadRepiticiones { get; set; }
+        public int CantidadRepeticiones { get; set; }
         //public int Dia { get; set; }
         //public int IdMes { get; set; }
 

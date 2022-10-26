@@ -268,6 +268,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La Solicitud no registra la fuente activa.
+        /// </summary>
+        public static string SolicitudesFuenteRegistrada {
+            get {
+                return ResourceManager.GetString("SolicitudesFuenteRegistrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La Fecha Final debe ser mayor que la Fecha Inicial.
         /// </summary>
         public static string ValorFecha {

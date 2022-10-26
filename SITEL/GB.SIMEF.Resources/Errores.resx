@@ -186,6 +186,9 @@
   <data name="ReglaRegistrada" xml:space="preserve">
     <value>La Regla ya se encuentra registada</value>
   </data>
+  <data name="SolicitudesFuenteRegistrada" xml:space="preserve">
+    <value>La Solicitud no registra la fuente activa</value>
+  </data>
   <data name="ValorFecha" xml:space="preserve">
     <value>La Fecha Final debe ser mayor que la Fecha Inicial</value>
   </data>

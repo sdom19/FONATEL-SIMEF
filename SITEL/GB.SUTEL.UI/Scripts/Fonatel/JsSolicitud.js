@@ -623,7 +623,7 @@ JsSolicitud = {
 
             objeto.id = $(JsSolicitud.Controles.txtSolicitudEnvio).val();
             objeto.IdFrecuencia = $(JsSolicitud.Controles.ddlFrecuencia).val();
-            objeto.CantidadRepiticiones = $(JsSolicitud.Controles.txtCantidadRepeticiones).val();
+            objeto.CantidadRepeticiones = $(JsSolicitud.Controles.txtCantidadRepeticiones).val();
             objeto.FechaCiclo = $(JsSolicitud.Controles.txtFechaCiclo).val();
 
             execAjaxCall("/SolicitudFonatel/InsertarEnvioProgramado", "POST", objeto)

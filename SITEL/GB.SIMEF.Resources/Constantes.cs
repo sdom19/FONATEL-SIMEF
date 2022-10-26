@@ -21,7 +21,8 @@ namespace GB.SIMEF.Resources
 
         public enum PlantillaCorreoEnum : int
         {
-            CrearUsuario = 1
+            CrearUsuario = 1,
+            EnvioSolicitud = 2
         }
 
 
