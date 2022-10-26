@@ -44,3 +44,4 @@ C:\agent\_work\1\s\SITEL\GB.SIMEF.Resources\obj\Release\GB.SIMEF.Resources.cspro
 C:\agent\_work\1\s\SITEL\GB.SIMEF.Resources\obj\Release\GB.SIMEF.Resources.csproj.CopyComplete
 C:\agent\_work\1\s\SITEL\GB.SIMEF.Resources\obj\Release\GB.SIMEF.Resources.dll
 C:\agent\_work\1\s\SITEL\GB.SIMEF.Resources\obj\Release\GB.SIMEF.Resources.pdb
+C:\agent\_work\1\s\SITEL\GB.SIMEF.Resources\obj\Release\GB.SIMEF.Resources.PlantillasCorreo.resources

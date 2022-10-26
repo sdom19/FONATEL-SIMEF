@@ -1,0 +1,10 @@
+C:\agent\_work\1\s\SITEL\GB.SIMEF.BL\bin\Release\netstandard2.0\GB.SIMEF.BL.deps.json
+C:\agent\_work\1\s\SITEL\GB.SIMEF.BL\bin\Release\netstandard2.0\GB.SIMEF.BL.dll
+C:\agent\_work\1\s\SITEL\GB.SIMEF.BL\bin\Release\netstandard2.0\GB.SIMEF.BL.pdb
+C:\agent\_work\1\s\SITEL\GB.SIMEF.BL\obj\Release\netstandard2.0\GB.SIMEF.BL.csproj.AssemblyReference.cache
+C:\agent\_work\1\s\SITEL\GB.SIMEF.BL\obj\Release\netstandard2.0\GB.SIMEF.BL.GeneratedMSBuildEditorConfig.editorconfig
+C:\agent\_work\1\s\SITEL\GB.SIMEF.BL\obj\Release\netstandard2.0\GB.SIMEF.BL.AssemblyInfoInputs.cache
+C:\agent\_work\1\s\SITEL\GB.SIMEF.BL\obj\Release\netstandard2.0\GB.SIMEF.BL.AssemblyInfo.cs
+C:\agent\_work\1\s\SITEL\GB.SIMEF.BL\obj\Release\netstandard2.0\GB.SIMEF.BL.csproj.CoreCompileInputs.cache
+C:\agent\_work\1\s\SITEL\GB.SIMEF.BL\obj\Release\netstandard2.0\GB.SIMEF.BL.dll
+C:\agent\_work\1\s\SITEL\GB.SIMEF.BL\obj\Release\netstandard2.0\GB.SIMEF.BL.pdb
