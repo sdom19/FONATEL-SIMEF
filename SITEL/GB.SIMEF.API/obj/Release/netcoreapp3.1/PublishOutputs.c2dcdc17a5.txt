@@ -5,6 +5,8 @@ C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\GB.SI
 C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\GB.SIMEF.API.deps.json
 C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\GB.SIMEF.API.runtimeconfig.json
 C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\GB.SIMEF.API.pdb
+C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\EntityFramework.SqlServer.dll
+C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\EntityFramework.dll
 C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Bcl.HashCode.dll
 C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Data.SqlClient.dll
@@ -28,3 +30,6 @@ C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\runti
 C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\NPOI.OpenXml4Net.dll
+C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\ICSharpCode.SharpZipLib.dll
+C:\agent\_work\1\s\SITEL\GB.SIMEF.API\obj\Release\netcoreapp3.1\PubTmp\Out\NPOI.dll

@@ -37,7 +37,7 @@ namespace GB.SIMEF.DAL
                     IdEnvioProgramado = x.IdEnvioProgramado,
                     IdSolicitud = x.IdSolicitud,
                     IdFrecuencia = x.IdFrecuencia,
-                    CantidadRepiticiones = x.CantidadRepiticiones,
+                    CantidadRepeticiones = x.CantidadRepeticiones,
                     FechaCiclo = x.FechaCiclo,
                     Estado = x.Estado
                 }).ToList();
@@ -65,7 +65,7 @@ namespace GB.SIMEF.DAL
                       new SqlParameter("@pIdEnvioProgramado", objeto.IdEnvioProgramado),
                       new SqlParameter("@pIdSolicitud", objeto.IdSolicitud),
                       new SqlParameter("@pIdFrecuencia", objeto.IdFrecuencia),
-                      new SqlParameter("@pCantidadRepeticiones", objeto.CantidadRepiticiones),
+                      new SqlParameter("@pCantidadRepeticiones", objeto.CantidadRepeticiones),
                       new SqlParameter("@pFechaCiclo", objeto.FechaCiclo),
                       new SqlParameter("@pEstado", objeto.Estado)
                     ).ToList();

@@ -1,0 +1,9 @@
+C:\agent\_work\1\s\SITEL\GB.SIMEF.DAL\bin\Release\netstandard2.0\GB.SIMEF.DAL.deps.json
+C:\agent\_work\1\s\SITEL\GB.SIMEF.DAL\bin\Release\netstandard2.0\GB.SIMEF.DAL.dll
+C:\agent\_work\1\s\SITEL\GB.SIMEF.DAL\bin\Release\netstandard2.0\GB.SIMEF.DAL.pdb
+C:\agent\_work\1\s\SITEL\GB.SIMEF.DAL\obj\Release\netstandard2.0\GB.SIMEF.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\agent\_work\1\s\SITEL\GB.SIMEF.DAL\obj\Release\netstandard2.0\GB.SIMEF.DAL.AssemblyInfoInputs.cache
+C:\agent\_work\1\s\SITEL\GB.SIMEF.DAL\obj\Release\netstandard2.0\GB.SIMEF.DAL.AssemblyInfo.cs
+C:\agent\_work\1\s\SITEL\GB.SIMEF.DAL\obj\Release\netstandard2.0\GB.SIMEF.DAL.csproj.CoreCompileInputs.cache
+C:\agent\_work\1\s\SITEL\GB.SIMEF.DAL\obj\Release\netstandard2.0\GB.SIMEF.DAL.dll
+C:\agent\_work\1\s\SITEL\GB.SIMEF.DAL\obj\Release\netstandard2.0\GB.SIMEF.DAL.pdb
