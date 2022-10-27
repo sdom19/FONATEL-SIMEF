@@ -153,6 +153,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
+
                 objeto.IdOperador = objeto.IdOperador;
                 objeto.IdRegla = objeto.IdRegla;
                 objeto.Estado = true;
@@ -175,6 +176,7 @@ namespace GB.SIMEF.BL
 
                 ResultadoConsulta.MensajeError = ex.Message;
             }
+
             return ResultadoConsulta;
         }
 

@@ -35,6 +35,10 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                    ResultadoConsulta.Clase = modulo;
+                    ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
+                    ResultadoConsulta.Usuario = user;
+
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     objeto.id = Utilidades.Desencriptar(objeto.id);
@@ -43,9 +47,8 @@ namespace GB.SIMEF.BL
                     {
                         objeto.idRegla = temp;
                     }
-                    ResultadoConsulta.Clase = modulo;
-                    ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
-                    ResultadoConsulta.Usuario = user;
+                }
+
 
                     string Codigo = objeto.Codigo.Trim();
                     string Nombre = objeto.Nombre.Trim();
@@ -86,7 +89,7 @@ namespace GB.SIMEF.BL
                         //       ResultadoConsulta.Usuario,
                         //       ResultadoConsulta.Clase, nuevovalor.Codigo, jsonNuevoValor, valorAnterior);
                     }
-                }
+                
             }
             catch (Exception ex)
             {
@@ -171,10 +174,19 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
-
                 objeto.UsuarioCreacion = user;
-                objeto.Codigo = objeto.Codigo.Trim();
                 objeto.idEstado = (int)EstadosRegistro.EnProceso;
+
+                if (!string.IsNullOrEmpty(objeto.idIndicadorString))
+                {
+                    objeto.idIndicadorString = Utilidades.Desencriptar(objeto.idIndicadorString);
+                    int temp;
+                    if (int.TryParse(objeto.idIndicadorString, out temp))
+                    {
+                        objeto.idIndicador = temp;
+                    }
+                }
+
                 var consultardatos = clsDatos.ObtenerDatos(new ReglaValidacion());
 
                 if (consultardatos.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).Count() > 0)
@@ -186,6 +198,7 @@ namespace GB.SIMEF.BL
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
+
                 //string JsonNuevoValor = SerializarObjetoBitacora(resul.Where(x => x.Codigo == objeto.Codigo.ToUpper()).Single());
                 //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                 //     ResultadoConsulta.Usuario,

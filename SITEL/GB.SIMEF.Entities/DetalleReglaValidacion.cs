@@ -27,6 +27,7 @@ namespace GB.SIMEF.Entities
         public int IdOperador { get; set; }
         public int IdRegla { get; set; }
         public int IdTipo { get; set; }
+        //public int IdDetalleIndicador { get; set; }
         public bool Estado { get; set; }
     
         [NotMapped]
@@ -71,6 +72,8 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public virtual ReglaIndicadorEntradaSalida reglaIndicadorEntradaSalida { get; set; }
 
+        [NotMapped]
+        public string  NombreVariable { get; set; }
 
         [NotMapped]
         public List<string> NoSerialize = new List<string>()

@@ -43,6 +43,12 @@ namespace GB.SIMEF.Entities
         public String id{ get; set; }
 
         [NotMapped]
+        public String idIndicadorVariableString { get; set; }
+
+        [NotMapped]
+        public string idIndicadorString { get; set; }
+
+        [NotMapped]
         public string ListadoTipoReglas { get; set; }
 
         [NotMapped]

@@ -1,5 +1,7 @@
 ﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.ReglaValidacion
 
+@Html.HiddenFor(model => model.idIndicadorVariableString, new { id = "txtIndicadorVariableString" })
 
 <div class="row">
     <div class="col-md-6 col-sm-12">
@@ -50,7 +52,7 @@
 
             <div class="form-group center">
                 <label for="ddlVariableComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Comparacion</label>
-                <div class="select2-wrapper">   
+                <div class="select2-wrapper">
                     <select class="listasDesplegables" id="ddlVariableComparacionRegla">
                         <option></option>
                         <option value="1">Cantidad Torres</option>
@@ -79,7 +81,7 @@
                         <option value="2">Cantón</option>
                         <option value="2">Distrito</option>
                     </select>
-                </div>                
+                </div>
                 <small id="ddlAtributosValidosReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>

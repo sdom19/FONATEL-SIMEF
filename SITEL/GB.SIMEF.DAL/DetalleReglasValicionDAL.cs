@@ -96,13 +96,23 @@ namespace GB.SIMEF.DAL
 
             using (db = new SIMEFContext())
             {
+                //ListaDetalleReglaValidacion = db.Database.SqlQuery<DetalleReglaValidacion>
+                //("execute spActualizarDetalleReglaValidacion @pIdReglasValidacionTipo,@pIdRegla,@pIdTipo,@pIdOperador,@pIdDetalleIndicador,@Estado",
+                //    new SqlParameter("@pIdReglasValidacionTipo", objDetalleReglaValidacion.IdReglasValidacionTipo),
+                //    new SqlParameter("@pIdRegla", objDetalleReglaValidacion.IdRegla),
+                //    new SqlParameter("@pIdTipo", objDetalleReglaValidacion.IdTipo),
+                //    new SqlParameter("@pIdOperador", objDetalleReglaValidacion.IdOperador),
+                //    new SqlParameter("@pIdDetalleIndicador", objDetalleReglaValidacion.IdDetalleIndicador),
+                //    new SqlParameter("@Estado", objDetalleReglaValidacion.Estado)
+                //).ToList();
+
                 ListaDetalleReglaValidacion = db.Database.SqlQuery<DetalleReglaValidacion>
                 ("execute spActualizarDetalleReglaValidacion @IdReglasValidacionTipo,@IdRegla,@IdTipo,@IdOperador,@Estado",
-                    new SqlParameter("@IdReglasValidacionTipo", objDetalleReglaValidacion.IdReglasValidacionTipo),
-                    new SqlParameter("@IdRegla", objDetalleReglaValidacion.IdRegla),
-                    new SqlParameter("@IdTipo", objDetalleReglaValidacion.IdTipo),
-                    new SqlParameter("@IdOperador", objDetalleReglaValidacion.IdOperador),
-                    new SqlParameter("@Estado", objDetalleReglaValidacion.Estado)
+                      new SqlParameter("@IdReglasValidacionTipo", objDetalleReglaValidacion.IdReglasValidacionTipo),
+                      new SqlParameter("@IdRegla", objDetalleReglaValidacion.IdRegla),
+                      new SqlParameter("@IdTipo", objDetalleReglaValidacion.IdTipo),
+                      new SqlParameter("@IdOperador", objDetalleReglaValidacion.IdOperador),
+                      new SqlParameter("@Estado", objDetalleReglaValidacion.Estado)
                 ).ToList();
 
 

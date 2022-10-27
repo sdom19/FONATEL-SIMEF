@@ -195,6 +195,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Autor: Francisco Vindas
+        /// Fecha: 27/10/2022
+        /// Metodo para obtener las variables dato de cada Indicador
+        /// </summary>
+        /// <param name="idIndicadorString"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<string> ObtenerListaVariablesDato(string idIndicadorString)
         {
@@ -233,27 +240,48 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+
         /// <summary>
-        /// Creación de la regla
+        /// Autor:Francisco Vindas Ruiz
+        /// Fecha: 27/10/2022
+        /// Crea la Regla de validacion
         /// </summary>
         /// <param name="objetoRegla"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> AgregarRegla(ReglaValidacion objetoRegla)
+        public async Task<string> InsertarReglaValidacion(ReglaValidacion objeto)
         {
             user = User.Identity.GetUserId();
             RespuestaConsulta<List<ReglaValidacion>> result = null;
             await Task.Run(() =>
             {
-                if (string.IsNullOrEmpty(objetoRegla.id))
-                {
-                    result = reglaBL.InsertarDatos(objetoRegla);
-                }
-                else
-                {
-         
-                    result = reglaBL.ActualizarElemento(objetoRegla);
-                }
+                    result = reglaBL.InsertarDatos(objeto);               
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha: 27/10/2022
+        /// Autor: Francisco Vindas
+        /// Metodo para editar una regla de validacion 
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EditarReglaValidacion(ReglaValidacion objeto)
+        {
+
+            user = User.Identity.GetUserId();
+            objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+
+            RespuestaConsulta<List<ReglaValidacion>> result = null;
+
+            await Task.Run(() =>
+            {
+                objeto.UsuarioCreacion = user;
+
+                result = reglaBL.ActualizarElemento(objeto);
 
             });
 
@@ -269,6 +297,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public async Task<string> AgregarDetalleRegla(DetalleReglaValidacion objetoTipoRegla)
         {
             user = User.Identity.GetUserId();
+
             RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
             await Task.Run(() =>
             {
