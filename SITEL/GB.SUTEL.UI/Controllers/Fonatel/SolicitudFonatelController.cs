@@ -424,8 +424,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public async Task<string> InsertarEnvioProgramado(SolicitudEnvioProgramado objeto)
         {
 
-            user = User.Identity.GetUserId();
-            objeto.Estado = true;
+
 
             RespuestaConsulta<List<SolicitudEnvioProgramado>> result = null;
 

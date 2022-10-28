@@ -148,9 +148,11 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    objeto.idEstado = objeto.EsParcial==true? (int) Constantes.EstadosRegistro.EnProceso  :result.idEstado;           
+                   
+
                     if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
+                        objeto.idEstado = objeto.EsParcial == true ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
                         if (objeto.DetalleCategoriaFecha.FechaMinima >= objeto.DetalleCategoriaFecha.FechaMaxima && !objeto.EsParcial)
                         {
                             throw new Exception(Errores.ValorFecha);
@@ -162,6 +164,7 @@ namespace GB.SIMEF.BL
                     }
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
+                        objeto.idEstado = objeto.EsParcial == true ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
                         if (objeto.DetalleCategoriaNumerico.Minimo >= objeto.DetalleCategoriaNumerico.Maximo && !objeto.EsParcial)
                         {
                             throw new Exception(Errores.ValorMinimo);
@@ -173,6 +176,19 @@ namespace GB.SIMEF.BL
                     }
                     else
                     {
+
+                        if (objeto.CantidadDetalleDesagregacion == 0 && (objeto.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico || objeto.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Texto))
+                        {
+                            objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                        }
+                        else if (objeto.CantidadDetalleDesagregacion > result.DetalleCategoriaTexto.Count())
+                        {
+                            objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                        }
+                        else
+                        {
+                            objeto.idEstado = objeto.EsParcial == true ? (int)Constantes.EstadosRegistro.EnProceso : result.idEstado;
+                        }
                         clsDatos.ActualizarDatos(objeto);
                     }
                 }
@@ -354,7 +370,7 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    if (objeto.EsParcial || objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Texto || objeto.idTipoDetalle==(int)TipoDetalleCategoriaEnum.Alfanumerico)
+                    if (objeto.EsParcial || objeto.CantidadDetalleDesagregacion>0)
                     {
                         objeto.idEstado = (int)EstadosRegistro.EnProceso;
                     }

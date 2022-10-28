@@ -103,11 +103,7 @@ JsSolicitud = {
             for (var i = 0; i < JsSolicitud.Variables.ListadoSolicitudes.length; i++) {
                 let solicitud = JsSolicitud.Variables.ListadoSolicitudes[i];
                 let listaFormularios = solicitud.FormulariosString;
-
                 let envioProgramado = solicitud.EnvioProgramado == null ? "NO" : "SI";
-
-                //let envioActivo = solicitud.EnvioProgramado.Estado == true ? "NO" : "SI";
-
                 let EnProceso = solicitud.IdEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso ? "SI" : "NO";
 
                 html = html + "<tr>";
@@ -147,29 +143,28 @@ JsSolicitud = {
                 }
 
                 if (envioProgramado == "NO" && EnProceso == "SI") {
-                    html = html + "<button type='button' data-toggle='tooltip'  disabled  data-placement='top' value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip'  disabled  data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
                 }
 
                 else if (envioProgramado == "NO" && EnProceso == "SI") {
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
 
                 if (envioProgramado == "SI" && EnProceso == "SI") {
 
-                    html = html + "<button type='button' data-toggle='tooltip' disabled data-placement='top' value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip' disabled data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
                 else if (envioProgramado == "SI" && EnProceso == "NO") {
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Eliminar Programación' class='btn-icon-base btn-calendar-disabled'></button></td></tr>";
                 }
 
                 else {
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " value=" + solicitud.id + " title='Agregar Programación' class='btn-icon-base btn-calendar'></button></td></tr>";
                 }
             }
 
             $(JsSolicitud.Controles.TablaSolicitud).html(html);
             CargarDatasource();
-            JsSolicitud.Variables.ListadoSolicitudes = [];
         },
 
         "CargarTablaFormulario": function () {
@@ -256,8 +251,8 @@ JsSolicitud = {
 
             let codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
             let nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
-            let fechainicio = $(JsSolicitud.Controles.txtFechaInicio).val().trim();
-            let fechaFin = $(JsSolicitud.Controles.txtFechaFin).val().trim();
+            let fechainicio = moment($(JsSolicitud.Controles.txtFechaInicio).val().trim());
+            let fechaFin = moment($(JsSolicitud.Controles.txtFechaFin).val().trim());
             let fuentes = $(JsSolicitud.Controles.ddlFuentes).val().trim();
             let CantidadFormulario = $(JsSolicitud.Controles.TxtCantidadFormulario).val().trim();
             let mes = $(JsSolicitud.Controles.ddlMesSolicitud).val().trim();
@@ -272,11 +267,11 @@ JsSolicitud = {
                 $(JsSolicitud.Controles.nombreHelp).removeClass("hidden");
                 validar = false;
             }
-            if (fechainicio == "0001-01-01") {
+            if (!fechainicio.isValid()) {
                 $(JsSolicitud.Controles.FechaInicioHelp).removeClass("hidden");
                 validar = false;
             }
-            if (fechaFin == "0001-01-01") {
+            if (!fechaFin.isValid()) {
                 $(JsSolicitud.Controles.FechaFinHelp).removeClass("hidden");
                 validar = false;
             }
@@ -309,7 +304,7 @@ JsSolicitud = {
 
             let frecuencia = $(JsSolicitud.Controles.ddlFrecuencia).val().trim();
             let repeticiones = $(JsSolicitud.Controles.txtCantidadRepeticiones).val().trim();
-            let fecha = $(JsSolicitud.Controles.txtFechaCiclo).val().trim();
+            let fecha = moment($(JsSolicitud.Controles.txtFechaCiclo).val().trim());
 
             if (frecuencia.length == 0) {
                 $(JsSolicitud.Controles.ddlFrecuenciaHelp).removeClass("hidden");
@@ -326,7 +321,7 @@ JsSolicitud = {
                 $(JsSolicitud.Controles.txtRepeticionesSolicitudesHelp).addClass("hidden");
             }
 
-            if (fecha.length == 0) {
+            if (!fecha.isValid()) {
                 $(JsSolicitud.Controles.txtFechaEnvioSolicitudHelp).removeClass("hidden");
                 validar = false;
             } else {
@@ -340,6 +335,34 @@ JsSolicitud = {
     },
 
     "Consultas": {
+
+
+
+
+        "CargarCodigo": function (index) {
+
+            if (JsSolicitud.Variables.esModoEliminar) {
+
+                if (JsSolicitud.Variables.ListadoSolicitudes.length > index) {
+                    JsSolicitud.Variables.ObjetoSolicitudes = JsSolicitud.Variables.ListadoSolicitudes[index];
+                   /* '2022-10-11'*/
+                    let dateTime = moment(JsSolicitud.Variables.ObjetoSolicitudes.EnvioProgramado.FechaCiclo);
+                    $(JsSolicitud.Controles.txtSolicitudModal).val(JsSolicitud.Variables.ObjetoSolicitudes.Codigo);
+                    $(JsSolicitud.Controles.ddlFrecuencia).val(JsSolicitud.Variables.ObjetoSolicitudes.EnvioProgramado.IdFrecuencia);
+                    $(JsSolicitud.Controles.ddlFrecuencia).trigger("change");
+                    $(JsSolicitud.Controles.txtCantidadRepeticiones).val(JsSolicitud.Variables.ObjetoSolicitudes.EnvioProgramado.CantidadRepeticiones);
+                    $(JsSolicitud.Controles.txtFechaCiclo).val(dateTime.format('YYYY-MM-DD'));
+                }
+            } else {
+                if (JsSolicitud.Variables.ListadoSolicitudes.length > index) {
+                    JsSolicitud.Variables.ObjetoSolicitudes = JsSolicitud.Variables.ListadoSolicitudes[index];
+                    $(JsSolicitud.Controles.txtSolicitudModal).val(JsSolicitud.Variables.ObjetoSolicitudes.Codigo);
+                }
+            }
+        },
+
+
+
 
         "ValidarExistenciaSolicitud": function (idSolicitud, Eliminado = true) {
 
@@ -617,33 +640,33 @@ JsSolicitud = {
 
         "InsertarEnvioProgramado": function () {
 
-            $("#loading").fadeIn();
+                $("#loading").fadeIn();
 
-            let objeto = new Object();
+                let objeto = new Object();
 
-            objeto.id = $(JsSolicitud.Controles.txtSolicitudEnvio).val();
-            objeto.IdFrecuencia = $(JsSolicitud.Controles.ddlFrecuencia).val();
-            objeto.CantidadRepeticiones = $(JsSolicitud.Controles.txtCantidadRepeticiones).val();
-            objeto.FechaCiclo = $(JsSolicitud.Controles.txtFechaCiclo).val();
+                objeto.id = $(JsSolicitud.Controles.txtSolicitudEnvio).val();
+                objeto.IdFrecuencia = $(JsSolicitud.Controles.ddlFrecuencia).val();
+                objeto.CantidadRepeticiones = $(JsSolicitud.Controles.txtCantidadRepeticiones).val();
+                objeto.FechaCiclo = $(JsSolicitud.Controles.txtFechaCiclo).val();
 
-            execAjaxCall("/SolicitudFonatel/InsertarEnvioProgramado", "POST", objeto)
-                .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Programación ha sido creada")
-                        .set('onok', function (closeEvent) {
-                            location.reload();
-                        });
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
+                execAjaxCall("/SolicitudFonatel/InsertarEnvioProgramado", "POST", objeto)
+                    .then((obj) => {
+                        jsMensajes.Metodos.OkAlertModal("La Programación ha sido creada")
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }).catch((obj) => {
+                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) { })
+                        }
+                    }).finally(() => {
+                        $("#loading").fadeOut();
+                    });
         },
 
         "EditarSolicitud": function () {
@@ -1033,6 +1056,40 @@ $(document).on("click", JsSolicitud.Controles.btnEditarSolicitud, function () {
     window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
 
+
+$(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function () {
+
+    JsSolicitud.Variables.esModoEliminar = true;
+    let CargarCodigo = $(this).attr("data-index");
+    JsSolicitud.Consultas.CargarCodigo(CargarCodigo);
+
+    let id = $(this).val();
+    $(JsSolicitud.Controles.txtSolicitudEnvio).val(id);
+
+    $(JsSolicitud.Controles.txtSolicitudModal).prop("disabled", true);
+    $(JsSolicitud.Controles.ddlFrecuencia).prop("disabled", true);
+    $(JsSolicitud.Controles.txtCantidadRepeticiones).prop("disabled", true);
+    $(JsSolicitud.Controles.txtFechaCiclo).prop("disabled", true);
+
+    $(JsSolicitud.Controles.ddlFrecuenciaHelp).addClass("hidden");
+    $(JsSolicitud.Controles.txtRepeticionesSolicitudesHelp).addClass("hidden");
+    $(JsSolicitud.Controles.txtFechaEnvioSolicitudHelp).addClass("hidden");
+
+
+    $(JsSolicitud.Controles.btnEliminarSolicituProgramardEnvio).show();
+    $(JsSolicitud.Controles.btnGuardarEnvio).hide();
+    $(JsSolicitud.Controles.modalEnvio).modal('show');
+
+});
+
+
+
+
+
+
+
+
+
 $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Solicitud?", jsMensajes.Variables.actionType.Clonar)
@@ -1215,9 +1272,14 @@ $(document).on("click", JsSolicitud.Controles.btnSiguienteSolicitud, function (e
 
 $(document).on("click", JsSolicitud.Controles.btnEnvioSolicitud, function (e) {
 
+    let CargarCodigo = $(this).attr("data-index");
+    JsSolicitud.Consultas.CargarCodigo(CargarCodigo);
     let id = $(this).val();
     $(JsSolicitud.Controles.txtSolicitudEnvio).val(id);
-
+    $(JsSolicitud.Controles.txtSolicitudModal).prop("disabled", false);
+    $(JsSolicitud.Controles.ddlFrecuencia).prop("disabled", false);
+    $(JsSolicitud.Controles.txtCantidadRepeticiones).prop("disabled", false);
+    $(JsSolicitud.Controles.txtFechaCiclo).prop("disabled", false);
     $(JsSolicitud.Controles.ddlFrecuenciaHelp).addClass("hidden");
     $(JsSolicitud.Controles.txtRepeticionesSolicitudesHelp).addClass("hidden");
     $(JsSolicitud.Controles.txtFechaEnvioSolicitudHelp).addClass("hidden");
@@ -1275,3 +1337,15 @@ $(function () {
         $(JsSolicitud.Controles.TxtCantidadFormulario).val("");
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
