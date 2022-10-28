@@ -25,24 +25,26 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaCategoriaDetalle = db.Database.SqlQuery<DetalleReglaValidacion>
-                    ("execute spObtenerDetalleReglasValidacion @IdReglasValidacionTipo,@IdRegla,@IdTipo,@IdOperador",
-                      new SqlParameter("@IdReglasValidacionTipo", objReglas.IdReglasValidacionTipo),
+                    ("execute spObtenerDetalleReglasValidacion @IdDetalleReglaValidacion,@IdRegla,@IdTipo,@IdOperador,@IdDetalleIndicador,@IdIndicador",
+                      new SqlParameter("@IdDetalleReglaValidacion", objReglas.IdDetalleReglaValidacion),
                       new SqlParameter("@IdRegla", objReglas.IdRegla),
                       new SqlParameter("@IdTipo", objReglas.IdTipo),
-                      new SqlParameter("@IdOperador", objReglas.IdOperador)
+                      new SqlParameter("@IdOperador", objReglas.IdOperador),
+                      new SqlParameter("@IdDetalleIndicador", objReglas.IdDetalleIndicador),
+                      new SqlParameter("@IdIndicador", objReglas.IdIndicador)
                     ).ToList();
 
                 ListaCategoriaDetalle = ListaCategoriaDetalle.Select(x => new DetalleReglaValidacion()
                 {
-                    id = Utilidades.Encriptar(x.IdReglasValidacionTipo.ToString()),
+                    id = Utilidades.Encriptar(x.IdDetalleReglaValidacion.ToString()),
                     IdRegla = x.IdRegla,
-                    IdReglasValidacionTipo = x.IdReglasValidacionTipo,
+                    IdDetalleReglaValidacion = x.IdDetalleReglaValidacion,
                     tipoReglaValidacion = ObtenerTipoRegla(x.IdTipo),
                     IdTipo = x.IdTipo,
                     IdOperador = x.IdOperador,
                     idIndicadorVariableString = x.idIndicadorVariableString,
                     operadorArismetico = ObtenerOperador(x.IdOperador),
-                    reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdReglasValidacionTipo),
+                    reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdDetalleReglaValidacion),
                     //reglaComparacionConstante = ObtenerReglaContraConstante(x.IdReglasValidacionTipo),
                     //reglaSecuencial = ObtenerReglaSecuencial(x.IdReglasValidacionTipo),
                     //reglaIndicadorSalida = ObtenerReglaIndicadorSalida(x.IdReglasValidacionTipo),
@@ -107,19 +109,18 @@ namespace GB.SIMEF.DAL
                 //).ToList();
 
                 ListaDetalleReglaValidacion = db.Database.SqlQuery<DetalleReglaValidacion>
-                ("execute spActualizarDetalleReglaValidacion @IdReglasValidacionTipo,@IdRegla,@IdTipo,@IdOperador,@Estado",
-                      new SqlParameter("@IdReglasValidacionTipo", objDetalleReglaValidacion.IdReglasValidacionTipo),
+                ("execute spActualizarDetalleReglaValidacion @IdDetalleReglaValidacion,@IdRegla, @IdTipo, @IdOperador, @Estado",
+                      new SqlParameter("@IdDetalleReglaValidacion", objDetalleReglaValidacion.IdDetalleReglaValidacion),
                       new SqlParameter("@IdRegla", objDetalleReglaValidacion.IdRegla),
                       new SqlParameter("@IdTipo", objDetalleReglaValidacion.IdTipo),
                       new SqlParameter("@IdOperador", objDetalleReglaValidacion.IdOperador),
                       new SqlParameter("@Estado", objDetalleReglaValidacion.Estado)
                 ).ToList();
 
-
                 ListaDetalleReglaValidacion = ListaDetalleReglaValidacion.Select(X => new DetalleReglaValidacion
                 {
-                    id = Utilidades.Encriptar(X.IdReglasValidacionTipo.ToString()),
-                    IdReglasValidacionTipo = X.IdReglasValidacionTipo,
+                    id = Utilidades.Encriptar(X.IdDetalleReglaValidacion.ToString()),
+                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
                     IdRegla = X.IdRegla,
                     IdTipo = X.IdTipo,
                     IdOperador = X.IdOperador,
@@ -208,6 +209,7 @@ namespace GB.SIMEF.DAL
             }
             return regla;
         }
+
         #endregion
     }
 }

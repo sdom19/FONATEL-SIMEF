@@ -19,7 +19,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region Variables Públicas del controller
         private readonly ReglaValidacionBL reglaBL;
         private readonly DetalleReglaValidacionBL detalleReglaBL;
-
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
         private readonly IndicadorFonatelBL indicadorfonatelBL;
         private readonly TipoReglaValidacionBL TipoReglasBL;
@@ -95,9 +94,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.ListaOperadores =
                 OperadoresBL.ObtenerDatos(new OperadorArismetico()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.IdOperador.ToString(), Text = x.Nombre }).ToList();
 
-            //ViewBag.ListaIndicadoresVariable =
-            //    DetalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables() { }).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = x.NombreVariable }).ToList();
-
             ViewBag.ListaIndicadores =
                         ListadoIndicador.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
             
@@ -107,6 +103,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.Modo = modo.ToString();
 
             ReglaValidacion objregla = new ReglaValidacion();
+
             if (!string.IsNullOrEmpty(id))
             {
                 objregla.id = id;
@@ -154,8 +151,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return View("Create", objDetalle);
         }
-
-
 
         #region Metodos Async
 
@@ -210,8 +205,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 result = DetalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
-                { id = idIndicadorString });
-
+                {
+                    idIndicadorString = idIndicadorString 
+                });
             });
 
             return JsonConvert.SerializeObject(result);
@@ -239,7 +235,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             );
             return JsonConvert.SerializeObject(result);
         }
-
 
         /// <summary>
         /// Autor:Francisco Vindas Ruiz
@@ -301,7 +296,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
             await Task.Run(() =>
             {
-                if (objetoTipoRegla.IdReglasValidacionTipo == 0)
+                if (objetoTipoRegla.IdDetalleReglaValidacion == 0)
                 {
                     result = detalleReglaBL.InsertarDatos(objetoTipoRegla);
                 }

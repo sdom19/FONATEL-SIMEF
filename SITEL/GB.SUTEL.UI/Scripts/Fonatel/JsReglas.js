@@ -465,7 +465,7 @@
             let objetoRegla = new Object()
             objetoRegla.Codigo = $(JsReglas.Controles.txtCodigo).val();
             objetoRegla.Nombre = $(JsReglas.Controles.txtNombre).val();
-            objetoRegla.idIndicador = $(JsReglas.Controles.ddlIndicadorRegla).val();
+            objetoRegla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
             objetoRegla.Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val();
 
             execAjaxCall("/ReglasValidacion/InsertarReglaValidacion", "POST", objetoRegla)
@@ -489,10 +489,10 @@
             $("#loading").fadeIn();
             let objetoRegla = new Object()
             objetoRegla.id = ObtenerValorParametroUrl("id");
-            objetoRegla.Codigo = $(JsReglas.Controles.txtCodigo).val();
-            objetoRegla.Nombre = $(JsReglas.Controles.txtNombre).val();
-            objetoRegla.idIndicador = $(JsReglas.Controles.ddlIndicadorRegla).val();
-            objetoRegla.Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val();
+            objetoRegla.Codigo = $(JsReglas.Controles.txtCodigo).val().trim();
+            objetoRegla.Nombre = $(JsReglas.Controles.txtNombre).val().trim();
+            objetoRegla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
+            objetoRegla.Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val().trim();
 
             execAjaxCall("/ReglasValidacion/EditarReglaValidacion", "POST", objetoRegla)
                 .then((obj) => {
@@ -522,7 +522,7 @@
             objetoRegla.id = ObtenerValorParametroUrl("id");
             objetoRegla.Codigo = $(JsReglas.Controles.txtCodigo).val();
             objetoRegla.Nombre = $(JsReglas.Controles.txtNombre).val();
-            objetoRegla.idIndicador = $(JsReglas.Controles.ddlIndicadorRegla).val();
+            objetoRegla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
             objetoRegla.Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val();
 
             execAjaxCall("/ReglasValidacion/EditarReglaValidacion", "POST", objetoRegla)
@@ -907,12 +907,10 @@ $(document).on("click", JsReglas.Controles.btnSiguienteRegla, function (e) {
         let modo = $(JsReglas.Controles.txtModo).val();
 
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
-
-            //if (JsReglas.Consultas.ValidarControles()) {
-            //    JsReglas.Metodos.EditarSolicitudParcial();
-            //}
-            alert("Editar");
+       
             JsReglas.Consultas.ConsultaVariablesDato(idIndicadorString);
+            JsReglas.Consultas.EditarReglaValidacionParcial();
+            
 
         } else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
 
@@ -920,7 +918,7 @@ $(document).on("click", JsReglas.Controles.btnSiguienteRegla, function (e) {
 
             //    JsReglas.Metodos.ClonarSolicitudParcial();
             //}
-            alert("Clonar");
+            
             JsReglas.Consultas.ConsultaVariablesDato(idIndicadorString);
         }
         else {

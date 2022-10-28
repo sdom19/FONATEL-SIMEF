@@ -23,11 +23,12 @@ namespace GB.SIMEF.Entities
             
         }
         [Key]
-        public int IdReglasValidacionTipo { get; set; }
-        public int IdOperador { get; set; }
+        public int IdDetalleReglaValidacion { get; set; }
         public int IdRegla { get; set; }
         public int IdTipo { get; set; }
-        //public int IdDetalleIndicador { get; set; }
+        public int IdOperador { get; set; }
+        public int IdDetalleIndicador { get; set; }
+        public int IdIndicador { get; set; }
         public bool Estado { get; set; }
     
         [NotMapped]
