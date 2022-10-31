@@ -17,43 +17,47 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="objReglas"></param>
+        /// <param name="objeto"></param>
         /// <returns></returns>
-        public List<DetalleReglaValidacion> ObtenerDatos(DetalleReglaValidacion objReglas)
+        public List<DetalleReglaValidacion> ObtenerDatos(DetalleReglaValidacion objeto)
         {
-            List<DetalleReglaValidacion> ListaCategoriaDetalle = new List<DetalleReglaValidacion>();
+            List<DetalleReglaValidacion> ListaDetalles = new List<DetalleReglaValidacion>();
             using (db = new SIMEFContext())
             {
-                ListaCategoriaDetalle = db.Database.SqlQuery<DetalleReglaValidacion>
-                    ("execute spObtenerDetalleReglasValidacion @IdDetalleReglaValidacion,@IdRegla,@IdTipo,@IdOperador,@IdDetalleIndicador,@IdIndicador",
-                      new SqlParameter("@IdDetalleReglaValidacion", objReglas.IdDetalleReglaValidacion),
-                      new SqlParameter("@IdRegla", objReglas.IdRegla),
-                      new SqlParameter("@IdTipo", objReglas.IdTipo),
-                      new SqlParameter("@IdOperador", objReglas.IdOperador),
-                      new SqlParameter("@IdDetalleIndicador", objReglas.IdDetalleIndicador),
-                      new SqlParameter("@IdIndicador", objReglas.IdIndicador)
+                ListaDetalles = db.Database.SqlQuery<DetalleReglaValidacion>
+                    ("execute spObtenerDetalleReglasValidacion @IdDetalleReglaValidacion, @IdRegla, @IdTipo, @IdOperador, @IdDetalleIndicador, @IdIndicador",
+                        new SqlParameter("@IdDetalleReglaValidacion", objeto.IdDetalleReglaValidacion),
+                        new SqlParameter("@IdRegla", objeto.IdRegla),
+                        new SqlParameter("@IdTipo", objeto.IdTipo),
+                        new SqlParameter("@IdOperador", objeto.IdOperador),
+                        new SqlParameter("@IdDetalleIndicador", objeto.IdDetalleIndicador),
+                        new SqlParameter("@IdIndicador", objeto.IdIndicador)
                     ).ToList();
 
-                ListaCategoriaDetalle = ListaCategoriaDetalle.Select(x => new DetalleReglaValidacion()
+                ListaDetalles = ListaDetalles.Select(x => new DetalleReglaValidacion()
                 {
                     id = Utilidades.Encriptar(x.IdDetalleReglaValidacion.ToString()),
-                    IdRegla = x.IdRegla,
                     IdDetalleReglaValidacion = x.IdDetalleReglaValidacion,
-                    tipoReglaValidacion = ObtenerTipoRegla(x.IdTipo),
+                    IdRegla = x.IdRegla,
                     IdTipo = x.IdTipo,
+                    tipoReglaValidacion = ObtenerTipoRegla(x.IdTipo),
                     IdOperador = x.IdOperador,
-                    idIndicadorVariableString = x.idIndicadorVariableString,
                     operadorArismetico = ObtenerOperador(x.IdOperador),
-                    reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdDetalleReglaValidacion),
-                    //reglaComparacionConstante = ObtenerReglaContraConstante(x.IdReglasValidacionTipo),
+                    idIndicadorVariableString = x.idIndicadorVariableString,
+                    IdDetalleIndicador = x.IdDetalleIndicador,
+                    IdIndicador = x.IdIndicador,
+                    NombreVariable = ObtenerVariable(x.IdDetalleIndicador).NombreVariable,
+
+                    //reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdDetalleReglaValidacion),
+                    //reglaComparacionConstante = ObtenerReglaContraConstante(x.IdDetalleReglaValidacion),
                     //reglaSecuencial = ObtenerReglaSecuencial(x.IdReglasValidacionTipo),
-                    //reglaIndicadorSalida = ObtenerReglaIndicadorSalida(x.IdReglasValidacionTipo),
-                    //reglaIndicadorEntrada = ObtenerReglaIndicadorEntrada(x.IdReglasValidacionTipo),
-                    //reglaIndicadorEntradaSalida = ObtenerReglaIndicadorEntradaSalida(x.IdReglasValidacionTipo),
+                    //reglaIndicadorSalida = ObtenerReglaIndicadorSalida(x.IdDetalleReglaValidacion),
+                    //reglaIndicadorEntrada = ObtenerReglaIndicadorEntrada(x.IdDetalleReglaValidacion),
+                    //reglaIndicadorEntradaSalida = ObtenerReglaIndicadorEntradaSalida(x.IdDetalleReglaValidacion),
                     Estado = x.Estado
                 }).ToList();
             }
-            return ListaCategoriaDetalle;
+            return ListaDetalles;
         }
 
         /// <summary>
@@ -76,6 +80,45 @@ namespace GB.SIMEF.DAL
             return listaValicion;
         }
 
+        /// <summary>
+        /// Creación y modificación
+        /// </summary>
+        /// <param name="objDetalleReglaValidacion"></param>
+        /// <returns></returns>
+        public List<DetalleReglaValidacion> ActualizarDatos(DetalleReglaValidacion objeto)
+        {
+            List<DetalleReglaValidacion> ListaDetalleReglaValidacion = new List<DetalleReglaValidacion>();
+
+            using (db = new SIMEFContext())
+            {
+                ListaDetalleReglaValidacion = db.Database.SqlQuery<DetalleReglaValidacion>
+                ("execute spActualizarDetalleReglaValidacion @pIdDetalleReglaValidacion,@pIdRegla,@pIdTipo,@pIdOperador,@pIdDetalleIndicador,@pIdIndicador,@pEstado",
+                    new SqlParameter("@pIdDetalleReglaValidacion", objeto.IdDetalleReglaValidacion),
+                    new SqlParameter("@pIdRegla", objeto.IdRegla),
+                    new SqlParameter("@pIdTipo", objeto.IdTipo),
+                    new SqlParameter("@pIdOperador", objeto.IdOperador),
+                    new SqlParameter("@pIdDetalleIndicador", objeto.IdDetalleIndicador),
+                    new SqlParameter("@pIdIndicador", objeto.IdIndicador),
+                    new SqlParameter("@pEstado", objeto.Estado)
+                ).ToList();
+
+                ListaDetalleReglaValidacion = ListaDetalleReglaValidacion.Select(X => new DetalleReglaValidacion
+                {
+                    id = Utilidades.Encriptar(X.IdDetalleReglaValidacion.ToString()),
+                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
+                    IdRegla = X.IdRegla,
+                    IdTipo = X.IdTipo,
+                    IdOperador = X.IdOperador,
+                    IdDetalleIndicador = X.IdDetalleIndicador,
+                    IdIndicador = X.IdIndicador,
+                    Estado = X.Estado
+
+                }).ToList();
+
+                return ListaDetalleReglaValidacion;
+            }
+        }
+
         private string ObtenerListadoTipoReglas(int IdRegla)
         {
             string tipoReglas = "";
@@ -87,49 +130,12 @@ namespace GB.SIMEF.DAL
             return tipoReglas;
         }
 
-        /// <summary>
-        /// Creación y modificación
-        /// </summary>
-        /// <param name="objDetalleReglaValidacion"></param>
-        /// <returns></returns>
-        public List<DetalleReglaValidacion> ActualizarDatos(DetalleReglaValidacion objDetalleReglaValidacion)
+        private DetalleIndicadorVariables ObtenerVariable(int id)
         {
-            List<DetalleReglaValidacion> ListaDetalleReglaValidacion = new List<DetalleReglaValidacion>();
-
-            using (db = new SIMEFContext())
-            {
-                //ListaDetalleReglaValidacion = db.Database.SqlQuery<DetalleReglaValidacion>
-                //("execute spActualizarDetalleReglaValidacion @pIdReglasValidacionTipo,@pIdRegla,@pIdTipo,@pIdOperador,@pIdDetalleIndicador,@Estado",
-                //    new SqlParameter("@pIdReglasValidacionTipo", objDetalleReglaValidacion.IdReglasValidacionTipo),
-                //    new SqlParameter("@pIdRegla", objDetalleReglaValidacion.IdRegla),
-                //    new SqlParameter("@pIdTipo", objDetalleReglaValidacion.IdTipo),
-                //    new SqlParameter("@pIdOperador", objDetalleReglaValidacion.IdOperador),
-                //    new SqlParameter("@pIdDetalleIndicador", objDetalleReglaValidacion.IdDetalleIndicador),
-                //    new SqlParameter("@Estado", objDetalleReglaValidacion.Estado)
-                //).ToList();
-
-                ListaDetalleReglaValidacion = db.Database.SqlQuery<DetalleReglaValidacion>
-                ("execute spActualizarDetalleReglaValidacion @IdDetalleReglaValidacion,@IdRegla, @IdTipo, @IdOperador, @Estado",
-                      new SqlParameter("@IdDetalleReglaValidacion", objDetalleReglaValidacion.IdDetalleReglaValidacion),
-                      new SqlParameter("@IdRegla", objDetalleReglaValidacion.IdRegla),
-                      new SqlParameter("@IdTipo", objDetalleReglaValidacion.IdTipo),
-                      new SqlParameter("@IdOperador", objDetalleReglaValidacion.IdOperador),
-                      new SqlParameter("@Estado", objDetalleReglaValidacion.Estado)
-                ).ToList();
-
-                ListaDetalleReglaValidacion = ListaDetalleReglaValidacion.Select(X => new DetalleReglaValidacion
-                {
-                    id = Utilidades.Encriptar(X.IdDetalleReglaValidacion.ToString()),
-                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
-                    IdRegla = X.IdRegla,
-                    IdTipo = X.IdTipo,
-                    IdOperador = X.IdOperador,
-                    Estado = X.Estado
-
-                }).ToList();
-
-                return ListaDetalleReglaValidacion;
-            }
+            DetalleIndicadorVariables result = new DetalleIndicadorVariables();
+            result =
+            db.DetalleIndicadorVariables.Where(x => x.idDetalleIndicador == id).Single();
+            return result;
         }
 
         private TipoReglaValidacion ObtenerTipoRegla(int id)
@@ -194,7 +200,7 @@ namespace GB.SIMEF.DAL
                 db.ReglaIndicadorEntrada.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
             if (regla != null)
             {
-                regla.IdReglaIndicadorEntrada = 0;
+                regla.IdCompara = 0;
             }
             return regla;
         }

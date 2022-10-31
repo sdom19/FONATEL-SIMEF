@@ -16,12 +16,12 @@ namespace GB.SIMEF.Entities
     
     [Table("DetalleReglaValidacion") ]
     public partial class DetalleReglaValidacion
-    {
-      
+    {   
         public DetalleReglaValidacion()
         {
             
         }
+
         [Key]
         public int IdDetalleReglaValidacion { get; set; }
         public int IdRegla { get; set; }
@@ -41,8 +41,8 @@ namespace GB.SIMEF.Entities
         public string idIndicadorString { get; set; }
         
         [NotMapped]
-        public string idReglasValidacionTipoString { get; set; }
-        
+        public string idDetalleReglaString { get; set; }
+
         [NotMapped]
         public ReglaValidacion reglaValidacion { get; set; }
         

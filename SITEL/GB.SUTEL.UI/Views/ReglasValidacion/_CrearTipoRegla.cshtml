@@ -45,7 +45,7 @@
             <div class="form-group center">
                 <label for="ddlIndicadorComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.IndicadorComparacion</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownList("ddlIndicadorComparacionRegla", new SelectList(ViewBag.ListaIndicadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorComparacionRegla" })
+                    @Html.DropDownList("ddlIndicadorComparacionRegla", new SelectList(ViewBag.ListaIndicadoresEntrada, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorComparacionRegla" })
                 </div>
                 <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
@@ -55,8 +55,6 @@
                 <div class="select2-wrapper">
                     <select class="listasDesplegables" id="ddlVariableComparacionRegla">
                         <option></option>
-                        <option value="1">Cantidad Torres</option>
-                        <option value="2">Estado de Torres</option>
                     </select>
                 </div>
                 <small id="ddlVariableComparacionReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
@@ -105,6 +103,27 @@
                 <small id="ddlIndicadorSalidaReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
+
+        <div class="hidden" id="divFormulaContraIndicadorEntradaSalida">
+            <div class="form-group center">
+                <label for="ddlIndicadorComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.IndicadorComparacion</label>
+                <div class="select2-wrapper">
+                    @Html.DropDownList("ddlIndicadorComparacionReglaEntradaSalida", new SelectList(ViewBag.ListaIndicadoresEntradaSalida, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorComparacionReglaEntradaSalida" })
+                </div>
+                <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+
+            <div class="form-group center">
+                <label for="ddlVariableComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Comparacion</label>
+                <div class="select2-wrapper">
+                    <select class="listasDesplegables" id="ddlVariableComparacionReglaEntradaSalida">
+                        <option></option>
+                    </select>
+                </div>
+                <small id="ddlVariableComparacionReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+
     </div>
 </div>
 

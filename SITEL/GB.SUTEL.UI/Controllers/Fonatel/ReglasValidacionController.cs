@@ -77,6 +77,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             var ListadoIndicador = indicadorfonatelBL
                 .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
+            var ListadoIndicadorSalida = indicadorfonatelBL
+                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 2 }).objetoRespuesta;
+
+            var ListadoIndicadorEntradaSalida = indicadorfonatelBL
+                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 3 }).objetoRespuesta;
+
+            var ListadoIndicadorEntrada = indicadorfonatelBL
+                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 4 }).objetoRespuesta;
+
             var listadoCategoria = categoriasDesagregacionBL
                .ObtenerDatos(new CategoriasDesagregacion() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
@@ -96,9 +105,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             ViewBag.ListaIndicadores =
                         ListadoIndicador.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
-            
+
             ViewBag.ListaIndicadoresSalida =
-                       ListadoIndicador.Where(x => int.Parse(Utilidades.Desencriptar(x.ClasificacionIndicadores.id)) == (int)Constantes.ClasificacionIndicadorEnum.Salida).Select(x => new SelectListItem() { Selected = false, Value = Utilidades.Desencriptar(x.id), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                        ListadoIndicadorSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+
+            ViewBag.ListaIndicadoresEntradaSalida =
+                        ListadoIndicadorEntradaSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+
+            ViewBag.ListaIndicadoresEntrada =
+                        ListadoIndicadorEntrada.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
             ViewBag.Modo = modo.ToString();
 
@@ -289,11 +304,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="objetoTipoRegla"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> AgregarDetalleRegla(DetalleReglaValidacion objetoTipoRegla)
+        public async Task<string> InsertarDetalleRegla(DetalleReglaValidacion objetoTipoRegla)
         {
             user = User.Identity.GetUserId();
 
             RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
+
             await Task.Run(() =>
             {
                 if (objetoTipoRegla.IdDetalleReglaValidacion == 0)
@@ -302,7 +318,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
                 else
                 {
-                    //objetoTipoRegla.UsuarioModificacion = user;
                     result = detalleReglaBL.ActualizarElemento(objetoTipoRegla);
                 }
 
@@ -338,7 +353,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public async Task<string> EliminarDetalleRegla(DetalleReglaValidacion detalleRegla)
         {
             user = User.Identity.GetUserId();
+
             RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
+
             await Task.Run(() =>
             {
                 result = detalleReglaBL.EliminarElemento(detalleRegla);

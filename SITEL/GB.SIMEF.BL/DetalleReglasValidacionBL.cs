@@ -7,6 +7,7 @@ using GB.SIMEF.Resources;
 using Newtonsoft.Json;
 using static GB.SIMEF.Resources.Constantes;
 
+
 namespace GB.SIMEF.BL
 {
     public class DetalleReglaValidacionBL : IMetodos<DetalleReglaValidacion>
@@ -103,12 +104,15 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                if (!String.IsNullOrEmpty(objeto.id) || !String.IsNullOrEmpty(objeto.idReglasValidacionTipoString))
+
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Usuario = user;
+
+                if (!String.IsNullOrEmpty(objeto.id) || !String.IsNullOrEmpty(objeto.idDetalleReglaString))
                 {
                     DesencriptarObjReglasValidacion(objeto);
                 }
-                ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Usuario = user;
+
                 var resul = clsDatos.ObtenerDatos(objeto).ToList();
 
                 if (resul.Count() == 0)
@@ -123,10 +127,6 @@ namespace GB.SIMEF.BL
                     resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
-
-                    //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                    //       ResultadoConsulta.Usuario,
-                    //       ResultadoConsulta.Clase, objeto.);
                 }
             }
             catch (Exception ex)
@@ -139,7 +139,6 @@ namespace GB.SIMEF.BL
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
-
 
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -158,22 +157,31 @@ namespace GB.SIMEF.BL
                 objeto.IdRegla = objeto.IdRegla;
                 objeto.Estado = true;
                 DesencriptarObjReglasValidacion(objeto);
-                //List<DetalleIndicadorVariables> listaDetallesIndicadorVariable = clsDatosIndicadorVariableDAL.ObtenerDatos(new DetalleIndicadorVariables(){id = objeto.idIndicadorString});
-                //objeto.idIndicadorString = listaDetallesIndicadorVariable[0].idIndicadorString;
+
+                if (!string.IsNullOrEmpty(objeto.idIndicadorVariableString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.idIndicadorVariableString), out int temp);
+                    objeto.IdDetalleIndicador = temp;
+                }
+
+                if (!string.IsNullOrEmpty(objeto.idIndicadorString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.idIndicadorString), out int temp);
+                    objeto.IdIndicador = temp;
+                }
+
                 var resul = clsDatos.ActualizarDatos(objeto);
+
                 objeto.IdDetalleReglaValidacion = resul.Single().IdDetalleReglaValidacion;
                 AgregarTipoDetalleReglaValidacion(objeto);
+
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 
             }
             catch (Exception ex)
             {
-                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
-                }
-
+                ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 ResultadoConsulta.MensajeError = ex.Message;
             }
 
@@ -186,9 +194,7 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
-
                 DesencriptarObjReglasValidacion(objeto);
-
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -197,8 +203,8 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 ResultadoConsulta.MensajeError = ex.Message;
-
             }
+
             return ResultadoConsulta;
         }
 
@@ -275,11 +281,12 @@ namespace GB.SIMEF.BL
                 int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.id), out int temp);
                 detalleReglaValidacion.IdRegla = temp;
             }
-            if (!string.IsNullOrEmpty(detalleReglaValidacion.idReglasValidacionTipoString))
+            if (!string.IsNullOrEmpty(detalleReglaValidacion.idDetalleReglaString))
             {
-                int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idReglasValidacionTipoString), out int temp);
+                int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idDetalleReglaString), out int temp);
                 detalleReglaValidacion.IdDetalleReglaValidacion = temp;
             }
+
 
         }
 

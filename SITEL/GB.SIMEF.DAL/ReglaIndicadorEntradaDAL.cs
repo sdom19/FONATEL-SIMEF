@@ -37,18 +37,18 @@ namespace GB.SIMEF.DAL
             {
                 ListaReglaIndicadorEntrada = db.Database.SqlQuery<ReglaIndicadorEntrada>
                 ("execute spActualizarReglaIndicadorEntrada @IdCompara,@IdIndicador,@IdVariableCompara,@IdDetalleReglaValidacion",
-                    new SqlParameter("@IdCompara", pReglaIndicadorEntrada.IdReglaIndicadorEntrada),
+                    new SqlParameter("@IdCompara", pReglaIndicadorEntrada.IdCompara),
+                    new SqlParameter("@IdDetalleReglaValidacion", pReglaIndicadorEntrada.IdDetalleReglaValidacion),
                     new SqlParameter("@IdIndicador", pReglaIndicadorEntrada.IdIndicador),
-                    new SqlParameter("@IdVariableCompara", pReglaIndicadorEntrada.IdVariableCompara),
-                    new SqlParameter("@IdDetalleReglaValidacion", pReglaIndicadorEntrada.IdDetalleReglaValidacion)
+                    new SqlParameter("@IdVariableCompara", pReglaIndicadorEntrada.IdDetalleIndicador)
                 ).ToList();
 
                 ListaReglaIndicadorEntrada = ListaReglaIndicadorEntrada.Select(X => new ReglaIndicadorEntrada
                 {
-                    IdReglaIndicadorEntrada = X.IdReglaIndicadorEntrada,
+                    IdCompara = X.IdCompara,
+                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
                     IdIndicador = X.IdIndicador,
-                    IdVariableCompara = X.IdVariableCompara,
-                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion
+                    IdDetalleIndicador = X.IdDetalleIndicador,
 
                 }).ToList();
 

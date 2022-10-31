@@ -71,7 +71,7 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<RegistroIndicador> RegistroIndicador { get; set; }
         public virtual DbSet<ReglaAtributosValidos> ReglaAtributosValidos { get; set; }
         public virtual DbSet<ReglaComparacionConstante> ReglaComparacionConstante { get; set; }
-        public virtual DbSet<ReglaComparacionIndicador> ReglaComparacionIndicador { get; set; }
+        //public virtual DbSet<ReglaComparacionIndicador> ReglaComparacionIndicador { get; set; }
         public virtual DbSet<ReglaSecuencial> ReglaSecuencial { get; set; }
         public virtual DbSet<ReglaValidacion> ReglaValidacion { get; set; }
         
