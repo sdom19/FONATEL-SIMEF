@@ -12,13 +12,17 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class ReglaIndicadorSalida
     {
         [Key]
-        public int IdReglaIndicadorSalida { get; set; }
-        public int IdIndicador { get; set; }
+        public int IdCompara { get; set; }
         public int IdDetalleReglaValidacion { get; set; }
+        public int IdIndicador { get; set; }
+
+        [NotMapped]
+        public string idIndicadorComparaString { get; set; }
 
     }
 }

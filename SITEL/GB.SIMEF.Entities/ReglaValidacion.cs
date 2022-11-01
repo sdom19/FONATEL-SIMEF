@@ -28,7 +28,6 @@ namespace GB.SIMEF.Entities
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int idIndicador { get; set; }
-
         public int idEstado { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }

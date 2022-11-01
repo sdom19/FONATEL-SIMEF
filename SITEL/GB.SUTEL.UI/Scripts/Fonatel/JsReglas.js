@@ -73,7 +73,6 @@
         "ListaDetalleReglas": [],
         "ListaVariablesDato": [],
         "esModoEdicion": false,
-        "objVariables": null,
     },
 
     "Mensajes": {
@@ -332,7 +331,7 @@
                     $(JsReglas.Controles.ddlIndicadorComparacionHelp).removeClass("hidden");
                     validarTipo = false;
                 }
-                if ($(JsReglas.Controles.ddlVariableComparacionRegla).val() == 0 || $(JsReglas.Controles.ddlVariableComparacionRegla).val() == null) {
+                if ($(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val() == 0 || $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val() == null) {
                     $(JsReglas.Controles.ddlVariableComparacionReglaHelp).removeClass("hidden");
                     validarTipo = false;
                 }
@@ -770,6 +769,34 @@
                 });
         },
 
+        "ConsultaDetallesCategoria": function (idCategoria) {
+
+            $("#loading").fadeIn();
+
+            execAjaxCall("/ReglasValidacion/ObtenerListaDetallesCategoria", "GET", { idCategoria })
+                .then((obj) => {
+
+                    let html = "<option value=''/>";
+                    for (var i = 0; i < obj.objetoRespuesta.length; i++) {
+                        html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].Etiqueta + "</option>"
+                    }
+
+                    $(JsReglas.Controles.ddlAtributosValidosRegla).html(html);
+
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
         "AgregarReglaSiguiente": async function (parcial) {
 
             $("#loading").fadeIn();
@@ -823,24 +850,24 @@
             //REGLA CONTRA ATRIBUTOS VALIDOS
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
                 objetoTipoRegla.reglaAtributosValidos = {};
-                objetoTipoRegla.reglaAtributosValidos.idCategoria = $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val();
-                objetoTipoRegla.reglaAtributosValidos.idCategoriaAtributo = $(JsReglas.Controles.ddlAtributosValidosRegla).val();
+                objetoTipoRegla.reglaAtributosValidos.IdCategoria = $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val();
+                objetoTipoRegla.reglaAtributosValidos.idAtributoString = $(JsReglas.Controles.ddlAtributosValidosRegla).val();
             }
             // REGLA CONTRA ACTUALIZACION SECUENCIAL
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
                 objetoTipoRegla.reglaSecuencial = {};
-                objetoTipoRegla.reglaSecuencial.idCategoriaId = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
+                objetoTipoRegla.reglaSecuencial.idCategoria = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
             }
             //REGLA CONTRA INDICADOR DE SALIDA
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraIndicadorSalida) {
+            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
                 objetoTipoRegla.reglaIndicadorSalida = {};
-                objetoTipoRegla.reglaIndicadorSalida.IdIndicador = $(JsReglas.Controles.ddlIndicadorSalidaRegla).val();
+                objetoTipoRegla.reglaIndicadorSalida.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorSalidaRegla).val();
             }
             //REGLA CONTRA INDICADOR DE ENTRADA-SALIDA
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraIndicadorEntradaSalida) {
+            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
                 objetoTipoRegla.reglaIndicadorEntradaSalida = {};
-                objetoTipoRegla.reglaIndicadorEntradaSalida.IdIndicador = $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val();
-                objetoTipoRegla.reglaIndicadorEntradaSalida.IdComparacion = $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val();
+                objetoTipoRegla.reglaIndicadorEntradaSalida.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val();
+                objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val();
             }
 
             if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Clonar) {
@@ -1101,7 +1128,14 @@ $(document).on("change", JsReglas.Controles.ddlIndicadorComparacionReglaEntradaS
 
 });
 
+$(document).on("change", JsReglas.Controles.ddlAtributosValidosCategoríaRegla, function () {
 
+    let idCategoria = $(this).val();
+    if (idCategoria != 0) {
+        JsReglas.Consultas.ConsultaDetallesCategoria(idCategoria);
+    }
+
+});
 
 $(function () {
     if ($("#TableReglaDesagregacion").length > 0) {

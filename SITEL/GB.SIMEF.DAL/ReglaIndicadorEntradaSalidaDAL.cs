@@ -36,19 +36,19 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaReglaIndicadorEntradaSalida = db.Database.SqlQuery<ReglaIndicadorEntradaSalida>
-                ("execute spActualizarReglaIndicadorEntradaSalida @IdReglaIndicadorEntradaSalida,@IdIndicador,@IdComparacion,@IdDetalleReglaValidacion",
-                    new SqlParameter("@IdReglaIndicadorEntradaSalida", pReglaIndicadorEntradaSalida.IdReglaIndicadorEntradaSalida),
-                    new SqlParameter("@IdIndicador", pReglaIndicadorEntradaSalida.IdIndicador),
-                    new SqlParameter("@IdComparacion", pReglaIndicadorEntradaSalida.IdComparacion),
-                    new SqlParameter("@IdDetalleReglaValidacion", pReglaIndicadorEntradaSalida.IdDetalleReglaValidacion)
+                ("execute spActualizarReglaIndicadorEntradaSalida @IdCompara,@IdDetalleReglaValidacion,@IdDetalleIndicador,@IdIndicador",
+                    new SqlParameter("@IdCompara", pReglaIndicadorEntradaSalida.IdCompara),
+                    new SqlParameter("@IdDetalleReglaValidacion", pReglaIndicadorEntradaSalida.IdDetalleReglaValidacion),
+                    new SqlParameter("@IdDetalleIndicador", pReglaIndicadorEntradaSalida.IdDetalleIndicador),
+                    new SqlParameter("@IdIndicador", pReglaIndicadorEntradaSalida.IdIndicador)
                 ).ToList();
 
                 ListaReglaIndicadorEntradaSalida = ListaReglaIndicadorEntradaSalida.Select(X => new ReglaIndicadorEntradaSalida
                 {
-                    IdReglaIndicadorEntradaSalida = X.IdReglaIndicadorEntradaSalida,
-                    IdIndicador = X.IdIndicador,
-                    IdComparacion = X.IdComparacion,
-                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion
+                    IdCompara = X.IdCompara,
+                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
+                    IdDetalleIndicador = X.IdDetalleIndicador,
+                    IdIndicador = X.IdIndicador
 
                 }).ToList();
 

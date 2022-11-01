@@ -20,6 +20,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly ReglaValidacionBL reglaBL;
         private readonly DetalleReglaValidacionBL detalleReglaBL;
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
+        private readonly DetalleCategoriasTextoBL detalleCategoriasTextoBL;
         private readonly IndicadorFonatelBL indicadorfonatelBL;
         private readonly TipoReglaValidacionBL TipoReglasBL;
         private readonly OperadorArismeticoBL OperadoresBL;
@@ -41,6 +42,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             TipoReglasBL = new TipoReglaValidacionBL();
             OperadoresBL = new OperadorArismeticoBL();
             DetalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(modulo, user);
+            detalleCategoriasTextoBL = new DetalleCategoriasTextoBL(modulo, user);
 
         }
 
@@ -222,6 +224,29 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 result = DetalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
                 {
                     idIndicadorString = idIndicadorString 
+                });
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Autor: Francisco Vindas
+        /// Fecha: 01/11/2022
+        /// Metodo para obtener los detalles de la Categoria
+        /// </summary>
+        /// <param name="idCategoria"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesCategoria(int idCategoria)
+        {
+            RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = detalleCategoriasTextoBL.ObtenerDatos(new DetalleCategoriaTexto()
+                {
+                    idCategoria = idCategoria
                 });
             });
 

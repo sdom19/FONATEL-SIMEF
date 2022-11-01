@@ -29,18 +29,19 @@ namespace GB.SIMEF.DAL
 
         }
 
-        public List<ReglaIndicadorEntrada> ActualizarDatos(ReglaIndicadorEntrada pReglaIndicadorEntrada)
+        public List<ReglaIndicadorEntrada> ActualizarDatos(ReglaIndicadorEntrada objeto)
         {
             List<ReglaIndicadorEntrada> ListaReglaIndicadorEntrada = new List<ReglaIndicadorEntrada>();
 
             using (db = new SIMEFContext())
             {
                 ListaReglaIndicadorEntrada = db.Database.SqlQuery<ReglaIndicadorEntrada>
-                ("execute spActualizarReglaIndicadorEntrada @IdCompara,@IdIndicador,@IdVariableCompara,@IdDetalleReglaValidacion",
-                    new SqlParameter("@IdCompara", pReglaIndicadorEntrada.IdCompara),
-                    new SqlParameter("@IdDetalleReglaValidacion", pReglaIndicadorEntrada.IdDetalleReglaValidacion),
-                    new SqlParameter("@IdIndicador", pReglaIndicadorEntrada.IdIndicador),
-                    new SqlParameter("@IdVariableCompara", pReglaIndicadorEntrada.IdDetalleIndicador)
+
+                ("execute spActualizarReglaIndicadorEntrada @IdCompara, @IdDetalleReglaValidacion, @IdDetalleIndicador, @IdIndicador",
+                    new SqlParameter("@IdCompara", objeto.IdCompara),
+                    new SqlParameter("@IdDetalleReglaValidacion", objeto.IdDetalleReglaValidacion),
+                    new SqlParameter("@IdIndicador", objeto.IdIndicador),
+                    new SqlParameter("@IdDetalleIndicador", objeto.IdDetalleIndicador)
                 ).ToList();
 
                 ListaReglaIndicadorEntrada = ListaReglaIndicadorEntrada.Select(X => new ReglaIndicadorEntrada

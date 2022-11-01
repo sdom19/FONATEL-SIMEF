@@ -156,6 +156,7 @@ namespace GB.SIMEF.BL
                 objeto.IdOperador = objeto.IdOperador;
                 objeto.IdRegla = objeto.IdRegla;
                 objeto.Estado = true;
+
                 DesencriptarObjReglasValidacion(objeto);
 
                 if (!string.IsNullOrEmpty(objeto.idIndicadorVariableString))
@@ -173,6 +174,7 @@ namespace GB.SIMEF.BL
                 var resul = clsDatos.ActualizarDatos(objeto);
 
                 objeto.IdDetalleReglaValidacion = resul.Single().IdDetalleReglaValidacion;
+
                 AgregarTipoDetalleReglaValidacion(objeto);
 
                 ResultadoConsulta.objetoRespuesta = resul;
@@ -237,38 +239,40 @@ namespace GB.SIMEF.BL
         {
             switch (objeto.IdTipo)
             {
-                case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
-                    objeto.reglaAtributosValidos.IdTipoReglaValidacion = objeto.IdDetalleReglaValidacion;
-                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada:
+                    DesencriptarReglaComparacionEntrada(objeto);
+                    objeto.reglaIndicadorEntrada.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
+                    clsReglaIndicadorEntradaDAL.ActualizarDatos(objeto.reglaIndicadorEntrada);
+                    break;
+
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida:
+                    DesencriptarReglaComparacionEntradaSalida(objeto);
+                    objeto.reglaIndicadorEntradaSalida.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
+                    clsReglaIndicadorEntradaSalidaDAL.ActualizarDatos(objeto.reglaIndicadorEntradaSalida);
+                    break;
+                
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida:
+                    DesencriptarReglaComparacionSalida(objeto);
+                    objeto.reglaIndicadorSalida.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
+                    clsReglaIndicadorSalidaDAL.ActualizarDatos(objeto.reglaIndicadorSalida);
                     break;
 
                 case (int)Constantes.TipoReglasDetalle.FormulaContraConstante:
                     objeto.reglaComparacionConstante.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
-                    objeto.reglaComparacionConstante.idvariable = 0;
                     clsReglaComparacionConstanteDAL.ActualizarDatos(objeto.reglaComparacionConstante);
+                    break;
+               
+                case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
+                    DesencriptarReglaAtributosValidos(objeto);
+                    objeto.reglaAtributosValidos.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
+                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
                     break;
 
                 case (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial:
                     objeto.reglaSecuencial.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
-                    objeto.reglaSecuencial.idvariable = 0;
                     clsReglaSecuencialDAL.ActualizarDatos(objeto.reglaSecuencial);
-                    break;
-                   
-                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida:
-                    objeto.reglaIndicadorSalida.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
-                    clsReglaIndicadorSalidaDAL.ActualizarDatos(objeto.reglaIndicadorSalida);
-                    break;
-                    
-                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada:
-                    objeto.reglaIndicadorEntrada.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
-                    clsReglaIndicadorEntradaDAL.ActualizarDatos(objeto.reglaIndicadorEntrada);
-                    break;
-                    
-                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida:
-                    objeto.reglaIndicadorEntradaSalida.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
-                    clsReglaIndicadorEntradaSalidaDAL.ActualizarDatos(objeto.reglaIndicadorEntradaSalida);
-                    break;
-
+                    break;                
+                  
                 default:
                     break;
             }
@@ -286,7 +290,57 @@ namespace GB.SIMEF.BL
                 int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idDetalleReglaString), out int temp);
                 detalleReglaValidacion.IdDetalleReglaValidacion = temp;
             }
+        }
 
+        private void DesencriptarReglaComparacionEntrada(DetalleReglaValidacion objeto)
+        {
+            if (!string.IsNullOrEmpty(objeto.reglaIndicadorEntrada.idIndicadorComparaString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaIndicadorEntrada.idIndicadorComparaString), out int temp);
+                objeto.reglaIndicadorEntrada.IdIndicador = temp;
+            }
+
+            if (!string.IsNullOrEmpty(objeto.reglaIndicadorEntrada.idVariableComparaString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaIndicadorEntrada.idVariableComparaString), out int temp);
+                objeto.reglaIndicadorEntrada.IdDetalleIndicador = temp;
+            }
+
+        }
+
+        private void DesencriptarReglaComparacionEntradaSalida(DetalleReglaValidacion objeto)
+        {
+            if (!string.IsNullOrEmpty(objeto.reglaIndicadorEntradaSalida.idIndicadorComparaString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaIndicadorEntradaSalida.idIndicadorComparaString), out int temp);
+                objeto.reglaIndicadorEntradaSalida.IdIndicador = temp;
+            }
+
+            if (!string.IsNullOrEmpty(objeto.reglaIndicadorEntradaSalida.idVariableComparaString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaIndicadorEntradaSalida.idVariableComparaString), out int temp);
+                objeto.reglaIndicadorEntradaSalida.IdDetalleIndicador = temp;
+            }
+
+        }
+
+        private void DesencriptarReglaComparacionSalida(DetalleReglaValidacion objeto)
+        {
+            if (!string.IsNullOrEmpty(objeto.reglaIndicadorSalida.idIndicadorComparaString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaIndicadorSalida.idIndicadorComparaString), out int temp);
+                objeto.reglaIndicadorSalida.IdIndicador = temp;
+            }
+
+        }
+
+        private void DesencriptarReglaAtributosValidos(DetalleReglaValidacion objeto)
+        {
+            if (!string.IsNullOrEmpty(objeto.reglaAtributosValidos.idAtributoString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaAtributosValidos.idAtributoString), out int temp);
+                objeto.reglaAtributosValidos.IdCategoriaAtributo = temp;
+            }
 
         }
 

@@ -38,19 +38,19 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaReglaAtributosValidos = db.Database.SqlQuery<ReglaAtributosValidos>
-                ("execute spActualizarReglaAtributosValidos @IdCompara,@IdTipoReglaValidacion,@IdCategoria,@IdCategoriaAtributo",
-                    new SqlParameter("@IdCompara", pReglaAtributosValidos.idCompara),
-                    new SqlParameter("@IdTipoReglaValidacion", pReglaAtributosValidos.IdTipoReglaValidacion),
-                    new SqlParameter("@IdCategoria", pReglaAtributosValidos.idCategoria),
-                    new SqlParameter("@IdCategoriaAtributo", pReglaAtributosValidos.idCategoriaAtributo)
+                ("execute spActualizarReglaAtributosValidos @IdCompara,@IdDetalleReglaValidacion,@IdCategoria,@IdCategoriaAtributo",
+                    new SqlParameter("@IdCompara", pReglaAtributosValidos.IdCompara),
+                    new SqlParameter("@IdDetalleReglaValidacion", pReglaAtributosValidos.IdDetalleReglaValidacion),
+                    new SqlParameter("@IdCategoria", pReglaAtributosValidos.IdCategoria),
+                    new SqlParameter("@IdCategoriaAtributo", pReglaAtributosValidos.IdCategoriaAtributo)
                 ).ToList();
 
                 ListaReglaAtributosValidos = ListaReglaAtributosValidos.Select(X => new ReglaAtributosValidos
                 {
-                    idCompara = X.idCompara,
-                    IdTipoReglaValidacion = X.IdTipoReglaValidacion,
-                    idCategoria = X.idCategoria,
-                    idCategoriaAtributo = X.idCategoriaAtributo
+                    IdCompara = X.IdCompara,
+                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
+                    IdCategoria = X.IdCategoria,
+                    IdCategoriaAtributo = X.IdCategoriaAtributo
 
                 }).ToList();
 

@@ -153,7 +153,7 @@ namespace GB.SIMEF.DAL
         private ReglaAtributosValidos ObtenerReglaAtributosValidos(int id)
         {
             ReglaAtributosValidos regla =
-                db.ReglaAtributosValidos.Where(x => x.IdTipoReglaValidacion == id).FirstOrDefault();
+                db.ReglaAtributosValidos.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
             if (regla != null)
             {
 
@@ -189,7 +189,7 @@ namespace GB.SIMEF.DAL
                 db.ReglaIndicadorSalida.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
             if (regla != null)
             {
-                regla.IdReglaIndicadorSalida = 0;
+                regla.IdCompara = 0;
             }
             return regla;
         }
@@ -211,7 +211,7 @@ namespace GB.SIMEF.DAL
                 db.ReglaIndicadorEntradaSalida.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
             if (regla != null)
             {
-                regla.IdReglaIndicadorEntradaSalida = 0;
+                regla.IdCompara = 0;
             }
             return regla;
         }

@@ -31,5 +31,8 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string idVariableComparaString { get; set; }
 
+        [NotMapped]
+        public string idDetalleReglaString { get; set; }
+
     }
 }
