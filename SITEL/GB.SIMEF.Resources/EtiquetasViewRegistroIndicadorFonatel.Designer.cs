@@ -88,6 +88,60 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Estado.
+        /// </summary>
+        public static string Estado {
+            get {
+                return ResourceManager.GetString("Estado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fecha Fin.
+        /// </summary>
+        public static string FechaFinal {
+            get {
+                return ResourceManager.GetString("FechaFinal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fecha Inicial.
+        /// </summary>
+        public static string FechaInicio {
+            get {
+                return ResourceManager.GetString("FechaInicio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Llenado Web.
+        /// </summary>
+        public static string LLenadoWeb {
+            get {
+                return ResourceManager.GetString("LLenadoWeb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Mes Registro.
+        /// </summary>
+        public static string MesRegistro {
+            get {
+                return ResourceManager.GetString("MesRegistro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nombre Formulario.
+        /// </summary>
+        public static string NombreFormulario {
+            get {
+                return ResourceManager.GetString("NombreFormulario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Notas de FONATEL para el informante.
         /// </summary>
         public static string NotasEncargado {
@@ -111,6 +165,15 @@ namespace GB.SIMEF.Resources {
         public static string RegistroIndicador {
             get {
                 return ResourceManager.GetString("RegistroIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Solicitud.
+        /// </summary>
+        public static string Solicitud {
+            get {
+                return ResourceManager.GetString("Solicitud", resourceCulture);
             }
         }
     }

@@ -126,6 +126,24 @@
   <data name="DescargarPlanilla" xml:space="preserve">
     <value>Descargar plantilla</value>
   </data>
+  <data name="Estado" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="FechaFinal" xml:space="preserve">
+    <value>Fecha Fin</value>
+  </data>
+  <data name="FechaInicio" xml:space="preserve">
+    <value>Fecha Inicial</value>
+  </data>
+  <data name="LLenadoWeb" xml:space="preserve">
+    <value>Llenado Web</value>
+  </data>
+  <data name="MesRegistro" xml:space="preserve">
+    <value>Mes Registro</value>
+  </data>
+  <data name="NombreFormulario" xml:space="preserve">
+    <value>Nombre Formulario</value>
+  </data>
   <data name="NotasEncargado" xml:space="preserve">
     <value>Notas de FONATEL para el informante</value>
   </data>
@@ -134,5 +152,8 @@
   </data>
   <data name="RegistroIndicador" xml:space="preserve">
     <value>Registro de Indicador</value>
+  </data>
+  <data name="Solicitud" xml:space="preserve">
+    <value>Solicitud</value>
   </data>
 </root>

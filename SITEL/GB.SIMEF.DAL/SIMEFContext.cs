@@ -68,7 +68,7 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<OperadorArismetico> OperadorArismetico { get; set; }
         //public virtual DbSet<ProgramacionSolicitudes> ProgramacionSolicitudes { get; set; }
         //public virtual DbSet<Registro> Registro { get; set; }
-        //public virtual DbSet<RegistroIndicador> RegistroIndicador { get; set; }
+        public virtual DbSet<RegistroIndicadorFonatel> RegistroIndicadorFonatel { get; set; }
         public virtual DbSet<ReglaAtributosValidos> ReglaAtributosValidos { get; set; }
         public virtual DbSet<ReglaComparacionConstante> ReglaComparacionConstante { get; set; }
         public virtual DbSet<ReglaComparacionIndicador> ReglaComparacionIndicador { get; set; }
