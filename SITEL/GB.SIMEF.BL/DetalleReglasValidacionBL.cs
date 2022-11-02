@@ -50,30 +50,38 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                if (!string.IsNullOrEmpty(objeto.id))
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
+                ResultadoConsulta.Usuario = user;
+
+                objeto.IdOperador = objeto.IdOperador;
+                objeto.IdRegla = objeto.IdRegla;
+                objeto.Estado = true;
+
+                DesencriptarObjReglasValidacion(objeto);
+
+
+                if (!string.IsNullOrEmpty(objeto.idIndicadorVariableString))
                 {
-                    DesencriptarObjReglasValidacion(objeto);
-
-                    ResultadoConsulta.Clase = modulo;
-                    ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
-                    ResultadoConsulta.Usuario = user;
-                    int IdReglasValidacionTipo = objeto.IdDetalleReglaValidacion;
-                    int IdRegla = objeto.IdRegla;
-                    int IdOperador = objeto.IdOperador;
-                    var resul = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
-                    //string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.IdReglasValidacionTipo == objeto.IdReglasValidacionTipo).Single());
-                    objeto = resul.Where(x => x.IdRegla == objeto.IdRegla).Single();
-                    objeto.IdOperador = IdOperador;
-                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
-                    var nuevoValor = clsDatos.ObtenerDatos(objeto).Single();
-                    string jsonNuevoValor = SerializarObjetoBitacora(nuevoValor);
-
-                    ResultadoConsulta.CantidadRegistros = resul.Count();
-                    //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                    //       ResultadoConsulta.Usuario,
-                    //       ResultadoConsulta.Clase, nuevovalor.Codigo, jsonNuevoValor, valorAnterior);
-
+                    int.TryParse(Utilidades.Desencriptar(objeto.idIndicadorVariableString), out int temp);
+                    objeto.IdDetalleIndicador = temp;
                 }
+
+                if (!string.IsNullOrEmpty(objeto.idIndicadorString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.idIndicadorString), out int temp);
+                    objeto.IdIndicador = temp;
+                }
+
+                var resul = clsDatos.ActualizarDatos(objeto);
+
+                //objeto.IdDetalleReglaValidacion = resul.Single().IdDetalleReglaValidacion;
+
+                //AgregarTipoDetalleReglaValidacion(objeto);
+
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
             }
             catch (Exception ex)
             {

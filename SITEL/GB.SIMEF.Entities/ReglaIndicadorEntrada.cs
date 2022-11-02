@@ -21,18 +21,16 @@ namespace GB.SIMEF.Entities
         [Key]
         public int IdCompara { get; set; }
         public int IdDetalleReglaValidacion { get; set; }
-        public int IdDetalleIndicador { get; set; }
         public int IdIndicador { get; set; }
+        public int IdDetalleIndicador { get; set; }
 
 
         [NotMapped]
         public string idIndicadorComparaString { get; set; }
-
         [NotMapped]
         public string idVariableComparaString { get; set; }
 
-        [NotMapped]
-        public string idDetalleReglaString { get; set; }
+
 
     }
 }

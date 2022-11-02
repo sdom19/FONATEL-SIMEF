@@ -37,22 +37,21 @@ namespace GB.SIMEF.DAL
                 ListaDetalles = ListaDetalles.Select(x => new DetalleReglaValidacion()
                 {
                     id = Utilidades.Encriptar(x.IdDetalleReglaValidacion.ToString()),
+                    idIndicadorVariableString = Utilidades.Encriptar(x.IdDetalleIndicador.ToString()),
                     IdDetalleReglaValidacion = x.IdDetalleReglaValidacion,
                     IdRegla = x.IdRegla,
                     IdTipo = x.IdTipo,
                     tipoReglaValidacion = ObtenerTipoRegla(x.IdTipo),
                     IdOperador = x.IdOperador,
                     operadorArismetico = ObtenerOperador(x.IdOperador),
-                    idIndicadorVariableString = x.idIndicadorVariableString,
                     IdDetalleIndicador = x.IdDetalleIndicador,
                     IdIndicador = x.IdIndicador,
                     NombreVariable = ObtenerVariable(x.IdDetalleIndicador).NombreVariable,
-
-                    //reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdDetalleReglaValidacion),
-                    //reglaComparacionConstante = ObtenerReglaContraConstante(x.IdDetalleReglaValidacion),
-                    //reglaSecuencial = ObtenerReglaSecuencial(x.IdReglasValidacionTipo),
+                    reglaIndicadorEntrada = ObtenerReglaIndicadorEntrada(x.IdDetalleReglaValidacion),
+                    reglaComparacionConstante = ObtenerReglaContraConstante(x.IdDetalleReglaValidacion),
+                    reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdDetalleReglaValidacion),
+                    reglaSecuencial = ObtenerReglaSecuencial(x.IdDetalleReglaValidacion),
                     //reglaIndicadorSalida = ObtenerReglaIndicadorSalida(x.IdDetalleReglaValidacion),
-                    //reglaIndicadorEntrada = ObtenerReglaIndicadorEntrada(x.IdDetalleReglaValidacion),
                     //reglaIndicadorEntradaSalida = ObtenerReglaIndicadorEntradaSalida(x.IdDetalleReglaValidacion),
                     Estado = x.Estado
                 }).ToList();
@@ -156,7 +155,7 @@ namespace GB.SIMEF.DAL
                 db.ReglaAtributosValidos.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
             if (regla != null)
             {
-
+                regla.IdCompara = 0;
             }
             return regla;
         }
@@ -200,6 +199,8 @@ namespace GB.SIMEF.DAL
                 db.ReglaIndicadorEntrada.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
             if (regla != null)
             {
+                regla.idIndicadorComparaString = Utilidades.Encriptar(regla.IdIndicador.ToString());
+                regla.idVariableComparaString = Utilidades.Encriptar(regla.IdDetalleIndicador.ToString());
                 regla.IdCompara = 0;
             }
             return regla;

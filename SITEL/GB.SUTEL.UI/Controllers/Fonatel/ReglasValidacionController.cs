@@ -337,15 +337,29 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                if (objetoTipoRegla.IdDetalleReglaValidacion == 0)
-                {
                     result = detalleReglaBL.InsertarDatos(objetoTipoRegla);
-                }
-                else
-                {
-                    result = detalleReglaBL.ActualizarElemento(objetoTipoRegla);
-                }
+            });
 
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 02-11-2022
+        /// Editar el detalle de la regla de validación
+        /// </summary>
+        /// <param name="objetoTipoRegla"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EditarDetalleRegla(DetalleReglaValidacion objetoTipoRegla)
+        {
+            user = User.Identity.GetUserId();
+
+            RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
+
+            await Task.Run(() =>
+            {
+               result = detalleReglaBL.ActualizarElemento(objetoTipoRegla);
             });
 
             return JsonConvert.SerializeObject(result);

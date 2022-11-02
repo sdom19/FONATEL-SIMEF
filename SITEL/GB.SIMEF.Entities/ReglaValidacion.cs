@@ -54,6 +54,9 @@ namespace GB.SIMEF.Entities
         public List<DetalleReglaValidacion> DetalleReglaValidacion { get; set; }
 
         [NotMapped]
+        public string idDetalleReglaValidacion { get; set; }
+
+        [NotMapped]
         public List<string> NoSerialize = new List<string>()
         {
             "id",

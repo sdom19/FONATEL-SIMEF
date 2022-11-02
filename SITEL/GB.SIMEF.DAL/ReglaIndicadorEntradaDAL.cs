@@ -46,6 +46,8 @@ namespace GB.SIMEF.DAL
 
                 ListaReglaIndicadorEntrada = ListaReglaIndicadorEntrada.Select(X => new ReglaIndicadorEntrada
                 {
+                    idIndicadorComparaString= Utilidades.Encriptar(X.IdIndicador.ToString()),
+                    idVariableComparaString = Utilidades.Encriptar(X.IdDetalleIndicador.ToString()),
                     IdCompara = X.IdCompara,
                     IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
                     IdIndicador = X.IdIndicador,
