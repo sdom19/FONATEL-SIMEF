@@ -18,6 +18,7 @@ namespace SIMEF.API.Models
         public int idGrupo { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
+        public string DetalleHtml { get; set; }
 
         #region Variables que no forman parte del contexto
         [NotMapped]
