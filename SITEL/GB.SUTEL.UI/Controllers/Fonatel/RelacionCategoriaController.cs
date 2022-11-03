@@ -72,7 +72,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.Atributo,
                 idEstado = (int)Constantes.EstadosRegistro.Activo
 
-            }).objetoRespuesta;
+            }).objetoRespuesta.Where(x => x.CantidadDetalleDesagregacion > 0); ;
 
 
             if (string.IsNullOrEmpty(idRelacionCategoria))

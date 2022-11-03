@@ -76,7 +76,7 @@ namespace GB.SUTEL.UI
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/CategoriaDesagregacion").Include(
-                "~/Scripts/Fonatel/JsCategoria.js"
+                "~/Scripts/Fonatel/JsCategoria.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/RelacionCategoria").Include(

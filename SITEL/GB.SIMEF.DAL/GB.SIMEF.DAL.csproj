@@ -68,6 +68,7 @@
     <Compile Include="ReglaIndicadorEntradaSalidaDAL.cs" />
     <Compile Include="ReglaIndicadorSalidaDAL.cs" />
     <Compile Include="ReglaSecuencialDAL.cs" />
+    <Compile Include="RegistroIndicadorDAL.cs" />
     <Compile Include="SolicitudEnvioProgramadoDAL.cs" />
     <Compile Include="UsuarioFonatelDAL.cs" />
     <Compile Include="ReglaValidacionAtributosValidosDAL.cs" />
@@ -75,7 +76,6 @@
     <Compile Include="FormulasCalculoDAL.cs" />
     <Compile Include="OperadorArismeticoDAL.cs" />
     <Compile Include="DetalleReglasValicionDAL.cs" />
-    <Compile Include="SITELContext.cs" />
     <Compile Include="TipoMedidaDAL.cs" />
     <Compile Include="TipoReglaValidacionDAL.cs" />
     <Compile Include="DefinicionIndicadorDAL.cs" />

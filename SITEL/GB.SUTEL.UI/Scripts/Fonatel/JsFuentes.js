@@ -53,6 +53,16 @@
         },
         "CargarTablaDestinatarios": function () {
             EliminarDatasource();
+            if (JsFuentes.Variables.ListaDestinatarios.length > 0) {
+                if (JsFuentes.Variables.ListaDestinatarios[0].CantidadDisponible >= 0) {
+                    $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", true);
+                    $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", false);
+                }
+                else {
+                    $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);
+                    $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", true);
+                }
+            }
             let html = "";
             for (var i = 0; i < JsFuentes.Variables.ListaDestinatarios.length; i++) {
                 let destinatario = JsFuentes.Variables.ListaDestinatarios[i];
@@ -60,17 +70,7 @@
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + destinatario.idDetalleFuente + " title='Editar' class='btn-icon-base btn-edit'></button>";
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + destinatario.idDetalleFuente + " title='Eliminar' class='btn-icon-base btn-delete '></button></td></tr>";
                 html = html + "</tr>"
-                if (i == 0) {
-                    if (destinatario.CantidadDisponible >= 0) {
-                        $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", true);
-                        $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", false);
-                    }
-                    else {
-                        $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);
-                        $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", true);
-                    }
-                    
-                }
+               
             }
             $(JsFuentes.Controles.tabladetalle).html(html);
             CargarDatasource();
@@ -188,6 +188,20 @@
                     else {
                         //$(JsFuentes.Controles.txtidFuente).val(obj.objetoRespuesta[0].id);
                         InsertarParametroUrl("id", obj.objetoRespuesta[0].id)
+
+                        if (obj.objetoRespuesta[0].CantidadDestinatario == 0) {
+                            $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", true);
+                            $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", true);
+                        } else {
+                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
+                            if (JsFuentes.Variables.ListaDestinatarios.length == 0) {
+                                $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);
+                                $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", true);
+                            }
+                            else {
+                                JsFuentes.Metodos.CargarTablaDestinatarios();
+                            }
+                        }
                     }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {

@@ -1,6 +1,4 @@
-﻿
-
-    JsCategoria= {
+﻿    JsCategoria= {
         "Controles": {
             "FormularioCategorias": "#FormularioCategorias",
             "FormularioIndex":"#FormularioIndex",
@@ -207,7 +205,7 @@
                 else {
 
                     if ($(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Alfanumerico || $(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Texto) {
-                        if ($(JsCategoria.Controles.txtCantidadDetalleCategoria).val() == 0) {
+                        if ($(JsCategoria.Controles.txtCantidadDetalleCategoria).val() < 0) {
                             validar = false;
                             if (opcion) {
                                 $(JsCategoria.Controles.CantidadDetalleCategoriaHelp).removeClass("hidden");

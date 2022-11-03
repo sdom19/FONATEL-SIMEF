@@ -94,7 +94,7 @@
     <Compile Include="ProgramacionSolicitudes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro.cs" />
-    <Compile Include="RegistroIndicador.cs" />
+    <Compile Include="RegistroIndicadorFonatel.cs" />
     <Compile Include="ReglaAtributosValidos.cs" />
     <Compile Include="ReglaComparacionConstante.cs" />
     <Compile Include="ReglaComparacionIndicador.cs" />

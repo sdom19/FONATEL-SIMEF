@@ -1,52 +1,37 @@
 ﻿
 
+@model List<GB.SIMEF.Entities.RegistroIndicadorFonatel>
+
+@using GB.SIMEF.Resources;
 
 <div class="table-responsive table-wrapper-fonatel">
     <table id="TableRegistroIndicadorFonatel" class="dataTable datatable_simef table-bordered table-condensed table-hover">
         <thead>
             <tr>
-             
-                <th scope="col">Solicitud</th>
-                <th scope="col">Fecha Inicial</th>
-                <th scope="col">Fecha Final</th>
-                <th scope="col">Mes de Registro</th>
-                <th scope="col">Nombre del Formulario</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Llenado Web</th>
+
+                <th scope="col">@EtiquetasViewRegistroIndicadorFonatel.Solicitud</th>
+                <th scope="col">@EtiquetasViewRegistroIndicadorFonatel.FechaInicio</th>
+                <th scope="col">@EtiquetasViewRegistroIndicadorFonatel.FechaFinal</th>
+                <th scope="col">@EtiquetasViewRegistroIndicadorFonatel.MesRegistro </th>
+                <th scope="col">@EtiquetasViewRegistroIndicadorFonatel.NombreFormulario</th>
+                <th scope="col">@EtiquetasViewRegistroIndicadorFonatel.Estado</th>
+                <th scope="col">@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb</th>
             </tr>
         </thead>
         <tbody>
 
-            <tr>
-                <td>Solicitud Agosto</td>
-                <td>01/08/2022</td>
-                <td>31/08/2022</td>
-                <td>Agosto</td>
-                <th>Estado Programa Pasado</th>
-                <td>Enviado</td>
-                <td><button type="button" data-toggle="tooltip" data-placement="top" value="5" title="Llenado Web" class="btn-icon-base btn-edit-form disabled"></button>
-            </tr>
-
-            <tr>
-                <td>Solicitud Octubre</td>
-                <td>01/10/2022</td>
-                <td>31/10/2022</td>
-                <td>Octubre</td>
-                <th>Estado Programa Futuro</th>
-                <td>Pendiente</td>
-                <td><button type="button" data-toggle="tooltip" data-placement="top" value="5" title="Llenado Web" class="btn-icon-base btn-edit-form disabled"></button>
-            </tr>
-
-            <tr>
-                <td>Solicitud Septiembre</td>
-                <td>01/09/2022</td>
-                <td>30/09/2022</td>
-                <td>Septiembre</td>
-                <th>Estado Programa Presente</th>
-                <td>En proceso</td>
-                <td><button type="button" data-toggle="tooltip" data-placement="top" value="5" title="Llenado Web" class="btn-icon-base btn-edit-form"></button>
-            </tr>
-
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.FechaInicio.ToString("MM/dd/yyyy")</td>
+                    <td>@item.FechaFin.ToString("MM/dd/yyyy")</td>
+                    <td>@item.Mes</td>
+                    <th>@item.Fomulario</th>
+                    <td>@item.Estado</td>
+                    <td><button type="button" data-toggle="tooltip" data-placement="top" value="5" title=@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb class="btn-icon-base btn-edit-form disabled"></button>
+                </tr>
+            }
         </tbody>
         <tfoot>
             <tr>
@@ -56,10 +41,11 @@
                 <th class="select2-wrapper"></th>
                 <th class="select2-wrapper"></th>
                 <th></th>
+                <th></th>
             </tr>
         </tfoot>
 
-</table>
+    </table>
 </div>
 
 

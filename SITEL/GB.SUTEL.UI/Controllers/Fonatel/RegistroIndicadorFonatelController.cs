@@ -24,11 +24,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         // GET: RegistroIndicadorFonatel
 
 
+       private readonly RegistroIndicadorFonatelBL registroIndicadorBL;
+
+        public RegistroIndicadorFonatelController()
+        {
+
+            registroIndicadorBL = new RegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+        }
+
         #region Metodos de las vistas
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            RespuestaConsulta<List<RegistroIndicadorFonatel>>  model = registroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel());
+            return View(model.objetoRespuesta);
         }
 
         // GET: RegistroIndicadorFonatel/Details/5

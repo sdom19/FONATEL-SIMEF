@@ -34,7 +34,7 @@ namespace GB.SIMEF.DAL
         {
             using (db = new SIMEFContext())
             {
-                return db.Database.SqlQuery<UsuarioFonatel>("exec dbo.spCrearUsuarioSitel @IdUsuario ,@AccesoUsuario, @NombreUsuario,@Contrasena,@CorreoUsuario,@Activo,@borrado,@FONATEL",
+                return db.Database.SqlQuery<UsuarioFonatel>("exec sitel.spCrearUsuarioSitel @IdUsuario ,@AccesoUsuario, @NombreUsuario,@Contrasena,@CorreoUsuario,@Activo,@borrado,@FONATEL",
                 new SqlParameter("@IdUsuario", objUser.IdUsuario),
                 new SqlParameter("@AccesoUsuario", objUser.AccesoUsuario),
                 new SqlParameter("@NombreUsuario", objUser.NombreUsuario),

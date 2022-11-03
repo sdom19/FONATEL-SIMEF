@@ -17,7 +17,6 @@ namespace GB.SIMEF.Entities
     {
         public Registro()
         {
-            this.RegistroIndicador = new HashSet<RegistroIndicador>();
         }
 
         [Key]
@@ -33,6 +32,5 @@ namespace GB.SIMEF.Entities
         public virtual DetalleSolicitudFormulario DetalleSolicitudFormulario { get; set; }
         public virtual EstadoRegistro EstadoRegistro { get; set; }
 
-        public virtual ICollection<RegistroIndicador> RegistroIndicador { get; set; }
     }
 }
