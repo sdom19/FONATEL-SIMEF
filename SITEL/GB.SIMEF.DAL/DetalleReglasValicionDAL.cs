@@ -51,8 +51,8 @@ namespace GB.SIMEF.DAL
                     reglaComparacionConstante = ObtenerReglaContraConstante(x.IdDetalleReglaValidacion),
                     reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdDetalleReglaValidacion),
                     reglaSecuencial = ObtenerReglaSecuencial(x.IdDetalleReglaValidacion),
-                    //reglaIndicadorSalida = ObtenerReglaIndicadorSalida(x.IdDetalleReglaValidacion),
-                    //reglaIndicadorEntradaSalida = ObtenerReglaIndicadorEntradaSalida(x.IdDetalleReglaValidacion),
+                    reglaIndicadorEntradaSalida = ObtenerReglaIndicadorEntradaSalida(x.IdDetalleReglaValidacion),
+                    reglaIndicadorSalida = ObtenerReglaIndicadorSalida(x.IdDetalleReglaValidacion),
                     Estado = x.Estado
                 }).ToList();
             }
@@ -155,7 +155,7 @@ namespace GB.SIMEF.DAL
                 db.ReglaAtributosValidos.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
             if (regla != null)
             {
-                regla.IdCompara = 0;
+                regla.idAtributoString = Utilidades.Encriptar(regla.IdCategoriaAtributo.ToString());
             }
             return regla;
         }
@@ -188,8 +188,9 @@ namespace GB.SIMEF.DAL
                 db.ReglaIndicadorSalida.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
             if (regla != null)
             {
-                regla.IdCompara = 0;
+                regla.idIndicadorComparaString = Utilidades.Encriptar(regla.IdIndicador.ToString());
             }
+
             return regla;
         }
 
@@ -201,7 +202,6 @@ namespace GB.SIMEF.DAL
             {
                 regla.idIndicadorComparaString = Utilidades.Encriptar(regla.IdIndicador.ToString());
                 regla.idVariableComparaString = Utilidades.Encriptar(regla.IdDetalleIndicador.ToString());
-                regla.IdCompara = 0;
             }
             return regla;
         }
@@ -212,7 +212,8 @@ namespace GB.SIMEF.DAL
                 db.ReglaIndicadorEntradaSalida.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
             if (regla != null)
             {
-                regla.IdCompara = 0;
+                regla.idIndicadorComparaString = Utilidades.Encriptar(regla.IdIndicador.ToString());
+                regla.idVariableComparaString = Utilidades.Encriptar(regla.IdDetalleIndicador.ToString());
             }
             return regla;
         }

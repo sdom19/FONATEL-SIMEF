@@ -35,11 +35,14 @@ namespace GB.SIMEF.Entities
         public string UsuarioModificacion { get; set; }
     
         [NotMapped]
-
         public EstadoRegistro EstadoRegistro { get; set; }
 
         [NotMapped]
         public String id{ get; set; }
+
+        [NotMapped]
+        public int idCompara { get; set; }
+
 
         [NotMapped]
         public String idIndicadorVariableString { get; set; }

@@ -402,6 +402,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return JsonConvert.SerializeObject(result);
         }
+
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 03/11/2022
+        /// Metodo para pasar a un estado activo la Regla de Validacion
+        /// </summary>
+        /// <param name="regla"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CambioEstado(ReglaValidacion regla)
+        {
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<ReglaValidacion>> result = null;
+            await Task.Run(() =>
+            {
+                result = reglaBL.CambioEstado(regla);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
         #endregion
 
     }

@@ -33,7 +33,10 @@ namespace GB.SIMEF.Entities
     
         [NotMapped]
         public string id { get; set; }
-        
+
+        [NotMapped]
+        public int idCompara { get; set; }
+
         [NotMapped]
         public string idIndicadorVariableString { get; set; }
         

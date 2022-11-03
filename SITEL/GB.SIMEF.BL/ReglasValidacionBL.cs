@@ -106,7 +106,54 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<ReglaValidacion>> CambioEstado(ReglaValidacion objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Constantes.Accion.Activar;
+                int nuevoEstado = (int)Constantes.EstadosRegistro.Activo;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioModificacion = user;
+
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.idRegla = temp;
+                    }
+                }
+
+                var resul = clsDatos.ObtenerDatos(objeto).ToList();
+
+                if (resul.Count() == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+                else
+                {
+                    objeto = resul.Single();
+                    objeto.idEstado = nuevoEstado;
+                    objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
+                    resul = clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.objetoRespuesta = resul;
+                    ResultadoConsulta.CantidadRegistros = resul.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.NoRegistrosActualizar)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<ReglaValidacion>> ClonarDatos(ReglaValidacion objeto)

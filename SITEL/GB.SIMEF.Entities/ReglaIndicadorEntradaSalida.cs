@@ -26,6 +26,8 @@ namespace GB.SIMEF.Entities
 
 
         [NotMapped]
+        public string idComparaString { get; set; }
+        [NotMapped]
         public string idIndicadorComparaString { get; set; }
 
         [NotMapped]

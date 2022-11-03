@@ -75,9 +75,9 @@ namespace GB.SIMEF.BL
 
                 var resul = clsDatos.ActualizarDatos(objeto);
 
-                //objeto.IdDetalleReglaValidacion = resul.Single().IdDetalleReglaValidacion;
+                objeto.IdDetalleReglaValidacion = resul.Single().IdDetalleReglaValidacion;
 
-                //AgregarTipoDetalleReglaValidacion(objeto);
+                AgregarTipoDetalleReglaValidacion(objeto);
 
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();

@@ -12,7 +12,6 @@
         "btnEliminaTipoRegla": "#TableTipoRegla tbody tr td .btn-delete",
         "btnAddRegla": "#TableReglaDesagregacion tbody tr td .btn-add",
         "btnAtrasRegla": "#btnAtrasTipoRegla",
-        "btnSiguienteTipoSiguiente": "#btnSiguienteTipoSiguiente",
         "btnGuardarReglaTipo": "#btnGuardarReglaTipo",
         "divFormulaCambioMensual": "#divFormulaCambioMensual",
         "divFormulaContraIndicador": "#divFormulaContraIndicador",
@@ -59,7 +58,9 @@
         "FormularioDetalle": "#FormularioCrear",
         "txtModo": "#txtmodo",
         "txtidIndicadorVariableString": "#txtidIndicadorVariableString",
-        "txtidDetalleReglaValidacion":"#txtidDetalleReglaValidacion"
+        "txtidDetalleReglaValidacion": "#txtidDetalleReglaValidacion",
+        "txtidCompara": "#txtidCompara",
+        "btnFinalizar": "#btnFinalizar"
     },
 
     "Variables": {
@@ -78,11 +79,10 @@
     },
 
     "Mensajes": {
-
-        //MensajeReglaCreada = "La Regla ha sido creada",
         MensajeDetalleAgregado: "El Tipo de Regla ha sido creado",
         MensajeEliminarRegla: "La Regla ha sido eliminada",
         MensajeAgregarVariasReglas: "Recuerde que puede agregar más de una regla de validación para el indicador seleccionado",
+        MensajeReglaCreada: "La Regla ha sido creada"
     },
 
     "Metodos": {
@@ -398,30 +398,46 @@
         "CargarDetallesRegla": function (index) {
 
             if (JsReglas.Variables.ListaDetalleReglas.length > index) {
-
+                JsReglas.Variables.esModoEdicion = true;
                 JsReglas.Variables.objetoTipoRegla = JsReglas.Variables.ListaDetalleReglas[index];
-                $(JsReglas.Controles.txtidDetalleReglaValidacion).val(JsReglas.Variables.objetoTipoRegla.IdDetalleReglaValidacion);
 
+                $(JsReglas.Controles.txtidDetalleReglaValidacion).val(JsReglas.Variables.objetoTipoRegla.IdDetalleReglaValidacion);
                 $(JsReglas.Controles.ddlTipoRegla).val(JsReglas.Variables.objetoTipoRegla.IdTipo).change();
                 $(JsReglas.Controles.ddlOperadorRegla).val(JsReglas.Variables.objetoTipoRegla.IdOperador).change();
                 $(JsReglas.Controles.ddlVariableRegla).val(JsReglas.Variables.objetoTipoRegla.idIndicadorVariableString).change();
 
+                //REGLA CONTRA OTRO INDICADOR ENTRADA
                 if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada) {
+                    $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.IdCompara);
                     $(JsReglas.Controles.ddlIndicadorComparacionRegla).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.idIndicadorComparaString).change();
                     $(JsReglas.Controles.ddlVariableComparacionRegla).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.idVariableComparaString).change();
                 }
-
+                //REGLA CONTRA CONSTANTE
                 if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraConstante) {
+                    $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaComparacionConstante.idCompara);
                     $(JsReglas.Controles.txtConstanteRegla).val(JsReglas.Variables.objetoTipoRegla.reglaComparacionConstante.Constante);               
                 }
-
+                //REGLA CONTRA ATRIBUTOS VALIDOS
                 if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
+                    $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.IdCompara);
                     $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val(JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.IdCategoria).change();
-                    $(JsReglas.Controles.ddlAtributosValidosRegla).val(JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.IdCategoriaAtributo).change();
+                    $(JsReglas.Controles.ddlAtributosValidosRegla).val(JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.idAtributoString).change();
                 }
-
+                //REGLA CONTRA ACTUALIZACION SECUENCIAL
                 if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
+                    $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaSecuencial.IdCompara);
                     $(JsReglas.Controles.ddlCategoríaActualizableRegla).val(JsReglas.Variables.objetoTipoRegla.reglaSecuencial.IdCategoria).change();
+                }
+                //REGLA CONTRA INDICADOR DE SALIDA
+                if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
+                    $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorSalida.IdCompara);
+                    $(JsReglas.Controles.ddlIndicadorSalidaRegla).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorSalida.idIndicadorComparaString).change();
+                }
+                //REGLA CONTRA INDICADOR DE ENTRADA-SALIDA
+                if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
+                    $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.IdCompara);
+                    $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.idIndicadorComparaString).change();
+                    $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString).change();
                 }
             }
         },
@@ -836,7 +852,7 @@
                 objetoTipoRegla.reglaAtributosValidos.IdCategoria = $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val();
                 objetoTipoRegla.reglaAtributosValidos.idAtributoString = $(JsReglas.Controles.ddlAtributosValidosRegla).val();
             }
-            // REGLA CONTRA ACTUALIZACION SECUENCIAL
+            //REGLA CONTRA ACTUALIZACION SECUENCIAL
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
                 objetoTipoRegla.reglaSecuencial = {};
                 objetoTipoRegla.reglaSecuencial.idCategoria = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
@@ -904,33 +920,39 @@
             //REGLA CONTRA OTRO INDICADOR ENTRADA
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada) {
                 objetoTipoRegla.reglaIndicadorEntrada = {};
+                objetoTipoRegla.reglaIndicadorEntrada.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaIndicadorEntrada.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorComparacionRegla).val();
                 objetoTipoRegla.reglaIndicadorEntrada.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionRegla).val();
             }
             //REGLA CONTRA CONSTANTE
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraConstante) {
                 objetoTipoRegla.reglaComparacionConstante = {};
+                objetoTipoRegla.reglaComparacionConstante.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaComparacionConstante.Constante = $(JsReglas.Controles.txtConstanteRegla).val();
             }
             //REGLA CONTRA ATRIBUTOS VALIDOS
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
                 objetoTipoRegla.reglaAtributosValidos = {};
+                objetoTipoRegla.reglaAtributosValidos.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaAtributosValidos.IdCategoria = $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val();
                 objetoTipoRegla.reglaAtributosValidos.idAtributoString = $(JsReglas.Controles.ddlAtributosValidosRegla).val();
             }
             // REGLA CONTRA ACTUALIZACION SECUENCIAL
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
                 objetoTipoRegla.reglaSecuencial = {};
+                objetoTipoRegla.reglaSecuencial.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaSecuencial.idCategoria = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
             }
             //REGLA CONTRA INDICADOR DE SALIDA
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
                 objetoTipoRegla.reglaIndicadorSalida = {};
+                objetoTipoRegla.reglaIndicadorSalida.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaIndicadorSalida.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorSalidaRegla).val();
             }
             //REGLA CONTRA INDICADOR DE ENTRADA-SALIDA
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
                 objetoTipoRegla.reglaIndicadorEntradaSalida = {};
+                objetoTipoRegla.reglaIndicadorEntradaSalida.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaIndicadorEntradaSalida.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val();
                 objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val();
             }
@@ -954,6 +976,7 @@
                     jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeAgregarVariasReglas)
                         .set('onok', function (closeEvent) {
                             JsReglas.Metodos.LimpiarCamposDetalles();
+                            JsReglas.Variables.esModoEdicion = false;
                             if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
                                 JsReglas.Consultas.ConsultaListaDetalleReglas();
                             }
@@ -972,7 +995,21 @@
                 });
         },
 
-
+        "CambioEstado": function (IdRegla) {
+            $("#loading").fadeIn();
+            let objRegla = new Object()
+            objRegla.id = IdRegla;
+            execAjaxCall("/ReglasValidacion/CambioEstado", "POST", objRegla)
+                .then((data) => {
+                    jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeReglaCreada)
+                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/ReglasValidacion/Index" });
+                }).catch((data) => {
+                    jsMensajes.Metodos.OkAlertErrorModal()
+                        .set('onok', function (closeEvent) { location.reload(); });
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
 
     }
 }
@@ -1098,8 +1135,6 @@ $(document).on("click", JsReglas.Controles.chkAtributosValidosRegla, function ()
     }
 });
 
-//Step Tipos de Regla
-
 $(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
     e.preventDefault();
 
@@ -1122,14 +1157,12 @@ $(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
     }
 });
 
-$(document).on("click", JsReglas.Controles.btnSiguienteTipoSiguiente, function (e) {
+$(document).on("click", JsReglas.Controles.btnFinalizar, function (e) {
     e.preventDefault();
+    let id = ObtenerValorParametroUrl("id");
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La Regla ha sido agregada ")
-                .set('onok', function (closeEvent) {
-                    window.location.href = "/Fonatel/ReglasValidacion/index"
-                });
+            JsReglas.Consultas.CambioEstado(id);
         });
 });
 
@@ -1143,16 +1176,11 @@ $(document).on("click", JsReglas.Controles.btnEliminaTipoRegla, function (e) {
 
 $(document).on("click", JsReglas.Controles.btnEditTipoRegla, function (e) {
 
-
     let id = $(this).attr("data-index");
 
     JsReglas.Metodos.CargarDetallesRegla(id);
 
-
 });
-
-
-////////////////////
 
 $(document).on("change", JsReglas.Controles.ddlTipoRegla, function () {
     var selected = $(this).val();
@@ -1171,6 +1199,7 @@ $(document).on("change", JsReglas.Controles.ddlIndicadorComparacionRegla, functi
 $(document).on("change", JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida, function () {
 
     let idIndicadorString = $(this).val();
+
     if (idIndicadorString != 0) {
         JsReglas.Consultas.ConsultaVariablesDatoEntradaSalida(idIndicadorString);
     }
@@ -1192,10 +1221,12 @@ $(function () {
     }
     else if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Editar) {
         $(JsReglas.Controles.txtCodigo).prop("disabled", true);
+        $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", true);
         JsReglas.Metodos.ValidarOpcionSiguiente();
     }
     else if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Clonar) {
         JsReglas.Metodos.ValidarOpcionSiguiente();
+        $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", true);
     }
 
     if ($(JsReglas.Controles.FormularioDetalle).length > 0) {
