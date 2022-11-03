@@ -4,6 +4,7 @@ var indicador3 = null;
 var indicador4 = null;
 var contadorIndicadores = 0;
 var urlAPI = 'http://20.127.147.228:44313/api/CatalogoIndicadores/'; // Acá se cambia el url del api
+var urlAPIConsulta = 'http://20.127.147.228:44313/api/DescargaIndicadores/'; // Acá se cambia el url del api
 
 jQuery(document).ready(function () {
 
@@ -41,6 +42,8 @@ jQuery(document).ready(function () {
     jQuery('[data-toggle="offcanvas"]').click(function () {
         jQuery('#wrapper').toggleClass('toggled');
     });
+    CargarGrupos();
+    CargarTipos();
 });
 
 //Reinciar pantalla
@@ -52,23 +55,22 @@ function reiniciar() {
 function servicioChange(id) {
     debugger;
     servicioIndicador = id;
-    document.querySelector("#selectGestión").innerHTML = "";
-	document.querySelector("#selectTrafico").innerHTML = "";
-	document.querySelector("#selectGeneral").innerHTML = "";
-	document.querySelector("#selectIngreso").innerHTML = "";
-    changeTipoIndicador("Gestion");
+    // document.querySelector("#selectGestion").innerHTML = "";
+	// document.querySelector("#selectTrafico").innerHTML = "";
+	// document.querySelector("#selectGeneral").innerHTML = "";
+	// document.querySelector("#selectIngreso").innerHTML = "";
+    changeTipoIndicador(2);
 }
 
 //Change Temática
-function changeTipoIndicador(text) {
+function changeTipoIndicador(tipoIndicador) {
     //debugger;
-    jQuery("#tile-def").text(text);
-    tipoIndicador = text.trim();
-    var expresion = "#select" + tipoIndicador;
-    jQuery(".selectIndicador").hide();
-    jQuery(expresion).show();
-    //if (jQuery(expresion).val() == -1 || jQuery(expresion).val() == null || jQuery("#selectGestion")[0].value == -1 ) {
-        jQuery(expresion).empty();
+    // jQuery("#tile-def").text(text);
+    // tipoIndicador = text.trim();
+    // var expresion = "#select" + tipoIndicador;
+    // jQuery(".selectIndicador").hide();
+    // jQuery(expresion).show();
+    //     jQuery(expresion).empty();
         //Acá se cambia el url del API para temáticas
         //https://localhost:44313/api/CatalogoIndicadores/GetDefinicionXprograma?programa=P1&tipo=Gestion'
         //url= urlAPI +''
@@ -76,17 +78,13 @@ function changeTipoIndicador(text) {
          fetch(url)
             .then(res => res.json())
             .then(datos => {
-                var Servicios = document.querySelector(expresion);
+                var Servicios = document.querySelector("#selectGestion");
                 Servicios.innerHTML = '<option value="-1" selected="true">(Selecciona)</option>';
                 for (let valor of datos) {
                     var nombre = valor.nombreIndicador;
-                    //if (nombre.length > 50) {
-                    //    nombre = nombre.substring(0, 50) + "...";
-                    //}
                     Servicios.innerHTML += `<option class="optionIndicador" value="${valor.idIndicador}"> ${valor.idIndicador} - ${nombre}</option>`
                 }
             })
-    //}
 }
 
 //Buscar indicadores
@@ -159,3 +157,32 @@ jQuery(document).ready(function () {
     });
 });
 
+ //Carga los grupos en la pagina
+ function CargarGrupos() {
+    var html = "";
+    fetch(urlAPIConsulta + 'GetGrupo')
+        .then(res => res.json())
+        .then(datos => {
+            for (let valor of datos) {
+                if(valor.detalleHtml != null){
+                    html = html + valor.detalleHtml;
+                }
+            }
+            document.querySelector('#iconos').innerHTML += html
+        });
+}
+
+ //Carga los tipos en la pagina
+ function CargarTipos() {
+    var html = "";
+    fetch(urlAPIConsulta + 'GetTipo')
+        .then(res => res.json())
+        .then(datos => {
+            for (let valor of datos) {
+                if(valor.estado){
+                    html += '<li onclick="changeTipoIndicador('+valor.idTipoIdicador+');" style="text-align: center;padding-top: auto;"><a class="def-btn" style="height: 40px;margin-left: 10%;"><figure class="effect-bubba" style="height: 40px;margin-top: 0px !important;padding-top: 10px;background: #006671;">'+valor.nombre.substr(0,12)+'<figcaption class="navbar-rigth"></figcaption></figure></a></li>';
+                }
+            }
+            document.querySelector('.botonesTipo').innerHTML += html
+        });
+}

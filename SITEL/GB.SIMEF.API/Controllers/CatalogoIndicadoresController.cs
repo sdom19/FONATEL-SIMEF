@@ -28,12 +28,12 @@ namespace GB.SIMEF.API.Controllers
         [HttpGet]
         [Route("/api/CatalogoIndicadores/GetDefinicionXprograma")]
         [ProducesResponseType(typeof(List<IndicadorViewModel>), 200)]
-        public ActionResult<IEnumerable<IndicadorViewModel>> GetDefinicionXprograma(string programa, string tipo)
+        public ActionResult<IEnumerable<IndicadorViewModel>> GetDefinicionXprograma(string programa, int tipo)
         {
             //Filtro por servicio
-            var indicadores = FiltrarPrograma(programa);
+            var indicadores = ObtenerDefinicionXGrupo(Convert.ToInt32(programa));
             //Filtro por tipo
-            var indicadoresView = FiltrarTipo(indicadores, tipo);
+            var indicadoresView = FiltrarDefinicionXTipo(indicadores,tipo);
             //Devuelve lista
             return indicadoresView;
         }
@@ -130,8 +130,7 @@ namespace GB.SIMEF.API.Controllers
         {
             var indicadoresViewModel = new List<IndicadorViewModel>();           
             switch (tipo)
-            {
-                
+            {               
                 case "Gestion":
                     //Tipo Suscripción
                      indicadoresViewModel = indicadores.Where(x => x.IdTipoidicador == 2)
@@ -160,6 +159,42 @@ namespace GB.SIMEF.API.Controllers
                    //  .ToList();
                     break;
             }
+            //Retorna lista de indicadores
+            return indicadoresViewModel;
+        }
+
+        /// <summary>
+        /// Método para filtrar indicadores por grupo
+        /// </summary>
+        /// <param name="IdGrupo">Código de Grupo</param>
+        /// <returns>Lista Indicadores</returns>
+        internal List<DimDefinicionIndicador> ObtenerDefinicionXGrupo(int IdGrupo)
+        {
+            var indicadores = new List<DimDefinicionIndicador>();
+
+                    indicadores = db.DimDefinicionIndicador
+                    .Where(x => (x.Idgrupo == IdGrupo))
+                    .Select(x => new DimDefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion, IdTipoidicador = x.IdTipoidicador })
+                    .ToList();
+                    
+            //Retorna lista de indicadores
+            return indicadores;
+        }
+
+        /// <summary>
+        /// Método para filtrar Definiciones por tipo
+        /// </summary>
+        /// <param name="indicadores">Lista de Indicadores</param>
+        /// <param name="tipo">Tipo</param>
+        /// <returns>Lista de indicadores</returns>
+        internal List<IndicadorViewModel> FiltrarDefinicionXTipo(List<DimDefinicionIndicador> indicadores, int tipo)
+        {
+            var indicadoresViewModel = new List<IndicadorViewModel>();
+
+            indicadoresViewModel = indicadores.Where(x => x.IdTipoidicador == tipo)
+                       .Select(x => new IndicadorViewModel { IdIndicador = x.IdIndicador.ToString(), NombreIndicador = x.Nombre, DefinicionIndicador = x.Definicion })
+                       .ToList();
+
             //Retorna lista de indicadores
             return indicadoresViewModel;
         }

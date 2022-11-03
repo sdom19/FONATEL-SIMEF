@@ -40,7 +40,8 @@ namespace GB.SIMEF.API.Controllers
                 id = x.id,
                 Nombre = x.Nombre,
                 idGrupo = x.idGrupo,
-                Estado=x.Estado
+                Estado=x.Estado,
+                DetalleHtml = x.DetalleHtml
             }).ToList();
 
             //// para cada servicio ver si hay datos en  el cubo
