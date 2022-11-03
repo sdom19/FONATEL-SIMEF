@@ -22,15 +22,23 @@
 
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.Nombre</td>
-                    <td>@item.FechaInicio.ToString("MM/dd/yyyy")</td>
-                    <td>@item.FechaFin.ToString("MM/dd/yyyy")</td>
-                    <td>@item.Mes</td>
-                    <th>@item.Fomulario</th>
-                    <td>@item.Estado</td>
-                    <td><button type="button" data-toggle="tooltip" data-placement="top" value="5" title=@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb class="btn-icon-base btn-edit-form disabled"></button>
-                </tr>
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.FechaInicio.ToString("MM/dd/yyyy")</td>
+                <td>@item.FechaFin.ToString("MM/dd/yyyy")</td>
+                <td>@item.Mes</td>
+                <th>@item.Formulario</th>
+                <td>@item.Estado</td>
+                @if (item.IdEstado == (int)Constantes.EstadosRegistro.Activo || item.IdEstado == (int)Constantes.EstadosRegistro.EnProceso)
+                {
+                    <td><button type="button" data-toggle="tooltip" data-placement="top" value="@string.Format("?idSolicitud={0}&idFormulario={1}",item.IdSolicitudString,item.IdFormularioString)" title=@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb class="btn-icon-base btn-edit-form"></button></td>
+                }
+                else
+                {
+                    <td><button type="button" data-toggle="tooltip" data-placement="top" value="" title=@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb class="btn-icon-base btn-edit-form disabled"></button></td>
+                }
+
+            </tr>
             }
         </tbody>
         <tfoot>

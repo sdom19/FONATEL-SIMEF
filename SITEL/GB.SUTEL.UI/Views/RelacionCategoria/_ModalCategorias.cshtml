@@ -1,0 +1,37 @@
+﻿@using GB.SIMEF.Resources;
+
+<div class="modal fade modal-fonatel" data-backdrop="static" id="modalUnidadEstudio" tabindex="-1" role="dialog" aria-labelledby="Modal unidad estudio" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fonatel" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">@EtiquetasViewIndicadorFonatel.TituloModalUnidadEstudio</h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive table-wrapper-fonatel" >
+                    <table id="tableModalUnidadEstudio" class="dataTable datatable_simef table-bordered table-condensed table-hover no-footer">
+                        <thead>
+                            <tr>
+                                <th scope="col">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio</th>
+                                <th scope="col">@Etiquetas.Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*<tr>
+                                <td>Prueba</td>
+                                <td>
+                                    <button type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete "></button>
+                                </td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+               
+            </div>
+            <div class="modal-footer">
+            
+            </div>
+        </div>
+    </div>
+</div>

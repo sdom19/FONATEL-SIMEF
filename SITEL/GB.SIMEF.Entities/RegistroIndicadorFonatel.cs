@@ -36,11 +36,23 @@ namespace GB.SIMEF.Entities
         public System.DateTime FechaFin { get; set; }
         public int IdFuente { get; set; }
         public string Mensaje { get; set; }
-        public string Fomulario { get; set; }
+        public string Formulario { get; set; }
         public int IdEstado { get; set; }
         public string Estado { get; set; }
 
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
+
+
+        [NotMapped]
+        public bool RangoFecha { get; set; }
+        [NotMapped]
+        public List<DetalleRegistroIndcadorFonatel> DetalleRegistroIndcadorFonatel { get; set; }
+
+        [NotMapped]
+        public string IdSolicitudString { get; set; }
+        [NotMapped]
+        public string IdFormularioString { get; set; }
+
     }
 }

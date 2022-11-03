@@ -37,9 +37,29 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
-            RespuestaConsulta<List<RegistroIndicadorFonatel>>  model = registroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel());
+            RespuestaConsulta<List<RegistroIndicadorFonatel>> model = registroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel()
+            {
+                RangoFecha = true
+            });
             return View(model.objetoRespuesta);
         }
+
+
+
+
+        [HttpGet]
+        public ActionResult Create(string idSolicitud, string idFormulario)
+        {
+            RespuestaConsulta<List<RegistroIndicadorFonatel>> model = registroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel()
+            {
+                IdFormularioString=idFormulario,
+                IdSolicitudString=idSolicitud,
+            });
+            return View(model.objetoRespuesta.Single());
+        }
+
+
+
 
         // GET: RegistroIndicadorFonatel/Details/5
         [HttpGet]
@@ -48,27 +68,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Create(int? id, int? modo)
-        {
-            return View();
-
-        }
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         #endregion
 

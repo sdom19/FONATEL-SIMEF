@@ -33,6 +33,16 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
+                if (!string.IsNullOrEmpty(objeto.IdFormularioString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.IdFormularioString), out int temp );
+                    objeto.IdFormulario = temp;
+                }
+                if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.IdSolicitudString), out int temp);
+                    objeto.IdSolicitud = temp;
+                }
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();

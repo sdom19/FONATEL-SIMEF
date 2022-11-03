@@ -19,7 +19,6 @@ namespace GB.SIMEF.Entities
         public int IdDetalleRegistroindicador { get; set; }
         public int IdRegistroIndicador { get; set; }
         public int Valor { get; set; }
-    
         public virtual DetalleIndicadorVariables DetalleIndicadorVariables { get; set; }
     }
 }

@@ -26,20 +26,52 @@ namespace GB.SIMEF.DAL
             {
 
                 ListaRegistroIndicadorFonatel = db.Database.SqlQuery<RegistroIndicadorFonatel>
-                    ("execute sitel.spObtenerRegistroIndicadorFonatel @idFuente, @idEstado",
-                     new SqlParameter("@idFuente", objRegistroIndicadorFonatel.IdFuente),
-                     new SqlParameter("@idEstado", objRegistroIndicadorFonatel.IdEstado)
+                    ("execute sitel.spObtenerRegistroIndicadorFonatel @IdSolicitud,@IdFormulario,@idFuente, @idEstado, @RangoFecha",
+                     new SqlParameter("@IdSolicitud", objRegistroIndicadorFonatel.IdSolicitud),
+                     new SqlParameter("@IdFormulario", objRegistroIndicadorFonatel.IdFormulario),
+                     new SqlParameter("@IdFuente", objRegistroIndicadorFonatel.IdFuente),
+                     new SqlParameter("@IdEstado", objRegistroIndicadorFonatel.IdEstado),
+                     new SqlParameter("@RangoFecha", objRegistroIndicadorFonatel.RangoFecha)
                     ).ToList();
+                ListaRegistroIndicadorFonatel=ListaRegistroIndicadorFonatel.Select(x=>new RegistroIndicadorFonatel() { 
+                    Codigo=x.Codigo,
+                    IdSolicitud=x.IdSolicitud,
+                    Mensaje=x.Mensaje,
+                    Nombre=x.Nombre,
+                    FechaInicio=x.FechaInicio,
+                    FechaFin=x.FechaFin,
+                    Formulario=x.Formulario,
+                    IdFormulario=x.IdFormulario,
+                    Mes=x.Mes,
+                    Estado=x.Estado,
+                    IdEstado=x.IdEstado,
+                    FechaModificacion=x.FechaModificacion,
+                    UsuarioModificacion=x.UsuarioModificacion,
+                    IdAnno=x.IdAnno,
+                    Anno=x.Anno,
+                    IdMes=x.IdMes,
+                    IdFuente=x.IdFuente,
+                    IdSolicitudString=Utilidades.Encriptar(x.IdSolicitud.ToString()),
+                    IdFormularioString = Utilidades.Encriptar(x.IdFormulario.ToString()),
+                    DetalleRegistroIndcadorFonatel =ObtenerDatoDetalleRegistroIndicador(x.IdSolicitud, x.IdFormulario)
+                
+                }).ToList();
+
             }
             return ListaRegistroIndicadorFonatel;
         }
-        private FuentesRegistro ObtenerFuente(int id)
-        {
-            FuentesRegistro fuente = db.FuentesRegistro.Where(i => i.idFuente == id).Single();
-            fuente.DetalleFuentesRegistro = db.DetalleFuentesRegistro.Where(i => i.idFuente == id).ToList();
-            return fuente;
-        }
 
+
+        public List<DetalleRegistroIndcadorFonatel> ObtenerDatoDetalleRegistroIndicador(int idSolicitud, int idFormulario)
+        {
+            List<DetalleRegistroIndcadorFonatel> ListaRegistroIndicadorFonatel = new List<DetalleRegistroIndcadorFonatel>();
+            ListaRegistroIndicadorFonatel = db.Database.SqlQuery<DetalleRegistroIndcadorFonatel>
+                    ("execute sitel.spObtenerDetalleRegistroIndicadorFonatel   @idSolicitud, @idFormulario",
+                     new SqlParameter("@idSolicitud", idSolicitud),
+                      new SqlParameter("@idFormulario", idFormulario)
+                    ).ToList();
+            return ListaRegistroIndicadorFonatel;
+        }
 
 
 

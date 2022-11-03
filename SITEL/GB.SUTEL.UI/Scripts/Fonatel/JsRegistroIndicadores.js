@@ -99,8 +99,9 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCarga, function 
 });
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnllenadoweb, function () {
-    let id = 1;
-    window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create?id=" + id;
+    let id = $(this).val();
+
+    window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create" + id;
 });
 
 //DESCARGAR EXCEL

@@ -53,6 +53,7 @@
     <Compile Include="DatoHistorico.cs" />
     <Compile Include="DetalleDatoHistoricoFila.cs" />
     <Compile Include="DetalleDatoHistoricoColumna.cs" />
+    <Compile Include="DetalleRegistroIndcadorFonatel.cs" />
     <Compile Include="DetalleReglaValidacion.cs" />
     <Compile Include="EstadoLogico.cs" />
     <Compile Include="PlantillaHtml.cs" />
