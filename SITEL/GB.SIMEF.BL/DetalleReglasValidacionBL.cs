@@ -271,9 +271,18 @@ namespace GB.SIMEF.BL
                     break;
                
                 case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
-                    DesencriptarReglaAtributosValidos(objeto);
-                    objeto.reglaAtributosValidos.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
-                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
+                    List<string> listaAtributos = objeto.reglaAtributosValidos.idAtributoString.Split(',').ToList();
+
+                    foreach (var item in listaAtributos)
+                    {
+                        objeto.reglaAtributosValidos.idAtributoString = item;
+                        DesencriptarReglaAtributosValidos(objeto);
+                        objeto.reglaAtributosValidos.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
+                        clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
+                    }
+
+
+                 
                     break;
 
                 case (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial:

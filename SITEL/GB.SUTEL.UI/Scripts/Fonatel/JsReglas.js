@@ -465,7 +465,7 @@
 
             execAjaxCall("/ReglasValidacion/InsertarReglaValidacion", "POST", objetoRegla)
                 .then((obj) => {
-
+                    
                     jsMensajes.Metodos.OkAlertModal("La Regla ha sido creada")
                             .set('onok', function (closeEvent) {
                                 window.location.href = "/Fonatel/ReglasValidacion/Index";
@@ -496,6 +496,7 @@
             execAjaxCall("/ReglasValidacion/InsertarReglaValidacion", "POST", objetoRegla)
                 .then((obj) => {
                     $("a[href='#step-2']").trigger('click');
+                    InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -560,6 +561,74 @@
                     } else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) { });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "ClonarReglaValidacion": function () {
+
+            $("#loading").fadeIn();
+
+            let Regla = new Object();
+
+            let id = ObtenerValorParametroUrl("id");
+            Regla.id = id;
+
+            Regla.Codigo = $(JsReglas.Controles.txtCodigo).val();
+            Regla.Nombre = $(JsReglas.Controles.txtNombre).val();
+            Regla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
+            Regla.Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val();
+
+
+            execAjaxCall("/ReglasValidacion/ClonarRegla", "POST", Regla)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Regla ha sido creada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/Fonatel/ReglasValidacion/Index";
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "ClonarReglaValidacionParcial": function () {
+
+            $("#loading").fadeIn();
+
+            let Regla = new Object();
+
+            let id = ObtenerValorParametroUrl("id");
+            Regla.id = id;
+
+            Regla.Codigo = $(JsReglas.Controles.txtCodigo).val();
+            Regla.Nombre = $(JsReglas.Controles.txtNombre).val();
+            Regla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
+            Regla.Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val();
+
+
+            execAjaxCall("/ReglasValidacion/ClonarRegla", "POST", Regla)
+                .then((obj) => {
+                    InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
+                    $("a[href='#step-2']").trigger('click');
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
                     $("#loading").fadeOut();
@@ -850,7 +919,7 @@
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
                 objetoTipoRegla.reglaAtributosValidos = {};
                 objetoTipoRegla.reglaAtributosValidos.IdCategoria = $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val();
-                objetoTipoRegla.reglaAtributosValidos.idAtributoString = $(JsReglas.Controles.ddlAtributosValidosRegla).val();
+                objetoTipoRegla.reglaAtributosValidos.idAtributoString = $(JsReglas.Controles.ddlAtributosValidosRegla).val().toString();
             }
             //REGLA CONTRA ACTUALIZACION SECUENCIAL
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
@@ -878,7 +947,7 @@
 
             execAjaxCall("/ReglasValidacion/InsertarDetalleRegla", "POST", objetoTipoRegla)
 
-            new Promise((resolve, reject) => {
+            new Promise((resolve) => {
                 jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleAgregado)
                     .set('onok', function (closeEvent) {
                         resolve(true);
@@ -1030,18 +1099,20 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
                     JsReglas.Consultas.EditarReglaValidacion();
                })
                 .set('oncancel', function (closeEvent) {
+                    JsReglas.Metodos.ValidarControles();
                 });
 
         } else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
             jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
+                    JsReglas.Consultas.ClonarReglaValidacion();
                 })
                 .set('oncancel', function (closeEvent) {
+                    JsReglas.Metodos.ValidarControles();
                 });
 
         }
         else {
-
             jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsReglas.Consultas.InsertarReglaValidacion();
@@ -1080,10 +1151,10 @@ $(document).on("click", JsReglas.Controles.btnSiguienteRegla, function (e) {
 
         } else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
 
-            //if (JsReglas.Consultas.ValidarControles()) {
+            if (JsReglas.Metodos.ValidarControles()) {
 
-            //    JsReglas.Metodos.ClonarSolicitudParcial();
-            //}
+                JsReglas.Consultas.ClonarReglaValidacionParcial();
+            }
             
             JsReglas.Consultas.ConsultaVariablesDato(idIndicadorString);
         }
