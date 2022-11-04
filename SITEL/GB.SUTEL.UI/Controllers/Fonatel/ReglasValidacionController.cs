@@ -19,8 +19,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region Variables Públicas del controller
         private readonly ReglaValidacionBL reglaBL;
         private readonly DetalleReglaValidacionBL detalleReglaBL;
-
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
+        private readonly DetalleCategoriasTextoBL detalleCategoriasTextoBL;
         private readonly IndicadorFonatelBL indicadorfonatelBL;
         private readonly TipoReglaValidacionBL TipoReglasBL;
         private readonly OperadorArismeticoBL OperadoresBL;
@@ -42,6 +42,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             TipoReglasBL = new TipoReglaValidacionBL();
             OperadoresBL = new OperadorArismeticoBL();
             DetalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(modulo, user);
+            detalleCategoriasTextoBL = new DetalleCategoriasTextoBL(modulo, user);
 
         }
 
@@ -54,6 +55,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Detalle(string idregla)
         {
+
             if (string.IsNullOrEmpty(idregla))
             {
                 return View("Index");
@@ -77,6 +79,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             var ListadoIndicador = indicadorfonatelBL
                 .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
+            var ListadoIndicadorSalida = indicadorfonatelBL
+                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 2 }).objetoRespuesta;
+
+            var ListadoIndicadorEntradaSalida = indicadorfonatelBL
+                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 3 }).objetoRespuesta;
+
+            var ListadoIndicadorEntrada = indicadorfonatelBL
+                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 4 }).objetoRespuesta;
+
             var listadoCategoria = categoriasDesagregacionBL
                .ObtenerDatos(new CategoriasDesagregacion() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
@@ -94,22 +105,27 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.ListaOperadores =
                 OperadoresBL.ObtenerDatos(new OperadorArismetico()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.IdOperador.ToString(), Text = x.Nombre }).ToList();
 
-            ViewBag.ListaIndicadoresVariable =
-                DetalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = x.NombreVariable }).ToList();
-
             ViewBag.ListaIndicadores =
-                        ListadoIndicador.Select(x => new SelectListItem() { Selected = false, Value = Utilidades.Desencriptar(x.id), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
-            
+                        ListadoIndicador.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+
             ViewBag.ListaIndicadoresSalida =
-                       ListadoIndicador.Where(x => int.Parse(Utilidades.Desencriptar(x.ClasificacionIndicadores.id)) == (int)Constantes.ClasificacionIndicadorEnum.Salida).Select(x => new SelectListItem() { Selected = false, Value = Utilidades.Desencriptar(x.id), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                        ListadoIndicadorSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+
+            ViewBag.ListaIndicadoresEntradaSalida =
+                        ListadoIndicadorEntradaSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+
+            ViewBag.ListaIndicadoresEntrada =
+                        ListadoIndicadorEntrada.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
             ViewBag.Modo = modo.ToString();
 
             ReglaValidacion objregla = new ReglaValidacion();
+
             if (!string.IsNullOrEmpty(id))
             {
                 objregla.id = id;
                 objregla = reglaBL.ObtenerDatos(objregla).objetoRespuesta.SingleOrDefault();
+
                 if (modo == (int)Constantes.Accion.Clonar)
                 {
                     ViewBag.titulo = EtiquetasViewReglasValidacion.Clonar;
@@ -153,8 +169,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View("Create", objDetalle);
         }
 
-
-
         #region Metodos Async
 
         /// <summary>
@@ -194,6 +208,52 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         /// <summary>
+        /// Autor: Francisco Vindas
+        /// Fecha: 27/10/2022
+        /// Metodo para obtener las variables dato de cada Indicador
+        /// </summary>
+        /// <param name="idIndicadorString"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaVariablesDato(string idIndicadorString)
+        {
+            RespuestaConsulta<List<DetalleIndicadorVariables>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = DetalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
+                {
+                    idIndicadorString = idIndicadorString 
+                });
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Autor: Francisco Vindas
+        /// Fecha: 01/11/2022
+        /// Metodo para obtener los detalles de la Categoria
+        /// </summary>
+        /// <param name="idCategoria"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesCategoria(int idCategoria)
+        {
+            RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = detalleCategoriasTextoBL.ObtenerDatos(new DetalleCategoriaTexto()
+                {
+                    idCategoria = idCategoria
+                });
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
         /// Validar si el regla está en un indicador
         /// Michael Hernandez Cordero
         /// </summary>
@@ -217,26 +277,46 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         /// <summary>
-        /// Creación de la regla
+        /// Autor:Francisco Vindas Ruiz
+        /// Fecha: 27/10/2022
+        /// Crea la Regla de validacion
         /// </summary>
         /// <param name="objetoRegla"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> AgregarRegla(ReglaValidacion objetoRegla)
+        public async Task<string> InsertarReglaValidacion(ReglaValidacion objeto)
         {
             user = User.Identity.GetUserId();
             RespuestaConsulta<List<ReglaValidacion>> result = null;
             await Task.Run(() =>
             {
-                if (string.IsNullOrEmpty(objetoRegla.id))
-                {
-                    result = reglaBL.InsertarDatos(objetoRegla);
-                }
-                else
-                {
-         
-                    result = reglaBL.ActualizarElemento(objetoRegla);
-                }
+                    result = reglaBL.InsertarDatos(objeto);               
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha: 27/10/2022
+        /// Autor: Francisco Vindas
+        /// Metodo para editar una regla de validacion 
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EditarReglaValidacion(ReglaValidacion objeto)
+        {
+
+            user = User.Identity.GetUserId();
+            objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+
+            RespuestaConsulta<List<ReglaValidacion>> result = null;
+
+            await Task.Run(() =>
+            {
+                objeto.UsuarioCreacion = user;
+
+                result = reglaBL.ActualizarElemento(objeto);
 
             });
 
@@ -249,22 +329,37 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="objetoTipoRegla"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> AgregarDetalleRegla(DetalleReglaValidacion objetoTipoRegla)
+        public async Task<string> InsertarDetalleRegla(DetalleReglaValidacion objetoTipoRegla)
         {
             user = User.Identity.GetUserId();
+
             RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
+
             await Task.Run(() =>
             {
-                if (objetoTipoRegla.IdReglasValidacionTipo == 0)
-                {
                     result = detalleReglaBL.InsertarDatos(objetoTipoRegla);
-                }
-                else
-                {
-                    //objetoTipoRegla.UsuarioModificacion = user;
-                    result = detalleReglaBL.ActualizarElemento(objetoTipoRegla);
-                }
+            });
 
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 02-11-2022
+        /// Editar el detalle de la regla de validación
+        /// </summary>
+        /// <param name="objetoTipoRegla"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EditarDetalleRegla(DetalleReglaValidacion objetoTipoRegla)
+        {
+            user = User.Identity.GetUserId();
+
+            RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
+
+            await Task.Run(() =>
+            {
+               result = detalleReglaBL.ActualizarElemento(objetoTipoRegla);
             });
 
             return JsonConvert.SerializeObject(result);
@@ -297,10 +392,32 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public async Task<string> EliminarDetalleRegla(DetalleReglaValidacion detalleRegla)
         {
             user = User.Identity.GetUserId();
+
             RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
+
             await Task.Run(() =>
             {
                 result = detalleReglaBL.EliminarElemento(detalleRegla);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 03/11/2022
+        /// Metodo para pasar a un estado activo la Regla de Validacion
+        /// </summary>
+        /// <param name="regla"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CambioEstado(ReglaValidacion regla)
+        {
+            user = User.Identity.GetUserId();
+            RespuestaConsulta<List<ReglaValidacion>> result = null;
+            await Task.Run(() =>
+            {
+                result = reglaBL.CambioEstado(regla);
             });
 
             return JsonConvert.SerializeObject(result);

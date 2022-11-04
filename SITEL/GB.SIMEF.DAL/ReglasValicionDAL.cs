@@ -37,6 +37,7 @@ namespace GB.SIMEF.DAL
                 ListaCategoriaDetalle = ListaCategoriaDetalle.Select(x => new ReglaValidacion()
                 {
                     id = Utilidades.Encriptar(x.idRegla.ToString()),
+                    idIndicadorString = Utilidades.Encriptar(x.idIndicador.ToString()),
                     idRegla = x.idRegla,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,

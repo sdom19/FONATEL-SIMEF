@@ -13,18 +13,6 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.DetalleReglaValidacion)
-            {
-                <tr>
-                    <td>@item.reglaValidacion.Nombre</td>
-                    <td>@item.tipoReglaValidacion.Nombre</td>
-                    <td>@item.operadorArismetico.Nombre</td>
-                    <td>
-                        <button type="button" value="2" data-toggle="tooltip" data-placement="top" title="Editar" class="btn-icon-base btn-edit"></button>
-                        <button type="button" value="3" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                    </td>
-                </tr>
-            }
         </tbody>
     </table>
 </div>

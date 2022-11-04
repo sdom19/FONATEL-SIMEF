@@ -36,19 +36,17 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaReglaComparacionConstante = db.Database.SqlQuery<ReglaComparacionConstante>
-                ("execute spActualizarReglaComparacionConstante @IdCompara,@Constante,@idvariable,@IdDetalleReglaValidacion",
+                ("execute spActualizarReglaComparacionConstante @IdCompara,@IdDetalleReglaValidacion,@Constante",
                     new SqlParameter("@IdCompara", pReglaComparacionConstante.idCompara),
-                    new SqlParameter("@Constante", pReglaComparacionConstante.Constante),
-                    new SqlParameter("@idvariable", pReglaComparacionConstante.idvariable),
-                    new SqlParameter("@IdDetalleReglaValidacion", pReglaComparacionConstante.IdDetalleReglaValidacion)
+                    new SqlParameter("@IdDetalleReglaValidacion", pReglaComparacionConstante.IdDetalleReglaValidacion),
+                    new SqlParameter("@Constante", pReglaComparacionConstante.Constante)
                 ).ToList();
 
                 ListaReglaComparacionConstante = ListaReglaComparacionConstante.Select(X => new ReglaComparacionConstante
                 {
                     idCompara = X.idCompara,
-                    Constante = X.Constante,
-                    idvariable = X.idvariable,
-                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion
+                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
+                    Constante = X.Constante
 
                 }).ToList();
 

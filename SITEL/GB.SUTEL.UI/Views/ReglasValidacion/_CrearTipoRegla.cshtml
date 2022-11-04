@@ -1,6 +1,9 @@
 ﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.ReglaValidacion
 
-
+@Html.HiddenFor(model => model.idIndicadorVariableString, new { id = "txtIndicadorVariableString" })
+@Html.HiddenFor(model => model.idDetalleReglaValidacion, new { id = "txtidDetalleReglaValidacion" })
+@Html.HiddenFor(model => model.idCompara, new { id = "txtidCompara" })
 <div class="row">
     <div class="col-md-6 col-sm-12">
         <div class="form-group center">
@@ -24,7 +27,9 @@
         <div class="form-group center">
             <label for="ddlVariableRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Variable</label>
             <div class="select2-wrapper">
-                @Html.DropDownList("ddlVariableRegla", new SelectList(ViewBag.ListaIndicadoresVariable, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlVariableRegla" })
+                <select class="listasDesplegables" id="ddlVariableRegla">
+                    <option></option>
+                </select>
             </div>
             <small id="VariableHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
         </div>
@@ -32,7 +37,7 @@
         <div class="hidden" id="divFormulaContraConstante">
             <div class="form-group center">
                 <label for="txtConstanteRegla" class="col-form-label">@EtiquetasViewReglasValidacion.ValorConstante</label>
-                <input type="text" class="form-control form-control-fonatel  " id="txtConstanteRegla" placeholder="Constante">
+                <input type="number" class="form-control form-control-fonatel" id="txtConstanteRegla" placeholder="Constante">
                 <small id="txtConstanteReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
@@ -41,18 +46,16 @@
             <div class="form-group center">
                 <label for="ddlIndicadorComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.IndicadorComparacion</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownList("ddlIndicadorComparacionRegla", new SelectList(ViewBag.ListaIndicadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorComparacionRegla" })
+                    @Html.DropDownList("ddlIndicadorComparacionRegla", new SelectList(ViewBag.ListaIndicadoresEntrada, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorComparacionRegla" })
                 </div>
                 <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group center">
                 <label for="ddlVariableComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Comparacion</label>
-                <div class="select2-wrapper">   
+                <div class="select2-wrapper">
                     <select class="listasDesplegables" id="ddlVariableComparacionRegla">
                         <option></option>
-                        <option value="1">Cantidad Torres</option>
-                        <option value="2">Estado de Torres</option>
                     </select>
                 </div>
                 <small id="ddlVariableComparacionReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
@@ -72,12 +75,8 @@
                 <label for="ddlAtributosValidosRegla" class="col-form-label">@EtiquetasViewReglasValidacion.AtributosValidos</label>
                 <div class="select2-wrapper">
                     <select multiple class="listasDesplegables multiple-Select" id="ddlAtributosValidosRegla">
-                        <option value="all">Todos</option>
-                        <option value="1">Provincia</option>
-                        <option value="2">Cantón</option>
-                        <option value="2">Distrito</option>
                     </select>
-                </div>                
+                </div>
                 <small id="ddlAtributosValidosReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
@@ -101,6 +100,27 @@
                 <small id="ddlIndicadorSalidaReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
+
+        <div class="hidden" id="divFormulaContraIndicadorEntradaSalida">
+            <div class="form-group center">
+                <label for="ddlIndicadorComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.IndicadorComparacion</label>
+                <div class="select2-wrapper">
+                    @Html.DropDownList("ddlIndicadorComparacionReglaEntradaSalida", new SelectList(ViewBag.ListaIndicadoresEntradaSalida, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorComparacionReglaEntradaSalida" })
+                </div>
+                <small id="ddlIndicadorComparacionHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+
+            <div class="form-group center">
+                <label for="ddlVariableComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Comparacion</label>
+                <div class="select2-wrapper">
+                    <select class="listasDesplegables" id="ddlVariableComparacionReglaEntradaSalida">
+                        <option></option>
+                    </select>
+                </div>
+                <small id="ddlVariableComparacionReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+
     </div>
 </div>
 

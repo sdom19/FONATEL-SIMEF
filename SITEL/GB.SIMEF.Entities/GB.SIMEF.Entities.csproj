@@ -98,7 +98,6 @@
     <Compile Include="RegistroIndicadorFonatel.cs" />
     <Compile Include="ReglaAtributosValidos.cs" />
     <Compile Include="ReglaComparacionConstante.cs" />
-    <Compile Include="ReglaComparacionIndicador.cs" />
     <Compile Include="ReglaSecuencial.cs" />
     <Compile Include="ReglaValidacion.cs" />
     <Compile Include="RelacionCategoria.cs" />
