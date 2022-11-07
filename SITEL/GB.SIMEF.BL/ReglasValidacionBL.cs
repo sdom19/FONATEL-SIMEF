@@ -161,6 +161,58 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+        public RespuestaConsulta<ReglaValidacion> ClonarDetallesReglas(string pIdReglaAClonar, string pIdReglaDestino)
+        {
+            RespuestaConsulta<ReglaValidacion> resultado = new RespuestaConsulta<ReglaValidacion>();
+
+            int IdReglaAClonar, IdReglaDestino;
+            bool errorControlado = false;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pIdReglaAClonar), out int number);
+                IdReglaAClonar = number;
+
+                if (IdReglaAClonar == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                int.TryParse(Utilidades.Desencriptar(pIdReglaDestino), out number);
+                IdReglaDestino = number;
+
+                if (IdReglaDestino == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                clsDatos.ClonarDetallesReglas(IdReglaAClonar, IdReglaDestino);
+
+                resultado.objetoRespuesta = new ReglaValidacion() { id = pIdReglaDestino };
+
+                resultado.Usuario = user;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Clonar;
+
+                clsDatos.RegistrarBitacora(resultado.Accion,
+                resultado.Usuario, resultado.Clase, pIdReglaDestino.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+
+            return resultado;
+        }
+
         public RespuestaConsulta<List<ReglaValidacion>> EliminarElemento(ReglaValidacion objeto)
         {
             try

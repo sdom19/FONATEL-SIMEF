@@ -130,6 +130,28 @@ namespace GB.SIMEF.DAL
             }
         }
 
+        /// <summary>
+        /// 07/11/2022
+        /// Francisco Vindas Ruiz
+        /// Función que clona los detalles de las reglas
+        /// </summary>
+        /// <param name="pIdReglaAClonar"></param>
+        /// <param name="pIdReglaDestino"></param>
+        /// <returns></returns>
+        public bool ClonarDetallesReglas(int pIdReglaAClonar, int pIdReglaDestino)
+        {
+            using (db = new SIMEFContext())
+            {
+                db.Database.SqlQuery<object>
+                    ("execute spClonarDetallesReglas @pIdReglaAClonar, @pIdReglaDestino",
+                     new SqlParameter("@pIdReglaAClonar", pIdReglaAClonar),
+                     new SqlParameter("@pIdReglaDestino", pIdReglaDestino)
+                    ).ToList();
+            }
+
+            return true;
+        }
+
         #endregion
     }
 }

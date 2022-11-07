@@ -388,24 +388,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             objeto.id = string.Empty;
             objeto.idRegla = 0;
 
-            string creacionRegla = await InsertarReglaValidacion(objeto); // reutilizar la función de crear para registrar el nueva Solicitud
+            string creacionRegla = await InsertarReglaValidacion(objeto); // reutilizar la función de crear para registrar el nueva regla
             RespuestaConsulta<List<ReglaValidacion>> ReglaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<ReglaValidacion>>>(creacionRegla);
 
-            if (ReglaDeserializado.HayError != (int)Error.NoError) // se creó la solicitud correctamente?
+            if (ReglaDeserializado.HayError != (int)Error.NoError) // se creó la regla correctamente?
             {
                 return creacionRegla;
             }
 
-            //RespuestaConsulta<ReglaValidacion> resultado = new RespuestaConsulta<ReglaValidacion>();
+            RespuestaConsulta<ReglaValidacion> resultado = new RespuestaConsulta<ReglaValidacion>();
 
-            //await Task.Run(() =>
-            //{
-            //    // se envia el id del indicador a clonar y el id de la Solicitud creado anteriormente
-            //    resultado = SolicitudesBL.ClonarDetallesDeSolicitudes(idSolicitudAClonar, SolicitudDeserializado.objetoRespuesta[0].id);
-            //});
+            await Task.Run(() =>
+            {
+                resultado = reglaBL.ClonarDetallesReglas(idReglaAClonar, ReglaDeserializado.objetoRespuesta[0].id);
+            });
 
 
-            return JsonConvert.SerializeObject(ReglaDeserializado);
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>

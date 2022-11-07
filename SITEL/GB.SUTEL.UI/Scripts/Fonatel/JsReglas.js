@@ -687,7 +687,7 @@
             objRegla.idDetalleReglaString = idDetalleRegla;
             execAjaxCall("/ReglasValidacion/EliminarDetalleRegla", "POST", objRegla)
                 .then((data) => {
-                    jsMensajes.Metodos.OkAlertModal("La Tipo de Regla ha sido eliminado")
+                    jsMensajes.Metodos.OkAlertModal("El Tipo de Regla ha sido eliminado")
                         .set('onok', function (closeEvent) {
 
                             JsReglas.Metodos.LimpiarCamposDetalles();
