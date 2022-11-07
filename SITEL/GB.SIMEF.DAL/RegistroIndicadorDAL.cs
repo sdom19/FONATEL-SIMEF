@@ -53,7 +53,7 @@ namespace GB.SIMEF.DAL
                     IdFuente=x.IdFuente,
                     IdSolicitudString=Utilidades.Encriptar(x.IdSolicitud.ToString()),
                     IdFormularioString = Utilidades.Encriptar(x.IdFormulario.ToString()),
-                    DetalleRegistroIndcadorFonatel =ObtenerDatoDetalleRegistroIndicador(x.IdSolicitud, x.IdFormulario)
+                    DetalleRegistroIndcadorFonatel =ObtenerDatoDetalleRegistroIndicador( new DetalleRegistroIndicadorCategoriaFonatel() { IdSolicitud = x.IdSolicitud, IdFormulario = x.IdFormulario })
                 
                 }).ToList();
 
@@ -62,14 +62,32 @@ namespace GB.SIMEF.DAL
         }
 
 
-        public List<DetalleRegistroIndcadorFonatel> ObtenerDatoDetalleRegistroIndicador(int idSolicitud, int idFormulario)
+        public List<DetalleRegistroIndicadorFonatel> ObtenerDatoDetalleRegistroIndicador(DetalleRegistroIndicadorCategoriaFonatel pDetalleRegistroIndicadorCategoria)
         {
-            List<DetalleRegistroIndcadorFonatel> ListaRegistroIndicadorFonatel = new List<DetalleRegistroIndcadorFonatel>();
-            ListaRegistroIndicadorFonatel = db.Database.SqlQuery<DetalleRegistroIndcadorFonatel>
-                    ("execute sitel.spObtenerDetalleRegistroIndicadorFonatel   @idSolicitud, @idFormulario",
-                     new SqlParameter("@idSolicitud", idSolicitud),
-                      new SqlParameter("@idFormulario", idFormulario)
+
+            List<DetalleRegistroIndicadorFonatel> ListaRegistroIndicadorFonatel = new List<DetalleRegistroIndicadorFonatel>();
+            ListaRegistroIndicadorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorFonatel>
+                    ("execute sitel.spObtenerDetalleRegistroIndicadorFonatel   @idSolicitud, @idFormulario, @idIndicador",
+                     new SqlParameter("@idSolicitud", pDetalleRegistroIndicadorCategoria. IdSolicitud),
+                      new SqlParameter("@idFormulario", pDetalleRegistroIndicadorCategoria. IdFormulario),
+                      new SqlParameter("@idIndicador", pDetalleRegistroIndicadorCategoria.IdIndicador)
                     ).ToList();
+            ListaRegistroIndicadorFonatel = ListaRegistroIndicadorFonatel.Select(x => new DetalleRegistroIndicadorFonatel()
+            {
+                IdFormulario=x.IdFormulario,
+                IdIndicador=x.IdIndicador,
+                IdDetalleRegistroIndicador=x.IdDetalleRegistroIndicador,
+                NombreIndicador=x.NombreIndicador,
+                NotasEncargado=x.NotasEncargado,
+                NotasInformante=x.NotasInformante,
+                CantidadFilas=x.CantidadFilas,
+                CodigoIndicador=x.CodigoIndicador,
+                TituloHojas=x.TituloHojas,
+                IdSolicitud=x.IdSolicitud,
+                IdFormularioString=Utilidades.Encriptar(x.IdFormulario.ToString()),
+                IdIndicadorString=Utilidades.Encriptar(x.IdIndicador.ToString()),
+                IdSolicitudString=Utilidades.Encriptar(x.IdSolicitud.ToString())
+            }).ToList();
             return ListaRegistroIndicadorFonatel;
         }
 

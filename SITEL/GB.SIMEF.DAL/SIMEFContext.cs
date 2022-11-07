@@ -46,7 +46,7 @@ namespace GB.SIMEF.DAL
         
         
         
-        public virtual DbSet<DetalleRegistroIndcadorFonatel> DetalleRegistroIndcadorFonatel { get; set; }
+        public virtual DbSet<DetalleRegistroIndicadorFonatel> DetalleRegistroIndcadorFonatel { get; set; }
         //public virtual DbSet<DetalleRegistroIndicadorVariable> DetalleRegistroIndicadorVariable { get; set; }
         public virtual DbSet<DetalleRelacionCategoria> DetalleRelacionCategoria { get; set; }
         
@@ -69,8 +69,9 @@ namespace GB.SIMEF.DAL
         
         public virtual DbSet<Mes> Mes { get; set; }
         public virtual DbSet<OperadorArismetico> OperadorArismetico { get; set; }
-        //public virtual DbSet<ProgramacionSolicitudes> ProgramacionSolicitudes { get; set; }
-        //public virtual DbSet<Registro> Registro { get; set; }
+        //public virtual DbSet<DetalleRegistroIndicadorVariableFonatel> DetalleRegistroIndicadorVariableFonatel { get; set; }
+
+        //public virtual DbSet<DetalleRegistroIndicadorCategoriaFonatel> DetalleRegistroIndicadorCategoriaFonatel { get; set; }
         public virtual DbSet<RegistroIndicadorFonatel> RegistroIndicadorFonatel { get; set; }
         public virtual DbSet<ReglaAtributosValidos> ReglaAtributosValidos { get; set; }
         public virtual DbSet<ReglaComparacionConstante> ReglaComparacionConstante { get; set; }
@@ -87,7 +88,6 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<TipoIndicadores> TipoIndicadores { get; set; }
         public virtual DbSet<TipoMedida> TipoMedida { get; set; }
         public virtual DbSet<TipoReglaValidacion> TipoReglaValidacion { get; set; }
-       //ublic virtual DbSet<Tippd> TiposDetalleCategoria { get; set; }
         public virtual DbSet<UnidadEstudio> UnidadEstudio { get; set; }
         public virtual DbSet<DefinicionIndicador> DefinicionIndicadores { get; set; }
         public virtual DbSet<ReglaIndicadorSalida> ReglaIndicadorSalida { get; set; }

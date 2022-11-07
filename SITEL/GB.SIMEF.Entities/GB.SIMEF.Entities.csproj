@@ -53,10 +53,12 @@
     <Compile Include="DatoHistorico.cs" />
     <Compile Include="DetalleDatoHistoricoFila.cs" />
     <Compile Include="DetalleDatoHistoricoColumna.cs" />
-    <Compile Include="DetalleRegistroIndcadorFonatel.cs" />
+    <Compile Include="DetalleRegistroIndicadorFonatel.cs" />
+    <Compile Include="DetalleRegistroIndicadorCategoriaFonatel.cs" />
     <Compile Include="DetalleReglaValidacion.cs" />
     <Compile Include="EstadoLogico.cs" />
     <Compile Include="PlantillaHtml.cs" />
+    <Compile Include="ReglaComparacionIndicador.cs" />
     <Compile Include="ReglaIndicadorEntrada.cs" />
     <Compile Include="ReglaIndicadorEntradaSalida.cs" />
     <Compile Include="ReglaIndicadorSalida.cs" />
@@ -72,7 +74,7 @@
     <Compile Include="DetalleIndicadorCategoria.cs" />
     <Compile Include="DetalleIndicadorVariables.cs" />
     <Compile Include="DetalleRegistroIndicadorCategoria.cs" />
-    <Compile Include="DetalleRegistroIndicadorVariable.cs" />
+    <Compile Include="DetalleRegistroIndicadorVariableFonatel.cs" />
     <Compile Include="DetalleRelacionCategoria.cs" />
     <Compile Include="DetalleSolicitudFormulario.cs" />
     <Compile Include="EnvioSolicitudes.cs" />

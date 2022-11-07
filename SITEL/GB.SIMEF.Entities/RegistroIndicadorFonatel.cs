@@ -47,7 +47,7 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public bool RangoFecha { get; set; }
         [NotMapped]
-        public List<DetalleRegistroIndcadorFonatel> DetalleRegistroIndcadorFonatel { get; set; }
+        public List<DetalleRegistroIndicadorFonatel> DetalleRegistroIndcadorFonatel { get; set; }
 
         [NotMapped]
         public string IdSolicitudString { get; set; }

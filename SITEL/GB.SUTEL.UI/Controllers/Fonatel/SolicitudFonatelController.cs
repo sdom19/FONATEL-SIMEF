@@ -66,7 +66,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.Modo = modo.ToString();
             ViewBag.ListaMes= MesBL.ObtenerDatos(new Mes()).objetoRespuesta;
             ViewBag.ListaFuentes = fuenteBl.ObtenerDatos(new FuentesRegistro()).objetoRespuesta;
-            ViewBag.ListaFormularioWeb = formularioWebBL.ObtenerDatos(new FormularioWeb())
+            ViewBag.ListaFormularioWeb = formularioWebBL.ObtenerDatos(new FormularioWeb() {idEstado=(int)Constantes.EstadosRegistro.Activo })
                                         .objetoRespuesta.Select(x=>new SelectListItem() { Selected=false, Value=x.id, 
                                             Text=Utilidades.ConcatenadoCombos(x.Codigo,x.Nombre) }).ToList();
             if (!string.IsNullOrEmpty(id))

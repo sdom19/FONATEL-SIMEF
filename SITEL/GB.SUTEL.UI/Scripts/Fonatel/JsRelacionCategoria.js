@@ -494,12 +494,12 @@
 
                         });
                 }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                    if (obj.HayError == jsUtilidades.Variables.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
