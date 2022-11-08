@@ -1051,7 +1051,7 @@ CreateView = {
 
         CrearObjDetallesVariable: function (pIndicador, pIdDetalle = null) {
             let controles = CreateView.Controles.formVariable;
-            var formData = {
+            let formData = {
                 id: pIdDetalle,
                 idIndicadorString: pIndicador,
                 NombreVariable: $(controles.inputNombreVariable).val(),
@@ -1198,7 +1198,7 @@ CreateView = {
             if (!CreateView.Variables.hizoCargaDetallesCategorias) {
                 $("#loading").fadeIn();
 
-                CreateView.Consultas.ConsultarCategoriasDesagregacionTipoAtributo() // combo
+                CreateView.Consultas.ConsultarCategoriasDesagregacion() // combo
                     .then(data => {
                         let dataSet = []
                         data.objetoRespuesta?.forEach(item => {
@@ -1218,6 +1218,7 @@ CreateView = {
                     then(data => {
                         if (data) {
                             let CantidadEstablecida = $(CreateView.Controles.formIndicador.inputCantidadCategoriaIndicador).val() == "" ? 0 : $(CreateView.Controles.formIndicador.inputCantidadCategoriaIndicador).val();
+
                             if (CantidadEstablecida > data.objetoRespuesta.length) {
                                 $(CreateView.Controles.formCategoria.btnGuardar).prop("disabled", false);
                                 $(CreateView.Controles.btnFinalizar).prop("disabled", true);
@@ -1227,9 +1228,7 @@ CreateView = {
                                 $(CreateView.Controles.btnFinalizar).prop("disabled", false);
                             }
                             this.InsertarDatosTablaDetallesCategoria(data.objetoRespuesta);
-
                         }
-                        
                        
                         CreateView.Variables.hizoCargaDetallesCategorias = true;
                     })
@@ -1272,10 +1271,14 @@ CreateView = {
                     });
 
                     if (dataSet.length > 0) {
+                        $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).prop("disabled", false);
                         InsertarOpcionTodosSelect2Multiple(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador);
+                        InsertarDataSetSelect2(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador, dataSet);
+                    }
+                    else {
+                        $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).prop("disabled", true);
                     }
 
-                    InsertarDataSetSelect2(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador, dataSet);
                     return true;
                 })
                 .then(data => {
@@ -1289,7 +1292,7 @@ CreateView = {
                 .then(data => { // en caso de editar
                     if (data) {
                         CreateView.Variables.objEditarDetallesCategoria = data.objetoRespuesta;
-
+                        
                         SeleccionarItemsSelect2Multiple(
                             CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador,
                             data.objetoRespuesta, "idCategoriaDetalleString");
@@ -1305,12 +1308,43 @@ CreateView = {
             $(CreateView.Controles.formCategoria.btnGuardar).prop("disabled", false);
             SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, pIdCategoria);
             this.CargarDetallesDeLaCategoria(pIdCategoria, pIdIndicador);
+            this.LimpiarMensajesValidacionFormularioDetallesCategoria();
+        },
+
+        CrearObjDetallesCategoria: function (pIndicador) {
+            let listadoCategoriasDesagracion = $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).val();
+
+            let formData = {
+                id: CreateView.Variables.objEditarDetallesCategoria?.length > 0 ? CreateView.Variables.objEditarDetallesCategoria[0].idCategoriaString : null,
+                idIndicadorString: pIndicador,
+                idCategoriaString: $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val(),
+                listaDetallesCategoriaString: []
+            };
+
+            if (listadoCategoriasDesagracion.length > 0) {
+                for (let i = 0; i < listadoCategoriasDesagracion.length; i++) {
+                    if (listadoCategoriasDesagracion[i] !== "all") {
+                        formData.listaDetallesCategoriaString.push(listadoCategoriasDesagracion[i]);
+                    }
+                }
+            }
+            else {
+                formData.listaDetallesCategoriaString.push(["0"]);
+            }
+
+            return formData;
         },
 
         ValidarFormularioDetallesCategoria: function () {
             this.LimpiarMensajesValidacionFormularioDetallesCategoria();
 
-            let validacion = ValidarFormulario(CreateView.Controles.formCategoria.inputs, ["select2-search__field"]);
+            let listaExcepciones = ["select2-search__field"];
+
+            if ($(`${CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador} > option`).length < 1) {
+                listaExcepciones.push(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador.slice(1));
+            }
+
+            let validacion = ValidarFormulario(CreateView.Controles.formCategoria.inputs, listaExcepciones);
 
             for (let input of validacion.objetos) {
                 $("#" + $(input).attr("id") + CreateView.Controles.prefijoLabelsHelp).css("display", "block");
@@ -1326,8 +1360,12 @@ CreateView = {
             }
         },
 
+        LimpiarValoresFormularioDetallesCategoria: function () {
+            SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, "");
+            SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador, "");
+        },
+
         CancelarFormularioDetallesCategoria: function () {
-            let rootObj = this;
             jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
                     CreateView.Variables.objEditarDetallesCategoria = null;
@@ -1335,10 +1373,11 @@ CreateView = {
                     SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, "");
                     SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador, "");
 
-                    rootObj.LimpiarMensajesValidacionFormularioDetallesCategoria();
+                    CreateView.Metodos.LimpiarMensajesValidacionFormularioDetallesCategoria();
                 });
         },
 
+        // PENDIENTE
         EliminarDetalleCategoria: function (pIdIndicador, pIdDetalle) {
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaEliminarCategoria, jsMensajes.Variables.actionType.eliminar)
@@ -1365,7 +1404,7 @@ CreateView = {
                     $("#loading").fadeOut();
                 });
         },
-
+         // PENDIENTE
         EditarDetallesCategoria: function () {
             jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarCategoria, jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
@@ -1377,7 +1416,7 @@ CreateView = {
                 });
         },
 
-        CrearDetallesCategoria: function () {      
+        CrearDetallesCategoria: function (pIdIndicador) {
             let formValido = this.ValidarFormularioDetallesCategoria();
             
             if (!formValido) { return; }
@@ -1390,27 +1429,15 @@ CreateView = {
             })
                 .then(data => {
                     $("#loading").fadeIn();
-
-                    let pDetalleIndicadorCategoria = [];
-                    let listadoCategoriasDesagracion = $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).val();
-                    
-                    for (var i = 0; i < listadoCategoriasDesagracion.length; i++) {
-
-                        let detalle = new Object();
-                        detalle.idIndicadorString = ObtenerValorParametroUrl("id");
-                        detalle.idCategoriaString = $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val();
-                        detalle.idCategoriaDetalleString = listadoCategoriasDesagracion[i];
-                        pDetalleIndicadorCategoria.push(detalle);
-                    }
-                    return CreateView.Consultas.InsertarCategoriasDesagregacionTipoAtributo(pDetalleIndicadorCategoria);
+                    return CreateView.Consultas.InsertarDetalleCategoriasDesagregacion(this.CrearObjDetallesCategoria(pIdIndicador));
                 })
                 .then(data => {
+                    this.LimpiarValoresFormularioDetallesCategoria();
+
                     let pIdIndicador = data.objetoRespuesta[0].idIndicadorString;
 
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarCategoria)
                         .set('onok', function (closeEvent) {
-                            $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val("").trigger('change');
-                            $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).val("").trigger('change');
                             CreateView.Variables.hizoCargaDetallesCategorias = false;
                             CreateView.Metodos.CargarDetallesCategoria(pIdIndicador);
                         });
@@ -1481,16 +1508,16 @@ CreateView = {
             return execAjaxCall('/IndicadorFonatel/ObtenerListaDetallesVariable', 'GET', { pIdIndicador: pIdIndicador });
         },
 
-        ConsultarCategoriasDesagregacionTipoAtributo: function () {
-            return execAjaxCall('/IndicadorFonatel/ObtenerCategoriasDesagregacionTipoAtributo', 'GET');
+        ConsultarCategoriasDesagregacion: function () {
+            return execAjaxCall('/IndicadorFonatel/ObtenerCategoriasDesagregacion', 'GET');
         },
 
-        InsertarCategoriasDesagregacionTipoAtributo: function (pDetalleIndicadorCategoria) {
+        InsertarDetalleCategoriasDesagregacion: function (pDetalleIndicadorCategoria) {
             return execAjaxCall('/IndicadorFonatel/CrearDetalleCategoriaDesagregacion', 'POST', { pDetalleIndicadorCategoria: pDetalleIndicadorCategoria });
         },
 
         ConsultarDetallesDeCategoriaDesagregacion: function (pIdCategoria) {
-            return execAjaxCall('/IndicadorFonatel/ObtenerDetallesDeCategoriaDesagregacion', 'GET', { pIdCategoria: pIdCategoria });
+            return execAjaxCall('/IndicadorFonatel/ObtenerDetallesTipoTextoDeCategoriaDesagregacion', 'GET', { pIdCategoria: pIdCategoria });
         },
 
         ConsultarDetallesCategoria: function (pIdIndicador) {
@@ -1696,11 +1723,15 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.formCategoria.btnGuardar, function (e) {
-            if (CreateView.Variables.objEditarDetallesCategoria != null) {
-                CreateView.Metodos.EditarDetallesCategoria();
-            }
-            else {
-                CreateView.Metodos.CrearDetallesCategoria();
+            let idIndicador = ObtenerValorParametroUrl("id");
+
+            if (idIndicador != null || $.trim(idIndicador) != "") {
+                if (CreateView.Variables.objEditarDetallesCategoria != null) {
+                    CreateView.Metodos.EditarDetallesCategoria();
+                }
+                else {
+                    CreateView.Metodos.CrearDetallesCategoria(idIndicador);
+                }
             }
         });
 
@@ -1717,9 +1748,6 @@ CreateView = {
             let id = ObtenerValorParametroUrl("id");
             if (id != null || $.trim(id) != "") {
                 CreateView.Metodos.CargarDetallesCategoria(id);
-            }
-            else {
-                CreateView.Metodos.CargarDetallesCategoria(null);
             }
         });
 

@@ -754,7 +754,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     DetallesAgrupados = true,
                     idIndicadorString = pIdIndicador,
                     Estado = true
-                }) ;
+                });
                 
             });
             return JsonConvert.SerializeObject(resultado);
@@ -767,15 +767,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<string> ObtenerCategoriasDesagregacionTipoAtributo()
+        public async Task<string> ObtenerCategoriasDesagregacion()
         {
             RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
 
             await Task.Run(() =>
             {
-                resultado = categoriasDesagregacionBL.ObtenerDatos(new CategoriasDesagregacion() {
-                    IdTipoCategoria = (int)TipoCategoriaEnum.Atributo
-                });
+                resultado = categoriasDesagregacionBL.ObtenerDatos(new CategoriasDesagregacion() { });
             });
             return JsonConvert.SerializeObject(resultado);
         }
@@ -787,7 +785,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<string> ObtenerDetallesDeCategoriaDesagregacion(string pIdCategoria)
+        public async Task<string> ObtenerDetallesTipoTextoDeCategoriaDesagregacion(string pIdCategoria)
         {
             RespuestaConsulta<List<DetalleCategoriaTexto>> resultado = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
 
@@ -799,7 +797,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
             await Task.Run(() =>
             {
-                // TEMPORALMENTE se utiliza detalleCategoriasTextoBL
                 resultado = detalleCategoriasTextoBL.ObtenerDatos(new DetalleCategoriaTexto() { categoriaid = pIdCategoria });
             });
             return JsonConvert.SerializeObject(resultado);
@@ -846,20 +843,29 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 12/09/2022
         /// Michael Hernandez 
-        /// Función que permite crear un nuevo detalle de variable dato para un indicador
+        /// Función que permite crear un nuevo detalle de categoria para un indicador
         /// </summary>
         /// <param name="pDetalleIndicadorCategoria"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> CrearDetalleCategoriaDesagregacion(List< DetalleIndicadorCategoria> pDetalleIndicadorCategoria)
+        public async Task<string> CrearDetalleCategoriaDesagregacion(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
         {
             RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            string mensajeValidacion = ValidarObjetoDetalleCategoria(pDetalleIndicadorCategoria);
+
+            if (mensajeValidacion != null)
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = mensajeValidacion;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
             await Task.Run(() =>
             {
-                
                 resultado = detalleIndicadorCategoriaBL.InsertarDatos(pDetalleIndicadorCategoria);
-
             });
+
             return JsonConvert.SerializeObject(resultado);
         }
 
@@ -1107,6 +1113,28 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 || pDetalleIndicadorVariables.Descripcion.Trim().Length > 2000)                     // validar la cantidad de caracteres
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 07/11/2022
+        /// José Navarro Acuña
+        /// Función que permite verificar los datos de un objecto detalle de Indicador de tipo categorias
+        /// </summary>
+        /// <param name="pDetalleIndicadorCategoria"></param>
+        /// <returns></returns>
+        private string ValidarObjetoDetalleCategoria(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
+        {
+            if (string.IsNullOrEmpty(pDetalleIndicadorCategoria.idIndicadorString))
+            {
+                return Errores.NoRegistrosActualizar;
+            }
+
+            if (string.IsNullOrEmpty(pDetalleIndicadorCategoria.idCategoriaString))
+            {
+                return Errores.NoRegistrosActualizar;
             }
 
             return null;

@@ -604,7 +604,7 @@ namespace GB.SIMEF.BL
         /// 05/10/2022
         /// José Navarro Acuña
         /// Función que verifica si todos los campos de un indicador estan completos.
-        /// Nota: es un método estáctico.
+        /// Nota: es un método estático.
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
