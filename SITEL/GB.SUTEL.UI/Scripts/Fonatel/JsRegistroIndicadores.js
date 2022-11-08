@@ -2,6 +2,10 @@
     "Controles": {
         "tabRegistroIndicador": (id) =>  `#Tab${id} a`,
         "tabRgistroIndicadorActive":"ul .active a",
+        "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
+        "columnaTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr th",
+        "filasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table tbody>",
+
 
 
 
@@ -11,7 +15,7 @@
         "txtCantidadRegistroIndicador": "#txtCantidadRegistroIndicador",
         "tabActivoRegistroIndicador": "div.tab-pane.active",
         "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
-        "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
+       
         "table": "",
         "btnGuardarCategoría": "#btnGuardarCategoría",
         "btnDescargarPlantillaRegistro": "div.tab-pane.active #btnDescargarPlantillaRegistro",
@@ -33,20 +37,40 @@
         "btnCarga": "#btnCargaRegistroIndicador",
         "btnCargaRegistroIndicador": "#btnCargaRegistroIndicador",
         "btnCargaRegistroIndicadorEdicion": "#btnCargaRegistroIndicadorEdicion",
-        "InputSelect2": (id, option) => `<div class="select2-wrapper">
-                                                    <select class="listasDesplegables" id="${id}" >
-                                                    <option></option>${option}</select ></div >`,
-        "InputDate": id => `<input type="date" class="form-control form-control-fonatel" id="${id}">`,
-        "InputText": (id, placeholder) => `<input type="text" aria-label="${placeholder}" class="form-control form-control-fonatel alfa_numerico" id="${id}" placeholder="${placeholder}" style="min-width:150px;">`,
 
     },
     "Variables": {
         "VariableIndicador": 1,
         "Validacion": false,
-        "paginasActualizadasConSelect2_tablaIndicador": {}
+        "paginasActualizadasConSelect2_tablaIndicador": {},
+        "ListadoDetalleRegistroIndicador": {}
+
+
     },
 
     "Metodos": {
+
+
+
+
+
+        "CargarColumnasTabla": function () {
+            if ($(jsRegistroIndicadorFonatel.Controles.columnaTablaIndicador).length == 0) {
+                let html = "<th style='min-width:30PX'>  </th>";
+                for (var i = 0; i < jsRegistroIndicadorFonatel.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel.length; i++) {
+                    let variable = jsRegistroIndicadorFonatel.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel[i];
+                    html = html + variable.html;
+                }
+                for (var i = 0; i < jsRegistroIndicadorFonatel.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorCategoriaFonatel.length; i++) {
+                    let categoria = jsRegistroIndicadorFonatel.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorCategoriaFonatel[i];
+                    html = html + "<th style='min-width:160PX' scope='col'>" + categoria.NombreCategoria + "</th>";
+                }
+                $(jsRegistroIndicadorFonatel.Controles.columnasTablaIndicador).html(html);
+            }
+        },
+
+
+
 
         "CargarDatosVisualizar": function () {
             $('.container button').prop('disabled', true);
@@ -67,15 +91,10 @@
             detalleIndicadorFonatel.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
             detalleIndicadorFonatel.IdIndicadorString = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
             detalleIndicadorFonatel.CantidadFilas = $(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
-
-
-
-
-
-
             execAjaxCall("/RegistroIndicadorFonatel/ConsultaRegistroIndicadorDetalle", "POST", detalleIndicadorFonatel = detalleIndicadorFonatel)
                 .then((obj) => {
-
+                    jsRegistroIndicadorFonatel.Variables.detalleIndicadorFonatel = obj.objetoRespuesta[0];
+                    jsRegistroIndicadorFonatel.Metodos.CargarColumnasTabla();
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -230,8 +249,8 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
     if (event.keyCode == 13) {
 
 
-
         jsRegistroIndicadorFonatel.Consultas.ConsultaRegistroIndicadorDetalle();
+        
 
 
 
@@ -337,7 +356,7 @@ $(document).ready(function () {
     console.log($(jsRegistroIndicadorFonatel.Controles.tabRegistroIndicador(1)).attr('data-Indicador'));
 
 
-
+    
 
 
 

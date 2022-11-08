@@ -30,5 +30,10 @@ namespace GB.SIMEF.Entities
         public int idVariable { get; set; }
         public string NombreVariable { get; set; }
         public string Descripcion { get; set; }
+
+
+
+        [NotMapped]
+        public string html { get; set; }
     }
 }

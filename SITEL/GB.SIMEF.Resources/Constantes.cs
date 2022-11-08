@@ -52,14 +52,14 @@ namespace GB.SIMEF.Resources
         /// 
         public enum TipoReglasDetalle : int
         {
-            NoRegistrado=0,
-            FormulaCambioMensual=1,
-            FormulaContraOtroIndicadorEntrada=2,
-            FormulaContraConstante=3,
-            FormulaContraAtributosValidos=4,
-            FormulaActualizacionSecuencial=5,
-            FormulaContraOtroIndicadorSalida=6,
-            FormulaContraOtroIndicadorEntradaSalida=7
+            NoRegistrado = 0,
+            FormulaCambioMensual = 1,
+            FormulaContraOtroIndicadorEntrada = 2,
+            FormulaContraConstante = 3,
+            FormulaContraAtributosValidos = 4,
+            FormulaActualizacionSecuencial = 5,
+            FormulaContraOtroIndicadorSalida = 6,
+            FormulaContraOtroIndicadorEntradaSalida = 7
         }
 
 
@@ -108,7 +108,17 @@ namespace GB.SIMEF.Resources
             public const Int32 intBytePermutacionCuatro = 0x41;
             public const int intDivisionPassword = 8;
         }
+        public struct EstructuraHtmlRegistroIdicador
+        {
+            public const string NumeroLinea = "<th style='min-width:30PX'>  </th>";
+            public const string Variable = "<th style='min-width:160PX' class='highlighted' scope='col'>{0}</th>";
+            public const string InputAlfanumerico = "<td><input type='text' aria-label='{0}' class='form-control form-control-fonatel alfa_numerico' id='{1}' placeholder='{0}' style='min-width:150px;'></td>";
+            public const string InputTexto = "<td><input type='text' aria-label='{0}' class='form-control form-control-fonatel solo_texto' id='{1}' placeholder='{0}' style='min-width:150px;'></td>";
+            public const string InputFecha = "<td><input type='date' class='form-control form-control-fonatel' id='{0}' min='{1}' max='{2}'></td>";
+            public const string InputNumerico = "<td><input type='number' class='form-control form-control-fonatel solo_numeros' id='{0}' min='{1}' max='{2}'></td>";
+            public const string InputSelect = "<td><div class='select2-wrapper'><select class='listasDesplegables' id='{0}' ><option></option>{1}</select ></div ></td>";
 
+        }
 
 
         /// <summary>

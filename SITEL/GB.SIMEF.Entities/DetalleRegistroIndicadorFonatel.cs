@@ -13,11 +13,11 @@ namespace GB.SIMEF.Entities
     public partial class DetalleRegistroIndicadorFonatel
     {
 
-        //public DetalleRegistroIndicadorFonatel()
-        //{
-        //    this.DetalleRegistroIndicadorCategoriaFonatel = new List<DetalleRegistroIndicadorCategoriaFonatel>();
-        //    this.DetalleRegistroIndicadorVariableFonatel = new List<DetalleRegistroIndicadorVariableFonatel>();
-        //}
+        public DetalleRegistroIndicadorFonatel()
+        {
+            this.DetalleRegistroIndicadorCategoriaFonatel = new List<DetalleRegistroIndicadorCategoriaFonatel>();
+            this.DetalleRegistroIndicadorVariableFonatel = new List<DetalleRegistroIndicadorVariableFonatel>();
+        }
 
 
         [Key, Column(Order = 0)]
@@ -42,10 +42,10 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string IdIndicadorString { get; set; }
 
-        //[NotMapped]
-        //List<DetalleRegistroIndicadorCategoriaFonatel> DetalleRegistroIndicadorCategoriaFonatel { get; set; }
-        //[NotMapped]
-        //List<DetalleRegistroIndicadorVariableFonatel> DetalleRegistroIndicadorVariableFonatel { get; set; }
+        [NotMapped]
+        public virtual List<DetalleRegistroIndicadorCategoriaFonatel> DetalleRegistroIndicadorCategoriaFonatel { get; set; }
+        [NotMapped]
+        public virtual List<DetalleRegistroIndicadorVariableFonatel> DetalleRegistroIndicadorVariableFonatel { get; set; }
 
 
     }

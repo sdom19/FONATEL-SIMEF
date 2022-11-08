@@ -31,5 +31,10 @@ namespace GB.SIMEF.Entities
         public int CantidadDetalleDesagregacion { get; set; }
         public string JSON { get; set; }
         public string Valor { get; set; }
+        public string RangoMinimo { get; set; }
+        public string RangoMaximo { get; set; }
+        [NotMapped]
+        public string html { get; set; }
+
     }
 }
