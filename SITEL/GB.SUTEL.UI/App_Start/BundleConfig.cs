@@ -69,9 +69,9 @@ namespace GB.SUTEL.UI
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL").Include(
                 "~/Scripts/alertifyjs/alertify.min.js",
-                "~/Scripts/Fonatel/JsUtilidades.js",
-                "~/Scripts/Fonatel/JsMensaje.js",
-                "~/Scripts/Fonatel/JsStepper.js",
+                "~/Scripts/Fonatel/JsUtilidades.min.js",
+                "~/Scripts/Fonatel/JsMensaje.min.js",
+                "~/Scripts/Fonatel/JsStepper.min.js",
                 "~/Scripts/Moment/moment.js"
                 ));
 
@@ -92,27 +92,27 @@ namespace GB.SUTEL.UI
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/SolicitudFonatel").Include(
-                "~/Scripts/Fonatel/JsSolicitud.js"
+                "~/Scripts/Fonatel/JsSolicitud.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/Fuentes").Include(
-                "~/Scripts/Fonatel/JsFuentes.js"
+                "~/Scripts/Fonatel/JsFuentes.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/PublicacionIndicador").Include(
-                "~/Scripts/Fonatel/JsPublicar.js"
+                "~/Scripts/Fonatel/JsPublicar.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/FormularioWeb").Include(
-                "~/Scripts/Fonatel/JsFormularios.js"
+                "~/Scripts/Fonatel/JsFormularios.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/DefinicionIndicador").Include(
-                "~/Scripts/Fonatel/JsDefiniciones.js"
+                "~/Scripts/Fonatel/JsDefiniciones.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/HistoricoFonatel").Include( 
-                "~/Scripts/Fonatel/JsHistorico.js"
+                "~/Scripts/Fonatel/JsHistorico.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/RegistroIndicadorFonatel").Include(

@@ -148,9 +148,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public async Task<string> EditarSolicitud(Solicitud solicitud)
         {
             
-            user = User.Identity.GetUserId();
             solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
-
             RespuestaConsulta<List<Solicitud>> result = null;
 
             await Task.Run(() =>
@@ -174,7 +172,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> ClonarSolicitud(Solicitud solicitud)
         {
-            user = User.Identity.GetUserId();
             solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
             if (string.IsNullOrEmpty(solicitud.id))
@@ -239,8 +236,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EliminarSolicitud(string idSolicitud)
         {
-            user = User.Identity.GetUserId();
-
             RespuestaConsulta<List<Solicitud>> result = null;
 
             await Task.Run(() =>
@@ -371,9 +366,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EliminarDetalleSolicitud(string idSolicitud, string idFormulario)
         {
-
-            user = User.Identity.GetUserId();
-
             RespuestaConsulta<List<DetalleSolicitudFormulario>> result = null;
 
             await Task.Run(() =>
@@ -448,7 +440,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EliminarEnvioProgramado(SolicitudEnvioProgramado objeto)
         {
-            user = User.Identity.GetUserId();
 
             RespuestaConsulta<List<SolicitudEnvioProgramado>> result = null;
 

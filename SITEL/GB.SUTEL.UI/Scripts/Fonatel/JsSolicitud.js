@@ -839,7 +839,7 @@ JsSolicitud = {
                             .set('onok', function (closeEvent) { location.reload(); });
                     }
                     else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) { location.reload(); })
                     }
                 }).finally(() => {

@@ -9,9 +9,11 @@ using GB.SIMEF.Resources;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using GB.SUTEL.UI.Helpers;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class PublicacionIndicadoresController : Controller
     {
 

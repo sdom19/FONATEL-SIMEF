@@ -6,7 +6,7 @@
 }
 
 @section scripts {
-   @* @Scripts.Render("~/bundles/FONATEL/SolicitudFonatel")*@
+    @Scripts.Render("~/bundles/FONATEL/SolicitudFonatel")
 }
 
 <div class="container body-content">
@@ -19,9 +19,6 @@
             </ol>
         </nav>
     </div>
-
-
-
     <div class="stepwizard">
         <div class="stepwizard-row setup-panel step_navigation_indicador">
             <div class="stepwizard-step" data-step="0">
@@ -36,12 +33,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
     <div class="row mt-5">
         <div class="col-lg-12 stepwizard-content-container hidden" id="step-1">
             <div class="row">
@@ -69,9 +60,6 @@
                 </div>
 
                 <div class="col-lg-12 text-center">
-
-
-
                     @if (Model.CantidadFormularios == ViewBag.ListaFormularioWeb.Count)
                     {
                         if (Model.CantidadFormularios == Model.FormularioWeb.Count)
@@ -82,17 +70,11 @@
                         {
                              <button type="submit" id="btnFinalizarSolicitud" disabled class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
                         }
-
-                        
-
                     }
                     else
                     {
                         <button type="submit" id="btnFinalizarSolicitud" disabled class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
                     }
-
-
-
                 </div>
                 <div class="col-12 pull-right mt-4">
                     <button type="button" id="btnAtrasSolicitud" class="btn btn-fonatel btn-goback" aria-label="Left Align">
@@ -115,4 +97,4 @@
 
 
 
-<script src="~/Scripts/Fonatel/JsSolicitud.js"></script>
+@*<script src="~/Scripts/Fonatel/JsSolicitud.js"></script>*@
