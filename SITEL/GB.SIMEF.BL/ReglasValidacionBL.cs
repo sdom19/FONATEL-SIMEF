@@ -78,13 +78,6 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
 
-                    //string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.idRegla == objeto.idRegla).Single());
-                    //objeto = resul.Where(x => x.idRegla == objeto.idRegla).Single();
-                    //var nuevovalor = clsDatos.ObtenerDatos(objeto).Single();
-                    //string jsonNuevoValor = SerializarObjetoBitacora(nuevovalor);
-                    //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                    //ResultadoConsulta.Usuario,
-                    //ResultadoConsulta.Clase, nuevovalor.Codigo, jsonNuevoValor, valorAnterior);
                 }
 
             }
@@ -195,9 +188,6 @@ namespace GB.SIMEF.BL
                 resultado.Usuario = user;
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Clonar;
-
-                clsDatos.RegistrarBitacora(resultado.Accion,
-                resultado.Usuario, resultado.Clase, pIdReglaDestino.ToString());
 
             }
             catch (Exception ex)

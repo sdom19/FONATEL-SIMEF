@@ -186,6 +186,12 @@
   <data name="ReglaRegistrada" xml:space="preserve">
     <value>La Regla ya se encuentra registada</value>
   </data>
+  <data name="ReglasCategoriaIngresada" xml:space="preserve">
+    <value>La Regla ingresada ya se encuentra registrada para esta Categoría</value>
+  </data>
+  <data name="ReglasVariableIngresada" xml:space="preserve">
+    <value>La Regla ingresada ya se encuentra registrada para esta Variable Dato</value>
+  </data>
   <data name="ValorFecha" xml:space="preserve">
     <value>La Fecha Final debe ser mayor que la Fecha Inicial</value>
   </data>

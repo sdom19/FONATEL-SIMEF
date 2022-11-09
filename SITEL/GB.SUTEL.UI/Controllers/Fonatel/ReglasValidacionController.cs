@@ -403,7 +403,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = reglaBL.ClonarDetallesReglas(idReglaAClonar, ReglaDeserializado.objetoRespuesta[0].id);
             });
 
-
             return JsonConvert.SerializeObject(resultado);
         }
 

@@ -60,6 +60,13 @@ namespace GB.SIMEF.BL
 
                 DesencriptarObjReglasValidacion(objeto);
 
+                var BuscarDatos = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
+
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out int temp);
+                    objeto.IdRegla = temp;
+                }
 
                 if (!string.IsNullOrEmpty(objeto.idIndicadorVariableString))
                 {
@@ -73,27 +80,41 @@ namespace GB.SIMEF.BL
                     objeto.IdIndicador = temp;
                 }
 
+                if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdDetalleReglaValidacion != objeto.IdDetalleReglaValidacion && x.IdTipo == objeto.IdTipo && x.IdTipo != (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.IdDetalleIndicador == objeto.IdDetalleIndicador && x.Estado == true).Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.ReglasVariableIngresada);
+                }
+                if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdDetalleReglaValidacion != objeto.IdDetalleReglaValidacion && x.IdTipo == objeto.IdTipo && x.IdTipo == (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.reglaAtributosValidos.IdCategoria == objeto.reglaAtributosValidos.IdCategoria && x.Estado == true).Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.ReglasVariableIngresada);
+                }
+                else
+                {
+
                 var resul = clsDatos.ActualizarDatos(objeto);
-
                 objeto.IdDetalleReglaValidacion = resul.Single().IdDetalleReglaValidacion;
-
                 AgregarTipoDetalleReglaValidacion(objeto);
-
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                }
+
 
             }
             catch (Exception ex)
             {
-
-                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
-                {
-                 
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
-                }
-
-
                 ResultadoConsulta.MensajeError = ex.Message;
+
+                if (ex.Message == Errores.ReglasVariableIngresada || ex.Message == Errores.ReglasCategoriaIngresada)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
             }
             return ResultadoConsulta;
         }
@@ -161,11 +182,17 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
 
-                objeto.IdOperador = objeto.IdOperador;
-                objeto.IdRegla = objeto.IdRegla;
                 objeto.Estado = true;
 
+                var BuscarDatos = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
+
                 DesencriptarObjReglasValidacion(objeto);
+
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out int temp);
+                    objeto.IdRegla = temp;
+                }
 
                 if (!string.IsNullOrEmpty(objeto.idIndicadorVariableString))
                 {
@@ -179,20 +206,39 @@ namespace GB.SIMEF.BL
                     objeto.IdIndicador = temp;
                 }
 
-                var resul = clsDatos.ActualizarDatos(objeto);
 
-                objeto.IdDetalleReglaValidacion = resul.Single().IdDetalleReglaValidacion;
-
-                AgregarTipoDetalleReglaValidacion(objeto);
-
-                ResultadoConsulta.objetoRespuesta = resul;
-                ResultadoConsulta.CantidadRegistros = resul.Count();
+                if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.IdTipo != (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.IdDetalleIndicador == objeto.IdDetalleIndicador && x.Estado == true).Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.ReglasVariableIngresada);
+                }
+                if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.reglaAtributosValidos.IdCategoria == objeto.reglaAtributosValidos.IdCategoria && x.Estado == true).Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.ReglasCategoriaIngresada);
+                }
+                else
+                {
+                    var resul = clsDatos.ActualizarDatos(objeto);
+                    objeto.IdDetalleReglaValidacion = resul.Single().IdDetalleReglaValidacion;
+                    AgregarTipoDetalleReglaValidacion(objeto);
+                    ResultadoConsulta.objetoRespuesta = resul;
+                    ResultadoConsulta.CantidadRegistros = resul.Count();
+                }
 
             }
             catch (Exception ex)
             {
-                ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 ResultadoConsulta.MensajeError = ex.Message;
+
+                if (ex.Message == Errores.ReglasVariableIngresada || ex.Message == Errores.ReglasCategoriaIngresada)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
             }
 
             return ResultadoConsulta;
