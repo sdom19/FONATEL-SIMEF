@@ -169,6 +169,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La Categoría seleccionada ya se encuentra registrada.
+        /// </summary>
+        public static string CategoriaYaRegistrada {
+            get {
+                return ResourceManager.GetString("CategoriaYaRegistrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se excedió la cantidad de registros establecidos.
         /// </summary>
         public static string CatidadIndicadoresExcedido {

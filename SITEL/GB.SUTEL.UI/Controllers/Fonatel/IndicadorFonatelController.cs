@@ -963,11 +963,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 09/11/2022
+        /// José Navarro Acuña
+        /// Función que permite eliminar un detalle de categoria de un indicador
+        /// </summary>
+        /// <param name="pDetalleIndicadorCategoria"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<string> EliminarDetalleCategoria(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
         {
             RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
 
+            if (string.IsNullOrEmpty(pDetalleIndicadorCategoria.idIndicadorString) ||
+                string.IsNullOrEmpty(pDetalleIndicadorCategoria.idCategoriaString)
+                )
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
 
             await Task.Run(() =>
             {

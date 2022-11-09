@@ -1291,7 +1291,11 @@ CreateView = {
                 })
                 .then(data => { // en caso de editar
                     if (data) {
-                        CreateView.Variables.objEditarDetallesCategoria = data.objetoRespuesta;
+                        CreateView.Variables.objEditarDetallesCategoria = {
+                            idIndicador: pIdIndicador,
+                            idCategoria: pIdCategoria,
+                            detalles: data.objetoRespuesta
+                        };
                         
                         SeleccionarItemsSelect2Multiple(
                             CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador,
@@ -1315,21 +1319,16 @@ CreateView = {
             let listadoCategoriasDesagracion = $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).val();
 
             let formData = {
-                id: CreateView.Variables.objEditarDetallesCategoria?.length > 0 ? CreateView.Variables.objEditarDetallesCategoria[0].idCategoriaString : null,
+                id: CreateView.Variables.objEditarDetallesCategoria?.idCategoria,
                 idIndicadorString: pIndicador,
                 idCategoriaString: $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val(),
                 listaDetallesCategoriaString: []
             };
 
-            if (listadoCategoriasDesagracion.length > 0) {
-                for (let i = 0; i < listadoCategoriasDesagracion.length; i++) {
-                    if (listadoCategoriasDesagracion[i] !== "all") {
-                        formData.listaDetallesCategoriaString.push(listadoCategoriasDesagracion[i]);
-                    }
+            for (let i = 0; i < listadoCategoriasDesagracion?.length; i++) {
+                if (listadoCategoriasDesagracion[i] !== "all") {
+                    formData.listaDetallesCategoriaString.push(listadoCategoriasDesagracion[i]);
                 }
-            }
-            else {
-                formData.listaDetallesCategoriaString.push(["0"]);
             }
 
             return formData;
@@ -1372,27 +1371,32 @@ CreateView = {
 
                     SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, "");
                     SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador, "");
+                    $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).empty();
 
                     CreateView.Metodos.LimpiarMensajesValidacionFormularioDetallesCategoria();
                 });
         },
 
-        // PENDIENTE
-        EliminarDetalleCategoria: function (pIdIndicador, pIdDetalle) {
+        EliminarDetalleCategoria: function (pIdIndicador, pIdCategoria) {
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaEliminarCategoria, jsMensajes.Variables.actionType.eliminar)
                     .set('onok', function (closeEvent) { resolve(true) });
             })
                 .then(data => {
                     $("#loading").fadeIn();
-                    let pDetalleCategoria = new Object();
-                    pDetalleCategoria.idIndicadorString = pIdIndicador;
-                    pDetalleCategoria.idCategoriaString = pIdDetalle;
+
+                    let detalle = {
+                        idIndicadorString: pIdIndicador,
+                        idCategoriaString: pIdCategoria
+                    };
                    
-                    return CreateView.Consultas.EliminarDetalleCategoria(pDetalleCategoria);
+                    return CreateView.Consultas.EliminarDetalleCategoria(detalle);
                 })
                 .then(data => {
-                    delete CreateView.Variables.listaVariablesDato[pIdDetalle];
+                    if (pIdCategoria === CreateView.Variables.objEditarDetallesCategoria?.idCategoria) { // en caso de que se este editando, no actualicen y se presione el boton de eliminar
+                        CreateView.Variables.objEditarDetallesCategoria = null;
+                        this.LimpiarValoresFormularioDetallesCategoria();
+                    }
 
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoEliminarCategoria).set('onok', function (closeEvent) {
                         CreateView.Variables.hizoCargaDetallesCategorias = false;

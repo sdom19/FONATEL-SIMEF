@@ -36,15 +36,14 @@ namespace GB.SIMEF.DAL
 
                 listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
                 {
+                    id = Utilidades.Encriptar(x.IdDetalleIndicador.ToString()),
                     idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                     idCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString()),
-                    idCategoriaDetalleString = Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()),
-                    idDetalleIndicador = x.IdIndicador,
+                    idCategoriaDetalleString = x.IdCategoriaDetalle != null ? Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()) : null,
                     Estado = x.Estado,
-                    Etiquetas = x.Etiquetas,
+                    Etiquetas = string.IsNullOrEmpty(x.Etiquetas) ? Constantes.defaultInputTextValue : x.Etiquetas,
                     Codigo = x.Codigo,
                     NombreCategoria = x.NombreCategoria,
-
                 }).ToList();
             }
 
@@ -93,13 +92,13 @@ namespace GB.SIMEF.DAL
         /// 
         private class Model_spObtenerDetallesIndicadorCategoria
         {
+            public int IdDetalleIndicador { get; set; }
             public int IdIndicador { get; set; }
             public int IdCategoria { get; set; }
-            public int IdCategoriaDetalle { get; set; }
+            public int? IdCategoriaDetalle { get; set; }
             public string Etiquetas { get; set; }
             public string Codigo { get; set; }
             public string NombreCategoria { get; set; }
-
             public bool Estado { get; set; }
         }
     }

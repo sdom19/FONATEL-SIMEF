@@ -44,36 +44,38 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorCategoria>> EliminarElemento(DetalleIndicadorCategoria objeto)
+        /// <summary>
+        /// 09/11/2022
+        /// José Navarro Acuña
+        /// Permite realizar un eliminado lógico de los detalles categoria de un indicador
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<DetalleIndicadorCategoria>> EliminarElemento(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
         {
-     
             RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
             bool errorControlado = false;
             try
             {
-                int.TryParse(Utilidades.Desencriptar(objeto.idIndicadorString), out int idindicador);
-                int.TryParse(Utilidades.Desencriptar(objeto.idCategoriaString), out int idcategoria);
+                PrepararObjetoDetalle(pDetalleIndicadorCategoria);
 
-
-                objeto.idIndicador = idindicador;
-                objeto.idCategoria = idcategoria;
-                objeto.DetallesAgrupados = false;
-                var listaDetalle = detalleIndicadorCategoriaDAL.ObtenerDatos(objeto);
-
-
-                resultado.objetoRespuesta = new List<DetalleIndicadorCategoria>();
-                foreach (var item in listaDetalle)
+                if (pDetalleIndicadorCategoria.idIndicador == 0 || pDetalleIndicadorCategoria.idCategoria == 0)
                 {
-                    int.TryParse(Utilidades.Desencriptar(item.idCategoriaDetalleString), out int idcategoriaDetalle);
-                    item.idCategoriaDetalle = idcategoriaDetalle;
-                    item.idIndicador = idindicador;
-                    item.idCategoria = idcategoria;
-                    item.Estado = false;
-                    resultado.objetoRespuesta.AddRange(detalleIndicadorCategoriaDAL.ActualizarDatos(item));
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                
+                pDetalleIndicadorCategoria.DetallesAgrupados = false; // listar cada detalle individualmente
+                List<DetalleIndicadorCategoria> listaDetalle = detalleIndicadorCategoriaDAL.ObtenerDatos(pDetalleIndicadorCategoria);
 
+                resultado.objetoRespuesta = new List<DetalleIndicadorCategoria>();
+
+                foreach (DetalleIndicadorCategoria detalle in listaDetalle)
+                {
+                    PrepararObjetoDetalle(detalle);
+                    detalle.Estado = false;
+                    resultado.objetoRespuesta.AddRange(detalleIndicadorCategoriaDAL.ActualizarDatos(detalle));
+                }
 
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
             }
@@ -88,7 +90,6 @@ namespace GB.SIMEF.BL
             }
             return resultado;
         }
-
 
         /// <summary>
         /// 08/11/2022
@@ -106,6 +107,11 @@ namespace GB.SIMEF.BL
             {
                 PrepararObjetoDetalle(pDetalleIndicadorCategoria);
                 resultado = ValidarDatos(pDetalleIndicadorCategoria);
+
+                if (resultado.HayError != 0)
+                {
+                    return resultado;
+                }
 
                 for (int i = 0; i < pDetalleIndicadorCategoria.listaDetallesCategoria.Count; i++)
                 {
@@ -262,7 +268,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(msgIndicadorCompleto);
                 }
 
-                // validar la existencia del indicador
+                // validar la existencia de la categoria
                 CategoriasDesagregacion categoriaExistente = categoriasDesagregacionDAL.ObtenerDatos(new CategoriasDesagregacion()
                 {
                     idCategoria = pDetalleIndicadorCategoria.idCategoria
@@ -278,8 +284,7 @@ namespace GB.SIMEF.BL
                 List<DetalleIndicadorCategoria> detallesActuales = detalleIndicadorCategoriaDAL.ObtenerDatos(new DetalleIndicadorCategoria()
                     {
                         idIndicador = pDetalleIndicadorCategoria.idIndicador,
-                        DetallesAgrupados = true, // contabilizar por categoria no por detalles (que pueden ser n)
-                        Estado = true
+                        DetallesAgrupados = true // contabilizar por categoria no por detalles (que pueden ser n)
                     }
                 ).ToList();
 
@@ -287,20 +292,20 @@ namespace GB.SIMEF.BL
 
                 if (!modoEdicion) // solo en modo creación
                 {
-                    // se realiza la validación de la cantidad de detalles establecidos
-                    if (detallesActuales.Count + 1 > indicadorExistente.CantidadCategoriasDesagregacion) // se supera la cantidad establecida en el indicador?
-                    {
-                        errorControlado = true;
-                        throw new Exception(Errores.CantidadRegistros);
-                    }
-
                     // validar si la categoria ya se encuentra registrada
                     bool categoriaRegistrada = detallesActuales.Exists(x => x.idCategoriaString.Equals(categoriaExistente.id));
 
                     if (categoriaRegistrada)
                     {
                         errorControlado = true;
-                        throw new Exception(Errores.NoRegistrosActualizar);
+                        throw new Exception(Errores.CategoriaYaRegistrada);
+                    }
+
+                    // se realiza la validación de la cantidad de detalles establecidos
+                    if (detallesActuales.Count + 1 > indicadorExistente.CantidadCategoriasDesagregacion) // se supera la cantidad establecida en el indicador?
+                    {
+                        errorControlado = true;
+                        throw new Exception(Errores.CantidadRegistros);
                     }
                 }
 
@@ -311,7 +316,7 @@ namespace GB.SIMEF.BL
                     if (pDetalleIndicadorCategoria.listaDetallesCategoriaString.Count < 1)
                     {
                         errorControlado = true;
-                        throw new Exception(Errores.NoRegistrosActualizar);
+                        throw new Exception(Errores.CamposIncompletos);
                     }
 
                     // validar que los detalles ingresados existan y esten disponibles
@@ -370,10 +375,23 @@ namespace GB.SIMEF.BL
                 pDetalleIndicadorCategoria.idCategoria = number;
             }
 
-            for (int i = 0; i < pDetalleIndicadorCategoria.listaDetallesCategoriaString.Count; i++)
+            if (!string.IsNullOrEmpty(pDetalleIndicadorCategoria.idCategoriaDetalleString))
             {
-                int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.listaDetallesCategoriaString[i]), out int number);
-                pDetalleIndicadorCategoria.listaDetallesCategoria.Add(number);
+                int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.idCategoriaDetalleString), out int number);
+                pDetalleIndicadorCategoria.idCategoriaDetalle = number;
+            }
+
+            if (pDetalleIndicadorCategoria.listaDetallesCategoriaString.Count > 0)
+            {
+                for (int i = 0; i < pDetalleIndicadorCategoria.listaDetallesCategoriaString.Count; i++)
+                {
+                    int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.listaDetallesCategoriaString[i]), out int number);
+                    pDetalleIndicadorCategoria.listaDetallesCategoria.Add(number);
+                }
+            }
+            else
+            {
+                pDetalleIndicadorCategoria.listaDetallesCategoria.Add(0);
             }
         }
     }
