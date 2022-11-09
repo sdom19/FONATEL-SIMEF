@@ -43,10 +43,8 @@
         "ddlIndicadorSalidaReglaHelp": "#ddlIndicadorSalidaReglaHelp",
         "ddlIndicadorComparacionHelp": "#ddlIndicadorComparacionHelp",
         "ddlVariableComparacionReglaHelp": "#ddlVariableComparacionReglaHelp",
-
         "ddlIndicadorComparacionEntradaSalidaHelp": "#ddlIndicadorComparacionEntradaSalidaHelp",
         "ddlVariableComparacionEntradaSalidaReglaHelp": "#ddlVariableComparacionEntradaSalidaReglaHelp",
-
         "ddlIndicadorComparacionRegla": "#ddlIndicadorComparacionRegla",
         "ddlVariableComparacionRegla": "#ddlVariableComparacionRegla",
         "txtConstanteRegla": "#txtConstanteRegla",
@@ -959,6 +957,7 @@
             execAjaxCall("/ReglasValidacion/InsertarDetalleRegla", "POST", objetoTipoRegla)
                 .then((obj) => {
                     new Promise((resolve) => {
+                        JsReglas.Variables.esModoEdicion = false;
                         jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleAgregado)
                             .set('onok', function () {
                                 resolve(true)
@@ -1041,6 +1040,7 @@
             execAjaxCall("/ReglasValidacion/EditarDetalleRegla", "POST", objetoTipoRegla)
                 .then((obj) => {
                     new Promise((resolve) => {
+                        JsReglas.Variables.esModoEdicion = false;
                         jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleEditado)
                             .set('onok', function () {
                                 resolve(true)
@@ -1305,7 +1305,6 @@ $(function () {
         JsReglas.Metodos.ValidarOpcionSiguiente();
         $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", true);
     }
-
     if ($(JsReglas.Controles.FormularioDetalle).length > 0) {
         JsReglas.Consultas.ConsultaListaDetalleReglas();
         JsReglas.Metodos.ValidarOpcionSiguiente();
