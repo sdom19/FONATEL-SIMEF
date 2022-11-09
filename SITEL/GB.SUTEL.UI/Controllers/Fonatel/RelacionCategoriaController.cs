@@ -426,15 +426,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpGet]
-        public ActionResult DescargarExcel(string id)
+        public ActionResult DescargarExcel(string id,List<String> listaCategorias)
         {
 
             var relacion = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = id }).objetoRespuesta.Single();
 
-            relacion.DetalleRelacionCategoria = DetalleRelacionCategoriaBL.ObtenerDatos(new DetalleRelacionCategoria()
-            {
-                IdRelacionCategoria = relacion.idRelacionCategoria
-            }).objetoRespuesta;
+            //relacion.DetalleRelacionCategoria = DetalleRelacionCategoriaBL.ObtenerDatos(new DetalleRelacionCategoria()
+            //{
+            //    IdRelacionCategoria = relacion.idRelacionCategoria
+            //}).objetoRespuesta;
 
             MemoryStream stream = new MemoryStream();
 
@@ -442,31 +442,62 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(relacion.Codigo);
 
-                worksheetInicio.Cells["A1"].LoadFromCollection(relacion.DetalleRelacionCategoria
+                //worksheetInicio.Cells["A1"].LoadFromCollection(relacion.DetalleRelacionCategoria
 
-                    .Select(i => new { i.NombreCategoria, i.CategoriaAtributoValor }), true);
+                //    .Select(i => new { i.NombreCategoria, i.CategoriaAtributoValor }), true);
 
-                worksheetInicio.Cells["A1"].Value = "Categoría Atributo";
-                worksheetInicio.Cells["B1"].Value = "Detalle Relación Atributo";
+                worksheetInicio.Cells["A1"].Value = "Código";
+                worksheetInicio.Cells["A2"].Value = relacion.idCategoriaValor;
+                worksheetInicio.Cells["A2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheetInicio.Cells["A2"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                worksheetInicio.Cells["A2"].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                worksheetInicio.Cells["A2"].AutoFitColumns();
 
-                worksheetInicio.Cells["A1:B1"].Style.Font.Bold = true;
-                worksheetInicio.Cells["A1:B1"].Style.Font.Size = 12;
-                worksheetInicio.Cells["A1:B1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                worksheetInicio.Cells["A1:B1"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
-                worksheetInicio.Cells["A1:B1"].Style.Font.Color.SetColor(System.Drawing.Color.White);
-                worksheetInicio.Cells["A1:B1"].Style.Font.Bold = true;
-                worksheetInicio.Cells["A1:B1"].Style.Font.Size = 12;
-                worksheetInicio.Cells["A1:B1"].AutoFitColumns();
-                for (int i = 0; i < relacion.CantidadCategoria; i++)
+                worksheetInicio.Cells["A1:A1"].Style.Font.Bold = true;
+                worksheetInicio.Cells["A1:A1"].Style.Font.Size = 12;
+                worksheetInicio.Cells["A1:A1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheetInicio.Cells["A1:A1"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
+                worksheetInicio.Cells["A1:A1"].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                worksheetInicio.Cells["A1:A1"].Style.Font.Bold = true;
+                worksheetInicio.Cells["A1:A1"].Style.Font.Size = 12;
+                worksheetInicio.Cells["A1:A1"].AutoFitColumns();
+
+                if (listaCategorias.Count > 0)
                 {
-                    string celdas = string.Format("A{0}:B{0}", i + 2);
+                    string hilera = listaCategorias[0];
+                    string[] lista = hilera.Split(',');
+                    int celda = 1;
 
+                    foreach (var sub in lista)
+                    {
+                        celda += 1;
+                        worksheetInicio.Cells[1, celda].Value = sub;
+                        worksheetInicio.Cells[1, celda].Style.Font.Bold = true;
+                        worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
+                        worksheetInicio.Cells[1, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheetInicio.Cells[1, celda].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
+                        worksheetInicio.Cells[1, celda].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                        worksheetInicio.Cells[1, celda].Style.Font.Bold = true;
+                        worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
+                        worksheetInicio.Cells[1, celda].AutoFitColumns();
 
-                    worksheetInicio.Cells[celdas].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    worksheetInicio.Cells[celdas].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-                    worksheetInicio.Cells[celdas].Style.Font.Color.SetColor(System.Drawing.Color.Black);
-                    worksheetInicio.Cells[celdas].AutoFitColumns();
+                        worksheetInicio.Cells[2, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheetInicio.Cells[2, celda].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                        worksheetInicio.Cells[2, celda].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                        worksheetInicio.Cells[2, celda].AutoFitColumns();
+                    }
                 }
+
+                //for (int i = 0; i < relacion.CantidadCategoria; i++)
+                //{
+                //    string celdas = string.Format("A{0}:B{0}", i + 2);
+
+
+                //    worksheetInicio.Cells[celdas].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                //    worksheetInicio.Cells[celdas].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                //    worksheetInicio.Cells[celdas].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                //    worksheetInicio.Cells[celdas].AutoFitColumns();
+                //}
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
                 Response.AddHeader("content-disposition", "attachment;  filename=" + relacion.Nombre + ".xlsx");

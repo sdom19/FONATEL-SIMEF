@@ -1,20 +1,20 @@
 ﻿@using GB.SIMEF.Resources;
 
-<div class="modal fade modal-fonatel" data-backdrop="static" id="modalUnidadEstudio" tabindex="-1" role="dialog" aria-labelledby="Modal unidad estudio" aria-hidden="true">
+<div class="modal fade modal-fonatel" data-backdrop="static" id="modalCategoria" tabindex="-1" role="dialog" aria-labelledby="Modal unidad estudio" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-fonatel" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-                <h5 class="modal-title">@EtiquetasViewIndicadorFonatel.TituloModalUnidadEstudio</h5>
+                <h5 class="modal-title">@EtiquetasViewRelacionCategoria.TituloModalCategoria</h5>
 
             </div>
             <div class="modal-body">
                 <div class="table-responsive table-wrapper-fonatel" >
-                    <table id="tableModalUnidadEstudio" class="dataTable datatable_simef table-bordered table-condensed table-hover no-footer">
+                    <table id="tableModalCategoria" class="dataTable datatable_simef table-bordered table-condensed table-hover no-footer">
                         <thead>
                             <tr>
-                                <th scope="col">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio</th>
-                                <th scope="col">@Etiquetas.Acciones</th>
+                                <th scope="col"></th>
+                                <th scope="col">@EtiquetasViewRelacionCategoria.TituloTablaModalCategoria</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,7 +30,9 @@
                
             </div>
             <div class="modal-footer">
-            
+                <input type="hidden" id="txtidRelacionCategoria" />
+                <input type="hidden" id="txtCantidadCategoria" />
+                <button type="button" id="btnDescargaPlantilla" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonDescarga" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonDescarga</button>
             </div>
         </div>
     </div>
