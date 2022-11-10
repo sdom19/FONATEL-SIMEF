@@ -186,6 +186,12 @@
   <data name="ReglaRegistrada" xml:space="preserve">
     <value>La Regla ya se encuentra registada</value>
   </data>
+  <data name="ReglasCategoriaIngresada" xml:space="preserve">
+    <value>La Regla ingresada ya se encuentra registrada para esta Categoría</value>
+  </data>
+  <data name="ReglasVariableIngresada" xml:space="preserve">
+    <value>La Regla ingresada ya se encuentra registrada para esta Variable Dato</value>
+  </data>
   <data name="SolicitudesFuenteRegistrada" xml:space="preserve">
     <value>La Solicitud no registra la fuente activa</value>
   </data>

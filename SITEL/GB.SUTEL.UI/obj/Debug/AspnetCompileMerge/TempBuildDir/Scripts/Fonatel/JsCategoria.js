@@ -1,6 +1,4 @@
-﻿
-
-    JsCategoria= {
+﻿    JsCategoria= {
         "Controles": {
             "FormularioCategorias": "#FormularioCategorias",
             "FormularioIndex":"#FormularioIndex",
@@ -109,7 +107,6 @@
             "CargarTablaDetalleCategoria": function () {
                 EliminarDatasource();
                 let html = "";
-
                 let formularioCompleto = JsCategoria.Variables.ListadoCategoriaDetalle.length == 0 ? false : JsCategoria.Variables.ListadoCategoriaDetalle[0].Completo;
                 if (formularioCompleto) {
                     $(JsCategoria.Controles.btnGuardarDetalleCategoria).prop("disabled", true);
@@ -118,7 +115,7 @@
                 else {
                     $(JsCategoria.Controles.btnGuardarDetalleCategoria).prop("disabled", false);
                     $(JsCategoria.Controles.btnFinalizarDetalle).prop("disabled", true);
-                }  
+                }
                 for (var i = 0; i < JsCategoria.Variables.ListadoCategoriaDetalle.length; i++) {
                     let detalle = JsCategoria.Variables.ListadoCategoriaDetalle[i];
                     html = html + "<tr>"
@@ -208,7 +205,7 @@
                 else {
 
                     if ($(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Alfanumerico || $(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Texto) {
-                        if ($(JsCategoria.Controles.txtCantidadDetalleCategoria).val() == 0) {
+                        if ($(JsCategoria.Controles.txtCantidadDetalleCategoria).val() < 0) {
                             validar = false;
                             if (opcion) {
                                 $(JsCategoria.Controles.CantidadDetalleCategoriaHelp).removeClass("hidden");
@@ -364,14 +361,10 @@
                 $("#loading").fadeIn();
                 execAjaxCall("/CategoriasDesagregacion/CambiarEstadoFinalizado", "POST", categoria= categoria)
                     .then((obj) => {
-
-
                         jsMensajes.Metodos.OkAlertModal("La Categoria ha sido creada")
                             .set('onok', function (closeEvent) {
                                 window.location.href = "/Fonatel/CategoriasDesagregacion/Index";
-                            });
-
-                   
+                            });         
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                             jsMensajes.Metodos.OkAlertErrorModal()
@@ -388,13 +381,13 @@
             "EliminarDetalleCategoria": function (categoriaDetalleid) {
                 let DetalleCategoriaTexto = new Object();
                 DetalleCategoriaTexto.id = categoriaDetalleid;
+                DetalleCategoriaTexto.categoriaid =  ObtenerValorParametroUrl("IdCategoria");
                 $("#loading").fadeIn();
                 execAjaxCall("/CategoriasDesagregacion/EliminarCategoriasDetalle", "POST", DetalleCategoriaTexto)
                     .then((obj) => {
                         jsMensajes.Metodos.OkAlertModal("El Detalle ha sido eliminado")
                             .set('onok', function (closeEvent) {
-                                JsCategoria.Variables.ListadoCategoriaDetalle = obj.objetoRespuesta;
-                                JsCategoria.Metodos.CargarTablaDetalleCategoria();
+                                location.reload();
                             });
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -409,9 +402,12 @@
                         $("#loading").fadeOut();
                     });
             },
-            "ConsultaCategoriaDetalle": function (idDetalleCategoria) {
+            "ConsultaCategoriaDetalle": function () {
+                let DetalleCategoriaTexto = new Object();
+                DetalleCategoriaTexto.id = ObtenerValorParametroUrl("id");
+               
                 $("#loading").fadeIn();
-                execAjaxCall('/CategoriasDesagregacion/ObtenerCategoriasDetalle?idCategoriaDetalle=' + idDetalleCategoria, "GET")
+                execAjaxCall('/CategoriasDesagregacion/ObtenerCategoriasDetalle', "POST", DetalleCategoriaTexto = DetalleCategoriaTexto )
                     .then((obj) => {
                         JsCategoria.Variables.ListadoCategoriaDetalle = obj.objetoRespuesta;
                         if (JsCategoria.Variables.ListadoCategoriaDetalle.length > 0) {
@@ -588,41 +584,30 @@
                     });
             },
             "ImportarExcel": function () {
+                $("#loading").fadeIn();
                 var data;
                 data = new FormData();
                 data.append('file', $(JsCategoria.Controles.inputFileCargarDetalle)[0].files[0]);
-                $.ajax({
-                    url: jsUtilidades.Variables.urlOrigen + '/CategoriasDesagregacion/CargaExcel',
-                    type: 'post',
-                    datatype: 'json',
-                    contentType: false,
-                    processData: false,
-                    async: false,
-                    data: data,
-                    beforeSend: function () {
-                        $("#loading").fadeIn();
-                    },
-                    success: function (obj) {
-                        $("#loading").fadeOut();
-
-                        if (obj=="True") {
+                execAjaxCallFile("/CategoriasDesagregacion/CargaExcel", data)
+                    .then((obj) => {
+                        if (obj.HayError==0) {
                             jsMensajes.Metodos.OkAlertModal("Los Detalles han sido cargados")
                                 .set('onok', function (closeEvent) { location.reload(); });
                         } else {
                             jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Detalles")
                                 .set('onok', function (closeEvent) { location.reload(); })
                         }
-                    }
-                }).fail(function (obj) {
-                    jsMensajes.Metodos.OkAlertErrorModal()
-                        .set('onok', function (closeEvent) { })
-                    $("#loading").fadeOut();
-
-                })
+                    }).catch((obj) => {
+                        jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Detalles")
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }).finally(() => {
+                        $("#loading").fadeOut();
+                    });
             },
             "ModificarDetalleCategoria": function () {
                 $("#loading").fadeIn();
                 let detalleCategoria = new Object();
+                detalleCategoria.id = ObtenerValorParametroUrl("id");
                 detalleCategoria.categoriaid =ObtenerValorParametroUrl("IdCategoria");
                 detalleCategoria.Codigo = $(JsCategoria.Controles.txtCodigoDetalle).val().trim();
                 detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val().trim();
@@ -835,9 +820,11 @@ $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, functi
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea modificar el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsCategoria.Consultas.ModificarDetalleCategoria();
+                  
                 });
         }
     }
+
 });
 
 
@@ -859,7 +846,7 @@ $(document).on("click", JsCategoria.Controles.btnCargarDetalle, function (e) {
 
 
 $(document).on("change", JsCategoria.Controles.inputFileCargarDetalle, function (e) {
-    JsCategoria.Consultas.ImportarExcel();
+     JsCategoria.Consultas.ImportarExcel();
 });
 
 
@@ -876,7 +863,8 @@ $(document).on("click", JsCategoria.Controles.btnEditarDetalle, function (e) {
     JsCategoria.Variables.ModoEditarAtributo = true;
 
     let id = $(this).val();
-    JsCategoria.Consultas.ConsultaCategoriaDetalle(id);
+    InsertarParametroUrl("id", id);
+    JsCategoria.Consultas.ConsultaCategoriaDetalle();
 });
 
 

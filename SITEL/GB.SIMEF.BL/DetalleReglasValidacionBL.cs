@@ -88,6 +88,7 @@ namespace GB.SIMEF.BL
                 if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdDetalleReglaValidacion != objeto.IdDetalleReglaValidacion && x.IdTipo == objeto.IdTipo && x.IdTipo == (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.reglaAtributosValidos.IdCategoria == objeto.reglaAtributosValidos.IdCategoria && x.Estado == true).Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+        
                     throw new Exception(Errores.ReglasVariableIngresada);
                 }
                 else
@@ -107,12 +108,9 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.MensajeError = ex.Message;
 
-                if (ex.Message == Errores.ReglasVariableIngresada || ex.Message == Errores.ReglasCategoriaIngresada)
+                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
                 {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-                else
-                {
+                  
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }
             }
@@ -209,7 +207,7 @@ namespace GB.SIMEF.BL
 
                 if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.IdTipo != (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.IdDetalleIndicador == objeto.IdDetalleIndicador && x.Estado == true).Count() > 0)
                 {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.ReglasVariableIngresada);
                 }
                 if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.reglaAtributosValidos.IdCategoria == objeto.reglaAtributosValidos.IdCategoria && x.Estado == true).Count() > 0)
@@ -231,11 +229,7 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.MensajeError = ex.Message;
 
-                if (ex.Message == Errores.ReglasVariableIngresada || ex.Message == Errores.ReglasCategoriaIngresada)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-                else
+                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }

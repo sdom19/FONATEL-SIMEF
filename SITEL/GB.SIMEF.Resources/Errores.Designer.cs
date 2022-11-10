@@ -268,6 +268,24 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La Regla ingresada ya se encuentra registrada para esta Categoría.
+        /// </summary>
+        public static string ReglasCategoriaIngresada {
+            get {
+                return ResourceManager.GetString("ReglasCategoriaIngresada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La Regla ingresada ya se encuentra registrada para esta Variable Dato.
+        /// </summary>
+        public static string ReglasVariableIngresada {
+            get {
+                return ResourceManager.GetString("ReglasVariableIngresada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La Solicitud no registra la fuente activa.
         /// </summary>
         public static string SolicitudesFuenteRegistrada {

@@ -1,5 +1,6 @@
 ﻿using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -133,7 +134,10 @@ namespace GB.SIMEF.DAL
                     control = string.Format(Constantes.EstructuraHtmlRegistroIdicador.InputNumerico, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.RangoMinimo, DetalleRegistroIndicadorCategoriaFonatel.RangoMaximo);
                     break;
                 default:
-                    control = string.Format(Constantes.EstructuraHtmlRegistroIdicador.InputNumerico, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.RangoMinimo, "");
+
+                
+
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIdicador.InputSelect, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.JSON);
                     break;
             }
             return control;
