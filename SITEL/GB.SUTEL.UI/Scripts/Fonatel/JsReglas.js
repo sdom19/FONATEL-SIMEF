@@ -1221,7 +1221,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
     if (JsReglas.Variables.esModoEdicion) {
 
         if (JsReglas.Metodos.ValidarControlesTipo()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Tipo de Regla?", jsMensajes.Variables.actionType.Editar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Tipo de Regla?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsReglas.Consultas.EditarDetalleRegla(true);
                 });

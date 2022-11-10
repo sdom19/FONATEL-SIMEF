@@ -277,22 +277,21 @@ namespace GB.SIMEF.BL
                     objeto.idIndicador = temp;
                 }
 
-                if (BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Nombre.ToUpper() == objeto.Nombre.ToUpper()).Count() > 0)
+                if(BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Codigo.ToUpper() == objeto.Codigo.ToUpper() && x.idEstado != 4).Count() > 0){
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.CodigoRegistrado);
+                }
+
+                if(BuscarDatos.Where(x=> x.idRegla != objeto.idRegla && x.Nombre.ToUpper() == objeto.Nombre.ToUpper() && x.idEstado != 4).Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
-                else if (BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).Count() > 0)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                    throw new Exception(Errores.CodigoRegistrado);
-                }
-                else
-                {
+                
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
-                }
+                
 
             }
             catch (Exception ex)

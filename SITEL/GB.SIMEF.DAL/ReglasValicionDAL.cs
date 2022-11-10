@@ -53,6 +53,7 @@ namespace GB.SIMEF.DAL
                     ListadoTipoReglas = ObtenerListadoTipoReglas(x.idRegla)
                 }).ToList();
             }
+
             return ListaCategoriaDetalle;
         }
         /// <summary>
