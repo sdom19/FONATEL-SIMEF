@@ -581,7 +581,9 @@ CreateView = {
                 $("#loading").fadeIn();
                 CreateView.Consultas.EditarIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
-                        $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos}
+                        setTimeout(() => {
+                            $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
+                        }, 600);
                     })
                     .catch(error => { this.ManejoDeExcepciones(error); })
                     .finally(() => {
