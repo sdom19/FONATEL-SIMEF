@@ -159,4 +159,10 @@
   <data name="RelacionCategoria" xml:space="preserve">
     <value>Relaciones entre Categorías</value>
   </data>
+  <data name="TituloModalCategoria" xml:space="preserve">
+    <value>Seleccionar Categorías</value>
+  </data>
+  <data name="TituloTablaModalCategoria" xml:space="preserve">
+    <value>Categorías</value>
+  </data>
 </root>
