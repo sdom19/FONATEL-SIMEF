@@ -153,6 +153,9 @@
   <data name="CantidadRegistrosLimiteRelaciones" xml:space="preserve">
     <value>La cantidad ingresada en Cantidad de Atributos no puede ser menor al valor actual</value>
   </data>
+  <data name="CategoriaYaRegistrada" xml:space="preserve">
+    <value>La Categoría seleccionada ya se encuentra registrada</value>
+  </data>
   <data name="CatidadIndicadoresExcedido" xml:space="preserve">
     <value>Se excedió la cantidad de registros establecidos</value>
   </data>

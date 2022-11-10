@@ -19,7 +19,8 @@ namespace GB.SIMEF.Entities
     {
         public DetalleIndicadorCategoria()
         {
-            
+            listaDetallesCategoria = new List<int>();
+            listaDetallesCategoriaString = new List<string>();
         }
 
         [Key]
@@ -52,5 +53,11 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public bool DetallesAgrupados { get; set; }
+
+        [NotMapped]
+        public List<int> listaDetallesCategoria { get; set; }
+        
+        [NotMapped]
+        public List<string> listaDetallesCategoriaString { get; set; }
     }
 }
