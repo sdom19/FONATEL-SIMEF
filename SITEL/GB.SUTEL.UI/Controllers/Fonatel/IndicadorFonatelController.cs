@@ -844,6 +844,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// 12/09/2022
         /// Michael Hernandez 
         /// Función que permite crear un nuevo detalle de categoria para un indicador
+        /// Última modificación: 09/11/2022 - José Navarro Acuña
         /// </summary>
         /// <param name="pDetalleIndicadorCategoria"></param>
         /// <returns></returns>
@@ -866,6 +867,62 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = detalleIndicadorCategoriaBL.InsertarDatos(pDetalleIndicadorCategoria);
             });
 
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 12/09/2022
+        /// José Navarro Acuña
+        /// Función que permite editar un detalla de categoria existe de un indicador
+        /// </summary>
+        /// <param name="pDetalleIndicadorCategoria"></param>
+        /// <returns></returns>
+        public async Task<string> EditarDetalleCategoriaDesagreagacion(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            string mensajeValidacion = ValidarObjetoDetalleCategoria(pDetalleIndicadorCategoria);
+
+            if (mensajeValidacion != null)
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = mensajeValidacion;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorCategoriaBL.ActualizarElemento(pDetalleIndicadorCategoria);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 09/11/2022
+        /// José Navarro Acuña
+        /// Función que permite eliminar un detalle de categoria de un indicador
+        /// </summary>
+        /// <param name="pDetalleIndicadorCategoria"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EliminarDetalleCategoria(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            if (string.IsNullOrEmpty(pDetalleIndicadorCategoria.idIndicadorString) ||
+                string.IsNullOrEmpty(pDetalleIndicadorCategoria.idCategoriaString)
+                )
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorCategoriaBL.EliminarElemento(pDetalleIndicadorCategoria);
+            });
             return JsonConvert.SerializeObject(resultado);
         }
 
@@ -924,8 +981,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
-          
-
             await Task.Run(() =>
             {
                 resultado = detalleIndicadorVariablesBL.ActualizarElemento(pDetalleIndicadorVariables);
@@ -959,34 +1014,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 resultado = detalleIndicadorVariablesBL.CambioEstado(pDetalleIndicadorVariables);
-            });
-            return JsonConvert.SerializeObject(resultado);
-        }
-
-        /// <summary>
-        /// 09/11/2022
-        /// José Navarro Acuña
-        /// Función que permite eliminar un detalle de categoria de un indicador
-        /// </summary>
-        /// <param name="pDetalleIndicadorCategoria"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<string> EliminarDetalleCategoria(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
-        {
-            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
-
-            if (string.IsNullOrEmpty(pDetalleIndicadorCategoria.idIndicadorString) ||
-                string.IsNullOrEmpty(pDetalleIndicadorCategoria.idCategoriaString)
-                )
-            {
-                resultado.HayError = (int)Error.ErrorControlado;
-                resultado.MensajeError = Errores.NoRegistrosActualizar;
-                return JsonConvert.SerializeObject(resultado);
-            }
-
-            await Task.Run(() =>
-            {
-                resultado = detalleIndicadorCategoriaBL.EliminarElemento(pDetalleIndicadorCategoria);
             });
             return JsonConvert.SerializeObject(resultado);
         }
