@@ -402,6 +402,8 @@ CreateView = {
         listaVariablesDato: {},
         objEditarDetallesVariableDato: null,
         objEditarDetallesCategoria: null,
+        cantidadDetallesCategoriaRegistrada: 0,
+        cantidadDetallesVariablesRegistrada: 0,
         elIndicadorFueClonado: false
     },
 
@@ -579,7 +581,9 @@ CreateView = {
                 $("#loading").fadeIn();
                 CreateView.Consultas.EditarIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
-                        $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos}
+                        setTimeout(() => {
+                            $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
+                        }, 600);
                     })
                     .catch(error => { this.ManejoDeExcepciones(error); })
                     .finally(() => {
@@ -997,18 +1001,9 @@ CreateView = {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ConsultarDetallesVariable(pIndicador) // tabla
                     .then(data => {
-                        let cantidadIndicador = $(CreateView.Controles.formIndicador.inputCantidadVariableDatosIndicador).val();
-                        let cantidadEstablecida = cantidadIndicador == "" ? 0 : cantidadIndicador;
+                        CreateView.Variables.cantidadDetallesVariablesRegistrada = data.objetoRespuesta.length;
 
-                        if (cantidadEstablecida > data.objetoRespuesta.length) {
-                            $(CreateView.Controles.formVariable.btnSiguiente).prop("disabled", true);
-                            $(CreateView.Controles.formVariable.btnGuardar).prop("disabled", false);
-                        }
-                        else {
-                            $(CreateView.Controles.formVariable.btnSiguiente).prop("disabled", false);
-                            $(CreateView.Controles.formVariable.btnGuardar).prop("disabled", true);
-                        }
-
+                        this.ValidarCantidadDetallesVariablesDato();
                         this.InsertarDatosTablaDetallesVariable(data.objetoRespuesta);
                         // crear un objeto donde cada item es un map que contiene los datos la variable-dato
                         CreateView.Variables.listaVariablesDato = data.objetoRespuesta.reduce((map, obj) => (map[obj.id] = obj, map), {});
@@ -1051,7 +1046,7 @@ CreateView = {
 
         CrearObjDetallesVariable: function (pIndicador, pIdDetalle = null) {
             let controles = CreateView.Controles.formVariable;
-            var formData = {
+            let formData = {
                 id: pIdDetalle,
                 idIndicadorString: pIndicador,
                 NombreVariable: $(controles.inputNombreVariable).val(),
@@ -1084,8 +1079,21 @@ CreateView = {
             $(CreateView.Controles.formVariable.inputDescripcionVariable).val(null);
         },
 
+        ValidarCantidadDetallesVariablesDato: function () {
+            let cantidadIndicador = $(CreateView.Controles.formIndicador.inputCantidadVariableDatosIndicador).val();
+            let cantidadEstablecida = cantidadIndicador == "" ? 0 : cantidadIndicador;
+
+            if (cantidadEstablecida > CreateView.Variables.cantidadDetallesVariablesRegistrada) {
+                $(CreateView.Controles.formVariable.btnSiguiente).prop("disabled", true);
+                $(CreateView.Controles.formVariable.btnGuardar).prop("disabled", false);
+            }
+            else {
+                $(CreateView.Controles.formVariable.btnSiguiente).prop("disabled", false);
+                $(CreateView.Controles.formVariable.btnGuardar).prop("disabled", true);
+            }
+        },
+
         CancelarFormularioDetallesVariable: function () {
-            let rootObj = this;
             jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
                     CreateView.Variables.objEditarDetallesVariableDato = null;
@@ -1093,7 +1101,8 @@ CreateView = {
                     SeleccionarItemSelect2(CreateView.Controles.formVariable.inputNombreVariable, "");
                     SeleccionarItemSelect2(CreateView.Controles.formVariable.inputDescripcionVariable, "");
 
-                    rootObj.LimpiarMensajesValidacionFormularioDetallesVariable();
+                    CreateView.Metodos.LimpiarMensajesValidacionFormularioDetallesVariable();
+                    CreateView.Metodos.ValidarCantidadDetallesVariablesDato();
                 });
         },
 
@@ -1198,7 +1207,7 @@ CreateView = {
             if (!CreateView.Variables.hizoCargaDetallesCategorias) {
                 $("#loading").fadeIn();
 
-                CreateView.Consultas.ConsultarCategoriasDesagregacionTipoAtributo() // combo
+                CreateView.Consultas.ConsultarCategoriasDesagregacion() // combo
                     .then(data => {
                         let dataSet = []
                         data.objetoRespuesta?.forEach(item => {
@@ -1217,19 +1226,10 @@ CreateView = {
                     }).
                     then(data => {
                         if (data) {
-                            let CantidadEstablecida = $(CreateView.Controles.formIndicador.inputCantidadCategoriaIndicador).val() == "" ? 0 : $(CreateView.Controles.formIndicador.inputCantidadCategoriaIndicador).val();
-                            if (CantidadEstablecida > data.objetoRespuesta.length) {
-                                $(CreateView.Controles.formCategoria.btnGuardar).prop("disabled", false);
-                                $(CreateView.Controles.btnFinalizar).prop("disabled", true);
-                            }
-                            else {
-                                $(CreateView.Controles.formCategoria.btnGuardar).prop("disabled", true);
-                                $(CreateView.Controles.btnFinalizar).prop("disabled", false);
-                            }
+                            CreateView.Variables.cantidadDetallesCategoriaRegistrada = data.objetoRespuesta.length;
+                            this.ValidarCantidadDetallesCategoria();
                             this.InsertarDatosTablaDetallesCategoria(data.objetoRespuesta);
-
                         }
-                        
                        
                         CreateView.Variables.hizoCargaDetallesCategorias = true;
                     })
@@ -1272,10 +1272,14 @@ CreateView = {
                     });
 
                     if (dataSet.length > 0) {
+                        $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).prop("disabled", false);
                         InsertarOpcionTodosSelect2Multiple(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador);
+                        InsertarDataSetSelect2(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador, dataSet);
+                    }
+                    else {
+                        $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).prop("disabled", true);
                     }
 
-                    InsertarDataSetSelect2(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador, dataSet);
                     return true;
                 })
                 .then(data => {
@@ -1288,8 +1292,12 @@ CreateView = {
                 })
                 .then(data => { // en caso de editar
                     if (data) {
-                        CreateView.Variables.objEditarDetallesCategoria = data.objetoRespuesta;
-
+                        CreateView.Variables.objEditarDetallesCategoria = {
+                            idIndicador: pIdIndicador,
+                            idCategoria: pIdCategoria,
+                            detalles: data.objetoRespuesta
+                        };
+                        
                         SeleccionarItemsSelect2Multiple(
                             CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador,
                             data.objetoRespuesta, "idCategoriaDetalleString");
@@ -1303,14 +1311,41 @@ CreateView = {
 
         CargarFormularioEditarDetallesCategoria: function (pIdCategoria, pIdIndicador) {
             $(CreateView.Controles.formCategoria.btnGuardar).prop("disabled", false);
+            $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).prop("disabled", true);
             SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, pIdCategoria);
             this.CargarDetallesDeLaCategoria(pIdCategoria, pIdIndicador);
+            this.LimpiarMensajesValidacionFormularioDetallesCategoria();
+        },
+
+        CrearObjDetallesCategoria: function (pIndicador) {
+            let listadoCategoriasDesagracion = $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).val();
+
+            let formData = {
+                id: CreateView.Variables.objEditarDetallesCategoria?.idCategoria,
+                idIndicadorString: pIndicador,
+                idCategoriaString: $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val(),
+                listaDetallesCategoriaString: []
+            };
+
+            for (let i = 0; i < listadoCategoriasDesagracion?.length; i++) {
+                if (listadoCategoriasDesagracion[i] !== "all") {
+                    formData.listaDetallesCategoriaString.push(listadoCategoriasDesagracion[i]);
+                }
+            }
+
+            return formData;
         },
 
         ValidarFormularioDetallesCategoria: function () {
             this.LimpiarMensajesValidacionFormularioDetallesCategoria();
 
-            let validacion = ValidarFormulario(CreateView.Controles.formCategoria.inputs, ["select2-search__field"]);
+            let listaExcepciones = ["select2-search__field"];
+
+            if ($(`${CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador} > option`).length < 1) {
+                listaExcepciones.push(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador.slice(1));
+            }
+
+            let validacion = ValidarFormulario(CreateView.Controles.formCategoria.inputs, listaExcepciones);
 
             for (let input of validacion.objetos) {
                 $("#" + $(input).attr("id") + CreateView.Controles.prefijoLabelsHelp).css("display", "block");
@@ -1326,34 +1361,63 @@ CreateView = {
             }
         },
 
+        LimpiarValoresFormularioDetallesCategoria: function () {
+            SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, "");
+            SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador, "");
+        },
+
+        RestablecerCamposFormularioDetalleCategoria: function () {
+            $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).prop("disabled", false);
+            $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).prop("disabled", false);
+        },
+
+        ValidarCantidadDetallesCategoria: function () {
+            let cantidadEstablecida = $(CreateView.Controles.formIndicador.inputCantidadCategoriaIndicador).val() == "" ? 0 : $(CreateView.Controles.formIndicador.inputCantidadCategoriaIndicador).val();
+
+            if (cantidadEstablecida > CreateView.Variables.cantidadDetallesCategoriaRegistrada) {
+                $(CreateView.Controles.formCategoria.btnGuardar).prop("disabled", false);
+                $(CreateView.Controles.btnFinalizar).prop("disabled", true);
+            }
+            else {
+                $(CreateView.Controles.formCategoria.btnGuardar).prop("disabled", true);
+                $(CreateView.Controles.btnFinalizar).prop("disabled", false);
+            }
+        },
+
         CancelarFormularioDetallesCategoria: function () {
-            let rootObj = this;
             jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
                     CreateView.Variables.objEditarDetallesCategoria = null;
 
-                    SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, "");
-                    SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador, "");
+                    CreateView.Metodos.LimpiarValoresFormularioDetallesCategoria();
+                    CreateView.Metodos.RestablecerCamposFormularioDetalleCategoria();
+                    $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).empty();
 
-                    rootObj.LimpiarMensajesValidacionFormularioDetallesCategoria();
+                    CreateView.Metodos.LimpiarMensajesValidacionFormularioDetallesCategoria();
+                    CreateView.Metodos.ValidarCantidadDetallesCategoria();
                 });
         },
 
-        EliminarDetalleCategoria: function (pIdIndicador, pIdDetalle) {
+        EliminarDetalleCategoria: function (pIdIndicador, pIdCategoria) {
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaEliminarCategoria, jsMensajes.Variables.actionType.eliminar)
                     .set('onok', function (closeEvent) { resolve(true) });
             })
                 .then(data => {
                     $("#loading").fadeIn();
-                    let pDetalleCategoria = new Object();
-                    pDetalleCategoria.idIndicadorString = pIdIndicador;
-                    pDetalleCategoria.idCategoriaString = pIdDetalle;
+
+                    let detalle = {
+                        idIndicadorString: pIdIndicador,
+                        idCategoriaString: pIdCategoria
+                    };
                    
-                    return CreateView.Consultas.EliminarDetalleCategoria(pDetalleCategoria);
+                    return CreateView.Consultas.EliminarDetalleCategoria(detalle);
                 })
                 .then(data => {
-                    delete CreateView.Variables.listaVariablesDato[pIdDetalle];
+                    if (pIdCategoria === CreateView.Variables.objEditarDetallesCategoria?.idCategoria) { // en caso de que se este editando, no actualicen y se presione el boton de eliminar
+                        CreateView.Variables.objEditarDetallesCategoria = null;
+                        this.LimpiarValoresFormularioDetallesCategoria();
+                    }
 
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoEliminarCategoria).set('onok', function (closeEvent) {
                         CreateView.Variables.hizoCargaDetallesCategorias = false;
@@ -1366,18 +1430,39 @@ CreateView = {
                 });
         },
 
-        EditarDetallesCategoria: function () {
-            jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarCategoria, jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
+        EditarDetallesCategoria: function (pIdIndicador) {
+            let formValido = this.ValidarFormularioDetallesCategoria();
+
+            if (!formValido) { return; }
+
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarCategoria, jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        resolve(true);
+                    });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.EditarDetalleCategoriasDesagregacion(this.CrearObjDetallesCategoria(pIdIndicador));
+                })
+                .then(data => {
+                    CreateView.Metodos.LimpiarValoresFormularioDetallesCategoria();
+                    CreateView.Metodos.RestablecerCamposFormularioDetalleCategoria();
+                    CreateView.Variables.objEditarDetallesCategoria = null;
+
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarCategoria)
                         .set('onok', function (closeEvent) {
-                            $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).empty();
-                            SeleccionarItemSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, "");
+                            CreateView.Variables.hizoCargaDetallesCategorias = false;
+                            CreateView.Metodos.CargarDetallesCategoria(pIdIndicador);
                         });
+                })
+                .catch(error => { this.ManejoDeExcepciones(error); console.log(error) })
+                .finally(() => {
+                    $("#loading").fadeOut();
                 });
         },
 
-        CrearDetallesCategoria: function () {      
+        CrearDetallesCategoria: function (pIdIndicador) {
             let formValido = this.ValidarFormularioDetallesCategoria();
             
             if (!formValido) { return; }
@@ -1390,27 +1475,13 @@ CreateView = {
             })
                 .then(data => {
                     $("#loading").fadeIn();
-
-                    let pDetalleIndicadorCategoria = [];
-                    let listadoCategoriasDesagracion = $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).val();
-                    
-                    for (var i = 0; i < listadoCategoriasDesagracion.length; i++) {
-
-                        let detalle = new Object();
-                        detalle.idIndicadorString = ObtenerValorParametroUrl("id");
-                        detalle.idCategoriaString = $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val();
-                        detalle.idCategoriaDetalleString = listadoCategoriasDesagracion[i];
-                        pDetalleIndicadorCategoria.push(detalle);
-                    }
-                    return CreateView.Consultas.InsertarCategoriasDesagregacionTipoAtributo(pDetalleIndicadorCategoria);
+                    return CreateView.Consultas.InsertarDetalleCategoriasDesagregacion(this.CrearObjDetallesCategoria(pIdIndicador));
                 })
                 .then(data => {
-                    let pIdIndicador = data.objetoRespuesta[0].idIndicadorString;
+                    this.LimpiarValoresFormularioDetallesCategoria();
 
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarCategoria)
                         .set('onok', function (closeEvent) {
-                            $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val("").trigger('change');
-                            $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).val("").trigger('change');
                             CreateView.Variables.hizoCargaDetallesCategorias = false;
                             CreateView.Metodos.CargarDetallesCategoria(pIdIndicador);
                         });
@@ -1481,16 +1552,24 @@ CreateView = {
             return execAjaxCall('/IndicadorFonatel/ObtenerListaDetallesVariable', 'GET', { pIdIndicador: pIdIndicador });
         },
 
-        ConsultarCategoriasDesagregacionTipoAtributo: function () {
-            return execAjaxCall('/IndicadorFonatel/ObtenerCategoriasDesagregacionTipoAtributo', 'GET');
+        ConsultarCategoriasDesagregacion: function () {
+            return execAjaxCall('/IndicadorFonatel/ObtenerCategoriasDesagregacion', 'GET');
         },
 
-        InsertarCategoriasDesagregacionTipoAtributo: function (pDetalleIndicadorCategoria) {
+        InsertarDetalleCategoriasDesagregacion: function (pDetalleIndicadorCategoria) {
             return execAjaxCall('/IndicadorFonatel/CrearDetalleCategoriaDesagregacion', 'POST', { pDetalleIndicadorCategoria: pDetalleIndicadorCategoria });
         },
 
+        EditarDetalleCategoriasDesagregacion: function (pDetalleIndicadorCategoria) {
+            return execAjaxCall('/IndicadorFonatel/EditarDetalleCategoriaDesagreagacion', 'POST', { pDetalleIndicadorCategoria: pDetalleIndicadorCategoria });
+        },
+
+        EliminarDetalleCategoria: function (pDetalleIndicadorCategoria) {
+            return execAjaxCall('/IndicadorFonatel/EliminarDetalleCategoria', 'POST', { pDetalleIndicadorCategoria: pDetalleIndicadorCategoria });
+        },
+
         ConsultarDetallesDeCategoriaDesagregacion: function (pIdCategoria) {
-            return execAjaxCall('/IndicadorFonatel/ObtenerDetallesDeCategoriaDesagregacion', 'GET', { pIdCategoria: pIdCategoria });
+            return execAjaxCall('/IndicadorFonatel/ObtenerDetallesTipoTextoDeCategoriaDesagregacion', 'GET', { pIdCategoria: pIdCategoria });
         },
 
         ConsultarDetallesCategoria: function (pIdIndicador) {
@@ -1512,10 +1591,6 @@ CreateView = {
         EliminarDetalleVariableDato: function (pDetalleIndicadorVariables) {
             return execAjaxCall('/IndicadorFonatel/EliminarDetalleVariableDato', 'POST', { pDetalleIndicadorVariables: pDetalleIndicadorVariables });
         },
-
-        EliminarDetalleCategoria: function (pDetalleIndicadorCategoria) {
-            return execAjaxCall('/IndicadorFonatel/EliminarDetalleCategoria', 'POST', { pDetalleIndicadorCategoria: pDetalleIndicadorCategoria });
-        }
     },
 
     Eventos: function () {
@@ -1696,11 +1771,15 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.formCategoria.btnGuardar, function (e) {
-            if (CreateView.Variables.objEditarDetallesCategoria != null) {
-                CreateView.Metodos.EditarDetallesCategoria();
-            }
-            else {
-                CreateView.Metodos.CrearDetallesCategoria();
+            let idIndicador = ObtenerValorParametroUrl("id");
+
+            if (idIndicador != null || $.trim(idIndicador) != "") {
+                if (CreateView.Variables.objEditarDetallesCategoria != null) {
+                    CreateView.Metodos.EditarDetallesCategoria(idIndicador);
+                }
+                else {
+                    CreateView.Metodos.CrearDetallesCategoria(idIndicador);
+                }
             }
         });
 
@@ -1718,9 +1797,6 @@ CreateView = {
             if (id != null || $.trim(id) != "") {
                 CreateView.Metodos.CargarDetallesCategoria(id);
             }
-            else {
-                CreateView.Metodos.CargarDetallesCategoria(null);
-            }
         });
 
         $(document).on("click", CreateView.Controles.btnFinalizar, function (e) {
@@ -1729,33 +1805,6 @@ CreateView = {
                 CreateView.Metodos.GuardadoDefinitivoIndicador(id);
             }
         });
-
-        //$(document).on("click", CreateView.Controles.btnAddIndicadorCategoria, function () {
-        //    let id = 1;
-        //    window.location.href = "/Fonatel/IndicadorFonatel/DetalleCategoría?id=" + id;
-        //});
-
-        //$(document).on("click", CreateView.Controles.btnAddIndicadorVariable, function () {
-        //    let id = 1;
-        //    window.location.href = "/Fonatel/IndicadorFonatel/DetalleVariables?id=" + id;
-        //});
-
-        //$(document).on("click", CreateView.Controles.btnEliminarCategoria, function () {
-        //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Categoría?", jsMensajes.Variables.actionType.eliminar)
-        //        .set('onok', function (closeEvent) {
-        //            jsMensajes.Metodos.OkAlertModal("La Categoría ha sido eliminada")
-        //                .set('onok', function (closeEvent) { });
-        //        });
-        //});
-
-        //$(document).on("click", CreateView.Controles.formCategoria.btnSiguiente, function (e) {
-        //    e.preventDefault();
-        //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.estado)
-        //        .set('onok', function (closeEvent) {
-        //            jsMensajes.Metodos.OkAlertModal("La Indicador ha sido agregado")
-        //                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/IndicadorFonatel/index" });
-        //        });
-        //});
     },
 
     Init: function () {
@@ -1768,9 +1817,6 @@ CreateView = {
         if (jsUtilidades.Variables.Acciones.Editar == modo) {
             let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
-        }
-        else if (jsUtilidades.Variables.Acciones.Clonar == modo) {
-
         }
     }
 }
