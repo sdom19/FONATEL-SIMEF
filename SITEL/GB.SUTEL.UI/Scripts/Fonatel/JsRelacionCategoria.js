@@ -211,26 +211,15 @@
             $("#loading").fadeIn();
             JsRelacion.Variables.cantidadCategorias = 0;
             JsRelacion.Variables.listaCategorias = [];
-            //Se Obtiene los datos de Categorias 
-            //JsRelacion.Consultas.ConsultarListaCategoria()
-            //    .then(data => {
-            //        //Se llena la tabla de categorias del modal
-            //        JsRelacion.Consultas.InsertarDatosTablaModalCategoria(data.objetoRespuesta);
-            //    })
+            //Se llena la tabla del modal con las categorias
             JsRelacion.Consultas.InsertarDatosTablaModalCategoria(JsRelacion.Variables.ModalListaCategorias)
-               /* .then(ind => {*/
                     //Se muestra el modal
                     setTimeout(() => {
                         $(JsRelacion.Controles.modalCategoria).modal('show');
                     }, 500);
-                //})
-                //.catch(error => {
-                //    jsMensajes.Metodos.OkAlertErrorModal()
-                //        .set('onok', function (closeEvent) { });
-                //})
-                //.finally(() => {
+ 
                     $("#loading").fadeOut();
-                //});
+
         },
     },
 
@@ -912,13 +901,6 @@ $(document).on("click", JsRelacion.Controles.btnDescargaPlantilla, function () {
     } else {
         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar la Plantilla?", jsMensajes.Variables.actionType.descargar)
             .set('onok', function (closeEvent) {
-                //Se obtienen todas las categorias que estan marcadas en el modal
-                //var listaCategorias = [];
-                //$(JsRelacion.Controles.chkCategorias).each(function () {
-                //    if (this.checked) {
-                //        listaCategorias.push($(this).val());
-                //    }
-                //});
 
                 window.open(jsUtilidades.Variables.urlOrigen + "/RelacionCategoria/DescargarExcel?id=" + id + "&listaCategorias=" + JsRelacion.Variables.listaCategorias);
 
@@ -949,15 +931,10 @@ $(document).on("click", JsRelacion.Controles.chkCategorias, function () {
         jsMensajes.Metodos.OkAlertErrorModal("La cantidad de Categorías debe ser igual a la establecida a la hora de crear la Relación");
         $(this).prop("checked", false);
         JsRelacion.Variables.cantidadCategorias -= 1;
+        var indice = JsRelacion.Variables.listaCategorias.indexOf($(this).val()); // obtenemos el indice
+        JsRelacion.Variables.listaCategorias.splice(indice, 1);
     }
 
-    //let contador = 0;
-    //let cantidad = $(JsRelacion.Controles.txtCantidadCategoria).val();
-    //contador = $(JsRelacion.Controles.chkCategorias + ":checked").length;
-    //if (contador > cantidad) {
-    //    jsMensajes.Metodos.OkAlertErrorModal("La cantidad de Categorías debe ser igual a la establecida a la hora de crear la Relación");
-    //    $(this).prop("checked", false);
-    //}
 });
 
 $(function () {

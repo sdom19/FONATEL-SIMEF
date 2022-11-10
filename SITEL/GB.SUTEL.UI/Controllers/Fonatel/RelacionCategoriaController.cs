@@ -431,10 +431,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             var relacion = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = id }).objetoRespuesta.Single();
 
-            //relacion.DetalleRelacionCategoria = DetalleRelacionCategoriaBL.ObtenerDatos(new DetalleRelacionCategoria()
-            //{
-            //    IdRelacionCategoria = relacion.idRelacionCategoria
-            //}).objetoRespuesta;
 
             MemoryStream stream = new MemoryStream();
 
@@ -442,9 +438,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(relacion.Codigo);
 
-                //worksheetInicio.Cells["A1"].LoadFromCollection(relacion.DetalleRelacionCategoria
-
-                //    .Select(i => new { i.NombreCategoria, i.CategoriaAtributoValor }), true);
 
                 worksheetInicio.Cells["A1"].Value = "Código";
                 worksheetInicio.Cells["A2"].Value = relacion.idCategoriaValor;
@@ -487,17 +480,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         worksheetInicio.Cells[2, celda].AutoFitColumns();
                     }
                 }
-
-                //for (int i = 0; i < relacion.CantidadCategoria; i++)
-                //{
-                //    string celdas = string.Format("A{0}:B{0}", i + 2);
-
-
-                //    worksheetInicio.Cells[celdas].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                //    worksheetInicio.Cells[celdas].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-                //    worksheetInicio.Cells[celdas].Style.Font.Color.SetColor(System.Drawing.Color.Black);
-                //    worksheetInicio.Cells[celdas].AutoFitColumns();
-                //}
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
                 Response.AddHeader("content-disposition", "attachment;  filename=" + relacion.Nombre + ".xlsx");
