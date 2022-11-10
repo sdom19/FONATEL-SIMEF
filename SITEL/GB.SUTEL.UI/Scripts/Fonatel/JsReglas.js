@@ -62,6 +62,7 @@
         "txtidIndicadorVariableString": "#txtidIndicadorVariableString",
         "txtidDetalleReglaValidacion": "#txtidDetalleReglaValidacion",
         "txtidCompara": "#txtidCompara",
+        "step2": "#step2",
         "btnFinalizar": "#btnFinalizar"
     },
 
@@ -334,6 +335,7 @@
         },
 
         "ValidarOpcionSiguiente": function () {
+
             let codigo = $(JsReglas.Controles.txtCodigo).val().trim();
             let nombre = $(JsReglas.Controles.txtNombre).val().trim();
             let Indicador = $(JsReglas.Controles.ddlIndicadorRegla).val();
@@ -352,6 +354,8 @@
             if (Descripcion.length == 0) {
                 validar = true;
             }
+
+            $(JsReglas.Controles.step2).prop("disabled", validar);
             $(JsReglas.Controles.btnSiguienteRegla).prop("disabled", validar);
         },
 
@@ -1293,17 +1297,34 @@ $(document).on("change", JsReglas.Controles.ddlAtributosValidosCategoríaRegla, 
 });
 
 $(function () {
+
+
+    let indicadorHabilitado = $(JsReglas.Controles.ddlIndicadorRegla).val();
+
     if ($("#TableReglaDesagregacion").length > 0) {
         JsReglas.Consultas.ConsultaListaReglas();
     }
     else if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Editar) {
+
         $(JsReglas.Controles.txtCodigo).prop("disabled", true);
-        $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", true);
+
+        if (indicadorHabilitado == "") {
+            $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", false);
+        } else {
+            $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", true);
+        }
+
         JsReglas.Metodos.ValidarOpcionSiguiente();
     }
     else if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Clonar) {
+
+        if (indicadorHabilitado == "") {
+            $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", false);
+        } else {
+            $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", true);
+        }
+
         JsReglas.Metodos.ValidarOpcionSiguiente();
-        $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", true);
     }
     if ($(JsReglas.Controles.FormularioDetalle).length > 0) {
         JsReglas.Consultas.ConsultaListaDetalleReglas();
@@ -1311,5 +1332,3 @@ $(function () {
     }
 
 });
-
-
