@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -363,6 +364,46 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
 
             return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 04-11-2022
+        /// Metodo para Clonar una regla de validacion
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public async Task<string> ClonarRegla(ReglaValidacion objeto)
+        {
+            user = User.Identity.GetUserId();
+            objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+
+            if (string.IsNullOrEmpty(objeto.id))
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<ReglaValidacion>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            string idReglaAClonar = objeto.id;
+            objeto.id = string.Empty;
+            objeto.idRegla = 0;
+
+            string creacionRegla = await InsertarReglaValidacion(objeto); // reutilizar la función de crear para registrar el nueva regla
+            RespuestaConsulta<List<ReglaValidacion>> ReglaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<ReglaValidacion>>>(creacionRegla);
+
+            if (ReglaDeserializado.HayError != (int)Error.NoError) // se creó la regla correctamente?
+            {
+                return creacionRegla;
+            }
+
+            RespuestaConsulta<ReglaValidacion> resultado = new RespuestaConsulta<ReglaValidacion>();
+
+            await Task.Run(() =>
+            {
+                resultado = reglaBL.ClonarDetallesReglas(idReglaAClonar, ReglaDeserializado.objetoRespuesta[0].id);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>

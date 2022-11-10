@@ -78,13 +78,6 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
 
-                    //string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.idRegla == objeto.idRegla).Single());
-                    //objeto = resul.Where(x => x.idRegla == objeto.idRegla).Single();
-                    //var nuevovalor = clsDatos.ObtenerDatos(objeto).Single();
-                    //string jsonNuevoValor = SerializarObjetoBitacora(nuevovalor);
-                    //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                    //ResultadoConsulta.Usuario,
-                    //ResultadoConsulta.Clase, nuevovalor.Codigo, jsonNuevoValor, valorAnterior);
                 }
 
             }
@@ -159,6 +152,55 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<ReglaValidacion>> ClonarDatos(ReglaValidacion objeto)
         {
             throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<ReglaValidacion> ClonarDetallesReglas(string pIdReglaAClonar, string pIdReglaDestino)
+        {
+            RespuestaConsulta<ReglaValidacion> resultado = new RespuestaConsulta<ReglaValidacion>();
+
+            int IdReglaAClonar, IdReglaDestino;
+            bool errorControlado = false;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pIdReglaAClonar), out int number);
+                IdReglaAClonar = number;
+
+                if (IdReglaAClonar == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                int.TryParse(Utilidades.Desencriptar(pIdReglaDestino), out number);
+                IdReglaDestino = number;
+
+                if (IdReglaDestino == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                clsDatos.ClonarDetallesReglas(IdReglaAClonar, IdReglaDestino);
+
+                resultado.objetoRespuesta = new ReglaValidacion() { id = pIdReglaDestino };
+
+                resultado.Usuario = user;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Clonar;
+
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+
+            return resultado;
         }
 
         public RespuestaConsulta<List<ReglaValidacion>> EliminarElemento(ReglaValidacion objeto)

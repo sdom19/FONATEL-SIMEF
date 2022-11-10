@@ -43,6 +43,8 @@
         "ddlIndicadorSalidaReglaHelp": "#ddlIndicadorSalidaReglaHelp",
         "ddlIndicadorComparacionHelp": "#ddlIndicadorComparacionHelp",
         "ddlVariableComparacionReglaHelp": "#ddlVariableComparacionReglaHelp",
+        "ddlIndicadorComparacionEntradaSalidaHelp": "#ddlIndicadorComparacionEntradaSalidaHelp",
+        "ddlVariableComparacionEntradaSalidaReglaHelp": "#ddlVariableComparacionEntradaSalidaReglaHelp",
         "ddlIndicadorComparacionRegla": "#ddlIndicadorComparacionRegla",
         "ddlVariableComparacionRegla": "#ddlVariableComparacionRegla",
         "txtConstanteRegla": "#txtConstanteRegla",
@@ -80,6 +82,7 @@
 
     "Mensajes": {
         MensajeDetalleAgregado: "El Tipo de Regla ha sido creado",
+        MensajeDetalleEditado: "El Tipo de Regla ha sido editado",
         MensajeEliminarRegla: "La Regla ha sido eliminada",
         MensajeAgregarVariasReglas: "Recuerde que puede agregar más de una regla de validación para el indicador seleccionado",
         MensajeReglaCreada: "La Regla ha sido creada"
@@ -184,21 +187,7 @@
             $(JsReglas.Controles.ddlIndicadorSalidaRegla).val(null).trigger('change');
             $(JsReglas.Controles.ddlIndicadorComparacionRegla).val(null).trigger('change');
             $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val(null).trigger('change');
-        },
 
-        "RestablecerCamposStep2": function () {
-            $(JsReglas.Controles.ddlTipoRegla).val(null).trigger('change');
-            $(JsReglas.Controles.ddlOperadorRegla).val(null).trigger('change');
-            $(JsReglas.Controles.ddlVariableRegla).val(null).trigger('change');
-            $(JsReglas.Controles.ddlIndicadorComparacionRegla).val(null).trigger('change');
-            $(JsReglas.Controles.ddlVariableComparacionRegla).val(null).trigger('change');
-            $(JsReglas.Controles.txtConstanteRegla).val(null).trigger('change');
-            $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val(null).trigger('change');
-            $(JsReglas.Controles.ddlAtributosValidosRegla).val(null).trigger('change');
-            $(JsReglas.Controles.ddlCategoríaActualizableRegla).val(null).trigger('change');
-            $(JsReglas.Controles.ddlIndicadorSalidaRegla).val(null).trigger('change');
-            $(JsReglas.Controles.ddlIndicadorComparacionRegla).val(null).trigger('change');
-            $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val(null).trigger('change');
         },
 
         "ValidarControles": function () {
@@ -261,6 +250,7 @@
 
         "ValidarControlesTipo": function () {
             let validarTipo = true;
+
             $(JsReglas.Controles.TipoReglaHelp).addClass("hidden");
             $(JsReglas.Controles.OperadorHelp).addClass("hidden");
             $(JsReglas.Controles.VariableHelp).addClass("hidden");
@@ -273,8 +263,10 @@
             $(JsReglas.Controles.ddlIndicadorSalidaReglaHelp).addClass("hidden");
             $(JsReglas.Controles.ddlIndicadorComparacionHelp).addClass("hidden");
             $(JsReglas.Controles.ddlVariableComparacionReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlIndicadorComparacionEntradaSalidaHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlVariableComparacionEntradaSalidaReglaHelp).addClass("hidden");
 
-            let Tipo = $(JsReglas.Controles.ddlTipoRegla).val().trim();
+            let Tipo = $(JsReglas.Controles.ddlTipoRegla).val();
             let Operador = $(JsReglas.Controles.ddlOperadorRegla).val();
             let Variable = $(JsReglas.Controles.ddlVariableRegla).val();
 
@@ -330,11 +322,11 @@
             }
             if (Tipo == 7) {
                 if ($(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val() == 0 || $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val() == null) {
-                    $(JsReglas.Controles.ddlIndicadorComparacionHelp).removeClass("hidden");
+                    $(JsReglas.Controles.ddlIndicadorComparacionEntradaSalidaHelp).removeClass("hidden");
                     validarTipo = false;
                 }
                 if ($(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val() == 0 || $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val() == null) {
-                    $(JsReglas.Controles.ddlVariableComparacionReglaHelp).removeClass("hidden");
+                    $(JsReglas.Controles.ddlVariableComparacionEntradaSalidaReglaHelp).removeClass("hidden");
                     validarTipo = false;
                 }
             }
@@ -415,7 +407,7 @@
                 //REGLA CONTRA CONSTANTE
                 if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraConstante) {
                     $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaComparacionConstante.idCompara);
-                    $(JsReglas.Controles.txtConstanteRegla).val(JsReglas.Variables.objetoTipoRegla.reglaComparacionConstante.Constante);               
+                    $(JsReglas.Controles.txtConstanteRegla).val(JsReglas.Variables.objetoTipoRegla.reglaComparacionConstante.Constante);
                 }
                 //REGLA CONTRA ATRIBUTOS VALIDOS
                 if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
@@ -450,6 +442,25 @@
 
         },
 
+        "LimpiarValidaciones": function () {
+
+            $(JsReglas.Controles.TipoReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.OperadorHelp).addClass("hidden");
+            $(JsReglas.Controles.VariableHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlIndicadorComparacionHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlVariableComparacionReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.txtConstanteReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlAtributosValidosCategoríaReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlAtributosValidosReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlCategoríaActualizableReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlIndicadorSalidaReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlIndicadorComparacionHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlVariableComparacionReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlIndicadorComparacionEntradaSalidaHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlVariableComparacionEntradaSalidaReglaHelp).addClass("hidden");
+
+        },
+
     },
 
     "Consultas": {
@@ -467,10 +478,10 @@
                 .then((obj) => {
 
                     jsMensajes.Metodos.OkAlertModal("La Regla ha sido creada")
-                            .set('onok', function (closeEvent) {
-                                window.location.href = "/Fonatel/ReglasValidacion/Index";
-                            });
-                    
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/Fonatel/ReglasValidacion/Index";
+                        });
+
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -496,6 +507,7 @@
             execAjaxCall("/ReglasValidacion/InsertarReglaValidacion", "POST", objetoRegla)
                 .then((obj) => {
                     $("a[href='#step-2']").trigger('click');
+                    InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -566,6 +578,76 @@
                 });
         },
 
+        "ClonarReglaValidacion": function () {
+
+            $("#loading").fadeIn();
+
+            let Regla = new Object();
+
+            let id = ObtenerValorParametroUrl("id");
+            Regla.id = id;
+
+            Regla.Codigo = $(JsReglas.Controles.txtCodigo).val();
+            Regla.Nombre = $(JsReglas.Controles.txtNombre).val();
+            Regla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
+            Regla.Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val();
+
+
+            execAjaxCall("/ReglasValidacion/ClonarRegla", "POST", Regla)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("La Regla ha sido creada")
+                        .set('onok', function (closeEvent) {
+                            window.location.href = "/Fonatel/ReglasValidacion/Index";
+                        });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "ClonarReglaValidacionParcial": function () {
+
+            $("#loading").fadeIn();
+
+            let Regla = new Object();
+
+            let id = ObtenerValorParametroUrl("id");
+            Regla.id = id;
+
+            Regla.Codigo = $(JsReglas.Controles.txtCodigo).val();
+            Regla.Nombre = $(JsReglas.Controles.txtNombre).val();
+            Regla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
+            Regla.Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val();
+
+            execAjaxCall("/ReglasValidacion/ClonarRegla", "POST", Regla)
+                .then((obj) => {
+                    InsertarParametroUrl("id", obj.objetoRespuesta.id);
+                    if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
+                        JsReglas.Consultas.ConsultaListaDetalleReglas();
+                    }
+                    $("a[href='#step-2']").trigger('click');
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
         "EliminarRegla": function (IdRegla) {
             $("#loading").fadeIn();
             let objRegla = new Object()
@@ -593,7 +675,7 @@
                         JsReglas.Consultas.EliminarRegla(IdRegla);
                     } else {
                         let dependencias = obj.objetoRespuesta[0] + "<br>"
-                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Regla ya está en uso en los<br>" + dependencias + "<br>¿Desea Eliminar?", jsMensajes.Variables.actionType.eliminado)
+                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Regla ya está en uso en los<br>" + dependencias + "<br>¿Desea Eliminar?", jsMensajes.Variables.actionType.eliminar)
                             .set('onok', function (closeEvent) {
                                 JsReglas.Consultas.EliminarRegla(IdRegla);
                             });
@@ -613,19 +695,21 @@
         },
 
         "EliminarDetalleRegla": function (idDetalleRegla) {
+
             $("#loading").fadeIn();
+
             let objRegla = new Object()
             objRegla.idDetalleReglaString = idDetalleRegla;
+
             execAjaxCall("/ReglasValidacion/EliminarDetalleRegla", "POST", objRegla)
                 .then((data) => {
-                    jsMensajes.Metodos.OkAlertModal("La Tipo de Regla ha sido eliminado")
+                    jsMensajes.Metodos.OkAlertModal("El Tipo de Regla ha sido eliminado")
                         .set('onok', function (closeEvent) {
 
                             JsReglas.Metodos.LimpiarCamposDetalles();
                             if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
                                 JsReglas.Consultas.ConsultaListaDetalleReglas();
                             }
-
                         });
                 }).catch((data) => {
                     jsMensajes.Metodos.OkAlertErrorModal()
@@ -723,7 +807,7 @@
                     for (var i = 0; i < obj.objetoRespuesta.length; i++) {
                         html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].NombreVariable + "</option>"
                     }
-                    
+
                     $(JsReglas.Controles.ddlVariableRegla).html(html);
 
                 }).catch((obj) => {
@@ -830,6 +914,7 @@
 
             let objetoTipoRegla = new Object()
 
+            objetoTipoRegla.id = ObtenerValorParametroUrl("id");
             objetoTipoRegla.IdTipo = $(JsReglas.Controles.ddlTipoRegla).val();
             objetoTipoRegla.IdOperador = $(JsReglas.Controles.ddlOperadorRegla).val();
             objetoTipoRegla.idIndicadorVariableString = $(JsReglas.Controles.ddlVariableRegla).val();
@@ -850,7 +935,7 @@
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
                 objetoTipoRegla.reglaAtributosValidos = {};
                 objetoTipoRegla.reglaAtributosValidos.IdCategoria = $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val();
-                objetoTipoRegla.reglaAtributosValidos.idAtributoString = $(JsReglas.Controles.ddlAtributosValidosRegla).val();
+                objetoTipoRegla.reglaAtributosValidos.idAtributoString = $(JsReglas.Controles.ddlAtributosValidosRegla).val().toString();
             }
             //REGLA CONTRA ACTUALIZACION SECUENCIAL
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
@@ -869,30 +954,24 @@
                 objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val();
             }
 
-            if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Clonar) {
-                objetoTipoRegla.id = "";
-            }
-            else {
-                objetoTipoRegla.id = ObtenerValorParametroUrl("id");
-            }
-
             execAjaxCall("/ReglasValidacion/InsertarDetalleRegla", "POST", objetoTipoRegla)
-
-            new Promise((resolve, reject) => {
-                jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleAgregado)
-                    .set('onok', function (closeEvent) {
-                        resolve(true);
+                .then((obj) => {
+                    new Promise((resolve) => {
+                        JsReglas.Variables.esModoEdicion = false;
+                        jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleAgregado)
+                            .set('onok', function () {
+                                resolve(true)
+                            })
                     })
-            })
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeAgregarVariasReglas)
                         .set('onok', function (closeEvent) {
-                                    JsReglas.Metodos.LimpiarCamposDetalles();
-                                    if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
-                                        JsReglas.Consultas.ConsultaListaDetalleReglas();
-                            }               
-                     });
-
+                            JsReglas.Metodos.LimpiarCamposDetalles();
+                            if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
+                                JsReglas.Consultas.ConsultaListaDetalleReglas();
+                            }
+                        })
+                })
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -911,6 +990,7 @@
             $("#loading").fadeIn();
 
             let objetoTipoRegla = new Object()
+            objetoTipoRegla.id = ObtenerValorParametroUrl("id");
             objetoTipoRegla.IdDetalleReglaValidacion = $(JsReglas.Controles.txtidDetalleReglaValidacion).val();
             objetoTipoRegla.IdTipo = $(JsReglas.Controles.ddlTipoRegla).val();
             objetoTipoRegla.IdOperador = $(JsReglas.Controles.ddlOperadorRegla).val();
@@ -957,30 +1037,24 @@
                 objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val();
             }
 
-            if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Clonar) {
-                objetoTipoRegla.id = "";
-            }
-            else {
-                objetoTipoRegla.id = ObtenerValorParametroUrl("id");
-            }
-
             execAjaxCall("/ReglasValidacion/EditarDetalleRegla", "POST", objetoTipoRegla)
-
-            new Promise((resolve, reject) => {
-                jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleAgregado)
-                    .set('onok', function (closeEvent) {
-                        resolve(true);
-                    })
-            })
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeAgregarVariasReglas)
-                        .set('onok', function (closeEvent) {
-                            JsReglas.Metodos.LimpiarCamposDetalles();
-                            JsReglas.Variables.esModoEdicion = false;
-                            if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
-                                JsReglas.Consultas.ConsultaListaDetalleReglas();
-                            }
-                        });
+                    new Promise((resolve) => {
+                        JsReglas.Variables.esModoEdicion = false;
+                        jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleEditado)
+                            .set('onok', function () {
+                                resolve(true)
+                            })
+                    })
+                        .then((obj) => {
+                            jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeAgregarVariasReglas)
+                                .set('onok', function (closeEvent) {
+                                    JsReglas.Metodos.LimpiarCamposDetalles();
+                                    if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
+                                        JsReglas.Consultas.ConsultaListaDetalleReglas();
+                                    }
+                                })
+                        })
 
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -1028,20 +1102,22 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
             jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsReglas.Consultas.EditarReglaValidacion();
-               })
+                })
                 .set('oncancel', function (closeEvent) {
+                    JsReglas.Metodos.ValidarControles();
                 });
 
         } else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
             jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
+                    JsReglas.Consultas.ClonarReglaValidacion();
                 })
                 .set('oncancel', function (closeEvent) {
+                    JsReglas.Metodos.ValidarControles();
                 });
 
         }
         else {
-
             jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsReglas.Consultas.InsertarReglaValidacion();
@@ -1064,7 +1140,7 @@ $(document).on("click", JsReglas.Controles.btnCancelar, function (e) {
 
 $(document).on("click", JsReglas.Controles.btnSiguienteRegla, function (e) {
 
-        e.preventDefault();
+    e.preventDefault();
 
     let idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
 
@@ -1073,18 +1149,18 @@ $(document).on("click", JsReglas.Controles.btnSiguienteRegla, function (e) {
         let modo = $(JsReglas.Controles.txtModo).val();
 
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
-       
+
             JsReglas.Consultas.ConsultaVariablesDato(idIndicadorString);
             JsReglas.Consultas.EditarReglaValidacionParcial();
-            
+
 
         } else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
 
-            //if (JsReglas.Consultas.ValidarControles()) {
+            if (JsReglas.Metodos.ValidarControles()) {
 
-            //    JsReglas.Metodos.ClonarSolicitudParcial();
-            //}
-            
+                JsReglas.Consultas.ClonarReglaValidacionParcial();
+            }
+
             JsReglas.Consultas.ConsultaVariablesDato(idIndicadorString);
         }
         else {
@@ -1185,6 +1261,7 @@ $(document).on("click", JsReglas.Controles.btnEditTipoRegla, function (e) {
 $(document).on("change", JsReglas.Controles.ddlTipoRegla, function () {
     var selected = $(this).val();
     JsReglas.Metodos.RestablecerCampos();
+    JsReglas.Metodos.LimpiarValidaciones();
     JsReglas.Metodos.HabilitarControlesTipoRegla(selected);
 });
 
@@ -1228,7 +1305,6 @@ $(function () {
         JsReglas.Metodos.ValidarOpcionSiguiente();
         $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", true);
     }
-
     if ($(JsReglas.Controles.FormularioDetalle).length > 0) {
         JsReglas.Consultas.ConsultaListaDetalleReglas();
         JsReglas.Metodos.ValidarOpcionSiguiente();
