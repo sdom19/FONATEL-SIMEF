@@ -376,8 +376,7 @@ namespace GB.SIMEF.BL
                     }
                 }
 
-                if (categoriaExistente.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico ||
-                    categoriaExistente.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Texto)
+                if (categoriaExistente.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Texto)
                 {
                     mensajeValidacion = ValidacionDetalleTipoCategoriaTextoNumerico(pDetalleIndicadorCategoria);
 
