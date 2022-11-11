@@ -1096,13 +1096,7 @@ CreateView = {
         CancelarFormularioDetallesVariable: function () {
             jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
-                    CreateView.Variables.objEditarDetallesVariableDato = null;
-
-                    SeleccionarItemSelect2(CreateView.Controles.formVariable.inputNombreVariable, "");
-                    SeleccionarItemSelect2(CreateView.Controles.formVariable.inputDescripcionVariable, "");
-
-                    CreateView.Metodos.LimpiarMensajesValidacionFormularioDetallesVariable();
-                    CreateView.Metodos.ValidarCantidadDetallesVariablesDato();
+                    window.location.href = CreateView.Variables.indexViewURL;
                 });
         },
 
@@ -1391,14 +1385,7 @@ CreateView = {
         CancelarFormularioDetallesCategoria: function () {
             jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
-                    CreateView.Variables.objEditarDetallesCategoria = null;
-
-                    CreateView.Metodos.LimpiarValoresFormularioDetallesCategoria();
-                    CreateView.Metodos.RestablecerCamposFormularioDetalleCategoria();
-                    $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).empty();
-
-                    CreateView.Metodos.LimpiarMensajesValidacionFormularioDetallesCategoria();
-                    CreateView.Metodos.ValidarCantidadDetallesCategoria();
+                    window.location.href = CreateView.Variables.indexViewURL;
                 });
         },
 
