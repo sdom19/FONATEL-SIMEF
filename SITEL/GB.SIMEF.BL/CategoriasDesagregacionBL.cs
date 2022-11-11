@@ -434,8 +434,33 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        public RespuestaConsulta<List<CategoriasDesagregacion>> ListaCategoriasParaRelacion(CategoriasDesagregacion objeto)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.idCategoria = temp;
+                    }
+                }
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ObtenerDatos(objeto).Where(x => x.IdTipoCategoria == 2 && x.CantidadDetalleDesagregacion > 0).ToList();
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
 
-     
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
+        }
 
     }
 }

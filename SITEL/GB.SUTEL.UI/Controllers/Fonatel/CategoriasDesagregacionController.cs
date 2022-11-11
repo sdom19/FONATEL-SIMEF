@@ -504,7 +504,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Fecha 10-11-2022
+        /// Georgi Mesen Cerdas
+        /// Obtiene datos de categorias para relaciones categoria
+        /// </summary>
+        /// <returns></returns>
 
+        [HttpGet]
+        public async Task<string> ListaCategoriasParaRelacion()
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            await Task.Run(() =>
+            {
+                result = categoriaBL.ListaCategoriasParaRelacion(new CategoriasDesagregacion());
+            });
+
+            return JsonConvert.SerializeObject(result);
+
+
+        }
 
         #endregion
 
