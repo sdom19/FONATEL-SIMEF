@@ -438,7 +438,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 DetalleCategoriaTexto.usuario = User.Identity.GetUserId();
                 result = categoriaDetalleBL.EliminarElemento(DetalleCategoriaTexto);
 
-            });
+            }).ContinueWith(data =>
+            {
+                var categoria = categoriaBL.ObtenerDatos(new CategoriasDesagregacion() {id= DetalleCategoriaTexto.categoriaid }).objetoRespuesta.Single();
+                categoria.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                return categoria;
+
+            }).ContinueWith(data =>
+            {
+
+               categoriaBL.CambioEstado(data.Result);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+
+
+
+
             return JsonConvert.SerializeObject(result);
         }
 

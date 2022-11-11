@@ -13,12 +13,12 @@ namespace GB.SIMEF.BL
     {
         private readonly ReglasValicionDAL clsDatos;
 
-   
+
 
         private RespuestaConsulta<List<ReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
         string user;
-        public ReglaValidacionBL(string modulo, string  user)
+        public ReglaValidacionBL(string modulo, string user)
         {
             this.modulo = modulo;
             this.user = user;
@@ -35,6 +35,11 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioModificacion = user;
+
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     objeto.id = Utilidades.Desencriptar(objeto.id);
@@ -43,55 +48,48 @@ namespace GB.SIMEF.BL
                     {
                         objeto.idRegla = temp;
                     }
-                    ResultadoConsulta.Clase = modulo;
-                    ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
-                    ResultadoConsulta.Usuario = user;
+                }
 
-                    string Codigo = objeto.Codigo.Trim();
-                    string Nombre = objeto.Nombre.Trim();
-                    int Indicador = objeto.idIndicador;
-                    string Descripcion = objeto.Descripcion;
-                    var resul = clsDatos.ObtenerDatos(new ReglaValidacion());
-                    string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.idRegla == objeto.idRegla).Single());
-                    objeto = resul.Where(x => x.idRegla == objeto.idRegla).Single();
-
-
-                    if (resul.Where(x => x.idRegla == objeto.idRegla).Count() == 0)
+                if (!string.IsNullOrEmpty(objeto.idIndicadorString))
+                {
+                    objeto.idIndicadorString = Utilidades.Desencriptar(objeto.idIndicadorString);
+                    int temp;
+                    if (int.TryParse(objeto.idIndicadorString, out temp))
                     {
-                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                        throw new Exception(Errores.NoRegistrosActualizar);
-                    }
-                    else if (resul.Where(x => x.idRegla != objeto.idRegla && x.Codigo.ToUpper() == Codigo.ToUpper()).Count() > 0)
-                    {
-                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                        throw new Exception(Errores.ReglaRegistrada);
-                    }
-                    else
-                    {
-                        objeto.UsuarioModificacion = user;
-                        objeto.Codigo = Codigo;
-                        objeto.Nombre = Nombre;
-                        objeto.idIndicador = Indicador;
-                        objeto.Descripcion = Descripcion;
-
-                        clsDatos.ActualizarDatos(objeto);
-
-                        var nuevovalor = clsDatos.ObtenerDatos(objeto).Single();
-
-                        string jsonNuevoValor = SerializarObjetoBitacora(nuevovalor);
-
-                        ResultadoConsulta.objetoRespuesta = resul;
-                        ResultadoConsulta.CantidadRegistros = resul.Count();
-                        //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                        //       ResultadoConsulta.Usuario,
-                        //       ResultadoConsulta.Clase, nuevovalor.Codigo, jsonNuevoValor, valorAnterior);
+                        objeto.idIndicador = temp;
                     }
                 }
+
+                var resul = clsDatos.ObtenerDatos(new ReglaValidacion());
+
+                if (resul.Where(x => x.idRegla == objeto.idRegla).Count() == 0)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+                else if (resul.Where(x => x.idRegla != objeto.idRegla && x.Nombre.ToUpper() == objeto.Nombre.ToUpper()).Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.NombreRegistrado);
+                }
+                else
+                {
+                    clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.objetoRespuesta = resul;
+                    ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                }
+
             }
             catch (Exception ex)
             {
                 ResultadoConsulta.MensajeError = ex.Message;
-                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+
+                if (ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.NombreRegistrado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }
@@ -101,12 +99,108 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<ReglaValidacion>> CambioEstado(ReglaValidacion objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Constantes.Accion.Activar;
+                int nuevoEstado = (int)Constantes.EstadosRegistro.Activo;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioModificacion = user;
+
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.idRegla = temp;
+                    }
+                }
+
+                var resul = clsDatos.ObtenerDatos(objeto).ToList();
+
+                if (resul.Count() == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+                else
+                {
+                    objeto = resul.Single();
+                    objeto.idEstado = nuevoEstado;
+                    objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
+                    resul = clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.objetoRespuesta = resul;
+                    ResultadoConsulta.CantidadRegistros = resul.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.NoRegistrosActualizar)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<ReglaValidacion>> ClonarDatos(ReglaValidacion objeto)
         {
             throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<ReglaValidacion> ClonarDetallesReglas(string pIdReglaAClonar, string pIdReglaDestino)
+        {
+            RespuestaConsulta<ReglaValidacion> resultado = new RespuestaConsulta<ReglaValidacion>();
+
+            int IdReglaAClonar, IdReglaDestino;
+            bool errorControlado = false;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pIdReglaAClonar), out int number);
+                IdReglaAClonar = number;
+
+                if (IdReglaAClonar == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                int.TryParse(Utilidades.Desencriptar(pIdReglaDestino), out number);
+                IdReglaDestino = number;
+
+                if (IdReglaDestino == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                clsDatos.ClonarDetallesReglas(IdReglaAClonar, IdReglaDestino);
+
+                resultado.objetoRespuesta = new ReglaValidacion() { id = pIdReglaDestino };
+
+                resultado.Usuario = user;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Clonar;
+
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+
+            return resultado;
         }
 
         public RespuestaConsulta<List<ReglaValidacion>> EliminarElemento(ReglaValidacion objeto)
@@ -171,36 +265,47 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
-
                 objeto.UsuarioCreacion = user;
-                objeto.Codigo = objeto.Codigo.Trim();
                 objeto.idEstado = (int)EstadosRegistro.EnProceso;
-                var consultardatos = clsDatos.ObtenerDatos(new ReglaValidacion());
 
-                if (consultardatos.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).Count() > 0)
+                var BuscarDatos = clsDatos.ObtenerDatos(new ReglaValidacion());
+
+                if (!string.IsNullOrEmpty(objeto.idIndicadorString))
                 {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                    throw new Exception(Errores.ReglaRegistrada);
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.idIndicadorString), out temp);
+                    objeto.idIndicador = temp;
                 }
 
+                if(BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Codigo.ToUpper() == objeto.Codigo.ToUpper() && x.idEstado != 4).Count() > 0){
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.CodigoRegistrado);
+                }
+
+                if(BuscarDatos.Where(x=> x.idRegla != objeto.idRegla && x.Nombre.ToUpper() == objeto.Nombre.ToUpper() && x.idEstado != 4).Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.NombreRegistrado);
+                }
+                
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
-                //string JsonNuevoValor = SerializarObjetoBitacora(resul.Where(x => x.Codigo == objeto.Codigo.ToUpper()).Single());
-                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                //     ResultadoConsulta.Usuario,
-                //     ResultadoConsulta.Clase, objeto.Codigo, "", "", JsonNuevoValor);
+                
+
             }
             catch (Exception ex)
             {
-                if (ResultadoConsulta.HayError!= (int)Constantes.Error.ErrorControlado)
-                {
-                  
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
-                }
-
-
                 ResultadoConsulta.MensajeError = ex.Message;
+
+                if (ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.NombreRegistrado || ex.Message == Errores.CodigoRegistrado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
             }
             return ResultadoConsulta;
         }
@@ -215,7 +320,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idRegla= temp;
+                    objeto.idRegla = temp;
                 }
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
@@ -232,7 +337,7 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<string>> ValidarDatos(ReglaValidacion objeto)
         {
-            RespuestaConsulta<List<string>> resultado = new RespuestaConsulta<List<string>>(); 
+            RespuestaConsulta<List<string>> resultado = new RespuestaConsulta<List<string>>();
             try
             {
                 resultado.Clase = modulo;

@@ -10,20 +10,6 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model.FormularioWeb != null)
-            {
-                foreach (var item in Model.FormularioWeb)
-                {
-                    <tr>
-                        <th scope="row">@item.Codigo</th>
-                        <th scope="row">@item.Nombre</th>
-                        <td>
-                            <button type="button" data-toggle="tooltip" value="@item.id" data-placement="top" title="Eliminar" class="btn-icon-base btn-delete"></button>
-                        </td>
-                    </tr>
-                }
-            }
-
         </tbody>
 
     </table>

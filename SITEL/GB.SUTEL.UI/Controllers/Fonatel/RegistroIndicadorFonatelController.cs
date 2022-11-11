@@ -25,12 +25,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
        private readonly RegistroIndicadorFonatelBL registroIndicadorBL;
+        private readonly DetalleRegistroIndicadorFonatelBL detalleRegistroIndicadorBL;
 
         public RegistroIndicadorFonatelController()
         {
 
             registroIndicadorBL = new RegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
-
+            detalleRegistroIndicadorBL = new DetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
         #region Metodos de las vistas
@@ -55,7 +56,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 IdFormularioString=idFormulario,
                 IdSolicitudString=idSolicitud,
             });
-            return View(model.objetoRespuesta.Single());
+            if (model.CantidadRegistros==1)
+            {
+                return View(model.objetoRespuesta.Single());
+            }
+            else
+            {
+                return View("index");
+            }
+        
         }
 
 
@@ -101,5 +110,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return new EmptyResult();
 
         }
+
+
+
+
+        [HttpPost]
+        public async Task<string> ConsultaRegistroIndicadorDetalle(DetalleRegistroIndicadorFonatel detalleIndicadorFonatel)
+        {
+            RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> result = null;
+            await Task.Run(() =>
+            {
+                result = detalleRegistroIndicadorBL.ObtenerDatos(detalleIndicadorFonatel);
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+
     }
 }

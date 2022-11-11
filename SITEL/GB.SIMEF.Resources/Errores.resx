@@ -153,6 +153,9 @@
   <data name="CantidadRegistrosLimiteRelaciones" xml:space="preserve">
     <value>La cantidad ingresada en Cantidad de Atributos no puede ser menor al valor actual</value>
   </data>
+  <data name="CategoriaYaRegistrada" xml:space="preserve">
+    <value>La Categoría seleccionada ya se encuentra registrada</value>
+  </data>
   <data name="CatidadIndicadoresExcedido" xml:space="preserve">
     <value>Se excedió la cantidad de registros establecidos</value>
   </data>
@@ -185,6 +188,12 @@
   </data>
   <data name="ReglaRegistrada" xml:space="preserve">
     <value>La Regla ya se encuentra registada</value>
+  </data>
+  <data name="ReglasCategoriaIngresada" xml:space="preserve">
+    <value>La Regla ingresada ya se encuentra registrada para esta Categoría</value>
+  </data>
+  <data name="ReglasVariableIngresada" xml:space="preserve">
+    <value>La Regla ingresada ya se encuentra registrada para esta Variable Dato</value>
   </data>
   <data name="SolicitudesFuenteRegistrada" xml:space="preserve">
     <value>La Solicitud no registra la fuente activa</value>

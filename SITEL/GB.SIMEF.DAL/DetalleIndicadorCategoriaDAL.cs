@@ -36,31 +36,27 @@ namespace GB.SIMEF.DAL
 
                 listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
                 {
+                    id = Utilidades.Encriptar(x.IdDetalleIndicador.ToString()),
                     idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                     idCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString()),
-                    idCategoriaDetalleString = Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()),
-                    idDetalleIndicador=x.IdIndicador,
-                    Estado=x.Estado,
-                    Etiquetas = x.Etiquetas,
+                    idCategoriaDetalleString = x.IdCategoriaDetalle != null ? Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()) : null,
+                    Estado = x.Estado,
+                    Etiquetas = string.IsNullOrEmpty(x.Etiquetas) ? Constantes.defaultInputTextValue : x.Etiquetas,
                     Codigo = x.Codigo,
                     NombreCategoria = x.NombreCategoria,
-                   
                 }).ToList();
             }
-
-          
 
             return listaDetalles;
         }
 
         /// <summary>
-        /// 06/09/2022
+        /// 08/11/2022
         /// José Navarro Acuña
-        /// Modelo privado para obtener el resultado del procedimiento almacenado: spObtenerDetallesIndicadorCategoria
+        /// Función que permite insertar o actualizar un detalle categoria de un indicador
         /// </summary>
-        /// 
-
-
+        /// <param name="pDetalleIndicadorCategoria"></param>
+        /// <returns></returns>
         public List<DetalleIndicadorCategoria> ActualizarDatos(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
         {
             List<DetalleIndicadorCategoria> listaDetalles = new List<DetalleIndicadorCategoria>();
@@ -80,27 +76,29 @@ namespace GB.SIMEF.DAL
             listaDetalles = listaDetalles.Select(x => new DetalleIndicadorCategoria()
             {
                 id = Utilidades.Encriptar(x.idDetalleIndicador.ToString()),
-                idCategoriaString=Utilidades.Encriptar(x.idCategoria.ToString()),
-                idIndicadorString=Utilidades.Encriptar(x.idIndicador.ToString()),
+                idCategoriaString = Utilidades.Encriptar(x.idCategoria.ToString()),
+                idIndicadorString = Utilidades.Encriptar(x.idIndicador.ToString()),
                 Estado = x.Estado
             }).ToList();
 
             return listaDetalles;
         }
 
-
-
-
-
+        /// <summary>
+        /// 06/09/2022
+        /// José Navarro Acuña
+        /// Modelo privado para obtener el resultado del procedimiento almacenado: spObtenerDetallesIndicadorCategoria
+        /// </summary>
+        /// 
         private class Model_spObtenerDetallesIndicadorCategoria
         {
+            public int IdDetalleIndicador { get; set; }
             public int IdIndicador { get; set; }
             public int IdCategoria { get; set; }
-            public int IdCategoriaDetalle { get; set; }
+            public int? IdCategoriaDetalle { get; set; }
             public string Etiquetas { get; set; }
             public string Codigo { get; set; }
             public string NombreCategoria { get; set; }
-
             public bool Estado { get; set; }
         }
     }

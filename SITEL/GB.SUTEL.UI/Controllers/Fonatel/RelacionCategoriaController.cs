@@ -17,6 +17,7 @@ using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using OfficeOpenXml;
+using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -63,32 +64,38 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idRelacionCategoria"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult Detalle(string idRelacionCategoria)
+        public ActionResult Detalle(string idRelacionCategoria, string detalle)
         {
 
-            //CATEGORIAS DE TIPO ATRIBUTO
-            ViewBag.ListaCatergorias = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
+
+            List<CategoriasDesagregacion> ListaCategoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
             {
                 IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.Atributo,
                 idEstado = (int)Constantes.EstadosRegistro.Activo
 
-            }).objetoRespuesta.Where(x => x.CantidadDetalleDesagregacion > 0); ;
-
-
-            if (string.IsNullOrEmpty(idRelacionCategoria))
+            }).objetoRespuesta.Where(x => x.CantidadDetalleDesagregacion > 0).ToList();
+            RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria })
+                  .objetoRespuesta.Single();
+            if (string.IsNullOrEmpty(detalle))
             {
-                ViewBag.ListaCatergoriaValor = new List<SelectListItem>();
-                return View();
+
+                ViewBag.ListaCatergorias = ListaCategoria;
             }
             else
             {
-                RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria })
-                    .objetoRespuesta.Single();
+                model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria })
+                 .objetoRespuesta.Single();
+                model.DetalleRelacionCategoria = model.DetalleRelacionCategoria.Where(x => x.idCategoriaDetalle != int.Parse(Utilidades.Desencriptar(detalle))).ToList();
 
+                ViewBag.ListaCatergorias = ListaCategoria.Where(p1 => !model.DetalleRelacionCategoria.Any(p2 => p2.idCategoriaAtributo == p1.idCategoria)).ToList();
 
-                return View(model);
             }
 
+            //CATEGORIAS DE TIPO ATRIBUTO
+       
+              
+
+            return View(model);
         }
 
         [HttpGet]
@@ -304,19 +311,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <returns></returns>
 
-        [HttpGet]
-        public async Task<string> CargarListaDetalleDesagregacion(int selected)
+        [HttpPost]
+        public async Task<string> CargarListaDetalleDesagregacion(CategoriasDesagregacion objCategoria)
         {
-            RespuestaConsulta<List<string>> result = new RespuestaConsulta<List<string>>();
+            RespuestaConsulta<List<DetalleCategoriaTexto>> result = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
 
             await Task.Run(() =>
             {
-                var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
-                {
-                    idCategoria = selected
-                }).objetoRespuesta.Single();
-
-                result = RelacionCategoriaBL.ObtenerListaDetalleCategoria(categoria);
+                result = RelacionCategoriaBL.ObtenerListaDetalleCategoria(objCategoria);
             });
             return JsonConvert.SerializeObject(result);
         }
@@ -395,20 +397,24 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idDetalleRelacion"></param>
         /// <returns>JSON</returns>
         [HttpPost]
-        public async Task<string> CambioEstado(string idRelacionCategoria)
+        public async Task<string> CambioEstado(RelacionCategoria RelacionCategoria)
         {
 
             RespuestaConsulta<List<RelacionCategoria>> result = null;
 
             await Task.Run(() =>
             {
-                result = RelacionCategoriaBL.CambiarEstado(new RelacionCategoria()
+                return RelacionCategoriaBL.ObtenerDatos(RelacionCategoria);
+            }).ContinueWith(data=> {
+                if (data.Result.objetoRespuesta.Count()==1)
                 {
-
-                    id = idRelacionCategoria,
-
-                });
-
+                    result = RelacionCategoriaBL.CambiarEstado(data.Result.objetoRespuesta.Single());
+                }
+                else
+                {
+                    result.HayError = (int)Error.ErrorControlado;
+                    result.MensajeError = Errores.NoRegistrosActualizar;
+                }
             });
             return JsonConvert.SerializeObject(result);
         }

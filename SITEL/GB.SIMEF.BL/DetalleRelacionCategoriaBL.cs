@@ -60,7 +60,7 @@ namespace GB.SIMEF.BL
                         {
                             IdRelacionCategoria = relacion.idRelacionCategoria,
                             idCategoriaAtributo = codigo,
-                            CategoriaAtributoValor = CategoriaAtributoValor,
+                            //CategoriaAtributoValor = CategoriaAtributoValor,
                             Estado = true
                         };
 
@@ -93,8 +93,9 @@ namespace GB.SIMEF.BL
 
                 RegistrosEncontrados = RegistrosEncontrados.Where(x => x.idCategoriaAtributo == objeto.idCategoriaAtributo).ToList();
 
-                if (RegistrosEncontrados.Where(x=>x.CategoriaAtributoValor == objeto.CategoriaAtributoValor).Count() > 0)
+                if (RegistrosEncontrados.Where(x=>x.idCategoriaDetalle == objeto.idCategoriaDetalle).Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
                 else
@@ -114,15 +115,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.NombreRegistrado)
+                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
                 {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-
-                else
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
+                    ResultadoConsulta.HayError= (int)Error.ErrorSistema;
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -174,6 +169,7 @@ namespace GB.SIMEF.BL
 
                 if (resul.Count() == 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
 
                 }
@@ -198,11 +194,7 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.NoRegistrosActualizar)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-                else
+                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }
@@ -243,7 +235,7 @@ namespace GB.SIMEF.BL
                 {
                     throw new Exception(Errores.CantidadRegistros);
                 }
-                else if (clsDatos.ObtenerDatos(new DetalleRelacionCategoria() { CategoriaAtributoValor = objeto.CategoriaAtributoValor, IdRelacionCategoria = objeto.IdRelacionCategoria }).Count() > 0)
+                else if (clsDatos.ObtenerDatos(new DetalleRelacionCategoria() { idCategoriaDetalle = objeto.idCategoriaDetalle, IdRelacionCategoria = objeto.IdRelacionCategoria }).Count() > 0)
                 {
                     throw new Exception(Errores.DetalleRegistrado);
                 }

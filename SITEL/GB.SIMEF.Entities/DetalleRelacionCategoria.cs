@@ -26,13 +26,13 @@ namespace GB.SIMEF.Entities
         public int idDetalleRelacionCategoria { get; set; }
         public int IdRelacionCategoria { get; set; }
         public int idCategoriaAtributo { get; set; }
-        public string CategoriaAtributoValor { get; set; }
+        public int idCategoriaDetalle { get; set; }
         public bool Estado { get; set; }
 
         #region Variables Fuera del contexto 
 
         [NotMapped]
-        public virtual List<CategoriasDesagregacion> DetalleCategoriaTexto { get; set; }
+        public virtual DetalleCategoriaTexto  DetalleCategoriaTexto { get; set; }
 
         [NotMapped]
         public string NombreCategoria{ get; set; }

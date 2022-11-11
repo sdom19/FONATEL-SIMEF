@@ -32,7 +32,7 @@
             </div>
             <div class="stepwizard-step" data-step="1">
                 <p>Tipo</p>
-                <a href="#step-2" type="button" class="btn btn-circle">2</a>
+                <a id="step2" href="#step-2" type="button" class="btn btn-circle">2</a>
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
                     @Html.Partial("_TablaTipoRegla")
                 </div>
                 <div class="col-sm-12 text-center">
-                    <button type="submit" id="btnSiguienteTipoSiguiente" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
+                    <button type="submit" id="btnFinalizar" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
                 </div>
 
                 <div class="col-12 pull-right mt-4">

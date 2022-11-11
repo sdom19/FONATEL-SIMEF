@@ -169,6 +169,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La Categoría seleccionada ya se encuentra registrada.
+        /// </summary>
+        public static string CategoriaYaRegistrada {
+            get {
+                return ResourceManager.GetString("CategoriaYaRegistrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Se excedió la cantidad de registros establecidos.
         /// </summary>
         public static string CatidadIndicadoresExcedido {
@@ -264,6 +273,24 @@ namespace GB.SIMEF.Resources {
         public static string ReglaRegistrada {
             get {
                 return ResourceManager.GetString("ReglaRegistrada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La Regla ingresada ya se encuentra registrada para esta Categoría.
+        /// </summary>
+        public static string ReglasCategoriaIngresada {
+            get {
+                return ResourceManager.GetString("ReglasCategoriaIngresada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La Regla ingresada ya se encuentra registrada para esta Variable Dato.
+        /// </summary>
+        public static string ReglasVariableIngresada {
+            get {
+                return ResourceManager.GetString("ReglasVariableIngresada", resourceCulture);
             }
         }
         

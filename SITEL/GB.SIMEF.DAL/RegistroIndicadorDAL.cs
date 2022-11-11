@@ -11,7 +11,17 @@ namespace GB.SIMEF.DAL
 {
     public class RegistroIndicadorFonatelDAL: BitacoraDAL
     {
-        private  SIMEFContext db;
+        private SIMEFContext db;
+        private DetalleRegistroIndicadorFonatelDAL DetalleRegistroIndicadorFonatelDAL;
+
+        public RegistroIndicadorFonatelDAL()
+        {
+            DetalleRegistroIndicadorFonatelDAL = new DetalleRegistroIndicadorFonatelDAL();
+           
+        }
+
+
+
         #region Metodos Consulta Base de Datos
         /// <summary>
         /// Metodo que carga los registros de RegistroIndicadorFonatel según parametros
@@ -33,6 +43,8 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@IdEstado", objRegistroIndicadorFonatel.IdEstado),
                      new SqlParameter("@RangoFecha", objRegistroIndicadorFonatel.RangoFecha)
                     ).ToList();
+            }
+
                 ListaRegistroIndicadorFonatel=ListaRegistroIndicadorFonatel.Select(x=>new RegistroIndicadorFonatel() { 
                     Codigo=x.Codigo,
                     IdSolicitud=x.IdSolicitud,
@@ -53,27 +65,13 @@ namespace GB.SIMEF.DAL
                     IdFuente=x.IdFuente,
                     IdSolicitudString=Utilidades.Encriptar(x.IdSolicitud.ToString()),
                     IdFormularioString = Utilidades.Encriptar(x.IdFormulario.ToString()),
-                    DetalleRegistroIndcadorFonatel =ObtenerDatoDetalleRegistroIndicador(x.IdSolicitud, x.IdFormulario)
-                
+                    DetalleRegistroIndcadorFonatel=DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() {IdSolicitud=x.IdSolicitud, IdFormulario=x.IdFormulario })
+                   
                 }).ToList();
 
-            }
+            
             return ListaRegistroIndicadorFonatel;
         }
-
-
-        public List<DetalleRegistroIndcadorFonatel> ObtenerDatoDetalleRegistroIndicador(int idSolicitud, int idFormulario)
-        {
-            List<DetalleRegistroIndcadorFonatel> ListaRegistroIndicadorFonatel = new List<DetalleRegistroIndcadorFonatel>();
-            ListaRegistroIndicadorFonatel = db.Database.SqlQuery<DetalleRegistroIndcadorFonatel>
-                    ("execute sitel.spObtenerDetalleRegistroIndicadorFonatel   @idSolicitud, @idFormulario",
-                     new SqlParameter("@idSolicitud", idSolicitud),
-                      new SqlParameter("@idFormulario", idFormulario)
-                    ).ToList();
-            return ListaRegistroIndicadorFonatel;
-        }
-
-
 
 
 

@@ -37,6 +37,7 @@ namespace GB.SIMEF.DAL
                 ListaCategoriaDetalle = ListaCategoriaDetalle.Select(x => new ReglaValidacion()
                 {
                     id = Utilidades.Encriptar(x.idRegla.ToString()),
+                    idIndicadorString = Utilidades.Encriptar(x.idIndicador.ToString()),
                     idRegla = x.idRegla,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
@@ -52,6 +53,7 @@ namespace GB.SIMEF.DAL
                     ListadoTipoReglas = ObtenerListadoTipoReglas(x.idRegla)
                 }).ToList();
             }
+
             return ListaCategoriaDetalle;
         }
         /// <summary>
@@ -127,6 +129,28 @@ namespace GB.SIMEF.DAL
 
                 return ListaReglaValidacion;
             }
+        }
+
+        /// <summary>
+        /// 07/11/2022
+        /// Francisco Vindas Ruiz
+        /// Función que clona los detalles de las reglas
+        /// </summary>
+        /// <param name="pIdReglaAClonar"></param>
+        /// <param name="pIdReglaDestino"></param>
+        /// <returns></returns>
+        public bool ClonarDetallesReglas(int pIdReglaAClonar, int pIdReglaDestino)
+        {
+            using (db = new SIMEFContext())
+            {
+                db.Database.SqlQuery<object>
+                    ("execute spClonarDetallesReglas @pIdReglaAClonar, @pIdReglaDestino",
+                     new SqlParameter("@pIdReglaAClonar", pIdReglaAClonar),
+                     new SqlParameter("@pIdReglaDestino", pIdReglaDestino)
+                    ).ToList();
+            }
+
+            return true;
         }
 
         #endregion

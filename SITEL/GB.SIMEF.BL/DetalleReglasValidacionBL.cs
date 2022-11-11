@@ -7,6 +7,7 @@ using GB.SIMEF.Resources;
 using Newtonsoft.Json;
 using static GB.SIMEF.Resources.Constantes;
 
+
 namespace GB.SIMEF.BL
 {
     public class DetalleReglaValidacionBL : IMetodos<DetalleReglaValidacion>
@@ -49,42 +50,69 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
+                ResultadoConsulta.Usuario = user;
+
+                objeto.IdOperador = objeto.IdOperador;
+                objeto.IdRegla = objeto.IdRegla;
+                objeto.Estado = true;
+
+                DesencriptarObjReglasValidacion(objeto);
+
+                var BuscarDatos = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
+
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
-                    DesencriptarObjReglasValidacion(objeto);
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out int temp);
+                    objeto.IdRegla = temp;
+                }
 
-                    ResultadoConsulta.Clase = modulo;
-                    ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
-                    ResultadoConsulta.Usuario = user;
-                    int IdReglasValidacionTipo = objeto.IdReglasValidacionTipo;
-                    int IdRegla = objeto.IdRegla;
-                    int IdOperador = objeto.IdOperador;
-                    var resul = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
-                    //string valorAnterior = SerializarObjetoBitacora(resul.Where(x => x.IdReglasValidacionTipo == objeto.IdReglasValidacionTipo).Single());
-                    objeto = resul.Where(x => x.IdRegla == objeto.IdRegla).Single();
-                    objeto.IdOperador = IdOperador;
-                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
-                    var nuevoValor = clsDatos.ObtenerDatos(objeto).Single();
-                    string jsonNuevoValor = SerializarObjetoBitacora(nuevoValor);
+                if (!string.IsNullOrEmpty(objeto.idIndicadorVariableString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.idIndicadorVariableString), out int temp);
+                    objeto.IdDetalleIndicador = temp;
+                }
 
-                    ResultadoConsulta.CantidadRegistros = resul.Count();
-                    //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                    //       ResultadoConsulta.Usuario,
-                    //       ResultadoConsulta.Clase, nuevovalor.Codigo, jsonNuevoValor, valorAnterior);
+                if (!string.IsNullOrEmpty(objeto.idIndicadorString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.idIndicadorString), out int temp);
+                    objeto.IdIndicador = temp;
+                }
+
+                if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdDetalleReglaValidacion != objeto.IdDetalleReglaValidacion && x.IdTipo == objeto.IdTipo && x.IdTipo != (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.IdDetalleIndicador == objeto.IdDetalleIndicador && x.Estado == true).Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.ReglasVariableIngresada);
+                }
+                if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdDetalleReglaValidacion != objeto.IdDetalleReglaValidacion && x.IdTipo == objeto.IdTipo && x.IdTipo == (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.reglaAtributosValidos.IdCategoria == objeto.reglaAtributosValidos.IdCategoria && x.Estado == true).Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+        
+                    throw new Exception(Errores.ReglasVariableIngresada);
+                }
+                else
+                {
+
+                var resul = clsDatos.ActualizarDatos(objeto);
+                objeto.IdDetalleReglaValidacion = resul.Single().IdDetalleReglaValidacion;
+                AgregarTipoDetalleReglaValidacion(objeto);
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
 
                 }
+
+
             }
             catch (Exception ex)
             {
-
-                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
-                {
-                 
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
-                }
-
-
                 ResultadoConsulta.MensajeError = ex.Message;
+
+                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
+                {
+                  
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
             }
             return ResultadoConsulta;
         }
@@ -103,12 +131,15 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                if (!String.IsNullOrEmpty(objeto.id) || !String.IsNullOrEmpty(objeto.idReglasValidacionTipoString))
+
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Usuario = user;
+
+                if (!String.IsNullOrEmpty(objeto.id) || !String.IsNullOrEmpty(objeto.idDetalleReglaString))
                 {
                     DesencriptarObjReglasValidacion(objeto);
                 }
-                ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Usuario = user;
+
                 var resul = clsDatos.ObtenerDatos(objeto).ToList();
 
                 if (resul.Count() == 0)
@@ -123,10 +154,6 @@ namespace GB.SIMEF.BL
                     resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
-
-                    //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                    //       ResultadoConsulta.Usuario,
-                    //       ResultadoConsulta.Clase, objeto.);
                 }
             }
             catch (Exception ex)
@@ -140,7 +167,6 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
 
-
                 ResultadoConsulta.MensajeError = ex.Message;
             }
             return ResultadoConsulta;
@@ -153,28 +179,62 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
-                objeto.IdOperador = objeto.IdOperador;
-                objeto.IdRegla = objeto.IdRegla;
+
                 objeto.Estado = true;
-                //List<DetalleIndicadorVariables> listaDetallesIndicadorVariable = clsDatosIndicadorVariable.ObtenerDatos(new DetalleIndicadorVariables(){idDetalleIndicador = objeto.idIndicadorVariable});
-                //bjeto.idIndicadorString = listaDetallesIndicadorVariable[0].idIndicadorString;
+
+                var BuscarDatos = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
+
                 DesencriptarObjReglasValidacion(objeto);
-                var resul = clsDatos.ActualizarDatos(objeto);
-                objeto.IdReglasValidacionTipo = resul.Single().IdReglasValidacionTipo;
-                AgregarTipoDetalleReglaValidacion(objeto);
-                ResultadoConsulta.objetoRespuesta = resul;
-                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                if (!string.IsNullOrEmpty(objeto.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out int temp);
+                    objeto.IdRegla = temp;
+                }
+
+                if (!string.IsNullOrEmpty(objeto.idIndicadorVariableString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.idIndicadorVariableString), out int temp);
+                    objeto.IdDetalleIndicador = temp;
+                }
+
+                if (!string.IsNullOrEmpty(objeto.idIndicadorString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.idIndicadorString), out int temp);
+                    objeto.IdIndicador = temp;
+                }
+
+
+                if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.IdTipo != (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.IdDetalleIndicador == objeto.IdDetalleIndicador && x.Estado == true).Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(Errores.ReglasVariableIngresada);
+                }
+                if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.reglaAtributosValidos.IdCategoria == objeto.reglaAtributosValidos.IdCategoria && x.Estado == true).Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.ReglasCategoriaIngresada);
+                }
+                else
+                {
+                    var resul = clsDatos.ActualizarDatos(objeto);
+                    objeto.IdDetalleReglaValidacion = resul.Single().IdDetalleReglaValidacion;
+                    AgregarTipoDetalleReglaValidacion(objeto);
+                    ResultadoConsulta.objetoRespuesta = resul;
+                    ResultadoConsulta.CantidadRegistros = resul.Count();
+                }
 
             }
             catch (Exception ex)
             {
-                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
-                }
-
                 ResultadoConsulta.MensajeError = ex.Message;
+
+                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
             }
+
             return ResultadoConsulta;
         }
 
@@ -184,9 +244,7 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
-
                 DesencriptarObjReglasValidacion(objeto);
-
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -195,8 +253,8 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 ResultadoConsulta.MensajeError = ex.Message;
-
             }
+
             return ResultadoConsulta;
         }
 
@@ -229,38 +287,49 @@ namespace GB.SIMEF.BL
         {
             switch (objeto.IdTipo)
             {
-                case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
-                    objeto.reglaAtributosValidos.IdTipoReglaValidacion = objeto.IdReglasValidacionTipo;
-                    clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada:
+                    DesencriptarReglaComparacionEntrada(objeto);
+                    objeto.reglaIndicadorEntrada.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
+                    clsReglaIndicadorEntradaDAL.ActualizarDatos(objeto.reglaIndicadorEntrada);
+                    break;
+
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida:
+                    DesencriptarReglaComparacionEntradaSalida(objeto);
+                    objeto.reglaIndicadorEntradaSalida.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
+                    clsReglaIndicadorEntradaSalidaDAL.ActualizarDatos(objeto.reglaIndicadorEntradaSalida);
+                    break;
+                
+                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida:
+                    DesencriptarReglaComparacionSalida(objeto);
+                    objeto.reglaIndicadorSalida.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
+                    clsReglaIndicadorSalidaDAL.ActualizarDatos(objeto.reglaIndicadorSalida);
                     break;
 
                 case (int)Constantes.TipoReglasDetalle.FormulaContraConstante:
-                    objeto.reglaComparacionConstante.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
-                    objeto.reglaComparacionConstante.idvariable = 0;
+                    objeto.reglaComparacionConstante.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
                     clsReglaComparacionConstanteDAL.ActualizarDatos(objeto.reglaComparacionConstante);
+                    break;
+               
+                case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
+                    List<string> listaAtributos = objeto.reglaAtributosValidos.idAtributoString.Split(',').ToList();
+
+                    foreach (var item in listaAtributos)
+                    {
+                        objeto.reglaAtributosValidos.idAtributoString = item;
+                        DesencriptarReglaAtributosValidos(objeto);
+                        objeto.reglaAtributosValidos.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
+                        clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
+                    }
+
+
+                 
                     break;
 
                 case (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial:
-                    objeto.reglaSecuencial.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
-                    objeto.reglaSecuencial.idvariable = 0;
+                    objeto.reglaSecuencial.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
                     clsReglaSecuencialDAL.ActualizarDatos(objeto.reglaSecuencial);
-                    break;
-                   
-                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorSalida:
-                    objeto.reglaIndicadorSalida.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
-                    clsReglaIndicadorSalidaDAL.ActualizarDatos(objeto.reglaIndicadorSalida);
-                    break;
-                    
-                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada:
-                    objeto.reglaIndicadorEntrada.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
-                    clsReglaIndicadorEntradaDAL.ActualizarDatos(objeto.reglaIndicadorEntrada);
-                    break;
-                    
-                case (int)Constantes.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida:
-                    objeto.reglaIndicadorEntradaSalida.IdDetalleReglaValidacion = objeto.IdReglasValidacionTipo;
-                    clsReglaIndicadorEntradaSalidaDAL.ActualizarDatos(objeto.reglaIndicadorEntradaSalida);
-                    break;
-
+                    break;                
+                  
                 default:
                     break;
             }
@@ -273,12 +342,64 @@ namespace GB.SIMEF.BL
                 int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.id), out int temp);
                 detalleReglaValidacion.IdRegla = temp;
             }
-            if (!string.IsNullOrEmpty(detalleReglaValidacion.idReglasValidacionTipoString))
+            if (!string.IsNullOrEmpty(detalleReglaValidacion.idDetalleReglaString))
             {
-                int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idReglasValidacionTipoString), out int temp);
-                detalleReglaValidacion.IdReglasValidacionTipo = temp;
+                int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idDetalleReglaString), out int temp);
+                detalleReglaValidacion.IdDetalleReglaValidacion = temp;
+            }
+        }
+
+        private void DesencriptarReglaComparacionEntrada(DetalleReglaValidacion objeto)
+        {
+            if (!string.IsNullOrEmpty(objeto.reglaIndicadorEntrada.idIndicadorComparaString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaIndicadorEntrada.idIndicadorComparaString), out int temp);
+                objeto.reglaIndicadorEntrada.IdIndicador = temp;
+            }
+
+            if (!string.IsNullOrEmpty(objeto.reglaIndicadorEntrada.idVariableComparaString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaIndicadorEntrada.idVariableComparaString), out int temp);
+                objeto.reglaIndicadorEntrada.IdDetalleIndicador = temp;
             }
 
         }
+
+        private void DesencriptarReglaComparacionEntradaSalida(DetalleReglaValidacion objeto)
+        {
+            if (!string.IsNullOrEmpty(objeto.reglaIndicadorEntradaSalida.idIndicadorComparaString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaIndicadorEntradaSalida.idIndicadorComparaString), out int temp);
+                objeto.reglaIndicadorEntradaSalida.IdIndicador = temp;
+            }
+
+            if (!string.IsNullOrEmpty(objeto.reglaIndicadorEntradaSalida.idVariableComparaString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaIndicadorEntradaSalida.idVariableComparaString), out int temp);
+                objeto.reglaIndicadorEntradaSalida.IdDetalleIndicador = temp;
+            }
+
+        }
+
+        private void DesencriptarReglaComparacionSalida(DetalleReglaValidacion objeto)
+        {
+            if (!string.IsNullOrEmpty(objeto.reglaIndicadorSalida.idIndicadorComparaString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaIndicadorSalida.idIndicadorComparaString), out int temp);
+                objeto.reglaIndicadorSalida.IdIndicador = temp;
+            }
+
+        }
+
+        private void DesencriptarReglaAtributosValidos(DetalleReglaValidacion objeto)
+        {
+            if (!string.IsNullOrEmpty(objeto.reglaAtributosValidos.idAtributoString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaAtributosValidos.idAtributoString), out int temp);
+                objeto.reglaAtributosValidos.IdCategoriaAtributo = temp;
+            }
+
+        }
+
     }
 }

@@ -29,26 +29,29 @@ namespace GB.SIMEF.DAL
 
         }
 
-        public List<ReglaIndicadorEntrada> ActualizarDatos(ReglaIndicadorEntrada pReglaIndicadorEntrada)
+        public List<ReglaIndicadorEntrada> ActualizarDatos(ReglaIndicadorEntrada objeto)
         {
             List<ReglaIndicadorEntrada> ListaReglaIndicadorEntrada = new List<ReglaIndicadorEntrada>();
 
             using (db = new SIMEFContext())
             {
                 ListaReglaIndicadorEntrada = db.Database.SqlQuery<ReglaIndicadorEntrada>
-                ("execute spActualizarReglaIndicadorEntrada @IdCompara,@IdIndicador,@IdVariableCompara,@IdDetalleReglaValidacion",
-                    new SqlParameter("@IdCompara", pReglaIndicadorEntrada.IdReglaIndicadorEntrada),
-                    new SqlParameter("@IdIndicador", pReglaIndicadorEntrada.IdIndicador),
-                    new SqlParameter("@IdVariableCompara", pReglaIndicadorEntrada.IdVariableCompara),
-                    new SqlParameter("@IdDetalleReglaValidacion", pReglaIndicadorEntrada.IdDetalleReglaValidacion)
+
+                ("execute spActualizarReglaIndicadorEntrada @IdCompara, @IdDetalleReglaValidacion, @IdDetalleIndicador, @IdIndicador",
+                    new SqlParameter("@IdCompara", objeto.IdCompara),
+                    new SqlParameter("@IdDetalleReglaValidacion", objeto.IdDetalleReglaValidacion),
+                    new SqlParameter("@IdIndicador", objeto.IdIndicador),
+                    new SqlParameter("@IdDetalleIndicador", objeto.IdDetalleIndicador)
                 ).ToList();
 
                 ListaReglaIndicadorEntrada = ListaReglaIndicadorEntrada.Select(X => new ReglaIndicadorEntrada
                 {
-                    IdReglaIndicadorEntrada = X.IdReglaIndicadorEntrada,
+                    idIndicadorComparaString= Utilidades.Encriptar(X.IdIndicador.ToString()),
+                    idVariableComparaString = Utilidades.Encriptar(X.IdDetalleIndicador.ToString()),
+                    IdCompara = X.IdCompara,
+                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
                     IdIndicador = X.IdIndicador,
-                    IdVariableCompara = X.IdVariableCompara,
-                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion
+                    IdDetalleIndicador = X.IdDetalleIndicador,
 
                 }).ToList();
 

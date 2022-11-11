@@ -128,9 +128,6 @@ namespace GB.SIMEF.DAL
             return ListaFormulariosWeb;
         }
 
-
-
-
         private string ObtenerIndicadoresXFormulario(int id) {
             return db.Database.SqlQuery<string>
                     ("execute spObtenerListadoIndicadoresXFormulario @idFormulario",

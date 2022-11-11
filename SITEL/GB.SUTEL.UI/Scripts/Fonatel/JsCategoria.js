@@ -214,7 +214,7 @@
                         }
                     }
                     else if ($(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Numerico) {
-                        if ($(JsCategoria.Controles.txtRangoMinimaCategoria).val() == 0) {
+                        if ($(JsCategoria.Controles.txtRangoMinimaCategoria).val() < 0) {
                             validar = false;
                             if (opcion) {
                                 $(JsCategoria.Controles.RangoMinimaCategoriaHelp).removeClass("hidden");
@@ -381,13 +381,13 @@
             "EliminarDetalleCategoria": function (categoriaDetalleid) {
                 let DetalleCategoriaTexto = new Object();
                 DetalleCategoriaTexto.id = categoriaDetalleid;
+                DetalleCategoriaTexto.categoriaid =  ObtenerValorParametroUrl("IdCategoria");
                 $("#loading").fadeIn();
                 execAjaxCall("/CategoriasDesagregacion/EliminarCategoriasDetalle", "POST", DetalleCategoriaTexto)
                     .then((obj) => {
                         jsMensajes.Metodos.OkAlertModal("El Detalle ha sido eliminado")
                             .set('onok', function (closeEvent) {
-                                JsCategoria.Variables.ListadoCategoriaDetalle = obj.objetoRespuesta;
-                                JsCategoria.Metodos.CargarTablaDetalleCategoria();
+                                location.reload();
                             });
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
