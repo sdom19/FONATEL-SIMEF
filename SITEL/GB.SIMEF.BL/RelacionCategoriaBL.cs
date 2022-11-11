@@ -177,9 +177,9 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 
                 //REGISTRAMOS EN BITACORA 
-                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                //       ResultadoConsulta.Usuario,
-                //            ResultadoConsulta.Clase, objeto.Codigo);
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                       ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo);
 
             }
             catch (Exception ex)
@@ -384,59 +384,18 @@ namespace GB.SIMEF.BL
         /// Francisco Vindas Ruiz
         /// Metodo para obtener la lista Relacion Categorias
         /// </summary>
-        public RespuestaConsulta<List<string>> ObtenerListaDetalleCategoria(CategoriasDesagregacion obj)
+        public RespuestaConsulta<List<DetalleCategoriaTexto>> ObtenerListaDetalleCategoria(CategoriasDesagregacion obj)
         {
-            RespuestaConsulta<List<string>> result = new RespuestaConsulta<List<string>>();
-
-            result.objetoRespuesta = new List<string>();
-
-            var ErrorControlado = false;
-
+            RespuestaConsulta<List<DetalleCategoriaTexto>> result = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
             try
             {
                 CategoriasDesagregacion Categoria = clsDatosTexto.ObtenerDatos(obj).Single();
-
-                var listaRelacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { idCategoria = Categoria.idCategoria }).ToList();
-
-
-                if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
-                {
-                    DateTime fecha = (DateTime)Categoria.DetalleCategoriaFecha.FechaMinima;
-
-                    while (fecha <= Categoria.DetalleCategoriaFecha.FechaMaxima)
-                    {
-
-                        result.objetoRespuesta.Add(fecha.ToString());
-
-                        fecha = fecha.AddDays(1);
-                    }
-                }
-                else if (Categoria.IdTipoCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
-                {
-
-                    int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
-                    for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
-                    {
-                        result.objetoRespuesta.Add(i.ToString());
-                    }
-                }
-                else
-                {
-                    result.objetoRespuesta = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
-                }
-
+                result.objetoRespuesta = Categoria.DetalleCategoriaTexto.ToList();
             }
             catch (Exception ex)
             {
                 result.MensajeError = ex.Message;
-
-                if (ErrorControlado)
-
-                    result.HayError = (int)Error.ErrorControlado;
-
-                else
-
-                    result.HayError = (int)Error.ErrorSistema;
+                result.HayError = (int)Error.ErrorSistema;
             }
 
 
@@ -496,16 +455,14 @@ namespace GB.SIMEF.BL
         /// <returns></returns>
         public RespuestaConsulta<List<RelacionCategoria>> CambiarEstado(RelacionCategoria objeto)
         {
-            RelacionCategoria objrelacion = (RelacionCategoria)objeto;
+            RelacionCategoria objrelacion = objeto;
 
             try
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Activar;
                 ResultadoConsulta.Usuario = user;
-                objeto.UsuarioModificacion=user;
-                RelacionCategoria registroActualizar;
-
+                objeto.UsuarioModificacion = user;
                 //DESENCRIPTAR EL ID
                 if (!string.IsNullOrEmpty(objrelacion.id))
                 {
@@ -513,34 +470,21 @@ namespace GB.SIMEF.BL
                     int.TryParse(Utilidades.Desencriptar(objrelacion.id), out temp);
                     objrelacion.idRelacionCategoria = temp;
                 }
+                objrelacion.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objrelacion);
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
 
-                var resul = clsDatos.ObtenerDatos(objrelacion);
-
-                if (resul.Count() == 0)
-                {
-                    throw new Exception(Errores.NoRegistrosActualizar);
-
-                }
-                else
-                {
-                    registroActualizar = resul.SingleOrDefault();
-                    registroActualizar.idEstado = (int)Constantes.EstadosRegistro.Activo;
-                    clsDatos.CambiarEstado(registroActualizar);
-                }
-
-                ResultadoConsulta.objetoRespuesta = resul;
-                ResultadoConsulta.CantidadRegistros = resul.Count();
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                 ResultadoConsulta.Usuario,
+                      ResultadoConsulta.Clase, objeto.Codigo);
 
             }
             catch (Exception ex)
             {
                 
-                if (ex.Message == Errores.NoRegistrosActualizar)
+                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
                 {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-                else
-                {
+          
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
 
                 }

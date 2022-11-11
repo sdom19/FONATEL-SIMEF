@@ -13,6 +13,18 @@ namespace GB.SIMEF.DAL
     {
         private SIMEFContext db;
 
+        private CategoriasDesagregacionDAL categoriaDAL;
+
+        private List<CategoriasDesagregacion> listaCategoria;
+
+        
+
+        public DetalleRelacionCategoriaDAL()
+        {
+            categoriaDAL = new CategoriasDesagregacionDAL();
+            listaCategoria = ObtenerCategoriaDesagregacion();
+        }
+
         #region Metodos de Consulta a Base Datos
         /// <summary>
         /// Autor: Francisco Vindas Ruiz
@@ -25,14 +37,16 @@ namespace GB.SIMEF.DAL
         {
             List<DetalleRelacionCategoria> ListaDetalle = new List<DetalleRelacionCategoria>();
 
+
+
             using (db = new SIMEFContext())
             {
                 ListaDetalle = db.Database.SqlQuery<DetalleRelacionCategoria>
-                    ("execute spObtenerDetalleRelacionCategoria @idDetalleRelacionCategoria, @idRelacionCategoria, @idCategoriaAtributo , @CategoriaAtributoValor",
+                    ("execute spObtenerDetalleRelacionCategoria @idDetalleRelacionCategoria, @idRelacionCategoria, @idCategoriaAtributo , @idCategoriaDetalle ",
                       new SqlParameter("@idDetalleRelacionCategoria", objDetalle.idDetalleRelacionCategoria),
                       new SqlParameter("@idRelacionCategoria", objDetalle.IdRelacionCategoria),
                       new SqlParameter("@idCategoriaAtributo", objDetalle.idCategoriaAtributo),
-                      new SqlParameter("@CategoriaAtributoValor", string.IsNullOrEmpty(objDetalle.CategoriaAtributoValor) ? DBNull.Value.ToString() : objDetalle.CategoriaAtributoValor)
+                      new SqlParameter("@idCategoriaDetalle ", objDetalle.idCategoriaDetalle)
                     ).ToList();
 
                 ListaDetalle = ListaDetalle.Select(x => new DetalleRelacionCategoria()
@@ -40,14 +54,20 @@ namespace GB.SIMEF.DAL
                     idDetalleRelacionCategoria = x.idDetalleRelacionCategoria,
                     IdRelacionCategoria = x.IdRelacionCategoria,
                     idCategoriaAtributo = x.idCategoriaAtributo,
-                    NombreCategoria = ObtenerCategoriaDesagregacion(x.idCategoriaAtributo).NombreCategoria,
-
-                    CategoriaAtributoValor = x.CategoriaAtributoValor,
+                    NombreCategoria = listaCategoria.Where(i => i.idCategoria == x.idCategoriaAtributo).Single().NombreCategoria,
+                    DetalleCategoriaTexto = listaCategoria.Where(i => i.idCategoria == x.idCategoriaAtributo).Single()
+                                             .DetalleCategoriaTexto.Where(i => i.idCategoriaDetalle == x.idCategoriaDetalle).Single(),
+                    idCategoriaDetalle = x.idCategoriaDetalle,
                     Estado = x.Estado,
                     Completo = db.RelacionCategoria.Where(i => i.idRelacionCategoria == x.IdRelacionCategoria).Single().CantidadCategoria == ListaDetalle.Count() ? true : false,
                     id = Utilidades.Encriptar(x.idDetalleRelacionCategoria.ToString()),
                 }).ToList();
+
+
             }
+
+
+
 
             return ListaDetalle;
         }
@@ -65,33 +85,46 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaDetalle = db.Database.SqlQuery<DetalleRelacionCategoria>
-                    ("execute spActualizarDetalleRelacionCategoria @idDetalleRelacionCategoria, @IdRelacionCategoria, @idCategoriaAtributo, @CategoriaAtributoValor, @Estado",
+                    ("execute spActualizarDetalleRelacionCategoria @idDetalleRelacionCategoria, @IdRelacionCategoria, @idCategoriaAtributo, @idCategoriaDetalle , @Estado",
                       new SqlParameter("@idDetalleRelacionCategoria", objDetalle.idDetalleRelacionCategoria),
                       new SqlParameter("@IdRelacionCategoria", objDetalle.IdRelacionCategoria),
                       new SqlParameter("@idCategoriaAtributo", objDetalle.idCategoriaAtributo),
-                      new SqlParameter("@CategoriaAtributoValor", objDetalle.CategoriaAtributoValor),
+                      new SqlParameter("@idCategoriaDetalle ", objDetalle.idCategoriaDetalle),
                       new SqlParameter("@Estado", objDetalle.Estado)
                     ).ToList();
-
                 ListaDetalle = ListaDetalle.Select(x => new DetalleRelacionCategoria()
                 {
-                    Completo = db.RelacionCategoria.Where(i => i.idRelacionCategoria == x.IdRelacionCategoria).Single().CantidadCategoria == ListaDetalle.Count()?true:false
+                    idDetalleRelacionCategoria = x.idDetalleRelacionCategoria,
+                    IdRelacionCategoria = x.IdRelacionCategoria,
+                    idCategoriaAtributo = x.idCategoriaAtributo,
+                    NombreCategoria = listaCategoria.Where(i => i.idCategoria == x.idCategoriaAtributo).Single().NombreCategoria,
+                    DetalleCategoriaTexto = listaCategoria.Where(i => i.idCategoria == x.idCategoriaAtributo).Single()
+                             .DetalleCategoriaTexto.Where(i => i.idCategoriaDetalle == x.idCategoriaDetalle).Single(),
+                    idCategoriaDetalle = x.idCategoriaDetalle,
+                    Estado = x.Estado,
+                    Completo = db.RelacionCategoria.Where(i => i.idRelacionCategoria == x.IdRelacionCategoria).Single().CantidadCategoria == ListaDetalle.Count() ? true : false,
+                    id = Utilidades.Encriptar(x.idDetalleRelacionCategoria.ToString()),
 
                 }).ToList();
             }
+
+
+
+            
 
             return ListaDetalle;
         }
 
 
-        private CategoriasDesagregacion ObtenerCategoriaDesagregacion(int id)
+        private List<CategoriasDesagregacion> ObtenerCategoriaDesagregacion()
         {
-            CategoriasDesagregacion result = new CategoriasDesagregacion();
-            result=
-            db.CategoriasDesagregacion.Where(x => x.idCategoria == id).Single();
-
-            return result;
+            return categoriaDAL.ObtenerDatos(new CategoriasDesagregacion());
         }
+
+
+
+
+
 
     }
 

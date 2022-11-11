@@ -46,66 +46,58 @@
     <div class="tab-content">
         @foreach (var item in Model.DetalleRegistroIndcadorFonatel)
         {
-            <div id="@string.Format("menu{0}", item.IdDetalleRegistroIndicador)" class="tab-pane fade ">
-                <div class="row">
-                    <div class="col-sm-12">
+        <div id="@string.Format("menu{0}", item.IdDetalleRegistroIndicador)" class="tab-pane fade ">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="txtCantidadRegistroIndicador" class="col-sm-12 col-form-label">@EtiquetasViewRegistroIndicadorFonatel.CantidadFilas</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadRegistroIndicador" placeholder="Cantidad de Filas" value="@item.CantidadFilas">
+                            <small id="txtCantidadRegistroIndicadorHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 mt-4">
+                    <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="txtCantidadRegistroIndicador" class="col-sm-12 col-form-label">@EtiquetasViewRegistroIndicadorFonatel.CantidadFilas</label>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadRegistroIndicador" placeholder="Cantidad de Filas" value="@item.CantidadFilas">
-                                <small id="txtCantidadRegistroIndicadorHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                            </div>
+                            <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasEncargado</label>
+                            <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Notas">@item.NotasEncargado</textarea>
                         </div>
                     </div>
+                    <div class="col-sm-6">
 
-                    <div class="col-sm-12 mt-4">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasEncargado</label>
-                                <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Notas">@item.NotasEncargado</textarea>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasInformante</label>
+                            <textarea class="form-control form-control-fonatel textarea" id="txtDescripcionRegla" placeholder="Notas">@item.NotasInformante</textarea>
+                            <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
 
-                            <div class="form-group">
-                                <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasInformante</label>
-                                <textarea class="form-control form-control-fonatel textarea" id="txtDescripcionRegla" placeholder="Notas">@item.NotasInformante</textarea>
-                                <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-
-                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-sm-12 text-center mb-2" style="display: flow-root;">
-                        <button id="btnDescargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Descargar" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
-                        <button id="btnCargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-success-fonatel">Cargar plantilla</button>
-                    </div>
+                <div class="col-sm-12 text-center mb-2" style="display: flow-root;">
+                    <button id="btnDescargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Descargar" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
+                    <button id="btnCargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-success-fonatel">Cargar plantilla</button>
+                </div>
 
 
 
 
-                    <div class="table-responsive table-wrapper-fonatel mb-2">
-                        <table class="dataTable table-bordered table-condensed table-hover" id="tablaIndicador">
-                            <thead>
-                                <tr>
-                                    @*<th style="min-width:30PX">  </th>
-                                    @foreach (var itemvariable in item.DetalleRegistroIndicadorVariableFonatel)
-                                    {
-                                        <th style="min-width:160PX" class="highlighted" scope="col">@itemvariable.NombreVariable</th>
-                                    }
-                                    @foreach (var itemCategoria in item.DetalleRegistroIndicadorCategoriaFonatel.OrderBy(x=>x.idCategoria))
-                                    {
-                                        <th style="min-width:160PX" class="name-col" scope="col">@itemCategoria.NombreCategoria</th>
-                                    }*@
-                                </tr>
-                            </thead>
-                            <tbody>
-                            
-                            </tbody>
-                        </table>
-                    </div>
-                   </div>
-              </div>
+
+            </div>
+
+            <div class="table-responsive table-wrapper-fonatel mb-2">
+                <table class="dataTable table-bordered table-condensed table-hover hidden" id="tablaIndicador">
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         }
 
     </div>

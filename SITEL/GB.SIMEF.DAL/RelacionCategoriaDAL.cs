@@ -13,6 +13,18 @@ namespace GB.SIMEF.DAL
     {
         private SIMEFContext db;
 
+        private DetalleRelacionCategoriaDAL detalleRelacionDal;
+
+        private List<DetalleRelacionCategoria> listaDetalleRelacionCategoria;
+
+        public RelacionCategoriaDAL()
+        {
+            detalleRelacionDal = new DetalleRelacionCategoriaDAL();
+           
+        }
+
+        
+
         #region Metodos de Consulta a Base Datos
         /// <summary>
         /// Autor: Francisco Vindas Ruiz
@@ -24,6 +36,7 @@ namespace GB.SIMEF.DAL
         public List<RelacionCategoria> ObtenerDatos(RelacionCategoria objRelacionCategoria)
         {
             List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
+            listaDetalleRelacionCategoria = ObtenerDetalleRelacionCategoria();
 
             using (db = new SIMEFContext())
             {
@@ -50,7 +63,7 @@ namespace GB.SIMEF.DAL
                     UsuarioModificacion = X.UsuarioModificacion,
                     idEstado = X.idEstado,
                     id = Utilidades.Encriptar(X.idRelacionCategoria.ToString()),
-                    DetalleRelacionCategoria = db.DetalleRelacionCategoria.Where(p => p.IdRelacionCategoria == X.idRelacionCategoria & p.Estado == true).ToList(),
+                    DetalleRelacionCategoria = listaDetalleRelacionCategoria.Where(p => p.IdRelacionCategoria == X.idRelacionCategoria).ToList(),
                     EstadoRegistro = db.EstadoRegistro.Where(p => p.idEstado == X.idEstado).FirstOrDefault()
                 }).ToList();
 
@@ -58,6 +71,16 @@ namespace GB.SIMEF.DAL
             }
 
         }
+
+
+        public List<DetalleRelacionCategoria> ObtenerDetalleRelacionCategoria()
+        {
+            return detalleRelacionDal.ObtenerDatos(new DetalleRelacionCategoria());
+
+        }
+
+
+
 
         /// <summary>
         /// Autor: Francisco Vindas Ruiz
