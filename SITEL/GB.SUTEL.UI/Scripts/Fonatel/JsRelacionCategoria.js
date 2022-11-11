@@ -705,7 +705,7 @@
             return ind;
         },
         ConsultarListaCategoria: function () {
-            return execAjaxCall('/CategoriasDesagregacion/ObtenerListaCategorias', 'GET');
+            return execAjaxCall('/CategoriasDesagregacion/ListaCategoriasParaRelacion', 'GET');
         },
     }
 }
