@@ -1213,7 +1213,11 @@ CreateView = {
                         data.objetoRespuesta?.forEach(item => {
                             dataSet.push({ value: item.id, text: item.NombreCategoria });
                         });
+
+                        $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).empty();
+
                         InsertarDataSetSelect2(CreateView.Controles.formCategoria.ddlCategoriaIndicador, dataSet);
+                        CreateView.Metodos.LimpiarValoresFormularioDetallesCategoria();
                         return true;
                     }).
                     then(data => {
