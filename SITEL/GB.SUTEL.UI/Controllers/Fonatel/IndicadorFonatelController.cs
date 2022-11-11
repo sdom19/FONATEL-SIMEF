@@ -773,7 +773,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = categoriasDesagregacionBL.ObtenerDatos(new CategoriasDesagregacion() { });
+                resultado = categoriasDesagregacionBL.ObtenerDatos(new CategoriasDesagregacion() { idEstado = (int)EstadosRegistro.Activo });
             });
             return JsonConvert.SerializeObject(resultado);
         }
