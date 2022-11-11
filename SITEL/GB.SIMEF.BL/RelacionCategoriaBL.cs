@@ -179,7 +179,7 @@ namespace GB.SIMEF.BL
                 //REGISTRAMOS EN BITACORA 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                        ResultadoConsulta.Usuario,
-                            ResultadoConsulta.Clase, objeto.Codigo);
+                            ResultadoConsulta.Clase, ResultadoConsulta.objetoRespuesta.Single().Codigo);
 
             }
             catch (Exception ex)

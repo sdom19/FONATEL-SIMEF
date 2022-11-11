@@ -105,6 +105,7 @@ namespace GB.SIMEF.BL
                 var consultardatos = fuente.DetalleFuentesRegistro.Where(x=>x.idDetalleFuente==objeto.idDetalleFuente).ToList();
                 if (consultardatos.Count()==0)
                 {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
                 else
@@ -121,12 +122,9 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.NoRegistrosActualizar)
+                if (ResultadoConsulta.HayError!= (int)Constantes.Error.ErrorControlado)
                 {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
-                {
+                 
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
 

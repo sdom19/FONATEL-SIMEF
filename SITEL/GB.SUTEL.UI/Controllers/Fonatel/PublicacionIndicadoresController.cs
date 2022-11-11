@@ -54,7 +54,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 result = indicadorfonatelBL.ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo });
-
+                result.objetoRespuesta = result
+                    .objetoRespuesta.Where(x => x.IdClasificacion != (int)Constantes.ClasificacionIndicadorEnum.Entrada).ToList();
             });
             return JsonConvert.SerializeObject(result);
         }

@@ -121,7 +121,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public async Task<string> InsertarSolicitud(Solicitud solicitud)
         {
 
-            user = User.Identity.GetUserId();
+          
             solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
             RespuestaConsulta<List<Solicitud>> result = null;

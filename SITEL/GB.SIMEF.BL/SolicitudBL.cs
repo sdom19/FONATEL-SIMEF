@@ -138,9 +138,9 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
-                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
                 objeto.UsuarioModificacion = user;
                 objeto.UsuarioCreacion = user;
+                ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
 
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
@@ -159,14 +159,17 @@ namespace GB.SIMEF.BL
                 }
                 else if (result.SolicitudFormulario.Count > objeto.CantidadFormularios)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CantidadRegistrosLimite);
                 }
                 else if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() >= 1)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
                 else if (objeto.FechaFin < objeto.FechaInicio)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.ValorFecha);
                 }
                 else
@@ -175,21 +178,16 @@ namespace GB.SIMEF.BL
                     .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
                 }
 
-                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                        ResultadoConsulta.Usuario,
-                            ResultadoConsulta.Clase, objeto.Codigo);
+                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                //        ResultadoConsulta.Usuario,
+                //            ResultadoConsulta.Clase, objeto.Codigo);
             }
             catch (Exception ex)
             {
 
-                if (ex.Message == Errores.NoRegistrosActualizar ||
-                    ex.Message == Errores.NombreRegistrado || ex.Message == Errores.CantidadRegistrosLimite
-                    || ex.Message == Errores.ValorMinimo || ex.Message == Errores.ValorFecha)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-                else
-                {
+                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
+                { 
+                   
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }
                 ResultadoConsulta.MensajeError = ex.Message;

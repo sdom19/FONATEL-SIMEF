@@ -56,6 +56,7 @@ namespace GB.SIMEF.DAL
                     idIndicador=x.idIndicador,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
+                    IdClasificacion=x.IdClasificacion,
                     TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),
                     ClasificacionIndicadores = ObtenerClasificacionIndicador(x.IdClasificacion),
                     GrupoIndicadores = ObtenerGrupoIndicadores(x.idGrupo),
