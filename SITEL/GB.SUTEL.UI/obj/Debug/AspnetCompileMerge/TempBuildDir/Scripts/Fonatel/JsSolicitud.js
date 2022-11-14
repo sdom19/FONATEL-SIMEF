@@ -1139,7 +1139,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
     e.preventDefault();
 
     if (JsSolicitud.Metodos.ValidarEnvioProgramado()) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la programación a las Solicitud?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la programación a la Solicitud?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 $(JsSolicitud.Controles.modalEnvio).modal('hide');
                 JsSolicitud.Consultas.InsertarEnvioProgramado();

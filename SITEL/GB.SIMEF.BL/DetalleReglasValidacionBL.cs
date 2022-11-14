@@ -182,8 +182,6 @@ namespace GB.SIMEF.BL
 
                 objeto.Estado = true;
 
-                var BuscarDatos = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
-
                 DesencriptarObjReglasValidacion(objeto);
 
                 if (!string.IsNullOrEmpty(objeto.id))
@@ -204,6 +202,7 @@ namespace GB.SIMEF.BL
                     objeto.IdIndicador = temp;
                 }
 
+                var BuscarDatos = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
 
                 if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.IdTipo != (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.IdDetalleIndicador == objeto.IdDetalleIndicador && x.Estado == true).Count() > 0)
                 {
