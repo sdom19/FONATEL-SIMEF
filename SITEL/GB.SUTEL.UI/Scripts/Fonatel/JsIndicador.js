@@ -1315,14 +1315,15 @@ CreateView = {
             this.LimpiarMensajesValidacionFormularioDetallesCategoria();
         },
 
-        CrearObjDetallesCategoria: function (pIndicador) {
+        CrearObjDetallesCategoria: function (pIndicador, pCategoria) {
             let listadoCategoriasDesagracion = $(CreateView.Controles.formCategoria.ddlCategoriaDetalleIndicador).val();
 
             let formData = {
                 id: CreateView.Variables.objEditarDetallesCategoria?.idCategoria,
                 idIndicadorString: pIndicador,
-                idCategoriaString: $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val(),
-                listaDetallesCategoriaString: []
+                idCategoriaString: pCategoria,
+                listaDetallesCategoriaString: [],
+                NombreCategoria: $(`${CreateView.Controles.formCategoria.ddlCategoriaIndicador} option:selected`).text()
             };
 
             for (let i = 0; i < listadoCategoriasDesagracion?.length; i++) {
@@ -1389,7 +1390,7 @@ CreateView = {
                 });
         },
 
-        EliminarDetalleCategoria: function (pIdIndicador, pIdCategoria) {
+        EliminarDetalleCategoria: function (pIdIndicador, pIdCategoria, pNombreCategoria) {
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaEliminarCategoria, jsMensajes.Variables.actionType.eliminar)
                     .set('onok', function (closeEvent) { resolve(true) });
@@ -1397,12 +1398,9 @@ CreateView = {
                 .then(data => {
                     $("#loading").fadeIn();
 
-                    let detalle = {
-                        idIndicadorString: pIdIndicador,
-                        idCategoriaString: pIdCategoria
-                    };
-                   
-                    return CreateView.Consultas.EliminarDetalleCategoria(detalle);
+                    let objDetalle = CreateView.Metodos.CrearObjDetallesCategoria(pIdIndicador, pIdCategoria);
+                    objDetalle.NombreCategoria = pNombreCategoria;
+                    return CreateView.Consultas.EliminarDetalleCategoria(objDetalle);
                 })
                 .then(data => {
                     if (pIdCategoria === CreateView.Variables.objEditarDetallesCategoria?.idCategoria) { // en caso de que se este editando, no actualicen y se presione el boton de eliminar
@@ -1434,7 +1432,9 @@ CreateView = {
             })
                 .then(data => {
                     $("#loading").fadeIn();
-                    return CreateView.Consultas.EditarDetalleCategoriasDesagregacion(this.CrearObjDetallesCategoria(pIdIndicador));
+                    return CreateView.Consultas.EditarDetalleCategoriasDesagregacion(
+                        this.CrearObjDetallesCategoria(pIdIndicador, $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val())
+                    );
                 })
                 .then(data => {
                     CreateView.Metodos.LimpiarValoresFormularioDetallesCategoria();
@@ -1466,7 +1466,9 @@ CreateView = {
             })
                 .then(data => {
                     $("#loading").fadeIn();
-                    return CreateView.Consultas.InsertarDetalleCategoriasDesagregacion(this.CrearObjDetallesCategoria(pIdIndicador));
+                    return CreateView.Consultas.InsertarDetalleCategoriasDesagregacion(
+                        this.CrearObjDetallesCategoria(pIdIndicador, $(CreateView.Controles.formCategoria.ddlCategoriaIndicador).val())
+                    );
                 })
                 .then(data => {
                     this.LimpiarValoresFormularioDetallesCategoria();
@@ -1738,7 +1740,8 @@ CreateView = {
             let idIndicador = ObtenerValorParametroUrl("id");
 
             if (idIndicador != null || $.trim(idIndicador) != "") {
-                CreateView.Metodos.EliminarDetalleCategoria(idIndicador, $(this).val());
+                let nombreCategoria = $(this).parent().parent().children().eq(1).html();
+                CreateView.Metodos.EliminarDetalleCategoria(idIndicador, $(this).val(), nombreCategoria);
             }
         });
 
