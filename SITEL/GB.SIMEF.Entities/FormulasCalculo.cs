@@ -17,26 +17,36 @@ namespace GB.SIMEF.Entities
     [Table("FormulasCalculo")]
     public partial class FormulasCalculo
     {
-        
+
         public FormulasCalculo()
         {
+            ListaCategoriasNivelesCalculo = new List<FormulaNivelCalculoCategoria>();
+            IdIndicador = 0;
+            IdIndicadorVariable = 0;
+            IdFrecuencia = 0;
         }
-        [Key]
-        public int idFormula { get; set; }
 
-        public int IdIndicador { get; set; }
-        public int IdIndicadorVariable { get; set; }
-        public int IdFrecuencia { get; set; }
+        [Key]
+        public int IdFormula { get; set; }
+
+        public int? IdIndicador { get; set; }
+        public int? IdIndicadorVariable { get; set; }
+        public int? IdFrecuencia { get; set; }
+
+        [MaxLength(30)]
         public string Codigo { get; set; }
+
+        [MaxLength(300)]
         public string Nombre { get; set; }
 
-        [MaxLength(3000)]
+        [MaxLength(1500)]
         [DataType(DataType.MultilineText)]
         public string Descripcion { get; set; }
+
         public bool NivelCalculoTotal { get; set; }
         public string UsuarioModificacion { get; set; }
         public int IdEstado { get; set; }
-        
+
         //public DateTime FechaCalculo { get; set; }
         public Nullable<System.DateTime> FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
@@ -44,18 +54,30 @@ namespace GB.SIMEF.Entities
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public Nullable<DateTime> FechaCalculo { get; set; }
 
-        public DateTime FechaCalculo { get; set; }
+        #region Variable fuera del modelo
+        [NotMapped]
+        public string id { get; set; }
 
         [NotMapped]
+        public string IdIndicadorSalidaString { get; set; }
 
-        public string id { get; set; }
+        [NotMapped]
+        public string IdVariableDatoString { get; set; }
+
+        [NotMapped]
+        public string IdFrecuenciaString { get; set; }
+
+        [NotMapped]
+        public List<FormulaNivelCalculoCategoria> ListaCategoriasNivelesCalculo { get; set; }
 
         [NotMapped]
         public EstadoRegistro EstadoRegistro { get; set; }
 
+        [NotMapped]
+        public bool EsGuardadoParcial { get; set; }
 
- 
-        
+        #endregion
     }
 }

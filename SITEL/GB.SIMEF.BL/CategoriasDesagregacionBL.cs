@@ -462,5 +462,43 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        /// <summary>
+        /// 18/10/2022
+        /// José Navarro Acuña
+        /// Obtener las categorias de desagregación asociadas a un indicador
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerCategoriasDesagregacionDeIndicador(string pIdIndicador)
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+
+            try
+            {
+                int idIndicador = 0;
+                if (!string.IsNullOrEmpty(pIdIndicador))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pIdIndicador), out int number);
+                    idIndicador = number;
+                }
+
+                if (idIndicador == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                var result = clsDatos.ObtenerCategoriasDesagregacionDeIndicador(idIndicador);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
     }
 }

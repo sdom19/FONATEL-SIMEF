@@ -72,7 +72,14 @@ namespace GB.SIMEF.BL
                     resultado.objetoRespuesta.AddRange(detalleIndicadorCategoriaDAL.ActualizarDatos(detalle));
                 }
 
+                // registro en bitacora
+                resultado.Usuario = user;
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Eliminar;
+
+                detalleIndicadorCategoriaDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pDetalleIndicadorCategoria.NombreCategoria);
             }
             catch (Exception ex)
             {
@@ -119,10 +126,17 @@ namespace GB.SIMEF.BL
                             Estado = true
                         }
                     );
-
                     resultado.objetoRespuesta.AddRange(result);
                 }
+
+                // registro en bitacora
+                resultado.Usuario = user;
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Insertar;
+
+                detalleIndicadorCategoriaDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pDetalleIndicadorCategoria.NombreCategoria);
             }
             catch (Exception ex)
             {
@@ -196,6 +210,15 @@ namespace GB.SIMEF.BL
                         detallesActuales[i].Estado = false;
                         detalleIndicadorCategoriaDAL.ActualizarDatos(detallesActuales[i]);
                     }
+
+                    // registro en bitacora
+                    resultado.Usuario = user;
+                    resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
+                    resultado.Clase = modulo;
+                    resultado.Accion = (int)Accion.Insertar;
+
+                    detalleIndicadorCategoriaDAL.RegistrarBitacora(resultado.Accion,
+                            resultado.Usuario, resultado.Clase, pDetalleIndicadorCategoria.NombreCategoria);
                 }
 
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
