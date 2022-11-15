@@ -268,6 +268,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Seleccione.
+        /// </summary>
+        public static string PlaceholderDropDown {
+            get {
+                return ResourceManager.GetString("PlaceholderDropDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reglas de Validación.
         /// </summary>
         public static string ReglasValidacion {

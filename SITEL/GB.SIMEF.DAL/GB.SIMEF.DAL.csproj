@@ -63,6 +63,7 @@
     <Compile Include="DetalleRelacionCategoriaDAL.cs" />
     <Compile Include="DetalleSolicitudesDAL.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatelDAL.cs" />
+    <Compile Include="FormulaNivelCalculoCategoriaDAL.cs" />
     <Compile Include="PlantillaHtmlDAL.cs" />
     <Compile Include="ReglaComparacionConstanteDAL.cs" />
     <Compile Include="ReglaIndicadorEntradaDAL.cs" />
