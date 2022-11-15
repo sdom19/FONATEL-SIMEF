@@ -9,16 +9,27 @@
 
 namespace GB.SIMEF.Entities
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("FormulaNivelCalculoCategoria")]
     public partial class FormulaNivelCalculoCategoria
     {
         [Key]
-        public int idFormulaNivel { get; set; }
-        public int idCategoria { get; set; }
-    
-        public virtual FormulasCalculo FormulasCalculo { get; set; }
+        public int IdFormulaNivel { get; set; }
+        public int IdFormula { get; set; }
+        public int IdCategoria { get; set; }
+
+        #region Variable fuera del modelo
+        [NotMapped]
+        public string id { get; set; }
+
+        [NotMapped]
+        public string IdCategoriaString { get; set; }
+
+        [NotMapped]
+        public string IdFormulaString { get; set; }
+
+        #endregion
     }
 }

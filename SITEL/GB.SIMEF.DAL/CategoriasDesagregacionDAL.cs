@@ -107,8 +107,33 @@ namespace GB.SIMEF.DAL
             return ListaCategoria;
         }
 
+        /// <summary>
+        /// José Navarro Acuña
+        /// 20/10/2022
+        /// Consulta las categorias de desagregación relacionadas con un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        public List<CategoriasDesagregacion> ObtenerCategoriasDesagregacionDeIndicador(int pIdIndicador)
+        {
+            List<CategoriasDesagregacion> listaCategorias = new List<CategoriasDesagregacion>();
+            using (db = new SIMEFContext())
+            {
+                listaCategorias = db.Database.SqlQuery<CategoriasDesagregacion>
+                ("execute spObtenerCategoriasDesagregacionDeIndicador @pIdIndicador ",
+                     new SqlParameter("@pIdIndicador", pIdIndicador.ToString())
+                    ).ToList();
 
-
+                listaCategorias = listaCategorias.Select(x => new CategoriasDesagregacion()
+                {
+                    id = Utilidades.Encriptar(x.idCategoria.ToString()),
+                    Codigo = x.Codigo,
+                    NombreCategoria = x.NombreCategoria,
+                    idEstado = x.idEstado,
+                }).ToList();
+            }
+            return listaCategorias;
+        }
 
         /// <summary>
         /// Valida si tiene detalle por el tipo de categoría 

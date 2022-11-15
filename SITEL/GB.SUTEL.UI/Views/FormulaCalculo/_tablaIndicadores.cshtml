@@ -1,13 +1,14 @@
-﻿
+﻿@using GB.SIMEF.Resources;
+
 <div class="table-responsive table-wrapper-fonatel">
     <table id="TableaIndicadoresVariable" class="dataTable datatable_simef table-bordered table-condensed table-hover no-footer">
         <thead>
             <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Valor Total</th>
-                <th id="columnaDetalleTabla" scope="col">Detalle</th>
-                <th scope="col">Acciones</th>
+                <th scope="col">@EtiquetasViewFormulasCalculo.TablaIndicadores_ColumnaCodigo</th>
+                <th scope="col">@EtiquetasViewFormulasCalculo.TablaIndicadores_ColumnaNombre</th>
+                <th scope="col">@EtiquetasViewFormulasCalculo.TablaIndicadores_ColumnaValorTotal</th>
+                <th id="columnaDetalleTabla" scope="col">@EtiquetasViewFormulasCalculo.TablaIndicadores_ColumnaDetalles</th>
+                <th scope="col">@Etiquetas.Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -15,7 +16,7 @@
                 <td scope="row">FTRB01-1</td>
                 <td>CPSP Conectados Programa 1</td>
                 <td>
-                    <input type="checkbox"  id="chkValorTotal" />
+                    <input type="checkbox" id="chkValorTotal" />
                 </td>
                 <td>
                     <button type="submit" id="btnAgregarDetalleAgregacion" class="btn-icon-base btn-touch" data-toggle="tooltip" data-placement="top" title="Agregar detalle"></button>
@@ -29,7 +30,7 @@
                 <td scope="row">FTRB02-2</td>
                 <td>CPSP Conectados Programa 2</td>
                 <td>
-                    <input type="checkbox" disabled/>
+                    <input type="checkbox" disabled />
                 </td>
                 <td>
                     <button type="submit" id="btnEliminarDetalleAgregacion" class="btn-icon-base btn-touch-disabled" data-toggle="tooltip" data-placement="top" title="Eliminar detalle"></button>
