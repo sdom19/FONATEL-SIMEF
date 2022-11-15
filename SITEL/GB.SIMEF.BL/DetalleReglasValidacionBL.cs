@@ -116,6 +116,7 @@ namespace GB.SIMEF.BL
 
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Usuario = user;
+                ResultadoConsulta.Accion = (int)Constantes.Accion.Eliminar;
 
                 if (!String.IsNullOrEmpty(objeto.id) || !String.IsNullOrEmpty(objeto.idDetalleReglaString))
                 {
@@ -132,7 +133,6 @@ namespace GB.SIMEF.BL
                 {
                     objeto = resul.Single();
                     objeto.Estado = false;
-                    ResultadoConsulta.Accion = (int)Constantes.Accion.Eliminar;
                     resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -140,13 +140,9 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.NoRegistrosActualizar)
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }
 
                 ResultadoConsulta.MensajeError = ex.Message;
