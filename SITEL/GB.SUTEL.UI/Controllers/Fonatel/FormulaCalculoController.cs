@@ -347,18 +347,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
-        #endregion
-
         /// <summary>
         /// 21/10/2022
+        /// José Navarro Acuña
         /// Función que permite crear una fórmula de cálculo
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> CrearFormulaCalculo(FormulasCalculo pFormulasCalculo)
+        public async Task<string> CrearFormulaCalculo(FormulasCalculo pFormulaCalculo)
         {
-            string mensajesValidacion = ValidarObjectoCrearFormulaCalculo(pFormulasCalculo);
+            string mensajesValidacion = ValidarObjectoCrearFormulaCalculo(pFormulaCalculo);
 
             if (!string.IsNullOrEmpty(mensajesValidacion))
             {
@@ -366,21 +365,42 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorControlado, MensajeError = mensajesValidacion });
             }
 
-            pFormulasCalculo.IdEstado = (int)EstadosRegistro.EnProceso;
-            pFormulasCalculo.UsuarioCreacion = usuario;
-            pFormulasCalculo.IdFormula = 0;
-            pFormulasCalculo.IdFrecuencia = 0;
-            pFormulasCalculo.IdIndicador = 0;
-            pFormulasCalculo.IdIndicadorVariable = 0;
+            pFormulaCalculo.IdEstado = (int)EstadosRegistro.EnProceso;
+            pFormulaCalculo.UsuarioCreacion = usuario;
+            pFormulaCalculo.IdFormula = 0;
+            pFormulaCalculo.IdFrecuencia = 0;
+            pFormulaCalculo.IdIndicador = 0;
+            pFormulaCalculo.IdIndicadorVariable = 0;
 
             RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
 
             await Task.Run(() =>
             {
-                resultado = formulaBL.InsertarDatos(pFormulasCalculo);
+                resultado = formulaBL.InsertarDatos(pFormulaCalculo);
             });
             return JsonConvert.SerializeObject(resultado);
         }
+
+        /// <summary>
+        /// 15/11/2022
+        /// José Navarro Acuña
+        /// Función que permite editar una fórmula de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EditarFormulaCalculo(FormulasCalculo pFormulaCalculo)
+        {
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            await Task.Run(() =>
+            {
+                //resultado = formulaBL.InsertarDatos(pFormulasCalculo);
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        #endregion
 
         #region Funciones privadas
 

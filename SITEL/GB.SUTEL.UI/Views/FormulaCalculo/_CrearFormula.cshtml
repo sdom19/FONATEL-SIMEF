@@ -132,8 +132,30 @@
     </div>
     <div class="row mt-5">
         <div class="col-sm-12 text-center">
-            <button type="button" id="btnGuardarFormulaCalculo" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-            <button type="button" id="btnSiguienteFormulaCalculo" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+            @{
+                string idBtnGuardar = string.Empty, idBtnSiguiente = string.Empty;
+                string modoFormulario = ViewBag.ModoFormulario;
+
+                if (modoFormulario.Equals(((int)Constantes.Accion.Insertar).ToString()))
+                {
+                    idBtnGuardar = "btnGuardarFormulaCalculo";
+                    idBtnSiguiente = "btnSiguienteFormulaCalculo";
+                }
+                else if (modoFormulario.Equals(((int)Constantes.Accion.Editar).ToString()))
+                {
+                    idBtnGuardar = "btnGuardarEditarFormulaCalculo";
+                    idBtnSiguiente = "btnSiguienteEditarFormulaCalculo";
+                }
+                else if (modoFormulario.Equals(((int)Constantes.Accion.Clonar).ToString()))
+                {
+                    idBtnGuardar = "btnGuardarClonarFormulaCalculo";
+                    idBtnSiguiente = "btnSiguienteClonarFormulaCalculo";
+                }
+
+            }
+
+            <button type="button" id="@idBtnGuardar" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="button" id="@idBtnSiguiente" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
             <button type="button" id="btnCancelarFormula" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
         </div>
     </div>
