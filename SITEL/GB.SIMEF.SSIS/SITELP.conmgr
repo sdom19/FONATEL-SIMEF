@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="LocalHost.SITELP"
+  DTS:DTSID="{251000DC-0C66-463D-97F6-A8C43F749C8F}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=.;Initial Catalog=SITELP;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-GB.SIMEF.SSIS-{251000DC-0C66-463D-97F6-A8C43F749C8F}LocalHost.SITELP;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

@@ -63,8 +63,8 @@ namespace GB.SIMEF.DAL
                     Anno=x.Anno,
                     IdMes=x.IdMes,
                     IdFuente=x.IdFuente,
-                    IdSolicitudString=Utilidades.Encriptar(x.IdSolicitud.ToString()),
-                    IdFormularioString = Utilidades.Encriptar(x.IdFormulario.ToString()),
+                    Solicitudid=Utilidades.Encriptar(x.IdSolicitud.ToString()),
+                    FormularioId = Utilidades.Encriptar(x.IdFormulario.ToString()),
                     DetalleRegistroIndcadorFonatel=DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() {IdSolicitud=x.IdSolicitud, IdFormulario=x.IdFormulario })
                    
                 }).ToList();

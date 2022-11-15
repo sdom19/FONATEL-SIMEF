@@ -6,34 +6,23 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
 namespace GB.SIMEF.Entities
 {
-
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("DetalleRegistroIndcadorFonatel")]
-    public partial class DetalleRegistroIndicadorCategoriaFonatel
+    public partial class DetalleRegistroIndicadorCategoriaValorFonatel
     {
-        [Key, Column(Order = 0)]
         public int IdSolicitud { get; set; }
-
-
-        [Key, Column(Order = 1)]
         public int IdFormulario { get; set; }
-        [Key, Column(Order = 2)]
         public int IdIndicador { get; set; }
         public int idCategoria { get; set; }
-        public string NombreCategoria { get; set; }
-        public int IdTipoCategoria { get; set; }
-        public int CantidadDetalleDesagregacion { get; set; }
-        public string JSON { get; set; }
-        public string RangoMinimo { get; set; }
-        public string RangoMaximo { get; set; }
-        [NotMapped]
-        public string html { get; set; }
+        public int NumeroFila { get; set; }
+        public string Valor { get; set; }
+
+
 
         [NotMapped]
         public string Solicitudid { get; set; }
@@ -41,8 +30,5 @@ namespace GB.SIMEF.Entities
         public string FormularioId { get; set; }
         [NotMapped]
         public string IndicadorId { get; set; }
-
-
-
     }
 }
