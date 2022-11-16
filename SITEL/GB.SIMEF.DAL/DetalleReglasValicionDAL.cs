@@ -46,7 +46,7 @@ namespace GB.SIMEF.DAL
                     operadorArismetico = ObtenerOperador(x.IdOperador),
                     IdDetalleIndicador = x.IdDetalleIndicador,
                     IdIndicador = x.IdIndicador,
-                    NombreVariable = ObtenerVariable(x.IdDetalleIndicador).NombreVariable,
+                    NombreVariable =  x.IdTipo==(int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos?"No Definido":    ObtenerVariable(x.IdDetalleIndicador).NombreVariable,
                     reglaIndicadorEntrada = ObtenerReglaIndicadorEntrada(x.IdDetalleReglaValidacion),
                     reglaComparacionConstante = ObtenerReglaContraConstante(x.IdDetalleReglaValidacion),
                     reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdDetalleReglaValidacion),

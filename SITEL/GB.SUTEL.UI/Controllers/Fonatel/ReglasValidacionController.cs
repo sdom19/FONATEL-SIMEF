@@ -287,7 +287,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> InsertarReglaValidacion(ReglaValidacion objeto)
         {
-            user = User.Identity.GetUserId();
+
             RespuestaConsulta<List<ReglaValidacion>> result = null;
             await Task.Run(() =>
             {
@@ -307,11 +307,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EditarReglaValidacion(ReglaValidacion objeto)
         {
-
-            user = User.Identity.GetUserId();
-            objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
-
             RespuestaConsulta<List<ReglaValidacion>> result = null;
+
+            objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
             await Task.Run(() =>
             {
@@ -332,7 +330,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> InsertarDetalleRegla(DetalleReglaValidacion objetoTipoRegla)
         {
-            user = User.Identity.GetUserId();
 
             RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
 
@@ -354,7 +351,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EditarDetalleRegla(DetalleReglaValidacion objetoTipoRegla)
         {
-            user = User.Identity.GetUserId();
 
             RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
 
@@ -375,7 +371,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         public async Task<string> ClonarRegla(ReglaValidacion objeto)
         {
-            user = User.Identity.GetUserId();
             objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
             if (string.IsNullOrEmpty(objeto.id))
@@ -414,8 +409,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EliminarRegla(ReglaValidacion regla)
         {
-            user = User.Identity.GetUserId();
             RespuestaConsulta<List<ReglaValidacion>> result = null;
+
             await Task.Run(() =>
             {
                 result = reglaBL.EliminarElemento(regla);
@@ -432,7 +427,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EliminarDetalleRegla(DetalleReglaValidacion detalleRegla)
         {
-            user = User.Identity.GetUserId();
 
             RespuestaConsulta<List<DetalleReglaValidacion>> result = null;
 
@@ -454,7 +448,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> CambioEstado(ReglaValidacion regla)
         {
-            user = User.Identity.GetUserId();
             RespuestaConsulta<List<ReglaValidacion>> result = null;
             await Task.Run(() =>
             {
