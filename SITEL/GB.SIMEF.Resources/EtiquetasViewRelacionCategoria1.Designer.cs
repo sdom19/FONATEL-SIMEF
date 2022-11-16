@@ -79,11 +79,29 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cantidad de Filas.
+        /// </summary>
+        public static string CantidadRegistros {
+            get {
+                return ResourceManager.GetString("CantidadRegistros", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categoría Atributo.
         /// </summary>
         public static string CategoriaAtributo {
             get {
                 return ResourceManager.GetString("CategoriaAtributo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorias de Desagregación.
+        /// </summary>
+        public static string CategoriaDesagregacion {
+            get {
+                return ResourceManager.GetString("CategoriaDesagregacion", resourceCulture);
             }
         }
         

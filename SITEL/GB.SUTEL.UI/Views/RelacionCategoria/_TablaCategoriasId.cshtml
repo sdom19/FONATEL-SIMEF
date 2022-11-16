@@ -1,0 +1,27 @@
+﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.RelacionCategoria
+<div class="table-responsive table-wrapper-fonatel">
+
+    <table id="TableCategoriaId" class="dataTable datatable_simef table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">@EtiquetasViewRelacionCategoria.TituloTablaModalCategoria</th>
+                <th scope="col">@Etiquetas.Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @*@foreach (var item in Model.DetalleRelacionCategoria)
+            {
+                <tr>
+                    <th scope="row">@item.NombreDestinatario</th>
+                    <td>
+                        <button type="button" data-toggle="tooltip" data-placement="top" value="@item.idDetalleFuente" title="Editar" class="btn-icon-base btn-edit"></button>
+                        <button type="button" data-toggle="tooltip" data-placement="top" value="@item.idDetalleFuente" title="Eliminar" class="btn-icon-base btn-delete"></button>
+                    </td>
+                </tr>
+            }*@
+        </tbody>
+
+    </table>
+
+</div>
