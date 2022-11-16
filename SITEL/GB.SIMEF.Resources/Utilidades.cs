@@ -52,7 +52,7 @@ namespace GB.SIMEF.Resources
         /// José Navarro Acuña
         /// Valida si la cadena es únicamente texto: Letras del alfabeto, tildes (utilizadas en español) y la eñe (ñ). Acepta espacios
         /// </summary>
-        public static Regex rx_soloTexto = new Regex(@"^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$", RegexOptions.Compiled);
+        public static Regex rx_soloTexto = new Regex(@"^[A-Za-zÁÉÍÓÚáéíóúñÑ,. ]+$", RegexOptions.Compiled);
 
         public static bool ValidarEmail(string email)
         {

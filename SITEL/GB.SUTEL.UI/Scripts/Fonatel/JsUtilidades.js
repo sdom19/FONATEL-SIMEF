@@ -483,6 +483,34 @@ function execAjaxCall(pURL, pHttpMethod, pParams = null) {
 }
 
 
+
+
+function execAjaxCallArray(pURL, pHttpMethod, pParams = null) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: jsUtilidades.Variables.urlOrigen + pURL,
+            type: pHttpMethod,
+            dataType: "JSON",
+            data: pParams,
+            success: function (obj) {
+                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                    resolve(obj);
+                }
+                else {
+                    reject(obj);
+                }
+            },
+            error: function () {
+                reject()
+            }
+        })
+    })
+}
+
+
+
+
+
 function execAjaxCallFile(pURL, pParams = null) {
     return new Promise((resolve, reject) => {
         $.ajax({

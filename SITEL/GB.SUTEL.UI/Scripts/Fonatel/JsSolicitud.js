@@ -174,12 +174,13 @@ JsSolicitud = {
 
             for (var i = 0; i < JsSolicitud.Variables.ListadoFormulario.length; i++) {
                 let solicitud = JsSolicitud.Variables.ListadoFormulario[i];
-
+                
                 html = html + "<tr>";
-
+              
+       
                 html = html + "<td>" + solicitud.Codigo + "</td>";
                 html = html + "<td>" + solicitud.Nombre + "</td>";
-
+                html = html + "<td>" + solicitud.EstadoRegistro.Nombre + "</td>";
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button></td></tr>";
 
             }
