@@ -69,8 +69,8 @@ namespace GB.SUTEL.UI
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL").Include(
                 "~/Scripts/alertifyjs/alertify.min.js",
-                "~/Scripts/Fonatel/JsUtilidades.min.js",
-                "~/Scripts/Fonatel/JsMensaje.min.js",
+                "~/Scripts/Fonatel/JsUtilidades.js",
+                "~/Scripts/Fonatel/JsMensaje.js",
                 "~/Scripts/Fonatel/JsStepper.min.js",
                 "~/Scripts/Moment/moment.js"
                 ));

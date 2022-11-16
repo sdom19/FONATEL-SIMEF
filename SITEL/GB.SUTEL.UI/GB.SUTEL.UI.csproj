@@ -684,7 +684,6 @@
     <Content Include="Scripts\Fonatel\JsHistorico.min.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />
     <Content Include="Scripts\Fonatel\JsFormulasCalculo.js" />
-    <Content Include="Scripts\Fonatel\JsMensaje.min.js" />
     <Content Include="Scripts\Fonatel\JsPublicar.min.js" />
     <Content Include="Scripts\Fonatel\JsRegistroIndicadoresEdit.js" />
     <Content Include="Scripts\Fonatel\JsReglas.js" />
@@ -1013,7 +1012,6 @@
     <Content Include="Scripts\Fonatel\JsStepper.js" />
     <Content Include="Scripts\Fonatel\JsStepper.min.js" />
     <Content Include="Scripts\Fonatel\JsUtilidades.js" />
-    <Content Include="Scripts\Fonatel\JsUtilidades.min.js" />
     <Content Include="Scripts\Formulas\FormulasCumplimiento.js" />
     <Content Include="Scripts\FuenteExterna\IndicadorExterno\CreateEdit.js" />
     <Content Include="Scripts\FuenteExterna\IndicadorExterno\autoLoad.js" />

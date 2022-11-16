@@ -72,8 +72,9 @@
                 <label for="ddlVariableFormulario" class="col-form-label ">@EtiquetasViewFormulasCalculo.CrearFormula_LabelVariableDato</label>
                 <div class="select2-wrapper">                    
                     @*@Html.DropDownListFor(model => Model.IdIndicadorVariable, new SelectList(ViewBag.VariableIndicador, "id", "NombreVariable"), "Seleccione", new { @class = "listasDesplegables", id = "ddlVariableFormulario" })*@
+                    @*Enumerable.Empty<SelectListItem>()*@
                     @Html.DropDownListFor(model => Model.IdVariableDatoString, 
-                                                    new SelectList(Enumerable.Empty<SelectListItem>(), "id", "NombreVariable"),
+                                                    new SelectList(ViewBag.VariablesDato, "id", "NombreVariable"),
                                                     Etiquetas.PlaceholderDropDown,
                                                     new { @class = "listasDesplegables", id = "ddlVariableDatoFormula" })
                 </div>
@@ -121,9 +122,8 @@
                 <label for="ddlCategoriaDesagregacion" class="col-form-label ">@EtiquetasViewFormulasCalculo.CrearFormula_LabelCategoriaDesagregacion</label>
                 <div class="select2-wrapper">
                     @Html.DropDownListFor(model => Model.IdIndicadorVariable,
-                                                    new SelectList(Enumerable.Empty<SelectListItem>(), "id", "Nombre"),
-                                                    Etiquetas.PlaceholderDropDown,
-                                                    new { @class = "required listasDesplegables multiple-Select", id = "ddlCategoriaDesagregacion", multiple="multiple" })
+                                                    new SelectList(ViewBag.CategoriasDeIndicador, "id", "NombreCategoria"),
+                                                    new { @class = "required listasDesplegables multiple-Select", id = "ddlCategoriaDesagregacion", multiple="multiple", placeholder= Etiquetas.PlaceholderDropDown })
                 </div>
                 <small id="ddlCategoriaDesagregacionHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>

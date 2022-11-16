@@ -386,11 +386,9 @@ CreateView = {
                     }
                 })
                 .catch(error => {
-                    this.ManejoDeExcepciones(error);
-                })
-                .finally(() => {
-                    $("#loading").fadeOut();
-                });
+                    console.log(error);
+                    this.ManejoDeExcepciones(error); })
+                .finally(() => { $("#loading").fadeOut(); });
         },
 
         CargarCategoriasDesagregacionDeIndicador: function (pIdIndicador) {
@@ -697,6 +695,7 @@ CreateView = {
 
         $(CreateView.Controles.formCrearFormula.ddlCategoriaDesagregacion).on('select2:unselect', function (e) {
             RemoverOpcionesSelect2Multiple(e.params.data.text);
+            
             CreateView.Metodos.EventosEnInputsFormularioCrearFormulaCalculo();
         });
 
@@ -957,6 +956,7 @@ CreateView = {
             //$(CreateView.Controles.formCrearFormula.radioCategoriaDesagregacion).prop("checked", false);
         }
         else if (modo == jsUtilidades.Variables.Acciones.Editar) {
+            InsertarOpcionTodosSelect2Multiple(CreateView.Controles.formCrearFormula.ddlCategoriaDesagregacion);
             //$(CreateView.Controles.formCrearFormula.txtCodigoFormula).prop("disabled", true);
         }
         else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
