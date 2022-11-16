@@ -36,6 +36,11 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Michael Hernández C
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<FormulasCalculo>> CambioEstado(FormulasCalculo objeto)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulasCalculo>>();
@@ -68,6 +73,11 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Michael Hernández C
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<FormulasCalculo>> EliminarElemento(FormulasCalculo objeto)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulasCalculo>>();
@@ -150,6 +160,11 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
+        /// <summary>
+        /// Michael Hernández C
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<FormulasCalculo>> ObtenerDatos(FormulasCalculo pFormulasCalculo)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulasCalculo>>();

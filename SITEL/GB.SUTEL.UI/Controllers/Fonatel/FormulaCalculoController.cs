@@ -79,7 +79,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (objFormulaCalculo == null)
                 return View("Index");
 
-            CargarDatosEnVistas();
+            CargarDatosEnVistas(objFormulaCalculo.IdIndicadorSalidaString, objFormulaCalculo.NivelCalculoTotal);
 
             ViewBag.ModoFormulario = ((int)Accion.Editar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloEditar;
@@ -409,7 +409,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// José Navarro Acuña
         /// Método que permite cargar los datos necesarios del formulario de Fórmulas de Cálculo
         /// </summary>
-        private void CargarDatosEnVistas()
+        private void CargarDatosEnVistas(string pIdIndicador = null, bool pEsNivelCalculoTotal = true)
         {
             ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { }).objetoRespuesta;
             ViewBag.IndicadorSalida = indicadorFonatelBL.ObtenerDatos(new Indicador() { IdClasificacion = (int)ClasificacionIndicadorEnum.Salida })
@@ -418,6 +418,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     id = x.id,
                     Nombre = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre)
                 }).ToList();
+
+            if (!string.IsNullOrEmpty(pIdIndicador))
+            {
+                ViewBag.VariablesDato = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
+                {
+                    idIndicadorString = pIdIndicador
+                }).objetoRespuesta;
+            }
+            else
+            {
+                ViewBag.VariablesDato = Enumerable.Empty<SelectListItem>();
+            }
+
+            if (!pEsNivelCalculoTotal)
+            {
+                ViewBag.CategoriasDeIndicador = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pIdIndicador).objetoRespuesta;
+            }
+            else {
+                ViewBag.CategoriasDeIndicador = Enumerable.Empty<SelectListItem>();
+            }
         }
 
         /// <summary>
