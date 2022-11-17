@@ -402,6 +402,32 @@ CreateView = {
                 });
         },
 
+        CargarCategoriasDeFormulaNivelCalculo: function () {
+            let idParemeter = ObtenerValorParametroUrl("id");
+            let indicador = $(CreateView.Controles.formCrearFormula.ddlIndicadorFormulario).val();
+
+            if (idParemeter != null && idParemeter != "" && indicador != null && indicador != "") {
+                let formula = idParemeter;
+
+                $("#loading").fadeIn();
+
+                CreateView.Consultas.ConsultarCategoriasDesagregacionDeFormulaNivelCalculo(formula, indicador)
+                    .then(data => {
+                        SeleccionarItemsSelect2Multiple(
+                            CreateView.Controles.formCrearFormula.ddlCategoriaDesagregacion,
+                            data.objetoRespuesta, "id"
+                        )
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.ManejoDeExcepciones(error);
+                    })
+                    .finally(() => {
+                        $("#loading").fadeOut();
+                    });
+            }
+        },
+
         InsertarDatosEnComboVariablesDato: function (pData) {
             $(CreateView.Controles.formCrearFormula.ddlVariableDatoFormula).empty();
 
@@ -618,6 +644,10 @@ CreateView = {
 
         ConsultarCategoriasDesagregacionDeIndicador: function (pIdIndicador) {
             return execAjaxCall("/FormulaCalculo/ObtenerCategoriasDesagregacionDeIndicador", "GET", { pIdIndicador });
+        },
+
+        ConsultarCategoriasDesagregacionDeFormulaNivelCalculo: function (pIdFormula, pIdIndicador) {
+            return execAjaxCall("/FormulaCalculo/ObtenerCategoriasDeFormulaNivelCalculo", "GET", { pIdFormula, pIdIndicador });
         },
 
         CrearFormulaCalculo: function (pFormulaCalculo) {
@@ -956,14 +986,18 @@ CreateView = {
             //$(CreateView.Controles.formCrearFormula.radioCategoriaDesagregacion).prop("checked", false);
         }
         else if (modo == jsUtilidades.Variables.Acciones.Editar) {
-            InsertarOpcionTodosSelect2Multiple(CreateView.Controles.formCrearFormula.ddlCategoriaDesagregacion);
+            CreateView.Metodos.CargarCategoriasDeFormulaNivelCalculo();
+            console.log("Editing mode");
+            //InsertarOpcionTodosSelect2Multiple(CreateView.Controles.formCrearFormula.ddlCategoriaDesagregacion);
             //$(CreateView.Controles.formCrearFormula.txtCodigoFormula).prop("disabled", true);
         }
         else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
+            console.log("Clone mode");
             //$(CreateView.Controles.formCrearFormula.txtCodigoFormula).val("");
             //$(CreateView.Controles.txtNombreFormula).val("");
         }
         else if (modo == jsUtilidades.Variables.Acciones.Consultar) {
+            console.log("View mode");
             //$(CreateView.Controles.ControlesStep1).prop("disabled", true);
             //$(CreateView.Controles.divStep2).prop("disabled", true);
             //$(CreateView.Controles.formCrearFormula.btnGuardar).prop("disabled", true);

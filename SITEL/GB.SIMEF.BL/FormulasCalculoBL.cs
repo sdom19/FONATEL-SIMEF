@@ -161,7 +161,9 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
-        /// Michael Hernández C
+        /// 21/10/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener todos los datos de las fórmulas de cálculo
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
@@ -173,8 +175,7 @@ namespace GB.SIMEF.BL
             {
                 if (!string.IsNullOrEmpty(pFormulasCalculo.id))
                 {
-                    pFormulasCalculo.id = Utilidades.Desencriptar(pFormulasCalculo.id);
-                    if (int.TryParse(pFormulasCalculo.id, out int temp))
+                    if (int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.id), out int temp))
                     {
                         pFormulasCalculo.IdFormula = temp;
                     }
@@ -188,7 +189,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                resultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                resultadoConsulta.HayError = (int)Error.ErrorSistema;
                 resultadoConsulta.MensajeError = ex.Message;
             }
             return resultadoConsulta;
