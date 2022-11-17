@@ -31,7 +31,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly string defaultDropDownValue;
         private readonly string usuario = string.Empty;
         private readonly string view = string.Empty;
-        private readonly string keyModoFormulario = "modoFormulario";
 
 
         public IndicadorFonatelController()

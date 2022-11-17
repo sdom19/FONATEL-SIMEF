@@ -13,6 +13,7 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web.Mvc;
 
     [Table("FormulasCalculo")]
     public partial class FormulasCalculo
@@ -77,7 +78,6 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public bool EsGuardadoParcial { get; set; }
-
         #endregion
     }
 }
