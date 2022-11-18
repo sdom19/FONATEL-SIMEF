@@ -17,10 +17,10 @@ namespace GB.SIMEF.Entities
     [Table("RelacionCategoria")]
     public partial class RelacionCategoria
     {
-       
+
         public RelacionCategoria()
         {
-            
+
         }
         [Key]
         public int idRelacionCategoria { get; set; }
@@ -39,6 +39,7 @@ namespace GB.SIMEF.Entities
         public string UsuarioModificacion { get; set; }
 
         public int idEstado { get; set; }
+        public int CantidadRegistros { get; set; }
 
 
         #region Variables que no estan en la entiendad
@@ -60,6 +61,10 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string  detalleid { get; set; }
+
+        [NotMapped]
+
+        public List<RelacionCategoriaId> RelacionCategoriaId { get; set; }
 
         #endregion
     }

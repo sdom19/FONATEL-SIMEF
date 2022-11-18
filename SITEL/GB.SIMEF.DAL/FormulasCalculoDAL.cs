@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.DAL
@@ -20,52 +21,57 @@ namespace GB.SIMEF.DAL
         /// 17/08/2022
         /// michael Hernández C
         /// </summary>
-        /// <param name="objFormula"></param>
+        /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public List<FormulasCalculo> ActualizarDatos(FormulasCalculo objFormula)
+        public List<FormulasCalculo> ActualizarDatos(FormulasCalculo pFormulasCalculo)
         {
             List<FormulasCalculo> listaformulas = new List<FormulasCalculo>();
             using (db = new SIMEFContext())
             {
                 listaformulas = db.Database.SqlQuery<FormulasCalculo>
                 ("execute dbo.spActualizarFormulaCalculo " +
-                " @IdFormula,@Codigo, @Nombre,@IdIndicador, @IdIndicadorVariable,@Descripcion,@NivelCalculoTotal,@IdFrecuencia,@UsuarioModificacion,@UsuarioCreacion,@IdEstado",
-                     new SqlParameter("@IdFormula", objFormula.IdFormula),
-                     new SqlParameter("@Codigo", objFormula.Codigo),
-                     new SqlParameter("@Nombre", objFormula.Nombre),
-                     objFormula.IdIndicador == 0 ?
-                        new SqlParameter("@IdIndicador", DBNull.Value)
+                " @pIdFormula, @pCodigo, @pNombre, @pIdIndicador, @pIdIndicadorVariable, @pFechaCalculo, @pDescripcion, @pIdFrecuencia, @pNivelCalculoTotal, @pUsuarioModificacion, @pUsuarioCreacion, @pIdEstado",
+                     new SqlParameter("@pIdFormula", pFormulasCalculo.IdFormula),
+                     new SqlParameter("@pCodigo", pFormulasCalculo.Codigo),
+                     new SqlParameter("@pNombre", pFormulasCalculo.Nombre),
+                     pFormulasCalculo.IdIndicador == 0 ?
+                        new SqlParameter("@pIdIndicador", DBNull.Value)
                         :
-                        new SqlParameter("@IdIndicador", objFormula.IdIndicador),
+                        new SqlParameter("@pIdIndicador", pFormulasCalculo.IdIndicador),
 
-                     objFormula.IdIndicadorVariable == 0 ?
-                        new SqlParameter("@IdIndicadorVariable", DBNull.Value)
+                     pFormulasCalculo.IdIndicadorVariable == 0 ?
+                        new SqlParameter("@pIdIndicadorVariable", DBNull.Value)
                         :
-                        new SqlParameter("@IdIndicadorVariable", objFormula.IdIndicadorVariable),
+                        new SqlParameter("@pIdIndicadorVariable", pFormulasCalculo.IdIndicadorVariable),
 
-                     string.IsNullOrEmpty(objFormula.Descripcion) ?
-                        new SqlParameter("@Descripcion", DBNull.Value.ToString())
+                     pFormulasCalculo.FechaCalculo == null ?
+                        new SqlParameter("@pFechaCalculo", DBNull.Value)
                         :
-                        new SqlParameter("@Descripcion", objFormula.Descripcion),
+                        new SqlParameter("@pFechaCalculo", pFormulasCalculo.FechaCalculo),
 
-                     new SqlParameter("@NivelCalculoTotal", objFormula.NivelCalculoTotal),
-
-                     objFormula.IdFrecuencia == 0 ?
-                        new SqlParameter("@IdFrecuencia", DBNull.Value)
+                     string.IsNullOrEmpty(pFormulasCalculo.Descripcion) ?
+                        new SqlParameter("@pDescripcion", DBNull.Value.ToString())
                         :
-                        new SqlParameter("@IdFrecuencia", objFormula.IdFrecuencia),
+                        new SqlParameter("@pDescripcion", pFormulasCalculo.Descripcion),
 
-                     string.IsNullOrEmpty(objFormula.UsuarioCreacion) ?
-                        new SqlParameter("@UsuarioCreacion", DBNull.Value)
+                     new SqlParameter("@pNivelCalculoTotal", pFormulasCalculo.NivelCalculoTotal),
+
+                     pFormulasCalculo.IdFrecuencia == 0 ?
+                        new SqlParameter("@pIdFrecuencia", DBNull.Value)
                         :
-                        new SqlParameter("@UsuarioCreacion", objFormula.UsuarioCreacion),
+                        new SqlParameter("@pIdFrecuencia", pFormulasCalculo.IdFrecuencia),
 
-                     string.IsNullOrEmpty(objFormula.UsuarioModificacion) ?
-                        new SqlParameter("@UsuarioModificacion", DBNull.Value)
+                     string.IsNullOrEmpty(pFormulasCalculo.UsuarioCreacion) ?
+                        new SqlParameter("@pUsuarioCreacion", DBNull.Value)
                         :
-                        new SqlParameter("@UsuarioModificacion", objFormula.UsuarioModificacion),
+                        new SqlParameter("@pUsuarioCreacion", pFormulasCalculo.UsuarioCreacion),
 
-                     new SqlParameter("@IdEstado", objFormula.IdEstado)
+                     string.IsNullOrEmpty(pFormulasCalculo.UsuarioModificacion) ?
+                        new SqlParameter("@pUsuarioModificacion", DBNull.Value)
+                        :
+                        new SqlParameter("@pUsuarioModificacion", pFormulasCalculo.UsuarioModificacion),
+
+                     new SqlParameter("@pIdEstado", pFormulasCalculo.IdEstado)
                     ).ToList();
 
                 listaformulas = listaformulas.Select(x => new FormulasCalculo()
@@ -79,6 +85,7 @@ namespace GB.SIMEF.DAL
 
         /// <summary>
         /// Listado de formulas 
+        /// Michael Hernández C
         /// </summary>
         /// <returns></returns>
         public List<FormulasCalculo> ObtenerDatos(FormulasCalculo pformulasCalculo)
@@ -95,15 +102,17 @@ namespace GB.SIMEF.DAL
                 listaFormulasCalculo = listaFormulasCalculo.Select(x => new FormulasCalculo()
                 {
                     id = Utilidades.Encriptar(x.IdFormula.ToString()),
-                    IdFormula = x.IdFormula,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     Descripcion = x.Descripcion,
                     IdEstado = x.IdEstado,
                     NivelCalculoTotal = x.NivelCalculoTotal,
-                    IdFrecuencia = x.IdFrecuencia,
-                    IdIndicador = x.IdIndicador,
-                    IdIndicadorVariable = x.IdIndicadorVariable,
+                    //IdFrecuencia = x.IdFrecuencia,
+                    IdFrecuenciaString = Utilidades.Encriptar(x.IdFrecuencia.ToString()),
+                    //IdIndicador = x.IdIndicador,
+                    IdIndicadorSalidaString = Utilidades.Encriptar(x.IdIndicador.ToString()),
+                    //IdIndicadorVariable = x.IdIndicadorVariable,
+                    IdVariableDatoString = Utilidades.Encriptar(x.IdIndicadorVariable.ToString()),
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
                     FechaCreacion = x.FechaCreacion,
                     FechaModificacion = x.FechaModificacion,

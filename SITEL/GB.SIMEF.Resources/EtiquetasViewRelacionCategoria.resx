@@ -123,8 +123,14 @@
   <data name="Cantidad" xml:space="preserve">
     <value>Cantidad de Atributos</value>
   </data>
+  <data name="CantidadRegistros" xml:space="preserve">
+    <value>Cantidad de Filas</value>
+  </data>
   <data name="CategoriaAtributo" xml:space="preserve">
     <value>Categoría Atributo</value>
+  </data>
+  <data name="CategoriaDesagregacion" xml:space="preserve">
+    <value>Categorias de Desagregación</value>
   </data>
   <data name="Codigo" xml:space="preserve">
     <value>Código</value>

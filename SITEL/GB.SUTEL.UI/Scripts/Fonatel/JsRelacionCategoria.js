@@ -31,6 +31,7 @@
         "nombreHelp": "#nombreHelp",
         "CodigoHelp": "#CodigoHelp",
         "CantidadHelp": "#CantidadHelp",
+        "CantidadRegistrosHelp": "#CantidadRegistrosHelp",
         "TipoCategoriaHelp": "#TipoCategoriaHelp",
         "DetalleDesagregacionIDHelp": "#DetalleDesagregacionIDHelp",
         "CategoriaDetalleHelp": "#CategoriaDetalleHelp",
@@ -45,6 +46,13 @@
         "txtidRelacionCategoria": "#txtidRelacionCategoria",
         "chkCategorias": ".chkCategorias",
         "txtCantidadCategoria": "#txtCantidadCategoria",
+        "TablaCategoriaId_tbody": "#TableCategoriaId tbody",
+        "TablaCategoriaId": "#TableCategoriaId",
+        "btnSiguienteRelacionCategoria": "#btnSiguienteRelacionCategoria",
+        "btnAtrasRelacionCategorias": "#btnAtrasRelacionCategorias",
+        "stepRelacionCategoria": "a[href='#step-1']",
+        "step2Categorias": "a[href='#step-2']",
+        "txtCantidadRegistros": "#txtCantidadRegistros",
     },
 
     "Variables": {
@@ -56,6 +64,7 @@
         "cantidadCategorias": 0,
         "listaCategorias": [],
         "ModalListaCategorias": [],
+        "ListadoCategoriaId": [],
     },
 
     "Metodos": {
@@ -145,7 +154,8 @@
             $(JsRelacion.Controles.CodigoHelp).addClass("hidden");
             $(JsRelacion.Controles.CantidadHelp).addClass("hidden");
             $(JsRelacion.Controles.TipoCategoriaHelp).addClass("hidden");
-            $(JsRelacion.Controles.DetalleDesagregacionIDHelp).addClass("hidden");
+            //$(JsRelacion.Controles.DetalleDesagregacionIDHelp).addClass("hidden");
+            $(JsRelacion.Controles.CantidadRegistrosHelp).addClass("hidden");
 
             if ($(JsRelacion.Controles.txtCodigo).val().length == 0) {
                 validar = false;
@@ -167,9 +177,14 @@
                 $(JsRelacion.Controles.TipoCategoriaHelp).removeClass("hidden");
             }
 
-            if ($(JsRelacion.Controles.ddlDetalleDesagregacionId).val() == 0) {
+            //if ($(JsRelacion.Controles.ddlDetalleDesagregacionId).val() == 0) {
+            //    validar = false;
+            //    $(JsRelacion.Controles.DetalleDesagregacionIDHelp).removeClass("hidden");
+            //}
+
+            if ($(JsRelacion.Controles.txtCantidadRegistros).val().length == 0) {
                 validar = false;
-                $(JsRelacion.Controles.DetalleDesagregacionIDHelp).removeClass("hidden");
+                $(JsRelacion.Controles.CantidadRegistrosHelp).removeClass("hidden");
             }
 
             return validar;
@@ -220,6 +235,22 @@
  
                     $("#loading").fadeOut();
 
+        },
+
+        "CargarTablaCategoriaId": function () {
+            EliminarDatasource(JsRelacion.Controles.TablaCategoriaId);
+            let html = "";
+
+            for (var i = 0; i < JsRelacion.Variables.ListadoCategoriaId.length; i++) {
+                let detalle = JsRelacion.Variables.ListadoRelaciones[i];
+                html = html + "<tr>"
+                html = html + "<td scope='row'>" + detalle.NombreCategoria + "</td>";
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value='" + detalle.NombreCategoria + "' title='Eliminar' class='btn-icon-base btn-delete'></button>";
+                html = html + "</tr>";
+            }
+            $(JsRelacion.Controles.TablaCategoriaId_tbody).html(html);
+            CargarDatasource();
+            JsRelacion.Variables.ListadoCategoriaId = [];
         },
     },
 
@@ -356,13 +387,16 @@
             RelacionCategoria.Nombre = $(JsRelacion.Controles.txtNombre).val().trim();
             RelacionCategoria.CantidadCategoria = $(JsRelacion.Controles.TxtCantidad).val();
             RelacionCategoria.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
-            RelacionCategoria.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
+            RelacionCategoria.CantidadRegistros = $(JsRelacion.Controles.txtCantidadRegistros).val();
+            //RelacionCategoria.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
 
             execAjaxCall("/RelacionCategoria/InsertarRelacionCategoria", "POST", RelacionCategoria)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("La Relación ha sido creada")
                         .set('onok', function (closeEvent) {
-                            window.location.href = "/Fonatel/RelacionCategoria/Index";
+                            //window.location.href = "/Fonatel/RelacionCategoria/Index";
+                            $(JsRelacion.Controles.btnGuardar).prop("disabled", true);
+                            $(JsRelacion.Controles.btnSiguienteRelacionCategoria).prop("disabled", false);
                         });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -388,13 +422,16 @@
             RelacionCategoria.Nombre = $(JsRelacion.Controles.txtNombre).val().trim();
             RelacionCategoria.CantidadCategoria = $(JsRelacion.Controles.TxtCantidad).val();
             RelacionCategoria.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
-            RelacionCategoria.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
+            RelacionCategoria.CantidadRegistros = $(JsRelacion.Controles.txtCantidadRegistros).val();
+            //RelacionCategoria.idCategoriaValor = $(JsRelacion.Controles.ddlDetalleDesagregacionId).val();
 
             execAjaxCall("/RelacionCategoria/EditarRelacionCategoria", "POST", RelacionCategoria)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("La Relación ha sido creada")
                         .set('onok', function (closeEvent) {
-                            window.location.href = "/Fonatel/RelacionCategoria/Index";
+                            //window.location.href = "/Fonatel/RelacionCategoria/Index";
+                            $(JsRelacion.Controles.btnGuardar).prop("disabled", true);
+                            $(JsRelacion.Controles.btnSiguienteRelacionCategoria).prop("disabled", false);
                         });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -961,5 +998,13 @@ $(function () {
     if ($(JsRelacion.Controles.FormularioDetalle).length > 0) {
         JsRelacion.Consultas.ConsultaListaRelacionDetalle();
     }
+
+    $(document).on("click", JsRelacion.Controles.btnSiguienteRelacionCategoria, function (e) {
+        $(JsRelacion.Controles.step2Categorias).trigger('click');
+    });
+
+    $(document).on("click", JsRelacion.Controles.btnAtrasRelacionCategorias, function (e) {
+        $(JsRelacion.Controles.stepRelacionCategoria).trigger('click');
+    });
 
 })

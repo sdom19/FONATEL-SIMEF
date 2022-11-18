@@ -13,7 +13,6 @@ namespace GB.SIMEF.Resources
     public static class Utilidades
     {
 
-
         public static string RutaCarpeta(string rutaCapeta, string opcion="")
         {
             if (opcion==EtiquetasViewCategorias.Categorias)
@@ -27,16 +26,12 @@ namespace GB.SIMEF.Resources
             
         }
 
- 
-
         /// <summary>
         /// 22/08/2022
         /// José Navarro Acuña
         /// Valida si la cadena es alfanumérica: Letras del alfabeto, números, tildes (utilizadas en español) y la eñe (ñ). Acepta espacios
         /// </summary>
         public static Regex rx_alfanumerico = new Regex(@"^[0-9A-Za-zÁÉÍÓÚáéíóúñÑ,;.\- ]+$", RegexOptions.Compiled);
-
-
 
         /// <summary>
         /// 22/08/2022
@@ -45,7 +40,6 @@ namespace GB.SIMEF.Resources
         /// Valida si la cadena es alfanumérica: Letras del alfabeto, números, tildes (utilizadas en español) y la eñe (ñ). Acepta espacios
         /// </summary>
         public static Regex rx_alfanumerico2 = new Regex(@"^[A-Za-zÁÉÍÓÚáéíóúñÑ,;. ]+$", RegexOptions.Compiled);
-
 
         /// <summary>
         /// 13/08/2022
@@ -81,15 +75,11 @@ namespace GB.SIMEF.Resources
             return result;
 
         }
+
         public static string ConcatenadoCombos(string  codigo, string nombre)
         {
             return string.Format("{0} / {1}",codigo,nombre) ;
         }
-
-
-
-
-        
 
         /// <summary>
         /// 29/08/2022
@@ -144,8 +134,6 @@ namespace GB.SIMEF.Resources
             return result.Trim(',');
         }
 
-
-
         private static byte[] EncriptarByte(byte[] btValor)
         {
             byte[] valorEncriptado = null; 
@@ -195,9 +183,5 @@ namespace GB.SIMEF.Resources
                 objRespuesta = msStream.ToArray();
              return objRespuesta;
         }
-
-
-
-
     }
 }

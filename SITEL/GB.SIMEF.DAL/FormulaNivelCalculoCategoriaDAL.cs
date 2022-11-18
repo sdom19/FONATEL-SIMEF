@@ -57,12 +57,15 @@ namespace GB.SIMEF.DAL
         {
             using (db = new SIMEFContext())
             {
-                FormulaNivelCalculoCategoria detalleFormula = db.FormulaNivelCalculoCategoria
-                    .Where(d => d.IdFormula == pIdFormula).FirstOrDefault();
+                List<FormulaNivelCalculoCategoria> detallesFormula = db.FormulaNivelCalculoCategoria
+                    .Where(d => d.IdFormula == pIdFormula).ToList();
 
-                if (detalleFormula != null)
+                if (detallesFormula.Count > 0)
                 {
-                    db.FormulaNivelCalculoCategoria.Remove(detalleFormula);
+                    for (int i = 0; i < detallesFormula.Count; i++)
+                    {
+                        db.FormulaNivelCalculoCategoria.Remove(detallesFormula[i]);
+                    }
                     db.SaveChanges();
                 }
             }
