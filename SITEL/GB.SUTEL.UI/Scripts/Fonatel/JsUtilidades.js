@@ -90,7 +90,7 @@ $(document).ready(function () {
 });
 
 $(document).on("select2:select", '.multiple-Select', function (e) {
-    var data = e.params.data.text;
+    var data = e.params?.data?.text;
     if (data == 'Todos') {
         $(".multiple-Select > option").prop("selected", "selected");
         $(".multiple-Select").trigger("change");

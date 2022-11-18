@@ -9,8 +9,8 @@
     @Scripts.Render("~/bundles/FONATEL/IndicadorFonatel")
 }
 
-@Html.Hidden("modoFormulario", (string) ViewBag.ModoFormulario)
-@{TempData["modoFormulario"] = ViewBag.ModoFormulario;}
+@Html.Hidden(Constantes.keyModoFormulario, (string) ViewBag.ModoFormulario)
+@{Session[Constantes.keyModoFormulario] = ViewBag.ModoFormulario;}
 
 <div class="container body-content">
     <input type="hidden" id="dad1f550">

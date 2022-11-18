@@ -611,8 +611,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             // debido a que la función puede ser llamada por crear o clonar (en esos modos tambien se puede actualizar),
             // se debe identificar cuando se esta editando un indicador existente producto de la seleccion de la tabla de la vista de inicio,
             // y de esta manera se realiza la validación respecto al código, ya que no puede ser modificado
-            string modoFormulario = TempData[keyModoFormulario].ToString(); // valor proveniente de la vista Create
-            TempData.Keep(keyModoFormulario);
+            string modoFormulario = (string)Session[keyModoFormulario]; // valor proveniente de la vista Create
 
             if (modoFormulario.Equals(((int)Accion.Editar).ToString()))
             {

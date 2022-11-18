@@ -415,12 +415,18 @@ CreateView = {
                     .then(data => {
                         SeleccionarItemsSelect2Multiple(
                             CreateView.Controles.formCrearFormula.ddlCategoriaDesagregacion,
-                            data.objetoRespuesta, "id"
-                        )
+                            data.objetoRespuesta,
+                            "id",
+                            true
+                        );
+
+                        //$(CreateView.Controles.formCrearFormula.ddlCategoriaDesagregacion).trigger({ // trigger a nivel visual
+                        //    type: 'select2:select'
+                        //});
                     })
                     .catch(error => {
-                        console.log(error);
                         this.ManejoDeExcepciones(error);
+                        console.log(error);
                     })
                     .finally(() => {
                         $("#loading").fadeOut();
