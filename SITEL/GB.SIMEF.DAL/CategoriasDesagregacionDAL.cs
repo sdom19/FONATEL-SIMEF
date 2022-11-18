@@ -136,6 +136,36 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
+        /// José Navarro Acuña
+        /// 17/11/2022
+        /// Consulta las categorias de desagregación relacionadas a una formula respecto al nivel de calculo        
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        public List<CategoriasDesagregacion> ObtenerCategoriasDeFormulaNivelCalculo(int pIdFormula, int pIdIndicador)
+        {
+            List<CategoriasDesagregacion> listaCategorias = new List<CategoriasDesagregacion>();
+            using (db = new SIMEFContext())
+            {
+                listaCategorias = db.Database.SqlQuery<CategoriasDesagregacion>
+                ("execute spObtenerCategoriasDeFormulaNivelCalculo @pIdFormula, @pIdIndicador ",
+                     new SqlParameter("@pIdFormula", pIdFormula.ToString()),
+                     new SqlParameter("@pIdIndicador", pIdIndicador.ToString())
+                    ).ToList();
+
+                listaCategorias = listaCategorias.Select(x => new CategoriasDesagregacion()
+                {
+                    id = Utilidades.Encriptar(x.idCategoria.ToString()),
+                    Codigo = x.Codigo,
+                    NombreCategoria = x.NombreCategoria,
+                    idEstado = x.idEstado,
+                }).ToList();
+            }
+            return listaCategorias;
+        }
+
+        /// <summary>
         /// Valida si tiene detalle por el tipo de categoría 
         /// Fecha 03-08-2022
         /// Michael Hernández

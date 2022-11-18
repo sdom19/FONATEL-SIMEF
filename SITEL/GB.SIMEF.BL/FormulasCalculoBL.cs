@@ -36,6 +36,11 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Michael Hernández C
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<FormulasCalculo>> CambioEstado(FormulasCalculo objeto)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulasCalculo>>();
@@ -68,6 +73,11 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Michael Hernández C
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<FormulasCalculo>> EliminarElemento(FormulasCalculo objeto)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulasCalculo>>();
@@ -150,6 +160,13 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
+        /// <summary>
+        /// 21/10/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener todos los datos de las fórmulas de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<FormulasCalculo>> ObtenerDatos(FormulasCalculo pFormulasCalculo)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulasCalculo>>();
@@ -158,8 +175,7 @@ namespace GB.SIMEF.BL
             {
                 if (!string.IsNullOrEmpty(pFormulasCalculo.id))
                 {
-                    pFormulasCalculo.id = Utilidades.Desencriptar(pFormulasCalculo.id);
-                    if (int.TryParse(pFormulasCalculo.id, out int temp))
+                    if (int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.id), out int temp))
                     {
                         pFormulasCalculo.IdFormula = temp;
                     }
@@ -173,7 +189,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                resultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                resultadoConsulta.HayError = (int)Error.ErrorSistema;
                 resultadoConsulta.MensajeError = ex.Message;
             }
             return resultadoConsulta;
