@@ -271,5 +271,29 @@ namespace GB.SIMEF.DAL
             return db.DetalleCategoriaTexto
                              .Where(x => x.idCategoria == id && x.Estado == true).ToList();
         }
+
+        /// <summary>
+        /// Georgi Mesen Cerdas
+        /// Se obtiene las categorias para cargar la plantilla de excel de Relacion Categorias
+        /// 18/08/2022
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+
+        public List<DetalleCategoriaTexto> ObtenerCategoriasParaExcel(string NombreCategoria,string CategoriaTexto)
+        {
+            List<DetalleCategoriaTexto> listaValicion = new List<DetalleCategoriaTexto>();
+            using (db = new SIMEFContext())
+            {
+                listaValicion = db.Database.SqlQuery<DetalleCategoriaTexto>
+                    ("exec spObtenerCategoriasParaExcel @NombreCategoria,@CategoriaTexto",
+                       new SqlParameter("@NombreCategoria", NombreCategoria),
+                       new SqlParameter("@CategoriaTexto", CategoriaTexto)
+                    ).ToList();
+            }
+
+            return listaValicion;
+        }
+
     }
 }

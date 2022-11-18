@@ -62,6 +62,7 @@ namespace GB.SIMEF.DAL
                     UsuarioCreacion = X.UsuarioCreacion,
                     UsuarioModificacion = X.UsuarioModificacion,
                     idEstado = X.idEstado,
+                    CantidadRegistros = X.CantidadRegistros,
                     id = Utilidades.Encriptar(X.idRelacionCategoria.ToString()),
                     DetalleRelacionCategoria = listaDetalleRelacionCategoria.Where(p => p.IdRelacionCategoria == X.idRelacionCategoria).ToList(),
                     EstadoRegistro = db.EstadoRegistro.Where(p => p.idEstado == X.idEstado).FirstOrDefault()
@@ -95,7 +96,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
-                ("execute spActualizarRelacionCategoria @idRelacionCategoria ,@Codigo ,@Nombre ,@CantidadCategoria ,@idCategoria  ,@idCategoriaValor ,@UsuarioCreacion ,@UsuarioModificacion ,@idEstado ",
+                ("execute spActualizarRelacionCategoria @idRelacionCategoria ,@Codigo ,@Nombre ,@CantidadCategoria ,@idCategoria  ,@idCategoriaValor ,@UsuarioCreacion ,@UsuarioModificacion ,@idEstado ,@CantidadRegistros ",
                      new SqlParameter("@idRelacionCategoria", objeto.idRelacionCategoria),
                      new SqlParameter("@Codigo", string.IsNullOrEmpty(objeto.Codigo) ? DBNull.Value.ToString() : objeto.Codigo),
                      new SqlParameter("@Nombre", string.IsNullOrEmpty(objeto.Nombre) ? DBNull.Value.ToString() : objeto.Nombre),
@@ -104,7 +105,8 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@idCategoriaValor", objeto.idCategoriaValor),
                      new SqlParameter("@UsuarioCreacion", string.IsNullOrEmpty(objeto.UsuarioCreacion) ? DBNull.Value.ToString() : objeto.UsuarioCreacion),
                      new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objeto.UsuarioModificacion) ? DBNull.Value.ToString() : objeto.UsuarioModificacion),
-                     new SqlParameter("@idEstado", objeto.idEstado)
+                     new SqlParameter("@idEstado", objeto.idEstado),
+                     new SqlParameter("@CantidadRegistros", objeto.CantidadRegistros)
                     ).ToList();
 
                 ListaRelacionCategoria = ListaRelacionCategoria.Select(x => new RelacionCategoria()
@@ -121,6 +123,7 @@ namespace GB.SIMEF.DAL
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).Single(),
+                    CantidadRegistros = x.CantidadRegistros
                 }).ToList();
             }
             return ListaRelacionCategoria;
