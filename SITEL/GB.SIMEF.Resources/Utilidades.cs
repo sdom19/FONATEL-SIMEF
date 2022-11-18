@@ -34,7 +34,7 @@ namespace GB.SIMEF.Resources
         /// José Navarro Acuña
         /// Valida si la cadena es alfanumérica: Letras del alfabeto, números, tildes (utilizadas en español) y la eñe (ñ). Acepta espacios
         /// </summary>
-        public static Regex rx_alfanumerico = new Regex(@"^[0-9A-Za-zÁÉÍÓÚáéíóúñÑ ]+$", RegexOptions.Compiled);
+        public static Regex rx_alfanumerico = new Regex(@"^[0-9A-Za-zÁÉÍÓÚáéíóúñÑ,;.\- ]+$", RegexOptions.Compiled);
 
 
 

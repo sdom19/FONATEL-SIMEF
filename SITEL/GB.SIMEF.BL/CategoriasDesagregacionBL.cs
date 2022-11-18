@@ -136,7 +136,7 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CantidadRegistrosLimite);
                 }
-                else if (!Utilidades.rx_soloTexto.Match(objeto.NombreCategoria.Trim()).Success)
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.NombreCategoria.Trim()).Success)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "nombre de Categoría"));
@@ -352,13 +352,15 @@ namespace GB.SIMEF.BL
                 List<CategoriasDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
                 if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).ToList().Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
                 }
                 else if (buscarRegistro.Where(x => x.NombreCategoria.ToUpper() == objeto.NombreCategoria.ToUpper()).ToList().Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
-                else if (!Utilidades.rx_soloTexto.Match(objeto.NombreCategoria.Trim()).Success)
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.NombreCategoria.Trim()).Success)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "nombre de Categoría"));
