@@ -371,14 +371,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             // tanto crear, clonar y editar pueden actualizar la fórmula, asi que se debe diferenciar la acción
-            string modoFormulario = TempData[keyModoFormulario].ToString(); // valor proveniente de la vista Create
-            TempData.Keep(keyModoFormulario); // conservar el valor para el próximo request
+            string modoFormulario = (string)Session[keyModoFormulario];
 
             if (modoFormulario.Equals(((int)Accion.Editar).ToString()))
             {
                 try
                 {
-                    FormulasCalculo objFormular = formulaBL.ObtenerDatos(new FormulasCalculo()).objetoRespuesta.FirstOrDefault();
+                    FormulasCalculo objFormular = formulaBL.ObtenerDatos(new FormulasCalculo() { id = pFormulaCalculo.id }).objetoRespuesta.FirstOrDefault();
                     pFormulaCalculo.Codigo = objFormular.Codigo;
                 }
                 catch (Exception)
