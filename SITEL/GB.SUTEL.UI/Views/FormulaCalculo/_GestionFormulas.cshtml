@@ -33,25 +33,18 @@
 
     <div id="divGrupo" class="col-sm-4" style="display: none;">
         <div class="form-group row">
-            <label for="ddlGrupoFonatel" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelGrupo</label>
+            <label for="ddlGrupo" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelGrupo</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
-                    @*<select class=" listasDesplegables" id="ddlGrupoFonatel">
-                        <option></option>
-                        <option value="1">GRUPO 1</option>
-                        <option value="2">GRUPO 2</option>
-                        <option value="3">GRUPO 3</option>
-                    </select>*@
-
                     @{
                         var htmlAttrGrupo = new Dictionary<string, object>
                         {
-                            { "id", "ddlGrupoFonatel" },
+                            { "id", "ddlGrupo" },
                             { "class", "listasDesplegables" },
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
                     }
-                    @Html.DropDownListFor(model => Model.IdVariableDatoString, new SelectList(ViewBag.GruposFonatel, "id", "Nombre"),
+                    @Html.DropDownList("grupoIndicador", new SelectList(ViewBag.GruposFonatel, "id", "Nombre"),
                                                     Etiquetas.PlaceholderDropDown, htmlAttrGrupo)
                 </div>
             </div>
@@ -60,25 +53,18 @@
 
     <div id="divClasificacion" class="col-sm-4" style="display: none;">
         <div class="form-group row">
-            <label for="ddlClasificacionFonatel" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelClasificacion</label>
+            <label for="ddlClasificacion" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelClasificacion</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
-                    @*<select class=" listasDesplegables" id="ddlClasificacionFonatel">
-                        <option></option>
-                        <option value="1">Entrada</option>
-                        <option value="2">Salida</option>
-                        <option value="3">Entrada/salida</option>
-                    </select>*@
-
                     @{
                         var htmlAttrClasificacion = new Dictionary<string, object>
                         {
-                            { "id", "ddlClasificacionFonatel" },
+                            { "id", "ddlClasificacion" },
                             { "class", "listasDesplegables" },
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
                     }
-                    @Html.DropDownListFor(model => Model.IdVariableDatoString, new SelectList(ViewBag.ClasificacionesFonatel, "id", "Nombre"),
+                    @Html.DropDownList("clasificacion", new SelectList(ViewBag.ClasificacionesFonatel, "id", "Nombre"),
                                                     Etiquetas.PlaceholderDropDown, htmlAttrClasificacion)
                 </div>
             </div>
@@ -90,22 +76,15 @@
             <label for="dllServicio" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelServicio</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
-                    @*<select class=" listasDesplegables" id="dllServicio">
-                        <option></option>
-                        <option value="1">Telefonía móvil</option>
-                        <option value="1">Televisión por suscripción</option>
-                        <option value="1">General</option>
-                    </select>*@
-
                     @{
                         var htmlAttrServicio = new Dictionary<string, object>
                         {
-                            { "id", "dllServicio" },
+                            { "id", "ddlServicio" },
                             { "class", "listasDesplegables" },
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
                     }
-                    @Html.DropDownListFor(model => Model.IdVariableDatoString, new SelectList(ViewBag.Servicios, "id", "Nombre"),
+                    @Html.DropDownList("servicio", new SelectList(ViewBag.Servicios, "id", "Nombre"),
                                                     Etiquetas.PlaceholderDropDown, htmlAttrServicio)
                 </div>
             </div>
@@ -117,13 +96,6 @@
             <label for="ddlTipoIndicador" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelTipoIndicador</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
-                    @*<select class=" listasDesplegables" id="ddlTipoIndicador">
-                        <option></option>
-                        <option value="1">Entrada</option>
-                        <option value="2">Salida</option>
-                        <option value="3">Entrada/salida</option>
-                    </select>*@
-
                     @{
                         var htmlAttrTipo = new Dictionary<string, object>
                         {
@@ -132,7 +104,7 @@
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
                     }
-                    @Html.DropDownListFor(model => Model.IdVariableDatoString, new SelectList(ViewBag.TiposFonatel, "id", "Nombre"),
+                    @Html.DropDownList("tipoIndicador", new SelectList(ViewBag.TiposFonatel, "id", "Nombre"),
                                                     Etiquetas.PlaceholderDropDown, htmlAttrTipo)
                 </div>
             </div>
@@ -144,14 +116,6 @@
             <label for="ddlIndicador" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelIndicador</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
-                    @*<select class=" listasDesplegables" id="ddlIndicador">
-                        <option></option>
-                        <option value="1">Cod 1 Indicador 1 / F1P1TOR</option>
-                        <option value="1">Cod 2 Indicador 2 / F2P1TOR</option>
-                        <option value="1">Cod 3 Indicador 3 / F3P1TOR</option>
-                        <option value="1">Cod 4 Indicador 4 / F1P1TOR</option>
-                    </select>*@
-
                     @{
                         var htmlAttrIndicador = new Dictionary<string, object>
                         {
@@ -160,7 +124,7 @@
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
                     }
-                    @Html.DropDownListFor(model => Model.IdVariableDatoString, new SelectList(ViewBag.Indicadores, "id", "Nombre"),
+                    @Html.DropDownList("indicador", new SelectList(ViewBag.Indicadores, "id", "Nombre"),
                                                     Etiquetas.PlaceholderDropDown, htmlAttrIndicador)
                 </div>
             </div>
@@ -172,13 +136,6 @@
             <label for="ddlAcumulacion" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelAcumulacion</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
-                    @*<select class=" listasDesplegables" id="ddlAcumulacion">
-                        <option></option>
-                        <option value="1">Total</option>
-                        <option value="1">Anual</option>
-                        <option value="1">Mensual</option>
-                    </select>*@
-
                     @{
                         var htmlAttrAcumulacion = new Dictionary<string, object>
                         {
@@ -187,7 +144,7 @@
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
                     }
-                    @Html.DropDownListFor(model => Model.IdVariableDatoString, new SelectList(ViewBag.Acumulaciones, "id", "Nombre"),
+                    @Html.DropDownList("acumulacion", new SelectList(ViewBag.Acumulaciones, "id", "Nombre"),
                                                     Etiquetas.PlaceholderDropDown, htmlAttrAcumulacion)
                 </div>
             </div>

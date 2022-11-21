@@ -96,7 +96,7 @@
                 html += "<td>" + formula.EstadoRegistro.Nombre + "</td>";
                 html += "<td>" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value='" + formula.id + "' class='btn-icon-base btn-edit'></button>" +
-                    "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' value='" + formula.id + "' class='btn-icon-base btn-clone' ></button >" +
+                    "<button type = 'button' data - toggle='tooltip' data-placement='top' title = 'Clonar' value='" + formula.id + "' class='btn-icon-base btn-clone' ></button >" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar detalle' value='" + formula.id + "' class='btn-icon-base btn-view'></button>";
 
                 if (formula.IdEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
@@ -723,11 +723,12 @@ GestionFormulaView = {
 
         form: {
             ddlFuenteIndicador: "#ddlFuenteIndicador",
-            ddlGrupoFonatel: "#ddlGrupoFonatel",
-            ddlClasificacionFonatel: "#ddlClasificacionFonatel",
+            ddlGrupo: "#ddlGrupo",
+            ddlClasificacion: "#ddlClasificacion",
             ddlTipoIndicador: "#ddlTipoIndicador",
-            //dllServicio: "#dllServicio",
-            //ddlIndicador: "#ddlIndicador",
+            ddlServicio: "#ddlServicio",
+            ddlIndicador: "#ddlIndicador",
+            ddlAcumulacion: "#ddlAcumulacion",
 
             divGrupo: "#divGrupo",
             divClasificacion: "#divClasificacion",
@@ -741,7 +742,7 @@ GestionFormulaView = {
             chkValorTotal: "#chkValorTotal",
             btnAgregarDetalleAgregacion: "#btnAgregarDetalleAgregacion",
             btnEliminarDetalleAgregacion: "#btnEliminarDetalleAgregacion",
-            btnAgregarArgumento: "#TableaIndicadoresVariable tbody tr td .btn-add",
+            btnAgregarArgumento: "#tablaDetallesIndicador tbody tr td .btn-add",
 
             btnCalendarFormula: "#btnCalendarFormula",
             btnRemoverItemFormula: "#btnRemoverItemFormula",
@@ -753,6 +754,8 @@ GestionFormulaView = {
             btnGuardar: "#btnGuardarGestionFormulaCalculo",
             btnCancelar: "#btnCancelarGestionFormulaCalculo",
         },
+
+        tablaDetallesIndicador: "#tablaDetallesIndicador tbody",
 
         //divStep2: "#step-2 input, #step-2 select, #step-2 button",
 
@@ -806,7 +809,8 @@ GestionFormulaView = {
         },
 
         cargoFuentesIndicador: false,
-        attrIndicadorFonatel: "data-indicador-fonatel"
+        attrIndicadorFonatel: "data-indicador-fonatel",
+        esFuenteIndicadorFonatel: false
     },
 
     Mensajes: {
@@ -889,44 +893,81 @@ GestionFormulaView = {
             }
         },
 
-        InsertarDatosEnComboBoxGrupo: function (pData) {
-            $(GestionFormulaView.Controles.form.ddlGrupoFonatel).empty();
+        LimpiarComboxBoxDependientesDeddlFuenteIndicador() {
+            $(GestionFormulaView.Controles.form.ddlGrupo).empty();
+            $(GestionFormulaView.Controles.form.ddlClasificacion).empty();
+            $(GestionFormulaView.Controles.form.ddlTipoIndicador).empty();
+            $(GestionFormulaView.Controles.form.ddlIndicador).empty();
+        },
 
+        InsertarDatosEnComboBoxGrupo: function (pData) {
             let dataSet = []
             pData.objetoRespuesta?.forEach(item => {
                 dataSet.push({ value: item.id, text: item.Nombre });
             });
 
-            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlGrupoFonatel, dataSet);
-            $(GestionFormulaView.Controles.form.ddlGrupoFonatel).val("");
+            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlGrupo, dataSet, false);
+            $(GestionFormulaView.Controles.form.ddlGrupo).val("");
         },
 
         InsertarDatosEnComboBoxClasificacion: function (pData) {
-            $(GestionFormulaView.Controles.form.ddlClasificacionFonatel).empty();
-
             let dataSet = []
             pData.objetoRespuesta?.forEach(item => {
                 dataSet.push({ value: item.id, text: item.Nombre });
             });
 
-            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlClasificacionFonatel, dataSet);
-            $(GestionFormulaView.Controles.form.ddlClasificacionFonatel).val("");
+            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlClasificacion, dataSet, false);
+            $(GestionFormulaView.Controles.form.ddlClasificacion).val("");
         },
 
         InsertarDatosEnComboBoxTipoIndicador: function (pData) {
-            $(GestionFormulaView.Controles.form.ddlTipoIndicador).empty();
+            let dataSet = []
+            pData.objetoRespuesta?.forEach(item => {
+                dataSet.push({ value: item.id, text: item.Nombre });
+            });
+
+            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlTipoIndicador, dataSet, false);
+            $(GestionFormulaView.Controles.form.ddlTipoIndicador).val("");
+        },
+
+        InsertarDatosEnComboBoxServicioSitel: function (pData) {
+            let dataSet = []
+            pData.objetoRespuesta?.forEach(item => {
+                dataSet.push({ value: item.id, text: item.Nombre });
+            });
+
+            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlServicio, dataSet, false);
+            $(GestionFormulaView.Controles.form.ddlServicio).val("");
+        },
+
+        InsertarDatosEnComboBoxIndicador: function (pData) {
+            $(GestionFormulaView.Controles.form.ddlIndicador).empty();
 
             let dataSet = []
             pData.objetoRespuesta?.forEach(item => {
                 dataSet.push({ value: item.id, text: item.Nombre });
             });
 
-            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlTipoIndicador, dataSet);
-            $(GestionFormulaView.Controles.form.ddlTipoIndicador).val("");
+            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlIndicador, dataSet, false);
+            $(GestionFormulaView.Controles.form.ddlIndicador).val("");
         },
 
-        CargarCatalogosParaIndicadorFonatel: function () {
+        InsertarDatosEnComboBoxTipoAcumulacion: function (pData) {
+            $(GestionFormulaView.Controles.form.ddlAcumulacion).empty();
+
+            let dataSet = []
+            pData.objetoRespuesta?.forEach(item => {
+                dataSet.push({ value: item.id, text: item.Acumulacion });
+            });
+
+            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlAcumulacion, dataSet, false);
+            $(GestionFormulaView.Controles.form.ddlAcumulacion).val("");
+        },
+
+        CargarCatalogosParaFuenteIndicadorFonatel: function () {
             $("#loading").fadeIn();
+
+            this.LimpiarComboxBoxDependientesDeddlFuenteIndicador();
 
             GestionFormulaView.Consultas.ConsultarGrupoIndicador(true)
                 .then(data => {
@@ -944,20 +985,127 @@ GestionFormulaView = {
                 .then(data => {
                     this.InsertarDatosEnComboBoxTipoIndicador(data);
                 })
+                .then(() => {
+                    return GestionFormulaView.Consultas.ConsultarAcumulacionesFonatel();
+                })
+                .then(data => {
+                    this.InsertarDatosEnComboBoxTipoAcumulacion(data);
+                })
+                .then(() => {
+                    GestionFormulaView.Variables.cargoCatalogosFuenteFonatel = true;
+                })
                 .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => { $("#loading").fadeOut(); });
         },
 
-        CargarCatalogosParaIndicadorSitel: function () {
+        CargarCatalogosParaFuenteIndicadorSitel: function () {
             $("#loading").fadeIn();
+
+            this.LimpiarComboxBoxDependientesDeddlFuenteIndicador();
 
             GestionFormulaView.Consultas.ConsultarGrupoIndicador(false)
                 .then(data => {
-
+                    this.InsertarDatosEnComboBoxGrupo(data);
+                })
+                .then(() => {
+                    return GestionFormulaView.Consultas.ConsultarServiciosSitel();
+                })
+                .then(data => {
+                    this.InsertarDatosEnComboBoxServicioSitel(data);
+                })
+                .then(() => {
+                    return GestionFormulaView.Consultas.ConsultarTipoIndicador(false);
+                })
+                .then(data => {
+                    this.InsertarDatosEnComboBoxTipoIndicador(data);
+                })
+                .then(() => {
+                    GestionFormulaView.Variables.cargoCatalogosFuenteSitel = true;
                 })
                 .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => { $("#loading").fadeOut(); });
-        }
+        },
+
+        CrearObjIndicador: function () {
+            let controles = GestionFormulaView.Controles.form;
+            var formData = {
+                GrupoIndicadores: {
+                    id: $(controles.ddlGrupo).val()
+                },
+                ClasificacionIndicadores: {
+                    id: $(controles.ddlClasificacion).val()
+                },
+                TipoIndicadores: {
+                    id: $(controles.ddlTipoIndicador).val()
+                }
+            };
+            return formData;
+        },
+
+        CrearObjServicio: function () {
+            return {
+                ServicioSitel: {
+                    id: $(GestionFormulaView.Controles.form.ddlServicio).val(),
+                    Nombre: "wasdasd"
+                },
+            };
+        },
+
+        SeleccionarCargaDeDatosIndicador: function () {
+            let esFuenteFonatel = GestionFormulaView.Variables.esFuenteIndicadorFonatel;
+            let grupo = $(GestionFormulaView.Controles.form.ddlGrupo).val();
+            let servicio = $(GestionFormulaView.Controles.form.ddlServicio).val();
+            let clasificacion = $(GestionFormulaView.Controles.form.ddlClasificacion).val();
+            let tipoIndicador = $(GestionFormulaView.Controles.form.ddlTipoIndicador).val();
+
+            if (grupo != null && grupo != "" && tipoIndicador != null && tipoIndicador != "") {
+                if ((clasificacion != null && clasificacion != "") || (servicio != null && servicio != "")) {
+                    this.CargarDatosIndicador(esFuenteFonatel);
+                }
+            }
+        },
+
+        CargarDatosIndicador: function (pEsFuenteIndicadorFonatel) {
+            $("#loading").fadeIn();
+
+            GestionFormulaView.Consultas.ConsultarIndicadores(
+                this.CrearObjIndicador(), pEsFuenteIndicadorFonatel, this.CrearObjServicio()
+            )
+                .then(data => {
+                    GestionFormulaView.Metodos.InsertarDatosEnComboBoxIndicador(data);
+                })
+                .catch(error => { ManejoDeExcepciones(error); })
+                .finally(() => { $("#loading").fadeOut(); });
+        },
+
+        CargarTablaDetallesIndicadorFonatel: function (pIdIndicador) {
+            $("#loading").fadeIn();
+
+            GestionFormulaView.Consultas.ConsultarVariablesDatoIndicadorFonatel(pIdIndicador)
+                .then(obj => {
+                    console.log(obj);
+                    this.InsertarDatosTablaDetallesIndicador(obj.objetoRespuesta);
+                })
+                .catch(error => { ManejoDeExcepciones(null); })
+                .finally(() => { $("#loading").fadeOut(); });
+        },
+
+        InsertarDatosTablaDetallesIndicador: function (pListado) {
+            EliminarDatasource();
+            let html = "";
+            for (var i = 0; i < pListado.length; i++) {
+                let detalle = pListado[i];
+                html += `<tr><td scope='row'>${detalle.Codigo}</td>`;
+                html += `<td>${detalle.NombreVariable}</td>`;
+                html += "<td><input type='checkbox' id='chkValorTotal' /></td>";
+                html += "<td>" + '<button type="submit" id="btnAgregarDetalleAgregacion" class="btn-icon-base btn-touch" data-toggle="tooltip" data-placement="top" title="Agregar detalle"></button>' + "</td>";
+                html += "<td>" + '<button type="submit" id="" class="btn-icon-base btn-add" data-toggle="tooltip" data-placement="top" title="Agregar"></button>' + "</td>";
+                
+                html += "</tr>";
+            }
+            $(GestionFormulaView.Controles.tablaDetallesIndicador).html(html);
+            CargarDatasource();
+        },
     },
 
     Consultas: {
@@ -966,15 +1114,37 @@ GestionFormulaView = {
         },
 
         ConsultarGrupoIndicador: function (pEsFuenteIndicadorFonatel) {
-            return execAjaxCall("/FormulaCalculo/ObtenerGrupoIndicador", "GET", { pEsFuenteIndicadorFonatel })
+            return execAjaxCall("/FormulaCalculo/ObtenerGrupoIndicador", "GET", { pEsFuenteIndicadorFonatel });
         },
 
         ConsultarTipoIndicador: function (pEsFuenteIndicadorFonatel) {
-            return execAjaxCall("/FormulaCalculo/ObtenerTipoIndicador", "GET", { pEsFuenteIndicadorFonatel })
+            return execAjaxCall("/FormulaCalculo/ObtenerTipoIndicador", "GET", { pEsFuenteIndicadorFonatel });
         },
 
         ConsultarClasificacionIndicador: function () {
-            return execAjaxCall("/FormulaCalculo/ObtenerClasificacionIndicador", "GET")
+            return execAjaxCall("/FormulaCalculo/ObtenerClasificacionIndicador", "GET");
+        },
+
+        ConsultarServiciosSitel: function () {
+            return execAjaxCall("/FormulaCalculo/ObtenerServiciosSitel", "GET");
+        },
+
+        ConsultarAcumulacionFonatel: function () {
+            return execAjaxCall("/FormulaCalculo/ObtenerAcumulacionFonatel", "GET");
+        },
+
+        ConsultarIndicadores: function (pIndicador, pEsFuenteFonaltel, pServicio = null) {
+            return execAjaxCall("/FormulaCalculo/ObtenerIndicadores", "POST",
+                { pIndicador: pIndicador, pEsFuenteIndicadorFonatel: pEsFuenteFonaltel, pServicio: pServicio }
+            );
+        },
+
+        ConsultarAcumulacionesFonatel: function () {
+            return execAjaxCall("/FormulaCalculo/ObtenerAcumulacionesFonatel", "GET");
+        },
+
+        ConsultarVariablesDatoIndicadorFonatel: function (pIdIndicador) {
+            return execAjaxCall("/FormulaCalculo/ObtenerVariablesDatoDeIndicador", "GET", { pIdIndicador });
         }
     },
 
@@ -986,17 +1156,47 @@ GestionFormulaView = {
         });
 
         $(document).on("change", GestionFormulaView.Controles.form.ddlFuenteIndicador, function () {
-            //let optionSelected = $(this).select2('data')[0].id;
             let esIndicadorFonatel = $($(this).select2('data')[0].element).attr(GestionFormulaView.Variables.attrIndicadorFonatel);
+            GestionFormulaView.Variables.esFuenteIndicadorFonatel = esIndicadorFonatel;
             GestionFormulaView.Metodos.HabilitarComboboxddlFuenteIndicador(esIndicadorFonatel);
 
             if (esIndicadorFonatel) {
-                GestionFormulaView.Metodos.CargarCatalogosParaIndicadorFonatel();
+                GestionFormulaView.Metodos.CargarCatalogosParaFuenteIndicadorFonatel();
             }
             else {
-                GestionFormulaView.Metodos.CargarCatalogosParaIndicadorSitel();
+                GestionFormulaView.Metodos.CargarCatalogosParaFuenteIndicadorSitel();
             }
         });
+
+        $(document).on("change", GestionFormulaView.Controles.form.ddlGrupo, function () {
+            GestionFormulaView.Metodos.SeleccionarCargaDeDatosIndicador();
+        });
+
+        $(document).on("change", GestionFormulaView.Controles.form.ddlServicio, function () {
+            GestionFormulaView.Metodos.SeleccionarCargaDeDatosIndicador();
+        });
+
+        $(document).on("change", GestionFormulaView.Controles.form.ddlTipoIndicador, function () {
+            GestionFormulaView.Metodos.SeleccionarCargaDeDatosIndicador();
+        });
+
+        $(document).on("change", GestionFormulaView.Controles.form.ddlClasificacion, function () {
+            GestionFormulaView.Metodos.SeleccionarCargaDeDatosIndicador();
+        });
+
+        $(document).on("change", GestionFormulaView.Controles.form.ddlIndicador, function () {
+            if (GestionFormulaView.Variables.esFuenteIndicadorFonatel) {
+                GestionFormulaView.Metodos.CargarTablaDetallesIndicadorFonatel($(this).val());
+            }
+            else {
+                // Indicadores de fuente sitel ?
+            }
+
+        });
+
+        // | Eventos por probar y rehacer   |
+        // |                                |
+        // V                                V
 
         $(document).on("change", GestionFormulaView.Controles.form.chkValorTotal, function () {
             if (GestionFormulaView.Controles.form.chkValorTotal.checked) {
@@ -1060,10 +1260,6 @@ GestionFormulaView = {
             $(GestionFormulaView.Controles.modalDetalleAgregacion.ddlCategoria).select2("enable", false);
             $(GestionFormulaView.Controles.modalDetalleAgregacion.ddlDetalle).select2("enable", false);
             $(GestionFormulaView.Controles.modalDetalleAgregacion.ddlCriterio).select2("enable", false);
-        });
-
-        $(document).on("click", GestionFormulaView.Controles.form.btnAtras, function (e) {
-            $("a[href='#step-1']").trigger('click');
         });
 
         $(document).on("click", GestionFormulaView.Controles.form.btnFinalizar, function (e) {
@@ -1179,6 +1375,10 @@ GestionFormulaView = {
                             $(GestionFormulaView.Controles.modalDetalleAgregacion.modal).modal('hide');
                         });
                 });
+        });
+
+        $(document).on("click", GestionFormulaView.Controles.form.btnAtras, function (e) {
+            $("a[href='#step-1']").trigger('click');
         });
     },
 

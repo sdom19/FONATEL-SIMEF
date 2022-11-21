@@ -25,9 +25,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly FuenteIndicadorBL fuenteIndicadorBL;
         private readonly GrupoIndicadorBL grupoIndicadorBL;
         private readonly TipoIndicadorBL tipoIndicadorBL;
+        private readonly ClasificacionIndicadorBL clasificacionIndicadorBL;
+        private readonly ServicioSitelBL servicioSitelBL;
+        private readonly AcumulacionFormulaBL acumulacionFormulaBL;
+
         private readonly string usuario = string.Empty;
         private readonly string nombreVista = string.Empty;
-        private readonly ClasificacionIndicadorBL clasificacionIndicadorBL;
         private string modoFormulario = string.Empty;
 
         #endregion
@@ -45,6 +48,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             grupoIndicadorBL = new GrupoIndicadorBL(nombreVista, usuario);
             tipoIndicadorBL = new TipoIndicadorBL(nombreVista, usuario);
             clasificacionIndicadorBL = new ClasificacionIndicadorBL(nombreVista, usuario);
+            servicioSitelBL = new ServicioSitelBL();
+            acumulacionFormulaBL = new AcumulacionFormulaBL(nombreVista, usuario);
         }
 
         #region Eventos de la página
@@ -536,7 +541,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
                 else // SITEL
                 {
-
+                    resultado = tipoIndicadorBL.ObtenerDatosSitel(new TipoIndicadores());
                 }
             });
 
@@ -563,6 +568,85 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 28/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna las diferentes acumulaciones de formulas Fonatel
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerAcumulacionesFonatel()
+        {
+            RespuestaConsulta<List<AcumulacionFormula>> resultado = new RespuestaConsulta<List<AcumulacionFormula>>();
+
+            await Task.Run(() =>
+            {
+                resultado = acumulacionFormulaBL.ObtenerDatos(new AcumulacionFormula());
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 24/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna los servicios de la base de datos de SITEL
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerServiciosSitel()
+        {
+            RespuestaConsulta<List<ServicioSitel>> resultado = new RespuestaConsulta<List<ServicioSitel>>();
+
+            await Task.Run(() =>
+            {
+                resultado = servicioSitelBL.ObtenerDatos(new ServicioSitel());
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 24/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna indicadores, ya sea de Fonatel o Sitel
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <param name="pEsFuenteIndicadorFonatel"></param>
+        /// <param name="pServicioSitel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ObtenerIndicadores(Indicador pIndicador, bool pEsFuenteIndicadorFonatel, ServicioSitel pServicioSitel = null)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            if (
+                (string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id) || string.IsNullOrEmpty(pIndicador.TipoIndicadores?.id)) 
+                ||
+                (pEsFuenteIndicadorFonatel && string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
+                ||
+                (!pEsFuenteIndicadorFonatel && string.IsNullOrEmpty(pServicioSitel?.id))
+            )
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.CamposIncompletos;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                if (pEsFuenteIndicadorFonatel)
+                {
+                    resultado = indicadorFonatelBL.ObtenerDatos(pIndicador);
+                }
+                else
+                {
+                    resultado = indicadorFonatelBL.ObtenerDatosSitel(pIndicador, pServicioSitel);
+                }
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
 
         #endregion
 
