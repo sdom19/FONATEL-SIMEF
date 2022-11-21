@@ -1,24 +1,35 @@
 ﻿@using GB.SIMEF.Resources
 @model GB.SIMEF.Entities.FormulasCalculo
 
+@{ 
+    bool modoVisualizacion = false;
+
+    if (ViewBag.ModoFormulario.Equals(((int)Constantes.Accion.Visualizar).ToString()))
+    {
+        modoVisualizacion = true;
+    }
+}
+
 <form id="formCrearFormula"> @*autocomplete="off"*@
     <div class="row">
         <div class="col-md-6 col-sm-10">
             <div class="form-group center">
                 <label for="txtCodigoFormula" class="col-form-label">@EtiquetasViewFormulasCalculo.CrearFormula_LabelCodigo</label>
 
-                @{ var htmlAttributes = new Dictionary<string, object>
-                                        {
+                @{ 
+                    var htmlAttributes = new Dictionary<string, object>
+                    {
                         { "id", "txtCodigoFormula" },
                         { "class" , "form-control form-control-fonatel alfa_numerico"},
                         { "maxlength", 30 },
                         { "placeholder", EtiquetasViewFormulasCalculo.CrearFormula_LabelCodigo }
                     };
 
-                    if (ViewBag.ModoFormulario == ((int)Constantes.Accion.Editar).ToString())
+                    if (ViewBag.ModoFormulario.Equals(((int)Constantes.Accion.Editar).ToString()) ||
+                        modoVisualizacion == true)
                     {
-                        htmlAttributes.Add("disabled", "disabled");
-                    } 
+                        htmlAttributes.Add("disabled", true);
+                    }
                 }
 
                 @Html.EditorFor(model => Model.Codigo, new { htmlAttributes = htmlAttributes })
@@ -27,40 +38,67 @@
 
             <div class="form-group center">
                 <label for="txtNombreFormula" class="col-form-label">@EtiquetasViewFormulasCalculo.CrearFormula_LabelNombre</label>
-                @Html.EditorFor(model => Model.Nombre, new { htmlAttributes = new { 
-                                                                @class = "form-control form-control-fonatel solo_texto", 
-                                                                id = "txtNombreFormula", 
-                                                                placeholder = EtiquetasViewFormulasCalculo.CrearFormula_LabelNombre,
-                                                                maxlength = 300
-                } })
+
+                @{ 
+                    var htmlAttrNombre = new Dictionary<string, object>
+                    {
+                        { "id", "txtNombreFormula" },
+                        { "class" , "form-control form-control-fonatel solo_texto"},
+                        { "maxlength", 300 },
+                        { "placeholder", EtiquetasViewFormulasCalculo.CrearFormula_LabelNombre },
+                        { modoVisualizacion ? "disabled":"true", "" }
+                    };
+                }
+
+                @Html.EditorFor(model => Model.Nombre, new { htmlAttributes = htmlAttrNombre })
                 <small id="txtNombreFormulaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group center">
                 <label for="ddlFrecuenciaFormulario" class="col-form-label">@EtiquetasViewFormulasCalculo.CrearFormula_LabelFrecuencia</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownListFor(model => Model.IdFrecuenciaString, 
-                                                    new SelectList(ViewBag.FrecuenciaEnvio, "id", "Nombre"), 
-                                                    Etiquetas.PlaceholderDropDown,
-                                                    new { @class = "listasDesplegables", id = "ddlFrecuenciaFormulario" })
+                    @{ 
+                        var htmlAttrFrecuencia = new Dictionary<string, object>
+                        {
+                            { "class", "listasDesplegables" },
+                            { "id", "ddlFrecuenciaFormulario" },
+                            { modoVisualizacion ? "disabled":"true", "" }
+                        };
+                    }
+
+                    @Html.DropDownListFor(model => Model.IdFrecuenciaString, new SelectList(ViewBag.FrecuenciaEnvio, "id", "Nombre"), 
+                                                    Etiquetas.PlaceholderDropDown, htmlAttrFrecuencia)
                 </div>
                 <small id="ddlFrecuenciaFormularioHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group center">
                 <label for="txtFechaCalculo" class="col-form-label">@EtiquetasViewFormulasCalculo.CrearFormula_LabelFechaCalculo</label>
-                @Html.EditorFor(model => Model.FechaCalculo, new { htmlAttributes = new { @class = "form-control form-control-fonatel", id = "txtFechaCalculo" } })
+                @{ 
+                    var htmlAttrFechaCalculo = new Dictionary<string, object>
+                    {
+                        { "class", "form-control form-control-fonatel" },
+                        { "id", "txtFechaCalculo" },
+                        { modoVisualizacion ? "disabled":"true", "" }
+                    };
+                }
+                @Html.EditorFor(model => Model.FechaCalculo, new { htmlAttributes = htmlAttrFechaCalculo })
                 <small id="txtFechaCalculoHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group center">
                 <label for="txtDescripcionFormula" class="col-form-label">@EtiquetasViewFormulasCalculo.CrearFormula_LabelDescripcion</label>
-                @Html.EditorFor(model => Model.Descripcion, new { htmlAttributes = new { 
-                                                                    @class = "form-control form-control-fonatel solo_texto", 
-                                                                    id = "txtDescripcionFormula",
-                                                                    placeholder = EtiquetasViewFormulasCalculo.CrearFormula_LabelDescripcion,
-                                                                    maxlength = 1500
-                } })
+                @{ 
+                    var htmlAttrDescripcion = new Dictionary<string, object>
+                    {
+                        { "class", "form-control form-control-fonatel solo_texto" },
+                        { "id", "txtDescripcionFormula" },
+                        { "placeholder", EtiquetasViewFormulasCalculo.CrearFormula_LabelDescripcion },
+                        { "maxlength", 1500 },
+                        { modoVisualizacion ? "disabled":"true", "" }
+                    };
+                }
+                @Html.EditorFor(model => Model.Descripcion, new { htmlAttributes = htmlAttrDescripcion })
                 <small id="txtDescripcionFormulaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
@@ -69,21 +107,33 @@
             <div class="form-group center">
                 <label for="ddlIndicadorFormulario" class="col-form-label ">@EtiquetasViewFormulasCalculo.CrearFormula_LabelIndicadorSalida</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownListFor(model => Model.IdIndicadorSalidaString, 
-                                                    new SelectList(ViewBag.IndicadorSalida, "id", "Nombre"), 
-                                                    Etiquetas.PlaceholderDropDown, 
-                                                    new { @class = "listasDesplegables", id = "ddlIndicadorFormulario" })
+                    @{ 
+                        var htmlAttrIndicador = new Dictionary<string, object>
+                        {
+                            { "class", "listasDesplegables" },
+                            { "id", "ddlIndicadorFormulario" },
+                            { modoVisualizacion ? "disabled":"true", "" }
+                        };
+                    }
+                    @Html.DropDownListFor(model => Model.IdIndicadorSalidaString, new SelectList(ViewBag.IndicadorSalida, "id", "Nombre"), 
+                                                    Etiquetas.PlaceholderDropDown, htmlAttrIndicador)
                 </div>
                 <small id="ddlIndicadorFormularioHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
             <div class="form-group center">
                 <label for="ddlVariableFormulario" class="col-form-label ">@EtiquetasViewFormulasCalculo.CrearFormula_LabelVariableDato</label>
-                <div class="select2-wrapper">                    
-                    @Html.DropDownListFor(model => Model.IdVariableDatoString, 
-                                                    new SelectList(ViewBag.VariablesDato, "id", "NombreVariable"),
-                                                    Etiquetas.PlaceholderDropDown,
-                                                    new { @class = "listasDesplegables", id = "ddlVariableDatoFormula" })
+                <div class="select2-wrapper">
+                    @{
+                        var htmlAttrVariableDato = new Dictionary<string, object>
+                        {
+                            { "class", "listasDesplegables" },
+                            { "id", "ddlVariableDatoFormula" },
+                            { modoVisualizacion ? "disabled":"true", "" }
+                        };
+                    }
+                    @Html.DropDownListFor(model => Model.IdVariableDatoString, new SelectList(ViewBag.VariablesDato, "id", "NombreVariable"),
+                                                    Etiquetas.PlaceholderDropDown, htmlAttrVariableDato)
                 </div>
                 <small id="ddlVariableDatoFormulaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
@@ -93,7 +143,10 @@
                 <label class="radio-inline" style="display: block;">
                     @{ 
                         var htmlAttributesTotal = new Dictionary<string, object>
-                        {{ "id", "radioTotal" }};
+                        {
+                            { "id", "radioTotal" },
+                            { modoVisualizacion ? "disabled":"true", "" }
+                        };
 
                         if (@Model.NivelCalculoTotal)
                         {
@@ -107,7 +160,10 @@
                 <label class="radio-inline mt-3" style="display: block;">
                     @{
                         var htmlAttributesCategoria = new Dictionary<string, object>
-                        {{ "id", "radioCategoriaDesagregacion" }};
+                        {
+                            { "id", "radioCategoriaDesagregacion" },
+                            { modoVisualizacion ? "disabled":"true", "" }
+                        };
 
                         if (!@Model.NivelCalculoTotal)
                         {
@@ -124,9 +180,18 @@
             <div class="form-group center" style="@(@Model.NivelCalculoTotal?"display: none;":"display: block;")" id="divInputCategoriaDesagregacion">
                 <label for="ddlCategoriaDesagregacion" class="col-form-label ">@EtiquetasViewFormulasCalculo.CrearFormula_LabelCategoriaDesagregacion</label>
                 <div class="select2-wrapper">
+                    @{
+                        var htmlAttrCategorias = new Dictionary<string, object>
+                        {
+                            { "class", "required listasDesplegables multiple-Select" },
+                            { "id", "ddlCategoriaDesagregacion" },
+                            { "multiple", "multiple" },
+                            { "placeholder", Etiquetas.PlaceholderDropDown },
+                            { modoVisualizacion ? "disabled":"true", "" }
+                        };
+                    }
                     @Html.DropDownListFor(model => Model.ListaCategoriasNivelesCalculo,
-                                                    new SelectList(ViewBag.CategoriasDeIndicador, "id", "NombreCategoria"),
-                                                    new { @class = "required listasDesplegables multiple-Select", id = "ddlCategoriaDesagregacion", multiple="multiple", placeholder= Etiquetas.PlaceholderDropDown })
+                                                    new SelectList(ViewBag.CategoriasDeIndicador, "id", "NombreCategoria"), htmlAttrCategorias)
                 </div>
                 <small id="ddlCategoriaDesagregacionHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
@@ -154,10 +219,13 @@
                     idBtnGuardar = "btnGuardarClonarFormulaCalculo";
                     idBtnSiguiente = "btnSiguienteClonarFormulaCalculo";
                 }
-
+                else if (modoFormulario.Equals(((int)Constantes.Accion.Visualizar).ToString()))
+                {
+                    idBtnSiguiente = "btnSiguienteVisualizarFormulaCalculo";
+                }
             }
 
-            <button type="button" id="@idBtnGuardar" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="button" id="@idBtnGuardar" class="btn btn-fonatel btn-success-fonatel" @Html.Raw(modoVisualizacion ? "disabled" : "")>@Etiquetas.BotonGuardar</button>
             <button type="button" id="@idBtnSiguiente" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
             <button type="button" id="btnCancelarFormula" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
         </div>

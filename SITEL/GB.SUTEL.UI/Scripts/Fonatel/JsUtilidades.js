@@ -20,6 +20,7 @@
             "Editar": 3,      
             "Eliminar": 4,
             "Clonar": 5,
+            "Visualizar": 9
         },
         "EstadoRegistros": {
             "EnProceso": 1,
@@ -538,6 +539,20 @@ function ValidarFormulario(pInputs, pExcepciones = []) {
         return $.trim(i.value) == "" || i.value == null;
     });
     return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
+}
+
+/**
+ * Permite el manejo de excepciones según la respuesta del controlador.
+ * Si no es un error contralado retorna un mensaje genérico.
+ * @param {any} pError
+ */
+function ManejoDeExcepciones (pError) {
+    if (pError?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+        jsMensajes.Metodos.OkAlertErrorModal(pError.MensajeError).set('onok', function (closeEvent) { });
+    }
+    else {
+        jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
+    }
 }
 
 $(document).on("keypress", '.solo_operacion', function (e) {
