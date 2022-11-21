@@ -1054,6 +1054,7 @@
                 .then((obj) => {
                     new Promise((resolve) => {
                         JsReglas.Variables.esModoEdicion = false;
+                        $(JsReglas.Controles.ddlTipoRegla).prop("disabled", false);
                         jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleEditado)
                             .set('onok', function () {
                                 resolve(true)
@@ -1265,9 +1266,10 @@ $(document).on("click", JsReglas.Controles.btnEliminaTipoRegla, function (e) {
 
 $(document).on("click", JsReglas.Controles.btnEditTipoRegla, function (e) {
 
+    $(JsReglas.Controles.ddlTipoRegla).prop("disabled", true);
     let id = $(this).attr("data-index");
-
     JsReglas.Metodos.CargarDetallesRegla(id);
+
 
 });
 
