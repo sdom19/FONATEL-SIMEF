@@ -27,7 +27,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         // : RELACION ENTRE CATEGORIAS
         private readonly RelacionCategoriaBL RelacionCategoriaBL;
-        private readonly DetalleRelacionCategoriaBL DetalleRelacionCategoriaBL;
+        private readonly DetalleRelacionCategoriaBL detalleRelacionCategoriaBL;
 
 
         // : CATEGORIAS DESAGREGACION
@@ -40,10 +40,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             categoriasDesagregacionBl = new CategoriasDesagregacionBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
             DetalleCategoriasTextoBL = new DetalleCategoriasTextoBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
-
             RelacionCategoriaBL = new RelacionCategoriaBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
-
-            DetalleRelacionCategoriaBL = new DetalleRelacionCategoriaBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            detalleRelacionCategoriaBL = new DetalleRelacionCategoriaBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
+          
 
         }
 
@@ -56,98 +55,78 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-        /// <summary>
-        /// Francisco Vindas Ruiz
-        /// 24-08-2022
-        /// Obtener la lista de detalles
-        /// </summary>
-        /// <param name="idRelacionCategoria"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public ActionResult Detalle(string idRelacionCategoria, string detalle)
-        {
 
-
-            List<CategoriasDesagregacion> ListaCategoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
-            {
-                IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.Atributo,
-                idEstado = (int)Constantes.EstadosRegistro.Activo
-
-            }).objetoRespuesta.Where(x => x.CantidadDetalleDesagregacion > 0).ToList();
-            RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria })
-                  .objetoRespuesta.Single();
-            if (string.IsNullOrEmpty(detalle))
-            {
-
-                ViewBag.ListaCatergorias = ListaCategoria;
-            }
-            else
-            {
-                model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria })
-                 .objetoRespuesta.Single();
-                model.DetalleRelacionCategoria = model.DetalleRelacionCategoria.Where(x => x.idCategoriaDetalle != int.Parse(Utilidades.Desencriptar(detalle))).ToList();
-
-                ViewBag.ListaCatergorias = ListaCategoria.Where(p1 => !model.DetalleRelacionCategoria.Any(p2 => p2.idCategoriaAtributo == p1.idCategoria)).ToList();
-
-            }
-
-            //CATEGORIAS DE TIPO ATRIBUTO
-       
-              
-
-            return View(model);
-        }
 
         [HttpGet]
-        public ActionResult Create(string id, int? modo)
+        public ActionResult Create(string id)
         {
-            ViewBag.Modo = modo.ToString();
-
-            ViewBag.ListaCatergoriaIdUnico = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
+            List<CategoriasDesagregacion> listaCategorias = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
             {
-                IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.IdUnico,
                 idEstado = (int)Constantes.EstadosRegistro.Activo
+            }).objetoRespuesta;
 
-            }).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList(); ;
+
+            ViewBag.ListaCatergoriaIdUnico = listaCategorias.Where( p=>p.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.IdUnico)
+                .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
+
+            ViewBag.ListaCategoriaAtributo =listaCategorias.Where(p=>p.IdTipoCategoria==(int)Constantes.TipoCategoriaEnum.Atributo && p.CantidadDetalleDesagregacion>0)
+                .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
 
             if (string.IsNullOrEmpty(id))
             {
 
                 ViewBag.titulo = EtiquetasViewRelacionCategoria.CrearRelacion;
-
-                ViewBag.ListaCatergoriaValor = new List<SelectListItem>();
-
-                return View();
+                return View(new RelacionCategoria());
             }
             else
             {
                 ViewBag.titulo = EtiquetasViewRelacionCategoria.EditarRelacion;
 
-                RelacionCategoria model = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = id })
-                    .objetoRespuesta.Single();
-
-                var categoria = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
-                {
-                    idCategoria = model.idCategoria                    
-
-                }).objetoRespuesta.FirstOrDefault();
-
-
-                var listavalores = RelacionCategoriaBL.ObtenerListaCategoria(categoria).objetoRespuesta
-                    .Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
-
-                listavalores.Add(new SelectListItem() { Value = model.idCategoriaValor, Text = model.idCategoriaValor, Selected = true });
-
-                ViewBag.ListaCatergoriaValor = listavalores;
-
-
+                RelacionCategoria model = RelacionCategoriaBL
+                    .ObtenerDatos(new RelacionCategoria() { id = id }).objetoRespuesta.Single();
                 return View(model);
             }
         }
 
-        #endregion
 
-        #region Metodos de ASYNC Relacion Categoria
+
+
+        [HttpGet]
+        public ActionResult Detalle(string idRelacionCategoria)
+        {
+            RelacionCategoria model = RelacionCategoriaBL
+                   .ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria }).objetoRespuesta.Single();
+            return View(model);
+
+        }
+
+
+            #endregion
+
+            #region Metodos de ASYNC Relacion Categoria
+
+
+
+            /// Fecha 16/09/2022
+            /// Francisco Vindas Ruiz
+            /// Validar existencia en Indicadores
+            /// </summary>
+            /// <param name="categoria"></param>
+            /// <returns></returns>
+            [HttpPost]
+        public async Task<string> ValidarRelacion(RelacionCategoria relacion)
+        {
+            RespuestaConsulta<List<string>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = RelacionCategoriaBL.ValidarExistencia(relacion);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+
 
         /// <summary>
         /// Fecha 10/08/2022
@@ -159,28 +138,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerListaRelacionCategoria()
         {
-            RespuestaConsulta<List<RelacionCategoria>> result = null;
 
-            await Task.Run(() =>
-            {
-                result = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria());
-            });
-            return JsonConvert.SerializeObject(result);
+                RespuestaConsulta<List<RelacionCategoria>> result = null;
+
+                await Task.Run(() =>
+                {
+                    result = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria());
+                });
+                return JsonConvert.SerializeObject(result);
         }
 
 
-        /// <summary>
-        /// Fecha 19-08-2022
-        /// Francisco Vindas
-        /// Metodo para insertar los relacion categorias
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
+
         public async Task<string> InsertarRelacionCategoria(RelacionCategoria relacion)
         {
 
             //Identificamos el id del usuario
-            relacion.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+      
 
             //Creamos una variable resultado de tipo lista relacion categoria
             RespuestaConsulta<List<RelacionCategoria>> result = null;
@@ -210,7 +184,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
 
             //Identificamos el id del usuario
-            relacion.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+        
 
             //Creamos una variable resultado de tipo lista relacion categoria
             RespuestaConsulta<List<RelacionCategoria>> result = null;
@@ -253,186 +227,49 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-        /// <summary>
-        /// Fecha 17-08-2022
-        /// Francisco Vindas
-        /// Obtiene datos para la table de categorías Detalle Detalle
-        /// </summary>
-        /// <returns></returns>
 
-        [HttpGet]
-        public async Task<string> ObtenerDetalleDesagregacionId(int selected)
-        {
-            //ACA TAMBIEN PUEDO AGREGAR VALIDACIONES DE ERRORES CONTROLADOS
-
-            RespuestaConsulta<List<string>> result = new RespuestaConsulta<List<string>>();
-
-            await Task.Run(() =>
-            {
-                return categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
-                {
-                    idCategoria = selected
-                }).objetoRespuesta.Single();
-            }).ContinueWith(data =>
-            {
-                result = RelacionCategoriaBL.ObtenerListaCategoria(data.Result);
-            });
-            return JsonConvert.SerializeObject(result);
-        }
 
         #endregion
 
-        #region Metodos ASYNC Detalle Relacion Categoria
 
-        /// <summary>
-        /// Fecha 24-08-2022
-        /// Francisco Vindas Ruiz
-        /// Obtiene los datos en la vista principal en el Detalle Relacion Categoria 
-        /// </summary>
-        /// <returns></returns>
+        #region Metodos ASYN DetalleRelacion Categoria
         [HttpPost]
-        public async Task<string> ObtenerCategoriasDetalle(DetalleRelacionCategoria detalleRelacionCategoria)
+        public async Task<string> InsertarDetalleRelacion(DetalleRelacionCategoria DetalleRelacionCategoria)
         {
-            RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
-     
-            await Task.Run(() =>
-            {
-                result = DetalleRelacionCategoriaBL.ObtenerDatos(detalleRelacionCategoria);
-
-            });
-            return JsonConvert.SerializeObject(result);
-        }
-
-
-        /// <summary>
-        /// Fecha 17-08-2022
-        /// Francisco Vindas
-        /// Carga el combo box categoria atributo
-        /// </summary>
-        /// <returns></returns>
-
-        [HttpPost]
-        public async Task<string> CargarListaDetalleDesagregacion(CategoriasDesagregacion objCategoria)
-        {
-            RespuestaConsulta<List<DetalleCategoriaTexto>> result = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
-
-            await Task.Run(() =>
-            {
-                result = RelacionCategoriaBL.ObtenerListaDetalleCategoria(objCategoria);
-            });
-            return JsonConvert.SerializeObject(result);
-        }
-
-        /// <summary>
-        /// Inserta un detalle relacion entre categorias
-        /// 25/08/2022
-        /// Francisco Vindas Ruiz
-        /// </summary>
-        /// <param name="detalleRelacion"></param>
-        /// <returns></returns>
-
-        [HttpPost]
-        public async Task<string> InsertarDetalleRelacion(DetalleRelacionCategoria relacion)
-        {
-            RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
-            await Task.Run(() =>
-            {
-                result = DetalleRelacionCategoriaBL.InsertarDatos(relacion);
-            });
-
-            return JsonConvert.SerializeObject(result);
-        }
-
-
-        /// <summary>
-        /// Editar un detalle relacion entre categorias
-        /// 29/08/2022
-        /// Francisco Vindas Ruiz
-        /// </summary>
-        /// <param name="detalleRelacion"></param>
-        /// <returns></returns>
-
-        [HttpPost]
-        public async Task<string> ModificarDetalleRelacion(DetalleRelacionCategoria relacion)
-        {
-            RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
-            await Task.Run(() =>
-            {
-                result = DetalleRelacionCategoriaBL.ActualizarElemento(relacion);
-            });
-
-            return JsonConvert.SerializeObject(result);
-        }
-
-
-        /// <summary>
-        /// Francisco Vindas Ruiz 
-        /// 29/08/2022
-        /// Pase el estado a falso para el eliminado del detalle 
-        /// </summary>
-        /// <param name="idDetalleRelacion"></param>
-        /// <returns>JSON</returns>
-        [HttpPost]
-        public async Task<string> EliminarDetalleRelacion(string idDetalleRelacionCategoria, string idRelacionCategoria)
-        {
-            RespuestaConsulta<List<DetalleRelacionCategoria>> result = null;
-            await Task.Run(() =>
-            {
-                result = DetalleRelacionCategoriaBL.EliminarElemento(new DetalleRelacionCategoria()
-                {
-                    id = idDetalleRelacionCategoria,
-                    relacionid = idRelacionCategoria,
-                });
-
-            });
-
-            return JsonConvert.SerializeObject(result);
-        }
-
-        /// <summary>
-        /// Francisco Vindas Ruiz 
-        /// 29/08/2022
-        /// Pase el estado a falso para el eliminado del detalle 
-        /// </summary>
-        /// <param name="idDetalleRelacion"></param>
-        /// <returns>JSON</returns>
-        [HttpPost]
-        public async Task<string> CambioEstado(RelacionCategoria RelacionCategoria)
-        {
-
             RespuestaConsulta<List<RelacionCategoria>> result = null;
 
             await Task.Run(() =>
             {
-                return RelacionCategoriaBL.ObtenerDatos(RelacionCategoria);
-            }).ContinueWith(data=> {
-                if (data.Result.objetoRespuesta.Count()==1)
-                {
-                    result = RelacionCategoriaBL.CambiarEstado(data.Result.objetoRespuesta.Single());
-                }
-                else
-                {
-                    result.HayError = (int)Error.ErrorControlado;
-                    result.MensajeError = Errores.NoRegistrosActualizar;
-                }
+                RelacionCategoria relacionCategoria = new RelacionCategoria();
+                relacionCategoria.DetalleRelacionCategoria.Add(DetalleRelacionCategoria);
+                result = detalleRelacionCategoriaBL.InsertarDatos(relacionCategoria);
             });
             return JsonConvert.SerializeObject(result);
         }
 
+        [HttpPost]
+        public async Task<string> EliminarDetalleRelacion(DetalleRelacionCategoria DetalleRelacionCategoria)
+        {
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
+
+            await Task.Run(() =>
+            {
+                RelacionCategoria relacionCategoria = new RelacionCategoria();
+                relacionCategoria.DetalleRelacionCategoria.Add(DetalleRelacionCategoria);
+                result = detalleRelacionCategoriaBL.EliminarElemento(relacionCategoria);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+
         #endregion
 
-        #region Metodo para descargar - cargar excel - Validar Relacion Categoria 
 
-        /// <summary>
-        /// Francisco Vindas
-        /// 02/09/2022
-        /// Metodo para descargar en un Excel los detalles Relacion Categoria
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+
+        #region Metodos ASYN Excel
 
         [HttpGet]
-        public ActionResult DescargarExcel(string id,List<String> listaCategorias)
+        public ActionResult DescargarExcel(string id)
         {
 
             var relacion = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = id }).objetoRespuesta.Single();
@@ -444,14 +281,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(relacion.Codigo);
 
-
-                worksheetInicio.Cells["A1"].Value = "Código";
-                worksheetInicio.Cells["A2"].Value = relacion.idCategoriaValor;
-                worksheetInicio.Cells["A2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                worksheetInicio.Cells["A2"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-                worksheetInicio.Cells["A2"].Style.Font.Color.SetColor(System.Drawing.Color.Black);
-                worksheetInicio.Cells["A2"].AutoFitColumns();
-
+                worksheetInicio.Cells["A1"].Value = relacion.CategoriasDesagregacionid.NombreCategoria;
                 worksheetInicio.Cells["A1:A1"].Style.Font.Bold = true;
                 worksheetInicio.Cells["A1:A1"].Style.Font.Size = 12;
                 worksheetInicio.Cells["A1:A1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
@@ -461,16 +291,27 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 worksheetInicio.Cells["A1:A1"].Style.Font.Size = 12;
                 worksheetInicio.Cells["A1:A1"].AutoFitColumns();
 
-                if (listaCategorias.Count > 0)
-                {
-                    string hilera = listaCategorias[0];
-                    string[] lista = hilera.Split(',');
                     int celda = 1;
 
-                    foreach (var sub in lista)
+                    foreach (var sub in relacion.DetalleRelacionCategoria)
                     {
-                        celda += 1;
-                        worksheetInicio.Cells[1, celda].Value = sub;
+                    celda += 1;
+                        for (int i =2; i < relacion.CantidadFilas+2; i++)
+                        {
+                            if (celda==2)
+                            {
+                            worksheetInicio.Cells[i, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            worksheetInicio.Cells[i, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                            worksheetInicio.Cells[i, 1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                            worksheetInicio.Cells[i, 1].AutoFitColumns();
+                            }
+                            worksheetInicio.Cells[i, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            worksheetInicio.Cells[i, celda].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                            worksheetInicio.Cells[i, celda].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                            worksheetInicio.Cells[i, celda].AutoFitColumns();
+                        }
+                        
+                        worksheetInicio.Cells[1, celda].Value = sub.CategoriaAtributo.NombreCategoria;
                         worksheetInicio.Cells[1, celda].Style.Font.Bold = true;
                         worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
                         worksheetInicio.Cells[1, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
@@ -480,12 +321,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
                         worksheetInicio.Cells[1, celda].AutoFitColumns();
 
-                        worksheetInicio.Cells[2, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        worksheetInicio.Cells[2, celda].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-                        worksheetInicio.Cells[2, celda].Style.Font.Color.SetColor(System.Drawing.Color.Black);
-                        worksheetInicio.Cells[2, celda].AutoFitColumns();
-                    }
                 }
+                
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
                 Response.AddHeader("content-disposition", "attachment;  filename=" + relacion.Nombre + ".xlsx");
@@ -495,50 +332,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
-        /// <summary>
-        /// Fecha 02/09/2022
-        /// Francisco Vindas Ruiz
-        /// Cargar de los detalles desde un Excel
-        /// </summary>
 
-        [HttpPost]
-        public void CargarExcel()
-        {
-            string ruta = Utilidades.RutaCarpeta(ConfigurationManager.AppSettings["rutaCarpetaSimef"]);
-            if (Request.Files.Count > 0)
-            {
-                HttpFileCollectionBase files = Request.Files;
-                HttpPostedFileBase file = files[0];
-                string fileName = file.FileName;
-                Directory.CreateDirectory(ruta);
-                string path = Path.Combine(ruta, fileName);
-
-                DetalleRelacionCategoriaBL.CargarExcel(file);
-                file.SaveAs(path);
-            }
-        }
-
-
-        /// <summary>
-        /// Fecha 16/09/2022
-        /// Francisco Vindas Ruiz
-        /// Validar existencia en Indicadores
-        /// </summary>
-        /// <param name="categoria"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<string> ValidarRelacion(RelacionCategoria relacion)
-        {
-            RespuestaConsulta<List<string>> result = null;
-
-            await Task.Run(() =>
-            {
-                result = RelacionCategoriaBL.ValidarExistencia(relacion);
-            });
-
-            return JsonConvert.SerializeObject(result);
-        }
 
         #endregion
+
+
     }
 }

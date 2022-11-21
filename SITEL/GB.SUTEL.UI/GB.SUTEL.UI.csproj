@@ -1443,6 +1443,8 @@
     <Content Include="Views\FormularioWeb\Visualizar.cshtml" />
     <Content Include="Views\HistoricoFonatel\DescargarExcel.cshtml" />
     <Content Include="Views\RelacionCategoria\_ModalCategorias.cshtml" />
+    <Content Include="Views\RelacionCategoria\_AsignarCategorias.cshtml" />
+    <Content Include="Views\RelacionCategoria\_TablaCategoriasAtributo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

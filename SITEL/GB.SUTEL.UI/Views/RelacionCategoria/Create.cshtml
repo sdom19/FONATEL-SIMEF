@@ -1,12 +1,13 @@
-﻿@using GB.SIMEF.Resources;
-
+﻿
+@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.RelacionCategoria
 @{
     ViewBag.Title = ViewBag.titulo;
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
 @section scripts {
-  @*  @Scripts.Render("~/bundles/FONATEL/RelacionCategoria")*@
+    @*  @Scripts.Render("~/bundles/FONATEL/RelacionCategoria")*@
 }
 
 <div class="container body-content">
@@ -40,9 +41,7 @@
             <hr />
         </div>
         <div class="col-lg-12">
-            <form id="FormularioCrearRelacion">
-                @Html.Partial("_CrearRelacionCategoria")
-            </form>
+            @Html.Partial("_CrearRelacionCategoria")
         </div>
     </div>
 
@@ -55,20 +54,12 @@
             @Html.Partial("_AsignarCategorias")
         </div>
         <div class="col-lg-12 mt-4">
-            @Html.Partial("_TablaCategoriasId")
+            @Html.Partial("_TablaCategoriasAtributo")
         </div>
 
         <div class="col-sm-12 text-center">
-            @*@if (Model.CantidadDestinatario > Model.DetalleFuentesRegistro.Count)
-            {
-                <button type="submit" disabled id="btnGuardarFuentesCompleto" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
 
-            }
-            else
-            {*@
-                <button type="submit" id="btnGuardarFuentesCompleto" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
-            @*}*@
-
+            <button type="submit" id="btnFinalizar" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
         </div>
 
         <div class="col-12 pull-right mt-4">
@@ -79,4 +70,4 @@
 
     </div>
 
-<script src="~/Scripts/Fonatel/JsRelacionCategoria.js"></script>
+    <script src="~/Scripts/Fonatel/JsRelacionCategoria.js"></script>

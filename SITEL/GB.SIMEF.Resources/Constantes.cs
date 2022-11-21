@@ -142,9 +142,9 @@ namespace GB.SIMEF.Resources
         public readonly static string defaultInputTextValue = "No definido";
         public readonly static int defaultInputNumberValue = 0;
         public readonly static int defaultDropDownValue = 1; // Representa el valor: "Sin definir". En Utilidades.cs existe un método para encriptarlo
+
         public readonly static string select2MultipleOptionTodosText = "Todos";
         public readonly static string select2MultipleOptionTodosValue = "all";
         public readonly static string keyModoFormulario = "modoFormulario";
-
     }
 }

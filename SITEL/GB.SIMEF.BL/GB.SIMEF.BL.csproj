@@ -72,7 +72,6 @@
     <Compile Include="DetalleIndicadorVariablesBL.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatelBL .cs" />
     <Compile Include="DetalleReglasValidacionBL.cs" />
-    <Compile Include="DetalleRelacionCategoriaBL.cs" />
     <Compile Include="DetalleSolicitudesBL.cs" />
     <Compile Include="FormularioWebBL.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />

@@ -464,6 +464,46 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+
+
+        /// <summary>
+        /// José Navarro Acuña
+        /// 17/11/2022
+        /// Consulta las categorias de desagregación relacionadas a una formula respecto al nivel de calculo  
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerCategoriasDeFormulaNivelCalculo(string pIdFormula, string pIdIndicador)
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pIdFormula), out int idFormula);
+                int.TryParse(Utilidades.Desencriptar(pIdIndicador), out int idIndicador);
+
+                if (idFormula == 0 || idIndicador == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                List<CategoriasDesagregacion> result = clsDatos.ObtenerCategoriasDeFormulaNivelCalculo(idFormula, idIndicador);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+
+
         /// <summary>
         /// 18/10/2022
         /// José Navarro Acuña
@@ -499,42 +539,6 @@ namespace GB.SIMEF.BL
                 {
                     resultado.objetoRespuesta.Insert(0, new CategoriasDesagregacion() { id = select2MultipleOptionTodosValue, NombreCategoria = select2MultipleOptionTodosText });
                 }
-            }
-            catch (Exception ex)
-            {
-                resultado.HayError = (int)Error.ErrorSistema;
-                resultado.MensajeError = ex.Message;
-            }
-            return resultado;
-        }
-
-        /// <summary>
-        /// José Navarro Acuña
-        /// 17/11/2022
-        /// Consulta las categorias de desagregación relacionadas a una formula respecto al nivel de calculo  
-        /// </summary>
-        /// <param name="pIdFormula"></param>
-        /// <param name="pIdIndicador"></param>
-        /// <returns></returns>
-        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerCategoriasDeFormulaNivelCalculo(string pIdFormula, string pIdIndicador)
-        {
-            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
-
-            try
-            {
-                int.TryParse(Utilidades.Desencriptar(pIdFormula), out int idFormula);
-                int.TryParse(Utilidades.Desencriptar(pIdIndicador), out int idIndicador);
-
-                if (idFormula == 0 || idIndicador == 0)
-                {
-                    throw new Exception(Errores.NoRegistrosActualizar);
-                }
-
-                resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Consultar;
-                List<CategoriasDesagregacion> result = clsDatos.ObtenerCategoriasDeFormulaNivelCalculo(idFormula, idIndicador);
-                resultado.objetoRespuesta = result;
-                resultado.CantidadRegistros = result.Count();
             }
             catch (Exception ex)
             {
