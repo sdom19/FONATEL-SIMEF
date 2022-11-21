@@ -33,14 +33,14 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
-                if (!string.IsNullOrEmpty(objeto.IdFormularioString))
+                if (!string.IsNullOrEmpty(objeto.FormularioId))
                 {
-                    int.TryParse(Utilidades.Desencriptar(objeto.IdFormularioString), out int temp );
+                    int.TryParse(Utilidades.Desencriptar(objeto.FormularioId), out int temp );
                     objeto.IdFormulario = temp;
                 }
-                if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
+                if (!string.IsNullOrEmpty(objeto.Solicitudid))
                 {
-                    int.TryParse(Utilidades.Desencriptar(objeto.IdSolicitudString), out int temp);
+                    int.TryParse(Utilidades.Desencriptar(objeto.Solicitudid), out int temp);
                     objeto.IdSolicitud = temp;
                 }
                 var resul = clsDatos.ObtenerDatos(objeto);

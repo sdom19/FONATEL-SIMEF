@@ -35,6 +35,25 @@
     },
 
     "Metodos": {
+
+        "HabilitarBotones": function () {
+
+            let CantidadDestinatario = $(JsFuentes.Controles.txtCantidad).val();
+
+            if (CantidadDestinatario == 0) {
+                $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", true);
+                $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", true);
+            }
+            else if (CantidadDestinatario > JsFuentes.Variables.ListaDestinatarios.length) {
+                $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);
+                $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", true);
+            }
+            else {
+                $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", true);
+                $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", false);
+            }
+        },
+
         "CargarTablaFuentes": function () {
             let html = "";
             EliminarDatasource();
@@ -53,16 +72,16 @@
         },
         "CargarTablaDestinatarios": function () {
             EliminarDatasource();
-            if (JsFuentes.Variables.ListaDestinatarios.length > 0) {
-                if (JsFuentes.Variables.ListaDestinatarios[0].CantidadDisponible >= 0) {
-                    $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", true);
-                    $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", false);
-                }
-                else {
-                    $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);
-                    $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", true);
-                }
-            }
+            //if (JsFuentes.Variables.ListaDestinatarios.length > 0) {
+            //    if (JsFuentes.Variables.ListaDestinatarios[0].CantidadDisponible >= 0) {
+            //        $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", true);
+            //        $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", false);
+            //    }
+            //    else {
+            //        $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);
+            //        $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", true);
+            //    }
+            //}
             let html = "";
             for (var i = 0; i < JsFuentes.Variables.ListaDestinatarios.length; i++) {
                 let destinatario = JsFuentes.Variables.ListaDestinatarios[i];
@@ -143,17 +162,22 @@
             destinatario.idDetalleFuente = id;
             $("#loading").fadeIn();
             execAjaxCall("/Fuentes/AgregarDestinatario", "POST", destinatario)
-                .then((data) => {
+                .then((obj) => {
+                   
                     let mensaje = "El Destinatario ha sido agregado";
                     if (destinatario.idDetalleFuente!= "") {
                         mensaje = "El Destinatario ha sido editado"
                     }
                     jsMensajes.Metodos.OkAlertModal(mensaje)
                         .set('onok', function (closeEvent) {
-                            JsFuentes.Consultas.ConsultarListaDestinatarios();
+                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
+                           
+
                             $(JsFuentes.Controles.txtNombre).val("");
                             $(JsFuentes.Controles.txtCorreo).val("");
                             $(JsFuentes.Controles.txtidDetalleFuente).val("");
+                            JsFuentes.Metodos.HabilitarBotones();
+                            JsFuentes.Metodos.CargarTablaDestinatarios();
                      });
                 }).catch((data) => {
                     if (data.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -188,20 +212,9 @@
                     else {
                         //$(JsFuentes.Controles.txtidFuente).val(obj.objetoRespuesta[0].id);
                         InsertarParametroUrl("id", obj.objetoRespuesta[0].id)
-
-                        if (obj.objetoRespuesta[0].CantidadDestinatario == 0) {
-                            $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", true);
-                            $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", true);
-                        } else {
-                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
-                            if (JsFuentes.Variables.ListaDestinatarios.length == 0) {
-                                $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);
-                                $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", true);
-                            }
-                            else {
-                                JsFuentes.Metodos.CargarTablaDestinatarios();
-                            }
-                        }
+                        JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
+                        JsFuentes.Metodos.HabilitarBotones();
+                        JsFuentes.Metodos.CargarTablaDestinatarios();
                     }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -213,6 +226,7 @@
                             .set('onok', function (closeEvent) { });
                     }
                 }).finally(() => {
+    
                     $("#loading").fadeOut();
                 });
         
@@ -222,12 +236,14 @@
             destinatario.idDetalleFuente = id;
             destinatario.fuenteId = ObtenerValorParametroUrl("id");
          execAjaxCall("/Fuentes/EliminarDestinatario", "POST", destinatario)
-                .then((obj) => {
+             .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Destinatario ha sido eliminado")
                         .set('onok', function (closeEvent) {
-                            JsFuentes.Consultas.ConsultarListaDestinatarios();
+                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
                             $(JsFuentes.Controles.txtNombre).val("");
                             $(JsFuentes.Controles.txtCorreo).val("");
+                            JsFuentes.Metodos.HabilitarBotones();
+                            JsFuentes.Metodos.CargarTablaDestinatarios();
                         });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -402,14 +418,11 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function 
 $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e) {
     e.preventDefault();
     let validar = JsFuentes.Metodos.ValidarFormularioDetalle();
-
-
-
     if (validar) {
         let mensaje = "¿Desea agregar el Destinatario?";
         let id = $(JsFuentes.Controles.txtidDetalleFuente).val();
-        if (id=="") {
-            mensaje = "¿Desea agregar el Destinatario?";
+        if (id!="") {
+            mensaje = "¿Desea editar el Destinatario?";
         }
 
         jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje, jsMensajes.Variables.actionType.agregar)

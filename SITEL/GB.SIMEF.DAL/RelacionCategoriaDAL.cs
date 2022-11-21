@@ -13,19 +13,19 @@ namespace GB.SIMEF.DAL
     {
         private SIMEFContext db;
 
-        private DetalleRelacionCategoriaDAL detalleRelacionDal;
-
+        private CategoriasDesagregacionDAL categoriasDesagregacionDAL;
+        
         private List<DetalleRelacionCategoria> listaDetalleRelacionCategoria;
 
-        public RelacionCategoriaDAL()
+        private List<CategoriasDesagregacion> listaCategorias;
+
+        public  RelacionCategoriaDAL()
         {
-            detalleRelacionDal = new DetalleRelacionCategoriaDAL();
-           
+            categoriasDesagregacionDAL = new CategoriasDesagregacionDAL();
+            listaCategorias = categoriasDesagregacionDAL.ObtenerDatos(new CategoriasDesagregacion());
         }
 
-        
-
-        #region Metodos de Consulta a Base Datos
+        #region Metodos de Consulta a Base Datos Relacion Categoria
         /// <summary>
         /// Autor: Francisco Vindas Ruiz
         /// Fecha: 10/08/2022
@@ -36,49 +36,48 @@ namespace GB.SIMEF.DAL
         public List<RelacionCategoria> ObtenerDatos(RelacionCategoria objRelacionCategoria)
         {
             List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
-            listaDetalleRelacionCategoria = ObtenerDetalleRelacionCategoria();
 
             using (db = new SIMEFContext())
             {
                 ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
                 ("execute spObtenerRelacionCategorias @idRelacionCategoria,@codigo,@idCategoria,@idEstado",
-                new SqlParameter("@idRelacionCategoria", objRelacionCategoria.idRelacionCategoria),
+                new SqlParameter("@idRelacionCategoria", objRelacionCategoria.IdRelacionCategoria),
                 new SqlParameter("@codigo", string.IsNullOrEmpty(objRelacionCategoria.Codigo) ? DBNull.Value.ToString() : objRelacionCategoria.Codigo),
                 new SqlParameter("@idCategoria", objRelacionCategoria.idCategoria),
                 new SqlParameter("@idEstado", objRelacionCategoria.idEstado)
                 ).ToList();
-
-
-                ListaRelacionCategoria = ListaRelacionCategoria.Select(X => new RelacionCategoria
-                {
-                    idRelacionCategoria = X.idRelacionCategoria,
-                    Codigo = X.Codigo,
-                    Nombre = X.Nombre,
-                    CantidadCategoria = X.CantidadCategoria,
-                    idCategoria = X.idCategoria,
-                    idCategoriaValor = X.idCategoriaValor,
-                    FechaCreacion = X.FechaCreacion,
-                    FechaModificacion = X.FechaModificacion,
-                    UsuarioCreacion = X.UsuarioCreacion,
-                    UsuarioModificacion = X.UsuarioModificacion,
-                    idEstado = X.idEstado,
-                    id = Utilidades.Encriptar(X.idRelacionCategoria.ToString()),
-                    DetalleRelacionCategoria = listaDetalleRelacionCategoria.Where(p => p.IdRelacionCategoria == X.idRelacionCategoria).ToList(),
-                    EstadoRegistro = db.EstadoRegistro.Where(p => p.idEstado == X.idEstado).FirstOrDefault()
-                }).ToList();
-
-                return ListaRelacionCategoria;
             }
+            ListaRelacionCategoria = ListaRelacionCategoria.Select(X => new RelacionCategoria
+            {
+                IdRelacionCategoria = X.IdRelacionCategoria,
+                Codigo = X.Codigo,
+                Nombre = X.Nombre,
+                CantidadCategoria = X.CantidadCategoria,
+                idCategoria = X.idCategoria,
+                FechaCreacion = X.FechaCreacion,
+                FechaModificacion = X.FechaModificacion,
+                UsuarioCreacion = X.UsuarioCreacion,
+                UsuarioModificacion = X.UsuarioModificacion,
+                idEstado = X.idEstado,
+                CantidadFilas = X.CantidadFilas,
+                id = Utilidades.Encriptar(X.IdRelacionCategoria.ToString()),
+                CategoriasDesagregacionid = ObtenerCategoria(X.idCategoria),
+                DetalleRelacionCategoria = ObtenerDatosDetalleRelacionCategoria(new DetalleRelacionCategoria() { IdRelacionCategoria = X.IdRelacionCategoria }),
+                //RelacionCategoriaId = db.RelacionCategoriaId.Where(p => p.idRelacion == X.IdRelacionCategoria).FirstOrDefault(),
+                EstadoRegistro = ObtenerEstadoRegistro(X.idEstado)
+            }).ToList();
 
+            return ListaRelacionCategoria;
         }
 
 
-        public List<DetalleRelacionCategoria> ObtenerDetalleRelacionCategoria()
+        private EstadoRegistro ObtenerEstadoRegistro(int idEstado)
         {
-            return detalleRelacionDal.ObtenerDatos(new DetalleRelacionCategoria());
-
+            using (db = new SIMEFContext())
+            {
+                return db.EstadoRegistro.Where(p => p.idEstado == idEstado).FirstOrDefault();
+            }
         }
-
 
 
 
@@ -95,37 +94,42 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
-                ("execute spActualizarRelacionCategoria @idRelacionCategoria ,@Codigo ,@Nombre ,@CantidadCategoria ,@idCategoria  ,@idCategoriaValor ,@UsuarioCreacion ,@UsuarioModificacion ,@idEstado ",
-                     new SqlParameter("@idRelacionCategoria", objeto.idRelacionCategoria),
+                ("execute spActualizarRelacionCategoria @idRelacionCategoria ,@Codigo ,@Nombre ,@CantidadCategoria ,@idCategoria  ,@UsuarioCreacion ,@UsuarioModificacion ,@idEstado ,@CantidadFilas ",
+                     new SqlParameter("@idRelacionCategoria", objeto.IdRelacionCategoria),
                      new SqlParameter("@Codigo", string.IsNullOrEmpty(objeto.Codigo) ? DBNull.Value.ToString() : objeto.Codigo),
                      new SqlParameter("@Nombre", string.IsNullOrEmpty(objeto.Nombre) ? DBNull.Value.ToString() : objeto.Nombre),
                      new SqlParameter("@CantidadCategoria", objeto.CantidadCategoria),
                      new SqlParameter("@idCategoria", objeto.idCategoria),
-                     new SqlParameter("@idCategoriaValor", objeto.idCategoriaValor),
                      new SqlParameter("@UsuarioCreacion", string.IsNullOrEmpty(objeto.UsuarioCreacion) ? DBNull.Value.ToString() : objeto.UsuarioCreacion),
                      new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objeto.UsuarioModificacion) ? DBNull.Value.ToString() : objeto.UsuarioModificacion),
-                     new SqlParameter("@idEstado", objeto.idEstado)
+                     new SqlParameter("@idEstado", objeto.idEstado),
+                     new SqlParameter("@CantidadFilas", objeto.CantidadFilas)
                     ).ToList();
-
-                ListaRelacionCategoria = ListaRelacionCategoria.Select(x => new RelacionCategoria()
-                {
-                    idRelacionCategoria = x.idRelacionCategoria,
-                    Codigo = x.Codigo,
-                    Nombre = x.Nombre,
-                    idEstado = x.idEstado,
-                    CantidadCategoria = x.CantidadCategoria,
-                    idCategoria = x.idCategoria,
-                    idCategoriaValor = x.idCategoriaValor,
-                    FechaCreacion = x.FechaCreacion,
-                    FechaModificacion = x.FechaModificacion,
-                    UsuarioCreacion = x.UsuarioCreacion,
-                    UsuarioModificacion = x.UsuarioModificacion,
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).Single(),
-                }).ToList();
             }
+            ListaRelacionCategoria = ListaRelacionCategoria.Select(X => new RelacionCategoria
+            {
+                IdRelacionCategoria = X.IdRelacionCategoria,
+                Codigo = X.Codigo,
+                Nombre = X.Nombre,
+                CantidadCategoria = X.CantidadCategoria,
+                idCategoria = X.idCategoria,
+                FechaCreacion = X.FechaCreacion,
+                FechaModificacion = X.FechaModificacion,
+                UsuarioCreacion = X.UsuarioCreacion,
+                UsuarioModificacion = X.UsuarioModificacion,
+                idEstado = X.idEstado,
+                CantidadFilas = X.CantidadFilas,
+                id = Utilidades.Encriptar(X.IdRelacionCategoria.ToString()),
+                DetalleRelacionCategoria = ObtenerDatosDetalleRelacionCategoria(new DetalleRelacionCategoria() { IdRelacionCategoria = X.IdRelacionCategoria }),
+                CategoriasDesagregacionid = ObtenerCategoria(X.idCategoria),
+                //RelacionCategoriaId = db.RelacionCategoriaId.Where(p => p.idRelacion == X.IdRelacionCategoria).FirstOrDefault(),
+                EstadoRegistro = ObtenerEstadoRegistro(X.idEstado)
+            }).ToList();
+
             return ListaRelacionCategoria;
         }
 
+ 
         /// <summary>
         /// Fecha 16/09/2022
         /// Francisco Vindas Ruiz
@@ -143,7 +147,7 @@ namespace GB.SIMEF.DAL
                 listaValicion = db.Database.SqlQuery<string>
 
                     ("exec spValidarRelacionCategoria @idRelacionCategoria",
-                       new SqlParameter("@idRelacionCategoria", objeto.idRelacionCategoria)
+                       new SqlParameter("@idRelacionCategoria", objeto.IdRelacionCategoria)
                     ).ToList();
 
             }
@@ -151,24 +155,95 @@ namespace GB.SIMEF.DAL
             return listaValicion;
         }
 
-        /// <summary>
-        /// 28/09/2022
-        /// Francisco Vindas Ruiz
-        /// Función que permite actualizar unicamente el estado
-        /// </summary>
-        /// <param name="idRelacion"></param>
-        /// <returns></returns>
-        public void CambiarEstado(RelacionCategoria idRelacion)
-        {
-            using (db = new SIMEFContext())
-            {
-                db.RelacionCategoria.Attach(idRelacion);
-                db.Entry(idRelacion).Property(x => x.idEstado).IsModified = true;
-                db.SaveChanges();
-            }
-        }
+
 
         #endregion
 
+
+
+
+        #region Metodos de Consulta a Base Datos Relacion Categoria Detalle
+        public List<RelacionCategoria> ActualizarDatosDetalle(DetalleRelacionCategoria objDetalle)
+        {
+            List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
+            using (db = new SIMEFContext())
+            {
+                ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
+                    ("execute spActualizarDetalleRelacionCategoria @idDetalleRelacionCategoria, @IdRelacionCategoria, @idCategoriaAtributo, @Estado",
+                      new SqlParameter("@idDetalleRelacionCategoria", objDetalle.idDetalleRelacionCategoria),
+                      new SqlParameter("@IdRelacionCategoria", objDetalle.IdRelacionCategoria),
+                      new SqlParameter("@idCategoriaAtributo", objDetalle.idCategoriaAtributo),
+                      new SqlParameter("@Estado", objDetalle.Estado)
+                    ).ToList();
+            }
+            ListaRelacionCategoria = ListaRelacionCategoria.Select(X => new RelacionCategoria
+            {
+                IdRelacionCategoria = X.IdRelacionCategoria,
+                Codigo = X.Codigo,
+                Nombre = X.Nombre,
+                CantidadCategoria = X.CantidadCategoria,
+                idCategoria = X.idCategoria,
+                FechaCreacion = X.FechaCreacion,
+                FechaModificacion = X.FechaModificacion,
+                UsuarioCreacion = X.UsuarioCreacion,
+                UsuarioModificacion = X.UsuarioModificacion,
+                idEstado = X.idEstado,
+                CantidadFilas = X.CantidadFilas,
+                id = Utilidades.Encriptar(X.IdRelacionCategoria.ToString()),
+                DetalleRelacionCategoria = ObtenerDatosDetalleRelacionCategoria(new DetalleRelacionCategoria() { IdRelacionCategoria = X.IdRelacionCategoria }),
+                CategoriasDesagregacionid = ObtenerCategoria(X.idCategoria),
+                    //RelacionCategoriaId = db.RelacionCategoriaId.Where(p => p.idRelacion == X.IdRelacionCategoria).FirstOrDefault(),
+                    EstadoRegistro = ObtenerEstadoRegistro(X.idEstado)
+            }).ToList();
+                return ListaRelacionCategoria;
+            
+        }
+
+        private CategoriasDesagregacion ObtenerCategoria(int idCategoria )
+        {
+            if (idCategoria == 0)
+            {
+                return new CategoriasDesagregacion();
+            }
+            else
+            {
+
+                return listaCategorias.Where(p => p.idCategoria == idCategoria).SingleOrDefault();
+            }
+           
+          
+        }
+
+        public List<DetalleRelacionCategoria> ObtenerDatosDetalleRelacionCategoria(DetalleRelacionCategoria objDetalle)
+        {
+            List<DetalleRelacionCategoria> ListaDetalle = new List<DetalleRelacionCategoria>();
+
+
+
+            using (db = new SIMEFContext())
+            {
+                ListaDetalle = db.Database.SqlQuery<DetalleRelacionCategoria>
+                    ("execute spObtenerDetalleRelacionCategoria @idDetalleRelacionCategoria, @idRelacionCategoria, @idCategoriaAtributo ",
+                      new SqlParameter("@idDetalleRelacionCategoria", objDetalle.idDetalleRelacionCategoria),
+                      new SqlParameter("@idRelacionCategoria", objDetalle.IdRelacionCategoria),
+                      new SqlParameter("@idCategoriaAtributo", objDetalle.idCategoriaAtributo)
+                    ).ToList();
+            }
+
+            ListaDetalle = ListaDetalle.Select(x => new DetalleRelacionCategoria()
+            {
+                idDetalleRelacionCategoria = x.idDetalleRelacionCategoria,
+                Estado = x.Estado,
+                IdRelacionCategoria = x.IdRelacionCategoria,
+                idCategoriaAtributo = x.idCategoriaAtributo,
+                CategoriaAtributo = ObtenerCategoria(x.idCategoriaAtributo),
+                id = Utilidades.Encriptar(x.idDetalleRelacionCategoria.ToString()),
+            }).ToList();
+            return ListaDetalle;
+        }
+
+
+        #endregion
     }
+
 }

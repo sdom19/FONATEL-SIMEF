@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
@@ -38,6 +39,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
+           //string nombreUsuario = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault().Value;
             RespuestaConsulta<List<RegistroIndicadorFonatel>> model = registroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel()
             {
                 RangoFecha = true
@@ -53,8 +55,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<List<RegistroIndicadorFonatel>> model = registroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel()
             {
-                IdFormularioString=idFormulario,
-                IdSolicitudString=idSolicitud,
+                FormularioId=idFormulario,
+                Solicitudid=idSolicitud,
             });
             if (model.CantidadRegistros==1)
             {
@@ -112,6 +114,20 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
+
+
+        [HttpPost]
+        public async Task<string> InsertarRegistroIndicadorVariable(DetalleRegistroIndicadorCategoriaValorFonatel detalleIndicadorValor)
+        {
+
+
+
+
+
+
+            return string.Empty;
+
+        }
 
 
         [HttpPost]

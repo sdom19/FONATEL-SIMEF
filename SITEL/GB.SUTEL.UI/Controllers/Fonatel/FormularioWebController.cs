@@ -45,7 +45,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             return View();
         }
-    #endregion
+         #endregion
 
         /// <summary>
         /// Fecha 24-08-2022
@@ -260,10 +260,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.FrecuanciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
                 .objetoRespuesta;
             var indicadores = indicadorBL.ObtenerDatos(new Indicador() {idEstado=2 })
-                .objetoRespuesta;
+                .objetoRespuesta.Where(x=>x.IdClasificacion!=(int)Constantes.ClasificacionIndicadorEnum.Salida);
             //indicadores = indicadores.Where(x => x.IdClasificacion == 3 || x.IdClasificacion == 4).ToList();
-            indicadores = indicadores.Where(x => x.ClasificacionIndicadores.Nombre == "Entrada/salida"
-                        || x.ClasificacionIndicadores.Nombre == "Entrada").ToList();
+            indicadores = indicadores.
+                Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.idIndicador)).ToList();
+
+
+
+
             var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
             ViewBag.Indicador = listaValores;
             DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();

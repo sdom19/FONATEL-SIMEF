@@ -50,9 +50,9 @@ namespace GB.SIMEF.Entities
         public List<DetalleRegistroIndicadorFonatel> DetalleRegistroIndcadorFonatel { get; set; }
 
         [NotMapped]
-        public string IdSolicitudString { get; set; }
+        public string Solicitudid { get; set; }
         [NotMapped]
-        public string IdFormularioString { get; set; }
+        public string FormularioId { get; set; }
 
     }
 }

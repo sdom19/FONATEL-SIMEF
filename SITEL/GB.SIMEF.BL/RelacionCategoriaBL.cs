@@ -40,51 +40,41 @@ namespace GB.SIMEF.BL
 
                 //OBTENEMOS UNA LISTA DE RELACION CATEGORIA
                 List<RelacionCategoria> Registros = clsDatos.ObtenerDatos(new RelacionCategoria());
-
+                objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioModificacion = user ;
+                objeto.Codigo = objeto.Codigo.Trim();
+                objeto.Nombre = objeto.Nombre.Trim();
 
                 //DESENCRIPTAR EL ID
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idRelacionCategoria = temp;
+                    objeto.IdRelacionCategoria = temp;
                 }
 
-                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
-                if (objeto.idCategoria == 0)
-                {
-                    objeto.idCategoria = 0;
-                }
 
-                if (objeto.CantidadCategoria == null)
-                {
-                    objeto.CantidadCategoria = 0;
-                }
-
-                if (objeto.idCategoriaValor == null)
-                {
-                    objeto.idCategoriaValor = "";
-                }
 
                 //GUARDAMOS EL OBJETO EN UNA VARIBALE SEGUN EL ID
-                var result = Registros.Where(x => x.idRelacionCategoria == objeto.idRelacionCategoria).Single();
+                var result = Registros.Where(x => x.IdRelacionCategoria == objeto.IdRelacionCategoria).Single();
+
+                objeto.idEstado = result.idEstado;
 
                 //VALIDA SI NO SE ENCONTRARON REGISTROS
-                if (Registros.Where(x => x.idRelacionCategoria == objeto.idRelacionCategoria).Count() == 0)
+                if (Registros.Where(x => x.IdRelacionCategoria == objeto.IdRelacionCategoria).Count() == 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
-                else if (result.DetalleRelacionCategoria.Count() >= objeto.CantidadCategoria)
+                else if (result.DetalleRelacionCategoria.Count() > objeto.CantidadCategoria)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CantidadRegistrosLimiteRelaciones);
                 }
-                else if (!Utilidades.rx_soloTexto.Match(objeto.Nombre.Trim()).Success)
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.Nombre.Trim()).Success)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "nombre de Categoría"));
@@ -96,7 +86,7 @@ namespace GB.SIMEF.BL
                 }
                 //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
                 //if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper()).ToList().Count() > 0)
-                if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() >= 1)   
+                if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && X.IdRelacionCategoria!=objeto.IdRelacionCategoria).ToList().Count() >0)   
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
@@ -105,10 +95,11 @@ namespace GB.SIMEF.BL
                 {
 
                     //HACEMOS LA EDICION
-                    result = clsDatos.ActualizarDatos(objeto)
-                    .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count;
 
                 }
+
 
                 //REGISTRAMOS EN BITACORA 1111
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
@@ -156,7 +147,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objrelacion.id), out temp);
-                    objrelacion.idRelacionCategoria = temp;
+                    objrelacion.IdRelacionCategoria = temp;
                 }
 
                 var resul = clsDatos.ObtenerDatos(objrelacion);
@@ -198,42 +189,25 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                
+                objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
                 //OBTENEMOS UNA LISTA DE RELACION CATEGORIA
                 List<RelacionCategoria> BuscarRegistros = clsDatos.ObtenerDatos(new RelacionCategoria());
 
-
-                //ASIGANAR VALORES PREDETERMINADOS SI VIENEN NULOS EN EL GUARDADO PARCIAL
-                if (objeto.idCategoria == 0)
-                {
-                    objeto.idCategoria = 0;
-                }
-
-                if (objeto.CantidadCategoria == null)
-                {
-                    objeto.CantidadCategoria = 0;
-                }
-
-                if (objeto.idCategoriaValor == null)
-                {
-                    objeto.idCategoriaValor = "";
-                }
-
                 //VALIDAR EL CODIGO - SI BUSCAR REGISTRO CODIGO ES IGUAL AL CODIGO DEL OBJETO ES MAYOR A 0 
-                if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() > 0)
+                if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.IdRelacionCategoria.Equals(objeto.IdRelacionCategoria)).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
                 }
 
                 //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
-                if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idRelacionCategoria.Equals(objeto.idRelacionCategoria)).ToList().Count() > 0)
+                if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.IdRelacionCategoria.Equals(objeto.IdRelacionCategoria)).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
-                else if (!Utilidades.rx_soloTexto.Match(objeto.Nombre.Trim()).Success)
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.Nombre.Trim()).Success)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "nombre de Categoría"));
@@ -288,7 +262,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objRelacionCategoria.id), out temp);
-                    objRelacionCategoria.idRelacionCategoria = temp;
+                    objRelacionCategoria.IdRelacionCategoria = temp;
                 }
 
                 ResultadoConsulta.Clase = modulo;
@@ -303,104 +277,6 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.MensajeError = ex.Message;
             }
             return ResultadoConsulta;
-        }
-
-        /// <summary>
-        /// Fecha 19/08/2022
-        /// Francisco Vindas Ruiz
-        /// Metodo para obtener la lista Relacion Categorias
-        /// </summary>
-        public RespuestaConsulta<List<string>> ObtenerListaCategoria(CategoriasDesagregacion obj)
-        {
-            RespuestaConsulta<List<string>> result = new RespuestaConsulta<List<string>>();
-
-            result.objetoRespuesta = new List<string>();
-
-            var ErrorControlado = false;
-
-            try
-            {
-                CategoriasDesagregacion Categoria = obj;
-
-                var listaRelacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { idCategoria = Categoria.idCategoria }).ToList();
-
-                if (Categoria.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
-                {
-                    DateTime fecha = (DateTime)Categoria.DetalleCategoriaFecha.FechaMinima;
-
-                    while (fecha <= Categoria.DetalleCategoriaFecha.FechaMaxima)
-                    {
-                        if (listaRelacionCategoria.Where(x => x.idCategoriaValor == fecha.ToString()).Count() == 0)
-                        {
-
-                            result.objetoRespuesta.Add(fecha.ToString());
-                        }
-
-                        fecha = fecha.AddDays(1);
-                    }
-                }
-                else if (Categoria.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
-                {
-                    if (Categoria.DetalleCategoriaNumerico!=null)
-                    {
-                        int numeroMinimo = (int)Categoria.DetalleCategoriaNumerico.Minimo;
-                        for (int i = numeroMinimo; i <= obj.DetalleCategoriaNumerico.Maximo; i++)
-                        {
-                            if (listaRelacionCategoria.Where(x => x.idCategoriaValor == i.ToString()).Count() == 0)
-                            {
-                                result.objetoRespuesta.Add(i.ToString());
-                            }
-
-                        }
-                    }
-                   
-                }
-
-                else
-                {
-                    result.objetoRespuesta = Categoria.DetalleCategoriaTexto.Select(x => x.Etiqueta).ToList();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                result.MensajeError = ex.Message;
-
-                if (ErrorControlado)
-
-                    result.HayError = (int)Error.ErrorControlado;
-
-                else
-
-                    result.HayError = (int)Error.ErrorSistema;
-            }
-
-            return result;
-
-        }
-
-        /// <summary>
-        /// Fecha 25/08/2022
-        /// Francisco Vindas Ruiz
-        /// Metodo para obtener la lista Relacion Categorias
-        /// </summary>
-        public RespuestaConsulta<List<DetalleCategoriaTexto>> ObtenerListaDetalleCategoria(CategoriasDesagregacion obj)
-        {
-            RespuestaConsulta<List<DetalleCategoriaTexto>> result = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
-            try
-            {
-                CategoriasDesagregacion Categoria = clsDatosTexto.ObtenerDatos(obj).Single();
-                result.objetoRespuesta = Categoria.DetalleCategoriaTexto.ToList();
-            }
-            catch (Exception ex)
-            {
-                result.MensajeError = ex.Message;
-                result.HayError = (int)Error.ErrorSistema;
-            }
-
-
-            return result;
-
         }
 
         public RespuestaConsulta<List<RelacionCategoria>> ValidarDatos(RelacionCategoria objeto)
@@ -427,7 +303,7 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.id, out temp))
                     {
-                        objeto.idRelacionCategoria = temp;
+                        objeto.IdRelacionCategoria = temp;
                     }
                 }
 
@@ -468,7 +344,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objrelacion.id), out temp);
-                    objrelacion.idRelacionCategoria = temp;
+                    objrelacion.IdRelacionCategoria = temp;
                 }
                 objrelacion.idEstado = (int)Constantes.EstadosRegistro.Activo;
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objrelacion);
@@ -498,5 +374,146 @@ namespace GB.SIMEF.BL
 
 
 
+    }
+
+
+    public class DetalleRelacionCategoriaBL : IMetodos<RelacionCategoria>
+    {
+
+
+        private readonly RelacionCategoriaDAL clsDatos;
+        private readonly CategoriasDesagregacionDAL clsDatosTexto;
+
+        private RespuestaConsulta<List<RelacionCategoria>> ResultadoConsulta;
+        string modulo = string.Empty;
+        string user = string.Empty;
+
+        public DetalleRelacionCategoriaBL(string modulo, string user)
+        {
+            this.modulo = modulo;
+            this.user = user;
+            this.clsDatos = new RelacionCategoriaDAL();
+            this.clsDatosTexto = new CategoriasDesagregacionDAL();
+            this.ResultadoConsulta = new RespuestaConsulta<List<RelacionCategoria>>();
+        }
+
+
+        public RespuestaConsulta<List<RelacionCategoria>> ActualizarElemento(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> CambioEstado(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> ClonarDatos(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> EliminarElemento(RelacionCategoria objeto)
+        {
+            try
+            {
+                DetalleRelacionCategoria detalleRelacion = objeto.DetalleRelacionCategoria.FirstOrDefault();
+                
+
+                objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                ResultadoConsulta.Usuario = user;
+                ResultadoConsulta.Clase = modulo;
+
+                if (!string.IsNullOrEmpty(detalleRelacion.relacionid))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(detalleRelacion.relacionid), out temp);
+                    detalleRelacion.IdRelacionCategoria = temp;
+                    objeto.IdRelacionCategoria = temp;
+                }
+
+                if (!string.IsNullOrEmpty(detalleRelacion.id))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(detalleRelacion.id), out temp);
+                    detalleRelacion.idDetalleRelacionCategoria = temp;
+                }
+
+                objeto = clsDatos.ActualizarDatos(objeto).FirstOrDefault();
+                detalleRelacion = objeto.DetalleRelacionCategoria.Where(x => x.idDetalleRelacionCategoria == detalleRelacion.idDetalleRelacionCategoria).FirstOrDefault();
+                detalleRelacion.Estado = false;
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatosDetalle(detalleRelacion);
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+            }
+            catch (Exception ex)
+            {
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> InsertarDatos(RelacionCategoria objeto)
+        {
+            try
+            {
+                DetalleRelacionCategoria detalleRelacion = objeto.DetalleRelacionCategoria.FirstOrDefault();
+                detalleRelacion.Estado = true;
+                ResultadoConsulta.Usuario = user;
+                ResultadoConsulta.Clase = modulo;
+
+                if (!string.IsNullOrEmpty(detalleRelacion.relacionid))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(detalleRelacion.relacionid), out temp);
+                    detalleRelacion.IdRelacionCategoria = temp;
+                    objeto.IdRelacionCategoria = temp;
+                }
+
+                objeto = clsDatos.ObtenerDatos(objeto).FirstOrDefault();
+
+
+                if (objeto.DetalleRelacionCategoria.Where(p=>p.idCategoriaAtributo==detalleRelacion.idCategoriaAtributo).Count()>0)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception("La categoría ya está asignada a la Relación");   
+                }
+                else if(objeto.CantidadCategoria<=objeto.DetalleRelacionCategoria.Count())
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(Errores.CantidadRegistrosLimiteRelaciones);
+                }
+                else
+                {
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatosDetalle(detalleRelacion);
+                    ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> ObtenerDatos(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> ValidarDatos(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

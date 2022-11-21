@@ -30,11 +30,19 @@ namespace GB.SIMEF.Entities
         public int IdTipoCategoria { get; set; }
         public int CantidadDetalleDesagregacion { get; set; }
         public string JSON { get; set; }
-        public string Valor { get; set; }
         public string RangoMinimo { get; set; }
         public string RangoMaximo { get; set; }
         [NotMapped]
         public string html { get; set; }
+
+        [NotMapped]
+        public string Solicitudid { get; set; }
+        [NotMapped]
+        public string FormularioId { get; set; }
+        [NotMapped]
+        public string IndicadorId { get; set; }
+
+
 
     }
 }

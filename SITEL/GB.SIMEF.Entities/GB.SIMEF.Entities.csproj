@@ -40,6 +40,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\GB.SUTEL.UI\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +56,7 @@
     <Compile Include="DatoHistorico.cs" />
     <Compile Include="DetalleDatoHistoricoFila.cs" />
     <Compile Include="DetalleDatoHistoricoColumna.cs" />
+    <Compile Include="DetalleRegistroIndicadorCategoriaValorFonatel.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatel.cs" />
     <Compile Include="DetalleRegistroIndicadorCategoriaFonatel.cs" />
     <Compile Include="DetalleReglaValidacion.cs" />
@@ -62,6 +66,7 @@
     <Compile Include="ReglaIndicadorEntrada.cs" />
     <Compile Include="ReglaIndicadorEntradaSalida.cs" />
     <Compile Include="ReglaIndicadorSalida.cs" />
+    <Compile Include="RelacionCategoriaId.cs" />
     <Compile Include="RespuestaConsulta.cs" />
     <Compile Include="CategoriasDesagregacion.cs" />
     <Compile Include="ClasificacionIndicadores.cs" />

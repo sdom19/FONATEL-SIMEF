@@ -61,11 +61,362 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fórmula de Cálculo.
+        ///   Looks up a localized string similar to Categoría de Desagregación.
         /// </summary>
-        public static string Pantalla {
+        public static string CrearFormula_LabelCategoriaDesagregacion {
             get {
-                return ResourceManager.GetString("Pantalla", resourceCulture);
+                return ResourceManager.GetString("CrearFormula_LabelCategoriaDesagregacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Código.
+        /// </summary>
+        public static string CrearFormula_LabelCodigo {
+            get {
+                return ResourceManager.GetString("CrearFormula_LabelCodigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descripción.
+        /// </summary>
+        public static string CrearFormula_LabelDescripcion {
+            get {
+                return ResourceManager.GetString("CrearFormula_LabelDescripcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fecha de Cálculo.
+        /// </summary>
+        public static string CrearFormula_LabelFechaCalculo {
+            get {
+                return ResourceManager.GetString("CrearFormula_LabelFechaCalculo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frecuencia de Cálculo.
+        /// </summary>
+        public static string CrearFormula_LabelFrecuencia {
+            get {
+                return ResourceManager.GetString("CrearFormula_LabelFrecuencia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicador de Salida.
+        /// </summary>
+        public static string CrearFormula_LabelIndicadorSalida {
+            get {
+                return ResourceManager.GetString("CrearFormula_LabelIndicadorSalida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nivel de Cálculo.
+        /// </summary>
+        public static string CrearFormula_LabelNivelCalculo {
+            get {
+                return ResourceManager.GetString("CrearFormula_LabelNivelCalculo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categoría de desagregación.
+        /// </summary>
+        public static string CrearFormula_LabelNivelCalculoCategoria {
+            get {
+                return ResourceManager.GetString("CrearFormula_LabelNivelCalculoCategoria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string CrearFormula_LabelNivelCalculoTotal {
+            get {
+                return ResourceManager.GetString("CrearFormula_LabelNivelCalculoTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nombre.
+        /// </summary>
+        public static string CrearFormula_LabelNombre {
+            get {
+                return ResourceManager.GetString("CrearFormula_LabelNombre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variable-Dato.
+        /// </summary>
+        public static string CrearFormula_LabelVariableDato {
+            get {
+                return ResourceManager.GetString("CrearFormula_LabelVariableDato", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acumulación.
+        /// </summary>
+        public static string GestionFormulas_LabelAcumulacion {
+            get {
+                return ResourceManager.GetString("GestionFormulas_LabelAcumulacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clasificación.
+        /// </summary>
+        public static string GestionFormulas_LabelClasificacion {
+            get {
+                return ResourceManager.GetString("GestionFormulas_LabelClasificacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fórmula de cálculo.
+        /// </summary>
+        public static string GestionFormulas_LabelFormulaCalculo {
+            get {
+                return ResourceManager.GetString("GestionFormulas_LabelFormulaCalculo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuente Indicador.
+        /// </summary>
+        public static string GestionFormulas_LabelFuenteIndicador {
+            get {
+                return ResourceManager.GetString("GestionFormulas_LabelFuenteIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grupo.
+        /// </summary>
+        public static string GestionFormulas_LabelGrupo {
+            get {
+                return ResourceManager.GetString("GestionFormulas_LabelGrupo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicador.
+        /// </summary>
+        public static string GestionFormulas_LabelIndicador {
+            get {
+                return ResourceManager.GetString("GestionFormulas_LabelIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Servicio.
+        /// </summary>
+        public static string GestionFormulas_LabelServicio {
+            get {
+                return ResourceManager.GetString("GestionFormulas_LabelServicio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo Indicador.
+        /// </summary>
+        public static string GestionFormulas_LabelTipoIndicador {
+            get {
+                return ResourceManager.GetString("GestionFormulas_LabelTipoIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fórmula.
+        /// </summary>
+        public static string LabelStepperFormula {
+            get {
+                return ResourceManager.GetString("LabelStepperFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicador.
+        /// </summary>
+        public static string LabelStepperIndicador {
+            get {
+                return ResourceManager.GetString("LabelStepperIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categoría.
+        /// </summary>
+        public static string ModalDetalle_LabelCategoria {
+            get {
+                return ResourceManager.GetString("ModalDetalle_LabelCategoria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Criterio.
+        /// </summary>
+        public static string ModalDetalle_LabelCriterio {
+            get {
+                return ResourceManager.GetString("ModalDetalle_LabelCriterio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detalle.
+        /// </summary>
+        public static string ModalDetalle_LabelDetalle {
+            get {
+                return ResourceManager.GetString("ModalDetalle_LabelDetalle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detalle.
+        /// </summary>
+        public static string ModalDetalle_Titulo {
+            get {
+                return ResourceManager.GetString("ModalDetalle_Titulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorías Tipo Fecha.
+        /// </summary>
+        public static string ModalFecha_LabelCategoriasTipoFecha {
+            get {
+                return ResourceManager.GetString("ModalFecha_LabelCategoriasTipoFecha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fecha Final.
+        /// </summary>
+        public static string ModalFecha_LabelFechaFinal {
+            get {
+                return ResourceManager.GetString("ModalFecha_LabelFechaFinal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fecha Inicio.
+        /// </summary>
+        public static string ModalFecha_LabelFechaInicio {
+            get {
+                return ResourceManager.GetString("ModalFecha_LabelFechaInicio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo Fecha Final.
+        /// </summary>
+        public static string ModalFecha_LabelTipoFechaFinal {
+            get {
+                return ResourceManager.GetString("ModalFecha_LabelTipoFechaFinal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo Fecha Inicio.
+        /// </summary>
+        public static string ModalFecha_LabelTipoFechaInicio {
+            get {
+                return ResourceManager.GetString("ModalFecha_LabelTipoFechaInicio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unidad de Medida.
+        /// </summary>
+        public static string ModalFecha_LabelUnidad {
+            get {
+                return ResourceManager.GetString("ModalFecha_LabelUnidad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Años.
+        /// </summary>
+        public static string ModalFecha_RadioAnios {
+            get {
+                return ResourceManager.GetString("ModalFecha_RadioAnios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Días.
+        /// </summary>
+        public static string ModalFecha_RadioDias {
+            get {
+                return ResourceManager.GetString("ModalFecha_RadioDias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meses.
+        /// </summary>
+        public static string ModalFecha_RadioMeses {
+            get {
+                return ResourceManager.GetString("ModalFecha_RadioMeses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Definición de Fechas.
+        /// </summary>
+        public static string ModalFecha_Titulo {
+            get {
+                return ResourceManager.GetString("ModalFecha_Titulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Código.
+        /// </summary>
+        public static string TablaIndicadores_ColumnaCodigo {
+            get {
+                return ResourceManager.GetString("TablaIndicadores_ColumnaCodigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detalles.
+        /// </summary>
+        public static string TablaIndicadores_ColumnaDetalles {
+            get {
+                return ResourceManager.GetString("TablaIndicadores_ColumnaDetalles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nombre.
+        /// </summary>
+        public static string TablaIndicadores_ColumnaNombre {
+            get {
+                return ResourceManager.GetString("TablaIndicadores_ColumnaNombre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valor Total.
+        /// </summary>
+        public static string TablaIndicadores_ColumnaValorTotal {
+            get {
+                return ResourceManager.GetString("TablaIndicadores_ColumnaValorTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agregar Fórmula de Cálculo.
+        /// </summary>
+        public static string TituloAgregarFormula {
+            get {
+                return ResourceManager.GetString("TituloAgregarFormula", resourceCulture);
             }
         }
         
@@ -93,6 +444,15 @@ namespace GB.SIMEF.Resources {
         public static string TituloEditar {
             get {
                 return ResourceManager.GetString("TituloEditar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fórmulas de Cálculo.
+        /// </summary>
+        public static string TituloIndex {
+            get {
+                return ResourceManager.GetString("TituloIndex", resourceCulture);
             }
         }
         

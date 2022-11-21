@@ -16,27 +16,33 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
     public class FormulaCalculoController : Controller
     {
         #region Variables Públicas del controller
+
         private readonly FormulasCalculoBL formulaBL;
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
         private readonly IndicadorFonatelBL indicadorFonatelBL;
-        private readonly DetalleIndicadorVariablesBL indicadorVariableBL;
+        private readonly DetalleIndicadorVariablesBL detalleIndicadorVariablesBL;
+        private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
+        private readonly string usuario = string.Empty;
+        private readonly string nombreVista = string.Empty;
 
         #endregion
+
         public FormulaCalculoController()
         {
-            this.frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            this.formulaBL = new FormulasCalculoBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            this.indicadorFonatelBL = new IndicadorFonatelBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            this.indicadorVariableBL = new DetalleIndicadorVariablesBL(EtiquetasViewFormulasCalculo.Pantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            usuario = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            nombreVista = EtiquetasViewFormulasCalculo.TituloIndex;
+            frecuenciaEnvioBL = new FrecuenciaEnvioBL(nombreVista, usuario);
+            formulaBL = new FormulasCalculoBL(nombreVista, usuario);
+            indicadorFonatelBL = new IndicadorFonatelBL(nombreVista, usuario);
+            detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(nombreVista, usuario);
+            categoriasDesagregacionBL = new CategoriasDesagregacionBL(nombreVista, usuario);
         }
+
+        #region Eventos de la página
 
         // GET: Solicitud
         public ActionResult Index()
         {
-
-
-
-
             return View();
         }
 
@@ -45,156 +51,105 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             return View();
         }
-        
+
         [HttpGet]
-        public ActionResult Create(string id=null, int modo=0)
+        public ActionResult Create()
         {
-            var modelo = new FormulasCalculo();
-            ViewBag.FrecuanciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
-                .objetoRespuesta.Select(x => new SelectListItem()
-                {
-                    Selected = false,
-                    Value = x.idFrecuencia.ToString(),
-                    Text =  x.Nombre
-                }).ToList();
+            CargarDatosEnVistas();
+            ViewBag.ModoFormulario = ((int)Accion.Insertar).ToString();
+            ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
 
-            ViewBag.IndicadorSalida =
-               indicadorFonatelBL.ObtenerDatos(new Indicador() { IdClasificacion = (int)Constantes.ClasificacionIndicadorEnum.Salida }).objetoRespuesta
-               .Select(x => new SelectListItem()
-               {
-                   Value = Utilidades.Desencriptar(x.id),
-                   Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre),
-                   Selected = false
-               }).ToList();
-
-            ViewBag.VariableIndicador =
-                  indicadorVariableBL.ObtenerDatos(new DetalleIndicadorVariables()).objetoRespuesta
-                  .Select(x => new SelectListItem()
-                  {
-                      Value = Utilidades.Desencriptar(x.id),
-                      Text = x.NombreVariable,
-                      Selected = false
-                  }).ToList();
-
-            if (modo==(int)Constantes.Accion.Clonar && !string.IsNullOrEmpty(id))
-            {
-                ViewBag.ModoFormulario = ((int)Accion.Clonar).ToString();
-                ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloClonar;
-                modelo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
-                modelo.Nombre = string.Empty;
-                modelo.Codigo = string.Empty;
-            }
-            else if(modo == (int)Constantes.Accion.Editar && !string.IsNullOrEmpty(id))
-            {
-                ViewBag.ModoFormulario = ((int)Accion.Editar).ToString();
-                ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloEditar;
-                modelo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
-            }
-            else if (modo == (int)Constantes.Accion.Consultar && !string.IsNullOrEmpty(id))
-            {
-                ViewBag.ModoFormulario = ((int)Accion.Consultar).ToString();
-                ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
-                modelo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
-            }
-            else 
-            {
-                ViewBag.ModoFormulario = ((int)Accion.Insertar).ToString();
-                ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
-            }
-
-
-
-            return View(modelo);
+            return View(new FormulasCalculo());
         }
 
-        // POST: Solicitud/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Solicitud/Edit/5
+        [HttpGet]
         public ActionResult Edit(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                return View("Index");
+
+            FormulasCalculo objFormulaCalculo = null;
+
+            try
+            {
+                objFormulaCalculo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
+            }
+            catch (Exception) { }
+
+            if (objFormulaCalculo == null)
+                return View("Index");
+
+            CargarDatosEnVistas(objFormulaCalculo.IdIndicadorSalidaString, objFormulaCalculo.NivelCalculoTotal);
+
             ViewBag.ModoFormulario = ((int)Accion.Editar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloEditar;
-            return View("Create");
-        }
 
-        // POST: Solicitud/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Solicitud/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Solicitud/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View("Create", objFormulaCalculo);
         }
 
         // GET: Solicitud/Clone/5
+
+        [HttpGet]
         public ActionResult Clone(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                return View("Index");
+
+            FormulasCalculo objFormulaCalculo = null;
+
+            try
+            {
+                objFormulaCalculo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
+            }
+            catch (Exception) { }
+
+            if (objFormulaCalculo == null)
+                return View("Index");
+
+            objFormulaCalculo.Nombre = string.Empty;
+            objFormulaCalculo.Codigo = string.Empty;
+
+            CargarDatosEnVistas();
+
             ViewBag.ModoFormulario = ((int)Accion.Clonar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloClonar;
-            return View("Create");
+
+            return View("Create", objFormulaCalculo);
         }
-        
-        // GET: Solicitud/View/5
-        public ActionResult View(string id)
+
+        [HttpGet]
+        public ActionResult Visualize(string id)
         {
+            if (string.IsNullOrEmpty(id))
+                return View("Index");
+
+            FormulasCalculo objFormulaCalculo = null;
+
+            try
+            {
+                objFormulaCalculo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
+            }
+            catch (Exception) { }
+
+            if (objFormulaCalculo == null)
+                return View("Index");
+
+            CargarDatosEnVistas();
+
             ViewBag.ModoFormulario = ((int)Accion.Consultar).ToString();
-            ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloVisualizar;
-            return View("Create");
+            ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
+
+            return View("Create", objFormulaCalculo);
         }
 
+        #endregion
 
-
+        #region Funciones async - Index
 
         /// <summary>
-        /// Fecha 04-08-2022
-        /// Michael Hernández Cordero
-        /// Obtiene datos para la table de categorías INDEX
+        /// Obtiene el listado de fórmulas registras
         /// </summary>
         /// <returns></returns>
-
         [HttpGet]
         public async Task<string> ObtenerListaFormulas()
         {
@@ -205,18 +160,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
 
             return JsonConvert.SerializeObject(result);
-
-
         }
 
-
-
-
+        /// <summary>
+        /// Permite eliminar una fórmula
+        /// </summary>
+        /// <param name="formulaCalculo"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<string> EliminarFormula(FormulasCalculo formulaCalculo)
         {
             RespuestaConsulta<List<FormulasCalculo>> result = null;
-      
+
             await Task.Run(() =>
             {
                 return formulaBL.ObtenerDatos(formulaCalculo);
@@ -226,12 +181,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 var objetoValidar = data.Result.objetoRespuesta.Single();
                 objetoValidar.IdEstado = (int)Constantes.EstadosRegistro.Eliminado;
                 result = formulaBL.EliminarElemento(objetoValidar);
-            }
-            );
+            });
             return JsonConvert.SerializeObject(result);
         }
 
-
+        /// <summary>
+        /// Permite activar una fórmula
+        /// </summary>
+        /// <param name="formulaCalculo"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<string> ActivarFormula(FormulasCalculo formulaCalculo)
         {
@@ -251,7 +209,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
+        /// <summary>
+        /// Permite desactivar una fórmula
+        /// </summary>
+        /// <param name="formulaCalculo"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<string> DesactivarFormula(FormulasCalculo formulaCalculo)
         {
@@ -271,5 +233,271 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        #endregion
+
+        #region Funciones async - Create
+
+        /// <summary>
+        /// 18/10/20122
+        /// José Navarro Acuña
+        /// Obtiene un listado de las variables dato de un indicador
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerVariablesDatoDeIndicador(string pIdIndicador)
+        {
+            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
+                {
+                    idIndicadorString = pIdIndicador
+                });
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 18/10/2022
+        /// José Navarro Acuña
+        /// Obtiene un listado de las categorias de desagregación relacionadas a un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerCategoriasDesagregacionDeIndicador(string pIdIndicador)
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pIdIndicador);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 17/11/2022
+        /// José Navarro Acuña
+        /// Obtiene un listado de las categorias de desagregación relacionadas a una formula respecto al nivel de calculo
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        public async Task<string> ObtenerCategoriasDeFormulaNivelCalculo(string pIdFormula, string pIdIndicador)
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+
+            if (string.IsNullOrEmpty(pIdFormula) || string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = categoriasDesagregacionBL.ObtenerCategoriasDeFormulaNivelCalculo(pIdFormula, pIdIndicador);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 21/10/2022
+        /// José Navarro Acuña
+        /// Función que permite crear una fórmula de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CrearFormulaCalculo(FormulasCalculo pFormulaCalculo)
+        {
+            string mensajesValidacion = ValidarObjectoCrearFormulaCalculo(pFormulaCalculo);
+
+            if (!string.IsNullOrEmpty(mensajesValidacion))
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorControlado, MensajeError = mensajesValidacion });
+            }
+
+            pFormulaCalculo.IdEstado = (int)EstadosRegistro.EnProceso;
+            pFormulaCalculo.UsuarioCreacion = usuario;
+            pFormulaCalculo.IdFormula = 0;
+            pFormulaCalculo.IdFrecuencia = 0;
+            pFormulaCalculo.IdIndicador = 0;
+            pFormulaCalculo.IdIndicadorVariable = 0;
+
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            await Task.Run(() =>
+            {
+                resultado = formulaBL.InsertarDatos(pFormulaCalculo);
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 15/11/2022
+        /// José Navarro Acuña
+        /// Función que permite editar una fórmula de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> EditarFormulaCalculo(FormulasCalculo pFormulaCalculo)
+        {
+            if (string.IsNullOrEmpty(pFormulaCalculo.id))
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<FormulasCalculo>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            // tanto crear, clonar y editar pueden actualizar la fórmula, asi que se debe diferenciar la acción
+            string modoFormulario = (string)Session[keyModoFormulario];
+
+            if (modoFormulario.Equals(((int)Accion.Editar).ToString()))
+            {
+                try
+                {
+                    FormulasCalculo objFormular = formulaBL.ObtenerDatos(new FormulasCalculo() { id = pFormulaCalculo.id }).objetoRespuesta.FirstOrDefault();
+                    pFormulaCalculo.Codigo = objFormular.Codigo;
+                }
+                catch (Exception)
+                {
+                    return JsonConvert.SerializeObject(
+                        new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+                };
+            }
+
+            pFormulaCalculo.UsuarioModificacion = usuario;
+            return await CrearFormulaCalculo(pFormulaCalculo);
+        }
+
+        #endregion
+
+        #region Funciones privadas
+
+        /// <summary>
+        /// 13/10/2022
+        /// José Navarro Acuña
+        /// Método que permite cargar los datos necesarios del formulario de Fórmulas de Cálculo
+        /// </summary>
+        private void CargarDatosEnVistas(string pIdIndicador = null, bool pEsNivelCalculoTotal = true)
+        {
+            ViewBag.VariablesDato = Enumerable.Empty<SelectListItem>();
+            ViewBag.CategoriasDeIndicador = Enumerable.Empty<SelectListItem>();
+            ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { }).objetoRespuesta;
+            ViewBag.IndicadorSalida = indicadorFonatelBL.ObtenerDatos(new Indicador() { IdClasificacion = (int)ClasificacionIndicadorEnum.Salida })
+                .objetoRespuesta.Select(x => new Indicador()
+                {
+                    id = x.id,
+                    Nombre = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre)
+                }).ToList();
+
+            if (!string.IsNullOrEmpty(pIdIndicador))
+            {
+                List<DetalleIndicadorVariables> detalles = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
+                {
+                    idIndicadorString = pIdIndicador
+                }).objetoRespuesta;
+
+                if (detalles != null)
+                {
+                    ViewBag.VariablesDato = detalles;
+                }
+            }
+
+            if (!pEsNivelCalculoTotal)
+            {
+                List<CategoriasDesagregacion> categorias = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pIdIndicador, true).objetoRespuesta;
+
+                if (categorias != null)
+                {
+                    ViewBag.CategoriasDeIndicador = categorias;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 21/10/2022
+        /// José Navarro Acuña
+        /// Permite verificar los datos requeridos y el formato de los campos de una formula de cálcula al momento de crear
+        /// </summary>
+        /// <param name="pFormulaCalculo"></param>
+        /// <param name="pEsGuardadoParcial"></param>
+        /// <returns></returns>
+        public string ValidarObjectoCrearFormulaCalculo(FormulasCalculo pFormulaCalculo)
+        {
+            if (!pFormulaCalculo.EsGuardadoParcial)
+            {
+                if (
+                    string.IsNullOrEmpty(pFormulaCalculo.IdFrecuenciaString) ||
+                    pFormulaCalculo.FechaCalculo == null ||
+                    pFormulaCalculo.Descripcion == null || string.IsNullOrEmpty(pFormulaCalculo.Descripcion.Trim()) ||
+                    string.IsNullOrEmpty(pFormulaCalculo.IdIndicadorSalidaString) ||
+                    string.IsNullOrEmpty(pFormulaCalculo.IdVariableDatoString) ||
+                    (!pFormulaCalculo.NivelCalculoTotal && pFormulaCalculo.ListaCategoriasNivelesCalculo.Count < 1)
+                )
+                {
+                    return Errores.CamposIncompletos;
+                }
+            }
+
+            if (pFormulaCalculo.Codigo == null || string.IsNullOrEmpty(pFormulaCalculo.Codigo.Trim())) // campo requerido
+            {
+                return string.Format(Errores.CampoRequeridoV2, EtiquetasViewFormulasCalculo.CrearFormula_LabelCodigo);
+            }
+            else if (!Utilidades.rx_alfanumerico.Match(pFormulaCalculo.Codigo.Trim()).Success // validar formato
+                || pFormulaCalculo.Codigo.Trim().Length > 30)
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewFormulasCalculo.CrearFormula_LabelCodigo);
+            }
+
+            if (pFormulaCalculo.Nombre == null || string.IsNullOrEmpty(pFormulaCalculo.Nombre.Trim())) // campo requerido
+            {
+                return string.Format(Errores.CampoRequeridoV2, EtiquetasViewFormulasCalculo.CrearFormula_LabelNombre);
+            }
+            else if (!Utilidades.rx_soloTexto.Match(pFormulaCalculo.Nombre.Trim()).Success // validar formato
+                || pFormulaCalculo.Nombre.Trim().Length > 300)
+            {
+                return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewFormulasCalculo.CrearFormula_LabelNombre);
+            }
+
+            if (pFormulaCalculo.FechaCalculo <= DateTime.MinValue || pFormulaCalculo.FechaCalculo >= DateTime.MaxValue)
+            {
+                return string.Format(Errores.CampoRequeridoV2, EtiquetasViewFormulasCalculo.CrearFormula_LabelFechaCalculo);
+            }
+
+            if (!string.IsNullOrEmpty(pFormulaCalculo.Descripcion?.Trim())) // ¿se ingresó el dato?
+            {
+                if (!Utilidades.rx_soloTexto.Match(pFormulaCalculo.Descripcion).Success               // la descripción solo debe contener texto como valor
+                    || pFormulaCalculo.Descripcion.Trim().Length > 1500)                               // validar la cantidad de caracteres
+                {
+                    return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewFormulasCalculo.CrearFormula_LabelDescripcion);
+                }
+            }
+
+            return null;
+        }
+
+        #endregion
     }
 }

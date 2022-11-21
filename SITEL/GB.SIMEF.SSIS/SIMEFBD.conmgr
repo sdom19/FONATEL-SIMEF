@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="SIMEFBD"
+  DTS:DTSID="{F18F5338-8C65-4779-BF3B-2095830FE784}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=.;Initial Catalog=SIMEFBD;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{F18F5338-8C65-4779-BF3B-2095830FE784}LocalHost.SIMEFBD;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

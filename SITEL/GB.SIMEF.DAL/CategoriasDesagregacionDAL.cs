@@ -107,8 +107,63 @@ namespace GB.SIMEF.DAL
             return ListaCategoria;
         }
 
+        /// <summary>
+        /// José Navarro Acuña
+        /// 20/10/2022
+        /// Consulta las categorias de desagregación relacionadas con un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        public List<CategoriasDesagregacion> ObtenerCategoriasDesagregacionDeIndicador(int pIdIndicador)
+        {
+            List<CategoriasDesagregacion> listaCategorias = new List<CategoriasDesagregacion>();
+            using (db = new SIMEFContext())
+            {
+                listaCategorias = db.Database.SqlQuery<CategoriasDesagregacion>
+                ("execute spObtenerCategoriasDesagregacionDeIndicador @pIdIndicador ",
+                     new SqlParameter("@pIdIndicador", pIdIndicador.ToString())
+                    ).ToList();
 
+                listaCategorias = listaCategorias.Select(x => new CategoriasDesagregacion()
+                {
+                    id = Utilidades.Encriptar(x.idCategoria.ToString()),
+                    Codigo = x.Codigo,
+                    NombreCategoria = x.NombreCategoria,
+                    idEstado = x.idEstado,
+                }).ToList();
+            }
+            return listaCategorias;
+        }
 
+        /// <summary>
+        /// José Navarro Acuña
+        /// 17/11/2022
+        /// Consulta las categorias de desagregación relacionadas a una formula respecto al nivel de calculo        
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        public List<CategoriasDesagregacion> ObtenerCategoriasDeFormulaNivelCalculo(int pIdFormula, int pIdIndicador)
+        {
+            List<CategoriasDesagregacion> listaCategorias = new List<CategoriasDesagregacion>();
+            using (db = new SIMEFContext())
+            {
+                listaCategorias = db.Database.SqlQuery<CategoriasDesagregacion>
+                ("execute spObtenerCategoriasDeFormulaNivelCalculo @pIdFormula, @pIdIndicador ",
+                     new SqlParameter("@pIdFormula", pIdFormula.ToString()),
+                     new SqlParameter("@pIdIndicador", pIdIndicador.ToString())
+                    ).ToList();
+
+                listaCategorias = listaCategorias.Select(x => new CategoriasDesagregacion()
+                {
+                    id = Utilidades.Encriptar(x.idCategoria.ToString()),
+                    Codigo = x.Codigo,
+                    NombreCategoria = x.NombreCategoria,
+                    idEstado = x.idEstado,
+                }).ToList();
+            }
+            return listaCategorias;
+        }
 
         /// <summary>
         /// Valida si tiene detalle por el tipo de categoría 
@@ -216,5 +271,29 @@ namespace GB.SIMEF.DAL
             return db.DetalleCategoriaTexto
                              .Where(x => x.idCategoria == id && x.Estado == true).ToList();
         }
+
+        /// <summary>
+        /// Georgi Mesen Cerdas
+        /// Se obtiene las categorias para cargar la plantilla de excel de Relacion Categorias
+        /// 18/08/2022
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+
+        public List<DetalleCategoriaTexto> ObtenerCategoriasParaExcel(string NombreCategoria,string CategoriaTexto)
+        {
+            List<DetalleCategoriaTexto> listaValicion = new List<DetalleCategoriaTexto>();
+            using (db = new SIMEFContext())
+            {
+                listaValicion = db.Database.SqlQuery<DetalleCategoriaTexto>
+                    ("exec spObtenerCategoriasParaExcel @NombreCategoria,@CategoriaTexto",
+                       new SqlParameter("@NombreCategoria", NombreCategoria),
+                       new SqlParameter("@CategoriaTexto", CategoriaTexto)
+                    ).ToList();
+            }
+
+            return listaValicion;
+        }
+
     }
 }

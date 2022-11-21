@@ -214,7 +214,7 @@
                         }
                     }
                     else if ($(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Numerico) {
-                        if ($(JsCategoria.Controles.txtRangoMinimaCategoria).val() == 0) {
+                        if ($(JsCategoria.Controles.txtRangoMinimaCategoria).val() < 0) {
                             validar = false;
                             if (opcion) {
                                 $(JsCategoria.Controles.RangoMinimaCategoriaHelp).removeClass("hidden");

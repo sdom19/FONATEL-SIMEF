@@ -18,17 +18,10 @@ namespace GB.SIMEF.Entities
     public partial class TipoDetalleCategoria
     {
         
-        public TipoDetalleCategoria()
-        {
-            this.CategoriasDesagregacion = new HashSet<CategoriasDesagregacion>();
-        }
-
         [Key]
         public int idTipoCategoria { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
-    
-        
-        public virtual ICollection<CategoriasDesagregacion> CategoriasDesagregacion { get; set; }
+        public string TipoSQL { get; set; }
     }
 }

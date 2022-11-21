@@ -11,36 +11,10 @@
   DTS:LocaleID="5130"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="5"
-  DTS:VersionGUID="{6AEDAC96-8081-41CA-B442-D048F9FA172B}">
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{9B83821C-8D5E-409D-9E86-07A49303A0F7}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DWSIMEF]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}"
-      DTS:ObjectName="DWSIMEF">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=.;Initial Catalog=DWSIMEF;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}LocalHost.DWSIMEF;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[SIMEFBD]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{F18F5338-8C65-4779-BF3B-2095830FE784}"
-      DTS:ObjectName="SIMEFBD">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=.;Initial Catalog=SIMEFBD;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{F18F5338-8C65-4779-BF3B-2095830FE784}LocalHost.SIMEFBD;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-  </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
@@ -116,8 +90,8 @@
               <connections>
                 <connection
                   refId="Package\Carga de definiciones\Carga de definiciones.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DWSIMEF]"
-                  connectionManagerRefId="Package.ConnectionManagers[DWSIMEF]"
+                  connectionManagerID="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWSIMEF]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -345,8 +319,8 @@
               <connections>
                 <connection
                   refId="Package\Carga de definiciones\Lectura de deficiones.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[SIMEFBD]"
-                  connectionManagerRefId="Package.ConnectionManagers[SIMEFBD]"
+                  connectionManagerID="{F18F5338-8C65-4779-BF3B-2095830FE784}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SIMEFBD]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>

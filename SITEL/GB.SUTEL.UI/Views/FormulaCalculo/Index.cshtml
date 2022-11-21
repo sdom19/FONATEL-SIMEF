@@ -6,25 +6,26 @@
 }
 
 @section scripts {
-    @*@Scripts.Render("~/bundles/FONATEL/FormulaCalculo")*@
+    @Scripts.Render("~/bundles/FONATEL/FormulaCalculo")
 }
-<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+@*<link href="~/Content/font-awesome.min.css" rel="stylesheet" />*@
 <div class="container body-content">
+    <input type="hidden" id="ansy7o9dc">
     <div class="text-right">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Fórmulas de Cálculo</li>
+                <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewFormulasCalculo.TituloIndex</li>
             </ol>
         </nav>
     </div>
     <div class="row">
         <div class="col-lg-12 mt-4">
-            <h2 class="page-title-fonatel text-center">Fórmulas de Cálculo</h2>
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewFormulasCalculo.TituloIndex</h2>
             <hr />
         </div>
         <div class="col-lg-12 mt-4">
-            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="Crear" alt="Crear" href="@Url.Action( "Create","FormulaCalculo")">Crear</a>
+            <a class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCrear" alt="@Etiquetas.BotonCrear" href="@Url.Action( "Create","FormulaCalculo")">@Etiquetas.BotonCrear</a>
         </div>
         <div class="col-lg-12 mt-4">
             @Html.Partial("_TablaFormulas")
@@ -32,4 +33,3 @@
     </div>
 
 </div>
-<script src="~/Scripts/Fonatel/JsFormulasCalculo.js"></script>

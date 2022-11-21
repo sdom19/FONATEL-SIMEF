@@ -90,7 +90,7 @@ $(document).ready(function () {
 });
 
 $(document).on("select2:select", '.multiple-Select', function (e) {
-    var data = e.params.data.text;
+    var data = e.params?.data?.text;
     if (data == 'Todos') {
         $(".multiple-Select > option").prop("selected", "selected");
         $(".multiple-Select").trigger("change");
@@ -98,16 +98,7 @@ $(document).on("select2:select", '.multiple-Select', function (e) {
 });
 
 $(document).on("select2:unselect", '.multiple-Select', function (e) {
-    var data = e.params.data.text;
-    if (data == 'Todos') {
-        $(".multiple-Select > option").prop("selected", false);
-        $(".multiple-Select").trigger("change");
-    }
-    else {
-        $(".multiple-Select > option[value='all']").prop("selected", false);
-        $(".multiple-Select").trigger("change");
-    }
-
+    RemoverOpcionesSelect2Multiple(e.params.data.text);
 });
 
 $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
@@ -313,7 +304,6 @@ function CargarDatasource(pDataTable = ".datatable_simef") {
 }
 
 /**
- * José Navarro Acuña.
  * Permite remover un item de una tabla DataTable.
  * @param {any} pDataTable tabla DataTable.
  * @param {any} pItem item a eliminar.
@@ -323,7 +313,6 @@ function RemoverItemDataTable (pDataTable, pItem) {
 }
 
 /**
- * José Navarro Acuña.
  * Permite remover un item de un combobox select2.
  * @param {any} pSelect2 combobox select2 de la vista.
  * @param {any} pValor valor del item a remover
@@ -333,7 +322,6 @@ function RemoverItemSelect2 (pSelect2, pValor) {
 }
 
 /**
- * José Navarro Acuña.
  * Permite insertar un item en una tabla DataTable.
  * @param {any} pDataTable tabla DataTable.
  * @param {any} pItem item a insertar.
@@ -343,7 +331,6 @@ function InsertarItemDataTable (pDataTable, pItem) {
 }
 
 /**
- * José Navarro Acuña.
  * Permite insertar un item en un combobox select2.
  * @param {any} pSelect2 combobox select2 de la vista.
  * @param {any} pTexto texto que se muestra en las opciones.
@@ -357,7 +344,6 @@ function InsertarItemSelect2 (pSelect2, pTexto, pValor, pDefaultSelected = false
 }
 
 /**
- * José Navarro Acuña.
  * Permite insertar un conjunto de opciones a un combobox select2.
  * @param {any} pSelect2 combobox select2 de la vista.
  * @param {any} pDataSet listado de opciones a insertar. IMPORTANTE: la forma de la lista debe ser [{ text: <texto>, value: <valor> }, {..}, ..., {..}]
@@ -373,7 +359,6 @@ function InsertarDataSetSelect2(pSelect2, pDataSet) {
 }
 
 /**
- * José Navarro Acuña.
  * Útil para cuando se edita un formulario y se deben seleccionar items de un combobox select2 multiple.
  * @param {any} pSelect2 combobox select2 de la vista.
  * @param {any} pDataSet las opciones a seleccionar en el combobox múltiple.
@@ -398,7 +383,6 @@ function SeleccionarItemsSelect2Multiple(pSelect2, pDataSet, pLlave, pActivarEve
 }
 
 /**
- * José Navarro Acuña.
  * Seleccionar una opción de un combobox select2.
  * @param {any} pSelect2 combobox select2 de la vista.
  * @param {any} pValue valor utilizado en el combobox como atributo 'value'.
@@ -416,17 +400,15 @@ function SeleccionarItemSelect2(pSelect2, pValue, pActivarEventoOnChange = false
 }
 
 /**
- * José Navarro Acuña.
  * Inserta en un combobox select2 múltiple la opción 'Todos'.
  * @param {any} pSelect2 input select2 de la vista.
  */
 function InsertarOpcionTodosSelect2Multiple(pSelect2) {
-    var newOption = new Option("Todos", "all", false, false);
+    var newOption = new Option("Todos", "all", true, false);
     $(pSelect2).append(newOption).trigger('change');
 }
 
 /**
- * José Navarro Acuña.
  * Inserta un parámetro en la URL del navegador. Afecta al state del history. No recarga página.
  * Nota: se realiza un replace del state.
  * @param {any} pParametro parámetro valor llave.
@@ -438,13 +420,18 @@ function InsertarParametroUrl(pParametro, pValor) {
     window.history.replaceState(null, '', url.toString());
 }
 
-
-
-
-
+function RemoverOpcionesSelect2Multiple (pOpcion) {
+    if (pOpcion == 'Todos') {
+        $(".multiple-Select > option").prop("selected", false);
+        $(".multiple-Select").trigger("change");
+    }
+    else {
+        $(".multiple-Select > option[value='all']").prop("selected", false);
+        $(".multiple-Select").trigger("change");
+    }
+}
 
 /**
- * José Navarro Acuña.
  * Obtener el valor de un parámetro de la URL.
  * @param {any} pParametro parámetro del valor a obtener.
  */
@@ -454,7 +441,6 @@ function ObtenerValorParametroUrl (pParametro) {
 }
 
 /**
- * José Navarro Acuña.
  * Permite realizar llamados ajax asincrónicos.
  * @param {any} pURL dirección URL.
  * @param {any} pHttpMethod método Http a ejecutar.
@@ -481,6 +467,34 @@ function execAjaxCall(pURL, pHttpMethod, pParams = null) {
         })
     })
 }
+
+
+
+
+function execAjaxCallArray(pURL, pHttpMethod, pParams = null) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: jsUtilidades.Variables.urlOrigen + pURL,
+            type: pHttpMethod,
+            dataType: "JSON",
+            data: pParams,
+            success: function (obj) {
+                if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
+                    resolve(obj);
+                }
+                else {
+                    reject(obj);
+                }
+            },
+            error: function () {
+                reject()
+            }
+        })
+    })
+}
+
+
+
 
 
 function execAjaxCallFile(pURL, pParams = null) {
@@ -510,7 +524,6 @@ function execAjaxCallFile(pURL, pParams = null) {
 
 
 /**
- * José Navarro Acuña.
  * Permite validar los inputs completados de un formulario.
  * Retorna un objeto con: 
  * - puedeContinuar: booleano que indica si todos los campos estan completos

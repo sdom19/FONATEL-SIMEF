@@ -31,7 +31,7 @@
                 <td>@item.Estado</td>
                 @if (item.IdEstado == (int)Constantes.EstadosRegistro.Activo || item.IdEstado == (int)Constantes.EstadosRegistro.EnProceso)
                 {
-                    <td><button type="button" data-toggle="tooltip" data-placement="top"  onclick="location.href='@Url.Action("Create", "RegistroIndicadorFonatel",new {idSolicitud= item.IdSolicitudString, idFormulario=item.IdFormularioString } )'"  title=@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb class="btn-icon-base btn-edit-form"></button></td>
+                    <td><button type="button" data-toggle="tooltip" data-placement="top"  onclick="location.href='@Url.Action("Create", "RegistroIndicadorFonatel",new {idSolicitud= item.Solicitudid, idFormulario=item.Solicitudid } )'"  title=@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb class="btn-icon-base btn-edit-form"></button></td>
                
                 }
                 else

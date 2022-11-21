@@ -104,7 +104,7 @@
 
                 html = html + "<td scope='row'>" + detalle.NombreCategoria + "</td>";
 
-                html = html + "<td scope='row'>" + detalle.CategoriaAtributoValor + "</td>";
+                html = html + "<td scope='row'>" + detalle.DetalleCategoriaTexto.Etiqueta + "</td>";
 
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " title='Editar' value=" + detalle.id + " class='btn-icon-base btn-edit'></button>" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " title='Eliminar' value=" + detalle.id + " class='btn-icon-base btn-delete'></button></td>";
@@ -318,21 +318,23 @@
         },
 
         "ConsultarDetalleDesagregacionId": function (selected) {
-
-            execAjaxCall("/RelacionCategoria/CargarListaDetalleDesagregacion?selected=" + selected, "GET")
+            $("#loading").fadeIn();
+            let objCategoria = new Object();
+            objCategoria.idCategoria = selected;
+            execAjaxCall("/RelacionCategoria/CargarListaDetalleDesagregacion", "POST", objCategoria = objCategoria)
 
                 .then((obj) => {
 
                     let html = "<option value=''/>";
 
                     for (var i = 0; i < obj.objetoRespuesta.length; i++) {
-                        html = html + "<option value='" + obj.objetoRespuesta[i].toUpperCase() + "'>" + obj.objetoRespuesta[i] + "</option>"
+                        html = html + "<option value='" + obj.objetoRespuesta[i].idCategoriaDetalle + "'>" + obj.objetoRespuesta[i].Etiqueta + "</option>"
                     }
 
                     $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).html(html);
 
                     if (JsRelacion.Variables.esModoEdicion) {
-                        $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val(JsRelacion.Variables.objEditarDetalleAtributo.CategoriaAtributoValor.toUpperCase());
+                        $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val(JsRelacion.Variables.objEditarDetalleAtributo.idCategoriaDetalle);
                         $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).trigger("change");
                         JsRelacion.Variables.esModoEdicion = false;
                     }
@@ -448,7 +450,7 @@
             let RelacionDetalle = new Object();
             RelacionDetalle.id = $(JsRelacion.Controles.id).val();
             RelacionDetalle.idCategoriaAtributo = $(JsRelacion.Controles.ddlCategoriaDetalle).val();
-            RelacionDetalle.CategoriaAtributoValor = $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val();
+            RelacionDetalle.idCategoriaDetalle = $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val();
 
             execAjaxCall("/RelacionCategoria/InsertarDetalleRelacion", "POST", RelacionDetalle)
                 .then((obj) => {
@@ -481,7 +483,7 @@
             RelacionDetalle.idDetalleRelacionCategoria = $(JsRelacion.Controles.detalleid).val();
             RelacionDetalle.id = $(JsRelacion.Controles.id).val();
             RelacionDetalle.idCategoriaAtributo = $(JsRelacion.Controles.ddlCategoriaDetalle).val();
-            RelacionDetalle.CategoriaAtributoValor = $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val();
+            RelacionDetalle.idCategoriaDetalle = $(JsRelacion.Controles.ddlDetalleDesagregacionAtributo).val();
 
             execAjaxCall("/RelacionCategoria/ModificarDetalleRelacion", "POST", RelacionDetalle)
                 .then((obj) => {
@@ -658,9 +660,10 @@
         "CambioEstado": function (idRelacionCategoria) {
 
             $("#loading").fadeIn();
+            let RelacionCategoria = new Object();
+            RelacionCategoria.id = idRelacionCategoria;
 
-
-            execAjaxCall("/RelacionCategoria/CambioEstado", "POST", { idRelacionCategoria: idRelacionCategoria })
+            execAjaxCall("/RelacionCategoria/CambioEstado", "POST", { RelacionCategoria: RelacionCategoria })
 
                 .then((obj) => {
 
@@ -705,7 +708,7 @@
             return ind;
         },
         ConsultarListaCategoria: function () {
-            return execAjaxCall('/CategoriasDesagregacion/ObtenerListaCategorias', 'GET');
+            return execAjaxCall('/CategoriasDesagregacion/ListaCategoriasParaRelacion', 'GET');
         },
     }
 }

@@ -17,31 +17,15 @@ namespace GB.SIMEF.Entities
     [Table("DetalleRelacionCategoria")]
     public partial class DetalleRelacionCategoria
     {
-      
-        public DetalleRelacionCategoria()
-        {
-            RelacionCategoria = new RelacionCategoria();
-        }
+
+
         [Key]
         public int idDetalleRelacionCategoria { get; set; }
         public int IdRelacionCategoria { get; set; }
         public int idCategoriaAtributo { get; set; }
-        public int idCategoriaDetalle { get; set; }
         public bool Estado { get; set; }
 
         #region Variables Fuera del contexto 
-
-        [NotMapped]
-        public virtual DetalleCategoriaTexto  DetalleCategoriaTexto { get; set; }
-
-        [NotMapped]
-        public string NombreCategoria{ get; set; }
-
-        [NotMapped]
-        public string usuario { get; set; }
-
-        [NotMapped]
-        public RelacionCategoria RelacionCategoria { get; set; }
 
         [NotMapped]
         public string id { get; set; }
@@ -49,8 +33,10 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string relacionid { get; set; }
 
+
         [NotMapped]
-        public bool Completo { get; set; }
+        public CategoriasDesagregacion CategoriaAtributo { get; set; }
+
 
         #endregion
 
