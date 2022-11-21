@@ -32,15 +32,6 @@
     },
 
     Metodos: {
-        ManejoDeExcepciones: function (pError) {
-            if (pError?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
-                jsMensajes.Metodos.OkAlertErrorModal(pError.MensajeError).set('onok', function (closeEvent) { });
-            }
-            else {
-                jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-            }
-        },
-
         EliminarFormulaCalculo: function (idFormula) {
             $("#loading").fadeIn();
 
@@ -50,11 +41,9 @@
                         .set('onok', function (closeEvent) {
                             window.location.href = IndexView.Variables.indexViewURL;
                         });
-                }).catch((obj) => {
-                    this.ManejoDeExcepciones(null);
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
+                })
+                .catch((obj) => {  ManejoDeExcepciones(null); })
+                .finally(() => { $("#loading").fadeOut(); });
         },
 
         ActivarFormulaCalculo: function (idFormula) {
@@ -66,11 +55,9 @@
                         .set('onok', function (closeEvent) {
                             window.location.href = IndexView.Variables.indexViewURL;
                         });
-                }).catch((obj) => {
-                    this.ManejoDeExcepciones(null);
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
+                })
+                .catch((obj) => { ManejoDeExcepciones(null); })
+                .finally(() => { $("#loading").fadeOut(); });
         },
 
         DesactivarFormulaCalculo: function (idFormula) {
@@ -82,11 +69,9 @@
                         .set('onok', function (closeEvent) {
                             window.location.href = IndexView.Variables.indexViewURL;
                         });
-                }).catch((obj) => {
-                    this.ManejoDeExcepciones(null);
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
+                })
+                .catch((obj) => { ManejoDeExcepciones(null); })
+                .finally(() => { $("#loading").fadeOut(); });
         },
 
         CargarTablaFormulas: function () {
@@ -95,11 +80,9 @@
             IndexView.Consultas.ObtenerListaFormulas()
                 .then(obj => {
                     this.InsertarDatosTablaFormulas(obj.objetoRespuesta);
-                }).catch(error => {
-                    this.ManejoDeExcepciones(null);
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
+                })
+                .catch(error => { ManejoDeExcepciones(null); })
+                .finally(() => { $("#loading").fadeOut(); });
         },
 
         InsertarDatosTablaFormulas: function (pListado) {
@@ -137,15 +120,15 @@
         },
 
         DesactivarFormula: function (pFormulaCalculo) {
-            return execAjaxCall("/FormulaCalculo/DesactivarFormula", "POST", { formulaCalculo: pFormulaCalculo });
+            return execAjaxCall("/FormulaCalculo/DesactivarFormula", "POST", { pFormulaCalculo: pFormulaCalculo });
         },
 
         ActivarFormula: function (pFormulaCalculo) {
-            return execAjaxCall("/FormulaCalculo/ActivarFormula", "POST", { formulaCalculo: pFormulaCalculo });
+            return execAjaxCall("/FormulaCalculo/ActivarFormula", "POST", { pFormulaCalculo: pFormulaCalculo });
         },
 
         EliminarFormula: function (pFormulaCalculo) {
-            return execAjaxCall("/FormulaCalculo/EliminarFormula", "POST", { formulaCalculo: pFormulaCalculo });
+            return execAjaxCall("/FormulaCalculo/EliminarFormula", "POST", { pFormulaCalculo: pFormulaCalculo });
         }
     },
 
@@ -265,11 +248,13 @@ CreateView = {
             btnGuardar: "#btnGuardarFormulaCalculo",
             btnSiguienteCrear: "#btnSiguienteFormulaCalculo",
 
-            bnEditar: "#btnGuardarEditarFormulaCalculo",
+            btnEditar: "#btnGuardarEditarFormulaCalculo",
             btnSiguienteEditar: "#btnSiguienteEditarFormulaCalculo",
 
             btnClonar: "#btnGuardarClonarFormulaCalculo",
             btnSiguienteClonar: "#btnSiguienteClonarFormulaCalculo",
+
+            btnSiguienteVisualizar: "#btnSiguienteVisualizarFormulaCalculo",
 
             btnCancelar: "#btnCancelarFormula",
         },
@@ -318,6 +303,8 @@ CreateView = {
             Categoría: "2",
             FECHA: "1"
         },
+
+        laFormulaFueClonada: false
     },
 
     Mensajes: {
@@ -350,15 +337,6 @@ CreateView = {
     },
 
     Metodos: {
-        ManejoDeExcepciones: function (pError) {
-            if (pError?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
-                jsMensajes.Metodos.OkAlertErrorModal(pError.MensajeError).set('onok', function (closeEvent) { });
-            }
-            else {
-                jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-            }
-        },
-
         // Formulario crear fórmula
         CargarDatosDependientesDeIndicador: function (pIdIndicador, pCallback = null) { // variables dato y categorias de desagregación
             $("#loading").fadeIn();
@@ -385,9 +363,7 @@ CreateView = {
                         pCallback();
                     }
                 })
-                .catch(error => {
-                    console.log(error);
-                    this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => { $("#loading").fadeOut(); });
         },
 
@@ -396,41 +372,36 @@ CreateView = {
 
             CreateView.Consultas.ConsultarCategoriasDesagregacionDeIndicador(pIdIndicador)
                 .then(data => { this.InsertarDatosEnComboBoxCategorias(data); })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
         },
 
         CargarCategoriasDeFormulaNivelCalculo: function () {
-            let idParemeter = ObtenerValorParametroUrl("id");
-            let indicador = $(CreateView.Controles.formCrearFormula.ddlIndicadorFormulario).val();
+            if ($(CreateView.Controles.formCrearFormula.radioCategoriaDesagregacion).is(':checked')) {
+                let idParemeter = ObtenerValorParametroUrl("id");
+                let indicador = $(CreateView.Controles.formCrearFormula.ddlIndicadorFormulario).val();
 
-            if (idParemeter != null && idParemeter != "" && indicador != null && indicador != "") {
-                let formula = idParemeter;
+                if (idParemeter != null && idParemeter != "" && indicador != null && indicador != "") {
+                    let formula = idParemeter;
 
-                $("#loading").fadeIn();
+                    $("#loading").fadeIn();
 
-                CreateView.Consultas.ConsultarCategoriasDesagregacionDeFormulaNivelCalculo(formula, indicador)
-                    .then(data => {
-                        SeleccionarItemsSelect2Multiple(
-                            CreateView.Controles.formCrearFormula.ddlCategoriaDesagregacion,
-                            data.objetoRespuesta,
-                            "id",
-                            true
-                        );
-
-                        //$(CreateView.Controles.formCrearFormula.ddlCategoriaDesagregacion).trigger({ // trigger a nivel visual
-                        //    type: 'select2:select'
-                        //});
-                    })
-                    .catch(error => {
-                        this.ManejoDeExcepciones(error);
-                        console.log(error);
-                    })
-                    .finally(() => {
-                        $("#loading").fadeOut();
-                    });
+                    CreateView.Consultas.ConsultarCategoriasDesagregacionDeFormulaNivelCalculo(formula, indicador)
+                        .then(data => {
+                            SeleccionarItemsSelect2Multiple(
+                                CreateView.Controles.formCrearFormula.ddlCategoriaDesagregacion,
+                                data.objetoRespuesta,
+                                "id",
+                                true
+                            );
+                        })
+                        .catch(error => { ManejoDeExcepciones(error); })
+                        .finally(() => {
+                            $("#loading").fadeOut();
+                        });
+                }
             }
         },
 
@@ -556,7 +527,7 @@ CreateView = {
                         InsertarParametroUrl("id", data.objetoRespuesta[0].id);
                         $(CreateView.Controles.step2).trigger('click'); // cargar los respectivos datos
                     })
-                    .catch(error => { this.ManejoDeExcepciones(error); })
+                    .catch(error => { ManejoDeExcepciones(error); })
                     .finally(() => { $("#loading").fadeOut(); });
             }
         },
@@ -588,7 +559,7 @@ CreateView = {
                 jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoFormulaCreada)
                     .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
             })
-            .catch(error => { this.ManejoDeExcepciones(error); })
+            .catch(error => { ManejoDeExcepciones(error); })
             .finally(() => {  $("#loading").fadeOut(); });
         },
 
@@ -606,7 +577,7 @@ CreateView = {
                             $(CreateView.Controles.step2).trigger('click'); // cargar los respectivos datos
                         }, 600);
                     })
-                    .catch(error => { this.ManejoDeExcepciones(error); })
+                    .catch(error => { ManejoDeExcepciones(error); })
                     .finally(() => { $("#loading").fadeOut(); });
             }
         },
@@ -636,8 +607,59 @@ CreateView = {
                 jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoFormulaCreada)
                     .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
             })
-            .catch(error => { this.ManejoDeExcepciones(error); })
+            .catch(error => { ManejoDeExcepciones(error); })
             .finally(() => { $("#loading").fadeOut(); });
+        },
+
+        ClonarFormulaCalculo: function () {
+            let validacionFormulario = ValidarFormulario(
+                CreateView.Controles.formCrearFormula.inputs,
+                this.InputExcepcionesFormularioCrearFormula()
+            );
+
+            if (validacionFormulario.puedeContinuar) {
+                $("#loading").fadeIn();
+                CreateView.Consultas.ClonarFormulaCalculo(this.CrearObjFormularioCrearFormula(false))
+                    .then(data => {
+                        CreateView.Variables.laFormulaFueClonada = true;
+                        InsertarParametroUrl("id", data.objetoRespuesta.id); // actualizar el id del URL (previamente se tiene el id del indicador para clonar)
+
+                        $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
+                    })
+                    .catch(error => { ManejoDeExcepciones(error); })
+                    .finally(() => {
+                        $("#loading").fadeOut();
+                    });
+            }
+        },
+
+        ClonarFormulaCalculoGuardadoParcial: function () {
+            let mensaje = "";
+            let validacion = this.VerificarCamposIncompletosFormularioCrearFormula(true);
+
+            if (!validacion.guardadoParcial) { return; }
+
+            if (!validacion.guardadoCompleto) {
+                mensaje = CreateView.Mensajes.existenCamposRequeridos;
+            }
+
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + CreateView.Mensajes.preguntaGuardadoParcial, jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) { resolve(true); })
+                    .set("oncancel", function () {
+                        CreateView.Metodos.VerificarCamposIncompletosFormularioCrearFormula(false);
+                    })
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return CreateView.Consultas.ClonarFormulaCalculo(this.CrearObjFormularioCrearFormula(true));
+                })
+                .then(data => {
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoFormulaCreada)
+                        .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
+                })
+                .catch(error => { ManejoDeExcepciones(error); })
+                .finally(() => { $("#loading").fadeOut(); });
         }
 
         // ---------------
@@ -662,11 +684,15 @@ CreateView = {
 
         EditarFormulaCalculo: function (pFormulaCalculo) {
             return execAjaxCall("/FormulaCalculo/EditarFormulaCalculo", "POST", { pFormulaCalculo });
+        },
+
+        ClonarFormulaCalculo: function (pFormulaCalculo) {
+            return execAjaxCall("/FormulaCalculo/ClonarFormulaCalculo", "POST", { pFormulaCalculo });
         }
     },
 
     Eventos: function () {
-        // Formulario Crear fórmula
+        // Formulario crear fórmula
         // -- Crear fórmula de cálculo
         $(document).on("click", CreateView.Controles.formCrearFormula.btnGuardar, function (e) {
             CreateView.Metodos.CrearFormulaGuardadoParcial();
@@ -682,7 +708,7 @@ CreateView = {
         });
 
         // -- Editar fórmula de cálculo
-        $(document).on("click", CreateView.Controles.formCrearFormula.bnEditar, function (e) {
+        $(document).on("click", CreateView.Controles.formCrearFormula.btnEditar, function (e) {
             CreateView.Metodos.EditarFormulaCalculoGuardadoParcial();
         });
 
@@ -693,9 +719,25 @@ CreateView = {
         });
 
         // -- Clonar fórmula de cálculo
+        $(document).on("click", CreateView.Controles.formCrearFormula.btnClonar, function (e) {
+            CreateView.Metodos.ClonarFormulaCalculoGuardadoParcial();
+        });
 
+        $(document).on("click", CreateView.Controles.formCrearFormula.btnSiguienteClonar, function (e) {
+            if (ObtenerValorParametroUrl("id") != null) {
+                if (CreateView.Variables.laFormulaFueClonada) {
+                    CreateView.Metodos.EditarFormulaCalculo();
+                }
+                else {
+                    CreateView.Metodos.ClonarFormulaCalculo();
+                }
+            }
+        });
 
-
+        // -- Visualizar fórmula de cálculo
+        $(document).on("click", CreateView.Controles.formCrearFormula.btnSiguienteVisualizar, function (e) {
+            $(CreateView.Controles.step2).trigger('click');
+        });
 
         $(CreateView.Controles.formCrearFormula.ddlIndicadorFormulario).on('select2:select', function (event) {
             let idIndicador = $(this).val();
@@ -740,8 +782,9 @@ CreateView = {
                 CreateView.Metodos.EventosEnInputsFormularioCrearFormulaCalculo();
             });
 
-
         // --------------------------------------
+
+        // Formulario agregar fórmula
 
         $(document).on("click", CreateView.Controles.formCrearFormula.btnCancelar, function (e) {
             jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.cancelar)
@@ -981,36 +1024,34 @@ CreateView = {
 
     Init: function () {
         CreateView.Eventos();
+        CreateView.Metodos.CambiarEstadoBtnSiguienteFormCrearFormula(true);
 
         let modo = $(CreateView.Controles.modoFormulario).val();
 
-        CreateView.Metodos.CambiarEstadoBtnSiguienteFormCrearFormula(true);
-
-        //CreateView.Metodos.ValidarFormularioCrear();
-
         if (modo == null) {
-            //$(CreateView.Controles.formCrearFormula.radioCategoriaDesagregacion).prop("checked", false);
+            
         }
         else if (modo == jsUtilidades.Variables.Acciones.Editar) {
             CreateView.Metodos.CargarCategoriasDeFormulaNivelCalculo();
-            console.log("Editing mode");
-            //InsertarOpcionTodosSelect2Multiple(CreateView.Controles.formCrearFormula.ddlCategoriaDesagregacion);
-            //$(CreateView.Controles.formCrearFormula.txtCodigoFormula).prop("disabled", true);
         }
         else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
-            console.log("Clone mode");
-            //$(CreateView.Controles.formCrearFormula.txtCodigoFormula).val("");
-            //$(CreateView.Controles.txtNombreFormula).val("");
+            CreateView.Metodos.CargarCategoriasDeFormulaNivelCalculo();
         }
-        else if (modo == jsUtilidades.Variables.Acciones.Consultar) {
-            console.log("View mode");
-            //$(CreateView.Controles.ControlesStep1).prop("disabled", true);
-            //$(CreateView.Controles.divStep2).prop("disabled", true);
-            //$(CreateView.Controles.formCrearFormula.btnGuardar).prop("disabled", true);
-            //$(CreateView.Controles.btnGuardarGestionFormulaCalculo).prop("disabled", true);
-            //$(CreateView.Controles.btnFinalizarFormulaCalculo).prop("disabled", true);
-            //$(CreateView.Controles.btnCancelarGestionFormulaCalculo).prop("disabled", false);
-            //$(CreateView.Controles.btnAtrasGestionFormula).prop("disabled", false);
+        else if (modo == jsUtilidades.Variables.Acciones.Visualizar) {
+            CreateView.Metodos.CargarCategoriasDeFormulaNivelCalculo();
+            $(CreateView.Controles.ControlesStep1).prop("disabled", true);
+            $(CreateView.Controles.divStep2).prop("disabled", true);
+            $(CreateView.Controles.formCrearFormula.btnGuardar).prop("disabled", true);
+            $(CreateView.Controles.btnGuardarGestionFormulaCalculo).prop("disabled", true);
+            $(CreateView.Controles.btnFinalizarFormulaCalculo).prop("disabled", true);
+            $(CreateView.Controles.btnCancelarGestionFormulaCalculo).prop("disabled", false);
+            $(CreateView.Controles.btnAtrasGestionFormula).prop("disabled", false);
+        }
+
+        if (modo != null) {
+            if ($(CreateView.Controles.formCrearFormula.radioTotal).is(':checked')) {
+                CreateView.Metodos.EventosEnInputsFormularioCrearFormulaCalculo();
+            }
         }
     }
 
