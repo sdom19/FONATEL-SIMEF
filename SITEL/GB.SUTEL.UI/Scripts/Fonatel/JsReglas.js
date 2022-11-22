@@ -708,6 +708,7 @@
                         .set('onok', function (closeEvent) {
 
                             JsReglas.Metodos.LimpiarCamposDetalles();
+                            $(JsReglas.Controles.ddlTipoRegla).prop("disabled", false);
                             if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
                                 JsReglas.Consultas.ConsultaListaDetalleReglas();
                             }
@@ -893,18 +894,26 @@
 
             $("#loading").fadeIn();
 
-            execAjaxCall("/ReglasValidacion/ObtenerListaDetallesCategoria", "GET", { idCategoria })
-                .then((obj) => {
 
-                    let html = "<option value=''/>";
-                    for (var i = 0; i < obj.objetoRespuesta.length; i++) {
-                        html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].Etiqueta + "</option>"
+            let RelacionCategoria = new Object();
+            RelacionCategoria.idCategoria = idCategoria;
+
+            execAjaxCall("/ReglasValidacion/ObtenerListaDetallesCategoria", "POST", RelacionCategoria)
+                .then((obj) => {
+                    let respuestaRelacion = obj.objetoRespuesta[0].DetalleRelacionCategoria;
+
+                    let html = "<option value='all'>Todos</option>";
+                    for (var i = 0; i < respuestaRelacion.length; i++) {
+                        html = html + "<option value=" + respuestaRelacion[i].CategoriaAtributo.idCategoria + ">" + respuestaRelacion[i].CategoriaAtributo.Codigo + " / " + respuestaRelacion[i].CategoriaAtributo.NombreCategoria + "</option>"
                     }
 
                     $(JsReglas.Controles.ddlAtributosValidosRegla).html(html);
 
                     if (JsReglas.Variables.esModoEdicion) {
-                        $(JsReglas.Controles.ddlAtributosValidosRegla).val(JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.idAtributoString).change();
+
+                        let listaAtributos = JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.idAtributoString.split(',');
+
+                        $(JsReglas.Controles.ddlAtributosValidosRegla).val(listaAtributos).change();
                     }
 
                 }).catch((obj) => {
@@ -1054,6 +1063,7 @@
                 .then((obj) => {
                     new Promise((resolve) => {
                         JsReglas.Variables.esModoEdicion = false;
+                        $(JsReglas.Controles.ddlTipoRegla).prop("disabled", false);
                         jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleEditado)
                             .set('onok', function () {
                                 resolve(true)
@@ -1265,9 +1275,12 @@ $(document).on("click", JsReglas.Controles.btnEliminaTipoRegla, function (e) {
 
 $(document).on("click", JsReglas.Controles.btnEditTipoRegla, function (e) {
 
+    $(JsReglas.Controles.ddlTipoRegla).prop("disabled", true);
+
     let id = $(this).attr("data-index");
 
     JsReglas.Metodos.CargarDetallesRegla(id);
+
 
 });
 

@@ -278,10 +278,15 @@ namespace GB.SIMEF.BL
 
                     foreach (var item in listaAtributos)
                     {
-                        objeto.reglaAtributosValidos.idAtributoString = item;
-                        DesencriptarReglaAtributosValidos(objeto);
-                        objeto.reglaAtributosValidos.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
-                        clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
+                        if (item!= "all")
+                        {
+                            objeto.reglaAtributosValidos.idAtributoString = item;                            objeto.reglaAtributosValidos.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
+
+                            objeto.reglaAtributosValidos.IdCategoriaAtributo = Convert.ToInt32(item);
+
+                            clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
+                        }
+            
                     }
 
 
@@ -365,15 +370,15 @@ namespace GB.SIMEF.BL
 
         }
 
-        private void DesencriptarReglaAtributosValidos(DetalleReglaValidacion objeto)
-        {
-            if (!string.IsNullOrEmpty(objeto.reglaAtributosValidos.idAtributoString))
-            {
-                int.TryParse(Utilidades.Desencriptar(objeto.reglaAtributosValidos.idAtributoString), out int temp);
-                objeto.reglaAtributosValidos.IdCategoriaAtributo = temp;
-            }
+        //private void DesencriptarReglaAtributosValidos(DetalleReglaValidacion objeto)
+        //{
+        //    if (!string.IsNullOrEmpty(objeto.reglaAtributosValidos.idAtributoString))
+        //    {
+        //        int.TryParse(Utilidades.Desencriptar(objeto.reglaAtributosValidos.idAtributoString), out int temp);
+        //        objeto.reglaAtributosValidos.IdCategoriaAtributo = temp;
+        //    }
 
-        }
+        //}
 
     }
 }

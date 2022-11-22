@@ -152,13 +152,13 @@ namespace GB.SIMEF.DAL
         private ReglaAtributosValidos ObtenerReglaAtributosValidos(int id)
         {
             ReglaAtributosValidos regla =
-                db.ReglaAtributosValidos.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
-            if (regla != null)
-            {
-                regla.idAtributoString = Utilidades.Encriptar(regla.IdCategoriaAtributo.ToString());
-            }
+                db.Database.SqlQuery<ReglaAtributosValidos>
+                ("exec spObtenerReglasAtributosValidos @IdDetalleReglaValidacion",
+                   new SqlParameter("@IdDetalleReglaValidacion", id)
+                ).FirstOrDefault();
             return regla;
         }
+
 
         private ReglaComparacionConstante ObtenerReglaContraConstante(int id)
         {
