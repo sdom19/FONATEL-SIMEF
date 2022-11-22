@@ -161,6 +161,7 @@
         },
 
         "CargarTablaDetalleReglas": function () {
+
             EliminarDatasource();
             let html = "";
             for (var i = 0; i < JsReglas.Variables.ListaDetalleReglas.length; i++) {

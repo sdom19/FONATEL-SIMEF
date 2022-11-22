@@ -13,21 +13,6 @@ namespace GB.SIMEF.DAL
     {
         private SIMEFContext db;
         
-        /// <summary>
-        /// Función que retorna todos las frecuencias de envio registradas en estado activo.
-        /// Se puede filtrar por el ID del objecto
-        /// </summary>
-        /// <returns></returns>
-        public List<ReglaIndicadorSalida> ObtenerDatos(ReglaIndicadorSalida pReglaIndicadorSalida)
-        {
-            List<ReglaIndicadorSalida> ListaReglaIndicadorSalida = new List<ReglaIndicadorSalida>();
-            ListaReglaIndicadorSalida = db.Database.SqlQuery<ReglaIndicadorSalida>
-                ("execute spObtenerFrecuenciasEnvio @idFrecuencia",
-                new SqlParameter("@idFrecuencia", 1)
-                ).ToList();
-            return ListaReglaIndicadorSalida;
-
-        }
 
         public List<ReglaIndicadorSalida> ActualizarDatos(ReglaIndicadorSalida pReglaIndicadorSalida)
         {
