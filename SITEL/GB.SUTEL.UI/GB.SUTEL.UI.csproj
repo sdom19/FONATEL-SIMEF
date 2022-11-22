@@ -597,6 +597,7 @@
     <Content Include="Content\Fonatel\Spinner.css" />
     <Content Include="Content\Fonatel\StepComponent.css" />
     <Content Include="Content\Fonatel\fonts\SourceSansPro\SourceSansPro.css" />
+    <Content Include="Content\Fonatel\Views\FormulaCalculo.css" />
     <Content Include="Content\Images\back_disabled.png" />
     <Content Include="Content\Images\back_enabled.png" />
     <Content Include="Content\Images\back_enabled_hover.png" />
