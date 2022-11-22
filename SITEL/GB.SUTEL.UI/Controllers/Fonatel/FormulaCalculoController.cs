@@ -483,8 +483,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.Acumulaciones = Enumerable.Empty<SelectListItem>();
 
             ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { }).objetoRespuesta;
-            ViewBag.IndicadorSalida = indicadorFonatelBL.ObtenerDatos(new Indicador() { IdClasificacion = (int)ClasificacionIndicadorEnum.Salida })
-                .objetoRespuesta.Select(x => new Indicador()
+            ViewBag.IndicadorSalida = indicadorFonatelBL.ObtenerDatos(new Indicador() { }).objetoRespuesta
+                .Where(y => y.IdClasificacion == (int)ClasificacionIndicadorEnum.Salida || y.IdClasificacion == (int)ClasificacionIndicadorEnum.EntradaSalida)
+                .Select(x => new Indicador()
                 {
                     id = x.id,
                     Nombre = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre)
