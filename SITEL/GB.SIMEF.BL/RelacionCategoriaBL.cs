@@ -333,28 +333,35 @@ namespace GB.SIMEF.BL
         /// <returns></returns>
         public RespuestaConsulta<List<RelacionCategoria>> CambiarEstado(RelacionCategoria objeto)
         {
-            RelacionCategoria objrelacion = objeto;
+            
 
             try
             {
+                RelacionCategoria objrelacion = new RelacionCategoria();
+                    
+                    
+               
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Activar;
+                ResultadoConsulta.Accion = objeto.idEstado==(int)EstadosRegistro.Activo?(int)Accion.Activar:(int)Accion.Inactiva;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioModificacion = user;
-                //DESENCRIPTAR EL ID
+
+                
+
                 if (!string.IsNullOrEmpty(objrelacion.id))
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objrelacion.id), out temp);
                     objrelacion.IdRelacionCategoria = temp;
                 }
-                objrelacion.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                objrelacion = clsDatos.ObtenerDatos(objrelacion).Single();
+                objrelacion.idEstado = objrelacion.idEstado;
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objrelacion);
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
 
-                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                 ResultadoConsulta.Usuario,
-                      ResultadoConsulta.Clase, objeto.Codigo);
+                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                // ResultadoConsulta.Usuario,
+                //      ResultadoConsulta.Clase, objeto.Codigo);
 
             }
             catch (Exception ex)
@@ -551,38 +558,53 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
                 RelacionCategoriaId relacionId = new RelacionCategoriaId();
-                relacionId.OpcionEliminar = true;
+               
                 using (var package = new ExcelPackage(file.InputStream))
                 {
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[1]; //POSICION DEL CODIGO y NOMBRE
                     string Codigo = worksheet.Name; //POSICION DEL CODIGO
 
                     RelacionCategoria relacion = clsDatos.ObtenerDatos(new RelacionCategoria() { Codigo = Codigo }).SingleOrDefault();
-
-                    string columnaValor = string.Empty;
-                    string valorId = string.Empty;
-
-                    for (int columna = 2; columna < relacion.DetalleRelacionCategoria.Count(); columna++)
+                    int columna = 2;
+                    relacionId.OpcionEliminar = true;
+                    relacion.CantidadFilas=relacion.CantidadFilas ++;
+                    for (int fila = 2; fila <= relacion.CantidadFilas; fila++)
                     {
-                        columnaValor= worksheet.Cells[1, columna].Value.ToString().Trim();
-                        DetalleRelacionCategoria detalleRelacion = relacion.DetalleRelacionCategoria.Where(x => x.CategoriaAtributo.NombreCategoria.Trim().ToUpper() == columnaValor).FirstOrDefault();
-
-                        for (int fila = 2; fila < relacion.CantidadFilas; fila++)
+                       
+                        if (worksheet.Cells[fila, 1].Value == null)
                         {
-                            valorId = worksheet.Cells[columna, 1].Value.ToString().Trim();
-                           
-                            if (worksheet.Cells[fila, columna].Value == null)
+                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                            throw new Exception("El archivo no cuenta con el total de filas configuradas, en total se ingresaron " + (fila - 2) + " filas");
+                        }
+                        string valorId = worksheet.Cells[fila, 1].Value.ToString().Trim();
+                        for (int temp= 2; temp<relacion.DetalleRelacionCategoria.Count()+2; temp++)
+                        {
+                            columna = temp;
+                         
+                            string ValorColumna= worksheet.Cells[1,columna].Value.ToString().Trim().ToUpper();
+
+                            string celdaValor = worksheet.Cells[fila, columna].Value.ToString().Trim().ToUpper();
+
+
+                            DetalleRelacionCategoria detalleRelacionCategoria = relacion.DetalleRelacionCategoria.Where(p=>p.CategoriaAtributo.NombreCategoria
+                            .Trim().ToUpper() ==ValorColumna ).FirstOrDefault();
+                            if (detalleRelacionCategoria==null)
                             {
                                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                                throw new Exception("El archivo no cuenta con el total de filas configuradas, en total se ingresaron "+(fila-2)+" filas");
+                                throw new Exception("Error en la lectura de la columna "+ValorColumna);
                             }
-                            string celdaValor = worksheet.Cells[fila, columna].Value.ToString().Trim();
 
 
-                            DetalleCategoriaTexto detalleCategoriaTexto = detalleRelacion.CategoriaAtributo.DetalleCategoriaTexto.Where(x => x.Etiqueta.Trim().ToUpper() == celdaValor).Single();
+                            DetalleCategoriaTexto detalleCategoriaTexto = detalleRelacionCategoria.CategoriaAtributo
+                                .DetalleCategoriaTexto.Where(p => p.Etiqueta.Trim().ToUpper() == celdaValor).FirstOrDefault();
 
+                            if(detalleRelacionCategoria==null)
+                            {
+                                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                                throw new Exception("Error en la lectura de la columna " + (fila-1));
+                            }
 
-                            if (fila==2)
+                            if (temp==2)
                             {
                                 relacionId.idRelacion = relacion.IdRelacionCategoria;
                                 relacionId.idCategoriaId = valorId;
@@ -603,11 +625,14 @@ namespace GB.SIMEF.BL
                             ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(relacionCategoriaAtributo);
 
 
-                            if (relacion.CantidadFilas==fila-1)
-                            {
-                                relacion.idEstado = (int)EstadosRegistro.Activo;
-                                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacion);
-                            }
+                           
+                        }
+
+
+                        if (relacion.CantidadFilas == fila)
+                        {
+                            relacion.idEstado = (int)EstadosRegistro.Activo;
+                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacion);
                         }
                     }
                 }

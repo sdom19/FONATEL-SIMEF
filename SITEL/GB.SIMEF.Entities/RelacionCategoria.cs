@@ -20,7 +20,7 @@ namespace GB.SIMEF.Entities
         public RelacionCategoria()
         {
             this.DetalleRelacionCategoria = new List<DetalleRelacionCategoria>();
-            this.RelacionCategoriaId = new RelacionCategoriaId();
+            this.RelacionCategoriaId = new List<RelacionCategoriaId> ();
         }
 
         [Key]
@@ -57,14 +57,11 @@ namespace GB.SIMEF.Entities
         public string id { get; set; }
 
         [NotMapped]
-        public string relacionid { get; set; }
-
-        [NotMapped]
         public string  detalleid { get; set; }
 
         [NotMapped]
 
-        public RelacionCategoriaId RelacionCategoriaId { get; set; }
+        public List<RelacionCategoriaId> RelacionCategoriaId { get; set; }
 
         [NotMapped]
 

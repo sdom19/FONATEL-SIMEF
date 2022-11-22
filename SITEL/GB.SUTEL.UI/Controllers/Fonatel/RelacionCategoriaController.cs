@@ -62,32 +62,36 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Create(string id)
         {
-            List<CategoriasDesagregacion> listaCategorias = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
+            RelacionCategoria model = new RelacionCategoria();
+            List <CategoriasDesagregacion> listaCategorias = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
             {
                 idEstado = (int)Constantes.EstadosRegistro.Activo
             }).objetoRespuesta;
 
+            List<RelacionCategoria> listaRelaciones = relacionCategoriaBL
+                  .ObtenerDatos(new RelacionCategoria()).objetoRespuesta.ToList();
 
-            ViewBag.ListaCatergoriaIdUnico = listaCategorias.Where( p=>p.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.IdUnico)
-                .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
 
             ViewBag.ListaCategoriaAtributo =listaCategorias.Where(p=>p.IdTipoCategoria==(int)Constantes.TipoCategoriaEnum.Atributo && p.CantidadDetalleDesagregacion>0)
                 .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
 
+            listaCategorias= listaCategorias.Where(p => !listaRelaciones.Any(p2 => p2.CategoriasDesagregacionid.idCategoria==p.idCategoria)).ToList();
             if (string.IsNullOrEmpty(id))
             {
-
                 ViewBag.titulo = EtiquetasViewRelacionCategoria.CrearRelacion;
-                return View(new RelacionCategoria());
             }
             else
             {
                 ViewBag.titulo = EtiquetasViewRelacionCategoria.EditarRelacion;
-
-                RelacionCategoria model = relacionCategoriaBL
-                    .ObtenerDatos(new RelacionCategoria() { id = id }).objetoRespuesta.Single();
-                return View(model);
+                model = listaRelaciones.Where(p=>p.id == id ).Single();
+                listaCategorias.Add(model.CategoriasDesagregacionid);
             }
+
+            ViewBag.ListaCatergoriaIdUnico = listaCategorias.Where(p => p.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.IdUnico)
+
+                    .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
+
+            return View(model);
         }
 
 
@@ -211,19 +215,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idRelacionCategoria></param>
         /// <returns>JSON</returns>
         [HttpPost]
-        public async Task<string> EliminarRelacionCategoria(string idRelacionCategoria)
+        public async Task<string> EliminarRelacionCategoria(RelacionCategoria relacionCategoria)
         {
 
             RespuestaConsulta<List<RelacionCategoria>> result = null;
 
             await Task.Run(() =>
             {
-                result = relacionCategoriaBL.EliminarElemento(new RelacionCategoria()
-                {
-
-                    id = idRelacionCategoria,
-
-                });
+                result = relacionCategoriaBL.EliminarElemento(relacionCategoria);
 
             });
             return JsonConvert.SerializeObject(result);
@@ -363,6 +362,28 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #endregion
 
+
+        #region ASYN DetalleRelacionID
+
+
+        [HttpPost]
+        public async Task<string> EliminrRegistroRelacionId(RelacionCategoriaId relacionId)
+        {
+
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
+
+            await Task.Run(() =>
+            {
+                return relacionCategoriaBL.CambiarEstado(new RelacionCategoria() {id=relacionId.RelacionId, idEstado=(int)EstadosRegistro.EnProceso });
+            }).ContinueWith(data =>{ 
+            
+          
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+
+        #endregion
 
     }
 }

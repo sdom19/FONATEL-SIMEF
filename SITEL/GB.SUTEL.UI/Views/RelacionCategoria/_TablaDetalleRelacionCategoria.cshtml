@@ -3,22 +3,36 @@
 
 <div class="table-responsive  table-wrapper-fonatel">
 
-        <table id="TablaDetalleRelacionCategoria" class=" dataTable datatable_simef  table-bordered table-condensed table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">@Model.CategoriasDesagregacionid.NombreCategoria</th>
-                    @foreach (var item in Model.DetalleRelacionCategoria)
-                    {
-                        <th scope="col">@item.CategoriaAtributo.NombreCategoria</th>
-                    }
-                    <th scope="col">@EtiquetasViewRelacionCategoria.Acciones</th>
-                </tr>
-            </thead>
+    <table id="TablaDetalleRelacionCategoria" class=" dataTable datatable_simef  table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">@Model.CategoriasDesagregacionid.NombreCategoria</th>
+                @foreach (var item in Model.DetalleRelacionCategoria.OrderBy(x=>x.idCategoriaAtributo))
+                {
+                    <th scope="col">@item.CategoriaAtributo.NombreCategoria</th>
+                }
+                <th scope="col">@EtiquetasViewRelacionCategoria.Acciones</th>
+            </tr>
+        </thead>
 
-            <tbody>
-            </tbody>
+        <tbody>
+            @foreach (var item in Model.RelacionCategoriaId)
+            {
+            <tr>
+                <td>@item.idCategoriaId</td>
+                @foreach (var item2 in item.listaCategoriaAtributo.OrderBy(x=>x.IdcategoriaAtributo))
+                {
+                    <td>@item2.Etiqueta</td>
+                }
+                <td><button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value='@item.idCategoriaId' class='btn-icon-base btn-delete'></button></td>
+            </tr>
 
-        </table>
+           
+   
+            }
+        </tbody>
+
+     </table>
    
 
 </div>

@@ -53,10 +53,53 @@ namespace GB.SIMEF.DAL
         }
 
 
-        private List<RelacionCategoriaId> ObtenerCategoriaAtributos()
+        private List<RelacionCategoriaId> ObtenerCategoriaid(int idRelacion)
         {
-            return null;
+            List<RelacionCategoriaId> lista = new List<RelacionCategoriaId>();
+
+            using (db=new SIMEFContext())
+            {
+                lista= db.RelacionCategoriaId.Where(x => x.idRelacion == idRelacion).ToList();
+
+            }
+            lista = lista.Select(x => new RelacionCategoriaId()
+            {
+               idRelacion = x.idRelacion,
+               idCategoriaId = x.idCategoriaId,
+               listaCategoriaAtributo = ObtenerCategoriaAtributo( x.idRelacion, x.idCategoriaId).ToList()
+
+            }).ToList();
+
+            return lista;
+            
         }
+
+
+        private List<RelacionCategoriaAtributo> ObtenerCategoriaAtributo(int idRelacion, string IdCategoriaId)
+        {
+            List<RelacionCategoriaAtributo> lista = new List<RelacionCategoriaAtributo>();
+
+            using (db = new SIMEFContext())
+            {
+                lista = db.RelacionCategoriaAtributo.Where(x => x.idRelacion == idRelacion && x.IdCategoriaId==IdCategoriaId).ToList();
+
+
+                lista = lista.Select(x => new RelacionCategoriaAtributo()
+                {
+                    idRelacion = x.idRelacion,
+                    IdcategoriaAtributo=x.IdcategoriaAtributo,
+                    IdcategoriaAtributoDetalle=x.IdcategoriaAtributoDetalle,
+                    IdCategoriaId=x.IdCategoriaId,
+                    Etiqueta=db.DetalleCategoriaTexto
+                        .Where(p=>p.idCategoria==x.IdcategoriaAtributo && p.idCategoriaDetalle==x.IdcategoriaAtributoDetalle).FirstOrDefault().Etiqueta
+                }).ToList();
+            }
+            return lista;
+
+        }
+
+
+
 
         private List<RelacionCategoria> CrearListadoRelacion(List<RelacionCategoria> ListaRelacionCategoria)
         {
@@ -76,7 +119,7 @@ namespace GB.SIMEF.DAL
                 id = Utilidades.Encriptar(X.IdRelacionCategoria.ToString()),
                 CategoriasDesagregacionid = ObtenerCategoria(X.idCategoria),
                 DetalleRelacionCategoria = ObtenerDatosDetalleRelacionCategoria(new DetalleRelacionCategoria() { IdRelacionCategoria = X.IdRelacionCategoria }),
-                //RelacionCategoriaId = db.RelacionCategoriaId.Where(p => p.idRelacion == X.IdRelacionCategoria).FirstOrDefault(),
+                RelacionCategoriaId = ObtenerCategoriaid(X.IdRelacionCategoria),
                 EstadoRegistro = ObtenerEstadoRegistro(X.idEstado)
             }).ToList();
         }

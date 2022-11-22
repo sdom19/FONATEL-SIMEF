@@ -25,5 +25,9 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public List<RelacionCategoriaAtributo> listaCategoriaAtributo { get; set; }
 
+
+        [NotMapped]
+        public string RelacionId { get; set; }
+
     }
 }

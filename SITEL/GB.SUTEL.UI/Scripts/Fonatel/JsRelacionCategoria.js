@@ -296,13 +296,11 @@
             $("#loading").fadeIn();
 
 
-            $("#loading").fadeIn();
-            let DetalleRelacionCategoria = new Object();
-            DetalleRelacionCategoria.relacionid = ObtenerValorParametroUrl("id");
-            DetalleRelacionCategoria.idCategoriaAtributo = idRelacionCategoria
+            let relacionCategoria = new Object();
+            relacionCategoria.id = idRelacionCategoria
 
 
-            execAjaxCall("/RelacionCategoria/EliminarRelacionCategoria", "POST", DetalleRelacionCategoria)
+            execAjaxCall("/RelacionCategoria/EliminarRelacionCategoria", "POST", relacionCategoria)
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
                     JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
@@ -408,7 +406,7 @@
             execAjaxCallFile("/RelacionCategoria/CargarExcel", data)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
-                        .set('onok', function (closeEvent) { });
+                        .set('onok', function (closeEvent) { location.reload() });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -427,16 +425,11 @@
 
             $("#loading").fadeIn();
             let relacion = new Object()
-
             relacion.id = idRelacionCategoria;
-
             execAjaxCall("/RelacionCategoria/ValidarRelacion", "POST", relacion)
                 .then((obj) => {
-
                     if (obj.objetoRespuesta.length == 0) {
-
                         JsRelacion.Consultas.EliminarRelacionCategoria(idRelacionCategoria);
-
                     }
                     else {
 

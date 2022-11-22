@@ -26,5 +26,9 @@ namespace GB.SIMEF.Entities
         public int IdcategoriaAtributo { get; set; }
         [Key, Column(Order = 3)]
         public int IdcategoriaAtributoDetalle { get; set; }
+
+
+        [NotMapped]
+        public string Etiqueta { get; set; }
     }
 }
