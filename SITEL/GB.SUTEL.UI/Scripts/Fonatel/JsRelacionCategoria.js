@@ -31,7 +31,9 @@
         "DetalleDesagregacionAtributoHelp": "#DetalleDesagregacionAtributoHelp",
         "TableCategoriaAtributo": "#TableCategoriaAtributo tbody",
         "TableCategoriaAtributoEliminar": "#TableCategoriaAtributo tbody tr td .btn-delete",
-           "btnAgregarRelacion": "#TablaRelacionCategoria tbody tr td .btn-add",
+        "btnAgregarRelacion": "#TablaRelacionCategoria tbody tr td .btn-add",
+        "btnCargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-upload",
+        "inputFileCargarDetalle": "#inputFileCargarDetalle"
     },
 
     "Variables": {
@@ -399,46 +401,26 @@
         //EVENTO PARA DESCARGAR EXCEL
     
 
-
-        "CargarDetalleDesagregacion": function (index) {
-            if (JsRelacion.Variables.ListadoDetalleRelaciones.length > index) {
-                JsRelacion.Variables.esModoEdicion = true;
-                JsRelacion.Consultas.DetalleCompletos();
-                JsRelacion.Variables.objEditarDetalleAtributo = JsRelacion.Variables.ListadoDetalleRelaciones[index];
-                $(JsRelacion.Controles.ddlCategoriaDetalle).val(JsRelacion.Variables.objEditarDetalleAtributo.idCategoriaAtributo);
-                $(JsRelacion.Controles.ddlCategoriaDetalle).trigger("change");
-
-                $(JsRelacion.Controles.detalleid).val(JsRelacion.Variables.objEditarDetalleAtributo.idDetalleRelacionCategoria);
-            }
-        },
-
         "ImportarExcel": function () {
             var data;
             data = new FormData();
             data.append('file', $(JsRelacion.Controles.inputFileCargarDetalle)[0].files[0]);
-            $.ajax({
-                url: jsUtilidades.Variables.urlOrigen + '/RelacionCategoria/CargarExcel',
-                type: 'post',
-                datatype: 'json',
-                contentType: false,
-                processData: false,
-                async: false,
-                data: data,
-                beforeSend: function () {
-                    $("#loading").fadeIn();
-                },
-                success: function (obj) {
+            execAjaxCallFile("/RelacionCategoria/CargarExcel", data)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
+                        .set('onok', function (closeEvent) { });
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { });
+                    }
+                }).finally(() => {
                     $("#loading").fadeOut();
-                    jsMensajes.Metodos.OkAlertModal("Los Detalles han sido cargados")
-                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
-
-                }
-            }).fail(function (obj) {
-                jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Detalles")
-                    .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
-
-            })
+                });
         },
 
         "ValidarExistenciaRelacion": function (idRelacionCategoria) {
@@ -489,39 +471,6 @@
                 });
         },
 
-        "CambioEstado": function (idRelacionCategoria) {
-
-            $("#loading").fadeIn();
-            let RelacionCategoria = new Object();
-            RelacionCategoria.id = idRelacionCategoria;
-
-            execAjaxCall("/RelacionCategoria/CambioEstado", "POST", { RelacionCategoria: RelacionCategoria })
-
-                .then((obj) => {
-
-                    jsMensajes.Metodos.OkAlertModal("La Relacion ha sido creada")
-                        .set('onok', function (closeEvent) {
-
-                            window.location.href = "/Fonatel/RelacionCategoria/Index";
-
-                        });
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) {
-
-                            });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) {
-
-                            });
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-        },
 
     }
 }
@@ -601,6 +550,16 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
         }
     }
 
+});
+
+
+$(document).on("click", JsRelacion.Controles.btnCargarDetalle, function (e) {
+
+    $(JsRelacion.Controles.inputFileCargarDetalle).click();
+});
+
+$(document).on("change", JsRelacion.Controles.inputFileCargarDetalle, function (e) {
+    JsRelacion.Consultas.ImportarExcel();
 });
 
 $(document).on("click", JsRelacion.Controles.btnAtrasRelacionCategorias, function (e) {

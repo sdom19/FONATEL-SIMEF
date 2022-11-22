@@ -47,7 +47,20 @@ namespace GB.SIMEF.DAL
                 new SqlParameter("@idEstado", objRelacionCategoria.idEstado)
                 ).ToList();
             }
-            ListaRelacionCategoria = ListaRelacionCategoria.Select(X => new RelacionCategoria
+            ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
+
+            return ListaRelacionCategoria;
+        }
+
+
+        private List<RelacionCategoriaId> ObtenerCategoriaAtributos()
+        {
+            return null;
+        }
+
+        private List<RelacionCategoria> CrearListadoRelacion(List<RelacionCategoria> ListaRelacionCategoria)
+        {
+            return ListaRelacionCategoria.Select(X => new RelacionCategoria
             {
                 IdRelacionCategoria = X.IdRelacionCategoria,
                 Codigo = X.Codigo,
@@ -66,9 +79,35 @@ namespace GB.SIMEF.DAL
                 //RelacionCategoriaId = db.RelacionCategoriaId.Where(p => p.idRelacion == X.IdRelacionCategoria).FirstOrDefault(),
                 EstadoRegistro = ObtenerEstadoRegistro(X.idEstado)
             }).ToList();
+        }
+
+
+
+        public List<RelacionCategoria> InsertarRelacionCategoriaId(RelacionCategoria objRelacionCategoria)
+        {
+            List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
+
+            using (db = new SIMEFContext())
+            {
+                ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
+                ("execute spObtenerRelacionCategorias @idRelacionCategoria,@codigo,@idCategoria,@idEstado",
+                new SqlParameter("@idRelacionCategoria", objRelacionCategoria.IdRelacionCategoria),
+                new SqlParameter("@codigo", string.IsNullOrEmpty(objRelacionCategoria.Codigo) ? DBNull.Value.ToString() : objRelacionCategoria.Codigo),
+                new SqlParameter("@idCategoria", objRelacionCategoria.idCategoria),
+                new SqlParameter("@idEstado", objRelacionCategoria.idEstado)
+                ).ToList();
+            }
+            ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
 
             return ListaRelacionCategoria;
         }
+
+
+
+
+
+
+
 
 
         private EstadoRegistro ObtenerEstadoRegistro(int idEstado)
@@ -106,25 +145,7 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@CantidadFilas", objeto.CantidadFilas)
                     ).ToList();
             }
-            ListaRelacionCategoria = ListaRelacionCategoria.Select(X => new RelacionCategoria
-            {
-                IdRelacionCategoria = X.IdRelacionCategoria,
-                Codigo = X.Codigo,
-                Nombre = X.Nombre,
-                CantidadCategoria = X.CantidadCategoria,
-                idCategoria = X.idCategoria,
-                FechaCreacion = X.FechaCreacion,
-                FechaModificacion = X.FechaModificacion,
-                UsuarioCreacion = X.UsuarioCreacion,
-                UsuarioModificacion = X.UsuarioModificacion,
-                idEstado = X.idEstado,
-                CantidadFilas = X.CantidadFilas,
-                id = Utilidades.Encriptar(X.IdRelacionCategoria.ToString()),
-                DetalleRelacionCategoria = ObtenerDatosDetalleRelacionCategoria(new DetalleRelacionCategoria() { IdRelacionCategoria = X.IdRelacionCategoria }),
-                CategoriasDesagregacionid = ObtenerCategoria(X.idCategoria),
-                //RelacionCategoriaId = db.RelacionCategoriaId.Where(p => p.idRelacion == X.IdRelacionCategoria).FirstOrDefault(),
-                EstadoRegistro = ObtenerEstadoRegistro(X.idEstado)
-            }).ToList();
+            ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
 
             return ListaRelacionCategoria;
         }
@@ -176,26 +197,8 @@ namespace GB.SIMEF.DAL
                       new SqlParameter("@Estado", objDetalle.Estado)
                     ).ToList();
             }
-            ListaRelacionCategoria = ListaRelacionCategoria.Select(X => new RelacionCategoria
-            {
-                IdRelacionCategoria = X.IdRelacionCategoria,
-                Codigo = X.Codigo,
-                Nombre = X.Nombre,
-                CantidadCategoria = X.CantidadCategoria,
-                idCategoria = X.idCategoria,
-                FechaCreacion = X.FechaCreacion,
-                FechaModificacion = X.FechaModificacion,
-                UsuarioCreacion = X.UsuarioCreacion,
-                UsuarioModificacion = X.UsuarioModificacion,
-                idEstado = X.idEstado,
-                CantidadFilas = X.CantidadFilas,
-                id = Utilidades.Encriptar(X.IdRelacionCategoria.ToString()),
-                DetalleRelacionCategoria = ObtenerDatosDetalleRelacionCategoria(new DetalleRelacionCategoria() { IdRelacionCategoria = X.IdRelacionCategoria }),
-                CategoriasDesagregacionid = ObtenerCategoria(X.idCategoria),
-                    //RelacionCategoriaId = db.RelacionCategoriaId.Where(p => p.idRelacion == X.IdRelacionCategoria).FirstOrDefault(),
-                    EstadoRegistro = ObtenerEstadoRegistro(X.idEstado)
-            }).ToList();
-                return ListaRelacionCategoria;
+            ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
+            return ListaRelacionCategoria;
             
         }
 
@@ -209,9 +212,7 @@ namespace GB.SIMEF.DAL
             {
 
                 return listaCategorias.Where(p => p.idCategoria == idCategoria).SingleOrDefault();
-            }
-           
-          
+            }     
         }
 
         public List<DetalleRelacionCategoria> ObtenerDatosDetalleRelacionCategoria(DetalleRelacionCategoria objDetalle)
@@ -240,6 +241,54 @@ namespace GB.SIMEF.DAL
                 id = Utilidades.Encriptar(x.idDetalleRelacionCategoria.ToString()),
             }).ToList();
             return ListaDetalle;
+        }
+
+
+        #endregion
+
+
+
+
+        #region Metodos relaión categoría id
+
+        public List<RelacionCategoria> ActualizarRelacionCategoriaid(RelacionCategoriaId objeto)
+        {
+            List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
+            using (db = new SIMEFContext())
+            {
+                ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
+                ("execute spActualizarRelacionCategoriaId @IdRelacion,@IdCategoriaId,@OpcionEliminar   ",
+                     new SqlParameter("@IdRelacion", objeto.idRelacion),
+                     new SqlParameter("@IdCategoriaId", objeto.idCategoriaId),
+                      new SqlParameter("@OpcionEliminar", objeto.OpcionEliminar==true?1:0)
+                    ).ToList();
+            }
+            ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
+
+            return ListaRelacionCategoria;
+        }
+
+
+       
+
+
+        public List<RelacionCategoria> ActualizarRelacionAtributo(RelacionCategoriaAtributo objeto)
+        {
+            List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
+            using (db = new SIMEFContext())
+            {
+                ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
+                ("execute spActualizarRelacionCategoriaAtributo  @idRelacion,@IdCategoriaId,@IdcategoriaAtributo,@IdcategoriaAtributoDetalle",
+                     new SqlParameter("@idRelacion", objeto.idRelacion),
+                     new SqlParameter("@IdCategoriaId", objeto.IdCategoriaId),
+                      new SqlParameter("@IdcategoriaAtributo", objeto.IdcategoriaAtributo),
+                     new SqlParameter("@IdcategoriaAtributoDetalle", objeto.IdcategoriaAtributoDetalle)
+
+                    ).ToList();
+            }
+            ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
+
+            return ListaRelacionCategoria;
         }
 
 

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using OfficeOpenXml;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
@@ -44,7 +46,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 ResultadoConsulta.Usuario = user;
-                objeto.UsuarioModificacion = user ;
+                objeto.UsuarioModificacion = user;
                 objeto.Codigo = objeto.Codigo.Trim();
                 objeto.Nombre = objeto.Nombre.Trim();
 
@@ -86,7 +88,7 @@ namespace GB.SIMEF.BL
                 }
                 //VALIDAR EL NOMBRE - SI BUSCAR REGISTRO NOMBRE ES IGUAL AL NOMBRE DEL OBJETO ES MAYOR A 0 
                 //if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper()).ToList().Count() > 0)
-                if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && X.IdRelacionCategoria!=objeto.IdRelacionCategoria).ToList().Count() >0)   
+                if (Registros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && X.IdRelacionCategoria != objeto.IdRelacionCategoria).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
@@ -357,10 +359,10 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                
-                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
+
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
                 {
-          
+
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
 
                 }
@@ -418,7 +420,7 @@ namespace GB.SIMEF.BL
             try
             {
                 DetalleRelacionCategoria detalleRelacion = objeto.DetalleRelacionCategoria.FirstOrDefault();
-                
+
 
                 objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
                 ResultadoConsulta.Usuario = user;
@@ -477,12 +479,12 @@ namespace GB.SIMEF.BL
                 objeto = clsDatos.ObtenerDatos(objeto).FirstOrDefault();
 
 
-                if (objeto.DetalleRelacionCategoria.Where(p=>p.idCategoriaAtributo==detalleRelacion.idCategoriaAtributo).Count()>0)
+                if (objeto.DetalleRelacionCategoria.Where(p => p.idCategoriaAtributo == detalleRelacion.idCategoriaAtributo).Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception("La categoría ya está asignada a la Relación");   
+                    throw new Exception("La categoría ya está asignada a la Relación");
                 }
-                else if(objeto.CantidadCategoria<=objeto.DetalleRelacionCategoria.Count())
+                else if (objeto.CantidadCategoria <= objeto.DetalleRelacionCategoria.Count())
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CantidadRegistrosLimiteRelaciones);
@@ -516,4 +518,153 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
     }
+
+
+
+
+    public class RelacionCategoriaAtributoBL : IMetodos<RelacionCategoria>
+    {
+
+        private readonly RelacionCategoriaDAL clsDatos;
+        private readonly CategoriasDesagregacionDAL clsDatosTexto;
+
+        private RespuestaConsulta<List<RelacionCategoria>> ResultadoConsulta;
+        string modulo = string.Empty;
+        string user = string.Empty;
+
+        public RelacionCategoriaAtributoBL(string modulo, string user)
+        {
+            this.modulo = modulo;
+            this.user = user;
+            this.clsDatos = new RelacionCategoriaDAL();
+            this.ResultadoConsulta = new RespuestaConsulta<List<RelacionCategoria>>();
+        }
+
+
+
+        public RespuestaConsulta<List<RelacionCategoria>> CargarExcel(HttpPostedFileBase file) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
+        {
+
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = user;
+                RelacionCategoriaId relacionId = new RelacionCategoriaId();
+                relacionId.OpcionEliminar = true;
+                using (var package = new ExcelPackage(file.InputStream))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[1]; //POSICION DEL CODIGO y NOMBRE
+                    string Codigo = worksheet.Name; //POSICION DEL CODIGO
+
+                    RelacionCategoria relacion = clsDatos.ObtenerDatos(new RelacionCategoria() { Codigo = Codigo }).SingleOrDefault();
+
+                    string columnaValor = string.Empty;
+                    string valorId = string.Empty;
+
+                    for (int columna = 2; columna < relacion.DetalleRelacionCategoria.Count(); columna++)
+                    {
+                        columnaValor= worksheet.Cells[1, columna].Value.ToString().Trim();
+                        DetalleRelacionCategoria detalleRelacion = relacion.DetalleRelacionCategoria.Where(x => x.CategoriaAtributo.NombreCategoria.Trim().ToUpper() == columnaValor).FirstOrDefault();
+
+                        for (int fila = 2; fila < relacion.CantidadFilas; fila++)
+                        {
+                            valorId = worksheet.Cells[columna, 1].Value.ToString().Trim();
+                           
+                            if (worksheet.Cells[fila, columna].Value == null)
+                            {
+                                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                                throw new Exception("El archivo no cuenta con el total de filas configuradas, en total se ingresaron "+(fila-2)+" filas");
+                            }
+                            string celdaValor = worksheet.Cells[fila, columna].Value.ToString().Trim();
+
+
+                            DetalleCategoriaTexto detalleCategoriaTexto = detalleRelacion.CategoriaAtributo.DetalleCategoriaTexto.Where(x => x.Etiqueta.Trim().ToUpper() == celdaValor).Single();
+
+
+                            if (fila==2)
+                            {
+                                relacionId.idRelacion = relacion.IdRelacionCategoria;
+                                relacionId.idCategoriaId = valorId;
+                                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(relacionId);
+                                relacionId.OpcionEliminar = false;
+                            }
+                            
+                            
+                            
+                            RelacionCategoriaAtributo relacionCategoriaAtributo=new RelacionCategoriaAtributo()
+                            {
+                                idRelacion=relacion.IdRelacionCategoria,
+                                IdCategoriaId=valorId,
+                                IdcategoriaAtributo=detalleCategoriaTexto.idCategoria,
+                                IdcategoriaAtributoDetalle=detalleCategoriaTexto.idCategoriaDetalle
+                            };
+
+                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(relacionCategoriaAtributo);
+
+
+                            if (relacion.CantidadFilas==fila-1)
+                            {
+                                relacion.idEstado = (int)EstadosRegistro.Activo;
+                                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacion);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsulta;
+        }
+
+
+
+
+
+        public RespuestaConsulta<List<RelacionCategoria>> ActualizarElemento(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> CambioEstado(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> ClonarDatos(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> EliminarElemento(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> InsertarDatos(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> ObtenerDatos(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> ValidarDatos(RelacionCategoria objeto)
+        {
+            throw new NotImplementedException();
+        }
+    }
+        
+
 }

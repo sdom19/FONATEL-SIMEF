@@ -38,11 +38,12 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaReglaAtributosValidos = db.Database.SqlQuery<ReglaAtributosValidos>
-                ("execute spActualizarReglaAtributosValidos @IdCompara,@IdDetalleReglaValidacion,@IdCategoria,@IdCategoriaAtributo",
+                ("execute spActualizarReglaAtributosValidos @IdCompara,@IdDetalleReglaValidacion,@IdCategoria,@IdCategoriaAtributo, @OpcionEliminar",
                     new SqlParameter("@IdCompara", pReglaAtributosValidos.IdCompara),
                     new SqlParameter("@IdDetalleReglaValidacion", pReglaAtributosValidos.IdDetalleReglaValidacion),
                     new SqlParameter("@IdCategoria", pReglaAtributosValidos.IdCategoria),
-                    new SqlParameter("@IdCategoriaAtributo", pReglaAtributosValidos.IdCategoriaAtributo)
+                    new SqlParameter("@IdCategoriaAtributo", pReglaAtributosValidos.IdCategoriaAtributo),
+                    new SqlParameter("@OpcionEliminar", pReglaAtributosValidos.OpcionEliminar==true?1:0)
                 ).ToList();
 
                 ListaReglaAtributosValidos = ListaReglaAtributosValidos.Select(X => new ReglaAtributosValidos

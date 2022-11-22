@@ -274,7 +274,12 @@ namespace GB.SIMEF.BL
                     break;
 
                 case (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos:
+                    
+                    
+                    
                     List<string> listaAtributos = objeto.reglaAtributosValidos.idAtributoString.Split(',').ToList();
+
+                    objeto.reglaAtributosValidos.OpcionEliminar = true;
 
                     foreach (var item in listaAtributos)
                     {
@@ -285,6 +290,7 @@ namespace GB.SIMEF.BL
                             objeto.reglaAtributosValidos.IdCategoriaAtributo = Convert.ToInt32(item);
 
                             clsReglaValidacionAtributosValidosDAL.ActualizarDatos(objeto.reglaAtributosValidos);
+                            objeto.reglaAtributosValidos.OpcionEliminar = false;
                         }
             
                     }

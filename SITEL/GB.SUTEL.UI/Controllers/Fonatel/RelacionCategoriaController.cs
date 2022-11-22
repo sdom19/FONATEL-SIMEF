@@ -26,21 +26,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
        
 
         // : RELACION ENTRE CATEGORIAS
-        private readonly RelacionCategoriaBL RelacionCategoriaBL;
+        private readonly RelacionCategoriaBL relacionCategoriaBL;
         private readonly DetalleRelacionCategoriaBL detalleRelacionCategoriaBL;
 
 
         // : CATEGORIAS DESAGREGACION
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBl;
-        private readonly DetalleCategoriasTextoBL DetalleCategoriasTextoBL;
+        private readonly DetalleCategoriasTextoBL detalleCategoriasTextoBL;
+
+        private readonly RelacionCategoriaAtributoBL relacionCategoriaAtributoBL;
 
         public RelacionCategoriaController()
         {
 
             categoriasDesagregacionBl = new CategoriasDesagregacionBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-            DetalleCategoriasTextoBL = new DetalleCategoriasTextoBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            RelacionCategoriaBL = new RelacionCategoriaBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            relacionCategoriaAtributoBL = new RelacionCategoriaAtributoBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            relacionCategoriaBL = new RelacionCategoriaBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
             detalleRelacionCategoriaBL = new DetalleRelacionCategoriaBL(EtiquetasViewRelacionCategoria.RelacionCategoria, System.Web.HttpContext.Current.User.Identity.GetUserId());
           
 
@@ -82,7 +84,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 ViewBag.titulo = EtiquetasViewRelacionCategoria.EditarRelacion;
 
-                RelacionCategoria model = RelacionCategoriaBL
+                RelacionCategoria model = relacionCategoriaBL
                     .ObtenerDatos(new RelacionCategoria() { id = id }).objetoRespuesta.Single();
                 return View(model);
             }
@@ -94,7 +96,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Detalle(string idRelacionCategoria)
         {
-            RelacionCategoria model = RelacionCategoriaBL
+            RelacionCategoria model = relacionCategoriaBL
                    .ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria }).objetoRespuesta.Single();
             return View(model);
 
@@ -120,7 +122,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                result = RelacionCategoriaBL.ValidarExistencia(relacion);
+                result = relacionCategoriaBL.ValidarExistencia(relacion);
             });
 
             return JsonConvert.SerializeObject(result);
@@ -143,7 +145,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 await Task.Run(() =>
                 {
-                    result = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria());
+                    result = relacionCategoriaBL.ObtenerDatos(new RelacionCategoria());
                 });
                 return JsonConvert.SerializeObject(result);
         }
@@ -165,7 +167,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                
 
                 //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
-                result = RelacionCategoriaBL.InsertarDatos(relacion);
+                result = relacionCategoriaBL.InsertarDatos(relacion);
 
             });
 
@@ -193,7 +195,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
 
                 //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
-                result = RelacionCategoriaBL.ActualizarElemento(relacion);
+                result = relacionCategoriaBL.ActualizarElemento(relacion);
 
             });
 
@@ -216,7 +218,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                result = RelacionCategoriaBL.EliminarElemento(new RelacionCategoria()
+                result = relacionCategoriaBL.EliminarElemento(new RelacionCategoria()
                 {
 
                     id = idRelacionCategoria,
@@ -272,7 +274,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ActionResult DescargarExcel(string id)
         {
 
-            var relacion = RelacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = id }).objetoRespuesta.Single();
+            var relacion = relacionCategoriaBL.ObtenerDatos(new RelacionCategoria() { id = id }).objetoRespuesta.Single();
 
 
             MemoryStream stream = new MemoryStream();
@@ -330,6 +332,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return new EmptyResult();
 
+        }
+
+
+        [HttpPost]
+        public async Task<string> CargarExcel()
+        {
+
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
+
+            await Task.Run(() =>
+            {
+
+                if (Request.Files.Count > 0)
+                {
+                    HttpFileCollectionBase files = Request.Files;
+                    HttpPostedFileBase file = files[0];
+                    string fileName = file.FileName;
+                    Directory.CreateDirectory(Server.MapPath("~/Simef/"));
+                    string path = Path.Combine(Server.MapPath("~/Simef/"), fileName);
+
+                   result= relacionCategoriaAtributoBL.CargarExcel(file);
+                    file.SaveAs(path);
+                }
+            });
+            return JsonConvert.SerializeObject(result); 
         }
 
 

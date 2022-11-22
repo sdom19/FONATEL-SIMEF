@@ -66,6 +66,7 @@
     <Compile Include="ReglaIndicadorEntrada.cs" />
     <Compile Include="ReglaIndicadorEntradaSalida.cs" />
     <Compile Include="ReglaIndicadorSalida.cs" />
+    <Compile Include="RelacionCategoriaAtributo.cs" />
     <Compile Include="RelacionCategoriaId.cs" />
     <Compile Include="RespuestaConsulta.cs" />
     <Compile Include="CategoriasDesagregacion.cs" />

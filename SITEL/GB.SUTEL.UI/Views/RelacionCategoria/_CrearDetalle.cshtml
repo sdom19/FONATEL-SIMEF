@@ -22,7 +22,7 @@
             if (true)
             {
     <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
-
+        
         @if (categoriaid)
         {
             <div class="form-group row">
@@ -30,10 +30,21 @@
              
                         <div class="select2-wrapper">
                             <select class="listasDesplegables" id="dd_@Model.CategoriasDesagregacionid.idCategoria">
-
-                                @if (Model.CategoriasDesagregacionid.idTipoDetalle==(int)Constantes.TipoDetalleCategoriaEnum.Numerico)
+                                <option value="">Seleccione</option>
+                                @if (Model.CategoriasDesagregacionid.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Numerico)
                                 {
-                                    
+                                    for (int i = Model.CategoriasDesagregacionid.DetalleCategoriaNumerico.Minimo; i < Model.CategoriasDesagregacionid.DetalleCategoriaNumerico.Maximo; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+
+                                }
+                                else
+                                {
+                                    foreach (var cat in Model.CategoriasDesagregacionid.DetalleCategoriaTexto)
+                                    {
+                                        <option value="@cat.idCategoriaDetalle">@cat.Etiqueta</option>
+                                    }
                                 }
 
 
@@ -53,9 +64,13 @@
             <label for="ddlCategoriaDetalle" class="col-sm-12 col-form-label ">@item.CategoriaAtributo.NombreCategoria</label>
 
             <div class="select2-wrapper">
-                <select class="listasDesplegables" id="dd_@item.CategoriaAtributo.idCategoria"></select>
-
-
+                <select class="listasDesplegables" id="dd_@item.CategoriaAtributo.idCategoria">
+                    <option value="">Seleccione</option>
+                    @foreach (var cat in item.CategoriaAtributo.DetalleCategoriaTexto)
+                    {
+                        <option value="@cat.idCategoriaDetalle">@cat.Etiqueta</option>
+                    }
+                </select>
             </div>
 
 
@@ -69,9 +84,13 @@
                     <div class="form-group row">
                         <label for="ddlCategoriaDetalle" class="col-sm-12 col-form-label ">@item.CategoriaAtributo.NombreCategoria</label>
                         <div class="select2-wrapper">
-                            <select class="listasDesplegables" id="dd_@item.CategoriaAtributo.idCategoria"></select>
-
-
+                            <select class="listasDesplegables" id="dd_@item.CategoriaAtributo.idCategoria">
+                                <option value="">Seleccione</option>
+                                @foreach (var cat in item.CategoriaAtributo.DetalleCategoriaTexto)
+                                {
+                                    <option value="@cat.idCategoriaDetalle">@cat.Etiqueta</option>
+                                }
+                            </select>
                         </div>
                     </div>
                 </div>
