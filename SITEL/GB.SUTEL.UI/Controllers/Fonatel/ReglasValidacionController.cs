@@ -27,6 +27,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly OperadorArismeticoBL OperadoresBL;
         private readonly DetalleIndicadorVariablesBL DetalleIndicadorVariablesBL;
 
+        private readonly RelacionCategoriaBL relacionCategoriaBL;
+
         private string modulo = string.Empty;
         private string user = string.Empty;
 
@@ -44,6 +46,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             OperadoresBL = new OperadorArismeticoBL();
             DetalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(modulo, user);
             detalleCategoriasTextoBL = new DetalleCategoriasTextoBL(modulo, user);
+            relacionCategoriaBL = new RelacionCategoriaBL(modulo, user);
 
         }
 
@@ -92,9 +95,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             var listadoCategoria = categoriasDesagregacionBL
                .ObtenerDatos(new CategoriasDesagregacion() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
-            ViewBag.ListaCategoria = listadoCategoria
-                .Where(x => x.IdTipoCategoria != (int)Constantes.TipoCategoriaEnum.Actualizable)
-                .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
+
+            var listadoRelaciones = relacionCategoriaBL.ObtenerDatos(new RelacionCategoria()).objetoRespuesta;
+
+            ViewBag.ListaCategoria = listadoRelaciones
+                .Where(x=>x.idCategoria!=0)
+                .Select(x => new SelectListItem() { Selected = false, Value = x.CategoriasDesagregacionid.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.CategoriasDesagregacionid.Codigo, x.CategoriasDesagregacionid.NombreCategoria) }).ToList();
 
             ViewBag.ListaCategoriaActualizable = listadoCategoria
                 .Where(x => x.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.Actualizable)
@@ -238,17 +244,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="idCategoria"></param>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<string> ObtenerListaDetallesCategoria(int idCategoria)
+        [HttpPost]
+        public async Task<string> ObtenerListaDetallesCategoria(RelacionCategoria RelacionCategoria)
         {
-            RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
 
             await Task.Run(() =>
             {
-                result = detalleCategoriasTextoBL.ObtenerDatos(new DetalleCategoriaTexto()
-                {
-                    idCategoria = idCategoria
-                });
+                result = relacionCategoriaBL.ObtenerDatos(RelacionCategoria);
             });
 
             return JsonConvert.SerializeObject(result);
