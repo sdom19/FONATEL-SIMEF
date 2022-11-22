@@ -1035,9 +1035,10 @@
             //REGLA CONTRA ATRIBUTOS VALIDOS
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
                 objetoTipoRegla.reglaAtributosValidos = {};
-                objetoTipoRegla.reglaAtributosValidos.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaAtributosValidos.IdCategoria = $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val();
-                objetoTipoRegla.reglaAtributosValidos.idAtributoString = $(JsReglas.Controles.ddlAtributosValidosRegla).val();
+                 let array= $(JsReglas.Controles.ddlAtributosValidosRegla).val();
+
+                objetoTipoRegla.reglaAtributosValidos.idAtributoString = array.join(',');
             }
             // REGLA CONTRA ACTUALIZACION SECUENCIAL
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {

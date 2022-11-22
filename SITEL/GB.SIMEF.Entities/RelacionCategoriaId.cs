@@ -14,14 +14,16 @@ namespace GB.SIMEF.Entities
     [Table("RelacionCategoriaId")]
     public partial class RelacionCategoriaId
     {
-
-        public RelacionCategoriaId()
-        {
-
-        }
-        [Key]
+        [Key, Column(Order = 0)]
         public int idRelacion { get; set; }
 
-        public int idCategoriaId { get; set; }
+        [Key, Column(Order = 1)]
+        public string idCategoriaId { get; set; }
+        [NotMapped]
+        public bool OpcionEliminar { get; set; }
+
+        [NotMapped]
+        public List<RelacionCategoriaAtributo> listaCategoriaAtributo { get; set; }
+
     }
 }
