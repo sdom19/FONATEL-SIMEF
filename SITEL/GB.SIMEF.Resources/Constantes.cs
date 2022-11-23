@@ -99,6 +99,16 @@ namespace GB.SIMEF.Resources
             EntradaSalida = 3
         }
 
+        public enum FuenteIndicadorEnum : int
+        {
+            IndicadorDGF = 1,
+            IndicadorDGM = 2,
+            IndicadorDGC = 3,
+            IndicadorUIT = 4,
+            IndicadorCruzado = 5,
+            IndicadorFuenteExterna = 6
+        }
+             
         public struct CifradoDatos
         {
             public const String strPermutacion = "ouiveyxaqtd";
@@ -142,9 +152,15 @@ namespace GB.SIMEF.Resources
         public readonly static string defaultInputTextValue = "No definido";
         public readonly static int defaultInputNumberValue = 0;
         public readonly static int defaultDropDownValue = 1; // Representa el valor: "Sin definir". En Utilidades.cs existe un método para encriptarlo
+
         public readonly static string select2MultipleOptionTodosText = "Todos";
         public readonly static string select2MultipleOptionTodosValue = "all";
+
         public readonly static string keyModoFormulario = "modoFormulario";
 
+        public readonly static List<FuenteIndicadorEnum> FuentesIndicadorFonatel = new List<FuenteIndicadorEnum>() 
+        {
+            FuenteIndicadorEnum.IndicadorDGF 
+        };
     }
 }

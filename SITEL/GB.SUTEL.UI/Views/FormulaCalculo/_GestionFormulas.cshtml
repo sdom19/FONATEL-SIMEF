@@ -16,17 +16,7 @@
             <label for="ddlFuenteIndicador" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelFuenteIndicador</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
-                    <select class=" listasDesplegables" id="ddlFuenteIndicador">
-                        <option></option>
-                        <option value="1">Indicador DGF</option>
-                        <option value="2">Indicador DGM</option>
-                        <option value="3">Indicador DGC</option>
-                        <option value="3">Indicador UIT</option>
-                        <option value="3">Indicador Cruzado</option>
-                        <option value="3">Indicador Fuente Externa</option>
-                    </select>
-
-                    @*@{
+                    @{
                         var htmlAttrFuenteIndicador = new Dictionary<string, object>
                         {
                             { "id", "ddlFuenteIndicador" },
@@ -34,8 +24,8 @@
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
                     }
-                    @Html.DropDownListFor(model => Model.IdVariableDatoString, new SelectList(ViewBag.FuentesIndicador, "id", "Nombre"),
-                                                    Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)*@
+                    @Html.DropDownList("fuenteIndicador", new SelectList(ViewBag.FuentesIndicador, "id", "Fuente"),
+                                                    Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)
                 </div>
             </div>
         </div>
@@ -45,8 +35,8 @@
         <div class="form-group row">
             <label for="ddlGrupoFonatel" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelGrupo</label>
             <div class="col-sm-12">
-                <div @*class="select2-wrapper">
-                    <select class=" listasDesplegables" id="ddlGrupoFonatel">
+                <div class="select2-wrapper">
+                    @*<select class=" listasDesplegables" id="ddlGrupoFonatel">
                         <option></option>
                         <option value="1">GRUPO 1</option>
                         <option value="2">GRUPO 2</option>
@@ -124,10 +114,10 @@
 
     <div id="divTipoIndicador" class="col-sm-4" style="display: none;">
         <div class="form-group row">
-            <label for="ddlTipoFonatel" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelTipoIndicador</label>
+            <label for="ddlTipoIndicador" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelTipoIndicador</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
-                    @*<select class=" listasDesplegables" id="ddlTipoFonatel">
+                    @*<select class=" listasDesplegables" id="ddlTipoIndicador">
                         <option></option>
                         <option value="1">Entrada</option>
                         <option value="2">Salida</option>
@@ -137,7 +127,7 @@
                     @{
                         var htmlAttrTipo = new Dictionary<string, object>
                         {
-                            { "id", "ddlTipoFonatel" },
+                            { "id", "ddlTipoIndicador" },
                             { "class", "listasDesplegables" },
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
