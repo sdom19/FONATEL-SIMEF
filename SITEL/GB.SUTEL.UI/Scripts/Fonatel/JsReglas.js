@@ -161,6 +161,7 @@
         },
 
         "CargarTablaDetalleReglas": function () {
+
             EliminarDatasource();
             let html = "";
             for (var i = 0; i < JsReglas.Variables.ListaDetalleReglas.length; i++) {
@@ -837,14 +838,14 @@
                         for (var i = 0; i < obj.objetoRespuesta.length; i++) {
                             html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].NombreVariable + "</option>"
                         }
-
                         $(JsReglas.Controles.ddlVariableComparacionRegla).html(html);
-
+                })
+                .then((obj) => {
                     if (JsReglas.Variables.esModoEdicion) {
                         $(JsReglas.Controles.ddlVariableComparacionRegla).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.idVariableComparaString).change();
-                    }
-                    
-                }).catch((obj) => {
+                    }                  
+                })
+                .catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { });
@@ -864,19 +865,19 @@
 
             execAjaxCall("/ReglasValidacion/ObtenerListaVariablesDato", "GET", { idIndicadorString })
                 .then((obj) => {
-
                     let html = "<option value=''/>";
                     for (var i = 0; i < obj.objetoRespuesta.length; i++) {
                         html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].NombreVariable + "</option>"
                     }
 
                     $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).html(html);
-
+                })
+                .then((obj) => {
                     if (JsReglas.Variables.esModoEdicion) {
                         $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString).change();
                     }
-
-                }).catch((obj) => {
+                })
+                .catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { });
@@ -915,8 +916,14 @@
 
                         $(JsReglas.Controles.ddlAtributosValidosRegla).val(listaAtributos).change();
                     }
-
-                }).catch((obj) => {
+                })
+                .then((obj) => {
+                    if (JsReglas.Variables.esModoEdicion) {
+                        let listaAtributos = JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.idAtributoString.split(',');
+                        $(JsReglas.Controles.ddlAtributosValidosRegla).val(listaAtributos).change();
+                    }
+                })
+                .catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { });

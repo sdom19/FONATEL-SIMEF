@@ -66,13 +66,18 @@ namespace GB.SIMEF.Entities
             "idRegla",
             "idOperador",
             "idIndicador",
-            "Codigo",
-            "Nombre",
+            "idEstado",
+            "EstadoRegistro",
+            "idCompara",
+            "idIndicadorVariableString",
+            "idIndicadorString",
+            "ListadoTipoReglas",
+            "DetalleReglaValidacion",
+            "idDetalleReglaValidacion",
             "FechaModificacion",
             "UsuarioCreacion",
             "FechaCreacion",
             "UsuarioModificacion",
-            "Descripcion"
 
         };
     }
