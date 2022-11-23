@@ -12,23 +12,27 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("FuenteIndicador")]
     public partial class FuenteIndicador
     {
        
         public FuenteIndicador()
         {
-            this.FormulaIndicadorDSF = new HashSet<FormulaIndicadorDSF>();
-            this.FormulaIndicadorMC = new HashSet<FormulaIndicadorMC>();
+            //this.FormulaIndicadorDSF = new HashSet<FormulaIndicadorDSF>();
+            //this.FormulaIndicadorMC = new HashSet<FormulaIndicadorMC>();
         }
         [Key]
-        public int idFuenteIndicador { get; set; }
-        public string FuenteIndicador1 { get; set; }
-        public Nullable<bool> Estado { get; set; }
+        public int IdFuenteIndicador { get; set; }
+        public string Fuente { get; set; }
+        public bool Estado { get; set; }
     
 
-        public virtual ICollection<FormulaIndicadorDSF> FormulaIndicadorDSF { get; set; }
-
-        public virtual ICollection<FormulaIndicadorMC> FormulaIndicadorMC { get; set; }
+        [NotMapped]
+        public string id { get; set; }
+        
+        [NotMapped]
+        public bool perteceneAFonatel { get; set; }
     }
 }

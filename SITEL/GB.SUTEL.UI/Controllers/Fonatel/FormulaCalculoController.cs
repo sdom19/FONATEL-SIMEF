@@ -22,8 +22,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly IndicadorFonatelBL indicadorFonatelBL;
         private readonly DetalleIndicadorVariablesBL detalleIndicadorVariablesBL;
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
+        private readonly FuenteIndicadorBL fuenteIndicadorBL;
+        private readonly GrupoIndicadorBL grupoIndicadorBL;
+        private readonly TipoIndicadorBL tipoIndicadorBL;
         private readonly string usuario = string.Empty;
         private readonly string nombreVista = string.Empty;
+        private readonly ClasificacionIndicadorBL clasificacionIndicadorBL;
         private string modoFormulario = string.Empty;
 
         #endregion
@@ -37,6 +41,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             indicadorFonatelBL = new IndicadorFonatelBL(nombreVista, usuario);
             detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(nombreVista, usuario);
             categoriasDesagregacionBL = new CategoriasDesagregacionBL(nombreVista, usuario);
+            fuenteIndicadorBL = new FuenteIndicadorBL(nombreVista, usuario);
+            grupoIndicadorBL = new GrupoIndicadorBL(nombreVista, usuario);
+            tipoIndicadorBL = new TipoIndicadorBL(nombreVista, usuario);
+            clasificacionIndicadorBL = new ClasificacionIndicadorBL(nombreVista, usuario);
         }
 
         #region Eventos de la página
@@ -424,6 +432,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="pFormulaCalculo"></param>
         /// <returns></returns>
+        [HttpPost]
         public async Task<string> ClonarFormulaCalculo(FormulasCalculo pFormulaCalculo)
         {
             modoFormulario = (string)Session[keyModoFormulario];
@@ -460,6 +469,100 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return JsonConvert.SerializeObject(resultado);
         }
+
+        /// <summary>
+        /// 22/11/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener las fuentes de un los indicadores
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerFuentesIndicador()
+        {
+            RespuestaConsulta<List<FuenteIndicador>> resultado = new RespuestaConsulta<List<FuenteIndicador>>();
+
+            await Task.Run(() =>
+            {
+                resultado = fuenteIndicadorBL.ObtenerDatos(new FuenteIndicador());
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 23/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna los grupo de indicador. Puede consultar los de SITEL
+        /// </summary>
+        /// <param name="pEsFuenteIndicadorFonatel"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerGrupoIndicador(bool pEsFuenteIndicadorFonatel)
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            await Task.Run(() =>
+            {
+                if (pEsFuenteIndicadorFonatel)
+                {
+                    resultado = grupoIndicadorBL.ObtenerDatos(new GrupoIndicadores());
+                }
+                else // SITEL
+                {
+
+                }
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 23/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de indicador. Puede consultar los de SITEL
+        /// </summary>
+        /// <param name="pEsFuenteIndicadorFonatel"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerTipoIndicador(bool pEsFuenteIndicadorFonatel)
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+
+            await Task.Run(() =>
+            {
+                if (pEsFuenteIndicadorFonatel)
+                {
+                    resultado = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores());
+                }
+                else // SITEL
+                {
+
+                }
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 23/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna las clasificaciones de indicador
+        /// </summary>
+        /// <param name="pEsFuenteIndicadorFonatel"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerClasificacionIndicador()
+        {
+            RespuestaConsulta<List<ClasificacionIndicadores>> resultado = new RespuestaConsulta<List<ClasificacionIndicadores>>();
+
+            await Task.Run(() =>
+            {
+                 resultado = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores());
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
 
         #endregion
 
