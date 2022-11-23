@@ -292,9 +292,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
 
             RespuestaConsulta<List<ReglaValidacion>> result = null;
+
             await Task.Run(() =>
             {
                     result = reglaBL.InsertarDatos(objeto);               
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Autor:Francisco Vindas Ruiz
+        /// Fecha: 23/11/2022
+        /// Clonar la Regla de validacion
+        /// </summary>
+        /// <param name="objetoRegla"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ClonarReglaValidacion(ReglaValidacion objeto)
+        {
+
+            RespuestaConsulta<List<ReglaValidacion>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = reglaBL.ClonarDatos(objeto);
             });
 
             return JsonConvert.SerializeObject(result);
@@ -383,10 +405,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             string idReglaAClonar = objeto.id;
-            objeto.id = string.Empty;
-            objeto.idRegla = 0;
+            //objeto.id = string.Empty;
+            //objeto.idRegla = 0;
 
-            string creacionRegla = await InsertarReglaValidacion(objeto); // reutilizar la función de crear para registrar el nueva regla
+            string creacionRegla = await ClonarReglaValidacion(objeto); // reutilizar la función de crear para registrar el nueva regla
             RespuestaConsulta<List<ReglaValidacion>> ReglaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<ReglaValidacion>>>(creacionRegla);
 
             if (ReglaDeserializado.HayError != (int)Error.NoError) // se creó la regla correctamente?
