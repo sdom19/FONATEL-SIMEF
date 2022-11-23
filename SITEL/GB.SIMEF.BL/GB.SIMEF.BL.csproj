@@ -76,6 +76,7 @@
     <Compile Include="FormularioWebBL.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
+    <Compile Include="FuenteIndicadorBL.cs" />
     <Compile Include="FuentesRegistroBL.cs" />
     <Compile Include="FuentesRegistroDestinatariosBL.cs" />
     <Compile Include="GrupoIndicadorBL.cs" />
