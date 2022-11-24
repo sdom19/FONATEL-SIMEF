@@ -109,6 +109,7 @@
     <Compile Include="ReglaSecuencial.cs" />
     <Compile Include="ReglaValidacion.cs" />
     <Compile Include="RelacionCategoria.cs" />
+    <Compile Include="ServicioSitel.cs" />
     <Compile Include="Solicitud.cs" />
     <Compile Include="SolicitudDetalleFuentes.cs" />
     <Compile Include="SolicitudEnvioProgramado.cs" />
