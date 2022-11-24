@@ -83,6 +83,7 @@
     <Compile Include="FormulasCalculoBL.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatelBL .cs" />
     <Compile Include="RegistroIndicadorFonatelBL.cs" />
+    <Compile Include="ServicioSitelBL.cs" />
     <Compile Include="UsuarioFonatelBL.cs" />
     <Compile Include="MesBL.cs" />
     <Compile Include="OperadorArismeticoBL.cs" />
