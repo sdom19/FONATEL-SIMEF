@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
@@ -28,6 +29,12 @@ namespace GB.SIMEF.BL
             this.plantillaDal = new PlantillaHtmlDAL();
             this.user = user;
             this.modulo = modulo;
+        }
+
+        private string SerializarObjetoBitacora(Solicitud objeto)
+        {
+            return JsonConvert.SerializeObject(objeto, new JsonSerializerSettings
+            { ContractResolver = new JsonIgnoreResolver(objeto.NoSerialize) });
         }
 
 
@@ -136,13 +143,15 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
+                List<Solicitud> ValoresIniciales = clsDatos.ObtenerDatos(new Solicitud());
+
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 objeto.UsuarioModificacion = user;
                 objeto.UsuarioCreacion = user;
                 ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
 
-                List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
@@ -150,6 +159,8 @@ namespace GB.SIMEF.BL
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
                     objeto.idSolicitud = temp;
                 }
+
+                var objetoAnterior = ValoresIniciales.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
 
                 var result = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
 
@@ -178,9 +189,14 @@ namespace GB.SIMEF.BL
                     .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
                 }
 
-                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                //        ResultadoConsulta.Usuario,
-                //            ResultadoConsulta.Clase, objeto.Codigo);
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+                string JsonActual = SerializarObjetoBitacora(objeto);
+                string JsonAnterior = SerializarObjetoBitacora(objetoAnterior);
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                        ResultadoConsulta.Usuario,
+                            ResultadoConsulta.Clase, objeto.Codigo
+                            , JsonActual, JsonAnterior, "");
             }
             catch (Exception ex)
             {
@@ -228,8 +244,8 @@ namespace GB.SIMEF.BL
 
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                       ResultadoConsulta.Usuario,
-                       ResultadoConsulta.Clase, objeto.Codigo);
+                ResultadoConsulta.Usuario,
+                ResultadoConsulta.Clase, objeto.Codigo, JsonConvert.SerializeObject(objeto), "", "");
 
             }
             catch (Exception ex)
@@ -243,13 +259,20 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<Solicitud>> ClonarDatos(Solicitud objeto)
         {
             try
-            {
+            {        
+                List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
+                
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Clonar;
                 ResultadoConsulta.Usuario = user;
-                objeto.UsuarioCreacion=user;
+                objeto.UsuarioCreacion = user;
 
-                List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
+                DesencriptarSolicitud(objeto);
+
+                var ValorInicial = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
+
+                objeto.id = string.Empty;
+                objeto.idSolicitud = 0;
 
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
@@ -257,32 +280,39 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.CodigoRegistrado);
                 }
 
-                else if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
+                if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
                 else if (objeto.FechaFin < objeto.FechaInicio)
                 {
-                    ResultadoConsulta.HayError= (int)Error.ErrorControlado;
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.ValorFecha);
                 }
                 else
                 {
                     var resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
+                    ResultadoConsulta.CantidadRegistros = resul.Count();
                 }
 
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+
+                string jsonValorInicial = SerializarObjetoBitacora(ValorInicial);
+                string JsonNuevoValor = SerializarObjetoBitacora(objeto);
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                        ResultadoConsulta.Usuario,
-                            ResultadoConsulta.Clase, objeto.Codigo);
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Codigo, JsonNuevoValor, "", jsonValorInicial);
+
             }
             catch (Exception ex)
             {
-                if ( ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
-                { 
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
@@ -296,8 +326,8 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
-                ResultadoConsulta.Usuario = objeto.UsuarioModificacion;
-                Solicitud registroActualizar;
+                ResultadoConsulta.Usuario = user;
+                objeto.UsuarioModificacion = user;
 
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
@@ -307,6 +337,7 @@ namespace GB.SIMEF.BL
                 }
 
                 var resul = clsDatos.ObtenerDatos(objeto);
+
                 if (resul.Count() == 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
@@ -314,18 +345,16 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    registroActualizar = resul.SingleOrDefault();
-                    registroActualizar.IdEstado = 4;
-                    resul = clsDatos.ActualizarDatos(registroActualizar);
+                    objeto = resul.SingleOrDefault();
+                    objeto.IdEstado = (int)Constantes.EstadosRegistro.Eliminado;
+                    resul = clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.objetoRespuesta = resul;
+                    ResultadoConsulta.CantidadRegistros = resul.Count();
                 }
 
-                ResultadoConsulta.objetoRespuesta = resul;
-                ResultadoConsulta.CantidadRegistros = resul.Count();
-
-                //REGISTRAMOS EN BITACORA 
-                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                //       ResultadoConsulta.Usuario,
-                //            ResultadoConsulta.Clase, objeto.Codigo);
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                ResultadoConsulta.Usuario,
+                ResultadoConsulta.Clase, objeto.Codigo, JsonConvert.SerializeObject(objeto), "", "");
 
             }
             catch (Exception ex)
@@ -374,9 +403,14 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.objetoRespuesta = resul;
                 }
 
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+
+                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                        ResultadoConsulta.Usuario,
-                            ResultadoConsulta.Clase, objeto.Codigo);
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);
+
             }
             catch (Exception ex)
             {
@@ -427,13 +461,6 @@ namespace GB.SIMEF.BL
 
                 resultado.objetoRespuesta = new Solicitud() { id = pidSolicitudDestino };
 
-                resultado.Usuario = user;
-                resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Clonar;
-
-                clsDatos.RegistrarBitacora(resultado.Accion,
-                resultado.Usuario, resultado.Clase, idSolicitudDestino.ToString());
-
             }
             catch (Exception ex)
             {
@@ -446,6 +473,20 @@ namespace GB.SIMEF.BL
             }
 
             return resultado;
+        }
+
+        private void DesencriptarSolicitud(Solicitud objeto)
+        {
+            if (!string.IsNullOrEmpty(objeto.id))
+            {
+                objeto.id = Utilidades.Desencriptar(objeto.id);
+                int temp;
+                if (int.TryParse(objeto.id, out temp))
+                {
+                    objeto.idSolicitud = temp;
+                }
+            }
+
         }
 
     }

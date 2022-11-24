@@ -138,6 +138,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         /// <summary>
+        /// Fecha: 24/11/2022
+        /// Francisco Vindas
+        /// Metodo para clonarsolicitudes de informacion
+        /// </summary>
+        /// <param name="solicitud"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> Clonar(Solicitud solicitud)
+        {
+            solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+
+            RespuestaConsulta<List<Solicitud>> result = null;
+
+            await Task.Run(() =>
+            {
+                solicitud.UsuarioCreacion = user;
+
+                result = SolicitudesBL.ClonarDatos(solicitud);
+
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
         /// Fecha: 04
         /// Francisco Vindas
         /// Metodo para editar solicitudes de informacion
@@ -181,10 +206,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             string idSolicitudAClonar = solicitud.id;
-            solicitud.id = string.Empty;
-            solicitud.idSolicitud = 0;
 
-            string creacionSolicitud = await InsertarSolicitud(solicitud); // reutilizar la función de crear para registrar el nueva Solicitud
+            string creacionSolicitud = await Clonar(solicitud); // reutilizar la función de crear para registrar el nueva Solicitud
             RespuestaConsulta<List<Solicitud>> SolicitudDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<Solicitud>>>(creacionSolicitud);
 
             if (SolicitudDeserializado.HayError != (int)Error.NoError) // se creó la solicitud correctamente?
@@ -295,7 +318,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return JsonConvert.SerializeObject(result);
         }
-
 
         [HttpPost]
         public async Task<string> ValidarExistenciaSolicitud(Solicitud solicitud )

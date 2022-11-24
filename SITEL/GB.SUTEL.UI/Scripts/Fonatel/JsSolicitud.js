@@ -332,13 +332,9 @@ JsSolicitud = {
             return validar;
         },
 
-     
     },
 
     "Consultas": {
-
-
-
 
         "CargarCodigo": function (index) {
 
@@ -361,9 +357,6 @@ JsSolicitud = {
                 }
             }
         },
-
-
-
 
         "ValidarExistenciaSolicitud": function (idSolicitud, Eliminado = true) {
 
@@ -1057,7 +1050,6 @@ $(document).on("click", JsSolicitud.Controles.btnEditarSolicitud, function () {
     window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
 
-
 $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function () {
 
     JsSolicitud.Variables.esModoEliminar = true;
@@ -1082,14 +1074,6 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function 
     $(JsSolicitud.Controles.modalEnvio).modal('show');
 
 });
-
-
-
-
-
-
-
-
 
 $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
     let id = $(this).val();
