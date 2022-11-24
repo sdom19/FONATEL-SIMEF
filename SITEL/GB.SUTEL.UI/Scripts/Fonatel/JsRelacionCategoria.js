@@ -10,7 +10,6 @@
         "btnDescargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-download",
         "btnDeleteRelacion": "#TablaRelacionCategoria tbody tr td .btn-delete",
         "btnEliminarDetalleRelacion": "#TablaDetalleRelacionCategoria tbody tr td .btn-delete",
-        "btnEditarDetalle": "#TablaDetalleRelacionCategoria tbody tr td .btn-edit",
         "stepRelacionCategoria1": "a[href='#step-1']",
         "stepRelacionCategoria2": "a[href='#step-2']",
         "txtCantidadFilas": "#txtCantidadFilas",
@@ -464,7 +463,39 @@
                 });
         },
 
+        "EliminarDetalleRelacionId": function (idRelacionid) {
 
+            $("#loading").fadeIn();
+
+
+            let relacionCategoriaId = new Object();
+            relacionCategoriaId.RelacionId= ObtenerValorParametroUrl("idRelacionCategoria");
+            relacionCategoriaId.idCategoriaId = idRelacionid;
+
+            execAjaxCall("/RelacionCategoria/EliminrRegistroRelacionId", "POST", relacionCategoriaId)
+                .then((obj) => {
+                    let relacion = obj.objetoRespuesta[0];
+                    JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
+                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido eliminada")
+                        .set('onok', function (closeEvent) {
+
+                            location.reload();
+                        });
+
+                }).catch((obj) => {
+
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
     }
 }
 
@@ -543,6 +574,15 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
         }
     }
 
+});
+
+
+$(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, function () {
+    let id = $(this).val();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿¿Desea eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
+        .set('onok', function (closeEvent) {
+            JsRelacion.Consultas.EliminarDetalleRelacionId(id);
+        });
 });
 
 

@@ -292,35 +292,44 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 worksheetInicio.Cells["A1:A1"].Style.Font.Size = 12;
                 worksheetInicio.Cells["A1:A1"].AutoFitColumns();
 
-                    int celda = 1;
-
-                    foreach (var sub in relacion.DetalleRelacionCategoria)
+                    int Columna = 1;
+                var ArrayCategoriaId=relacion.RelacionCategoriaId.ToArray();
+             
+                foreach (var sub in relacion.DetalleRelacionCategoria)
                     {
-                    celda += 1;
-                        for (int i =2; i < relacion.CantidadFilas+2; i++)
+                        Columna += 1;
+                        for (int fila =2; fila < relacion.CantidadFilas+2; fila++)
                         {
-                            if (celda==2)
+                            if (Columna==2)
                             {
-                            worksheetInicio.Cells[i, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                            worksheetInicio.Cells[i, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-                            worksheetInicio.Cells[i, 1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
-                            worksheetInicio.Cells[i, 1].AutoFitColumns();
+           
+                                worksheetInicio.Cells[fila, 1].Value = ArrayCategoriaId.Length > (fila-2)?ArrayCategoriaId[fila-2].idCategoriaId:string.Empty;
+                                worksheetInicio.Cells[fila, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                worksheetInicio.Cells[fila, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                                worksheetInicio.Cells[fila, 1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                                worksheetInicio.Cells[fila, 1].AutoFitColumns();
                             }
-                            worksheetInicio.Cells[i, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                            worksheetInicio.Cells[i, celda].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-                            worksheetInicio.Cells[i, celda].Style.Font.Color.SetColor(System.Drawing.Color.Black);
-                            worksheetInicio.Cells[i, celda].AutoFitColumns();
+
+
+                            RelacionCategoriaAtributo[] ArrayCategoriaAtributo = ArrayCategoriaId.Length > (fila - 2) ? ArrayCategoriaId[fila - 2].listaCategoriaAtributo.ToArray() : new RelacionCategoriaAtributo[0];
+
+                             worksheetInicio.Cells[fila, Columna].Value= ArrayCategoriaAtributo.Length>(Columna-2)? ArrayCategoriaAtributo[Columna-2].Etiqueta:string.Empty;
+
+                            worksheetInicio.Cells[fila, Columna].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            worksheetInicio.Cells[fila, Columna].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                            worksheetInicio.Cells[fila, Columna].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                            worksheetInicio.Cells[fila, Columna].AutoFitColumns();
                         }
                         
-                        worksheetInicio.Cells[1, celda].Value = sub.CategoriaAtributo.NombreCategoria;
-                        worksheetInicio.Cells[1, celda].Style.Font.Bold = true;
-                        worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
-                        worksheetInicio.Cells[1, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        worksheetInicio.Cells[1, celda].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
-                        worksheetInicio.Cells[1, celda].Style.Font.Color.SetColor(System.Drawing.Color.White);
-                        worksheetInicio.Cells[1, celda].Style.Font.Bold = true;
-                        worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
-                        worksheetInicio.Cells[1, celda].AutoFitColumns();
+                        worksheetInicio.Cells[1, Columna].Value = sub.CategoriaAtributo.NombreCategoria;
+                        worksheetInicio.Cells[1, Columna].Style.Font.Bold = true;
+                        worksheetInicio.Cells[1, Columna].Style.Font.Size = 12;
+                        worksheetInicio.Cells[1, Columna].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheetInicio.Cells[1, Columna].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
+                        worksheetInicio.Cells[1, Columna].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                        worksheetInicio.Cells[1, Columna].Style.Font.Bold = true;
+                        worksheetInicio.Cells[1, Columna].Style.Font.Size = 12;
+                        worksheetInicio.Cells[1, Columna].AutoFitColumns();
 
                 }
                 
@@ -367,17 +376,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
-        public async Task<string> EliminrRegistroRelacionId(RelacionCategoriaId relacionId)
+        public async Task<string> EliminrRegistroRelacionId(RelacionCategoriaId relacionCategoriaId)
         {
 
             RespuestaConsulta<List<RelacionCategoria>> result = null;
 
             await Task.Run(() =>
             {
-                return relacionCategoriaBL.CambiarEstado(new RelacionCategoria() {id=relacionId.RelacionId, idEstado=(int)EstadosRegistro.EnProceso });
-            }).ContinueWith(data =>{ 
-            
-          
+                var result= relacionCategoriaBL.CambiarEstado(new RelacionCategoria() {id=relacionCategoriaId.RelacionId, idEstado=(int)EstadosRegistro.EnProceso });
+                return result.objetoRespuesta.SingleOrDefault().RelacionCategoriaId.Where(x => x.idCategoriaId == relacionCategoriaId.idCategoriaId);
+            }).ContinueWith(data =>{
+
+                if (data.Result!=null)
+                {
+                    relacionCategoriaId = data.Result.SingleOrDefault();
+                    result= relacionCategoriaAtributoBL.EliminarElemento(relacionCategoriaId);
+                }
+               
             });
             return JsonConvert.SerializeObject(result);
         }

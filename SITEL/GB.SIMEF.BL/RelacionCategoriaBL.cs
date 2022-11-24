@@ -348,14 +348,14 @@ namespace GB.SIMEF.BL
 
                 
 
-                if (!string.IsNullOrEmpty(objrelacion.id))
+                if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objrelacion.id), out temp);
+                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
                     objrelacion.IdRelacionCategoria = temp;
                 }
                 objrelacion = clsDatos.ObtenerDatos(objrelacion).Single();
-                objrelacion.idEstado = objrelacion.idEstado;
+                objrelacion.idEstado=objeto.idEstado;
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objrelacion);
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
 
@@ -567,7 +567,7 @@ namespace GB.SIMEF.BL
                     RelacionCategoria relacion = clsDatos.ObtenerDatos(new RelacionCategoria() { Codigo = Codigo }).SingleOrDefault();
                     int columna = 2;
                     relacionId.OpcionEliminar = true;
-                    relacion.CantidadFilas=relacion.CantidadFilas ++;
+                    relacion.CantidadFilas=relacion.CantidadFilas +2;
                     for (int fila = 2; fila <= relacion.CantidadFilas; fila++)
                     {
                        
@@ -674,6 +674,31 @@ namespace GB.SIMEF.BL
         {
             throw new NotImplementedException();
         }
+
+        public RespuestaConsulta<List<RelacionCategoria>> EliminarElemento(RelacionCategoriaId objeto)
+        {
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Eliminar;
+                ResultadoConsulta.Usuario = user;
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(objeto);
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+            }
+            catch (Exception ex)
+            {
+
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsulta;
+        }
+
 
         public RespuestaConsulta<List<RelacionCategoria>> InsertarDatos(RelacionCategoria objeto)
         {
