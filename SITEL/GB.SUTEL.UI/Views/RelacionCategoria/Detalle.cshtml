@@ -37,9 +37,19 @@
             </div>
         
 
-        <div class="col-lg-12 mt-4 text-center">
-            <button type="submit" id="btnFinalizarDetalleRelacion" disabled class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
-        </div>
+            <div class="col-lg-12 mt-4 text-center">
+
+
+                @if (Model.CantidadFilas > Model.RelacionCategoriaId.Count())
+                {
+                    <button type="submit" disabled class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
+                }
+                else
+                {
+                    <button type="submit" id="btnFinalizar" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
+                }
+
+            </div>
     </div>
 
 </div>

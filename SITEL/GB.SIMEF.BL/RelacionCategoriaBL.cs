@@ -598,11 +598,11 @@ namespace GB.SIMEF.BL
                             DetalleCategoriaTexto detalleCategoriaTexto = detalleRelacionCategoria.CategoriaAtributo
                                 .DetalleCategoriaTexto.Where(p => p.Etiqueta.Trim().ToUpper() == celdaValor).FirstOrDefault();
 
-                            if(detalleRelacionCategoria==null)
-                            {
-                                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                                throw new Exception("Error en la lectura de la columna " + (fila-1));
-                            }
+                            //if(detalleRelacionCategoria==null)
+                            //{
+                            //    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                            //    throw new Exception("Error en la lectura de la columna " + (fila-1));
+                            //}
 
                             if (temp==2)
                             {
@@ -699,7 +699,58 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        public RespuestaConsulta<List<RelacionCategoria>> InsertarDatos(RelacionCategoriaId objeto)
+        {
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = user;
 
+
+                if (!string.IsNullOrEmpty(objeto.RelacionId))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.RelacionId), out temp);
+                    objeto.idRelacion = temp;
+                    objeto.listaCategoriaAtributo=objeto.listaCategoriaAtributo.Select(x => new RelacionCategoriaAtributo()
+                    {
+                        IdcategoriaAtributo=x.IdcategoriaAtributo,
+                        idRelacion=objeto.idRelacion,
+                        IdcategoriaAtributoDetalle=x.IdcategoriaAtributoDetalle,
+                        IdCategoriaId=x.IdCategoriaId
+                    }).ToList();
+                }
+
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(objeto);
+
+                foreach (var item in objeto.listaCategoriaAtributo)
+                {
+                   ResultadoConsulta.objetoRespuesta= clsDatos.ActualizarRelacionAtributo(item);
+                }
+
+                RelacionCategoria relacionActualizada = ResultadoConsulta.objetoRespuesta.SingleOrDefault();
+                if (relacionActualizada.CantidadFilas==relacionActualizada.RelacionCategoriaId.Count())
+                {
+                    relacionActualizada.idEstado = (int)EstadosRegistro.Activo;
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacionActualizada);
+                }
+
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+            }
+            catch (Exception ex)
+            {
+
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsulta;
+        }
         public RespuestaConsulta<List<RelacionCategoria>> InsertarDatos(RelacionCategoria objeto)
         {
             throw new NotImplementedException();

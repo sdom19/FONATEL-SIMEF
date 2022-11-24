@@ -32,7 +32,9 @@
         "TableCategoriaAtributoEliminar": "#TableCategoriaAtributo tbody tr td .btn-delete",
         "btnAgregarRelacion": "#TablaRelacionCategoria tbody tr td .btn-add",
         "btnCargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-upload",
-        "inputFileCargarDetalle": "#inputFileCargarDetalle"
+        "inputFileCargarDetalle": "#inputFileCargarDetalle",
+        "btnGuardarDetalle": "#btnGuardarDetalle"
+
     },
 
     "Variables": {
@@ -162,13 +164,11 @@
 
 
 
-        
 
- 
+      
 
-
-
-        
+       
+       
 
         "ValidarFormularioDetalle": function () {
 
@@ -362,9 +362,6 @@
         "EliminarRelacionCategoriaDetalle": function (idRelacionCategoriaDetalle) {
 
             $("#loading").fadeIn();
-
-
-            $("#loading").fadeIn();
             let DetalleRelacionCategoria = new Object();
             DetalleRelacionCategoria.relacionid = ObtenerValorParametroUrl("id");
             DetalleRelacionCategoria.id = idRelacionCategoriaDetalle
@@ -395,7 +392,7 @@
                 });
         },
 
-        //EVENTO PARA DESCARGAR EXCEL
+
     
 
         "ImportarExcel": function () {
@@ -472,13 +469,60 @@
             relacionCategoriaId.RelacionId= ObtenerValorParametroUrl("idRelacionCategoria");
             relacionCategoriaId.idCategoriaId = idRelacionid;
 
-            execAjaxCall("/RelacionCategoria/EliminrRegistroRelacionId", "POST", relacionCategoriaId)
+            execAjaxCall("/RelacionCategoria/EliminarRegistroRelacionId", "POST", relacionCategoriaId)
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
                     JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
                     jsMensajes.Metodos.OkAlertModal("El Detalle ha sido eliminada")
                         .set('onok', function (closeEvent) {
 
+                            location.reload();
+                        });
+
+                }).catch((obj) => {
+
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+        "InsertarDetalleRelacionId": function () {
+
+
+            let relacionCategoriaId = new Object();
+            relacionCategoriaId.RelacionId = ObtenerValorParametroUrl("idRelacionCategoria");
+            relacionCategoriaId.listaCategoriaAtributo = [];
+            let categoriaId = true;
+            $(".listasDesplegables").each(function () {
+                if (categoriaId) {
+                    relacionCategoriaId.idCategoriaId = $(this).val();
+                    categoriaId = false;
+                } else {
+                    let categoriaAtributo = new Object();
+                    categoriaAtributo.IdCategoriaId = relacionCategoriaId.idCategoriaId;
+                    categoriaAtributo.IdcategoriaAtributo = $(this).attr('id').replace("dd_", "");
+                    categoriaAtributo.IdcategoriaAtributoDetalle = $(this).val();
+                    relacionCategoriaId.listaCategoriaAtributo.push(categoriaAtributo);
+                }
+
+
+
+            });
+
+
+
+
+            execAjaxCall("/RelacionCategoria/InsertarRelacionCategoriaId", "POST", relacionCategoriaId)
+                .then((obj) => {
+                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido ingresado")
+                        .set('onok', function (closeEvent) {
                             location.reload();
                         });
 
@@ -512,6 +556,16 @@ $(document).on("keyup", "input", function () {
     let validacion = !JsRelacion.Metodos.HabilitarBotonSiguiente();
     $(JsRelacion.Controles.btnSiguienteRelacionCategoria).prop("disabled",  validacion);
 });
+
+$(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar Detalle?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            JsRelacion.Consultas.InsertarDetalleRelacionId();
+        });
+});
+
+
 
 $(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
     e.preventDefault();
@@ -644,6 +698,9 @@ $(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
     let id = $(this).val();
     window.location.href = "/Fonatel/RelacionCategoria/Detalle?idRelacionCategoria=" + id;
 });
+
+
+
 
 $(function () {
 
