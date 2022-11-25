@@ -184,7 +184,6 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 
-
             }
             catch (Exception ex)
             {
@@ -285,7 +284,9 @@ namespace GB.SIMEF.BL
                     {
                         if (item!= "all")
                         {
-                            objeto.reglaAtributosValidos.idAtributoString = item;                            objeto.reglaAtributosValidos.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
+                            objeto.reglaAtributosValidos.idAtributoString = item;                            
+                            
+                            objeto.reglaAtributosValidos.IdDetalleReglaValidacion = objeto.IdDetalleReglaValidacion;
 
                             objeto.reglaAtributosValidos.IdCategoriaAtributo = Convert.ToInt32(item);
 
@@ -294,8 +295,6 @@ namespace GB.SIMEF.BL
                         }
             
                     }
-
-
 
                     break;
 
