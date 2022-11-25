@@ -207,7 +207,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             string idSolicitudAClonar = solicitud.id;
 
-            string creacionSolicitud = await Clonar(solicitud); // reutilizar la función de crear para registrar el nueva Solicitud
+            string creacionSolicitud = await Clonar(solicitud); 
             RespuestaConsulta<List<Solicitud>> SolicitudDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<Solicitud>>>(creacionSolicitud);
 
             if (SolicitudDeserializado.HayError != (int)Error.NoError) // se creó la solicitud correctamente?
@@ -224,7 +224,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             });
 
 
-            return JsonConvert.SerializeObject(resultado);
+            return JsonConvert.SerializeObject(SolicitudDeserializado);
         }
 
         /// <summary>

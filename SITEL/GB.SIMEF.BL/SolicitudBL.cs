@@ -37,7 +37,6 @@ namespace GB.SIMEF.BL
             { ContractResolver = new JsonIgnoreResolver(objeto.NoSerialize) });
         }
 
-
         public RespuestaConsulta<bool> EnvioCorreo(Solicitud solicitud)
         {
             RespuestaConsulta<bool> envioCorreo = new RespuestaConsulta<bool>();
@@ -75,11 +74,6 @@ namespace GB.SIMEF.BL
             return envioCorreo;
 
         }
-
-
-
-
-
 
         public RespuestaConsulta<List<Solicitud>> ObtenerDatos(Solicitud objeto)
         {
@@ -145,13 +139,13 @@ namespace GB.SIMEF.BL
             {
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
                 List<Solicitud> ValoresIniciales = clsDatos.ObtenerDatos(new Solicitud());
+                var resultado = clsDatos.ObtenerDatos(new Solicitud());
 
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 objeto.UsuarioModificacion = user;
                 objeto.UsuarioCreacion = user;
                 ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
-
 
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
@@ -185,8 +179,10 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    result = clsDatos.ActualizarDatos(objeto)
-                    .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+                    clsDatos.ActualizarDatos(objeto);
+                    resultado = clsDatos.ObtenerDatos(objeto);
+                    ResultadoConsulta.objetoRespuesta = resultado;
+                    ResultadoConsulta.CantidadRegistros = resultado.Count();
                 }
 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
@@ -285,11 +281,19 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
-                else if (objeto.FechaFin < objeto.FechaInicio)
+
+                if (ValorInicial.SolicitudFormulario.Count > objeto.CantidadFormularios)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(Errores.CantidadRegistrosLimite);
+                }
+
+                if (objeto.FechaFin < objeto.FechaInicio)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.ValorFecha);
                 }
+
                 else
                 {
                     var resul = clsDatos.ActualizarDatos(objeto);
