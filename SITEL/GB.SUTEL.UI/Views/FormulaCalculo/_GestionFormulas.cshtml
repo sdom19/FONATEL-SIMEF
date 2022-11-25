@@ -33,20 +33,13 @@
 
     <div id="divGrupo" class="col-sm-4" style="display: none;">
         <div class="form-group row">
-            <label for="ddlGrupoFonatel" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelGrupo</label>
+            <label for="ddlGrupo" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelGrupo</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
-                    @*<select class=" listasDesplegables" id="ddlGrupoFonatel">
-                        <option></option>
-                        <option value="1">GRUPO 1</option>
-                        <option value="2">GRUPO 2</option>
-                        <option value="3">GRUPO 3</option>
-                    </select>*@
-
                     @{
                         var htmlAttrGrupo = new Dictionary<string, object>
                         {
-                            { "id", "ddlGrupoFonatel" },
+                            { "id", "ddlGrupo" },
                             { "class", "listasDesplegables" },
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
@@ -60,20 +53,13 @@
 
     <div id="divClasificacion" class="col-sm-4" style="display: none;">
         <div class="form-group row">
-            <label for="ddlClasificacionFonatel" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelClasificacion</label>
+            <label for="ddlClasificacion" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelClasificacion</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
-                    @*<select class=" listasDesplegables" id="ddlClasificacionFonatel">
-                        <option></option>
-                        <option value="1">Entrada</option>
-                        <option value="2">Salida</option>
-                        <option value="3">Entrada/salida</option>
-                    </select>*@
-
                     @{
                         var htmlAttrClasificacion = new Dictionary<string, object>
                         {
-                            { "id", "ddlClasificacionFonatel" },
+                            { "id", "ddlClasificacion" },
                             { "class", "listasDesplegables" },
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
@@ -100,7 +86,7 @@
                     @{
                         var htmlAttrServicio = new Dictionary<string, object>
                         {
-                            { "id", "dllServicio" },
+                            { "id", "ddlServicio" },
                             { "class", "listasDesplegables" },
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
@@ -117,13 +103,6 @@
             <label for="ddlTipoIndicador" class="col-sm-12 col-form-label">@EtiquetasViewFormulasCalculo.GestionFormulas_LabelTipoIndicador</label>
             <div class="col-sm-12">
                 <div class="select2-wrapper">
-                    @*<select class=" listasDesplegables" id="ddlTipoIndicador">
-                        <option></option>
-                        <option value="1">Entrada</option>
-                        <option value="2">Salida</option>
-                        <option value="3">Entrada/salida</option>
-                    </select>*@
-
                     @{
                         var htmlAttrTipo = new Dictionary<string, object>
                         {

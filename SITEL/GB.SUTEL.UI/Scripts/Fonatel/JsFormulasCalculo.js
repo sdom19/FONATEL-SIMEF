@@ -723,10 +723,10 @@ GestionFormulaView = {
 
         form: {
             ddlFuenteIndicador: "#ddlFuenteIndicador",
-            dllGrupo: "#ddlGrupoFonatel",
-            ddlClasificacion: "#ddlClasificacionFonatel",
+            ddlGrupo: "#ddlGrupo",
+            ddlClasificacion: "#ddlClasificacion",
             ddlTipoIndicador: "#ddlTipoIndicador",
-            dllServicio: "#dllServicio",
+            ddlServicio: "#ddlServicio",
             ddlIndicador: "#ddlIndicador",
 
             divGrupo: "#divGrupo",
@@ -891,7 +891,7 @@ GestionFormulaView = {
         },
 
         LimpiarComboxBoxDependientesDeddlFuenteIndicador() {
-            $(GestionFormulaView.Controles.form.dllGrupo).empty();
+            $(GestionFormulaView.Controles.form.ddlGrupo).empty();
             $(GestionFormulaView.Controles.form.ddlClasificacion).empty();
             $(GestionFormulaView.Controles.form.ddlTipoIndicador).empty();
             $(GestionFormulaView.Controles.form.ddlIndicador).empty();
@@ -903,8 +903,8 @@ GestionFormulaView = {
                 dataSet.push({ value: item.id, text: item.Nombre });
             });
 
-            InsertarDataSetSelect2(GestionFormulaView.Controles.form.dllGrupo, dataSet, false);
-            $(GestionFormulaView.Controles.form.dllGrupo).val("");
+            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlGrupo, dataSet, false);
+            $(GestionFormulaView.Controles.form.ddlGrupo).val("");
         },
 
         InsertarDatosEnComboBoxClasificacion: function (pData) {
@@ -933,8 +933,8 @@ GestionFormulaView = {
                 dataSet.push({ value: item.id, text: item.Nombre });
             });
 
-            InsertarDataSetSelect2(GestionFormulaView.Controles.form.dllServicio, dataSet, false);
-            $(GestionFormulaView.Controles.form.dllServicio).val("");
+            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlServicio, dataSet, false);
+            $(GestionFormulaView.Controles.form.ddlServicio).val("");
         },
 
         InsertarDatosEnComboBoxIndicador: function (pData) {
@@ -1012,16 +1012,18 @@ GestionFormulaView = {
                     id: $(controles.ddlClasificacion).val()
                 },
                 TipoIndicadores: {
-                    id: $(controles.ddlTipo).val()
+                    id: $(controles.ddlTipoIndicador).val()
                 }
             };
+            console.log(formData);
             return formData;
         },
 
         CrearObjServicio: function () {
             return {
                 ServicioSitel: {
-                    id: $(GestionFormulaView.Controles.form.dllServicio).val()
+                    id: $(GestionFormulaView.Controles.form.ddlServicio).val(),
+                    Nombre: "wasdasd"
                 },
             };
         },
@@ -1029,7 +1031,7 @@ GestionFormulaView = {
         SeleccionarCargaDeDatosIndicador: function () {
             let esFuenteFonatel = GestionFormulaView.Variables.esFuenteIndicadorFonatel;
             let grupo = $(GestionFormulaView.Controles.form.ddlGrupo).val();
-            let servicio = $(GestionFormulaView.Controles.form.dllServicio).val();
+            let servicio = $(GestionFormulaView.Controles.form.ddlServicio).val();
             let clasificacion = $(GestionFormulaView.Controles.form.ddlClasificacion).val();
             let tipoIndicador = $(GestionFormulaView.Controles.form.ddlTipoIndicador).val();
 
@@ -1080,7 +1082,9 @@ GestionFormulaView = {
         },
 
         ConsultarIndicadores: function (pIndicador, pEsFuenteFonaltel, pServicio = null) {
-            return execAjaxCall("/FormulaCalculo/ObtenerIndicadores", "GET", { pIndicador: pIndicador, pEsFuenteIndicadorFonatel: pEsFuenteFonaltel, pServicio: pServicio });
+            return execAjaxCall("/FormulaCalculo/ObtenerIndicadores", "POST",
+                { pIndicador: pIndicador, pEsFuenteIndicadorFonatel: pEsFuenteFonaltel, pServicio: pServicio }
+            );
         }
     },
 
@@ -1104,11 +1108,11 @@ GestionFormulaView = {
             }
         });
 
-        $(document).on("change", GestionFormulaView.Controles.form.dllGrupo, function () {
+        $(document).on("change", GestionFormulaView.Controles.form.ddlGrupo, function () {
             GestionFormulaView.Metodos.SeleccionarCargaDeDatosIndicador();
         });
 
-        $(document).on("change", GestionFormulaView.Controles.form.dllServicio, function () {
+        $(document).on("change", GestionFormulaView.Controles.form.ddlServicio, function () {
             GestionFormulaView.Metodos.SeleccionarCargaDeDatosIndicador();
         });
 

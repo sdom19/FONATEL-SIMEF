@@ -600,7 +600,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pEsFuenteIndicadorFonatel"></param>
         /// <param name="pServicioSitel"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         public async Task<string> ObtenerIndicadores(Indicador pIndicador, bool pEsFuenteIndicadorFonatel, ServicioSitel pServicioSitel = null)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
