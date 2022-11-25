@@ -261,6 +261,9 @@
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
 
+
+
+
                     JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
    
                             if (Siguiente) {

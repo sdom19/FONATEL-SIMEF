@@ -71,6 +71,11 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
+                else if (objeto.CantidadFilas < result.RelacionCategoriaId.Count())
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(string.Format ("La cantidad de filas debe ser mayor o igual a {0}",result.RelacionCategoriaId.Count()));
+                }
                 else if (result.DetalleRelacionCategoria.Count() > objeto.CantidadCategoria)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
@@ -95,6 +100,10 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
+                    if (result.CantidadFilas == objeto.RelacionCategoriaId.Count())
+                    {
+                        objeto.idEstado = (int)EstadosRegistro.Activo;
+                    }
 
                     //HACEMOS LA EDICION
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
@@ -500,6 +509,23 @@ namespace GB.SIMEF.BL
                 {
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatosDetalle(detalleRelacion);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+
+                    if (ResultadoConsulta.objetoRespuesta.SingleOrDefault().RelacionCategoriaId.Count()>0)
+                    {
+                        foreach (var item in ResultadoConsulta.objetoRespuesta.SingleOrDefault().RelacionCategoriaId)
+                        {
+
+                            RelacionCategoriaAtributo relacionCategoriaAtributo = new RelacionCategoriaAtributo()
+                            {
+                                idRelacion = item.idRelacion,
+                                IdCategoriaId = item.idCategoriaId,
+                                IdcategoriaAtributo = objeto.idCategoria,
+                                IdcategoriaAtributoDetalle = 0
+                            };
+
+                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(relacionCategoriaAtributo);
+                        }
+                    }
                 }
 
             }
@@ -557,6 +583,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
+                ResultadoConsulta.objetoRespuesta = new List<RelacionCategoria>();
                 RelacionCategoriaId relacionId = new RelacionCategoriaId();
                
                 using (var package = new ExcelPackage(file.InputStream))
@@ -568,7 +595,7 @@ namespace GB.SIMEF.BL
                     int columna = 2;
                     relacionId.OpcionEliminar = true;
                     relacion.CantidadFilas=relacion.CantidadFilas +2;
-                    for (int fila = 2; fila <= relacion.CantidadFilas; fila++)
+                    for (int fila = 2; fila < relacion.CantidadFilas; fila++)
                     {
                        
                         if (worksheet.Cells[fila, 1].Value == null)
@@ -593,36 +620,43 @@ namespace GB.SIMEF.BL
                                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                                 throw new Exception("Error en la lectura de la columna "+ValorColumna);
                             }
-
-
-                            DetalleCategoriaTexto detalleCategoriaTexto = detalleRelacionCategoria.CategoriaAtributo
-                                .DetalleCategoriaTexto.Where(p => p.Etiqueta.Trim().ToUpper() == celdaValor).FirstOrDefault();
-
-                            //if(detalleRelacionCategoria==null)
-                            //{
-                            //    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                            //    throw new Exception("Error en la lectura de la columna " + (fila-1));
-                            //}
-
-                            if (temp==2)
+                            else if(ResultadoConsulta.objetoRespuesta.Single().RelacionCategoriaId.Where(i=>i.idCategoriaId==valorId).Count()>0)
                             {
-                                relacionId.idRelacion = relacion.IdRelacionCategoria;
-                                relacionId.idCategoriaId = valorId;
-                                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(relacionId);
-                                relacionId.OpcionEliminar = false;
+                                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                                throw new Exception("La Categoría id se encuentra ya se encuentra registrada" + ValorColumna);
                             }
-                            
-                            
-                            
-                            RelacionCategoriaAtributo relacionCategoriaAtributo=new RelacionCategoriaAtributo()
+                            else
                             {
-                                idRelacion=relacion.IdRelacionCategoria,
-                                IdCategoriaId=valorId,
-                                IdcategoriaAtributo=detalleCategoriaTexto.idCategoria,
-                                IdcategoriaAtributoDetalle=detalleCategoriaTexto.idCategoriaDetalle
-                            };
+                                DetalleCategoriaTexto detalleCategoriaTexto = detalleRelacionCategoria.CategoriaAtributo
+                             .DetalleCategoriaTexto.Where(p => p.Etiqueta.Trim().ToUpper() == celdaValor).FirstOrDefault();
 
-                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(relacionCategoriaAtributo);
+                                //if(detalleRelacionCategoria==null)
+                                //{
+                                //    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                                //    throw new Exception("Error en la lectura de la columna " + (fila-1));
+                                //}
+
+                                if (temp == 2)
+                                {
+                                    relacionId.idRelacion = relacion.IdRelacionCategoria;
+                                    relacionId.idCategoriaId = valorId;
+                                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(relacionId);
+                                    relacionId.OpcionEliminar = false;
+                                }
+
+
+
+                                RelacionCategoriaAtributo relacionCategoriaAtributo = new RelacionCategoriaAtributo()
+                                {
+                                    idRelacion = relacion.IdRelacionCategoria,
+                                    IdCategoriaId = valorId,
+                                    IdcategoriaAtributo = detalleCategoriaTexto.idCategoria,
+                                    IdcategoriaAtributoDetalle = detalleCategoriaTexto.idCategoriaDetalle
+                                };
+
+                                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(relacionCategoriaAtributo);
+                            }
+                         
 
 
                            

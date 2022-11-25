@@ -32,7 +32,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         // : CATEGORIAS DESAGREGACION
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBl;
-        private readonly DetalleCategoriasTextoBL detalleCategoriasTextoBL;
 
         private readonly RelacionCategoriaAtributoBL relacionCategoriaAtributoBL;
 
@@ -313,7 +312,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                             RelacionCategoriaAtributo[] ArrayCategoriaAtributo = ArrayCategoriaId.Length > (fila - 2) ? ArrayCategoriaId[fila - 2].listaCategoriaAtributo.ToArray() : new RelacionCategoriaAtributo[0];
 
-                             worksheetInicio.Cells[fila, Columna].Value= ArrayCategoriaAtributo.Length>(Columna-2)? ArrayCategoriaAtributo[Columna-2].Etiqueta:string.Empty;
+                             worksheetInicio.Cells[fila, Columna].Value= ArrayCategoriaAtributo.Length>(Columna-2)? ArrayCategoriaAtributo[Columna-2].Etiqueta.Replace("N/A", string.Empty) : string.Empty;
 
                             worksheetInicio.Cells[fila, Columna].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                             worksheetInicio.Cells[fila, Columna].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
@@ -376,7 +375,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
-        public async Task<string> EliminrRegistroRelacionId(RelacionCategoriaId relacionCategoriaId)
+        public async Task<string> EliminarRegistroRelacionId(RelacionCategoriaId relacionCategoriaId)
         {
 
             RespuestaConsulta<List<RelacionCategoria>> result = null;
@@ -397,6 +396,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+
+
+
+        [HttpPost]
+        public async Task<string> InsertarRelacionCategoriaId(RelacionCategoriaId relacionCategoriaId)
+        {
+
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
+            await Task.Run(() =>
+            {
+                 result = relacionCategoriaAtributoBL.InsertarDatos(relacionCategoriaId);
+         
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
 
         #endregion
 
