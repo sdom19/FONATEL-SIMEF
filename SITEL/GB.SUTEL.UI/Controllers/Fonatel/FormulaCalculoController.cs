@@ -27,6 +27,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly TipoIndicadorBL tipoIndicadorBL;
         private readonly ClasificacionIndicadorBL clasificacionIndicadorBL;
         private readonly ServicioSitelBL servicioSitelBL;
+        private readonly AcumulacionFormulaBL acumulacionFormulaBL;
 
         private readonly string usuario = string.Empty;
         private readonly string nombreVista = string.Empty;
@@ -48,6 +49,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             tipoIndicadorBL = new TipoIndicadorBL(nombreVista, usuario);
             clasificacionIndicadorBL = new ClasificacionIndicadorBL(nombreVista, usuario);
             servicioSitelBL = new ServicioSitelBL();
+            acumulacionFormulaBL = new AcumulacionFormulaBL(nombreVista, usuario);
         }
 
         #region Eventos de la página
@@ -566,10 +568,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 28/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna las diferentes acumulaciones de formulas Fonatel
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<string> ObtenerAcumulacionFonatel()
+        public async Task<string> ObtenerAcumulacionesFonatel()
         {
-            return JsonConvert.SerializeObject("");
+            RespuestaConsulta<List<AcumulacionFormula>> resultado = new RespuestaConsulta<List<AcumulacionFormula>>();
+
+            await Task.Run(() =>
+            {
+                resultado = acumulacionFormulaBL.ObtenerDatos(new AcumulacionFormula());
+            });
+
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>
@@ -626,7 +641,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
                 else
                 {
-
+                    resultado = indicadorFonatelBL.ObtenerDatosSitel(pIndicador, pServicioSitel);
                 }
             });
 

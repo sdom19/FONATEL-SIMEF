@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcumulacionFormulaDAL.cs" />
     <Compile Include="CorreoDal.cs" />
     <Compile Include="DatosHistoricosDAL.cs" />
     <Compile Include="ClasificacionIndicadorDAL.cs" />

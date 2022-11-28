@@ -94,5 +94,7 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<ReglaIndicadorEntrada> ReglaIndicadorEntrada { get; set; }
         public virtual DbSet<ReglaIndicadorEntradaSalida> ReglaIndicadorEntradaSalida { get; set; }
         public virtual DbSet<RelacionCategoriaId> RelacionCategoriaId { get; set; }
+
+        public virtual DbSet<AcumulacionFormula> AcumulacionFormula { get; set; }
     }
 }

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcumulacionFormula.cs" />
     <Compile Include="Anno.cs" />
     <Compile Include="Bitacora.cs" />
     <Compile Include="DatoHistorico.cs" />

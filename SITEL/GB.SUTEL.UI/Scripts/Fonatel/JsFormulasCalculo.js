@@ -96,7 +96,7 @@
                 html += "<td>" + formula.EstadoRegistro.Nombre + "</td>";
                 html += "<td>" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value='" + formula.id + "' class='btn-icon-base btn-edit'></button>" +
-                    "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' value='" + formula.id + "' class='btn-icon-base btn-clone' ></button >" +
+                    "<button type = 'button' data - toggle='tooltip' data-placement='top' title = 'Clonar' value='" + formula.id + "' class='btn-icon-base btn-clone' ></button >" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar detalle' value='" + formula.id + "' class='btn-icon-base btn-view'></button>";
 
                 if (formula.IdEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
@@ -728,6 +728,7 @@ GestionFormulaView = {
             ddlTipoIndicador: "#ddlTipoIndicador",
             ddlServicio: "#ddlServicio",
             ddlIndicador: "#ddlIndicador",
+            ddlAcumulacion: "#ddlAcumulacion",
 
             divGrupo: "#divGrupo",
             divClasificacion: "#divClasificacion",
@@ -741,7 +742,7 @@ GestionFormulaView = {
             chkValorTotal: "#chkValorTotal",
             btnAgregarDetalleAgregacion: "#btnAgregarDetalleAgregacion",
             btnEliminarDetalleAgregacion: "#btnEliminarDetalleAgregacion",
-            btnAgregarArgumento: "#TableaIndicadoresVariable tbody tr td .btn-add",
+            btnAgregarArgumento: "#tablaDetallesIndicador tbody tr td .btn-add",
 
             btnCalendarFormula: "#btnCalendarFormula",
             btnRemoverItemFormula: "#btnRemoverItemFormula",
@@ -753,6 +754,8 @@ GestionFormulaView = {
             btnGuardar: "#btnGuardarGestionFormulaCalculo",
             btnCancelar: "#btnCancelarGestionFormulaCalculo",
         },
+
+        tablaDetallesIndicador: "#tablaDetallesIndicador tbody",
 
         //divStep2: "#step-2 input, #step-2 select, #step-2 button",
 
@@ -949,6 +952,18 @@ GestionFormulaView = {
             $(GestionFormulaView.Controles.form.ddlIndicador).val("");
         },
 
+        InsertarDatosEnComboBoxTipoAcumulacion: function (pData) {
+            $(GestionFormulaView.Controles.form.ddlAcumulacion).empty();
+
+            let dataSet = []
+            pData.objetoRespuesta?.forEach(item => {
+                dataSet.push({ value: item.id, text: item.Acumulacion });
+            });
+
+            InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlAcumulacion, dataSet, false);
+            $(GestionFormulaView.Controles.form.ddlAcumulacion).val("");
+        },
+
         CargarCatalogosParaFuenteIndicadorFonatel: function () {
             $("#loading").fadeIn();
 
@@ -971,7 +986,13 @@ GestionFormulaView = {
                     this.InsertarDatosEnComboBoxTipoIndicador(data);
                 })
                 .then(() => {
-                    // cargar la acumulación
+                    return GestionFormulaView.Consultas.ConsultarAcumulacionesFonatel();
+                })
+                .then(data => {
+                    this.InsertarDatosEnComboBoxTipoAcumulacion(data);
+                })
+                .then(() => {
+                    GestionFormulaView.Variables.cargoCatalogosFuenteFonatel = true;
                 })
                 .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => { $("#loading").fadeOut(); });
@@ -998,6 +1019,9 @@ GestionFormulaView = {
                 .then(data => {
                     this.InsertarDatosEnComboBoxTipoIndicador(data);
                 })
+                .then(() => {
+                    GestionFormulaView.Variables.cargoCatalogosFuenteSitel = true;
+                })
                 .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => { $("#loading").fadeOut(); });
         },
@@ -1015,7 +1039,6 @@ GestionFormulaView = {
                     id: $(controles.ddlTipoIndicador).val()
                 }
             };
-            console.log(formData);
             return formData;
         },
 
@@ -1053,7 +1076,36 @@ GestionFormulaView = {
                 })
                 .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => { $("#loading").fadeOut(); });
-        }
+        },
+
+        CargarTablaDetallesIndicadorFonatel: function (pIdIndicador) {
+            $("#loading").fadeIn();
+
+            GestionFormulaView.Consultas.ConsultarVariablesDatoIndicadorFonatel(pIdIndicador)
+                .then(obj => {
+                    console.log(obj);
+                    this.InsertarDatosTablaDetallesIndicador(obj.objetoRespuesta);
+                })
+                .catch(error => { ManejoDeExcepciones(null); })
+                .finally(() => { $("#loading").fadeOut(); });
+        },
+
+        InsertarDatosTablaDetallesIndicador: function (pListado) {
+            EliminarDatasource();
+            let html = "";
+            for (var i = 0; i < pListado.length; i++) {
+                let detalle = pListado[i];
+                html += `<tr><td scope='row'>${detalle.Codigo}</td>`;
+                html += `<td>${detalle.NombreVariable}</td>`;
+                html += "<td><input type='checkbox' id='chkValorTotal' /></td>";
+                html += "<td>" + '<button type="submit" id="btnAgregarDetalleAgregacion" class="btn-icon-base btn-touch" data-toggle="tooltip" data-placement="top" title="Agregar detalle"></button>' + "</td>";
+                html += "<td>" + '<button type="submit" id="" class="btn-icon-base btn-add" data-toggle="tooltip" data-placement="top" title="Agregar"></button>' + "</td>";
+                
+                html += "</tr>";
+            }
+            $(GestionFormulaView.Controles.tablaDetallesIndicador).html(html);
+            CargarDatasource();
+        },
     },
 
     Consultas: {
@@ -1085,6 +1137,14 @@ GestionFormulaView = {
             return execAjaxCall("/FormulaCalculo/ObtenerIndicadores", "POST",
                 { pIndicador: pIndicador, pEsFuenteIndicadorFonatel: pEsFuenteFonaltel, pServicio: pServicio }
             );
+        },
+
+        ConsultarAcumulacionesFonatel: function () {
+            return execAjaxCall("/FormulaCalculo/ObtenerAcumulacionesFonatel", "GET");
+        },
+
+        ConsultarVariablesDatoIndicadorFonatel: function (pIdIndicador) {
+            return execAjaxCall("/FormulaCalculo/ObtenerVariablesDatoDeIndicador", "GET", { pIdIndicador });
         }
     },
 
@@ -1122,6 +1182,16 @@ GestionFormulaView = {
 
         $(document).on("change", GestionFormulaView.Controles.form.ddlClasificacion, function () {
             GestionFormulaView.Metodos.SeleccionarCargaDeDatosIndicador();
+        });
+
+        $(document).on("change", GestionFormulaView.Controles.form.ddlIndicador, function () {
+            if (GestionFormulaView.Variables.esFuenteIndicadorFonatel) {
+                GestionFormulaView.Metodos.CargarTablaDetallesIndicadorFonatel($(this).val());
+            }
+            else {
+                // Indicadores de fuente sitel ?
+            }
+
         });
 
         // | Eventos por probar y rehacer   |
@@ -1190,10 +1260,6 @@ GestionFormulaView = {
             $(GestionFormulaView.Controles.modalDetalleAgregacion.ddlCategoria).select2("enable", false);
             $(GestionFormulaView.Controles.modalDetalleAgregacion.ddlDetalle).select2("enable", false);
             $(GestionFormulaView.Controles.modalDetalleAgregacion.ddlCriterio).select2("enable", false);
-        });
-
-        $(document).on("click", GestionFormulaView.Controles.form.btnAtras, function (e) {
-            $("a[href='#step-1']").trigger('click');
         });
 
         $(document).on("click", GestionFormulaView.Controles.form.btnFinalizar, function (e) {
@@ -1309,6 +1375,10 @@ GestionFormulaView = {
                             $(GestionFormulaView.Controles.modalDetalleAgregacion.modal).modal('hide');
                         });
                 });
+        });
+
+        $(document).on("click", GestionFormulaView.Controles.form.btnAtras, function (e) {
+            $("a[href='#step-1']").trigger('click');
         });
     },
 
