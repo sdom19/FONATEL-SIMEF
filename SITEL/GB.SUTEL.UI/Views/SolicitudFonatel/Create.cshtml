@@ -60,16 +60,10 @@
                 </div>
 
                 <div class="col-lg-12 text-center">
-                    @if (Model.CantidadFormularios == ViewBag.ListaFormularioWeb.Count)
+
+                    @if (Model.CantidadFormularios <= Model.FormularioWeb.Count)
                     {
-                        if (Model.CantidadFormularios == Model.FormularioWeb.Count)
-                        {
-                            <button type="submit" id="btnFinalizarSolicitud" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
-                        }
-                        else
-                        {
-                             <button type="submit" id="btnFinalizarSolicitud" disabled class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
-                        }
+                        <button type="submit" id="btnFinalizarSolicitud" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
                     }
                     else
                     {
