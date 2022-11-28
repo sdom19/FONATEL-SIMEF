@@ -39,12 +39,30 @@ namespace GB.SIMEF.BL
                 envioCorreo.objetoRespuesta = false;
                 PlantillaHtml plantilla = plantillaDal.ObtenerDatos((int)Constantes.PlantillaCorreoEnum.EnvioSolicitud);
                 solicitud = clsDatos.ObtenerDatos(solicitud).Single();
-                if (solicitud.Fuente.idEstado==(int)Constantes.EstadosRegistro.Activo )
+                if (solicitud.Fuente.idEstado == (int)Constantes.EstadosRegistro.Activo)
                 {
+
+                    string formularios = string.Empty;
+                    bool primerValor = true;
+                    foreach (var item in solicitud.FormularioWeb.Select(x => x.Nombre))
+                    {
+                        if (primerValor)
+                        {
+                            formularios = item;
+                            primerValor = false;
+                        }
+                        else
+                        {
+                            formularios = string.Format(", {0}", item);
+                        }
+                      
+                    }
+                    string fechaVigencia = string.Format("{0:MM/dd/yyyy} al {1:MM/dd/yyyy}", solicitud.FechaInicio, solicitud.FechaFin);
+                    plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(solicitud.Fuente.Fuente) , solicitud.Nombre,fechaVigencia , solicitud.Mes.Nombre+" "+solicitud.Anno.Nombre, formularios);
                     foreach (var detalleFuente in solicitud.Fuente.DetalleFuentesRegistro.Where(x=>x.Estado==true))
                     {
-                      
-                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html, "Envío de solicitud");
+                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(solicitud.Fuente.Fuente),detalleFuente.NombreDestinatario), "Envío de solicitud");
+
                         var result=correoDal.EnviarCorreo();
                         envioCorreo.objetoRespuesta = result == 0 ? false : true;
                     }

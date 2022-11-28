@@ -81,6 +81,13 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string FormulariosString { get; set; }
 
+
+        [NotMapped]
+        public Mes Mes { get; set; }
+        [NotMapped]
+        public Anno Anno { get; set; }
+
+
         #endregion
     }
 }

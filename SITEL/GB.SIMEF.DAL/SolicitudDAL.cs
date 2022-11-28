@@ -56,7 +56,8 @@ namespace GB.SIMEF.DAL
                     SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud).ToList(),
                     FormulariosString = ObtenerListaFormularioString(x.idSolicitud),
                     FormularioWeb = ObtenerListaFormulario(x.idSolicitud),
-
+                    Mes=db.Mes.Where(p=>p.idMes==x.idMes).FirstOrDefault(),
+                    Anno=db.Anno.Where(p=>p.idAnno==x.idAnno).FirstOrDefault()
                 }).ToList();
             }
             return ListaSolicitud;
@@ -114,20 +115,28 @@ namespace GB.SIMEF.DAL
                 {
                     id = Utilidades.Encriptar(x.idSolicitud.ToString()),
                     idSolicitud = x.idSolicitud,
-                    Codigo = x.Codigo,
                     Nombre = x.Nombre,
+                    CantidadFormularios = x.CantidadFormularios,
+                    Codigo = x.Codigo,
                     FechaInicio = x.FechaInicio,
                     FechaFin = x.FechaFin,
-                    idMes = x.idMes,
-                    idAnno = x.idAnno,
-                    CantidadFormularios = x.CantidadFormularios,
-                    idFuente = x.idFuente,
+                    IdEstado = x.IdEstado,
                     Mensaje = x.Mensaje,
+                    idAnno = x.idAnno,
+                    idMes = x.idMes,
+                    idFuente = x.idFuente,
                     FechaCreacion = x.FechaCreacion,
-                    FechaModificacion = x.FechaModificacion,
                     UsuarioCreacion = x.UsuarioCreacion,
+                    FechaModificacion = x.FechaModificacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     Estado = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
+                    Fuente = ObtenerFuente(x.idFuente),
+                    EnvioProgramado = db.SolicitudEnvioProgramado.Where(i => i.IdSolicitud == x.idSolicitud && i.Estado == true).SingleOrDefault(),
+                    SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud).ToList(),
+                    FormulariosString = ObtenerListaFormularioString(x.idSolicitud),
+                    FormularioWeb = ObtenerListaFormulario(x.idSolicitud),
+                    Mes = db.Mes.Where(p => p.idMes == x.idMes).FirstOrDefault(),
+                    Anno = db.Anno.Where(p => p.idAnno == x.idAnno).FirstOrDefault()
                 }).ToList();
 
             }
