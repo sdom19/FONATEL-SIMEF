@@ -13,6 +13,28 @@ namespace GB.SIMEF.DAL
     {
         private SIMEFContext db;
 
+
+
+        /// <summary>
+        /// Autor: Francisco Vindas
+        /// Fecha: 25/11/2022
+        /// El metodo crea una lista generica de la solicitud que puede ser utilizado en lo metodos que lo necesiten 
+        /// </summary>
+        /// <param name="ListaSolicitud"></param>
+        /// <returns></returns>
+
+        private List<DetalleSolicitudFormulario> CrearListadoDetallesSolicitud(List<DetalleSolicitudFormulario> ListaDetalles)
+        {
+            return ListaDetalles.Select(x => new DetalleSolicitudFormulario
+            {
+                IdSolicitud = x.IdSolicitud,
+                IdFormulario = x.IdFormulario,
+                Estado = x.Estado,
+                Completo = db.Solicitud.Where(i => i.idSolicitud == x.IdSolicitud).Single().CantidadFormularios == ListaDetalles.Count() ? true : false
+
+
+            }).ToList();
+        }
         /// <summary>
         /// Autor: Francisco Vindas Ruiz
         /// Fecha: 13/10/2022
@@ -31,12 +53,7 @@ namespace GB.SIMEF.DAL
                       new SqlParameter("@pidSolicitud", detalleSolicitud.IdSolicitud)
                     ).ToList();
 
-                ListaDetalle = ListaDetalle.Select(x => new DetalleSolicitudFormulario()
-                {
-                    IdSolicitud = x.IdSolicitud,
-                    IdFormulario = x.IdFormulario,
-                    Estado = x.Estado
-                }).ToList();
+                ListaDetalle = CrearListadoDetallesSolicitud(ListaDetalle);
             }
 
             return ListaDetalle;
@@ -62,13 +79,7 @@ namespace GB.SIMEF.DAL
                       new SqlParameter("@Estado", detalleSolicitud.Estado)
                     ).ToList();
 
-
-                ListaDetalle = ListaDetalle.Select(x => new DetalleSolicitudFormulario()
-                {
-                    Completo = db.Solicitud.Where(i => i.idSolicitud == x.IdSolicitud).Single().CantidadFormularios == ListaDetalle.Count() ? true : false
-
-                }).ToList();
-
+                ListaDetalle = CrearListadoDetallesSolicitud(ListaDetalle);
             }
 
             return ListaDetalle;

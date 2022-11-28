@@ -13,6 +13,45 @@ namespace GB.SIMEF.DAL
     {
         private  SIMEFContext db;
         #region Metodos Consulta Base de Datos
+
+        /// <summary>
+        /// Autor: Francisco Vindas
+        /// Fecha: 25/11/2022
+        /// El metodo crea una lista generica de la solicitud que puede ser utilizado en lo metodos que lo necesiten 
+        /// </summary>
+        /// <param name="ListaSolicitud"></param>
+        /// <returns></returns>
+
+        private List<Solicitud> CrearListadoSolicitud(List<Solicitud> ListaSolicitud)
+        {
+            return ListaSolicitud.Select(x => new Solicitud
+            {
+                id = Utilidades.Encriptar(x.idSolicitud.ToString()),
+                idSolicitud = x.idSolicitud,
+                Nombre = x.Nombre,
+                CantidadFormularios = x.CantidadFormularios,
+                Codigo = x.Codigo,
+                FechaInicio = x.FechaInicio,
+                FechaFin = x.FechaFin,
+                IdEstado = x.IdEstado,
+                Mensaje = x.Mensaje,
+                idAnno = x.idAnno,
+                idMes = x.idMes,
+                idFuente = x.idFuente,
+                FechaCreacion = x.FechaCreacion,
+                UsuarioCreacion = x.UsuarioCreacion,
+                FechaModificacion = x.FechaModificacion,
+                UsuarioModificacion = x.UsuarioModificacion,
+                Estado = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
+                Fuente = ObtenerFuente(x.idFuente),
+                EnvioProgramado = db.SolicitudEnvioProgramado.Where(i => i.IdSolicitud == x.idSolicitud && i.Estado == true).SingleOrDefault(),
+                SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud).ToList(),
+                FormulariosString = ObtenerListaFormularioString(x.idSolicitud),
+                FormularioWeb = ObtenerListaFormulario(x.idSolicitud),
+
+            }).ToList();
+        }
+
         /// <summary>
         /// Metodo que carga los registros de Solicitudes según parametros
         /// fecha 03-08-2022
@@ -32,32 +71,7 @@ namespace GB.SIMEF.DAL
                     new SqlParameter("@idEstado", objSolicitud.IdEstado)
                     ).ToList();
 
-                ListaSolicitud = ListaSolicitud.Select(x => new Solicitud()
-                {
-                    id = Utilidades.Encriptar(x.idSolicitud.ToString()),
-                    idSolicitud = x.idSolicitud,
-                    Nombre = x.Nombre,
-                    CantidadFormularios = x.CantidadFormularios,
-                    Codigo = x.Codigo,
-                    FechaInicio = x.FechaInicio,
-                    FechaFin = x.FechaFin,
-                    IdEstado = x.IdEstado,
-                    Mensaje = x.Mensaje,
-                    idAnno = x.idAnno,
-                    idMes = x.idMes,
-                    idFuente = x.idFuente,
-                    FechaCreacion = x.FechaCreacion,
-                    UsuarioCreacion = x.UsuarioCreacion,
-                    FechaModificacion = x.FechaModificacion,
-                    UsuarioModificacion = x.UsuarioModificacion,
-                    Estado = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
-                    Fuente = ObtenerFuente(x.idFuente),
-                    EnvioProgramado = db.SolicitudEnvioProgramado.Where(i => i.IdSolicitud == x.idSolicitud && i.Estado==true).SingleOrDefault(),
-                    SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud).ToList(),
-                    FormulariosString = ObtenerListaFormularioString(x.idSolicitud),
-                    FormularioWeb = ObtenerListaFormulario(x.idSolicitud),
-
-                }).ToList();
+                ListaSolicitud = CrearListadoSolicitud(ListaSolicitud);
             }
             return ListaSolicitud;
         }
@@ -67,10 +81,6 @@ namespace GB.SIMEF.DAL
             fuente.DetalleFuentesRegistro = db.DetalleFuentesRegistro.Where(i => i.idFuente == id).ToList();
             return fuente;
         }
-
-
-
-
 
 
         /// <summary>
@@ -110,25 +120,7 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@idEstado", objeto.IdEstado)
                     ).ToList();
 
-                ListaSolicitud = ListaSolicitud.Select(x => new Solicitud()
-                {
-                    id = Utilidades.Encriptar(x.idSolicitud.ToString()),
-                    idSolicitud = x.idSolicitud,
-                    Codigo = x.Codigo,
-                    Nombre = x.Nombre,
-                    FechaInicio = x.FechaInicio,
-                    FechaFin = x.FechaFin,
-                    idMes = x.idMes,
-                    idAnno = x.idAnno,
-                    CantidadFormularios = x.CantidadFormularios,
-                    idFuente = x.idFuente,
-                    Mensaje = x.Mensaje,
-                    FechaCreacion = x.FechaCreacion,
-                    FechaModificacion = x.FechaModificacion,
-                    UsuarioCreacion = x.UsuarioCreacion,
-                    UsuarioModificacion = x.UsuarioModificacion,
-                    Estado = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
-                }).ToList();
+                ListaSolicitud = CrearListadoSolicitud(ListaSolicitud);
 
             }
 

@@ -623,7 +623,6 @@
 
             let id = ObtenerValorParametroUrl("id");
             Regla.id = id;
-
             Regla.Codigo = $(JsReglas.Controles.txtCodigo).val();
             Regla.Nombre = $(JsReglas.Controles.txtNombre).val();
             Regla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
