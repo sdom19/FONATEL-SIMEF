@@ -21,8 +21,8 @@ namespace GB.SIMEF.BL
         string user = string.Empty;
         private CorreoDal correoDal;
         private PlantillaHtmlDAL plantillaDal;
-       
-        public SolicitudBL(string modulo, string user )
+
+        public SolicitudBL(string modulo, string user)
         {
             this.clsDatos = new SolicitudDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<Solicitud>>();
@@ -61,15 +61,15 @@ namespace GB.SIMEF.BL
                         {
                             formularios = string.Format(", {0}", item);
                         }
-                      
+
                     }
                     string fechaVigencia = string.Format("{0:MM/dd/yyyy} al {1:MM/dd/yyyy}", solicitud.FechaInicio, solicitud.FechaFin);
-                    plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(solicitud.Fuente.Fuente) , solicitud.Nombre,fechaVigencia , solicitud.Mes.Nombre+" "+solicitud.Anno.Nombre, formularios);
-                    foreach (var detalleFuente in solicitud.Fuente.DetalleFuentesRegistro.Where(x=>x.Estado==true))
+                    plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(solicitud.Fuente.Fuente), solicitud.Nombre, fechaVigencia, solicitud.Mes.Nombre + " " + solicitud.Anno.Nombre, formularios);
+                    foreach (var detalleFuente in solicitud.Fuente.DetalleFuentesRegistro.Where(x => x.Estado == true))
                     {
-                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(solicitud.Fuente.Fuente),detalleFuente.NombreDestinatario), "Envío de solicitud");
+                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(solicitud.Fuente.Fuente), detalleFuente.NombreDestinatario), "Envío de solicitud");
 
-                        var result=correoDal.EnviarCorreo();
+                        var result = correoDal.EnviarCorreo();
                         envioCorreo.objetoRespuesta = result == 0 ? false : true;
                     }
                 }
@@ -215,9 +215,9 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
-                { 
-                   
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }
                 ResultadoConsulta.MensajeError = ex.Message;
@@ -273,9 +273,9 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<Solicitud>> ClonarDatos(Solicitud objeto)
         {
             try
-            {        
+            {
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
-                
+
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Clonar;
                 ResultadoConsulta.Usuario = user;
@@ -436,8 +436,8 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
-                { 
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
 
                 }
@@ -513,3 +513,4 @@ namespace GB.SIMEF.BL
 
     }
 }
+    
