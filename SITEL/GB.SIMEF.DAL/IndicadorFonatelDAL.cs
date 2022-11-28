@@ -84,6 +84,26 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
+        /// 25/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores registrados en el sistema Sitel.
+        /// Se puede realizar un filtrado de acuerdo al objecto que se envia.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public List<Indicador> ObtenerDatosSitel(Indicador pIndicador, ServicioSitel pServicioSitel)
+        {
+            List<Indicador> listaIndicadores = new List<Indicador>();
+
+            using (db = new SIMEFContext())
+            {
+            
+            }
+
+            return listaIndicadores;
+        }
+
+        /// <summary>
         /// 08/09/2022
         /// José Navarro Acuña
         /// Función que verifica si el indicador se encuentra en algún formulario web o una formula de calculo.
