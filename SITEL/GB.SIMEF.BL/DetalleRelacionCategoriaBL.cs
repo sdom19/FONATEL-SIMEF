@@ -18,6 +18,8 @@ namespace GB.SIMEF.BL
 
         private readonly RelacionCategoriaDAL clsDatosRelacionCategoria;
 
+        private readonly CategoriasDesagregacionDAL clsDatosCategorias;
+
         private RespuestaConsulta<List<DetalleRelacionCategoria>> ResultadoConsulta;
 
         string modulo = string.Empty;
@@ -30,44 +32,67 @@ namespace GB.SIMEF.BL
             clsDatos = new DetalleRelacionCategoriaDAL();
             clsDatosRelacionCategoria = new RelacionCategoriaDAL();
             ResultadoConsulta = new RespuestaConsulta<List<DetalleRelacionCategoria>>();
+            clsDatosCategorias = new CategoriasDesagregacionDAL();
         }
 
         public void CargarExcel(HttpPostedFileBase file) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
         {
+
+            List<DetalleRelacionCategoria> lista = new List<DetalleRelacionCategoria>();
+            Boolean ind = true;
+
             using (var package = new ExcelPackage(file.InputStream))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[1]; //POSICION DEL CODIGO y NOMBRE
                 string Codigo = worksheet.Name; //POSICION DEL CODIGO
 
-                RelacionCategoria relacion = clsDatosRelacionCategoria.ObtenerDatos(new RelacionCategoria() { Codigo = Codigo }).SingleOrDefault();
+                int codigoRelacionCategoria = Convert.ToInt32(worksheet.Cells[2, 1].Value.ToString());
 
-                relacion.DetalleRelacionCategoria = new List<DetalleRelacionCategoria>(); //TRAE LA CANTIDAD 
+                RelacionCategoria relacion = clsDatosRelacionCategoria.ObtenerDatos(new RelacionCategoria() { idRelacionCategoria = codigoRelacionCategoria }).SingleOrDefault();
 
-                for (int i = 0; i < relacion.CantidadCategoria; i++) //CANTIDAD
+                //relacion.DetalleRelacionCategoria = new List<DetalleRelacionCategoria>(); //TRAE LA CANTIDAD 
+
+                //for (int i = 2; i < relacion.CantidadCategoria + 2; i++) //Recorre las columnas
+                //{
+
+                //    if (worksheet.Cells[2, i].Value != null || worksheet.Cells[1, i].Value != null) //Se revisa si tienen valores o no
+                //    {
+                //        string NombreCategoria = string.Empty;
+                //        string CategoriaTexto = string.Empty;
+
+                //        NombreCategoria = worksheet.Cells[1, i].Value.ToString().Trim();
+                //        CategoriaTexto = worksheet.Cells[2, i].Value.ToString().Trim();
+
+                //        DetalleCategoriaTexto categoriaTexto = clsDatosCategorias.ObtenerCategoriasParaExcel(NombreCategoria, CategoriaTexto).SingleOrDefault();
+
+                //        if (categoriaTexto != null)
+                //        {
+                //            var detallerelacion = new DetalleRelacionCategoria()
+                //            {
+                //                IdRelacionCategoria = relacion.idRelacionCategoria,
+                //                idCategoriaAtributo = categoriaTexto.idCategoria,
+                //                idCategoriaDetalle = categoriaTexto.idCategoriaDetalle,
+                //                Estado = true
+                //            };
+
+                //            lista.Add(detallerelacion);
+                //        }
+                //        else
+                //        {
+                //            ind = false;
+                //            break;
+                //        }
+                //    }
+
+                //}
+
+                if (ind)
                 {
-                    int fila = i + 2; //2
-
-                    if (worksheet.Cells[fila, 1].Value != null || worksheet.Cells[fila, 2].Value != null) //RECORRE LA FILA
+                    foreach (DetalleRelacionCategoria item in lista)
                     {
-                        int codigo = 0;
-                        string CategoriaAtributoValor = string.Empty;
-
-                        int.TryParse(worksheet.Cells[fila, 1].Value.ToString().Trim(), out codigo); //CODIGO
-                        CategoriaAtributoValor = worksheet.Cells[fila, 2].Value.ToString().Trim(); //ETIQUETA
-
-
-                        var detallerelacion = new DetalleRelacionCategoria() // HACE EL INSERTAR FILA POR FILA
-                        {
-                            IdRelacionCategoria = relacion.idRelacionCategoria,
-                            idCategoriaAtributo = codigo,
-                            //CategoriaAtributoValor = CategoriaAtributoValor,
-                            Estado = true
-                        };
-
-                        InsertarDatos(detallerelacion);
+                        InsertarDatos(item);
                     }
-
-                }
+                }         
             }
         }
 

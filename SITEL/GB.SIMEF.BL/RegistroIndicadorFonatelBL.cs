@@ -13,6 +13,8 @@ namespace GB.SIMEF.BL
     public class RegistroIndicadorFonatelBL : IMetodos<RegistroIndicadorFonatel>
     {
         private readonly RegistroIndicadorFonatelDAL clsDatos;
+        private readonly FuentesRegistroDestinatarioDAL clsFuentesRegistroDestinatarioDAL;
+        private readonly FuentesRegistroDAL clsFuentesRegistroDAL;
 
 
         private RespuestaConsulta<List<RegistroIndicadorFonatel>> ResultadoConsulta;
@@ -23,6 +25,8 @@ namespace GB.SIMEF.BL
         {
             this.clsDatos = new RegistroIndicadorFonatelDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<RegistroIndicadorFonatel>>();
+            this.clsFuentesRegistroDestinatarioDAL = new FuentesRegistroDestinatarioDAL();
+            this.clsFuentesRegistroDAL = new FuentesRegistroDAL();
             this.user = user;
             this.modulo = modulo;
         }
@@ -93,7 +97,30 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-     
+        public RespuestaConsulta<List<RegistroIndicadorFonatel>> ObtenerRegistroIndicador(RegistroIndicadorFonatel objeto,string usuario)
+        {
+            try
+            {
+
+                List<DetalleFuentesRegistro> detalle = 
+                    clsFuentesRegistroDestinatarioDAL.ObtenerDatos(new DetalleFuentesRegistro()).Where(x => x.CorreoElectronico == usuario).ToList();
+
+                FuentesRegistro fuente = clsFuentesRegistroDAL.ObtenerDatos(new FuentesRegistro()).Where(x => detalle.Any(y => y.idFuente== x.idFuente)).FirstOrDefault();
+
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ObtenerDatos(objeto).Where(x => x.IdFuente == fuente.idFuente).ToList();
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
+        }
 
     }
 }

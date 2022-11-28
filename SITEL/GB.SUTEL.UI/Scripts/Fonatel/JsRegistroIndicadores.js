@@ -20,6 +20,7 @@
         "btnGuardarCategoría": "#btnGuardarCategoría",
         "btnDescargarPlantillaRegistro": "div.tab-pane.active #btnDescargarPlantillaRegistro",
         "btnCargarPlantillaRegistro": "div.tab-pane.active #btnCargarPlantillaRegistro",
+        "btnCargarPlantillaRegistro": "div.tab-pane.active #btnCargarPlantillaRegistro",
         "inputFileCargarPlantilla": "#inputFileCargarPlantilla",
 
         "fileCargaRegistro": "#fileCargaRegistro",
@@ -37,14 +38,17 @@
         "btnCarga": "#btnCargaRegistroIndicador",
         "btnCargaRegistroIndicador": "#btnCargaRegistroIndicador",
         "btnCargaRegistroIndicadorEdicion": "#btnCargaRegistroIndicadorEdicion",
+        "btnGuardarRegistroIndicador": "#btnGuardarRegistroIndicador",
+        "btnValidarRegistroIndicador": "#btnValidarRegistroIndicador",
+        "btnCancelarRegistroIndicador": "#btnCancelarRegistroIndicador",
 
     },
     "Variables": {
         "VariableIndicador": 1,
         "Validacion": false,
         "paginasActualizadasConSelect2_tablaIndicador": {},
-        "ListadoDetalleRegistroIndicador": []
-
+        "ListadoDetalleRegistroIndicador": [],
+        "ModoConsulta": false,
 
     },
 
@@ -84,7 +88,6 @@
             console.log(jsRegistroIndicadorFonatel.Variables.ListadoDetalleRegistroIndicador);
         },
 
-
         "CargarColumnasTabla": function () {
             if ($(jsRegistroIndicadorFonatel.Controles.columnaTablaIndicador).length == 0) {
                 let html = "<th style='min-width:30PX'>  </th>";
@@ -105,6 +108,8 @@
 
         "CargarFilasTabla": function (cantidadFilas) {
             $(jsRegistroIndicadorFonatel.Controles.filasTablaIndicador).html("");
+            $(jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro).prop('disabled', false);
+            $(jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro).prop('disabled', false);
             let html = "<tr><td></td>";
 
             for (var i = 0; i < jsRegistroIndicadorFonatel.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel.length; i++) {
@@ -131,6 +136,76 @@
             jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
         },
 
+        "DescargarExcel": function () {
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
+        },
+
+        "ImportarExcel": function () {
+            var data;
+            data = new FormData();
+            data.append('file', $(jsRegistroIndicadorFonatel.Controles.inputFileCargarPlantilla)[0].files[0]);
+            let registroIndicador = new Object();
+            registroIndicador.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
+            registroIndicador.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
+            registroIndicador.IdIndicadorString = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
+            data.append('datos', JSON.stringify({ datos: registroIndicador }));
+            data.append('cantidadFilas', $(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val());
+            $.ajax({
+                url: jsUtilidades.Variables.urlOrigen + '/RegistroIndicadorFonatel/CargarExcel',
+                type: 'post',
+                datatype: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                data: data,
+                beforeSend: function () {
+                    $("#loading").fadeIn();
+                },
+                success: function (obj) {
+                    
+                    var respuesta = JSON.parse(obj);
+                    if (respuesta.HayError == jsUtilidades.Variables.Error.NoError) {
+                        jsRegistroIndicadorFonatel.Metodos.CargarDatosExcel(respuesta.objetoRespuesta);
+                        //jsMensajes.Metodos.OkAlertModal("Los Datos han sido cargados")
+                        //.set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
+                    } else if (respuesta.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal("Error al cargar Formulario")
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    
+
+                }
+            }).fail(function (obj) {
+                jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Datos")
+                    .set('onok', function (closeEvent) { })
+                $("#loading").fadeOut();
+
+            })
+        },
+
+        "CargarDatosExcel": function (listaDetalles) {
+
+            jsRegistroIndicadorFonatel.Variables.ListadoDetalleRegistroIndicador = [];
+            let NumeroFila = 0
+            $(jsRegistroIndicadorFonatel.Controles.tablaIndicadorRecorrido).each(function (index) {
+                NumeroFila++;
+                var elementotd = $(this).children("td");
+                listaDetalles.forEach(function (item) {
+                    if (item.NumeroFila == NumeroFila) {
+                        var elementoInput = elementotd.find("[name='name_" + item.idCategoria + "']");
+                        elementoInput.val(item.Valor).change();                       
+                    }
+                    
+                });
+            });
+            if (!jsRegistroIndicadorFonatel.Variables.ModoConsulta) {
+                jsMensajes.Metodos.OkAlertModal("La Plantilla ha sido cargada")
+                    .set('onok', function (closeEvent) { $("#loading").fadeOut(); });
+            }
+            
+            
+        },
+
     },
     "Consultas": {
 
@@ -138,8 +213,67 @@
             $("#loading").fadeIn();
             jsRegistroIndicadorFonatel.Metodos.CrearRegistroIndicador();
             let detalleIndicadorValor = jsRegistroIndicadorFonatel.Variables.ListadoDetalleRegistroIndicador;
-            execAjaxCall("/RegistroIndicadorFonatel/InsertarRegistroIndicadorVariable", "POST", detalleIndicadorValor[0] )
+            //execAjaxCall("/RegistroIndicadorFonatel/InsertarRegistroIndicadorVariable", "POST", detalleIndicadorValor[0] )
+            //    .then((obj) => {
+
+            //    }).catch((obj) => {
+            //        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+            //            jsMensajes.Metodos.OkAlertErrorModal()
+            //                .set('onok', function (closeEvent) { location.reload(); });
+            //        }
+            //        else {
+            //            jsMensajes.Metodos.OkAlertErrorModal()
+            //                .set('onok', function (closeEvent) { })
+            //        }
+            //    }).finally(() => {
+            //        $("#loading").fadeOut();
+            //    });
+
+            $.ajax({
+                url: '/RegistroIndicadorFonatel/InsertarRegistroIndicadorVariable',
+                type: 'post',
+                contentType: 'application/json;charset=UTF-8',
+                dataType: 'json',
+                data: JSON.stringify({ ListaDetalleIndicadorValor: detalleIndicadorValor }),
+                success: function (obj) {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertModal("Los Datos han sido guardados")
+                            .set('onok', function (closeEvent) { $("#loading").fadeOut(); });
+                    }
+                },
+                error: function (obj) {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                },
+                async: false
+            });
+        },
+        "ActualizarDetalleRegistroIndicadorFonatel": function () {
+            $("#loading").fadeIn();
+            let obj = new Object();
+            obj.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
+            obj.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
+            obj.IdIndicadorString = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
+            obj.CantidadFilas = $(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
+            execAjaxCall("/RegistroIndicadorFonatel/ActualizarDetalleRegistroIndicadorFonatel", "POST", obj )
                 .then((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsRegistroIndicadorFonatel.Consultas.InsertarRegistroIndicadorDetalleValor();
+                    }
 
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -150,16 +284,11 @@
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { })
                     }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
+                })
+                //.finally(() => {
+                //    $("#loading").fadeOut();
+                //});
         },
-
-
-
-
-
-
 
         "ConsultaRegistroIndicadorDetalle": function () {
             $("#loading").fadeIn();
@@ -185,16 +314,50 @@
                             .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
-                    CargarDatasourceV2(jsRegistroIndicadorFonatel.Controles.tablaIndicador);              
+                    CargarDatasourceV2(jsRegistroIndicadorFonatel.Controles.tablaIndicador);
+                    if (jsRegistroIndicadorFonatel.Variables.ModoConsulta) {
+                        jsRegistroIndicadorFonatel.Consultas.ConsultaDetalleRegistroIndicadorCategoriaValorFonatel();
+                    }                  
                     $("#loading").fadeOut();             
                 });
+        },
+
+        "ConsultaDetalleRegistroIndicadorCategoriaValorFonatel": function () {
+            $("#loading").fadeIn();
+
+            let detalle = new Object();
+            detalle.FormularioId = ObtenerValorParametroUrl("idSolicitud");
+            detalle.Solicitudid = ObtenerValorParametroUrl("idFormulario");
+            detalle.IndicadorId = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
+            execAjaxCall("/RegistroIndicadorFonatel/ObtenerListaDetalleRegistroIndicadorCategoriaValorFonatel", "POST", detalle)
+                .then((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsRegistroIndicadorFonatel.Metodos.CargarDatosExcel(obj.objetoRespuesta);
+                    }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
         }
+
     }
 
 }
 
 
-$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCancelar, function (e) {
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCancelarRegistroIndicador, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
@@ -203,19 +366,10 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCancelar, functi
 });
 
 
-$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardar, function (e) {
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroIndicador, function (e) {
     e.preventDefault();
-    jsRegistroIndicadorFonatel.Metodos.CrearRegistroIndicador();
+    jsRegistroIndicadorFonatel.Consultas.ActualizarDetalleRegistroIndicadorFonatel();
 
-
-
-
-
-    //jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
-    //    .set('onok', function (closeEvent) {
-    //        jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
-    //            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RegistroIndicadorFonatel/Index"; });
-    //    });
 });
 
 
@@ -250,10 +404,18 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCarga, function 
 
 //DESCARGAR EXCEL
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro, function () {
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
-            window.open(jsUtilidades.Variables.urlOrigen + "/RegistroIndicadorFonatel/DescargarExcel");
-            jsRegistroIndicadorFonatel.Metodos.CargarExcel();
+  
+            var listaParametros = [];
+            listaParametros.push(ObtenerValorParametroUrl("idSolicitud"));
+            listaParametros.push(ObtenerValorParametroUrl("idFormulario"));
+            listaParametros.push($(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorActive).attr('data-Indicador'));
+            listaParametros.push($(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val());
+
+            window.open(jsUtilidades.Variables.urlOrigen + "/RegistroIndicadorFonatel/DescargarExcel?listaParametros=" + listaParametros);
+            jsRegistroIndicadorFonatel.Metodos.DescargarExcel();
         });
 });
 
@@ -277,7 +439,7 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaR
 });
 
 $(document).on("change", jsRegistroIndicadorFonatel.Controles.inputFileCargarPlantilla, function (e) {
-    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido cargado")
+    jsRegistroIndicadorFonatel.Metodos.ImportarExcel();
 });
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.IndicadorCorrecto, function () {
@@ -444,6 +606,16 @@ $(document).ready(function () {
 
 
     $(jsRegistroIndicadorFonatel.Controles.tabRegistroIndicador(1)).click();
+
+    var cantidadFilas = parseInt($(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val());
+
+    if (cantidadFilas > 0) {
+        jsRegistroIndicadorFonatel.Variables.ModoConsulta = true;
+        jsRegistroIndicadorFonatel.Consultas.ConsultaRegistroIndicadorDetalle();
+    } else {
+        jsRegistroIndicadorFonatel.Variables.ModoConsulta = false;
+    }
+
     ////BLOQUEO DE BOTONES HAY QUE REVISAR PORQUE NO FUNCIONAN CON LA CLASE .ACTIVE APARTIR DEL SEGUNDO TAB - FRANCISCO VINDAS
     //$(jsRegistroIndicadorFonatel.Controles.btnValidar).prop("disabled", true);
     //$(jsRegistroIndicadorFonatel.Controles.btnGuardar).prop("disabled", true);

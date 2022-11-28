@@ -491,7 +491,7 @@ function execAjaxCallArray(pURL, pHttpMethod, pParams = null) {
             url: jsUtilidades.Variables.urlOrigen + pURL,
             type: pHttpMethod,
             dataType: "JSON",
-            data: pParams,
+            data: JSON.stringify({ pParams }),
             success: function (obj) {
                 if (obj.HayError == jsUtilidades.Variables.Error.NoError) {
                     resolve(obj);
