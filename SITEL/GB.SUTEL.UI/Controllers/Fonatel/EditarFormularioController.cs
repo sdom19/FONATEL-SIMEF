@@ -21,7 +21,27 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     public class EditarFormularioController : Controller
     {
-        // GET: CategoriasDesagregacion
+
+
+        #region Variables Públicas del controller
+        private readonly EditarRegistroIndicadorFonatelBL EditarRegistroIndicadorBL;
+
+
+        private string modulo = string.Empty;
+        private string user = string.Empty;
+
+        #endregion
+
+        public EditarFormularioController()
+        {
+            modulo = EtiquetasViewReglasValidacion.ReglasValidacion;
+            user = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            EditarRegistroIndicadorBL = new EditarRegistroIndicadorFonatelBL(modulo, user);
+
+        }
+
+
+        #region Metodos de Vista
 
         [HttpGet]
         public ActionResult Index()
@@ -34,6 +54,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             return View();
         }
+
+        #endregion
+
+
+
+        #region Metodos de controlador
 
 
         /// <summary>
@@ -66,6 +92,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return new EmptyResult();
 
         }
+
+        /// <summary>
+        /// Francisco Vindas
+        /// 29-11-2022
+        /// Metodo para obtener la lista de Registros de Indicador a Editar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        public async Task<string> ObtenerListaRegistroIndicador()
+        {
+            RespuestaConsulta<List<RegistroIndicadorFonatel>> result = null;
+            await Task.Run(() =>
+            {
+                result = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel());
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        #endregion
+
+
+
 
     }
 

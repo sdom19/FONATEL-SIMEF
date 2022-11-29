@@ -62,6 +62,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewCategorias.resx</DependentUpon>
     </Compile>
+    <Compile Include="EtiquetasViewEditarRegistroIndicador.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewEditarRegistroIndicador.resx</DependentUpon>
+    </Compile>
     <Compile Include="EtiquetasViewFormulario.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -149,6 +154,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewDefinicionIndicadores.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewEditarRegistroIndicador.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewEditarRegistroIndicador.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="EtiquetasViewFormulario.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

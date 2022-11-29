@@ -67,6 +67,7 @@
     <Compile Include="DetalleRegistroIndicadorFonatelDAL.cs" />
     <Compile Include="FormulaNivelCalculoCategoriaDAL.cs" />
     <Compile Include="PlantillaHtmlDAL.cs" />
+    <Compile Include="EditarRegistroIndicadorDAL.cs" />
     <Compile Include="ReglaComparacionConstanteDAL.cs" />
     <Compile Include="ReglaIndicadorEntradaDAL.cs" />
     <Compile Include="ReglaIndicadorEntradaSalidaDAL.cs" />
