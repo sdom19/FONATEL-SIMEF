@@ -2,11 +2,18 @@
 JsEditarFormularioWeb = {
 
     "Controles": {
-        "btndescarga": "#TablaEditarRegistroIndicador tbody tr td .btn-download",
+
+        //CONTROLES PANTALLA PRINCIPAL EDITAR FORMULARIO
+        "TablaEditarRegistroIndicador": "#TablaEditarRegistroIndicador tbody",
         "btnEdit": "#TablaEditarRegistroIndicador tbody tr td .btn-edit",
+        "btndescarga": "#TablaEditarRegistroIndicador tbody tr td .btn-download",
         "btnCancela": "#btnCancelaFormularioWeb",
 
-        "TablaEditarRegistroIndicador": "#TablaEditarRegistroIndicador",
+        //CONTROLES PANTALLA EDITAR FORMULARIO
+        "txtCantidadRegistroIndicador": "#txtCantidadRegistroIndicador",
+
+        "tabActivoRegistroIndicador": "div.tab-pane.active",
+
     },
     "Variables": {
 
@@ -26,6 +33,7 @@ JsEditarFormularioWeb = {
             let html = "";
 
             for (var i = 0; i < JsEditarFormularioWeb.Variables.ListadoRegistrosIndicador.length; i++) {
+
                 let RegistroIndicador = JsEditarFormularioWeb.Variables.ListadoRegistrosIndicador[i];
 
                 html = html + "<tr>";
@@ -75,6 +83,55 @@ JsEditarFormularioWeb = {
 
 }
 
+//METODO PARA CARGAR LA CANTIDAD DE FILAS DEL EDICADOR
+$(document).on("keypress", JsEditarFormularioWeb.Controles.txtCantidadRegistroIndicador, function () {
+
+    if (event.keyCode == 13) {
+        var table = $(JsEditarFormularioWeb.Controles.tablaIndicador).DataTable();
+        table.clear().draw();
+
+        let tabActual = getTabActivoRegistroIndicador();
+
+        JsEditarFormularioWeb.Variables.paginasActualizadasConSelect2_tablaIndicador[tabActual] = [];
+
+        if ($(this).val() != 0 || $(this).val().trim() != "") {
+            for (let x = 0; x < $(this).val(); x++) {
+                let listaColumnasVariablesDato = [];
+
+                $(JsEditarFormularioWeb.Controles.columnasTablaIndicador).children().each(function (index) {
+                    if ($(this).attr('class').includes("highlighted")) {
+                        listaColumnasVariablesDato.push(1);
+                    }
+                    else if ($(this).attr('class').includes("name-col")) {
+                        listaColumnasVariablesDato.push(
+                            JsEditarFormularioWeb.Controles.InputText(`inputText-${tabActual}-${x}-${index}`, "Nombre"));
+                    }
+                    else if ($(this).attr('class').includes("date-col")) {
+                        listaColumnasVariablesDato.push(
+                            JsEditarFormularioWeb.Controles.InputDate(`inputDate-${tabActual}-${x}-${index}`));
+                    }
+                    else {
+                        listaColumnasVariablesDato.push(
+                            JsEditarFormularioWeb.Controles.InputSelect2(
+                                `inputSelect-${tabActual}-${x}-${index}`,
+                                '<option value="1">Opción 1</option><option value="2">Opción 2</option>'));
+                    }
+                });
+                table.row.add(listaColumnasVariablesDato).draw(false);
+
+                $(JsEditarFormularioWeb.Controles.btnDescargarPlantillaRegistro).prop("disabled", false);
+                $(JsEditarFormularioWeb.Controles.btnCargarPlantillaRegistro).prop("disabled", false);
+            }
+
+            JsEditarFormularioWeb.Variables.paginasActualizadasConSelect2_tablaIndicador[tabActual].push(0);
+
+            setSelect2();
+
+            eventNextPrevDatatable();
+        }
+    }
+});
+
 $(document).on("click", JsEditarFormularioWeb.Controles.btndescarga, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
@@ -91,8 +148,6 @@ $(document).on("click", JsEditarFormularioWeb.Controles.btnCancela, function () 
                 .set('onok', function (closeEvent) { window.location.href = "/" });
         })
 });
-
-
 
 
 $(document).on("click", JsEditarFormularioWeb.Controles.btnEdit, function () {

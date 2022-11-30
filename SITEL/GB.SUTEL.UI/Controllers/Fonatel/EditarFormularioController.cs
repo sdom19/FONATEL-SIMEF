@@ -25,6 +25,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #region Variables Públicas del controller
         private readonly EditarRegistroIndicadorFonatelBL EditarRegistroIndicadorBL;
+        private readonly DetalleRegistroIndicadorFonatelBL detalleRegistroIndicadorBL;
+
 
 
         private string modulo = string.Empty;
@@ -37,6 +39,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             modulo = EtiquetasViewReglasValidacion.ReglasValidacion;
             user = System.Web.HttpContext.Current.User.Identity.GetUserId();
             EditarRegistroIndicadorBL = new EditarRegistroIndicadorFonatelBL(modulo, user);
+            detalleRegistroIndicadorBL = new DetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
+
 
         }
 
@@ -50,9 +54,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string idSolicitud, string idFormulario)
         {
-            return View();
+            RespuestaConsulta<List<RegistroIndicadorFonatel>> model = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel()
+            {
+                FormularioId = idFormulario,
+                Solicitudid = idSolicitud,
+            });
+
+            if (model.CantidadRegistros == 1)
+            {
+                return View(model.objetoRespuesta.Single());
+            }
+            else
+            {
+                return View("index");
+            }
         }
 
         #endregion

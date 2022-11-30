@@ -63,6 +63,7 @@
     <Compile Include="DetalleFormularioWebDAL.cs" />
     <Compile Include="DetalleIndicadorCategoriaDAL.cs" />
     <Compile Include="DetalleIndicadorVariablesDAL.cs" />
+    <Compile Include="EditarDetalleRegistroIndicadorFonatelDAL.cs" />
     <Compile Include="DetalleSolicitudesDAL.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatelDAL.cs" />
     <Compile Include="FormulaNivelCalculoCategoriaDAL.cs" />

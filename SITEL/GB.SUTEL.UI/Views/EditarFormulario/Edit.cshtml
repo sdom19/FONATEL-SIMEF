@@ -1,4 +1,6 @@
-﻿@using GB.SIMEF.Resources;
+﻿@model GB.SIMEF.Entities.RegistroIndicadorFonatel
+
+@using GB.SIMEF.Resources;
 
 @{
     ViewBag.Title = "RegistroIndicadorFonatel";
@@ -20,19 +22,19 @@
         </nav>
     </div>
 
-
-
-
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Editar Estado Programa </h2>
+            <h2 class="page-title-fonatel text-center">@Model.Formulario</h2>
             <hr />
         </div>
     </div>
 
     <ul class="nav nav-tabs nav-tabs-fonatel mt-4">
-        <li class="active" id="Indicador1"><a data-toggle="tab" href="#menu0">P4 extendido</a></li>
-        <li id="Indicador2"><a data-toggle="tab" href="#menu0">P2-Jefas y menores M43</a></li>
+
+        @foreach (var item in Model.DetalleRegistroIndcadorFonatel.OrderBy(x => x.IdDetalleRegistroIndicador))
+        {
+            <li id="@string.Format("Tab{0}", item.IdDetalleRegistroIndicador)"> <a data-toggle="tab" data-Indicador="@item.IdIndicadorString" href="@string.Format("#menu{0}", item.IdDetalleRegistroIndicador)">@item.TituloHojas</a></li>
+        }
 
     </ul>
 
@@ -78,7 +80,7 @@
             <div class="table-responsive table-wrapper-fonatel">
                 <table class="dataTable table-bordered table-condensed table-hover" id="tablaEditarIndicador">
                     <thead>
-                        <tr>
+                        @*<tr>
                             <th style="min-width:30PX">  </th>
                             <th class="highlighted" scope="col">Cantidad de torres</th>
                             <th class="name-col" scope="col">Nombre</th>
@@ -91,7 +93,7 @@
                             <th scope="col">Operador</th>
                             <th scope="col">Estado</th>
                             <th scope="col">APs en servicio</th>
-                        </tr>
+                        </tr>*@
                     </thead>
                     <tbody>
                     </tbody>

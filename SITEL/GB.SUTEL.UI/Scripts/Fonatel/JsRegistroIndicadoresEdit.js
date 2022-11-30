@@ -1,5 +1,6 @@
 ﻿jsRegistroIndicadorFonatelEdit= {
     "Controles": {
+
         "btnllenadoweb": "#TableRegistroIndicadorFonatel tbody tr td .btn-edit-form",
         "txtCantidadRegistroIndicador": "#txtCantidadRegistroIndicador",
         "txtCantidadRegistroIndicador": "#txtCantidadRegistroIndicador",
@@ -102,6 +103,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnllenadoweb, 
     let id = 1;
     window.location.href = "/Fonatel/RegistroIndicadorFonatel/Create?id=" + id;
 });
+
 //DESCARGAR
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
@@ -384,7 +386,6 @@ $(function () {
 
     $(document).ready(function () {
         $(jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistroIndicador).prop("disabled", true);
-
         $(jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro).prop("disabled", false);
         $(jsRegistroIndicadorFonatelEdit.Controles.btnCargarPlantillaRegistro).prop("disabled", false);
 
