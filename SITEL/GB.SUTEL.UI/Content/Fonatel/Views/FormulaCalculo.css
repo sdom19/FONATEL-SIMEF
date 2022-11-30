@@ -1,0 +1,49 @@
+﻿.divFormulaCalculo {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    flex-direction: row;
+}
+
+    .divFormulaCalculo .operaciones,
+    .divFormulaCalculo .acciones {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+        .divFormulaCalculo .operaciones .row:nth-child(1),
+        .divFormulaCalculo .acciones .row:nth-child(1) {
+            background-color: var(--blue-fonatel);
+            color: white;
+        }
+
+        .divFormulaCalculo .operaciones .row:nth-child(2),
+        .divFormulaCalculo .acciones .row:nth-child(2) {
+            border-style: solid;
+            border-color: #707070;
+            background-color: var(--light-2-blue-fonatel);
+        }
+
+        .divFormulaCalculo .operaciones .row:nth-child(1) {
+            border-right-width: 1px;
+            border-right-style: solid;
+            border-radius: 15px 0 0 0;
+        }
+
+        .divFormulaCalculo .acciones .row:nth-child(1) {
+            border-radius: 0 15px 0 0;
+        }
+
+        .divFormulaCalculo .operaciones .row:nth-child(2) {
+            border-width: 0 0 1px 1px;
+        }
+
+        .divFormulaCalculo .acciones .row:nth-child(2) {
+            border-width: 0 1px 1px 0;
+            height: calc(100% - 39.5px);
+        }
+
+    .divFormulaCalculo .formula {
+        width: 100%;
+        font-weight: 700;
+    }

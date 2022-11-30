@@ -37,32 +37,51 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
-        /// Michael Hernández C
+        /// 21/11/2022
+        /// José Navarro Acuña
+        /// Función que permite cambiar el estado de una fórmula cálculo
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FormulasCalculo>> CambioEstado(FormulasCalculo objeto)
+        public RespuestaConsulta<List<FormulasCalculo>> CambioEstado(FormulasCalculo pFormulasCalculo)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulasCalculo>>();
 
             try
             {
+                PrepararObjetoFormulaCalculo(pFormulasCalculo);
+
+                if (pFormulasCalculo.IdFormula == 0) // ¿ID descencriptado?
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                FormulasCalculo formulaExistente = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo).FirstOrDefault();
+
+                if (formulaExistente == null) // ¿fórmula registrada?
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                PrepararObjetoFormulaCalculo(formulaExistente);
+
+                formulaExistente.UsuarioModificacion = user;
+                formulaExistente.IdEstado = pFormulasCalculo.IdEstado;
+                List<FormulasCalculo> resul = formulasCalculoDAL.ActualizarDatos(formulaExistente);
+
                 resultadoConsulta.Clase = modulo;
-                objeto.UsuarioModificacion = user;
-                resultadoConsulta.Accion = objeto.IdEstado;
+                resultadoConsulta.Accion = pFormulasCalculo.IdEstado;
                 resultadoConsulta.Usuario = user;
-                List<FormulasCalculo> resul = formulasCalculoDAL.ActualizarDatos(objeto);
                 resultadoConsulta.objetoRespuesta = resul;
                 resultadoConsulta.CantidadRegistros = resul.Count();
 
                 formulasCalculoDAL.RegistrarBitacora(resultadoConsulta.Accion,
                         resultadoConsulta.Usuario,
-                            resultadoConsulta.Clase, objeto.Codigo);
-
+                            resultadoConsulta.Clase, formulaExistente.Codigo);
             }
             catch (Exception ex)
             {
-                resultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                resultadoConsulta.HayError = (int)Error.ErrorSistema;
                 resultadoConsulta.MensajeError = ex.Message;
             }
             return resultadoConsulta;
@@ -73,36 +92,9 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Michael Hernández C
-        /// </summary>
-        /// <param name="objeto"></param>
-        /// <returns></returns>
-        public RespuestaConsulta<List<FormulasCalculo>> EliminarElemento(FormulasCalculo objeto)
+        public RespuestaConsulta<List<FormulasCalculo>> EliminarElemento(FormulasCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulasCalculo>>();
-
-            try
-            {
-                resultadoConsulta.Clase = modulo;
-                objeto.UsuarioModificacion = user;
-                resultadoConsulta.Accion = (int)EstadosRegistro.Eliminado;
-                resultadoConsulta.Usuario = user;
-                List<FormulasCalculo> resul = formulasCalculoDAL.ActualizarDatos(objeto);
-                resultadoConsulta.objetoRespuesta = resul;
-                resultadoConsulta.CantidadRegistros = resul.Count();
-
-                formulasCalculoDAL.RegistrarBitacora(resultadoConsulta.Accion,
-                        resultadoConsulta.Usuario,
-                            resultadoConsulta.Clase, objeto.Codigo);
-
-            }
-            catch (Exception ex)
-            {
-                resultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
-                resultadoConsulta.MensajeError = ex.Message;
-            }
-            return resultadoConsulta;
+            throw new NotImplementedException();
         }
 
         /// <summary>

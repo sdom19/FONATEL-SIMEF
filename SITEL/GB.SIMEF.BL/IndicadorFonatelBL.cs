@@ -428,7 +428,7 @@ namespace GB.SIMEF.BL
         /// 10/08/2022
         /// José Navarro Acuña
         /// Función que retorna todos los indicadores registrados en el sistema.
-        /// Se puede realizar un filtrado de acuerdo al objecto que se envia.
+        /// Se puede realizar un filtrado de acuerdo al objeto que se envia.
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
@@ -442,6 +442,43 @@ namespace GB.SIMEF.BL
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
                 var result = indicadorFonatelDAL.ObtenerDatos(pIndicador);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 25/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores Sitel registrados en el sistema.
+        /// Se puede realizar un filtrado de acuerdo al objeto que se envia.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <param name="pServicioSitel"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosSitel(Indicador pIndicador, ServicioSitel pServicioSitel)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            try
+            {
+                PrepararObjetoIndicador(pIndicador);
+
+                if (!string.IsNullOrEmpty(pServicioSitel?.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pServicioSitel.id), out int number);
+                    pServicioSitel.IdServicio = number;
+                }
+
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                var result = indicadorFonatelDAL.ObtenerDatosSitel(pIndicador, pServicioSitel);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }

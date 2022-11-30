@@ -61,6 +61,24 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ejecutar Fórmula.
+        /// </summary>
+        public static string AccionEjecutarFormula {
+            get {
+                return ResourceManager.GetString("AccionEjecutarFormula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eliminar ítem.
+        /// </summary>
+        public static string AccionEliminarItem {
+            get {
+                return ResourceManager.GetString("AccionEliminarItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categoría de Desagregación.
         /// </summary>
         public static string CrearFormula_LabelCategoriaDesagregacion {
@@ -372,6 +390,114 @@ namespace GB.SIMEF.Resources {
         public static string ModalFecha_Titulo {
             get {
                 return ResourceManager.GetString("ModalFecha_Titulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calendario.
+        /// </summary>
+        public static string OperacionCalendario {
+            get {
+                return ResourceManager.GetString("OperacionCalendario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to División.
+        /// </summary>
+        public static string OperacionDivision {
+            get {
+                return ResourceManager.GetString("OperacionDivision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Igual que.
+        /// </summary>
+        public static string OperacionIgualQue {
+            get {
+                return ResourceManager.GetString("OperacionIgualQue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mayor o igual que.
+        /// </summary>
+        public static string OperacionMayorIgualQue {
+            get {
+                return ResourceManager.GetString("OperacionMayorIgualQue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mayor que.
+        /// </summary>
+        public static string OperacionMayorQue {
+            get {
+                return ResourceManager.GetString("OperacionMayorQue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menor o igual que.
+        /// </summary>
+        public static string OperacionMenorIgualQue {
+            get {
+                return ResourceManager.GetString("OperacionMenorIgualQue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menor que.
+        /// </summary>
+        public static string OperacionMenorQue {
+            get {
+                return ResourceManager.GetString("OperacionMenorQue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiplicación.
+        /// </summary>
+        public static string OperacionMultiplicacion {
+            get {
+                return ResourceManager.GetString("OperacionMultiplicacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paréntesis abierto.
+        /// </summary>
+        public static string OperacionParentesisAbierto {
+            get {
+                return ResourceManager.GetString("OperacionParentesisAbierto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paréntesis cerrado.
+        /// </summary>
+        public static string OperacionParentesisCerrado {
+            get {
+                return ResourceManager.GetString("OperacionParentesisCerrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resta.
+        /// </summary>
+        public static string OperacionResta {
+            get {
+                return ResourceManager.GetString("OperacionResta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suma.
+        /// </summary>
+        public static string OperacionSuma {
+            get {
+                return ResourceManager.GetString("OperacionSuma", resourceCulture);
             }
         }
         

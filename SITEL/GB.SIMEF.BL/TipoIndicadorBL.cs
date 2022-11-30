@@ -164,7 +164,41 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                resultado.HayError = (int)Constantes.Error.ErrorSistema;
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 24/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los tipos indicadores registrados en estado activo de la BD de SITEL
+        /// Se puede aplicar un filtro para obtener un único elemento a traves del ID.
+        /// </summary>
+        /// <param name="pTipoIndicadores"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosSitel(TipoIndicadores pTipoIndicadores)
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(pTipoIndicadores.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pTipoIndicadores.id), out int idDecencriptado);
+                    pTipoIndicadores.IdTipoIdicador = idDecencriptado;
+                }
+
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosSitel(pTipoIndicadores);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
                 resultado.MensajeError = ex.Message;
             }
             return resultado;

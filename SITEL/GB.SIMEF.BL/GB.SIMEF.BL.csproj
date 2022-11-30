@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcumulacionFormulaBL.cs" />
     <Compile Include="DatosHistoricosBL.cs" />
     <Compile Include="AnnoBL.cs" />
     <Compile Include="BitacoraBL.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="FormularioWebBL.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
+    <Compile Include="FuenteIndicadorBL.cs" />
     <Compile Include="FuentesRegistroBL.cs" />
     <Compile Include="FuentesRegistroDestinatariosBL.cs" />
     <Compile Include="GrupoIndicadorBL.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="DetalleRegistroIndicadorFonatelBL .cs" />
     <Compile Include="EnvioSolicitudBL.cs" />
     <Compile Include="RegistroIndicadorFonatelBL.cs" />
+    <Compile Include="ServicioSitelBL.cs" />
     <Compile Include="UsuarioFonatelBL.cs" />
     <Compile Include="MesBL.cs" />
     <Compile Include="OperadorArismeticoBL.cs" />
