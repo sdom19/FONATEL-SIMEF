@@ -11,37 +11,36 @@ namespace GB.SIMEF.DAL
 {
     public class UsuarioFonatelDAL 
     {
-        private SIMEFContext db;
-        
+        private SITELContext db;
+
         /// <summary>
         /// 23/08/2022
         /// Michael
         /// Función que retorna todos los usuarios activos en la bd sitel .
         /// </summary>
         /// <returns></returns>
-        public List<UsuarioFonatel> ObtenerDatos()
+
+        public List<Usuario> ObtenerDatos()
         {
-            using (db=new SIMEFContext())
+            using (db = new SITELContext())
             {
-                return db.UsuarioFonatel.ToList();
+                return db.Usuario.Where(x=>x.Borrado==0 && x.Activo==1 && x.FONATEL==true).ToList();
             }
-        
         }
 
 
-
-        public List<UsuarioFonatel> ActualizarUsuarioSitel(UsuarioFonatel objUser)
+        public List<Usuario> ActualizarUsuarioSitel(Usuario objUser)
         {
-            using (db = new SIMEFContext())
+            using (db = new SITELContext())
             {
-                return db.Database.SqlQuery<UsuarioFonatel>("exec sitel.spCrearUsuarioSitel @IdUsuario ,@AccesoUsuario, @NombreUsuario,@Contrasena,@CorreoUsuario,@Activo,@borrado,@FONATEL",
+                return db.Database.SqlQuery<Usuario>("exec FONATEL.pa_crearUsuarioSitelFonatel @IdUsuario ,@AccesoUsuario, @NombreUsuario,@Contrasena,@CorreoUsuario,@Activo,@borrado,@FONATEL",
                 new SqlParameter("@IdUsuario", objUser.IdUsuario),
                 new SqlParameter("@AccesoUsuario", objUser.AccesoUsuario),
                 new SqlParameter("@NombreUsuario", objUser.NombreUsuario),
                 new SqlParameter("@Contrasena", objUser.Contrasena),
                 new SqlParameter("@CorreoUsuario", objUser.CorreoUsuario),
                 new SqlParameter("@Activo", objUser.Activo),
-                new SqlParameter("@borrado", objUser.borrado),
+                new SqlParameter("@borrado", objUser.Borrado),
                 new SqlParameter("@FONATEL", objUser.FONATEL)
                 ).ToList();
             }

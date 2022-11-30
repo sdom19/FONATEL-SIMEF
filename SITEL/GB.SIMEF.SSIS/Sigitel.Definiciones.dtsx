@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="9/5/2022 1:04:03 PM"
@@ -12,7 +12,7 @@
   DTS:ObjectName="Package"
   DTS:PackageType="5"
   DTS:VersionBuild="7"
-  DTS:VersionGUID="{9B83821C-8D5E-409D-9E86-07A49303A0F7}">
+  DTS:VersionGUID="{D81D3D52-4B4F-4D11-A14A-3BBA686C9267}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -90,8 +90,8 @@
               <connections>
                 <connection
                   refId="Package\Carga de definiciones\Carga de definiciones.Connections[OleDbConnection]"
-                  connectionManagerID="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[DWSIMEF]"
+                  connectionManagerID="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}:invalid"
+                  connectionManagerRefId="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}:invalid"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -319,8 +319,8 @@
               <connections>
                 <connection
                   refId="Package\Carga de definiciones\Lectura de deficiones.Connections[OleDbConnection]"
-                  connectionManagerID="{F18F5338-8C65-4779-BF3B-2095830FE784}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[SIMEFBD]"
+                  connectionManagerID="{F18F5338-8C65-4779-BF3B-2095830FE784}:invalid"
+                  connectionManagerRefId="{F18F5338-8C65-4779-BF3B-2095830FE784}:invalid"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>

@@ -61,13 +61,12 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    clsDatos.ActualizarDatos(objeto);
-                    ResultadoConsulta.objetoRespuesta = resul;
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.CantidadRegistros = resul.Count();
 
                 }
 
-                objeto = clsDatos.ObtenerDatos(objeto).Single();
+                objeto = ResultadoConsulta.objetoRespuesta.Single();
                 string JsonActual = SerializarObjetoBitacora(objeto);
                 string JsonAnterior = SerializarObjetoBitacora(objetoAnterior);
 
@@ -81,11 +80,7 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.MensajeError = ex.Message;
 
-                if (ex.Message == Errores.NoRegistrosActualizar || ex.Message == Errores.NombreRegistrado)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                }
-                else
+                if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                 }
@@ -117,6 +112,7 @@ namespace GB.SIMEF.BL
 
                 if (resul.Count() == 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
                 else
@@ -131,16 +127,12 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ex.Message == Errores.NoRegistrosActualizar)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                }
-                else
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
-                }
-
                 ResultadoConsulta.MensajeError = ex.Message;
+
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
             }
             return ResultadoConsulta;
         }

@@ -162,8 +162,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     if (!item.CorreoEnviado)
                     {
-                        usuarioFonatelBL.CambioEstado(new UsuarioFonatel()
+                        usuarioFonatelBL.CambioEstado(new Usuario()
                         { IdUsuario = item.idUsuario });
+                        item.CorreoEnviado = true;
+                        FuenteDestinatariosBL.ActualizarElemento(item);
                     }        
                 }
             
@@ -228,7 +230,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                UsuarioFonatel usuario = new UsuarioFonatel()
+                Usuario usuario = new Usuario()
                 {
                     NombreUsuario = destinatario.NombreDestinatario,
                     CorreoUsuario = destinatario.CorreoElectronico
@@ -281,7 +283,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return FuenteDestinatariosBL.EliminarElemento(destinatario);
             }).ContinueWith(resultado => {
 
-               return usuarioFonatelBL.EliminarElemento(new UsuarioFonatel()
+               return usuarioFonatelBL.EliminarElemento(new Usuario()
                 {
                     IdUsuario = resultado.Result.objetoRespuesta.Single().idUsuario
                 });

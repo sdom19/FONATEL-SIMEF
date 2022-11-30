@@ -156,8 +156,6 @@ namespace GB.SIMEF.BL
             try
             {
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
-                List<Solicitud> ValoresIniciales = clsDatos.ObtenerDatos(new Solicitud());
-                var resultado = clsDatos.ObtenerDatos(new Solicitud());
 
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
@@ -172,7 +170,7 @@ namespace GB.SIMEF.BL
                     objeto.idSolicitud = temp;
                 }
 
-                var objetoAnterior = ValoresIniciales.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
+                var objetoAnterior = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
 
                 var result = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
 
@@ -197,13 +195,11 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    clsDatos.ActualizarDatos(objeto);
-                    resultado = clsDatos.ObtenerDatos(objeto);
-                    ResultadoConsulta.objetoRespuesta = resultado;
-                    ResultadoConsulta.CantidadRegistros = resultado.Count();
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
                 }
 
-                objeto = clsDatos.ObtenerDatos(objeto).Single();
+                objeto = ResultadoConsulta.objetoRespuesta.Single();
                 string JsonActual = SerializarObjetoBitacora(objeto);
                 string JsonAnterior = SerializarObjetoBitacora(objetoAnterior);
 
@@ -421,14 +417,10 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    var resul = clsDatos.ActualizarDatos(objeto);
-                    ResultadoConsulta.objetoRespuesta = resul;
+                
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto); 
                 }
-
-                objeto = clsDatos.ObtenerDatos(objeto).Single();
-
-                string jsonValorInicial = SerializarObjetoBitacora(objeto);
-
+                string jsonValorInicial = SerializarObjetoBitacora(ResultadoConsulta.objetoRespuesta.Single());
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
                                 ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);

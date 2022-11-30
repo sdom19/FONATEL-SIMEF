@@ -118,7 +118,7 @@
     <Compile Include="TipoReglaValidacion.cs" />
     <Compile Include="TiposDetalleCategoria.cs" />
     <Compile Include="UnidadEstudio.cs" />
-    <Compile Include="UsuarioFonatel.cs" />
+    <Compile Include="Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GB.SIMEF.Resources\GB.SIMEF.Resources.csproj">

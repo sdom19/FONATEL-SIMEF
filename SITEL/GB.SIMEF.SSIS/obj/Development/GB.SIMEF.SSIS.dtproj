@@ -26,13 +26,15 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">CR-LAP-MICH-HER</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAODysEXr8wk67262l6WwmLQAAAAACAAAAAAAQZgAAAAEAACAAAAANmjQ3Ft5ryc9P1uMMhfeY6zxel10n6F7xLOhNA7i0hgAAAAAOgAAAAAIAACAAAAAdg7Xowdj1/vsbKZpfs0syH+djCFaCLLapcfaz5azaqJAAAAD70arXenqgsQXrv/TgRv6rBuqeUqEglfjx3pDCvI2Hu0y6ljfMLHK/iFqCsm9MB9m4pC/Rl7GKB7SlSVpQPpFJCzY6n+f76zXaL0JFjrOi7y3vFikdTFyhjj1ClOehdH2xWfDlu8hBGaw80dGmcKB6SGZCc+1mlGu1epft01sc5UiX/010KQjiaRUrTpO/G/9AAAAAwUuf7J71bC7R7WX/DL1rRasN8gwo3zvj/2sAa0C8sU15TtJKjc4AHyD8sXlyOCS+DmUZvCgQ9Six3/QLYiXpzA==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAODysEXr8wk67262l6WwmLQAAAAACAAAAAAAQZgAAAAEAACAAAAB38gP6NyV8SHieRG8OgUfEJ8gAAKQsaYsVcNiMjGXoHwAAAAAOgAAAAAIAACAAAAB623Eb+lFa8RoHTxUbJdP781iu4DqlWwFDN4xxDIqaCJAAAAB4eXujVXIISVOxvgcA4+HvjowX1htweR2dsf+cVPvbAVM4yrbHkrsiXf3DQaQ7PYH1rzMR80LpRujtPObjk3SBVM6kO3VmP7574wBD3seeDyeLlIohYW8K6dkjBFlxCSjR7iRELi0WTjTbUCesGZVTVXwVoy8G3aqnkkBJFsYlG5ypx7XyAx+HTIdXl4i9d55AAAAA/GN6lx0sWmh47svAQcIu5j/6+n40n5Wo0mmwfJ3nReJ/76y4yPr+3mSrdHU+d1bivGYmobFemBakB+nIMn2C8A==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
           <SSIS:Package SSIS:Name="Sigitel.Definiciones.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Sigitel.Orquestador.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Sitel.RegistroIndicador.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="Sitel.RegistroIndicadorFonatel.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="Simef.HistoricoImportacion.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="Sitel.EnvioSolicitudes.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="SIMEFBD.conmgr" />
@@ -496,7 +498,7 @@
                 <SSIS:Property SSIS:Name="VersionBuild">7</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{9B83821C-8D5E-409D-9E86-07A49303A0F7}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{D81D3D52-4B4F-4D11-A14A-3BBA686C9267}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -513,7 +515,7 @@
                 <SSIS:Property SSIS:Name="VersionBuild">2</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{46033FAC-2622-4FEC-9716-9CD1103BDE5B}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{AF391E48-3931-46B2-BFF1-019E567FFAFB}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -521,16 +523,64 @@
               </SSIS:Properties>
               <SSIS:Parameters />
             </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="Sitel.RegistroIndicador.dtsx">
+            <SSIS:PackageMetaData SSIS:Name="Sitel.RegistroIndicadorFonatel.dtsx">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{0A36923F-E985-47CE-93C1-23B7A8CC04A0}</SSIS:Property>
+                <SSIS:Property SSIS:Name="ID">{D2F0FEAF-3306-4C70-AD58-BE7F60AE4FBC}</SSIS:Property>
                 <SSIS:Property SSIS:Name="Name">Package1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">13</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">22</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{EAB6CCBA-C1F5-43E4-AF9C-FF72227026E4}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{E8D41B6B-A479-44FF-BC2B-C331CA516DA5}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="Simef.HistoricoImportacion.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{4BBF3D27-CE26-44F3-B9E5-A9E5C9DEA216}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">Package1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">2</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{69D8892E-727F-49A5-9D42-62300F41919F}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters>
+                <SSIS:Parameter SSIS:Name="Ejecutable">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">{D4DC86DD-71D3-487B-9F63-B84F2BDDF686}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
+              </SSIS:Parameters>
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="Sitel.EnvioSolicitudes.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{BBA4174E-61DC-4378-BBAD-EB2B76E9C7B2}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">Package1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">3</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{9559AFA5-C13B-45D8-9EA0-E3803B25AE42}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -554,7 +604,7 @@
         <ConnectionProviderMappings />
         <ConnectionSecurityMappings />
         <DatabaseStorageLocations />
-        <TargetServerVersion>SQLServer2019</TargetServerVersion>
+        <TargetServerVersion>SQLServer2017</TargetServerVersion>
         <AzureMode>false</AzureMode>
         <LinkedAzureTenantId />
         <LinkedAzureAccountId />
