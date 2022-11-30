@@ -10,21 +10,33 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class EnvioSolicitudBL : IMetodos<EnvioSolicitudes>
+    public class EnvioSolicitudesBL : IMetodos<EnvioSolicitudes>
     {
         readonly string modulo = "";
         readonly string user = "";
-        private readonly EnvioSolicitudDAL EnvioSolicitudDAL;
+        private readonly EnvioSolicitudesDAL EnvioSolicitudDAL;
         RespuestaConsulta<List<EnvioSolicitudes>> resultado;
-        public EnvioSolicitudBL()
+        public EnvioSolicitudesBL()
         {
-            EnvioSolicitudDAL = new EnvioSolicitudDAL(); 
+            EnvioSolicitudDAL = new EnvioSolicitudesDAL(); 
             resultado = new RespuestaConsulta<List<EnvioSolicitudes>>();
         }
 
         public RespuestaConsulta<List<EnvioSolicitudes>> ActualizarElemento(EnvioSolicitudes objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                resultado.objetoRespuesta = EnvioSolicitudDAL.ActualizarDatos(objeto);
+                resultado.CantidadRegistros = resultado.objetoRespuesta.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Constantes.Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
         }
 
         public RespuestaConsulta<List<EnvioSolicitudes>> CambioEstado(EnvioSolicitudes objeto)

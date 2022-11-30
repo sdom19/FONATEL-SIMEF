@@ -11,7 +11,7 @@ namespace GB.SIMEF.DAL
 {
     public class RegistroIndicadorFonatelDAL: BitacoraDAL
     {
-        private SIMEFContext db;
+        private SITELContext db;
         private DetalleRegistroIndicadorFonatelDAL DetalleRegistroIndicadorFonatelDAL;
 
         public RegistroIndicadorFonatelDAL()
@@ -32,11 +32,11 @@ namespace GB.SIMEF.DAL
         public List<RegistroIndicadorFonatel> ObtenerDatos(RegistroIndicadorFonatel objRegistroIndicadorFonatel)
         {
             List<RegistroIndicadorFonatel> ListaRegistroIndicadorFonatel = new List<RegistroIndicadorFonatel>();
-            using (db = new SIMEFContext())
+            using (db = new SITELContext())
             {
 
                 ListaRegistroIndicadorFonatel = db.Database.SqlQuery<RegistroIndicadorFonatel>
-                    ("execute sitel.spObtenerRegistroIndicadorFonatel @IdSolicitud,@IdFormulario,@idFuente, @idEstado, @RangoFecha",
+                    ("execute Fonatel.pa_obtenerRegistroIndicadorFonatel @IdSolicitud,@IdFormulario,@idFuente, @idEstado, @RangoFecha",
                      new SqlParameter("@IdSolicitud", objRegistroIndicadorFonatel.IdSolicitud),
                      new SqlParameter("@IdFormulario", objRegistroIndicadorFonatel.IdFormulario),
                      new SqlParameter("@IdFuente", objRegistroIndicadorFonatel.IdFuente),

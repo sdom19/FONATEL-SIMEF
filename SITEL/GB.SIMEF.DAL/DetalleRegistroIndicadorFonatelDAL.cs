@@ -13,7 +13,7 @@ namespace GB.SIMEF.DAL
 {
     public class DetalleRegistroIndicadorFonatelDAL : BitacoraDAL
     {
-        private SIMEFContext db;
+        private SITELContext db;
 
         #region Consultas
 
@@ -24,10 +24,10 @@ namespace GB.SIMEF.DAL
         public List<DetalleRegistroIndicadorFonatel> ObtenerDatoDetalleRegistroIndicador(DetalleRegistroIndicadorFonatel pDetalleRegistroIndicador)
         {
             List<DetalleRegistroIndicadorFonatel> ListaRegistroIndicadorFonatel = new List<DetalleRegistroIndicadorFonatel>();
-            using (db=new SIMEFContext())
+            using (db=new SITELContext())
             {
                 ListaRegistroIndicadorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorFonatel>
-                 ("execute sitel.spObtenerDetalleRegistroIndicadorFonatel   @idSolicitud, @idFormulario, @idIndicador",
+                 ("execute Fonatel.pa_obtenerDetalleRegistroIndicadorFonatel   @idSolicitud, @idFormulario, @idIndicador",
                   new SqlParameter("@idSolicitud", pDetalleRegistroIndicador.IdSolicitud),
                    new SqlParameter("@idFormulario", pDetalleRegistroIndicador.IdFormulario),
                    new SqlParameter("@idIndicador", pDetalleRegistroIndicador.IdIndicador)
@@ -67,7 +67,7 @@ namespace GB.SIMEF.DAL
         {
             List<DetalleRegistroIndicadorVariableFonatel> ListaRegistroIndicadorFonatelVariable = new List<DetalleRegistroIndicadorVariableFonatel>();
             ListaRegistroIndicadorFonatelVariable = db.Database.SqlQuery<DetalleRegistroIndicadorVariableFonatel>
-             ("execute SITEL.spObtenerDetalleRegistroIndicadorVariableFonatel   @idSolicitud, @idFormulario, @idIndicador",
+             ("execute FONATEL.pa_obtenerDetalleRegistroIndicadorVariableFonatel   @idSolicitud, @idFormulario, @idIndicador",
                 new SqlParameter("@idSolicitud", pDetalleRegistroIndicador.IdSolicitud),
                 new SqlParameter("@idFormulario", pDetalleRegistroIndicador.IdFormulario),
                 new SqlParameter("@idIndicador", pDetalleRegistroIndicador.IdIndicador)
@@ -90,7 +90,7 @@ namespace GB.SIMEF.DAL
         {
             List<DetalleRegistroIndicadorCategoriaFonatel> ListaRegistroIndicadorFonatelCategoria = new List<DetalleRegistroIndicadorCategoriaFonatel>();
             ListaRegistroIndicadorFonatelCategoria = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaFonatel>
-             ("execute SITEL.spObtenerDetalleRegistroIndicadorCategoriaFonatel   @idSolicitud, @idFormulario, @idIndicador",
+             ("execute FONATEL.pa_obtenerDetalleRegistroIndicadorCategoriaFonatel   @idSolicitud, @idFormulario, @idIndicador",
                 new SqlParameter("@idSolicitud", pDetalleRegistroIndicador.IdSolicitud),
                 new SqlParameter("@idFormulario", pDetalleRegistroIndicador.IdFormulario),
                 new SqlParameter("@idIndicador", pDetalleRegistroIndicador.IdIndicador)

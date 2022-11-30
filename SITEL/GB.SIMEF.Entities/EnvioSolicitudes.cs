@@ -21,7 +21,7 @@ namespace GB.SIMEF.Entities
         public bool Enviado { get; set; }
         public bool EnvioProgramado { get; set; }
         public string MensajError { get; set; }
-    
-        public virtual Solicitud Solicitud { get; set; }
+
+        public int IdSolicitud { get; set; }
     }
 }
