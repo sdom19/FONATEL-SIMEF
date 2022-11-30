@@ -46,6 +46,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\GB.SUTEL.UI\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,10 +63,10 @@
     <Compile Include="DetalleFormularioWebDAL.cs" />
     <Compile Include="DetalleIndicadorCategoriaDAL.cs" />
     <Compile Include="DetalleIndicadorVariablesDAL.cs" />
-    <Compile Include="DetalleRelacionCategoriaDAL.cs" />
     <Compile Include="DetalleSolicitudesDAL.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatelDAL.cs" />
     <Compile Include="FormulaNivelCalculoCategoriaDAL.cs" />
+    <Compile Include="EnvioSolicitudDAL.cs" />
     <Compile Include="PlantillaHtmlDAL.cs" />
     <Compile Include="ReglaComparacionConstanteDAL.cs" />
     <Compile Include="ReglaIndicadorEntradaDAL.cs" />
@@ -71,6 +74,7 @@
     <Compile Include="ReglaIndicadorSalidaDAL.cs" />
     <Compile Include="ReglaSecuencialDAL.cs" />
     <Compile Include="RegistroIndicadorDAL.cs" />
+    <Compile Include="SITELContext.cs" />
     <Compile Include="SolicitudEnvioProgramadoDAL.cs" />
     <Compile Include="UsuarioFonatelDAL.cs" />
     <Compile Include="ReglaValidacionAtributosValidosDAL.cs" />

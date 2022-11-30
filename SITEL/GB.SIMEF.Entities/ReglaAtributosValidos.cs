@@ -22,8 +22,9 @@ namespace GB.SIMEF.Entities
         public int IdDetalleReglaValidacion { get; set; }
         public int IdCategoria { get; set; }
         public int IdCategoriaAtributo { get; set; }
+        public string idAtributoString { get; set; }
 
         [NotMapped]
-        public string idAtributoString { get; set; }
+        public bool OpcionEliminar { get; set; }
     }
 }

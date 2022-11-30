@@ -43,14 +43,12 @@ namespace GB.SIMEF.Entities
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
-
         public int idFuente { get; set; }
         public int idMes { get; set; }
-
         public int idAnno { get; set; }
+        public int IdEstado { get; set; }
 
         #region variables que no están en el contexto
-        public int IdEstado { get; set; }
 
         [NotMapped]
 
@@ -77,9 +75,41 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public List<DetalleSolicitudFormulario> SolicitudFormulario { get; set; }
 
-
         [NotMapped]
         public string FormulariosString { get; set; }
+
+        [NotMapped]
+        public List<string> NoSerialize = new List<string>()
+        {
+            "idSolicitud",
+            "FechaInicio",
+            "FechaFin",
+            "CantidadFormularios",
+            "Mensaje",
+            "FechaCreacion",
+            "UsuarioCreacion",
+            "FechaModificacion",
+            "UsuarioModificacion",
+            "idFuente",
+            "idMes",
+            "idAnno",
+            "IdEstado",
+            "id",
+            "Formularioid",
+            "Estado",
+            "Fuente",
+            "FormularioWeb",
+            "EnvioProgramado",
+            "SolicitudFormulario",
+            "FormulariosString",
+        };
+
+
+        [NotMapped]
+        public Mes Mes { get; set; }
+        [NotMapped]
+        public Anno Anno { get; set; }
+
 
         #endregion
     }

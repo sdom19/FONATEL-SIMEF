@@ -46,7 +46,7 @@ namespace GB.SIMEF.DAL
                     operadorArismetico = ObtenerOperador(x.IdOperador),
                     IdDetalleIndicador = x.IdDetalleIndicador,
                     IdIndicador = x.IdIndicador,
-                    NombreVariable =  x.IdTipo==(int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos?"No Definido":    ObtenerVariable(x.IdDetalleIndicador).NombreVariable,
+                    NombreVariable =  x.IdTipo==(int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos? ObtenerVariable(x.IdDetalleReglaValidacion, true) : ObtenerVariable(x.IdDetalleIndicador, false),
                     reglaIndicadorEntrada = ObtenerReglaIndicadorEntrada(x.IdDetalleReglaValidacion),
                     reglaComparacionConstante = ObtenerReglaContraConstante(x.IdDetalleReglaValidacion),
                     reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdDetalleReglaValidacion),
@@ -118,23 +118,18 @@ namespace GB.SIMEF.DAL
             }
         }
 
-        private string ObtenerListadoTipoReglas(int IdRegla)
+        private string ObtenerVariable(int id, bool Tipo)
         {
-            string tipoReglas = "";
-            tipoReglas = db.Database.SqlQuery<string>
-                ("exec spObtenerListadoTipoReglaXReglaValidacion @IdRegla",
-                   new SqlParameter("@IdRegla", IdRegla)
+
+            string NombreVariables = "";
+
+            NombreVariables = db.Database.SqlQuery<string>
+                ("exec spObtenerNombreVariableDetalleReglaValidacion @IdBusqueda, @Tipo",
+                   new SqlParameter("@IdBusqueda", id),
+                   new SqlParameter("@Tipo", Tipo == true? 1 : 0)
                 ).Single();
 
-            return tipoReglas;
-        }
-
-        private DetalleIndicadorVariables ObtenerVariable(int id)
-        {
-            DetalleIndicadorVariables result = new DetalleIndicadorVariables();
-            result =
-            db.DetalleIndicadorVariables.Where(x => x.idDetalleIndicador == id).Single();
-            return result;
+            return NombreVariables;
         }
 
         private TipoReglaValidacion ObtenerTipoRegla(int id)
@@ -152,11 +147,10 @@ namespace GB.SIMEF.DAL
         private ReglaAtributosValidos ObtenerReglaAtributosValidos(int id)
         {
             ReglaAtributosValidos regla =
-                db.ReglaAtributosValidos.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
-            if (regla != null)
-            {
-                regla.idAtributoString = Utilidades.Encriptar(regla.IdCategoriaAtributo.ToString());
-            }
+                db.Database.SqlQuery<ReglaAtributosValidos>
+                ("exec spObtenerReglasAtributosValidos @IdDetalleReglaValidacion",
+                   new SqlParameter("@IdDetalleReglaValidacion", id)
+                ).FirstOrDefault();
             return regla;
         }
 
@@ -164,10 +158,7 @@ namespace GB.SIMEF.DAL
         {
             ReglaComparacionConstante regla =
                 db.ReglaComparacionConstante.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
-            if (regla != null)
-            {
 
-            }
             return regla;
         }
 
@@ -175,10 +166,7 @@ namespace GB.SIMEF.DAL
         {
             ReglaSecuencial regla =
                 db.ReglaSecuencial.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
-            if (regla != null)
-            {
 
-            }
             return regla;
         }
 

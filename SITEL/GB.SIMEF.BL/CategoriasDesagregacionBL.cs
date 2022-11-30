@@ -136,7 +136,7 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CantidadRegistrosLimite);
                 }
-                else if (!Utilidades.rx_soloTexto.Match(objeto.NombreCategoria.Trim()).Success)
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.NombreCategoria.Trim()).Success)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "nombre de Categoría"));
@@ -352,13 +352,15 @@ namespace GB.SIMEF.BL
                 List<CategoriasDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
                 if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).ToList().Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
                 }
                 else if (buscarRegistro.Where(x => x.NombreCategoria.ToUpper() == objeto.NombreCategoria.ToUpper()).ToList().Count() > 0)
                 {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
-                else if (!Utilidades.rx_soloTexto.Match(objeto.NombreCategoria.Trim()).Success)
+                else if (!Utilidades.rx_alfanumerico.Match(objeto.NombreCategoria.Trim()).Success)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "nombre de Categoría"));
@@ -462,6 +464,46 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+
+
+        /// <summary>
+        /// José Navarro Acuña
+        /// 17/11/2022
+        /// Consulta las categorias de desagregación relacionadas a una formula respecto al nivel de calculo  
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerCategoriasDeFormulaNivelCalculo(string pIdFormula, string pIdIndicador)
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pIdFormula), out int idFormula);
+                int.TryParse(Utilidades.Desencriptar(pIdIndicador), out int idIndicador);
+
+                if (idFormula == 0 || idIndicador == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                List<CategoriasDesagregacion> result = clsDatos.ObtenerCategoriasDeFormulaNivelCalculo(idFormula, idIndicador);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+
+
         /// <summary>
         /// 18/10/2022
         /// José Navarro Acuña
@@ -469,7 +511,7 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerCategoriasDesagregacionDeIndicador(string pIdIndicador)
+        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerCategoriasDesagregacionDeIndicador(string pIdIndicador, bool pInsertarOpcionTodos = false)
         {
             RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
 
@@ -489,9 +531,14 @@ namespace GB.SIMEF.BL
 
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                var result = clsDatos.ObtenerCategoriasDesagregacionDeIndicador(idIndicador);
+                List<CategoriasDesagregacion> result = clsDatos.ObtenerCategoriasDesagregacionDeIndicador(idIndicador);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
+
+                if (resultado.CantidadRegistros > 0 && pInsertarOpcionTodos)
+                {
+                    resultado.objetoRespuesta.Insert(0, new CategoriasDesagregacion() { id = select2MultipleOptionTodosValue, NombreCategoria = select2MultipleOptionTodosText });
+                }
             }
             catch (Exception ex)
             {

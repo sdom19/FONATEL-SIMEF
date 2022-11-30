@@ -85,7 +85,7 @@
         MensajeDetalleAgregado: "El Tipo de Regla ha sido creado",
         MensajeDetalleEditado: "El Tipo de Regla ha sido editado",
         MensajeEliminarRegla: "La Regla ha sido eliminada",
-        MensajeAgregarVariasReglas: "Recuerde que puede agregar más de una regla de validación para el indicador seleccionado",
+        MensajeAgregarVariasReglas: "Recuerde que puede agregar más de una Regla de Validación para el Indicador seleccionado",
         MensajeReglaCreada: "La Regla ha sido creada"
     },
 
@@ -161,6 +161,7 @@
         },
 
         "CargarTablaDetalleReglas": function () {
+
             EliminarDatasource();
             let html = "";
             for (var i = 0; i < JsReglas.Variables.ListaDetalleReglas.length; i++) {
@@ -406,7 +407,6 @@
                 if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada) {
                     $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.IdCompara);
                     $(JsReglas.Controles.ddlIndicadorComparacionRegla).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.idIndicadorComparaString).change();
-                    $(JsReglas.Controles.ddlVariableComparacionRegla).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.idVariableComparaString).change();
                 }
                 //REGLA CONTRA CONSTANTE
                 if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraConstante) {
@@ -417,7 +417,6 @@
                 if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
                     $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.IdCompara);
                     $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val(JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.IdCategoria).change();
-                    $(JsReglas.Controles.ddlAtributosValidosRegla).val(JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.idAtributoString).change();
                 }
                 //REGLA CONTRA ACTUALIZACION SECUENCIAL
                 if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
@@ -433,7 +432,6 @@
                 if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
                     $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.IdCompara);
                     $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.idIndicadorComparaString).change();
-                    $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString).change();
                 }
             }
         },
@@ -625,7 +623,6 @@
 
             let id = ObtenerValorParametroUrl("id");
             Regla.id = id;
-
             Regla.Codigo = $(JsReglas.Controles.txtCodigo).val();
             Regla.Nombre = $(JsReglas.Controles.txtNombre).val();
             Regla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
@@ -711,6 +708,7 @@
                         .set('onok', function (closeEvent) {
 
                             JsReglas.Metodos.LimpiarCamposDetalles();
+                            $(JsReglas.Controles.ddlTipoRegla).prop("disabled", false);
                             if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
                                 JsReglas.Consultas.ConsultaListaDetalleReglas();
                             }
@@ -835,14 +833,18 @@
             execAjaxCall("/ReglasValidacion/ObtenerListaVariablesDato", "GET", { idIndicadorString })
                 .then((obj) => {
 
-                    let html = "<option value=''/>";
-                    for (var i = 0; i < obj.objetoRespuesta.length; i++) {
-                        html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].NombreVariable + "</option>"
-                    }
-
-                    $(JsReglas.Controles.ddlVariableComparacionRegla).html(html);
-
-                }).catch((obj) => {
+                        let html = "<option value=''/>";
+                        for (var i = 0; i < obj.objetoRespuesta.length; i++) {
+                            html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].NombreVariable + "</option>"
+                        }
+                        $(JsReglas.Controles.ddlVariableComparacionRegla).html(html);
+                })
+                .then((obj) => {
+                    if (JsReglas.Variables.esModoEdicion) {
+                        $(JsReglas.Controles.ddlVariableComparacionRegla).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.idVariableComparaString).change();
+                    }                  
+                })
+                .catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { });
@@ -862,15 +864,19 @@
 
             execAjaxCall("/ReglasValidacion/ObtenerListaVariablesDato", "GET", { idIndicadorString })
                 .then((obj) => {
-
                     let html = "<option value=''/>";
                     for (var i = 0; i < obj.objetoRespuesta.length; i++) {
                         html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].NombreVariable + "</option>"
                     }
 
                     $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).html(html);
-
-                }).catch((obj) => {
+                })
+                .then((obj) => {
+                    if (JsReglas.Variables.esModoEdicion) {
+                        $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString).change();
+                    }
+                })
+                .catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { });
@@ -888,17 +894,35 @@
 
             $("#loading").fadeIn();
 
-            execAjaxCall("/ReglasValidacion/ObtenerListaDetallesCategoria", "GET", { idCategoria })
-                .then((obj) => {
 
-                    let html = "<option value=''/>";
-                    for (var i = 0; i < obj.objetoRespuesta.length; i++) {
-                        html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].Etiqueta + "</option>"
+            let RelacionCategoria = new Object();
+            RelacionCategoria.idCategoria = idCategoria;
+
+            execAjaxCall("/ReglasValidacion/ObtenerListaDetallesCategoria", "POST", RelacionCategoria)
+                .then((obj) => {
+                    let respuestaRelacion = obj.objetoRespuesta[0].DetalleRelacionCategoria;
+
+                    let html = "<option value='all'>Todos</option>";
+                    for (var i = 0; i < respuestaRelacion.length; i++) {
+                        html = html + "<option value=" + respuestaRelacion[i].CategoriaAtributo.idCategoria + ">" + respuestaRelacion[i].CategoriaAtributo.Codigo + " / " + respuestaRelacion[i].CategoriaAtributo.NombreCategoria + "</option>"
                     }
 
                     $(JsReglas.Controles.ddlAtributosValidosRegla).html(html);
 
-                }).catch((obj) => {
+                    if (JsReglas.Variables.esModoEdicion) {
+
+                        let listaAtributos = JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.idAtributoString.split(',');
+
+                        $(JsReglas.Controles.ddlAtributosValidosRegla).val(listaAtributos).change();
+                    }
+                })
+                .then((obj) => {
+                    if (JsReglas.Variables.esModoEdicion) {
+                        let listaAtributos = JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.idAtributoString.split(',');
+                        $(JsReglas.Controles.ddlAtributosValidosRegla).val(listaAtributos).change();
+                    }
+                })
+                .catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
                             .set('onok', function (closeEvent) { });
@@ -967,15 +991,15 @@
                                 resolve(true)
                             })
                     })
-                .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeAgregarVariasReglas)
-                        .set('onok', function (closeEvent) {
-                            JsReglas.Metodos.LimpiarCamposDetalles();
-                            if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
-                                JsReglas.Consultas.ConsultaListaDetalleReglas();
-                            }
+                        .then((obj) => {
+                            jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeAgregarVariasReglas)
+                                .set('onok', function (closeEvent) {
+                                    JsReglas.Metodos.LimpiarCamposDetalles();
+                                    if ($(JsReglas.Controles.TablaDetalleReglas).length > 0) {
+                                        JsReglas.Consultas.ConsultaListaDetalleReglas();
+                                    }
+                                })
                         })
-                })
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -1017,9 +1041,10 @@
             //REGLA CONTRA ATRIBUTOS VALIDOS
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
                 objetoTipoRegla.reglaAtributosValidos = {};
-                objetoTipoRegla.reglaAtributosValidos.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaAtributosValidos.IdCategoria = $(JsReglas.Controles.ddlAtributosValidosCategoríaRegla).val();
-                objetoTipoRegla.reglaAtributosValidos.idAtributoString = $(JsReglas.Controles.ddlAtributosValidosRegla).val();
+                 let array= $(JsReglas.Controles.ddlAtributosValidosRegla).val();
+
+                objetoTipoRegla.reglaAtributosValidos.idAtributoString = array.join(',');
             }
             // REGLA CONTRA ACTUALIZACION SECUENCIAL
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
@@ -1045,6 +1070,7 @@
                 .then((obj) => {
                     new Promise((resolve) => {
                         JsReglas.Variables.esModoEdicion = false;
+                        $(JsReglas.Controles.ddlTipoRegla).prop("disabled", false);
                         jsMensajes.Metodos.OkAlertModal(JsReglas.Mensajes.MensajeDetalleEditado)
                             .set('onok', function () {
                                 resolve(true)
@@ -1256,9 +1282,12 @@ $(document).on("click", JsReglas.Controles.btnEliminaTipoRegla, function (e) {
 
 $(document).on("click", JsReglas.Controles.btnEditTipoRegla, function (e) {
 
+    $(JsReglas.Controles.ddlTipoRegla).prop("disabled", true);
+
     let id = $(this).attr("data-index");
 
     JsReglas.Metodos.CargarDetallesRegla(id);
+
 
 });
 

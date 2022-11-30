@@ -2,11 +2,7 @@
 @model GB.SIMEF.Entities.RelacionCategoria
 
 
-    <!--   TEXTO PARA SABER EL MODO AGREGAR O EDITAR -->
-    @Html.Hidden("txtmodoRelacion", (string)ViewBag.Modo)
 
-    <!-- TEXTO PARA ENCRIPTAR ID Y PARA EL EDITAR-->
-    @Html.HiddenFor(model => model.id, new { id = "txtidRelacion" })
 
     <div class="row">
         <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
@@ -15,14 +11,14 @@
             <div class="form-group row">
                 <label for="txtNombre" class="col-sm-12 col-form-label">@EtiquetasViewRelacionCategoria.NombreRelacion</label>
                 <div class="col-sm-12">
-                    @Html.EditorFor(model => model.Nombre , new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_texto", placeholder = EtiquetasViewRelacionCategoria.Nombre, id = "txtNombre" } })
+                    @Html.EditorFor(model => model.Nombre , new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewRelacionCategoria.Nombre, id = "txtNombreRelacion" } })
                     <small id="nombreHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="txtCodigo" class="col-sm-12 col-form-label">Código</label>
                 <div class="col-lg-12">
-                    @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewRelacionCategoria.Codigo, id = "txtCodigo" } })
+                    @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", placeholder = EtiquetasViewRelacionCategoria.Codigo, id = "txtCodigoRelacion" } })
                     <small id="CodigoHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
@@ -30,7 +26,7 @@
             <div class="form-group row">
                 <label for="txtCantidad" class="col-sm-12 col-form-label">@EtiquetasViewRelacionCategoria.Cantidad</label>
                 <div class="col-sm-12">
-                    @Html.EditorFor(model => model.CantidadCategoria, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewRelacionCategoria.Cantidad, id = "TxtCantidad" } })
+                    @Html.EditorFor(model => model.CantidadCategoria, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewRelacionCategoria.Cantidad, id = "TxtCantidadCategoria" } })
                     <small id="CantidadHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
@@ -46,30 +42,23 @@
                     <small id="TipoCategoriaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
-             
+
             <div class="form-group row">
-                <label for="ddlDetalleDesagregacionId" class="col-sm-12 col-form-label ">Detalle Desagregación ID</label>
+                <label for="txtCantidadRegistros" class="col-sm-12 col-form-label">@EtiquetasViewRelacionCategoria.CantidadRegistros</label>
                 <div class="col-sm-12">
-                    <div class="select2-wrapper">
-
-                        @*<select class="form-control form-control-fonatel  required listasDesplegables" aria-label="Default select example" id="ddlDetalleDesagregacionId">
-                            <option></option>
-                        </select>*@
-
-                        @Html.DropDownListFor(model => model.idCategoriaValor, new SelectList(ViewBag.ListaCatergoriaValor, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlDetalleDesagregacionId" })
-
-                    </div>
-
-                    <small id="DetalleDesagregacionIDHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+                    @Html.EditorFor(model => model.CantidadFilas, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewRelacionCategoria.CantidadRegistros, id = "txtCantidadFilas" } })
+                    <small id="CantidadRegistrosHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
-        </div>
+           </div>
+
     </div>
     <div class="row">
         <div class="col-lg-12 text-center">
 
             <button type="submit" id="btnGuardarRelacion" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonGuardar" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-            <button type="submit" id="btnCancelarRelacion" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCancelar" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
+            <button type="button" id="btnSiguienteRelacionCategoria" disabled class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+            <button type="submit" id="btnCancelar" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCancelar" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
 
         </div>
     </div>

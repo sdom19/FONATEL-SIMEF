@@ -6,12 +6,22 @@
         <div class="col-md-6 col-sm-10">
             <div class="form-group center">
                 <label for="txtCodigoFormula" class="col-form-label">@EtiquetasViewFormulasCalculo.CrearFormula_LabelCodigo</label>
-                @Html.EditorFor(model => Model.Codigo, new { htmlAttributes = new { 
-                                                                @class = "form-control form-control-fonatel alfa_numerico", 
-                                                                id = "txtCodigoFormula", 
-                                                                placeholder = EtiquetasViewFormulasCalculo.CrearFormula_LabelCodigo,
-                                                                maxlength = 30
-                } })
+
+                @{ var htmlAttributes = new Dictionary<string, object>
+                                        {
+                        { "id", "txtCodigoFormula" },
+                        { "class" , "form-control form-control-fonatel alfa_numerico"},
+                        { "maxlength", 30 },
+                        { "placeholder", EtiquetasViewFormulasCalculo.CrearFormula_LabelCodigo }
+                    };
+
+                    if (ViewBag.ModoFormulario == ((int)Constantes.Accion.Editar).ToString())
+                    {
+                        htmlAttributes.Add("disabled", "disabled");
+                    } 
+                }
+
+                @Html.EditorFor(model => Model.Codigo, new { htmlAttributes = htmlAttributes })
                 <small id="txtCodigoFormulaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
 
@@ -59,7 +69,6 @@
             <div class="form-group center">
                 <label for="ddlIndicadorFormulario" class="col-form-label ">@EtiquetasViewFormulasCalculo.CrearFormula_LabelIndicadorSalida</label>
                 <div class="select2-wrapper">
-                    @*@Html.DropDownListFor(model => Model.IdIndicador, new SelectList(ViewBag.IndicadorSalida, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorFormulario" })*@
                     @Html.DropDownListFor(model => Model.IdIndicadorSalidaString, 
                                                     new SelectList(ViewBag.IndicadorSalida, "id", "Nombre"), 
                                                     Etiquetas.PlaceholderDropDown, 
@@ -71,9 +80,8 @@
             <div class="form-group center">
                 <label for="ddlVariableFormulario" class="col-form-label ">@EtiquetasViewFormulasCalculo.CrearFormula_LabelVariableDato</label>
                 <div class="select2-wrapper">                    
-                    @*@Html.DropDownListFor(model => Model.IdIndicadorVariable, new SelectList(ViewBag.VariableIndicador, "id", "NombreVariable"), "Seleccione", new { @class = "listasDesplegables", id = "ddlVariableFormulario" })*@
                     @Html.DropDownListFor(model => Model.IdVariableDatoString, 
-                                                    new SelectList(Enumerable.Empty<SelectListItem>(), "id", "NombreVariable"),
+                                                    new SelectList(ViewBag.VariablesDato, "id", "NombreVariable"),
                                                     Etiquetas.PlaceholderDropDown,
                                                     new { @class = "listasDesplegables", id = "ddlVariableDatoFormula" })
                 </div>
@@ -83,8 +91,6 @@
             <div class="form-group center">
                 <label for="ddlVariableFormulario" class="col-form-label ">@EtiquetasViewFormulasCalculo.CrearFormula_LabelNivelCalculo</label>
                 <label class="radio-inline" style="display: block;">
-                    @*<input type="radio" id="radioTotal" name="nivelCalculo" value="">*@
-                    
                     @{ 
                         var htmlAttributesTotal = new Dictionary<string, object>
                         {{ "id", "radioTotal" }};
@@ -99,8 +105,6 @@
                     @EtiquetasViewFormulasCalculo.CrearFormula_LabelNivelCalculoTotal
                 </label>
                 <label class="radio-inline mt-3" style="display: block;">
-                    @*<input type="radio" id="radioCategoriaDesagregacion" name="nivelCalculo" value="">*@
-
                     @{
                         var htmlAttributesCategoria = new Dictionary<string, object>
                         {{ "id", "radioCategoriaDesagregacion" }};
@@ -120,10 +124,9 @@
             <div class="form-group center" style="@(@Model.NivelCalculoTotal?"display: none;":"display: block;")" id="divInputCategoriaDesagregacion">
                 <label for="ddlCategoriaDesagregacion" class="col-form-label ">@EtiquetasViewFormulasCalculo.CrearFormula_LabelCategoriaDesagregacion</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownListFor(model => Model.IdIndicadorVariable,
-                                                    new SelectList(Enumerable.Empty<SelectListItem>(), "id", "Nombre"),
-                                                    Etiquetas.PlaceholderDropDown,
-                                                    new { @class = "required listasDesplegables multiple-Select", id = "ddlCategoriaDesagregacion", multiple="multiple" })
+                    @Html.DropDownListFor(model => Model.ListaCategoriasNivelesCalculo,
+                                                    new SelectList(ViewBag.CategoriasDeIndicador, "id", "NombreCategoria"),
+                                                    new { @class = "required listasDesplegables multiple-Select", id = "ddlCategoriaDesagregacion", multiple="multiple", placeholder= Etiquetas.PlaceholderDropDown })
                 </div>
                 <small id="ddlCategoriaDesagregacionHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
@@ -132,8 +135,30 @@
     </div>
     <div class="row mt-5">
         <div class="col-sm-12 text-center">
-            <button type="button" id="btnGuardarFormulaCalculo" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-            <button type="button" id="btnSiguienteFormulaCalculo" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
+            @{
+                string idBtnGuardar = string.Empty, idBtnSiguiente = string.Empty;
+                string modoFormulario = ViewBag.ModoFormulario;
+
+                if (modoFormulario.Equals(((int)Constantes.Accion.Insertar).ToString()))
+                {
+                    idBtnGuardar = "btnGuardarFormulaCalculo";
+                    idBtnSiguiente = "btnSiguienteFormulaCalculo";
+                }
+                else if (modoFormulario.Equals(((int)Constantes.Accion.Editar).ToString()))
+                {
+                    idBtnGuardar = "btnGuardarEditarFormulaCalculo";
+                    idBtnSiguiente = "btnSiguienteEditarFormulaCalculo";
+                }
+                else if (modoFormulario.Equals(((int)Constantes.Accion.Clonar).ToString()))
+                {
+                    idBtnGuardar = "btnGuardarClonarFormulaCalculo";
+                    idBtnSiguiente = "btnSiguienteClonarFormulaCalculo";
+                }
+
+            }
+
+            <button type="button" id="@idBtnGuardar" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+            <button type="button" id="@idBtnSiguiente" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonSiguiente</button>
             <button type="button" id="btnCancelarFormula" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
         </div>
     </div>

@@ -17,28 +17,29 @@ namespace GB.SIMEF.Entities
     [Table("RelacionCategoria")]
     public partial class RelacionCategoria
     {
-       
         public RelacionCategoria()
         {
-            
+            this.DetalleRelacionCategoria = new List<DetalleRelacionCategoria>();
+            this.RelacionCategoriaId = new List<RelacionCategoriaId> ();
         }
+
         [Key]
-        public int idRelacionCategoria { get; set; }
+        public int IdRelacionCategoria { get; set; }
 
         [MaxLength(10, ErrorMessage = "Máximo de caracteres permitido *")]
         public string Codigo { get; set; }
         [MaxLength(10, ErrorMessage = "Máximo de caracteres permitido *")]
         public string Nombre { get; set; }
         //VALIDAR EL RANGO
-        public Nullable<int> CantidadCategoria { get; set; }
+        public int CantidadCategoria { get; set; }
         public int idCategoria { get; set; }
-        public string idCategoriaValor { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
 
         public int idEstado { get; set; }
+        public int CantidadFilas { get; set; }
 
 
         #region Variables que no estan en la entiendad
@@ -56,10 +57,15 @@ namespace GB.SIMEF.Entities
         public string id { get; set; }
 
         [NotMapped]
-        public string relacionid { get; set; }
+        public string  detalleid { get; set; }
 
         [NotMapped]
-        public string  detalleid { get; set; }
+
+        public List<RelacionCategoriaId> RelacionCategoriaId { get; set; }
+
+        [NotMapped]
+
+        public CategoriasDesagregacion CategoriasDesagregacionid;
 
         #endregion
     }

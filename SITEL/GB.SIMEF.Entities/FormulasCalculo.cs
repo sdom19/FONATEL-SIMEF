@@ -13,6 +13,7 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web.Mvc;
 
     [Table("FormulasCalculo")]
     public partial class FormulasCalculo
@@ -29,15 +30,15 @@ namespace GB.SIMEF.Entities
         [Key]
         public int IdFormula { get; set; }
 
-        public int? IdIndicador { get; set; }
-        public int? IdIndicadorVariable { get; set; }
-        public int? IdFrecuencia { get; set; }
-
         [MaxLength(30)]
         public string Codigo { get; set; }
 
         [MaxLength(300)]
         public string Nombre { get; set; }
+
+        public int? IdIndicador { get; set; }
+        public int? IdIndicadorVariable { get; set; }
+        public int? IdFrecuencia { get; set; }
 
         [MaxLength(1500)]
         [DataType(DataType.MultilineText)]
@@ -77,7 +78,6 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public bool EsGuardadoParcial { get; set; }
-
         #endregion
     }
 }

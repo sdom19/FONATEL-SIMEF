@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:ObjectName="LocalHost.SITELP"
   DTS:DTSID="{251000DC-0C66-463D-97F6-A8C43F749C8F}"

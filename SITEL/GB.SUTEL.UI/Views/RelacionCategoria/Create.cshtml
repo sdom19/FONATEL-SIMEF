@@ -1,12 +1,13 @@
-﻿@using GB.SIMEF.Resources;
-
+﻿
+@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.RelacionCategoria
 @{
     ViewBag.Title = ViewBag.titulo;
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
 @section scripts {
-  @*  @Scripts.Render("~/bundles/FONATEL/RelacionCategoria")*@
+    @*  @Scripts.Render("~/bundles/FONATEL/RelacionCategoria")*@
 }
 
 <div class="container body-content">
@@ -19,18 +20,54 @@
             </ol>
         </nav>
     </div>
-    <div class="row">
-        <div>
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel step_navigation_indicador">
+            <div class="stepwizard-step" data-step="0">
+                <p>@EtiquetasViewRelacionCategoria.RelacionCategoria</p>
+                <a href="#step-1" disabled type="button" class="btn btn-circle">1</a>
+
+            </div>
+            <div class="stepwizard-step" data-step="1">
+                <p>@EtiquetasViewRelacionCategoria.CategoriaDesagregacion</p>
+                <a href="#step-2" disabled type="button" class="btn btn-circle">2</a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row stepwizard-content-container hidden" id="step-1">
+        <div class="col-lg-12">
             <h2 class="page-title-fonatel text-center">@ViewBag.titulo</h2>
             <hr />
         </div>
         <div class="col-lg-12">
-            <form id="FormularioCrearRelacion">
-                @Html.Partial("_CrearRelacionCategoria")
-            </form>
+            @Html.Partial("_CrearRelacionCategoria")
         </div>
     </div>
 
-</div>
+    <div class="row stepwizard-content-container hidden" id="step-2">
+        <div>
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewRelacionCategoria.CategoriaDesagregacion</h2>
+            <hr />
+        </div>
+        <div class="col-lg-12">
+            @Html.Partial("_AsignarCategorias")
+        </div>
+        <div class="col-lg-12 mt-4">
+            @Html.Partial("_TablaCategoriasAtributo")
+        </div>
 
+        <div class="col-sm-12 text-center">
+
+            <button type="submit" id="btnFinalizar" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
+        </div>
+
+        <div class="col-12 pull-right mt-4">
+            <button type="button" id="btnAtrasRelacionCategorias" class="btn btn-fonatel btn-goback" aria-label="Left Align">
+                <span aria-hidden="true"></span>@Etiquetas.BotonAtras
+            </button>
+        </div>
+
+    </div>
+</div>
 <script src="~/Scripts/Fonatel/JsRelacionCategoria.js"></script>

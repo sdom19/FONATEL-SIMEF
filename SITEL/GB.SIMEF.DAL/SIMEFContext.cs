@@ -30,7 +30,6 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<DetalleCategoriaFecha> DetalleCategoriaFecha { get; set; }
         public virtual DbSet<DetalleCategoriaNumerico> DetalleCategoriaNumerico { get; set; }
 
-        public virtual DbSet<UsuarioFonatel> UsuarioFonatel { get; set; }
 
         public virtual DbSet<PlantillaHtml> PlantillaHtml { get; set; }
 
@@ -53,7 +52,7 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<DetalleSolicitudFormulario> DetalleSolicitudFormulario { get; set; }
         public virtual DbSet<EnvioSolicitudes> EnvioSolicitudes { get; set; }
 
-        //public virtual DbSet<FormulaIndicadorDSF> FormulaIndicadorDSF { get; set; }
+        public virtual DbSet<RelacionCategoriaAtributo> RelacionCategoriaAtributo { get; set; }
         //public virtual DbSet<FormulaIndicadorFecha> FormulaIndicadorFecha { get; set; }
         //public virtual DbSet<FormulaIndicadorMC> FormulaIndicadorMC { get; set; }
         public virtual DbSet<FormulaNivelCalculoCategoria> FormulaNivelCalculoCategoria { get; set; }
@@ -93,5 +92,6 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<ReglaIndicadorSalida> ReglaIndicadorSalida { get; set; }
         public virtual DbSet<ReglaIndicadorEntrada> ReglaIndicadorEntrada { get; set; }
         public virtual DbSet<ReglaIndicadorEntradaSalida> ReglaIndicadorEntradaSalida { get; set; }
+        public virtual DbSet<RelacionCategoriaId> RelacionCategoriaId { get; set; }
     }
 }

@@ -11,32 +11,33 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class UsuarioFonatelBL : IMetodos<UsuarioFonatel>
+    public class UsuarioFonatelBL : IMetodos<Usuario>
     {
         readonly string modulo = "";
         readonly string user = "";
         private readonly UsuarioFonatelDAL usuarioFonatelDAL;
         private readonly PlantillaHtmlDAL plantillaHtmlDAL;
-        private RespuestaConsulta<List<UsuarioFonatel>> resultado;
+        private RespuestaConsulta<List<Usuario>> resultado;
         public UsuarioFonatelBL(string modulo, string usuario)
         {
             this.usuarioFonatelDAL = new UsuarioFonatelDAL();
             this.modulo = modulo;
             this.user = usuario;
-            this.resultado = new RespuestaConsulta<List<UsuarioFonatel>>();
+            this.resultado = new RespuestaConsulta<List<Usuario>>();
             this.plantillaHtmlDAL = new PlantillaHtmlDAL();
         }
 
-        private UsuarioFonatel ValidarObjeto(UsuarioFonatel objeto, bool agregar=false)
+        private Usuario ValidarObjeto(Usuario objeto, bool agregar=false)
         {
             var consultardatos = usuarioFonatelDAL.ObtenerDatos();
             objeto.CorreoUsuario = objeto.CorreoUsuario.Trim().ToUpper();
             objeto.NombreUsuario = objeto.NombreUsuario.Trim().ToUpper();
+            objeto.FONATEL = true;
             if (agregar==false)
             {
-                objeto.Activo = false;
-                objeto.borrado = false;
-                objeto.FONATEL = true;
+                objeto.Activo= 0;
+                objeto.Borrado = 0;
+               
                 objeto.EnviaCorreo = false;
             }
             objeto.ContrasenaSinEncriptar = generatePassword();
@@ -59,7 +60,7 @@ namespace GB.SIMEF.BL
             }
             return objeto;
         }
-        public RespuestaConsulta<List<UsuarioFonatel>> ActualizarElemento(UsuarioFonatel objeto)
+        public RespuestaConsulta<List<Usuario>> ActualizarElemento(Usuario objeto)
         {
             try
             {
@@ -81,7 +82,7 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        private void EnviarCorreo(UsuarioFonatel objeto)
+        private void EnviarCorreo(Usuario objeto)
         {
             PlantillaHtml plantilla = plantillaHtmlDAL.ObtenerDatos((int)Constantes.PlantillaCorreoEnum.CrearUsuario);
 
@@ -90,19 +91,20 @@ namespace GB.SIMEF.BL
             correo.EnviarCorreo();
         }
 
-        public RespuestaConsulta<List<UsuarioFonatel>> CambioEstado(UsuarioFonatel objeto)
+        public RespuestaConsulta<List<Usuario>> CambioEstado(Usuario objeto)
         {
             try
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Activar;
                 objeto = usuarioFonatelDAL.ObtenerDatos().Where(x => x.IdUsuario == objeto.IdUsuario).Single();
-                objeto.Activo = true;
+                objeto.Activo = 1;
                 objeto.ContrasenaSinEncriptar = generatePassword();
                 objeto.Contrasena = HashPassword(objeto.ContrasenaSinEncriptar);
                 resultado.objetoRespuesta = usuarioFonatelDAL.ActualizarUsuarioSitel(objeto);
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count();
                 EnviarCorreo(objeto);
+             
             }
             catch (Exception ex)
             {
@@ -116,20 +118,20 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<UsuarioFonatel>> ClonarDatos(UsuarioFonatel objeto)
+        public RespuestaConsulta<List<Usuario>> ClonarDatos(Usuario objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<UsuarioFonatel>> EliminarElemento(UsuarioFonatel objeto)
+        public RespuestaConsulta<List<Usuario>> EliminarElemento(Usuario objeto)
         {
             try
             {
                 objeto = usuarioFonatelDAL.ObtenerDatos().Where(X => X.IdUsuario == objeto.IdUsuario).Single();
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Insertar;
-                objeto.borrado = true;
-                objeto.Activo = false;
+                objeto.Borrado = 1;
+                objeto.Activo = 0;
                 resultado.objetoRespuesta = usuarioFonatelDAL.ActualizarUsuarioSitel(objeto);
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count();
 
@@ -148,7 +150,7 @@ namespace GB.SIMEF.BL
 
 
 
-        public RespuestaConsulta<List<UsuarioFonatel>> ObtenerDatos(UsuarioFonatel objeto)
+        public RespuestaConsulta<List<Usuario>> ObtenerDatos(Usuario objeto)
         {
            
             try
@@ -167,7 +169,7 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<UsuarioFonatel>> InsertarDatos(UsuarioFonatel objeto)
+        public RespuestaConsulta<List<Usuario>> InsertarDatos(Usuario objeto)
         {
             try
             {
@@ -239,7 +241,7 @@ namespace GB.SIMEF.BL
 
 
 
-        public RespuestaConsulta<List<UsuarioFonatel>> ValidarDatos(UsuarioFonatel objeto)
+        public RespuestaConsulta<List<Usuario>> ValidarDatos(Usuario objeto)
         {
             throw new NotImplementedException();
         }
