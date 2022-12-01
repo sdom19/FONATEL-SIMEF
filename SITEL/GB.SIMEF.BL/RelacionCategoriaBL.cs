@@ -100,9 +100,16 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    if (result.CantidadFilas == objeto.RelacionCategoriaId.Count())
+                    if (result.CantidadFilas == objeto.RelacionCategoriaId.Count() 
+                        && result.CantidadCategoria==objeto.DetalleRelacionCategoria.Count() 
+                        && result.CantidadFilas >0
+                        && result.CantidadCategoria>0)
                     {
                         objeto.idEstado = (int)EstadosRegistro.Activo;
+                    }
+                    else
+                    {
+                        objeto.idEstado = (int)EstadosRegistro.EnProceso;
                     }
 
                     //HACEMOS LA EDICION
@@ -456,8 +463,6 @@ namespace GB.SIMEF.BL
                     int.TryParse(Utilidades.Desencriptar(detalleRelacion.id), out temp);
                     detalleRelacion.idDetalleRelacionCategoria = temp;
                 }
-
-                objeto = clsDatos.ActualizarDatos(objeto).FirstOrDefault();
                 detalleRelacion = objeto.DetalleRelacionCategoria.Where(x => x.idDetalleRelacionCategoria == detalleRelacion.idDetalleRelacionCategoria).FirstOrDefault();
                 detalleRelacion.Estado = false;
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatosDetalle(detalleRelacion);

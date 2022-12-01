@@ -43,7 +43,7 @@
                                 {
                                     foreach (var cat in Model.CategoriasDesagregacionid.DetalleCategoriaTexto)
                                     {
-                                        <option value="@cat.idCategoriaDetalle">@cat.Etiqueta.Replace("N/A",string.Empty)</option>
+                                        <option value="@cat.Etiqueta">@cat.Etiqueta.Replace("N/A",string.Empty)</option>
                                     }
                                 }
 
@@ -122,7 +122,7 @@
                     <button disabled type="submit" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
                 }
 
-                <button id="btnCancelarDetalle" type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
+                <button id="btnCancelar" type="submit" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
             </div>
         </div>
     </div>

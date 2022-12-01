@@ -134,7 +134,7 @@ namespace GB.SIMEF.BL
                 else if (result.DetalleCategoriaTexto.Count()>objeto.CantidadDetalleDesagregacion)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.CantidadRegistrosLimite);
+                    throw new Exception(Errores.CantidadRegistrosLimiteCategoria);
                 }
                 else if (!Utilidades.rx_alfanumerico.Match(objeto.NombreCategoria.Trim()).Success)
                 {
@@ -253,8 +253,8 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Clonar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
-                string codigo = objeto.Codigo;
-                string Nombre = objeto.NombreCategoria;
+
+                CategoriasDesagregacion objetoClonar = objeto;           
                 if (!string.IsNullOrEmpty( objeto.id))
                 {
                     int temp = 0;
@@ -266,42 +266,57 @@ namespace GB.SIMEF.BL
                 objeto = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
               
 
-                if (listadoCategorias.Where(x=>x.Codigo.ToUpper()==codigo.ToUpper().Trim()).Count()>0)
+                if (listadoCategorias.Where(x=>x.Codigo.ToUpper()== objetoClonar.Codigo.ToUpper().Trim()).Count()>0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
                 }
-                else if(listadoCategorias.Where(x => x.NombreCategoria.ToUpper() == Nombre.ToUpper()).Count() > 0)
+                else if (objetoClonar.CantidadDetalleDesagregacion<objeto.DetalleCategoriaTexto.Count() )
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(Errores.CantidadDestinatariosIncorrecta);
+                }
+                else if(listadoCategorias.Where(x => x.NombreCategoria.ToUpper() == objetoClonar.NombreCategoria.ToUpper()).Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
-                else if (!Utilidades.rx_soloTexto.Match(objeto.NombreCategoria.Trim()).Success)
+                else if (!Utilidades.rx_soloTexto.Match(objetoClonar.NombreCategoria.Trim()).Success)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(string.Format(Errores.CampoConFormatoInvalido,"nombre de Categoría"));
                 }
-                else if (!Utilidades.rx_alfanumerico.Match(objeto.Codigo.Trim()).Success)
+                else if (!Utilidades.rx_alfanumerico.Match(objetoClonar.Codigo.Trim()).Success)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "código de Categoría"));
                 }
                 else
                 {
-                    objeto.Codigo = codigo;
-                    objeto.NombreCategoria = Nombre;
+                    objeto.Codigo = objetoClonar.Codigo;
+                    objeto.NombreCategoria = objetoClonar.NombreCategoria;
                     objeto.idCategoria = 0;
+                    objeto.CantidadDetalleDesagregacion = objetoClonar.CantidadDetalleDesagregacion;
+                    objeto.idEstado = objeto.DetalleCategoriaTexto.Count() == objeto.CantidadDetalleDesagregacion ? 
+                            (int)Constantes.EstadosRegistro.Activo : (int)Constantes.EstadosRegistro.EnProceso;
+
                     var result = clsDatos.ActualizarDatos(objeto)
                       .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
 
                     if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
+                       
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
+                        objeto.DetalleCategoriaFecha.FechaMaxima = objetoClonar.DetalleCategoriaFecha.FechaMaxima;
+                        objeto.DetalleCategoriaFecha.FechaMinima = objetoClonar.DetalleCategoriaFecha.FechaMinima;
                         clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
                     }
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
+                        objeto.DetalleCategoriaNumerico.Minimo = objetoClonar.DetalleCategoriaNumerico.Minimo;
+                        objeto.DetalleCategoriaNumerico.Maximo = objetoClonar.DetalleCategoriaNumerico.Maximo;
+
                         clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
                     }
                     else
