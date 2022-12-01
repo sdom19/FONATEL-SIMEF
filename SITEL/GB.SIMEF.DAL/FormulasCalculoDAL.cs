@@ -17,9 +17,9 @@ namespace GB.SIMEF.DAL
         private SIMEFContext db;
 
         /// <summary>
-        /// Actualiza los datos e inserta por medio de merge
         /// 17/08/2022
-        /// michael Hernández C
+        /// José Navarro Acuña
+        /// Actualiza los datos e inserta por medio de merge
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
@@ -107,11 +107,8 @@ namespace GB.SIMEF.DAL
                     Descripcion = x.Descripcion,
                     IdEstado = x.IdEstado,
                     NivelCalculoTotal = x.NivelCalculoTotal,
-                    //IdFrecuencia = x.IdFrecuencia,
                     IdFrecuenciaString = Utilidades.Encriptar(x.IdFrecuencia.ToString()),
-                    //IdIndicador = x.IdIndicador,
                     IdIndicadorSalidaString = Utilidades.Encriptar(x.IdIndicador.ToString()),
-                    //IdIndicadorVariable = x.IdIndicadorVariable,
                     IdVariableDatoString = Utilidades.Encriptar(x.IdIndicadorVariable.ToString()),
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
                     FechaCreacion = x.FechaCreacion,

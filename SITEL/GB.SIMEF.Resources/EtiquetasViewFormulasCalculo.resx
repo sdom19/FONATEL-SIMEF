@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,197 +59,239 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="CrearFormula_LabelCategoriaDesagregacion" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccionEjecutarFormula" xml:space="preserve">
+    <value>Ejecutar Fórmula</value>
+  </data>
+  <data name="AccionEliminarItem" xml:space="preserve">
+    <value>Eliminar ítem</value>
+  </data>
+  <data name="CrearFormula_LabelCategoriaDesagregacion" xml:space="preserve">
     <value>Categoría de Desagregación</value>
   </data>
-	<data name="CrearFormula_LabelCodigo" xml:space="preserve">
+  <data name="CrearFormula_LabelCodigo" xml:space="preserve">
     <value>Código</value>
   </data>
-	<data name="CrearFormula_LabelDescripcion" xml:space="preserve">
+  <data name="CrearFormula_LabelDescripcion" xml:space="preserve">
     <value>Descripción</value>
   </data>
-	<data name="CrearFormula_LabelFechaCalculo" xml:space="preserve">
+  <data name="CrearFormula_LabelFechaCalculo" xml:space="preserve">
     <value>Fecha de Cálculo</value>
   </data>
-	<data name="CrearFormula_LabelFrecuencia" xml:space="preserve">
+  <data name="CrearFormula_LabelFrecuencia" xml:space="preserve">
     <value>Frecuencia de Cálculo</value>
   </data>
-	<data name="CrearFormula_LabelIndicadorSalida" xml:space="preserve">
+  <data name="CrearFormula_LabelIndicadorSalida" xml:space="preserve">
     <value>Indicador de Salida</value>
   </data>
-	<data name="CrearFormula_LabelNivelCalculo" xml:space="preserve">
+  <data name="CrearFormula_LabelNivelCalculo" xml:space="preserve">
     <value>Nivel de Cálculo</value>
   </data>
-	<data name="CrearFormula_LabelNivelCalculoCategoria" xml:space="preserve">
+  <data name="CrearFormula_LabelNivelCalculoCategoria" xml:space="preserve">
     <value>Categoría de desagregación</value>
   </data>
-	<data name="CrearFormula_LabelNivelCalculoTotal" xml:space="preserve">
+  <data name="CrearFormula_LabelNivelCalculoTotal" xml:space="preserve">
     <value>Total</value>
   </data>
-	<data name="CrearFormula_LabelNombre" xml:space="preserve">
+  <data name="CrearFormula_LabelNombre" xml:space="preserve">
     <value>Nombre</value>
   </data>
-	<data name="CrearFormula_LabelVariableDato" xml:space="preserve">
+  <data name="CrearFormula_LabelVariableDato" xml:space="preserve">
     <value>Variable-Dato</value>
   </data>
-	<data name="GestionFormulas_LabelAcumulacion" xml:space="preserve">
+  <data name="GestionFormulas_LabelAcumulacion" xml:space="preserve">
     <value>Acumulación</value>
   </data>
-	<data name="GestionFormulas_LabelClasificacion" xml:space="preserve">
+  <data name="GestionFormulas_LabelClasificacion" xml:space="preserve">
     <value>Clasificación</value>
   </data>
-	<data name="GestionFormulas_LabelFormulaCalculo" xml:space="preserve">
+  <data name="GestionFormulas_LabelFormulaCalculo" xml:space="preserve">
     <value>Fórmula de cálculo</value>
   </data>
-	<data name="GestionFormulas_LabelFuenteIndicador" xml:space="preserve">
+  <data name="GestionFormulas_LabelFuenteIndicador" xml:space="preserve">
     <value>Fuente Indicador</value>
   </data>
-	<data name="GestionFormulas_LabelGrupo" xml:space="preserve">
+  <data name="GestionFormulas_LabelGrupo" xml:space="preserve">
     <value>Grupo</value>
   </data>
-	<data name="GestionFormulas_LabelIndicador" xml:space="preserve">
+  <data name="GestionFormulas_LabelIndicador" xml:space="preserve">
     <value>Indicador</value>
   </data>
-	<data name="GestionFormulas_LabelServicio" xml:space="preserve">
+  <data name="GestionFormulas_LabelServicio" xml:space="preserve">
     <value>Servicio</value>
   </data>
-	<data name="GestionFormulas_LabelTipoIndicador" xml:space="preserve">
+  <data name="GestionFormulas_LabelTipoIndicador" xml:space="preserve">
     <value>Tipo Indicador</value>
   </data>
-	<data name="LabelStepperFormula" xml:space="preserve">
+  <data name="LabelStepperFormula" xml:space="preserve">
     <value>Fórmula</value>
   </data>
-	<data name="LabelStepperIndicador" xml:space="preserve">
+  <data name="LabelStepperIndicador" xml:space="preserve">
     <value>Indicador</value>
   </data>
-	<data name="ModalDetalle_LabelCategoria" xml:space="preserve">
+  <data name="ModalDetalle_LabelCategoria" xml:space="preserve">
     <value>Categoría</value>
   </data>
-	<data name="ModalDetalle_LabelCriterio" xml:space="preserve">
+  <data name="ModalDetalle_LabelCriterio" xml:space="preserve">
     <value>Criterio</value>
   </data>
-	<data name="ModalDetalle_LabelDetalle" xml:space="preserve">
+  <data name="ModalDetalle_LabelDetalle" xml:space="preserve">
     <value>Detalle</value>
   </data>
-	<data name="ModalDetalle_Titulo" xml:space="preserve">
+  <data name="ModalDetalle_Titulo" xml:space="preserve">
     <value>Detalle</value>
   </data>
-	<data name="ModalFecha_LabelCategoriasTipoFecha" xml:space="preserve">
+  <data name="ModalFecha_LabelCategoriasTipoFecha" xml:space="preserve">
     <value>Categorías Tipo Fecha</value>
   </data>
-	<data name="ModalFecha_LabelFechaFinal" xml:space="preserve">
+  <data name="ModalFecha_LabelFechaFinal" xml:space="preserve">
     <value>Fecha Final</value>
   </data>
-	<data name="ModalFecha_LabelFechaInicio" xml:space="preserve">
+  <data name="ModalFecha_LabelFechaInicio" xml:space="preserve">
     <value>Fecha Inicio</value>
   </data>
-	<data name="ModalFecha_LabelTipoFechaFinal" xml:space="preserve">
+  <data name="ModalFecha_LabelTipoFechaFinal" xml:space="preserve">
     <value>Tipo Fecha Final</value>
   </data>
-	<data name="ModalFecha_LabelTipoFechaInicio" xml:space="preserve">
+  <data name="ModalFecha_LabelTipoFechaInicio" xml:space="preserve">
     <value>Tipo Fecha Inicio</value>
   </data>
-	<data name="ModalFecha_LabelUnidad" xml:space="preserve">
+  <data name="ModalFecha_LabelUnidad" xml:space="preserve">
     <value>Unidad de Medida</value>
   </data>
-	<data name="ModalFecha_RadioAnios" xml:space="preserve">
+  <data name="ModalFecha_RadioAnios" xml:space="preserve">
     <value>Años</value>
   </data>
-	<data name="ModalFecha_RadioDias" xml:space="preserve">
+  <data name="ModalFecha_RadioDias" xml:space="preserve">
     <value>Días</value>
   </data>
-	<data name="ModalFecha_RadioMeses" xml:space="preserve">
+  <data name="ModalFecha_RadioMeses" xml:space="preserve">
     <value>Meses</value>
   </data>
-	<data name="ModalFecha_Titulo" xml:space="preserve">
+  <data name="ModalFecha_Titulo" xml:space="preserve">
     <value>Definición de Fechas</value>
   </data>
-	<data name="TablaIndicadores_ColumnaCodigo" xml:space="preserve">
+  <data name="OperacionCalendario" xml:space="preserve">
+    <value>Calendario</value>
+  </data>
+  <data name="OperacionDivision" xml:space="preserve">
+    <value>División</value>
+  </data>
+  <data name="OperacionIgualQue" xml:space="preserve">
+    <value>Igual que</value>
+  </data>
+  <data name="OperacionMayorIgualQue" xml:space="preserve">
+    <value>Mayor o igual que</value>
+  </data>
+  <data name="OperacionMayorQue" xml:space="preserve">
+    <value>Mayor que</value>
+  </data>
+  <data name="OperacionMenorIgualQue" xml:space="preserve">
+    <value>Menor o igual que</value>
+  </data>
+  <data name="OperacionMenorQue" xml:space="preserve">
+    <value>Menor que</value>
+  </data>
+  <data name="OperacionMultiplicacion" xml:space="preserve">
+    <value>Multiplicación</value>
+  </data>
+  <data name="OperacionParentesisAbierto" xml:space="preserve">
+    <value>Paréntesis abierto</value>
+  </data>
+  <data name="OperacionParentesisCerrado" xml:space="preserve">
+    <value>Paréntesis cerrado</value>
+  </data>
+  <data name="OperacionResta" xml:space="preserve">
+    <value>Resta</value>
+  </data>
+  <data name="OperacionSuma" xml:space="preserve">
+    <value>Suma</value>
+  </data>
+  <data name="TablaIndicadores_ColumnaCodigo" xml:space="preserve">
     <value>Código</value>
   </data>
-	<data name="TablaIndicadores_ColumnaDetalles" xml:space="preserve">
+  <data name="TablaIndicadores_ColumnaDetalles" xml:space="preserve">
     <value>Detalles</value>
   </data>
-	<data name="TablaIndicadores_ColumnaNombre" xml:space="preserve">
+  <data name="TablaIndicadores_ColumnaNombre" xml:space="preserve">
     <value>Nombre</value>
   </data>
-	<data name="TablaIndicadores_ColumnaValorTotal" xml:space="preserve">
+  <data name="TablaIndicadores_ColumnaValorTotal" xml:space="preserve">
     <value>Valor Total</value>
   </data>
-	<data name="TituloAgregarFormula" xml:space="preserve">
+  <data name="TituloAgregarFormula" xml:space="preserve">
     <value>Agregar Fórmula de Cálculo</value>
   </data>
-	<data name="TituloClonar" xml:space="preserve">
+  <data name="TituloClonar" xml:space="preserve">
     <value>Clonar Fórmula de Cálculo</value>
   </data>
-	<data name="TituloCrear" xml:space="preserve">
+  <data name="TituloCrear" xml:space="preserve">
     <value>Crear Fórmula de Cálculo</value>
   </data>
-	<data name="TituloEditar" xml:space="preserve">
+  <data name="TituloEditar" xml:space="preserve">
     <value>Editar Fórmula de Cálculo</value>
   </data>
-	<data name="TituloIndex" xml:space="preserve">
+  <data name="TituloIndex" xml:space="preserve">
     <value>Fórmulas de Cálculo</value>
   </data>
-	<data name="TituloVisualizar" xml:space="preserve">
+  <data name="TituloVisualizar" xml:space="preserve">
     <value>Visualizar Fórmula de Cálculo</value>
   </data>
 </root>

@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcumulacionFormulaDAL.cs" />
     <Compile Include="CorreoDal.cs" />
     <Compile Include="DatosHistoricosDAL.cs" />
     <Compile Include="ClasificacionIndicadorDAL.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="DetalleRegistroIndicadorFonatelDAL.cs" />
     <Compile Include="FormulaNivelCalculoCategoriaDAL.cs" />
     <Compile Include="EnvioSolicitudDAL.cs" />
+    <Compile Include="FuenteIndicadorDAL.cs" />
     <Compile Include="PlantillaHtmlDAL.cs" />
     <Compile Include="ReglaComparacionConstanteDAL.cs" />
     <Compile Include="ReglaIndicadorEntradaDAL.cs" />
@@ -75,6 +77,7 @@
     <Compile Include="ReglaSecuencialDAL.cs" />
     <Compile Include="RegistroIndicadorDAL.cs" />
     <Compile Include="SITELContext.cs" />
+    <Compile Include="ServicioSitelDAL.cs" />
     <Compile Include="SolicitudEnvioProgramadoDAL.cs" />
     <Compile Include="UsuarioFonatelDAL.cs" />
     <Compile Include="ReglaValidacionAtributosValidosDAL.cs" />

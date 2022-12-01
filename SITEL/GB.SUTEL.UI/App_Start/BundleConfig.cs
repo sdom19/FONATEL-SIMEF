@@ -161,6 +161,10 @@ namespace GB.SUTEL.UI
                 "~/Content/DataTables/scroller.bootstrap5.min.css"
                 ));
 
+            bundles.Add(new StyleBundle("~/Content/FONATEL/FormulaCalculo/css").Include(
+                "~/Content/Fonatel/Views/FormulaCalculo.css"
+                ));
+
             BundleTable.EnableOptimizations = true;
         }
     }
