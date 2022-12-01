@@ -63,6 +63,5 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public Solicitud Solicitud { get; set; }
 
-
     }
 }

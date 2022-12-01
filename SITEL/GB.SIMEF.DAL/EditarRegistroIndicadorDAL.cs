@@ -12,11 +12,11 @@ namespace GB.SIMEF.DAL
     public class EditarRegistroIndicadorFonatelDAL: BitacoraDAL
     {
         private SIMEFContext db;
-        private DetalleRegistroIndicadorFonatelDAL DetalleRegistroIndicadorFonatelDAL;
+        private EditarDetalleRegistroIndicadorFonatelDAL EditarDetalleRegistroIndicador;
 
         public EditarRegistroIndicadorFonatelDAL()
         {
-            DetalleRegistroIndicadorFonatelDAL = new DetalleRegistroIndicadorFonatelDAL();
+            EditarDetalleRegistroIndicador = new EditarDetalleRegistroIndicadorFonatelDAL();
            
         }
 
@@ -53,7 +53,7 @@ namespace GB.SIMEF.DAL
                 Solicitud = ObtenerSolicitud(x.IdSolicitud),
                 Solicitudid = Utilidades.Encriptar(x.IdSolicitud.ToString()),
                 FormularioId = Utilidades.Encriptar(x.IdFormulario.ToString()),
-                //DetalleRegistroIndcadorFonatel = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() { IdSolicitud = x.IdSolicitud, IdFormulario = x.IdFormulario })
+                DetalleRegistroIndcadorFonatel = EditarDetalleRegistroIndicador.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() { IdSolicitud = x.IdSolicitud, IdFormulario = x.IdFormulario })
             }).ToList();
         }
 
