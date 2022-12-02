@@ -233,6 +233,7 @@ function getTabActivoRegistroIndicador() {
 }
 
 function setSelect2() {
+
     $('.listasDesplegables').select2({
         placeholder: "Seleccione",
         width: 'resolve'
@@ -241,6 +242,7 @@ function setSelect2() {
 
 
 $(function () {
+
     $(document).ready(function () {
 
         var t = $('#TableRegistroIndicadorFonatel').DataTable({

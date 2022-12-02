@@ -64,7 +64,7 @@ JsEditarFormularioWeb = {
             execAjaxCall("/EditarFormulario/ObtenerListaRegistroIndicador", "GET")
                 .then((obj) => {
                     JsEditarFormularioWeb.Variables.ListadoRegistrosIndicador = obj.objetoRespuesta;
-                    JsEditarFormularioWeb.Metodos.CargarTablaRegistroIndicador();
+                    //JsEditarFormularioWeb.Metodos.CargarTablaRegistroIndicador();
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -150,11 +150,11 @@ $(document).on("click", JsEditarFormularioWeb.Controles.btnCancela, function () 
 });
 
 
-$(document).on("click", JsEditarFormularioWeb.Controles.btnEdit, function () {
-    let id = 1;
+//$(document).on("click", JsEditarFormularioWeb.Controles.btnEdit, function () {
+//    let id = 1;
 
-    window.location.href = "/EditarFormulario/Edit?id="+id;       
-});
+//    window.location.href = "/EditarFormulario/Edit?id="+id;       
+//});
 
 $(function () {
 

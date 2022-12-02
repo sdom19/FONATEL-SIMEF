@@ -42,6 +42,7 @@ namespace GB.SIMEF.DAL
                 IdSolicitud = x.IdSolicitud,
                 DetalleRegistroIndicadorVariableFonatel = ObtenerDatoDetalleRegistroIndicadorVariable(x),
                 DetalleRegistroIndicadorCategoriaFonatel = ObtenerDatoDetalleRegistroIndicadorCategoria(x),
+                DetalleRegistroIndicadorCategoriaValorFonatel = ObtenerDatoDetalleRegistroIndicadorCategoriaValor(x),
                 IdFormularioString = Utilidades.Encriptar(x.IdFormulario.ToString()),
                 IdIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                 IdSolicitudString = Utilidades.Encriptar(x.IdSolicitud.ToString()),
@@ -98,14 +99,32 @@ namespace GB.SIMEF.DAL
             }).ToList();
         }
 
+        /// <summary>
+        /// Autor: Francisco Vindas
+        /// Fecha: 01/12/2022
+        /// El metodo crea una lista generica de la registro indicador que puede ser utilizado en lo metodos que lo necesiten 
+        /// </summary>
+        /// <param name="ListaSolicitud"></param>
+        /// <returns></returns>
+
+        private List<DetalleRegistroIndicadorCategoriaValorFonatel> CrearListadoCategoriaValor(List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaCategorias)
+        {
+            return ListaCategorias.Select(x => new DetalleRegistroIndicadorCategoriaValorFonatel
+            {
+                IdSolicitud = x.IdSolicitud,
+                IdFormulario = x.IdFormulario,
+                IdIndicador = x.IdIndicador,
+                idCategoria = x.idCategoria,
+                NumeroFila = x.NumeroFila,
+                Valor = x.Valor
+                
+            }).ToList();
+        }
+
         #endregion
 
         #region Consultas
 
-        /// <summary>
-        /// Detalle Registro Indicador Variable Fonatel
-        /// </summary>
-        /// <returns></returns>
         public List<DetalleRegistroIndicadorFonatel> ObtenerDatoDetalleRegistroIndicador(DetalleRegistroIndicadorFonatel pDetalleRegistroIndicador)
         {
             List<DetalleRegistroIndicadorFonatel> ListaRegistroIndicadorFonatel = new List<DetalleRegistroIndicadorFonatel>();
@@ -122,15 +141,6 @@ namespace GB.SIMEF.DAL
             }
             return ListaRegistroIndicadorFonatel;
         }
-
-
-        /// <summary>
-        /// Carga las variable de registro indicador
-        /// Michael Hernández Cordero
-        /// 11/08/2022
-        /// </summary>
-        /// <param name="pDetalleRegistroIndicador"></param>
-        /// <returns></returns>
 
         public List<DetalleRegistroIndicadorVariableFonatel> ObtenerDatoDetalleRegistroIndicadorVariable(DetalleRegistroIndicadorFonatel pDetalleRegistroIndicador)
         {
@@ -152,7 +162,6 @@ namespace GB.SIMEF.DAL
             return ListaRegistroIndicadorFonatelVariable;
         }
 
-
         public List<DetalleRegistroIndicadorCategoriaFonatel> ObtenerDatoDetalleRegistroIndicadorCategoria(DetalleRegistroIndicadorFonatel pDetalleRegistroIndicador)
         {
             List<DetalleRegistroIndicadorCategoriaFonatel> ListaRegistroIndicadorFonatelCategoria = new List<DetalleRegistroIndicadorCategoriaFonatel>();
@@ -172,20 +181,20 @@ namespace GB.SIMEF.DAL
             return ListaRegistroIndicadorFonatelCategoria;
         }
 
-        public List<DetalleRegistroIndicadorCategoriaFonatel> ObtenerDatoDetalleRegistroIndicadorCategoriaValor(DetalleRegistroIndicadorFonatel pDetalleRegistroIndicador)
+        public List<DetalleRegistroIndicadorCategoriaValorFonatel> ObtenerDatoDetalleRegistroIndicadorCategoriaValor(DetalleRegistroIndicadorFonatel pDetalleRegistroIndicador)
         {
-            List<DetalleRegistroIndicadorCategoriaFonatel> ListaRegistroIndicadorFonatelCategoria = new List<DetalleRegistroIndicadorCategoriaFonatel>();
+            List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaRegistroIndicadorFonatelCategoria = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
 
             using (db = new SIMEFContext())
             {
-                ListaRegistroIndicadorFonatelCategoria = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaFonatel>
-             ("execute spObtenerDetalleRegistroIndicadorCategoria @idSolicitud, @idFormulario, @idIndicador",
+                ListaRegistroIndicadorFonatelCategoria = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
+             ("execute spObtenerDetalleRegistroIndicadorCategoriaValor @idSolicitud, @idFormulario, @idIndicador",
                 new SqlParameter("@idSolicitud", pDetalleRegistroIndicador.IdSolicitud),
                 new SqlParameter("@idFormulario", pDetalleRegistroIndicador.IdFormulario),
                 new SqlParameter("@idIndicador", pDetalleRegistroIndicador.IdIndicador)
              ).ToList();
 
-                ListaRegistroIndicadorFonatelCategoria = CrearListadoCategoria(ListaRegistroIndicadorFonatelCategoria);
+                ListaRegistroIndicadorFonatelCategoria = CrearListadoCategoriaValor(ListaRegistroIndicadorFonatelCategoria);
             }
 
             return ListaRegistroIndicadorFonatelCategoria;

@@ -1,4 +1,6 @@
 ﻿
+@model List<GB.SIMEF.Entities.RegistroIndicadorFonatel>
+
 @using GB.SIMEF.Resources;
 
 <div class="table-responsive table-wrapper-fonatel">
@@ -16,6 +18,31 @@
             </tr>
         </thead>
         <tbody>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Fuente.Fuente</td>
+                <td>@item.Solicitud.Nombre</td>
+                <td>@item.Anno</td>
+                <th>@item.Mes</th>
+                <th>@item.Formulario</th>
+                <td>@item.EstadoRegistro.Nombre</td>
+                @if (item.IdEstado == (int)Constantes.EstadosRegistro.Activo || item.IdEstado == (int)Constantes.EstadosRegistro.EnProceso)
+                {
+                    <td>
+                        <button type="button" data-toggle="tooltip" data-placement="top" onclick="location.href='@Url.Action("Edit", "EditarFormulario",new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'" title=@EtiquetasViewEditarRegistroIndicador.Editar class="btn-icon-base btn-edit"></button>
+                        <button type="button" data-toggle="tooltip" data-placement="top" onclick="location.href='@Url.Action("Edit", "EditarFormulario",new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'" title=@EtiquetasViewEditarRegistroIndicador.Descargar class="btn-icon-base btn-download"></button>
+                    </td>
+
+                }
+                else
+                {
+                    <td><button type="button" data-toggle="tooltip" data-placement="top" value="" title=@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb class="btn-icon-base btn-edit-form disabled"></button></td>
+                }
+
+            </tr>
+            }
 
         </tbody>
         <tfoot>

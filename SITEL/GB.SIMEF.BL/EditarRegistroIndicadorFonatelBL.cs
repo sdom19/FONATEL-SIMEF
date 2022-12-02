@@ -13,6 +13,8 @@ namespace GB.SIMEF.BL
     public class EditarRegistroIndicadorFonatelBL : IMetodos<RegistroIndicadorFonatel>
     {
         private readonly EditarRegistroIndicadorFonatelDAL clsDatos;
+        private readonly FuentesRegistroDestinatarioDAL clsFuentesRegistroDestinatarioDAL;
+        private readonly FuentesRegistroDAL clsFuentesRegistroDAL;
 
 
         private RespuestaConsulta<List<RegistroIndicadorFonatel>> ResultadoConsulta;
@@ -23,11 +25,13 @@ namespace GB.SIMEF.BL
         {
             this.clsDatos = new EditarRegistroIndicadorFonatelDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<RegistroIndicadorFonatel>>();
+            this.clsFuentesRegistroDestinatarioDAL = new FuentesRegistroDestinatarioDAL();
+            this.clsFuentesRegistroDAL = new FuentesRegistroDAL();
             this.user = user;
             this.modulo = modulo;
         }
 
-        public RespuestaConsulta<List<RegistroIndicadorFonatel>> ObtenerDatos(RegistroIndicadorFonatel objeto)
+        public RespuestaConsulta<List<RegistroIndicadorFonatel>> ObtenerRegistroIndicador(RegistroIndicadorFonatel objeto, string usuario)
         {
             try
             {
@@ -95,7 +99,34 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-     
+        public RespuestaConsulta<List<RegistroIndicadorFonatel>> ObtenerDatos(RegistroIndicadorFonatel objeto)
+        {
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
 
+                if (!string.IsNullOrEmpty(objeto.FormularioId))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.FormularioId), out int temp);
+                    objeto.IdFormulario = temp;
+                }
+                if (!string.IsNullOrEmpty(objeto.Solicitudid))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.Solicitudid), out int temp);
+                    objeto.IdSolicitud = temp;
+                }
+                var resul = clsDatos.ObtenerDatos(objeto);
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
+        }
     }
 }

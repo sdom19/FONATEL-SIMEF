@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
@@ -25,23 +26,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #region Variables Públicas del controller
         private readonly EditarRegistroIndicadorFonatelBL EditarRegistroIndicadorBL;
-        private readonly DetalleRegistroIndicadorFonatelBL detalleRegistroIndicadorBL;
+        private readonly DetalleRegistroIndicadorFonatelBL DetalleRegistroIndicadorBL;
 
 
 
-        private string modulo = string.Empty;
-        private string user = string.Empty;
 
         #endregion
 
         public EditarFormularioController()
         {
-            modulo = EtiquetasViewReglasValidacion.ReglasValidacion;
-            user = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            EditarRegistroIndicadorBL = new EditarRegistroIndicadorFonatelBL(modulo, user);
-            detalleRegistroIndicadorBL = new DetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
-
-
+            EditarRegistroIndicadorBL = new EditarRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            DetalleRegistroIndicadorBL = new DetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
 
@@ -50,10 +45,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            if (((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault() != null)
+            {
+                string nombreUsuario = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault().Value;
+                RespuestaConsulta<List<RegistroIndicadorFonatel>> model = EditarRegistroIndicadorBL.ObtenerRegistroIndicador(new RegistroIndicadorFonatel()
+                {
+                    RangoFecha = true
+                }, nombreUsuario);
+                return View(model.objetoRespuesta);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
         }
 
-
+        [HttpGet]
         public ActionResult Edit(string idSolicitud, string idFormulario)
         {
             RespuestaConsulta<List<RegistroIndicadorFonatel>> model = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel()
@@ -118,17 +125,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="id"></param>
         /// <returns></returns>
         /// 
-        [HttpGet]
-        public async Task<string> ObtenerListaRegistroIndicador()
-        {
-            RespuestaConsulta<List<RegistroIndicadorFonatel>> result = null;
-            await Task.Run(() =>
-            {
-                result = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel());
+        //[HttpGet]
+        //public async Task<string> ObtenerListaRegistroIndicador()
+        //{
+        //    RespuestaConsulta<List<RegistroIndicadorFonatel>> result = null;
 
-            });
-            return JsonConvert.SerializeObject(result);
-        }
+        //    await Task.Run(() =>
+        //    {
+        //        result = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel());
+
+        //    });
+        //    return JsonConvert.SerializeObject(result);
+        //}
 
         #endregion
 

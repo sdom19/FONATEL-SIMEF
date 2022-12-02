@@ -79,6 +79,24 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Descargar.
+        /// </summary>
+        public static string Descargar {
+            get {
+                return ResourceManager.GetString("Descargar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Editar.
+        /// </summary>
+        public static string Editar {
+            get {
+                return ResourceManager.GetString("Editar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Estado.
         /// </summary>
         public static string Estado {
