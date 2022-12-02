@@ -18,14 +18,16 @@ namespace GB.SIMEF.BL
     {
         readonly string modulo = "";
         readonly string user = "";
-        private readonly DetalleRegistroIndicadorFonatelDAL DetalleRegistroIndicadorFonatelDAL;
+        private readonly DetalleRegistroIndicadorFonatelDAL detalleRegistroIndicadorFonatelDAL;
+        private readonly CategoriasDesagregacionDAL categoriasDesagregacionDAL;
         RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> ResultadoConsulta;
 
         public DetalleRegistroIndicadorCategoriaValorFonatelBL(string modulo, string user)
         {
             this.modulo = modulo;
             this.user = user;
-            this.DetalleRegistroIndicadorFonatelDAL = new DetalleRegistroIndicadorFonatelDAL();
+            this.detalleRegistroIndicadorFonatelDAL = new DetalleRegistroIndicadorFonatelDAL();
+            this.categoriasDesagregacionDAL = new CategoriasDesagregacionDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>>();
         }
 
@@ -52,9 +54,10 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> InsertarDatos(List<DetalleRegistroIndicadorCategoriaValorFonatel> objeto)
         {
             try
-            {
+            {//Se revisa si la lista contiene informacion
                 if (objeto.Count > 0)
                 {
+                    //Se crea datatable con la informacion de la lista
                     var dt = new DataTable();
                     dt.Columns.Add("IdSolicitud", typeof(int));
                     dt.Columns.Add("IdFormulario", typeof(int));
@@ -89,11 +92,16 @@ namespace GB.SIMEF.BL
                         dt.Rows.Add(item.IdSolicitud, item.IdFormulario, item.IdIndicador, item.idCategoria, item.NumeroFila, item.Valor);
                     }
 
+                    //Se elimina los detalles valores para insertar los nuevos
+                    DetalleRegistroIndicadorCategoriaValorFonatel eliminar = objeto[0];
+                    eliminar.idCategoria = 0;
+                    detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorCategoriaValorFonatel(eliminar);
+
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion = (int)Accion.Insertar;
                     ResultadoConsulta.Usuario = user;
-
-                    ResultadoConsulta.objetoRespuesta = DetalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorCategoriaValorFonatel(dt);
+                    
+                    ResultadoConsulta.objetoRespuesta = detalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorCategoriaValorFonatel(dt);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
                 }
             }
@@ -139,7 +147,7 @@ namespace GB.SIMEF.BL
                     int.TryParse(Utilidades.Desencriptar(objeto.IndicadorId), out int temp);
                     objeto.IdIndicador = temp;
                 }
-                var resul = DetalleRegistroIndicadorFonatelDAL.ObtenerDetalleRegistroIndicadorCategoriaValorFonatel(objeto);
+                var resul = detalleRegistroIndicadorFonatelDAL.ObtenerDetalleRegistroIndicadorCategoriaValorFonatel(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 
@@ -162,6 +170,7 @@ namespace GB.SIMEF.BL
             try
             {
                 Boolean ind = true;
+                Boolean indFecha = true;
                 using (var package = new ExcelPackage(file.InputStream))
                 {
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[1]; //POSICION DEL CODIGO y NOMBRE
@@ -189,7 +198,7 @@ namespace GB.SIMEF.BL
                         detalle.IdIndicador = temp;
                     }
 
-                    List<DetalleRegistroIndicadorFonatel> listaDetalle = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(detalle);
+                    List<DetalleRegistroIndicadorFonatel> listaDetalle = detalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(detalle);
 
                     int cantColumnas = listaDetalle[0].DetalleRegistroIndicadorCategoriaFonatel.Count + listaDetalle[0].DetalleRegistroIndicadorVariableFonatel.Count;
 
@@ -213,7 +222,25 @@ namespace GB.SIMEF.BL
                                         switch (categoria.IdTipoCategoria)
                                         {
                                             case 0:
-                                                valor = worksheet.Cells[j, i].Value.ToString();
+                                                CategoriasDesagregacion cd = new CategoriasDesagregacion();
+                                                cd.idCategoria = categoria.idCategoria;
+                                                List<CategoriasDesagregacion> listaCD = categoriasDesagregacionDAL.ObtenerDatos(cd);
+                                                if (listaCD.Count > 0)
+                                                {
+                                                    int cont = listaCD[0].DetalleCategoriaTexto.Where(x => x.Etiqueta == worksheet.Cells[j, i].Value.ToString()).ToList().Count;
+                                                    if (cont > 0)
+                                                    {
+                                                        valor = worksheet.Cells[j, i].Value.ToString();
+                                                    }
+                                                    else
+                                                    {
+                                                        ind = false;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    ind = false;
+                                                }                                           
                                             break;
                                             case 1:
                                                 Val = new Regex(@"[0-9]{1,9}(\.[0-9]{0,2})?$");
@@ -260,6 +287,7 @@ namespace GB.SIMEF.BL
                                                 if (!isDate)
                                                 {
                                                     ind = false;
+                                                    indFecha = false;
                                                 }
                                                 else
                                                 {
@@ -325,6 +353,10 @@ namespace GB.SIMEF.BL
                     }
                     else
                     {
+                        if (!indFecha)
+                        {
+                            ResultadoConsulta.MensajeError = "El formato de la fecha es incorrecto, por favor utilizar el formato año-mes-día";
+                        }
                         ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                     }                                  
                 }

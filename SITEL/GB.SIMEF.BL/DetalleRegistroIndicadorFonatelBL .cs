@@ -48,6 +48,11 @@ namespace GB.SIMEF.BL
                 }
                 DetalleRegistroIndicadorFonatel detalle = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(objeto).FirstOrDefault();
                 detalle.CantidadFilas = objeto.CantidadFilas;
+                if (!string.IsNullOrEmpty(objeto.NotasInformante))
+                {
+                    detalle.NotasInformante = objeto.NotasInformante;
+                }
+                
                 var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
                 ResultadoConsulta.objetoRespuesta = result;
                 ResultadoConsulta.CantidadRegistros = result.Count();

@@ -159,14 +159,14 @@ namespace GB.SIMEF.DAL
         public List<DetalleRegistroIndicadorCategoriaValorFonatel> InsertarDetalleRegistroIndicadorCategoriaValorFonatel(DataTable objeto)
         {
             List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleRegistroIndicadorCategoriaValorFonatel = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
-            using (db = new SIMEFContext())
+            using (db = new SITELContext())
             {
                 var parametros = new SqlParameter("@lst", SqlDbType.Structured);
                 parametros.SqlValue = objeto;
-                parametros.TypeName = "dbo.TypeDetalleRegistroIndicadorCategoriaValorFonatel";
+                parametros.TypeName = "FONATEL.TypeDetalleRegistroIndicadorCategoriaValorFonatel";
 
                 ListaDetalleRegistroIndicadorCategoriaValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
-                ("execute spInsertarDetalleRegistroIndicadorCategoriaValorFonatel @lst", parametros
+                ("execute FONATEL.spInsertarDetalleRegistroIndicadorCategoriaValorFonatel @lst", parametros
                     ).ToList();
 
                 ListaDetalleRegistroIndicadorCategoriaValorFonatel = ListaDetalleRegistroIndicadorCategoriaValorFonatel.Select(x => new DetalleRegistroIndicadorCategoriaValorFonatel()
@@ -192,10 +192,10 @@ namespace GB.SIMEF.DAL
         public List<DetalleRegistroIndicadorFonatel> ActualizarDetalleRegistroIndicadorFonatel(DetalleRegistroIndicadorFonatel objeto)
         {
             List<DetalleRegistroIndicadorFonatel> ListaRegistroIndicadorFonatel = new List<DetalleRegistroIndicadorFonatel>();
-            using (db = new SIMEFContext())
+            using (db = new SITELContext())
             {
                 ListaRegistroIndicadorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorFonatel>
-                 ("execute sitel.spActualizarDetalleRegistroIndicadorFonatel   @idSolicitud, @idFormulario, @idIndicador, @IdDetalleRegistroIndicador, @TituloHojas, @NotasEncargado, @NotasInformante, @CodigoIndicador, @NombreIndicador, @CantidadFilas",
+                 ("execute FONATEL.spActualizarDetalleRegistroIndicadorFonatel   @idSolicitud, @idFormulario, @idIndicador, @IdDetalleRegistroIndicador, @TituloHojas, @NotasEncargado, @NotasInformante, @CodigoIndicador, @NombreIndicador, @CantidadFilas",
                    new SqlParameter("@idSolicitud", objeto.IdSolicitud),
                    new SqlParameter("@idFormulario", objeto.IdFormulario),
                    new SqlParameter("@idIndicador", objeto.IdIndicador),
@@ -239,10 +239,10 @@ namespace GB.SIMEF.DAL
         public List<DetalleRegistroIndicadorCategoriaValorFonatel> ObtenerDetalleRegistroIndicadorCategoriaValorFonatel(DetalleRegistroIndicadorCategoriaValorFonatel objeto)
         {
             List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleRegistroIndicadorCategoriaValorFonatel = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
-            using (db = new SIMEFContext())
+            using (db = new SITELContext())
             {
                  ListaDetalleRegistroIndicadorCategoriaValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
-                 ("execute SITEL.spObtenerDetalleRegistroIndicadorCategoriaValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idCategoria",
+                 ("execute FONATEL.spObtenerDetalleRegistroIndicadorCategoriaValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idCategoria",
                     new SqlParameter("@idSolicitud", objeto.IdSolicitud),
                     new SqlParameter("@idFormulario", objeto.IdFormulario),
                     new SqlParameter("@idIndicador", objeto.IdIndicador),
@@ -261,6 +261,28 @@ namespace GB.SIMEF.DAL
             }
           
             return ListaDetalleRegistroIndicadorCategoriaValorFonatel;
+        }
+
+        /// <summary>
+        /// Autor: Georgi Mesen Cerdas
+        /// Fecha: 01/12/2022
+        /// Ejecutar procedimiento almacenado para eliminar DetalleRegistroIndicadorCategoriaValorFonatel
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public void EliminarDetalleRegistroIndicadorCategoriaValorFonatel(DetalleRegistroIndicadorCategoriaValorFonatel objeto)
+        {
+            List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleRegistroIndicadorCategoriaValorFonatel = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
+            using (db = new SITELContext())
+            {
+                ListaDetalleRegistroIndicadorCategoriaValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
+                ("execute FONATEL.spEliminarDetalleRegistroIndicadorCategoriaValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idCategoria",
+                   new SqlParameter("@idSolicitud", objeto.IdSolicitud),
+                   new SqlParameter("@idFormulario", objeto.IdFormulario),
+                   new SqlParameter("@idIndicador", objeto.IdIndicador),
+                   new SqlParameter("@idCategoria", objeto.idCategoria)
+                ).ToList();
+            }
         }
 
         #endregion
