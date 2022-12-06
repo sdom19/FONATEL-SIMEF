@@ -14,14 +14,14 @@ namespace GB.SIMEF.BL
     {
         readonly string modulo = "";
         readonly string user = "";
-        private readonly DetalleRegistroIndicadorFonatelDAL DetalleRegistroIndicadorFonatelDAL;
+        private readonly EditarDetalleRegistroIndicadorFonatelDAL DetalleRegistroIndicadorFonatelDAL;
         RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> ResultadoConsulta;
 
         public EditarDetalleRegistroIndicadorFonatelBL(string modulo, string user)
         {
             this.modulo = modulo;
             this.user = user;
-            this.DetalleRegistroIndicadorFonatelDAL = new DetalleRegistroIndicadorFonatelDAL();
+            this.DetalleRegistroIndicadorFonatelDAL = new EditarDetalleRegistroIndicadorFonatelDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>>();
         }
 
@@ -81,6 +81,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 ResultadoConsulta.MensajeError = ex.Message;
             }
+
             return ResultadoConsulta;
         }
 

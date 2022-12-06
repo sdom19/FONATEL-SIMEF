@@ -26,17 +26,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #region Variables Públicas del controller
         private readonly EditarRegistroIndicadorFonatelBL EditarRegistroIndicadorBL;
-        private readonly DetalleRegistroIndicadorFonatelBL DetalleRegistroIndicadorBL;
-
-
-
+        private readonly EditarDetalleRegistroIndicadorFonatelBL DetalleRegistroIndicadorBL;
 
         #endregion
 
         public EditarFormularioController()
         {
             EditarRegistroIndicadorBL = new EditarRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            DetalleRegistroIndicadorBL = new DetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            DetalleRegistroIndicadorBL = new EditarDetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
 
@@ -81,8 +78,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #endregion
 
-
-
         #region Metodos de controlador
 
 
@@ -116,6 +111,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return new EmptyResult();
 
         }
+
+
+
+
+        /// <summary>
+        /// Francisco Vindas
+        /// 06-12-2022
+        /// Metodo para obtener los detalles del registro Indicador
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// 
+
+        [HttpPost]
+        public async Task<string> ConsultaRegistroIndicadorDetalle(DetalleRegistroIndicadorFonatel detalleIndicadorFonatel)
+        {
+            RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> result = null;
+            await Task.Run(() =>
+            {
+                result = DetalleRegistroIndicadorBL.ObtenerDatos(detalleIndicadorFonatel);
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
 
         /// <summary>
         /// Francisco Vindas
