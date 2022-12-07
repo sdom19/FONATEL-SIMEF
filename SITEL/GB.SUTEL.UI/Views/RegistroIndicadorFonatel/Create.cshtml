@@ -39,7 +39,7 @@
     <ul class="nav nav-tabs nav-tabs-fonatel mt-4">
         @foreach (var item in Model.DetalleRegistroIndcadorFonatel.OrderBy(x => x.IdDetalleRegistroIndicador))
         {
-            <li id="@string.Format("Tab{0}", item.IdDetalleRegistroIndicador)"> <a data-toggle="tab" data-Indicador="@item.IdIndicadorString" href="@string.Format("#menu{0}", item.IdDetalleRegistroIndicador)">@item.TituloHojas</a></li>
+        <li id="@string.Format("Tab{0}", item.IdDetalleRegistroIndicador)"> <a data-toggle="tab" data-Indicador="@item.IdIndicadorString" href="@string.Format("#menu{0}", item.IdDetalleRegistroIndicador)">@item.TituloHojas</a></li>
         }
     </ul>
 
@@ -62,14 +62,14 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasEncargado</label>
-                            <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Notas">@item.NotasEncargado</textarea>
+                            <textarea class="form-control form-control-fonatel textarea" disabled id="txtNotasEncargado" placeholder="Notas">@item.NotasEncargado</textarea>
                         </div>
                     </div>
                     <div class="col-sm-6">
 
                         <div class="form-group">
                             <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasInformante</label>
-                            <textarea class="form-control form-control-fonatel textarea" id="txtDescripcionRegla" placeholder="Notas">@item.NotasInformante</textarea>
+                            <textarea class="form-control form-control-fonatel textarea" id="txtNotasInformante" placeholder="Notas">@item.NotasInformante</textarea>
                             <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
 
                         </div>
@@ -77,8 +77,8 @@
                 </div>
 
                 <div class="col-sm-12 text-center mb-2" style="display: flow-root;">
-                    <button id="btnDescargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Descargar" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
-                    <button id="btnCargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-success-fonatel">Cargar plantilla</button>
+                    <button id="btnDescargarPlantillaRegistro" disabled data-toggle="tooltip" data-placement="top" title="Descargar" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
+                    <button id="btnCargarPlantillaRegistro" disabled data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-success-fonatel">Cargar plantilla</button>
                 </div>
 
 
@@ -107,10 +107,14 @@
 
 
     <hr />
-
+    <input id='inputFileCargarPlantilla' type='file' accept=".csv,.xlsx,.xls" style="display:none;" />
     <div class="row mt-4">
         <div class="col-sm-12 text-center">
-            <button type="submit" id="btnCargaRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonCargar</button>
+            <button type="submit" id="btnGuardarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Guardar" class="btn btn-fonatel btn-success">@Etiquetas.BotonGuardar</button>
+            <button type="submit" id="btnValidarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Validar" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
+            <button type="submit" id="btnCancelarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn btn-fonatel btn-danger">@Etiquetas.BotonCancelar</button>
+            <br />
+            <center> <button type="submit" id="btnCargaRegistroIndicador" disabled data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonCargar</button></center>
         </div>
     </div>
 
