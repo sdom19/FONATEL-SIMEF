@@ -545,10 +545,20 @@ function execAjaxCallFile(pURL, pParams = null) {
  * @param {any} pExcepciones colección de inputs a ignorar en la validación.
  */
 function ValidarFormulario(pInputs, pExcepciones = []) {
-    let inputsPendientesCompletar = [...$(pInputs)].filter(i => {
-        if (pExcepciones.includes($(i).attr("id"))) return false;
-        if (pExcepciones.includes($(i).attr("class"))) return false;
-        return $.trim(i.value) == "" || i.value == null;
+    let inputList = [...$(pInputs)];
+
+    if (pExcepciones.length > 0) {
+        inputList = inputList.filter(input => {
+            if (pExcepciones.includes($(input).attr("id"))) return false;
+
+            $(input).attr("class").split(' ').forEach(class_ => {
+                if (pExcepciones.includes(class_)) return false;
+            })
+        });
+    }
+
+    let inputsPendientesCompletar = inputList.filter(input => {
+        return $.trim(input.value) == "" || input.value == null;
     });
     return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
 }
