@@ -27,6 +27,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region Variables Públicas del controller
         private readonly EditarRegistroIndicadorFonatelBL EditarRegistroIndicadorBL;
         private readonly EditarDetalleRegistroIndicadorFonatelBL DetalleRegistroIndicadorBL;
+        private readonly EditarDetalleRegistroIndicadorCategoriaValorFonatelBL DetalleRegistroIndicadorCategoriaValorFonatelBL;
 
         #endregion
 
@@ -34,6 +35,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             EditarRegistroIndicadorBL = new EditarRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
             DetalleRegistroIndicadorBL = new EditarDetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            DetalleRegistroIndicadorCategoriaValorFonatelBL = new EditarDetalleRegistroIndicadorCategoriaValorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
+
         }
 
 
@@ -113,8 +116,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-
-
         /// <summary>
         /// Francisco Vindas
         /// 06-12-2022
@@ -133,6 +134,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 result = DetalleRegistroIndicadorBL.ObtenerDatos(detalleIndicadorFonatel);
 
             });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha 07/12/2022
+        /// Francisco Vindas Ruiz
+        /// Metodo para obtener la lista de DetalleRegistroIndicadorCategoriaValorFonatel
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<string> ObtenerListaDetalleRegistroIndicadorCategoriaValorFonatel(DetalleRegistroIndicadorFonatel detalle)
+        {
+            RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = DetalleRegistroIndicadorCategoriaValorFonatelBL.ObtenerDatosCategoriaValor(detalle);
+            });
+
             return JsonConvert.SerializeObject(result);
         }
 

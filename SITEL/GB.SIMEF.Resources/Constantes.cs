@@ -112,8 +112,8 @@ namespace GB.SIMEF.Resources
         {
             public const string NumeroLinea = "<th style='min-width:30PX'>  </th>";
             public const string Variable = "<th style='min-width:100PX' class='highlighted' scope='col'>{0}</th>";
-            public const string InputAlfanumerico = "<td><input type='text' name='name_{0}' aria-label='{0}' class='form-control form-control-fonatel alfa_numerico' id='[0]-{1}' placeholder='{0}' style='min-width:150px;'></td>";
-            public const string InputTexto = "<td><input type='text' name='name_{0}' aria-label='{0}' class='form-control form-control-fonatel solo_texto' id='[0]-{1}' placeholder='{0}' style='min-width:150px;'></td>";
+            public const string InputAlfanumerico = "<td><input type='text' name='name_{1}' aria-label='{0}' class='form-control form-control-fonatel alfa_numerico' id='[0]-{1}' placeholder='{0}' style='min-width:150px;'></td>";
+            public const string InputTexto = "<td><input type='text' name='name_{1}' aria-label='{0}' class='form-control form-control-fonatel solo_texto' id='[0]-{1}' placeholder='{0}' style='min-width:150px;'></td>";
             public const string InputFecha = "<td><input type='date' name='name_{0}' class='form-control form-control-fonatel' id='[0]-{0}' min='{1}' max='{2}'></td>";
             public const string InputNumerico = "<td><input type='number' name='name_{0}' class='form-control form-control-fonatel solo_numeros' id='[0]-{0}' min='{1}' max='{2}'></td>";
             public const string InputSelect = "<td><div class='select2-wrapper'><select class='listasDesplegables' id='[0]-{0}' name='name_{0}' ><option></option>{1}</select ></div ></td>";

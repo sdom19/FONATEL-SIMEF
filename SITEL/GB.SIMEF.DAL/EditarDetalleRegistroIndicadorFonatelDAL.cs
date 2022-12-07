@@ -200,6 +200,7 @@ namespace GB.SIMEF.DAL
             return ListaRegistroIndicadorFonatelCategoria;
         }
 
+
         private string DefinirControl(DetalleRegistroIndicadorCategoriaFonatel DetalleRegistroIndicadorCategoriaFonatel)
         {
             string control = string.Empty;

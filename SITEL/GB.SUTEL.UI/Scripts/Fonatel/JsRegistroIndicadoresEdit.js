@@ -55,6 +55,7 @@
         "Validacion": false,
         "paginasActualizadasConSelect2_tablaIndicador": {},
         "DetalleRegistroIndicador": [],
+        "ListadoDetalleRegistroIndicador": [],
         "ModoColsuta": false
     },
 
@@ -79,19 +80,25 @@
         },
 
         "CargarFilasTabla": function (cantidadFilas) {
+
             $(jsRegistroIndicadorFonatelEdit.Controles.filasTablaIndicador).html("");
+
             $(jsRegistroIndicadorFonatelEdit.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro).prop('disabled', false);
             $(jsRegistroIndicadorFonatelEdit.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatelEdit.Controles.btnCargarPlantillaRegistro).prop('disabled', false);
+
             let html = "<tr><td></td>";
 
             for (var i = 0; i < jsRegistroIndicadorFonatelEdit.Variables.DetalleRegistroIndicador.DetalleRegistroIndicadorVariableFonatel.length; i++) {
                 html = html + "<td>1</td>";
             }
+
             for (var i = 0; i < jsRegistroIndicadorFonatelEdit.Variables.DetalleRegistroIndicador.DetalleRegistroIndicadorCategoriaFonatel.length; i++) {
                 let categoria = jsRegistroIndicadorFonatelEdit.Variables.DetalleRegistroIndicador.DetalleRegistroIndicadorCategoriaFonatel[i];
                 html = html + categoria.html;
             }
+
             html = html + "</tr>"
+
             for (var i = 0; i < cantidadFilas; i++) {
                 $(jsRegistroIndicadorFonatelEdit.Controles.filasTablaIndicador).append(html.replace("[0]", i + 1));
             }
@@ -102,6 +109,27 @@
 
             jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
                 .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
+        },
+
+        "CargarDatosTablaIndicador": function (Listado) {
+
+            jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador = [];
+            let NumeroFila = 0
+            $(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicadorRecorrido).each(function (index) {
+                NumeroFila++;
+                var elementotd = $(this).children("td");
+                Listado.forEach(function (item) {
+                    if (item.NumeroFila == NumeroFila) {
+                        var elementoInput = elementotd.find("[name='name_" + item.idCategoria + "']");
+                        elementoInput.val(item.Valor).change();
+                    }
+                });
+            });
+
+            if (!jsRegistroIndicadorFonatelEdit.Variables.ModoConsulta) {
+                jsMensajes.Metodos.OkAlertModal("La Plantilla ha sido cargada")
+                    .set('onok', function (closeEvent) { $("#loading").fadeOut(); });
+            }
         },
     },
 
@@ -123,7 +151,7 @@
                     jsRegistroIndicadorFonatelEdit.Variables.DetalleRegistroIndicador = obj.objetoRespuesta[0];
                     if (jsRegistroIndicadorFonatelEdit.Variables.DetalleRegistroIndicador.DetalleRegistroIndicadorVariableFonatel.length > 0) {
                         jsRegistroIndicadorFonatelEdit.Metodos.CargarColumnasTabla();
-                        //jsRegistroIndicadorFonatelEdit.Metodos.CargarFilasTabla(DetalleRegistroIndicador.CantidadFilas);
+                        jsRegistroIndicadorFonatelEdit.Metodos.CargarFilasTabla(detalleIndicadorFonatel.CantidadFilas);
                     } else {
                         jsMensajes.Metodos.OkAlertErrorModal("No se posee datos a cargar")
                             .set('onok', function (closeEvent) { });
@@ -139,19 +167,51 @@
                             .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
-                    //CargarDatasourceV2(jsRegistroIndicadorFonatel.Controles.tablaIndicador);
-                    //if (jsRegistroIndicadorFonatel.Variables.ModoConsulta) {
-                    //    jsRegistroIndicadorFonatel.Consultas.ConsultaDetalleRegistroIndicadorCategoriaValorFonatel();
-                    //}
+                    CargarDatasourceV2(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicador);
+                    if (jsRegistroIndicadorFonatelEdit.Variables.ModoConsulta) {
+                        jsRegistroIndicadorFonatelEdit.Consultas.ConsultaDetalleRegistroIndicadorCategoriaValorFonatel();
+                    }
                     $("#loading").fadeOut();
                 });
 
+        },
+
+        "ConsultaDetalleRegistroIndicadorCategoriaValorFonatel": function () {
+
+            $("#loading").fadeIn();
+
+            let detalle = new Object();
+
+            detalle.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
+            detalle.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
+            detalle.IdIndicadorString = $(jsRegistroIndicadorFonatelEdit.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
+
+            execAjaxCall("/EditarFormulario/ObtenerListaDetalleRegistroIndicadorCategoriaValorFonatel", "POST", detalle)
+                .then((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {                    
+                        jsRegistroIndicadorFonatelEdit.Metodos.CargarDatosTablaIndicador(obj.objetoRespuesta);
+                    }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
         }
 
     }
 
 }
-
 
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCancelar, function (e) {
     e.preventDefault();
@@ -172,16 +232,6 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardar, fun
         });
 });
 
-//GUARDAR MODO ENCARGADO
-$(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardarRegistroIndicadorEdicion, function (e) {
-    e.preventDefault();
-    e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
-                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
-        });
-});
 
 //CARGAR MODO INFORMARTE
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCarga, function (e) {
@@ -193,18 +243,6 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCarga, funct
                 .set('onok', function (closeEvent) { window.location.href = "/Fonatel/EditarFormulario/Index"; });
         });
 });
-
-//CARGAR MODO ENCARGADO
-$(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistroIndicadorEdicion, function (e) {
-    e.preventDefault();
-    e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga de la información?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La carga de información ha sido completada")
-                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/index"; });
-        });
-});
-
 
 //DESCARGAR
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro, function () {
@@ -225,21 +263,6 @@ $(document).on("change", jsRegistroIndicadorFonatelEdit.Controles.inputFileCarga
 //        .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
 });
 
-$(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.IndicadorCorrecto, function () {
-
-
-    jsRegistroIndicadorFonatelEdit.Variables.Validacion = false;
-
-});
-
-$(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.IndicadorErroneo, function () {
-    $(jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistroIndicadorEdicion).prop("disabled", true);
-    $(jsRegistroIndicadorFonatelEdit.Controles.btnCarga).prop("disabled", true);
-    jsRegistroIndicadorFonatelEdit.Variables.Validacion = true;
-
-});
-
-
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnValidar, function () {
 
 
@@ -255,9 +278,6 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnValidar, fun
 
 });
 
-
-
-
 /*
  Evento para cada input Cantidad de Registros de cada tab o indicador.
  */
@@ -267,53 +287,8 @@ $(document).on("keypress", jsRegistroIndicadorFonatelEdit.Controles.txtCantidadR
 
         jsRegistroIndicadorFonatelEdit.Consultas.ConsultaRegistroIndicadorDetalle();
 
-        //var table = $(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicador).DataTable();
-
-        //table.clear().draw();
-
-        //let tabActual = getTabActivoRegistroIndicador();
-
-        //jsRegistroIndicadorFonatelEdit.Variables.paginasActualizadasConSelect2_tablaIndicador[tabActual] = [];
-        
-        //if ($(this).val() != 0 || $(this).val().trim() != "") {
-        //    for (let x = 0; x < $(this).val(); x++) {
-        //        let listaColumnasVariablesDato = [];
-
-        //        $(jsRegistroIndicadorFonatelEdit.Controles.columnasTablaIndicador).children().each(function (index) {
-        //            if ($(this).attr('class').includes("highlighted")) {
-        //                listaColumnasVariablesDato.push(1);
-        //            }
-        //            else if ($(this).attr('class').includes("name-col")) {
-        //                listaColumnasVariablesDato.push(
-        //                    jsRegistroIndicadorFonatelEdit.Controles.InputText(`inputText-${tabActual}-${x}-${index}`, "Nombre"));
-        //            }
-        //            else if ($(this).attr('class').includes("date-col")) {
-        //                listaColumnasVariablesDato.push(
-        //                    jsRegistroIndicadorFonatelEdit.Controles.InputDate(`inputDate-${tabActual}-${x}-${index}`));
-        //            }
-        //            else {
-        //                listaColumnasVariablesDato.push(
-        //                    jsRegistroIndicadorFonatelEdit.Controles.InputSelect2(
-        //                        `inputSelect-${tabActual}-${x}-${index}`,
-        //                        '<option value="1">Opción 1</option><option value="2">Opción 2</option>'));
-        //            }
-        //        });
-        //        table.row.add(listaColumnasVariablesDato).draw(false);
-
-        //        $(jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro).prop("disabled", false);
-        //        $(jsRegistroIndicadorFonatelEdit.Controles.btnCargarPlantillaRegistro).prop("disabled", false);
-        //    }
-        
-        //    jsRegistroIndicadorFonatelEdit.Variables.paginasActualizadasConSelect2_tablaIndicador[tabActual].push(0);
-
-        //    setSelect2();
-
-        //    eventNextPrevDatatable();
-        //}
     }
 });
-
-
 
 /*
  Evento que captura los eventos de siguiente y atras de los datatables.
@@ -347,60 +322,30 @@ function setSelect2() {
     });
 }
 
+
+$(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador, function () {
+
+    var cantidadFilas = parseInt($(jsRegistroIndicadorFonatelEdit.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador).val());
+    var tabla = $(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicador);
+    var ind = tabla.hasClass("revisado");
+    if (cantidadFilas > 0 && !ind) {
+        tabla.addClass("revisado");
+        jsRegistroIndicadorFonatelEdit.Variables.ModoConsulta = true;
+        jsRegistroIndicadorFonatelEdit.Consultas.ConsultaRegistroIndicadorDetalle();
+    } else {
+        jsRegistroIndicadorFonatelEdit.Variables.ModoConsulta = false;
+    }
+
+});
     
-
-
 $(document).ready(function () {
 
-    $(jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistroIndicador).prop("disabled", true);
-    $(jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro).prop("disabled", false);
-    $(jsRegistroIndicadorFonatelEdit.Controles.btnCargarPlantillaRegistro).prop("disabled", false);
 
+    //$(jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistroIndicador).prop("disabled", true);
+    //$(jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro).prop("disabled", false);
+    //$(jsRegistroIndicadorFonatelEdit.Controles.btnCargarPlantillaRegistro).prop("disabled", false);
+    $(jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador(1)).click();
 
-        var t = $('#tablaIndicador').DataTable({
-            'scrollY': '400px',
-
-            language: {
-                "decimal": "",
-                "emptyTable": "No hay información",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                "infoPostFix": "",
-                "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ Entradas",
-                "loadingRecords": "Cargando...",
-                "processing": "Procesando...",
-                "search": "Buscar:",
-                "searchPlaceholder": "",
-                "zeroRecords": "Sin resultados encontrados",
-
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Ultimo",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                }
-
-            },
-
-            columnDefs: [
-                {
-                    searchable: false,
-                    orderable: false,
-                    targets: 0,
-                },
-            ],
-            order: [[1, 'asc']],
-        });
-
-        t.on('order.dt search.dt', function () {
-            let i = 1;
-
-            t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-                this.data(i++);
-            });
-        }).draw();
 });
 
 
