@@ -223,15 +223,12 @@
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
                     JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
-                    jsMensajes.Metodos.OkAlertModal("La Relación ha sido creada")
-                        .set('onok', function (closeEvent) {
                             if (Siguiente) {
                                 InsertarParametroUrl("id", relacion.id);
                                 $(JsRelacion.Controles.stepRelacionCategoria2).click();
                             } else {
                                 window.location.href = "/Fonatel/RelacionCategoria/Index";
                             }
-                        });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -476,7 +473,7 @@
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
                     JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
-                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido eliminada")
+                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido eliminado")
                         .set('onok', function (closeEvent) {
 
                             location.reload();
@@ -497,51 +494,73 @@
                 });
         },
         "InsertarDetalleRelacionId": function () {
-
+            $("#loading").fadeIn();
 
             let relacionCategoriaId = new Object();
             relacionCategoriaId.RelacionId = ObtenerValorParametroUrl("idRelacionCategoria");
             relacionCategoriaId.listaCategoriaAtributo = [];
             let categoriaId = true;
+
+            let validacion = true;
+
             $(".listasDesplegables").each(function () {
                 if (categoriaId) {
                     relacionCategoriaId.idCategoriaId = $(this).val();
                     categoriaId = false;
+
+                    if (relacionCategoriaId.idCategoriaId.length == 0) {
+                        $("#Categoriaid").removeClass("hidden");
+                        validacion = false;
+                    }
+                    else {
+                        $("#Categoriaid").addClass("hidden");
+                    }
+
                 } else {
                     let categoriaAtributo = new Object();
                     categoriaAtributo.IdCategoriaId = relacionCategoriaId.idCategoriaId;
                     categoriaAtributo.IdcategoriaAtributo = $(this).attr('id').replace("dd_", "");
                     categoriaAtributo.IdcategoriaAtributoDetalle = $(this).val();
-                    relacionCategoriaId.listaCategoriaAtributo.push(categoriaAtributo);
+                    if (categoriaAtributo.IdcategoriaAtributoDetalle.length == 0) {
+                        $("#help_" + categoriaAtributo.IdcategoriaAtributo).removeClass("hidden");
+                        validacion = false;
+                    } else {
+                        $("#help_" + categoriaAtributo.IdcategoriaAtributo).addClass("hidden");
+                        relacionCategoriaId.listaCategoriaAtributo.push(categoriaAtributo);
+                    }
+
+
+                    
                 }
 
 
 
             });
 
+            if (validacion) {
 
+                execAjaxCall("/RelacionCategoria/InsertarRelacionCategoriaId", "POST", relacionCategoriaId)
+                    .then((obj) => {
+                        jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
 
+                    }).catch((obj) => {
 
-            execAjaxCall("/RelacionCategoria/InsertarRelacionCategoriaId", "POST", relacionCategoriaId)
-                .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido ingresado")
-                        .set('onok', function (closeEvent) {
-                            location.reload();
-                        });
-
-                }).catch((obj) => {
-
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
+                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { location.reload(); });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) { location.reload(); })
+                        }
+                    }).finally(() => {
+                        $("#loading").fadeOut();
+                    });
+            }
+            $("#loading").fadeOut();
         },
     }
 }
@@ -566,7 +585,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
     
 
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar Detalle?", jsMensajes.Variables.actionType.cancelar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Detalle?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsRelacion.Consultas.InsertarDetalleRelacionId();
         });
@@ -584,10 +603,7 @@ $(document).on("click", JsRelacion.Controles.btnCancelar, function (e) {
 $(document).on("click", JsRelacion.Controles.btnSiguienteRelacionCategoria, function (e) {
     let id = ObtenerValorParametroUrl("id");
     if (id == null) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Relación?", jsMensajes.Variables.actionType.agregar)
-            .set('onok', function (closeEvent) {
-                JsRelacion.Consultas.InsertarRelacion(true);
-            });
+          JsRelacion.Consultas.InsertarRelacion(true);     
     }
     else {
         JsRelacion.Consultas.EditarRelacion(true);
@@ -664,7 +680,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
 
 $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, function () {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿¿Desea eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsRelacion.Consultas.EliminarDetalleRelacionId(id);
         });

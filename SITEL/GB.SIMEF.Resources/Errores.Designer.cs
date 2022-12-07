@@ -250,6 +250,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El detalle {0} seleccionado ya se encuentra registrado.
+        /// </summary>
+        public static string IdRelacionDuplicado {
+            get {
+                return ResourceManager.GetString("IdRelacionDuplicado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El Indicador ingresado ya se encuentra registrado.
         /// </summary>
         public static string IndicadorFormularioRegistrado {

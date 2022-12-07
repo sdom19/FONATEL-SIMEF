@@ -81,9 +81,11 @@ namespace GB.SIMEF.DAL
 
             using (db = new SIMEFContext())
             {
-                lista = db.RelacionCategoriaAtributo.Where(x => x.idRelacion == idRelacion && x.IdCategoriaId==IdCategoriaId).ToList();
-
-
+                lista  = db.Database.SqlQuery<RelacionCategoriaAtributo>
+              ("execute spObtenerRelacionCategoriaAtributo @idRelacion,@idCategoriaId ",
+              new SqlParameter("@idRelacion", idRelacion),
+              new SqlParameter("@idCategoriaId", IdCategoriaId)
+              ).ToList();
                 lista = lista.Select(x => new RelacionCategoriaAtributo()
                 {
                     idRelacion = x.idRelacion,

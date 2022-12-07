@@ -761,6 +761,15 @@ namespace GB.SIMEF.BL
                     }).ToList();
                 }
 
+                RelacionCategoria relacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { IdRelacionCategoria = objeto.idRelacion }).Single();
+
+                if (relacionCategoria.RelacionCategoriaId.Where(x=>x.idCategoriaId==objeto.idCategoriaId).Count()>0 )
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception (string.Format(Errores.IdRelacionDuplicado, objeto.idCategoriaId));
+                }
+
+
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(objeto);
 
                 foreach (var item in objeto.listaCategoriaAtributo)

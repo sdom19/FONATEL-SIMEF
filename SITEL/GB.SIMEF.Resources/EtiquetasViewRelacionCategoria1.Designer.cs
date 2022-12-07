@@ -97,7 +97,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categorias de Desagregación.
+        ///   Looks up a localized string similar to Categorías de Desagregación.
         /// </summary>
         public static string CategoriaDesagregacion {
             get {

@@ -180,6 +180,9 @@
   <data name="FuentesCantidadDestinatarios" xml:space="preserve">
     <value>La cantidad de destinatarios debe ser mayor que 0</value>
   </data>
+  <data name="IdRelacionDuplicado" xml:space="preserve">
+    <value>El detalle {0} seleccionado ya se encuentra registrado</value>
+  </data>
   <data name="IndicadorFormularioRegistrado" xml:space="preserve">
     <value>El Indicador ingresado ya se encuentra registrado</value>
   </data>
