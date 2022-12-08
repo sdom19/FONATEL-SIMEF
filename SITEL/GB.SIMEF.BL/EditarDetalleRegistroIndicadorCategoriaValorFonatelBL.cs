@@ -53,7 +53,72 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> InsertarDatos(List<DetalleRegistroIndicadorCategoriaValorFonatel> objeto)
         {
-            throw new NotImplementedException();
+            try
+            {//Se revisa si la lista contiene informacion
+                if (objeto.Count > 0)
+                {
+                    //Se crea datatable con la informacion de la lista
+                    var dt = new DataTable();
+                    dt.Columns.Add("IdSolicitud", typeof(int));
+                    dt.Columns.Add("IdFormulario", typeof(int));
+                    dt.Columns.Add("IdIndicador", typeof(int));
+                    dt.Columns.Add("idCategoria", typeof(int));
+                    dt.Columns.Add("NumeroFila", typeof(int));
+                    dt.Columns.Add("Valor", typeof(string));
+
+                    foreach (var item in objeto)
+                    {
+                        if (!string.IsNullOrEmpty(item.Solicitudid))
+                        {
+                            int temp = 0;
+                            int.TryParse(Utilidades.Desencriptar(item.Solicitudid), out temp);
+                            item.IdSolicitud = temp;
+                        }
+
+                        if (!string.IsNullOrEmpty(item.FormularioId))
+                        {
+                            int temp = 0;
+                            int.TryParse(Utilidades.Desencriptar(item.FormularioId), out temp);
+                            item.IdFormulario = temp;
+                        }
+
+                        if (!string.IsNullOrEmpty(item.IndicadorId))
+                        {
+                            int temp = 0;
+                            int.TryParse(Utilidades.Desencriptar(item.IndicadorId), out temp);
+                            item.IdIndicador = temp;
+                        }
+
+                        dt.Rows.Add(item.IdSolicitud, item.IdFormulario, item.IdIndicador, item.idCategoria, item.NumeroFila, item.Valor);
+                    }
+
+                    //Se elimina los detalles valores para insertar los nuevos
+                    DetalleRegistroIndicadorCategoriaValorFonatel eliminar = objeto[0];
+                    eliminar.idCategoria = 0;
+                    detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorCategoriaValorFonatel(eliminar);
+
+                    ResultadoConsulta.Clase = modulo;
+                    ResultadoConsulta.Accion = (int)Accion.Insertar;
+                    ResultadoConsulta.Usuario = user;
+
+                    ResultadoConsulta.objetoRespuesta = detalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorCategoriaValorFonatel(dt);
+                    ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.DetalleRegistrado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> InsertarDatos(DetalleRegistroIndicadorCategoriaValorFonatel objeto)

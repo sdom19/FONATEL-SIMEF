@@ -3,6 +3,7 @@ using GB.SIMEF.Resources;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
@@ -139,6 +140,7 @@ namespace GB.SIMEF.DAL
 
                 ListaRegistroIndicadorFonatel = CrearListado(ListaRegistroIndicadorFonatel);
             }
+
             return ListaRegistroIndicadorFonatel;
         }
 
@@ -200,7 +202,6 @@ namespace GB.SIMEF.DAL
             return ListaRegistroIndicadorFonatelCategoria;
         }
 
-
         private string DefinirControl(DetalleRegistroIndicadorCategoriaFonatel DetalleRegistroIndicadorCategoriaFonatel)
         {
             string control = string.Empty;
@@ -225,6 +226,68 @@ namespace GB.SIMEF.DAL
                     break;
             }
             return control;
+        }
+
+        public List<DetalleRegistroIndicadorFonatel> ActualizarDetalleRegistroIndicadorFonatel(DetalleRegistroIndicadorFonatel objeto)
+        {
+            List<DetalleRegistroIndicadorFonatel> ListaRegistroIndicador = new List<DetalleRegistroIndicadorFonatel>();
+
+            using (db = new SIMEFContext())
+            {
+                ListaRegistroIndicador = db.Database.SqlQuery<DetalleRegistroIndicadorFonatel>
+                 ("execute spActualizarDetalleRegistroIndicador @idSolicitud, @idFormulario, @idIndicador, @IdDetalleRegistroIndicador, @TituloHojas, @NotasEncargado, @NotasInformante, @CodigoIndicador, @NombreIndicador, @CantidadFilas",
+                   new SqlParameter("@idSolicitud", objeto.IdSolicitud),
+                   new SqlParameter("@idFormulario", objeto.IdFormulario),
+                   new SqlParameter("@idIndicador", objeto.IdIndicador),
+                   new SqlParameter("@IdDetalleRegistroIndicador", objeto.IdDetalleRegistroIndicador),
+                   new SqlParameter("@TituloHojas", objeto.TituloHojas),
+                   new SqlParameter("@NotasEncargado", objeto.NotasEncargado),
+                   new SqlParameter("@NotasInformante", objeto.NotasInformante),
+                   new SqlParameter("@CodigoIndicador", objeto.CodigoIndicador),
+                   new SqlParameter("@NombreIndicador", objeto.NombreIndicador),
+                   new SqlParameter("@CantidadFilas", objeto.CantidadFilas)
+                 ).ToList();
+
+                ListaRegistroIndicador = CrearListado(ListaRegistroIndicador);
+            }
+
+            return ListaRegistroIndicador;
+        }
+
+        public void EliminarDetalleRegistroIndicadorCategoriaValorFonatel(DetalleRegistroIndicadorCategoriaValorFonatel objeto)
+        {
+            List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleRegistroIndicadorCategoriaValorFonatel = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
+            using (db = new SIMEFContext())
+            {
+                ListaDetalleRegistroIndicadorCategoriaValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
+                ("execute spEliminarDetalleRegistroIndicadorCategoriaValor @idSolicitud, @idFormulario, @idIndicador, @idCategoria",
+                   new SqlParameter("@idSolicitud", objeto.IdSolicitud),
+                   new SqlParameter("@idFormulario", objeto.IdFormulario),
+                   new SqlParameter("@idIndicador", objeto.IdIndicador),
+                   new SqlParameter("@idCategoria", objeto.idCategoria)
+                ).ToList();
+            }
+        }
+
+        public List<DetalleRegistroIndicadorCategoriaValorFonatel> InsertarDetalleRegistroIndicadorCategoriaValorFonatel(DataTable objeto)
+        {
+            List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleRegistroIndicadorCategoriaValor = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
+
+            using (db = new SIMEFContext())
+            {
+                var parametros = new SqlParameter("@lst", SqlDbType.Structured);
+                parametros.SqlValue = objeto;
+                parametros.TypeName = "TypeDetalleRegistroIndicadorCategoriaValor";
+
+                ListaDetalleRegistroIndicadorCategoriaValor = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
+                ("execute spActualizarDetalleRegistroIndicadorCategoriaValor @lst", parametros
+                    ).ToList();
+
+                ListaDetalleRegistroIndicadorCategoriaValor = CrearListadoCategoriaValor(ListaDetalleRegistroIndicadorCategoriaValor);
+            }
+
+            return ListaDetalleRegistroIndicadorCategoriaValor;
+
         }
 
         #endregion

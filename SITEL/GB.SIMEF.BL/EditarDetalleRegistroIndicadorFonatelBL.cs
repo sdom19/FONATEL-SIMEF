@@ -27,7 +27,46 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> ActualizarElemento(DetalleRegistroIndicadorFonatel objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+
+                if (!string.IsNullOrEmpty(objeto.IdFormularioString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.IdFormularioString), out int temp);
+                    objeto.IdFormulario = temp;
+                }
+                if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.IdSolicitudString), out int temp);
+                    objeto.IdSolicitud = temp;
+                }
+                if (!string.IsNullOrEmpty(objeto.IdIndicadorString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.IdIndicadorString), out int temp);
+                    objeto.IdIndicador = temp;
+                }
+
+                DetalleRegistroIndicadorFonatel detalle = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(objeto).FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(objeto.NotasEncargado))
+                {
+                    detalle.NotasEncargado = objeto.NotasEncargado;
+                }
+
+                var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
+
+                ResultadoConsulta.objetoRespuesta = result;
+                ResultadoConsulta.CantidadRegistros = result.Count();
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> CambioEstado(DetalleRegistroIndicadorFonatel objeto)
