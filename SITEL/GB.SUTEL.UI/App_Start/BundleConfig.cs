@@ -76,7 +76,7 @@ namespace GB.SUTEL.UI
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/CategoriaDesagregacion").Include(
-                "~/Scripts/Fonatel/JsCategoria.min.js"
+                "~/Scripts/Fonatel/JsCategoria.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/FONATEL/RelacionCategoria").Include(
@@ -159,6 +159,10 @@ namespace GB.SUTEL.UI
                 "~/Content/alertifyjs/CustomAlertify.css",
                 "~/Content/DataTables/buttons.bootstrap5.min.css",
                 "~/Content/DataTables/scroller.bootstrap5.min.css"
+                ));
+
+            bundles.Add(new StyleBundle("~/Content/FONATEL/FormulaCalculo/css").Include(
+                "~/Content/Fonatel/Views/FormulaCalculo.css"
                 ));
 
             BundleTable.EnableOptimizations = true;

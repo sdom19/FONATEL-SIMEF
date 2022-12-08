@@ -1406,6 +1406,7 @@ CreateView = {
                     if (pIdCategoria === CreateView.Variables.objEditarDetallesCategoria?.idCategoria) { // en caso de que se este editando, no actualicen y se presione el boton de eliminar
                         CreateView.Variables.objEditarDetallesCategoria = null;
                         this.LimpiarValoresFormularioDetallesCategoria();
+                        this.RestablecerCamposFormularioDetalleCategoria();
                     }
 
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoEliminarCategoria).set('onok', function (closeEvent) {
@@ -1447,7 +1448,7 @@ CreateView = {
                             CreateView.Metodos.CargarDetallesCategoria(pIdIndicador);
                         });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); console.log(error) })
+                .catch(error => { this.ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });

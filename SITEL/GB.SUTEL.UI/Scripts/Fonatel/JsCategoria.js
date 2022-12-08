@@ -274,7 +274,7 @@
                 new Promise((resolve, reject) => {
                     if (!validar) {
 
-                        jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Categoría?", jsMensajes.Variables.actionType.agregar)
+                        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado parcial de la Categoría?", jsMensajes.Variables.actionType.agregar)
                             .set('onok', function () {
                                 resolve(true);
                             })
@@ -291,19 +291,19 @@
                     if (result) {
                         let modo =ObtenerValorParametroUrl("modo");
                         if (modo == jsUtilidades.Variables.Acciones.Editar) {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Categoría?", jsMensajes.Variables.actionType.agregar)
                                 .set('onok', function (closeEvent) {
                                     JsCategoria.Consultas.EditarCategoria();
                                 });
                         }
                         else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Categoría?", jsMensajes.Variables.actionType.agregar)
                                 .set('onok', function (closeEvent) {
                                     JsCategoria.Consultas.ClonarCategoria();
                                 });
                         }
                         else {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Categoría?", jsMensajes.Variables.actionType.agregar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
                                 .set('onok', function (closeEvent) {
                                     JsCategoria.Consultas.InsertarCategoria();
                                 });
@@ -690,7 +690,7 @@ $(document).on("click", JsCategoria.Controles.btnCancelar, function (e) {
 
 $(document).on("click", JsCategoria.Controles.btnFinalizarDetalle, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Categoría?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Categoría?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsCategoria.Consultas.FinalizarCategoria();
         });

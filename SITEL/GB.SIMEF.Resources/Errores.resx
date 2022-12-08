@@ -147,6 +147,9 @@
   <data name="CantidadRegistrosLimite" xml:space="preserve">
     <value>La cantidad de detalle a establecer, es inferior la lista actual</value>
   </data>
+  <data name="CantidadRegistrosLimiteCategoria" xml:space="preserve">
+    <value>La cantidad ingresada en Cantidad de Detalles no puede ser menor al valor actual</value>
+  </data>
   <data name="CantidadRegistrosLimiteFuente" xml:space="preserve">
     <value>La cantidad ingresada en Cantidad de Destinatarios no puede ser menor al valor actual</value>
   </data>
@@ -199,9 +202,9 @@
     <value>La Solicitud no registra la fuente activa</value>
   </data>
   <data name="ValorFecha" xml:space="preserve">
-    <value>La Fecha Final debe ser mayor que la Fecha Inicial</value>
+    <value>La Fecha Final debe ser mayor a la Fecha Inicial</value>
   </data>
   <data name="ValorMinimo" xml:space="preserve">
-    <value>El valor Máximo debe ser mayor al valor Minimo</value>
+    <value>El Valor Máximo debe ser mayor al Valor Mínimo</value>
   </data>
 </root>

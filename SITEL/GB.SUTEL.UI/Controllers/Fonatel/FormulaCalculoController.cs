@@ -22,8 +22,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly IndicadorFonatelBL indicadorFonatelBL;
         private readonly DetalleIndicadorVariablesBL detalleIndicadorVariablesBL;
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
+        private readonly FuenteIndicadorBL fuenteIndicadorBL;
+        private readonly GrupoIndicadorBL grupoIndicadorBL;
+        private readonly TipoIndicadorBL tipoIndicadorBL;
+        private readonly ClasificacionIndicadorBL clasificacionIndicadorBL;
+        private readonly ServicioSitelBL servicioSitelBL;
+        private readonly AcumulacionFormulaBL acumulacionFormulaBL;
+
         private readonly string usuario = string.Empty;
         private readonly string nombreVista = string.Empty;
+        private string modoFormulario = string.Empty;
 
         #endregion
 
@@ -36,6 +44,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             indicadorFonatelBL = new IndicadorFonatelBL(nombreVista, usuario);
             detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(nombreVista, usuario);
             categoriasDesagregacionBL = new CategoriasDesagregacionBL(nombreVista, usuario);
+            fuenteIndicadorBL = new FuenteIndicadorBL(nombreVista, usuario);
+            grupoIndicadorBL = new GrupoIndicadorBL(nombreVista, usuario);
+            tipoIndicadorBL = new TipoIndicadorBL(nombreVista, usuario);
+            clasificacionIndicadorBL = new ClasificacionIndicadorBL(nombreVista, usuario);
+            servicioSitelBL = new ServicioSitelBL();
+            acumulacionFormulaBL = new AcumulacionFormulaBL(nombreVista, usuario);
         }
 
         #region Eventos de la página
@@ -109,7 +123,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             objFormulaCalculo.Nombre = string.Empty;
             objFormulaCalculo.Codigo = string.Empty;
 
-            CargarDatosEnVistas();
+            CargarDatosEnVistas(objFormulaCalculo.IdIndicadorSalidaString, objFormulaCalculo.NivelCalculoTotal);
 
             ViewBag.ModoFormulario = ((int)Accion.Clonar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloClonar;
@@ -134,10 +148,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (objFormulaCalculo == null)
                 return View("Index");
 
-            CargarDatosEnVistas();
+            CargarDatosEnVistas(objFormulaCalculo.IdIndicadorSalidaString, objFormulaCalculo.NivelCalculoTotal);
 
-            ViewBag.ModoFormulario = ((int)Accion.Consultar).ToString();
-            ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
+            ViewBag.ModoFormulario = ((int)Accion.Visualizar).ToString();
+            ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloVisualizar;
 
             return View("Create", objFormulaCalculo);
         }
@@ -163,26 +177,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         /// <summary>
+        /// 21/10/2022
+        /// José Navarro Acuña
         /// Permite eliminar una fórmula
         /// </summary>
         /// <param name="formulaCalculo"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> EliminarFormula(FormulasCalculo formulaCalculo)
+        public async Task<string> EliminarFormula(FormulasCalculo pFormulaCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> result = null;
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            if (string.IsNullOrEmpty(pFormulaCalculo.id))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
 
             await Task.Run(() =>
             {
-                return formulaBL.ObtenerDatos(formulaCalculo);
-
-            }).ContinueWith(data =>
-            {
-                var objetoValidar = data.Result.objetoRespuesta.Single();
-                objetoValidar.IdEstado = (int)Constantes.EstadosRegistro.Eliminado;
-                result = formulaBL.EliminarElemento(objetoValidar);
+                resultado = formulaBL.CambioEstado(new FormulasCalculo() { 
+                    id = pFormulaCalculo.id, IdEstado = (int)EstadosRegistro.Eliminado
+                });
             });
-            return JsonConvert.SerializeObject(result);
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>
@@ -191,22 +210,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="formulaCalculo"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> ActivarFormula(FormulasCalculo formulaCalculo)
+        public async Task<string> ActivarFormula(FormulasCalculo pFormulaCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> result = null;
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            if (string.IsNullOrEmpty(pFormulaCalculo.id))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
 
             await Task.Run(() =>
             {
-                return formulaBL.ObtenerDatos(formulaCalculo);
-
-            }).ContinueWith(data =>
-            {
-                var objetoValidar = data.Result.objetoRespuesta.Single();
-                objetoValidar.IdEstado = (int)Constantes.EstadosRegistro.Activo;
-                result = formulaBL.CambioEstado(objetoValidar);
-            }
-            );
-            return JsonConvert.SerializeObject(result);
+                resultado = formulaBL.CambioEstado(new FormulasCalculo()
+                {
+                    id = pFormulaCalculo.id,
+                    IdEstado = (int)EstadosRegistro.Activo
+                });
+            });
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>
@@ -215,22 +238,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="formulaCalculo"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> DesactivarFormula(FormulasCalculo formulaCalculo)
+        public async Task<string> DesactivarFormula(FormulasCalculo pFormulaCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> result = null;
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            if (string.IsNullOrEmpty(pFormulaCalculo.id))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
 
             await Task.Run(() =>
             {
-                return formulaBL.ObtenerDatos(formulaCalculo);
-
-            }).ContinueWith(data =>
-            {
-                var objetoValidar = data.Result.objetoRespuesta.Single();
-                objetoValidar.IdEstado = (int)Constantes.EstadosRegistro.Desactivado;
-                result = formulaBL.CambioEstado(objetoValidar);
-            }
-            );
-            return JsonConvert.SerializeObject(result);
+                resultado = formulaBL.CambioEstado(new FormulasCalculo()
+                {
+                    id = pFormulaCalculo.id,
+                    IdEstado = (int)EstadosRegistro.Desactivado
+                });
+            });
+            return JsonConvert.SerializeObject(resultado);
         }
 
         #endregion
@@ -330,6 +357,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> CrearFormulaCalculo(FormulasCalculo pFormulaCalculo)
         {
+            modoFormulario = (string)Session[keyModoFormulario];
+
+            if (modoFormulario.Equals(((int)Accion.Visualizar).ToString()))
+            {
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorSistema });
+            }
+
             string mensajesValidacion = ValidarObjectoCrearFormulaCalculo(pFormulaCalculo);
 
             if (!string.IsNullOrEmpty(mensajesValidacion))
@@ -364,6 +398,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EditarFormulaCalculo(FormulasCalculo pFormulaCalculo)
         {
+            modoFormulario = (string)Session[keyModoFormulario];
+
+            if (modoFormulario.Equals(((int)Accion.Visualizar).ToString()))
+            {
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorSistema });
+            }
+
             if (string.IsNullOrEmpty(pFormulaCalculo.id))
             {
                 return JsonConvert.SerializeObject(
@@ -371,8 +412,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             // tanto crear, clonar y editar pueden actualizar la fórmula, asi que se debe diferenciar la acción
-            string modoFormulario = (string)Session[keyModoFormulario];
-
             if (modoFormulario.Equals(((int)Accion.Editar).ToString()))
             {
                 try
@@ -391,6 +430,224 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return await CrearFormulaCalculo(pFormulaCalculo);
         }
 
+        /// <summary>
+        /// 21/11/2022
+        /// José Navarro Acuña
+        /// Función que permite clonar una fórmula de cálculo
+        /// </summary>
+        /// <param name="pFormulaCalculo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ClonarFormulaCalculo(FormulasCalculo pFormulaCalculo)
+        {
+            modoFormulario = (string)Session[keyModoFormulario];
+
+            if (modoFormulario.Equals(((int)Accion.Visualizar).ToString()))
+            {
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorSistema });
+            }
+
+            if (string.IsNullOrEmpty(pFormulaCalculo.id)) // id indicador requerido
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            string idFormulaAClonar = pFormulaCalculo.id; // id de la formula seleccionada para clonar
+            pFormulaCalculo.id = string.Empty;
+            pFormulaCalculo.IdFormula = 0;
+
+            string creacionFormula = await CrearFormulaCalculo(pFormulaCalculo);
+            RespuestaConsulta<List<FormulasCalculo>> formulaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<FormulasCalculo>>>(creacionFormula);
+
+            if (formulaDeserializado.HayError != (int)Error.NoError) // se creó el indicador correctamente?
+            {
+                return creacionFormula;
+            }
+
+            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+
+            await Task.Run(() =>
+            {
+                // clonar los detalles del paso 2 del formulario
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 22/11/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener las fuentes de un los indicadores
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerFuentesIndicador()
+        {
+            RespuestaConsulta<List<FuenteIndicador>> resultado = new RespuestaConsulta<List<FuenteIndicador>>();
+
+            await Task.Run(() =>
+            {
+                resultado = fuenteIndicadorBL.ObtenerDatos(new FuenteIndicador());
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 23/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna los grupo de indicador. Puede consultar los de SITEL
+        /// </summary>
+        /// <param name="pEsFuenteIndicadorFonatel"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerGrupoIndicador(bool pEsFuenteIndicadorFonatel)
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            await Task.Run(() =>
+            {
+                if (pEsFuenteIndicadorFonatel)
+                {
+                    resultado = grupoIndicadorBL.ObtenerDatos(new GrupoIndicadores());
+                }
+                else // SITEL
+                {
+
+                }
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 23/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de indicador. Puede consultar los de SITEL
+        /// </summary>
+        /// <param name="pEsFuenteIndicadorFonatel"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerTipoIndicador(bool pEsFuenteIndicadorFonatel)
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+
+            await Task.Run(() =>
+            {
+                if (pEsFuenteIndicadorFonatel)
+                {
+                    resultado = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores());
+                }
+                else // SITEL
+                {
+                    resultado = tipoIndicadorBL.ObtenerDatosSitel(new TipoIndicadores());
+                }
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 23/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna las clasificaciones de indicador
+        /// </summary>
+        /// <param name="pEsFuenteIndicadorFonatel"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerClasificacionIndicador()
+        {
+            RespuestaConsulta<List<ClasificacionIndicadores>> resultado = new RespuestaConsulta<List<ClasificacionIndicadores>>();
+
+            await Task.Run(() =>
+            {
+                 resultado = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores());
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 28/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna las diferentes acumulaciones de formulas Fonatel
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerAcumulacionesFonatel()
+        {
+            RespuestaConsulta<List<AcumulacionFormula>> resultado = new RespuestaConsulta<List<AcumulacionFormula>>();
+
+            await Task.Run(() =>
+            {
+                resultado = acumulacionFormulaBL.ObtenerDatos(new AcumulacionFormula());
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 24/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna los servicios de la base de datos de SITEL
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerServiciosSitel()
+        {
+            RespuestaConsulta<List<ServicioSitel>> resultado = new RespuestaConsulta<List<ServicioSitel>>();
+
+            await Task.Run(() =>
+            {
+                resultado = servicioSitelBL.ObtenerDatos(new ServicioSitel());
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 24/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna indicadores, ya sea de Fonatel o Sitel
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <param name="pEsFuenteIndicadorFonatel"></param>
+        /// <param name="pServicioSitel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> ObtenerIndicadores(Indicador pIndicador, bool pEsFuenteIndicadorFonatel, ServicioSitel pServicioSitel = null)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            if (
+                (string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id) || string.IsNullOrEmpty(pIndicador.TipoIndicadores?.id)) 
+                ||
+                (pEsFuenteIndicadorFonatel && string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
+                ||
+                (!pEsFuenteIndicadorFonatel && string.IsNullOrEmpty(pServicioSitel?.id))
+            )
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.CamposIncompletos;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                if (pEsFuenteIndicadorFonatel)
+                {
+                    resultado = indicadorFonatelBL.ObtenerDatos(pIndicador);
+                }
+                else
+                {
+                    resultado = indicadorFonatelBL.ObtenerDatosSitel(pIndicador, pServicioSitel);
+                }
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
         #endregion
 
         #region Funciones privadas
@@ -404,9 +661,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             ViewBag.VariablesDato = Enumerable.Empty<SelectListItem>();
             ViewBag.CategoriasDeIndicador = Enumerable.Empty<SelectListItem>();
+            ViewBag.FuentesIndicador = Enumerable.Empty<SelectListItem>();
+            ViewBag.GruposFonatel = Enumerable.Empty<SelectListItem>();
+            ViewBag.ClasificacionesFonatel = Enumerable.Empty<SelectListItem>();
+            ViewBag.Servicios = Enumerable.Empty<SelectListItem>();
+            ViewBag.TiposFonatel = Enumerable.Empty<SelectListItem>();
+            ViewBag.Indicadores = Enumerable.Empty<SelectListItem>();
+            ViewBag.Acumulaciones = Enumerable.Empty<SelectListItem>();
+
             ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { }).objetoRespuesta;
-            ViewBag.IndicadorSalida = indicadorFonatelBL.ObtenerDatos(new Indicador() { IdClasificacion = (int)ClasificacionIndicadorEnum.Salida })
-                .objetoRespuesta.Select(x => new Indicador()
+            ViewBag.IndicadorSalida = indicadorFonatelBL.ObtenerDatos(new Indicador() { }).objetoRespuesta
+                .Where(y => y.IdClasificacion == (int)ClasificacionIndicadorEnum.Salida || y.IdClasificacion == (int)ClasificacionIndicadorEnum.EntradaSalida)
+                .Select(x => new Indicador()
                 {
                     id = x.id,
                     Nombre = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre)

@@ -301,9 +301,10 @@ namespace GB.SIMEF.BL
 
                         DetalleCategoriaTexto consultarCategoria = categoria.DetalleCategoriaTexto.Where
                                 (x=>x.Codigo == detallecategoria.Codigo && x.idCategoria == detallecategoria.idCategoria  ).SingleOrDefault();
-
+                        
                         if (consultarCategoria==null)
                         {
+                            detallecategoria.CategoriasDesagregacion = categoria;
                             if (InsertarDatos(detallecategoria).HayError != 0)
                             {
                                 ResultadoConsulta.HayError = (int)Error.ErrorSistema;
@@ -312,7 +313,9 @@ namespace GB.SIMEF.BL
                         }
                         else
                         {
-                            if (ActualizarElemento(detallecategoria).HayError != 0)
+                            consultarCategoria.Etiqueta = detallecategoria.Etiqueta;
+                            consultarCategoria.CategoriasDesagregacion = categoria;
+                            if (ActualizarElemento(consultarCategoria).HayError != 0)
                             {
                                 ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                                 break;

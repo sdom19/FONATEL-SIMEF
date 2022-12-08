@@ -562,6 +562,10 @@ $(document).on("keyup", "input", function () {
 
 $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
     e.preventDefault();
+
+    
+
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar Detalle?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
             JsRelacion.Consultas.InsertarDetalleRelacionId();
@@ -595,41 +599,65 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
     e.preventDefault();
 
     let id = ObtenerValorParametroUrl("id");
+    let validar = true;
 
-    if (id == null) {
-        if (JsRelacion.Metodos.HabilitarBotonSiguiente()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Relación?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
-                    JsRelacion.Consultas.InsertarRelacion();
-                });
+    if ($(JsRelacion.Controles.txtCodigoRelacion).val().length == 0) {
+        $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
+        validar = false;
+    }
+    if ($(JsRelacion.Controles.txtNombreRelacion).val().length == 0) {
+        $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
+      
+        validar = false;
+    }
+    if (validar) {
+        $(JsRelacion.Controles.nombreHelp).addClass("hidden");
+        $(JsRelacion.Controles.CodigoHelp).addClass("hidden");
+
+
+
+        if (id == null) {
+            if (JsRelacion.Metodos.HabilitarBotonSiguiente()) {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Relación?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        JsRelacion.Consultas.InsertarRelacion();
+                    });
+            }
+            else {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Relación?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        JsRelacion.Consultas.InsertarRelacion();
+                    })
+                    .set('oncancel', function (closeEvent) {
+                        JsRelacion.Metodos.ValidarFormularioRelacion();
+                    });
+            }
         }
         else {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Relación?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
-                    JsRelacion.Consultas.InsertarRelacion();
-                })
-                .set('oncancel', function (closeEvent) {
-                    JsRelacion.Metodos.ValidarFormularioRelacion();
-                });
+            if (JsRelacion.Metodos.HabilitarBotonSiguiente()) {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        JsRelacion.Consultas.EditarRelacion();
+                    });
+            }
+            else {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado parcial de la Relación?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        JsRelacion.Consultas.EditarRelacion();
+                    })
+                    .set('oncancel', function (closeEvent) {
+                        JsRelacion.Metodos.ValidarFormularioRelacion();
+                    });
+            }
         }
+
+
+
+
     }
-    else {
-        if (JsRelacion.Metodos.HabilitarBotonSiguiente()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
-                    JsRelacion.Consultas.EditarRelacion();
-                });
-        }
-        else {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Relación?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
-                    JsRelacion.Consultas.EditarRelacion();
-                })
-                .set('oncancel', function (closeEvent) {
-                    JsRelacion.Metodos.ValidarFormularioRelacion();
-                });
-        }
-    }
+
+
+  
 
 });
 
@@ -669,8 +697,11 @@ $(document).on("click", JsRelacion.Controles.btnFinalizar, function (e) {
 
 $(document).on("click", JsRelacion.Controles.btnGuardarCategoria, function (e) {
     e.preventDefault();
-
-    JsRelacion.Consultas.InsertarDetalleCategoria();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            JsRelacion.Consultas.InsertarDetalleCategoria();
+        });
+    
 });
 
 $(document).on("click", JsRelacion.Controles.TableCategoriaAtributoEliminar, function (e) {
@@ -713,7 +744,11 @@ $(function () {
     else if ($(JsRelacion.Controles.txtCodigoRelacion).length>0) {
       let validacion = !JsRelacion.Metodos.HabilitarBotonSiguiente();
         $(JsRelacion.Controles.btnSiguienteRelacionCategoria).prop("disabled", validacion);
-        $(JsRelacion.Controles.txtCodigoRelacion).prop("disabled", ObtenerValorParametroUrl("id") != null )
+        $(JsRelacion.Controles.txtCodigoRelacion).prop("disabled", ObtenerValorParametroUrl("id") != null)
+        if ($(JsRelacion.Controles.ddlCategoriaId).val()!=0) {
+            $(JsRelacion.Controles.ddlCategoriaId).prop("disabled", ObtenerValorParametroUrl("id") != null)
+        } 
+       
     }
    
 

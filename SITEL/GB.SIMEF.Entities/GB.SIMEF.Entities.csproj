@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcumulacionFormula.cs" />
     <Compile Include="Anno.cs" />
     <Compile Include="Bitacora.cs" />
     <Compile Include="DatoHistorico.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="ReglaSecuencial.cs" />
     <Compile Include="ReglaValidacion.cs" />
     <Compile Include="RelacionCategoria.cs" />
+    <Compile Include="ServicioSitel.cs" />
     <Compile Include="Solicitud.cs" />
     <Compile Include="SolicitudDetalleFuentes.cs" />
     <Compile Include="SolicitudEnvioProgramado.cs" />

@@ -151,6 +151,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La cantidad ingresada en Cantidad de Detalles no puede ser menor al valor actual.
+        /// </summary>
+        public static string CantidadRegistrosLimiteCategoria {
+            get {
+                return ResourceManager.GetString("CantidadRegistrosLimiteCategoria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La cantidad ingresada en Cantidad de Destinatarios no puede ser menor al valor actual.
         /// </summary>
         public static string CantidadRegistrosLimiteFuente {
@@ -304,7 +313,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La Fecha Final debe ser mayor que la Fecha Inicial.
+        ///   Looks up a localized string similar to La Fecha Final debe ser mayor a la Fecha Inicial.
         /// </summary>
         public static string ValorFecha {
             get {
@@ -313,7 +322,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El valor Máximo debe ser mayor al valor Minimo.
+        ///   Looks up a localized string similar to El Valor Máximo debe ser mayor al Valor Mínimo.
         /// </summary>
         public static string ValorMinimo {
             get {
