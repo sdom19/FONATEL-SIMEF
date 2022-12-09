@@ -162,7 +162,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                resultado.HayError = (int)Constantes.Error.ErrorSistema;
+                resultado.HayError = (int)Error.ErrorSistema;
                 resultado.MensajeError = ex.Message;
             }
             return resultado;
@@ -182,6 +182,31 @@ namespace GB.SIMEF.BL
             {
                 resultado.Accion = (int)Accion.Consultar;
                 var result = grupoIndicadorDAL.ObtenerDatosMercado();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 09/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los grupo de indicadores de calidad
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosCalidad()
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            try
+            {
+                resultado.Accion = (int)Accion.Consultar;
+                var result = grupoIndicadorDAL.ObtenerDatosCalidad();
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }

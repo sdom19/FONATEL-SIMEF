@@ -72,5 +72,29 @@ namespace GB.SIMEF.BL
             }
             return resultado;
         }
+
+        /// <summary>
+        /// 09/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los servicios de calidad
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<ServicioSitel>> ObtenerDatosCalidad()
+        {
+            RespuestaConsulta<List<ServicioSitel>> resultado = new RespuestaConsulta<List<ServicioSitel>>();
+
+            try
+            {
+                var result = servicioSitelDAL.ObtenerDatosCalidad();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Constantes.Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
     }
 }

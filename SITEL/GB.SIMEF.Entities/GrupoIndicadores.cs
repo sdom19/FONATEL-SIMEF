@@ -19,6 +19,7 @@ namespace GB.SIMEF.Entities
     {
         public GrupoIndicadores()
         {
+
         }
 
         [Key]
