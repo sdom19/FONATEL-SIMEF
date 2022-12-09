@@ -155,7 +155,6 @@ namespace GB.SIMEF.BL
 
             try
             {
-                resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
                 var result = grupoIndicadorDAL.ObtenerDatos(pGrupoIndicadores);
                 resultado.objetoRespuesta = result;
@@ -164,6 +163,31 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
                 resultado.HayError = (int)Constantes.Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 08/12/2022
+        /// José Navarro
+        /// Función que retorna los grupos de indicadores de mercados
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosMercado()
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            try
+            {
+                resultado.Accion = (int)Accion.Consultar;
+                var result = grupoIndicadorDAL.ObtenerDatosMercado();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
                 resultado.MensajeError = ex.Message;
             }
             return resultado;

@@ -47,6 +47,32 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
+        /// 09/12/2022
+        /// José Navarro Acuña
+        /// Retorna todos los grupos de indicadores registrados en Mercados
+        /// </summary>
+        /// <returns></returns>
+        public List<GrupoIndicadores> ObtenerDatosMercado()
+        {
+            List<GrupoIndicadores> listaGrupoIndicadores = new List<GrupoIndicadores>();
+
+            using (SIGITELContext db = new SIGITELContext())
+            {
+                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicadores>
+                    ("select distinct 0 as idGrupo, Agrupacion Nombre from [FONATEL].[viewIndicadorDGM]").ToList();
+            }
+
+            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicadores()
+            {
+                id = x.Nombre,
+                Nombre = x.Nombre,
+                Estado = true
+            }).ToList();
+
+            return listaGrupoIndicadores;
+        }
+
+        /// <summary>
         /// 18/08/2022
         /// José Navarro Acuña
         /// Función que actualiza los datos de un grupo indicador.
