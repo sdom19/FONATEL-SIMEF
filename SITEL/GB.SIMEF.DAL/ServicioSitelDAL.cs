@@ -45,5 +45,31 @@ namespace GB.SIMEF.DAL
             }
             return listaServicioSitel;
         }
+
+        /// <summary>
+        /// 09/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de servicios de Mercado
+        /// </summary>
+        /// <returns></returns>
+        public List<ServicioSitel> ObtenerDatosMercado()
+        {
+            List<ServicioSitel> listaServicioSitel = new List<ServicioSitel>();
+
+            using (SIGITELContext db = new SIGITELContext())
+            {
+                listaServicioSitel = db.Database.SqlQuery<ServicioSitel>
+                    ("select distinct IdServicio, Servicio Nombre from [FONATEL].[viewIndicadorDGM]").ToList();
+            }
+
+            listaServicioSitel = listaServicioSitel.Select(x => new ServicioSitel()
+            {
+                id = Utilidades.Encriptar(x.IdServicio.ToString()),
+                Nombre = x.Nombre,
+                Estado = true
+            }).ToList();
+
+            return listaServicioSitel;
+        }
     }
 }

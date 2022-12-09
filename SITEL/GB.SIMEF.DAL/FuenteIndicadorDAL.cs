@@ -34,10 +34,9 @@ namespace GB.SIMEF.DAL
 
                 listaFuentes = listaFuentes.Select(x => new FuenteIndicador
                 {
-                    id = Utilidades.Encriptar(x.IdFuenteIndicador.ToString()),
+                    IdFuenteIndicador = x.IdFuenteIndicador,
                     Fuente = x.Fuente,
                     Estado = x.Estado,
-                    perteceneAFonatel = Constantes.FuentesIndicadorFonatel.Exists(y => (int)y == x.IdFuenteIndicador)
                 }).ToList();
 
                 return listaFuentes;
