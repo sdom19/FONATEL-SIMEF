@@ -7,7 +7,11 @@
         "tabRgistroIndicador": "div.tab-pane",
         "tabActivoRegistroIndicador": "div.tab-pane.active",
 
-        //TABLA PRINCIPAL COLUMNAS Y FILAS
+        //TABLA PRINCIPAL DE EDITAR REGISTRO
+        "TablaEditarRegistroIndicador": "#TablaEditarRegistroIndicador tbody",
+        "btnDescargaPrincipal": "#TablaEditarRegistroIndicador tbody tr td .btn-download",
+
+        //TABLA DETALLES
         "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
         "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
         "columnaTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr th",
@@ -23,6 +27,7 @@
         //BOTONES DEL FORMULARIO
         "btnDescargarPlantillaRegistro": "#btnDescargarPlantillaRegistro",
         "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
+        "btnGuardarRegistroIndicador": "#btnGuardarRegistroIndicador",
         "btnValidar": "#btnValidarRegistroIndicador",
         "btnCancelar": "#btnCancelarRegistroIndicador",
 
@@ -50,6 +55,10 @@
         "DetalleRegistroIndicador": [],
         "ListadoDetalleRegistroIndicador": [],
         "ModoColsuta": false
+    },
+
+    "Mensajes": {
+
     },
 
     "Metodos": {
@@ -352,10 +361,9 @@
                             .set('onok', function (closeEvent) { location.reload(); });
                     }
 
-
                 }
             }).fail(function (obj) {
-                $(jsRegistroIndicadorFonatel.Controles.inputFileCargarPlantilla).val('');
+                $(jsRegistroIndicadorFonatelEdit.Controles.inputFileCargarPlantilla).val('');
                 jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Datos")
                     .set('onok', function (closeEvent) { })
                 $("#loading").fadeOut();
@@ -375,35 +383,42 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCancelar, fu
         });
 });
 
-//GUARDAR MODO INFORMARTE
+//GUARDAR MODO ENCARGADO
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardarRegistroIndicador, function (e) {
+
     e.preventDefault();
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
 
             jsRegistroIndicadorFonatelEdit.Consultas.ActualizarDetalleRegistroIndicador();
-            //jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
-            //    .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index";});
+
         });
 });
 
 //CARGAR MODO INFORMARTE
-$(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCarga, function (e) {
-    e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga de la información?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("La carga de información ha sido completada")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/EditarFormulario/Index"; });
-        });
+//$(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCarga, function (e) {
+//    e.preventDefault();
+//    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga de la información?", jsMensajes.Variables.actionType.agregar)
+//        .set('onok', function (closeEvent) {
+//            jsMensajes.Metodos.OkAlertModal("La carga de información ha sido completada")
+//                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/EditarFormulario/Index"; });
+//        });
+//});
+
+$(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargaPrincipal, function () {
+    //jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
+    //    .set('onok', function (closeEvent) {
+    //        jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
+    //            .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index" });
+    //    });
+
 });
 
 //DESCARGAR
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
-            //window.open(jsUtilidades.Variables.urlOrigen + "/EditarFormulario/DescargarExcel");
-            //jsRegistroIndicadorFonatelEdit.Metodos.CargarExcel();
 
             var listaParametros = [];
             listaParametros.push(ObtenerValorParametroUrl("idSolicitud"));
@@ -426,17 +441,6 @@ $(document).on("change", jsRegistroIndicadorFonatelEdit.Controles.inputFileCarga
 });
 
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnValidar, function () {
-
-
-    if (jsRegistroIndicadorFonatelEdit.Variables.Validacion == false) {
-
-        jsMensajes.Metodos.OkAlertModal("Validación Exitosa <br><br> La información ingresada cumple con los criterios de validación.");
-        $(jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistroIndicadorEdicion).prop("disabled", false);
-        $(jsRegistroIndicadorFonatelEdit.Controles.btnCarga).prop("disabled", false);
-
-    } else {
-        jsMensajes.Metodos.OkAlertErrorModal("Fórmula actualización secuencial <br><br>La información ingresada no cumple con la secuencia con respecto a los registros del periodo anterior");
-    }
 
 });
 

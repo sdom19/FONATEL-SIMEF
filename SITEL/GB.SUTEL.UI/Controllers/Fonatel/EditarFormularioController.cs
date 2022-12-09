@@ -182,6 +182,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             string ruta = Utilidades.RutaCarpeta(ConfigurationManager.AppSettings["rutaCarpetaSimef"]);
             string hilera = ((string[])datos)[0].Replace("{\"datos\":", "").Replace("}}", "}");
             DetalleRegistroIndicadorFonatel obj = JsonConvert.DeserializeObject<DetalleRegistroIndicadorFonatel>(hilera);
+
             if (Request.Files.Count > 0)
             {
                 HttpFileCollectionBase files = Request.Files;
@@ -198,6 +199,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 file.SaveAs(path);
             }
+
             return JsonConvert.SerializeObject(result);
         }
 
@@ -300,6 +302,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         //    });
         //    return JsonConvert.SerializeObject(result);
         //}
+
+        [HttpGet]
+        public ActionResult DescargarExcel2()
+        {
+
+
+            return null;
+
+        }
 
         #endregion
 

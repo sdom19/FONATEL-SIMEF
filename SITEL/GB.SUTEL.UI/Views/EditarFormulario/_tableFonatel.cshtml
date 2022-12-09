@@ -32,7 +32,7 @@
                 {
                     <td>
                         <button type="button" data-toggle="tooltip" data-placement="top" onclick="location.href='@Url.Action("Edit", "EditarFormulario",new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'" title=@EtiquetasViewEditarRegistroIndicador.Editar class="btn-icon-base btn-edit"></button>
-                        <button type="button" data-toggle="tooltip" data-placement="top" onclick="location.href='@Url.Action("Edit", "EditarFormulario",new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'" title=@EtiquetasViewEditarRegistroIndicador.Descargar class="btn-icon-base btn-download"></button>
+                        <button type="button" data-toggle="tooltip" data-placement="top" onclick="location.href='@Url.Action("DescargarExcel2", "EditarFormulario", new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'" title=@EtiquetasViewEditarRegistroIndicador.Descargar class="btn-icon-base btn-download"></button>
                     </td>
 
                 }
