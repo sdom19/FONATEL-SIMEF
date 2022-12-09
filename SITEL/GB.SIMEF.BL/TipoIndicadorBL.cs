@@ -156,7 +156,6 @@ namespace GB.SIMEF.BL
 
             try
             {
-                resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
                 List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatos(pTipoIndicadores);
                 resultado.objetoRespuesta = result;
@@ -173,26 +172,16 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 24/11/2022
         /// José Navarro Acuña
-        /// Función que retorna todos los tipos indicadores registrados en estado activo de la BD de SITEL
-        /// Se puede aplicar un filtro para obtener un único elemento a traves del ID.
+        /// Función que retorna todos los tipos indicadores registrados Mercado
         /// </summary>
-        /// <param name="pTipoIndicadores"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosSitel(TipoIndicadores pTipoIndicadores)
+        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosMercado()
         {
             RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
 
             try
             {
-                if (!string.IsNullOrEmpty(pTipoIndicadores.id))
-                {
-                    int.TryParse(Utilidades.Desencriptar(pTipoIndicadores.id), out int idDecencriptado);
-                    pTipoIndicadores.IdTipoIndicador = idDecencriptado;
-                }
-
-                resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Consultar;
-                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosSitel(pTipoIndicadores);
+                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosMercado();
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -203,6 +192,31 @@ namespace GB.SIMEF.BL
             }
             return resultado;
         }
+
+        /// <summary>
+        /// 24/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los tipos indicadores registrados Mercado
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosCalidad()
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+
+            try
+            {
+                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosCalidad();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
 
         public RespuestaConsulta<List<TipoIndicadores>> ValidarDatos(TipoIndicadores objeto)
         {

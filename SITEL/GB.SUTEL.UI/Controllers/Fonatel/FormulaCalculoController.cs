@@ -517,6 +517,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         resultado = grupoIndicadorBL.ObtenerDatosMercado();
                         break;
                     case FuenteIndicadorEnum.IndicadorDGC:
+                        resultado = grupoIndicadorBL.ObtenerDatosCalidad();
                         break;
                     case FuenteIndicadorEnum.IndicadorUIT:
                         break;
@@ -553,8 +554,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         resultado = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores());
                         break;
                     case FuenteIndicadorEnum.IndicadorDGM:
+                        resultado = tipoIndicadorBL.ObtenerDatosMercado();
                         break;
                     case FuenteIndicadorEnum.IndicadorDGC:
+                        resultado = tipoIndicadorBL.ObtenerDatosCalidad();
                         break;
                     case FuenteIndicadorEnum.IndicadorUIT:
                         break;
@@ -566,8 +569,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         resultado.HayError = (int)Error.ErrorSistema;
                         break;
                 }
-                
-                //resultado = tipoIndicadorBL.ObtenerDatosSitel(new TipoIndicadores());
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -631,6 +632,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         resultado = servicioSitelBL.ObtenerDatosMercado();
                         break;
                     case FuenteIndicadorEnum.IndicadorDGC:
+                        resultado = servicioSitelBL.ObtenerDatosCalidad();
                         break;
                     case FuenteIndicadorEnum.IndicadorUIT:
                         break;

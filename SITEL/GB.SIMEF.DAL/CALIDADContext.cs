@@ -7,16 +7,16 @@ using GB.SIMEF.Entities;
 
 namespace GB.SIMEF.DAL
 {
-    public partial class SIGITELContext : DbContext
+    public partial class CALIDADContext : DbContext
     {
-        public SIGITELContext()
-           : base("name=SIGITELEntities")
+        public CALIDADContext()
+           : base("name=CALIDADEntities")
         {
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<SIGITELContext>(null);
+            Database.SetInitializer<CALIDADContext>(null);
             base.OnModelCreating(modelBuilder);
         }
     }

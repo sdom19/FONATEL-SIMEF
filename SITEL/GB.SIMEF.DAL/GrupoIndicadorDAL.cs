@@ -49,7 +49,7 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 09/12/2022
         /// José Navarro Acuña
-        /// Retorna todos los grupos de indicadores registrados en Mercados
+        /// Retorna todos los grupos de indicadores registrados de Mercados
         /// </summary>
         /// <returns></returns>
         public List<GrupoIndicadores> ObtenerDatosMercado()
@@ -58,20 +58,56 @@ namespace GB.SIMEF.DAL
 
             using (SIGITELContext db = new SIGITELContext())
             {
-                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicadores>
-                    ("select distinct 0 as idGrupo, Agrupacion Nombre from [FONATEL].[viewIndicadorDGM]").ToList();
+                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicadores>(
+                    "select distinct " +
+                    "0 as idGrupo, " +
+                    "Agrupacion as Nombre, " +
+                    "cast(1 as bit) as Estado " +
+                    "from [FONATEL].[viewIndicadorDGM]"
+                    ).ToList();
             }
 
             listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicadores()
             {
                 id = x.Nombre,
                 Nombre = x.Nombre,
-                Estado = true
+                Estado = x.Estado
             }).ToList();
 
             return listaGrupoIndicadores;
         }
 
+        /// <summary>
+        /// 09/12/2022
+        /// José Navarro Acuña
+        /// Retorna todos los grupos de indicadores registrados de Calidad
+        /// </summary>
+        /// <returns></returns>
+        public List<GrupoIndicadores> ObtenerDatosCalidad()
+        {
+            List<GrupoIndicadores> listaGrupoIndicadores = new List<GrupoIndicadores>();
+
+            using (CALIDADContext db = new CALIDADContext())
+            {
+                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicadores>(
+                    "select distinct " +
+                    "0 as idGrupo, " +
+                    "Agrupacion as Nombre, " +
+                    "cast(1 as bit) as Estado " +
+                    "from [FONATEL].[viewIndicadorDGC]"
+                    ).ToList();
+            }
+
+            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicadores()
+            {
+                id = x.Nombre,
+                Nombre = x.Nombre,
+                Estado = x.Estado
+            }).ToList();
+
+            return listaGrupoIndicadores;
+        }
+        
         /// <summary>
         /// 18/08/2022
         /// José Navarro Acuña
