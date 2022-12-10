@@ -12,6 +12,7 @@ namespace GB.SIMEF.Entities
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class EnvioSolicitudes
     {
@@ -23,5 +24,11 @@ namespace GB.SIMEF.Entities
         public string MensajError { get; set; }
 
         public int IdSolicitud { get; set; }
+
+        [NotMapped]
+        public bool EjecutaJob { get; set; }
+
+        [NotMapped]
+        public string IdSolicitudString { get; set; }
     }
 }

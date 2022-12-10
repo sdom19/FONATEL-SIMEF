@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="23"
-  DTS:VersionGUID="{E643888E-6B18-4F30-9586-F994BAF5C21F}">
+  DTS:VersionBuild="35"
+  DTS:VersionGUID="{E914A2C2-3D49-45A6-A8AB-BFB7737B9A0E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -62,12 +62,12 @@ where [refTable].[idFormulario] = ? and [refTable].[idSolicitud] = ?</property>
                   dataType="System.Int32"
                   description="Specifies the cache type of the lookup table."
                   name="CacheType"
-                  typeConverter="CacheType">1</property>
+                  typeConverter="CacheType">0</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
                   name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
+                  typeConverter="LookupNoMatchBehavior">1</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
@@ -112,42 +112,35 @@ where [refTable].[idFormulario] = ? and [refTable].[idSolicitud] = ?</property>
                   name="Lookup Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\ActualizarRegistroIndicador\Lookup.Inputs[Lookup Input].Columns[idFormulario]"
+                      refId="Package\ActualizarRegistroIndicador\Lookup.Inputs[Lookup Input].Columns[IdFormulario]"
                       cachedDataType="i4"
                       cachedName="IdFormulario"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Output].Columns[IdFormulario]"
-                      name="idFormulario"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Output].Columns[IdFormulario]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">idFormulario</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">idFormulario</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\ActualizarRegistroIndicador\Lookup.Inputs[Lookup Input].Columns[idSolicitud]"
                       cachedDataType="i4"
                       cachedName="idSolicitud"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Output].Columns[idSolicitud]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Output].Columns[idSolicitud]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">idSolicitud</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">idSolicitud</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                   </inputColumns>
@@ -158,7 +151,6 @@ where [refTable].[idFormulario] = ? and [refTable].[idSolicitud] = ?</property>
                 <output
                   refId="Package\ActualizarRegistroIndicador\Lookup.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\ActualizarRegistroIndicador\Lookup.Inputs[Lookup Input]">
@@ -1554,7 +1546,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                   dataType="System.Int32"
                   description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
                   name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
+                  typeConverter="LookupNoMatchBehavior">1</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
@@ -1602,57 +1594,48 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                       refId="Package\DetalleRegistroIndicador\Lookup.Inputs[Lookup Input].Columns[IdSolicitud]"
                       cachedDataType="i4"
                       cachedName="IdSolicitud"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\DetalleRegistroIndicador\RegistroIndicadorDetalle.Outputs[OLE DB Source Output].Columns[IdSolicitud]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\DetalleRegistroIndicador\RegistroIndicadorDetalle.Outputs[OLE DB Source Output].Columns[IdSolicitud]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdSolicitud</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdSolicitud</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\DetalleRegistroIndicador\Lookup.Inputs[Lookup Input].Columns[IdFormulario]"
                       cachedDataType="i4"
                       cachedName="IdFormulario"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\DetalleRegistroIndicador\RegistroIndicadorDetalle.Outputs[OLE DB Source Output].Columns[IdFormulario]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\DetalleRegistroIndicador\RegistroIndicadorDetalle.Outputs[OLE DB Source Output].Columns[IdFormulario]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdFormulario</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdFormulario</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\DetalleRegistroIndicador\Lookup.Inputs[Lookup Input].Columns[IdIndicador]"
                       cachedDataType="i4"
                       cachedName="IdIndicador"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\DetalleRegistroIndicador\RegistroIndicadorDetalle.Outputs[OLE DB Source Output].Columns[IdIndicador]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\DetalleRegistroIndicador\RegistroIndicadorDetalle.Outputs[OLE DB Source Output].Columns[IdIndicador]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdIndicador</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdIndicador</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                   </inputColumns>
@@ -1663,7 +1646,6 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                 <output
                   refId="Package\DetalleRegistroIndicador\Lookup.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\DetalleRegistroIndicador\Lookup.Inputs[Lookup Input]">
@@ -2349,7 +2331,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                   dataType="System.Int32"
                   description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
                   name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
+                  typeConverter="LookupNoMatchBehavior">1</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
@@ -2397,76 +2379,64 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                       refId="Package\RegistroIndicadorCategoria\Lookup.Inputs[Lookup Input].Columns[IdSolicitud]"
                       cachedDataType="i4"
                       cachedName="IdSolicitud"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdSolicitud]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdSolicitud]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdSolicitud</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdSolicitud</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorCategoria\Lookup.Inputs[Lookup Input].Columns[IdFormulario]"
                       cachedDataType="i4"
                       cachedName="IdFormulario"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdFormulario]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdFormulario]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdFormulario</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdFormulario</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorCategoria\Lookup.Inputs[Lookup Input].Columns[IdIndicador]"
                       cachedDataType="i4"
                       cachedName="IdIndicador"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdIndicador</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdIndicador</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorCategoria\Lookup.Inputs[Lookup Input].Columns[idCategoria]"
                       cachedDataType="i4"
                       cachedName="idCategoria"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[idCategoria]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[idCategoria]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">idCategoria</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">idCategoria</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                   </inputColumns>
@@ -2477,7 +2447,6 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                 <output
                   refId="Package\RegistroIndicadorCategoria\Lookup.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\RegistroIndicadorCategoria\Lookup.Inputs[Lookup Input]">
@@ -3529,7 +3498,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                   dataType="System.Int32"
                   description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
                   name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
+                  typeConverter="LookupNoMatchBehavior">1</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
@@ -3577,76 +3546,64 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                       refId="Package\RegistroIndicadorVariable\Lookup.Inputs[Lookup Input].Columns[IdSolicitud]"
                       cachedDataType="i4"
                       cachedName="IdSolicitud"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdSolicitud]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdSolicitud]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdSolicitud</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdSolicitud</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorVariable\Lookup.Inputs[Lookup Input].Columns[IdFormulario]"
                       cachedDataType="i4"
                       cachedName="IdFormulario"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdFormulario]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdFormulario]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdFormulario</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdFormulario</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorVariable\Lookup.Inputs[Lookup Input].Columns[IdIndicador]"
                       cachedDataType="i4"
                       cachedName="IdIndicador"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdIndicador]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdIndicador]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdIndicador</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdIndicador</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorVariable\Lookup.Inputs[Lookup Input].Columns[idVariable]"
                       cachedDataType="i4"
                       cachedName="idVariable"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[idVariable]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[idVariable]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">idVariable</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">idVariable</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                   </inputColumns>
@@ -3657,7 +3614,6 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                 <output
                   refId="Package\RegistroIndicadorVariable\Lookup.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\RegistroIndicadorVariable\Lookup.Inputs[Lookup Input]">
@@ -4261,13 +4217,9 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="210,42"
+          Size="204,42"
           Id="Package\ActualizarRegistroIndicador\Update RegistroIndicador"
           TopLeft="452,317" />
-        <NodeLayout
-          Size="345,42"
-          Id="Package\ActualizarRegistroIndicador\Lookup"
-          TopLeft="279,181" />
         <NodeLayout
           Size="225,42"
           Id="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador"
@@ -4276,20 +4228,36 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
           Size="165,42"
           Id="Package\ActualizarRegistroIndicador\RegistroIndicador"
           TopLeft="248,315" />
+        <NodeLayout
+          Size="115,42"
+          Id="Package\ActualizarRegistroIndicador\Lookup"
+          TopLeft="415,220" />
         <EdgeLayout
           Id="Package\ActualizarRegistroIndicador.Paths[OLE DB Source Output]"
-          TopLeft="449.5,125">
+          TopLeft="447.5,125">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,56"
+              EndConnector="25,95"
               Start="0,0"
-              End="0,48.5">
+              End="25,87.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,48.5" />
+                    End="0,43.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,43.5"
+                    Point2="0,47.5"
+                    Point3="4,47.5" />
+                  <mssgle:LineSegment
+                    End="21,47.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="21,47.5"
+                    Point2="25,47.5"
+                    Point3="25,51.5" />
+                  <mssgle:LineSegment
+                    End="25,87.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4300,73 +4268,73 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
         </EdgeLayout>
         <EdgeLayout
           Id="Package\ActualizarRegistroIndicador.Paths[Lookup No Match Output]"
-          TopLeft="395.333333333333,223">
+          TopLeft="472.5,262">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-64.8333333333333,92"
+              EndConnector="-142,53"
               Start="0,0"
-              End="-64.8333333333333,84.5">
+              End="-142,45.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,33.0548182342758" />
+                    End="0,22.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,33.0548182342758"
-                    Point2="0,37.0548182342758"
-                    Point3="-4,37.0548182342758" />
+                    Point1="0,22.5"
+                    Point2="0,26.5"
+                    Point3="-4,26.5" />
                   <mssgle:LineSegment
-                    End="-60.8333333333333,37.0548182342758" />
+                    End="-138,26.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="-60.8333333333333,37.0548182342758"
-                    Point2="-64.8333333333333,37.0548182342758"
-                    Point3="-64.8333333333333,41.0548182342758" />
+                    Point1="-138,26.5"
+                    Point2="-142,26.5"
+                    Point3="-142,30.5" />
                   <mssgle:LineSegment
-                    End="-64.8333333333333,84.5" />
+                    End="-142,45.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-88.2230533854166,42.0548182342758,111.6127734375,11.609375"
+              BoundingBox="-126.80638671875,31.5,111.6127734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\ActualizarRegistroIndicador.Paths[Lookup Match Output]"
-          TopLeft="507.666666666667,223">
+          TopLeft="490.333333333333,262">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="49.3333333333334,94"
+              EndConnector="63.6666666666667,55"
               Start="0,0"
-              End="49.3333333333334,86.5">
+              End="63.6666666666667,47.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,33.8603577611079" />
+                    End="0,18.4528301886793" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,33.8603577611079"
-                    Point2="0,37.8603577611079"
-                    Point3="4,37.8603577611079" />
+                    Point1="0,18.4528301886793"
+                    Point2="0,22.4528301886793"
+                    Point3="4,22.4528301886793" />
                   <mssgle:LineSegment
-                    End="45.3333333333334,37.8603577611079" />
+                    End="59.6666666666667,22.4528301886793" />
                   <mssgle:CubicBezierSegment
-                    Point1="45.3333333333334,37.8603577611079"
-                    Point2="49.3333333333334,37.8603577611079"
-                    Point3="49.3333333333334,41.8603577611079" />
+                    Point1="59.6666666666667,22.4528301886793"
+                    Point2="63.6666666666667,22.4528301886793"
+                    Point3="63.6666666666667,26.4528301886793" />
                   <mssgle:LineSegment
-                    End="49.3333333333334,86.5" />
+                    End="63.6666666666667,47.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-23.5247200520833,42.8603577611079,96.3827734375,11.609375"
+              BoundingBox="-25.2267057291667,27.4528301886793,114.120078125,16"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -4379,7 +4347,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -4389,7 +4357,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4748,7 +4716,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -4758,7 +4726,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4771,55 +4739,57 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="149,42"
-          Id="Package\RegistroIndicadorVariable\Obtener datos"
-          TopLeft="168,97" />
+          Size="114,42"
+          Id="Package\RegistroIndicadorVariable\Update"
+          TopLeft="395,350" />
         <NodeLayout
           Size="115,42"
           Id="Package\RegistroIndicadorVariable\Lookup"
           TopLeft="228,194" />
-        <EdgeLayout
-          Id="Package\RegistroIndicadorVariable.Paths[OLE DB Source Output]"
-          TopLeft="242.5,139">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="43,55"
-              Start="0,0"
-              End="43,47.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,23.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,23.5"
-                    Point2="0,27.5"
-                    Point3="4,27.5" />
-                  <mssgle:LineSegment
-                    End="39,27.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="39,27.5"
-                    Point2="43,27.5"
-                    Point3="43,31.5" />
-                  <mssgle:LineSegment
-                    End="43,47.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <NodeLayout
           Size="116,42"
           Id="Package\RegistroIndicadorVariable\Insertar"
           TopLeft="83,310" />
         <NodeLayout
-          Size="114,42"
-          Id="Package\RegistroIndicadorVariable\Update"
-          TopLeft="395,350" />
+          Size="149,42"
+          Id="Package\RegistroIndicadorVariable\Obtener datos"
+          TopLeft="168,97" />
+        <EdgeLayout
+          Id="Package\RegistroIndicadorVariable.Paths[Lookup No Match Output]"
+          TopLeft="267.666666666667,236">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-126.666666666667,74"
+              Start="0,0"
+              End="-126.666666666667,66.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.2092624356775" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.2092624356775"
+                    Point2="0,30.2092624356775"
+                    Point3="-4,30.2092624356775" />
+                  <mssgle:LineSegment
+                    End="-122.666666666667,30.2092624356775" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-122.666666666667,30.2092624356775"
+                    Point2="-126.666666666667,30.2092624356775"
+                    Point3="-126.666666666667,34.2092624356775" />
+                  <mssgle:LineSegment
+                    End="-126.666666666667,66.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-119.139720052083,35.2092624356775,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\RegistroIndicadorVariable.Paths[Lookup Match Output]"
           TopLeft="303.333333333333,236">
@@ -4857,39 +4827,37 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\RegistroIndicadorVariable.Paths[Lookup No Match Output]"
-          TopLeft="267.666666666667,236">
+          Id="Package\RegistroIndicadorVariable.Paths[OLE DB Source Output]"
+          TopLeft="242.5,139">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-126.666666666667,74"
+              EndConnector="43,55"
               Start="0,0"
-              End="-126.666666666667,66.5">
+              End="43,47.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,26.2092624356775" />
+                    End="0,23.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,26.2092624356775"
-                    Point2="0,30.2092624356775"
-                    Point3="-4,30.2092624356775" />
+                    Point1="0,23.5"
+                    Point2="0,27.5"
+                    Point3="4,27.5" />
                   <mssgle:LineSegment
-                    End="-122.666666666667,30.2092624356775" />
+                    End="39,27.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="-122.666666666667,30.2092624356775"
-                    Point2="-126.666666666667,30.2092624356775"
-                    Point3="-126.666666666667,34.2092624356775" />
+                    Point1="39,27.5"
+                    Point2="43,27.5"
+                    Point3="43,31.5" />
                   <mssgle:LineSegment
-                    End="-126.666666666667,66.5" />
+                    End="43,47.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-119.139720052083,35.2092624356775,111.6127734375,11.609375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
