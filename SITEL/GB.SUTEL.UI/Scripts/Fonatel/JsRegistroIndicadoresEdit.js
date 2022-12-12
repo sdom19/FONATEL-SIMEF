@@ -371,6 +371,33 @@
             })
         },
 
+        "DescargarExcel": function () {
+
+            $("#loading").fadeIn();
+
+            var idSolicitud = ObtenerValorParametroUrl("idSolicitud");
+            var idFormulario = ObtenerValorParametroUrl("idFormulario");
+
+            execAjaxCall("/EditarFormulario/DescargarExcel", "GET", { idSolicitud, idFormulario })
+                .then((obj) => {
+
+                    
+
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+
+        },
+        
     }
 
 }
@@ -396,38 +423,11 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardarRegis
         });
 });
 
-//CARGAR MODO INFORMARTE
-//$(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCarga, function (e) {
-//    e.preventDefault();
-//    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga de la información?", jsMensajes.Variables.actionType.agregar)
-//        .set('onok', function (closeEvent) {
-//            jsMensajes.Metodos.OkAlertModal("La carga de información ha sido completada")
-//                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/EditarFormulario/Index"; });
-//        });
-//});
-
-$(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargaPrincipal, function () {
-    //jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
-    //    .set('onok', function (closeEvent) {
-    //        jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
-    //            .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index" });
-    //    });
-
-});
-
-//DESCARGAR
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
 
-            var listaParametros = [];
-            listaParametros.push(ObtenerValorParametroUrl("idSolicitud"));
-            listaParametros.push(ObtenerValorParametroUrl("idFormulario"));
-            listaParametros.push($(jsRegistroIndicadorFonatelEdit.Controles.tabRgistroIndicadorActive).attr('data-Indicador'));
-            listaParametros.push($(jsRegistroIndicadorFonatelEdit.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador).val());
-            window.open(jsUtilidades.Variables.urlOrigen + "/EditarFormulario/DescargarExcel?listaParametros=" + listaParametros);
-
-            jsRegistroIndicadorFonatelEdit.Metodos.DescargarExcel();
+            jsRegistroIndicadorFonatelEdit.Consultas.DescargarExcel();
 
        });
 });
