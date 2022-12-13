@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\agent\\_work\\1\\s\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj": {}
+    "C:\\FONATEL-SIMEF\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj": {}
   },
   "projects": {
-    "C:\\agent\\_work\\1\\s\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj": {
+    "C:\\FONATEL-SIMEF\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\agent\\_work\\1\\s\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj",
+        "projectUniqueName": "C:\\FONATEL-SIMEF\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj",
         "projectName": "GB.SIMEF.API",
-        "projectPath": "C:\\agent\\_work\\1\\s\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj",
-        "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "C:\\agent\\_work\\1\\s\\SITEL\\GB.SIMEF.API\\obj\\",
+        "projectPath": "C:\\FONATEL-SIMEF\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.API\\GB.SIMEF.API.csproj",
+        "packagesPath": "C:\\Users\\georgi.mesen\\.nuget\\packages\\",
+        "outputPath": "C:\\FONATEL-SIMEF\\FONATEL-SIMEF\\SITEL\\GB.SIMEF.API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\georgi.mesen\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +22,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\SIGA\\Conector": {},
+          "C:\\SIGA\\FileStream": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,9 +42,21 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.123, )"
+            },
             "EntityFramework": {
               "target": "Package",
               "version": "[6.2.0, )"
+            },
+            "Microsoft.AspNet.WebApi.Core": {
+              "target": "Package",
+              "version": "[5.2.9, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -55,6 +65,10 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[3.1.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
             },
             "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
@@ -87,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.411\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
