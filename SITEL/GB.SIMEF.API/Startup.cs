@@ -21,6 +21,7 @@ namespace GB.SIMEF.API
         {
             Configuration = configuration;
             Connection.DWHSIMEF = Configuration.GetConnectionString("DWHSIMEF");
+            Connection.DWSIGITEL = Configuration.GetConnectionString("DWSIGITEL");
         }
 
         public IConfiguration Configuration { get; }
@@ -31,7 +32,7 @@ namespace GB.SIMEF.API
 
             services.AddDbContext<DWHSIMEFContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DWHSIMEF")));
             services.AddControllers();
-
+            services.AddControllersWithViews().AddNewtonsoftJson();
 
             services.AddSwaggerGen(c =>
             {
