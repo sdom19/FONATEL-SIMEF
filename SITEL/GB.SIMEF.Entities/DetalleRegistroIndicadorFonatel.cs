@@ -17,6 +17,7 @@ namespace GB.SIMEF.Entities
         {
             this.DetalleRegistroIndicadorCategoriaFonatel = new List<DetalleRegistroIndicadorCategoriaFonatel>();
             this.DetalleRegistroIndicadorVariableFonatel = new List<DetalleRegistroIndicadorVariableFonatel>();
+            this.DetalleRegistroIndicadorCategoriaValorFonatel = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
         }
 
 
@@ -46,6 +47,8 @@ namespace GB.SIMEF.Entities
         public virtual List<DetalleRegistroIndicadorCategoriaFonatel> DetalleRegistroIndicadorCategoriaFonatel { get; set; }
         [NotMapped]
         public virtual List<DetalleRegistroIndicadorVariableFonatel> DetalleRegistroIndicadorVariableFonatel { get; set; }
+        [NotMapped]
+        public virtual List<DetalleRegistroIndicadorCategoriaValorFonatel> DetalleRegistroIndicadorCategoriaValorFonatel { get; set; }
 
 
     }

@@ -1,4 +1,6 @@
-﻿@using GB.SIMEF.Resources;
+﻿@model GB.SIMEF.Entities.RegistroIndicadorFonatel
+
+@using GB.SIMEF.Resources;
 
 @{
     ViewBag.Title = "RegistroIndicadorFonatel";
@@ -20,176 +22,91 @@
         </nav>
     </div>
 
-
-
-
     <div class="row">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">Editar Estado Programa </h2>
+            <h2 class="page-title-fonatel text-center">@Model.Formulario</h2>
             <hr />
         </div>
     </div>
 
     <ul class="nav nav-tabs nav-tabs-fonatel mt-4">
-        <li class="active" id="Indicador1"><a data-toggle="tab" href="#menu0">P4 extendido</a></li>
-        <li id="Indicador2"><a data-toggle="tab" href="#menu0">P2-Jefas y menores M43</a></li>
+
+        @foreach (var item in Model.DetalleRegistroIndcadorFonatel.OrderBy(x => x.IdDetalleRegistroIndicador))
+        {
+            <li id="@string.Format("Tab{0}", item.IdDetalleRegistroIndicador)"> <a data-toggle="tab" data-Indicador="@item.IdIndicadorString" href="@string.Format("#menu{0}", item.IdDetalleRegistroIndicador)">@item.TituloHojas</a></li>
+        }
 
     </ul>
 
     <div class="tab-content">
 
-        <div id="menu0" class="tab-pane fade in active">
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label for="txtCantidadRegistroIndicador" class="col-sm-12 col-form-label">@EtiquetasViewRegistroIndicadorFonatel.CantidadFilas</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control form-control-fonatel solo_numeros disabled" id="txtCantidadRegistroIndicador" placeholder="Cantidad de Filas">
-                            <small id="txtCantidadRegistroIndicadorHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 mt-4">
-                    <div class="col-sm-6">
+        @foreach (var item in Model.DetalleRegistroIndcadorFonatel)
+        {
+            <div id="@string.Format("menu{0}", item.IdDetalleRegistroIndicador)" class="tab-pane fade active">
+                <div class="row">
+                    <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasEncargado</label>
-                            <textarea class="form-control form-control-fonatel textarea" id="txtDescripcionRegla" placeholder="Notas"></textarea>
-                            <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                            <label for="txtCantidadRegistroIndicador" class="col-sm-12 col-form-label">@EtiquetasViewRegistroIndicadorFonatel.CantidadFilas</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadRegistroIndicador" disabled placeholder="Cantidad de Filas" value="@item.CantidadFilas">
+                                @*<small id="txtCantidadRegistroIndicadorHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>*@
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasInformante</label>
-                            <textarea class="form-control  form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Notas"></textarea>
 
+                    <div class="col-sm-12 mt-4">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasEncargado</label>
+                                <textarea class="form-control form-control-fonatel textarea" id="txtNotasEncargado" placeholder="Notas">@item.NotasEncargado</textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+
+                            <div class="form-group">
+                                <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasInformante</label>
+                                <textarea class="form-control form-control-fonatel textarea" disabled id="txtNotasInformante" placeholder="Notas">@item.NotasInformante</textarea>
+                                @*<small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>*@
+
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-sm-12 text-center mb-2" style="display: flow-root;">
-                    <input id='inputFileCargarPlantilla' type='file' accept=".csv,.xlsx,.xls" style="display:none;" />
-                    <button id="btnDescargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Descargar" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
-                    <button id="btnCargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-success-fonatel">Cargar plantilla</button>
-                </div>
-            </div>
-
-            <div class="table-responsive table-wrapper-fonatel">
-                <table class="dataTable table-bordered table-condensed table-hover" id="tablaEditarIndicador">
-                    <thead>
-                        <tr>
-                            <th style="min-width:30PX">  </th>
-                            <th class="highlighted" scope="col">Cantidad de torres</th>
-                            <th class="name-col" scope="col">Nombre</th>
-                            <th class="date-col" scope="col">Fecha PES</th>
-                            <th scope="col">Código de distrito</th>
-                            <th scope="col">Longitud</th>
-                            <th scope="col">Latitud</th>
-                            <th scope="col">Tipo de zona</th>
-                            <th scope="col">Región</th>
-                            <th scope="col">Operador</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">APs en servicio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-sm-12 text-center">
-                    <button type="submit" id="btnGuardarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Guardar" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-                    <button type="submit" id="btnValidarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Validar" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
-                    <button type="submit" id="btnCancelarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
-                </div>
-            </div>
-
-        </div>
-
-        <div id="menu1" class="tab-pane fade">
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label for="txtCantidadRegistroIndicador" class="col-sm-12 col-form-label">Cantidad de Filas</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadRegistroIndicador" placeholder="Cantidad de Filas">
-                            <small id="txtCantidadRegistroIndicadorHelp" class="form-text  form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                        </div>
+                    <div class="col-sm-12 text-center mb-2" style="display: flow-root;">
+                        <button id="btnDescargarPlantillaRegistro" disabled data-toggle="tooltip" data-placement="top" title="Descargar" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
+                        <button id="btnCargarPlantillaRegistro" disabled data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-success-fonatel">Cargar plantilla</button>
                     </div>
+
                 </div>
 
-                <div class="col-sm-12 mt-4">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="txtDescripcionRegla" class="col-form-label">Descripción</label>
-                            <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Descripción"></textarea>
-                            <small id="DescripcionReglaHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="txtDescripcionRegla" class="col-form-label">Descripción</label>
-                            <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Descripción"></textarea>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 text-center mb-2" style="display: flow-root;">
-                    <button id="btnDescargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Descargar" class="btn btn-fonatel btn-purple-fonatel">Descargar plantilla</button>
-                    <button id="btnCargarPlantillaRegistro" data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-success-fonatel">Cargar plantilla</button>
+                <div class="table-responsive table-wrapper-fonatel mb-2">
+                    <table class="dataTable table-bordered table-condensed table-hover hidden" id="tablaIndicador">
+                        <thead>
+                            <tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <div class="table-responsive table-wrapper-fonatel">
-                <table class="dataTable datatable_simef table-bordered table-condensed table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Código ZAIG</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Perfil</th>
-                            <th scope="col">Dispositivos totales</th>
-                            <th scope="col">Dispositivo nuevos</th>
-                            <th scope="col">Sesiones</th>
-                            <th scope="col">Trafico MB</th>
-                            <th scope="col">Tipo de zona</th>
-                            <th scope="col">Operador</th>
-                            <th scope="col">Código distrito</th>
-                            <th scope="col">Distrito</th>
-                            <th scope="col">Cantón</th>
-                            <th scope="col">Provincia</th>
-                            <th scope="col">Región</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-sm-12 text-center">
-                    <button type="submit" id="btnValidarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Validar" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
-                    <button type="submit" id="btnGuardarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Guardar" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
-                    <button type="submit" id="btnCancelarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
-                </div>
-            </div>
-        </div>
+        }
 
     </div>
 
     <hr />
-
+    <input id='inputFileCargarPlantilla' type='file' accept=".csv,.xlsx,.xls" style="display:none;" />
     <div class="row mt-4">
         <div class="col-sm-12 text-center">
-            <button type="submit" id="btnCargaRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonCargar</button>
+            <button type="submit" id="btnGuardarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Guardar" class="btn btn-fonatel btn-success">@Etiquetas.BotonGuardar</button>
+            <button type="submit" id="btnValidarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Validar" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
+            <button type="submit" id="btnCancelarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn btn-fonatel btn-danger">@Etiquetas.BotonCancelar</button>
+            <br />
+            <center> <button type="submit" id="btnCargaRegistroIndicador" disabled data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonCargar</button></center>
         </div>
     </div>
-</div>
 
+</div>
 
 <script src="~/Scripts/Fonatel/JsRegistroIndicadoresEdit.js"></script>

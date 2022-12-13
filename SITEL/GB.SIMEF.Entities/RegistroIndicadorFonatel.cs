@@ -39,7 +39,6 @@ namespace GB.SIMEF.Entities
         public string Formulario { get; set; }
         public int IdEstado { get; set; }
         public string Estado { get; set; }
-
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
 
@@ -51,8 +50,22 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string Solicitudid { get; set; }
+
         [NotMapped]
         public string FormularioId { get; set; }
+
+        [NotMapped]
+        public string IndicadorId { get; set; }
+
+        [NotMapped]
+        public EstadoRegistro EstadoRegistro { get; set; }
+
+        [NotMapped]
+
+        public FuentesRegistro Fuente { get; set; }
+
+        [NotMapped]
+        public Solicitud Solicitud { get; set; }
 
     }
 }
