@@ -174,16 +174,72 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ActionResult DescargarExcelUnitario(string idSolicitud, string idFormulario, string idIndicador)
         {
             var Formulario = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormulario, IndicadorId = idIndicador }).objetoRespuesta.Single();
-            var maxFilas = Formulario.DetalleRegistroIndcadorFonatel[0].CantidadFilas;
-            var cantVariables = Formulario.DetalleRegistroIndcadorFonatel[0].DetalleRegistroIndicadorVariableFonatel.Count();
-            var cantCategorias = Formulario.DetalleRegistroIndcadorFonatel[0].DetalleRegistroIndicadorCategoriaFonatel.Count();
+            var Detalle = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, IdFormularioString = idFormulario, IdIndicadorString = idIndicador }).objetoRespuesta.Single();
+
+            var maxFilas = Detalle.CantidadFilas;
+            var cantVariables = Detalle.DetalleRegistroIndicadorVariableFonatel.Count();
+            var cantCategorias = Detalle.DetalleRegistroIndicadorCategoriaFonatel.Count();
             var maxColumnas = cantVariables + cantCategorias;
-            
+
+            int fila = 1;
+            int columna = 0;
+
             MemoryStream stream = new MemoryStream();
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
-                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(Formulario.DetalleRegistroIndcadorFonatel[0].TituloHojas);
+                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(Detalle.TituloHojas);
+
+                for (int i = 0; i < cantVariables; i++)
+                {
+                    worksheetInicio.Cells[fila, columna + 1].Value = Detalle.DetalleRegistroIndicadorVariableFonatel[i].NombreVariable;
+                    worksheetInicio.Cells[fila, columna + 1].Style.Font.Bold = true;
+                    worksheetInicio.Cells[fila, columna + 1].Style.Font.Size = 12;
+                    worksheetInicio.Cells[fila, columna + 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    worksheetInicio.Cells[fila, columna + 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(64, 152, 166));
+                    worksheetInicio.Cells[fila, columna + 1].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                    worksheetInicio.Cells[fila, columna + 1].AutoFitColumns();
+
+                    for (int x = 1; x <= maxFilas; x++)
+                    {
+                        worksheetInicio.Cells[fila + x, columna + 1].Value = "1";
+                        worksheetInicio.Cells[fila + x, columna + 1].Style.Font.Bold = true;
+                        worksheetInicio.Cells[fila + x, columna + 1].Style.Font.Size = 12;
+                        worksheetInicio.Cells[fila + x, columna + 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheetInicio.Cells[fila + x, columna + 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(64, 152, 166));
+                        worksheetInicio.Cells[fila + x, columna + 1].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                        worksheetInicio.Cells[fila + x, columna + 1].AutoFitColumns();
+
+                    }
+
+                    columna++;
+                }
+
+                for (int i = 0; i < cantCategorias; i++)
+                {
+                    var Categoria = Detalle.DetalleRegistroIndicadorCategoriaFonatel[i];
+                    var Valores = Detalle.DetalleRegistroIndicadorCategoriaValorFonatel.Where(x => x.idCategoria == Categoria.idCategoria).ToList();
+
+                    worksheetInicio.Cells[fila, columna + 1].Value = Categoria.NombreCategoria;
+                    worksheetInicio.Cells[fila, columna + 1].Style.Font.Bold = true;
+                    worksheetInicio.Cells[fila, columna + 1].Style.Font.Size = 12;
+                    worksheetInicio.Cells[fila, columna + 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    worksheetInicio.Cells[fila, columna + 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
+                    worksheetInicio.Cells[fila, columna + 1].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                    worksheetInicio.Cells[fila, columna + 1].AutoFitColumns();
+
+                    foreach (var item in Valores)
+                    {
+                        worksheetInicio.Cells[fila + item.NumeroFila, columna + 1].Value = item.Valor;
+                        worksheetInicio.Cells[fila + item.NumeroFila, columna + 1].Style.Font.Size = 12;
+                        worksheetInicio.Cells[fila + item.NumeroFila, columna + 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheetInicio.Cells[fila + item.NumeroFila, columna + 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                        worksheetInicio.Cells[fila + item.NumeroFila, columna + 1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                        worksheetInicio.Cells[fila + item.NumeroFila, columna + 1].AutoFitColumns();
+                    }
+
+                    columna++;
+                }
 
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
@@ -193,7 +249,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return new EmptyResult();
 
         }
-
 
         [HttpPost]
         public async Task<string> CargarExcel(Object datos, int cantidadFilas)

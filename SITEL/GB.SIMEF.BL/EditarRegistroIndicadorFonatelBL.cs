@@ -116,6 +116,7 @@ namespace GB.SIMEF.BL
                     int.TryParse(Utilidades.Desencriptar(objeto.Solicitudid), out int temp);
                     objeto.IdSolicitud = temp;
                 }
+
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
