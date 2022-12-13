@@ -14,7 +14,7 @@ namespace GB.SIMEF.EnvioCorreo
         {
 
 
-            EnvioSolicitudesBL envioSolicitudBL = new EnvioSolicitudesBL();
+            EnvioSolicitudBL envioSolicitudBL = new EnvioSolicitudBL("Proceso aútomatico de envío de correos", "Solicitudes");
             SolicitudBL solicitudBL = new SolicitudBL("Proceso aútomatico de envío de correos", "Solicitudes");
 
 
