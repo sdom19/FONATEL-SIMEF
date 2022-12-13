@@ -71,6 +71,8 @@
     <Compile Include="DetalleFormularioWebBL.cs" />
     <Compile Include="DetalleIndicadorCategoriaBL.cs" />
     <Compile Include="DetalleIndicadorVariablesBL.cs" />
+    <Compile Include="EditarDetalleRegistroIndicadorCategoriaValorFonatelBL.cs" />
+    <Compile Include="EditarDetalleRegistroIndicadorFonatelBL.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatelBL .cs" />
     <Compile Include="DetalleReglasValidacionBL.cs" />
     <Compile Include="DetalleSolicitudesBL.cs" />
@@ -86,6 +88,8 @@
     <Compile Include="EnvioSolicitudBL.cs" />
     <Compile Include="RegistroIndicadorFonatelBL.cs" />
     <Compile Include="ServicioSitelBL.cs" />
+    <Compile Include="EditarRegistroIndicadorFonatelBL.cs" />
+    <Compile Include="RegistroIndicadorFonatelBL.cs" />
     <Compile Include="UsuarioFonatelBL.cs" />
     <Compile Include="MesBL.cs" />
     <Compile Include="OperadorArismeticoBL.cs" />
