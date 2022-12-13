@@ -26,11 +26,7 @@ C:\agent\_work\1\s\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.csp
 C:\agent\_work\1\s\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.csproj.CopyComplete
 C:\agent\_work\1\s\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.exe
 C:\agent\_work\1\s\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.pdb
-C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.csproj.AssemblyReference.cache
-C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.exe.config
-C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.csproj.CoreCompileInputs.cache
-C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.exe
-C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.pdb
+C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\EPPlus.dll
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\GB.SIMEF.EnvioCorreo.exe.config
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\GB.SIMEF.EnvioCorreo.exe
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\GB.SIMEF.EnvioCorreo.pdb
@@ -40,7 +36,6 @@ C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\GB.SIMEF.Entities.dll
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\GB.SIMEF.Resources.dll
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\GB.SIMEF.DAL.dll
-C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\EPPlus.dll
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\Newtonsoft.Json.dll
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\JsonDiffPatchDotNet.dll
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\GB.SUTEL.Entities.dll
@@ -56,4 +51,9 @@ C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\Newtonsoft.Json.xml
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\GB.SUTEL.Entities.pdb
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\bin\Debug\GB.SUTEL.Entities.dll.config
+C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.exe.config
+C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.csproj.CoreCompileInputs.cache
 C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.csproj.CopyComplete
+C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.exe
+C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.pdb
+C:\Users\michael.hernandez\Source\Repos\FONATEL-SIMEF\SITEL\GB.SIMEF.EnvioCorreo\obj\Debug\GB.SIMEF.EnvioCorreo.csproj.AssemblyReference.cache
