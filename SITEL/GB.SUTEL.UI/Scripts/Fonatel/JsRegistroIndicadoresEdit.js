@@ -9,7 +9,6 @@
 
         //TABLA PRINCIPAL DE EDITAR REGISTRO
         "TablaEditarRegistroIndicador": "#TablaEditarRegistroIndicador tbody",
-        "btnDescargaPrincipal": "#TablaEditarRegistroIndicador tbody tr td .btn-download",
 
         //TABLA DETALLES
         "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
@@ -32,8 +31,6 @@
         "btnCancelar": "#btnCancelarRegistroIndicador",
 
         //DESCARGA DE EXCEL
-        "IndicadorCorrecto": "#Indicador1",
-        "IndicadorErroneo": "#Indicador2",
         "fileCargaRegistro":"#fileCargaRegistro",
         "inputFileCargarPlantilla": "#inputFileCargarPlantilla",
 
@@ -54,11 +51,6 @@
         "paginasActualizadasConSelect2_tablaIndicador": {},
         "DetalleRegistroIndicador": [],
         "ListadoDetalleRegistroIndicador": [],
-        "ModoColsuta": false
-    },
-
-    "Mensajes": {
-
     },
 
     "Metodos": {
@@ -170,10 +162,13 @@
             }
         },
 
-        "DescargarExcel": function () {
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
-        },
+        "MetodoDescarga": function (idSolicitud, idFormulario, idIndicador) {
+            
+            window.open(jsUtilidades.Variables.urlOrigen + "/EditarFormulario/DescargarExcelUnitario?idSolicitud=" + idSolicitud + "&idFormulario=" + idFormulario + "&idIndicador=" + idIndicador);
 
+            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado");           
+        },
+        
     },
 
     "Consultas": {
@@ -370,34 +365,7 @@
 
             })
         },
-
-        "DescargarExcel": function () {
-
-            $("#loading").fadeIn();
-
-            var idSolicitud = ObtenerValorParametroUrl("idSolicitud");
-            var idFormulario = ObtenerValorParametroUrl("idFormulario");
-
-            execAjaxCall("/EditarFormulario/DescargarExcel", "GET", { idSolicitud, idFormulario })
-                .then((obj) => {
-
-                    
-
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                    $("#loading").fadeOut();
-                });
-
-        },
-        
+  
     }
 
 }
@@ -410,7 +378,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCancelar, fu
         });
 });
 
-//GUARDAR MODO ENCARGADO
+
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardarRegistroIndicador, function (e) {
 
     e.preventDefault();
@@ -427,7 +395,10 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPla
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
 
-            jsRegistroIndicadorFonatelEdit.Consultas.DescargarExcel();
+            var idSolicitud = ObtenerValorParametroUrl("idSolicitud");
+            var idFormulario = ObtenerValorParametroUrl("idFormulario");
+            var idIndicador = $(jsRegistroIndicadorFonatelEdit.Controles.tabRgistroIndicadorActive).attr("data-Indicador");
+            jsRegistroIndicadorFonatelEdit.Metodos.MetodoDescarga(idSolicitud, idFormulario, idIndicador);
 
        });
 });
@@ -477,6 +448,7 @@ function eventNextPrevDatatable() {
 }
 
 function getTabActivoRegistroIndicador() {
+
     return $(jsRegistroIndicadorFonatelEdit.Controles.tabActivoRegistroIndicador).attr("id");
 }
 

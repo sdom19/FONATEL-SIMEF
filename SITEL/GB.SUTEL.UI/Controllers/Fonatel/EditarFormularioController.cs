@@ -160,8 +160,30 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         columna++;
                     }
 
-
                 }
+
+                Response.BinaryWrite(package.GetAsByteArray());
+                Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
+                Response.AddHeader("content-disposition", "attachment;  filename=" + Formulario.Formulario + ".xlsx");
+            }
+
+            return new EmptyResult();
+        }
+
+        [HttpGet]
+        public ActionResult DescargarExcelUnitario(string idSolicitud, string idFormulario, string idIndicador)
+        {
+            var Formulario = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormulario, IndicadorId = idIndicador }).objetoRespuesta.Single();
+            var maxFilas = Formulario.DetalleRegistroIndcadorFonatel[0].CantidadFilas;
+            var cantVariables = Formulario.DetalleRegistroIndcadorFonatel[0].DetalleRegistroIndicadorVariableFonatel.Count();
+            var cantCategorias = Formulario.DetalleRegistroIndcadorFonatel[0].DetalleRegistroIndicadorCategoriaFonatel.Count();
+            var maxColumnas = cantVariables + cantCategorias;
+            
+            MemoryStream stream = new MemoryStream();
+
+            using (ExcelPackage package = new ExcelPackage(stream))
+            {
+                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(Formulario.DetalleRegistroIndcadorFonatel[0].TituloHojas);
 
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";

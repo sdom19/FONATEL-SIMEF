@@ -50,8 +50,12 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string Solicitudid { get; set; }
+
         [NotMapped]
         public string FormularioId { get; set; }
+
+        [NotMapped]
+        public string IndicadorId { get; set; }
 
         [NotMapped]
         public EstadoRegistro EstadoRegistro { get; set; }
