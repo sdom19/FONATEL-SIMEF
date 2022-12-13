@@ -27,6 +27,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly DetalleSolicitudesBL detalleSolicitudesBL;
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
         private readonly SolicitudEnvioProgramadoBL EnvioProgramadoBL;
+        private readonly EnvioSolicitudBL envioSolicitudBL;
 
 
 
@@ -45,6 +46,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             detalleSolicitudesBL = new DetalleSolicitudesBL();
             EnvioProgramadoBL = new SolicitudEnvioProgramadoBL();
             frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            envioSolicitudBL = new EnvioSolicitudBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
         // GET: Solicitud
@@ -418,12 +420,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> EnvioCorreo(Solicitud objeto)
+        public async Task<string> EnvioSolicitud(EnvioSolicitudes objeto)
         {
-            RespuestaConsulta<bool> result = null;
+            RespuestaConsulta<List<EnvioSolicitudes>> result = null;
             await Task.Run(() =>
             {
-                result = SolicitudesBL.EnvioCorreo(objeto);
+                result = envioSolicitudBL.ActualizarElemento(objeto) ;
             });
             return JsonConvert.SerializeObject(result);
         }

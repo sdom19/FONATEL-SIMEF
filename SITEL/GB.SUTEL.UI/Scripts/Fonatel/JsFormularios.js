@@ -629,7 +629,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e)
     e.preventDefault();
     if (JsFormulario.Metodos.ValidarFormularioIndicador()) {
         if (JsFormulario.Variables.NuevoIndicador === true) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.cancelar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', async function (closeEvent) {
                     await JsFormulario.Consultas.InsertarIndicadores();
                 });

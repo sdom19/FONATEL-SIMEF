@@ -11,8 +11,9 @@
   DTS:LocaleID="5130"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
+  DTS:ProtectionLevel="1"
   DTS:VersionBuild="7"
-  DTS:VersionGUID="{D81D3D52-4B4F-4D11-A14A-3BBA686C9267}">
+  DTS:VersionGUID="{4C3B01C5-DA34-47F2-B9E2-E6EDCDE1BDCF}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -90,8 +91,8 @@
               <connections>
                 <connection
                   refId="Package\Carga de definiciones\Carga de definiciones.Connections[OleDbConnection]"
-                  connectionManagerID="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}:invalid"
-                  connectionManagerRefId="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}:invalid"
+                  connectionManagerID="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[DWSIMEF]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -319,8 +320,8 @@
               <connections>
                 <connection
                   refId="Package\Carga de definiciones\Lectura de deficiones.Connections[OleDbConnection]"
-                  connectionManagerID="{F18F5338-8C65-4779-BF3B-2095830FE784}:invalid"
-                  connectionManagerRefId="{F18F5338-8C65-4779-BF3B-2095830FE784}:invalid"
+                  connectionManagerID="{F18F5338-8C65-4779-BF3B-2095830FE784}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[SIMEFBD]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>

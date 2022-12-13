@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace GB.SIMEF.DAL
 {
-    public class EnvioSolicitudesDAL : BitacoraDAL
+    public class EnvioSolicitudDAL : BitacoraDAL
     {
         private SIMEFContext db;
 
 
-        public List<EnvioSolicitudes> ActualizarDatos(EnvioSolicitudes solicitud)
+        public List<EnvioSolicitudes> ActualizarEnvioSolicitud(EnvioSolicitudes solicitud)
         {
             List<EnvioSolicitudes> envioSolicitudes = new List<EnvioSolicitudes>();
 
@@ -23,12 +23,13 @@ namespace GB.SIMEF.DAL
             {
 
                 envioSolicitudes  = db.Database.SqlQuery<EnvioSolicitudes>
-                ("execute  spActualizarEnvioSolicitudTabla @IdEnvio, @IdSolicitud, @Enviado,@EnvioProgramado, @MensajError",
+                ("execute  spActualizarEnvioSolicitudTabla @IdEnvio, @IdSolicitud, @Enviado,@EnvioProgramado, @MensajError, @EjecutarJob",
                     new SqlParameter("@IdEnvio", solicitud.idEnvio),
                     new SqlParameter("@IdSolicitud", solicitud.IdSolicitud),
                     new SqlParameter("@Enviado", solicitud.Enviado),
                     new SqlParameter("@EnvioProgramado", solicitud.EnvioProgramado),
-                    new SqlParameter("@MensajError", solicitud.MensajError)
+                    new SqlParameter("@MensajError", string.IsNullOrEmpty( solicitud.MensajError)? DBNull.Value.ToString(): solicitud.MensajError),
+                     new SqlParameter("@EjecutarJob", solicitud.EjecutaJob==true?1:0)
                 ).ToList();
 
             }

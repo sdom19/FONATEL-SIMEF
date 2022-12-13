@@ -939,8 +939,11 @@ JsSolicitud = {
             $("#loading").fadeIn();
 
             let objeto = new Object();
-            objeto.id = id;
-            execAjaxCall("/SolicitudFonatel/EnvioCorreo", "POST", objeto = objeto)
+            objeto.IdSolicitudString = id;
+            objeto.Enviado = false;
+            objeto.EnvioProgramado = false,
+            objeto.EjecutaJob = true
+            execAjaxCall("/SolicitudFonatel/EnvioSolicitud", "POST", objeto = objeto)
                 .then((obj) => {
                     if (obj.objetoRespuesta) {
                         jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido enviada")
