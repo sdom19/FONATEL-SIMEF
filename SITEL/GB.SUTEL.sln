@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GB.SIMEF.Excel", "GB.SIMEF.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GB.SIMEF.EnvioCorreo", "GB.SIMEF.EnvioCorreo\GB.SIMEF.EnvioCorreo.csproj", "{838DCFCA-0222-42F6-9319-C7D134824A06}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GB.SIMEF.EnvioCorreo.Setup", "GB.SIMEF.EnvioCorreo.Setup\GB.SIMEF.EnvioCorreo.Setup.vdproj", "{A4AC132C-F83A-42E8-A702-6B86E8922F6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -185,6 +187,9 @@ Global
 		{838DCFCA-0222-42F6-9319-C7D134824A06}.Development|Any CPU.Build.0 = Debug|Any CPU
 		{838DCFCA-0222-42F6-9319-C7D134824A06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{838DCFCA-0222-42F6-9319-C7D134824A06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4AC132C-F83A-42E8-A702-6B86E8922F6B}.Debug|Any CPU.ActiveCfg = Debug
+		{A4AC132C-F83A-42E8-A702-6B86E8922F6B}.Development|Any CPU.ActiveCfg = Debug
+		{A4AC132C-F83A-42E8-A702-6B86E8922F6B}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -214,6 +219,7 @@ Global
 		{25C33FE7-1992-46EA-845B-4BF099EE36A8} = {D8629DE5-4C6A-48A5-9321-115021D253DE}
 		{6E0C3715-0782-42D4-AFB3-45EE0E27338E} = {D8629DE5-4C6A-48A5-9321-115021D253DE}
 		{838DCFCA-0222-42F6-9319-C7D134824A06} = {D8629DE5-4C6A-48A5-9321-115021D253DE}
+		{A4AC132C-F83A-42E8-A702-6B86E8922F6B} = {D8629DE5-4C6A-48A5-9321-115021D253DE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD906248-CBDD-4EF7-B5B0-4D5C31E62DD1}
