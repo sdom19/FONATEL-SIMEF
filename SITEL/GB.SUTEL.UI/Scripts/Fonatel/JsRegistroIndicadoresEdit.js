@@ -6,6 +6,8 @@
         "tabRgistroIndicadorActive": "ul .active a",
         "tabRgistroIndicador": "div.tab-pane",
         "tabActivoRegistroIndicador": "div.tab-pane.active",
+        "tablaIndicador_filter": "div.tab-pane.active #tablaIndicador_filter",
+        "InputBuscar": "div.tab-pane.active #tablaIndicador_filter input",
 
         //TABLA PRINCIPAL DE EDITAR REGISTRO
         "TablaEditarRegistroIndicador": "#TablaEditarRegistroIndicador tbody",
@@ -154,6 +156,7 @@
                         elementoInput.val(item.Valor).change();
                     }
                 });
+                $(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicador_filter).addClass("hidden");
             });
 
             if (!jsRegistroIndicadorFonatelEdit.Variables.ModoConsulta) {
@@ -378,10 +381,10 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCancelar, fu
         });
 });
 
-
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardarRegistroIndicador, function (e) {
 
     e.preventDefault();
+
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
@@ -473,13 +476,11 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndi
     } else {
         jsRegistroIndicadorFonatelEdit.Variables.ModoConsulta = false;
     }
-
 });
     
 $(document).ready(function () {
 
     $(jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador(1)).click();
-
 });
 
 
