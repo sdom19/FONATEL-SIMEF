@@ -71,15 +71,13 @@
     <Compile Include="DetalleFormularioWebBL.cs" />
     <Compile Include="DetalleIndicadorCategoriaBL.cs" />
     <Compile Include="DetalleIndicadorVariablesBL.cs" />
-<<<<<<< HEAD
     <Compile Include="DetalleRegistroIndicadorCategoriaValorFonatelBL.cs" />
-=======
-    <Compile Include="EditarDetalleRegistroIndicadorCategoriaValorFonatelBL.cs" />
-    <Compile Include="EditarDetalleRegistroIndicadorFonatelBL.cs" />
->>>>>>> b1c135a2fbbd34f49a8691b526ff9f549344c1f2
     <Compile Include="DetalleRegistroIndicadorFonatelBL .cs" />
     <Compile Include="DetalleReglasValidacionBL.cs" />
     <Compile Include="DetalleSolicitudesBL.cs" />
+    <Compile Include="EditarDetalleRegistroIndicadorCategoriaValorFonatelBL.cs" />
+    <Compile Include="EditarDetalleRegistroIndicadorFonatelBL.cs" />
+    <Compile Include="EditarRegistroIndicadorFonatelBL.cs" />
     <Compile Include="FormularioWebBL.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
@@ -92,8 +90,6 @@
     <Compile Include="EnvioSolicitudBL.cs" />
     <Compile Include="RegistroIndicadorFonatelBL.cs" />
     <Compile Include="ServicioSitelBL.cs" />
-    <Compile Include="EditarRegistroIndicadorFonatelBL.cs" />
-    <Compile Include="RegistroIndicadorFonatelBL.cs" />
     <Compile Include="UsuarioFonatelBL.cs" />
     <Compile Include="MesBL.cs" />
     <Compile Include="OperadorArismeticoBL.cs" />

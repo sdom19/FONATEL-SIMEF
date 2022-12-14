@@ -69,7 +69,7 @@ namespace GB.SIMEF.DAL
                 idVariable = x.idVariable,
                 NombreVariable = x.NombreVariable,
                 Descripcion = x.Descripcion,
-                html = string.Format(Constantes.EstructuraHtmlRegistroIdicador.Variable, x.NombreVariable)
+                html = string.Format(Constantes.EstructuraHtmlRegistroIndicador.Variable, x.NombreVariable)
 
             }).ToList();
         }
@@ -209,20 +209,20 @@ namespace GB.SIMEF.DAL
             switch (DetalleRegistroIndicadorCategoriaFonatel.IdTipoCategoria)
             {
                 case (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico:
-                    control = string.Format(Constantes.EstructuraHtmlRegistroIdicador.InputAlfanumerico, DetalleRegistroIndicadorCategoriaFonatel.NombreCategoria, DetalleRegistroIndicadorCategoriaFonatel.idCategoria);
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputAlfanumerico, DetalleRegistroIndicadorCategoriaFonatel.NombreCategoria, DetalleRegistroIndicadorCategoriaFonatel.idCategoria);
                     break;
                 case (int)Constantes.TipoDetalleCategoriaEnum.Texto:
-                    control = string.Format(Constantes.EstructuraHtmlRegistroIdicador.InputTexto, DetalleRegistroIndicadorCategoriaFonatel.NombreCategoria, DetalleRegistroIndicadorCategoriaFonatel.idCategoria);
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputTexto, DetalleRegistroIndicadorCategoriaFonatel.NombreCategoria, DetalleRegistroIndicadorCategoriaFonatel.idCategoria);
                     break;
                 case (int)Constantes.TipoDetalleCategoriaEnum.Fecha:
-                    control = string.Format(Constantes.EstructuraHtmlRegistroIdicador.InputFecha, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.RangoMinimo, DetalleRegistroIndicadorCategoriaFonatel.RangoMaximo);
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputFecha, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.RangoMinimo, DetalleRegistroIndicadorCategoriaFonatel.RangoMaximo);
                     break;
                 case (int)Constantes.TipoDetalleCategoriaEnum.Numerico:
-                    control = string.Format(Constantes.EstructuraHtmlRegistroIdicador.InputNumerico, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.RangoMinimo, DetalleRegistroIndicadorCategoriaFonatel.RangoMaximo);
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputNumerico, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.RangoMinimo, DetalleRegistroIndicadorCategoriaFonatel.RangoMaximo);
                     break;
                 default:
 
-                    control = string.Format(Constantes.EstructuraHtmlRegistroIdicador.InputSelect, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.JSON);
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputSelect, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.JSON);
                     break;
             }
             return control;
