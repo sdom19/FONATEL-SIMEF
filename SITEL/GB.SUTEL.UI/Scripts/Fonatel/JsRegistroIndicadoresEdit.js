@@ -1,6 +1,7 @@
 ﻿jsRegistroIndicadorFonatelEdit= {
     "Controles": {
 
+
         //TABS
         "tabRegistroIndicador": (id) => `#Tab${id} a`,
         "tabRgistroIndicadorActive": "ul .active a",
