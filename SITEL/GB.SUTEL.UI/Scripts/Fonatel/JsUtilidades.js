@@ -139,29 +139,6 @@ function CargarDatasourceV2 (table) {
         ordering: false,
         pageLength: 5,
         lengthMenu: [[5, 25, 50, 100], [5, 25, 50, 100]],
-        //"dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
-        //buttons: [
-        //    {
-        //        extend: 'excel',
-        //        text: '<i class="fa fa-file-excel-o" style="color:green;"></i>',
-        //        titleAttr: 'Excel',
-        //        autoPrint: false,
-        //        exportOptions: {
-        //            columns: ':not(.noExport)'
-        //        },
-        //    },
-        //    {
-        //        extend: 'print',
-        //        text: '<i class="fa fa-print" style="color:black;"></i>',
-        //        titleAttr: 'Imprimir',
-        //        autoPrint: false,
-        //        exportOptions: {
-        //            columns: ':not(.noExport)'
-        //        },
-
-        //    },
-
-        //],
         columnDefs: [
             {
                 searchable: true,
