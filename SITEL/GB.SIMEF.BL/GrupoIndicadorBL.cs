@@ -196,7 +196,7 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 09/12/2022
         /// José Navarro Acuña
-        /// Función que retorna los grupo de indicadores de calidad
+        /// Función que retorna los grupos de indicadores de calidad
         /// </summary>
         /// <returns></returns>
         public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosCalidad()
@@ -207,6 +207,56 @@ namespace GB.SIMEF.BL
             {
                 resultado.Accion = (int)Accion.Consultar;
                 var result = grupoIndicadorDAL.ObtenerDatosCalidad();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los grupos de indicadores UIT
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosUIT()
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            try
+            {
+                resultado.Accion = (int)Accion.Consultar;
+                var result = grupoIndicadorDAL.ObtenerDatosUIT();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los grupos de indicadores cruzados
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosCruzado()
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            try
+            {
+                resultado.Accion = (int)Accion.Consultar;
+                var result = grupoIndicadorDAL.ObtenerDatosCruzado();
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }

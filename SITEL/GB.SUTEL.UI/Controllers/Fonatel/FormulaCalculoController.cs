@@ -520,8 +520,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         resultado = grupoIndicadorBL.ObtenerDatosCalidad();
                         break;
                     case FuenteIndicadorEnum.IndicadorUIT:
+                        resultado = grupoIndicadorBL.ObtenerDatosUIT();
                         break;
                     case FuenteIndicadorEnum.IndicadorCruzado:
+                        resultado = grupoIndicadorBL.ObtenerDatosCruzado();
                         break;
                     case FuenteIndicadorEnum.IndicadorFuenteExterna:
                         break;
@@ -560,8 +562,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         resultado = tipoIndicadorBL.ObtenerDatosCalidad();
                         break;
                     case FuenteIndicadorEnum.IndicadorUIT:
+                        resultado = tipoIndicadorBL.ObtenerDatosUIT();
                         break;
                     case FuenteIndicadorEnum.IndicadorCruzado:
+                        resultado = tipoIndicadorBL.ObtenerDatosCruzado();
                         break;
                     case FuenteIndicadorEnum.IndicadorFuenteExterna:
                         break;
@@ -635,8 +639,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         resultado = servicioSitelBL.ObtenerDatosCalidad();
                         break;
                     case FuenteIndicadorEnum.IndicadorUIT:
+                        resultado = servicioSitelBL.ObtenerDatosUIT();
                         break;
                     case FuenteIndicadorEnum.IndicadorCruzado:
+                        resultado = servicioSitelBL.ObtenerDatosCruzado();
                         break;
                     default:
                         resultado.HayError = (int)Error.ErrorSistema;
@@ -657,32 +663,48 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pServicioSitel"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<string> ObtenerIndicadores(Indicador pIndicador, bool pEsFuenteIndicadorFonatel, ServicioSitel pServicioSitel = null)
+        public async Task<string> ObtenerIndicadores(Indicador pIndicador, FuenteIndicadorEnum pFuenteIndicador, ServicioSitel pServicio)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
 
-            if (
-                (string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id) || string.IsNullOrEmpty(pIndicador.TipoIndicadores?.id)) 
-                ||
-                (pEsFuenteIndicadorFonatel && string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
-                ||
-                (!pEsFuenteIndicadorFonatel && string.IsNullOrEmpty(pServicioSitel?.id))
-            )
+            if (pFuenteIndicador != FuenteIndicadorEnum.IndicadorFuenteExterna)
             {
-                resultado.HayError = (int)Error.ErrorControlado;
-                resultado.MensajeError = Errores.CamposIncompletos;
-                return JsonConvert.SerializeObject(resultado);
+                if (
+                    (string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id) || string.IsNullOrEmpty(pIndicador.TipoIndicadores?.id))
+                    ||
+                    (pFuenteIndicador == FuenteIndicadorEnum.IndicadorDGF && string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
+                    ||
+                    (pFuenteIndicador != FuenteIndicadorEnum.IndicadorDGF && string.IsNullOrEmpty(pServicio?.id))
+                )
+                {
+                    resultado.HayError = (int)Error.ErrorControlado;
+                    resultado.MensajeError = Errores.CamposIncompletos;
+                    return JsonConvert.SerializeObject(resultado);
+                }
             }
 
             await Task.Run(() =>
             {
-                if (pEsFuenteIndicadorFonatel)
+                switch (pFuenteIndicador)
                 {
-                    resultado = indicadorFonatelBL.ObtenerDatos(pIndicador);
-                }
-                else
-                {
-                    resultado = indicadorFonatelBL.ObtenerDatosSitel(pIndicador, pServicioSitel);
+                    case FuenteIndicadorEnum.IndicadorDGF:
+                        resultado = indicadorFonatelBL.ObtenerDatos(pIndicador);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorDGM:
+                        resultado = indicadorFonatelBL.ObtenerDatosMercado(pIndicador, pServicio);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorDGC:
+                        break;
+                    case FuenteIndicadorEnum.IndicadorUIT:
+                        break;
+                    case FuenteIndicadorEnum.IndicadorCruzado:
+                        break;
+                    case FuenteIndicadorEnum.IndicadorFuenteExterna:
+                        resultado = indicadorFonatelBL.ObtenerDatosFuenteExterna();
+                        break;
+                    default:
+                        resultado.HayError = (int)Error.ErrorSistema;
+                        break;
                 }
             });
 

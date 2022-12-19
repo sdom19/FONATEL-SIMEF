@@ -91,13 +91,41 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
-        public List<Indicador> ObtenerDatosSitel(Indicador pIndicador, ServicioSitel pServicioSitel)
+        public List<Indicador> ObtenerDatosMercado(Indicador pIndicador, ServicioSitel pServicioSitel)
         {
             List<Indicador> listaIndicadores = new List<Indicador>();
 
-            using (db = new SIMEFContext())
+            using (SIGITELContext db = new SIGITELContext())
             {
-            
+                listaIndicadores = db.Database.SqlQuery<Indicador>(
+                    string.Format(
+                        "select IdIndicador, CodigoIndicador, Indicador from [FONATEL].[viewIndicadorDGM] " +
+                        "where IdTipoIndicador = '{0}' and IdServicio = '{1}' and Agrupacion = '{2}'", 
+                        pIndicador.TipoIndicadores.IdTipoIdicador,
+                        pServicioSitel.Nombre,
+                        pIndicador.GrupoIndicadores.idGrupo
+                        )
+                    ).ToList();
+            }
+
+            return listaIndicadores;
+        }
+
+        /// <summary>
+        /// 19/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores de fuente externa
+        /// </summary>
+        /// <returns></returns>
+        public List<Indicador> ObtenerDatosFuenteExterna()
+        {
+            List<Indicador> listaIndicadores = new List<Indicador>();
+
+            using (SITELContext db = new SITELContext())
+            {
+                listaIndicadores = db.Database.SqlQuery<Indicador>(
+                    "select IdIndicador, id, Nombre from [FONATEL].[viewIndicadorFuenteExterna]"
+                    ).ToList();
             }
 
             return listaIndicadores;

@@ -66,6 +66,13 @@ namespace GB.SIMEF.DAL
                     "from [FONATEL].[viewIndicadorDGM]").ToList();
             }
 
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            {
+                id = Utilidades.Encriptar(x.IdTipoIdicador.ToString()),
+                Nombre = x.Nombre,
+                Estado = x.Estado
+            }).ToList();
+
             return listaTipoIndicadores;
         }
 
@@ -89,6 +96,75 @@ namespace GB.SIMEF.DAL
                     "from [FONATEL].[viewIndicadorDGC]"
                     ).ToList();
             }
+
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            {
+                id = Utilidades.Encriptar(x.IdTipoIdicador.ToString()),
+                Nombre = x.Nombre,
+                Estado = x.Estado
+            }).ToList();
+
+            return listaTipoIndicadores;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de indicadores de UIT
+        /// </summary>
+        /// <returns></returns>
+        public List<TipoIndicadores> ObtenerDatosUIT()
+        {
+            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+
+            using (SITELContext db = new SITELContext())
+            {
+                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
+                    "select distinct " +
+                    "IdTipoIndicador, " +
+                    "TipoIndicador as Nombre, " +
+                    "cast(1 as bit) as Estado " +
+                    "from [FONATEL].[viewIndicadorUIT]"
+                    ).ToList();
+            }
+
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            {
+                id = Utilidades.Encriptar(x.IdTipoIdicador.ToString()),
+                Nombre = x.Nombre,
+                Estado = x.Estado
+            }).ToList();
+
+            return listaTipoIndicadores;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de indicadores cruzados
+        /// </summary>
+        /// <returns></returns>
+        public List<TipoIndicadores> ObtenerDatosCruzado()
+        {
+            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+
+            using (SITELContext db = new SITELContext())
+            {
+                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
+                    "select distinct " +
+                    "IdTipoIndicador, " +
+                    "TipoIndicador as Nombre, " +
+                    "cast(1 as bit) as Estado " +
+                    "from [FONATEL].[viewIndicadorCruzado]"
+                    ).ToList();
+            }
+
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            {
+                id = Utilidades.Encriptar(x.IdTipoIdicador.ToString()),
+                Nombre = x.Nombre,
+                Estado = x.Estado
+            }).ToList();
 
             return listaTipoIndicadores;
         }

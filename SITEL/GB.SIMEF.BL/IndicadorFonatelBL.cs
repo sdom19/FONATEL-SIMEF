@@ -453,6 +453,101 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosMercado()
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+
+            return resultado;
+        }
+
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosCalidad()
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+
+            return resultado;
+        }
+
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosUIT()
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+
+            return resultado;
+        }
+
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosCruzado()
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+
+            return resultado;
+        }
+
+        /// <summary>
+        /// 19/12/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener los indicadores provientes de fuente externa
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosFuenteExterna()
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            try
+            {
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                var result = indicadorFonatelDAL.ObtenerDatosFuenteExterna();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+
+            return resultado;
+        }
+
         /// <summary>
         /// 25/11/2022
         /// José Navarro Acuña
@@ -462,7 +557,7 @@ namespace GB.SIMEF.BL
         /// <param name="pIndicador"></param>
         /// <param name="pServicioSitel"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<Indicador>> ObtenerDatosSitel(Indicador pIndicador, ServicioSitel pServicioSitel)
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosMercado(Indicador pIndicador, ServicioSitel pServicioSitel)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
 
@@ -478,7 +573,7 @@ namespace GB.SIMEF.BL
 
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                var result = indicadorFonatelDAL.ObtenerDatosSitel(pIndicador, pServicioSitel);
+                var result = indicadorFonatelDAL.ObtenerDatosMercado(pIndicador, pServicioSitel);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
