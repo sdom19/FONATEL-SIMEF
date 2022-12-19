@@ -20,8 +20,7 @@ namespace GB.SIMEF.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            Connection.DWHSIMEF = Configuration.GetConnectionString("DWHSIMEF");
-            Connection.DWSIGITEL = Configuration.GetConnectionString("DWSIGITEL");
+            Connection.SIGITELDatabase = Configuration.GetConnectionString("SIGITELDatabase");
         }
 
         public IConfiguration Configuration { get; }

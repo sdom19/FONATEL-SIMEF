@@ -82,7 +82,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             else
             {
                 ViewBag.titulo = EtiquetasViewRelacionCategoria.EditarRelacion;
-                model = listaRelaciones.Where(p=>p.id == id ).Single();
+                model = listaRelaciones.Where(p=>p.IdRelacionCategoria == Convert.ToInt32(Utilidades.Desencriptar( id))).Single();
                 listaCategorias.Add(model.CategoriasDesagregacionid);
             }
 
