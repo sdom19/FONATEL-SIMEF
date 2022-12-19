@@ -179,14 +179,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #region Metodos Async
 
-
-        //private void FiltroIndicadores()
-        //{
-        //    List<Indicador> Indicadores = indicadorfonatelBL
-        //        .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta.Except();
-
-        //    return 
-        //}
         /// <summary>
         /// Fecha 17-08-2022
         /// Michael Hernández Cordero
