@@ -52,6 +52,7 @@
         "ddlAtributosValidosRegla": "#ddlAtributosValidosRegla",
         "ddlCategoríaActualizableRegla": "#ddlCategoríaActualizableRegla",
         "ddlIndicadorSalidaRegla": "#ddlIndicadorSalidaRegla",
+        "ddlVariableComparacionReglaSalida":"#ddlVariableComparacionReglaSalida",
         "ddlIndicadorComparacionReglaEntradaSalida": "#ddlIndicadorComparacionReglaEntradaSalida",
         "ddlVariableComparacionReglaEntradaSalida": "#ddlVariableComparacionReglaEntradaSalida",
         "formularioReglasInput": "#formularioReglas input, textarea",
@@ -522,6 +523,7 @@
                 .then((obj) => {
                     $("a[href='#step-2']").trigger('click');
                     InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
+                    JsReglas.Metodos.BotonFinalizar();
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -795,7 +797,6 @@
                         JsReglas.Variables.ListaDetalleReglas = obj.objetoRespuesta;
                         JsReglas.Metodos.CargarTablaDetalleReglas();
                     }).catch((obj) => {
-                        console.log(obj);
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                             jsMensajes.Metodos.OkAlertErrorModal()
                                 .set('onok', function (closeEvent) { });
@@ -855,6 +856,38 @@
                     if (JsReglas.Variables.esModoEdicion) {
                         $(JsReglas.Controles.ddlVariableComparacionRegla).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.idVariableComparaString).change();
                     }                  
+                })
+                .catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "ConsultaVariablesDatoSalida": function (idIndicadorString) {
+
+            $("#loading").fadeIn();
+
+            execAjaxCall("/ReglasValidacion/ObtenerListaVariablesDato", "GET", { idIndicadorString })
+                .then((obj) => {
+
+                    let html = "<option value=''/>";
+                    for (var i = 0; i < obj.objetoRespuesta.length; i++) {
+                        html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].NombreVariable + "</option>"
+                    }
+                    $(JsReglas.Controles.ddlVariableComparacionReglaSalida).html(html);
+                })
+                .then((obj) => {
+                    if (JsReglas.Variables.esModoEdicion) {
+                        $(JsReglas.Controles.ddlVariableComparacionReglaSalida).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorSalida.idVariableComparaString).change();
+                    }
                 })
                 .catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -986,6 +1019,7 @@
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
                 objetoTipoRegla.reglaIndicadorSalida = {};
                 objetoTipoRegla.reglaIndicadorSalida.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorSalidaRegla).val();
+                objetoTipoRegla.reglaIndicadorSalida.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionReglaSalida).val();
             }
             //REGLA CONTRA INDICADOR DE ENTRADA-SALIDA
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
@@ -1069,6 +1103,7 @@
                 objetoTipoRegla.reglaIndicadorSalida = {};
                 objetoTipoRegla.reglaIndicadorSalida.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaIndicadorSalida.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorSalidaRegla).val();
+                objetoTipoRegla.reglaIndicadorSalida.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionReglaSalida).val();
             }
             //REGLA CONTRA INDICADOR DE ENTRADA-SALIDA
             if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
@@ -1288,6 +1323,7 @@ $(document).on("click", JsReglas.Controles.btnEliminaTipoRegla, function (e) {
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Tipo de Regla?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
+            JsReglas.Variables.esModoEdicion = false;
             JsReglas.Consultas.EliminarDetalleRegla(id);
         });
 });
@@ -1299,7 +1335,6 @@ $(document).on("click", JsReglas.Controles.btnEditTipoRegla, function (e) {
     let id = $(this).attr("data-index");
 
     JsReglas.Metodos.CargarDetallesRegla(id);
-
 
 });
 
@@ -1315,6 +1350,14 @@ $(document).on("change", JsReglas.Controles.ddlIndicadorComparacionRegla, functi
     let idIndicadorString = $(this).val();
     if (idIndicadorString != 0) {
         JsReglas.Consultas.ConsultaVariablesDatoEntrada(idIndicadorString);
+    }
+});
+
+$(document).on("change", JsReglas.Controles.ddlIndicadorSalidaRegla, function () {
+
+    let idIndicadorString = $(this).val();
+    if (idIndicadorString != 0) {
+        JsReglas.Consultas.ConsultaVariablesDatoSalida(idIndicadorString);
     }
 });
 

@@ -12,6 +12,7 @@ namespace GB.SIMEF.DAL
     public class ReglasValicionDAL : BitacoraDAL
     {
         private SIMEFContext db;
+
         #region Metodos Consulta Base de Datos
         /// <summary>
         /// Metodo que carga los registros de categorias de desagregación tipo texto
