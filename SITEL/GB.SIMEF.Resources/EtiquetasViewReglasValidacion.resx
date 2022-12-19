@@ -130,7 +130,7 @@
     <value>Clonar Reglas de Validación</value>
   </data>
   <data name="Comparacion" xml:space="preserve">
-    <value>Comparación</value>
+    <value>Variable Dato de Comparación</value>
   </data>
   <data name="Crear" xml:space="preserve">
     <value>Crear Reglas de Validación</value>
@@ -139,7 +139,7 @@
     <value>Editar Reglas de Validación</value>
   </data>
   <data name="IndicadorComparacion" xml:space="preserve">
-    <value>Indicador Comparación</value>
+    <value>Indicador de Comparación</value>
   </data>
   <data name="IndicadorSalida" xml:space="preserve">
     <value>Indicador de Salida</value>

@@ -12,6 +12,7 @@ namespace GB.SIMEF.DAL
     public class DetalleReglasValicionDAL : BitacoraDAL
     {
         private SIMEFContext db;
+
         #region Metodos Consulta Base de Datos
 
         /// <summary>
@@ -177,6 +178,7 @@ namespace GB.SIMEF.DAL
             if (regla != null)
             {
                 regla.idIndicadorComparaString = Utilidades.Encriptar(regla.IdIndicador.ToString());
+                regla.idVariableComparaString = Utilidades.Encriptar(regla.IdDetalleIndicador.ToString());
             }
 
             return regla;
