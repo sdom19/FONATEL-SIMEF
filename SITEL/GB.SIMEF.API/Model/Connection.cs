@@ -7,8 +7,7 @@ namespace SIMEF.API.Models
 {
     public class Connection
     {
-        public static string DWHSIMEF;
-        public static string DWSIGITEL;
+        public static string SIGITELDatabase;
         //Connection.DWHSIMEF = Configuration.GetConnectionString("DWHSIMEF");
     }
 }

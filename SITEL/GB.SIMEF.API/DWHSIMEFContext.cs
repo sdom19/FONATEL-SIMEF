@@ -20,7 +20,7 @@ namespace SIMEF.API.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(Connection.DWHSIMEF);
+                optionsBuilder.UseSqlServer(Connection.SIGITELDatabase);
             }
         }
 

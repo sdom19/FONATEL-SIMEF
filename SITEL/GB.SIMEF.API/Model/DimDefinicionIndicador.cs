@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("DimDefinicionIndicador", Schema = "SIGITEL")]
+    [Table("DimDefinicionIndicador", Schema = "FONATEL")]
     public class DimDefinicionIndicador
     {
         public DimDefinicionIndicador()
