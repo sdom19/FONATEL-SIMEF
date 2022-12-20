@@ -26,9 +26,9 @@ namespace GB.SIMEF.DAL
 
             using (db = new SIMEFContext())
             {
-                if (pTipoIndicadores.IdTipoIdicador != 0)
+                if (pTipoIndicadores.IdTipoIndicador != 0)
                 {
-                    listaTipoIndicadores = db.TipoIndicadores.Where(x => x.IdTipoIdicador == pTipoIndicadores.IdTipoIdicador && x.Estado == true).ToList();
+                    listaTipoIndicadores = db.TipoIndicadores.Where(x => x.IdTipoIndicador == pTipoIndicadores.IdTipoIndicador && x.Estado == true).ToList();
                 }
                 else
                 {
@@ -38,7 +38,7 @@ namespace GB.SIMEF.DAL
 
             listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
             {
-                id = Utilidades.Encriptar(x.IdTipoIdicador.ToString()),
+                id = Utilidades.Encriptar(x.IdTipoIndicador.ToString()),
                 Nombre = x.Nombre,
                 Estado = x.Estado
             }).ToList();
@@ -62,7 +62,7 @@ namespace GB.SIMEF.DAL
                 List<SUTEL.Entities.TipoIndicador> listaTiposIndicadoresSitel = 
                     db.Database.SqlQuery<SUTEL.Entities.TipoIndicador> // Notar el uso de la clase "TipoIndicador" el cual pertenece al namespace Sitel
                         ("execute spObtenerTipoIndicadoresSitel @pIdTipoIndicador ",
-                        new SqlParameter("@pIdTipoIndicador", pTipoIndicadores.IdTipoIdicador)
+                        new SqlParameter("@pIdTipoIndicador", pTipoIndicadores.IdTipoIndicador)
                     ).ToList();
 
                 listaTiposIndicadores = listaTiposIndicadoresSitel.Select(x => new TipoIndicadores()
@@ -91,7 +91,7 @@ namespace GB.SIMEF.DAL
                 db.SaveChanges();
             }
 
-            pTipoIndicadores.IdTipoIdicador = 0;
+            pTipoIndicadores.IdTipoIndicador = 0;
             listaTipoIndicadores.Add(pTipoIndicadores);
 
             return listaTipoIndicadores;
@@ -113,8 +113,8 @@ namespace GB.SIMEF.DAL
                 db.SaveChanges();
 
                 // EF establecerá el objecto cuando sea guardado
-                pTipoIndicadores.id = Utilidades.Encriptar(pTipoIndicadores.IdTipoIdicador.ToString());
-                pTipoIndicadores.IdTipoIdicador = 0;
+                pTipoIndicadores.id = Utilidades.Encriptar(pTipoIndicadores.IdTipoIndicador.ToString());
+                pTipoIndicadores.IdTipoIndicador = 0;
                 listaTipoIndicadores.Add(pTipoIndicadores);
             }
             return listaTipoIndicadores;
