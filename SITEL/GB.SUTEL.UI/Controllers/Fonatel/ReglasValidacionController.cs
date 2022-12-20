@@ -87,14 +87,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             var ListadoIndicador = indicadorfonatelBL
                 .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
-            var ListadoIndicadorSalida = indicadorfonatelBL
-                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 2 }).objetoRespuesta;
+            var ListadoIndicadorSalida = ListadoIndicador.Where(x => x.IdClasificacion == 2).ToList();
 
-            var ListadoIndicadorEntradaSalida = indicadorfonatelBL
-                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 3 }).objetoRespuesta;
+            var ListadoIndicadorEntradaSalida = ListadoIndicador.Where(x => x.IdClasificacion == 3).ToList();
 
-            var ListadoIndicadorEntrada = indicadorfonatelBL
-                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 4 }).objetoRespuesta;
+            var ListadoIndicadorEntrada = ListadoIndicador.Where(x => x.IdClasificacion == 4).ToList();
 
             var listadoCategoria = categoriasDesagregacionBL
                .ObtenerDatos(new CategoriasDesagregacion() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
@@ -147,14 +144,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 OperadoresBL.ObtenerDatos(new OperadorArismetico()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.IdOperador.ToString(), Text = x.Nombre }).ToList();
 
             ViewBag.ListaIndicadoresSalida =
-                        ListadoIndicadorSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+            ListadoIndicadorSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
             ViewBag.ListaIndicadoresEntradaSalida =
                         ListadoIndicadorEntradaSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
             ViewBag.ListaIndicadoresEntrada =
                         ListadoIndicadorEntrada.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
-
 
             if (!string.IsNullOrEmpty(id))
             {
