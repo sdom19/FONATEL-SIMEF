@@ -57,7 +57,7 @@ namespace GB.SIMEF.DAL
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     IdClasificacion=x.IdClasificacion,
-                    TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),
+                    //TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),
                     ClasificacionIndicadores = ObtenerClasificacionIndicador(x.IdClasificacion),
                     GrupoIndicadores = ObtenerGrupoIndicadores(x.idGrupo),
                     Descripcion = x.Descripcion,
@@ -86,7 +86,7 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 25/11/2022
         /// José Navarro Acuña
-        /// Función que retorna todos los indicadores registrados en el sistema Sitel.
+        /// Función que retorna todos los indicadores registrados en el sistema de mercados.
         /// Se puede realizar un filtrado de acuerdo al objecto que se envia.
         /// </summary>
         /// <param name="pIndicador"></param>
@@ -99,14 +99,124 @@ namespace GB.SIMEF.DAL
             {
                 listaIndicadores = db.Database.SqlQuery<Indicador>(
                     string.Format(
-                        "select IdIndicador, CodigoIndicador, Indicador from [FONATEL].[viewIndicadorDGM] " +
-                        "where IdTipoIndicador = '{0}' and IdServicio = '{1}' and Agrupacion = '{2}'", 
+                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorDGM] " +
+                        "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'", 
                         pIndicador.TipoIndicadores.IdTipoIdicador,
-                        pServicioSitel.Nombre,
-                        pIndicador.GrupoIndicadores.idGrupo
+                        pServicioSitel.IdServicio,
+                        pIndicador.GrupoIndicadores.Nombre
                         )
                     ).ToList();
             }
+
+            listaIndicadores = listaIndicadores.Select(x => new Indicador() {
+                id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                Codigo = x.Codigo,
+                Nombre = x.Nombre,
+            }).ToList();
+
+            return listaIndicadores;
+        }
+
+        /// <summary>
+        /// 25/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores registrados en el sistema de calidad.
+        /// Se puede realizar un filtrado de acuerdo al objecto que se envia.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public List<Indicador> ObtenerDatosCalidad(Indicador pIndicador, ServicioSitel pServicioSitel)
+        {
+            List<IndicadorSitel> listaIndicadoresCalidad = new List<IndicadorSitel>();
+            List<Indicador> listaIndicadores = new List<Indicador>();
+
+            using (CALIDADContext db = new CALIDADContext())
+            {
+                listaIndicadoresCalidad = db.Database.SqlQuery<IndicadorSitel>(
+                    string.Format(
+                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorDGC] " +
+                        "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'",
+                        pIndicador.TipoIndicadores.IdTipoIdicador,
+                        pServicioSitel.IdServicio,
+                        pIndicador.GrupoIndicadores.Nombre
+                        )
+                    ).ToList();
+            }
+
+            listaIndicadores = listaIndicadoresCalidad.Select(x => new Indicador()
+            {
+                id = Utilidades.Encriptar(x.IdIndicador.ToString()),
+                Nombre = x.Nombre
+            }).ToList();
+
+            return listaIndicadores;
+        }
+        
+        /// <summary>
+        /// 20/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores registrados en el sistema de UIT
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <param name="pServicioSitel"></param>
+        /// <returns></returns>
+        public List<Indicador> ObtenerDatosUIT(Indicador pIndicador, ServicioSitel pServicioSitel)
+        {
+            List<Indicador> listaIndicadores = new List<Indicador>();
+
+            using (SITELContext db = new SITELContext())
+            {
+                listaIndicadores = db.Database.SqlQuery<Indicador>(
+                    string.Format(
+                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorUIT] " +
+                        "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'",
+                        pIndicador.TipoIndicadores.IdTipoIdicador,
+                        pServicioSitel.IdServicio,
+                        pIndicador.GrupoIndicadores.Nombre
+                        )
+                    ).ToList();
+            }
+
+            listaIndicadores = listaIndicadores.Select(x => new Indicador()
+            {
+                id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                Nombre = x.Nombre
+            }).ToList();
+
+            return listaIndicadores;
+        }
+
+        /// <summary>
+        /// 20/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores cruzados registrados
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <param name="pServicioSitel"></param>
+        /// <returns></returns>
+        public List<Indicador> ObtenerDatosCruzados(Indicador pIndicador, ServicioSitel pServicioSitel)
+        {
+            List<IndicadorSitel> listaIndicadoresCruzados = new List<IndicadorSitel>();
+            List<Indicador> listaIndicadores = new List<Indicador>();
+
+            using (SITELContext db = new SITELContext())
+            {
+                listaIndicadoresCruzados = db.Database.SqlQuery<IndicadorSitel>(
+                    string.Format(
+                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorCruzado] " +
+                        "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'",
+                        pIndicador.TipoIndicadores.IdTipoIdicador,
+                        pServicioSitel.IdServicio,
+                        pIndicador.GrupoIndicadores.Nombre
+                        )
+                    ).ToList();
+            }
+
+            listaIndicadores = listaIndicadoresCruzados.Select(x => new Indicador()
+            {
+                id = Utilidades.Encriptar(x.IdIndicador.ToString()),
+                Nombre = x.Nombre
+            }).ToList();
 
             return listaIndicadores;
         }
@@ -502,6 +612,17 @@ namespace GB.SIMEF.DAL
                 estado.idEstado = 0;
             }
             return estado;
+        }
+
+        /// <summary>
+        /// 20/12/2022
+        /// José Navarro Acuña
+        /// Clase privada del modelo DAL para el consumo de la vista que consulta los indicadores de calidad
+        /// </summary>
+        private class IndicadorSitel
+        {
+            public string IdIndicador { get; set; } // la diferencia es que los IDs son alfanumericos
+            public string Nombre { get; set; }
         }
         #endregion
     }

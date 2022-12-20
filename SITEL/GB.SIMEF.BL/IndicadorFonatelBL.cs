@@ -453,13 +453,115 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<Indicador>> ObtenerDatosMercado()
+        /// <summary>
+        /// 19/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores de mercado registrados en el sistema
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <param name="pServicioSitel"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosMercado(Indicador pIndicador, ServicioSitel pServicioSitel)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
 
             try
             {
+                pIndicador.GrupoIndicadores.Nombre = pIndicador.GrupoIndicadores.id;
+                pIndicador.GrupoIndicadores.id = string.Empty; // en la vista de mercados no tenemos id de agrupación
 
+                PrepararObjetoIndicador(pIndicador);
+
+                if (!string.IsNullOrEmpty(pServicioSitel?.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pServicioSitel.id), out int number);
+                    pServicioSitel.IdServicio = number;
+                }
+
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                var result = indicadorFonatelDAL.ObtenerDatosMercado(pIndicador, pServicioSitel);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 20/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores de calidad
+        /// Función
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <param name="pServicioSitel"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosCalidad(Indicador pIndicador, ServicioSitel pServicioSitel)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            try
+            {
+                pIndicador.GrupoIndicadores.Nombre = pIndicador.GrupoIndicadores.id;
+                pIndicador.GrupoIndicadores.id = string.Empty; // en la vista de mercados no tenemos id de agrupación
+
+                PrepararObjetoIndicador(pIndicador);
+
+                if (!string.IsNullOrEmpty(pServicioSitel?.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pServicioSitel.id), out int number);
+                    pServicioSitel.IdServicio = number;
+                }
+
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                var result = indicadorFonatelDAL.ObtenerDatosCalidad(pIndicador, pServicioSitel);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 20/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores de UIT
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <param name="pServicioSitel"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosUIT(Indicador pIndicador, ServicioSitel pServicioSitel)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            try
+            {
+                pIndicador.GrupoIndicadores.Nombre = pIndicador.GrupoIndicadores.id;
+                pIndicador.GrupoIndicadores.id = string.Empty; // en la vista de UIT no tenemos id de agrupación
+
+                PrepararObjetoIndicador(pIndicador);
+
+                if (!string.IsNullOrEmpty(pServicioSitel?.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pServicioSitel.id), out int number);
+                    pServicioSitel.IdServicio = number;
+                }
+
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                var result = indicadorFonatelDAL.ObtenerDatosUIT(pIndicador, pServicioSitel);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
             }
             catch (Exception ex)
             {
@@ -470,47 +572,36 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<Indicador>> ObtenerDatosCalidad()
+        /// <summary>
+        /// 20/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores cruzados
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <param name="pServicioSitel"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosCruzado(Indicador pIndicador, ServicioSitel pServicioSitel)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
 
             try
             {
+                pIndicador.GrupoIndicadores.Nombre = pIndicador.GrupoIndicadores.id;
+                pIndicador.GrupoIndicadores.id = string.Empty; // en la vista de UIT no tenemos id de agrupación
 
-            }
-            catch (Exception ex)
-            {
-                resultado.HayError = (int)Error.ErrorSistema;
-                resultado.MensajeError = ex.Message;
-            }
+                PrepararObjetoIndicador(pIndicador);
 
-            return resultado;
-        }
+                if (!string.IsNullOrEmpty(pServicioSitel?.id))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pServicioSitel.id), out int number);
+                    pServicioSitel.IdServicio = number;
+                }
 
-        public RespuestaConsulta<List<Indicador>> ObtenerDatosUIT()
-        {
-            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
-
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                resultado.HayError = (int)Error.ErrorSistema;
-                resultado.MensajeError = ex.Message;
-            }
-
-            return resultado;
-        }
-
-        public RespuestaConsulta<List<Indicador>> ObtenerDatosCruzado()
-        {
-            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
-
-            try
-            {
-
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                var result = indicadorFonatelDAL.ObtenerDatosCruzados(pIndicador, pServicioSitel);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
             }
             catch (Exception ex)
             {
@@ -545,43 +636,6 @@ namespace GB.SIMEF.BL
                 resultado.MensajeError = ex.Message;
             }
 
-            return resultado;
-        }
-
-        /// <summary>
-        /// 25/11/2022
-        /// José Navarro Acuña
-        /// Función que retorna todos los indicadores Sitel registrados en el sistema.
-        /// Se puede realizar un filtrado de acuerdo al objeto que se envia.
-        /// </summary>
-        /// <param name="pIndicador"></param>
-        /// <param name="pServicioSitel"></param>
-        /// <returns></returns>
-        public RespuestaConsulta<List<Indicador>> ObtenerDatosMercado(Indicador pIndicador, ServicioSitel pServicioSitel)
-        {
-            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
-
-            try
-            {
-                PrepararObjetoIndicador(pIndicador);
-
-                if (!string.IsNullOrEmpty(pServicioSitel?.id))
-                {
-                    int.TryParse(Utilidades.Desencriptar(pServicioSitel.id), out int number);
-                    pServicioSitel.IdServicio = number;
-                }
-
-                resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Consultar;
-                var result = indicadorFonatelDAL.ObtenerDatosMercado(pIndicador, pServicioSitel);
-                resultado.objetoRespuesta = result;
-                resultado.CantidadRegistros = result.Count();
-            }
-            catch (Exception ex)
-            {
-                resultado.HayError = (int)Error.ErrorSistema;
-                resultado.MensajeError = ex.Message;
-            }
             return resultado;
         }
 

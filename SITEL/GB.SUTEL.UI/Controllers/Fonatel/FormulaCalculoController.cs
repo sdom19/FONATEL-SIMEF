@@ -694,10 +694,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         resultado = indicadorFonatelBL.ObtenerDatosMercado(pIndicador, pServicio);
                         break;
                     case FuenteIndicadorEnum.IndicadorDGC:
+                        resultado = indicadorFonatelBL.ObtenerDatosCalidad(pIndicador, pServicio);
                         break;
                     case FuenteIndicadorEnum.IndicadorUIT:
+                        resultado = indicadorFonatelBL.ObtenerDatosUIT(pIndicador, pServicio);
                         break;
                     case FuenteIndicadorEnum.IndicadorCruzado:
+                        resultado = indicadorFonatelBL.ObtenerDatosCruzado(pIndicador, pServicio);
                         break;
                     case FuenteIndicadorEnum.IndicadorFuenteExterna:
                         resultado = indicadorFonatelBL.ObtenerDatosFuenteExterna();
@@ -731,15 +734,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.TiposFonatel = Enumerable.Empty<SelectListItem>();
             ViewBag.Indicadores = Enumerable.Empty<SelectListItem>();
             ViewBag.Acumulaciones = Enumerable.Empty<SelectListItem>();
+            ViewBag.IndicadorSalida = Enumerable.Empty<SelectListItem>();
 
             ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { }).objetoRespuesta;
-            ViewBag.IndicadorSalida = indicadorFonatelBL.ObtenerDatos(new Indicador() { }).objetoRespuesta
+
+            List<Indicador> indicadoresDeSalida = indicadorFonatelBL.ObtenerDatos(new Indicador() { }).objetoRespuesta
                 .Where(y => y.IdClasificacion == (int)ClasificacionIndicadorEnum.Salida || y.IdClasificacion == (int)ClasificacionIndicadorEnum.EntradaSalida)
                 .Select(x => new Indicador()
                 {
                     id = x.id,
                     Nombre = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre)
                 }).ToList();
+
+            if (indicadoresDeSalida != null && indicadoresDeSalida.Count > 0)
+            {
+                ViewBag.IndicadorSalida = indicadoresDeSalida;
+            }
 
             if (!string.IsNullOrEmpty(pIdIndicador))
             {

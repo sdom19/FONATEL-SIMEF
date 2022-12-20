@@ -60,7 +60,7 @@ namespace GB.SIMEF.DAL
             {
                 listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
                     "select distinct " +
-                    "IdTipoIndicador, " +
+                    "IdTipoIndicador as IdTipoIdicador, " +
                     "TipoIndicador as Nombre, " +
                     "cast(1 as bit) as Estado " +
                     "from [FONATEL].[viewIndicadorDGM]").ToList();
@@ -90,7 +90,7 @@ namespace GB.SIMEF.DAL
             {
                 listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
                     "select distinct " +
-                    "IdTipoIndicador, " +
+                    "IdTipoIndicador as IdTipoIdicador, " +
                     "TipoIndicador as Nombre, " +
                     "cast(1 as bit) as Estado " +
                     "from [FONATEL].[viewIndicadorDGC]"
@@ -121,7 +121,7 @@ namespace GB.SIMEF.DAL
             {
                 listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
                     "select distinct " +
-                    "IdTipoIndicador, " +
+                    "IdTipoIndicador as IdTipoIdicador, " +
                     "TipoIndicador as Nombre, " +
                     "cast(1 as bit) as Estado " +
                     "from [FONATEL].[viewIndicadorUIT]"
@@ -152,7 +152,7 @@ namespace GB.SIMEF.DAL
             {
                 listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
                     "select distinct " +
-                    "IdTipoIndicador, " +
+                    "IdTipoIndicador as IdTipoIdicador, " +
                     "TipoIndicador as Nombre, " +
                     "cast(1 as bit) as Estado " +
                     "from [FONATEL].[viewIndicadorCruzado]"

@@ -916,6 +916,7 @@ GestionFormulaView = {
             $(GestionFormulaView.Controles.form.ddlClasificacion).empty();
             $(GestionFormulaView.Controles.form.ddlTipoIndicador).empty();
             $(GestionFormulaView.Controles.form.ddlIndicador).empty();
+            $(GestionFormulaView.Controles.form.ddlServicio).empty();
         },
 
         InsertarDatosEnComboBoxGrupo: function (pData) {
@@ -1010,7 +1011,7 @@ GestionFormulaView = {
                 .then(data => {
                     this.InsertarDatosEnComboBoxTipoAcumulacion(data);
                 })
-                .catch(error => { ManejoDeExcepciones(error); console.log(error) })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => { $("#loading").fadeOut(); });
         },
 
@@ -1067,12 +1068,6 @@ GestionFormulaView = {
             let servicio = $(GestionFormulaView.Controles.form.ddlServicio).val();
             let clasificacion = $(GestionFormulaView.Controles.form.ddlClasificacion).val();
             let tipoIndicador = $(GestionFormulaView.Controles.form.ddlTipoIndicador).val();
-
-            console.log("grupo: " + grupo);
-            console.log("servicio: " + servicio);
-            console.log("clasificacion: " + clasificacion);
-            console.log("tipoIndicador: " + tipoIndicador);
-            console.log("------------------------------------------------------ ")
 
             if (grupo != null && grupo != "" && tipoIndicador != null && tipoIndicador != "") {
                 if ((clasificacion != null && clasificacion != "") || (servicio != null && servicio != "")) {
@@ -1181,7 +1176,6 @@ GestionFormulaView = {
             }
             else if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorFuenteExterna) {
                 GestionFormulaView.Metodos.CargarDatosIndicador(fuenteSeleccionada);
-                
             }
             else { // demas fuentes de indicadores
                 GestionFormulaView.Metodos.CargarCatalogosParaFuenteIndicadorFueraDeFonatel(fuenteSeleccionada);
