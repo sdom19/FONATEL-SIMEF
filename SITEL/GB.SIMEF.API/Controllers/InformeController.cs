@@ -63,7 +63,7 @@ namespace GB.SIMEF.API.Controllers
 
             InformeNombreTabla obj = null;
 
-            using (var connection = new SqlConnection(Connection.DWSIGITEL))
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
             {
                 obj = connection.Query<InformeNombreTabla>(SqlQuery, new { nombre = tabla }).Select(x => new InformeNombreTabla
                 {
@@ -84,7 +84,7 @@ namespace GB.SIMEF.API.Controllers
 
             List<InformeFilasValor> lista = null;
 
-            using (var connection = new SqlConnection(Connection.DWSIGITEL))
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
             {
                 lista = connection.Query<InformeFilasValor>(SqlQuery, new { id = IdTabla }).ToList();
 
@@ -98,7 +98,7 @@ namespace GB.SIMEF.API.Controllers
 
             List<InformeEncabezadoTabla> lista = null;
 
-            using (var connection = new SqlConnection(Connection.DWSIGITEL))
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
             {
                 lista = connection.Query<InformeEncabezadoTabla>(SqlQuery, new { id = IdTabla }).ToList();
 

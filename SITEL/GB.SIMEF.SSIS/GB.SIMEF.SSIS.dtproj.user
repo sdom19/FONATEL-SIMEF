@@ -9,7 +9,7 @@
         <WinAuthUserName />
         <WinAuthDomain />
         <ServerName>.</ServerName>
-        <PathOnServer>/SSISDB/SITEL/RegistroIndicador</PathOnServer>
+        <PathOnServer>/SSISDB/SITEL/SIMEF</PathOnServer>
         <UserIDs />
         <UserPasswords />
         <OfflineMode>false</OfflineMode>

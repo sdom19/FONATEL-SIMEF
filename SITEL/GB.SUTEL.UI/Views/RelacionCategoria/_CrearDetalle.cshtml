@@ -52,7 +52,7 @@
 
 
                         </div>
-                    <small id="CategoriaDetalleHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+                    <small id="Categoriaid" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
               
             </div>
 
@@ -60,21 +60,22 @@
         }
 
 
-        <div class="form-group row">
-            <label for="ddlCategoriaDetalle" class="col-sm-12 col-form-label ">@item.CategoriaAtributo.NombreCategoria</label>
+    <div class="form-group row">
+        <label for="ddlCategoriaDetalle" class="col-sm-12 col-form-label ">@item.CategoriaAtributo.NombreCategoria</label>
 
-            <div class="select2-wrapper">
-                <select class="listasDesplegables" id="dd_@item.CategoriaAtributo.idCategoria">
-                    <option value="">Seleccione</option>
-                    @foreach (var cat in item.CategoriaAtributo.DetalleCategoriaTexto)
-                    {
-                        <option value="@cat.idCategoriaDetalle">@cat.Etiqueta</option>
-                    }
-                </select>
-            </div>
-
-
+        <div class="select2-wrapper">
+            <select class="listasDesplegables" id="dd_@item.CategoriaAtributo.idCategoria">
+                <option value="">Seleccione</option>
+                @foreach (var cat in item.CategoriaAtributo.DetalleCategoriaTexto)
+                {
+                    <option value="@cat.idCategoriaDetalle">@cat.Etiqueta</option>
+                }
+            </select>
         </div>
+
+        <small id="help_@item.CategoriaAtributo.idCategoria" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+
+    </div>
     </div>
                 opcion = false;
             }

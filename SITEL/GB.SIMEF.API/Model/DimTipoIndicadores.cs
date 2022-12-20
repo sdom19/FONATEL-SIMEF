@@ -7,7 +7,7 @@ namespace SIMEF.API.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("DimTipoIndicadores", Schema = "SIMEF")]
+    [Table("DimTipoIndicadores", Schema = "FONATEL")]
     public partial class DimTipoIndicadores
     {
         public DimTipoIndicadores()

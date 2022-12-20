@@ -98,6 +98,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             var listadoRelaciones = relacionCategoriaBL.ObtenerDatos(new RelacionCategoria()).objetoRespuesta;
 
+            ViewBag.ListaIndicadores =
+                        ListadoIndicador.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+
             ViewBag.ListaCategoria = listadoRelaciones
                 .Where(x=>x.idCategoria!=0)
                 .Select(x => new SelectListItem() { Selected = false, Value = x.CategoriasDesagregacionid.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.CategoriasDesagregacionid.Codigo, x.CategoriasDesagregacionid.NombreCategoria) }).ToList();
@@ -112,8 +115,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.ListaOperadores =
                 OperadoresBL.ObtenerDatos(new OperadorArismetico()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.IdOperador.ToString(), Text = x.Nombre }).ToList();
 
-            ViewBag.ListaIndicadores =
-                        ListadoIndicador.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
             ViewBag.ListaIndicadoresSalida =
                         ListadoIndicadorSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();

@@ -1467,6 +1467,26 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Content\sweetalert2-7.32.2\package\sweetalert2.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\GB.SIMEF.BL\GB.SIMEF.BL.csproj">
       <Project>{2809c01e-d303-47ee-b354-7c9ac14c515d}</Project>
       <Name>GB.SIMEF.BL</Name>
@@ -1488,7 +1508,7 @@
       <Name>GB.SUTEL.BL</Name>
     </ProjectReference>
     <ProjectReference Include="..\GB.SUTEL.DAL\GB.SUTEL.DAL.csproj">
-      <Project>{3548F570-BB86-47FA-AD42-CB491214EAC6}</Project>
+      <Project>{3548f570-bb86-47fa-ad42-cb491214eac6}</Project>
       <Name>GB.SUTEL.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\GB.SUTEL.Entities\GB.SUTEL.Entities.csproj">
@@ -1507,26 +1527,6 @@
       <Project>{9b33f131-e6cb-4fb0-916e-ff696437c928}</Project>
       <Name>GB.SUTEL.Shared</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="VBIDE">
-      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>3</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Content\sweetalert2-7.32.2\package\sweetalert2.d.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

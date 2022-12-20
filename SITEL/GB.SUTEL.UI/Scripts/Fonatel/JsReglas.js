@@ -173,7 +173,9 @@
                 html = html + "<td><button type='button' data - toggle='tooltip' data - placement='top' data-index=" + i + " value = '" + detalleReglas.id + "' title = 'Editar' class='btn-icon-base btn-edit' ></button>";
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' data-index=" + i + " title='Eliminar' value = '" + detalleReglas.id + "' class='btn-icon-base btn-delete'></button></td></tr>";
             }
+
             $(JsReglas.Controles.TablaDetalleReglas).html(html);
+            JsReglas.Metodos.BotonFinalizar();
             CargarDatasource();
         },
 
@@ -460,6 +462,16 @@
             $(JsReglas.Controles.ddlVariableComparacionReglaHelp).addClass("hidden");
             $(JsReglas.Controles.ddlIndicadorComparacionEntradaSalidaHelp).addClass("hidden");
             $(JsReglas.Controles.ddlVariableComparacionEntradaSalidaReglaHelp).addClass("hidden");
+
+        },
+
+        "BotonFinalizar": function () {
+
+            if (JsReglas.Variables.ListaDetalleReglas.length == 0) {
+                $(JsReglas.Controles.btnFinalizar).prop("disabled", true);
+            } else if (JsReglas.Variables.ListaDetalleReglas.length > 0) {
+                $(JsReglas.Controles.btnFinalizar).prop("disabled", false);
+            }
 
         },
 
@@ -1350,11 +1362,12 @@ $(function () {
         if (indicadorHabilitado == "") {
             $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", false);
         } else {
-            $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", true);
+            $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", false);
         }
 
         JsReglas.Metodos.ValidarOpcionSiguiente();
     }
+
     if ($(JsReglas.Controles.FormularioDetalle).length > 0) {
         JsReglas.Consultas.ConsultaListaDetalleReglas();
         JsReglas.Metodos.ValidarOpcionSiguiente();

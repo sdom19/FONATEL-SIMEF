@@ -10,15 +10,17 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class EnvioSolicitudesBL : IMetodos<EnvioSolicitudes>
+    public class EnvioSolicitudBL : IMetodos<EnvioSolicitudes>
     {
         readonly string modulo = "";
         readonly string user = "";
-        private readonly EnvioSolicitudesDAL EnvioSolicitudDAL;
+        private readonly EnvioSolicitudDAL EnvioSolicitudDAL;
         RespuestaConsulta<List<EnvioSolicitudes>> resultado;
-        public EnvioSolicitudesBL()
+        public EnvioSolicitudBL(string modulo, string user)
         {
-            EnvioSolicitudDAL = new EnvioSolicitudesDAL(); 
+            this.user = user;
+            this.modulo = modulo;
+            EnvioSolicitudDAL = new EnvioSolicitudDAL(); 
             resultado = new RespuestaConsulta<List<EnvioSolicitudes>>();
         }
 
@@ -28,7 +30,7 @@ namespace GB.SIMEF.BL
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                resultado.objetoRespuesta = EnvioSolicitudDAL.ActualizarDatos(objeto);
+                resultado.objetoRespuesta = EnvioSolicitudDAL.ActualizarEnvioSolicitud(objeto);
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count();
             }
             catch (Exception ex)

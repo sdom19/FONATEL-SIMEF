@@ -14,7 +14,7 @@ namespace GB.SIMEF.EnvioCorreo
         {
 
 
-            EnvioSolicitudesBL envioSolicitudBL = new EnvioSolicitudesBL();
+            EnvioSolicitudBL envioSolicitudBL = new EnvioSolicitudBL("Proceso aútomatico de envío de correos", "Solicitudes");
             SolicitudBL solicitudBL = new SolicitudBL("Proceso aútomatico de envío de correos", "Solicitudes");
 
 
@@ -22,16 +22,16 @@ namespace GB.SIMEF.EnvioCorreo
 
             foreach (var item in envioSolicitud)
             {
-                bool respuesta=solicitudBL.EnvioCorreo(new Solicitud() { idSolicitud = item.IdSolicitud }).objetoRespuesta;
+                bool respuesta = solicitudBL.EnvioCorreo(new Solicitud() { idSolicitud = item.IdSolicitud }).objetoRespuesta;
                 item.Enviado = respuesta;
-                item.MensajError = respuesta==true? "Correos envíados":"Correos fallidos";
+                item.MensajError = respuesta == true ? "Correos envíados" : "Correos fallidos";
                 envioSolicitudBL.ActualizarElemento(item);
             }
-            
-            
-            
-            
-            
+
+
+
+
+
 
         }
     }
