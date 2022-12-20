@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="11"
-  DTS:VersionGUID="{BC50EFBB-F4D6-4892-99F2-6F5633AF171D}">
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{05FA7D0E-40D2-4384-8898-CAD2766EF312}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -763,7 +763,7 @@ k.NombreCategoria
 
 from Indicador a
 inner join TipoIndicadores b
-on a.IdTipoIndicador=b.IdTipoIdicador
+on a.IdTipoIndicador=b.IdTipoIndicador
 inner join GrupoIndicadores c
 on c.IdGrupo=a.IdGrupo
 inner join ClasificacionIndicadores d
