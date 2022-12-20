@@ -252,7 +252,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
-        public async Task<string> ActualizarDetalleRegistroIndicadorFonatel(DetalleRegistroIndicadorFonatel obj)
+        public async Task<string> ActualizarDetalleRegistroIndicadorFonatel(List<DetalleRegistroIndicadorFonatel> listaActDetalleRegistroIndicador)
         {
 
             //Creamos una variable resultado de tipo lista DetalleRegistroIndicadorFonatel
@@ -261,7 +261,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
-                result = detalleRegistroIndicadorBL.ActualizarElemento(obj);
+                result = detalleRegistroIndicadorBL.ActualizarDetalleRegistroIndicadorFonatelMultiple(listaActDetalleRegistroIndicador);
             });
 
             //Retornamos un Json con el resultado
