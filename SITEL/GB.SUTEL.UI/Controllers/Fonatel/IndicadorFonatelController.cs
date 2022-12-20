@@ -459,7 +459,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = tipoIndicadorBL.InsertarDatos(new TipoIndicadores()
                 {
                     id = "",
-                    IdTipoIdicador = 0,
+                    IdTipoIndicador = 0,
                     Nombre = pNombre.Trim(),
                     Estado = true // activo
                 });
