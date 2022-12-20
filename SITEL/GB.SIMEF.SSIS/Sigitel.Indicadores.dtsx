@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="12"
-  DTS:VersionGUID="{05FA7D0E-40D2-4384-8898-CAD2766EF312}">
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{C4888D56-BBB6-4EE3-8F18-FB4DF5D99385}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -661,7 +661,7 @@ where a.IdEstado=2</property>
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}"
+              SQLTask:Connection="{0988B716-91C0-48CB-B3C5-49DB1BD91137}"
               SQLTask:SqlStatementSource="truncate table FONATEL.DimDefinicionIndicador" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
