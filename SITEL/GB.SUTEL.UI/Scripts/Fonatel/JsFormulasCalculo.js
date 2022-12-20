@@ -916,6 +916,7 @@ GestionFormulaView = {
             $(GestionFormulaView.Controles.form.ddlClasificacion).empty();
             $(GestionFormulaView.Controles.form.ddlTipoIndicador).empty();
             $(GestionFormulaView.Controles.form.ddlIndicador).empty();
+            $(GestionFormulaView.Controles.form.ddlServicio).empty();
         },
 
         InsertarDatosEnComboBoxGrupo: function (pData) {
@@ -1010,7 +1011,7 @@ GestionFormulaView = {
                 .then(data => {
                     this.InsertarDatosEnComboBoxTipoAcumulacion(data);
                 })
-                .catch(error => { ManejoDeExcepciones(error); console.log(error) })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => { $("#loading").fadeOut(); });
         },
 
@@ -1176,7 +1177,7 @@ GestionFormulaView = {
                 GestionFormulaView.Metodos.CargarCatalogosParaFuenteIndicadorFonatel();
             }
             else if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorFuenteExterna) {
-
+                GestionFormulaView.Metodos.CargarDatosIndicador(fuenteSeleccionada);
             }
             else { // demas fuentes de indicadores
                 GestionFormulaView.Metodos.CargarCatalogosParaFuenteIndicadorFueraDeFonatel(fuenteSeleccionada);
