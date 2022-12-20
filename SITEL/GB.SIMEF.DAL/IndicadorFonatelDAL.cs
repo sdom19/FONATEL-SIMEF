@@ -101,7 +101,7 @@ namespace GB.SIMEF.DAL
                     string.Format(
                         "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorDGM] " +
                         "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'", 
-                        pIndicador.TipoIndicadores.IdTipoIdicador,
+                        pIndicador.TipoIndicadores.IdTipoIndicador,
                         pServicioSitel.IdServicio,
                         pIndicador.GrupoIndicadores.Nombre
                         )
@@ -136,7 +136,7 @@ namespace GB.SIMEF.DAL
                     string.Format(
                         "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorDGC] " +
                         "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'",
-                        pIndicador.TipoIndicadores.IdTipoIdicador,
+                        pIndicador.TipoIndicadores.IdTipoIndicador,
                         pServicioSitel.IdServicio,
                         pIndicador.GrupoIndicadores.Nombre
                         )
@@ -170,7 +170,7 @@ namespace GB.SIMEF.DAL
                     string.Format(
                         "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorUIT] " +
                         "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'",
-                        pIndicador.TipoIndicadores.IdTipoIdicador,
+                        pIndicador.TipoIndicadores.IdTipoIndicador,
                         pServicioSitel.IdServicio,
                         pIndicador.GrupoIndicadores.Nombre
                         )
@@ -205,7 +205,7 @@ namespace GB.SIMEF.DAL
                     string.Format(
                         "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorCruzado] " +
                         "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'",
-                        pIndicador.TipoIndicadores.IdTipoIdicador,
+                        pIndicador.TipoIndicadores.IdTipoIndicador,
                         pServicioSitel.IdServicio,
                         pIndicador.GrupoIndicadores.Nombre
                         )
