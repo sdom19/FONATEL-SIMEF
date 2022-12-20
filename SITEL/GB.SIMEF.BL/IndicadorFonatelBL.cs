@@ -330,7 +330,7 @@ namespace GB.SIMEF.BL
                 }
 
                 // validar si el valor selecionado en los comboboxes existe y se encuentra habilitado
-                if ((pIndicador.esGuardadoParcial && pIndicador.TipoIndicadores.IdTipoIdicador != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
+                if ((pIndicador.esGuardadoParcial && pIndicador.TipoIndicadores.IdTipoIndicador != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
                     if (tipoIndicadorDAL.ObtenerDatos(pIndicador.TipoIndicadores).Count <= 0) 
                     {
@@ -690,7 +690,7 @@ namespace GB.SIMEF.BL
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoIndicadores.id), out int number);
                 pIndicador.IdTipoIndicador = number;
-                pIndicador.TipoIndicadores.IdTipoIdicador = pIndicador.TipoIndicadores != null ? number : 0;
+                pIndicador.TipoIndicadores.IdTipoIndicador = pIndicador.TipoIndicadores != null ? number : 0;
             }
             
             if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))

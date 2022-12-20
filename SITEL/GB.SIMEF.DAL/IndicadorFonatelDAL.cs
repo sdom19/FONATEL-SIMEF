@@ -326,14 +326,14 @@ namespace GB.SIMEF.DAL
         private TipoIndicadores ObtenerTipoIndicador(int pId, bool pUnicamenteActivos = false)
         {
             TipoIndicadores tipoIndicadores = pUnicamenteActivos ?
-                db.TipoIndicadores.Where(i => i.IdTipoIdicador == pId && i.Estado == true).FirstOrDefault()
+                db.TipoIndicadores.Where(i => i.IdTipoIndicador == pId && i.Estado == true).FirstOrDefault()
                 :
-                db.TipoIndicadores.Where(i => i.IdTipoIdicador == pId).FirstOrDefault();
+                db.TipoIndicadores.Where(i => i.IdTipoIndicador == pId).FirstOrDefault();
 
             if (tipoIndicadores != null)
             {
-                tipoIndicadores.id = Utilidades.Encriptar(tipoIndicadores.IdTipoIdicador.ToString());
-                tipoIndicadores.IdTipoIdicador = 0;
+                tipoIndicadores.id = Utilidades.Encriptar(tipoIndicadores.IdTipoIndicador.ToString());
+                tipoIndicadores.IdTipoIndicador = 0;
             }
             return tipoIndicadores;
         }

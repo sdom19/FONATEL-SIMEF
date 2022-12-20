@@ -44,9 +44,9 @@ namespace GB.SIMEF.BL
             try
             {
                 int.TryParse(Utilidades.Desencriptar(pTipoIndicadores.id), out int idDecencriptado);
-                pTipoIndicadores.IdTipoIdicador = idDecencriptado;
+                pTipoIndicadores.IdTipoIndicador = idDecencriptado;
 
-                if (pTipoIndicadores.IdTipoIdicador == 0) // ¿ID descencriptado con éxito?
+                if (pTipoIndicadores.IdTipoIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -55,7 +55,7 @@ namespace GB.SIMEF.BL
                 pTipoIndicadores = tipoIndicadorDAL.ObtenerDatos(pTipoIndicadores).Single();
 
                 // actualizar el estado del indicador
-                pTipoIndicadores.IdTipoIdicador = idDecencriptado;
+                pTipoIndicadores.IdTipoIndicador = idDecencriptado;
                 pTipoIndicadores.Estado = nuevoEstado;
                 List<TipoIndicadores> tipoIndicadorActualizado = tipoIndicadorDAL.ActualizarDatos(pTipoIndicadores);
 
@@ -187,7 +187,7 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(pTipoIndicadores.id))
                 {
                     int.TryParse(Utilidades.Desencriptar(pTipoIndicadores.id), out int idDecencriptado);
-                    pTipoIndicadores.IdTipoIdicador = idDecencriptado;
+                    pTipoIndicadores.IdTipoIndicador = idDecencriptado;
                 }
 
                 resultado.Clase = modulo;
