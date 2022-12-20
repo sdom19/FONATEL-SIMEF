@@ -40,10 +40,10 @@
         "ddlAtributosValidosCategoríaReglaHelp": "#ddlAtributosValidosCategoríaReglaHelp",
         "ddlAtributosValidosReglaHelp": "#ddlAtributosValidosReglaHelp",
         "ddlCategoríaActualizableReglaHelp": "#ddlCategoríaActualizableReglaHelp",
-        "ddlIndicadorSalidaReglaHelp": "#ddlIndicadorSalidaReglaHelp",
         "ddlIndicadorComparacionHelp": "#ddlIndicadorComparacionHelp",
         "ddlVariableComparacionReglaHelp": "#ddlVariableComparacionReglaHelp",
         "ddlIndicadorComparacionEntradaSalidaHelp": "#ddlIndicadorComparacionEntradaSalidaHelp",
+        "ddlVariableComparacionSalidaReglaHelp": "#ddlVariableComparacionSalidaReglaHelp",
         "ddlVariableComparacionEntradaSalidaReglaHelp": "#ddlVariableComparacionEntradaSalidaReglaHelp",
         "ddlIndicadorComparacionRegla": "#ddlIndicadorComparacionRegla",
         "ddlVariableComparacionRegla": "#ddlVariableComparacionRegla",
@@ -51,8 +51,12 @@
         "ddlAtributosValidosCategoríaRegla": "#ddlAtributosValidosCategoríaRegla",
         "ddlAtributosValidosRegla": "#ddlAtributosValidosRegla",
         "ddlCategoríaActualizableRegla": "#ddlCategoríaActualizableRegla",
+
         "ddlIndicadorSalidaRegla": "#ddlIndicadorSalidaRegla",
+        "ddlIndicadorSalidaReglaHelp": "#ddlIndicadorSalidaReglaHelp",
         "ddlVariableComparacionReglaSalida":"#ddlVariableComparacionReglaSalida",
+        "ddlVariableComparacionSalidaHelp": "#ddlVariableComparacionSalidaHelp",
+
         "ddlIndicadorComparacionReglaEntradaSalida": "#ddlIndicadorComparacionReglaEntradaSalida",
         "ddlVariableComparacionReglaEntradaSalida": "#ddlVariableComparacionReglaEntradaSalida",
         "formularioReglasInput": "#formularioReglas input, textarea",
@@ -265,7 +269,12 @@
             $(JsReglas.Controles.ddlAtributosValidosCategoríaReglaHelp).addClass("hidden");
             $(JsReglas.Controles.ddlAtributosValidosReglaHelp).addClass("hidden");
             $(JsReglas.Controles.ddlCategoríaActualizableReglaHelp).addClass("hidden");
+
             $(JsReglas.Controles.ddlIndicadorSalidaReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlVariableComparacionSalidaHelp).addClass("hidden");
+
+
+
             $(JsReglas.Controles.ddlIndicadorComparacionHelp).addClass("hidden");
             $(JsReglas.Controles.ddlVariableComparacionReglaHelp).addClass("hidden");
             $(JsReglas.Controles.ddlIndicadorComparacionEntradaSalidaHelp).addClass("hidden");
@@ -324,6 +333,11 @@
                     $(JsReglas.Controles.ddlIndicadorSalidaReglaHelp).removeClass("hidden");
                     validarTipo = false;
                 }
+                if ($(JsReglas.Controles.ddlVariableComparacionReglaSalida).val() == 0 || $(JsReglas.Controles.ddlVariableComparacionReglaSalida).val() == null) {
+                    $(JsReglas.Controles.ddlVariableComparacionSalidaHelp).removeClass("hidden");
+                    validarTipo = false;
+                }
+
             }
             if (Tipo == 7) {
                 if ($(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val() == 0 || $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val() == null) {
