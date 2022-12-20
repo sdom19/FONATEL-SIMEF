@@ -66,6 +66,13 @@ namespace GB.SIMEF.DAL
                     "from [FONATEL].[viewIndicadorDGM]").ToList();
             }
 
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            {
+                id = Utilidades.Encriptar(x.IdTipoIdicador.ToString()),
+                Nombre = x.Nombre,
+                Estado = x.Estado
+            }).ToList();
+
             return listaTipoIndicadores;
         }
 

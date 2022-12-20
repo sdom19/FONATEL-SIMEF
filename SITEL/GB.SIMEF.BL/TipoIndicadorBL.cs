@@ -217,6 +217,54 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los tipos indicadores registrado en UIT
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosUIT()
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+
+            try
+            {
+                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosUIT();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los tipos indicadores registrado en UIT
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosCruzado()
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+
+            try
+            {
+                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosCruzado();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
 
         public RespuestaConsulta<List<TipoIndicadores>> ValidarDatos(TipoIndicadores objeto)
         {

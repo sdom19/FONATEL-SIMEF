@@ -97,5 +97,57 @@ namespace GB.SIMEF.DAL
 
             return listaServicioSitel;
         }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de servicios de UIT
+        /// </summary>
+        /// <returns></returns>
+        public List<ServicioSitel> ObtenerDatosUIT()
+        {
+            List<ServicioSitel> listaServicioSitel = new List<ServicioSitel>();
+
+            using (SITELContext db = new SITELContext())
+            {
+                listaServicioSitel = db.Database.SqlQuery<ServicioSitel>
+                    ("select distinct IdServicio, Servicio Nombre from [FONATEL].[viewIndicadorUIT]").ToList();
+            }
+
+            listaServicioSitel = listaServicioSitel.Select(x => new ServicioSitel()
+            {
+                id = Utilidades.Encriptar(x.IdServicio.ToString()),
+                Nombre = x.Nombre,
+                Estado = true
+            }).ToList();
+
+            return listaServicioSitel;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de servicios de indicadores cruzados
+        /// </summary>
+        /// <returns></returns>
+        public List<ServicioSitel> ObtenerDatosCruzados()
+        {
+            List<ServicioSitel> listaServicioSitel = new List<ServicioSitel>();
+
+            using (SITELContext db = new SITELContext())
+            {
+                listaServicioSitel = db.Database.SqlQuery<ServicioSitel>
+                    ("select distinct IdServicio, Servicio Nombre from [FONATEL].[viewIndicadorCruzado]").ToList();
+            }
+
+            listaServicioSitel = listaServicioSitel.Select(x => new ServicioSitel()
+            {
+                id = Utilidades.Encriptar(x.IdServicio.ToString()),
+                Nombre = x.Nombre,
+                Estado = true
+            }).ToList();
+
+            return listaServicioSitel;
+        }
     }
 }

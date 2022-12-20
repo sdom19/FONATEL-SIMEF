@@ -91,7 +91,7 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
-        public List<Indicador> ObtenerDatosSitel(Indicador pIndicador, ServicioSitel pServicioSitel)
+        public List<Indicador> ObtenerDatosMercado(Indicador pIndicador, ServicioSitel pServicioSitel)
         {
             List<Indicador> listaIndicadores = new List<Indicador>();
 
@@ -233,7 +233,9 @@ namespace GB.SIMEF.DAL
 
             using (SITELContext db = new SITELContext())
             {
-            
+                listaIndicadores = db.Database.SqlQuery<Indicador>(
+                    "select IdIndicador, id, Nombre from [FONATEL].[viewIndicadorFuenteExterna]"
+                    ).ToList();
             }
 
             return listaIndicadores;
