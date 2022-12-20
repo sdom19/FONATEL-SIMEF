@@ -80,6 +80,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Create(string id, int? modo)
         {
+            ViewBag.Modo = modo.ToString();
+
+            ReglaValidacion objregla = new ReglaValidacion();
+
             var ListadoIndicador = indicadorfonatelBL
                 .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
@@ -105,8 +109,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (modo == (int)Constantes.Accion.Editar)
             {
-                ViewBag.ListaIndicadores =
-                ListaIndicadoresEnUso.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                if (!string.IsNullOrEmpty(id))
+                {
+                    objregla.id = id;
+                    objregla = reglaBL.ObtenerDatos(objregla).objetoRespuesta.SingleOrDefault();
+
+                    if (objregla.idIndicador == 0)
+                    {
+                        ViewBag.ListaIndicadores =
+                        ListaIndicadoresSinUso.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                    }
+                    else
+                    {                     
+                        ViewBag.ListaIndicadores =
+                        ListaIndicadoresEnUso.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                    }
+                }
             }
             else
             {
@@ -137,9 +155,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.ListaIndicadoresEntrada =
                         ListadoIndicadorEntrada.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
-            ViewBag.Modo = modo.ToString();
-
-            ReglaValidacion objregla = new ReglaValidacion();
 
             if (!string.IsNullOrEmpty(id))
             {
@@ -164,6 +179,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 ViewBag.titulo = EtiquetasViewReglasValidacion.Crear;
             }
+
             return View(objregla);
 
         }
