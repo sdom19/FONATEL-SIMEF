@@ -29,6 +29,9 @@ namespace GB.SIMEF.BL
 
             try
             {
+
+
+                objeto.Codigo = string.Format("HistCod-{0}", DatosHistoricosDAL.ObtenerDatos(new DatoHistorico()).Max().IdHistorico+1);
                 resultado.objetoRespuesta = new List<DatoHistorico>();
 
                 resultado.Clase = modulo;

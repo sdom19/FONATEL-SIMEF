@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class DefinicionIndicadoresController : Controller
     {
 

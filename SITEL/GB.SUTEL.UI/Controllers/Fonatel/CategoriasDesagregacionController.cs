@@ -20,7 +20,7 @@ using OfficeOpenXml;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
- 
+    [AuthorizeUserAttribute]
     public class CategoriasDesagregacionController : Controller
     {
 

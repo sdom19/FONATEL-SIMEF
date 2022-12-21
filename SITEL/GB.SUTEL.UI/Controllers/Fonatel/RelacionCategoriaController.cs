@@ -21,6 +21,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class RelacionCategoriaController : Controller
     {
        
