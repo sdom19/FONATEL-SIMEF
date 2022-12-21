@@ -270,7 +270,7 @@ namespace GB.SIMEF.BL
                         && !detallesActuales.objetoRespuesta[i].id.Equals(pDetalleIndicadorVariables.id)) // en caso de ser modo edición, obviar el propio elemento
                     {
                         errorControlado = true;
-                        throw new Exception(Errores.NombreRegistrado);
+                        throw new Exception(Errores.NombreRegistradoVariableDato);
                     }
                 }
 
