@@ -432,15 +432,6 @@ CreateView = {
     },
 
     Metodos: {
-        ManejoDeExcepciones: function (pError) {
-            if (pError?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
-                jsMensajes.Metodos.OkAlertErrorModal(pError.MensajeError).set('onok', function (closeEvent) { });
-            }
-            else {
-                jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-            }
-        },
-
         // Formulario Indicador
         CrearObjFormularioIndicador: function (pEsGuardadoParcial) {
             let controles = CreateView.Controles.formIndicador;
