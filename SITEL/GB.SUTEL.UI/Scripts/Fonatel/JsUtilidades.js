@@ -512,8 +512,6 @@ function execAjaxCallFile(pURL, pParams = null) {
     })
 }
 
-
-
 /**
  * Permite validar los inputs completados de un formulario.
  * Retorna un objeto con: 
@@ -527,17 +525,28 @@ function ValidarFormulario(pInputs, pExcepciones = []) {
 
     if (pExcepciones.length > 0) {
         inputList = inputList.filter(input => {
-            if (pExcepciones.includes($(input).attr("id"))) return false;
+            let excluirInput = false;
 
-            $(input).attr("class").split(' ').forEach(class_ => {
-                if (pExcepciones.includes(class_)) return false;
-            })
+            if (pExcepciones.includes($(input).attr("id"))) { return false; }
+
+            let cssClass = $(input).attr("class");
+
+            if (cssClass != undefined && cssClass != null) {
+                cssClass.split(' ').forEach(class_ => {
+                    if (pExcepciones.includes(class_)) {
+                        excluirInput = true;
+                        return;
+                    }
+                });
+            }
+            return !excluirInput;
         });
     }
 
     let inputsPendientesCompletar = inputList.filter(input => {
         return $.trim(input.value) == "" || input.value == null;
     });
+
     return { puedeContinuar: inputsPendientesCompletar.length == 0 ? true : false, objetos: inputsPendientesCompletar };
 }
 
