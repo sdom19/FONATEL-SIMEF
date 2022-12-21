@@ -253,8 +253,9 @@ namespace GB.SIMEF.BL
                     throw new Exception(msgIndicadorCompleto);
                 }
 
-                // validar la cantidad de detalles registrados actualmente
-                RespuestaConsulta<List<DetalleIndicadorVariables>> detallesActuales = ObtenerDatos(pDetalleIndicadorVariables);
+                RespuestaConsulta<List<DetalleIndicadorVariables>> detallesActuales = ObtenerDatos(new DetalleIndicadorVariables() { 
+                    idIndicador = pDetalleIndicadorVariables.idIndicador 
+                });
 
                 if (detallesActuales.HayError != (int)Error.NoError)
                 {
@@ -262,11 +263,23 @@ namespace GB.SIMEF.BL
                     throw new Exception(detallesActuales.MensajeError);
                 }
 
+                // validar si existe un detalle con nombre igual
+                for (int i = 0; i < detallesActuales.objetoRespuesta.Count; i++)
+                {
+                    if (detallesActuales.objetoRespuesta[i].NombreVariable.ToUpper().Trim().Equals(pDetalleIndicadorVariables.NombreVariable.ToUpper().Trim()) 
+                        && !detallesActuales.objetoRespuesta[i].id.Equals(pDetalleIndicadorVariables.id)) // en caso de ser modo edición, obviar el propio elemento
+                    {
+                        errorControlado = true;
+                        throw new Exception(Errores.NombreRegistrado);
+                    }
+                }
+
                 bool modoEdicion = detallesActuales.objetoRespuesta.Exists(x => x.id == pDetalleIndicadorVariables.id);
 
-                if (!modoEdicion) // solo en modo creación se realiza la validación de la cantidad
+                if (!modoEdicion) // modo creación
                 {
-                    if (detallesActuales.CantidadRegistros + 1 > indicadorExistente.CantidadVariableDato) // se supera la cantidad establecida en el indicador?
+                    // validar la cantidad de detalles registrados actualmente: ¿se supera la cantidad establecida en el indicador?
+                    if (detallesActuales.CantidadRegistros + 1 > indicadorExistente.CantidadVariableDato)
                     {
                         errorControlado = true;
                         throw new Exception(Errores.CantidadRegistros);

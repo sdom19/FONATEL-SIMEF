@@ -30,15 +30,6 @@
     },
 
     Metodos: {
-        ManejoDeExcepciones: function (pError) {
-            if (pError?.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
-                jsMensajes.Metodos.OkAlertErrorModal(pError.MensajeError).set('onok', function (closeEvent) { });
-            }
-            else {
-                jsMensajes.Metodos.OkAlertErrorModal().set('onok', function (closeEvent) { });
-            }
-        },
-
         CargarTablaIndicadores: function () {
             $("#loading").fadeIn();
 
@@ -134,7 +125,7 @@
                 .then(data => {
                     window.location.href = IndexView.Variables.indexViewURL
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -186,7 +177,7 @@
                 .then(data => {
                     window.location.href = IndexView.Variables.indexViewURL
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -215,7 +206,7 @@
                 .then(data => {
                     window.location.href = IndexView.Variables.indexViewURL
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -416,15 +407,15 @@ CreateView = {
 
         preguntaEliminarTipoIndicador: "¿Desea eliminar el Tipo Indicador?",
         exitoEliminarTipoIndicador: "El Tipo Indicador ha sido eliminado",
-        exitoAgregarTipoIndicador: "El tipo ha sido agregado",
+        exitoAgregarTipoIndicador: "El Tipo Indicador ha sido agregado",
 
         preguntaEliminarGrupo: "¿Desea eliminar el Grupo Indicador?",
         exitoEliminarGrupo: "El Grupo Indicador ha sido eliminado",
-        exitoAgregarGrupo: "El grupo ha sido agregado",
+        exitoAgregarGrupo: "El Grupo Indicador ha sido agregado",
 
         preguntaEliminarUnidad: "¿Desea eliminar la Unidad de Estudio?",
         exitoEliminarUnidad: "La Unidad de Estudio ha sido eliminada",
-        exitoAgregarUnidad: "La unidad de estudio ha sido agregada",
+        exitoAgregarUnidad: "La Unidad de Estudio ha sido agregada",
 
         preguntaEliminarVariable: "¿Desea eliminar la Variable?",
         exitoEliminarVariable: "La Variable ha sido eliminada",
@@ -534,7 +525,7 @@ CreateView = {
                         InsertarParametroUrl("id", data.objetoRespuesta[0].id);
                         $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
                     })
-                    .catch(error => { this.ManejoDeExcepciones(error); })
+                    .catch(error => { ManejoDeExcepciones(error); })
                     .finally(() => {
                         $("#loading").fadeOut();
                     });
@@ -570,7 +561,7 @@ CreateView = {
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador)
                         .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -585,7 +576,7 @@ CreateView = {
                             $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
                         }, 600);
                     })
-                    .catch(error => { this.ManejoDeExcepciones(error); })
+                    .catch(error => { ManejoDeExcepciones(error); })
                     .finally(() => {
                         $("#loading").fadeOut();
                     });
@@ -621,7 +612,7 @@ CreateView = {
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador)
                         .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -637,7 +628,7 @@ CreateView = {
 
                         $(CreateView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
                     })
-                    .catch(error => { this.ManejoDeExcepciones(error); })
+                    .catch(error => { ManejoDeExcepciones(error); })
                     .finally(() => {
                         $("#loading").fadeOut();
                     });
@@ -673,7 +664,7 @@ CreateView = {
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador)
                         .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -692,7 +683,7 @@ CreateView = {
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador)
                         .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -760,7 +751,7 @@ CreateView = {
                             });
                     })
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -791,7 +782,7 @@ CreateView = {
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarTipoIndicador)
                         .set('onok', function (closeEvent) { });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -859,7 +850,7 @@ CreateView = {
                             });
                     })
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -890,7 +881,7 @@ CreateView = {
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarGrupo)
                         .set('onok', function (closeEvent) { });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -958,7 +949,7 @@ CreateView = {
                             });
                     })
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -989,7 +980,7 @@ CreateView = {
                     jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarUnidad)
                         .set('onok', function (closeEvent) { });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -1009,7 +1000,7 @@ CreateView = {
                         CreateView.Variables.listaVariablesDato = data.objetoRespuesta.reduce((map, obj) => (map[obj.id] = obj, map), {});
                         CreateView.Variables.hizoCargaDetallesVariables = true;
                     })
-                    .catch(error => { this.ManejoDeExcepciones(error); })
+                    .catch(error => { ManejoDeExcepciones(error); })
                     .finally(() => {
                         $("#loading").fadeOut();
                     });
@@ -1122,7 +1113,7 @@ CreateView = {
                         CreateView.Metodos.CargarDetallesVariable(pIdIndicador);
                     });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -1159,7 +1150,7 @@ CreateView = {
                             CreateView.Metodos.CargarDetallesVariable(pIdIndicador);
                         });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -1190,7 +1181,7 @@ CreateView = {
                             CreateView.Metodos.CargarDetallesVariable(pIdIndicador);
                         });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -1231,7 +1222,7 @@ CreateView = {
                        
                         CreateView.Variables.hizoCargaDetallesCategorias = true;
                     })
-                    .catch(error => { this.ManejoDeExcepciones(error); })
+                    .catch(error => { ManejoDeExcepciones(error); })
                     .finally(() => {
                         $("#loading").fadeOut();
                     });
@@ -1301,7 +1292,7 @@ CreateView = {
                             data.objetoRespuesta, "idCategoriaDetalleString");
                     }
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -1414,7 +1405,7 @@ CreateView = {
                         CreateView.Metodos.CargarDetallesCategoria(pIdIndicador);
                     });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -1448,7 +1439,7 @@ CreateView = {
                             CreateView.Metodos.CargarDetallesCategoria(pIdIndicador);
                         });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
@@ -1480,7 +1471,7 @@ CreateView = {
                             CreateView.Metodos.CargarDetallesCategoria(pIdIndicador);
                         });
                 })
-                .catch(error => { this.ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
