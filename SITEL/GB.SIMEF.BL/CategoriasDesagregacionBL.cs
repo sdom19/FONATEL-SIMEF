@@ -118,7 +118,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioModificacion = user;
-
+                objeto.idTipoDetalle = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)TipoDetalleCategoriaEnum.Numerico : objeto.idTipoDetalle;
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
@@ -166,11 +166,12 @@ namespace GB.SIMEF.BL
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
                         objeto.idEstado = objeto.EsParcial == true ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
-                        if (objeto.DetalleCategoriaNumerico.Minimo >= objeto.DetalleCategoriaNumerico.Maximo && !objeto.EsParcial)
+                        if ((objeto.DetalleCategoriaNumerico.Minimo >= objeto.DetalleCategoriaNumerico.Maximo) && (!objeto.EsParcial) && (objeto.IdTipoCategoria!=(int)Constantes.TipoCategoriaEnum.VariableDato))
                         {
                             ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                             throw new Exception(Errores.ValorMinimo);
                         }
+                        objeto.idEstado = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)Constantes.EstadosRegistro.Activo : objeto.idEstado;
                         clsDatos.ActualizarDatos(objeto);
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaNumerico.Estado = true;
@@ -366,6 +367,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
+                objeto.idTipoDetalle = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)TipoDetalleCategoriaEnum.Numerico : objeto.idTipoDetalle;
                 List<CategoriasDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
                 if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).ToList().Count() > 0)
                 {
@@ -415,11 +417,12 @@ namespace GB.SIMEF.BL
                     }
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
-                        if (objeto.DetalleCategoriaNumerico.Minimo >= objeto.DetalleCategoriaNumerico.Maximo & objeto.EsParcial == false)
+                        if ((objeto.DetalleCategoriaNumerico.Minimo >= objeto.DetalleCategoriaNumerico.Maximo) && (!objeto.EsParcial) && (objeto.IdTipoCategoria != (int)Constantes.TipoCategoriaEnum.VariableDato))
                         {
                             ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                             throw new Exception(Errores.ValorMinimo);
                         }
+                        objeto.idEstado = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)Constantes.EstadosRegistro.Activo : objeto.idEstado;
                         var result = clsDatos.ActualizarDatos(objeto)
                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;

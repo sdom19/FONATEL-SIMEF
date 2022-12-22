@@ -720,6 +720,27 @@ $(document).on("change", JsCategoria.Controles.ddlTipoDetalle, function () {
 });
 
 
+
+$(document).on("change", JsCategoria.Controles.ddlTipoCategoria, function () {
+    var selected = $(this).val();
+    if (selected == jsUtilidades.Variables.TipoCategoria.VariableDato) {
+        $(JsCategoria.Controles.ddlTipoDetalle).val(jsUtilidades.Variables.TipoDetalleCategoria.Numerico).trigger('change');
+        $(JsCategoria.Controles.txtRangoMaximaCategoria).val(0);
+        $(JsCategoria.Controles.txtRangoMinimaCategoria).val(0);
+        $(JsCategoria.Controles.ddlTipoDetalle).prop("disabled", true);
+        $(JsCategoria.Controles.txtRangoMinimaCategoria).addClass("disabled");
+        $(JsCategoria.Controles.txtRangoMaximaCategoria).addClass("disabled");
+    }
+    else {
+        $(JsCategoria.Controles.ddlTipoDetalle).prop("disabled", false);
+        $(JsCategoria.Controles.txtRangoMinimaCategoria).removeClass("disabled");
+        $(JsCategoria.Controles.txtRangoMaximaCategoria).removeClass("disabled");
+    }
+});
+
+
+
+
 $(document).on("click", JsCategoria.Controles.btnEditarCategoria, function () {
     let id = $(this).val();
     window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
