@@ -202,8 +202,8 @@
                     }
               
                 }
-                else {
-
+                if ($(JsCategoria.Controles.ddlTipoCategoria).val() != jsUtilidades.Variables.TipoCategoria.VariableDato)
+                {
                     if ($(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Alfanumerico || $(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Texto) {
                         if ($(JsCategoria.Controles.txtCantidadDetalleCategoria).val() < 0) {
                             validar = false;
@@ -927,6 +927,14 @@ $(function () {
         var selected = $(JsCategoria.Controles.ddlTipoDetalle).val();
         if (selected > 0) {
             JsCategoria.Metodos.HabilitarControlesTipoCategoria(selected);
+        }
+
+
+
+
+        if ($(JsCategoria.Controles.ddlTipoCategoria).val() == jsUtilidades.Variables.TipoCategoria.VariableDato) {
+            $(JsCategoria.Controles.txtRangoMinimaCategoria).addClass("disabled");
+            $(JsCategoria.Controles.txtRangoMaximaCategoria).addClass("disabled");
         }
     }
     else if ($(JsCategoria.Controles.FormularioDetalle).length > 0) {
