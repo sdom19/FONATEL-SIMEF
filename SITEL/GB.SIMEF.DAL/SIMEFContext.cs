@@ -15,11 +15,7 @@ namespace GB.SIMEF.DAL
         }
 
 
-        public virtual DbSet<DatoHistorico> DatoHistorico { get; set; }
 
-        public virtual DbSet<DetalleDatoHistoricoColumna> DetalleDatoHistoricoColumna { get; set; }
-
-        public virtual DbSet<DetalleDatoHistoricoFila> DetalleDatoHistoricoFila { get; set; }
 
         public virtual DbSet<CategoriasDesagregacion> CategoriasDesagregacion { get; set; }
         public virtual DbSet<DetalleCategoriaTexto> DetalleCategoriaTexto { get; set; }
