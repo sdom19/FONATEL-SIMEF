@@ -66,24 +66,22 @@ namespace GB.SIMEF.BL
 
                     string fuente = objeto.Fuente.Trim();
                     int Cantidad = (int)objeto.CantidadDestinatario;
+                    
+                    var consultardatos = clsDatos.ObtenerDatos(new FuentesRegistro());
 
-                    var resul = clsDatos.ObtenerDatos(new FuentesRegistro());
-                    string valorAnterior = SerializarObjetoBitacora(resul.Where(x=>x.idFuente==objeto.idFuente).Single())  ;
+                    var resul = consultardatos.Where(x => x.idFuente == objeto.idFuente).ToList();
+
+                    string valorAnterior = SerializarObjetoBitacora(resul.Where(x=>x.idFuente==objeto.idFuente).Single());
+
                     objeto = resul.Where(x => x.idFuente == objeto.idFuente).Single();
 
 
-                    if (objeto.CantidadDestinatario == Cantidad && objeto.Fuente == fuente.ToUpper())
-                    {
-                        ResultadoConsulta.objetoRespuesta= resul.Where(x => x.idFuente == objeto.idFuente).ToList();
-                        ResultadoConsulta.CantidadRegistros = 1;
-                        return ResultadoConsulta;
-                    }
-                    else if (resul.Where(x => x.idFuente == objeto.idFuente).Count() == 0)
+                    if (consultardatos.Where(x => x.idFuente == objeto.idFuente).Count() == 0)
                     {
                         ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.NoRegistrosActualizar);
                     }
-                   else if (resul.Where(x => x.idFuente != objeto.idFuente && x.Fuente.ToUpper()==fuente.ToUpper()).Count() > 0)
+                   else if (consultardatos.Where(x => x.idFuente != objeto.idFuente && x.Fuente.ToUpper()==fuente.ToUpper()).Count() > 0)
                     {
                         ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.FuenteRegistrada);
@@ -104,6 +102,7 @@ namespace GB.SIMEF.BL
 
                         objeto.Fuente = fuente;
                         objeto.CantidadDestinatario = Cantidad;
+                        objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
                         clsDatos.ActualizarDatos(objeto);
 
@@ -286,6 +285,7 @@ namespace GB.SIMEF.BL
                 var consultardatos = clsDatos.ObtenerDatos(new FuentesRegistro());
                 if (consultardatos.Where(x=>x.Fuente.ToUpper()==objeto.Fuente.ToUpper()).Count()>0)
                 {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.FuenteRegistrada);
                 }
                 if (objeto.CantidadDestinatario<=0)
@@ -307,7 +307,6 @@ namespace GB.SIMEF.BL
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
-
                 
                 ResultadoConsulta.MensajeError = ex.Message;
             }
