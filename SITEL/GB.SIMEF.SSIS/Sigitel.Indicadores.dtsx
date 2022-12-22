@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="13"
-  DTS:VersionGUID="{C4888D56-BBB6-4EE3-8F18-FB4DF5D99385}">
+  DTS:VersionBuild="19"
+  DTS:VersionGUID="{40BF3DF9-8A03-4880-AB72-211AD263889D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -329,13 +329,13 @@ inner join dbo.GrupoIndicadores b
 on a.IdGrupo=b.IdGrupo
 
 inner join dbo.TipoIndicadores c
-on c.IdTipoIndicador=a.IdIndicador
+on c.IdTipoIndicador=a.IdTipoIndicador
 
 inner join dbo.DefinicionIndicador d
 on d.IdIndicador=a.IdIndicador
-and d.IdEstado=1
+and d.IdEstado=2
 
-where a.IdEstado=2</property>
+where a.IdEstado=2 and a.idClasificacion!=4 and a.visualizasigitel=1</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
@@ -2748,6 +2748,55 @@ and a.IdEstado=2</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="184.8,41.6"
+          Id="Package\Carga Definiciones\Carga de definiciones"
+          TopLeft="45.2,142.2" />
+        <NodeLayout
+          Size="160.8,41.6"
+          Id="Package\Carga Definiciones\Truncate"
+          TopLeft="34.2,21.1999999999999" />
+        <EdgeLayout
+          Id="Package\Carga Definiciones.PrecedenceConstraints[Constraint 3]"
+          TopLeft="114.7,63.1999999999999">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="23,79"
+              Start="0,0"
+              End="23,71.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.5"
+                    Point2="0,39.5"
+                    Point3="4,39.5" />
+                  <mssgle:LineSegment
+                    End="19,39.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="19,39.5"
+                    Point2="23,39.5"
+                    Point3="23,43.5" />
+                  <mssgle:LineSegment
+                    End="23,71.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="292.8,238.4"
+          Size="292.8,281.6"
+          Id="Package\Carga Definiciones"
+          TopLeft="473,610" />
+        <NodeLayout
           Size="188.8,41.6"
           Id="Package\CargaDimIndicadores\CargarTableDimIndicadores"
           TopLeft="17.0000000000001,94.5000000000001" />
@@ -2874,55 +2923,6 @@ and a.IdEstado=2</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="184.8,41.6"
-          Id="Package\Carga Definiciones\Carga de definiciones"
-          TopLeft="45.2,142.2" />
-        <EdgeLayout
-          Id="Package\Carga Definiciones.PrecedenceConstraints[Constraint 3]"
-          TopLeft="114.7,63.1999999999999">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="23,79"
-              Start="0,0"
-              End="23,71.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,35.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,35.5"
-                    Point2="0,39.5"
-                    Point3="4,39.5" />
-                  <mssgle:LineSegment
-                    End="19,39.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="19,39.5"
-                    Point2="23,39.5"
-                    Point3="23,43.5" />
-                  <mssgle:LineSegment
-                    End="23,71.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="160.8,41.6"
-          Id="Package\Carga Definiciones\Truncate"
-          TopLeft="34.2,21.1999999999999" />
-        <ContainerLayout
-          HeaderHeight="43"
-          IsExpanded="True"
-          PanelSize="292.8,238.4"
-          Size="292.8,281.6"
-          Id="Package\Carga Definiciones"
-          TopLeft="473,610" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
           TopLeft="477.8,536.2">
@@ -2960,6 +2960,82 @@ and a.IdEstado=2</property>
       </GraphLayout>
     </LayoutInfo>
   </Package>
+  <TaskHost
+    design-time-name="Package\Carga Definiciones\Carga de definiciones">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="184.8,41.6"
+          Id="Package\Carga Definiciones\Carga de definiciones\Carga de definiciones"
+          TopLeft="322,325" />
+        <NodeLayout
+          Size="183.2,41.6"
+          Id="Package\Carga Definiciones\Carga de definiciones\Lectura de deficiones"
+          TopLeft="232,167" />
+        <EdgeLayout
+          Id="Package\Carga Definiciones\Carga de definiciones.Paths[OLE DB Source Output]"
+          TopLeft="323.6,208.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="90.8,116.4"
+              Start="0,0"
+              End="90.8,108.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,54.2"
+                    Point2="0,58.2"
+                    Point3="4,58.2" />
+                  <mssgle:LineSegment
+                    End="86.8,58.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="86.8,58.2"
+                    Point2="90.8,58.2"
+                    Point3="90.8,62.2" />
+                  <mssgle:LineSegment
+                    End="90.8,108.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Definiciones\Carga de definiciones\Carga de definiciones">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga Definiciones\Carga de definiciones\Lectura de deficiones">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">View</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\CargaDimIndicadores\CargarTableDimIndicadores">
     <LayoutInfo>
@@ -3035,7 +3111,7 @@ and a.IdEstado=2</property>
     design-time-name="Package\CargaGrupos\Carga Datos">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="156.8,41.6"
           Id="Package\CargaGrupos\Carga Datos\OLE DB Destination"
@@ -3063,9 +3139,7 @@ and a.IdEstado=2</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3096,7 +3170,7 @@ and a.IdEstado=2</property>
     design-time-name="Package\CargarTipoIndicadores\Data Flow Task">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="140.8,41.6"
           Id="Package\CargarTipoIndicadores\Data Flow Task\OLE DB Source"
@@ -3136,9 +3210,7 @@ and a.IdEstado=2</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -3162,82 +3234,6 @@ and a.IdEstado=2</property>
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\Carga Definiciones\Carga de definiciones">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="184.8,41.6"
-          Id="Package\Carga Definiciones\Carga de definiciones\Carga de definiciones"
-          TopLeft="322,325" />
-        <NodeLayout
-          Size="183.2,41.6"
-          Id="Package\Carga Definiciones\Carga de definiciones\Lectura de deficiones"
-          TopLeft="232,167" />
-        <EdgeLayout
-          Id="Package\Carga Definiciones\Carga de definiciones.Paths[OLE DB Source Output]"
-          TopLeft="323.6,208.6">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="90.8,116.4"
-              Start="0,0"
-              End="90.8,108.9">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,54.2" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,54.2"
-                    Point2="0,58.2"
-                    Point3="4,58.2" />
-                  <mssgle:LineSegment
-                    End="86.8,58.2" />
-                  <mssgle:CubicBezierSegment
-                    Point1="86.8,58.2"
-                    Point2="90.8,58.2"
-                    Point3="90.8,62.2" />
-                  <mssgle:LineSegment
-                    End="90.8,108.9" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Carga Definiciones\Carga de definiciones\Carga de definiciones">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Carga Definiciones\Carga de definiciones\Lectura de deficiones">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">View</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
