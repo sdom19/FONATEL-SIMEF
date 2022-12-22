@@ -31,7 +31,8 @@
     },
     "Variables": {
         "ListadoFuentes": [],
-        "ListaDestinatarios":[]
+        "ListaDestinatarios": [],
+        "esModoEdicion": false,
     },
 
     "Metodos": {
@@ -53,7 +54,6 @@
                 $(JsFuentes.Controles.btnGuardarFuentesCompleto).prop("disabled", false);
             }
         },
-
         "CargarTablaFuentes": function () {
             let html = "";
             EliminarDatasource();
@@ -211,10 +211,16 @@
                     }
                     else {
                         //$(JsFuentes.Controles.txtidFuente).val(obj.objetoRespuesta[0].id);
-                        InsertarParametroUrl("id", obj.objetoRespuesta[0].id)
-                        JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
-                        JsFuentes.Metodos.HabilitarBotones();
-                        JsFuentes.Metodos.CargarTablaDestinatarios();
+                        if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Editar) {
+                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
+                            JsFuentes.Metodos.HabilitarBotones();
+                            JsFuentes.Metodos.CargarTablaDestinatarios();
+                        } else {
+                            InsertarParametroUrl("id", obj.objetoRespuesta[0].id)
+                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
+                            JsFuentes.Metodos.HabilitarBotones();
+                            JsFuentes.Metodos.CargarTablaDestinatarios();
+                        }
                     }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -304,7 +310,6 @@
                     $("#loading").fadeOut();
                 });
         },
-
         "ConsultarListaDestinatarios": function (id) {
             $("#loading").fadeIn();
             let destinatario = new Object();
@@ -367,7 +372,6 @@ $(document).on("click", JsFuentes.Controles.btnCancelar, function (e) {
         });
 });
 
-
 $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
     e.preventDefault();
     let validar = JsFuentes.Metodos.ValidarFuente();
@@ -380,7 +384,6 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
 
 });
 
-
 $(document).on("click", JsFuentes.Controles.btnSiguienteFuente, function (e) {
     e.preventDefault();
     let validar = JsFuentes.Metodos.ValidarFuente();
@@ -388,9 +391,6 @@ $(document).on("click", JsFuentes.Controles.btnSiguienteFuente, function (e) {
         $(JsFuentes.Controles.step2).trigger('click');
     }
 });
-
-
-
 
 $(document).on("click", JsFuentes.Controles.step2, function (e) {
     let validar = JsFuentes.Metodos.ValidarFuente();
@@ -402,9 +402,6 @@ $(document).on("click", JsFuentes.Controles.step2, function (e) {
     }
 });
 
-
-
-
 $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function (e) {
     e.preventDefault();
  
@@ -413,7 +410,6 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function 
             JsFuentes.Consultas.ActivarFuente();
         });
 });
-
 
 $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e) {
     e.preventDefault();
@@ -441,14 +437,11 @@ $(document).on("click", JsFuentes.Controles.btnBorrarFuente, function () {
         });
 });
 
-
 $(document).on("click", JsFuentes.Controles.btnEditarFuente, function () {
+
     let id = $(this).val();
-    window.location.href = "/Fonatel/Fuentes/Create?id=" + id;
+    window.location.href = "/Fonatel/Fuentes/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
-
-
-
 
 $(document).on("click", JsFuentes.Controles.btnBorrarDetalle, function () {
     let id = $(this).val();
@@ -458,22 +451,15 @@ $(document).on("click", JsFuentes.Controles.btnBorrarDetalle, function () {
         });
 });
 
-
-
 $(document).on("click", JsFuentes.Controles.btnEditarDetalle, function () {
     let id = $(this).val();
     JsFuentes.Consultas.ConsultarDestinatarios(id);
 });
 
-
-
-
-
 $(document).on("click", JsFuentes.Controles.btnAtrasFuentes, function (e) {
     e.preventDefault();
     $("a[href='#step-1']").trigger('click');
 });
-
 
 $(document).on("keyup", JsFuentes.Controles.ControlesStep1, function (e) {
    if ($(JsFuentes.Controles.txtFuente).val().trim().length > 0 && $(JsFuentes.Controles.txtCantidad).val() > 0) {
