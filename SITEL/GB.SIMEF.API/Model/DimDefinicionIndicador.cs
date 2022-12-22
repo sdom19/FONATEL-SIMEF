@@ -18,7 +18,7 @@
         public string Nombre { get; set; }
         public int Idgrupo { get; set; }
         public string Grupo { get; set; }
-        public int IdTipoidicador { get; set; }
+        public int IdTipoindicador { get; set; }
         public string TipoIndicador { get; set; }
         public string Fuente { get; set; }
         public string Notas { get; set; }
