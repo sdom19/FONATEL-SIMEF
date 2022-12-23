@@ -269,8 +269,12 @@
             $(JsReglas.Controles.ddlAtributosValidosCategoríaReglaHelp).addClass("hidden");
             $(JsReglas.Controles.ddlAtributosValidosReglaHelp).addClass("hidden");
             $(JsReglas.Controles.ddlCategoríaActualizableReglaHelp).addClass("hidden");
+
             $(JsReglas.Controles.ddlIndicadorSalidaReglaHelp).addClass("hidden");
             $(JsReglas.Controles.ddlVariableComparacionSalidaHelp).addClass("hidden");
+
+
+
             $(JsReglas.Controles.ddlIndicadorComparacionHelp).addClass("hidden");
             $(JsReglas.Controles.ddlVariableComparacionReglaHelp).addClass("hidden");
             $(JsReglas.Controles.ddlIndicadorComparacionEntradaSalidaHelp).addClass("hidden");
@@ -284,12 +288,13 @@
                 $(JsReglas.Controles.OperadorHelp).removeClass("hidden");
                 validarTipo = false;
             }
-            if (Variable == 0 ) {
+            if (Variable == 0) {
                 $(JsReglas.Controles.VariableHelp).removeClass("hidden");
                 validarTipo = false;
             }
             if (Tipo == 4 && Variable == 0) {
                 $(JsReglas.Controles.VariableHelp).addClass("hidden");
+                validarTipo = false;
             }
             if (Tipo == 0) {
                 $(JsReglas.Controles.TipoReglaHelp).removeClass("hidden");
@@ -527,7 +532,6 @@
 
             $("#loading").fadeIn();
             let objetoRegla = new Object()
-            objetoRegla.id = ObtenerValorParametroUrl("id");
             objetoRegla.Codigo = $(JsReglas.Controles.txtCodigo).val();
             objetoRegla.Nombre = $(JsReglas.Controles.txtNombre).val();
             objetoRegla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
