@@ -27,6 +27,7 @@
             <h2 class="page-title-fonatel text-center">@Model.Formulario</h2>
             <hr />
         </div>
+        <input type="hidden" id="cantidadIndicadores" value="@Model.DetalleRegistroIndcadorFonatel.Count" />
     </div>
 
     <ul class="nav nav-tabs nav-tabs-fonatel mt-4">
@@ -95,12 +96,17 @@
 
     </div>
 
-    <hr />
     <input id='inputFileCargarPlantilla' type='file' accept=".csv,.xlsx,.xls" style="display:none;" />
+
+    <div class="row mt-4">
+        <div class="col-sm-12 text-center">
+            <button type="submit" id="btnValidarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Validar" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
+        </div>
+    </div>
+    <hr />
     <div class="row mt-4">
         <div class="col-sm-12 text-center">
             <button type="submit" id="btnGuardarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Guardar" class="btn btn-fonatel btn-success">@Etiquetas.BotonGuardar</button>
-            <button type="submit" id="btnValidarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Validar" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
             <button type="submit" id="btnCancelarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Cancelar" class="btn btn-fonatel btn-danger">@Etiquetas.BotonCancelar</button>
             <br />
             <center> <button type="submit" id="btnCargaRegistroIndicador" disabled data-toggle="tooltip" data-placement="top" title="Cargar" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonCargar</button></center>

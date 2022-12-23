@@ -292,6 +292,10 @@
                 $(JsReglas.Controles.VariableHelp).removeClass("hidden");
                 validarTipo = false;
             }
+            if (Tipo == 4 && Variable == 0) {
+                $(JsReglas.Controles.VariableHelp).addClass("hidden");
+                validarTipo = false;
+            }
             if (Tipo == 0) {
                 $(JsReglas.Controles.TipoReglaHelp).removeClass("hidden");
                 validarTipo = false;

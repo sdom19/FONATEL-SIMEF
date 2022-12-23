@@ -38,7 +38,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             EditarRegistroIndicadorBL = new EditarRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
             DetalleRegistroIndicadorBL = new EditarDetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
             DetalleRegistroIndicadorCategoriaValorFonatelBL = new EditarDetalleRegistroIndicadorCategoriaValorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
-
         }
 
 
@@ -322,7 +321,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
-        public async Task<string> ActualizarDetalleRegistroIndicador(DetalleRegistroIndicadorFonatel obj)
+        public async Task<string> ActualizarDetalleRegistroIndicador(List<DetalleRegistroIndicadorFonatel> lista)
         {
 
             //Creamos una variable resultado de tipo lista DetalleRegistroIndicadorFonatel
@@ -331,7 +330,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
-                result = DetalleRegistroIndicadorBL.ActualizarElemento(obj);
+                result = DetalleRegistroIndicadorBL.ActualizarMultiplesElementos(lista);
+              
             });
 
             //Retornamos un Json con el resultado
