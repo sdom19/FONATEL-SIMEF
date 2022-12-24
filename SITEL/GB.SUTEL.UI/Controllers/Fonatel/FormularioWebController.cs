@@ -96,6 +96,36 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Fecha 23-12-2022
+        /// Adolfo Cunquero
+        /// Elimina el detalle de indicadores de un formulario web
+        /// </summary>
+        /// <returns></returns>
+        //[HttpPost]
+        public async Task<string> EliminarDetalleIndicadoresFormulario(FormularioWeb objFormulario)
+        {
+
+            RespuestaConsulta<List<DetalleFormularioWeb>> result = new RespuestaConsulta<List<DetalleFormularioWeb>>();
+            await Task.Run(() =>
+            {
+                return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objFormulario = data.Result.objetoRespuesta.Single();
+                var listaIndicadores = formularioWebBL.ObtenerIndicadoresFormulario(objFormulario);
+                objFormulario.ListaIndicadoresObj = listaIndicadores.objetoRespuesta;
+                var ListaDetalleFormulariosWeb = formularioWebBL.ObtenerTodosDetalleFormularioWeb(objFormulario);
+                foreach (DetalleFormularioWeb item in ListaDetalleFormulariosWeb)
+                {
+                    result = detalleFormularioWebBL.EliminarElemento(item);
+                }
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
         [HttpPost]
         public async Task<string> DesactivarFormulario(FormularioWeb objFormulario)
         {

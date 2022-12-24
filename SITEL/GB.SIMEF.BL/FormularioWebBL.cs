@@ -155,7 +155,7 @@ namespace GB.SIMEF.BL
 
                 objeto.idFormulario = DesencriptarId(objeto.id);
                 ValidarCantidadIndicadores(new FormularioWeb() { idFormulario = objeto.idFormulario, Codigo = "", CantidadIndicadores = objeto.CantidadIndicadores });
-                var ListaDetalleFormulariosWeb = ObtenerDetalleFormularioWeb(objeto.idFormulario);
+                //var ListaDetalleFormulariosWeb = ObtenerDetalleFormularioWeb(objeto.idFormulario);
 
                 // resetear el id original
                 objeto.idFormulario = 0;
@@ -165,7 +165,7 @@ namespace GB.SIMEF.BL
                 }
 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
-                ClonarDetalleFormularioWeb(ListaDetalleFormulariosWeb, objeto.idFormulario);
+                //ClonarDetalleFormularioWeb(ListaDetalleFormulariosWeb, objeto.idFormulario);
 
                 string jsonValorInicial = SerializarObjetoBitacora(objeto);
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,

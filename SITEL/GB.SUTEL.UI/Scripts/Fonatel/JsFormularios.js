@@ -433,18 +433,31 @@
                 });
         },
 
-        "EliminarFormulario": function (idFormulario) {
+        "EliminarFormulario": async function (idFormulario) {
             let objFormulario = new Object()
             objFormulario.id = idFormulario;
+
+            await JsFormulario.Consultas.EliminarDetalleIndicadoresFormulario(objFormulario);
+
             execAjaxCall("/FormularioWeb/EliminarFormulario", "POST", objFormulario)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
                 }).catch((obj) => {
                     JsFormulario.Metodos.MensajeError(obj);
-                }).finally(() => {
+                })
+                .finally(() => {
                     $("#loading").fadeOut();
                 });
+        },
+
+        "EliminarDetalleIndicadoresFormulario": async function (objFormulario) {
+            await execAjaxCall("/FormularioWeb/EliminarDetalleIndicadoresFormulario", "POST", objFormulario)
+                .then((obj) => {
+                    
+                }).catch((obj) => {
+                    JsFormulario.Metodos.MensajeError(obj);
+                })
         },
 
         "DesactivarFormulario": function (idFormulario) {
