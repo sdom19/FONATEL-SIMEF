@@ -318,8 +318,11 @@ namespace GB.SIMEF.BL
             List<DetalleFormularioWeb> lista = new List<DetalleFormularioWeb>();
             foreach (Indicador i in objeto.ListaIndicadoresObj) 
             {
-                var df= detalleFormularioWebDAL.ObtenerDatos(new DetalleFormularioWeb() { idFormulario=idformulario, idIndicador=i.idIndicador }).Single();
-                lista.Add(df);
+                var df = detalleFormularioWebDAL.ObtenerDatos(new DetalleFormularioWeb() { idFormulario = idformulario, idIndicador = i.idIndicador });
+                if(df.Count > 0)
+                {
+                    lista.Add(df.Single());
+                }
             }
             return lista;
         }
