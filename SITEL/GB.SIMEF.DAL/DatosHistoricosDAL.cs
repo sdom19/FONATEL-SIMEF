@@ -12,7 +12,7 @@ namespace GB.SIMEF.DAL
 {
     public class DatosHistoricosDAL : BitacoraDAL
     {
-        private SIMEFContext db;
+        private BDHistoricoContext db;
 
        /// <summary>
        /// Listado de años 
@@ -25,7 +25,7 @@ namespace GB.SIMEF.DAL
 
             List<DatoHistorico> listaDatosHistoricos = new List<DatoHistorico>();
 
-            using (db = new SIMEFContext())
+            using (db = new BDHistoricoContext())
             {
 
                 listaDatosHistoricos = db.Database.SqlQuery<DatoHistorico>("exec spObtenerDatoHistorico  @idHistorico,@codigo,@arrayid",
@@ -59,7 +59,7 @@ namespace GB.SIMEF.DAL
         public DatoHistorico AgregarDatos(DatoHistorico objHistorico)
         {
            DatoHistorico DatosHistoricosResult = new DatoHistorico();
-            using (db = new SIMEFContext())
+            using (db = new BDHistoricoContext())
             {
                 var DatosHistoricos = db.DatoHistorico.Add(objHistorico);
                 db.SaveChanges();

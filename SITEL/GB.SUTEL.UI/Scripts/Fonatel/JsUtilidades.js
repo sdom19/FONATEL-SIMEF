@@ -8,6 +8,13 @@
             "Texto":3,
             "Fecha":4
         },
+
+        "TipoCategoria": {
+            "IdUnico": 1,
+            "Atributo": 2,
+            "Actualizable": 3,
+            "VariableDato": 4
+        },
         "Error": {
             "NoError": 0,
             "ErrorSistema": 1,

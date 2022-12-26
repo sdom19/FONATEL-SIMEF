@@ -92,10 +92,16 @@ namespace GB.SIMEF.BL
                         dt.Rows.Add(item.IdSolicitud, item.IdFormulario, item.IdIndicador, item.idCategoria, item.NumeroFila, item.Valor);
                     }
 
-                    //Se elimina los detalles valores para insertar los nuevos
                     DetalleRegistroIndicadorCategoriaValorFonatel eliminar = objeto[0];
-                    eliminar.idCategoria = 0;
-                    detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorCategoriaValorFonatel(eliminar);
+                    var eliminarIndicador = objeto.Select(x => x.IdIndicador).Distinct();
+
+                    foreach (var item in eliminarIndicador)
+                    {
+                        //Se elimina los detalles valores para insertar los nuevos
+                        eliminar.idCategoria = 0;
+                        eliminar.IdIndicador = item;
+                        detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorCategoriaValorFonatel(eliminar);
+                    }
 
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion = (int)Accion.Insertar;

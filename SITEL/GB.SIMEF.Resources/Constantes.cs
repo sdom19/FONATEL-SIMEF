@@ -16,7 +16,8 @@ namespace GB.SIMEF.Resources
         {
             IdUnico = 1,
             Atributo = 2,
-            Actualizable = 3
+            Actualizable = 3,
+            VariableDato=4
         }
 
         public enum PlantillaCorreoEnum : int
