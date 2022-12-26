@@ -445,8 +445,7 @@
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
                 }).catch((obj) => {
                     JsFormulario.Metodos.MensajeError(obj);
-                })
-                .finally(() => {
+                }).finally(() => {
                     $("#loading").fadeOut();
                 });
         },
