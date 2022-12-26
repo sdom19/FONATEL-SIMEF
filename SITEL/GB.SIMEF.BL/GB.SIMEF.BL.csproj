@@ -70,6 +70,7 @@
     <Compile Include="DefinicionIndicadorBL.cs" />
     <Compile Include="DetalleFormularioWebBL.cs" />
     <Compile Include="DetalleIndicadorCategoriaBL.cs" />
+    <Compile Include="DetalleIndicadorCriteriosSitelBL.cs" />
     <Compile Include="DetalleIndicadorVariablesBL.cs" />
     <Compile Include="DetalleRegistroIndicadorCategoriaValorFonatelBL.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatelBL .cs" />
