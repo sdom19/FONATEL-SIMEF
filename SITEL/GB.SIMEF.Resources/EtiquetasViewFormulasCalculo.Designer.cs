@@ -142,15 +142,6 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoría de desagregación.
-        /// </summary>
-        public static string CrearFormula_LabelNivelCalculoCategoria {
-            get {
-                return ResourceManager.GetString("CrearFormula_LabelNivelCalculoCategoria", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Total.
         /// </summary>
         public static string CrearFormula_LabelNivelCalculoTotal {

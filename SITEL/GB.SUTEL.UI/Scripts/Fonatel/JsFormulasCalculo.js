@@ -730,6 +730,8 @@ GestionFormulaView = {
             ddlIndicador: "#ddlIndicador",
             ddlAcumulacion: "#ddlAcumulacion",
 
+            labelddlGrupo: "#labelddlGrupo",
+
             divGrupo: "#divGrupo",
             divClasificacion: "#divClasificacion",
             divTipoIndicador: "#divTipoIndicador",
@@ -785,7 +787,6 @@ GestionFormulaView = {
             divFechaFinal: "#divFechaFinalFormulaCalculo",
             divCategoriaFechaFinal: "#divCategoriaFechaFinalFormulaCalculo",
 
-
             ddlTipoFechaFinal: "#ddlTipoFechaFinalModalFechaFormula",
             ddlTipoFechaInicio: "#ddlTipoFechaInicioModalFechaFormula",
 
@@ -817,9 +818,12 @@ GestionFormulaView = {
             IndicadorFuenteExterna: 6
         },
 
+        labelGrupo: "Grupo",
+        labelAgrupacion: "Agrupación",
+
         cargoFuentesIndicador: false,
-        attrIndicadorFonatel: "data-indicador-fonatel",
-        tipoFuenteSeleccionada: false
+        tipoFuenteSeleccionada: false,
+        attrCodigo: "data-codigo"
     },
 
     Mensajes: {
@@ -885,6 +889,7 @@ GestionFormulaView = {
                 $(GestionFormulaView.Controles.form.divAcumulacion).css("display", "block");
                 $(GestionFormulaView.Controles.form.divTipoIndicador).css("display", "block");
 
+                $(GestionFormulaView.Controles.form.labelddlGrupo).text(GestionFormulaView.Variables.labelGrupo);
                 $(GestionFormulaView.Controles.form.columnaDetalleTabla).html(GestionFormulaView.Mensajes.labelDetalleDesagregacion);
                 $(GestionFormulaView.Controles.modalDetalleAgregacion.titulo).html(GestionFormulaView.Mensajes.labelDetalleDesagregacion);
                 $(GestionFormulaView.Controles.modalDetalleAgregacion.divCategoria).css("display", "block");
@@ -895,6 +900,7 @@ GestionFormulaView = {
                 $(GestionFormulaView.Controles.form.divClasificacion).css("display", "none");
                 $(GestionFormulaView.Controles.form.divAcumulacion).css("display", "none");
 
+                $(GestionFormulaView.Controles.form.labelddlGrupo).text(GestionFormulaView.Variables.labelAgrupacion);
                 $(GestionFormulaView.Controles.form.columnaDetalleTabla).html(GestionFormulaView.Mensajes.labelDetalleAgrupacion);
                 $(GestionFormulaView.Controles.modalDetalleAgregacion.titulo).html(GestionFormulaView.Mensajes.labelDetalleAgrupacion);
                 $(GestionFormulaView.Controles.modalDetalleAgregacion.divCategoria).css("display", "none");
@@ -964,7 +970,14 @@ GestionFormulaView = {
 
             let dataSet = []
             pData.objetoRespuesta?.forEach(item => {
-                dataSet.push({ value: item.id, text: item.Nombre });
+                dataSet.push(
+                    {
+                        value: item.id,
+                        text: item.Nombre,
+                        extraParameters: [
+                            { attr: GestionFormulaView.Variables.attrCodigo, value: item.Codigo }
+                        ]
+                    });
             });
 
             InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlIndicador, dataSet, false);
@@ -1011,7 +1024,7 @@ GestionFormulaView = {
                 .then(data => {
                     this.InsertarDatosEnComboBoxTipoAcumulacion(data);
                 })
-                .catch(error => { ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); console.log(error); })
                 .finally(() => { $("#loading").fadeOut(); });
         },
 
@@ -1089,23 +1102,23 @@ GestionFormulaView = {
                 .finally(() => { $("#loading").fadeOut(); });
         },
 
-        CargarTablaDetallesIndicadorFonatel: function (pIdIndicador) {
+        CargarTablaDetallesIndicador: function (pIdIndicador) {
             $("#loading").fadeIn();
 
-            GestionFormulaView.Consultas.ConsultarVariablesDatoIndicadorFonatel(pIdIndicador)
+            GestionFormulaView.Consultas.ConsultarVariablesDatoCriteriosIndicador(pIdIndicador, GestionFormulaView.Variables.tipoFuenteSeleccionada)
                 .then(obj => {
                     this.InsertarDatosTablaDetallesIndicador(obj.objetoRespuesta);
                 })
-                .catch(error => { ManejoDeExcepciones(null); })
+                .catch(error => { ManejoDeExcepciones(error); console.log(error); })
                 .finally(() => { $("#loading").fadeOut(); });
         },
 
         InsertarDatosTablaDetallesIndicador: function (pListado) {
             EliminarDatasource();
             let html = "";
-            for (var i = 0; i < pListado.length; i++) {
+            for (var i = 0; i < pListado?.length; i++) {
                 let detalle = pListado[i];
-                html += `<tr><td scope='row'>${detalle.Codigo}</td>`;
+                html += `<tr><td scope='row'>${GestionFormulaView.Variables.CodigoIndicadorSeleccionado}</td>`;
                 html += `<td>${detalle.NombreVariable}</td>`;
                 html += "<td><input type='checkbox' id='chkValorTotal' /></td>";
                 html += "<td>" + '<button type="submit" id="btnAgregarDetalleAgregacion" class="btn-icon-base btn-touch" data-toggle="tooltip" data-placement="top" title="Agregar detalle"></button>' + "</td>";
@@ -1116,6 +1129,11 @@ GestionFormulaView = {
             $(GestionFormulaView.Controles.tablaDetallesIndicador).html(html);
             CargarDatasource();
         },
+
+        LimpiarTablaDetallesIndicador: function () {
+            let table = $(GestionFormulaView.Controles.tablaDetallesIndicador).DataTable();
+            table.clear().draw();
+        }
     },
 
     Consultas: {
@@ -1139,10 +1157,6 @@ GestionFormulaView = {
             return execAjaxCall("/FormulaCalculo/ObtenerServicios", "GET", { pFuenteIndicador });
         },
 
-        ConsultarAcumulacionFonatel: function () {
-            return execAjaxCall("/FormulaCalculo/ObtenerAcumulacionFonatel", "GET");
-        },
-
         ConsultarIndicadores: function (pIndicador, pFuenteIndicador, pServicio) {
             return execAjaxCall("/FormulaCalculo/ObtenerIndicadores", "POST",
                 { pIndicador, pFuenteIndicador, pServicio }
@@ -1153,8 +1167,8 @@ GestionFormulaView = {
             return execAjaxCall("/FormulaCalculo/ObtenerAcumulacionesFonatel", "GET");
         },
 
-        ConsultarVariablesDatoIndicadorFonatel: function (pIdIndicador) {
-            return execAjaxCall("/FormulaCalculo/ObtenerVariablesDatoDeIndicador", "GET", { pIdIndicador });
+        ConsultarVariablesDatoCriteriosIndicador: function (pIdIndicador, pFuenteIndicador) {
+            return execAjaxCall("/FormulaCalculo/ObtenerVariablesDatoCriteriosIndicador", "GET", { pIdIndicador, pFuenteIndicador });
         }
     },
 
@@ -1198,14 +1212,10 @@ GestionFormulaView = {
             GestionFormulaView.Metodos.SeleccionarCargaDeDatosIndicador();
         });
 
-        $(document).on("change", GestionFormulaView.Controles.form.ddlIndicador, function () {
-            //if (GestionFormulaView.Variables.tipoFuenteSeleccionada) {
-            //    GestionFormulaView.Metodos.CargarTablaDetallesIndicadorFonatel($(this).val());
-            //}
-            //else {
-            //    // Indicadores de fuente sitel ?
-            //}
-
+        $(document).on("change", GestionFormulaView.Controles.form.ddlIndicador, function (e) {
+            GestionFormulaView.Variables.CodigoIndicadorSeleccionado = $(this).find(":selected").attr(GestionFormulaView.Variables.attrCodigo);
+            GestionFormulaView.Metodos.CargarTablaDetallesIndicador($(this).val());
+            
         });
 
         // | Eventos por probar y rehacer   |

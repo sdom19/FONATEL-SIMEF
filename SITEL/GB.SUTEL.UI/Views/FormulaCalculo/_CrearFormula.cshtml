@@ -160,7 +160,7 @@
                 <label class="radio-inline mt-3" style="display: block;">
                     @{
                         var htmlAttributesCategoria = new Dictionary<string, object>
-                        {
+                                    {
                             { "id", "radioCategoriaDesagregacion" },
                             { modoVisualizacion ? "disabled":"true", "" }
                         };
@@ -172,7 +172,7 @@
                     }
 
                     @Html.RadioButtonFor(model => model.NivelCalculoTotal, "nivelCalculo", htmlAttributesCategoria)
-                    @EtiquetasViewFormulasCalculo.CrearFormula_LabelNivelCalculoCategoria
+                    @EtiquetasViewFormulasCalculo.CrearFormula_LabelCategoriaDesagregacion
                 </label>
                 <small id="radioNivelCalculoHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>

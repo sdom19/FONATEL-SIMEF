@@ -28,6 +28,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly ClasificacionIndicadorBL clasificacionIndicadorBL;
         private readonly ServicioSitelBL servicioSitelBL;
         private readonly AcumulacionFormulaBL acumulacionFormulaBL;
+        private readonly DetalleIndicadorCriteriosSitelBL detalleIndicadorCriteriosSitelBL;
 
         private readonly string usuario = string.Empty;
         private readonly string nombreVista = string.Empty;
@@ -50,6 +51,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             clasificacionIndicadorBL = new ClasificacionIndicadorBL(nombreVista, usuario);
             servicioSitelBL = new ServicioSitelBL();
             acumulacionFormulaBL = new AcumulacionFormulaBL(nombreVista, usuario);
+            detalleIndicadorCriteriosSitelBL = new DetalleIndicadorCriteriosSitelBL();
         }
 
         #region Eventos de la página
@@ -711,6 +713,60 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
             });
 
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 22/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los detalles de un indicador provenientes de una fuente, ya sea, fonatel, mercados, calidad, uit, cruzados o fuente externa
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <param name="pFuenteIndicadorEnum"></param>
+        /// <returns></returns>
+        public async Task<string> ObtenerVariablesDatoCriteriosIndicador(string pIdIndicador, FuenteIndicadorEnum pFuenteIndicador)
+        {
+            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            DetalleIndicadorVariables detalleIndicador = new DetalleIndicadorVariables()
+            {
+                idIndicadorString = pIdIndicador
+            };
+
+            await Task.Run(() =>
+            {
+                switch (pFuenteIndicador)
+                {
+                    case FuenteIndicadorEnum.IndicadorDGF:
+                        resultado = detalleIndicadorVariablesBL.ObtenerDatos(detalleIndicador);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorDGM:
+                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosMercado(detalleIndicador);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorDGC:
+                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosCalidad(detalleIndicador);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorUIT:
+                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosUIT(detalleIndicador);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorCruzado:
+                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosCruzado(detalleIndicador);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorFuenteExterna:
+                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosExterno(detalleIndicador);
+                        break;
+                    default:
+                        resultado.HayError = (int)Error.ErrorSistema;
+                        break;
+                }
+            });
             return JsonConvert.SerializeObject(resultado);
         }
 

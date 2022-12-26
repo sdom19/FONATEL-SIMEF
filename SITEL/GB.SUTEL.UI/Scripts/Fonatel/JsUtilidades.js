@@ -327,8 +327,6 @@ function InsertarItemSelect2 (pSelect2, pTexto, pValor, pDefaultSelected = false
  * @param {any} pSelect2 combobox select2 de la vista.
  * @param {any} pDataSet listado de opciones a insertar. IMPORTANTE: la forma de la lista debe ser [{ text: <texto>, value: <valor> }, {..}, ..., {..}]
  */
-
-
 function InsertarDataSetSelect2(pSelect2, pDataSet, pTrigerOnChange = true, pDefaultSelected = false, pSelected = false) {
     if (pDataSet.length > 0) {
         pDataSet.forEach(option => {
