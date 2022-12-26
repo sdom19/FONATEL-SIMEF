@@ -27,12 +27,11 @@ namespace GB.SIMEF.Entities
         public int IdFuenteIndicador { get; set; }
         public string Fuente { get; set; }
         public bool Estado { get; set; }
-    
 
         [NotMapped]
         public string id { get; set; }
-        
+
         [NotMapped]
-        public bool perteceneAFonatel { get; set; }
+        public bool fuenteConAcumulacion { get; set; } // perteceneAFonatel
     }
 }

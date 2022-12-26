@@ -78,6 +78,9 @@
     <Compile Include="ReglaIndicadorSalidaDAL.cs" />
     <Compile Include="ReglaSecuencialDAL.cs" />
     <Compile Include="RegistroIndicadorDAL.cs" />
+    <Compile Include="CALIDADContext.cs" />
+    <Compile Include="SIGITELContext.cs" />
+    <Compile Include="BDHistoricoContext.cs" />
     <Compile Include="SITELContext.cs" />
     <Compile Include="ServicioSitelDAL.cs" />
     <Compile Include="SolicitudEnvioProgramadoDAL.cs" />

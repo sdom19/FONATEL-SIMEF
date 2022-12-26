@@ -12,9 +12,11 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 using OfficeOpenXml;
+using GB.SUTEL.UI.Helpers;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class HistoricoFonatelController : Controller
     {
 

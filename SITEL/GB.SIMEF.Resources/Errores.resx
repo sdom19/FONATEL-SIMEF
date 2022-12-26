@@ -189,6 +189,9 @@
   <data name="NombreRegistrado" xml:space="preserve">
     <value>El Nombre ingresado ya se encuentra registrado</value>
   </data>
+  <data name="NombreRegistradoVariableDato" xml:space="preserve">
+    <value>El Nombre ingresado para la Variable Dato ya se encuentra registrado</value>
+  </data>
   <data name="NoRegistrosActualizar" xml:space="preserve">
     <value>No se encuentran registros</value>
   </data>

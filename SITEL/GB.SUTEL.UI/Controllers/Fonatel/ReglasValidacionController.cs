@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
@@ -13,6 +14,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class ReglasValidacionController : Controller
     {
 
@@ -80,26 +82,54 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Create(string id, int? modo)
         {
+            ViewBag.Modo = modo.ToString();
+
+            ReglaValidacion objregla = new ReglaValidacion();
+
             var ListadoIndicador = indicadorfonatelBL
                 .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
-            var ListadoIndicadorSalida = indicadorfonatelBL
-                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 2 }).objetoRespuesta;
+            var ListadoIndicadorSalida = ListadoIndicador.Where(x => x.IdClasificacion == 2).ToList();
 
-            var ListadoIndicadorEntradaSalida = indicadorfonatelBL
-                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 3 }).objetoRespuesta;
+            var ListadoIndicadorEntradaSalida = ListadoIndicador.Where(x => x.IdClasificacion == 3).ToList();
 
-            var ListadoIndicadorEntrada = indicadorfonatelBL
-                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo, IdClasificacion = 4 }).objetoRespuesta;
+            var ListadoIndicadorEntrada = ListadoIndicador.Where(x => x.IdClasificacion == 4).ToList();
 
             var listadoCategoria = categoriasDesagregacionBL
                .ObtenerDatos(new CategoriasDesagregacion() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
-
             var listadoRelaciones = relacionCategoriaBL.ObtenerDatos(new RelacionCategoria()).objetoRespuesta;
 
-            ViewBag.ListaIndicadores =
-                        ListadoIndicador.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+            var listaReglas = reglaBL.ObtenerDatos(new ReglaValidacion()).objetoRespuesta;
+
+            var ListaIndicadoresEnUso = ListadoIndicador.Where(x => listaReglas.Any(x2 => x.idIndicador == x2.idIndicador)).ToList();
+
+            var ListaIndicadoresSinUso = ListadoIndicador.Where(x => !listaReglas.Any(x2 => x.idIndicador == x2.idIndicador)).ToList();
+
+            if (modo == (int)Constantes.Accion.Editar)
+            {
+                if (!string.IsNullOrEmpty(id))
+                {
+                    objregla.id = id;
+                    objregla = reglaBL.ObtenerDatos(objregla).objetoRespuesta.SingleOrDefault();
+
+                    if (objregla.idIndicador == 0)
+                    {
+                        ViewBag.ListaIndicadores =
+                        ListaIndicadoresSinUso.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                    }
+                    else
+                    {                     
+                        ViewBag.ListaIndicadores =
+                        ListaIndicadoresEnUso.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                    }
+                }
+            }
+            else
+            {
+                ViewBag.ListaIndicadores =
+                            ListaIndicadoresSinUso.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+            }
 
             ViewBag.ListaCategoria = listadoRelaciones
                 .Where(x=>x.idCategoria!=0)
@@ -115,19 +145,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.ListaOperadores =
                 OperadoresBL.ObtenerDatos(new OperadorArismetico()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.IdOperador.ToString(), Text = x.Nombre }).ToList();
 
-
             ViewBag.ListaIndicadoresSalida =
-                        ListadoIndicadorSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+            ListadoIndicadorSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
             ViewBag.ListaIndicadoresEntradaSalida =
                         ListadoIndicadorEntradaSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
             ViewBag.ListaIndicadoresEntrada =
                         ListadoIndicadorEntrada.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
-
-            ViewBag.Modo = modo.ToString();
-
-            ReglaValidacion objregla = new ReglaValidacion();
 
             if (!string.IsNullOrEmpty(id))
             {
@@ -139,6 +164,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     ViewBag.titulo = EtiquetasViewReglasValidacion.Clonar;
                     objregla.Codigo = string.Empty;
                     objregla.Nombre = string.Empty;
+                    objregla.idIndicadorString = string.Empty;
                     objregla.id = string.Empty;
                 }
                 else
@@ -151,6 +177,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 ViewBag.titulo = EtiquetasViewReglasValidacion.Crear;
             }
+
             return View(objregla);
 
         }
@@ -406,8 +433,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             string idReglaAClonar = objeto.id;
-            //objeto.id = string.Empty;
-            //objeto.idRegla = 0;
 
             string creacionRegla = await ClonarReglaValidacion(objeto); // reutilizar la función de crear para registrar el nueva regla
             RespuestaConsulta<List<ReglaValidacion>> ReglaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<ReglaValidacion>>>(creacionRegla);

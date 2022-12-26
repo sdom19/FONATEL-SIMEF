@@ -155,7 +155,6 @@ namespace GB.SIMEF.BL
 
             try
             {
-                resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
                 var result = grupoIndicadorDAL.ObtenerDatos(pGrupoIndicadores);
                 resultado.objetoRespuesta = result;
@@ -163,7 +162,107 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                resultado.HayError = (int)Constantes.Error.ErrorSistema;
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 08/12/2022
+        /// José Navarro
+        /// Función que retorna los grupos de indicadores de mercados
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosMercado()
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            try
+            {
+                resultado.Accion = (int)Accion.Consultar;
+                var result = grupoIndicadorDAL.ObtenerDatosMercado();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 09/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los grupos de indicadores de calidad
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosCalidad()
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            try
+            {
+                resultado.Accion = (int)Accion.Consultar;
+                var result = grupoIndicadorDAL.ObtenerDatosCalidad();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los grupos de indicadores UIT
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosUIT()
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            try
+            {
+                resultado.Accion = (int)Accion.Consultar;
+                var result = grupoIndicadorDAL.ObtenerDatosUIT();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los grupos de indicadores cruzados
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosCruzado()
+        {
+            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+
+            try
+            {
+                resultado.Accion = (int)Accion.Consultar;
+                var result = grupoIndicadorDAL.ObtenerDatosCruzado();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
                 resultado.MensajeError = ex.Message;
             }
             return resultado;

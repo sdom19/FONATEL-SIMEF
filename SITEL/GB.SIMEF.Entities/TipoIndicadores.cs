@@ -22,7 +22,7 @@ namespace GB.SIMEF.Entities
         }
 
         [Key]
-        public int IdTipoIdicador { get; set; }
+        public int IdTipoIndicador { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
 

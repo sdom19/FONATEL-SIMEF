@@ -16,7 +16,8 @@ namespace GB.SIMEF.Resources
         {
             IdUnico = 1,
             Atributo = 2,
-            Actualizable = 3
+            Actualizable = 3,
+            VariableDato=4
         }
 
         public enum PlantillaCorreoEnum : int
@@ -157,10 +158,5 @@ namespace GB.SIMEF.Resources
         public readonly static string select2MultipleOptionTodosValue = "all";
 
         public readonly static string keyModoFormulario = "modoFormulario";
-
-        public readonly static List<FuenteIndicadorEnum> FuentesIndicadorFonatel = new List<FuenteIndicadorEnum>() 
-        {
-            FuenteIndicadorEnum.IndicadorDGF 
-        };
     }
 }

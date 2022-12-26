@@ -111,7 +111,7 @@ namespace GB.SIMEF.API.Controllers
                 default:
                      indicadores = db.DimDefinicionIndicador
                      .Where(x => (x.Idgrupo == IdGrupo))
-                     .Select(x => new DimDefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion,IdTipoidicador = x.IdTipoidicador })
+                     .Select(x => new DimDefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion,IdTipoindicador = x.IdTipoindicador })
                      .ToList();
                     break;
             }
@@ -133,7 +133,7 @@ namespace GB.SIMEF.API.Controllers
                 
                 case "Gestion":
                     //Tipo Suscripción
-                    indicadoresViewModel = indicadores.Where(x => x.IdTipoidicador == 2)
+                    indicadoresViewModel = indicadores.Where(x => x.IdTipoindicador == 2)
                         .Select(x => new IndicadorViewModel { IdIndicador = x.IdIndicador.ToString(), NombreIndicador = x.Nombre, DefinicionIndicador = x.Definicion })
                         .ToList();
                      

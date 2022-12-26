@@ -21,6 +21,7 @@ using OfficeOpenXml;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class RegistroIndicadorFonatelController  : Controller
     {
         // GET: RegistroIndicadorFonatel

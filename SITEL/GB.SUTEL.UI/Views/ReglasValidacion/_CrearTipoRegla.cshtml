@@ -4,6 +4,7 @@
 @Html.HiddenFor(model => model.idIndicadorVariableString, new { id = "txtIndicadorVariableString" })
 @Html.HiddenFor(model => model.idDetalleReglaValidacion, new { id = "txtidDetalleReglaValidacion" })
 @Html.HiddenFor(model => model.idCompara, new { id = "txtidCompara" })
+
 <div class="row">
     <div class="col-md-6 col-sm-12">
         <div class="form-group center">
@@ -92,13 +93,25 @@
         </div>
 
         <div class="hidden" id="divFormulaContraIndicadorSalida">
+
             <div class="form-group center">
-                <label for="ddlIndicadorSalidaRegla" class="col-form-label">@EtiquetasViewReglasValidacion.IndicadorSalida</label>
+                <label for="ddlIndicadorSalidaRegla" class="col-form-label">@EtiquetasViewReglasValidacion.IndicadorComparacion</label>
                 <div class="select2-wrapper">
                     @Html.DropDownList("ddlIndicadorSalidaRegla", new SelectList(ViewBag.ListaIndicadoresSalida, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicadorSalidaRegla" })
                 </div>
                 <small id="ddlIndicadorSalidaReglaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
             </div>
+
+            <div class="form-group center">
+                <label for="ddlVariableComparacionRegla" class="col-form-label">@EtiquetasViewReglasValidacion.Comparacion</label>
+                <div class="select2-wrapper">
+                    <select class="listasDesplegables" id="ddlVariableComparacionReglaSalida">
+                        <option></option>
+                    </select>
+                </div>
+                <small id="ddlVariableComparacionSalidaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
+            </div>
+
         </div>
 
         <div class="hidden" id="divFormulaContraIndicadorEntradaSalida">

@@ -26,9 +26,9 @@ namespace GB.SIMEF.DAL
 
             using (db = new SIMEFContext())
             {
-                if (pTipoIndicadores.IdTipoIdicador != 0)
+                if (pTipoIndicadores.IdTipoIndicador != 0)
                 {
-                    listaTipoIndicadores = db.TipoIndicadores.Where(x => x.IdTipoIdicador == pTipoIndicadores.IdTipoIdicador && x.Estado == true).ToList();
+                    listaTipoIndicadores = db.TipoIndicadores.Where(x => x.IdTipoIndicador == pTipoIndicadores.IdTipoIndicador && x.Estado == true).ToList();
                 }
                 else
                 {
@@ -38,7 +38,7 @@ namespace GB.SIMEF.DAL
 
             listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
             {
-                id = Utilidades.Encriptar(x.IdTipoIdicador.ToString()),
+                id = Utilidades.Encriptar(x.IdTipoIndicador.ToString()),
                 Nombre = x.Nombre,
                 Estado = x.Estado
             }).ToList();
@@ -47,31 +47,126 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
-        /// 24/11/2022
-        /// José Navarro Acuña
-        /// Función que retorna todos los tipos indicadores registrados en estado activo de la BD de SITEL.
-        /// Se puede filtrar por el ID del objecto
+        /// 09/12/2022
+        /// José Andrés Navarro
+        /// Función que retorna los tipos de indicadores de mercado
         /// </summary>
-        /// <param name="pTipoIndicadores"></param>
         /// <returns></returns>
-        public List<TipoIndicadores> ObtenerDatosSitel(TipoIndicadores pTipoIndicadores)
+        public List<TipoIndicadores> ObtenerDatosMercado()
         {
-            List<TipoIndicadores> listaTiposIndicadores = new List<TipoIndicadores>();
-            using (db = new SIMEFContext())
-            {
-                List<SUTEL.Entities.TipoIndicador> listaTiposIndicadoresSitel = 
-                    db.Database.SqlQuery<SUTEL.Entities.TipoIndicador> // Notar el uso de la clase "TipoIndicador" el cual pertenece al namespace Sitel
-                        ("execute spObtenerTipoIndicadoresSitel @pIdTipoIndicador ",
-                        new SqlParameter("@pIdTipoIndicador", pTipoIndicadores.IdTipoIdicador)
-                    ).ToList();
+            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
 
-                listaTiposIndicadores = listaTiposIndicadoresSitel.Select(x => new TipoIndicadores()
-                { // hacer el "traspaso" de datos hacia la identidad del namespace actual
-                    id = Utilidades.Encriptar(x.IdTipoInd.ToString()),
-                    Nombre = x.DesTipoInd
-                }).ToList();
+            using (SIGITELContext db = new SIGITELContext())
+            {
+                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
+                    "select distinct " +
+                    "IdTipoIndicador, " +
+                    "TipoIndicador as Nombre, " +
+                    "cast(1 as bit) as Estado " +
+                    "from [FONATEL].[viewIndicadorDGM]").ToList();
             }
-            return listaTiposIndicadores;
+
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            {
+                id = Utilidades.Encriptar(x.IdTipoIndicador.ToString()),
+                Nombre = x.Nombre,
+                Estado = x.Estado
+            }).ToList();
+
+            return listaTipoIndicadores;
+        }
+
+        /// <summary>
+        /// 09/12/2022
+        /// José Andrés Navarro
+        /// Función que retorna los tipos de indicadores de mercado
+        /// </summary>
+        /// <returns></returns>
+        public List<TipoIndicadores> ObtenerDatosCalidad()
+        {
+            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+
+            using (CALIDADContext db = new CALIDADContext())
+            {
+                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
+                    "select distinct " +
+                    "IdTipoIndicador, " +
+                    "TipoIndicador as Nombre, " +
+                    "cast(1 as bit) as Estado " +
+                    "from [FONATEL].[viewIndicadorDGC]"
+                    ).ToList();
+            }
+
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            {
+                id = Utilidades.Encriptar(x.IdTipoIndicador.ToString()),
+                Nombre = x.Nombre,
+                Estado = x.Estado
+            }).ToList();
+
+            return listaTipoIndicadores;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de indicadores de UIT
+        /// </summary>
+        /// <returns></returns>
+        public List<TipoIndicadores> ObtenerDatosUIT()
+        {
+            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+
+            using (SITELContext db = new SITELContext())
+            {
+                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
+                    "select distinct " +
+                    "IdTipoIndicador, " +
+                    "TipoIndicador as Nombre, " +
+                    "cast(1 as bit) as Estado " +
+                    "from [FONATEL].[viewIndicadorUIT]"
+                    ).ToList();
+            }
+
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            {
+                id = Utilidades.Encriptar(x.IdTipoIndicador.ToString()),
+                Nombre = x.Nombre,
+                Estado = x.Estado
+            }).ToList();
+
+            return listaTipoIndicadores;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los tipos de indicadores cruzados
+        /// </summary>
+        /// <returns></returns>
+        public List<TipoIndicadores> ObtenerDatosCruzado()
+        {
+            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+
+            using (SITELContext db = new SITELContext())
+            {
+                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
+                    "select distinct " +
+                    "IdTipoIndicador, " +
+                    "TipoIndicador as Nombre, " +
+                    "cast(1 as bit) as Estado " +
+                    "from [FONATEL].[viewIndicadorCruzado]"
+                    ).ToList();
+            }
+
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            {
+                id = Utilidades.Encriptar(x.IdTipoIndicador.ToString()),
+                Nombre = x.Nombre,
+                Estado = x.Estado
+            }).ToList();
+
+            return listaTipoIndicadores;
         }
 
         /// <summary>
@@ -91,7 +186,7 @@ namespace GB.SIMEF.DAL
                 db.SaveChanges();
             }
 
-            pTipoIndicadores.IdTipoIdicador = 0;
+            pTipoIndicadores.IdTipoIndicador = 0;
             listaTipoIndicadores.Add(pTipoIndicadores);
 
             return listaTipoIndicadores;
@@ -113,8 +208,8 @@ namespace GB.SIMEF.DAL
                 db.SaveChanges();
 
                 // EF establecerá el objecto cuando sea guardado
-                pTipoIndicadores.id = Utilidades.Encriptar(pTipoIndicadores.IdTipoIdicador.ToString());
-                pTipoIndicadores.IdTipoIdicador = 0;
+                pTipoIndicadores.id = Utilidades.Encriptar(pTipoIndicadores.IdTipoIndicador.ToString());
+                pTipoIndicadores.IdTipoIndicador = 0;
                 listaTipoIndicadores.Add(pTipoIndicadores);
             }
             return listaTipoIndicadores;

@@ -277,6 +277,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El Nombre ingresado para la Variable Dato ya se encuentra registrado.
+        /// </summary>
+        public static string NombreRegistradoVariableDato {
+            get {
+                return ResourceManager.GetString("NombreRegistradoVariableDato", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No se encuentran registros.
         /// </summary>
         public static string NoRegistrosActualizar {

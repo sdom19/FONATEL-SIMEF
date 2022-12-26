@@ -44,9 +44,9 @@ namespace GB.SIMEF.BL
             try
             {
                 int.TryParse(Utilidades.Desencriptar(pTipoIndicadores.id), out int idDecencriptado);
-                pTipoIndicadores.IdTipoIdicador = idDecencriptado;
+                pTipoIndicadores.IdTipoIndicador = idDecencriptado;
 
-                if (pTipoIndicadores.IdTipoIdicador == 0) // ¿ID descencriptado con éxito?
+                if (pTipoIndicadores.IdTipoIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -55,7 +55,7 @@ namespace GB.SIMEF.BL
                 pTipoIndicadores = tipoIndicadorDAL.ObtenerDatos(pTipoIndicadores).Single();
 
                 // actualizar el estado del indicador
-                pTipoIndicadores.IdTipoIdicador = idDecencriptado;
+                pTipoIndicadores.IdTipoIndicador = idDecencriptado;
                 pTipoIndicadores.Estado = nuevoEstado;
                 List<TipoIndicadores> tipoIndicadorActualizado = tipoIndicadorDAL.ActualizarDatos(pTipoIndicadores);
 
@@ -156,7 +156,6 @@ namespace GB.SIMEF.BL
 
             try
             {
-                resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
                 List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatos(pTipoIndicadores);
                 resultado.objetoRespuesta = result;
@@ -173,26 +172,16 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 24/11/2022
         /// José Navarro Acuña
-        /// Función que retorna todos los tipos indicadores registrados en estado activo de la BD de SITEL
-        /// Se puede aplicar un filtro para obtener un único elemento a traves del ID.
+        /// Función que retorna todos los tipos indicadores registrados Mercado
         /// </summary>
-        /// <param name="pTipoIndicadores"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosSitel(TipoIndicadores pTipoIndicadores)
+        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosMercado()
         {
             RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
 
             try
             {
-                if (!string.IsNullOrEmpty(pTipoIndicadores.id))
-                {
-                    int.TryParse(Utilidades.Desencriptar(pTipoIndicadores.id), out int idDecencriptado);
-                    pTipoIndicadores.IdTipoIdicador = idDecencriptado;
-                }
-
-                resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Consultar;
-                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosSitel(pTipoIndicadores);
+                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosMercado();
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -203,6 +192,79 @@ namespace GB.SIMEF.BL
             }
             return resultado;
         }
+
+        /// <summary>
+        /// 24/11/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los tipos indicadores registrados Mercado
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosCalidad()
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+
+            try
+            {
+                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosCalidad();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los tipos indicadores registrado en UIT
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosUIT()
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+
+            try
+            {
+                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosUIT();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 12/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los tipos indicadores registrado en UIT
+        /// </summary>
+        /// <returns></returns>
+        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosCruzado()
+        {
+            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+
+            try
+            {
+                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosCruzado();
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
 
         public RespuestaConsulta<List<TipoIndicadores>> ValidarDatos(TipoIndicadores objeto)
         {

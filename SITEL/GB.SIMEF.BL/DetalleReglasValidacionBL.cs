@@ -373,17 +373,12 @@ namespace GB.SIMEF.BL
                 objeto.reglaIndicadorSalida.IdIndicador = temp;
             }
 
+            if (!string.IsNullOrEmpty(objeto.reglaIndicadorSalida.idVariableComparaString))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.reglaIndicadorSalida.idVariableComparaString), out int temp);
+                objeto.reglaIndicadorSalida.IdDetalleIndicador = temp;
+            }
+
         }
-
-        //private void DesencriptarReglaAtributosValidos(DetalleReglaValidacion objeto)
-        //{
-        //    if (!string.IsNullOrEmpty(objeto.reglaAtributosValidos.idAtributoString))
-        //    {
-        //        int.TryParse(Utilidades.Desencriptar(objeto.reglaAtributosValidos.idAtributoString), out int temp);
-        //        objeto.reglaAtributosValidos.IdCategoriaAtributo = temp;
-        //    }
-
-        //}
-
     }
 }
