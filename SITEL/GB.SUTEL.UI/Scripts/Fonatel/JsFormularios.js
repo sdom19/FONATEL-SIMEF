@@ -439,7 +439,7 @@
 
             await JsFormulario.Consultas.EliminarDetalleIndicadoresFormulario(objFormulario);
 
-            execAjaxCall("/FormularioWeb/EliminarFormulario", "POST", objFormulario)
+            await execAjaxCall("/FormularioWeb/EliminarFormulario", "POST", objFormulario)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
