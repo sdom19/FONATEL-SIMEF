@@ -100,10 +100,10 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    if (result.CantidadFilas == objeto.RelacionCategoriaId.Count() 
-                        && result.CantidadCategoria==objeto.DetalleRelacionCategoria.Count() 
-                        && result.CantidadFilas >0
-                        && result.CantidadCategoria>0)
+                    if (objeto.CantidadFilas == result.RelacionCategoriaId.Count() 
+                        && objeto.CantidadCategoria == result.DetalleRelacionCategoria.Count() 
+                        && result.CantidadFilas > 0
+                        && result.CantidadCategoria > 0)
                     {
                         objeto.idEstado = (int)EstadosRegistro.Activo;
                     }
@@ -445,7 +445,7 @@ namespace GB.SIMEF.BL
                 DetalleRelacionCategoria detalleRelacion = objeto.DetalleRelacionCategoria.FirstOrDefault();
 
 
-                objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+               
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.Clase = modulo;
 
@@ -463,6 +463,9 @@ namespace GB.SIMEF.BL
                     int.TryParse(Utilidades.Desencriptar(detalleRelacion.id), out temp);
                     detalleRelacion.idDetalleRelacionCategoria = temp;
                 }
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+                objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                clsDatos.ActualizarDatos(objeto);
                 detalleRelacion = objeto.DetalleRelacionCategoria.Where(x => x.idDetalleRelacionCategoria == detalleRelacion.idDetalleRelacionCategoria).FirstOrDefault();
                 detalleRelacion.Estado = false;
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatosDetalle(detalleRelacion);
@@ -590,7 +593,10 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.objetoRespuesta = new List<RelacionCategoria>();
                 RelacionCategoriaId relacionId = new RelacionCategoriaId();
-               
+                List<RelacionCategoriaAtributo> lista = new List<RelacionCategoriaAtributo>();
+                List<RelacionCategoriaId> listaRelacion = new List<RelacionCategoriaId>();
+                int numeroFila = 0;
+
                 using (var package = new ExcelPackage(file.InputStream))
                 {
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[1]; //POSICION DEL CODIGO y NOMBRE
@@ -602,7 +608,7 @@ namespace GB.SIMEF.BL
                     relacion.CantidadFilas=relacion.CantidadFilas +2;
                     for (int fila = 2; fila < relacion.CantidadFilas; fila++)
                     {
-                       
+                        numeroFila = fila;
                         if (worksheet.Cells[fila, 1].Value == null)
                         {
                             ResultadoConsulta.HayError = (int)Error.ErrorControlado;
@@ -625,10 +631,11 @@ namespace GB.SIMEF.BL
                                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                                 throw new Exception("Error en la lectura de la columna "+ValorColumna);
                             }
-                            else if(ResultadoConsulta.objetoRespuesta.Single().RelacionCategoriaId.Where(i=>i.idCategoriaId==valorId).Count()>0)
+                            //else if(ResultadoConsulta.objetoRespuesta.Single().RelacionCategoriaId.Where(i=>i.idCategoriaId==valorId).Count()>0)
+                            else if (relacion.RelacionCategoriaId.Where(i => i.idCategoriaId == valorId).Count() > 0)
                             {
-                                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                                throw new Exception("La Categoría id se encuentra ya se encuentra registrada" + ValorColumna);
+                                        ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                                throw new Exception("La Categoría id se encuentra ya se encuentra registrada " + ValorColumna);
                             }
                             else
                             {
@@ -643,36 +650,49 @@ namespace GB.SIMEF.BL
 
                                 if (temp == 2)
                                 {
-                                    relacionId.idRelacion = relacion.IdRelacionCategoria;
-                                    relacionId.idCategoriaId = valorId;
-                                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(relacionId);
-                                    relacionId.OpcionEliminar = false;
+                                    listaRelacion.Add(new RelacionCategoriaId() { idRelacion = relacion.IdRelacionCategoria, idCategoriaId = valorId });
                                 }
 
-
-
-                                RelacionCategoriaAtributo relacionCategoriaAtributo = new RelacionCategoriaAtributo()
+                                if (detalleCategoriaTexto == null)
                                 {
-                                    idRelacion = relacion.IdRelacionCategoria,
-                                    IdCategoriaId = valorId,
-                                    IdcategoriaAtributo = detalleCategoriaTexto.idCategoria,
-                                    IdcategoriaAtributoDetalle = detalleCategoriaTexto.idCategoriaDetalle
-                                };
+                                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                                    throw new Exception("Error al cargar los Detalles");
+                                }
+                                else
+                                {
+                                    RelacionCategoriaAtributo relacionCategoriaAtributo = new RelacionCategoriaAtributo()
+                                    {
+                                        idRelacion = relacion.IdRelacionCategoria,
+                                        IdCategoriaId = valorId,
+                                        IdcategoriaAtributo = detalleCategoriaTexto.idCategoria,
+                                        IdcategoriaAtributoDetalle = detalleCategoriaTexto.idCategoriaDetalle
+                                    };
 
-                                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(relacionCategoriaAtributo);
-                            }
-                         
-
-
-                           
+                                    lista.Add(relacionCategoriaAtributo);
+                                   
+                                }   
+                            }                           
                         }
-
-
-                        if (relacion.CantidadFilas == fila)
+                    }
+                    if (listaRelacion.Count() > 0)
+                    {
+                        foreach (var item in listaRelacion)
                         {
-                            relacion.idEstado = (int)EstadosRegistro.Activo;
-                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacion);
+                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(item);
                         }
+                    }
+                    if (lista.Count() > 0)
+                    {
+                        foreach (var item in lista)
+                        {
+                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(item);
+                        }
+                    }
+                    if (relacion.CantidadFilas-2 == numeroFila-1)
+                    {
+                        relacion.idEstado = (int)EstadosRegistro.Activo;
+                        relacion.CantidadFilas = relacion.CantidadFilas - 2;
+                        ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacion);
                     }
                 }
             }
