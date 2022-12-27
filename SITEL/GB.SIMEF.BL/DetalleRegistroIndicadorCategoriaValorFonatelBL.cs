@@ -19,7 +19,7 @@ namespace GB.SIMEF.BL
         readonly string modulo = "";
         readonly string user = "";
         private readonly DetalleRegistroIndicadorFonatelDAL detalleRegistroIndicadorFonatelDAL;
-        private readonly CategoriasDesagregacionDAL categoriasDesagregacionDAL;
+        private readonly CategoriasDesagregacionDAL categoriasDesagregacionDAL; 
         RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> ResultadoConsulta;
 
         public DetalleRegistroIndicadorCategoriaValorFonatelBL(string modulo, string user)
@@ -95,6 +95,7 @@ namespace GB.SIMEF.BL
                     //Se elimina los detalles valores para insertar los nuevos
                     DetalleRegistroIndicadorCategoriaValorFonatel eliminar = objeto[0];
                     eliminar.idCategoria = 0;
+                    eliminar.IdIndicador = 0;
                     detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorCategoriaValorFonatel(eliminar);
 
                     ResultadoConsulta.Clase = modulo;

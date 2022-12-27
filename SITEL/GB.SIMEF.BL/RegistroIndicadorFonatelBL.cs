@@ -107,11 +107,15 @@ namespace GB.SIMEF.BL
 
                 FuentesRegistro fuente = clsFuentesRegistroDAL.ObtenerDatos(new FuentesRegistro()).Where(x => detalle.Any(y => y.idFuente== x.idFuente)).FirstOrDefault();
 
-                ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Consultar;
-                var resul = clsDatos.ObtenerDatos(objeto).Where(x => x.IdFuente == fuente.idFuente).ToList();
-                ResultadoConsulta.objetoRespuesta = resul;
-                ResultadoConsulta.CantidadRegistros = resul.Count();
+                if (fuente != null)
+                {
+                    ResultadoConsulta.Clase = modulo;
+                    ResultadoConsulta.Accion = (int)Accion.Consultar;
+                    var resul = clsDatos.ObtenerDatos(objeto).Where(x => x.IdFuente == fuente.idFuente).ToList();
+                    ResultadoConsulta.objetoRespuesta = resul;
+                    ResultadoConsulta.CantidadRegistros = resul.Count();
+                }
+                
 
             }
             catch (Exception ex)

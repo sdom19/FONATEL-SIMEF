@@ -86,7 +86,25 @@ namespace GB.SIMEF.DAL
               new SqlParameter("@idRelacion", idRelacion),
               new SqlParameter("@idCategoriaId", IdCategoriaId)
               ).ToList();
-                lista = lista.Select(x => new RelacionCategoriaAtributo()
+                List<RelacionCategoriaAtributo> lista2 = new List<RelacionCategoriaAtributo>(lista);              
+                foreach (var item in lista)
+                {
+                    foreach (var item2 in lista)
+                    {
+                        if (item2.IdcategoriaAtributo == item.IdcategoriaAtributo && item2.IdcategoriaAtributoDetalle != item.IdcategoriaAtributoDetalle)
+                        {
+                            if (item2.IdcategoriaAtributoDetalle == 0)
+                            {
+                                lista2.Remove(item2);
+                            }
+                            else
+                            {
+                                lista2.Remove(item);
+                            }                            
+                        }
+                    }
+                }
+                lista = lista2.Select(x => new RelacionCategoriaAtributo()
                 {
                     idRelacion = x.idRelacion,
                     IdcategoriaAtributo=x.IdcategoriaAtributo,
