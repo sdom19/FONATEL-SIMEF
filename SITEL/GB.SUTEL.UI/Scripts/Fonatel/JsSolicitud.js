@@ -376,10 +376,7 @@ JsSolicitud = {
 
                         } else {
 
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.estado)
-                                .set('onok', function (closeEvent) {
-                                    JsSolicitud.Consultas.CambiarEstadoDesactivado(idSolicitud);
-                                });
+                                    JsSolicitud.Consultas.CambiarEstadoDesactivado(idSolicitud);                        
                         }
 
                     } else {
@@ -768,7 +765,7 @@ JsSolicitud = {
             $("#loading").fadeIn();
 
             let Solicitud = new Object();
-
+            Solicitud.id = ObtenerValorParametroUrl("id");
             Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
             Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
 
@@ -1047,7 +1044,7 @@ $(document).on("click", JsSolicitud.Controles.btnFinalizarSolicitud, function (e
 
     let id = ObtenerValorParametroUrl("id");
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Solicitud?", jsMensajes.Variables.actionType.cancelar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsSolicitud.Consultas.CambiarEstadoFinalizado(id);
         });
@@ -1069,7 +1066,7 @@ $(document).on("click", JsSolicitud.Controles.btnDeleteFormulario, function (e) 
 
     console.log(idFormulario);
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.cancelar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
 
             JsSolicitud.Consultas.EliminarDetalleSolicitud(idSolicitud, idFormulario);
@@ -1250,13 +1247,11 @@ $(document).on("click", JsSolicitud.Controles.btnActivadoSolicitud, function (e)
     e.preventDefault();
 
     let id = $(this).val();
-    let Eliminado = false;
-
-    JsSolicitud.Consultas.ValidarExistenciaSolicitud(id, Eliminado);
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            JsSolicitud.Consultas.ValidarExistenciaSolicitud(id, Eliminado);
+            JsSolicitud.Consultas.CambiarEstadoDesactivado(id);
+
         });
 
 });
