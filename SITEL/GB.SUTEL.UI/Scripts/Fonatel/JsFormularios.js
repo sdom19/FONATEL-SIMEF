@@ -433,10 +433,13 @@
                 });
         },
 
-        "EliminarFormulario": function (idFormulario) {
+        "EliminarFormulario": async function (idFormulario) {
             let objFormulario = new Object()
             objFormulario.id = idFormulario;
-            execAjaxCall("/FormularioWeb/EliminarFormulario", "POST", objFormulario)
+
+            await JsFormulario.Consultas.EliminarDetalleIndicadoresFormulario(objFormulario);
+
+            await execAjaxCall("/FormularioWeb/EliminarFormulario", "POST", objFormulario)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
@@ -445,6 +448,15 @@
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
+        },
+
+        "EliminarDetalleIndicadoresFormulario": async function (objFormulario) {
+            await execAjaxCall("/FormularioWeb/EliminarDetalleIndicadoresFormulario", "POST", objFormulario)
+                .then((obj) => {
+                    
+                }).catch((obj) => {
+                    JsFormulario.Metodos.MensajeError(obj);
+                })
         },
 
         "DesactivarFormulario": function (idFormulario) {
@@ -564,11 +576,11 @@
                     JsFormulario.Variables.CantidadActual = JsFormulario.Variables.ListadoDetalleIndicadores.length
                     JsFormulario.Metodos.CargarTablasIndicadores();
                     JsFormulario.Metodos.ValidarButonFinalizar();
-                    if (JsFormulario.Variables.CantidadActual != $(JsFormulario.Controles.CantidadIndicadoresMax).val()) {
-                        jsMensajes.Metodos.OkAlertModal("Recuerde que puede agregar más de un Indicador")
-                            .set('onok', function (closeEvent) {
-                            });
-                    }
+                    //if (JsFormulario.Variables.CantidadActual != $(JsFormulario.Controles.CantidadIndicadoresMax).val()) {
+                    //    jsMensajes.Metodos.OkAlertModal("Recuerde que puede agregar más de un Indicador")
+                    //        .set('onok', function (closeEvent) {
+                    //        });
+                    //}
                 }).catch((obj) => {
                     jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                         .set('onok', function (closeEvent) {
