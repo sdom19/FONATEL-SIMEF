@@ -576,11 +576,11 @@
                     JsFormulario.Variables.CantidadActual = JsFormulario.Variables.ListadoDetalleIndicadores.length
                     JsFormulario.Metodos.CargarTablasIndicadores();
                     JsFormulario.Metodos.ValidarButonFinalizar();
-                    if (JsFormulario.Variables.CantidadActual != $(JsFormulario.Controles.CantidadIndicadoresMax).val()) {
-                        jsMensajes.Metodos.OkAlertModal("Recuerde que puede agregar más de un Indicador")
-                            .set('onok', function (closeEvent) {
-                            });
-                    }
+                    //if (JsFormulario.Variables.CantidadActual != $(JsFormulario.Controles.CantidadIndicadoresMax).val()) {
+                    //    jsMensajes.Metodos.OkAlertModal("Recuerde que puede agregar más de un Indicador")
+                    //        .set('onok', function (closeEvent) {
+                    //        });
+                    //}
                 }).catch((obj) => {
                     jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                         .set('onok', function (closeEvent) {

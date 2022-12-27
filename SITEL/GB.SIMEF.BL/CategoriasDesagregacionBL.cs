@@ -303,11 +303,17 @@ namespace GB.SIMEF.BL
                     objeto.idEstado = objeto.DetalleCategoriaTexto.Count() == objeto.CantidadDetalleDesagregacion ?
                             (int)Constantes.EstadosRegistro.Activo : (int)Constantes.EstadosRegistro.EnProceso;
 
-                    var result = clsDatos.ActualizarDatos(objeto)
-                      .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+                    var result = new CategoriasDesagregacion();
 
                     if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
+                        if (objetoClonar.DetalleCategoriaFecha.FechaMinima >= objetoClonar.DetalleCategoriaFecha.FechaMaxima & objetoClonar.EsParcial == false)
+                        {
+                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                            throw new Exception(Errores.ValorFecha);
+                        }
+                        result = clsDatos.ActualizarDatos(objeto)
+                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
 
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaFecha.FechaMaxima = objetoClonar.DetalleCategoriaFecha.FechaMaxima;
@@ -316,6 +322,14 @@ namespace GB.SIMEF.BL
                     }
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
+                        if ((objetoClonar.DetalleCategoriaNumerico.Minimo >= objetoClonar.DetalleCategoriaNumerico.Maximo) && (!objetoClonar.EsParcial) && (objetoClonar.IdTipoCategoria != (int)Constantes.TipoCategoriaEnum.VariableDato))
+                        {
+                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                            throw new Exception(Errores.ValorMinimo);
+                        }
+                        result = clsDatos.ActualizarDatos(objeto)
+                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaNumerico.Minimo = objetoClonar.DetalleCategoriaNumerico.Minimo;
                         objeto.DetalleCategoriaNumerico.Maximo = objetoClonar.DetalleCategoriaNumerico.Maximo;
@@ -324,6 +338,9 @@ namespace GB.SIMEF.BL
                     }
                     else
                     {
+                        result = clsDatos.ActualizarDatos(objeto)
+                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+
                         foreach (var item in objeto.DetalleCategoriaTexto)
                         {
                             item.idCategoria = result.idCategoria;
@@ -403,6 +420,7 @@ namespace GB.SIMEF.BL
                     {
                         if (objeto.DetalleCategoriaFecha.FechaMinima >= objeto.DetalleCategoriaFecha.FechaMaxima & objeto.EsParcial == false)
                         {
+                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                             throw new Exception(Errores.ValorFecha);
                         }
                         var result = clsDatos.ActualizarDatos(objeto)
