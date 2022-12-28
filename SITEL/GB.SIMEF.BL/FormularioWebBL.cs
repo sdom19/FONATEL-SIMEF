@@ -54,12 +54,12 @@ namespace GB.SIMEF.BL
         private bool ValidarDatosRepetidos(FormularioWeb objFormularioWeb)
         {
             List<FormularioWeb> buscarRegistro = clsDatos.ObtenerDatos(new FormularioWeb());
-            if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objFormularioWeb.Codigo.ToUpper()).ToList().Count() > 0)
+            if (buscarRegistro.Where(x => x.Codigo.ToUpper().TrimStart().TrimEnd() == objFormularioWeb.Codigo.ToUpper().TrimStart().TrimEnd()).ToList().Count() > 0)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.CodigoRegistrado);
             }
-            else if (buscarRegistro.Where(x => x.Nombre.ToUpper() == objFormularioWeb.Nombre.ToUpper()).ToList().Count() > 0)
+            else if (buscarRegistro.Where(x => x.Nombre.ToUpper().TrimStart().TrimEnd() == objFormularioWeb.Nombre.ToUpper().TrimStart().TrimEnd()).ToList().Count() > 0)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.NombreRegistrado);
