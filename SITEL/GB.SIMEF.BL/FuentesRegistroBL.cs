@@ -102,8 +102,19 @@ namespace GB.SIMEF.BL
 
                         objeto.Fuente = fuente;
                         objeto.CantidadDestinatario = Cantidad;
-                        objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
-
+                        if (objeto.idEstado == 2)
+                        {
+                            if(objeto.CantidadDestinatario > objeto.DetalleFuentesRegistro.Count())
+                            {
+                                objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                            }
+                            
+                        }
+                        else
+                        {
+                            objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                        }
+                        
                         clsDatos.ActualizarDatos(objeto);
 
                         var nuevovalor = clsDatos.ObtenerDatos(objeto).Single();

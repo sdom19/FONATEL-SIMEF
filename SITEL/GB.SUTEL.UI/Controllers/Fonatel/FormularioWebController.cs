@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -293,7 +294,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 .objetoRespuesta.Where(x=>x.IdClasificacion!=(int)Constantes.ClasificacionIndicadorEnum.Salida);
             //indicadores = indicadores.Where(x => x.IdClasificacion == 3 || x.IdClasificacion == 4).ToList();
             indicadores = indicadores.
-                Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.idIndicador)).ToList();
+                Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.idIndicador && p2.Estado == true)).ToList();
 
 
 
@@ -391,6 +392,30 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 return View();
             }
-        }       
+        }
+
+        [HttpGet]
+        public string ObtenerIndicadoresFormularioCombo()
+        {
+            //async Task<string>
+                RespuestaConsulta<List<SelectListItem>> result = new RespuestaConsulta<List<SelectListItem>>();
+               // await Task.Run(() =>
+                //{
+                    var indicadores = indicadorBL.ObtenerDatos(new Indicador() { idEstado = 2 })
+                    .objetoRespuesta.Where(x => x.IdClasificacion != (int)Constantes.ClasificacionIndicadorEnum.Salida);
+                    //indicadores = indicadores.Where(x => x.IdClasificacion == 3 || x.IdClasificacion == 4).ToList();
+                    indicadores = indicadores.
+                        Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.idIndicador && p2.Estado == true)).ToList();
+
+                    var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+
+                    result.objetoRespuesta = listaValores;
+                //});
+
+                return JsonConvert.SerializeObject(result);
+                      
+        }
+
+        
     }
 }
