@@ -14,6 +14,7 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("DetalleFuentesRegistro")]
     public partial class DetalleFuentesRegistro
@@ -52,18 +53,14 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public int CantidadDisponible { get; set; }
-        [NotMapped]
 
-        public List<string> NoSerialize = new List<string>()
+        public override string ToString()
         {
-            "idDetalleFuente",
-            "idFuente",
-            "Estado",
-            "FuenteId",
-            "Contrasena"
-
-
-        };
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Nombre destinatario\":\"").Append(this.NombreDestinatario).Append("\",");
+            json.Append("\"Correo electrónico\":\"").Append(this.CorreoElectronico).Append("\"}");
+            return json.ToString();
+        }
 
 
         #endregion
