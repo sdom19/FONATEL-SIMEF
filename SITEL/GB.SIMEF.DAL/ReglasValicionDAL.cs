@@ -28,11 +28,10 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaCategoriaDetalle = db.Database.SqlQuery<ReglaValidacion>
-                    ("execute spObtenerReglasValidacion @idRegla,@Codigo,@idIndicador,@idEstado",
+                    ("execute spObtenerReglasValidacion @idRegla,@Codigo,@idIndicador",
                       new SqlParameter("@idRegla", objReglas.idRegla),
                       new SqlParameter("@Codigo", string.IsNullOrEmpty(objReglas.Codigo) ? DBNull.Value.ToString() : objReglas.Codigo),
-                      new SqlParameter("@idIndicador", objReglas.idIndicador),
-                      new SqlParameter("@idEstado", objReglas.idEstado)
+                      new SqlParameter("@idIndicador", objReglas.idIndicador)
                     ).ToList();
 
                 ListaCategoriaDetalle = ListaCategoriaDetalle.Select(x => new ReglaValidacion()

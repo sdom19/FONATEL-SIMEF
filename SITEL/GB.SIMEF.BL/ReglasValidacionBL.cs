@@ -42,28 +42,35 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioModificacion = user;
-
                 DesencriptarReglasValidacion(objeto);
 
                 var objetoAnterior  = listadoReglas.Where(x => x.idRegla == objeto.idRegla).Single();
-                
-                var resul = clsDatos.ObtenerDatos(new ReglaValidacion());
 
-                if (resul.Where(x => x.idRegla == objeto.idRegla).Count() == 0)
+                objeto.idEstado = objetoAnterior.idEstado;
+
+                if (listadoReglas.Where(x => x.idRegla == objeto.idRegla).Count() == 0)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
-                else if (resul.Where(x => x.idRegla != objeto.idRegla && x.Nombre.ToUpper() == objeto.Nombre.ToUpper()).Count() > 0)
+                else if (listadoReglas.Where(x => x.idRegla != objeto.idRegla && x.Nombre.ToUpper() == objeto.Nombre.ToUpper()).Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
                 else
                 {
-                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
-                    ResultadoConsulta.CantidadRegistros = resul.Count();
+                    if (objeto.Descripcion.Equals(objetoAnterior.Descripcion) && objeto.idIndicador.Equals(objetoAnterior.idIndicador) && objeto.idEstado == (int)Constantes.EstadosRegistro.Activo)
+                    {
+                        objeto.idEstado = (int)EstadosRegistro.Activo;
+                    }
+                    else
+                    {
+                        objeto.idEstado = (int)EstadosRegistro.EnProceso;
+                    }
 
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                    ResultadoConsulta.CantidadRegistros = listadoReglas.Count();
                 }
 
                 objeto = ResultadoConsulta.objetoRespuesta.Single();
