@@ -48,7 +48,7 @@ namespace GB.SIMEF.Entities
         {
             StringBuilder json = new StringBuilder();
             json.Append("{\"Fuente\":\"").Append(this.Fuente).Append("\",");
-            json.Append("\"Cantidad destinatarios\":").Append(this.CantidadDestinatario).Append("}");
+            json.Append("\"Cantidad de destinatarios\":").Append(this.CantidadDestinatario).Append("}");
             return json.ToString();
         }
     }
