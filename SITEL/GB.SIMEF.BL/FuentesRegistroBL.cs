@@ -132,6 +132,8 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                string jsonAnterior = ObtenerDatos(objeto).objetoRespuesta.FirstOrDefault().ToString();
+
                 if (!String.IsNullOrEmpty(objeto.id))
                 {
                     objeto.id = Utilidades.Desencriptar(objeto.id);
@@ -169,11 +171,12 @@ namespace GB.SIMEF.BL
                     objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
                     ResultadoConsulta.Accion = (int)Constantes.Accion.Activar;
                     resul = clsDatos.ActualizarDatos(objeto);
+                    string jsonActual = resul.FirstOrDefault().ToString();
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
                     clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                            ResultadoConsulta.Usuario,
-                           ResultadoConsulta.Clase, objeto.Fuente);
+                           ResultadoConsulta.Clase, objeto.Fuente, jsonActual, jsonAnterior);
                 }
 
             }

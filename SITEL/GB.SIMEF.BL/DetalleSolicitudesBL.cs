@@ -18,14 +18,17 @@ namespace GB.SIMEF.BL
         private readonly SolicitudDAL clsDatosSolicitud;
 
         string modulo = EtiquetasViewSolicitudes.Solicitudes;
+        string user = string.Empty;
 
         private RespuestaConsulta<List<DetalleSolicitudFormulario>> ResultadoConsulta;
 
-        public DetalleSolicitudesBL()
+        public DetalleSolicitudesBL(string modulo, string user)
         {
             clsDatos = new DetalleSolicitudesDAL();
             clsDatosSolicitud = new SolicitudDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<DetalleSolicitudFormulario>>();
+            this.user = user;
+            this.modulo = modulo;
         }
 
         public RespuestaConsulta<List<DetalleSolicitudFormulario>> ActualizarElemento(DetalleSolicitudFormulario objeto)
@@ -49,6 +52,7 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
+                ResultadoConsulta.Usuario = user;
 
                 DetalleSolicitudFormulario registroActualizar;
 
@@ -62,6 +66,10 @@ namespace GB.SIMEF.BL
                 resul = clsDatos.ActualizarDatos(registroActualizar);
 
                 ResultadoConsulta.objetoRespuesta = resul;
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Formularioid, "", "", "");
 
             }
             catch (Exception ex)
@@ -87,6 +95,7 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = user;
 
                 DesencriptarDetalle(objeto);
 
@@ -102,7 +111,14 @@ namespace GB.SIMEF.BL
 
                 ResultadoConsulta.objetoRespuesta = resul;
 
+                consultarDatos = clsDatos.ObtenerListaFormularios(objeto);
+                var objetoInicial = resul.FirstOrDefault();
+                objetoInicial.Formularioid = consultarDatos.Where(x => x.idFormulario == objeto.IdFormulario).FirstOrDefault().Nombre;
 
+                string jsonInicial = objetoInicial.ToString();
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Formularioid, "", "", jsonInicial);
             }
             catch (Exception ex)
             {

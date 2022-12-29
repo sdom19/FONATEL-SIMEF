@@ -9,10 +9,12 @@
 
 namespace GB.SIMEF.Entities
 {
+    using GB.SIMEF.Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("Solicitud")]
     public partial class Solicitud
@@ -79,38 +81,45 @@ namespace GB.SIMEF.Entities
         public string FormulariosString { get; set; }
 
         [NotMapped]
-        public List<string> NoSerialize = new List<string>()
-        {
-            "idSolicitud",
-            "FechaInicio",
-            "FechaFin",
-            "CantidadFormularios",
-            "Mensaje",
-            "FechaCreacion",
-            "UsuarioCreacion",
-            "FechaModificacion",
-            "UsuarioModificacion",
-            "idFuente",
-            "idMes",
-            "idAnno",
-            "IdEstado",
-            "id",
-            "Formularioid",
-            "Estado",
-            "Fuente",
-            "FormularioWeb",
-            "EnvioProgramado",
-            "SolicitudFormulario",
-            "FormulariosString",
-        };
-
-
-        [NotMapped]
         public Mes Mes { get; set; }
         [NotMapped]
         public Anno Anno { get; set; }
 
 
         #endregion
+
+        public override string ToString()
+        {
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Código\":\"").Append(this.Codigo).Append("\",");
+            json.Append("\"Nombre\":\"").Append(this.Nombre).Append("\",");
+            json.Append("\"Fecha de inicio\":\"").Append(this.FechaInicio).Append("\",");
+            json.Append("\"Fecha de fin\":\"").Append(this.FechaFin).Append("\",");
+            json.Append("\"Fuente\":\"").Append(this.Fuente.Fuente).Append("\",");
+            json.Append("\"Cantidad de formularios\":").Append(this.CantidadFormularios).Append(",");
+            json.Append("\"Mes de registro\":\"").Append(this.Mes.Nombre).Append("\",");
+            json.Append("\"Año de registro\":\"").Append(this.Anno.Nombre).Append("\",");
+            json.Append("\"Mensaje\":\"").Append(this.Mensaje).Append("\",");
+
+            string estado = string.Empty;
+            switch (this.Estado.idEstado)
+            {
+                case (int)Constantes.EstadosRegistro.Desactivado:
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.Estado.idEstado);
+                    break;
+                case (int)Constantes.EstadosRegistro.Activo:
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.Estado.idEstado);
+                    break;
+                case (int)Constantes.EstadosRegistro.Eliminado:
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.Estado.idEstado);
+                    break;
+                case (int)Constantes.EstadosRegistro.EnProceso:
+                    estado = "En Proceso";
+                    break;
+            }
+            json.Append("\"Estado\":\"").Append(estado).Append("\"}");
+
+            return json.ToString();
+        }
     }
 }

@@ -9,6 +9,7 @@
 
 namespace GB.SIMEF.Entities
 {
+    using GB.SIMEF.Resources;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
@@ -58,7 +59,9 @@ namespace GB.SIMEF.Entities
         {
             StringBuilder json = new StringBuilder();
             json.Append("{\"Nombre destinatario\":\"").Append(this.NombreDestinatario).Append("\",");
-            json.Append("\"Correo electrónico\":\"").Append(this.CorreoElectronico).Append("\"}");
+            json.Append("\"Correo electrónico\":\"").Append(this.CorreoElectronico).Append("\",");
+            json.Append("\"Activo\":\"").Append(this.Estado ? "Si" : "No").Append("\"}");
+
             return json.ToString();
         }
 
