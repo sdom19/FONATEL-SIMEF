@@ -70,7 +70,7 @@ namespace GB.SIMEF.BL
                 string jsonValorInicial = objeto.ToString();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
-                                ResultadoConsulta.Clase, "", "", "", jsonValorInicial);
+                                ResultadoConsulta.Clase, objeto.Indicador.Codigo, objeto.ToString(), detalleFormularioWeb.ToString(), "");
             }
             catch (Exception ex)
             {

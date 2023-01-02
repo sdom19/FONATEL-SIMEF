@@ -43,7 +43,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 objeto= ValidarDatosDetalleFuentes(objeto);
-                string jsonAnterior = objeto.ToString();
+                string jsonAnterior = clsDatos.ObtenerDatos(objeto).FirstOrDefault().ToString();
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
                 string jsonActual = ResultadoConsulta.objetoRespuesta.Single().ToString();
