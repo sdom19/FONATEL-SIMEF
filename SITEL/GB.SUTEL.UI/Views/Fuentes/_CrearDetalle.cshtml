@@ -3,6 +3,7 @@
 @model GB.SIMEF.Entities.FuentesRegistro
 <form>
     <input type="hidden" id="txtidDetalleFuente" />
+    <input type="hidden" id="txtIdUsuarioDetalle" />
     <div class="row">
 
         <div class="col-md-4 col-sm-9 col-md-offset-2 col-sm-offset-3">
@@ -37,7 +38,7 @@
             }
             else
             {
-                <button type="submit" disabled  id="btnGuardarDestinatario" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+                <button type="submit" disabled id="btnGuardarDestinatario" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
             }
 
             <button type="submit" id="btnCancelarFuente" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
