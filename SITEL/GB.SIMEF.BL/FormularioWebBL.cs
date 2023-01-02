@@ -54,12 +54,12 @@ namespace GB.SIMEF.BL
         private bool ValidarDatosRepetidos(FormularioWeb objFormularioWeb)
         {
             List<FormularioWeb> buscarRegistro = clsDatos.ObtenerDatos(new FormularioWeb());
-            if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objFormularioWeb.Codigo.ToUpper()).ToList().Count() > 0)
+            if (buscarRegistro.Where(x => x.Codigo.ToUpper().TrimStart().TrimEnd() == objFormularioWeb.Codigo.ToUpper().TrimStart().TrimEnd()).ToList().Count() > 0)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.CodigoRegistrado);
             }
-            else if (buscarRegistro.Where(x => x.Nombre.ToUpper() == objFormularioWeb.Nombre.ToUpper()).ToList().Count() > 0)
+            else if (buscarRegistro.Where(x => x.Nombre.ToUpper().TrimStart().TrimEnd() == objFormularioWeb.Nombre.ToUpper().TrimStart().TrimEnd()).ToList().Count() > 0)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.NombreRegistrado);
@@ -155,7 +155,7 @@ namespace GB.SIMEF.BL
 
                 objeto.idFormulario = DesencriptarId(objeto.id);
                 ValidarCantidadIndicadores(new FormularioWeb() { idFormulario = objeto.idFormulario, Codigo = "", CantidadIndicadores = objeto.CantidadIndicadores });
-                var ListaDetalleFormulariosWeb = ObtenerDetalleFormularioWeb(objeto.idFormulario);
+                //var ListaDetalleFormulariosWeb = ObtenerDetalleFormularioWeb(objeto.idFormulario);
 
                 // resetear el id original
                 objeto.idFormulario = 0;
@@ -165,7 +165,7 @@ namespace GB.SIMEF.BL
                 }
 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
-                ClonarDetalleFormularioWeb(ListaDetalleFormulariosWeb, objeto.idFormulario);
+                //ClonarDetalleFormularioWeb(ListaDetalleFormulariosWeb, objeto.idFormulario);
 
                 string jsonValorInicial = SerializarObjetoBitacora(objeto);
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
@@ -318,8 +318,11 @@ namespace GB.SIMEF.BL
             List<DetalleFormularioWeb> lista = new List<DetalleFormularioWeb>();
             foreach (Indicador i in objeto.ListaIndicadoresObj) 
             {
-                var df= detalleFormularioWebDAL.ObtenerDatos(new DetalleFormularioWeb() { idFormulario=idformulario, idIndicador=i.idIndicador }).Single();
-                lista.Add(df);
+                var df = detalleFormularioWebDAL.ObtenerDatos(new DetalleFormularioWeb() { idFormulario = idformulario, idIndicador = i.idIndicador });
+                if(df.Count > 0)
+                {
+                    lista.Add(df.Single());
+                }
             }
             return lista;
         }

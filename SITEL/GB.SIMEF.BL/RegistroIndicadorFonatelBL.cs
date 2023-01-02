@@ -115,6 +115,13 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
                 }
+                else
+                {
+                    ResultadoConsulta.Clase = modulo;
+                    ResultadoConsulta.Accion = (int)Accion.Consultar;
+                    ResultadoConsulta.objetoRespuesta = new List<RegistroIndicadorFonatel>();
+                    ResultadoConsulta.CantidadRegistros = 0;
+                }
                 
 
             }

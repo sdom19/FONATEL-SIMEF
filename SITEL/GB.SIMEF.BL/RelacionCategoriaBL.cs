@@ -140,7 +140,45 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<RelacionCategoria>> CambioEstado(RelacionCategoria objeto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!String.IsNullOrEmpty(objeto.id))
+                {
+                    objeto.id = Utilidades.Desencriptar(objeto.id);
+                    int temp;
+                    if (int.TryParse(objeto.id, out temp))
+                    {
+                        objeto.IdRelacionCategoria = temp;
+                    }
+                }
+
+                ResultadoConsulta.Clase = modulo;
+                int nuevoEstado = objeto.idEstado;
+                objeto.idEstado = 0;
+                ResultadoConsulta.Usuario = user;
+
+
+                var resul = clsDatos.ObtenerDatos(objeto);
+                objeto = resul.Single();
+                objeto.idEstado = nuevoEstado;
+
+                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.idEstado ? (int)Accion.Activar : (int)Accion.Inactiva;
+                resul = clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+
+                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                //ResultadoConsulta.Usuario,
+                //ResultadoConsulta.Clase, objeto.Codigo, JsonConvert.SerializeObject(objeto), "", "");
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
         public RespuestaConsulta<List<RelacionCategoria>> ClonarDatos(RelacionCategoria objeto)

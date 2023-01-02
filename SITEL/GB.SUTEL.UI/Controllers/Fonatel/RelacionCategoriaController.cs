@@ -228,6 +228,27 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Fecha: 27-12-2022
+        /// Autor:Francisco Vindas
+        /// Metodo que activa la relacion 
+        /// </summary>
+        /// <param name="relacion"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CambiarEstadoActivado(RelacionCategoria relacion)
+        {
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
+
+            relacion.idEstado = (int)Constantes.EstadosRegistro.Activo;
+
+            await Task.Run(() =>
+            {
+                result = relacionCategoriaBL.CambioEstado(relacion);
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
 
 
         #endregion

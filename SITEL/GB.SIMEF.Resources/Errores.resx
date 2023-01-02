@@ -174,6 +174,9 @@
   <data name="EtiquetaRegistrada" xml:space="preserve">
     <value>La Etiqueta ingresada ya se encuentra registrado</value>
   </data>
+  <data name="FormularioIngresado" xml:space="preserve">
+    <value>El Formulario ya se encuentra registrado</value>
+  </data>
   <data name="FuenteRegistrada" xml:space="preserve">
     <value>La Fuente ingresada ya se encuentra registrada</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="ReglasVariableIngresada" xml:space="preserve">
     <value>La Regla ingresada ya se encuentra registrada para esta Variable Dato</value>
+  </data>
+  <data name="SolicitudesCantidadFormularios" xml:space="preserve">
+    <value>La cantidad ingresada en Cantidad de Formularios no puede ser menor al valor actual</value>
   </data>
   <data name="SolicitudesFuenteRegistrada" xml:space="preserve">
     <value>La Solicitud no registra la fuente activa</value>

@@ -171,6 +171,13 @@
                 $(JsFormulario.Controles.btnGuardarFormularioCompleto).removeAttr("disabled");// azul
         },
 
+        "ValidarButonGuardarIndicador": function () {
+            if (JsFormulario.Variables.CantidadActual != $(JsFormulario.Controles.CantidadIndicadoresMax).val())
+                $(JsFormulario.Controles.btnGuardarIndicador).removeAttr("disabled"); // gris
+            else
+                $(JsFormulario.Controles.btnGuardarIndicador).prop("disabled", true);// azul
+        },
+
         "CargarTablasFormulario": function () {
             EliminarDatasource();
             let html = "";
@@ -294,6 +301,7 @@
                     InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
                     JsFormulario.Variables.HayError = false;
                     JsFormulario.Metodos.ValidarButonFinalizar();
+                    JsFormulario.Metodos.ValidarButonGuardarIndicador();
                 }).catch((obj) => {
                     JsFormulario.Variables.HayError = true;
                     JsFormulario.Metodos.MensajeError(obj);
@@ -332,6 +340,7 @@
                     InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
                     JsFormulario.Variables.HayError = false;
                     JsFormulario.Metodos.ValidarButonFinalizar();
+                    JsFormulario.Metodos.ValidarButonGuardarIndicador();
                 }).catch((obj) => {
                     JsFormulario.Variables.HayError = true;
                     JsFormulario.Metodos.MensajeError(obj);
@@ -422,9 +431,10 @@
             detalleFormulario.formularioweb = formularioweb;
             await execAjaxCall("/FormularioWeb/EliminarIndicadoresFormulario", "POST", detalleFormulario)
                 .then((obj) => {
+                    JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
                     jsMensajes.Metodos.OkAlertModal("El Indicador ha sido eliminado")
                         .set('onok', function (closeEvent) {
-                            JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
+                            JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();                           
                         });
                 }).catch((obj) => {
                     JsFormulario.Metodos.MensajeError(obj);
@@ -433,10 +443,13 @@
                 });
         },
 
-        "EliminarFormulario": function (idFormulario) {
+        "EliminarFormulario": async function (idFormulario) {
             let objFormulario = new Object()
             objFormulario.id = idFormulario;
-            execAjaxCall("/FormularioWeb/EliminarFormulario", "POST", objFormulario)
+
+            await JsFormulario.Consultas.EliminarDetalleIndicadoresFormulario(objFormulario);
+
+            await execAjaxCall("/FormularioWeb/EliminarFormulario", "POST", objFormulario)
                 .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
@@ -445,6 +458,15 @@
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
+        },
+
+        "EliminarDetalleIndicadoresFormulario": async function (objFormulario) {
+            await execAjaxCall("/FormularioWeb/EliminarDetalleIndicadoresFormulario", "POST", objFormulario)
+                .then((obj) => {
+                    
+                }).catch((obj) => {
+                    JsFormulario.Metodos.MensajeError(obj);
+                })
         },
 
         "DesactivarFormulario": function (idFormulario) {
@@ -546,6 +568,27 @@
                     JsFormulario.Variables.CantidadActual = JsFormulario.Variables.ListadoDetalleIndicadores.length
                     JsFormulario.Metodos.CargarTablasIndicadores();
                     JsFormulario.Metodos.ValidarButonFinalizar();
+                    JsFormulario.Metodos.ValidarButonGuardarIndicador();
+                }).catch((obj) => {
+                    jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                        .set('onok', function (closeEvent) {
+                        });
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "ConsultaListaIndicadoresFormularioCombo": function () {
+            $("#loading").fadeIn();
+            execAjaxCall("/FormularioWeb/ObtenerIndicadoresFormularioCombo", "GET")
+                .then((obj) => {
+                    var comboIndicador = document.getElementById("ddlIndicador");
+                    comboIndicador.innerHTML = '';
+                    comboIndicador.options[0] = new Option("", -1);
+                    for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
+                        comboIndicador.options[i] = new Option(obj.objetoRespuesta[i-1].Text, obj.objetoRespuesta[i-1].Value);
+                    }
+                    
                 }).catch((obj) => {
                     jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                         .set('onok', function (closeEvent) {
@@ -564,11 +607,9 @@
                     JsFormulario.Variables.CantidadActual = JsFormulario.Variables.ListadoDetalleIndicadores.length
                     JsFormulario.Metodos.CargarTablasIndicadores();
                     JsFormulario.Metodos.ValidarButonFinalizar();
-                    if (JsFormulario.Variables.CantidadActual != $(JsFormulario.Controles.CantidadIndicadoresMax).val()) {
-                        jsMensajes.Metodos.OkAlertModal("Recuerde que puede agregar más de un Indicador")
-                            .set('onok', function (closeEvent) {
-                            });
-                    }
+                    
+                    JsFormulario.Metodos.ValidarButonGuardarIndicador();
+                    
                 }).catch((obj) => {
                     jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                         .set('onok', function (closeEvent) {
@@ -632,12 +673,14 @@ $(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e)
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', async function (closeEvent) {
                     await JsFormulario.Consultas.InsertarIndicadores();
+                    JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
                 });
         }
         else {
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Indicador?", jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
                     JsFormulario.Consultas.EditarIndicadores();
+                    JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
                 });
         }
     }
@@ -791,6 +834,7 @@ $(function () {
     $(JsFormulario.Controles.txtDescripcionFormularioHelp).addClass("hidden");
     $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true);
     JsFormulario.Metodos.ValidarButonFinalizar();
+    JsFormulario.Metodos.ValidarButonGuardarIndicador();
     if ($(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val() == 0) {
         $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val("");
     }
@@ -803,6 +847,7 @@ $(function () {
         }
         if (modo == undefined) {
             JsFormulario.Metodos.ValidarButonFinalizar();
+            JsFormulario.Metodos.ValidarButonGuardarIndicador();
         }
     }
     if ($(JsFormulario.Controles.FormularioIndex).length > 0) {

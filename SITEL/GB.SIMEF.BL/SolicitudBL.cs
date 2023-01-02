@@ -181,7 +181,7 @@ namespace GB.SIMEF.BL
                 else if (result.SolicitudFormulario.Count > objeto.CantidadFormularios)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.CantidadRegistrosLimite);
+                    throw new Exception(Errores.SolicitudesCantidadFormularios);
                 }
                 else if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() >= 1)
                 {
@@ -399,6 +399,8 @@ namespace GB.SIMEF.BL
 
                 List<Solicitud> BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
+                DesencriptarSolicitud(objeto);
+
                 if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
@@ -410,15 +412,31 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
-                else if (objeto.FechaFin < objeto.FechaInicio)
+                if (objeto.FechaFin < objeto.FechaInicio)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.ValorFecha);
                 }
                 else
-                {
-                
-                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto); 
+                {   
+                    if(objeto.idSolicitud == 0)
+                    {
+                        ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                    }
+                    else
+                    {
+                        var result = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
+
+                        if (result.SolicitudFormulario.Count > objeto.CantidadFormularios)
+                        {
+                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                            throw new Exception(Errores.SolicitudesCantidadFormularios);
+                        }
+                        else
+                        {
+                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                        }
+                    }
                 }
                 string jsonValorInicial = SerializarObjetoBitacora(ResultadoConsulta.objetoRespuesta.Single());
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,

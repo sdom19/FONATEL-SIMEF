@@ -182,28 +182,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
-        [HttpGet]
-        public ActionResult Edit(string id)
-        {
-            ViewBag.ModoFormulario = ((int)Constantes.Accion.Editar).ToString();
-            ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloEditarIndicador;
-
-            if (string.IsNullOrEmpty(id))
-                return View("Index");
-
-            DetalleReglaValidacion objDetalle = null;
-            try
-            {
-                objDetalle = detalleReglaBL.ObtenerDatos(new DetalleReglaValidacion() { id = id }).objetoRespuesta.FirstOrDefault();
-            }
-            catch (Exception) { };
-
-            if (objDetalle == null)
-                return View("Index");
-
-            return View("Create", objDetalle);
-        }
-
         #region Metodos Async
 
         /// <summary>
@@ -361,8 +339,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public async Task<string> EditarReglaValidacion(ReglaValidacion objeto)
         {
             RespuestaConsulta<List<ReglaValidacion>> result = null;
-
-            objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
 
             await Task.Run(() =>
             {

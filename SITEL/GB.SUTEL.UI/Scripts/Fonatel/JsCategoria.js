@@ -749,8 +749,17 @@ $(document).on("click", JsCategoria.Controles.btnEditarCategoria, function () {
 
 $(document).on("click", JsCategoria.Controles.btnDescargarDetalle, function () {
     let id = $(this).val();
-    window.open(jsUtilidades.Variables.urlOrigen + "/CategoriasDesagregacion/DescargarExcel?id=" + id);
-
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar la Plantilla?", jsMensajes.Variables.actionType.descargar)
+        .set('onok', function (closeEvent) {
+            let win = window.open(jsUtilidades.Variables.urlOrigen + "/CategoriasDesagregacion/DescargarExcel?id=" + id);
+            let timer = setInterval(function () {
+                if (win.closed) {
+                    clearInterval(timer);
+                    jsMensajes.Metodos.OkAlertModal("La Plantilla ha sido descargada")
+                        .set('onok', function (closeEvent) { });
+                }
+            }, 1000);
+        });
 });
 
 
