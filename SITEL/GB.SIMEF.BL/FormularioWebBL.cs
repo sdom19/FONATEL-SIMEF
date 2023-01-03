@@ -156,8 +156,11 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Clonar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
-
                 objeto.idFormulario = DesencriptarId(objeto.id);
+
+                var objInicial = clsDatos.ObtenerDatos(new FormularioWeb { idFormulario = objeto.idFormulario});
+                string jsonInicial = objInicial.FirstOrDefault().ToString();
+
                 ValidarCantidadIndicadores(new FormularioWeb() { idFormulario = objeto.idFormulario, Codigo = "", CantidadIndicadores = objeto.CantidadIndicadores });
                 //var ListaDetalleFormulariosWeb = ObtenerDetalleFormularioWeb(objeto.idFormulario);
 
@@ -171,10 +174,10 @@ namespace GB.SIMEF.BL
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
                 //ClonarDetalleFormularioWeb(ListaDetalleFormulariosWeb, objeto.idFormulario);
 
-                string jsonValorInicial = objeto.ToString();
+                string jsonActual = objeto.ToString();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
-                                ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);
+                                ResultadoConsulta.Clase, objeto.Codigo, jsonActual, "", jsonInicial);
 
             }
             catch (Exception ex)
