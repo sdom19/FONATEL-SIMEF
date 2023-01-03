@@ -87,14 +87,14 @@ namespace GB.SIMEF.DAL
             return ListaRegistroIndicadorFonatel;
         }
 
-        private FuentesRegistro ObtenerFuente(int id)
+        public FuentesRegistro ObtenerFuente(int id)
         {
             FuentesRegistro fuente = db.FuentesRegistro.Where(i => i.idFuente == id).Single();
             fuente.DetalleFuentesRegistro = db.DetalleFuentesRegistro.Where(i => i.idFuente == id).ToList();
             return fuente;
         }
 
-        private Solicitud ObtenerSolicitud(int id)
+        public Solicitud ObtenerSolicitud(int id)
         {
             Solicitud solicitud = db.Solicitud.Where(i => i.idSolicitud == id).Single();
             solicitud.SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == id).ToList();

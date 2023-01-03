@@ -352,8 +352,12 @@
                 obj.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
                 obj.IdIndicadorString = $(jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador(i)).attr('data-Indicador');
                 obj.NotasEncargado = $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.txtNotasEncargado).val();
+                
 
                 let CantidadFilas = $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador).val();
+
+                obj.CantidadFilas = CantidadFilas;
+
                 if (CantidadFilas > 0) {
                     listaActDetalleRegistroIndicador.push(obj);
                 }

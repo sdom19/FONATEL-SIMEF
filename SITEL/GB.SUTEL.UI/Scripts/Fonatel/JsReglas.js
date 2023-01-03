@@ -88,11 +88,11 @@
     },
 
     "Mensajes": {
-        MensajeDetalleAgregado: "El Tipo de Regla ha sido creado",
-        MensajeDetalleEditado: "El Tipo de Regla ha sido editado",
-        MensajeEliminarRegla: "La Regla ha sido eliminada",
+        MensajeDetalleAgregado: "El Tipo de Regla de Validación ha sido creado",
+        MensajeDetalleEditado: "El Tipo de Regla de Validación ha sido editado",
+        MensajeEliminarRegla: "La Regla de Validación ha sido eliminada",
         MensajeAgregarVariasReglas: "Recuerde que puede agregar más de una Regla de Validación para el Indicador seleccionado",
-        MensajeReglaCreada: "La Regla ha sido creada"
+        MensajeReglaCreada: "La de Regla de Validación ha sido creada"
     },
 
     "Metodos": {
@@ -511,7 +511,7 @@
             execAjaxCall("/ReglasValidacion/InsertarReglaValidacion", "POST", objetoRegla)
                 .then((obj) => {
 
-                    jsMensajes.Metodos.OkAlertModal("La Regla ha sido creada")
+                    jsMensajes.Metodos.OkAlertModal("La Regla de Validación ha sido creada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/ReglasValidacion/Index";
                         });
@@ -569,7 +569,7 @@
             execAjaxCall("/ReglasValidacion/EditarReglaValidacion", "POST", objetoRegla)
                 .then((obj) => {
 
-                    jsMensajes.Metodos.OkAlertModal("La Regla ha sido editada")
+                    jsMensajes.Metodos.OkAlertModal("La Regla de Validación ha sido editada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/ReglasValidacion/Index";
                         });
@@ -630,7 +630,7 @@
 
             execAjaxCall("/ReglasValidacion/ClonarRegla", "POST", Regla)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Regla ha sido creada")
+                    jsMensajes.Metodos.OkAlertModal("La Regla de Validación ha sido creada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/ReglasValidacion/Index";
                         });
@@ -1206,7 +1206,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
                         JsReglas.Metodos.ValidarControles();
                     });
             } else {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Regla de Validación?", jsMensajes.Variables.actionType.Editar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsReglas.Consultas.EditarReglaValidacion();
                     })

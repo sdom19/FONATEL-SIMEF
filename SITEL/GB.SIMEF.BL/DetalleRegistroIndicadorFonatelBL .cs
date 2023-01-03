@@ -148,14 +148,23 @@ namespace GB.SIMEF.BL
                         int.TryParse(Utilidades.Desencriptar(objeto.IdIndicadorString), out int temp);
                         objeto.IdIndicador = temp;
                     }
+
                     DetalleRegistroIndicadorFonatel detalle = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(objeto).FirstOrDefault();
+
                     detalle.CantidadFilas = objeto.CantidadFilas;
+
                     if (!string.IsNullOrEmpty(objeto.NotasInformante))
                     {
                         detalle.NotasInformante = objeto.NotasInformante;
                     }
 
+                    if (!string.IsNullOrEmpty(objeto.NotasEncargado))
+                    {
+                        detalle.NotasEncargado = objeto.NotasEncargado;
+                    }
+
                     var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
+
                     ResultadoConsulta.objetoRespuesta = result;
                     ResultadoConsulta.CantidadRegistros = result.Count();
                 }

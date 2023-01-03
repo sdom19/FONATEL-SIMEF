@@ -12,7 +12,7 @@ namespace GB.SIMEF.BL
 {
     public class EditarRegistroIndicadorFonatelBL : IMetodos<RegistroIndicadorFonatel>
     {
-        private readonly EditarRegistroIndicadorFonatelDAL clsDatos;
+        private readonly RegistroIndicadorFonatelDAL clsDatos;
         private readonly FuentesRegistroDestinatarioDAL clsFuentesRegistroDestinatarioDAL;
         private readonly FuentesRegistroDAL clsFuentesRegistroDAL;
 
@@ -23,7 +23,7 @@ namespace GB.SIMEF.BL
        
         public EditarRegistroIndicadorFonatelBL(string modulo, string user )
         {
-            this.clsDatos = new EditarRegistroIndicadorFonatelDAL();
+            this.clsDatos = new RegistroIndicadorFonatelDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<RegistroIndicadorFonatel>>();
             this.clsFuentesRegistroDestinatarioDAL = new FuentesRegistroDestinatarioDAL();
             this.clsFuentesRegistroDAL = new FuentesRegistroDAL();
