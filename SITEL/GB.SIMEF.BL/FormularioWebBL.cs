@@ -110,7 +110,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorSistema)
+                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }

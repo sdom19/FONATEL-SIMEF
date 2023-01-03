@@ -811,6 +811,11 @@ $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (
 $(document).on("click", JsFormulario.Controles.btnAtrasFormularioRegla, function (e) {
     e.preventDefault();
     $("a[href='#step-1']").trigger('click');
+
+    $(JsFormulario.Controles.txtCodigoFormulario).prop("disabled", true);
+    let url = new URL(window.location.href);
+    url.searchParams.set('modo', jsUtilidades.Variables.Acciones.Editar);
+    window.history.pushState({ path: url.toString() }, '', url.toString());
 });
 
 // GUARDAR FORMULARIO COMPLETO
