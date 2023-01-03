@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="SIGITEL"
+  DTS:DTSID="{0988B716-91C0-48CB-B3C5-49DB1BD91137}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=.;Initial Catalog=SIGITEL;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{0988B716-91C0-48CB-B3C5-49DB1BD91137}LocalHost.SIGITEL;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

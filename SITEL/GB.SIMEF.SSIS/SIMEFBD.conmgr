@@ -7,6 +7,10 @@
     <DTS:ConnectionManager
       DTS:ConnectRetryCount="1"
       DTS:ConnectRetryInterval="5"
-      DTS:ConnectionString="Data Source=.;Initial Catalog=SIMEFBD;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{F18F5338-8C65-4779-BF3B-2095830FE784}LocalHost.SIMEFBD;Auto Translate=False;" />
+      DTS:ConnectionString="Data Source=20.127.147.228;User ID=sa;Initial Catalog=SIMEFBD;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;Application Name=SSIS-Package-{F18F5338-8C65-4779-BF3B-2095830FE784}LocalHost.SIMEFBD;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAArwsS4eSDwUaQ82qWV2yfGQAAAAACAAAAAAAQZgAAAAEAACAAAABYlnT5UGYZP8Rmxl300Eo1b9bI70mTc/Ng8fgfw8d9TwAAAAAOgAAAAAIAACAAAABPxf+uv66fdlBaMBWIbV0WojHse7TO/phBU+d7YhZw54AAAADsIspdUotBwy3S5yBO/oqVuT9YaA3fpemBv33d9Zlmy+CVMC5NZ7UHnq7TbEg6muw89MvCdKQA9VIT5qB9xOT4hGAA1vVA/EftVuHjvDMSHRaioqPba1Y1W56JFTHTMbOb/twLQBjLQ2IIeMjMjMYcg+5mvNhBdb1ZTBL3SqSjSkAAAAD0+3M4s7hcDOeYLGFZcl1m1qQ09FWFwArAT11RARUljTb5UehNgFDOdSajxzNnLsqUCR6F+fR/2GLEg6k+vJoY</DTS:Password>
+    </DTS:ConnectionManager>
   </DTS:ObjectData>
 </DTS:ConnectionManager>
