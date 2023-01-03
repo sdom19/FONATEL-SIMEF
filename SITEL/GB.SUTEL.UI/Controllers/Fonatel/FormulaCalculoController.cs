@@ -21,6 +21,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
         private readonly IndicadorFonatelBL indicadorFonatelBL;
         private readonly DetalleIndicadorVariablesBL detalleIndicadorVariablesBL;
+        private readonly DetalleIndicadorCategoriaBL detalleIndicadorCategoriaBL;
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
         private readonly FuenteIndicadorBL fuenteIndicadorBL;
         private readonly GrupoIndicadorBL grupoIndicadorBL;
@@ -44,6 +45,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             formulaBL = new FormulasCalculoBL(nombreVista, usuario);
             indicadorFonatelBL = new IndicadorFonatelBL(nombreVista, usuario);
             detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(nombreVista, usuario);
+            detalleIndicadorCategoriaBL = new DetalleIndicadorCategoriaBL(nombreVista, usuario);
             categoriasDesagregacionBL = new CategoriasDesagregacionBL(nombreVista, usuario);
             fuenteIndicadorBL = new FuenteIndicadorBL(nombreVista, usuario);
             grupoIndicadorBL = new GrupoIndicadorBL(nombreVista, usuario);
@@ -54,7 +56,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             detalleIndicadorCriteriosSitelBL = new DetalleIndicadorCriteriosSitelBL();
         }
 
-        #region Eventos de la página
+        #region Eventos de página
 
         // GET: Solicitud
         public ActionResult Index()
@@ -319,6 +321,45 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pIdIndicador);
             });
 
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 02/01/2022
+        /// José Navarro Acuña
+        /// Obtiene los detalles relacionados (vista indicador) con una categoria de desagregación, y a su vez con un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <param name="pIdCategoria"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesDeCategoria(string pIdIndicador, string pIdCategoria)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            if (string.IsNullOrEmpty(pIdCategoria))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicadorYCategoria(new DetalleIndicadorCategoria()
+                {
+                    DetallesAgrupados = false,
+                    idIndicadorString = pIdIndicador,
+                    idCategoriaString = pIdCategoria
+                });
+            });
             return JsonConvert.SerializeObject(resultado);
         }
 
@@ -791,6 +832,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.Indicadores = Enumerable.Empty<SelectListItem>();
             ViewBag.Acumulaciones = Enumerable.Empty<SelectListItem>();
             ViewBag.IndicadorSalida = Enumerable.Empty<SelectListItem>();
+
+            // Modal detalle de agregación/agrupación
+            ViewBag.CategoriasModalDetalle = Enumerable.Empty<SelectListItem>();
+            ViewBag.CriteriosModalDetalle = Enumerable.Empty<SelectListItem>();
+            ViewBag.DetallesModalDetalle = Enumerable.Empty<SelectListItem>();
 
             ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { }).objetoRespuesta;
 

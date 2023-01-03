@@ -144,9 +144,6 @@
   <data name="CrearFormula_LabelNivelCalculo" xml:space="preserve">
     <value>Nivel de Cálculo</value>
   </data>
-  <data name="CrearFormula_LabelNivelCalculoCategoria" xml:space="preserve">
-    <value>Categoría de desagregación</value>
-  </data>
   <data name="CrearFormula_LabelNivelCalculoTotal" xml:space="preserve">
     <value>Total</value>
   </data>
