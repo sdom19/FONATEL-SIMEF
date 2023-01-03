@@ -9,10 +9,12 @@
 
 namespace GB.SIMEF.Entities
 {
+    using GB.SIMEF.Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("FuentesRegistro")]
     public partial class FuentesRegistro
@@ -43,22 +45,31 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public List<DetalleFuentesRegistro> DetalleFuentesRegistro { get; set; }
 
-
-        [NotMapped]
-
-        public List<string> NoSerialize = new List<string>()
+        public override string ToString()
         {
-            "id",
-            "idFuente",         
-            "EstadoRegistro",
-            "idEstado",
-            "FechaModificacion",
-            "UsuarioCreacion",
-            "FechaCreacion",
-            "UsuarioModificacion",
-            "DetalleFuentesRegistro"
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Fuente\":\"").Append(this.Fuente).Append("\",");
+            json.Append("\"Cantidad de destinatarios\":").Append(this.CantidadDestinatario).Append(",");
 
-        };
+            string estado = string.Empty;
+            switch (this.EstadoRegistro.idEstado)
+            {
+                case (int)Constantes.EstadosRegistro.Desactivado:
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.EstadoRegistro.idEstado);
+                    break;
+                case (int)Constantes.EstadosRegistro.Activo:
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.EstadoRegistro.idEstado);
+                    break;
+                case (int)Constantes.EstadosRegistro.Eliminado:
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.EstadoRegistro.idEstado);
+                    break;
+                case (int)Constantes.EstadosRegistro.EnProceso:
+                    estado = "En Proceso";
+                    break;
+            }
+            json.Append("\"Estado\":\"").Append(estado).Append("\"}");
 
+            return json.ToString();
+        }
     }
 }

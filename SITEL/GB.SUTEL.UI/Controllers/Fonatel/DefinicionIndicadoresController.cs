@@ -159,7 +159,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 if (obj.Result.CantidadRegistros ==1)
                 {
                     pdefinicion = obj.Result.objetoRespuesta.Single();
-                    pdefinicion.json = definicionBL.SerializarObjetoBitacora(pdefinicion);
+                    pdefinicion.json = pdefinicion.ToString();
                     pdefinicion.Notas = objDefinicion.Notas.Trim();
                     pdefinicion.Definicion = objDefinicion.Definicion.Trim();
                     pdefinicion.Fuente = objDefinicion.Fuente.Trim();
@@ -183,7 +183,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 { id = objDefinicion.id });
             }).ContinueWith((obj) => {
                 var definicionSeleccionada = obj.Result.objetoRespuesta.Single();
-                objDefinicion.json = definicionBL.SerializarObjetoBitacora(definicionSeleccionada);
+                objDefinicion.json = definicionSeleccionada.ToString();
                 if (obj.Result.CantidadRegistros==0)
                 {
                     objDefinicion = null;

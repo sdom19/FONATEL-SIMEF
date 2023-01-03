@@ -9,11 +9,13 @@
 
 namespace GB.SIMEF.Entities
 {
+    using GB.SIMEF.Resources;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("DefinicionIndicador")]
     public partial class DefinicionIndicador
@@ -55,16 +57,37 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public virtual string idClonado { get; set; }
 
-        [NotMapped]
-
-        public List<string> NoSerialize = new List<string>()
+        public override string ToString()
         {
-            "idIndicador",
-            "id",
-            "idEstado",
-            "Indicador",
-            "idClonado"
-        };
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Código\":\"").Append(this.Indicador.Codigo).Append("\",");
+            json.Append("\"Grupo\":\"").Append(this.Indicador.GrupoIndicadores.Nombre).Append("\",");
+            json.Append("\"Nombre\":\"").Append(this.Indicador.Nombre).Append("\",");
+            json.Append("\"Tipo\":\"").Append(this.Indicador.TipoIndicadores.Nombre).Append("\",");
+            json.Append("\"Definición\":\"").Append(this.Definicion).Append("\",");
+            json.Append("\"Fuente\":\"").Append(this.Fuente).Append("\",");
+            json.Append("\"Notas\":\"").Append(this.Notas).Append("\",");
+
+            string estado = string.Empty;
+            switch (this.idEstado)
+            {
+                case (int)Constantes.EstadosRegistro.Desactivado:
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.idEstado);
+                    break;
+                case (int)Constantes.EstadosRegistro.Activo:
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.idEstado);
+                    break;
+                case (int)Constantes.EstadosRegistro.Eliminado:
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.idEstado);
+                    break;
+                case (int)Constantes.EstadosRegistro.EnProceso:
+                    estado = "En Proceso";
+                    break;
+            }
+            json.Append("\"Estado\":\"").Append(estado).Append("\"}");
+
+            return json.ToString();
+        }
 
 
 
