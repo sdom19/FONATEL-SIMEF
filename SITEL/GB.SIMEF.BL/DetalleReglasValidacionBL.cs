@@ -40,11 +40,7 @@ namespace GB.SIMEF.BL
             ResultadoConsulta = new RespuestaConsulta<List<DetalleReglaValidacion>>();
         }
 
-        private string SerializarObjetoBitacora(DetalleReglaValidacion objRegla)
-        {
-            return JsonConvert.SerializeObject(objRegla, new JsonSerializerSettings
-            { ContractResolver = new JsonIgnoreResolver(objRegla.NoSerialize) });
-        }
+       
 
         public RespuestaConsulta<List<DetalleReglaValidacion>> ActualizarElemento(DetalleReglaValidacion objeto)
         {
@@ -82,6 +78,15 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
 
+                    objeto = clsDatos.ObtenerDatos(resul.Single()).Single();
+
+                    string JsonActual = objeto.ToString();
+                    string JsonAnterior = BuscarDatos.Where(x => x.IdDetalleReglaValidacion == objeto.IdDetalleReglaValidacion).SingleOrDefault().ToString();
+
+                    clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.IdDetalleReglaValidacion.ToString()
+                                , JsonActual, JsonAnterior, "");
                 }
 
 
@@ -183,6 +188,14 @@ namespace GB.SIMEF.BL
                 AgregarTipoDetalleReglaValidacion(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                var objetoDetalle = clsDatos.ObtenerDatos(resul.Single()).Single();
+                
+                string jsonValorInicial = objetoDetalle.ToString();
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                       ResultadoConsulta.Usuario,
+                           ResultadoConsulta.Clase, objetoDetalle.IdDetalleReglaValidacion.ToString(), "", "", jsonValorInicial);
 
             }
             catch (Exception ex)

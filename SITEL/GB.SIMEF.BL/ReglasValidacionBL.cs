@@ -26,11 +26,7 @@ namespace GB.SIMEF.BL
             ResultadoConsulta = new RespuestaConsulta<List<ReglaValidacion>>();
         }
 
-        private string SerializarObjetoBitacora(ReglaValidacion objRegla)
-        {
-            return JsonConvert.SerializeObject(objRegla, new JsonSerializerSettings
-            { ContractResolver = new JsonIgnoreResolver(objRegla.NoSerialize) });
-        }
+        
 
         public RespuestaConsulta<List<ReglaValidacion>> ActualizarElemento(ReglaValidacion objeto)
         {
@@ -67,8 +63,8 @@ namespace GB.SIMEF.BL
                 }
 
                 objeto = ResultadoConsulta.objetoRespuesta.Single();
-                string JsonActual = SerializarObjetoBitacora(objeto);
-                string JsonAnterior = SerializarObjetoBitacora(objetoAnterior);
+                string JsonActual = objeto.ToString();
+                string JsonAnterior = objetoAnterior.ToString();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
@@ -178,8 +174,8 @@ namespace GB.SIMEF.BL
 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
 
-                string jsonValorInicial = SerializarObjetoBitacora(objetoInicial);
-                string JsonNuevoValor = SerializarObjetoBitacora(objeto);
+                string jsonValorInicial = objetoInicial.ToString();
+                string JsonNuevoValor = objeto.ToString();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
@@ -323,7 +319,7 @@ namespace GB.SIMEF.BL
                 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
 
-                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                string jsonValorInicial = objeto.ToString();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
