@@ -5,14 +5,14 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="SIMEF"
   DTS:CreatorName="SIMEF\Administrador"
-  DTS:DTSID="{91B176CA-2075-459E-AE3A-68B63C19DF34}"
+  DTS:DTSID="{07D4B4E7-6C9A-4F17-A295-8347FFBE6341}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="16.0.845.0"
   DTS:LocaleID="1033"
-  DTS:ObjectName="Package1"
+  DTS:ObjectName="Sitel RegistroIndicador Simef"
   DTS:PackageType="5"
-  DTS:VersionBuild="61"
-  DTS:VersionGUID="{17464EAA-C7BB-49F4-9892-D2869C486C82}">
+  DTS:VersionBuild="78"
+  DTS:VersionGUID="{5B18F7F7-7B22-431F-8BCA-4F8DB632F9EE}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -826,7 +826,7 @@ on a.IdSolicitud=b.IdSolicitud
 and a.IdFormulario=b.IdFormulario
 and a.IdIndicador=b.IdIndicador
 
-where a.IdTipoCategoria!=10</property>
+where a.IdTipoCategoria!=99</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
@@ -1279,7 +1279,7 @@ inner join FONATEL.DetalleRegistroIndicadorCategoriaFonatel b
 on a.IdFormulario=b.IdFormulario
 and a.IdIndicador=b.IdIndicador
 and a.IdSolicitud=b.IdSolicitud
-where IdTipoCategoria=10
+where IdTipoCategoria=99
 union
 select 
 NewId() IdResultadoDetalle,
@@ -1530,6 +1530,159 @@ and a.IdSolicitud=b.IdSolicitud</property>
               version="1">
               <components>
                 <component
+                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar"
+                  componentClassID="Microsoft.OLEDBCommand"
+                  contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+                  description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+                  name="Actualizar"
+                  usesDispositions="true"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">UPDATE dbo.IndicardorResultadoDetalleCategoria set
+      Valor = ?
+ WHERE IdResultado = ?
+      and IdCategoria = ?
+      and NumeroFila = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Connections[OleDbConnection]"
+                      connectionManagerID="{F18F5338-8C65-4779-BF3B-2095830FE784}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SIMEFBD]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input]"
+                      errorOrTruncationOperation="Command Execution"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Command Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].Columns[valor]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4000"
+                          cachedName="valor"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[valor]" />
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].Columns[IdResultado]"
+                          cachedDataType="guid"
+                          cachedName="IdResultado"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[IdResultado]" />
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].Columns[IdCategoria]"
+                          cachedDataType="i4"
+                          cachedName="IdCategoria"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[IdCategoria]" />
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].Columns[NumeroFila]"
+                          cachedDataType="i4"
+                          cachedName="NumeroFila"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[NumeroFila]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                          codePage="1252"
+                          dataType="text"
+                          name="Param_0">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">193</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                          dataType="guid"
+                          name="Param_1">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">65</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                          dataType="i4"
+                          name="Param_2">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                          dataType="i4"
+                          name="Param_3">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Outputs[OLE DB Command Output]"
+                      exclusionGroup="1"
+                      name="OLE DB Command Output"
+                      synchronousInputId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Outputs[OLE DB Command Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Command Error Output"
+                      synchronousInputId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
                   refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Cargar Datos"
                   componentClassID="Microsoft.OLEDBDestination"
                   contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
@@ -1667,6 +1820,10 @@ and a.IdSolicitud=b.IdSolicitud</property>
                           codePage="1252"
                           dataType="text"
                           name="Valor" />
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[Estado]"
+                          dataType="bool"
+                          name="Estado" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -1726,8 +1883,8 @@ and a.IdSolicitud=b.IdSolicitud</property>
 	   a.IdCategoria,
 	   a.NumeroFila,
 	   a.IdTipoCategoria TipoCategoria,
-	 cast( a.Valor as varchar(4000)) valor
-   
+	 cast( a.Valor as varchar(4000)) valor,
+                 1 Estado
   FROM dbo.tempIndicardorResultadoDetalleCategoria A
 INNER JOIN IndicadorResultadoSolicitud B
 ON A.idSolicitud=b.IdSolicitud
@@ -1824,6 +1981,15 @@ AND A.idIndicador=B.IdIndicador</property>
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[valor]"
                           name="valor"
                           truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[Estado]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Estado]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[Estado]"
+                          name="Estado"
+                          truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -1853,6 +2019,10 @@ AND A.idIndicador=B.IdIndicador</property>
                           dataType="str"
                           length="4000"
                           name="valor" />
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Estado]"
+                          dataType="i4"
+                          name="Estado" />
                       </externalMetadataColumns>
                     </output>
                     <output
@@ -1893,6 +2063,11 @@ AND A.idIndicador=B.IdIndicador</property>
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Error Output].Columns[valor]"
                           name="valor" />
                         <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Estado]"
+                          dataType="i4"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Estado]"
+                          name="Estado" />
+                        <outputColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
@@ -1909,11 +2084,194 @@ AND A.idIndicador=B.IdIndicador</property>
                     </output>
                   </outputs>
                 </component>
+                <component
+                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[IndicardorResultadoDetalleCategoria]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[IndicardorResultadoDetalleCategoria]) [refTable]
+where [refTable].[IdResultado] = ? and [refTable].[IdCategoria] = ? and [refTable].[NumeroFila] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="IdResultadoDetalle" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IdResultado" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IdCategoria" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NumeroFila" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TipoCategoria" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Valor" dataType="DT_TEXT" length="0" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[IdResultado]};#{Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[IdCategoria]};#{Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[NumeroFila]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Connections[OleDbConnection]"
+                      connectionManagerID="{F18F5338-8C65-4779-BF3B-2095830FE784}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SIMEFBD]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Inputs[Lookup Input].Columns[IdResultado]"
+                          cachedDataType="guid"
+                          cachedName="IdResultado"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[IdResultado]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">IdResultado</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Inputs[Lookup Input].Columns[IdCategoria]"
+                          cachedDataType="i4"
+                          cachedName="IdCategoria"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[IdCategoria]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">IdCategoria</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Inputs[Lookup Input].Columns[NumeroFila]"
+                          cachedDataType="i4"
+                          cachedName="NumeroFila"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[NumeroFila]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">NumeroFila</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
               </components>
               <paths>
                 <path
-                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria.Paths[OLE DB Source Output]"
+                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria.Paths[Lookup Match Output]"
+                  endId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar.Inputs[OLE DB Command Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria.Paths[Lookup No Match Output]"
                   endId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Cargar Datos.Inputs[OLE DB Destination Input]"
+                  name="Lookup No Match Output"
+                  startId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Outputs[Lookup No Match Output]" />
+                <path
+                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria.Paths[OLE DB Source Output]"
+                  endId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup.Inputs[Lookup Input]"
                   name="OLE DB Source Output"
                   startId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos.Outputs[OLE DB Source Output]" />
               </paths>
@@ -2852,6 +3210,12 @@ where [refTable].[IdIndicador] = ?</property>
                           cachedName="NombreVariable"
                           externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input].ExternalColumns[NombreVariable]"
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreVariable]" />
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input].Columns[Estado]"
+                          cachedDataType="i4"
+                          cachedName="Estado"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input].ExternalColumns[Estado]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[Estado]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -2885,6 +3249,10 @@ where [refTable].[IdIndicador] = ?</property>
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input].ExternalColumns[IdVariable]"
                           dataType="i4"
                           name="IdVariable" />
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input].ExternalColumns[Estado]"
+                          dataType="bool"
+                          name="Estado" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -2942,17 +3310,18 @@ where [refTable].[IdIndicador] = ?</property>
 	   a.IdResultadoDetalle,
        B.IdResultado,
        A.idIndicador,
-	   ROW_NUMBER() OVER (
+	 cast(  ROW_NUMBER() OVER (
       PARTITION BY A.IdSolicitud,
 	  A.IdFormulario,
 	  A.idIndicador
       ORDER BY A.IdSolicitud,
 	  A.IdFormulario,
-	  A.idIndicador) IdVariable,
+	  A.idIndicador) as int)IdVariable,
 	   a.NumeroFila,
 	   a.Valor,
 
-	  a.NombreVariable
+	  a.NombreVariable,
+                   1 Estado
    
   FROM dbo.tempIndicadorResultadoDetalleVariable A
 INNER JOIN IndicadorResultadoSolicitud B
@@ -3059,6 +3428,15 @@ AND A.idIndicador=B.IdIndicador</property>
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreVariable]"
                           name="NombreVariable"
                           truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[Estado]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Estado]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[Estado]"
+                          name="Estado"
+                          truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -3076,7 +3454,7 @@ AND A.idIndicador=B.IdIndicador</property>
                           name="IdResultadoDetalle" />
                         <externalMetadataColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdVariable]"
-                          dataType="i8"
+                          dataType="i4"
                           name="IdVariable" />
                         <externalMetadataColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NumeroFila]"
@@ -3092,6 +3470,10 @@ AND A.idIndicador=B.IdIndicador</property>
                           dataType="str"
                           length="300"
                           name="NombreVariable" />
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Estado]"
+                          dataType="i4"
+                          name="Estado" />
                       </externalMetadataColumns>
                     </output>
                     <output
@@ -3116,7 +3498,7 @@ AND A.idIndicador=B.IdIndicador</property>
                           name="idIndicador" />
                         <outputColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdVariable]"
-                          dataType="i8"
+                          dataType="i4"
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdVariable]"
                           name="IdVariable" />
                         <outputColumn
@@ -3137,6 +3519,11 @@ AND A.idIndicador=B.IdIndicador</property>
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreVariable]"
                           name="NombreVariable" />
                         <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Estado]"
+                          dataType="i4"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Estado]"
+                          name="Estado" />
+                        <outputColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
@@ -3153,11 +3540,384 @@ AND A.idIndicador=B.IdIndicador</property>
                     </output>
                   </outputs>
                 </component>
+                <component
+                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[IndicadorResultadoDetalleVariable]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[IndicadorResultadoDetalleVariable]) [refTable]
+where [refTable].[IdResultado] = ? and [refTable].[IdIndicador] = ? and [refTable].[NumeroFila] = ? and [refTable].[NombreVariable] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="IdResultadoDetalle" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IdResultado" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IdIndicador" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NombreVariable" dataType="DT_STR" length="300" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="IdVariable" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NumeroFila" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Valor" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[IdResultado]};#{Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[idIndicador]};#{Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[NumeroFila]};#{Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreVariable]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Connections[OleDbConnection]"
+                      connectionManagerID="{F18F5338-8C65-4779-BF3B-2095830FE784}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SIMEFBD]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Inputs[Lookup Input].Columns[IdResultado]"
+                          cachedDataType="guid"
+                          cachedName="IdResultado"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[IdResultado]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">IdResultado</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Inputs[Lookup Input].Columns[NombreVariable]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="300"
+                          cachedName="NombreVariable"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreVariable]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">NombreVariable</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Inputs[Lookup Input].Columns[NumeroFila]"
+                          cachedDataType="i4"
+                          cachedName="NumeroFila"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[NumeroFila]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">NumeroFila</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Inputs[Lookup Input].Columns[idIndicador]"
+                          cachedDataType="i4"
+                          cachedName="idIndicador"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[idIndicador]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">IdIndicador</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command"
+                  componentClassID="Microsoft.OLEDBCommand"
+                  contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+                  description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+                  name="OLE DB Command"
+                  usesDispositions="true"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">UPDATE dbo.IndicadorResultadoDetalleVariable set
+      Valor = ?,
+      Estado=?
+ WHERE IdResultado = ?
+      and NombreVariable = ?
+      and NumeroFila = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Connections[OleDbConnection]"
+                      connectionManagerID="{F18F5338-8C65-4779-BF3B-2095830FE784}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SIMEFBD]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input]"
+                      errorOrTruncationOperation="Command Execution"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Command Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].Columns[Valor]"
+                          cachedDataType="i4"
+                          cachedName="Valor"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[Valor]" />
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].Columns[Estado]"
+                          cachedDataType="i4"
+                          cachedName="Estado"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[Estado]" />
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].Columns[IdResultado]"
+                          cachedDataType="guid"
+                          cachedName="IdResultado"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[IdResultado]" />
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].Columns[NombreVariable]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="300"
+                          cachedName="NombreVariable"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreVariable]" />
+                        <inputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].Columns[NumeroFila]"
+                          cachedDataType="i4"
+                          cachedName="NumeroFila"
+                          externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[NumeroFila]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                          dataType="i4"
+                          name="Param_0">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                          dataType="bool"
+                          name="Param_1">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">65</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                          dataType="guid"
+                          name="Param_2">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">65</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          name="Param_3">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                          dataType="i4"
+                          name="Param_4">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Outputs[OLE DB Command Output]"
+                      exclusionGroup="1"
+                      name="OLE DB Command Output"
+                      synchronousInputId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Outputs[OLE DB Command Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Command Error Output"
+                      synchronousInputId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
               </components>
               <paths>
                 <path
-                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable.Paths[OLE DB Source Output]"
+                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable.Paths[Lookup Match Output]"
+                  endId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable.Paths[Lookup No Match Output]"
                   endId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input]"
+                  name="Lookup No Match Output"
+                  startId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Outputs[Lookup No Match Output]" />
+                <path
+                  refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable.Paths[OLE DB Source Output]"
+                  endId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup.Inputs[Lookup Input]"
                   name="OLE DB Source Output"
                   startId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output]" />
               </paths>
@@ -3648,8 +4408,56 @@ AND A.idIndicador=B.IdIndicador</property>
             </pipeline>
           </DTS:ObjectData>
         </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Carga de información a tablas finales\Deshabilitar Categoria"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{0D1A4AC0-D050-4A11-B53B-093F1774B4CF}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Deshabilitar Categoria"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F18F5338-8C65-4779-BF3B-2095830FE784}"
+              SQLTask:SqlStatementSource="UPDATE dbo.IndicardorResultadoDetalleCategoria&#xA;   SET Estado=0" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Carga de información a tablas finales\Deshabilitar Variable"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{01E40E47-6C21-4834-BF4B-2A8338F0D14C}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Deshabilitar Variable"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{F18F5338-8C65-4779-BF3B-2095830FE784}"
+              SQLTask:SqlStatementSource="UPDATE dbo.IndicadorResultadoDetalleVariable Set  Estado = 1" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
       </DTS:Executables>
       <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{623B1951-067F-4A5F-8420-0864EFF22CC4}"
+          DTS:From="Package\Carga de información a tablas finales\Cargar Tabla Registro Indicador Solicitud"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Carga de información a tablas finales\Deshabilitar Variable" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{56109B94-FEE7-4847-8C46-71522B82028B}"
+          DTS:From="Package\Carga de información a tablas finales\Deshabilitar Variable"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable" />
         <DTS:PrecedenceConstraint
           DTS:refId="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 2]"
           DTS:CreationName=""
@@ -3659,20 +4467,20 @@ AND A.idIndicador=B.IdIndicador</property>
           DTS:ObjectName="Constraint 2"
           DTS:To="Package\Carga de información a tablas finales\Cargar Tabla Registro Indicador Solicitud" />
         <DTS:PrecedenceConstraint
-          DTS:refId="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 7]"
+          DTS:refId="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 3]"
           DTS:CreationName=""
-          DTS:DTSID="{21004087-0BDE-4A60-BBEB-56310B93BD3E}"
-          DTS:From="Package\Carga de información a tablas finales\Cargar Tabla Registro Indicador Solicitud"
-          DTS:LogicalAnd="True"
-          DTS:ObjectName="Constraint 7"
-          DTS:To="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable" />
-        <DTS:PrecedenceConstraint
-          DTS:refId="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 8]"
-          DTS:CreationName=""
-          DTS:DTSID="{1BED6622-DE05-4074-9E9E-215B4D2D16F5}"
+          DTS:DTSID="{B26CF5A5-922D-49D8-8611-39E0E095F405}"
           DTS:From="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable"
           DTS:LogicalAnd="True"
-          DTS:ObjectName="Constraint 8"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\Carga de información a tablas finales\Deshabilitar Categoria" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{C6756D34-D0C6-42C5-B906-99A89EE45D2F}"
+          DTS:From="Package\Carga de información a tablas finales\Deshabilitar Categoria"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
           DTS:To="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria" />
       </DTS:PrecedenceConstraints>
     </DTS:Executable>
@@ -3768,6 +4576,166 @@ AND A.idIndicador=B.IdIndicador</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="235.2,41.6"
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado"
+          TopLeft="5.50000000000003,5.50000000000007" />
+        <NodeLayout
+          Size="276,41.6"
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria"
+          TopLeft="301.1,5.49999999999995" />
+        <NodeLayout
+          Size="269.6,41.6"
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable"
+          TopLeft="637.3,5.49999999999995" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="912,102.4"
+          Size="912,145.6"
+          Id="Package\Carga de datos a tablas temporales"
+          TopLeft="5.5,211.1" />
+        <NodeLayout
+          Size="208.8,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria"
+          TopLeft="20.7,513.5" />
+        <NodeLayout
+          Size="210.4,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Resultado"
+          TopLeft="19.9,5.49999999999995" />
+        <NodeLayout
+          Size="203.2,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable"
+          TopLeft="23.5,310.3" />
+        <NodeLayout
+          Size="239.2,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Registro Indicador Solicitud"
+          TopLeft="5.50000000000001,107.1" />
+        <NodeLayout
+          Size="165.6,41.6"
+          Id="Package\Carga de información a tablas finales\Deshabilitar Categoria"
+          TopLeft="42.3000000000001,411.9" />
+        <NodeLayout
+          Size="160,41.6"
+          Id="Package\Carga de información a tablas finales\Deshabilitar Variable"
+          TopLeft="45.1,208.7" />
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint]"
+          TopLeft="125.1,148.7">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 1]"
+          TopLeft="125.1,250.3">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 2]"
+          TopLeft="125.1,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 3]"
+          TopLeft="125.1,351.9">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 4]"
+          TopLeft="125.1,453.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="250.4,610.4"
+          Size="250.4,653.6"
+          Id="Package\Carga de información a tablas finales"
+          TopLeft="336.3,416.7" />
+        <NodeLayout
           Size="202.4,41.6"
           Id="Package\Crear Estructura de tablas temporales\Crear tabla Indicador Resultado"
           TopLeft="5.50000000000004,5.50000000000007" />
@@ -3786,25 +4754,6 @@ AND A.idIndicador=B.IdIndicador</property>
           Size="813.6,145.6"
           Id="Package\Crear Estructura de tablas temporales"
           TopLeft="54.7,5.49999999999996" />
-        <NodeLayout
-          Size="235.2,41.6"
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado"
-          TopLeft="5.50000000000003,5.50000000000007" />
-        <NodeLayout
-          Size="276,41.6"
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria"
-          TopLeft="301.1,5.49999999999995" />
-        <NodeLayout
-          Size="269.6,41.6"
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable"
-          TopLeft="637.3,5.49999999999995" />
-        <ContainerLayout
-          HeaderHeight="43"
-          IsExpanded="True"
-          PanelSize="912,102.4"
-          Size="912,145.6"
-          Id="Package\Carga de datos a tablas temporales"
-          TopLeft="5.50000000000006,211.1" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="461.5,151.1">
@@ -3827,109 +4776,20 @@ AND A.idIndicador=B.IdIndicador</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="208.8,41.6"
-          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria"
-          TopLeft="20.7,310.3" />
-        <EdgeLayout
-          Id="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 8]"
-          TopLeft="124.385714285714,266.014285714286">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,44.2857142857144"
-              Start="0,0"
-              End="0,36.7857142857144">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,36.7857142857144" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="210.4,41.6"
-          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Resultado"
-          TopLeft="22.0428571428571,31.2142857142857" />
-        <EdgeLayout
-          Id="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 2]"
-          TopLeft="126.171428571429,72.8142857142857">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,62.1428571428573"
-              Start="0,0"
-              End="0,54.6428571428573">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,54.6428571428573" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="203.2,41.6"
-          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable"
-          TopLeft="22.0714285714286,224.414285714286" />
-        <EdgeLayout
-          Id="Package\Carga de información a tablas finales.PrecedenceConstraints[Constraint 7]"
-          TopLeft="124.385714285714,176.557142857143">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,47.857142857143"
-              Start="0,0"
-              End="0,40.357142857143">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,40.357142857143" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="239.2,41.6"
-          Id="Package\Carga de información a tablas finales\Cargar Tabla Registro Indicador Solicitud"
-          TopLeft="5.5,134.957142857143" />
-        <ContainerLayout
-          HeaderHeight="43"
-          IsExpanded="True"
-          PanelSize="250.4,407.2"
-          Size="250.4,450.4"
-          Id="Package\Carga de información a tablas finales"
-          TopLeft="336.3,416.7" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="461.5,356.7">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60.0000000000001"
+              EndConnector="0,59.9999999999999"
               Start="0,0"
-              End="0,52.5000000000001">
+              End="0,52.4999999999999">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.5000000000001" />
+                    End="0,52.4999999999999" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3942,44 +4802,44 @@ AND A.idIndicador=B.IdIndicador</property>
     </LayoutInfo>
   </Package>
   <TaskHost
-    design-time-name="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria">
+    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado">
     <LayoutInfo>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="121.6,41.6"
-          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos"
-          TopLeft="252,187" />
+          Size="140.8,41.6"
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Source"
+          TopLeft="159,94" />
         <NodeLayout
-          Size="130.4,41.6"
-          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Cargar Datos"
-          TopLeft="296,443" />
+          Size="156.8,41.6"
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Destination"
+          TopLeft="189,352" />
         <EdgeLayout
-          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria.Paths[OLE DB Source Output]"
-          TopLeft="312.8,228.6">
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado.Paths[OLE DB Source Output]"
+          TopLeft="229.4,135.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="48.4,214.4"
+              EndConnector="38,216.4"
               Start="0,0"
-              End="48.4,206.9">
+              End="38,208.9">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,103.2" />
+                    End="0,104.2" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,103.2"
-                    Point2="0,107.2"
-                    Point3="4,107.2" />
+                    Point1="0,104.2"
+                    Point2="0,108.2"
+                    Point3="4,108.2" />
                   <mssgle:LineSegment
-                    End="44.4,107.2" />
+                    End="34,108.2" />
                   <mssgle:CubicBezierSegment
-                    Point1="44.4,107.2"
-                    Point2="48.4,107.2"
-                    Point3="48.4,111.2" />
+                    Point1="34,108.2"
+                    Point2="38,108.2"
+                    Point3="38,112.2" />
                   <mssgle:LineSegment
-                    End="48.4,206.9" />
+                    End="38,208.9" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3992,7 +4852,7 @@ AND A.idIndicador=B.IdIndicador</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Cargar Datos">
+    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Destination">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4005,10 +4865,300 @@ AND A.idIndicador=B.IdIndicador</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
+    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="148.8,41.6"
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria\Cargar tabla temp"
+          TopLeft="296,328" />
+        <NodeLayout
+          Size="121.6,41.6"
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria\Leer Datos"
+          TopLeft="169,85" />
+        <EdgeLayout
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria.Paths[OLE DB Source Output]"
+          TopLeft="229.8,126.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="140.6,201.4"
+              Start="0,0"
+              End="140.6,193.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,96.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,96.7"
+                    Point2="0,100.7"
+                    Point3="4,100.7" />
+                  <mssgle:LineSegment
+                    End="136.6,100.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="136.6,100.7"
+                    Point2="140.6,100.7"
+                    Point3="140.6,104.7" />
+                  <mssgle:LineSegment
+                    End="140.6,193.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria\Leer Datos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="121.6,41.6"
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Leer Datos"
+          TopLeft="103,42.5" />
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Cargar Datos Temp"
+          TopLeft="128,182.5" />
+        <EdgeLayout
+          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable.Paths[OLE DB Source Output]"
+          TopLeft="163.8,84.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="41.8,98.4"
+              Start="0,0"
+              End="41.8,90.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,45.2"
+                    Point2="0,49.2"
+                    Point3="4,49.2" />
+                  <mssgle:LineSegment
+                    End="37.8,49.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="37.8,49.2"
+                    Point2="41.8,49.2"
+                    Point3="41.8,53.2" />
+                  <mssgle:LineSegment
+                    End="41.8,90.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Leer Datos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="107.2,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup"
+          TopLeft="406,298" />
+        <NodeLayout
+          Size="121.6,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos"
+          TopLeft="252,187" />
+        <NodeLayout
+          Size="130.4,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Cargar Datos"
+          TopLeft="197.333333333333,355.333333333333" />
+        <NodeLayout
+          Size="116.8,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar"
+          TopLeft="637.333333333333,339.333333333333" />
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria.Paths[Lookup Match Output]"
+          TopLeft="513.2,318.8">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="124.133333333333,41.3333333333333"
+              Start="0,0"
+              End="116.633333333333,41.3333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="58.0666666666666,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="58.0666666666666,0"
+                    Point2="62.0666666666666,0"
+                    Point3="62.0666666666666,4" />
+                  <mssgle:LineSegment
+                    End="62.0666666666666,37.3333333333333" />
+                  <mssgle:CubicBezierSegment
+                    Point1="62.0666666666666,37.3333333333333"
+                    Point2="62.0666666666666,41.3333333333333"
+                    Point3="66.0666666666666,41.3333333333333" />
+                  <mssgle:LineSegment
+                    End="116.633333333333,41.3333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="13.8752799479166,-17.609375,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria.Paths[OLE DB Source Output]"
+          TopLeft="312.8,228.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="146.8,69.4"
+              Start="0,0"
+              End="146.8,61.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30.7"
+                    Point2="0,34.7"
+                    Point3="4,34.7" />
+                  <mssgle:LineSegment
+                    End="142.8,34.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="142.8,34.7"
+                    Point2="146.8,34.7"
+                    Point3="146.8,38.7" />
+                  <mssgle:LineSegment
+                    End="146.8,61.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria.Paths[Lookup No Match Output]"
+          TopLeft="406,318.8">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-78.2666666666667,57.3333333333333"
+              Start="0,0"
+              End="-70.7666666666667,57.3333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-35.1333333333333,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-35.1333333333333,0"
+                    Point2="-39.1333333333333,0"
+                    Point3="-39.1333333333333,4" />
+                  <mssgle:LineSegment
+                    End="-39.1333333333333,53.3333333333333" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-39.1333333333333,53.3333333333333"
+                    Point2="-39.1333333333333,57.3333333333333"
+                    Point3="-43.1333333333333,57.3333333333333" />
+                  <mssgle:LineSegment
+                    End="-70.7666666666667,57.3333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-94.9397200520833,-17.609375,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[IndicardorResultadoDetalleCategoria]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Leer Datos">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Cargar Datos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -4190,7 +5340,7 @@ AND A.idIndicador=B.IdIndicador</property>
     design-time-name="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="121.6,41.6"
           Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos"
@@ -4199,20 +5349,36 @@ AND A.idIndicador=B.IdIndicador</property>
           Size="164.8,41.6"
           Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable"
           TopLeft="174.666666666667,381.333333333333" />
+        <NodeLayout
+          Size="107.2,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup"
+          TopLeft="524,338" />
         <EdgeLayout
           Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable.Paths[OLE DB Source Output]"
-          TopLeft="253.433333333333,238.6">
+          TopLeft="249.8,238.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,142.733333333333"
+              EndConnector="327.8,99.4000000000001"
               Start="0,0"
-              End="0,135.233333333333">
+              End="327.8,91.9000000000001">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,135.233333333333" />
+                    End="0,45.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,45.7"
+                    Point2="0,49.7"
+                    Point3="4,49.7" />
+                  <mssgle:LineSegment
+                    End="323.8,49.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="323.8,49.7"
+                    Point2="327.8,49.7"
+                    Point3="327.8,53.7" />
+                  <mssgle:LineSegment
+                    End="327.8,91.9000000000001" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4221,9 +5387,108 @@ AND A.idIndicador=B.IdIndicador</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command"
+          TopLeft="653,475" />
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable.Paths[Lookup No Match Output]"
+          TopLeft="524,358.8">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-184.533333333333,43.3333333333329"
+              Start="0,0"
+              End="-177.033333333333,43.3333333333329">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-88.2666666666665,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-88.2666666666665,0"
+                    Point2="-92.2666666666665,0"
+                    Point3="-92.2666666666665,4" />
+                  <mssgle:LineSegment
+                    End="-92.2666666666665,39.3333333333329" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-92.2666666666665,39.3333333333329"
+                    Point2="-92.2666666666665,43.3333333333329"
+                    Point3="-96.2666666666665,43.3333333333329" />
+                  <mssgle:LineSegment
+                    End="-177.033333333333,43.3333333333329" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-148.073053385416,-17.609375,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable.Paths[Lookup Match Output]"
+          TopLeft="577.6,379.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="152.2,95.3999999999999"
+              Start="0,0"
+              End="152.2,87.8999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,43.7"
+                    Point2="0,47.7"
+                    Point3="4,47.7" />
+                  <mssgle:LineSegment
+                    End="148.2,47.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="148.2,47.7"
+                    Point2="152.2,47.7"
+                    Point3="152.2,51.7" />
+                  <mssgle:LineSegment
+                    End="152.2,87.8999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="27.90861328125,52.7,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[IndicadorResultadoDetalleVariable]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable">
     <Properties>
@@ -4383,172 +5648,6 @@ AND A.idIndicador=B.IdIndicador</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="156.8,41.6"
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Destination"
-          TopLeft="189,352" />
-        <NodeLayout
-          Size="140.8,41.6"
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Source"
-          TopLeft="159,94" />
-        <EdgeLayout
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado.Paths[OLE DB Source Output]"
-          TopLeft="229.4,135.6">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="38,216.4"
-              Start="0,0"
-              End="38,208.9">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,104.2" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,104.2"
-                    Point2="0,108.2"
-                    Point3="4,108.2" />
-                  <mssgle:LineSegment
-                    End="34,108.2" />
-                  <mssgle:CubicBezierSegment
-                    Point1="34,108.2"
-                    Point2="38,108.2"
-                    Point3="38,112.2" />
-                  <mssgle:LineSegment
-                    End="38,208.9" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <TaskHost
-    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="148.8,41.6"
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria\Cargar tabla temp"
-          TopLeft="296,328" />
-        <NodeLayout
-          Size="121.6,41.6"
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria\Leer Datos"
-          TopLeft="169,85" />
-        <EdgeLayout
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria.Paths[OLE DB Source Output]"
-          TopLeft="229.8,126.6">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="140.6,201.4"
-              Start="0,0"
-              End="140.6,193.9">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,96.7" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,96.7"
-                    Point2="0,100.7"
-                    Point3="4,100.7" />
-                  <mssgle:LineSegment
-                    End="136.6,100.7" />
-                  <mssgle:CubicBezierSegment
-                    Point1="136.6,100.7"
-                    Point2="140.6,100.7"
-                    Point3="140.6,104.7" />
-                  <mssgle:LineSegment
-                    End="140.6,193.9" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Categoria\Leer Datos">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="155.2,41.6"
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Cargar Datos Temp"
-          TopLeft="128,182.5" />
-        <NodeLayout
-          Size="121.6,41.6"
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Leer Datos"
-          TopLeft="103,42.5" />
-        <EdgeLayout
-          Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable.Paths[OLE DB Source Output]"
-          TopLeft="163.8,84.1">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="41.8,98.4"
-              Start="0,0"
-              End="41.8,90.9">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,45.2" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,45.2"
-                    Point2="0,49.2"
-                    Point3="4,49.2" />
-                  <mssgle:LineSegment
-                    End="37.8,49.2" />
-                  <mssgle:CubicBezierSegment
-                    Point1="37.8,49.2"
-                    Point2="41.8,49.2"
-                    Point3="41.8,53.2" />
-                  <mssgle:LineSegment
-                    End="41.8,90.9" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Leer Datos">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
