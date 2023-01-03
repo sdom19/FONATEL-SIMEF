@@ -97,7 +97,7 @@ namespace GB.SIMEF.Entities
             json.Append("\"Fecha de fin\":\"").Append(this.FechaFin).Append("\",");
             json.Append("\"Fuente\":\"").Append(this.Fuente.Fuente).Append("\",");
             json.Append("\"Cantidad de formularios\":").Append(this.CantidadFormularios).Append(",");
-            json.Append("\"Mes de registro\":\"").Append(this.Mes.Nombre).Append("\",");
+            json.Append("\"Mes de registro\":\"").Append(this.Mes.Nombre.Trim()).Append("\",");
             json.Append("\"Año de registro\":\"").Append(this.Anno.Nombre).Append("\",");
             json.Append("\"Mensaje\":\"").Append(this.Mensaje).Append("\",");
 
