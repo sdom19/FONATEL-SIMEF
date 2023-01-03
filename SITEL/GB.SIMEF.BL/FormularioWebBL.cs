@@ -73,7 +73,10 @@ namespace GB.SIMEF.BL
             formularioWebNuevo.idEstado = 0;
             FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
             if (formularioWebViejo.CantidadIndicadores > formularioWebNuevo.CantidadIndicadores)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.CantidadIndicadoresMenor);
+            }
             if (formularioWebViejo.CantidadIndicadores < formularioWebNuevo.CantidadIndicadores)
                 return true;
             else
