@@ -13,6 +13,7 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("DetalleIndicadorCategoria")]
     public partial class DetalleIndicadorCategoria
@@ -59,5 +60,19 @@ namespace GB.SIMEF.Entities
         
         [NotMapped]
         public List<string> listaDetallesCategoriaString { get; set; }
+
+        public override string ToString()
+        {
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Categoría\":\"").Append(this.NombreCategoria).Append("\",");
+
+
+            json.Append("\"Detalle\":\"").Append(this.Etiquetas).Append("\"}");
+
+
+            string resultado = json.ToString();
+
+            return resultado;
+        }
     }
 }

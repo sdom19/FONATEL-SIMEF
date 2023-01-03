@@ -9,10 +9,12 @@
 
 namespace GB.SIMEF.Entities
 {
+    using GB.SIMEF.Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("RelacionCategoria")]
     public partial class RelacionCategoria
@@ -68,5 +70,38 @@ namespace GB.SIMEF.Entities
         public CategoriasDesagregacion CategoriasDesagregacionid;
 
         #endregion
+
+        public override string ToString()
+        {
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Código\":\"").Append(this.Codigo).Append("\",");
+            json.Append("\"Nombre de la relación\":\"").Append(this.Nombre).Append("\",");
+            json.Append("\"Cantidad de atributos\":\"").Append(this.CantidadCategoria).Append("\",");
+            
+
+            json.Append("\"ID de la Categoría\":").Append(this.idCategoria).Append(",");
+
+            json.Append("\"Cantidad de filas\":\"").Append(this.CantidadFilas).Append("\",");
+
+            switch ((int)this.EstadoRegistro.idEstado)
+            {
+                case (int)Constantes.EstadosRegistro.Desactivado:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Desactivado)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.Activo:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Activo)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.Eliminado:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Eliminado)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.EnProceso:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.EnProceso)).Append("\"}");
+                    break;
+            }
+
+            string resultado = json.ToString();
+
+            return resultado;
+        }
     }
 }

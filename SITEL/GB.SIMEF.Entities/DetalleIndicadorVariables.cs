@@ -9,10 +9,12 @@
 
 namespace GB.SIMEF.Entities
 {
+    using GB.SIMEF.Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("DetalleIndicadorVariables")]
     public partial class DetalleIndicadorVariables
@@ -35,5 +37,22 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string idIndicadorString { get; set; }
 
+        public override string ToString()
+        {
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Nombre variable dato\":\"").Append(this.NombreVariable).Append("\",");
+            
+
+            json.Append("\"Descripción\":").Append(this.Descripcion).Append("}");
+
+            
+
+
+
+
+            string resultado = json.ToString();
+
+            return resultado;
+        }
     }
 }

@@ -59,6 +59,7 @@ namespace GB.SIMEF.BL
                     return resultado;
                 }
                 pDetalleIndicadorVariables.Estado = true;
+                var objetoAnterior = detalleIndicadorVariablesDAL.ObtenerDatos(pDetalleIndicadorVariables).Single();
                 resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ActualizarDatos(pDetalleIndicadorVariables);
 
                 resultado.Usuario = user;
@@ -66,8 +67,16 @@ namespace GB.SIMEF.BL
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Editar;
 
-                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
+                var objeto = detalleIndicadorVariablesDAL.ObtenerDatos(pDetalleIndicadorVariables).Single();
+                string JsonActual = objeto.ToString();
+                string JsonAnterior = objetoAnterior.ToString();
+
+                detalleIndicadorVariablesDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario,
+                            resultado.Clase, objeto.idDetalleIndicador.ToString()
+                            , JsonActual, JsonAnterior, "");
+                //indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                //        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
             }
             catch (Exception ex)
             {
@@ -175,8 +184,11 @@ namespace GB.SIMEF.BL
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Insertar;
 
-                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
+                var objetoDetalle = detalleIndicadorVariablesDAL.ObtenerDatos(pDetalleIndicadorVariables).Single();
+                string JsonInicial = objetoDetalle.ToString();
+
+                detalleIndicadorVariablesDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.idDetalleIndicador.ToString(),"","",JsonInicial);
             }
             catch (Exception ex)
             {

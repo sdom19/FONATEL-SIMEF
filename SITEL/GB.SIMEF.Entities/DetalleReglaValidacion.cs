@@ -13,7 +13,8 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    
+    using System.Text;
+
     [Table("DetalleReglaValidacion") ]
     public partial class DetalleReglaValidacion
     {   
@@ -80,21 +81,19 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string  NombreVariable { get; set; }
 
-        [NotMapped]
-        public List<string> NoSerialize = new List<string>()
+        public override string ToString()
         {
-            "id",
-            "idRegla",
-            "idOperador",
-            "idIndicador",
-            "Codigo",
-            "Nombre",
-            "FechaModificacion",
-            "UsuarioCreacion",
-            "FechaCreacion",
-            "UsuarioModificacion",
-            "Descripcion"
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Tipo de regla\":\"").Append(this.tipoReglaValidacion.Nombre).Append("\",");
+            //json.Append("\"Codigo\":\"").Append(this.reglaValidacion.Codigo).Append("\",");
+            json.Append("\"Operador\":\"").Append(this.operadorArismetico.Nombre).Append("\",");
+            json.Append("\"Variable dato\":\"").Append(this.NombreVariable).Append("\"}");
+            
+           
 
-        };
+            string resultado = json.ToString();
+
+            return resultado;
+        }
     }
 }
