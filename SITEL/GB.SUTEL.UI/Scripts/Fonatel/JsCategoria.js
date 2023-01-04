@@ -168,13 +168,16 @@
 
                 $(JsCategoria.Controles.CodigoDetalleHelp).addClass("hidden");
                 $(JsCategoria.Controles.EtiquetaDetalleHelp).addClass("hidden");
-
+                $(JsCategoria.Controles.txtEtiquetaDetalle).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtCodigoDetalle).parent().removeClass("has-error");
 
                 if ($(JsCategoria.Controles.txtEtiquetaDetalle).val().length == 0) {
+                    $(JsCategoria.Controles.txtEtiquetaDetalle).parent().addClass("has-error");
                     $(JsCategoria.Controles.EtiquetaDetalleHelp).removeClass("hidden")
                     validarFormulario = false;
                 }
                 if ($(JsCategoria.Controles.txtCodigoDetalle).val().length == 0) {
+                    $(JsCategoria.Controles.txtCodigoDetalle).parent().addClass("has-error");
                     $(JsCategoria.Controles.CodigoDetalleHelp).removeClass("hidden")
                     validarFormulario = false;
                 }
