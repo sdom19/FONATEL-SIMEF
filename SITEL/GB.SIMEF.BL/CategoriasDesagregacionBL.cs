@@ -277,7 +277,7 @@ namespace GB.SIMEF.BL
                 else if (objetoClonar.CantidadDetalleDesagregacion < objeto.DetalleCategoriaTexto.Count())
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.CantidadDestinatariosIncorrecta);
+                    throw new Exception(Errores.CantidadRegistrosLimiteCategoria);
                 }
                 else if (listadoCategorias.Where(x => x.NombreCategoria.ToUpper() == objetoClonar.NombreCategoria.ToUpper()).Count() > 0)
                 {
