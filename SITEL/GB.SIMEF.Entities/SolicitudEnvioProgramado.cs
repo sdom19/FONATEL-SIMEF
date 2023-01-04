@@ -13,6 +13,7 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("SolicitudEnvioProgramado")]
     public partial class SolicitudEnvioProgramado
@@ -38,9 +39,25 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string id { get; set; }
 
+        [NotMapped]
+        public FrecuenciaEnvio Frecuencia { get; set; }
+
+        [NotMapped]
+        public string CodigoSolicitud { get; set; }
 
         #endregion
         //public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
         //public virtual Solicitud Solicitud { get; set; }
+
+        public override string ToString()
+        {
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Frecuencia\":\"").Append(this.Frecuencia.Nombre).Append("\",");
+            json.Append("\"Cantidad de repeticiones\":").Append(this.CantidadRepeticiones).Append(",");
+            json.Append("\"Fecha de inicio del ciclo\":\"").Append(this.FechaCiclo).Append("\",");
+            json.Append("\"Activo\":\"").Append(this.Estado ? "Si" : "No").Append("\"}");
+
+            return json.ToString();
+        }
     }
 }

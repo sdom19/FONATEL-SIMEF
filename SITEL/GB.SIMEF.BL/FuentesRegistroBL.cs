@@ -30,14 +30,6 @@ namespace GB.SIMEF.BL
             this.ResultadoConsulta = new RespuestaConsulta<List<FuentesRegistro>>();
         }
 
-        private string SerializarObjetoBitacora(FuentesRegistro objFuente)
-        {
-            return JsonConvert.SerializeObject(objFuente, new JsonSerializerSettings
-            { ContractResolver = new JsonIgnoreResolver(objFuente.NoSerialize) });
-        }
-
-
-
         /// <summary>
         /// Evalua si la fuente genero cambios para actualizar
         /// Michael Hernández Cordero
@@ -71,7 +63,7 @@ namespace GB.SIMEF.BL
 
                     var resul = consultardatos.Where(x => x.idFuente == objeto.idFuente).ToList();
 
-                    string valorAnterior = SerializarObjetoBitacora(resul.Where(x=>x.idFuente==objeto.idFuente).Single());
+                    string valorAnterior = resul.Where(x=>x.idFuente==objeto.idFuente).Single().ToString();
 
                     objeto = resul.Where(x => x.idFuente == objeto.idFuente).Single();
 
@@ -119,7 +111,7 @@ namespace GB.SIMEF.BL
 
                         var nuevovalor = clsDatos.ObtenerDatos(objeto).Single();
 
-                        string jsonNuevoValor = SerializarObjetoBitacora(nuevovalor);
+                        string jsonNuevoValor = nuevovalor.ToString();
                     
                         ResultadoConsulta.objetoRespuesta = resul;
                         ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -151,6 +143,8 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                string jsonAnterior = ObtenerDatos(objeto).objetoRespuesta.FirstOrDefault().ToString();
+
                 if (!String.IsNullOrEmpty(objeto.id))
                 {
                     objeto.id = Utilidades.Desencriptar(objeto.id);
@@ -188,11 +182,12 @@ namespace GB.SIMEF.BL
                     objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
                     ResultadoConsulta.Accion = (int)Constantes.Accion.Activar;
                     resul = clsDatos.ActualizarDatos(objeto);
+                    string jsonActual = resul.FirstOrDefault().ToString();
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
                     clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                            ResultadoConsulta.Usuario,
-                           ResultadoConsulta.Clase, objeto.Fuente);
+                           ResultadoConsulta.Clase, objeto.Fuente, jsonActual, jsonAnterior);
                 }
 
             }
@@ -307,7 +302,7 @@ namespace GB.SIMEF.BL
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
-                string JsonNuevoValor = SerializarObjetoBitacora(resul.Where(x=>x.Fuente==objeto.Fuente.ToUpper()).Single());
+                string JsonNuevoValor = resul.Where(x=>x.Fuente==objeto.Fuente.ToUpper()).Single().ToString();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                      ResultadoConsulta.Usuario,
                      ResultadoConsulta.Clase, objeto.Fuente,"","",JsonNuevoValor);

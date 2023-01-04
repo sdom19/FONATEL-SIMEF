@@ -647,6 +647,7 @@ JsSolicitud = {
                 objeto.IdFrecuencia = $(JsSolicitud.Controles.ddlFrecuencia).val();
                 objeto.CantidadRepeticiones = $(JsSolicitud.Controles.txtCantidadRepeticiones).val();
                 objeto.FechaCiclo = $(JsSolicitud.Controles.txtFechaCiclo).val();
+                objeto.CodigoSolicitud = $(JsSolicitud.Controles.txtSolicitudModal).val();
 
                 execAjaxCall("/SolicitudFonatel/InsertarEnvioProgramado", "POST", objeto)
                     .then((obj) => {
@@ -910,6 +911,7 @@ JsSolicitud = {
 
             let objeto = new Object();
             objeto.id = $(JsSolicitud.Controles.txtSolicitudEnvio).val();
+            objeto.CodigoSolicitud = $(JsSolicitud.Controles.txtSolicitudModal).val();
 
             execAjaxCall("/SolicitudFonatel/EliminarEnvioProgramado", "POST", objeto)
                 .then((obj) => {

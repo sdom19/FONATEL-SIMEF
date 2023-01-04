@@ -7,15 +7,24 @@
   DTS:CreatorName="SIMEF\Administrador"
   DTS:DTSID="{BBA4174E-61DC-4378-BBAD-EB2B76E9C7B2}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.845.0"
+  DTS:LastModifiedProductVersion="16.0.948.0"
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="28"
-  DTS:VersionGUID="{201258C6-01F0-48BB-BEDA-6A6A6AB449CC}">
+  DTS:VersionBuild="29"
+  DTS:VersionGUID="{7FA7014B-474F-4B48-AAD2-4498645E472B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{1CBDB98B-EE25-4589-9FD8-54A0CF0B19E9}"
+      DTS:ObjectName="RutaEnvioCorreo">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">E:\Archivos Programa (SIMEF)\Envio Correos\GB.SIMEF.EnvioCorreo.exe</DTS:Property>
+    </DTS:PackageParameter>
     <DTS:PackageParameter
       DTS:CreationName=""
       DTS:DataType="11"
@@ -80,6 +89,40 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\Envio Correos"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{409DF737-2EE0-433D-9566-56A2DF5B53C5}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Envio Correos"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="Executable">@[$Package::RutaEnvioCorreo]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="E:\Archivos Programa (SIMEF)\Envio Correos\GB.SIMEF.EnvioCorreo.exe" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Envio Correos 1"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{afe5ae3f-5d66-4a5f-a36b-50cb001ab750}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Envio Correos 1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="Executable">@[$Package::RutaEnvioCorreo]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="E:\Archivos Programa (SIMEF)\Envio Correos\GB.SIMEF.EnvioCorreo.exe" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\Sequence Container"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
@@ -120,6 +163,22 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
       DTS:To="Package\CargaRegistroIndicador" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{B4ABF9E7-448E-435E-8436-BEE0035A2CAA}"
+      DTS:From="Package\CargaRegistroIndicador"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Envio Correos" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{142524D8-8BCE-4546-8E2A-FD9D7EED9320}"
+      DTS:From="Package\CargaRegistroIndicadorConEnvio"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Envio Correos 1" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -132,29 +191,67 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="195,42"
+          Size="195.2,41.6"
           Id="Package\CargaRegistroIndicador"
           TopLeft="198,455" />
         <NodeLayout
-          Size="168,42"
+          Size="243.2,41.6"
+          Id="Package\CargaRegistroIndicadorConEnvio"
+          TopLeft="491,559" />
+        <NodeLayout
+          Size="168,41.6"
           Id="Package\CargarTablaEnvio"
           TopLeft="506,452" />
         <AnnotationLayout
           Text="Se usa para evaluar el envío programado"
           ParentId="Package\Sequence Container"
           FontInfo="{assembly:Null}"
-          Size="245,60"
+          Size="244.8,40"
           Id="8fa0fefa-9bfb-473b-b341-d8c6b290b306"
           TopLeft="47,20" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="357,135"
-          Size="357,178"
+          PanelSize="356.8,135.2"
+          Size="356.8,177.6"
           Id="Package\Sequence Container"
           TopLeft="320,131" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="590,494">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="22.5,65"
+              Start="0,0"
+              End="22.5,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.5"
+                    Point2="0,32.5"
+                    Point3="4,32.5" />
+                  <mssgle:LineSegment
+                    End="18.5,32.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.5,32.5"
+                    Point2="22.5,32.5"
+                    Point3="22.5,36.5" />
+                  <mssgle:LineSegment
+                    End="22.5,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="556.666666666667,309">
@@ -228,35 +325,73 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="243,42"
-          Id="Package\CargaRegistroIndicadorConEnvio"
-          TopLeft="491,559" />
+          Size="134.4,41.6"
+          Id="Package\Envio Correos"
+          TopLeft="205,554" />
         <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="590,494">
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="295.6,496.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="22.5,65"
+              EndConnector="-23.4,57.4000000000002"
               Start="0,0"
-              End="22.5,57.5">
+              End="-23.4,49.9000000000002">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,28.5" />
+                    End="0,24.7000000000001" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,28.5"
-                    Point2="0,32.5"
-                    Point3="4,32.5" />
+                    Point1="0,24.7000000000001"
+                    Point2="0,28.7000000000001"
+                    Point3="-4,28.7000000000001" />
                   <mssgle:LineSegment
-                    End="18.5,32.5" />
+                    End="-19.4,28.7000000000001" />
                   <mssgle:CubicBezierSegment
-                    Point1="18.5,32.5"
-                    Point2="22.5,32.5"
-                    Point3="22.5,36.5" />
+                    Point1="-19.4,28.7000000000001"
+                    Point2="-23.4,28.7000000000001"
+                    Point3="-23.4,32.7000000000001" />
                   <mssgle:LineSegment
-                    End="22.5,57.5" />
+                    End="-23.4,49.9000000000002" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="141.6,41.6"
+          Id="Package\Envio Correos 1"
+          TopLeft="577.5,634.833333333333" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="612.6,600.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="35.6999999999999,34.2333333333335"
+              Start="0,0"
+              End="35.6999999999999,26.7333333333335">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.1166666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.1166666666667"
+                    Point2="0,17.1166666666667"
+                    Point3="4,17.1166666666667" />
+                  <mssgle:LineSegment
+                    End="31.6999999999999,17.1166666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="31.6999999999999,17.1166666666667"
+                    Point2="35.6999999999999,17.1166666666667"
+                    Point3="35.6999999999999,21.1166666666667" />
+                  <mssgle:LineSegment
+                    End="35.6999999999999,26.7333333333335" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

@@ -811,6 +811,9 @@ $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (
 $(document).on("click", JsFormulario.Controles.btnAtrasFormularioRegla, function (e) {
     e.preventDefault();
     $("a[href='#step-1']").trigger('click');
+
+    $(JsFormulario.Controles.txtCodigoFormulario).prop("disabled", true);
+    InsertarParametroUrl("modo", jsUtilidades.Variables.Acciones.Editar);
 });
 
 // GUARDAR FORMULARIO COMPLETO

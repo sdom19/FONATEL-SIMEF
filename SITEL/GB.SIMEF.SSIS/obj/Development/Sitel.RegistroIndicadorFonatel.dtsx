@@ -7,12 +7,12 @@
   DTS:CreatorName="SIMEF\Administrador"
   DTS:DTSID="{D2F0FEAF-3306-4C70-AD58-BE7F60AE4FBC}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.845.0"
+  DTS:LastModifiedProductVersion="16.0.948.0"
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="33"
-  DTS:VersionGUID="{B60F51D1-D9C7-47A4-86D3-2DFB5D85DAD7}">
+  DTS:VersionBuild="40"
+  DTS:VersionGUID="{27E4715C-2305-4F6D-9B54-47266E5FC84D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -345,7 +345,7 @@ where [refTable].[idFormulario] = ? and [refTable].[idSolicitud] = ?</property>
                     <inputColumn
                       refId="Package\ActualizarRegistroIndicador\RegistroIndicador.Inputs[OLE DB Destination Input].Columns[Formulario]"
                       cachedDataType="wstr"
-                      cachedLength="10"
+                      cachedLength="300"
                       cachedName="Formulario"
                       externalMetadataColumnId="Package\ActualizarRegistroIndicador\RegistroIndicador.Inputs[OLE DB Destination Input].ExternalColumns[Formulario]"
                       lineageId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Output].Columns[Formulario]" />
@@ -506,7 +506,38 @@ where [refTable].[idFormulario] = ? and [refTable].[idSolicitud] = ?</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">exec SITEL.spActualizarRegistroIndicador</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select distinct 
+
+		d.IdEnvio idSolicitud,
+		b.IdFormulario, 
+		a.Codigo , 
+		a.Nombre, 
+		a.IdMes, 
+		e.Nombre Mes, 
+		a.IdAnno, 
+		f.Nombre Anno,  
+		a.FechaInicio, 
+		a.FechaFin, 
+		a.IdFuente, 
+		a.Mensaje, 
+		c.Nombre Formulario, 
+		a.IdEstado, 
+		h.Nombre Estado
+from Solicitud a
+inner join EstadoRegistro h
+on h.IdEstado=a.IdEstado
+inner join Mes e 
+on e.IdMes=a.IdMes
+inner join Anno f 
+on f.IdAnno=a.IdAnno
+inner join DetalleSolicitudFormulario b
+on a.IdSolicitud=b.IdSolicitud
+inner join FormularioWeb c
+on c.IdFormulario=b.IdFormulario
+and c.IdEstado=2
+inner join EnvioSolicitudes d
+on d.IdSolicitud=b.IdSolicitud
+and d.Enviado=0</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -657,7 +688,7 @@ where [refTable].[idFormulario] = ? and [refTable].[idSolicitud] = ?</property>
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Output].ExternalColumns[Formulario]"
-                      length="10"
+                      length="300"
                       lineageId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Output].Columns[Formulario]"
                       name="Formulario"
                       truncationRowDisposition="FailComponent" />
@@ -750,7 +781,7 @@ where [refTable].[idFormulario] = ? and [refTable].[idSolicitud] = ?</property>
                     <externalMetadataColumn
                       refId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Output].ExternalColumns[Formulario]"
                       dataType="wstr"
-                      length="10"
+                      length="300"
                       name="Formulario" />
                     <externalMetadataColumn
                       refId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Output].ExternalColumns[IdEstado]"
@@ -846,7 +877,7 @@ where [refTable].[idFormulario] = ? and [refTable].[idSolicitud] = ?</property>
                     <outputColumn
                       refId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Error Output].Columns[Formulario]"
                       dataType="wstr"
-                      length="10"
+                      length="300"
                       lineageId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Error Output].Columns[Formulario]"
                       name="Formulario" />
                     <outputColumn
@@ -1006,7 +1037,7 @@ Codigo = ?
                     <inputColumn
                       refId="Package\ActualizarRegistroIndicador\Update RegistroIndicador.Inputs[OLE DB Command Input].Columns[Formulario]"
                       cachedDataType="wstr"
-                      cachedLength="10"
+                      cachedLength="300"
                       cachedName="Formulario"
                       externalMetadataColumnId="Package\ActualizarRegistroIndicador\Update RegistroIndicador.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
                       lineageId="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador.Outputs[OLE DB Source Output].Columns[Formulario]" />
@@ -1708,7 +1739,47 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">exec SITEL.spActualizarRegistroIndicadorDetalle</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select distinct p.IdEnvio IdSolicitud
+,b.IdFormulario
+,g.IdIndicador
+
+,ROW_NUMBER ( ) OVER(partition by a.IdSolicitud order by a.IdSolicitud) IdDetalleRegistroIndicador
+
+,d.TituloHojas
+,d.NotasEncargado
+,d.NotasInformante
+,g.Codigo CodigoIndicador 
+,g.Nombre NombreIndicador
+,0 CantidadFilas
+from Solicitud a
+inner join EstadoRegistro h
+on h.IdEstado=a.IdEstado
+
+
+inner join Mes e 
+on e.IdMes=a.IdMes
+inner join Anno f 
+on f.IdAnno=a.IdAnno
+
+
+inner join DetalleSolicitudFormulario b
+on a.IdSolicitud=b.IdSolicitud
+inner join FormularioWeb c
+
+on c.IdFormulario=b.IdFormulario
+and c.IdEstado=2
+
+inner join DetalleFormularioWeb d on 
+d.IdFormulario=c.IdFormulario
+and d.Estado=1
+
+inner join Indicador g on
+d.IdIndicador=g.IdIndicador
+and g.IdEstado=2
+
+inner join EnvioSolicitudes p
+on p.IdSolicitud=b.IdSolicitud
+and p.Enviado=0</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -2331,7 +2402,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                   dataType="System.Int32"
                   description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
                   name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
+                  typeConverter="LookupNoMatchBehavior">1</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
@@ -2379,76 +2450,64 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                       refId="Package\RegistroIndicadorCategoria\Lookup.Inputs[Lookup Input].Columns[IdSolicitud]"
                       cachedDataType="i4"
                       cachedName="IdSolicitud"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdSolicitud]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdSolicitud]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdSolicitud</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdSolicitud</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorCategoria\Lookup.Inputs[Lookup Input].Columns[IdFormulario]"
                       cachedDataType="i4"
                       cachedName="IdFormulario"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdFormulario]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdFormulario]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdFormulario</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdFormulario</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorCategoria\Lookup.Inputs[Lookup Input].Columns[IdIndicador]"
                       cachedDataType="i4"
                       cachedName="IdIndicador"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdIndicador</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdIndicador</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorCategoria\Lookup.Inputs[Lookup Input].Columns[idCategoria]"
                       cachedDataType="i4"
                       cachedName="idCategoria"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[idCategoria]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorCategoria\OLE DB Source.Outputs[OLE DB Source Output].Columns[idCategoria]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">idCategoria</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">idCategoria</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                   </inputColumns>
@@ -2459,7 +2518,6 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                 <output
                   refId="Package\RegistroIndicadorCategoria\Lookup.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\RegistroIndicadorCategoria\Lookup.Inputs[Lookup Input]">
@@ -3511,7 +3569,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                   dataType="System.Int32"
                   description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
                   name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
+                  typeConverter="LookupNoMatchBehavior">1</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
@@ -3559,76 +3617,64 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                       refId="Package\RegistroIndicadorVariable\Lookup.Inputs[Lookup Input].Columns[IdSolicitud]"
                       cachedDataType="i4"
                       cachedName="IdSolicitud"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdSolicitud]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdSolicitud]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdSolicitud</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdSolicitud</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorVariable\Lookup.Inputs[Lookup Input].Columns[IdFormulario]"
                       cachedDataType="i4"
                       cachedName="IdFormulario"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdFormulario]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdFormulario]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdFormulario</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdFormulario</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorVariable\Lookup.Inputs[Lookup Input].Columns[IdIndicador]"
                       cachedDataType="i4"
                       cachedName="IdIndicador"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdIndicador]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[IdIndicador]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">IdIndicador</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">IdIndicador</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                     <inputColumn
                       refId="Package\RegistroIndicadorVariable\Lookup.Inputs[Lookup Input].Columns[idVariable]"
                       cachedDataType="i4"
                       cachedName="idVariable"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[idVariable]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
+                      lineageId="Package\RegistroIndicadorVariable\Obtener datos.Outputs[OLE DB Source Output].Columns[idVariable]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
                           name="JoinToReferenceColumn">idVariable</property>
                         <property
-                          dataType="System.String"
+                          dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">idVariable</property>
+                          name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
                   </inputColumns>
@@ -3639,7 +3685,6 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                 <output
                   refId="Package\RegistroIndicadorVariable\Lookup.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\RegistroIndicadorVariable\Lookup.Inputs[Lookup Input]">
@@ -3702,7 +3747,27 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">exec SITEL.spActualizarRegistroIndicadorDetalleVariable</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select distinct g.IdEnvio IdSolicitud, c.IdFormulario,c.IdIndicador,a.IdDetalleIndicador idVariable,a.NombreVariable, a.Descripcion
+
+	from
+	DetalleIndicadorvariables a
+	inner join DetalleFormularioWeb c
+	on c.IdIndicador=a.IdIndicador
+	inner join FormularioWeb d
+	on d.IdFormulario=c.IdFormulario
+	and d.IdEstado=2
+	inner join DetalleSolicitudFormulario f
+	on f.IdFormulario=d.IdFormulario
+	inner join EnvioSolicitudes g 
+	on g.IdSolicitud=f.IdSolicitud
+	and g.Enviado=0
+	inner join Solicitud h on 
+	h.IdSolicitud=g.IdSolicitud
+	and h.idEstado=2
+	inner join Indicador i on
+	i.IdIndicador=a.IdIndicador
+	and i.IdEstado=2
+	where a.Estado=1</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -4141,19 +4206,19 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="214,42"
+          Size="214.4,41.6"
           Id="Package\ActualizarRegistroIndicador"
           TopLeft="26,11" />
         <NodeLayout
-          Size="200,42"
+          Size="200,41.6"
           Id="Package\DetalleRegistroIndicador"
           TopLeft="29,108" />
         <NodeLayout
-          Size="213,42"
+          Size="212.8,41.6"
           Id="Package\RegistroIndicadorCategoria"
           TopLeft="32,377" />
         <NodeLayout
-          Size="206,42"
+          Size="206.4,41.6"
           Id="Package\RegistroIndicadorVariable"
           TopLeft="24,240" />
         <EdgeLayout
@@ -4243,21 +4308,21 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="204,42"
+          Size="204,41.6"
           Id="Package\ActualizarRegistroIndicador\Update RegistroIndicador"
-          TopLeft="452,317" />
+          TopLeft="658,321" />
         <NodeLayout
-          Size="225,42"
+          Size="115.2,41.6"
+          Id="Package\ActualizarRegistroIndicador\Lookup"
+          TopLeft="415,220" />
+        <NodeLayout
+          Size="224.8,41.6"
           Id="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador"
           TopLeft="335,83" />
         <NodeLayout
-          Size="165,42"
+          Size="164.8,41.6"
           Id="Package\ActualizarRegistroIndicador\RegistroIndicador"
-          TopLeft="248,315" />
-        <NodeLayout
-          Size="115,42"
-          Id="Package\ActualizarRegistroIndicador\Lookup"
-          TopLeft="415,220" />
+          TopLeft="209,359" />
         <EdgeLayout
           Id="Package\ActualizarRegistroIndicador.Paths[OLE DB Source Output]"
           TopLeft="447.5,125">
@@ -4294,79 +4359,102 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
         </EdgeLayout>
         <EdgeLayout
           Id="Package\ActualizarRegistroIndicador.Paths[Lookup No Match Output]"
-          TopLeft="472.5,262">
+          TopLeft="454.733333333333,261.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-142,53"
+              EndConnector="-163.333333333333,97.3999999999999"
               Start="0,0"
-              End="-142,45.5">
+              End="-163.333333333333,89.8999999999999">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,22.5" />
+                    End="0,35.7605479452054" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,22.5"
-                    Point2="0,26.5"
-                    Point3="-4,26.5" />
+                    Point1="0,35.7605479452054"
+                    Point2="0,39.7605479452054"
+                    Point3="-4,39.7605479452054" />
                   <mssgle:LineSegment
-                    End="-138,26.5" />
+                    End="-159.333333333333,39.7605479452054" />
                   <mssgle:CubicBezierSegment
-                    Point1="-138,26.5"
-                    Point2="-142,26.5"
-                    Point3="-142,30.5" />
+                    Point1="-159.333333333333,39.7605479452054"
+                    Point2="-163.333333333333,39.7605479452054"
+                    Point3="-163.333333333333,43.7605479452054" />
                   <mssgle:LineSegment
-                    End="-142,45.5" />
+                    End="-163.333333333333,89.8999999999999" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-126.80638671875,31.5,111.6127734375,11.609375"
+              BoundingBox="-137.473053385417,44.7605479452054,111.6127734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\ActualizarRegistroIndicador.Paths[Lookup Match Output]"
-          TopLeft="490.333333333333,262">
+          TopLeft="490.466666666667,261.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="63.6666666666667,55"
+              EndConnector="269.533333333333,59.4"
               Start="0,0"
-              End="63.6666666666667,47.5">
+              End="269.533333333333,51.9">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,18.4528301886793" />
+                    End="0,20.2482191780822" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,18.4528301886793"
-                    Point2="0,22.4528301886793"
-                    Point3="4,22.4528301886793" />
+                    Point1="0,20.2482191780822"
+                    Point2="0,24.2482191780822"
+                    Point3="4,24.2482191780822" />
                   <mssgle:LineSegment
-                    End="59.6666666666667,22.4528301886793" />
+                    End="265.533333333333,24.2482191780822" />
                   <mssgle:CubicBezierSegment
-                    Point1="59.6666666666667,22.4528301886793"
-                    Point2="63.6666666666667,22.4528301886793"
-                    Point3="63.6666666666667,26.4528301886793" />
+                    Point1="265.533333333333,24.2482191780822"
+                    Point2="269.533333333333,24.2482191780822"
+                    Point3="269.533333333333,28.2482191780822" />
                   <mssgle:LineSegment
-                    End="63.6666666666667,47.5" />
+                    End="269.533333333333,51.9" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-25.2267057291667,27.4528301886793,114.120078125,16"
+              BoundingBox="86.5752799479166,29.2482191780822,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ActualizarRegistroIndicador\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\ActualizarRegistroIndicador\spActualizarRegistroIndicador">
     <Properties>
@@ -4394,19 +4482,19 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="200,42"
+          Size="200,41.6"
           Id="Package\DetalleRegistroIndicador\RegistroIndicadorDetalle"
           TopLeft="81,46" />
         <NodeLayout
-          Size="281,42"
+          Size="280.8,41.6"
           Id="Package\DetalleRegistroIndicador\Lookup"
           TopLeft="118,156" />
         <NodeLayout
-          Size="116,42"
+          Size="116,41.6"
           Id="Package\DetalleRegistroIndicador\Insertar"
           TopLeft="2,311" />
         <NodeLayout
-          Size="114,42"
+          Size="113.6,41.6"
           Id="Package\DetalleRegistroIndicador\Update"
           TopLeft="407,324" />
         <EdgeLayout
@@ -4532,7 +4620,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -4542,7 +4630,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -4614,9 +4702,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4744,19 +4830,19 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="114,42"
+          Size="113.6,41.6"
           Id="Package\RegistroIndicadorVariable\Update"
           TopLeft="395,350" />
         <NodeLayout
-          Size="115,42"
+          Size="115.2,41.6"
           Id="Package\RegistroIndicadorVariable\Lookup"
           TopLeft="228,194" />
         <NodeLayout
-          Size="116,42"
+          Size="116,41.6"
           Id="Package\RegistroIndicadorVariable\Insertar"
           TopLeft="83,310" />
         <NodeLayout
-          Size="149,42"
+          Size="148.8,41.6"
           Id="Package\RegistroIndicadorVariable\Obtener datos"
           TopLeft="168,97" />
         <EdgeLayout
@@ -4862,9 +4948,7 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -4909,29 +4993,6 @@ where [refTable].[IdSolicitud] = ? and [refTable].[IdFormulario] = ? and [refTab
   <PipelineComponentMetadata
     design-time-name="Package\RegistroIndicadorVariable\Obtener datos">
     <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\ActualizarRegistroIndicador\Lookup">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string"></Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
       <Property>
         <Name>DataSourceViewID</Name>
       </Property>

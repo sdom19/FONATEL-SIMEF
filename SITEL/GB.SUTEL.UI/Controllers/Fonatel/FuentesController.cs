@@ -233,8 +233,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 Usuario usuario = new Usuario()
                 {
                     NombreUsuario = destinatario.NombreDestinatario,
-                    CorreoUsuario = destinatario.CorreoElectronico
-                };
+                    CorreoUsuario = destinatario.CorreoElectronico,
+                    IdUsuario = destinatario.idUsuario
+            };
                 if (destinatario.idDetalleFuente == 0)
                 {
                     return usuarioFonatelBL.InsertarDatos(usuario);

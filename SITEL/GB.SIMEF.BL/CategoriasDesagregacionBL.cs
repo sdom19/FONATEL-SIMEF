@@ -41,11 +41,7 @@ namespace GB.SIMEF.BL
 
 
 
-        private string SerializarObjetoBitacora(CategoriasDesagregacion objCategoria)
-        {
-            return JsonConvert.SerializeObject(objCategoria, new JsonSerializerSettings
-            { ContractResolver = new JsonIgnoreResolver(objCategoria.NoSerialize) });
-        }
+        
 
 
         public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerDatos(CategoriasDesagregacion objeto)
@@ -197,8 +193,12 @@ namespace GB.SIMEF.BL
                 }
 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
-                string JsonActual = SerializarObjetoBitacora(objeto);
-                string JsonAnterior = SerializarObjetoBitacora(result);
+                if (ResultadoConsulta.Accion == (int)Accion.Editar)
+                {
+                    result.EstadoRegistro.idEstado = objeto.EstadoRegistro.idEstado;
+                }
+                string JsonActual = objeto.ToString();
+                string JsonAnterior = result.ToString();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
@@ -228,13 +228,18 @@ namespace GB.SIMEF.BL
                 //{
                 //    throw new Exception("No se cumple con la cantidad de atributos configurados");
                 //}
-
+                
+                string JsonAnterior = objeto.ToString();
                 var resul = clsDatos.ActualizarDatos(objeto);
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+
+                
+                string JsonActual = objeto.ToString();
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                        ResultadoConsulta.Usuario,
-                       ResultadoConsulta.Clase, objeto.Codigo, JsonConvert.SerializeObject(objeto), "", "");
+                       ResultadoConsulta.Clase, objeto.Codigo, JsonActual, JsonAnterior, "");
 
             }
             catch (Exception ex)
@@ -265,7 +270,7 @@ namespace GB.SIMEF.BL
                     objeto.idCategoria = temp;
                 }
 
-                string jsonInicial = SerializarObjetoBitacora(listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single());
+                string jsonInicial = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single().ToString();
                 objeto = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
 
 
@@ -277,7 +282,7 @@ namespace GB.SIMEF.BL
                 else if (objetoClonar.CantidadDetalleDesagregacion < objeto.DetalleCategoriaTexto.Count())
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.CantidadDestinatariosIncorrecta);
+                    throw new Exception(Errores.CantidadRegistrosLimiteCategoria);
                 }
                 else if (listadoCategorias.Where(x => x.NombreCategoria.ToUpper() == objetoClonar.NombreCategoria.ToUpper()).Count() > 0)
                 {
@@ -347,7 +352,7 @@ namespace GB.SIMEF.BL
                             clsDatosTexto.ActualizarDatos(item);
                         }
                     }
-                    string JsonNuevoValor = SerializarObjetoBitacora(result);
+                    string JsonNuevoValor = result.ToString();
                     clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
                                 ResultadoConsulta.Clase, objeto.Codigo, JsonNuevoValor, "", jsonInicial);
@@ -458,7 +463,7 @@ namespace GB.SIMEF.BL
 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
 
-                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                string jsonValorInicial = objeto.ToString();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,

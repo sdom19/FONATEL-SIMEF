@@ -9,10 +9,12 @@
 
 namespace GB.SIMEF.Entities
 {
+    using GB.SIMEF.Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("ReglaValidacion")]
     public partial class ReglaValidacion
@@ -59,26 +61,37 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string idDetalleReglaValidacion { get; set; }
 
-        [NotMapped]
-        public List<string> NoSerialize = new List<string>()
+        public override string ToString()
         {
-            "id",
-            "idRegla",
-            "idOperador",
-            "idIndicador",
-            "idEstado",
-            "EstadoRegistro",
-            "idCompara",
-            "idIndicadorVariableString",
-            "idIndicadorString",
-            "ListadoTipoReglas",
-            "DetalleReglaValidacion",
-            "idDetalleReglaValidacion",
-            "FechaModificacion",
-            "UsuarioCreacion",
-            "FechaCreacion",
-            "UsuarioModificacion",
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Código\":\"").Append(this.Codigo).Append("\",");
+            json.Append("\"Nombre de regla\":\"").Append(this.Nombre).Append("\",");
+            json.Append("\"Tipo de categoría\":\"").Append(this.idIndicador).Append("\",");
+            
+            json.Append("\"Descripción\":\"").Append(this.Descripcion).Append("\",");
 
-        };
+            switch ((int)this.EstadoRegistro.idEstado)
+            {
+                case (int)Constantes.EstadosRegistro.Desactivado:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Desactivado)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.Activo:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Activo)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.Eliminado:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Eliminado)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.EnProceso:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.EnProceso)).Append("\"}");
+                    break;
+            }
+
+
+
+
+            string resultado = json.ToString();
+
+            return resultado;
+        }
     }
 }

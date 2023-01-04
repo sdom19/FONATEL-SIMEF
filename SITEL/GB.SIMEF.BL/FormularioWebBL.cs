@@ -44,12 +44,6 @@ namespace GB.SIMEF.BL
             return idFormulario;
         }
 
-        private string SerializarObjetoBitacora(FormularioWeb objFormularioWeb)
-        {
-            return JsonConvert.SerializeObject(objFormularioWeb, new JsonSerializerSettings
-            { ContractResolver = new JsonIgnoreResolver(objFormularioWeb.NoSerialize) });
-        }
-
         // Valida si existen formularios con el mismo nombre o código
         private bool ValidarDatosRepetidos(FormularioWeb objFormularioWeb)
         {
@@ -73,7 +67,10 @@ namespace GB.SIMEF.BL
             formularioWebNuevo.idEstado = 0;
             FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
             if (formularioWebViejo.CantidadIndicadores > formularioWebNuevo.CantidadIndicadores)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.CantidadIndicadoresMenor);
+            }
             if (formularioWebViejo.CantidadIndicadores < formularioWebNuevo.CantidadIndicadores)
                 return true;
             else
@@ -93,24 +90,29 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                var objetoAnterior = new FormularioWeb { idFormulario = objeto.idFormulario, idEstado = 0, Codigo = objeto.Codigo };
+                objetoAnterior.idFormulario = DesencriptarId(objetoAnterior.id);
+                string jsonAnterior = clsDatos.ObtenerDatos(objetoAnterior).FirstOrDefault().ToString();
+
                 objeto.idFormulario = DesencriptarId(objeto.id);
                 objeto.idEstado = ValidarEstado(objeto);
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 var resul = clsDatos.ActualizarDatos(objeto);
+                string jsonActual = resul.FirstOrDefault().ToString();
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
-                            ResultadoConsulta.Clase, objeto.Codigo);
+                            ResultadoConsulta.Clase, objeto.Codigo, jsonActual, jsonAnterior);
 
             }
             catch (Exception ex)
             {
-                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorSistema)
+                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }
@@ -123,17 +125,22 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                var objetoAnterior = new FormularioWeb { idFormulario = objeto.idFormulario, idEstado = 0, Codigo = objeto.Codigo};
+                objetoAnterior.idFormulario = DesencriptarId(objetoAnterior.id);
+                string jsonAnterior = clsDatos.ObtenerDatos(objetoAnterior).FirstOrDefault().ToString();
+
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
                 ResultadoConsulta.Accion = objeto.idEstado == (int)EstadosRegistro.Activo ? (int)Accion.Activar : (int)Accion.Inactiva;
                 var resul = clsDatos.ActualizarDatos(objeto);
+                string jsonActual = resul.FirstOrDefault().ToString();
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
-                            ResultadoConsulta.Clase, objeto.Codigo);
+                            ResultadoConsulta.Clase, objeto.Codigo, jsonActual, jsonAnterior);
 
             }
             catch (Exception ex)
@@ -152,8 +159,11 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Accion.Clonar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
-
                 objeto.idFormulario = DesencriptarId(objeto.id);
+
+                var objInicial = clsDatos.ObtenerDatos(new FormularioWeb { idFormulario = objeto.idFormulario});
+                string jsonInicial = objInicial.FirstOrDefault().ToString();
+
                 ValidarCantidadIndicadores(new FormularioWeb() { idFormulario = objeto.idFormulario, Codigo = "", CantidadIndicadores = objeto.CantidadIndicadores });
                 //var ListaDetalleFormulariosWeb = ObtenerDetalleFormularioWeb(objeto.idFormulario);
 
@@ -167,10 +177,10 @@ namespace GB.SIMEF.BL
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
                 //ClonarDetalleFormularioWeb(ListaDetalleFormulariosWeb, objeto.idFormulario);
 
-                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                string jsonActual = objeto.ToString();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
-                                ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);
+                                ResultadoConsulta.Clase, objeto.Codigo, jsonActual, "", jsonInicial);
 
             }
             catch (Exception ex)
@@ -225,7 +235,7 @@ namespace GB.SIMEF.BL
 
                 objeto = ResultadoConsulta.objetoRespuesta.Single();
 
-                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                string jsonValorInicial = objeto.ToString();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,

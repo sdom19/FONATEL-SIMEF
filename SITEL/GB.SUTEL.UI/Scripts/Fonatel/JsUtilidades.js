@@ -27,6 +27,8 @@
             "Editar": 3,      
             "Eliminar": 4,
             "Clonar": 5,
+            "Activar": 6,
+            "Desactivar": 7,
             "Visualizar": 9
         },
         "EstadoRegistros": {

@@ -1,34 +1,39 @@
 <?xml version="1.0"?>
 <BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectInfo>
-    <Name>SIMEF</Name>
-    <LastWriteTime>2022-12-09T20:38:39.2410692Z</LastWriteTime>
+    <Name>GB.SIMEF.SSIS</Name>
+    <LastWriteTime>2023-01-03T17:24:59.4185477Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
-      <Name>Sigitel.Definiciones.dtsx</Name>
-      <LastWriteTime>2022-12-09T20:34:32.5582033Z</LastWriteTime>
-      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
-    </ProjectBuildItemInfo>
-    <ProjectBuildItemInfo>
-      <Name>Sigitel.Orquestador.dtsx</Name>
-      <LastWriteTime>2022-12-09T20:34:32.5592035Z</LastWriteTime>
-      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
-    </ProjectBuildItemInfo>
-    <ProjectBuildItemInfo>
       <Name>Sitel.RegistroIndicadorFonatel.dtsx</Name>
-      <LastWriteTime>2022-12-09T20:52:19.0943003Z</LastWriteTime>
+      <LastWriteTime>2023-01-03T14:35:30.8097643Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>Simef.HistoricoImportacion.dtsx</Name>
-      <LastWriteTime>2022-12-09T20:34:32.5622004Z</LastWriteTime>
+      <LastWriteTime>2022-12-21T18:43:31.6459722Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>Sitel.EnvioSolicitudes.dtsx</Name>
-      <LastWriteTime>2022-12-09T20:34:32.5632039Z</LastWriteTime>
+      <LastWriteTime>2022-12-28T18:44:30.0984692Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>Sitel.RegistroIndicador.Simef.dtsx</Name>
+      <LastWriteTime>2023-01-03T15:24:56.740467Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>Sigitel.Indicadores.dtsx</Name>
+      <LastWriteTime>2023-01-02T22:06:18.195091Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>Orquestador.dtsx</Name>
+      <LastWriteTime>2023-01-03T17:24:05.6507778Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

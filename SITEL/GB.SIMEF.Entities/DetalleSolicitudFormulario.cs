@@ -13,6 +13,7 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("DetalleSolicitudFormulario")]
     public partial class DetalleSolicitudFormulario
@@ -43,5 +44,14 @@ namespace GB.SIMEF.Entities
         //public virtual ICollection<Registro> Registro { get; set; }
         //public virtual Solicitud Solicitud { get; set; }
         //public virtual FormularioWeb FormularioWeb { get; set; }
+
+        public override string ToString()
+        {
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Formulario\":\"").Append(this.Formularioid).Append("\",");
+            json.Append("\"Activo\":\"").Append(this.Estado ? "Si" : "No").Append("\"}");
+
+            return json.ToString();
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("DetalleFormularioWeb")]
     public partial class DetalleFormularioWeb
@@ -33,19 +34,16 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public virtual FormularioWeb formularioweb { get; set; }
 
-        [NotMapped]
-        public List<string> NoSerialize = new List<string>()
+        public override string ToString()
         {
-            "idDetalle",
-            "IdFormulario",
-            "IdIndicador",
-            "TituloHojas",
-            "NotasInformante",
-            "NotasEncargado",
-            "Estado",
-            "Indicador",
-            "formularioweb",
-            "indicador"
-        };
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Indicador\":\"").Append(this.Indicador.Nombre).Append("\",");
+            json.Append("\"Titulo hojas\":\"").Append(this.TituloHojas).Append("\",");
+            json.Append("\"Notas FONATEL para el informante\":\"").Append(this.NotasEncargado).Append("\",");
+            json.Append("\"Notas informante\":\"").Append(this.NotasInformante).Append("\",");
+            json.Append("\"Activo\":\"").Append(this.Estado ? "Si" : "No").Append("\"}");
+
+            return json.ToString();
+        }
     }
 }
