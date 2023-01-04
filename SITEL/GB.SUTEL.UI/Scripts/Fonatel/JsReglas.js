@@ -1377,6 +1377,21 @@ $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {
 $(document).on("click", JsReglas.Controles.btnAtrasRegla, function (e) {
     e.preventDefault();
     $("a[href='#step-1']").trigger('click');
+
+    //Al regresar al paso anteior, la regla ya está creada y deberia estar en modo edicion
+    $(JsReglas.Controles.txtCodigo).prop("disabled", true);
+
+    let indicadorHabilitado = $(JsReglas.Controles.ddlIndicadorRegla).val();
+    if (indicadorHabilitado == "") {
+        $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", false);
+    } else {
+        $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", true);
+    }
+    $(JsReglas.Controles.txtModo).val(jsUtilidades.Variables.Acciones.Editar);
+
+    let url = new URL(window.location.href);
+    url.searchParams.set('modo', jsUtilidades.Variables.Acciones.Editar);
+    window.history.pushState({ path: url.toString() }, '', url.toString());
 });
 
 $(document).on("keyup", JsReglas.Controles.formularioReglasInput, function () {

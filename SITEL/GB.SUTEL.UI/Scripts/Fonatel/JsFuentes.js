@@ -21,6 +21,7 @@
         "txtNombre": "#txtNombre",
         "txtCorreo": "#txtCorreo",
         "txtidDetalleFuente":"#txtidDetalleFuente",
+        "txtIdUsuarioDetalle": "#txtIdUsuarioDetalle",
         "FuenteHelp": "#FuenteHelp",
         "CantidadDetalleHelp": "#CantidadDetalleHelp",
         "txtFuente": "#txtFuente",
@@ -160,6 +161,7 @@
             destinatario.CorreoElectronico = $(JsFuentes.Controles.txtCorreo).val();
             destinatario.fuenteId =ObtenerValorParametroUrl('id');
             destinatario.idDetalleFuente = id;
+            destinatario.idUsuario = $(JsFuentes.Controles.txtIdUsuarioDetalle).val();
             $("#loading").fadeIn();
             execAjaxCall("/Fuentes/AgregarDestinatario", "POST", destinatario)
                 .then((obj) => {
@@ -176,6 +178,7 @@
                             $(JsFuentes.Controles.txtNombre).val("");
                             $(JsFuentes.Controles.txtCorreo).val("");
                             $(JsFuentes.Controles.txtidDetalleFuente).val("");
+                            $(JsFuentes.Controles.txtIdUsuarioDetalle).val("");
                             JsFuentes.Metodos.HabilitarBotones();
                             JsFuentes.Metodos.CargarTablaDestinatarios();
                      });
@@ -248,6 +251,7 @@
                             JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
                             $(JsFuentes.Controles.txtNombre).val("");
                             $(JsFuentes.Controles.txtCorreo).val("");
+                            $(JsFuentes.Controles.txtIdUsuarioDetalle).val("");
                             JsFuentes.Metodos.HabilitarBotones();
                             JsFuentes.Metodos.CargarTablaDestinatarios();
                         });
@@ -297,6 +301,7 @@
                         $(JsFuentes.Controles.txtNombre).val(destinatario.NombreDestinatario);
                         $(JsFuentes.Controles.txtCorreo).val(destinatario.CorreoElectronico);
                         $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);
+                        $(JsFuentes.Controles.txtIdUsuarioDetalle).val(destinatario.idUsuario);
                     }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {

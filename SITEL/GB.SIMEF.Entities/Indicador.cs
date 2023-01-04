@@ -9,10 +9,12 @@
 
 namespace GB.SIMEF.Entities
 {
+    using GB.SIMEF.Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("Indicador")]
     public partial class Indicador
@@ -69,5 +71,80 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public bool esGuardadoParcial { get; set; }
         #endregion
+
+        public override string ToString()
+        {
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Código\":\"").Append(this.Codigo).Append("\",");
+            json.Append("\"Nombre de indicador\":\"").Append(this.Nombre).Append("\",");
+            json.Append("\"Tipo de indicador\":\"").Append(this.TipoIndicadores.Nombre).Append("\",");
+            json.Append("\"Frecuencia\":\"").Append(this.FrecuenciaEnvio.Nombre).Append("\",");
+            json.Append("\"Descripción\":\"").Append(this.Descripcion).Append("\",");
+            json.Append("\"Clasificación\":\"").Append(this.ClasificacionIndicadores.Nombre).Append("\",");
+            json.Append("\"Tipo de medida\":\"").Append(this.TipoMedida.Nombre).Append("\",");
+            json.Append("\"Grupo\":\"").Append(this.GrupoIndicadores.Nombre).Append("\",");
+            switch (this.Interno)
+            {
+                case true:
+                    json.Append("\"Uso\":\"").Append(Constantes.UsosIndicador.interno).Append("\",");
+
+                    break;
+                case false:
+                    json.Append("\"Uso\":\"").Append(Constantes.UsosIndicador.externo).Append("\",");
+
+                    break;
+            }
+            json.Append("\"Fuente\":\"").Append(this.Fuente).Append("\",");
+            json.Append("\"Cantidad de variables dato\":\"").Append(this.CantidadVariableDato).Append("\",");
+            json.Append("\"Cantidad de categorías de segregación\":\"").Append(this.CantidadCategoriasDesagregacion).Append("\",");
+            json.Append("\"Unidad de estudio\":\"").Append(this.UnidadEstudio.Nombre).Append("\",");
+            switch (this.Solicitud)
+            {
+                case true:
+                    json.Append("\"Solicitud\":\"").Append(Constantes.MostrarIndicadorEnSolicitud.si).Append("\",");
+
+                    break;
+                case false:
+                    json.Append("\"Solicitud\":\"").Append(Constantes.MostrarIndicadorEnSolicitud.no).Append("\",");
+
+                    break;
+            }
+            json.Append("\"Notas\":\"").Append(this.Notas).Append("\",");
+
+            int objEstado = 1;
+            if ((int)this.EstadoRegistro.idEstado == 0)
+            {
+                objEstado = this.idEstado;
+            }
+            else
+            {
+                objEstado = (int)this.EstadoRegistro.idEstado;
+            }
+
+
+            switch (objEstado)
+            {
+                case (int)Constantes.EstadosRegistro.Desactivado:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Desactivado)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.Activo:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Activo)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.Eliminado:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Eliminado)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.EnProceso:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.EnProceso)).Append("\"}");
+                    break;
+            }
+
+
+
+
+            string resultado = json.ToString();
+
+            return resultado;
+        }
     }
 }
+

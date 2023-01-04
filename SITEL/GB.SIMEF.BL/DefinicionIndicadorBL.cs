@@ -27,13 +27,6 @@ namespace GB.SIMEF.BL
             ResultadoConsulta = new RespuestaConsulta<List<DefinicionIndicador>>();
         }
 
-
-       public string SerializarObjetoBitacora(DefinicionIndicador objdefinicion)
-        {
-            return JsonConvert.SerializeObject(objdefinicion, new JsonSerializerSettings
-            { ContractResolver = new JsonIgnoreResolver(objdefinicion.NoSerialize) });
-        }
-
         private void ValidarObjeto(DefinicionIndicador objeto)
         {
             if (objeto == null)
@@ -109,11 +102,11 @@ namespace GB.SIMEF.BL
                 string jsonInicial = objeto.json;
                 ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
                 objeto = ResultadoConsulta.objetoRespuesta.Single();
-                string JsonFinal = SerializarObjetoBitacora(objeto);
+                string JsonFinal = objeto.ToString();
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
                 DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsulta.Accion,
                 ResultadoConsulta.Usuario,
-                ResultadoConsulta.Clase, objeto.Indicador.Codigo, JsonFinal, jsonInicial,"");
+                ResultadoConsulta.Clase, objeto.Indicador.Codigo, JsonFinal, jsonInicial, "");
 
             }
             catch (Exception ex)
@@ -153,7 +146,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
                 objeto = ResultadoConsulta.objetoRespuesta.Single();
-                string jsonFinal = SerializarObjetoBitacora(objeto);    
+                string jsonFinal = objeto.ToString();    
                 DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsulta.Accion,
                 ResultadoConsulta.Usuario,
                 ResultadoConsulta.Clase, objeto.Indicador.Codigo, jsonFinal,"",jsonInicial);
@@ -220,7 +213,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
                 objeto = ResultadoConsulta.objetoRespuesta.Single();
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
-                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                string jsonValorInicial = objeto.ToString();
 
                 DefinicionIndicadorDAL.RegistrarBitacora(ResultadoConsulta.Accion,
                 ResultadoConsulta.Usuario,

@@ -117,12 +117,18 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count;
 
                 }
-
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+                if (ResultadoConsulta.Accion == (int)Accion.Editar)
+                {
+                    result.EstadoRegistro.idEstado = objeto.EstadoRegistro.idEstado;
+                }
+                string JsonActual = objeto.ToString();
+                string JsonAnterior = result.ToString();
 
                 //REGISTRAMOS EN BITACORA 1111
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
-                            ResultadoConsulta.Clase, objeto.Codigo);
+                            ResultadoConsulta.Clase, objeto.Codigo, JsonActual, JsonAnterior, "");
 
             }
             catch (Exception ex)
@@ -162,15 +168,21 @@ namespace GB.SIMEF.BL
                 objeto = resul.Single();
                 objeto.idEstado = nuevoEstado;
 
+                string JsonAnterior = objeto.ToString();
+
                 ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.idEstado ? (int)Accion.Activar : (int)Accion.Inactiva;
                 resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
 
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
 
-                //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                //ResultadoConsulta.Usuario,
-                //ResultadoConsulta.Clase, objeto.Codigo, JsonConvert.SerializeObject(objeto), "", "");
+
+                string JsonActual = objeto.ToString();
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                ResultadoConsulta.Usuario,
+                ResultadoConsulta.Clase, objeto.Codigo, JsonActual, JsonAnterior, "");
 
             }
             catch (Exception ex)
@@ -285,10 +297,14 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.Usuario = user;
                 }
 
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+
+                string jsonValorInicial = objeto.ToString();
+
                 //EVENTO PARA REGISTRAR EN BITACORA 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
-                                ResultadoConsulta.Clase, objeto.Codigo);
+                                ResultadoConsulta.Clase, objeto.Codigo,"","",jsonValorInicial);
 
 
             }
@@ -408,11 +424,25 @@ namespace GB.SIMEF.BL
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
                     objrelacion.IdRelacionCategoria = temp;
                 }
+                
+
                 objrelacion = clsDatos.ObtenerDatos(objrelacion).Single();
+                string JsonAnterior = objrelacion.ToString();
                 objrelacion.idEstado=objeto.idEstado;
-                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objrelacion);
+
+                var result =  clsDatos.ActualizarDatos(objrelacion);
+                ResultadoConsulta.objetoRespuesta = result;
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
 
+
+                objeto = clsDatos.ObtenerDatos(objrelacion).Single();
+
+
+                string JsonActual = objeto.ToString();
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                ResultadoConsulta.Usuario,
+                ResultadoConsulta.Clase, objeto.Codigo, JsonActual, JsonAnterior, "");
                 //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                 // ResultadoConsulta.Usuario,
                 //      ResultadoConsulta.Clase, objeto.Codigo);
