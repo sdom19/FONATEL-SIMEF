@@ -178,7 +178,7 @@ namespace GB.SIMEF.BL
                 {
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
-                else if (result.CantidadFormularios > objeto.CantidadFormularios)
+                else if (result.SolicitudFormulario.Count > objeto.CantidadFormularios)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.SolicitudesCantidadFormularios);
