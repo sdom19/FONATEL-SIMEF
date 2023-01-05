@@ -89,6 +89,12 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 05/01/2023
+        /// Metodo que ayuda a desencriptar los datos a utilizar proveniente del objeto EnvioSolicitudes
+        /// </summary>
+        /// <param name="objeto"></param>
         private void DesencriptarObjeto(EnvioSolicitudes objeto)
         {
 
