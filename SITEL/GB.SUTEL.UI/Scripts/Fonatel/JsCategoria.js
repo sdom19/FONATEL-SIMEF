@@ -291,17 +291,7 @@
                         let modo = ObtenerValorParametroUrl("modo");
                         if (modo == jsUtilidades.Variables.Acciones.Editar) {
                             JsCategoria.Consultas.ConsultaCategoriaPorId(result);
-                            //if (obj.objetoRespuesta[0].idEstado == 1) {
-                            //    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Categoría?", jsMensajes.Variables.actionType.agregar)
-                            //        .set('onok', function (closeEvent) {
-                            //            JsCategoria.Consultas.EditarCategoria();
-                            //        });
-                            //} else {
-                            //    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Categoría?", jsMensajes.Variables.actionType.agregar)
-                            //        .set('onok', function (closeEvent) {
-                            //            JsCategoria.Consultas.EditarCategoria();
-                            //        });
-                            //}
+                            
 
                         }
                         else if (modo == jsUtilidades.Variables.Acciones.Clonar) {

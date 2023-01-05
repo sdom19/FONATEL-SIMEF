@@ -525,18 +525,20 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
+        /// <summary>
+        /// Fecha 5-01-2023
+        /// Jeaustin Chaves Sánchez
+        /// Obtiene datos de categoria buscando por ID
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public string ObtenerCategoria(string pid)
         {
-            //async Task<>
+            
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
-            //RespuestaConsulta<CategoriasDesagregacion> result2 = null;
-            //await Task.Run(() =>
-            //{
-                result = categoriaBL.ObtenerDatos(new CategoriasDesagregacion() { id = pid });
-                //var resultado = result.objetoRespuesta.Where(x => x.id == pid);
-                //result2.objetoRespuesta = resultado.Single();
-            //});
+            
+            result = categoriaBL.ObtenerDatos(new CategoriasDesagregacion() { id = pid });
+              
 
             return JsonConvert.SerializeObject(result);
 
