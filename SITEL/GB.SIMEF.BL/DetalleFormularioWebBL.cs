@@ -18,6 +18,9 @@ namespace GB.SIMEF.BL
         string modulo = Etiquetas.Formulario;
         string user = string.Empty;
 
+        private readonly IndicadorFonatelDAL indicadorFonatelDAL;
+        private readonly DetalleIndicadorVariablesDAL detalleIndicadorVariables;
+        private readonly DetalleIndicadorCategoriaDAL detalleIndicadorCategoria;
 
         public DetalleFormularioWebBL(string modulo, string user) 
         {
@@ -25,6 +28,10 @@ namespace GB.SIMEF.BL
             this.user = user;
             this.clsDatos = new DetalleFormularioWebDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<DetalleFormularioWeb>>();
+
+            this.indicadorFonatelDAL = new IndicadorFonatelDAL();
+            this.detalleIndicadorVariables = new DetalleIndicadorVariablesDAL();
+            this.detalleIndicadorCategoria = new DetalleIndicadorCategoriaDAL();
         }
 
         private bool ValidarDatosRepetidos(DetalleFormularioWeb objDetalleFormulario)
@@ -187,6 +194,105 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<DetalleFormularioWeb>> ValidarDatos(DetalleFormularioWeb objeto)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 05/01/2023
+        /// Georgi Mesén Cerdas
+        /// Función obtener los datos simulando que son los de registro indicador para Visualizar Formulario
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns>Retorna un DetalleRegistroIndicador</returns>
+        public RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> ObtenerVisualizar(DetalleRegistroIndicadorFonatel objeto)
+        {
+            RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> ResultadoVisualizar = new RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>>();
+            try
+            {
+                ResultadoVisualizar.Clase = modulo;
+                ResultadoVisualizar.Accion = (int)Accion.Consultar;
+                Indicador indicador = new Indicador();
+                indicador.idIndicador = objeto.IdIndicador;
+                indicador.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                indicador = indicadorFonatelDAL.ObtenerDatos(indicador).FirstOrDefault();
+                DetalleRegistroIndicadorFonatel detalle = new DetalleRegistroIndicadorFonatel();
+                detalle.IdIndicador = indicador.idIndicador;
+                detalle.CodigoIndicador = indicador.Codigo;
+                detalle.NombreIndicador = indicador.Nombre;
+                detalle.CantidadFilas = objeto.CantidadFilas;
+                DetalleIndicadorVariables variable = new DetalleIndicadorVariables();
+                variable.idIndicador = indicador.idIndicador;
+                List<DetalleIndicadorVariables> variables = detalleIndicadorVariables.ObtenerDatos(variable).Where(x => x.Estado == true).ToList();
+                List<DetalleRegistroIndicadorVariableFonatel> registroVariable =
+                    variables.Select(x => new DetalleRegistroIndicadorVariableFonatel()
+                    {
+                        IdFormulario = 0,
+                        IdSolicitud = 0,
+                        IdIndicador = x.idIndicador,
+                        idVariable = x.idDetalleIndicador,
+                        NombreVariable = x.NombreVariable,
+                        Descripcion = x.Descripcion,
+                        html = string.Format(Constantes.EstructuraHtmlRegistroIndicador.Variable, x.NombreVariable),
+                    }).ToList();
+                detalle.DetalleRegistroIndicadorVariableFonatel = registroVariable;
+                DetalleIndicadorCategoria categoria = new DetalleIndicadorCategoria();
+                categoria.idIndicador = indicador.idIndicador;
+                List<DetalleIndicadorCategoria> categorias = detalleIndicadorCategoria.ObtenerVisualizarCategorias(categoria).Where(x => x.Estado == true).ToList();
+                List<DetalleRegistroIndicadorCategoriaFonatel> registroCategoria =
+                    categorias.Select(x => new DetalleRegistroIndicadorCategoriaFonatel()
+                    {
+                        IdFormulario = 0,
+                        IdSolicitud = 0,
+                        IdIndicador = x.idIndicador,
+                        idCategoria = x.idCategoria,
+                        NombreCategoria = x.NombreCategoria,
+                        IdTipoCategoria = x.IdTipoDetalle,
+                        html = DefinirControl(x.IdTipoDetalle, x.NombreCategoria, x.idCategoria)
+                    }).ToList();
+                detalle.DetalleRegistroIndicadorCategoriaFonatel = registroCategoria;
+                List<DetalleRegistroIndicadorFonatel> listaResultado = new List<DetalleRegistroIndicadorFonatel>();
+                listaResultado.Add(detalle);
+                ResultadoVisualizar.objetoRespuesta = listaResultado;
+                ResultadoVisualizar.CantidadRegistros = listaResultado.Count();
+            }
+            catch (Exception ex)
+            {
+                ResultadoVisualizar.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoVisualizar.MensajeError = ex.Message;
+            }
+            return ResultadoVisualizar;
+        }
+
+        /// <summary>
+        /// 05/01/2023
+        /// Georgi Mesén Cerdas
+        /// Función obtener el html de cada tipo de elemento para cargar en tabla de visualizar formulario
+        /// </summary>
+        /// <param name="idTipoCategoria"></param>
+        /// <param name="nombre"></param>
+        /// <param name="idCategoria"></param>
+        /// <returns></returns>
+        private string DefinirControl(int idTipoCategoria, string nombre, int idCategoria)
+        {
+            string control = string.Empty;
+            switch (idTipoCategoria)
+            {
+                case (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico:
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputAlfanumerico, nombre, idCategoria);
+                    break;
+                case (int)Constantes.TipoDetalleCategoriaEnum.Texto:
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputTexto, nombre, idCategoria);
+                    break;
+                case (int)Constantes.TipoDetalleCategoriaEnum.Fecha:
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputFecha, idCategoria, 0, 0);
+                    break;
+                case (int)Constantes.TipoDetalleCategoriaEnum.Numerico:
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputNumerico, idCategoria, 0, 0);
+                    break;
+                default:
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputSelect, idCategoria, "<option value='-1'>Seleccione</option>");
+                    break;
+            }
+            return control;
         }
     }
 }
