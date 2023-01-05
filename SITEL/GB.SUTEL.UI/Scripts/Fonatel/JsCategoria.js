@@ -290,14 +290,12 @@
                     }
 
                 }).then(result => {
-
                     if (result) {
-                        let modo =ObtenerValorParametroUrl("modo");
+                        let modo = ObtenerValorParametroUrl("modo");
                         if (modo == jsUtilidades.Variables.Acciones.Editar) {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Categoría?", jsMensajes.Variables.actionType.agregar)
-                                .set('onok', function (closeEvent) {
-                                    JsCategoria.Consultas.EditarCategoria();
-                                });
+                            JsCategoria.Consultas.ConsultaCategoriaPorId(result);
+                            
+
                         }
                         else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
                             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Categoría?", jsMensajes.Variables.actionType.agregar)
@@ -306,7 +304,7 @@
                                 });
                         }
                         else {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos ¿Desea realizar un guardado parcial de la Categoría?", jsMensajes.Variables.actionType.agregar)
                                 .set('onok', function (closeEvent) {
                                     JsCategoria.Consultas.InsertarCategoria();
                                 });
@@ -333,6 +331,56 @@
                         else {
                             jsMensajes.Metodos.OkAlertErrorModal()
                                 .set('onok', function (closeEvent) {  })
+                        }
+                    }).finally(() => {
+                        $("#loading").fadeOut();
+                    });
+            },
+            "ConsultaCategoriaPorId": function (result) {
+                $("#loading").fadeIn();
+                let idCategoria = ObtenerValorParametroUrl("id");
+                execAjaxCall("/CategoriasDesagregacion/ObtenerCategoria?pid=" + idCategoria, "GET")
+                    .then((obj) => {
+                        if (result) {
+                            let modo = ObtenerValorParametroUrl("modo");
+                            if (modo == jsUtilidades.Variables.Acciones.Editar) {
+                                if (obj.objetoRespuesta[0].idEstado == 1) {
+                                    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Categoría?", jsMensajes.Variables.actionType.agregar)
+                                        .set('onok', function (closeEvent) {
+                                            JsCategoria.Consultas.EditarCategoria();
+                                        });
+                                } else {
+                                    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Categoría?", jsMensajes.Variables.actionType.agregar)
+                                        .set('onok', function (closeEvent) {
+                                            JsCategoria.Consultas.EditarCategoria();
+                                        });
+                                }
+
+                            }
+                            else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
+                                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Categoría?", jsMensajes.Variables.actionType.agregar)
+                                    .set('onok', function (closeEvent) {
+                                        JsCategoria.Consultas.ClonarCategoria();
+                                    });
+                            }
+                            else {
+                                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
+                                    .set('onok', function (closeEvent) {
+                                        JsCategoria.Consultas.InsertarCategoria();
+                                    });
+                            }
+                        }
+                        else {
+                            JsCategoria.Metodos.ValidarFormularioCategoria(true);
+                        }
+                    }).catch((obj) => {
+                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { location.reload(); });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { })
                         }
                     }).finally(() => {
                         $("#loading").fadeOut();
@@ -817,15 +865,20 @@ $(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) 
 
     $(JsCategoria.Controles.txtCodigoCategoriaHelp).addClass("hidden");
     $(JsCategoria.Controles.txtnombreCategoriaHelp).addClass("hidden");
+    $(JsCategoria.Controles.txtCodigoCategoria).parent().removeClass("has-error");
+    $(JsCategoria.Controles.txtNombreCategoria).parent().removeClass("has-error");
+
     let validar = true;
     if ($(JsCategoria.Controles.txtNombreCategoria).val().length == 0) {
 
         $(JsCategoria.Controles.txtnombreCategoriaHelp).removeClass("hidden");
+        $(JsCategoria.Controles.txtNombreCategoria).parent().addClass("has-error");
         validar = false;
     }
     if ($(JsCategoria.Controles.txtCodigoCategoria).val().length == 0) {
 
         $(JsCategoria.Controles.txtCodigoCategoriaHelp).removeClass("hidden");
+        $(JsCategoria.Controles.txtCodigoCategoria).parent().addClass("has-error");
         validar = false;
     }
     if (!validar) {
