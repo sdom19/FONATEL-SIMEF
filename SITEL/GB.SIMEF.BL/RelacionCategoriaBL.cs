@@ -74,7 +74,8 @@ namespace GB.SIMEF.BL
                 else if (objeto.CantidadFilas < result.RelacionCategoriaId.Count())
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(string.Format ("La cantidad de filas debe ser mayor o igual a {0}",result.RelacionCategoriaId.Count()));
+                    //throw new Exception(string.Format ("La cantidad de filas debe ser mayor o igual a {0}",result.RelacionCategoriaId.Count()));
+                    throw new Exception(string.Format("La cantidad ingresada en Cantidad de Filas no puede ser menor al valor actual"));
                 }
                 else if (result.DetalleRelacionCategoria.Count() > objeto.CantidadCategoria)
                 {
