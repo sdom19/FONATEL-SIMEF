@@ -113,13 +113,17 @@
         "ValidarFormularioDetalle": function () {
             $(JsFuentes.Controles.nombreHelp).addClass("hidden");
             $(JsFuentes.Controles.CorreoHelp).addClass("hidden");
+            $(JsFuentes.Controles.txtNombre).removeClass("error-requerido");
+            $(JsFuentes.Controles.txtCorreo).removeClass("error-requerido");
             let validar = true;
             if ($(JsFuentes.Controles.txtNombre).val().trim().length == 0) {
                 $(JsFuentes.Controles.nombreHelp).removeClass("hidden");
+                $(JsFuentes.Controles.txtNombre).addClass("error-requerido");
                 validar = false;
             }
             if ($(JsFuentes.Controles.txtCorreo).val().trim().length == 0) {
                 $(JsFuentes.Controles.CorreoHelp).removeClass("hidden");
+                $(JsFuentes.Controles.txtCorreo).addClass("error-requerido");
                 validar = false;
             }
             return validar;
