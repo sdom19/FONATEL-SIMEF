@@ -12,6 +12,9 @@ namespace GB.SIMEF.DAL
     public class RegistroIndicadorFonatelDAL: BitacoraDAL
     {
         private SITELContext db;
+
+        private SIMEFContext SIMEFdb;
+
         private DetalleRegistroIndicadorFonatelDAL DetalleRegistroIndicadorFonatelDAL;
 
         public RegistroIndicadorFonatelDAL()
@@ -20,7 +23,41 @@ namespace GB.SIMEF.DAL
            
         }
 
+        /// Autor: Francisco Vindas
+        /// Fecha: 03/01/2023
+        /// El metodo crea una lista generica de la solicitud que puede ser utilizado en lo metodos que lo necesiten 
+        /// </summary>
+        /// <param name="ListaSolicitud"></param>
+        /// <returns></returns>
+        private List<RegistroIndicadorFonatel> CrearListado(List<RegistroIndicadorFonatel> ListaSolicitud)
+        {
+            return ListaSolicitud.Select(x => new RegistroIndicadorFonatel
+            {
+                Codigo = x.Codigo,
+                IdSolicitud = x.IdSolicitud,
+                Mensaje = x.Mensaje,
+                Nombre = x.Nombre,
+                FechaInicio = x.FechaInicio,
+                FechaFin = x.FechaFin,
+                Formulario = x.Formulario,
+                IdFormulario = x.IdFormulario,
+                Mes = x.Mes,
+                Estado = x.Estado,
+                IdEstado = x.IdEstado,
+                FechaModificacion = x.FechaModificacion,
+                UsuarioModificacion = x.UsuarioModificacion,
+                IdAnno = x.IdAnno,
+                Anno = x.Anno,
+                IdMes = x.IdMes,
+                IdFuente = x.IdFuente,
+                Fuente = ObtenerFuente(x.IdFuente),
+                Solicitud = ObtenerSolicitud(x.IdSolicitud),
+                Solicitudid = Utilidades.Encriptar(x.IdSolicitud.ToString()),
+                FormularioId = Utilidades.Encriptar(x.IdFormulario.ToString()),
+                DetalleRegistroIndcadorFonatel = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() { IdSolicitud = x.IdSolicitud, IdFormulario = x.IdFormulario })
 
+            }).ToList();
+        }
 
         #region Metodos Consulta Base de Datos
         /// <summary>
@@ -43,34 +80,30 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@IdEstado", objRegistroIndicadorFonatel.IdEstado),
                      new SqlParameter("@RangoFecha", objRegistroIndicadorFonatel.RangoFecha)
                     ).ToList();
+
+                ListaRegistroIndicadorFonatel = CrearListado(ListaRegistroIndicadorFonatel);
             }
-
-                ListaRegistroIndicadorFonatel=ListaRegistroIndicadorFonatel.Select(x=>new RegistroIndicadorFonatel() { 
-                    Codigo=x.Codigo,
-                    IdSolicitud=x.IdSolicitud,
-                    Mensaje=x.Mensaje,
-                    Nombre=x.Nombre,
-                    FechaInicio=x.FechaInicio,
-                    FechaFin=x.FechaFin,
-                    Formulario=x.Formulario,
-                    IdFormulario=x.IdFormulario,
-                    Mes=x.Mes,
-                    Estado=x.Estado,
-                    IdEstado=x.IdEstado,
-                    FechaModificacion=x.FechaModificacion,
-                    UsuarioModificacion=x.UsuarioModificacion,
-                    IdAnno=x.IdAnno,
-                    Anno=x.Anno,
-                    IdMes=x.IdMes,
-                    IdFuente=x.IdFuente,
-                    Solicitudid=Utilidades.Encriptar(x.IdSolicitud.ToString()),
-                    FormularioId = Utilidades.Encriptar(x.IdFormulario.ToString()),
-                    DetalleRegistroIndcadorFonatel=DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() {IdSolicitud=x.IdSolicitud, IdFormulario=x.IdFormulario })
-                   
-                }).ToList();
-
             
             return ListaRegistroIndicadorFonatel;
+        }
+
+        public FuentesRegistro ObtenerFuente(int id)
+        {
+            using (SIMEFdb = new SIMEFContext()) { 
+                FuentesRegistro fuente = SIMEFdb.FuentesRegistro.Where(i => i.idFuente == id).Single();
+                fuente.DetalleFuentesRegistro = SIMEFdb.DetalleFuentesRegistro.Where(i => i.idFuente == id).ToList();
+                return fuente;
+            }
+        }
+
+        public Solicitud ObtenerSolicitud(int id)
+        {
+            using (SIMEFdb = new SIMEFContext())
+            {
+                Solicitud solicitud = SIMEFdb.Solicitud.Where(i => i.idSolicitud == id).Single();
+                solicitud.SolicitudFormulario = SIMEFdb.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == id).ToList();
+                return solicitud;
+            }
         }
 
 
@@ -136,13 +169,6 @@ namespace GB.SIMEF.DAL
 
         //    return ListaRegistroIndicadorFonatel;
         //}
-
-
-
-
-
-
-
 
 
         #endregion

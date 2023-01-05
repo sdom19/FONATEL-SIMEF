@@ -25,6 +25,7 @@ namespace GB.SIMEF.DAL
         public List<DetalleRegistroIndicadorFonatel> ObtenerDatoDetalleRegistroIndicador(DetalleRegistroIndicadorFonatel pDetalleRegistroIndicador)
         {
             List<DetalleRegistroIndicadorFonatel> ListaRegistroIndicadorFonatel = new List<DetalleRegistroIndicadorFonatel>();
+
             using (db=new SITELContext())
             {
                 ListaRegistroIndicadorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorFonatel>
@@ -33,7 +34,9 @@ namespace GB.SIMEF.DAL
                    new SqlParameter("@idFormulario", pDetalleRegistroIndicador.IdFormulario),
                    new SqlParameter("@idIndicador", pDetalleRegistroIndicador.IdIndicador)
                  ).ToList();
-                ListaRegistroIndicadorFonatel = ListaRegistroIndicadorFonatel.Select(x => new DetalleRegistroIndicadorFonatel()
+            
+
+            ListaRegistroIndicadorFonatel = ListaRegistroIndicadorFonatel.Select(x => new DetalleRegistroIndicadorFonatel()
                 {
                     IdFormulario = x.IdFormulario,
                     IdIndicador = x.IdIndicador,
@@ -47,11 +50,14 @@ namespace GB.SIMEF.DAL
                     IdSolicitud = x.IdSolicitud,
                     DetalleRegistroIndicadorVariableFonatel=ObtenerDatoDetalleRegistroIndicadorVariable(x),
                     DetalleRegistroIndicadorCategoriaFonatel=ObtenerDatoDetalleRegistroIndicadorCategoria(x),
+                    DetalleRegistroIndicadorCategoriaValorFonatel = ObtenerDetalleRegistroIndicadorCategoriaValor(x),
                     IdFormularioString = Utilidades.Encriptar(x.IdFormulario.ToString()),
                     IdIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                     IdSolicitudString = Utilidades.Encriptar(x.IdSolicitud.ToString())
                 }).ToList();
+
             }
+
             return ListaRegistroIndicadorFonatel;
         }
 
@@ -86,7 +92,6 @@ namespace GB.SIMEF.DAL
             return ListaRegistroIndicadorFonatelVariable;
         }
 
-
         public List<DetalleRegistroIndicadorCategoriaFonatel> ObtenerDatoDetalleRegistroIndicadorCategoria(DetalleRegistroIndicadorFonatel pDetalleRegistroIndicador)
         {
             List<DetalleRegistroIndicadorCategoriaFonatel> ListaRegistroIndicadorFonatelCategoria = new List<DetalleRegistroIndicadorCategoriaFonatel>();
@@ -115,7 +120,31 @@ namespace GB.SIMEF.DAL
             return ListaRegistroIndicadorFonatelCategoria;
         }
 
+        public List<DetalleRegistroIndicadorCategoriaValorFonatel> ObtenerDetalleRegistroIndicadorCategoriaValor(DetalleRegistroIndicadorFonatel objeto)
+        {
+            List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleRegistroIndicadorCategoriaValorFonatel = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
 
+                ListaDetalleRegistroIndicadorCategoriaValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
+                ("execute FONATEL.spObtenerDetalleRegistroIndicadorCategoriaValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idCategoria",
+                   new SqlParameter("@idSolicitud", objeto.IdSolicitud),
+                   new SqlParameter("@idFormulario", objeto.IdFormulario),
+                   new SqlParameter("@idIndicador", objeto.IdIndicador),
+                   new SqlParameter("@idCategoria", objeto.idCategoria)
+                ).ToList();
+            
+
+            ListaDetalleRegistroIndicadorCategoriaValorFonatel = ListaDetalleRegistroIndicadorCategoriaValorFonatel.Select(x => new DetalleRegistroIndicadorCategoriaValorFonatel()
+                {
+                    IdSolicitud = x.IdSolicitud,
+                    IdFormulario = x.IdFormulario,
+                    IdIndicador = x.IdIndicador,
+                    idCategoria = x.idCategoria,
+                    NumeroFila = x.NumeroFila,
+                    Valor = x.Valor,
+                }).ToList();
+            
+            return ListaDetalleRegistroIndicadorCategoriaValorFonatel;
+        }
 
         private string DefinirControl(DetalleRegistroIndicadorCategoriaFonatel DetalleRegistroIndicadorCategoriaFonatel)
         {
@@ -143,7 +172,6 @@ namespace GB.SIMEF.DAL
             }
             return control;
         }
-
 
         #endregion
 

@@ -318,7 +318,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
-
         [HttpPost]
         public async Task<string> ActualizarDetalleRegistroIndicador(List<DetalleRegistroIndicadorFonatel> lista)
         {
@@ -354,28 +353,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
 
         }
-
-
-        /// <summary>
-        /// Francisco Vindas
-        /// 29-11-2022
-        /// Metodo para obtener la lista de Registros de Indicador a Editar
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// 
-        //[HttpGet]
-        //public async Task<string> ObtenerListaRegistroIndicador()
-        //{
-        //    RespuestaConsulta<List<RegistroIndicadorFonatel>> result = null;
-
-        //    await Task.Run(() =>
-        //    {
-        //        result = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel());
-
-        //    });
-        //    return JsonConvert.SerializeObject(result);
-        //}
 
 
         #endregion
