@@ -228,18 +228,22 @@ namespace GB.SIMEF.BL
                 //{
                 //    throw new Exception("No se cumple con la cantidad de atributos configurados");
                 //}
-                
+
                 string JsonAnterior = objeto.ToString();
                 var resul = clsDatos.ActualizarDatos(objeto);
-                objeto = clsDatos.ObtenerDatos(objeto).Single();
+                objeto = resul.Single();
 
-                
+
+
+
                 string JsonActual = objeto.ToString();
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                        ResultadoConsulta.Usuario,
                        ResultadoConsulta.Clase, objeto.Codigo, JsonActual, JsonAnterior, "");
+
+
 
             }
             catch (Exception ex)
