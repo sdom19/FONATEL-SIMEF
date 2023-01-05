@@ -416,6 +416,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                       
         }
 
-        
+        [HttpPost]
+        public async Task<string> ConsultaVizualizarFormulario(DetalleRegistroIndicadorFonatel detalleIndicadorFonatel)
+        {
+            RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> result = null;
+            await Task.Run(() =>
+            {
+                result = detalleFormularioWebBL.ObtenerVisualizar(detalleIndicadorFonatel);
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
     }
 }

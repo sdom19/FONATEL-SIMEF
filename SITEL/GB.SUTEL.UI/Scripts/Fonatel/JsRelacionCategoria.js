@@ -753,10 +753,15 @@ $(document).on("click", JsRelacion.Controles.btnFinalizarDetalle, function (e) {
 
 $(document).on("click", JsRelacion.Controles.btnGuardarCategoria, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            JsRelacion.Consultas.InsertarDetalleCategoria();
-        });
+    if ($(JsRelacion.Controles.ddlCategoriaAtributo).val() == "") {
+        $(JsRelacion.Controles.CategoriaDetalleHelp).removeClass("hidden");
+    } else {
+        $(JsRelacion.Controles.CategoriaDetalleHelp).addClass("hidden");
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsRelacion.Consultas.InsertarDetalleCategoria();
+            });
+    }
     
 });
 
