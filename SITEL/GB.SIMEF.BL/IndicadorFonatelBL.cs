@@ -59,6 +59,7 @@ namespace GB.SIMEF.BL
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
             bool errorControlado = false;
+            Indicador indicadorViejo = indicadorFonatelDAL.ObtenerDatos(pIndicador).Where(x => x.id == pIndicador.id).Single();
             int nuevoEstado = pIndicador.nuevoEstado;
 
             try
@@ -94,7 +95,9 @@ namespace GB.SIMEF.BL
                 // actualizar el estado del indicador
                 pIndicador.UsuarioModificacion = user;
                 pIndicador.idEstado = nuevoEstado;
-                string JsonAnterior = pIndicador.ToString();
+
+                
+                string JsonAnterior = indicadorViejo.ToString();
                 List<Indicador> indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
 
                 // construir respuesta
@@ -116,7 +119,7 @@ namespace GB.SIMEF.BL
                 resultado.Usuario = user;
                 resultado.CantidadRegistros = indicadorActualizado.Count();
 
-                var objeto = indicadorFonatelDAL.ObtenerDatos(indicadorActualizado[0]).Single();
+                var objeto = indicadorActualizado[0];
 
 
                 string JsonActual = objeto.ToString();
