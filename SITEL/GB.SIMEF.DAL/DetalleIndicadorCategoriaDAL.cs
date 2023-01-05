@@ -100,6 +100,43 @@ namespace GB.SIMEF.DAL
             public string Codigo { get; set; }
             public string NombreCategoria { get; set; }
             public bool Estado { get; set; }
+            public int IdTipoDetalle { get; set; }
+        }
+
+        /// <summary>
+        /// 05/01/2023
+        /// Georgi Mesén Cerdas
+        /// Función obtener los datos los DetalleIndicadorCategoria
+        /// </summary>
+        /// <param name="pDetalleIndicadorCategoria"></param>
+        /// <returns>Retorna un DetalleIndicadorCategoria</returns>
+        public List<DetalleIndicadorCategoria> ObtenerVisualizarCategorias(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
+        {
+            List<DetalleIndicadorCategoria> listaDetalles = new List<DetalleIndicadorCategoria>();
+            List<Model_spObtenerDetallesIndicadorCategoria> listado = new List<Model_spObtenerDetallesIndicadorCategoria>();
+            using (db = new SIMEFContext())
+            {
+                listado = db.Database.SqlQuery<Model_spObtenerDetallesIndicadorCategoria>
+                    ("execute spObtenerVisualizarCategoria  @pIdIndicador, @pIdCategoria, @pDetallesAgrupados",
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.idIndicador),
+                     new SqlParameter("@pIdCategoria", pDetalleIndicadorCategoria.idCategoria),
+                     new SqlParameter("@pDetallesAgrupados", pDetalleIndicadorCategoria.DetallesAgrupados)
+                    ).ToList();
+                listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
+                {
+                    id = Utilidades.Encriptar(x.IdDetalleIndicador.ToString()),
+                    idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
+                    idCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString()),
+                    idCategoriaDetalleString = x.IdCategoriaDetalle != null ? Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()) : null,
+                    Estado = x.Estado,
+                    Etiquetas = string.IsNullOrEmpty(x.Etiquetas) ? Constantes.defaultInputTextValue : x.Etiquetas,
+                    Codigo = x.Codigo,
+                    NombreCategoria = x.NombreCategoria,
+                    IdTipoDetalle = x.IdTipoDetalle,
+                    idCategoria = x.IdCategoria
+                }).ToList();
+            }
+            return listaDetalles;
         }
     }
 }

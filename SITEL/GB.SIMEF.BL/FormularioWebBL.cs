@@ -67,7 +67,10 @@ namespace GB.SIMEF.BL
             formularioWebNuevo.idEstado = 0;
             FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
             if (formularioWebViejo.CantidadIndicadores > formularioWebNuevo.CantidadIndicadores)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.CantidadIndicadoresMenor);
+            }
             if (formularioWebViejo.CantidadIndicadores < formularioWebNuevo.CantidadIndicadores)
                 return true;
             else
@@ -109,7 +112,7 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorSistema)
+                if (ResultadoConsulta.HayError != (int)Constantes.Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
                 }

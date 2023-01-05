@@ -332,11 +332,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                             }
 
 
-                            RelacionCategoriaAtributo[] ArrayCategoriaAtributo = ArrayCategoriaId.Length > (fila - 2) ? ArrayCategoriaId[fila - 2].listaCategoriaAtributo.ToArray() : new RelacionCategoriaAtributo[0];
+                        List<RelacionCategoriaAtributo> ArrayCategoriaAtributo = ArrayCategoriaId.Length > (fila - 2) ? ArrayCategoriaId[fila - 2].listaCategoriaAtributo : new List<RelacionCategoriaAtributo>();
 
-                             worksheetInicio.Cells[fila, Columna].Value= ArrayCategoriaAtributo.Length>(Columna-2)? ArrayCategoriaAtributo[Columna-2].Etiqueta.Replace("N/A", string.Empty) : string.Empty;
+                        worksheetInicio.Cells[fila, Columna].Value = ArrayCategoriaAtributo.Count > (Columna - 2) ? ArrayCategoriaAtributo.Where(x => x.IdcategoriaAtributo == sub.idCategoriaAtributo).FirstOrDefault().Etiqueta.Replace("N/A", string.Empty) : string.Empty;
 
-                            worksheetInicio.Cells[fila, Columna].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheetInicio.Cells[fila, Columna].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                             worksheetInicio.Cells[fila, Columna].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                             worksheetInicio.Cells[fila, Columna].Style.Font.Color.SetColor(System.Drawing.Color.Black);
                             worksheetInicio.Cells[fila, Columna].AutoFitColumns();

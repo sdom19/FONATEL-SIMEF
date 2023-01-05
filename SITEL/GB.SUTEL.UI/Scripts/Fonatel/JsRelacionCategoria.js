@@ -127,13 +127,17 @@
             $(JsRelacion.Controles.CantidadHelp).addClass("hidden");
             $(JsRelacion.Controles.TipoCategoriaHelp).addClass("hidden");
             $(JsRelacion.Controles.CantidadRegistrosHelp).addClass("hidden");
+            $(JsRelacion.Controles.txtCodigoRelacion).parent().removeClass("has-error");
+            $(JsRelacion.Controles.txtNombreRelacion).parent().removeClass("has-error");
 
             if ($(JsRelacion.Controles.txtCodigoRelacion).val().length == 0) {
                 validar = false;
+                $(JsRelacion.Controles.txtCodigoRelacion).parent().addClass("has-error");
                 $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
             }
             if ($(JsRelacion.Controles.txtNombreRelacion).val().length == 0) {
                 validar = false;
+                $(JsRelacion.Controles.txtNombreRelacion).parent().addClass("has-error");
                 $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
             }
 
@@ -648,17 +652,19 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
 
     if ($(JsRelacion.Controles.txtCodigoRelacion).val().length == 0) {
         $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
+        $(JsRelacion.Controles.txtCodigoRelacion).parent().addClass("has-error");
         validar = false;
     }
     if ($(JsRelacion.Controles.txtNombreRelacion).val().length == 0) {
         $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
-      
+        $(JsRelacion.Controles.txtNombreRelacion).parent().addClass("has-error");
         validar = false;
     }
     if (validar) {
         $(JsRelacion.Controles.nombreHelp).addClass("hidden");
         $(JsRelacion.Controles.CodigoHelp).addClass("hidden");
-
+        $(JsRelacion.Controles.txtNombreRelacion).parent().removeClass("has-error");
+        $(JsRelacion.Controles.txtCodigoRelacion).parent().removeClass("has-error");
 
 
         if (id == null) {
@@ -753,10 +759,15 @@ $(document).on("click", JsRelacion.Controles.btnFinalizarDetalle, function (e) {
 
 $(document).on("click", JsRelacion.Controles.btnGuardarCategoria, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            JsRelacion.Consultas.InsertarDetalleCategoria();
-        });
+    if ($(JsRelacion.Controles.ddlCategoriaAtributo).val() == "") {
+        $(JsRelacion.Controles.CategoriaDetalleHelp).removeClass("hidden");
+    } else {
+        $(JsRelacion.Controles.CategoriaDetalleHelp).addClass("hidden");
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
+            .set('onok', function (closeEvent) {
+                JsRelacion.Consultas.InsertarDetalleCategoria();
+            });
+    }
     
 });
 

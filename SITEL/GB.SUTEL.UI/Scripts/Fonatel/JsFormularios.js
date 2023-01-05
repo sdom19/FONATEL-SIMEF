@@ -44,6 +44,17 @@
         "txtNotasEncargadoFormularioHelp": "#txtNotasEncargadoFormularioHelp",
 
         "CantidadIndicadoresMax": "#CantidadIndicadoresMax",
+
+        "txtCantidadIndicador": "#txtCantidadRegistroIndicador",
+        "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
+        "tabIndicadorActive": "ul .active a",
+        "tabActivoIndicador": "div.tab-pane.active",
+        "columnaTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr th",
+        "columnasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr",
+        "filasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table tbody",
+        "btnDescargarPlantillaRegistro": "#btnDescargarPlantillaRegistro",
+        "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
+        "tablaIndicador_filter": "div.tab-pane.active #tablaIndicador_filter",
     },
     "Variables": {
         "ListadoFormulario": [],
@@ -51,6 +62,7 @@
         "HayError": false,
         "NuevoIndicador": true,
         "CantidadActual": 0,
+        "detalleIndicadorFonatel": new Object(),
     },
 
     "Metodos": {
@@ -61,6 +73,8 @@
             $(JsFormulario.Controles.txtCodigoFormularioHelp).addClass("hidden");
             $(JsFormulario.Controles.txtNombreFormularioHelp).addClass("hidden");
             //$(JsFormulario.Controles.ddlFrecuenciaHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtCodigoFormulario).parent().removeClass("has-error");
+            $(JsFormulario.Controles.txtNombreFormulario).parent().removeClass("has-error");
 
             let codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
             let nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
@@ -68,10 +82,12 @@
 
             if (codigo.length == 0) {
                 $(JsFormulario.Controles.txtCodigoFormularioHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtCodigoFormulario).parent().addClass("has-error");
                 Validar = false;
             }
             if (nombre.length == 0) {
                 $(JsFormulario.Controles.txtNombreFormularioHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtNombreFormulario).parent().addClass("has-error");
                 validar = false;
             }
             //if (idFrecuencia == 0) {
@@ -104,6 +120,8 @@
             $(JsFormulario.Controles.txtDescripcionFormularioHelp).addClass("hidden");
             $(JsFormulario.Controles.txtCantidadIndicadoresFormularioHelp).addClass("hidden");
             $(JsFormulario.Controles.ddlFrecuenciaHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtNombreFormulario).parent().removeClass("has-error");
+            $(JsFormulario.Controles.txtCodigoFormulario).parent().removeClass("has-error");
 
             let codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
             let nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
@@ -144,12 +162,16 @@
             $(JsFormulario.Controles.txtTituloHojaHelp).addClass("hidden");
             $(JsFormulario.Controles.txtNotasEncargadoFormularioHelp).addClass("hidden");
             $(JsFormulario.Controles.ddlIndicadorHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtTituloHoja).parent().removeClass("has-error");
+            $(JsFormulario.Controles.ddlIndicador).parent().removeClass("has-error");
+
             let notas = $(JsFormulario.Controles.txtNotasEncargadoFormulario).val().trim();
             let indicador = $(JsFormulario.Controles.ddlIndicador).val();
             let hoja = $(JsFormulario.Controles.txtTituloHoja).val().trim();
 
             if (hoja.length == 0) {
                 $(JsFormulario.Controles.txtTituloHojaHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtTituloHoja).parent().addClass("has-error");
                 validar = false;
             }
             //if (notas.length == 0) {
@@ -159,6 +181,7 @@
 
             if (indicador == "") {
                 $(JsFormulario.Controles.ddlIndicadorHelp).removeClass("hidden");
+                $(JsFormulario.Controles.ddlIndicador).parent().addClass("has-error");
                 validar = false;
             }
             return validar;
@@ -182,6 +205,7 @@
             EliminarDatasource();
             let html = "";
             for (var i = 0; i < JsFormulario.Variables.ListadoFormulario.length; i++) {
+                var ind = "";
                 let formulario = JsFormulario.Variables.ListadoFormulario[i];
                 html = html + "<tr>"
                 html = html + "<td scope='row'>" + formulario.Codigo + "</td>";
@@ -201,7 +225,10 @@
                 } else {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + formulario.id + " class='btn-icon-base btn-power-on'></button>";
                 }
-                html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Visualizar' data-original-title='Visualizar' value=" + formulario.id + " class='btn-icon-base btn-view' ></button>";
+                if (formulario.idEstado != jsUtilidades.Variables.EstadoRegistros.Activo) {
+                    ind = "disabled"
+                }
+                html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Visualizar' data-original-title='Visualizar' value=" + formulario.id + " class='btn-icon-base btn-view' " + ind + "></button>";
                 html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Eliminar' data-original-title='Eliminar' value=" + formulario.id + " class='btn-icon-base btn-delete' ></button></td >";
 
 
@@ -279,7 +306,41 @@
                     .set('onok', function (closeEvent) {
                     });
             }
-        }
+        },
+        "CargarColumnasTabla": function () {
+            if ($(JsFormulario.Controles.columnaTablaIndicador).length == 0) {
+                let html = "<th style='min-width:30PX'>  </th>";
+                for (var i = 0; i < JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel.length; i++) {
+                    let variable = JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel[i];
+                    html = html + variable.html;
+                }
+                for (var i = 0; i < JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorCategoriaFonatel.length; i++) {
+                    let categoria = JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorCategoriaFonatel[i];
+                    html = html + "<th style='min-width:160PX' scope='col'>" + categoria.NombreCategoria + "</th>";
+                }
+                $(JsFormulario.Controles.columnasTablaIndicador).html(html);
+            }
+            else {
+                EliminarDatasource(JsFormulario.Controles.tablaIndicador);
+            }
+        },
+        "CargarFilasTabla": function (cantidadFilas) {
+            $(JsFormulario.Controles.filasTablaIndicador).html("");
+            let html = "<tr><td></td>";
+            for (var i = 0; i < JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel.length; i++) {
+                let variable = JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel[i];
+                html = html + "<td><p name='name_" + variable.idVariable + "' class='VariableDato' >1</p></td>";
+                //html = html + "<td>1</td>";
+            }
+            for (var i = 0; i < JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorCategoriaFonatel.length; i++) {
+                let categoria = JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorCategoriaFonatel[i];
+                html = html + categoria.html;
+            }
+            html = html + "</tr>"
+            for (var i = 0; i < cantidadFilas; i++) {
+                $(JsFormulario.Controles.filasTablaIndicador).append(html.replace("[0]", i + 1));
+            }
+        },
     },
 
     "Consultas": {
@@ -636,6 +697,37 @@
                 $("#loading").fadeOut();
             })
         },
+        "ConsultaVizualizarFormulario": function () {
+            $("#loading").fadeIn();
+            let detalleIndicadorFonatel = new Object();
+            detalleIndicadorFonatel.IdIndicador = $(JsFormulario.Controles.tabIndicadorActive).attr('data-Indicador');
+            detalleIndicadorFonatel.CantidadFilas = $(JsFormulario.Controles.tabActivoIndicador).find(JsFormulario.Controles.txtCantidadIndicador).val();
+            execAjaxCall("/FormularioWeb/ConsultaVizualizarFormulario", "POST", detalleIndicadorFonatel = detalleIndicadorFonatel)
+                .then((obj) => {
+                    $(JsFormulario.Controles.tablaIndicador).removeClass("hidden");
+                    JsFormulario.Variables.detalleIndicadorFonatel = obj.objetoRespuesta[0];
+                    if (JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel.length > 0) {
+                        JsFormulario.Metodos.CargarColumnasTabla();
+                        JsFormulario.Metodos.CargarFilasTabla(detalleIndicadorFonatel.CantidadFilas);
+                    } else {
+                        jsMensajes.Metodos.OkAlertErrorModal("No se posee datos a cargar")
+                            .set('onok', function (closeEvent) { });
+                    }
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    CargarDatasourceV2(JsFormulario.Controles.tablaIndicador);
+                    $(JsFormulario.Controles.tablaIndicador_filter).addClass("hidden");
+                    $("#loading").fadeOut();
+                });
+        },
     }
 
 }
@@ -811,6 +903,9 @@ $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (
 $(document).on("click", JsFormulario.Controles.btnAtrasFormularioRegla, function (e) {
     e.preventDefault();
     $("a[href='#step-1']").trigger('click');
+
+    $(JsFormulario.Controles.txtCodigoFormulario).prop("disabled", true);
+    InsertarParametroUrl("modo", jsUtilidades.Variables.Acciones.Editar);
 });
 
 // GUARDAR FORMULARIO COMPLETO
@@ -855,4 +950,10 @@ $(function () {
     }
 });
 
-
+$(document).on("keypress", JsFormulario.Controles.txtCantidadIndicador, function () {
+    if (event.keyCode == 13) {     
+        var tabla = $(JsFormulario.Controles.tablaIndicador);
+        tabla.addClass("revisado");
+        JsFormulario.Consultas.ConsultaVizualizarFormulario();
+    }
+});

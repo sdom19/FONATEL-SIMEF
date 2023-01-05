@@ -61,6 +61,9 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public List<string> listaDetallesCategoriaString { get; set; }
 
+        [NotMapped]
+        public int IdTipoDetalle { get; set; }
+
         public override string ToString()
         {
             StringBuilder json = new StringBuilder();

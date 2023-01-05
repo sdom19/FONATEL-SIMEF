@@ -228,18 +228,22 @@ namespace GB.SIMEF.BL
                 //{
                 //    throw new Exception("No se cumple con la cantidad de atributos configurados");
                 //}
-                
+
                 string JsonAnterior = objeto.ToString();
                 var resul = clsDatos.ActualizarDatos(objeto);
-                objeto = clsDatos.ObtenerDatos(objeto).Single();
+                objeto = resul.Single();
 
-                
+
+
+
                 string JsonActual = objeto.ToString();
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                        ResultadoConsulta.Usuario,
                        ResultadoConsulta.Clase, objeto.Codigo, JsonActual, JsonAnterior, "");
+
+
 
             }
             catch (Exception ex)
@@ -282,7 +286,7 @@ namespace GB.SIMEF.BL
                 else if (objetoClonar.CantidadDetalleDesagregacion < objeto.DetalleCategoriaTexto.Count())
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.CantidadDestinatariosIncorrecta);
+                    throw new Exception(Errores.CantidadRegistrosLimiteCategoria);
                 }
                 else if (listadoCategorias.Where(x => x.NombreCategoria.ToUpper() == objetoClonar.NombreCategoria.ToUpper()).Count() > 0)
                 {
