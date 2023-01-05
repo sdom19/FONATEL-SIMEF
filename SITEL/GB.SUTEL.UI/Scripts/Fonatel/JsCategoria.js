@@ -872,20 +872,20 @@ $(document).on("click", JsCategoria.Controles.btnGuardarCategoria, function (e) 
 
     $(JsCategoria.Controles.txtCodigoCategoriaHelp).addClass("hidden");
     $(JsCategoria.Controles.txtnombreCategoriaHelp).addClass("hidden");
-    $(JsCategoria.Controles.txtCodigoCategoria).removeClass("error-requerido");
-    $(JsCategoria.Controles.txtNombreCategoria).removeClass("error-requerido");
+    $(JsCategoria.Controles.txtCodigoCategoria).parent().removeClass("has-error");
+    $(JsCategoria.Controles.txtNombreCategoria).parent().removeClass("has-error");
 
     let validar = true;
     if ($(JsCategoria.Controles.txtNombreCategoria).val().length == 0) {
 
         $(JsCategoria.Controles.txtnombreCategoriaHelp).removeClass("hidden");
-        $(JsCategoria.Controles.txtNombreCategoria).addClass("error-requerido");
+        $(JsCategoria.Controles.txtNombreCategoria).parent().addClass("has-error");
         validar = false;
     }
     if ($(JsCategoria.Controles.txtCodigoCategoria).val().length == 0) {
 
         $(JsCategoria.Controles.txtCodigoCategoriaHelp).removeClass("hidden");
-        $(JsCategoria.Controles.txtCodigoCategoria).addClass("error-requerido");
+        $(JsCategoria.Controles.txtCodigoCategoria).parent().addClass("has-error");
         validar = false;
     }
     if (!validar) {

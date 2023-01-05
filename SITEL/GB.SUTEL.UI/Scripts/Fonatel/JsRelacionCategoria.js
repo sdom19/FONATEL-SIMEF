@@ -127,17 +127,17 @@
             $(JsRelacion.Controles.CantidadHelp).addClass("hidden");
             $(JsRelacion.Controles.TipoCategoriaHelp).addClass("hidden");
             $(JsRelacion.Controles.CantidadRegistrosHelp).addClass("hidden");
-            $(JsRelacion.Controles.txtCodigoRelacion).removeClass("error-requerido");
-            $(JsRelacion.Controles.txtNombreRelacion).removeClass("error-requerido");
+            $(JsRelacion.Controles.txtCodigoRelacion).parent().removeClass("has-error");
+            $(JsRelacion.Controles.txtNombreRelacion).parent().removeClass("has-error");
 
             if ($(JsRelacion.Controles.txtCodigoRelacion).val().length == 0) {
                 validar = false;
-                $(JsRelacion.Controles.txtCodigoRelacion).addClass("error-requerido");
+                $(JsRelacion.Controles.txtCodigoRelacion).parent().addClass("has-error");
                 $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
             }
             if ($(JsRelacion.Controles.txtNombreRelacion).val().length == 0) {
                 validar = false;
-                $(JsRelacion.Controles.txtNombreRelacion).addClass("error-requerido");
+                $(JsRelacion.Controles.txtNombreRelacion).parent().addClass("has-error");
                 $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
             }
 
@@ -652,19 +652,19 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
 
     if ($(JsRelacion.Controles.txtCodigoRelacion).val().length == 0) {
         $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
-        $(JsRelacion.Controles.txtCodigoRelacion).addClass("error-requerido");
+        $(JsRelacion.Controles.txtCodigoRelacion).parent().addClass("has-error");
         validar = false;
     }
     if ($(JsRelacion.Controles.txtNombreRelacion).val().length == 0) {
         $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
-        $(JsRelacion.Controles.txtNombreRelacion).addClass("error-requerido");
+        $(JsRelacion.Controles.txtNombreRelacion).parent().addClass("has-error");
         validar = false;
     }
     if (validar) {
         $(JsRelacion.Controles.nombreHelp).addClass("hidden");
         $(JsRelacion.Controles.CodigoHelp).addClass("hidden");
-        $(JsRelacion.Controles.txtNombreRelacion).removeClass("error-requerido");
-        $(JsRelacion.Controles.txtCodigoRelacion).removeClass("error-requerido");
+        $(JsRelacion.Controles.txtNombreRelacion).parent().removeClass("has-error");
+        $(JsRelacion.Controles.txtCodigoRelacion).parent().removeClass("has-error");
 
 
         if (id == null) {
