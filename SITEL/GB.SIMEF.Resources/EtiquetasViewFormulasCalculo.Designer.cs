@@ -61,7 +61,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ejecutar Fórmula.
+        ///   Looks up a localized string similar to Correr proceso.
         /// </summary>
         public static string AccionEjecutarFormula {
             get {
@@ -70,7 +70,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eliminar ítem.
+        ///   Looks up a localized string similar to Eliminar.
         /// </summary>
         public static string AccionEliminarItem {
             get {
@@ -376,7 +376,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Definición de Fechas.
+        ///   Looks up a localized string similar to Definición Fechas.
         /// </summary>
         public static string ModalFecha_Titulo {
             get {
@@ -385,7 +385,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Calendario.
+        ///   Looks up a localized string similar to Rangos de Fechas.
         /// </summary>
         public static string OperacionCalendario {
             get {
@@ -394,7 +394,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to División.
+        ///   Looks up a localized string similar to Dividir.
         /// </summary>
         public static string OperacionDivision {
             get {
@@ -403,7 +403,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Igual que.
+        ///   Looks up a localized string similar to Igual.
         /// </summary>
         public static string OperacionIgualQue {
             get {
@@ -412,7 +412,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mayor o igual que.
+        ///   Looks up a localized string similar to Mayor igual.
         /// </summary>
         public static string OperacionMayorIgualQue {
             get {
@@ -430,7 +430,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Menor o igual que.
+        ///   Looks up a localized string similar to Menor igual.
         /// </summary>
         public static string OperacionMenorIgualQue {
             get {
@@ -448,7 +448,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Multiplicación.
+        ///   Looks up a localized string similar to Multiplicar.
         /// </summary>
         public static string OperacionMultiplicacion {
             get {
@@ -457,7 +457,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Paréntesis abierto.
+        ///   Looks up a localized string similar to Abrir paréntesis.
         /// </summary>
         public static string OperacionParentesisAbierto {
             get {
@@ -466,7 +466,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Paréntesis cerrado.
+        ///   Looks up a localized string similar to Cerrar paréntesis.
         /// </summary>
         public static string OperacionParentesisCerrado {
             get {
@@ -475,7 +475,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resta.
+        ///   Looks up a localized string similar to Restar.
         /// </summary>
         public static string OperacionResta {
             get {
@@ -484,7 +484,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Suma.
+        ///   Looks up a localized string similar to Sumar.
         /// </summary>
         public static string OperacionSuma {
             get {
