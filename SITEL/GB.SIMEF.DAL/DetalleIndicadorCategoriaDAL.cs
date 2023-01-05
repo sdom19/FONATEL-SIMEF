@@ -103,6 +103,13 @@ namespace GB.SIMEF.DAL
             public int IdTipoDetalle { get; set; }
         }
 
+        /// <summary>
+        /// 05/01/2023
+        /// Georgi Mesén Cerdas
+        /// Función obtener los datos los DetalleIndicadorCategoria
+        /// </summary>
+        /// <param name="pDetalleIndicadorCategoria"></param>
+        /// <returns>Retorna un DetalleIndicadorCategoria</returns>
         public List<DetalleIndicadorCategoria> ObtenerVisualizarCategorias(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
         {
             List<DetalleIndicadorCategoria> listaDetalles = new List<DetalleIndicadorCategoria>();

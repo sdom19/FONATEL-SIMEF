@@ -196,6 +196,13 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 05/01/2023
+        /// Georgi Mesén Cerdas
+        /// Función obtener los datos simulando que son los de registro indicador para Visualizar Formulario
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns>Retorna un DetalleRegistroIndicador</returns>
         public RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> ObtenerVisualizar(DetalleRegistroIndicadorFonatel objeto)
         {
             RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> ResultadoVisualizar = new RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>>();
@@ -254,6 +261,16 @@ namespace GB.SIMEF.BL
             }
             return ResultadoVisualizar;
         }
+
+        /// <summary>
+        /// 05/01/2023
+        /// Georgi Mesén Cerdas
+        /// Función obtener el html de cada tipo de elemento para cargar en tabla de visualizar formulario
+        /// </summary>
+        /// <param name="idTipoCategoria"></param>
+        /// <param name="nombre"></param>
+        /// <param name="idCategoria"></param>
+        /// <returns></returns>
         private string DefinirControl(int idTipoCategoria, string nombre, int idCategoria)
         {
             string control = string.Empty;

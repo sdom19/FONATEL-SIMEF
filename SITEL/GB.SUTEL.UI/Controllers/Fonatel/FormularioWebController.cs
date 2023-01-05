@@ -416,6 +416,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                       
         }
 
+        /// <summary>
+        /// 05/01/2023
+        /// Georgi Mesén Cerdas
+        /// Función obtener los datos simulando que son los de registro indicador para Visualizar Formulario
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<string> ConsultaVizualizarFormulario(DetalleRegistroIndicadorFonatel detalleIndicadorFonatel)
         {
