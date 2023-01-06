@@ -65,23 +65,44 @@ namespace GB.SIMEF.BL
         private bool ValidarCantidadIndicadores(FormularioWeb formularioWebNuevo)
         {
             formularioWebNuevo.idEstado = 0;
+            string[] arrayIndicadores = new string[] { };
+            int cantidadIndicadores = 0;
             FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
-            if (formularioWebViejo.CantidadIndicadores > formularioWebNuevo.CantidadIndicadores)
+            if (formularioWebViejo.ListaIndicadores != null)
             {
-                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                throw new Exception(Errores.CantidadIndicadoresMenor);
+                arrayIndicadores = formularioWebViejo.ListaIndicadores.Split(',');
+                cantidadIndicadores = arrayIndicadores.Count();
             }
-            if (formularioWebViejo.CantidadIndicadores < formularioWebNuevo.CantidadIndicadores)
-                return true;
+            if (cantidadIndicadores > 0)
+            {          
+                if (formularioWebViejo.CantidadIndicadores > formularioWebNuevo.CantidadIndicadores)
+                    throw new Exception(Errores.CantidadIndicadoresMenor);
+                //if (formularioWebViejo.CantidadIndicadores < formularioWebNuevo.CantidadIndicadores)
+                if (formularioWebNuevo.CantidadIndicadores > cantidadIndicadores)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
             else
-                return false;
+            {
+                return true;
+            }
         }
 
         private int ValidarEstado(FormularioWeb obj)
         {
+            FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(obj).Single();
             if (ValidarCantidadIndicadores(obj) || obj.Descripcion == null || obj.Descripcion == "" ||
                     obj.CantidadIndicadores == 0 || obj.idFrecuencia == 0)
-                return (int)Constantes.EstadosRegistro.EnProceso;
+                if (formularioWebViejo.EstadoRegistro.idEstado == (int)Constantes.EstadosRegistro.Desactivado)
+                
+                    return (int)Constantes.EstadosRegistro.Desactivado;
+                else
+                    return (int)Constantes.EstadosRegistro.EnProceso;
             else
                 return (int)Constantes.EstadosRegistro.Activo;
         }
