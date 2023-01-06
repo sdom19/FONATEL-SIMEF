@@ -30,6 +30,9 @@ namespace GB.SIMEF.BL
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
+
+                DesencriptarObjeto(objeto);
+
                 resultado.objetoRespuesta = EnvioSolicitudDAL.ActualizarEnvioSolicitud(objeto);
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count();
             }
@@ -84,6 +87,27 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<EnvioSolicitudes>> ValidarDatos(EnvioSolicitudes objeto)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 05/01/2023
+        /// Metodo que ayuda a desencriptar los datos a utilizar proveniente del objeto EnvioSolicitudes
+        /// </summary>
+        /// <param name="objeto"></param>
+        private void DesencriptarObjeto(EnvioSolicitudes objeto)
+        {
+
+            if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
+            {
+                objeto.IdSolicitudString = Utilidades.Desencriptar(objeto.IdSolicitudString);
+
+                int temp;
+                if (int.TryParse(objeto.IdSolicitudString, out temp))
+                {
+                    objeto.IdSolicitud = temp;
+                }
+            }
         }
     }
 }
