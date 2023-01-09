@@ -33,7 +33,8 @@
         "btnAgregarRelacion": "#TablaRelacionCategoria tbody tr td .btn-add",
         "btnCargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-upload",
         "inputFileCargarDetalle": "#inputFileCargarDetalle",
-        "btnGuardarDetalle": "#btnGuardarDetalle"
+        "btnGuardarDetalle": "#btnGuardarDetalle",
+        "btnFinalizarDetalle": "#btnFinalizarDetalle",
 
     },
 
@@ -406,11 +407,11 @@
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
+                            .set('onok', function (closeEvent) { location.reload() });
                     }
                     else {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                            .set('onok', function (closeEvent) { });
+                            .set('onok', function (closeEvent) { location.reload() });
                     }
                 }).finally(() => {
                     $("#loading").fadeOut();
@@ -562,6 +563,34 @@
             }
             $("#loading").fadeOut();
         },
+
+        "CambiarEstadoActivo": function (idRelacion) {
+            $("#loading").fadeIn();
+            let Relacion = new Object()
+            Relacion.id = idRelacion;
+            execAjaxCall("/RelacionCategoria/CambiarEstadoActivado", "POST", Relacion)
+                .then((obj) => {
+
+                    jsMensajes.Metodos.OkAlertModal("La Relación  ha sido creada")
+                        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/Index"; })
+
+                }).catch((data) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+
+                            });
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
     }
 }
 
@@ -708,6 +737,17 @@ $(document).on("click", JsRelacion.Controles.btnFinalizar, function (e) {
     e.preventDefault();
     window.location.href = "/Fonatel/RelacionCategoria/index";
 
+});
+
+$(document).on("click", JsRelacion.Controles.btnFinalizarDetalle, function (e) {
+    e.preventDefault();
+
+    let id = ObtenerValorParametroUrl("idRelacionCategoria");
+
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            JsRelacion.Consultas.CambiarEstadoActivo(id);
+        });
 });
 
 

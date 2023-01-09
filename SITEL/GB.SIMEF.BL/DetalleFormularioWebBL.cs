@@ -26,11 +26,6 @@ namespace GB.SIMEF.BL
             this.clsDatos = new DetalleFormularioWebDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<DetalleFormularioWeb>>();
         }
-        private string SerializarObjetoBitacora(DetalleFormularioWeb objDetalleFormulario)
-        {
-            return JsonConvert.SerializeObject(objDetalleFormulario, new JsonSerializerSettings
-            { ContractResolver = new JsonIgnoreResolver(objDetalleFormulario.NoSerialize) });
-        }
 
         private bool ValidarDatosRepetidos(DetalleFormularioWeb objDetalleFormulario)
         {
@@ -72,10 +67,10 @@ namespace GB.SIMEF.BL
                 objeto.Estado = true;
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
 
-                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                string jsonValorInicial = objeto.ToString();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
-                                ResultadoConsulta.Clase, "", "", "", jsonValorInicial);
+                                ResultadoConsulta.Clase, objeto.Indicador.Codigo, objeto.ToString(), detalleFormularioWeb.ToString(), "");
             }
             catch (Exception ex)
             {
@@ -100,18 +95,18 @@ namespace GB.SIMEF.BL
             try
             {
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Accion = (int)Accion.Eliminar;
                 ResultadoConsulta.Usuario = user;
                 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
                 objeto.Estado = false;
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
 
-                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                //string jsonValorInicial = objeto.ToString();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
-                                ResultadoConsulta.Clase, objeto.Indicador.Codigo, "", "", jsonValorInicial);
+                                ResultadoConsulta.Clase, objeto.Indicador.Codigo, "", "", "");
             }
             catch (Exception ex)
             {
@@ -148,7 +143,7 @@ namespace GB.SIMEF.BL
                 }
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
 
-                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                string jsonValorInicial = objeto.ToString();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,

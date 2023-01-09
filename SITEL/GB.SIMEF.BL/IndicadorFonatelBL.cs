@@ -94,6 +94,7 @@ namespace GB.SIMEF.BL
                 // actualizar el estado del indicador
                 pIndicador.UsuarioModificacion = user;
                 pIndicador.idEstado = nuevoEstado;
+                string JsonAnterior = pIndicador.ToString();
                 List<Indicador> indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
 
                 // construir respuesta
@@ -115,8 +116,16 @@ namespace GB.SIMEF.BL
                 resultado.Usuario = user;
                 resultado.CantidadRegistros = indicadorActualizado.Count();
 
+                var objeto = indicadorFonatelDAL.ObtenerDatos(indicadorActualizado[0]).Single();
+
+
+                string JsonActual = objeto.ToString();
+
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
+                      resultado.Usuario,
+                      resultado.Clase, objeto.Codigo, JsonActual, JsonAnterior, "");
+                //indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                //        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
             }
             catch (Exception ex)
             {
@@ -212,8 +221,15 @@ namespace GB.SIMEF.BL
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Insertar;
 
+                //var nuevoIndicador = new Indicador { idIndicador = pIndicador.idIndicador };
+
+                pIndicador = indicadorFonatelDAL.ObtenerDatos(pIndicador).Single();
+
+                string jsonValorInicial = pIndicador.ToString();
+                
+
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
+                        resultado.Usuario, resultado.Clase, pIndicador.Codigo, "", "", jsonValorInicial);
             }
             catch (Exception ex)
             {
@@ -719,14 +735,25 @@ namespace GB.SIMEF.BL
 
                 indicadorFonatelDAL.ClonarDetallesDeIndicador(idIndicadorAClonar, idIndicadorDestino);
 
-                resultado.objetoRespuesta = new Indicador() { id = pIdIndicadorDestino };
+                var objeto = new Indicador() { id = pIdIndicadorDestino };
+                resultado.objetoRespuesta = objeto;
 
                 resultado.Usuario = user;
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Clonar;
 
+                var objetoNuevo = indicadorFonatelDAL.ObtenerDatos(objeto).Where(x => x.idIndicador == idIndicadorDestino).Single();
+
+                objeto = indicadorFonatelDAL.ObtenerDatos(objeto).Where(x => x.idIndicador == idIndicadorAClonar).Single();
+
+                string jsonValorInicial = objeto.ToString();
+                string jsonClonado = objetoNuevo.ToString();
+
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, idIndicadorDestino.ToString());
+                            resultado.Usuario,
+                                resultado.Clase, objeto.Codigo, jsonClonado, "",jsonValorInicial );
+                //indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                //        resultado.Usuario, resultado.Clase, idIndicadorDestino.ToString());
             }
             catch (Exception ex)
             {

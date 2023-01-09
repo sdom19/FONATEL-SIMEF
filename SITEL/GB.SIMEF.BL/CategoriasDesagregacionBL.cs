@@ -41,11 +41,7 @@ namespace GB.SIMEF.BL
 
 
 
-        private string SerializarObjetoBitacora(CategoriasDesagregacion objCategoria)
-        {
-            return JsonConvert.SerializeObject(objCategoria, new JsonSerializerSettings
-            { ContractResolver = new JsonIgnoreResolver(objCategoria.NoSerialize) });
-        }
+        
 
 
         public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerDatos(CategoriasDesagregacion objeto)
@@ -197,8 +193,12 @@ namespace GB.SIMEF.BL
                 }
 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
-                string JsonActual = SerializarObjetoBitacora(objeto);
-                string JsonAnterior = SerializarObjetoBitacora(result);
+                if (ResultadoConsulta.Accion == (int)Accion.Editar)
+                {
+                    result.EstadoRegistro.idEstado = objeto.EstadoRegistro.idEstado;
+                }
+                string JsonActual = objeto.ToString();
+                string JsonAnterior = result.ToString();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                         ResultadoConsulta.Usuario,
@@ -228,13 +228,18 @@ namespace GB.SIMEF.BL
                 //{
                 //    throw new Exception("No se cumple con la cantidad de atributos configurados");
                 //}
-
+                
+                string JsonAnterior = objeto.ToString();
                 var resul = clsDatos.ActualizarDatos(objeto);
+                objeto = clsDatos.ObtenerDatos(objeto).Single();
+
+                
+                string JsonActual = objeto.ToString();
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                        ResultadoConsulta.Usuario,
-                       ResultadoConsulta.Clase, objeto.Codigo, JsonConvert.SerializeObject(objeto), "", "");
+                       ResultadoConsulta.Clase, objeto.Codigo, JsonActual, JsonAnterior, "");
 
             }
             catch (Exception ex)
@@ -265,7 +270,7 @@ namespace GB.SIMEF.BL
                     objeto.idCategoria = temp;
                 }
 
-                string jsonInicial = SerializarObjetoBitacora(listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single());
+                string jsonInicial = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single().ToString();
                 objeto = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
 
 
@@ -303,11 +308,17 @@ namespace GB.SIMEF.BL
                     objeto.idEstado = objeto.DetalleCategoriaTexto.Count() == objeto.CantidadDetalleDesagregacion ?
                             (int)Constantes.EstadosRegistro.Activo : (int)Constantes.EstadosRegistro.EnProceso;
 
-                    var result = clsDatos.ActualizarDatos(objeto)
-                      .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+                    var result = new CategoriasDesagregacion();
 
                     if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
+                        if (objetoClonar.DetalleCategoriaFecha.FechaMinima >= objetoClonar.DetalleCategoriaFecha.FechaMaxima & objetoClonar.EsParcial == false)
+                        {
+                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                            throw new Exception(Errores.ValorFecha);
+                        }
+                        result = clsDatos.ActualizarDatos(objeto)
+                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
 
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaFecha.FechaMaxima = objetoClonar.DetalleCategoriaFecha.FechaMaxima;
@@ -316,6 +327,14 @@ namespace GB.SIMEF.BL
                     }
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
+                        if ((objetoClonar.DetalleCategoriaNumerico.Minimo >= objetoClonar.DetalleCategoriaNumerico.Maximo) && (!objetoClonar.EsParcial) && (objetoClonar.IdTipoCategoria != (int)Constantes.TipoCategoriaEnum.VariableDato))
+                        {
+                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                            throw new Exception(Errores.ValorMinimo);
+                        }
+                        result = clsDatos.ActualizarDatos(objeto)
+                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
                         objeto.DetalleCategoriaNumerico.Minimo = objetoClonar.DetalleCategoriaNumerico.Minimo;
                         objeto.DetalleCategoriaNumerico.Maximo = objetoClonar.DetalleCategoriaNumerico.Maximo;
@@ -324,13 +343,16 @@ namespace GB.SIMEF.BL
                     }
                     else
                     {
+                        result = clsDatos.ActualizarDatos(objeto)
+                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
+
                         foreach (var item in objeto.DetalleCategoriaTexto)
                         {
                             item.idCategoria = result.idCategoria;
                             clsDatosTexto.ActualizarDatos(item);
                         }
                     }
-                    string JsonNuevoValor = SerializarObjetoBitacora(result);
+                    string JsonNuevoValor = result.ToString();
                     clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
                                 ResultadoConsulta.Clase, objeto.Codigo, JsonNuevoValor, "", jsonInicial);
@@ -403,6 +425,7 @@ namespace GB.SIMEF.BL
                     {
                         if (objeto.DetalleCategoriaFecha.FechaMinima >= objeto.DetalleCategoriaFecha.FechaMaxima & objeto.EsParcial == false)
                         {
+                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                             throw new Exception(Errores.ValorFecha);
                         }
                         var result = clsDatos.ActualizarDatos(objeto)
@@ -440,7 +463,7 @@ namespace GB.SIMEF.BL
 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
 
-                string jsonValorInicial = SerializarObjetoBitacora(objeto);
+                string jsonValorInicial = objeto.ToString();
 
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,

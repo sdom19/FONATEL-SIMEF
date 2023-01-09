@@ -68,6 +68,7 @@
         "txtidDetalleReglaValidacion": "#txtidDetalleReglaValidacion",
         "txtidCompara": "#txtidCompara",
         "step2": "#step2",
+        "txtEstado": "#txtEstado",
         "btnFinalizar": "#btnFinalizar"
     },
 
@@ -1189,18 +1190,31 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
     let CamposVacios = "Existen campos vacíos. "
 
     let modo = $(JsReglas.Controles.txtModo).val();
+    let Estado = $(JsReglas.Controles.txtEstado).val();
+
 
     if (JsReglas.Metodos.ValidarNombreyCodigo()) {
 
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
 
-            jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
-                    JsReglas.Consultas.EditarReglaValidacion();
-                })
-                .set('oncancel', function (closeEvent) {
-                    JsReglas.Metodos.ValidarControles();
-                });
+            if (Estado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        JsReglas.Consultas.EditarReglaValidacion();
+                    })
+                    .set('oncancel', function (closeEvent) {
+                        JsReglas.Metodos.ValidarControles();
+                    });
+            } else {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Regla de Validación?", jsMensajes.Variables.actionType.Editar)
+                    .set('onok', function (closeEvent) {
+                        JsReglas.Consultas.EditarReglaValidacion();
+                    })
+                    .set('oncancel', function (closeEvent) {
+                        JsReglas.Metodos.ValidarControles();
+                    });
+            }
+
 
         } else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
             jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
@@ -1288,6 +1302,21 @@ $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {
 $(document).on("click", JsReglas.Controles.btnAtrasRegla, function (e) {
     e.preventDefault();
     $("a[href='#step-1']").trigger('click');
+
+    //Al regresar al paso anteior, la regla ya está creada y deberia estar en modo edicion
+    $(JsReglas.Controles.txtCodigo).prop("disabled", true);
+
+    let indicadorHabilitado = $(JsReglas.Controles.ddlIndicadorRegla).val();
+    if (indicadorHabilitado == "") {
+        $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", false);
+    } else {
+        $(JsReglas.Controles.ddlIndicadorRegla).prop("disabled", true);
+    }
+    $(JsReglas.Controles.txtModo).val(jsUtilidades.Variables.Acciones.Editar);
+
+    let url = new URL(window.location.href);
+    url.searchParams.set('modo', jsUtilidades.Variables.Acciones.Editar);
+    window.history.pushState({ path: url.toString() }, '', url.toString());
 });
 
 $(document).on("keyup", JsReglas.Controles.formularioReglasInput, function () {

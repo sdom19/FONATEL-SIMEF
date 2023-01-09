@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -91,6 +92,36 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
                 objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Eliminado;
                 result = formularioWebBL.EliminarElemento(objetoValidar);
+            }
+            );
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha 23-12-2022
+        /// Adolfo Cunquero
+        /// Elimina el detalle de indicadores de un formulario web
+        /// </summary>
+        /// <returns></returns>
+        //[HttpPost]
+        public async Task<string> EliminarDetalleIndicadoresFormulario(FormularioWeb objFormulario)
+        {
+
+            RespuestaConsulta<List<DetalleFormularioWeb>> result = new RespuestaConsulta<List<DetalleFormularioWeb>>();
+            await Task.Run(() =>
+            {
+                return formularioWebBL.ObtenerDatos(objFormulario);
+
+            }).ContinueWith(data =>
+            {
+                FormularioWeb objFormulario = data.Result.objetoRespuesta.Single();
+                var listaIndicadores = formularioWebBL.ObtenerIndicadoresFormulario(objFormulario);
+                objFormulario.ListaIndicadoresObj = listaIndicadores.objetoRespuesta;
+                var ListaDetalleFormulariosWeb = formularioWebBL.ObtenerTodosDetalleFormularioWeb(objFormulario);
+                foreach (DetalleFormularioWeb item in ListaDetalleFormulariosWeb)
+                {
+                    result = detalleFormularioWebBL.EliminarElemento(item);
+                }
             }
             );
             return JsonConvert.SerializeObject(result);
@@ -263,7 +294,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 .objetoRespuesta.Where(x=>x.IdClasificacion!=(int)Constantes.ClasificacionIndicadorEnum.Salida);
             //indicadores = indicadores.Where(x => x.IdClasificacion == 3 || x.IdClasificacion == 4).ToList();
             indicadores = indicadores.
-                Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.idIndicador)).ToList();
+                Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.idIndicador && p2.Estado == true)).ToList();
 
 
 
@@ -361,6 +392,30 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 return View();
             }
-        }       
+        }
+
+        [HttpGet]
+        public string ObtenerIndicadoresFormularioCombo()
+        {
+            //async Task<string>
+                RespuestaConsulta<List<SelectListItem>> result = new RespuestaConsulta<List<SelectListItem>>();
+               // await Task.Run(() =>
+                //{
+                    var indicadores = indicadorBL.ObtenerDatos(new Indicador() { idEstado = 2 })
+                    .objetoRespuesta.Where(x => x.IdClasificacion != (int)Constantes.ClasificacionIndicadorEnum.Salida);
+                    //indicadores = indicadores.Where(x => x.IdClasificacion == 3 || x.IdClasificacion == 4).ToList();
+                    indicadores = indicadores.
+                        Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.idIndicador && p2.Estado == true)).ToList();
+
+                    var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+
+                    result.objetoRespuesta = listaValores;
+                //});
+
+                return JsonConvert.SerializeObject(result);
+                      
+        }
+
+        
     }
 }

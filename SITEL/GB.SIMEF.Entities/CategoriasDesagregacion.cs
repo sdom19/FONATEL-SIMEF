@@ -13,6 +13,8 @@ namespace GB.SIMEF.Entities
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
+    using GB.SIMEF.Resources;
 
     [Table("CategoriasDesagregacion")]
     public class CategoriasDesagregacion
@@ -79,30 +81,56 @@ namespace GB.SIMEF.Entities
 
         public string IndicadorAsociados { get; set; }
 
-        [NotMapped]
-
-        public List<string> NoSerialize = new List<string>()
+        
+        public override string ToString()
         {
-            "idCategoria",
-            "IndicadorAsociados",
-            "DetalleCategoriaNumerico",
-            "idEstado",
-            "idTipoDetalle",
-            "IdTipoCategoria",
-            "id",
-            "Estado",
-            "EstadoRegistro",
-            "idEstado",
-            "DetalleCategoriaFecha",
-            "DetalleCategoriaTexto",
-            "TipoCategoria",
-            "FechaModificacion",
-            "UsuarioCreacion",
-            "FechaCreacion",
-            "UsuarioModificacion",
-            "EsParcial"
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Código\":\"").Append(this.Codigo).Append("\",");
+            json.Append("\"Nombre de categoria\":\"").Append(this.NombreCategoria).Append("\",");
+            json.Append("\"Tipo de categoría\":\"").Append(this.TipoCategoria.Nombre).Append("\",");
+            switch (this.idTipoDetalle)
+            {
+                case (int)Constantes.TipoDetalleCategoriaEnum.Fecha:
+                    json.Append("\"Tipo de detalle\":\"").Append(Enum.GetName(typeof(Constantes.TipoDetalleCategoriaEnum), (int)Constantes.TipoDetalleCategoriaEnum.Fecha)).Append("\",");
+                    break;
+                case (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico:
+                    json.Append("\"Tipo de detalle\":\"").Append(Enum.GetName(typeof(Constantes.TipoDetalleCategoriaEnum), (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)).Append("\",");
+                    break;
+                case (int)Constantes.TipoDetalleCategoriaEnum.Numerico:
+                    json.Append("\"Tipo de detalle\":\"").Append(Enum.GetName(typeof(Constantes.TipoDetalleCategoriaEnum), (int)Constantes.TipoDetalleCategoriaEnum.Numerico)).Append("\",");
+                    break;
+                case (int)Constantes.TipoDetalleCategoriaEnum.Texto:
+                    json.Append("\"Tipo de detalle\":\"").Append(Enum.GetName(typeof(Constantes.TipoDetalleCategoriaEnum), (int)Constantes.TipoDetalleCategoriaEnum.Texto)).Append("\",");
+                    break;
+            }
+            
+            json.Append("\"Tiene detalle\":").Append(this.TieneDetalle ? "\"Sí\"" : "\"No\"").Append(",");
+            
+            json.Append("\"Cantidad de detalles\":\"").Append(this.CantidadDetalleDesagregacion).Append("\",");
+            
+            switch((int)this.EstadoRegistro.idEstado)
+            {
+                case (int)Constantes.EstadosRegistro.Desactivado:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Desactivado)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.Activo:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Activo)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.Eliminado:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Eliminado)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.EnProceso:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.EnProceso)).Append("\"}");
+                    break;
+            }
+            
 
-        };
+
+
+            string resultado = json.ToString();
+
+            return resultado;
+        }
 
 
         #endregion

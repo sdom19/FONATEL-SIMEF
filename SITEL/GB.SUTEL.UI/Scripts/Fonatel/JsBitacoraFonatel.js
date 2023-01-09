@@ -92,6 +92,54 @@
                         }
                     }
                 }
+                else if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Activar && Bitacora.ValorDiferencial != '') {
+                    let json = JSON.parse(Bitacora.ValorDiferencial);
+
+                        for (var objeto in json) {
+                            if (objeto != "NoSerialize") {
+                                if (Array.isArray(json[objeto])) {
+                                    let array = json[objeto];
+                                    html = html + "<tr>"
+                                    html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
+                                    html = html + "<th>" + Bitacora.Codigo + "</th>";
+                                    html = html + "<th>" + Bitacora.AccionNombre + "</th>";
+                                    html = html + "<th>" + moment(Bitacora.Fecha).format('MM/DD/YYYY') + "</th>";
+                                    html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
+                                    html = html + "<th>" + Bitacora.Usuario + "</th>";
+                                    html = html + "<th>" + objeto + "</th>";
+                                    html = html + "<th>N/A</th>";
+                                    html = html + "<th>" + array[0] + "</th>";
+                                    html = html + "<th>" + array[1] + "</th>";
+
+                                    html = html + "</tr>";
+                                }
+                            }
+                        }
+                }
+                else if (Bitacora.Accion == jsUtilidades.Variables.Acciones.Desactivar && Bitacora.ValorDiferencial != '') {
+                    let json = JSON.parse(Bitacora.ValorDiferencial);
+
+                    for (var objeto in json) {
+                        if (objeto != "NoSerialize") {
+                            if (Array.isArray(json[objeto])) {
+                                let array = json[objeto];
+                                html = html + "<tr>"
+                                html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
+                                html = html + "<th>" + Bitacora.Codigo + "</th>";
+                                html = html + "<th>" + Bitacora.AccionNombre + "</th>";
+                                html = html + "<th>" + moment(Bitacora.Fecha).format('MM/DD/YYYY') + "</th>";
+                                html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
+                                html = html + "<th>" + Bitacora.Usuario + "</th>";
+                                html = html + "<th>" + objeto + "</th>";
+                                html = html + "<th>N/A</th>";
+                                html = html + "<th>" + array[0] + "</th>";
+                                html = html + "<th>" + array[1] + "</th>";
+
+                                html = html + "</tr>";
+                            }
+                        }
+                    }
+                }
                 else {
                   
                     html = html + "<tr>"

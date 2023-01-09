@@ -97,7 +97,7 @@ namespace GB.SIMEF.BL
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Activar;
-                objeto = usuarioFonatelDAL.ObtenerDatos().Where(x => x.IdUsuario == objeto.IdUsuario).Single();
+                objeto = usuarioFonatelDAL.ObtenerDatos(0).Where(x => x.IdUsuario == objeto.IdUsuario).Single();
                 objeto.Activo = 1;
                 objeto.ContrasenaSinEncriptar = generatePassword();
                 objeto.Contrasena = HashPassword(objeto.ContrasenaSinEncriptar);

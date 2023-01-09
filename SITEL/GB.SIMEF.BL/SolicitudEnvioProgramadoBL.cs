@@ -17,16 +17,21 @@ namespace GB.SIMEF.BL
         private readonly SolicitudEnvioProgramadoDAL clsDatos;
 
         private readonly SolicitudDAL clsDatosSolicitud;
+        private readonly FrecuenciaEnvioDAL frecuenciaEnvioDAL;
 
         string modulo = EtiquetasViewSolicitudes.Solicitudes;
+        string user = string.Empty;
 
         private RespuestaConsulta<List<SolicitudEnvioProgramado>> ResultadoConsulta;
 
-        public SolicitudEnvioProgramadoBL()
+        public SolicitudEnvioProgramadoBL(string modulo, string user)
         {
             clsDatos = new SolicitudEnvioProgramadoDAL();
             clsDatosSolicitud = new SolicitudDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<SolicitudEnvioProgramado>>();
+            this.user = user;
+            this.modulo = modulo;
+            frecuenciaEnvioDAL = new FrecuenciaEnvioDAL();
         }
 
         public RespuestaConsulta<List<SolicitudEnvioProgramado>> ActualizarElemento(SolicitudEnvioProgramado objeto)
@@ -50,6 +55,7 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
+                ResultadoConsulta.Usuario = user;
 
                 SolicitudEnvioProgramado registroActualizar;
 
@@ -66,6 +72,10 @@ namespace GB.SIMEF.BL
                 resul = clsDatos.ActualizarDatos(registroActualizar);
 
                 ResultadoConsulta.objetoRespuesta = resul;
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.CodigoSolicitud, "", "", "");
 
             }
             catch (Exception ex)
@@ -91,6 +101,8 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = user;
+
                 objeto.Estado = true;
                 if (!String.IsNullOrEmpty(objeto.id))
                 {
@@ -104,6 +116,15 @@ namespace GB.SIMEF.BL
 
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
+
+                var objetoInicial = objeto;
+                var frecuencia = frecuenciaEnvioDAL.ObtenerDatos(new FrecuenciaEnvio { idFrecuencia = objeto.IdFrecuencia });
+                objetoInicial.Frecuencia = frecuencia.FirstOrDefault();
+                string jsonInicial = objetoInicial.ToString();
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.CodigoSolicitud, "", "", jsonInicial);
 
             }
             catch (Exception ex)

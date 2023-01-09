@@ -45,8 +45,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             MesBL = new MesBL();
             fuenteBl = new FuentesRegistroBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
             formularioWebBL = new FormularioWebBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            detalleSolicitudesBL = new DetalleSolicitudesBL();
-            EnvioProgramadoBL = new SolicitudEnvioProgramadoBL();
+            detalleSolicitudesBL = new DetalleSolicitudesBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            EnvioProgramadoBL = new SolicitudEnvioProgramadoBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
             frecuenciaEnvioBL = new FrecuenciaEnvioBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
             envioSolicitudBL = new EnvioSolicitudBL(EtiquetasViewSolicitudes.Solicitudes, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
@@ -473,7 +473,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 result = EnvioProgramadoBL.EliminarElemento(new SolicitudEnvioProgramado()
                 {
-                    id = objeto.id
+                    id = objeto.id,
+                    CodigoSolicitud = objeto.CodigoSolicitud
                 });
 
             });

@@ -124,5 +124,48 @@ namespace GB.SIMEF.BL
         {
             throw new NotImplementedException();
         }
+
+        public RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> ActualizarDetalleRegistroIndicadorFonatelMultiple(List<DetalleRegistroIndicadorFonatel> lista)
+        {
+            try
+            {
+                foreach (var objeto in lista)
+                {
+                    ResultadoConsulta.Clase = modulo;
+                    ResultadoConsulta.Accion = (int)Accion.Consultar;
+                    if (!string.IsNullOrEmpty(objeto.IdFormularioString))
+                    {
+                        int.TryParse(Utilidades.Desencriptar(objeto.IdFormularioString), out int temp);
+                        objeto.IdFormulario = temp;
+                    }
+                    if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
+                    {
+                        int.TryParse(Utilidades.Desencriptar(objeto.IdSolicitudString), out int temp);
+                        objeto.IdSolicitud = temp;
+                    }
+                    if (!string.IsNullOrEmpty(objeto.IdIndicadorString))
+                    {
+                        int.TryParse(Utilidades.Desencriptar(objeto.IdIndicadorString), out int temp);
+                        objeto.IdIndicador = temp;
+                    }
+                    DetalleRegistroIndicadorFonatel detalle = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(objeto).FirstOrDefault();
+                    detalle.CantidadFilas = objeto.CantidadFilas;
+                    if (!string.IsNullOrEmpty(objeto.NotasInformante))
+                    {
+                        detalle.NotasInformante = objeto.NotasInformante;
+                    }
+
+                    var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
+                    ResultadoConsulta.objetoRespuesta = result;
+                    ResultadoConsulta.CantidadRegistros = result.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
+        }
     }
 }

@@ -18,14 +18,17 @@ namespace GB.SIMEF.BL
         private readonly SolicitudDAL clsDatosSolicitud;
 
         string modulo = EtiquetasViewSolicitudes.Solicitudes;
+        string user = string.Empty;
 
         private RespuestaConsulta<List<DetalleSolicitudFormulario>> ResultadoConsulta;
 
-        public DetalleSolicitudesBL()
+        public DetalleSolicitudesBL(string modulo, string user)
         {
             clsDatos = new DetalleSolicitudesDAL();
             clsDatosSolicitud = new SolicitudDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<DetalleSolicitudFormulario>>();
+            this.user = user;
+            this.modulo = modulo;
         }
 
         public RespuestaConsulta<List<DetalleSolicitudFormulario>> ActualizarElemento(DetalleSolicitudFormulario objeto)
@@ -49,22 +52,11 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
+                ResultadoConsulta.Usuario = user;
 
                 DetalleSolicitudFormulario registroActualizar;
 
-                if (!string.IsNullOrEmpty(objeto.id))
-                {
-                    int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.IdSolicitud = temp;
-                }
-
-                if (!string.IsNullOrEmpty(objeto.Formularioid))
-                {
-                    int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objeto.Formularioid), out temp);
-                    objeto.IdFormulario = temp;
-                }
+                DesencriptarDetalle(objeto);
 
                 var resul = clsDatos.ObtenerDatos(objeto);
 
@@ -74,6 +66,10 @@ namespace GB.SIMEF.BL
                 resul = clsDatos.ActualizarDatos(registroActualizar);
 
                 ResultadoConsulta.objetoRespuesta = resul;
+
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Formularioid, "", "", "");
 
             }
             catch (Exception ex)
@@ -99,41 +95,40 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = user;
 
-                if (!String.IsNullOrEmpty(objeto.id))
+                DesencriptarDetalle(objeto);
+
+                var consultarDatos = clsDatos.ObtenerListaFormularios(objeto);
+
+                if (consultarDatos.Where(x => x.idFormulario == objeto.IdFormulario).Count() > 0)
                 {
-                    objeto.id = Utilidades.Desencriptar(objeto.id);
-                    int temp;
-                    if (int.TryParse(objeto.id, out temp))
-                    {
-                        objeto.IdSolicitud = temp;
-                    }
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.FormularioIngresado);
                 }
-
-                if (!String.IsNullOrEmpty(objeto.Formularioid))
-                {
-                    objeto.Formularioid = Utilidades.Desencriptar(objeto.Formularioid);
-                    int temp;
-                    if (int.TryParse(objeto.Formularioid, out temp))
-                    {
-                        objeto.IdFormulario = temp;
-                    }
-                }
-
+             
                 var resul = clsDatos.ActualizarDatos(objeto);
+
                 ResultadoConsulta.objetoRespuesta = resul;
 
+                consultarDatos = clsDatos.ObtenerListaFormularios(objeto);
+                var objetoInicial = resul.FirstOrDefault();
+                objetoInicial.Formularioid = consultarDatos.Where(x => x.idFormulario == objeto.IdFormulario).FirstOrDefault().Nombre;
 
+                string jsonInicial = objetoInicial.ToString();
+                clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                            ResultadoConsulta.Usuario,
+                                ResultadoConsulta.Clase, objeto.Formularioid, "", "", jsonInicial);
             }
             catch (Exception ex)
             {
+                ResultadoConsulta.MensajeError = ex.Message;
+
                 if (ResultadoConsulta.HayError!= (int)Error.ErrorControlado)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-
                 }
 
-                ResultadoConsulta.MensajeError = ex.Message;
             }
 
             return ResultadoConsulta;
@@ -149,25 +144,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
 
-                if (!String.IsNullOrEmpty(objeto.id))
-                {
-                    objeto.id = Utilidades.Desencriptar(objeto.id);
-                    int temp;
-                    if (int.TryParse(objeto.id, out temp))
-                    {
-                        objeto.IdSolicitud = temp;
-                    }
-                }
-
-                if (!String.IsNullOrEmpty(objeto.Formularioid))
-                {
-                    objeto.Formularioid = Utilidades.Desencriptar(objeto.Formularioid);
-                    int temp;
-                    if (int.TryParse(objeto.Formularioid, out temp))
-                    {
-                        objeto.IdFormulario = temp;
-                    }
-                }
+                DesencriptarDetalle(objeto);
 
                 var resul = clsDatos.ObtenerListaFormularios(objeto);
 
@@ -196,12 +173,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
 
-                if (!string.IsNullOrEmpty(objeto.id))
-                {
-                    int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.IdSolicitud = temp;
-                }
+                DesencriptarDetalle(objeto);
 
                 var resul = clsDatos.ObtenerDatos(objeto);
 
@@ -223,6 +195,30 @@ namespace GB.SIMEF.BL
             }
 
             return ResultadoConsulta;
+        }
+
+        private void DesencriptarDetalle(DetalleSolicitudFormulario objeto)
+        {
+            if (!String.IsNullOrEmpty(objeto.id))
+            {
+                objeto.id = Utilidades.Desencriptar(objeto.id);
+                int temp;
+                if (int.TryParse(objeto.id, out temp))
+                {
+                    objeto.IdSolicitud = temp;
+                }
+            }
+
+            if (!String.IsNullOrEmpty(objeto.Formularioid))
+            {
+                objeto.Formularioid = Utilidades.Desencriptar(objeto.Formularioid);
+                int temp;
+                if (int.TryParse(objeto.Formularioid, out temp))
+                {
+                    objeto.IdFormulario = temp;
+                }
+            }
+
         }
 
     }

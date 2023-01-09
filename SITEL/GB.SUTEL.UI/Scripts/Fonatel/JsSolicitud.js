@@ -376,10 +376,7 @@ JsSolicitud = {
 
                         } else {
 
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.estado)
-                                .set('onok', function (closeEvent) {
-                                    JsSolicitud.Consultas.CambiarEstadoDesactivado(idSolicitud);
-                                });
+                                    JsSolicitud.Consultas.CambiarEstadoDesactivado(idSolicitud);                        
                         }
 
                     } else {
@@ -650,6 +647,7 @@ JsSolicitud = {
                 objeto.IdFrecuencia = $(JsSolicitud.Controles.ddlFrecuencia).val();
                 objeto.CantidadRepeticiones = $(JsSolicitud.Controles.txtCantidadRepeticiones).val();
                 objeto.FechaCiclo = $(JsSolicitud.Controles.txtFechaCiclo).val();
+                objeto.CodigoSolicitud = $(JsSolicitud.Controles.txtSolicitudModal).val();
 
                 execAjaxCall("/SolicitudFonatel/InsertarEnvioProgramado", "POST", objeto)
                     .then((obj) => {
@@ -768,7 +766,7 @@ JsSolicitud = {
             $("#loading").fadeIn();
 
             let Solicitud = new Object();
-
+            Solicitud.id = ObtenerValorParametroUrl("id");
             Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
             Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
 
@@ -913,6 +911,7 @@ JsSolicitud = {
 
             let objeto = new Object();
             objeto.id = $(JsSolicitud.Controles.txtSolicitudEnvio).val();
+            objeto.CodigoSolicitud = $(JsSolicitud.Controles.txtSolicitudModal).val();
 
             execAjaxCall("/SolicitudFonatel/EliminarEnvioProgramado", "POST", objeto)
                 .then((obj) => {
@@ -1047,7 +1046,7 @@ $(document).on("click", JsSolicitud.Controles.btnFinalizarSolicitud, function (e
 
     let id = ObtenerValorParametroUrl("id");
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Solicitud?", jsMensajes.Variables.actionType.cancelar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Solicitud?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsSolicitud.Consultas.CambiarEstadoFinalizado(id);
         });
@@ -1069,7 +1068,7 @@ $(document).on("click", JsSolicitud.Controles.btnDeleteFormulario, function (e) 
 
     console.log(idFormulario);
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.cancelar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
 
             JsSolicitud.Consultas.EliminarDetalleSolicitud(idSolicitud, idFormulario);
@@ -1250,13 +1249,11 @@ $(document).on("click", JsSolicitud.Controles.btnActivadoSolicitud, function (e)
     e.preventDefault();
 
     let id = $(this).val();
-    let Eliminado = false;
-
-    JsSolicitud.Consultas.ValidarExistenciaSolicitud(id, Eliminado);
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            JsSolicitud.Consultas.ValidarExistenciaSolicitud(id, Eliminado);
+            JsSolicitud.Consultas.CambiarEstadoDesactivado(id);
+
         });
 
 });

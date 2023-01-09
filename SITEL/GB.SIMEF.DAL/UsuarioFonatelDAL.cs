@@ -20,11 +20,11 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <returns></returns>
 
-        public List<Usuario> ObtenerDatos()
+        public List<Usuario> ObtenerDatos(byte activo = 1)
         {
             using (db = new SITELContext())
             {
-                return db.Usuario.Where(x=>x.Borrado==0 && x.Activo==1 && x.FONATEL==true).ToList();
+                return db.Usuario.Where(x=>x.Borrado==0 && x.Activo==activo && x.FONATEL==true).ToList();
             }
         }
 

@@ -27,17 +27,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         #region Variables Públicas del controller
-        private readonly EditarRegistroIndicadorFonatelBL EditarRegistroIndicadorBL;
-        private readonly EditarDetalleRegistroIndicadorFonatelBL DetalleRegistroIndicadorBL;
-        private readonly EditarDetalleRegistroIndicadorCategoriaValorFonatelBL DetalleRegistroIndicadorCategoriaValorFonatelBL;
+        private readonly RegistroIndicadorFonatelBL EditarRegistroIndicadorBL;
+        private readonly DetalleRegistroIndicadorFonatelBL DetalleRegistroIndicadorBL;
+        private readonly DetalleRegistroIndicadorCategoriaValorFonatelBL DetalleRegistroIndicadorCategoriaValorFonatelBL;
 
         #endregion
 
         public EditarFormularioController()
         {
-            EditarRegistroIndicadorBL = new EditarRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            DetalleRegistroIndicadorBL = new EditarDetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            DetalleRegistroIndicadorCategoriaValorFonatelBL = new EditarDetalleRegistroIndicadorCategoriaValorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            EditarRegistroIndicadorBL = new RegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            DetalleRegistroIndicadorBL = new DetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            DetalleRegistroIndicadorCategoriaValorFonatelBL = new DetalleRegistroIndicadorCategoriaValorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
 
@@ -83,7 +83,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #endregion
 
         #region Metodos de controlador
-
 
 
         [HttpGet]
@@ -307,13 +306,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpPost]
-        public async Task<string> ObtenerListaDetalleRegistroIndicadorCategoriaValorFonatel(DetalleRegistroIndicadorFonatel detalle)
+        public async Task<string> ObtenerListaDetalleRegistroIndicadorCategoriaValorFonatel(DetalleRegistroIndicadorCategoriaValorFonatel detalle)
         {
             RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> result = null;
 
             await Task.Run(() =>
             {
-                result = DetalleRegistroIndicadorCategoriaValorFonatelBL.ObtenerDatosCategoriaValor(detalle);
+                result = DetalleRegistroIndicadorCategoriaValorFonatelBL.ObtenerDatos(detalle);
             });
 
             return JsonConvert.SerializeObject(result);
@@ -330,7 +329,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
-                result = DetalleRegistroIndicadorBL.ActualizarMultiplesElementos(lista);
+                result = DetalleRegistroIndicadorBL.ActualizarDetalleRegistroIndicadorFonatelMultiple(lista);
               
             });
 
