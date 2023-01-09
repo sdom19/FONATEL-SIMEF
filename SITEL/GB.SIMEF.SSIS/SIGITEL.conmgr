@@ -7,6 +7,6 @@
     <DTS:ConnectionManager
       DTS:ConnectRetryCount="1"
       DTS:ConnectRetryInterval="5"
-      DTS:ConnectionString="Data Source=.;Initial Catalog=SIGITEL;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{0988B716-91C0-48CB-B3C5-49DB1BD91137}LocalHost.SIGITEL;Auto Translate=False;" />
+      DTS:ConnectionString="Data Source=.;Initial Catalog=SIGITELFONATELBD;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package-{0988B716-91C0-48CB-B3C5-49DB1BD91137}LocalHost.SIGITEL;" />
   </DTS:ObjectData>
 </DTS:ConnectionManager>
