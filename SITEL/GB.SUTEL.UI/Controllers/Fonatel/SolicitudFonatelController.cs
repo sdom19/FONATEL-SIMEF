@@ -176,8 +176,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EditarSolicitud(Solicitud solicitud)
         {
-            
-            solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+
             RespuestaConsulta<List<Solicitud>> result = null;
 
             await Task.Run(() =>

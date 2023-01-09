@@ -527,6 +527,10 @@ function setSelect2() {
     });
 }
 
+$(document).on('draw.dt', jsRegistroIndicadorFonatelEdit.Controles.tablaIndicador, function (e) {
+    setSelect2();
+});
+
 
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador, function () {
 

@@ -61,7 +61,6 @@ JsSolicitud = {
         "btnFinalizarSolicitud": "#btnFinalizarSolicitud",
         "txtModo": "#txtmodo",
         "id": "#txtidsolicitud",
-
         "idEnvioProgramado": "txtSolicitudEnvio",
         "txtSolicitudModal": "#txtSolicitudModal",
         "txtSolicitudEnvio": "#txtSolicitudEnvio",
@@ -69,7 +68,8 @@ JsSolicitud = {
         "txtFechaCiclo": "#txtFechaCiclo",
         "ddlFrecuenciaHelp": "#ddlFrecuenciaHelp",
         "txtRepeticionesSolicitudesHelp": "#txtRepeticionesSolicitudesHelp",
-        "txtFechaEnvioSolicitudHelp":"#txtFechaEnvioSolicitudHelp"
+        "txtFechaEnvioSolicitudHelp": "#txtFechaEnvioSolicitudHelp",
+        "txtEstado": "#txtEstado"
 
     },
 
@@ -80,6 +80,8 @@ JsSolicitud = {
         "DetallesCompletos": false,
 
         "SolicitudClonada": false,
+
+        "EstadoRegistro": 0,
 
         "ListadoSolicitudes": [],
 
@@ -1107,7 +1109,7 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function 
 
 $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Solicitud?", jsMensajes.Variables.actionType.Clonar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Solicitud?", jsMensajes.Variables.actionType.clonar)
         .set('onok', function (closeEvent) {
             window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
         });
@@ -1169,23 +1171,36 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
 
     let modo = $(JsSolicitud.Controles.txtModo).val();
 
+    let ObtenerEstadoRegistro = $(JsSolicitud.Controles.txtEstado).val();
+    JsSolicitud.Variables.EstadoRegistro = parseInt(ObtenerEstadoRegistro);
+
     let CamposVacios = "Existen campos vacíos. "
 
     if (JsSolicitud.Metodos.ValidarNombreyCodigo()) {
 
-        //if (JsSolicitud.Consultas.ValidarControles()) {
-        //    CamposVacios = ""
-        //}
-
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
 
-            jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
-                    JsSolicitud.Consultas.EditarSolicitud();
-                })
-                .set('oncancel', function (closeEvent) {
-                    JsSolicitud.Metodos.ValidarControles();
-                });
+            if (JsSolicitud.Variables.EstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo) {
+
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Solicitud?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        JsSolicitud.Consultas.EditarSolicitud();
+                    })
+                    .set('oncancel', function (closeEvent) {
+                        JsSolicitud.Metodos.ValidarControles();
+                    });
+            }
+            else {
+
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        JsSolicitud.Consultas.EditarSolicitud();
+                    })
+                    .set('oncancel', function (closeEvent) {
+                        JsSolicitud.Metodos.ValidarControles();
+                    });
+            }
+
 
         } else if (modo == jsUtilidades.Variables.Acciones.Clonar){
             jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)

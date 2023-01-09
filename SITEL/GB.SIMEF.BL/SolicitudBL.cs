@@ -189,6 +189,16 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
+                    if (objetoAnterior.FechaInicio.Equals(objeto.FechaInicio) && objetoAnterior.FechaFin.Equals(objeto.FechaFin) && objetoAnterior.idFuente == objeto.idFuente && objetoAnterior.CantidadFormularios == objeto.CantidadFormularios 
+                        && objetoAnterior.idMes == objeto.idMes && objetoAnterior.idAnno == objeto.idAnno && objetoAnterior.Mensaje.Equals(objeto.Mensaje))
+                    {
+                        objeto.IdEstado = (int)EstadosRegistro.Activo;
+                    }
+                    else
+                    {
+                        objeto.IdEstado = (int)EstadosRegistro.EnProceso;
+                    }
+
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
                 }
@@ -503,6 +513,12 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
+        /// <summary>
+        /// Autor: Francisco Vindas Ruix
+        /// Fecha: 08/01/2023
+        /// Metodo que descripta el id de la solucitud a utilizar
+        /// </summary>
+        /// <param name="objeto"></param>
         private void DesencriptarSolicitud(Solicitud objeto)
         {
             if (!string.IsNullOrEmpty(objeto.id))
@@ -514,6 +530,7 @@ namespace GB.SIMEF.BL
                     objeto.idSolicitud = temp;
                 }
             }
+
 
         }
 

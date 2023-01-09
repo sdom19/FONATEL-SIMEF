@@ -65,8 +65,8 @@
         "txtidIndicadorVariableString": "#txtidIndicadorVariableString",
         "txtidDetalleReglaValidacion": "#txtidDetalleReglaValidacion",
         "txtidCompara": "#txtidCompara",
-        "step2": "#step2",
         "txtEstado": "#txtEstado",
+        "step2": "#step2",
         "btnFinalizar": "#btnFinalizar"
     },
 
@@ -607,6 +607,7 @@
 
             $("#loading").fadeIn();
             let objetoRegla = new Object()
+            objetoRegla.id = ObtenerValorParametroUrl("id");
             objetoRegla.Codigo = $(JsReglas.Controles.txtCodigo).val();
             objetoRegla.Nombre = $(JsReglas.Controles.txtNombre).val();
             objetoRegla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
