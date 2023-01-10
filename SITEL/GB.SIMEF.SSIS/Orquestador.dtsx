@@ -1,18 +1,18 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="12/28/2022 10:51:40 AM"
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="SIMEF"
   DTS:CreatorName="SIMEF\Administrador"
-  DTS:DTSID="{81E019EE-3C1E-49E2-AEDA-BE6E694D36E8}"
+  DTS:DTSID="{212FD622-B45A-44CE-8DE2-F2B645948295}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.948.0"
+  DTS:LastModifiedProductVersion="16.0.845.0"
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="5"
-  DTS:VersionGUID="{AA009325-684E-4E9A-8B52-099FD5A940CA}">
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{0F7C9DA4-27A0-4819-924E-6B155FE26BD1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -21,7 +21,8 @@
       DTS:refId="Package\Carga DWStage"
       DTS:CreationName="Microsoft.ExecutePackageTask"
       DTS:Description="Execute Package Task"
-      DTS:DTSID="{067882D0-1BCE-4781-8E57-CD5A51789F40}"
+      DTS:Disabled="True"
+      DTS:DTSID="{C1E75DA3-85F3-4541-834B-7D755C58881B}"
       DTS:ExecutableType="Microsoft.ExecutePackageTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Carga DWStage"
@@ -37,7 +38,7 @@
       DTS:refId="Package\Crear Indicadores"
       DTS:CreationName="Microsoft.ExecutePackageTask"
       DTS:Description="Execute Package Task"
-      DTS:DTSID="{5CDED62D-194A-4D18-B772-E9E15F8F204B}"
+      DTS:DTSID="{3E949F32-F0A2-44EA-B520-14A706F9A76F}"
       DTS:ExecutableType="Microsoft.ExecutePackageTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Crear Indicadores"
@@ -54,7 +55,7 @@
       DTS:refId="Package\Indicadores APP SIGITEL"
       DTS:CreationName="Microsoft.ExecutePackageTask"
       DTS:Description="Execute Package Task"
-      DTS:DTSID="{4DC665D2-1D74-4A56-A9E1-BE2699915E88}"
+      DTS:DTSID="{36C11EE0-1A7B-4E85-A2C4-AD10C24C26FB}"
       DTS:ExecutableType="Microsoft.ExecutePackageTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Indicadores APP SIGITEL"
@@ -71,7 +72,7 @@
       DTS:refId="Package\Registro Indicador"
       DTS:CreationName="Microsoft.ExecutePackageTask"
       DTS:Description="Execute Package Task"
-      DTS:DTSID="{5C0FCED8-819A-4BE2-A515-B8C02012FEF4}"
+      DTS:DTSID="{9A258C92-F9B6-48F4-A591-EB2375D16000}"
       DTS:ExecutableType="Microsoft.ExecutePackageTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Registro Indicador"
@@ -89,7 +90,7 @@
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint]"
       DTS:CreationName=""
-      DTS:DTSID="{49088566-DA04-47BE-A190-EF127AF6AE48}"
+      DTS:DTSID="{F25E98EB-F381-4A95-B6C3-27E39790ABD6}"
       DTS:From="Package\Registro Indicador"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
@@ -97,7 +98,7 @@
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
-      DTS:DTSID="{A787514F-4AB5-403D-934B-B2B6CA018745}"
+      DTS:DTSID="{55C767BC-2BF9-4320-AE07-F6982FCAFD1A}"
       DTS:From="Package\Crear Indicadores"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
@@ -105,7 +106,7 @@
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
-      DTS:DTSID="{5DDA5158-EA58-4CB7-B74B-0EE1E444506D}"
+      DTS:DTSID="{D2FDD955-7C47-43A3-88E5-3172655CFAFA}"
       DTS:From="Package\Indicadores APP SIGITEL"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
@@ -124,13 +125,21 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="149.6,41.6"
-          Id="Package\Registro Indicador"
-          TopLeft="170,237.428571428571" />
+          Size="142.4,41.6"
+          Id="Package\Carga DWStage"
+          TopLeft="165,633.857142857143" />
         <NodeLayout
           Size="148,41.6"
           Id="Package\Crear Indicadores"
           TopLeft="182.857142857143,367.857142857143" />
+        <NodeLayout
+          Size="180,41.6"
+          Id="Package\Indicadores APP SIGITEL"
+          TopLeft="163.571428571429,460.285714285714" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Registro Indicador"
+          TopLeft="170,237.428571428571" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="244.8,279.028571428571">
@@ -165,10 +174,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="180,41.6"
-          Id="Package\Indicadores APP SIGITEL"
-          TopLeft="163.571428571429,460.285714285714" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="255.214285714286,409.457142857143">
@@ -191,10 +196,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="142.4,41.6"
-          Id="Package\Carga DWStage"
-          TopLeft="165,633.857142857143" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
           TopLeft="253.571428571429,501.885714285714">
