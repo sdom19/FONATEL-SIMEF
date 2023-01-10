@@ -104,15 +104,19 @@ namespace GB.SIMEF.DAL
                         }
                     }
                 }
-                lista = lista2.Select(x => new RelacionCategoriaAtributo()
+                if (lista2.Count() != 0)
                 {
-                    idRelacion = x.idRelacion,
-                    IdcategoriaAtributo=x.IdcategoriaAtributo,
-                    IdcategoriaAtributoDetalle=x.IdcategoriaAtributoDetalle,
-                    IdCategoriaId=x.IdCategoriaId,
-                    Etiqueta=db.DetalleCategoriaTexto
-                        .Where(p=>p.idCategoria==x.IdcategoriaAtributo && p.idCategoriaDetalle==x.IdcategoriaAtributoDetalle).FirstOrDefault().Etiqueta
-                }).ToList();
+                    lista = lista2.Select(x => new RelacionCategoriaAtributo()
+                    {
+                        idRelacion = x.idRelacion,
+                        IdcategoriaAtributo=x.IdcategoriaAtributo,
+                        IdcategoriaAtributoDetalle=x.IdcategoriaAtributoDetalle,
+                        IdCategoriaId=x.IdCategoriaId,
+                        Etiqueta=db.DetalleCategoriaTexto
+                            .Where(p=>p.idCategoria==x.IdcategoriaAtributo && p.idCategoriaDetalle==x.IdcategoriaAtributoDetalle).FirstOrDefault().Etiqueta
+                    }).ToList();
+                }
+                
             }
             return lista;
 
