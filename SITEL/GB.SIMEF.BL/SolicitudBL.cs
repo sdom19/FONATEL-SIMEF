@@ -189,8 +189,7 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    if (objetoAnterior.FechaInicio.Equals(objeto.FechaInicio) && objetoAnterior.FechaFin.Equals(objeto.FechaFin) && objetoAnterior.idFuente == objeto.idFuente && objetoAnterior.CantidadFormularios == objeto.CantidadFormularios 
-                        && objetoAnterior.idMes == objeto.idMes && objetoAnterior.idAnno == objeto.idAnno && objetoAnterior.Mensaje.Equals(objeto.Mensaje))
+                    if (objetoAnterior.idFuente == objeto.idFuente && objetoAnterior.CantidadFormularios == objeto.CantidadFormularios)
                     {
                         objeto.IdEstado = (int)EstadosRegistro.Activo;
                     }

@@ -65,19 +65,45 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         // GET: Solicitud/Create
         public ActionResult Create(string id, int? modo)
         {
-            Solicitud model = new Solicitud();
+            Solicitud solicitud = new Solicitud();
+
+            int idSolicitud = 0;
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                id = Utilidades.Desencriptar(id);
+                int temp;
+                if (int.TryParse(id, out temp))
+                {
+                    idSolicitud = temp;
+                }
+            }
+
+            var ListaSolicitudes = SolicitudesBL.ObtenerDatos(new Solicitud()).objetoRespuesta;
+
+            var model = ListaSolicitudes.Where(x => x.id.Equals(id)).SingleOrDefault();
+
+            var Detalles = detalleSolicitudesBL.ObtenerDatos(new DetalleSolicitudFormulario()).objetoRespuesta;
+
+            var DetalleSolicitud = Detalles.Where(x => x.IdSolicitud == idSolicitud && x.Estado == true).ToList();
+
+            var ListadoFormularios = formularioWebBL
+            .ObtenerDatos(new FormularioWeb() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
+
             ViewBag.ListaAnno = AnnoBL.ObtenerDatos(new Anno() ).objetoRespuesta;
             ViewBag.Modo = modo.ToString();
             ViewBag.ListaMes= MesBL.ObtenerDatos(new Mes()).objetoRespuesta;
             ViewBag.ListaFuentes = fuenteBl.ObtenerDatos(new FuentesRegistro()).objetoRespuesta;
+
+
             ViewBag.ListaFormularioWeb = formularioWebBL.ObtenerDatos(new FormularioWeb() {idEstado=(int)Constantes.EstadosRegistro.Activo })
                                         .objetoRespuesta.Select(x=>new SelectListItem() { Selected=false, Value=x.id, 
                                             Text=Utilidades.ConcatenadoCombos(x.Codigo,x.Nombre) }).ToList();
+
+
             if (!string.IsNullOrEmpty(id))
             {
                 
-                model = SolicitudesBL.ObtenerDatos(new Solicitud() {id=id })
-                    .objetoRespuesta.Single();
                 if (modo== (int)Constantes.Accion.Clonar)
                 {
                     ViewBag.titulo = EtiquetasViewSolicitudes.Clonar;
@@ -93,7 +119,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             else
             {
                 ViewBag.titulo = EtiquetasViewSolicitudes.Crear;
-                model.FormularioWeb = new List<FormularioWeb>();              
+                solicitud.FormularioWeb = new List<FormularioWeb>();              
             }
             return View(model);
         }
@@ -481,6 +507,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         #endregion
+
 
     }
 }

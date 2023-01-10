@@ -1068,8 +1068,6 @@ $(document).on("click", JsSolicitud.Controles.btnDeleteFormulario, function (e) 
 
     let idFormulario = $(this).val();
 
-    console.log(idFormulario);
-
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
 
@@ -1078,7 +1076,8 @@ $(document).on("click", JsSolicitud.Controles.btnDeleteFormulario, function (e) 
 });
 
 $(document).on("click", JsSolicitud.Controles.btnEditarSolicitud, function () {
-    let id = $(this).val();
+
+    let id = encodeURIComponent($(this).val());
     window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
 
