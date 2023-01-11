@@ -45,7 +45,7 @@ namespace GB.SIMEF.DAL
                 Estado = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
                 Fuente = ObtenerFuente(x.idFuente),
                 EnvioProgramado = db.SolicitudEnvioProgramado.Where(i => i.IdSolicitud == x.idSolicitud && i.Estado == true).SingleOrDefault(),
-                SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud).ToList(),
+                SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud && i.Estado == true).ToList(),
                 FormulariosString = ObtenerListaFormularioString(x.idSolicitud),
                 FormularioWeb = ObtenerListaFormulario(x.idSolicitud),
                 Mes=db.Mes.Where(p=>p.idMes==x.idMes).FirstOrDefault(),
