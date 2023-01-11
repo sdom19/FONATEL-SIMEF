@@ -71,17 +71,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             var model = ListaSolicitudes.Where(x => x.id.Equals(id)).SingleOrDefault();
 
-            var Detalles = detalleSolicitudesBL.ObtenerDatos(new DetalleSolicitudFormulario()).objetoRespuesta;
-
-            var ListadoFormularios = formularioWebBL
-            .ObtenerDatos(new FormularioWeb() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
-
-            var ListadoFormularioEnUso = ListadoFormularios.Where(x => Detalles.Any(x2 => x.idFormulario == x2.IdFormulario)).ToList();
-
-            var ListadoFormularioSinUso = ListadoFormularios.Where(x => !Detalles.Any(x2 => x.idFormulario == x2.IdFormulario)).ToList();
-
-
-
             ViewBag.ListaAnno = AnnoBL.ObtenerDatos(new Anno() ).objetoRespuesta;
             ViewBag.Modo = modo.ToString();
             ViewBag.ListaMes= MesBL.ObtenerDatos(new Mes()).objetoRespuesta;
@@ -104,8 +93,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
                 else
                 {
-                    ViewBag.titulo = EtiquetasViewSolicitudes.Editar;
-                    
+                    ViewBag.titulo = EtiquetasViewSolicitudes.Editar;            
                 }
             }
             else

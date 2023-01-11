@@ -69,7 +69,7 @@ JsSolicitud = {
         "ddlFrecuenciaHelp": "#ddlFrecuenciaHelp",
         "txtRepeticionesSolicitudesHelp": "#txtRepeticionesSolicitudesHelp",
         "txtFechaEnvioSolicitudHelp": "#txtFechaEnvioSolicitudHelp",
-        "txtEstado": "#txtEstado"
+        "txtEstado": "#IdEstado"
 
     },
 
@@ -680,13 +680,10 @@ JsSolicitud = {
             let Solicitud = new Object();
 
             Solicitud.id = $(JsSolicitud.Controles.id).val();
-
             Solicitud.Codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
             Solicitud.Nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
-
             Solicitud.FechaInicio = $(JsSolicitud.Controles.txtFechaInicio).val();
             Solicitud.FechaFin = $(JsSolicitud.Controles.txtFechaFin).val();
-
             Solicitud.idFuente = $(JsSolicitud.Controles.ddlFuentes).val();
             Solicitud.CantidadFormularios = $(JsSolicitud.Controles.TxtCantidadFormulario).val();
             Solicitud.idMes = $(JsSolicitud.Controles.ddlMesSolicitud).val();
@@ -1107,7 +1104,7 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function 
 });
 
 $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
-    let id = $(this).val();
+    let id = encodeURIComponent($(this).val());
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Solicitud?", jsMensajes.Variables.actionType.clonar)
         .set('onok', function (closeEvent) {
             window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;

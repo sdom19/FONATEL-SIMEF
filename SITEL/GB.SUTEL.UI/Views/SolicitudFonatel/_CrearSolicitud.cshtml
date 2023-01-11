@@ -7,7 +7,7 @@
 
     <!--   TEXTO PARA SABER EL MODO AGREGAR O EDITAR -->
     @Html.Hidden("txtmodo", (string)ViewBag.Modo)
-    @Html.HiddenFor(model => model.IdEstado, new { IdEstado = "txtEstado" })
+    @Html.HiddenFor(model => model.IdEstado, new { IdEstado = "IdEstado" })
 
     <!-- TEXTO PARA ENCRIPTAR ID Y PARA EL EDITAR-->
     @Html.HiddenFor(model => model.id, new { id = "txtidsolicitud" })
