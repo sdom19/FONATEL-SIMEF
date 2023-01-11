@@ -7,12 +7,12 @@
   DTS:CreatorName="SIMEF\Administrador"
   DTS:DTSID="{07D4B4E7-6C9A-4F17-A295-8347FFBE6341}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.845.0"
+  DTS:LastModifiedProductVersion="16.0.948.0"
   DTS:LocaleID="1033"
   DTS:ObjectName="Sitel RegistroIndicador Simef"
   DTS:PackageType="5"
-  DTS:VersionBuild="78"
-  DTS:VersionGUID="{5B18F7F7-7B22-431F-8BCA-4F8DB632F9EE}">
+  DTS:VersionBuild="79"
+  DTS:VersionGUID="{3E0F33AB-B402-46A3-9BEA-2205FD5CD017}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -292,7 +292,7 @@ newid() IdResultado,
 a.IdFormulario,
 a.IdSolicitud,
 b.idIndicador,
-b.TituloHojas NombreIndicador,
+concat('COD-',b.idIndicador) NombreIndicador,
 getdate () FechaCreacion,
 isnull(a.UsuarioModificacion,'No Registra') UsuarioModificacion ,
 4 TipoIndicador,

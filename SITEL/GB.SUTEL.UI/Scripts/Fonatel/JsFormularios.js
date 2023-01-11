@@ -222,8 +222,10 @@
                 html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' value=" + formulario.id + " class='btn-icon-base btn-clone' ></button>";
                 if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + formulario.id + " class='btn-icon-base btn-power-off'></button>";
-                } else {
+                } else if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + formulario.id + " class='btn-icon-base btn-power-on'></button>";
+                } else {
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' disabled value=" + formulario.id + " class='btn-icon-base btn-power-off'></button>";
                 }
                 if (formulario.idEstado != jsUtilidades.Variables.EstadoRegistros.Activo) {
                     ind = "disabled"
