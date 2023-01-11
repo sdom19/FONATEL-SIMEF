@@ -29,6 +29,7 @@ namespace GB.SIMEF.Entities
         public int idIndicador { get; set; }
         public string NombreVariable { get; set; }
         public string Descripcion { get; set; }
+        public int idCategoria { get; set; }
         public bool Estado { get; set; }
 
         [NotMapped]
@@ -44,11 +45,6 @@ namespace GB.SIMEF.Entities
             
 
             json.Append("\"Descripción\":").Append(this.Descripcion).Append("}");
-
-            
-
-
-
 
             string resultado = json.ToString();
 

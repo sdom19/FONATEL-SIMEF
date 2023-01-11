@@ -28,7 +28,7 @@ namespace GB.SIMEF.DAL
                 ListaCategoria = db.Database.SqlQuery<CategoriasDesagregacion>
                     ("execute spObtenerCategoriasDesagregacion @idCategoria,@codigo,@idEstado,@idTipoCategoria ",
                      new SqlParameter("@idCategoria",objCategoria.idCategoria),
-                     new SqlParameter("@codigo", string.IsNullOrEmpty(objCategoria.Codigo) ? DBNull.Value.ToString() : objCategoria.Codigo),
+                     new SqlParameter("@codigo", string.IsNullOrEmpty(objCategoria.Codigo) ? "" : objCategoria.Codigo),
                      new SqlParameter("@idEstado", objCategoria.idEstado),
                      new SqlParameter("@idTipoCategoria", objCategoria.IdTipoCategoria)
                     ).ToList();

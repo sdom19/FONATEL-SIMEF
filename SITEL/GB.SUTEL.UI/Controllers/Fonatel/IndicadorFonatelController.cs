@@ -84,7 +84,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             CargarDatosEnVistas();
             ViewBag.ModoFormulario = ((int) Accion.Insertar).ToString();
             ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloCrearIndicador;
-
+            ViewBag.CategoriaDato = categoriasDesagregacionBL.ObtenerDatos(new CategoriasDesagregacion()
+            { IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.VariableDato }).objetoRespuesta
+                .Select(x => new SelectListItem() { Value=x.idCategoria.ToString(), Text=x.NombreCategoria, Selected=false }).ToList();
             return View();
         }
 
@@ -94,6 +96,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             CargarDatosEnVistas();
             ViewBag.ModoFormulario = ((int) Accion.Editar).ToString();
             ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloEditarIndicador;
+
+            ViewBag.CategoriaDato = categoriasDesagregacionBL.ObtenerDatos(new CategoriasDesagregacion()
+            { IdTipoCategoria = (int)Constantes.TipoCategoriaEnum.VariableDato }).objetoRespuesta
+               .Select(x => new SelectListItem() { Value = x.idCategoria.ToString(), Text = x.NombreCategoria, Selected = false }).ToList();
+
 
             if (string.IsNullOrEmpty(id))
                 return View("Index");
