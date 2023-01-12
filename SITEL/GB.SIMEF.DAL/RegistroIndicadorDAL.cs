@@ -51,7 +51,6 @@ namespace GB.SIMEF.DAL
                 IdMes = x.IdMes,
                 IdFuente = x.IdFuente,
                 Fuente = ObtenerFuente(x.IdFuente),
-                Solicitud = ObtenerSolicitud(x.IdSolicitud),
                 Solicitudid = Utilidades.Encriptar(x.IdSolicitud.ToString()),
                 FormularioId = Utilidades.Encriptar(x.IdFormulario.ToString()),
                 DetalleRegistroIndcadorFonatel = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() { IdSolicitud = x.IdSolicitud, IdFormulario = x.IdFormulario })

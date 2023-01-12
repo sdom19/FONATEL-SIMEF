@@ -232,6 +232,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La Fecha de Inicio del Ciclo debe ser igual o mayor a la Fecha de hoy .
+        /// </summary>
+        public static string FechaInicioCiclo {
+            get {
+                return ResourceManager.GetString("FechaInicioCiclo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El Formulario ya se encuentra registrado.
         /// </summary>
         public static string FormularioIngresado {

@@ -53,7 +53,7 @@ namespace GB.SIMEF.BL
                         }
                         else
                         {
-                            formularios = string.Format(", {0}", item);
+                            formularios = string.Format("{0}, {1}", formularios, item);
                         }
 
                     }
@@ -73,7 +73,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.SolicitudesFuenteRegistrada);
                 }
 
-
+                clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarSolicitud, "Sistema automático", modulo, solicitud.Codigo);
             }
             catch (Exception ex)
             {
