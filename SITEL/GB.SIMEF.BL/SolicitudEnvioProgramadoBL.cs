@@ -114,6 +114,12 @@ namespace GB.SIMEF.BL
                     }
                 }
 
+                if (objeto.FechaCiclo < DateTime.Today)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(Errores.FechaInicioCiclo);
+                }
+
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
 
