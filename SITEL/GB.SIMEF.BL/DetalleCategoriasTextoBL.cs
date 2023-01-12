@@ -19,6 +19,8 @@ namespace GB.SIMEF.BL
 
         private readonly CategoriasDesagregacionDAL clsDatosCategoria;
 
+        private readonly RelacionCategoriaDAL clsRelacionCategoriaDetalles;
+
         private RespuestaConsulta<List<DetalleCategoriaTexto>> ResultadoConsulta;
         string modulo = Etiquetas.DetalleCategorias;
 
@@ -30,6 +32,7 @@ namespace GB.SIMEF.BL
             this.modulo = modulo;
             clsDatos = new DetalleCategoriaTextoDAL();
             clsDatosCategoria = new CategoriasDesagregacionDAL();
+            clsRelacionCategoriaDetalles = new RelacionCategoriaDAL();
             ResultadoConsulta = new RespuestaConsulta<List<DetalleCategoriaTexto>>();
         }
         private string SerializarObjetoBitacora(DetalleCategoriaTexto objCategoria)
@@ -109,6 +112,11 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
+                    var detallesRelacion = clsRelacionCategoriaDetalles.ObtenerRelacionCategoriaAtributoXIdCategoriaDetalle(objCategoria.idCategoriaDetalle);
+                    foreach (RelacionCategoriaAtributo item in detallesRelacion)
+                    {
+                        clsRelacionCategoriaDetalles.EliminarDetalleRelacionCategoria(item);
+                    }
                     registroActializar = resul.SingleOrDefault();
                     registroActializar.Estado = false;
                     resul = clsDatos.ActualizarDatos(registroActializar);

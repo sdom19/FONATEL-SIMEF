@@ -243,7 +243,20 @@ namespace GB.SIMEF.DAL
             return listaValicion;
         }
 
+        public List<RelacionCategoriaAtributo> ObtenerRelacionCategoriaAtributoXIdCategoriaDetalle(int idCategoriaDetalle)
+        {
+            List<RelacionCategoriaAtributo> ListaRelacionCategoriaDetalle = new List<RelacionCategoriaAtributo>();
+            using (db = new SIMEFContext())
+            {
+                ListaRelacionCategoriaDetalle = db.Database.SqlQuery<RelacionCategoriaAtributo>
+                ("execute spObtenerRelacionCategoriaAtributoXIdCategoriaDetalle @IdCategoriaDetalle   ",
+                     new SqlParameter("@IdCategoriaDetalle", idCategoriaDetalle)
+                    ).ToList();
+            }
+            
 
+            return ListaRelacionCategoriaDetalle;
+        }
 
         #endregion
 
@@ -358,6 +371,19 @@ namespace GB.SIMEF.DAL
             return ListaRelacionCategoria;
         }
 
+        public List<RelacionCategoria> EliminarDetalleRelacionCategoria(RelacionCategoriaAtributo objeto)
+        {
+            List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
+            using (db = new SIMEFContext())
+            {
+                ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
+                ("execute spEliminarRelacionCategoriaAtributoDetalle @IdRelacion,@IdCategoriaId   ",
+                     new SqlParameter("@IdRelacion", objeto.idRelacion),
+                     new SqlParameter("@IdCategoriaId", objeto.IdCategoriaId)
+                    ).ToList();
+            }
+            return ListaRelacionCategoria;
+        }
 
         #endregion
     }
