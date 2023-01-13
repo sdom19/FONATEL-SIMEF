@@ -110,18 +110,28 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// José Navarro Acuña
         /// 20/10/2022
-        /// Consulta las categorias de desagregación relacionadas con un indicador
+        /// Consulta las categorias de desagregación relacionadas con un indicador.
+        /// Opcionalmente, se puede filtrar por el tipo detalle
         /// </summary>
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
-        public List<CategoriasDesagregacion> ObtenerCategoriasDesagregacionDeIndicador(int pIdIndicador)
+        public List<CategoriasDesagregacion> ObtenerCategoriasDesagregacionDeIndicador(int pIdIndicador, int pIdTipoDetalleCategoria = 0)
         {
             List<CategoriasDesagregacion> listaCategorias = new List<CategoriasDesagregacion>();
+
+            SqlParameter sqlParameter;
+
+            if (pIdTipoDetalleCategoria == 0)
+                sqlParameter = new SqlParameter("@pIdTipoDetalle", DBNull.Value);
+            else
+                sqlParameter = new SqlParameter("@pIdTipoDetalle", pIdTipoDetalleCategoria);
+
             using (db = new SIMEFContext())
             {
                 listaCategorias = db.Database.SqlQuery<CategoriasDesagregacion>
-                ("execute spObtenerCategoriasDesagregacionDeIndicador @pIdIndicador ",
-                     new SqlParameter("@pIdIndicador", pIdIndicador.ToString())
+                ("execute spObtenerCategoriasDesagregacionDeIndicador @pIdIndicador, @pIdTipoDetalle",
+                     new SqlParameter("@pIdIndicador", pIdIndicador.ToString()),
+                     sqlParameter
                     ).ToList();
 
                 listaCategorias = listaCategorias.Select(x => new CategoriasDesagregacion()

@@ -565,5 +565,50 @@ namespace GB.SIMEF.BL
             }
             return resultado;
         }
+
+        /// <summary>
+        /// 10/01/2022
+        /// Jósé Navarro Acuña
+        /// Obtener las categorias de desagregación de tipo fecha asociadas a un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <param name="pIdTipoDetalleCategoria"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerCategoriasDesagregacionTipoFechaDeIndicador(string pIdIndicador, string pIdTipoDetalleCategoria)
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+
+            try
+            {
+                int idIndicador = 0, idTipoDetalleCategoria = 0;
+
+                if (!string.IsNullOrEmpty(pIdIndicador))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pIdIndicador), out idIndicador);
+                }
+
+                if (!string.IsNullOrEmpty(pIdTipoDetalleCategoria))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pIdTipoDetalleCategoria), out idTipoDetalleCategoria);
+                }
+
+                if (idIndicador == 0 || idTipoDetalleCategoria == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+                
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                List<CategoriasDesagregacion> result = clsDatos.ObtenerCategoriasDesagregacionDeIndicador(idIndicador, idTipoDetalleCategoria);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
     }
 }

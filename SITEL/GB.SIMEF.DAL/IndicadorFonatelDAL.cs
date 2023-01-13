@@ -241,6 +241,13 @@ namespace GB.SIMEF.DAL
                     ).ToList();
             }
 
+            listaIndicadores = listaIndicadores.Select(x => new Indicador()
+            {
+                id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                Codigo = x.Codigo,
+                Nombre = x.Nombre
+            }).ToList();
+
             return listaIndicadores;
         }
 

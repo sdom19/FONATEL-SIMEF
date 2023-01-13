@@ -15,80 +15,130 @@
                             <label class="col-form-label ">@EtiquetasViewFormulasCalculo.ModalFecha_LabelUnidad</label>
 
                             <label class="radio-inline" style="display: block;">
-                                <input type="radio" id="radioDias_modalFechaFormula" name="radiosUnidadDeMedidaModalFormula" value="" checked>
+                                @{ 
+                                    var htmlAttributesTotal = new Dictionary<string, object>
+                                    {
+                                        { "id", "radioDias_modalFechaFormula" },
+                                        { "checked", true } /*valor default*/
+                                    };
+                                }
+
+                                @Html.RadioButton("radiosUnidadDeMedidaModalFormula", (int)Constantes.UnidedMedidaDefinicionFechasFormulas.dias, htmlAttributesTotal)
                                 @EtiquetasViewFormulasCalculo.ModalFecha_RadioDias
                             </label>
                             <label class="radio-inline mt-3" style="display: block;">
-                                <input type="radio" id="radioMeses_modalFechaFormula" name="radiosUnidadDeMedidaModalFormula" value="">
+                                @{
+                                    htmlAttributesTotal = new Dictionary<string, object>
+                                    {
+                                        { "id", "radioMeses_modalFechaFormula" }
+                                    };
+                                }
+
+                                @Html.RadioButton("radiosUnidadDeMedidaModalFormula", (int)Constantes.UnidedMedidaDefinicionFechasFormulas.meses, htmlAttributesTotal)
                                 @EtiquetasViewFormulasCalculo.ModalFecha_RadioMeses
                             </label>
                             <label class="radio-inline mt-3" style="display: block;">
-                                <input type="radio" id="radioAnios_modalFechaFormula" name="radiosUnidadDeMedidaModalFormula" value="">
+                                @{
+                                    htmlAttributesTotal = new Dictionary<string, object>
+                                    {
+                                        { "id", "radioAnios_modalFechaFormula" }
+                                    };
+                                }
+
+                                @Html.RadioButton("radiosUnidadDeMedidaModalFormula", (int)Constantes.UnidedMedidaDefinicionFechasFormulas.anios, htmlAttributesTotal)
                                 @EtiquetasViewFormulasCalculo.ModalFecha_RadioAnios
                             </label>
                         </div>
                         <div class="form-group center">
                             <label for="ddlTipoFechaInicioModalFechaFormula" class="col-form-label ">@EtiquetasViewFormulasCalculo.ModalFecha_LabelTipoFechaInicio</label>
                             <div class="select2-wrapper">
-                                <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlTipoFechaInicioModalFechaFormula">
-                                    <option></option>
-                                    <option value="1">Fecha</option>
-                                    <option value="2">Categoría de Desagregación</option>
-                                    <option value="3">Fecha Actual</option>
-                                </select>
+                                @{
+                                    var htmlAttrFuenteIndicador = new Dictionary<string, object>
+                                    {
+                                        { "id", "ddlTipoFechaInicioModalFechaFormula" },
+                                        { "class", "listasDesplegables" }
+                                    };
+                                }
+                                @Html.DropDownList("tipoFechaInicio", new SelectList(ViewBag.TiposFechaInicioModalFecha, "id", "Nombre"),
+                                                                Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)
                             </div>
-                            <small id="ddlIndicadorFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                            <small id="ddlTipoFechaInicioModalFechaFormulaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
                         </div>
 
                         <div class="form-group center hidden" id="divFechaInicioFormulaCalculo">
-                            <label for="txtFechaInicioFormulaCalculo" class="col-form-label">@EtiquetasViewFormulasCalculo.ModalFecha_LabelFechaInicio</label>
-                            <input type="date" class="form-control form-control-fonatel  " id="txtFechaInicioFormulaCalculo">
-                            <small id="txtFechaInicioFormulaCalculoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                            <label for="txtFechaInicioModalDefinicion" class="col-form-label">@EtiquetasViewFormulasCalculo.ModalFecha_LabelFechaInicio</label>
+                            @{
+                                var htmlAttrFechaInicioCalculo = new Dictionary<string, object>
+                                {
+                                    { "class", "form-control form-control-fonatel" },
+                                    { "id", "txtFechaInicioModalDefinicion" },
+                                    { "type", "date" }
+                                };
+                            }
+                            @Html.Editor("fechaInicioCalculo", new { htmlAttributes = htmlAttrFechaInicioCalculo })
+                            <small id="txtFechaInicioModalDefinicionHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
                         </div>
 
                         <div class="form-group center hidden" id="divCategoriaFechaInicioFormulaCalculo">
-                            <label for="ddlCategoriaFechaInicioFormulaCalculo" class="col-form-label ">@EtiquetasViewFormulasCalculo.ModalFecha_LabelCategoriasTipoFecha</label>
+                            <label for="ddlCategoriasFechaInicio" class="col-form-label ">@EtiquetasViewFormulasCalculo.ModalFecha_LabelCategoriasTipoFecha</label>
                             <div class="select2-wrapper">
-                                <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlCategoriaFechaInicioFormulaCalculo">
-                                    <option></option>
-                                    <option value="1">Tipo fecha 1</option>
-                                    <option value="1">Tipo fecha 2</option>
-                                    <option value="1">Tipo fecha 3</option>
-                                </select>
+                                @{
+                                    htmlAttrFuenteIndicador = new Dictionary<string, object>
+                                    {
+                                        { "id", "ddlCategoriasFechaInicio" },
+                                        { "class", "listasDesplegables" }
+                                    };
+                                }
+                                @Html.DropDownList("categoriaTipoFechaInicio", new SelectList(ViewBag.CategoriasTipoFechaInicioModalFecha, "id", "Nombre"),
+                                                                Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)
                             </div>
-                            <small id="ddlCategoríaFechaInicioFormulaCalculoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                            <small id="ddlCategoriasFechaInicioHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
                         </div>
 
                         <div class="form-group center">
                             <label for="ddlTipoFechaFinalModalFechaFormula" class="col-form-label ">@EtiquetasViewFormulasCalculo.ModalFecha_LabelTipoFechaFinal</label>
                             <div class="select2-wrapper">
-                                <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlTipoFechaFinalModalFechaFormula">
-                                    <option></option>
-                                    <option value="1">Fecha</option>
-                                    <option value="2">Categoría de Desagregación</option>
-                                    <option value="3">Fecha Actual</option>
-                                </select>
+                                @{
+                                    htmlAttrFuenteIndicador = new Dictionary<string, object>
+                                    {
+                                        { "id", "ddlTipoFechaFinalModalFechaFormula" },
+                                        { "class", "listasDesplegables" }
+                                    };
+                                }
+                                @Html.DropDownList("tipoFechaInicio", new SelectList(ViewBag.TiposFechaFinalModalFecha, "id", "Nombre"),
+                                                                Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)
                             </div>
-                            <small id="ddlIndicadorFormularioHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                            <small id="ddlTipoFechaFinalModalFechaFormulaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
                         </div>
 
                         <div class="form-group center hidden" id="divFechaFinalFormulaCalculo">
-                            <label for="txtFechaFinalFormulaCalculo" class="col-form-label">@EtiquetasViewFormulasCalculo.ModalFecha_LabelFechaFinal</label>
-                            <input type="date" class="form-control form-control-fonatel  " id="txtFechaFinalFormulaCalculo">
-                            <small id="txtFechaFinalFormulaCalculoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                            <label for="txtFechaFinalModalDefinicion" class="col-form-label">@EtiquetasViewFormulasCalculo.ModalFecha_LabelFechaFinal</label>
+                            @{ 
+                                var htmlAttrFechaFinalCalculo = new Dictionary<string, object>
+                                {
+                                    { "class", "form-control form-control-fonatel" },
+                                    { "id", "txtFechaFinalModalDefinicion" },
+                                    { "type", "date" }
+                                };
+                            }
+                            @Html.Editor("fechaFinalCalculo", new { htmlAttributes = htmlAttrFechaFinalCalculo })
+                            <small id="txtFechaFinalModalDefinicionHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
                         </div>
 
                         <div class="form-group center hidden" id="divCategoriaFechaFinalFormulaCalculo">
-                            <label for="ddlCategoriaFechaFinalFormulaCalculo" class="col-form-label ">@EtiquetasViewFormulasCalculo.ModalFecha_LabelCategoriasTipoFecha</label>
+                            <label for="ddlCategoriasFechaFinal" class="col-form-label ">@EtiquetasViewFormulasCalculo.ModalFecha_LabelCategoriasTipoFecha</label>
                             <div class="select2-wrapper">
-                                <select class="form-control form-control-fonatel required listasDesplegables" aria-label="Default select example" id="ddlCategoriaFechaFinalFormulaCalculo">
-                                    <option></option>
-                                    <option value="1">Tipo fecha 1</option>
-                                    <option value="1">Tipo fecha 2</option>
-                                    <option value="1">Tipo fecha 3</option>
-                                </select>
+                                @{
+                                    htmlAttrFuenteIndicador = new Dictionary<string, object>
+                                    {
+                                        { "id", "ddlCategoriasFechaFinal" },
+                                        { "class", "listasDesplegables" }
+                                    };
+                                }
+                                @Html.DropDownList("categoriaTipoFechaFinal", new SelectList(ViewBag.CategoriasTipoFechaFinalModalFecha, "id", "Nombre"),
+                                                                Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)
                             </div>
-                            <small id="ddlCategoríaFechaFinalFormulaCalculoHelp" class="form-text form-text-danger-fonatel">@Etiquetas.CampoRequerido</small>
+                            <small id="ddlCategoriasFechaFinalHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
                         </div>
 
                     </div>

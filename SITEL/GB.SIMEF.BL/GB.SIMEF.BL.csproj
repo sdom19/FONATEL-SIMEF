@@ -80,6 +80,8 @@
     <Compile Include="EditarDetalleRegistroIndicadorFonatelBL.cs" />
     <Compile Include="EditarRegistroIndicadorFonatelBL.cs" />
     <Compile Include="FormularioWebBL.cs" />
+    <Compile Include="FormulasCalculoTipoFechaBL.cs" />
+    <Compile Include="FormulasCalculoUnidadMedidaBL.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
     <Compile Include="FuenteIndicadorBL.cs" />

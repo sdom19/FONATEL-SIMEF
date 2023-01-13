@@ -108,6 +108,13 @@ namespace GB.SIMEF.Resources
             IndicadorCruzado = 5,
             IndicadorFuenteExterna = 6
         }
+
+        public enum UnidedMedidaDefinicionFechasFormulas : int
+        {
+            dias = 1,
+            meses = 2,
+            anios = 3
+        }
              
         public struct CifradoDatos
         {

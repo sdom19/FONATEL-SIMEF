@@ -20,7 +20,7 @@
                                         { "class", "listasDesplegables" }
                                     };
                                 }
-                                @Html.DropDownList("fuenteIndicador", new SelectList(ViewBag.CategoriasModalDetalle, "id", "Categoria"),
+                                @Html.DropDownList("categoria", new SelectList(ViewBag.CategoriasModalDetalle, "id", "Categoria"),
                                                                 Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)
                             </div>
                             <small id="ddlCategoria_ModalDetalleHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
@@ -38,7 +38,7 @@
                                         { "class", "listasDesplegables" }
                                     };
                                 }
-                                @Html.DropDownList("fuenteIndicador", new SelectList(ViewBag.CriteriosModalDetalle, "id", "Criterio"),
+                                @Html.DropDownList("criterio", new SelectList(ViewBag.CriteriosModalDetalle, "id", "Criterio"),
                                                                 Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)
                             </div>
                             <small id="ddlCriterio_ModalDetalleHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
@@ -56,7 +56,7 @@
                                         { "class", "listasDesplegables" }
                                     };
                                 }
-                                @Html.DropDownList("fuenteIndicador", new SelectList(ViewBag.DetallesModalDetalle, "id", "Detalle"),
+                                @Html.DropDownList("detalleCategoria", new SelectList(ViewBag.DetallesModalDetalle, "id", "Detalle"),
                                                                 Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)
                             </div>
                             <small id="ddlDetalle_ModalDetalleHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
