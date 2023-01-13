@@ -62,6 +62,8 @@
     <Compile Include="DetalleRegistroIndicadorCategoriaFonatel.cs" />
     <Compile Include="DetalleReglaValidacion.cs" />
     <Compile Include="EstadoLogico.cs" />
+    <Compile Include="FormulasCalculoTipoFecha.cs" />
+    <Compile Include="FormulasCalculoUnidadMedida.cs" />
     <Compile Include="PlantillaHtml.cs" />
     <Compile Include="ReglaComparacionIndicador.cs" />
     <Compile Include="ReglaIndicadorEntrada.cs" />

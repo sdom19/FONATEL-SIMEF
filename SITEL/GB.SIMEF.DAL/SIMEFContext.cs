@@ -91,5 +91,7 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<RelacionCategoriaId> RelacionCategoriaId { get; set; }
 
         public virtual DbSet<AcumulacionFormula> AcumulacionFormula { get; set; }
+        public virtual DbSet<FormulasCalculoTipoFecha> FormulasCalculoTipoFecha { get; set; }
+        public virtual DbSet<FormulasCalculoUnidadMedida> FormulasCalculoUnidadMedida { get; set; }
     }
 }

@@ -30,6 +30,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly ServicioSitelBL servicioSitelBL;
         private readonly AcumulacionFormulaBL acumulacionFormulaBL;
         private readonly DetalleIndicadorCriteriosSitelBL detalleIndicadorCriteriosSitelBL;
+        private readonly FormulasCalculoTipoFechaBL formulasCalculoTipoFechaBL;
 
         private readonly string usuario = string.Empty;
         private readonly string nombreVista = string.Empty;
@@ -54,6 +55,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             servicioSitelBL = new ServicioSitelBL();
             acumulacionFormulaBL = new AcumulacionFormulaBL(nombreVista, usuario);
             detalleIndicadorCriteriosSitelBL = new DetalleIndicadorCriteriosSitelBL();
+            formulasCalculoTipoFechaBL = new FormulasCalculoTipoFechaBL();
         }
 
         #region Eventos de página
@@ -319,6 +321,35 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 resultado = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pIdIndicador);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 10/01/2023
+        /// José Navarro Acuña
+        /// Obtiene un listado de las categorias de desagrecion de tipo fecha de un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        public async Task<string> ObtenerCategoriasDesagregacionTipoFechaDeIndicador(string pIdIndicador)
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionTipoFechaDeIndicador(
+                    pIdIndicador, 
+                    Utilidades.Encriptar(((int)TipoDetalleCategoriaEnum.Fecha).ToString()
+                    ));
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -811,6 +842,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 09/01/2023
+        /// José Navarro Acuña
+        /// Función que permite cargar los tipos de fechas para la defición de fechas de un argumento
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> ObtenerTiposFechasDefinicion()
+        {
+            RespuestaConsulta<List<FormulasCalculoTipoFecha>> resultado = new RespuestaConsulta<List<FormulasCalculoTipoFecha>>();
+
+            await Task.Run(() =>
+            {
+                resultado = formulasCalculoTipoFechaBL.ObtenerDatos(new FormulasCalculoTipoFecha());
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
         #endregion
 
         #region Funciones privadas
@@ -832,6 +880,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.Indicadores = Enumerable.Empty<SelectListItem>();
             ViewBag.Acumulaciones = Enumerable.Empty<SelectListItem>();
             ViewBag.IndicadorSalida = Enumerable.Empty<SelectListItem>();
+            ViewBag.TiposFechaInicioModalFecha = Enumerable.Empty<SelectListItem>();
+            ViewBag.CategoriasTipoFechaInicioModalFecha = Enumerable.Empty<SelectListItem>();
+            ViewBag.TiposFechaFinalModalFecha = Enumerable.Empty<SelectListItem>();
+            ViewBag.CategoriasTipoFechaFinalModalFecha = Enumerable.Empty<SelectListItem>();
 
             // Modal detalle de agregación/agrupación
             ViewBag.CategoriasModalDetalle = Enumerable.Empty<SelectListItem>();
