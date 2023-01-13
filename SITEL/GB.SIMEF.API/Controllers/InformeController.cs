@@ -52,6 +52,54 @@ namespace GB.SIMEF.API.Controllers
             return resultado;
         }
 
+        [ArrayInput("nn")]
+        [Route("~/Informes/{nn?}")]
+        public JObject Informes(string nn = "")
+        {
+            //Se crea el objeto que se retornara
+            var resultado = new JObject();
+
+            string[] lista = nn.Split(",");
+
+            //Se comprueba que se tiene datos recibidos
+            if (lista.Length > 0)
+            {
+                //Se recorren datos recibidos
+                foreach (var item in lista)
+                {
+                    //Se obtiene la informacion de las tablas
+                    InformeNombreTabla informe = ObtenerInformeNombreTabla(item);
+
+                    //Se comprueba que se tiene datos obtenidos
+                    if (informe != null)
+                    {
+                        //Se crea array para la informacion
+                        JArray filas = new JArray();
+                        //Se obtiene la cantidad de filas
+                        int cantidadFilas = informe.InformeFilasValor.Select(x => x.IdFilaValor).Max();
+                        //Se recorren las filas
+                        for (int i = 1; i <= cantidadFilas; i++)
+                        {
+                            dynamic jsonObject = new JObject();
+                            //Se recorren los datos de valores con la fila para llenar el objeto
+                            foreach (var valor in informe.InformeFilasValor.Where(x => x.IdFilaValor == i))
+                            {
+                                //Se trae el nombre del encabezado
+                                string encabezado = informe.InformeEncabezadoTablas.Where(x => x.IdEncabezado == valor.IdEncabezado).FirstOrDefault().NombreEncabezado;
+                                jsonObject.Add(encabezado, valor.Valor);
+
+                            }
+                            filas.Add(jsonObject);
+                        }
+                        //Se agrega el objeto tabla con toda la informacion al objeto resultado
+                        resultado.Add(item, filas);
+                    }
+                }
+            }
+            //Se retorna los valores
+            return resultado;
+        }
+
         /// <summary>
         /// Método para obtener el informe nombre tabla
         /// </summary>

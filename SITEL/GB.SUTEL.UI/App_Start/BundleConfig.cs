@@ -134,6 +134,10 @@ namespace GB.SUTEL.UI
                 "~/Scripts/Fonatel/JsBitacoraFonatel.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/FONATEL/GeneradorURL").Include(
+                "~/Scripts/Fonatel/jsGeneradorURL.js"
+                ));
+
             // Stylesheets
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

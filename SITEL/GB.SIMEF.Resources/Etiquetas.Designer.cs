@@ -250,6 +250,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generar URL.
+        /// </summary>
+        public static string Generar {
+            get {
+                return ResourceManager.GetString("Generar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Indicador.
         /// </summary>
         public static string Indicador {
@@ -282,6 +291,15 @@ namespace GB.SIMEF.Resources {
         public static string ReglasValidacion {
             get {
                 return ResourceManager.GetString("ReglasValidacion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Seleccionar.
+        /// </summary>
+        public static string Seleccionar {
+            get {
+                return ResourceManager.GetString("Seleccionar", resourceCulture);
             }
         }
     }
