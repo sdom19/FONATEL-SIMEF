@@ -21,6 +21,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
         private readonly IndicadorFonatelBL indicadorFonatelBL;
         private readonly DetalleIndicadorVariablesBL detalleIndicadorVariablesBL;
+        private readonly DetalleIndicadorCategoriaBL detalleIndicadorCategoriaBL;
         private readonly CategoriasDesagregacionBL categoriasDesagregacionBL;
         private readonly FuenteIndicadorBL fuenteIndicadorBL;
         private readonly GrupoIndicadorBL grupoIndicadorBL;
@@ -28,6 +29,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly ClasificacionIndicadorBL clasificacionIndicadorBL;
         private readonly ServicioSitelBL servicioSitelBL;
         private readonly AcumulacionFormulaBL acumulacionFormulaBL;
+        private readonly DetalleIndicadorCriteriosSitelBL detalleIndicadorCriteriosSitelBL;
+        private readonly FormulasCalculoTipoFechaBL formulasCalculoTipoFechaBL;
 
         private readonly string usuario = string.Empty;
         private readonly string nombreVista = string.Empty;
@@ -43,6 +46,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             formulaBL = new FormulasCalculoBL(nombreVista, usuario);
             indicadorFonatelBL = new IndicadorFonatelBL(nombreVista, usuario);
             detalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(nombreVista, usuario);
+            detalleIndicadorCategoriaBL = new DetalleIndicadorCategoriaBL(nombreVista, usuario);
             categoriasDesagregacionBL = new CategoriasDesagregacionBL(nombreVista, usuario);
             fuenteIndicadorBL = new FuenteIndicadorBL(nombreVista, usuario);
             grupoIndicadorBL = new GrupoIndicadorBL(nombreVista, usuario);
@@ -50,9 +54,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             clasificacionIndicadorBL = new ClasificacionIndicadorBL(nombreVista, usuario);
             servicioSitelBL = new ServicioSitelBL();
             acumulacionFormulaBL = new AcumulacionFormulaBL(nombreVista, usuario);
+            detalleIndicadorCriteriosSitelBL = new DetalleIndicadorCriteriosSitelBL();
+            formulasCalculoTipoFechaBL = new FormulasCalculoTipoFechaBL();
         }
 
-        #region Eventos de la página
+        #region Eventos de página
 
         // GET: Solicitud
         public ActionResult Index()
@@ -317,6 +323,74 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pIdIndicador);
             });
 
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 10/01/2023
+        /// José Navarro Acuña
+        /// Obtiene un listado de las categorias de desagrecion de tipo fecha de un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <returns></returns>
+        public async Task<string> ObtenerCategoriasDesagregacionTipoFechaDeIndicador(string pIdIndicador)
+        {
+            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionTipoFechaDeIndicador(
+                    pIdIndicador, 
+                    Utilidades.Encriptar(((int)TipoDetalleCategoriaEnum.Fecha).ToString()
+                    ));
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 02/01/2022
+        /// José Navarro Acuña
+        /// Obtiene los detalles relacionados (vista indicador) con una categoria de desagregación, y a su vez con un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <param name="pIdCategoria"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesDeCategoria(string pIdIndicador, string pIdCategoria)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            if (string.IsNullOrEmpty(pIdCategoria))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicadorYCategoria(new DetalleIndicadorCategoria()
+                {
+                    DetallesAgrupados = false,
+                    idIndicadorString = pIdIndicador,
+                    idCategoriaString = pIdCategoria
+                });
+            });
             return JsonConvert.SerializeObject(resultado);
         }
 
@@ -714,6 +788,77 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 22/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los detalles de un indicador provenientes de una fuente, ya sea, fonatel, mercados, calidad, uit, cruzados o fuente externa
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <param name="pFuenteIndicadorEnum"></param>
+        /// <returns></returns>
+        public async Task<string> ObtenerVariablesDatoCriteriosIndicador(string pIdIndicador, FuenteIndicadorEnum pFuenteIndicador)
+        {
+            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            DetalleIndicadorVariables detalleIndicador = new DetalleIndicadorVariables()
+            {
+                idIndicadorString = pIdIndicador
+            };
+
+            await Task.Run(() =>
+            {
+                switch (pFuenteIndicador)
+                {
+                    case FuenteIndicadorEnum.IndicadorDGF:
+                        resultado = detalleIndicadorVariablesBL.ObtenerDatos(detalleIndicador);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorDGM:
+                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosMercado(detalleIndicador);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorDGC:
+                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosCalidad(detalleIndicador);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorUIT:
+                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosUIT(detalleIndicador);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorCruzado:
+                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosCruzado(detalleIndicador);
+                        break;
+                    case FuenteIndicadorEnum.IndicadorFuenteExterna:
+                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosExterno(detalleIndicador);
+                        break;
+                    default:
+                        resultado.HayError = (int)Error.ErrorSistema;
+                        break;
+                }
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 09/01/2023
+        /// José Navarro Acuña
+        /// Función que permite cargar los tipos de fechas para la defición de fechas de un argumento
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> ObtenerTiposFechasDefinicion()
+        {
+            RespuestaConsulta<List<FormulasCalculoTipoFecha>> resultado = new RespuestaConsulta<List<FormulasCalculoTipoFecha>>();
+
+            await Task.Run(() =>
+            {
+                resultado = formulasCalculoTipoFechaBL.ObtenerDatos(new FormulasCalculoTipoFecha());
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
         #endregion
 
         #region Funciones privadas
@@ -735,6 +880,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.Indicadores = Enumerable.Empty<SelectListItem>();
             ViewBag.Acumulaciones = Enumerable.Empty<SelectListItem>();
             ViewBag.IndicadorSalida = Enumerable.Empty<SelectListItem>();
+            ViewBag.TiposFechaInicioModalFecha = Enumerable.Empty<SelectListItem>();
+            ViewBag.CategoriasTipoFechaInicioModalFecha = Enumerable.Empty<SelectListItem>();
+            ViewBag.TiposFechaFinalModalFecha = Enumerable.Empty<SelectListItem>();
+            ViewBag.CategoriasTipoFechaFinalModalFecha = Enumerable.Empty<SelectListItem>();
+
+            // Modal detalle de agregación/agrupación
+            ViewBag.CategoriasModalDetalle = Enumerable.Empty<SelectListItem>();
+            ViewBag.CriteriosModalDetalle = Enumerable.Empty<SelectListItem>();
+            ViewBag.DetallesModalDetalle = Enumerable.Empty<SelectListItem>();
 
             ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { }).objetoRespuesta;
 

@@ -146,6 +146,7 @@ namespace GB.SIMEF.DAL
             listaIndicadores = listaIndicadoresCalidad.Select(x => new Indicador()
             {
                 id = Utilidades.Encriptar(x.IdIndicador.ToString()),
+                Codigo = x.Codigo,
                 Nombre = x.Nombre
             }).ToList();
 
@@ -180,6 +181,7 @@ namespace GB.SIMEF.DAL
             listaIndicadores = listaIndicadores.Select(x => new Indicador()
             {
                 id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                Codigo = x.Codigo,
                 Nombre = x.Nombre
             }).ToList();
 
@@ -215,6 +217,7 @@ namespace GB.SIMEF.DAL
             listaIndicadores = listaIndicadoresCruzados.Select(x => new Indicador()
             {
                 id = Utilidades.Encriptar(x.IdIndicador.ToString()),
+                Codigo = x.Codigo,
                 Nombre = x.Nombre
             }).ToList();
 
@@ -237,6 +240,13 @@ namespace GB.SIMEF.DAL
                     "select IdIndicador, id, Nombre from [FONATEL].[viewIndicadorFuenteExterna]"
                     ).ToList();
             }
+
+            listaIndicadores = listaIndicadores.Select(x => new Indicador()
+            {
+                id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                Codigo = x.Codigo,
+                Nombre = x.Nombre
+            }).ToList();
 
             return listaIndicadores;
         }
@@ -617,12 +627,13 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 20/12/2022
         /// José Navarro Acuña
-        /// Clase privada del modelo DAL para el consumo de la vista que consulta los indicadores de calidad
+        /// Clase privada del modelo DAL para el consumo de la vista que consulta los indicadores
         /// </summary>
         private class IndicadorSitel
         {
             public string IdIndicador { get; set; } // la diferencia es que los IDs son alfanumericos
             public string Nombre { get; set; }
+            public string Codigo { get; set; }
         }
         #endregion
     }
