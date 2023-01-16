@@ -1528,6 +1528,7 @@ GestionFormulaView = {
                 }
                 else {
                     this.RestablecerCamposModalFecha();
+                    GestionFormulaView.Metodos.MostrarComboboxesModalFecha("", "");
                     this.CargarComboboxesModalFechasModoCreacion();
                 }   
             }
@@ -1583,21 +1584,10 @@ GestionFormulaView = {
                         }
                     })
                     .then(_ => {
-                        GestionFormulaView.Metodos.ActivarDesactivarComboxesModalFecha(
-                            pObjFechas.idTipoFechaInicio,
-                            GestionFormulaView.Controles.modalFechaCalculo.divFechaInicio,
-                            GestionFormulaView.Controles.modalFechaCalculo.divCategoriaFechaInicio
-                        );
-
-                        GestionFormulaView.Metodos.ActivarDesactivarComboxesModalFecha(
-                            pObjFechas.idTipoFechaFinal,
-                            GestionFormulaView.Controles.modalFechaCalculo.divFechaFinal,
-                            GestionFormulaView.Controles.modalFechaCalculo.divCategoriaFechaFinal
-                        );
+                        GestionFormulaView.Metodos.MostrarComboboxesModalFecha(pObjFechas.idTipoFechaInicio, pObjFechas.idTipoFechaFinal);
                     })
                     .then(_ => {
                         setTimeout(() => {
-                            //this.ValidarFormularioModalDefinicionFechas(); // marcar los campos en rojo en caso de que se haya eliminado un dato en otro módulo
                             this.AbrirModalDefinicionFechas(false);
                         }, 100); // un pequeño delay para establecer los valores
                     })
@@ -1606,6 +1596,7 @@ GestionFormulaView = {
             }
             else {
                 $("#loading").fadeOut();
+                this.MostrarComboboxesModalFecha(pObjFechas.idTipoFechaInicio, pObjFechas.idTipoFechaFinal);
                 this.AbrirModalDefinicionFechas(false);
             }
         },
@@ -1640,6 +1631,20 @@ GestionFormulaView = {
             SeleccionarItemSelect2(controles.ddlCategoriasFechaInicio, "");
             SeleccionarItemSelect2(controles.ddlCategoriasFechaFinal, "");
             $(controles.radioDias).prop("checked", true);
+        },
+
+        MostrarComboboxesModalFecha: function (pTipoFechaInicio, pTipoFechaFinal) {
+            this.ActivarDesactivarComboxesModalFecha(
+                pTipoFechaInicio,
+                GestionFormulaView.Controles.modalFechaCalculo.divFechaInicio,
+                GestionFormulaView.Controles.modalFechaCalculo.divCategoriaFechaInicio
+            );
+
+            this.ActivarDesactivarComboxesModalFecha(
+                pTipoFechaFinal,
+                GestionFormulaView.Controles.modalFechaCalculo.divFechaFinal,
+                GestionFormulaView.Controles.modalFechaCalculo.divCategoriaFechaFinal
+            );
         },
 
         ActivarDesactivarComboxesModalFecha: function (pTipoFecha, pDivFecha, pDivCategoria) {
@@ -1809,16 +1814,7 @@ GestionFormulaView = {
                     });
                 })
                 .then(_ => {
-                    GestionFormulaView.Metodos.ActivarDesactivarComboxesModalFecha(
-                        null,
-                        GestionFormulaView.Controles.modalFechaCalculo.divFechaInicio,
-                        GestionFormulaView.Controles.modalFechaCalculo.divCategoriaFechaInicio);
-
-                    GestionFormulaView.Metodos.ActivarDesactivarComboxesModalFecha(
-                        null,
-                        GestionFormulaView.Controles.modalFechaCalculo.divFechaFinal,
-                        GestionFormulaView.Controles.modalFechaCalculo.divCategoriaFechaFinal
-                    );
+                    GestionFormulaView.Metodos.MostrarComboboxesModalFecha("", "");
                     GestionFormulaView.Metodos.LimpiarMensajesValidacionModalFecha();
                     GestionFormulaView.Metodos.RestablecerCamposModalFecha();
                 })
