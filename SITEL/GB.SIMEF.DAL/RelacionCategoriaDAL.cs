@@ -113,7 +113,8 @@ namespace GB.SIMEF.DAL
                         IdcategoriaAtributoDetalle=x.IdcategoriaAtributoDetalle,
                         IdCategoriaId=x.IdCategoriaId,
                         Etiqueta=db.DetalleCategoriaTexto
-                            .Where(p=>p.idCategoria==x.IdcategoriaAtributo && p.idCategoriaDetalle==x.IdcategoriaAtributoDetalle).FirstOrDefault().Etiqueta
+                            .Where(p=>p.idCategoria==x.IdcategoriaAtributo && p.idCategoriaDetalle==x.IdcategoriaAtributoDetalle) != null ? db.DetalleCategoriaTexto
+                            .Where(p => p.idCategoria == x.IdcategoriaAtributo && p.idCategoriaDetalle == x.IdcategoriaAtributoDetalle).FirstOrDefault().Etiqueta : ""
                     }).ToList();
                 }
                 
