@@ -41,14 +41,7 @@ namespace GB.SIMEF.Entities
         {
             StringBuilder json = new StringBuilder();
             json.Append("{\"Nombre variable dato\":\"").Append(this.NombreVariable).Append("\",");
-            
-
-            json.Append("\"Descripción\":").Append(this.Descripcion).Append("}");
-
-            
-
-
-
+            json.Append("\"Descripción\":\"").Append(this.Descripcion).Append("\"}");
 
             string resultado = json.ToString();
 

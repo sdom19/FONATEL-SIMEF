@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccionEjecutarFormula" xml:space="preserve">
-    <value>Ejecutar Fórmula</value>
+    <value>Correr proceso</value>
   </data>
   <data name="AccionEliminarItem" xml:space="preserve">
-    <value>Eliminar ítem</value>
+    <value>Eliminar</value>
   </data>
   <data name="CrearFormula_LabelCategoriaDesagregacion" xml:space="preserve">
     <value>Categoría de Desagregación</value>
@@ -143,9 +143,6 @@
   </data>
   <data name="CrearFormula_LabelNivelCalculo" xml:space="preserve">
     <value>Nivel de Cálculo</value>
-  </data>
-  <data name="CrearFormula_LabelNivelCalculoCategoria" xml:space="preserve">
-    <value>Categoría de desagregación</value>
   </data>
   <data name="CrearFormula_LabelNivelCalculoTotal" xml:space="preserve">
     <value>Total</value>
@@ -226,43 +223,43 @@
     <value>Meses</value>
   </data>
   <data name="ModalFecha_Titulo" xml:space="preserve">
-    <value>Definición de Fechas</value>
+    <value>Definición Fechas</value>
   </data>
   <data name="OperacionCalendario" xml:space="preserve">
-    <value>Calendario</value>
+    <value>Rangos de Fechas</value>
   </data>
   <data name="OperacionDivision" xml:space="preserve">
-    <value>División</value>
+    <value>Dividir</value>
   </data>
   <data name="OperacionIgualQue" xml:space="preserve">
-    <value>Igual que</value>
+    <value>Igual</value>
   </data>
   <data name="OperacionMayorIgualQue" xml:space="preserve">
-    <value>Mayor o igual que</value>
+    <value>Mayor igual</value>
   </data>
   <data name="OperacionMayorQue" xml:space="preserve">
     <value>Mayor que</value>
   </data>
   <data name="OperacionMenorIgualQue" xml:space="preserve">
-    <value>Menor o igual que</value>
+    <value>Menor igual</value>
   </data>
   <data name="OperacionMenorQue" xml:space="preserve">
     <value>Menor que</value>
   </data>
   <data name="OperacionMultiplicacion" xml:space="preserve">
-    <value>Multiplicación</value>
+    <value>Multiplicar</value>
   </data>
   <data name="OperacionParentesisAbierto" xml:space="preserve">
-    <value>Paréntesis abierto</value>
+    <value>Abrir paréntesis</value>
   </data>
   <data name="OperacionParentesisCerrado" xml:space="preserve">
-    <value>Paréntesis cerrado</value>
+    <value>Cerrar paréntesis</value>
   </data>
   <data name="OperacionResta" xml:space="preserve">
-    <value>Resta</value>
+    <value>Restar</value>
   </data>
   <data name="OperacionSuma" xml:space="preserve">
-    <value>Suma</value>
+    <value>Sumar</value>
   </data>
   <data name="TablaIndicadores_ColumnaCodigo" xml:space="preserve">
     <value>Código</value>
