@@ -849,10 +849,16 @@ GestionFormulaView = {
             GetRegex: () => /^[\+\-*\/<>=().0-9 ]+$/
         },
 
+        TipoArgumento: {
+            criterio: 1,
+            fecha: 2
+        },
+
         attrCodigo: "data-codigo",
         attrIdentificador: "data-identificador",
         labelGrupo: "Grupo",
         labelAgrupacion: "Agrupación",
+        labelHoy: "Hoy",
         tooltipBtnAgregarDetalleAgregacionAgregar: "Agregar detalle",
         tooltipBtnAgregarDetalleAgregacionEliminar: "Eliminar detalle",
 
@@ -862,6 +868,8 @@ GestionFormulaView = {
         listaConfigDetallesIndicador: [],
         listaConfigDefinicionFechas: {},
         filaSeleccionadaTablaDetalles: null,
+
+        GetArgumentoConFormato: (pArgIzquierda, pArgDerecha) => `{${pArgIzquierda} - ${pArgDerecha}}`,
     },
 
     Mensajes: {
@@ -1180,20 +1188,66 @@ GestionFormulaView = {
             CargarDatasource();
         },
 
-        AgregarArgumentoAFormula: function () {
-            let variableCriterio = $(GestionFormulaView.Variables.filaSeleccionadaTablaDetalles).attr("value");
-            let objDetalle = GestionFormulaView.Variables.listaConfigDetallesIndicador[variableCriterio];
+        AgregarArgumentoAFormula: function (pTipoArgumento) {
+            if (pTipoArgumento == GestionFormulaView.Variables.TipoArgumento.criterio) {
+                let variableCriterio = $(GestionFormulaView.Variables.filaSeleccionadaTablaDetalles).attr("value");
+                let objDetalle = GestionFormulaView.Variables.listaConfigDetallesIndicador[variableCriterio];
 
-            if (objDetalle != null) {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaAgregarArgumento, jsMensajes.Variables.actionType.agregar)
-                    .set('onok', function (closeEvent) {
+                if (objDetalle != null) {
+                    let argumentoConstruido = GestionFormulaView.Variables.GetArgumentoConFormato(objDetalle.codigoIndicador, objDetalle.nombreVariable);
+                    RegistrarArgumento(this.AniadirOperadorAFormula, argumentoConstruido);
+                }
+            }
+            else { // definición de fecha
+                let indicador = $(GestionFormulaView.Controles.form.ddlIndicador).val();
+                let objFecha = GestionFormulaView.Variables.listaConfigDefinicionFechas[indicador];
 
-                        GestionFormulaView.Metodos.AniadirOperadorAFormula(`{${objDetalle.codigoIndicador} - ${objDetalle.nombreVariable}}`);
+                if (objFecha != null) {
+                    let argumentoConstruido = this.ConstruirArgumentoTipoFecha(objFecha);
+                    this.AniadirOperadorAFormula(argumentoConstruido);
+                }
+            }
+
+            function RegistrarArgumento(pCallback, pArgumento) {
+                new Promise((resolve, reject) => {
+                    jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaAgregarArgumento, jsMensajes.Variables.actionType.agregar)
+                        .set('onok', function (_) { resolve(true); });
+                })
+                    .then(_ => {
+                        pCallback(pArgumento);
 
                         jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoAgregado)
-                            .set('onok', function (_) {});
+                            .set('onok', function (_) { });
                     });
             }
+        },
+
+        ConstruirArgumentoTipoFecha: function (pConfigDefinicionFecha) {
+            // tipo fecha final
+            let parametro1, parametro2 = "";
+
+            if (pConfigDefinicionFecha.idTipoFechaFinal == GestionFormulaView.Variables.DefinionFecha.categoria) {
+                parametro1 = pConfigDefinicionFecha.nombreCategoriaFinal;
+            }
+            else if (pConfigDefinicionFecha.idTipoFechaFinal == GestionFormulaView.Variables.DefinionFecha.fecha) {
+                parametro1 = pConfigDefinicionFecha.fechaFinal;
+            }
+            else {
+                parametro1 = GestionFormulaView.Variables.labelHoy;
+            }
+
+            // tipo fecha inicio
+            if (pConfigDefinicionFecha.idTipoFechaInicio == GestionFormulaView.Variables.DefinionFecha.categoria) {
+                parametro2 = pConfigDefinicionFecha.nombreCategoriaInicio;
+            }
+            else if (pConfigDefinicionFecha.idTipoFechaInicio == GestionFormulaView.Variables.DefinionFecha.fecha) {
+                parametro2 = pConfigDefinicionFecha.fechaInicio;
+            }
+            else {
+                parametro2 = GestionFormulaView.Variables.labelHoy;
+            }
+
+            return GestionFormulaView.Variables.GetArgumentoConFormato(parametro1, parametro2);
         },
 
         AniadirOperadorAFormula: function (pOperador) {
@@ -1709,10 +1763,12 @@ GestionFormulaView = {
                 tipoFechaInicio: $(controles.ddlTipoFechaInicio).val(),
                 fechaInicio: $(controles.txtFechaInicio).val(),
                 categoriaInicio: $(controles.ddlCategoriasFechaInicio).val(),
+                nombreCategoriaInicio: $(controles.ddlCategoriasFechaInicio).text(),
                 idTipoFechaFinal: $(controles.ddlTipoFechaFinal).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador),
                 tipoFechaFinal: $(controles.ddlTipoFechaFinal).val(),
                 fechaFinal: $(controles.txtFechaFinal).val(),
-                categoriaFinal: $(controles.ddlCategoriasFechaFinal).val()
+                categoriaFinal: $(controles.ddlCategoriasFechaFinal).val(),
+                nombreCategoriaFinal: $(controles.ddlCategoriasFechaFinal).text()
             };
         },
 
@@ -1786,6 +1842,7 @@ GestionFormulaView = {
         GuardarDefinicionDeFechas: function () {
             if (this.ValidarFormularioModalDefinicionFechas()) {
                 this.AgregarObjConfigDefinicionFechas();
+                this.AgregarArgumentoAFormula(GestionFormulaView.Variables.TipoArgumento.fecha);
 
                 jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoFechaCreado)
                     .set('onok', function (closeEvent) {
@@ -1814,9 +1871,11 @@ GestionFormulaView = {
                     });
                 })
                 .then(_ => {
-                    GestionFormulaView.Metodos.MostrarComboboxesModalFecha("", "");
-                    GestionFormulaView.Metodos.LimpiarMensajesValidacionModalFecha();
-                    GestionFormulaView.Metodos.RestablecerCamposModalFecha();
+                    setTimeout(() => {
+                        GestionFormulaView.Metodos.MostrarComboboxesModalFecha("", "");
+                        GestionFormulaView.Metodos.LimpiarMensajesValidacionModalFecha();
+                        GestionFormulaView.Metodos.RestablecerCamposModalFecha();
+                    }, 150);
                 })
                 .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
@@ -1942,7 +2001,7 @@ GestionFormulaView = {
 
         $(document).on("click", GestionFormulaView.Controles.form.btnAgregarArgumento, function () {
             GestionFormulaView.Variables.filaSeleccionadaTablaDetalles = $(this).parent().parent();
-            GestionFormulaView.Metodos.AgregarArgumentoAFormula();
+            GestionFormulaView.Metodos.AgregarArgumentoAFormula(GestionFormulaView.Variables.TipoArgumento.criterio);
         });
 
         // Modal detalle desagregación/agrupación
