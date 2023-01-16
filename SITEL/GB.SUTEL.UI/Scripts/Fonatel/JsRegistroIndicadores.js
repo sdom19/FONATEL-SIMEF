@@ -167,8 +167,9 @@
                 html = html + categoria.html;
             }
             html = html + "</tr>"
-            for (var i = 0; i < cantidadFilas; i++) {
-                $(jsRegistroIndicadorFonatel.Controles.filasTablaIndicador).append(html.replace("[0]", i+1));
+
+                for (var i = 0; i < cantidadFilas; i++) {
+                    $(jsRegistroIndicadorFonatel.Controles.filasTablaIndicador).append(html.replaceAll("[0]", i + 1));
             }
          
         },
@@ -713,6 +714,11 @@ function setSelect2() {
         width: 'resolve'
     });
 }
+
+$(document).on("click", "#btnPruebaCombos", function () {
+    setSelect2();
+});
+
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.tabRegistroIndicador, function () {
 
