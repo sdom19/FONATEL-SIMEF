@@ -339,7 +339,7 @@
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
                     JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
-
+                    
                     jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
                         .set('onok', function (closeEvent) {
                         });
@@ -759,7 +759,7 @@ $(document).on("click", JsRelacion.Controles.btnFinalizarDetalle, function (e) {
 
 $(document).on("click", JsRelacion.Controles.btnGuardarCategoria, function (e) {
     e.preventDefault();
-    if ($(JsRelacion.Controles.ddlCategoriaAtributo).val() == "") {
+    if ($(JsRelacion.Controles.ddlCategoriaAtributo).val() == "" || $(JsRelacion.Controles.ddlCategoriaAtributo).val() == null) {
         $(JsRelacion.Controles.CategoriaDetalleHelp).removeClass("hidden");
         var ddlCatAtributo = $(JsRelacion.Controles.ddlCategoriaAtributo);
         $(ddlCatAtributo[0]).parent().addClass("has-error");
