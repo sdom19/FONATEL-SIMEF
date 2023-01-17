@@ -1205,7 +1205,8 @@ GestionFormulaView = {
                     let argumentoConstruido = {
                         tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable,
                         valor: {
-                            text: GestionFormulaView.Variables.GetArgumentoConFormato(objDetalle.codigoIndicador, objDetalle.nombreVariable)
+                            text: GestionFormulaView.Variables.GetArgumentoConFormato(objDetalle.codigoIndicador, objDetalle.nombreVariable),
+                            objeto: objDetalle
                         }
                     };
                     RegistrarArgumento(this.AgregarVariableAFormula, argumentoConstruido);
@@ -1220,7 +1221,8 @@ GestionFormulaView = {
                     let argumentoConstruido = {
                         tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable,
                         valor: {
-                            text: this.ConstruirArgumentoTipoFecha(objFecha)
+                            text: this.ConstruirArgumentoTipoFecha(objFecha),
+                            objeto: objFecha
                         }
                     };
                     this.AgregarVariableAFormula(argumentoConstruido);
@@ -1289,7 +1291,7 @@ GestionFormulaView = {
                         if (pOperador.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
                             return cantCaracteres;
                         } else {
-                            return pIndex;
+                            return pIndex + pOperador.valor.toString().length - 1;
                         }
 
                     } else if (cantCaracteres == (pIndex - 1)) {
@@ -1310,7 +1312,7 @@ GestionFormulaView = {
                         let nuevo = itemStr.substring(0, (charPos))
                         let nuevo2 = itemStr.substring((charPos), itemStr.length)
                         GestionFormulaView.Variables.FormulaCalculo[i].valor = nuevo + pOperador.valor.toString() + nuevo2;
-                        //console.log({longitud:itemStr.length, charPos, cantCaracteres, index, inicioSimbolo, nuevo, nuevo2})
+                        
                         return (inicioSimbolo + charPos + 1);
                     }
                     else if (cantCaracteres >= (pIndex - 1) && item.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero && pOperador.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador) {
@@ -1326,7 +1328,7 @@ GestionFormulaView = {
                         GestionFormulaView.Variables.FormulaCalculo.splice((i + (nuevo == "" ? 0 : 1)), 0, pOperador)
                         if (nuevo2 != "") GestionFormulaView.Variables.FormulaCalculo.splice((i + (nuevo == "" ? 1 : 2)), 0, { tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, valor: nuevo2 })
 
-                        return (inicioSimbolo + charPos + 1);
+                        return (inicioSimbolo + charPos + pOperador.valor.toString().length);
 
                     }
                     else if (cantCaracteres >= (pIndex - 1)) {
@@ -1335,14 +1337,14 @@ GestionFormulaView = {
 
                         if (cantCaracteres > (pIndex - 1)) {
                             GestionFormulaView.Variables.FormulaCalculo.splice((i), 0, pOperador)
-                            complementoCursor = 1
+                            complementoCursor = itemStr.length;
 
                         } else if (cantCaracteres == (pIndex - 1)) {
                             GestionFormulaView.Variables.FormulaCalculo.splice((i + 1), 0, pOperador)
                         }
 
                         if (pOperador.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
-                            return cantCaracteres + pOperador.valor.text.toString().length
+                            return pIndex + pOperador.valor.text.toString().length - 1;
                         }
 
                         return cantCaracteres + pOperador.valor.toString().length - complementoCursor
@@ -2228,36 +2230,33 @@ GestionFormulaView = {
         });
 
         // Tabla creación de fórmula
-        //$(document).on("keypress", GestionFormulaView.Controles.form.inputFormulaCalculo, function () {
-        //    let keyCode = event.keyCode || event.which;
-        //    let regex = GestionFormulaView.Variables.Operadores.GetRegex();
-        //    return regex.test(String.fromCharCode(keyCode));
-        //});
+        $(document).on("keypress", GestionFormulaView.Controles.form.inputFormulaCalculo, function (event) {
+            let keyCode = event.keyCode || event.which;
+            let regex = GestionFormulaView.Variables.Operadores.GetRegex();
+            let char = String.fromCharCode(keyCode);
+            let index = event.target.selectionStart;
+
+            if (keyCode >= 48 && keyCode <= 57) {
+                let newIndex = GestionFormulaView.Metodos.AniadirOperadorAFormula({ tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, valor: char }, (index + 1))
+                $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
+                GestionFormulaView.Metodos.MostrarFormulaCalculo();
+            } else if (regex.test(char)) {
+                let newIndex = GestionFormulaView.Metodos.AniadirOperadorAFormula({ tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador, valor: char }, (index + 1))
+                $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
+                GestionFormulaView.Metodos.MostrarFormulaCalculo();
+            }
+            return false
+        });
 
         $(document).on("keydown", GestionFormulaView.Controles.form.inputFormulaCalculo, function (e) {
 
-            var char = String.fromCharCode(e.which);
             let index = e.target.selectionStart;
-            let regex = GestionFormulaView.Variables.Operadores.GetRegex();
 
             if (e.keyCode == 8) {
                 let newIndex = GestionFormulaView.Metodos.BorrarOperadorAFormula(index);
                 $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
                 GestionFormulaView.Metodos.MostrarFormulaCalculo();
                 return false
-            } else if (e.keyCode >= 48 && e.keyCode <= 57) {
-                let newIndex = GestionFormulaView.Metodos.AniadirOperadorAFormula({ tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, valor: char }, (index + 1))
-                $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
-                GestionFormulaView.Metodos.MostrarFormulaCalculo();
-                return false
-            } else if (regex.test(char)) {
-                console.log('entra regex')
-                let newIndex = GestionFormulaView.Metodos.AniadirOperadorAFormula({ tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador, valor: char }, (index + 1))
-                $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
-                GestionFormulaView.Metodos.MostrarFormulaCalculo();
-                return false
-            } else if (e.keyCode != 37 && e.keyCode != 39) {
-                return false;
             }
         })
 
@@ -2367,6 +2366,8 @@ GestionFormulaView = {
         $(document).on("click", GestionFormulaView.Controles.form.btnRemoverItemFormula, function () {
             jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEliminaArgumento, jsMensajes.Variables.actionType.eliminar)
                 .set('onok', function (closeEvent) {
+                    GestionFormulaView.Variables.FormulaCalculo.pop();
+                    GestionFormulaView.Metodos.MostrarFormulaCalculo();
                     jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoEliminado)
                         .set('onok', function (closeEvent) {
 
