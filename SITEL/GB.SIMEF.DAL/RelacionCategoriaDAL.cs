@@ -22,7 +22,7 @@ namespace GB.SIMEF.DAL
         public  RelacionCategoriaDAL()
         {
             categoriasDesagregacionDAL = new CategoriasDesagregacionDAL();
-            listaCategorias = categoriasDesagregacionDAL.ObtenerDatos(new CategoriasDesagregacion());
+            listaCategorias = categoriasDesagregacionDAL.ObtenerTodosCategoriasDesagregacion(new CategoriasDesagregacion());
         }
 
         #region Metodos de Consulta a Base Datos Relacion Categoria
@@ -66,8 +66,9 @@ namespace GB.SIMEF.DAL
             {
                idRelacion = x.idRelacion,
                idCategoriaId = x.idCategoriaId,
-               listaCategoriaAtributo = ObtenerCategoriaAtributo( x.idRelacion, x.idCategoriaId).ToList()
-
+               idEstado = x.idEstado,
+               listaCategoriaAtributo = ObtenerCategoriaAtributo( x.idRelacion, x.idCategoriaId).ToList(),
+               EstadoRegistro = ObtenerEstadoRegistro(x.idEstado)
             }).ToList();
 
             return lista;
@@ -78,46 +79,62 @@ namespace GB.SIMEF.DAL
         private List<RelacionCategoriaAtributo> ObtenerCategoriaAtributo(int idRelacion, string IdCategoriaId)
         {
             List<RelacionCategoriaAtributo> lista = new List<RelacionCategoriaAtributo>();
-
-            using (db = new SIMEFContext())
+            try
             {
-                lista  = db.Database.SqlQuery<RelacionCategoriaAtributo>
-              ("execute spObtenerRelacionCategoriaAtributo @idRelacion,@idCategoriaId ",
-              new SqlParameter("@idRelacion", idRelacion),
-              new SqlParameter("@idCategoriaId", IdCategoriaId)
-              ).ToList();
-                List<RelacionCategoriaAtributo> lista2 = new List<RelacionCategoriaAtributo>(lista);              
-                foreach (var item in lista)
+                using (db = new SIMEFContext())
                 {
-                    foreach (var item2 in lista)
+                    lista = db.Database.SqlQuery<RelacionCategoriaAtributo>
+                  ("execute spObtenerRelacionCategoriaAtributo @idRelacion,@idCategoriaId ",
+                  new SqlParameter("@idRelacion", idRelacion),
+                  new SqlParameter("@idCategoriaId", IdCategoriaId)
+                  ).ToList();
+                    List<RelacionCategoriaAtributo> lista2 = new List<RelacionCategoriaAtributo>(lista);
+                    foreach (var item in lista)
                     {
-                        if (item2.IdcategoriaAtributo == item.IdcategoriaAtributo && item2.IdcategoriaAtributoDetalle != item.IdcategoriaAtributoDetalle)
+                        foreach (var item2 in lista)
                         {
-                            if (item2.IdcategoriaAtributoDetalle == 0)
+                            if (item2.IdcategoriaAtributo == item.IdcategoriaAtributo && item2.IdcategoriaAtributoDetalle != item.IdcategoriaAtributoDetalle)
                             {
-                                lista2.Remove(item2);
+                                if (item2.IdcategoriaAtributoDetalle == 0)
+                                {
+                                    lista2.Remove(item2);
+                                }
+                                else
+                                {
+                                    lista2.Remove(item);
+                                }
                             }
-                            else
-                            {
-                                lista2.Remove(item);
-                            }                            
                         }
                     }
-                }
-                if (lista2.Count() != 0)
-                {
-                    lista = lista2.Select(x => new RelacionCategoriaAtributo()
+                    if (lista2.Count() != 0)
                     {
-                        idRelacion = x.idRelacion,
-                        IdcategoriaAtributo=x.IdcategoriaAtributo,
-                        IdcategoriaAtributoDetalle=x.IdcategoriaAtributoDetalle,
-                        IdCategoriaId=x.IdCategoriaId,
-                        Etiqueta=db.DetalleCategoriaTexto
-                            .Where(p=>p.idCategoria==x.IdcategoriaAtributo && p.idCategoriaDetalle==x.IdcategoriaAtributoDetalle).FirstOrDefault().Etiqueta
-                    }).ToList();
+                        lista = lista2.Select(x => new RelacionCategoriaAtributo()
+                        {
+                            idRelacion = x.idRelacion,
+                            IdcategoriaAtributo = x.IdcategoriaAtributo,
+                            IdcategoriaAtributoDetalle = x.IdcategoriaAtributoDetalle,
+                            IdCategoriaId = x.IdCategoriaId,
+                            Etiqueta = db.DetalleCategoriaTexto
+                                .Where(p => p.idCategoria == x.IdcategoriaAtributo && p.idCategoriaDetalle == x.IdcategoriaAtributoDetalle).FirstOrDefault().Etiqueta
+                        }).ToList();
+                    }
+
                 }
-                
+                foreach (RelacionCategoriaAtributo item in lista)
+                {
+                    if (item.IdcategoriaAtributoDetalle == 0)
+                    {
+                        RelacionCategoriaId rel = new RelacionCategoriaId() { idRelacion = item.idRelacion, idCategoriaId = item.IdCategoriaId, idEstado = (int)Constantes.EstadosRegistro.EnProceso, OpcionEliminar = false };
+                        ActualizarRelacionCategoriaidSinReturn(rel);
+                        break;
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw;
+            }         
             return lista;
 
         }
@@ -243,6 +260,13 @@ namespace GB.SIMEF.DAL
             return listaValicion;
         }
 
+        /// <summary>
+        /// Fecha 12/01/2023
+        /// Jeaustin Chaves
+        /// Se obtienen las relaciones categorias atributo por el id categoria detalle
+        /// </summary>
+        /// <param name="idCategoriaDetalle"></param>
+        /// <returns></returns>
         public List<RelacionCategoriaAtributo> ObtenerRelacionCategoriaAtributoXIdCategoriaDetalle(int idCategoriaDetalle)
         {
             List<RelacionCategoriaAtributo> ListaRelacionCategoriaDetalle = new List<RelacionCategoriaAtributo>();
@@ -337,9 +361,10 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
-                ("execute spActualizarRelacionCategoriaId @IdRelacion,@IdCategoriaId,@OpcionEliminar   ",
+                ("execute spActualizarRelacionCategoriaId @IdRelacion,@IdCategoriaId,@idEstado,@OpcionEliminar   ",
                      new SqlParameter("@IdRelacion", objeto.idRelacion),
                      new SqlParameter("@IdCategoriaId", objeto.idCategoriaId),
+                      new SqlParameter("@idEstado", objeto.idEstado),
                       new SqlParameter("@OpcionEliminar", objeto.OpcionEliminar==true?1:0)
                     ).ToList();
             }
@@ -348,8 +373,30 @@ namespace GB.SIMEF.DAL
             return ListaRelacionCategoria;
         }
 
+        /// <summary>
+        /// Fecha 17/01/2023
+        /// Georgi Mesen Cerdas
+        /// Se actualiza las relaciones categoria id
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public List<RelacionCategoria> ActualizarRelacionCategoriaidSinReturn(RelacionCategoriaId objeto)
+        {
+            List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
+            using (db = new SIMEFContext())
+            {
+                ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
+                ("execute spActualizarRelacionCategoriaId @IdRelacion,@IdCategoriaId,@idEstado,@OpcionEliminar   ",
+                     new SqlParameter("@IdRelacion", objeto.idRelacion),
+                     new SqlParameter("@IdCategoriaId", objeto.idCategoriaId),
+                      new SqlParameter("@idEstado", objeto.idEstado),
+                      new SqlParameter("@OpcionEliminar", objeto.OpcionEliminar == true ? 1 : 0)
+                    ).ToList();
+            }
 
-       
+            return ListaRelacionCategoria;
+        }
+
 
 
         public List<RelacionCategoria> ActualizarRelacionAtributo(RelacionCategoriaAtributo objeto)

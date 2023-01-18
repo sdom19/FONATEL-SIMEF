@@ -295,5 +295,52 @@ namespace GB.SIMEF.DAL
             return listaValicion;
         }
 
+        /// <summary>
+        /// Metodo que carga los registros de categorias de desagregación según parametros y tambien eliminados
+        /// fecha 13-01-2023
+        /// Georgi Mesen 
+        /// </summary>
+        /// <param name="objCategoria"></param>
+        /// <returns>Lista</returns>
+        public List<CategoriasDesagregacion> ObtenerTodosCategoriasDesagregacion(CategoriasDesagregacion objCategoria)
+        {
+            List<CategoriasDesagregacion> ListaCategoria = new List<CategoriasDesagregacion>();
+            using (db = new SIMEFContext())
+            {
+
+                ListaCategoria = db.Database.SqlQuery<CategoriasDesagregacion>
+                    ("execute spObtenerTodosCategoriasDesagregacion @idCategoria,@codigo,@idEstado,@idTipoCategoria ",
+                     new SqlParameter("@idCategoria", objCategoria.idCategoria),
+                     new SqlParameter("@codigo", string.IsNullOrEmpty(objCategoria.Codigo) ? DBNull.Value.ToString() : objCategoria.Codigo),
+                     new SqlParameter("@idEstado", objCategoria.idEstado),
+                     new SqlParameter("@idTipoCategoria", objCategoria.IdTipoCategoria)
+                    ).ToList();
+
+                ListaCategoria = ListaCategoria.Select(x => new CategoriasDesagregacion()
+                {
+                    id = Utilidades.Encriptar(x.idCategoria.ToString()),
+                    idCategoria = x.idCategoria,
+                    Codigo = x.Codigo,
+                    NombreCategoria = x.NombreCategoria,
+                    idEstado = x.idEstado,
+                    IdTipoCategoria = x.IdTipoCategoria,
+                    CantidadDetalleDesagregacion = x.CantidadDetalleDesagregacion,
+                    idTipoDetalle = x.idTipoDetalle,
+                    FechaCreacion = x.FechaCreacion,
+                    FechaModificacion = x.FechaModificacion,
+                    UsuarioCreacion = x.UsuarioCreacion,
+                    UsuarioModificacion = x.UsuarioModificacion,
+                    DetalleCategoriaTexto = ListaDetalleCategoriaTexto(x.idCategoria),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
+                    TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle),
+                    TipoCategoria = ObtenerTipoCategoria(x.IdTipoCategoria),
+                    DetalleCategoriaFecha = ObtenerDetalleCategoriaFecha(x.idCategoria),
+                    DetalleCategoriaNumerico = ObtenerDetalleCategoriaNumerico(x.idCategoria)
+
+                }).ToList();
+            }
+            return ListaCategoria;
+        }
+
     }
 }

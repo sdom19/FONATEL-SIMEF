@@ -466,7 +466,38 @@ namespace GB.SIMEF.BL
         }
 
 
+        /// <summary>
+        /// Fecha 16/01/2023
+        /// Georgi Mesen Cerdas
+        /// Metodo para obtener la Relacion Categoria Id
+        /// </summary>
+        public RespuestaConsulta<RelacionCategoria> ObtenerRegistroRelacionId(RelacionCategoriaId objeto)
+        {
+            RespuestaConsulta<RelacionCategoria> respuesta = new RespuestaConsulta<RelacionCategoria>(); 
+            try
+            {
+                RelacionCategoria relacion = new RelacionCategoria();
+                if (!string.IsNullOrEmpty(objeto.RelacionId))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.RelacionId), out temp);
+                    relacion.IdRelacionCategoria = temp;
+                }
 
+                respuesta.Clase = modulo;
+                respuesta.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ObtenerDatos(relacion).FirstOrDefault();
+                resul.RelacionCategoriaId = resul.RelacionCategoriaId.Where(x => x.idCategoriaId == objeto.idCategoriaId).ToList();
+                respuesta.objetoRespuesta = resul;
+                respuesta.CantidadRegistros = 1;
+            }
+            catch (Exception ex)
+            {
+                respuesta.HayError = (int)Constantes.Error.ErrorSistema;
+                respuesta.MensajeError = ex.Message;
+            }
+            return respuesta;
+        }
 
     }
 
@@ -810,6 +841,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar;
                 ResultadoConsulta.Usuario = user;
+                objeto.idEstado = (int)Constantes.EstadosRegistro.Eliminado;
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(objeto);
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
             }
@@ -852,12 +884,20 @@ namespace GB.SIMEF.BL
 
                 RelacionCategoria relacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { IdRelacionCategoria = objeto.idRelacion }).Single();
 
-                if (relacionCategoria.RelacionCategoriaId.Where(x=>x.idCategoriaId==objeto.idCategoriaId).Count()>0 )
+                if (relacionCategoria.RelacionCategoriaId.Where(x=>x.idCategoriaId==objeto.idCategoriaId && x.idEstado != (int)Constantes.EstadosRegistro.Eliminado).Count()>0 )
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception (string.Format(Errores.IdRelacionDuplicado, objeto.idCategoriaId));
                 }
 
+                if (relacionCategoria.CantidadCategoria == objeto.listaCategoriaAtributo.Count())
+                {
+                    objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                }
+                else
+                {
+                    objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                }
 
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(objeto);
 
@@ -901,6 +941,76 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<RelacionCategoria>> ValidarDatos(RelacionCategoria objeto)
         {
             throw new NotImplementedException();
+        }
+
+        public RespuestaConsulta<List<RelacionCategoria>> ActualizarRelacionCategoriaId(RelacionCategoriaId objeto)
+        {
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Usuario = user;
+
+
+                if (!string.IsNullOrEmpty(objeto.RelacionId))
+                {
+                    int temp = 0;
+                    int.TryParse(Utilidades.Desencriptar(objeto.RelacionId), out temp);
+                    objeto.idRelacion = temp;
+                    objeto.listaCategoriaAtributo = objeto.listaCategoriaAtributo.Select(x => new RelacionCategoriaAtributo()
+                    {
+                        IdcategoriaAtributo = x.IdcategoriaAtributo,
+                        idRelacion = objeto.idRelacion,
+                        IdcategoriaAtributoDetalle = x.IdcategoriaAtributoDetalle,
+                        IdCategoriaId = x.IdCategoriaId
+                    }).ToList();
+                }
+
+                RelacionCategoria relacionCategoria = clsDatos.ObtenerDatos(new RelacionCategoria() { IdRelacionCategoria = objeto.idRelacion }).Single();
+
+                //if (relacionCategoria.RelacionCategoriaId.Where(x => x.idCategoriaId == objeto.idCategoriaId).Count() > 0)
+                //{
+                //    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                //    throw new Exception(string.Format(Errores.IdRelacionDuplicado, objeto.idCategoriaId));
+                //}
+
+                foreach (var item in objeto.listaCategoriaAtributo)
+                {
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(item);
+                }
+
+                if (relacionCategoria.CantidadCategoria == objeto.listaCategoriaAtributo.Count())
+                {
+                    objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                }
+                else
+                {
+                    objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                }
+
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(objeto);
+
+                RelacionCategoria relacionActualizada = ResultadoConsulta.objetoRespuesta.SingleOrDefault();
+                if (relacionActualizada.CantidadFilas == relacionActualizada.RelacionCategoriaId.Count())
+                {
+                    relacionActualizada.idEstado = (int)EstadosRegistro.Activo;
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacionActualizada);
+                }
+
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+            }
+            catch (Exception ex)
+            {
+
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsulta;
         }
     }
         
