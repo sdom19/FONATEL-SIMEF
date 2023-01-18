@@ -437,8 +437,8 @@
             $("#loading").fadeIn();
 
             let detalle = new Object();
-            detalle.FormularioId = ObtenerValorParametroUrl("idSolicitud");
-            detalle.Solicitudid = ObtenerValorParametroUrl("idFormulario");
+            detalle.FormularioId = ObtenerValorParametroUrl("idFormulario");
+            detalle.Solicitudid = ObtenerValorParametroUrl("idSolicitud");
             detalle.IndicadorId = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
             execAjaxCall("/RegistroIndicadorFonatel/ObtenerListaDetalleRegistroIndicadorCategoriaValorFonatel", "POST", detalle)
                 .then((obj) => {
