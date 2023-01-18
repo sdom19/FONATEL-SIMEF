@@ -825,6 +825,8 @@ GestionFormulaView = {
             categoria: 2
         },
 
+        //Define el comporamiento de un elemento de la fórmula cuando se quiere borrar o insertar un caracter dependiendo de la posicion del cursor
+        //Numero permite insertar objetos en medio y lo divide para que sean dos numeros, de lo contrario el nuevo caracter se inserta fuera de la variable u operador
         TipoObjetoFormulaCalculo :{
             Numero: 1,
             Operador: 2,
@@ -855,6 +857,7 @@ GestionFormulaView = {
             GetRegex: () => /^[\+\-*\/<>=().0-9 ]+$/
         },
 
+        //Se usa para definir el tipo de objeto de un operador en la fórmula, si es fecha se puede modificar, si es criterio solo se puede borrar
         TipoArgumento: {
             criterio: 1,
             fecha: 2
@@ -1211,7 +1214,8 @@ GestionFormulaView = {
                         tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable,
                         valor: {
                             text: GestionFormulaView.Variables.GetArgumentoConFormato(objDetalle.codigoIndicador, objDetalle.nombreVariable),
-                            objeto: objDetalle
+                            objeto: objDetalle,
+                            tipoArgumento: pTipoArgumento
                         }
                     };
                 }
@@ -1225,7 +1229,8 @@ GestionFormulaView = {
                         tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable,
                         valor: {
                             text: this.ConstruirLabelArgumentoTipoFecha(objFecha),
-                            objeto: objFecha
+                            objeto: objFecha,
+                            tipoArgumento: pTipoArgumento
                         }
                     };
                 }
@@ -1372,6 +1377,13 @@ GestionFormulaView = {
                     if (cantCaracteres >= pIndex) {
                         let borrado = GestionFormulaView.Variables.FormulaCalculo.splice(i, 1);
                         posicionCursor = cantCaracteres - (borrado[0].valor.text.toString().length);
+
+                        //ELIMINAR DEL OBJETO DEFINICION DE FECHAS
+                        let indicador = borrado[0].valor.objeto.indicador;
+                        if (borrado[0].valor.tipoArgumento == GestionFormulaView.Variables.TipoArgumento.fecha && GestionFormulaView.Variables.listaConfigDefinicionFechas.hasOwnProperty(indicador)) {
+                            delete GestionFormulaView.Variables.listaConfigDefinicionFechas[indicador];
+                        }
+
                         break;
                     }
                 } else {
@@ -1450,6 +1462,32 @@ GestionFormulaView = {
             GestionFormulaView.Metodos.MostrarFormulaCalculo();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).focus();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
+        },
+
+        AgregarFechaAFormula: function (pVariable) {
+            let index = GestionFormulaView.Metodos.ObtenerPosicionCursor();
+            let nuevo = true;
+
+            //VERIFICAR SI LA FECHA YA EXISTE, Modificarlo
+            for (let i = 0; i < GestionFormulaView.Variables.FormulaCalculo.length; i++) {
+                let item = GestionFormulaView.Variables.FormulaCalculo[i];
+                if (item.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
+                    if (item.valor.objeto.indicador == pVariable.valor.objeto.indicador && item.valor.tipoArgumento == GestionFormulaView.Variables.TipoArgumento.fecha) {
+                        GestionFormulaView.Variables.FormulaCalculo.splice(i, 1);
+                        GestionFormulaView.Variables.FormulaCalculo.splice(i, 0, pVariable)
+                        nuevo = false;
+                        break;
+                    }
+                }
+            }
+
+            if (nuevo) {
+                index = GestionFormulaView.Metodos.AniadirElementoAFormula(pVariable, (index))
+            }
+
+            GestionFormulaView.Metodos.MostrarFormulaCalculo();
+            $(GestionFormulaView.Controles.form.inputFormulaCalculo).focus();
+            $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(index);
         },
 
         BotonRemoverOperadorFormula: function () {
@@ -2041,8 +2079,23 @@ GestionFormulaView = {
         },
 
         EliminarObjDefinicionModalFecha: function () {
+            let index = GestionFormulaView.Metodos.ObtenerPosicionCursor();
             let indicador = $(GestionFormulaView.Controles.form.ddlIndicador).val();
             delete GestionFormulaView.Variables.listaConfigDefinicionFechas[indicador];
+
+            for (let i = 0; i < GestionFormulaView.Variables.FormulaCalculo.length; i++) {
+                let item = GestionFormulaView.Variables.FormulaCalculo[i];
+                if (item.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable && item.valor.tipoArgumento == GestionFormulaView.Variables.TipoArgumento.fecha) {
+                    if (item.valor.objeto.indicador == indicador) {
+                        GestionFormulaView.Variables.FormulaCalculo.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+
+            GestionFormulaView.Metodos.MostrarFormulaCalculo();
+            $(GestionFormulaView.Controles.form.inputFormulaCalculo).focus();
+            $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(index);
         },
 
         GuardarDefinicionDeFechas: function () {
@@ -2051,7 +2104,7 @@ GestionFormulaView = {
                 let argumento = this.ConstruirArgumento(GestionFormulaView.Variables.TipoArgumento.fecha);
 
                 if (argumento) {
-                    this.AgregarVariableAFormula(argumento);
+                    this.AgregarFechaAFormula(argumento);
 
                     jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoFechaCreado)
                         .set('onok', function (closeEvent) {
