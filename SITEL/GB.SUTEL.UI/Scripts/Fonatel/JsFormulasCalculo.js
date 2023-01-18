@@ -879,8 +879,6 @@ GestionFormulaView = {
         filaSeleccionadaTablaDetalles: null,
         FormulaCalculo: [],
 
-        GetArgumentoConFormato: (pArgIzquierda, pArgDerecha) => `{${pArgIzquierda} - ${pArgDerecha}}`,
-
         indexViewURL: "/Fonatel/FormulaCalculo/Index",
     },
 
@@ -1213,7 +1211,7 @@ GestionFormulaView = {
                     argumentoConstruido = {
                         tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable,
                         valor: {
-                            text: GestionFormulaView.Variables.GetArgumentoConFormato(objDetalle.codigoIndicador, objDetalle.nombreVariable),
+                            text: this.ConstruirLabelArgumentoTipoVariableDatoCriterio(objDetalle.codigoIndicador, objDetalle.nombreVariable),
                             objeto: objDetalle,
                             tipoArgumento: pTipoArgumento
                         }
@@ -1236,6 +1234,10 @@ GestionFormulaView = {
                 }
             }
             return argumentoConstruido;
+        },
+
+        ConstruirLabelArgumentoTipoVariableDatoCriterio: function (pArgIzquierda, pArgDerecha) {
+            return `{${pArgIzquierda} - ${pArgDerecha}}`;
         },
 
         ConstruirLabelArgumentoTipoFecha: function (pConfigDefinicionFecha) {
@@ -1263,7 +1265,7 @@ GestionFormulaView = {
                 parametro2 = GestionFormulaView.Variables.labelHoy;
             }
 
-            return GestionFormulaView.Variables.GetArgumentoConFormato(parametro1, parametro2);
+            return this.ConstruirLabelArgumentoTipoVariableDatoCriterio(parametro1, parametro2);
         },
 
         RegistrarCriterio: function (pElementRoot) {
