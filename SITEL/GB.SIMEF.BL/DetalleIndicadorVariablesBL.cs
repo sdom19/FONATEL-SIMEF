@@ -178,13 +178,12 @@ namespace GB.SIMEF.BL
 
                 pDetalleIndicadorVariables.Estado = true;
                 resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ActualizarDatos(pDetalleIndicadorVariables);
-
                 resultado.Usuario = user;
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Insertar;
 
-                var objetoDetalle = detalleIndicadorVariablesDAL.ObtenerDatos(pDetalleIndicadorVariables).Single();
+                var objetoDetalle = detalleIndicadorVariablesDAL.ObtenerDatos(pDetalleIndicadorVariables).LastOrDefault();
                 string JsonInicial = objetoDetalle.ToString();
 
                 detalleIndicadorVariablesDAL.RegistrarBitacora(resultado.Accion,

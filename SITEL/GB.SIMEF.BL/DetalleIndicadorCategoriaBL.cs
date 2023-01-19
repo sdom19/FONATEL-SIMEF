@@ -135,7 +135,7 @@ namespace GB.SIMEF.BL
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Insertar;
 
-                var objeto = detalleIndicadorCategoriaDAL.ObtenerDatos(pDetalleIndicadorCategoria).Single();
+                var objeto = detalleIndicadorCategoriaDAL.ObtenerDatos(pDetalleIndicadorCategoria).FirstOrDefault();
 
                 string jsonValorInicial = objeto.ToString();
 

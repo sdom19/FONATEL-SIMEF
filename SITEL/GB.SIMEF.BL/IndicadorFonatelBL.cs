@@ -409,8 +409,8 @@ namespace GB.SIMEF.BL
                 {
 
                     Indicador indicadorRegistradoActualmente = indicadorFonatelDAL.ObtenerDatos(new Indicador() { idIndicador = pIndicador.idIndicador }).FirstOrDefault();
-                    List<DetalleIndicadorVariables> ListaVariables = detalleIndicadorVariablesDAL.ObtenerDatos(new DetalleIndicadorVariables() { idIndicador = pIndicador.idIndicador });
-                    List<DetalleIndicadorCategoria> ListaCategorias = detalleIndicadorCategoriaDAL.ObtenerDatos(new DetalleIndicadorCategoria() { idIndicador = pIndicador.idIndicador });
+                    List<DetalleIndicadorVariables> ListaVariables = detalleIndicadorVariablesDAL.ObtenerDatos(new DetalleIndicadorVariables() { idIndicador = pIndicador.idIndicador});
+                    List<DetalleIndicadorCategoria> ListaCategorias = detalleIndicadorCategoriaDAL.ObtenerDatos(new DetalleIndicadorCategoria() { idIndicador = pIndicador.idIndicador, DetallesAgrupados = true });
 
                     if (indicadorRegistradoActualmente != null)
                     {
