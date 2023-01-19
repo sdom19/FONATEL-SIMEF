@@ -211,7 +211,7 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="objCategoria"></param>
         /// <returns></returns>
-        public List<RelacionCategoria> ActualizarDatos(RelacionCategoria objeto)
+        public List<RelacionCategoria> ActualizarDatos(RelacionCategoria objeto, Constantes.Accion accion = Constantes.Accion.Consultar)
         {
             List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
             using (db = new SIMEFContext())
@@ -229,7 +229,11 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@CantidadFilas", objeto.CantidadFilas)
                     ).ToList();
             }
-            ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
+            if (accion != Constantes.Accion.Insertar)
+            {
+                ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
+
+            }
 
             return ListaRelacionCategoria;
         }
@@ -355,7 +359,7 @@ namespace GB.SIMEF.DAL
 
         #region Metodos relaión categoría id
 
-        public List<RelacionCategoria> ActualizarRelacionCategoriaid(RelacionCategoriaId objeto)
+        public List<RelacionCategoria> ActualizarRelacionCategoriaid(RelacionCategoriaId objeto, Constantes.Accion accion = Constantes.Accion.Consultar)
         {
             List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
             using (db = new SIMEFContext())
@@ -368,7 +372,11 @@ namespace GB.SIMEF.DAL
                       new SqlParameter("@OpcionEliminar", objeto.OpcionEliminar==true?1:0)
                     ).ToList();
             }
-            ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
+            if (accion != Constantes.Accion.Insertar)
+            {
+                ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
+
+            }
 
             return ListaRelacionCategoria;
         }
@@ -399,7 +407,7 @@ namespace GB.SIMEF.DAL
 
 
 
-        public List<RelacionCategoria> ActualizarRelacionAtributo(RelacionCategoriaAtributo objeto)
+        public List<RelacionCategoria> ActualizarRelacionAtributo(RelacionCategoriaAtributo objeto, Constantes.Accion accion = Constantes.Accion.Consultar)
         {
             List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
             using (db = new SIMEFContext())
@@ -413,7 +421,11 @@ namespace GB.SIMEF.DAL
 
                     ).ToList();
             }
-            ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
+            if (accion != Constantes.Accion.Insertar)
+            {
+                ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
+
+            }
 
             return ListaRelacionCategoria;
         }

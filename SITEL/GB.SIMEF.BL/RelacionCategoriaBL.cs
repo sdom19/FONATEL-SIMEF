@@ -899,18 +899,18 @@ namespace GB.SIMEF.BL
                     objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
                 }
 
-                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(objeto);
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(objeto, Accion.Insertar);
 
                 foreach (var item in objeto.listaCategoriaAtributo)
                 {
-                   ResultadoConsulta.objetoRespuesta= clsDatos.ActualizarRelacionAtributo(item);
+                   ResultadoConsulta.objetoRespuesta= clsDatos.ActualizarRelacionAtributo(item, Accion.Insertar);
                 }
 
                 RelacionCategoria relacionActualizada = ResultadoConsulta.objetoRespuesta.SingleOrDefault();
-                if (relacionActualizada.CantidadFilas==relacionActualizada.RelacionCategoriaId.Count())
+                if (relacionActualizada.CantidadFilas==relacionActualizada.RelacionCategoriaId.Where(x => x.idEstado == (int)Constantes.EstadosRegistro.Activo).Count())
                 {
                     relacionActualizada.idEstado = (int)EstadosRegistro.Activo;
-                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacionActualizada);
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacionActualizada, Accion.Insertar);
                 }
 
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
