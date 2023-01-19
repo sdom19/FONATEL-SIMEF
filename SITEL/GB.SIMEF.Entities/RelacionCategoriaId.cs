@@ -19,6 +19,10 @@ namespace GB.SIMEF.Entities
 
         [Key, Column(Order = 1)]
         public string idCategoriaId { get; set; }
+
+        public int idEstado { get; set; }
+
+        #region Variables que no estan en la entiendad
         [NotMapped]
         public bool OpcionEliminar { get; set; }
 
@@ -29,5 +33,8 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string RelacionId { get; set; }
 
+        [NotMapped]
+        public virtual EstadoRegistro EstadoRegistro { get; set; }
+        #endregion
     }
 }

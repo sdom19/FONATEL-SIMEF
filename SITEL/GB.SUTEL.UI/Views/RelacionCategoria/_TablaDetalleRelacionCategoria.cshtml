@@ -7,10 +7,11 @@
         <thead>
             <tr>
                 <th scope="col">@Model.CategoriasDesagregacionid.NombreCategoria</th>
-                @foreach (var item in Model.DetalleRelacionCategoria.OrderBy(x=>x.idCategoriaAtributo))
+                @foreach (var item in Model.DetalleRelacionCategoria.OrderBy(x => x.idCategoriaAtributo))
                 {
                     <th scope="col">@item.CategoriaAtributo.NombreCategoria</th>
                 }
+                <th scope="col">@EtiquetasViewRelacionCategoria.Estado</th>
                 <th scope="col">@EtiquetasViewRelacionCategoria.Acciones</th>
             </tr>
         </thead>
@@ -34,7 +35,9 @@
 
 
                 }
-                <td><button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value='@item.idCategoriaId' class='btn-icon-base btn-delete'></button></td>
+            <td>@item.EstadoRegistro.Nombre</td>
+                <td><button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value='@item.idCategoriaId' class='btn-icon-base btn-edit'></button>
+                <button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value='@item.idCategoriaId' class='btn-icon-base btn-delete'></button></td>
             </tr>
 
            
