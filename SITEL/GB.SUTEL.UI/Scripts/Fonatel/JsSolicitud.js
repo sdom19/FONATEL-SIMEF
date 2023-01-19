@@ -223,7 +223,7 @@ JsSolicitud = {
             if (codigo.length == 0) {
                 $(JsSolicitud.Controles.CodigoHelp).removeClass("hidden");
                 $(JsSolicitud.Controles.txtCodigo).parent().addClass("has-error");
-                Validar = false;
+                validar = false;
             } else {
                 $(JsSolicitud.Controles.txtCodigo).parent().removeClass("has-error");
             }
@@ -234,7 +234,6 @@ JsSolicitud = {
                 validar = false;
             } else {
                 $(JsSolicitud.Controles.txtNombre).parent().removeClass("has-error");
-                Validar = false;
             }
 
             return validar;
