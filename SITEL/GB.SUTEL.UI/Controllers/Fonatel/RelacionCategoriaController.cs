@@ -102,6 +102,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RelacionCategoria model = relacionCategoriaBL
                    .ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria }).objetoRespuesta.Single();
+            model.RelacionCategoriaId = model.RelacionCategoriaId.Where(x => x.idEstado != (int)Constantes.EstadosRegistro.Eliminado).ToList();
             return View(model);
 
         }
@@ -430,6 +431,33 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                  result = relacionCategoriaAtributoBL.InsertarDatos(relacionCategoriaId);
          
+            });
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpPost]
+        public async Task<string> ObtenerRegistroRelacionId(RelacionCategoriaId relacionCategoriaId)
+        {
+
+            RespuestaConsulta<RelacionCategoria> result = null;
+
+            await Task.Run(() =>
+            {
+                result = relacionCategoriaBL.ObtenerRegistroRelacionId(relacionCategoriaId);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpPost]
+        public async Task<string> ActualizarRelacionCategoriaId(RelacionCategoriaId relacionCategoriaId)
+        {
+
+            RespuestaConsulta<List<RelacionCategoria>> result = null;
+            await Task.Run(() =>
+            {
+                result = relacionCategoriaAtributoBL.ActualizarRelacionCategoriaId(relacionCategoriaId);
+
             });
 
             return JsonConvert.SerializeObject(result);
