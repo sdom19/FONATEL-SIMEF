@@ -943,6 +943,14 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+
+        /// <summary>
+        /// Fecha 19/01/2023
+        /// Georgi Mesen Cerdas
+        /// Metodo para obtener actualizar las relacion categorias id y las relaciones categorias atributo 
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<RelacionCategoria>> ActualizarRelacionCategoriaId(RelacionCategoriaId objeto)
         {
             try

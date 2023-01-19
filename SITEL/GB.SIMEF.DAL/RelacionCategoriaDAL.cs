@@ -418,6 +418,13 @@ namespace GB.SIMEF.DAL
             return ListaRelacionCategoria;
         }
 
+        /// <summary>
+        /// Fecha 19/01/2023
+        /// Georgi Mesen Cerdas
+        /// Metodo para obtener eliminar un detalle relacion categoria
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         public List<RelacionCategoria> EliminarDetalleRelacionCategoria(RelacionCategoriaAtributo objeto)
         {
             List<RelacionCategoria> ListaRelacionCategoria = new List<RelacionCategoria>();
