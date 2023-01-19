@@ -119,7 +119,7 @@ namespace GB.SIMEF.BL
                         clsRelacionCategoriaDetalles.ActualizarRelacionAtributo(item);
                         RelacionCategoriaId rel = new RelacionCategoriaId() { idRelacion = item.idRelacion, idCategoriaId = item.IdCategoriaId, idEstado = (int)Constantes.EstadosRegistro.EnProceso, OpcionEliminar = false };
                         clsRelacionCategoriaDetalles.ActualizarRelacionCategoriaidSinReturn(rel);
-                        break;
+                        //break;
                         //clsRelacionCategoriaDetalles.EliminarDetalleRelacionCategoria(item);
                     }
                     registroActializar = resul.SingleOrDefault();
