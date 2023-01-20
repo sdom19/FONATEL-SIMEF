@@ -1062,6 +1062,7 @@ CreateView = {
         },
 
         ValidarCantidadDetallesVariablesDato: function () {
+
             let cantidadIndicador = $(CreateView.Controles.formIndicador.inputCantidadVariableDatosIndicador).val();
             let cantidadEstablecida = cantidadIndicador == "" ? 0 : cantidadIndicador;
 
@@ -1585,6 +1586,9 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.formIndicador.btnSiguienteEditarIndicador, function (e) {
+
+            CreateView.Variables.hizoCargaDetallesVariables = false;
+
             if (ObtenerValorParametroUrl("id") != null) {
                 CreateView.Metodos.EditarIndicador();
             }
@@ -1673,6 +1677,7 @@ CreateView = {
 
         // Formulario Detalles Variable
         $(document).on("click", CreateView.Controles.formVariable.btnSiguiente, function (e) {
+            CreateView.Variables.hizoCargaDetallesCategorias = false;
             $(CreateView.Controles.step3Categoria).trigger('click');
         });
 

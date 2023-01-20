@@ -185,7 +185,6 @@ namespace GB.SIMEF.BL
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Insertar;
 
-                //var objetoDetalle = detalleIndicadorVariablesDAL.ObtenerDatos(pDetalleIndicadorVariables).Single();
                 var objetoDetalleBitacora = objetoDetalle.Where(x => x.NombreVariable == pDetalleIndicadorVariables.NombreVariable && x.Descripcion == pDetalleIndicadorVariables.Descripcion).Single();
                 string JsonInicial = objetoDetalleBitacora.ToString();
 

@@ -95,17 +95,6 @@ namespace GB.SIMEF.DAL
             }
         }
 
-        public Solicitud ObtenerSolicitud(int id)
-        {
-            using (SIMEFdb = new SIMEFContext())
-            {
-                Solicitud solicitud = SIMEFdb.Solicitud.Where(i => i.idSolicitud == id).Single();
-                solicitud.SolicitudFormulario = SIMEFdb.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == id).ToList();
-                return solicitud;
-            }
-        }
-
-
 
         ///// <summary>
         ///// Actualiza los datos e inserta por medio de merge
