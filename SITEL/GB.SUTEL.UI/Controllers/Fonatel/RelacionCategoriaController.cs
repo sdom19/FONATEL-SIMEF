@@ -379,10 +379,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     HttpFileCollectionBase files = Request.Files;
                     HttpPostedFileBase file = files[0];
                     string fileName = file.FileName;
-                    Directory.CreateDirectory(Server.MapPath("~/Simef/"));
-                    string path = Path.Combine(Server.MapPath("~/Simef/"), fileName);
+                    string ruta = Utilidades.RutaCarpeta(ConfigurationManager.AppSettings["rutaCarpetaSimef"], EtiquetasViewRelacionCategoria.RelacionCategoria);
+                    Directory.CreateDirectory(ruta);
+                    string path = Path.Combine(ruta, fileName);
 
-                   result= relacionCategoriaAtributoBL.CargarExcel(file);
+                    result = relacionCategoriaAtributoBL.CargarExcel(file);
                     file.SaveAs(path);
                 }
             });
