@@ -84,7 +84,7 @@ namespace GB.SIMEF.BL
             {
                 objeto.Estado = false;
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Editar;
+                ResultadoConsulta.Accion = (int)Accion.Eliminar;
                 ResultadoConsulta.Usuario = user;
                 if (!String.IsNullOrEmpty(objeto.FuenteId))
                 {
