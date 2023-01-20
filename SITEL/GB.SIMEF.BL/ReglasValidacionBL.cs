@@ -12,9 +12,6 @@ namespace GB.SIMEF.BL
     public class ReglaValidacionBL : IMetodos<ReglaValidacion>
     {
         private readonly ReglasValicionDAL clsDatos;
-
-
-
         private RespuestaConsulta<List<ReglaValidacion>> ResultadoConsulta;
         string modulo = Etiquetas.ReglasValidacion;
         string user;
@@ -25,8 +22,6 @@ namespace GB.SIMEF.BL
             clsDatos = new ReglasValicionDAL();
             ResultadoConsulta = new RespuestaConsulta<List<ReglaValidacion>>();
         }
-
-        
 
         public RespuestaConsulta<List<ReglaValidacion>> ActualizarElemento(ReglaValidacion objeto)
         {
@@ -396,6 +391,12 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 06/01/2023
+        /// Metodo para desencriptar los datos del Objeto regla de validación 
+        /// </summary>
+        /// <param name="objeto"></param>
         private void DesencriptarReglasValidacion(ReglaValidacion objeto)
         {
             if (!string.IsNullOrEmpty(objeto.id))

@@ -73,6 +73,8 @@
             $(JsFormulario.Controles.txtCodigoFormularioHelp).addClass("hidden");
             $(JsFormulario.Controles.txtNombreFormularioHelp).addClass("hidden");
             //$(JsFormulario.Controles.ddlFrecuenciaHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtCodigoFormulario).parent().removeClass("has-error");
+            $(JsFormulario.Controles.txtNombreFormulario).parent().removeClass("has-error");
 
             let codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
             let nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
@@ -80,10 +82,12 @@
 
             if (codigo.length == 0) {
                 $(JsFormulario.Controles.txtCodigoFormularioHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtCodigoFormulario).parent().addClass("has-error");
                 Validar = false;
             }
             if (nombre.length == 0) {
                 $(JsFormulario.Controles.txtNombreFormularioHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtNombreFormulario).parent().addClass("has-error");
                 validar = false;
             }
             //if (idFrecuencia == 0) {
@@ -116,6 +120,8 @@
             $(JsFormulario.Controles.txtDescripcionFormularioHelp).addClass("hidden");
             $(JsFormulario.Controles.txtCantidadIndicadoresFormularioHelp).addClass("hidden");
             $(JsFormulario.Controles.ddlFrecuenciaHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtNombreFormulario).parent().removeClass("has-error");
+            $(JsFormulario.Controles.txtCodigoFormulario).parent().removeClass("has-error");
 
             let codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
             let nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
@@ -156,12 +162,16 @@
             $(JsFormulario.Controles.txtTituloHojaHelp).addClass("hidden");
             $(JsFormulario.Controles.txtNotasEncargadoFormularioHelp).addClass("hidden");
             $(JsFormulario.Controles.ddlIndicadorHelp).addClass("hidden");
+            $(JsFormulario.Controles.txtTituloHoja).parent().removeClass("has-error");
+            $(JsFormulario.Controles.ddlIndicador).parent().removeClass("has-error");
+
             let notas = $(JsFormulario.Controles.txtNotasEncargadoFormulario).val().trim();
             let indicador = $(JsFormulario.Controles.ddlIndicador).val();
             let hoja = $(JsFormulario.Controles.txtTituloHoja).val().trim();
 
             if (hoja.length == 0) {
                 $(JsFormulario.Controles.txtTituloHojaHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtTituloHoja).parent().addClass("has-error");
                 validar = false;
             }
             //if (notas.length == 0) {
@@ -171,6 +181,7 @@
 
             if (indicador == "") {
                 $(JsFormulario.Controles.ddlIndicadorHelp).removeClass("hidden");
+                $(JsFormulario.Controles.ddlIndicador).parent().addClass("has-error");
                 validar = false;
             }
             return validar;
@@ -211,8 +222,10 @@
                 html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' value=" + formulario.id + " class='btn-icon-base btn-clone' ></button>";
                 if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + formulario.id + " class='btn-icon-base btn-power-off'></button>";
-                } else {
+                } else if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + formulario.id + " class='btn-icon-base btn-power-on'></button>";
+                } else {
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' disabled value=" + formulario.id + " class='btn-icon-base btn-power-off'></button>";
                 }
                 if (formulario.idEstado != jsUtilidades.Variables.EstadoRegistros.Activo) {
                     ind = "disabled"

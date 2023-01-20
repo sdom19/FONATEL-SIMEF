@@ -7,6 +7,7 @@
 
     <!--   TEXTO PARA SABER EL MODO AGREGAR O EDITAR -->
     @Html.Hidden("txtmodo", (string)ViewBag.Modo)
+    @Html.HiddenFor(model => model.IdEstado, new { IdEstado = "IdEstado" })
 
     <!-- TEXTO PARA ENCRIPTAR ID Y PARA EL EDITAR-->
     @Html.HiddenFor(model => model.id, new { id = "txtidsolicitud" })
@@ -20,7 +21,7 @@
                 <div class="form-group row">
                     <label for="txtCodigo" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.Codigo</label>
                     <div class="col-sm-12">
-                        @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", @maxlength = "30",  placeholder = EtiquetasViewSolicitudes.Codigo, id = "txtCodigo" } })
+                        @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico", @maxlength = "30", placeholder = EtiquetasViewSolicitudes.Codigo, id = "txtCodigo" } })
                         <small id="CodigoHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
@@ -36,7 +37,7 @@
                 <div class="form-group row">
                     <label for="txtFechaInicio" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.FechaInicio</label>
                     <div class="col-sm-12">
-                        @Html.EditorFor(model => model.FechaInicio, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewSolicitudes.FechaInicio, id = "txtFechaInicio"} })
+                        @Html.EditorFor(model => model.FechaInicio, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewSolicitudes.FechaInicio, id = "txtFechaInicio" } })
                         <small id="FechaInicioHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>

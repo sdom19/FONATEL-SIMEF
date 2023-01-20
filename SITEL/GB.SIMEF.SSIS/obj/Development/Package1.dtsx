@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/2/2023 8:30:22 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SIMEF"
+  DTS:CreatorName="SIMEF\Administrador"
+  DTS:DTSID="{E6D73784-3E03-48AE-A63B-9C82D8F1A65C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.845.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionGUID="{02AE3E85-37D1-45EC-AE28-AD2C7DD98DA1}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables />
+</DTS:Executable>

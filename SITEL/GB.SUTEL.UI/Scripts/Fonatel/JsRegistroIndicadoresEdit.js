@@ -182,7 +182,7 @@
             html = html + "</tr>"
 
             for (var i = 0; i < cantidadFilas; i++) {
-                $(jsRegistroIndicadorFonatelEdit.Controles.filasTablaIndicador).append(html.replace("[0]", i + 1));
+                $(jsRegistroIndicadorFonatelEdit.Controles.filasTablaIndicador).append(html.replaceAll("[0]", i + 1));
             }
 
         },
@@ -526,6 +526,10 @@ function setSelect2() {
         width: 'resolve'
     });
 }
+
+$(document).on('draw.dt', jsRegistroIndicadorFonatelEdit.Controles.tablaIndicador, function (e) {
+    setSelect2();
+});
 
 
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador, function () {

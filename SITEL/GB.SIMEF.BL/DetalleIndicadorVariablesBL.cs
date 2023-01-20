@@ -177,15 +177,16 @@ namespace GB.SIMEF.BL
                 }
 
                 pDetalleIndicadorVariables.Estado = true;
-                resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ActualizarDatos(pDetalleIndicadorVariables);
+                var objetoDetalle = detalleIndicadorVariablesDAL.ActualizarDatos(pDetalleIndicadorVariables);
+                resultado.objetoRespuesta = objetoDetalle;
 
                 resultado.Usuario = user;
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Insertar;
 
-                var objetoDetalle = detalleIndicadorVariablesDAL.ObtenerDatos(pDetalleIndicadorVariables).Single();
-                string JsonInicial = objetoDetalle.ToString();
+                var objetoDetalleBitacora = objetoDetalle.Where(x => x.NombreVariable == pDetalleIndicadorVariables.NombreVariable && x.Descripcion == pDetalleIndicadorVariables.Descripcion).Single();
+                string JsonInicial = objetoDetalleBitacora.ToString();
 
                 detalleIndicadorVariablesDAL.RegistrarBitacora(resultado.Accion,
                         resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.idDetalleIndicador.ToString(),"","",JsonInicial);
@@ -291,7 +292,7 @@ namespace GB.SIMEF.BL
                 if (!modoEdicion) // modo creación
                 {
                     // validar la cantidad de detalles registrados actualmente: ¿se supera la cantidad establecida en el indicador?
-                    if (detallesActuales.CantidadRegistros + 1 > indicadorExistente.CantidadVariableDato)
+                    if (detallesActuales.CantidadRegistros > indicadorExistente.CantidadVariableDato)
                     {
                         errorControlado = true;
                         throw new Exception(Errores.CantidadRegistros);

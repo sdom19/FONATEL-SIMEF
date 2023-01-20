@@ -70,6 +70,7 @@
     <Compile Include="DefinicionIndicadorBL.cs" />
     <Compile Include="DetalleFormularioWebBL.cs" />
     <Compile Include="DetalleIndicadorCategoriaBL.cs" />
+    <Compile Include="DetalleIndicadorCriteriosSitelBL.cs" />
     <Compile Include="DetalleIndicadorVariablesBL.cs" />
     <Compile Include="DetalleRegistroIndicadorCategoriaValorFonatelBL.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatelBL .cs" />
@@ -79,6 +80,8 @@
     <Compile Include="EditarDetalleRegistroIndicadorFonatelBL.cs" />
     <Compile Include="EditarRegistroIndicadorFonatelBL.cs" />
     <Compile Include="FormularioWebBL.cs" />
+    <Compile Include="FormulasCalculoTipoFechaBL.cs" />
+    <Compile Include="FormulasCalculoUnidadMedidaBL.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
     <Compile Include="FuenteIndicadorBL.cs" />

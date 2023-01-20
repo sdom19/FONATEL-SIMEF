@@ -108,7 +108,9 @@ namespace GB.SIMEF.BL
                     int.TryParse(Utilidades.Desencriptar(objeto.IdIndicadorString), out int temp);
                     objeto.IdIndicador = temp;
                 }
+
                 var result = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(objeto);
+
                 ResultadoConsulta.objetoRespuesta = result;
                 ResultadoConsulta.CantidadRegistros = result.Count();
             }

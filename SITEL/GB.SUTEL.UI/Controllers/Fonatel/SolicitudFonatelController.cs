@@ -65,19 +65,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         // GET: Solicitud/Create
         public ActionResult Create(string id, int? modo)
         {
-            Solicitud model = new Solicitud();
+            Solicitud solicitud = new Solicitud();
+
+            var ListaSolicitudes = SolicitudesBL.ObtenerDatos(new Solicitud()).objetoRespuesta;
+
+            var model = ListaSolicitudes.Where(x => x.id.Equals(id)).SingleOrDefault();
+
             ViewBag.ListaAnno = AnnoBL.ObtenerDatos(new Anno() ).objetoRespuesta;
             ViewBag.Modo = modo.ToString();
             ViewBag.ListaMes= MesBL.ObtenerDatos(new Mes()).objetoRespuesta;
             ViewBag.ListaFuentes = fuenteBl.ObtenerDatos(new FuentesRegistro()).objetoRespuesta;
+
+
             ViewBag.ListaFormularioWeb = formularioWebBL.ObtenerDatos(new FormularioWeb() {idEstado=(int)Constantes.EstadosRegistro.Activo })
                                         .objetoRespuesta.Select(x=>new SelectListItem() { Selected=false, Value=x.id, 
                                             Text=Utilidades.ConcatenadoCombos(x.Codigo,x.Nombre) }).ToList();
+
+
             if (!string.IsNullOrEmpty(id))
             {
                 
-                model = SolicitudesBL.ObtenerDatos(new Solicitud() {id=id })
-                    .objetoRespuesta.Single();
                 if (modo== (int)Constantes.Accion.Clonar)
                 {
                     ViewBag.titulo = EtiquetasViewSolicitudes.Clonar;
@@ -86,14 +93,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
                 else
                 {
-                    ViewBag.titulo = EtiquetasViewSolicitudes.Editar;
-                  
+                    ViewBag.titulo = EtiquetasViewSolicitudes.Editar;            
                 }
             }
             else
             {
                 ViewBag.titulo = EtiquetasViewSolicitudes.Crear;
-                model.FormularioWeb = new List<FormularioWeb>();              
+                solicitud.FormularioWeb = new List<FormularioWeb>();              
             }
             return View(model);
         }
@@ -176,8 +182,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> EditarSolicitud(Solicitud solicitud)
         {
-            
-            solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+
             RespuestaConsulta<List<Solicitud>> result = null;
 
             await Task.Run(() =>
@@ -482,6 +487,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         #endregion
+
 
     }
 }

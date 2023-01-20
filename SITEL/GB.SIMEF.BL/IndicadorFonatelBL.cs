@@ -59,6 +59,7 @@ namespace GB.SIMEF.BL
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
             bool errorControlado = false;
+            Indicador indicadorViejo = indicadorFonatelDAL.ObtenerDatos(pIndicador).Where(x => x.id == pIndicador.id).Single();
             int nuevoEstado = pIndicador.nuevoEstado;
 
             try
@@ -94,7 +95,9 @@ namespace GB.SIMEF.BL
                 // actualizar el estado del indicador
                 pIndicador.UsuarioModificacion = user;
                 pIndicador.idEstado = nuevoEstado;
-                string JsonAnterior = pIndicador.ToString();
+
+                
+                string JsonAnterior = indicadorViejo.ToString();
                 List<Indicador> indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
 
                 // construir respuesta
@@ -116,7 +119,7 @@ namespace GB.SIMEF.BL
                 resultado.Usuario = user;
                 resultado.CantidadRegistros = indicadorActualizado.Count();
 
-                var objeto = indicadorFonatelDAL.ObtenerDatos(indicadorActualizado[0]).Single();
+                var objeto = indicadorActualizado[0];
 
 
                 string JsonActual = objeto.ToString();
@@ -324,6 +327,7 @@ namespace GB.SIMEF.BL
         public RespuestaConsulta<List<Indicador>> ValidarDatos(Indicador pIndicador)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
             resultado.HayError = (int)Error.NoError;
             bool errorControlado = false;
 
@@ -403,13 +407,16 @@ namespace GB.SIMEF.BL
                 // validar la cantidad de variables dato y categorias establecidas en el indicador según lo registrado respectivamente en cada detalle, sucede en caso de actualizar
                 if (pIndicador.idIndicador != 0)
                 {
+
                     Indicador indicadorRegistradoActualmente = indicadorFonatelDAL.ObtenerDatos(new Indicador() { idIndicador = pIndicador.idIndicador }).FirstOrDefault();
+                    List<DetalleIndicadorVariables> ListaVariables = detalleIndicadorVariablesDAL.ObtenerDatos(new DetalleIndicadorVariables() { idIndicador = pIndicador.idIndicador});
+                    List<DetalleIndicadorCategoria> ListaCategorias = detalleIndicadorCategoriaDAL.ObtenerDatos(new DetalleIndicadorCategoria() { idIndicador = pIndicador.idIndicador, DetallesAgrupados = true });
 
                     if (indicadorRegistradoActualmente != null)
                     {
                         if (pIndicador.CantidadVariableDato != null && indicadorRegistradoActualmente.CantidadVariableDato != null)
                         {
-                            if (pIndicador.CantidadVariableDato < indicadorRegistradoActualmente.CantidadVariableDato) // la nueva cantidad registrada debe ser mayor o igual a la actual
+                            if (pIndicador.CantidadVariableDato < ListaVariables.Count) // la nueva cantidad registrada debe ser mayor o igual a la actual
                             {
                                 errorControlado = true;
                                 throw new Exception(string.Format(Errores.CampoConValorMenorAlActual, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador));
@@ -418,7 +425,7 @@ namespace GB.SIMEF.BL
 
                         if (pIndicador.CantidadCategoriasDesagregacion != null && indicadorRegistradoActualmente.CantidadCategoriasDesagregacion != null)
                         {
-                            if (pIndicador.CantidadCategoriasDesagregacion < indicadorRegistradoActualmente.CantidadCategoriasDesagregacion)
+                            if (pIndicador.CantidadCategoriasDesagregacion < ListaCategorias.Count)
                             {
                                 errorControlado = true;
                                 throw new Exception(string.Format(Errores.CampoConValorMenorAlActual, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador));

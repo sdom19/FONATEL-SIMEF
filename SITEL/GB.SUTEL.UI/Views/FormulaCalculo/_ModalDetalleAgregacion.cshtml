@@ -6,7 +6,6 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                 <h5 class="modal-title" id="titulo_modalDetalleFormulaCalculo">@EtiquetasViewFormulasCalculo.ModalDetalle_Titulo</h5>
-
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -14,13 +13,17 @@
                         <div class="form-group center">
                             <label for="ddlCategoria_ModalDetalle" class="col-form-label">@EtiquetasViewFormulasCalculo.ModalDetalle_LabelCategoria</label>
                             <div class="select2-wrapper">
-                                <select class="listasDesplegables" id="ddlCategoria_ModalDetalle">
-                                    <option></option>
-                                    <option value="1">Categoría 1</option>
-                                    <option value="2">Categoría 2</option>
-                                    <option value="3">Categoría 3</option>
-                                </select>
+                                @{
+                                    var htmlAttrFuenteIndicador = new Dictionary<string, object>
+                                    {
+                                        { "id", "ddlCategoria_ModalDetalle" },
+                                        { "class", "listasDesplegables" }
+                                    };
+                                }
+                                @Html.DropDownList("categoria", new SelectList(ViewBag.CategoriasModalDetalle, "id", "Categoria"),
+                                                                Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)
                             </div>
+                            <small id="ddlCategoria_ModalDetalleHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
                         </div>
                     </div>
 
@@ -28,13 +31,17 @@
                         <div class="form-group center">
                             <label for="ddlCriterio_ModalDetalle" class="col-form-label">@EtiquetasViewFormulasCalculo.ModalDetalle_LabelCriterio</label>
                             <div class="select2-wrapper">
-                                <select class="listasDesplegables" id="ddlCriterio_ModalDetalle">
-                                    <option></option>
-                                    <option value="1">Criterio 1</option>
-                                    <option value="2">Criterio 2</option>
-                                    <option value="3">Criterio 3</option>
-                                </select>
+                                @{
+                                    htmlAttrFuenteIndicador = new Dictionary<string, object>
+                                    {
+                                        { "id", "ddlCriterio_ModalDetalle" },
+                                        { "class", "listasDesplegables" }
+                                    };
+                                }
+                                @Html.DropDownList("criterio", new SelectList(ViewBag.CriteriosModalDetalle, "id", "Criterio"),
+                                                                Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)
                             </div>
+                            <small id="ddlCriterio_ModalDetalleHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
                         </div>
                     </div>
 
@@ -42,13 +49,17 @@
                         <div class="form-group center">
                             <label for="ddlDetalle_ModalDetalle" class="col-form-label">@EtiquetasViewFormulasCalculo.ModalDetalle_LabelDetalle</label>
                             <div class="select2-wrapper">
-                                <select class="listasDesplegables" id="ddlDetalle_ModalDetalle">
-                                    <option></option>
-                                    <option value="1">Detalle 1</option>
-                                    <option value="2">Detalle 2</option>
-                                    <option value="3">Detalle 3</option>
-                                </select>
+                                @{
+                                    htmlAttrFuenteIndicador = new Dictionary<string, object>
+                                    {
+                                        { "id", "ddlDetalle_ModalDetalle" },
+                                        { "class", "listasDesplegables" }
+                                    };
+                                }
+                                @Html.DropDownList("detalleCategoria", new SelectList(ViewBag.DetallesModalDetalle, "id", "Detalle"),
+                                                                Etiquetas.PlaceholderDropDown, htmlAttrFuenteIndicador)
                             </div>
+                            <small id="ddlDetalle_ModalDetalleHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
                         </div>
                     </div>
 

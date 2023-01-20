@@ -2,7 +2,7 @@
 <BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectInfo>
     <Name>GB.SIMEF.SSIS</Name>
-    <LastWriteTime>2023-01-03T17:24:59.4185477Z</LastWriteTime>
+    <LastWriteTime>2023-01-06T18:12:15.2791049Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
@@ -22,18 +22,23 @@
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
+      <Name>Sigitel.Indicadores.dtsx</Name>
+      <LastWriteTime>2023-01-06T19:16:57.8989153Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>Orquestador.dtsx</Name>
+      <LastWriteTime>2023-01-05T21:22:07.3890766Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
       <Name>Sitel.RegistroIndicador.Simef.dtsx</Name>
       <LastWriteTime>2023-01-03T15:24:56.740467Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
-      <Name>Sigitel.Indicadores.dtsx</Name>
-      <LastWriteTime>2023-01-02T22:06:18.195091Z</LastWriteTime>
-      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
-    </ProjectBuildItemInfo>
-    <ProjectBuildItemInfo>
-      <Name>Orquestador.dtsx</Name>
-      <LastWriteTime>2023-01-03T17:24:05.6507778Z</LastWriteTime>
+      <Name>Sitel.DWH.dtsx</Name>
+      <LastWriteTime>2023-01-07T00:30:22.9223853Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

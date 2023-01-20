@@ -1418,7 +1418,7 @@
     <Content Include="Views\FormulaCalculo\_TablaFormulas.cshtml" />
     <Content Include="Views\RegistroIndicadorFonatel\Index.cshtml" />
     <Content Include="Views\FormulaCalculo\_GestionFormulas.cshtml" />
-    <Content Include="Views\FormulaCalculo\_TablaIndicadores.cshtml" />
+    <Content Include="Views\FormulaCalculo\_TablaDetallesIndicadores.cshtml" />
     <Content Include="Views\DescargaFormulario\Index.cshtml" />
     <Content Include="Views\FormulaCalculo\_ModalDetalleAgregacion.cshtml" />
     <Content Include="Views\FormulaCalculo\_FormulaCalculo.cshtml" />

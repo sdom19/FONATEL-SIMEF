@@ -1,0 +1,82 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>SIMEF_Indicadores</Database>
+    <Server>SIMEF</Server>
+    <ConnectionString>Data Source=SIMEF;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>Default</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>CmSZeBrqo73dXcZTeOxOpe8+VfE=1/5/2023 3:12:48 PM1/5/2023 2:14:11 PM</TimeStamp>
+        <ID>
+          <String>DWSIMEF</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>wLPHSoQHwXkLbFNslxv9Qvqbu2w=1/6/2023 6:57:39 PM1/5/2023 2:14:26 PM</TimeStamp>
+        <ID>
+          <String>DWSIMEF</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>O8KkNrwQW5eXcruX83S3LjC8WJk=1/6/2023 10:20:59 AM1/6/2023 10:15:20 AM</TimeStamp>
+        <ID>
+          <String>Dim Solicitud</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>eom18JHHIoeAR64+PBLNO2ro6lE=1/6/2023 10:21:13 AM1/6/2023 10:15:20 AM</TimeStamp>
+        <ID>
+          <String>Dim Variable</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>XtCwfY2lgJdS570CDDYvxkbWEEE=1/6/2023 10:21:30 AM1/6/2023 10:15:20 AM</TimeStamp>
+        <ID>
+          <String>Dim Indicador</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>ISirlSrb4JeJu2uOE0qwA4Bek70=1/6/2023 6:15:26 PM1/6/2023 4:00:29 PM</TimeStamp>
+        <ID>
+          <String>Dim Categoria</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>Hhtpm0/fzMSDTGTHR6JU0O/nPCs=1/6/2023 6:57:39 PM1/6/2023 10:15:20 AMT78WKSjvvT1eQkh085xO9g73wOQ=1/6/2023 6:49:19 PM1/6/2023 10:15:20 AM</TimeStamp>
+        <ID>
+          <String>DWSIMEF</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>dCIjslewsWZPmr1RduNPYtNbtlc=1/5/2023 2:13:44 PM1/5/2023 2:13:44 PM</TimeStamp>
+      <ID>
+        <String>SIMEF_Indicadores</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2023-01-07T00:57:50.426667Z</LastDeployed>
+</DeploymentSnapshot>

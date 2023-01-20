@@ -10,6 +10,7 @@
         "btnDescargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-download",
         "btnDeleteRelacion": "#TablaRelacionCategoria tbody tr td .btn-delete",
         "btnEliminarDetalleRelacion": "#TablaDetalleRelacionCategoria tbody tr td .btn-delete",
+        "btnEditarDetalleRelacion": "#TablaDetalleRelacionCategoria tbody tr td .btn-edit",
         "stepRelacionCategoria1": "a[href='#step-1']",
         "stepRelacionCategoria2": "a[href='#step-2']",
         "txtCantidadFilas": "#txtCantidadFilas",
@@ -35,7 +36,10 @@
         "inputFileCargarDetalle": "#inputFileCargarDetalle",
         "btnGuardarDetalle": "#btnGuardarDetalle",
         "btnFinalizarDetalle": "#btnFinalizarDetalle",
-
+        "btnGuardarDetalleEditar": "#btnGuardarDetalleEditar",
+        "btnCancelarEditar": "#btnCancelarEditar",
+        "divBotonesGuardar": "#divBotonesGuardar",
+        "divBotonesEditar": "#divBotonesEditar",
     },
 
     "Variables": {
@@ -61,7 +65,12 @@
                     html = html + "<td><button type ='button' data-toggle='tooltip' data-placement='top' disabled  data-original-title='Cargar Detalle'  title='Cargar Detalle' class='btn-icon-base btn-upload' ></button >" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' disabled data-original-title='Descargar Plantilla' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' disabled data-original-title='Agregar Detalle' title='Agregar atributos' class='btn-icon-base btn-add'></button></td>";
-                } else {
+                } else if (detalle.DetalleRelacionCategoria.length < detalle.CantidadCategoria) {
+                    html = html + "<td><button type ='button' data-toggle='tooltip' data-placement='top' disabled  data-original-title='Cargar Detalle'  title='Cargar Detalle' class='btn-icon-base btn-upload' ></button >" +
+                        "<button type='button' data-toggle='tooltip' data-placement='top' disabled data-original-title='Descargar Plantilla' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
+                        "<button type='button' data-toggle='tooltip' data-placement='top' disabled data-original-title='Agregar Detalle' title='Agregar atributos' class='btn-icon-base btn-add'></button></td>";
+                }
+                else {
                     html = html + "<td><button type ='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + "  data-original-title='Cargar Detalle'  title='Cargar Detalle' class='btn-icon-base btn-upload' ></button >" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + " data-original-title='Descargar Plantilla' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + " data-original-title='Agregar Detalle' title='Agregar atributos' class='btn-icon-base btn-add'></button></td>";
@@ -127,13 +136,17 @@
             $(JsRelacion.Controles.CantidadHelp).addClass("hidden");
             $(JsRelacion.Controles.TipoCategoriaHelp).addClass("hidden");
             $(JsRelacion.Controles.CantidadRegistrosHelp).addClass("hidden");
+            $(JsRelacion.Controles.txtCodigoRelacion).parent().removeClass("has-error");
+            $(JsRelacion.Controles.txtNombreRelacion).parent().removeClass("has-error");
 
             if ($(JsRelacion.Controles.txtCodigoRelacion).val().length == 0) {
                 validar = false;
+                $(JsRelacion.Controles.txtCodigoRelacion).parent().addClass("has-error");
                 $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
             }
             if ($(JsRelacion.Controles.txtNombreRelacion).val().length == 0) {
                 validar = false;
+                $(JsRelacion.Controles.txtNombreRelacion).parent().addClass("has-error");
                 $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
             }
 
@@ -190,6 +203,21 @@
 
 
             return validar;
+        },
+
+        "CargarEditar": function (relacionId) {
+            var ValorId = relacionId.RelacionCategoriaId[0].idCategoriaId;
+            $("#dd_" + relacionId.idCategoria).val(ValorId).change();
+            $("#dd_" + relacionId.idCategoria).prop('disabled', true);
+
+            relacionId.RelacionCategoriaId[0].listaCategoriaAtributo.forEach(function (item) {
+                $("#dd_" + item.IdcategoriaAtributo).val(item.IdcategoriaAtributoDetalle).change();
+            })
+
+            $(JsRelacion.Controles.btnGuardarDetalle).addClass("hidden");
+            $(JsRelacion.Controles.btnCancelar).addClass("hidden");
+            $(JsRelacion.Controles.btnCancelarEditar).removeClass("hidden");
+            $(JsRelacion.Controles.btnGuardarDetalleEditar).removeClass("hidden");
         },
     },
 
@@ -335,7 +363,7 @@
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
                     JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
-
+                    
                     jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
                         .set('onok', function (closeEvent) {
                         });
@@ -561,7 +589,7 @@
                         $("#loading").fadeOut();
                     });
             }
-            $("#loading").fadeOut();
+            //$("#loading").fadeOut();
         },
 
         "CambiarEstadoActivo": function (idRelacion) {
@@ -590,6 +618,104 @@
                 }).finally(() => {
                     $("#loading").fadeOut();
                 });
+        },
+
+        "ObtenerDetalleRelacionId": function (idRelacionid) {
+
+            $("#loading").fadeIn();
+
+
+            let relacionCategoriaId = new Object();
+            relacionCategoriaId.RelacionId = ObtenerValorParametroUrl("idRelacionCategoria");
+            relacionCategoriaId.idCategoriaId = idRelacionid;
+
+            execAjaxCall("/RelacionCategoria/ObtenerRegistroRelacionId", "POST", relacionCategoriaId)
+                .then((obj) => {
+                    var relacionid = obj.objetoRespuesta;
+                    JsRelacion.Metodos.CargarEditar(relacionid);
+                }).catch((obj) => {
+
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload(); })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "EditarDetalleRelacionId": function () {
+            $("#loading").fadeIn();
+
+            let relacionCategoriaId = new Object();
+            relacionCategoriaId.RelacionId = ObtenerValorParametroUrl("idRelacionCategoria");
+            relacionCategoriaId.listaCategoriaAtributo = [];
+            let categoriaId = true;
+
+            let validacion = true;
+
+            $(".listasDesplegables").each(function () {
+                if (categoriaId) {
+                    relacionCategoriaId.idCategoriaId = $(this).val();
+                    categoriaId = false;
+
+                    if (relacionCategoriaId.idCategoriaId.length == 0) {
+                        $("#Categoriaid").removeClass("hidden");
+                        validacion = false;
+                    }
+                    else {
+                        $("#Categoriaid").addClass("hidden");
+                    }
+
+                } else {
+                    let categoriaAtributo = new Object();
+                    categoriaAtributo.IdCategoriaId = relacionCategoriaId.idCategoriaId;
+                    categoriaAtributo.IdcategoriaAtributo = $(this).attr('id').replace("dd_", "");
+                    categoriaAtributo.IdcategoriaAtributoDetalle = $(this).val();
+                    if (categoriaAtributo.IdcategoriaAtributoDetalle.length == 0) {
+                        $("#help_" + categoriaAtributo.IdcategoriaAtributo).removeClass("hidden");
+                        validacion = false;
+                    } else {
+                        $("#help_" + categoriaAtributo.IdcategoriaAtributo).addClass("hidden");
+                        relacionCategoriaId.listaCategoriaAtributo.push(categoriaAtributo);
+                    }
+
+
+
+                }
+
+
+
+            });
+
+            if (validacion) {
+
+                execAjaxCall("/RelacionCategoria/ActualizarRelacionCategoriaId", "POST", relacionCategoriaId)
+                    .then((obj) => {
+                        jsMensajes.Metodos.OkAlertModal("El Detalle ha sido editado")
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+
+                    }).catch((obj) => {
+
+                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { location.reload(); });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) { location.reload(); })
+                        }
+                    }).finally(() => {
+                        $("#loading").fadeOut();
+                    });
+            }
+            //$("#loading").fadeOut();
         },
     }
 }
@@ -648,17 +774,19 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
 
     if ($(JsRelacion.Controles.txtCodigoRelacion).val().length == 0) {
         $(JsRelacion.Controles.CodigoHelp).removeClass("hidden");
+        $(JsRelacion.Controles.txtCodigoRelacion).parent().addClass("has-error");
         validar = false;
     }
     if ($(JsRelacion.Controles.txtNombreRelacion).val().length == 0) {
         $(JsRelacion.Controles.nombreHelp).removeClass("hidden");
-      
+        $(JsRelacion.Controles.txtNombreRelacion).parent().addClass("has-error");
         validar = false;
     }
     if (validar) {
         $(JsRelacion.Controles.nombreHelp).addClass("hidden");
         $(JsRelacion.Controles.CodigoHelp).addClass("hidden");
-
+        $(JsRelacion.Controles.txtNombreRelacion).parent().removeClass("has-error");
+        $(JsRelacion.Controles.txtCodigoRelacion).parent().removeClass("has-error");
 
 
         if (id == null) {
@@ -753,10 +881,14 @@ $(document).on("click", JsRelacion.Controles.btnFinalizarDetalle, function (e) {
 
 $(document).on("click", JsRelacion.Controles.btnGuardarCategoria, function (e) {
     e.preventDefault();
-    if ($(JsRelacion.Controles.ddlCategoriaAtributo).val() == "") {
+    if ($(JsRelacion.Controles.ddlCategoriaAtributo).val() == "" || $(JsRelacion.Controles.ddlCategoriaAtributo).val() == null) {
         $(JsRelacion.Controles.CategoriaDetalleHelp).removeClass("hidden");
+        var ddlCatAtributo = $(JsRelacion.Controles.ddlCategoriaAtributo);
+        $(ddlCatAtributo[0]).parent().addClass("has-error");
     } else {
         $(JsRelacion.Controles.CategoriaDetalleHelp).addClass("hidden");
+        var ddlCatAtributo = $(JsRelacion.Controles.ddlCategoriaAtributo);
+        $(ddlCatAtributo[0]).parent().removeClass("has-error");
         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.InsertarDetalleCategoria();
@@ -795,7 +927,24 @@ $(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
 });
 
 
+$(document).on("click", JsRelacion.Controles.btnEditarDetalleRelacion, function () {
+    let id = $(this).val();
+    JsRelacion.Consultas.ObtenerDetalleRelacionId(id);
+});
 
+$(document).on("click", JsRelacion.Controles.btnGuardarDetalleEditar, function (e) {
+    e.preventDefault();
+
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Detalle?", jsMensajes.Variables.actionType.agregar)
+        .set('onok', function (closeEvent) {
+            JsRelacion.Consultas.EditarDetalleRelacionId();
+        });
+});
+
+$(document).on("click", JsRelacion.Controles.btnCancelarEditar, function (e) {
+    e.preventDefault();
+    location.reload();
+});
 
 $(function () {
 
@@ -814,3 +963,8 @@ $(function () {
    
 
 })
+
+$(document).ready(function () {
+    $(JsRelacion.Controles.btnCancelarEditar).addClass("hidden");
+    $(JsRelacion.Controles.btnGuardarDetalleEditar).addClass("hidden");
+});

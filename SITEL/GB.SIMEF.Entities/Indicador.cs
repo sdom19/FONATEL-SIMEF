@@ -111,14 +111,10 @@ namespace GB.SIMEF.Entities
             }
             json.Append("\"Notas\":\"").Append(this.Notas).Append("\",");
 
-            int objEstado = 1;
-            if ((int)this.EstadoRegistro.idEstado == 0)
+            int.TryParse(Utilidades.Desencriptar(this.EstadoRegistro.id), out int objEstado);
+            if (objEstado == 0) 
             {
                 objEstado = this.idEstado;
-            }
-            else
-            {
-                objEstado = (int)this.EstadoRegistro.idEstado;
             }
 
 
