@@ -2,64 +2,81 @@
 
 <div class="row">
 
-    <div class="col-lg-6 col-md-6 col-sm-6">
-        <div class="form-group center">
-            <label for="ddlPantalla" class="col-sm-12 col-form-label ">Pantallas</label>
-            <div class="select2-wrapper">
-                @Html.DropDownList("ddlPantalla", new SelectList(ViewBag.Pantalla, "Value", "Text"), new { @class = "listasDesplegables_todos multiple-Select", id = "ddlPantalla", multiple = true })
+    <div class="col-md-12 col-sm-12 col-md-offset-1 col-sm-offset-0">
+        <div class="justify-content-center">
+
+            <div class="form-group row">
+                <label for="ddlPantalla" class="col-sm-12 col-form-label">Pantallas</label>
+                <div class="col-sm-12">
+                    <div class="select2-wrapper" id="select-pantallas">
+                        @Html.DropDownList("ddlPantalla", new SelectList(ViewBag.Pantalla, "Value", "Text"), new { @class = "listasDesplegables_todos multiple-Select", id = "ddlPantalla", multiple = true })
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-6 col-md-6 col-sm-6">
-        <div class="form-group center">
-            <label for="ddlUsuario" class="col-sm-12 col-form-label ">Usuarios</label>
+</div>
+<div class="row">
 
-            <div class="select2-wrapper">
-                @Html.DropDownList("ddlUsuario", new SelectList(ViewBag.Usuario, "Value", "Text"), new { @class = "listasDesplegables_todos multiple-Select", id = "ddlUsuario", multiple = true })
+    <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+        <div class="justify-content-center">
 
+            <div class="form-group row">
+                <label for="ddlUsuario" class="col-sm-12 col-form-label">Usuarios</label>
+                <div class="col-sm-12">
+                    <div class="select2-wrapper">
+                        @Html.DropDownList("ddlUsuario", new SelectList(ViewBag.Usuario, "Value", "Text"), new { @class = "listasDesplegables_todos multiple-Select", id = "ddlUsuario", multiple = true })
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="txtFechaDesde" class="col-sm-12 col-form-label">Fecha Inicio</label>
+                <div class="col-sm-12">
+                    <input type="date" class="form-control form-control-fonatel " id="txtFechaDesde" placeholder="Fecha de Inicio">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+        <div class="form-group row">
+            <label for="ddlAccion" class="col-sm-12 col-form-label">Acciones</label>
+            <div class="col-sm-12">
+                <div class="select2-wrapper">
+                    @Html.DropDownList("ddlAccion", new SelectList(ViewBag.Accion, "Value", "Text"), "Todos", new { @class = "listasDesplegables_todos multiple-Select", id = "ddlAccion", multiple = true })
+                </div>
+            </div>
+        </div>
+        <div class="form-group row" id="divCantidadDetalleCategoria">
+            <label for="txtFechaHasta" class="col-sm-12 col-form-label">Fecha Final</label>
+            <div class="col-sm-12">
+                <input type="date" class="form-control form-control-fonatel " id="txtFechaHasta" placeholder="Fecha de Fin">
             </div>
         </div>
     </div>
 
+</div>
 
-    <div class="col-lg-6 col-md-6 col-sm-6">
-        <div class="form-group center">
-            <label for="txtFechaMinimaBitacora" class="col-form-label">Fecha Inicio</label>
-            <input type="date" class="form-control form-control-fonatel " id="txtFechaDesde" placeholder="Fecha de Inicio">
-        </div>
-    </div>
+<div class="row">
 
-
-
-    <div class="col-lg-6 col-md-6 col-sm-6">
-        <div class="form-group center">
-            <label for="txtFechaMaximaBitacora" class="col-form-label">Fecha Final</label>
-            <input type="date" class="form-control form-control-fonatel " id="txtFechaHasta" placeholder="Fecha de Fin">
-        </div>
-    </div>
-
-
-    <div class="col-lg-6 col-md-6 col-sm-6">
-        <div class="form-group center">
-            <label for="ddlAccion" class="col-sm-12 col-form-label ">Acciones</label>
-
-            <div class="select2-wrapper">
-                @Html.DropDownList("ddlAccion", new SelectList(ViewBag.Accion, "Value", "Text"), "Todos", new { @class = "listasDesplegables_todos multiple-Select", id = "ddlAccion", multiple = true })
-
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="col-sm-12 text-center mt-4" style="display: inline-block;">
+    <div class="col-sm-12 text-center mt-5" style="display: inline-block;">
         <button type="submit" id="btnBuscarBitacora" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonBuscar</button>
         <button type="submit" id="btnCancelarBitacora" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
     </div>
+
 </div>
 
-
-
-
- 
+<style>
+    #select-pantallas span.select2-container {
+        max-width: 80%;
+    }
+    @@media screen and (max-width:1199.50px) {
+        #select-pantallas span.select2-container {
+            max-width: 88%;
+        }
+    }
+</style>
