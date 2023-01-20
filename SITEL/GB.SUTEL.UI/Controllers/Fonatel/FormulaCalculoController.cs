@@ -1,5 +1,6 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
+using GB.SIMEF.Entities.DTO;
 using GB.SIMEF.Resources;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
@@ -796,6 +798,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIdIndicador"></param>
         /// <param name="pFuenteIndicadorEnum"></param>
         /// <returns></returns>
+        [HttpGet]
         public async Task<string> ObtenerVariablesDatoCriteriosIndicador(string pIdIndicador, FuenteIndicadorEnum pFuenteIndicador)
         {
             RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
@@ -843,11 +846,39 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         /// <summary>
+        /// Función que permite crear los detalles matematicos de la fórmula de cálculo.
+        /// Se debe ingresar la fórmula asociada a los argumentos, e ingresar el listado de dichos argumentos
+        /// </summary>
+        /// <param name="pFormulaCalculo"></param>
+        /// <param name="pListaArgumentos"></param>
+        /// <returns></returns
+        [HttpPost]
+        public async Task<string> CrearDetallesFormulaCalculo(FormulasCalculo pFormulaCalculo, List<ArgumentoConstruidoDTO> pListaArgumentos)
+        {
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            if (string.IsNullOrEmpty(pFormulaCalculo.id) || pListaArgumentos.Count < 0)
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.CamposIncompletos;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                formulaBL.InsertarDetallesFormulaCalculo(pFormulaCalculo, pListaArgumentos);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
         /// 09/01/2023
         /// José Navarro Acuña
         /// Función que permite cargar los tipos de fechas para la defición de fechas de un argumento
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public async Task<string> ObtenerTiposFechasDefinicion()
         {
             RespuestaConsulta<List<FormulasCalculoTipoFecha>> resultado = new RespuestaConsulta<List<FormulasCalculoTipoFecha>>();

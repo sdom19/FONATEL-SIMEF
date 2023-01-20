@@ -84,6 +84,26 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
+        /// 20/01/2023
+        /// José Navarro Acuña
+        /// Función que permite actualizar la etiqueta formula del objeto formula de calculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public FormulasCalculo ActualizarEtiquetaFormula(FormulasCalculo pFormulasCalculo)
+        {
+            FormulasCalculo _formula = new FormulasCalculo();
+
+            using (db = new SIMEFContext())
+            {
+                db.FormulasCalculo.Attach(pFormulasCalculo);
+                db.Entry(pFormulasCalculo).Property(x => x.Formula).IsModified = true;
+                db.SaveChanges();
+            }
+            return _formula;
+        }
+
+        /// <summary>
         /// Listado de formulas 
         /// Michael Hernández C
         /// </summary>
@@ -115,7 +135,8 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
-                    FechaCalculo = x.FechaCalculo
+                    FechaCalculo = x.FechaCalculo,
+                    Formula = x.Formula
                 }).ToList();
             }
 
