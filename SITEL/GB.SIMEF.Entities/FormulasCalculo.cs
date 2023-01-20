@@ -57,6 +57,9 @@ namespace GB.SIMEF.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<DateTime> FechaCalculo { get; set; }
 
+        [MaxLength(8000)]
+        public string Formula { get; set; }
+
         #region Variable fuera del modelo
         [NotMapped]
         public string id { get; set; }

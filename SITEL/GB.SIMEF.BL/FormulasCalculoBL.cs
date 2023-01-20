@@ -1,6 +1,9 @@
-﻿using GB.SIMEF.DAL;
+﻿using GB.SIMEF.BL.GestionCalculo;
+using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
+using GB.SIMEF.Entities.DTO;
 using GB.SIMEF.Resources;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +34,58 @@ namespace GB.SIMEF.BL
             formulaNivelCalculoCategoriaDAL = new FormulaNivelCalculoCategoriaDAL();
         }
 
-        public RespuestaConsulta<List<FormulasCalculo>> ActualizarElemento(FormulasCalculo objeto)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<FormulasCalculo>> ActualizarElemento(FormulasCalculo pFormulasCalculo)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 20/01/2023
+        /// José Navarro Acuña
+        /// Función que permite actualizar la etiqueta formula del objeto formula de calculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<FormulasCalculo> ActualizarEtiquetaFormula(FormulasCalculo pFormulasCalculo)
+        {
+            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            bool errorControlado = false;
+
+            try
+            {
+                PrepararObjetoFormulaCalculo(pFormulasCalculo);
+                
+                if (pFormulasCalculo.IdFormula == 0)
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                formulasCalculoDAL.ActualizarEtiquetaFormula(pFormulasCalculo);
+
+                resultado.Usuario = user;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Editar;
+
+                formulasCalculoDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pFormulasCalculo.Codigo);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+
+            return resultado;
         }
 
         /// <summary>
@@ -260,6 +312,27 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
+        /// 20/01/2023
+        /// José Navarro Acuña
+        /// Función que permite registrar los detalles de la fórmula matematica del módulo gestión de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <param name="pListaArgumentos"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<FormulasCalculo>> InsertarDetallesFormulaCalculo(FormulasCalculo pFormulasCalculo, List<ArgumentoConstruidoDTO> pListaArgumentos)
+        {
+            FormulaPredicado formulaPredicado = new FormulaPredicado();
+
+            for (int i = 0; i < pListaArgumentos.Count; i++)
+            {
+                PrepararObjetoArgumentoFormulaDTO(pListaArgumentos[i]);
+            }
+
+            ActualizarEtiquetaFormula(pFormulasCalculo);
+            return null;
+        }
+
+        /// <summary>
         /// 24/10/2022
         /// José Navarro Acuña
         /// Prepara un objeto de fórmula para ser enviado al servicio DAL.
@@ -299,6 +372,20 @@ namespace GB.SIMEF.BL
                     int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.ListaCategoriasNivelesCalculo[i].IdCategoriaString), out int number);
                     pFormulasCalculo.ListaCategoriasNivelesCalculo[i].IdCategoria = number;
                 }
+            }
+        }
+
+        /// <summary>
+        /// 20/01/2023
+        /// José Navarro Acuña
+        /// Prepara un objeto argumento para ser utilizado en el proceso de la construicción de la fórmula matemática
+        /// </summary>
+        /// <param name="pListaArgumentos"></param>
+        private void PrepararObjetoArgumentoFormulaDTO(ArgumentoConstruidoDTO pArgumento)
+        {
+            if (pArgumento.TipoArgumento == FormulasTipoArgumento.VariableDatoCriterio)
+            {
+
             }
         }
     }

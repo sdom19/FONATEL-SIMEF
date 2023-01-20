@@ -82,6 +82,15 @@
     <Compile Include="FormularioWebBL.cs" />
     <Compile Include="FormulasCalculoTipoFechaBL.cs" />
     <Compile Include="FormulasCalculoUnidadMedidaBL.cs" />
+    <Compile Include="GestionCalculo\ArgumentoCalidad.cs" />
+    <Compile Include="GestionCalculo\ArgumentoCruzado.cs" />
+    <Compile Include="GestionCalculo\ArgumentoDefinicionFecha.cs" />
+    <Compile Include="GestionCalculo\ArgumentoExterno.cs" />
+    <Compile Include="GestionCalculo\ArgumentoFonatel.cs" />
+    <Compile Include="GestionCalculo\ArgumentoMercados.cs" />
+    <Compile Include="GestionCalculo\ArgumentoUIT.cs" />
+    <Compile Include="GestionCalculo\FormulaPredicado.cs" />
+    <Compile Include="GestionCalculo\IArgumento.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />
     <Compile Include="FuenteIndicadorBL.cs" />
@@ -131,6 +140,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

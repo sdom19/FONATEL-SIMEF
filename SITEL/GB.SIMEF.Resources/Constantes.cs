@@ -116,6 +116,15 @@ namespace GB.SIMEF.Resources
             meses = 2,
             anios = 3
         }
+
+        /// <summary>
+        /// Enum para indicador que tipo de argumento se registra en la fórmula de cálculo dentro de la tabla de edición
+        /// </summary>
+        public enum FormulasTipoArgumento : int
+        {
+            VariableDatoCriterio = 1,
+            DefinicionFecha = 2
+        }
              
         public struct CifradoDatos
         {
