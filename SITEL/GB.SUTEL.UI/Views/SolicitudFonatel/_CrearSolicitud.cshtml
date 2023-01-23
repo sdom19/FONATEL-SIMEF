@@ -67,8 +67,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="form-group row">
                     <label for="txtCantidadFormularios" class="col-sm-12 col-form-label ">@EtiquetasViewSolicitudes.CantidadFormularios</label>
                     <div class="col-sm-12">
@@ -81,22 +79,18 @@
 
                 <div class="form-group row">
                     <label for="ddlMesSolicitud" class="col-sm-12 col-form-label ">@EtiquetasViewSolicitudes.Mes</label>
-                    <div class="select2-wrapper">
-                        <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <div class="select2-wrapper">
                             @Html.DropDownListFor(model => model.idMes, new SelectList(ViewBag.ListaMes, "idMes", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlMesSolicitud" })
                         </div>
                         <small id="ddlMesSolicitudHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>
 
-
-
                 <div class="form-group row">
                     <label for="ddlAnoSolicitud" class="col-sm-12 col-form-label ">@EtiquetasViewSolicitudes.Anno</label>
-                    <div class="select2-wrapper">
-                        <div class="col-sm-12">
-
-
+                    <div class="col-sm-12">
+                        <div class="select2-wrapper">
                             @Html.DropDownListFor(model => model.idAnno, new SelectList(ViewBag.ListaAnno, "idAnno", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlAnoSolicitud" })
                         </div>
                         <small id="ddlAnoSolicitudHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>

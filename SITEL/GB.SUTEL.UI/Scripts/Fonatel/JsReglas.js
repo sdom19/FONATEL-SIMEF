@@ -201,30 +201,23 @@
 
         "ValidarControles": function () {
             let validar = true;
-            $(JsReglas.Controles.CodigoHelp).addClass("hidden");
-            $(JsReglas.Controles.nombreHelp).addClass("hidden");
+
             $(JsReglas.Controles.TipoIndicadorHelp).addClass("hidden");
             $(JsReglas.Controles.DescripcionReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlIndicadorRegla).parent().removeClass("has-error");
+            $(JsReglas.Controles.txtDescripcionRegla).parent().removeClass("has-error");
 
-            let codigo = $(JsReglas.Controles.txtCodigo).val().trim();
-            let nombre = $(JsReglas.Controles.txtNombre).val().trim();
             let Indicador = $(JsReglas.Controles.ddlIndicadorRegla).val();
             let Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val().trim();
 
-            if (codigo.length == 0) {
-                $(JsReglas.Controles.CodigoHelp).removeClass("hidden");
-                Validar = false;
-            }
-            if (nombre.length == 0) {
-                $(JsReglas.Controles.nombreHelp).removeClass("hidden");
-                validar = false;
-            }
             if (Indicador.length == 0) {
                 $(JsReglas.Controles.TipoIndicadorHelp).removeClass("hidden");
+                $(JsReglas.Controles.ddlIndicadorRegla).parent().addClass("has-error");
                 validar = false;
             }
             if (Descripcion.length == 0) {
                 $(JsReglas.Controles.DescripcionReglaHelp).removeClass("hidden");
+                $(JsReglas.Controles.txtDescripcionRegla).parent().addClass("has-error");
                 validar = false;
             }
             return validar;
@@ -232,23 +225,17 @@
 
         "ValidarCampos": function () {
             let validar = true;
-            $(JsReglas.Controles.CodigoHelp).addClass("hidden");
-            $(JsReglas.Controles.nombreHelp).addClass("hidden");
-            $(JsReglas.Controles.TipoIndicadorHelp).addClass("hidden");
-            $(JsReglas.Controles.DescripcionReglaHelp).addClass("hidden");
 
-            let codigo = $(JsReglas.Controles.txtCodigo).val().trim();
-            let nombre = $(JsReglas.Controles.txtNombre).val().trim();
+            $(JsReglas.Controles.TipoIndicadorHelp).addClass("hidden");
+            $(JsReglas.Controles.ddlIndicadorRegla).parent().removeClass("has-error");
+            $(JsReglas.Controles.DescripcionReglaHelp).addClass("hidden");
+            $(JsReglas.Controles.txtDescripcionRegla).parent().removeClass("has-error");
+
             let Indicador = $(JsReglas.Controles.ddlIndicadorRegla).val();
             let Descripcion = $(JsReglas.Controles.txtDescripcionRegla).val().trim();
 
-            if (codigo.length == 0) {
-                Validar = false;
-            }
-            if (nombre.length == 0) {
-                validar = false;
-            }
             if (Indicador.length == 0) {
+
                 validar = false;
             }
             if (Descripcion.length == 0) {

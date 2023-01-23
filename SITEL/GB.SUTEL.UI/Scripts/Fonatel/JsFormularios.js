@@ -164,6 +164,7 @@
             $(JsFormulario.Controles.ddlIndicadorHelp).addClass("hidden");
             $(JsFormulario.Controles.txtTituloHoja).parent().removeClass("has-error");
             $(JsFormulario.Controles.ddlIndicador).parent().removeClass("has-error");
+            $(JsFormulario.Controles.txtNotasEncargadoFormulario).parent().removeClass("has-error")
 
             let notas = $(JsFormulario.Controles.txtNotasEncargadoFormulario).val().trim();
             let indicador = $(JsFormulario.Controles.ddlIndicador).val();
@@ -174,10 +175,11 @@
                 $(JsFormulario.Controles.txtTituloHoja).parent().addClass("has-error");
                 validar = false;
             }
-            //if (notas.length == 0) {
-            //    $(JsFormulario.Controles.txtNotasEncargadoFormularioHelp).removeClass("hidden");
-            //    validar = false;
-            //}
+            if (notas.length == 0) {
+                $(JsFormulario.Controles.txtNotasEncargadoFormularioHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtNotasEncargadoFormulario).parent().addClass("has-error")
+                validar = false;
+            }
 
             if (indicador == "") {
                 $(JsFormulario.Controles.ddlIndicadorHelp).removeClass("hidden");
@@ -699,6 +701,7 @@
                 $("#loading").fadeOut();
             })
         },
+
         "ConsultaVizualizarFormulario": function () {
             $("#loading").fadeIn();
             let detalleIndicadorFonatel = new Object();

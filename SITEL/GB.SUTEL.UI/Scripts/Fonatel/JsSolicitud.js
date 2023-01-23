@@ -241,18 +241,28 @@ JsSolicitud = {
 
         "ValidarControles": function () {
             let validar = true;
-            $(JsSolicitud.Controles.CodigoHelp).addClass("hidden");
-            $(JsSolicitud.Controles.nombreHelp).addClass("hidden");
-            $(JsSolicitud.Controles.FechaInicioHelp).addClass("hidden");
-            $(JsSolicitud.Controles.FechaFinHelp).addClass("hidden");
-            $(JsSolicitud.Controles.FuentesHelp).addClass("hidden");
-            $(JsSolicitud.Controles.FormulariosHelp).addClass("hidden");
-            $(JsSolicitud.Controles.ddlMesSolicitudHelp).addClass("hidden");
-            $(JsSolicitud.Controles.ddlAnoSolicitudHelp).addClass("hidden");
-            $(JsSolicitud.Controles.txtMensajeSolicitudHelp).addClass("hidden");
 
-            let codigo = $(JsSolicitud.Controles.txtCodigo).val().trim();
-            let nombre = $(JsSolicitud.Controles.txtNombre).val().trim();
+            $(JsSolicitud.Controles.FechaInicioHelp).addClass("hidden");
+            $(JsSolicitud.Controles.txtFechaInicio).parent().removeClass("has-error");
+
+            $(JsSolicitud.Controles.FechaFinHelp).addClass("hidden");
+            $(JsSolicitud.Controles.txtFechaFin).parent().removeClass("has-error");
+
+            $(JsSolicitud.Controles.FuentesHelp).addClass("hidden");
+            $(JsSolicitud.Controles.ddlFuentes).parent().removeClass("has-error");
+
+            $(JsSolicitud.Controles.FormulariosHelp).addClass("hidden");
+            $(JsSolicitud.Controles.TxtCantidadFormulario).parent().removeClass("has-error");
+
+            $(JsSolicitud.Controles.ddlMesSolicitudHelp).addClass("hidden");
+            $(JsSolicitud.Controles.ddlMesSolicitud).parent().removeClass("has-error");
+
+            $(JsSolicitud.Controles.ddlAnoSolicitudHelp).addClass("hidden");
+            $(JsSolicitud.Controles.ddlAnoSolicitud).parent().removeClass("has-error");
+
+            $(JsSolicitud.Controles.txtMensajeSolicitudHelp).addClass("hidden");
+            $(JsSolicitud.Controles.txtMensajeSolicitud).parent().removeClass("has-error");
+
             let fechainicio = moment($(JsSolicitud.Controles.txtFechaInicio).val().trim());
             let fechaFin = moment($(JsSolicitud.Controles.txtFechaFin).val().trim());
             let fuentes = $(JsSolicitud.Controles.ddlFuentes).val().trim();
@@ -261,42 +271,59 @@ JsSolicitud = {
             let anno = $(JsSolicitud.Controles.ddlAnoSolicitud).val().trim();
             let mensaje = $(JsSolicitud.Controles.txtMensajeSolicitud).val().trim();
 
-            if (codigo.length == 0) {
-                $(JsSolicitud.Controles.CodigoHelp).removeClass("hidden");
-                Validar = false;
-            }
-            if (nombre.length == 0) {
-                $(JsSolicitud.Controles.nombreHelp).removeClass("hidden");
-                validar = false;
-            }
             if (!fechainicio.isValid()) {
                 $(JsSolicitud.Controles.FechaInicioHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.txtFechaInicio).parent().addClass("has-error");
                 validar = false;
             }
             if (!fechaFin.isValid()) {
                 $(JsSolicitud.Controles.FechaFinHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.txtFechaFin).parent().addClass("has-error");
                 validar = false;
             }
             if (fuentes.length == 0) {
                 $(JsSolicitud.Controles.FuentesHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.ddlFuentes).parent().addClass("has-error");
                 validar = false;
             }
-            if (CantidadFormulario == 0) {
+            if (CantidadFormulario.length == 0) {
                 $(JsSolicitud.Controles.FormulariosHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.TxtCantidadFormulario).parent().addClass("has-error");
                 validar = false;
             }
             if (mes.length == 0) {
                 $(JsSolicitud.Controles.ddlMesSolicitudHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.ddlMesSolicitud).parent().addClass("has-error");
                 validar = false;
             }
             if (anno.length == 0) {
                 $(JsSolicitud.Controles.ddlAnoSolicitudHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.ddlAnoSolicitud).parent().addClass("has-error");
                 validar = false;
             }
             if (mensaje.length == 0) {
                 $(JsSolicitud.Controles.txtMensajeSolicitudHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.txtMensajeSolicitud).parent().addClass("has-error");
                 validar = false;
             }
+            return validar;
+        },
+
+        "ValidarFormularioWeb": function () {
+
+            let validar = true;
+
+            $(JsSolicitud.Controles.ddlVariableIndicadorHelp).addClass("hidden");
+            $(JsSolicitud.Controles.ddlFormularioWeb).parent().removeClass("has-error");
+
+            let Formulario = $(JsSolicitud.Controles.ddlFormularioWeb).val().trim();
+
+            if (Formulario.length == 0) {
+                $(JsSolicitud.Controles.ddlVariableIndicadorHelp).removeClass("hidden");
+                $(JsSolicitud.Controles.ddlFormularioWeb).parent().addClass("has-error");
+                validar = false;
+            }
+
             return validar;
         },
 
@@ -1114,16 +1141,11 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e)
 
     e.preventDefault();
 
-    if ($(JsSolicitud.Controles.ddlFormularioWeb).val().length > 0) {
-
-        $(JsSolicitud.Controles.ddlVariableIndicadorHelp).addClass("hidden");
+    if (JsSolicitud.Metodos.ValidarFormularioWeb()) {
         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el formulario a la Solicitud?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsSolicitud.Consultas.InsertarDetalleSolicitud();
             });
-    }
-    else {
-        $(JsSolicitud.Controles.ddlVariableIndicadorHelp).removeClass("hidden");
     }
 });
 
