@@ -959,3 +959,14 @@ $(document).on("keypress", JsFormulario.Controles.txtCantidadIndicador, function
         JsFormulario.Consultas.ConsultaVizualizarFormulario();
     }
 });
+
+function setSelect2() {
+    $('.listasDesplegables').select2({
+        placeholder: "Seleccione",
+        width: 'resolve'
+    });
+}
+
+$(document).on('draw.dt', JsFormulario.Controles.tablaIndicador, function (e) {
+    setSelect2();
+});

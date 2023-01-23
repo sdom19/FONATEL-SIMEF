@@ -180,6 +180,9 @@
   <data name="Frecuencia" xml:space="preserve">
     <value>FrecuenciaEnvio</value>
   </data>
+  <data name="Generar" xml:space="preserve">
+    <value>Generar URL</value>
+  </data>
   <data name="Indicador" xml:space="preserve">
     <value>Indicador</value>
   </data>
@@ -191,5 +194,8 @@
   </data>
   <data name="ReglasValidacion" xml:space="preserve">
     <value>Reglas de Validación</value>
+  </data>
+  <data name="Seleccionar" xml:space="preserve">
+    <value>Seleccionar</value>
   </data>
 </root>

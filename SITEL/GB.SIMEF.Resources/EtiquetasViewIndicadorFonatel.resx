@@ -204,6 +204,9 @@
   <data name="TituloEditarIndicador" xml:space="preserve">
     <value>Editar Indicador</value>
   </data>
+  <data name="TituloGeneradorUrl" xml:space="preserve">
+    <value>Generador URL de Indicadores</value>
+  </data>
   <data name="TituloIndex" xml:space="preserve">
     <value>Indicadores</value>
   </data>

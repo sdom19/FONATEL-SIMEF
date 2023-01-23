@@ -322,6 +322,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generador URL de Indicadores.
+        /// </summary>
+        public static string TituloGeneradorUrl {
+            get {
+                return ResourceManager.GetString("TituloGeneradorUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Indicadores.
         /// </summary>
         public static string TituloIndex {

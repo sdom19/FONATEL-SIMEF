@@ -23,6 +23,10 @@ namespace GB.SIMEF.API.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Método para obtener json con la informacion guardada
+        /// </summary>
+        /// <param name="tabla">Nombre de tabla</param>
         [Route("~/api/Informe/{tabla}")]
         public JObject Get(string tabla)
         {
@@ -30,25 +34,48 @@ namespace GB.SIMEF.API.Controllers
             var resultado = new JObject();
             if (informe != null)
             {
-                JArray filas = new JArray();
-
-                int cantidadFilas = informe.InformeFilasValor.Select(x => x.IdFilaValor).Max();
-
-                for (int i = 1; i <= cantidadFilas; i++)
-                {
-                    dynamic jsonObject = new JObject();
-                    foreach (var item in informe.InformeFilasValor.Where(x => x.IdFilaValor == i))
-                    {
-                        string encabezado = informe.InformeEncabezadoTablas.Where(x => x.IdEncabezado == item.IdEncabezado).FirstOrDefault().NombreEncabezado;
-                        jsonObject.Add(encabezado, item.Valor);
-
-                    }
-                    filas.Add(jsonObject);
-                }
+                List<string> l = ObtenerInformeValor(informe.IdTabla);
+                string json = "[" + String.Join(",", l) + "]";
+                JArray filas = JArray.Parse(json);
 
                 resultado.Add(tabla, filas);
             }
 
+            return resultado;
+        }
+
+        /// <summary>
+        /// Método para obtener json con la informacion guardada de varias tablas
+        /// </summary>
+        /// <param name="nn">Nombre de tablas</param>
+        [ArrayInput("nn")]
+        [Route("~/Informes/{nn?}")]
+        public JObject Informes(string nn = "")
+        {
+            //Se crea el objeto que se retornara
+            var resultado = new JObject();
+
+            string[] lista = nn.Split(",");
+
+            //Se comprueba que se tiene datos recibidos
+            if (lista.Length > 0)
+            {
+                //Se recorren datos recibidos
+                foreach (var item in lista)
+                {
+                    InformeNombreTabla informe = ObtenerInformeNombreTabla(item);
+
+                    if (informe != null)
+                    {
+                        List<string> l = ObtenerInformeValor(informe.IdTabla);
+                        string json = "[" + String.Join(",", l) + "]";
+                        JArray filas = JArray.Parse(json);
+
+                        resultado.Add(item, filas);
+                    }
+                }
+            }
+            //Se retorna los valores
             return resultado;
         }
 
@@ -70,40 +97,29 @@ namespace GB.SIMEF.API.Controllers
                     IdTabla = x.IdTabla,
                     NombreTabla = x.NombreTabla,
                     Estado = x.Estado,
-                    InformeFilasValor = ObtenerInformeFilasValor(x.IdTabla),
-                    InformeEncabezadoTablas = ObtenerInformeEncabezadoTabla(x.IdTabla)
                 }).FirstOrDefault();
 
             }
             return obj;
         }
 
-        internal List<InformeFilasValor> ObtenerInformeFilasValor(int IdTabla)
+        /// <summary>
+        /// Método para obtener los json para el BI
+        /// </summary>
+        /// <param name="IdTabla">Nombre de tabla</param>
+        /// <returns>Lista de json en string</returns>
+        internal List<string> ObtenerInformeValor(int IdTabla)
         {
-            var SqlQuery = "execute FONATEL.spObtenerInformeFilasValor @id";
+            var SqlQuery = "execute FONATEL.ObtenerInformeValor @idTabla";
 
-            List<InformeFilasValor> lista = null;
+            List<string> lista = null;
 
             using (var connection = new SqlConnection(Connection.SIGITELDatabase))
             {
-                lista = connection.Query<InformeFilasValor>(SqlQuery, new { id = IdTabla }).ToList();
-
+                lista = connection.Query<string>(SqlQuery, new { idTabla = IdTabla }).ToList();
             }
             return lista;
         }
 
-        internal List<InformeEncabezadoTabla> ObtenerInformeEncabezadoTabla(int IdTabla)
-        {
-            var SqlQuery = "execute FONATEL.spObtenerInformeEncabezadoTabla @id";
-
-            List<InformeEncabezadoTabla> lista = null;
-
-            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
-            {
-                lista = connection.Query<InformeEncabezadoTabla>(SqlQuery, new { id = IdTabla }).ToList();
-
-            }
-            return lista;
-        }
     }
 }

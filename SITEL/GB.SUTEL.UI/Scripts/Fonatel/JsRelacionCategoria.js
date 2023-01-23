@@ -426,6 +426,7 @@
 
         "ImportarExcel": function () {
             var data;
+            $("#loading").fadeIn();
             data = new FormData();
             data.append('file', $(JsRelacion.Controles.inputFileCargarDetalle)[0].files[0]);
             execAjaxCallFile("/RelacionCategoria/CargarExcel", data)
