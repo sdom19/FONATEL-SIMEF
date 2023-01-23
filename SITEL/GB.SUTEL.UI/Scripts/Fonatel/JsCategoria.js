@@ -192,16 +192,27 @@
                 $(JsCategoria.Controles.FechaMaximaCategoriaHelp).addClass("hidden");
                 $(JsCategoria.Controles.RangoMinimaCategoriaHelp).addClass("hidden");
                 $(JsCategoria.Controles.RangoMaximaCategoriaHelp).addClass("hidden");
+
+                $(JsCategoria.Controles.ddlTipoCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.ddlTipoDetalle).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtRangoMaximaCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtFechaMinimaCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtFechaMaximaCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtCantidadDetalleCategoria).parent().removeClass("has-error");
+                $(JsCategoria.Controles.txtRangoMinimaCategoria).parent().removeClass("has-error");
+
                 if ($(JsCategoria.Controles.ddlTipoCategoria).val().length == 0) {
                     validar = false;
                     if (opcion) {
                         $(JsCategoria.Controles.ddlTipoCategoriaHelp).removeClass("hidden");
+                        $(JsCategoria.Controles.ddlTipoCategoria).parent().addClass("has-error");
                     }             
                 }
                 if ($(JsCategoria.Controles.ddlTipoDetalle).val() == 0) {
                     validar = false
                     if (opcion) {
                         $(JsCategoria.Controles.ddlTipoDetalleCategoriaHelp).removeClass("hidden");
+                        $(JsCategoria.Controles.ddlTipoDetalle).parent().addClass("has-error");
                     }
               
                 }
@@ -212,6 +223,7 @@
                             validar = false;
                             if (opcion) {
                                 $(JsCategoria.Controles.CantidadDetalleCategoriaHelp).removeClass("hidden");
+                                $(JsCategoria.Controles.txtCantidadDetalleCategoria).parent().addClass("has-error");
                             }
                           
                         }
@@ -221,6 +233,7 @@
                             validar = false;
                             if (opcion) {
                                 $(JsCategoria.Controles.RangoMinimaCategoriaHelp).removeClass("hidden");
+                                $(JsCategoria.Controles.txtRangoMinimaCategoria).parent().addClass("has-error");
                             }
                            
                         }
@@ -228,6 +241,7 @@
                             validar = false;
                             if (opcion) {
                                 $(JsCategoria.Controles.RangoMaximaCategoriaHelp).removeClass("hidden");
+                                $(JsCategoria.Controles.txtRangoMaximaCategoria).parent().addClass("has-error");
                             }
                          
                         }
@@ -237,6 +251,7 @@
                             validar = false;
                             if (opcion) {
                                 $(JsCategoria.Controles.FechaMinimaCategoriaHelp).removeClass("hidden");
+                                $(JsCategoria.Controles.txtFechaMinimaCategoria).parent().addClass("has-error");
                             }
                           
                         }
@@ -244,6 +259,7 @@
                             validar = false;
                             if (opcion) {
                                 $(JsCategoria.Controles.FechaMaximaCategoriaHelp).removeClass("hidden");
+                                $(JsCategoria.Controles.txtFechaMaximaCategoria).parent().addClass("has-error");
                             }
                             
                         }

@@ -138,6 +138,9 @@
             $(JsRelacion.Controles.CantidadRegistrosHelp).addClass("hidden");
             $(JsRelacion.Controles.txtCodigoRelacion).parent().removeClass("has-error");
             $(JsRelacion.Controles.txtNombreRelacion).parent().removeClass("has-error");
+            $(JsRelacion.Controles.TxtCantidadCategoria).parent().removeClass("has-error");
+            $(JsRelacion.Controles.ddlCategoriaId).parent().removeClass("has-error");
+            $(JsRelacion.Controles.txtCantidadFilas).parent().removeClass("has-error");
 
             if ($(JsRelacion.Controles.txtCodigoRelacion).val().length == 0) {
                 validar = false;
@@ -153,15 +156,18 @@
             if ($(JsRelacion.Controles.TxtCantidadCategoria).val().length == 0 || $(JsRelacion.Controles.TxtCantidadCategoria).val() == 0) {
                 validar = false;
                 $(JsRelacion.Controles.CantidadHelp).removeClass("hidden");
+                $(JsRelacion.Controles.TxtCantidadCategoria).parent().addClass("has-error");
             }
 
             if ($(JsRelacion.Controles.ddlCategoriaId).val().length == 0) {
                 validar = false;
                 $(JsRelacion.Controles.TipoCategoriaHelp).removeClass("hidden");
+                $(JsRelacion.Controles.ddlCategoriaId).parent().addClass("has-error");
             }
             if ($(JsRelacion.Controles.txtCantidadFilas).val().length == 0 || $(JsRelacion.Controles.txtCantidadFilas).val()==0) {
                 validar = false;
                 $(JsRelacion.Controles.CantidadRegistrosHelp).removeClass("hidden");
+                $(JsRelacion.Controles.txtCantidadFilas).parent().addClass("has-error");
             }
 
             return validar;
@@ -795,6 +801,8 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
                 jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Relación?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsRelacion.Consultas.InsertarRelacion();
+                    }).set('oncancel', function (closeEvent) {
+                        JsRelacion.Metodos.ValidarFormularioRelacion();
                     });
             }
             else {
