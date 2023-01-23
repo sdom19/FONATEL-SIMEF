@@ -23,7 +23,14 @@ namespace GB.SIMEF.API.Model
         }
 
 
-
+        /// <summary>
+        /// Fecha 23/01/2023
+        /// Georgi Mesen Cerdas
+        /// Metodo para obtener varios valores en el url
+        /// </summary>
+        /// <param name="actionContext"></param>
+        /// <param name="parametername"></param>
+        /// <returns></returns>
         public void ProcessArrayInput(HttpActionContext actionContext, string parametername)
         {
             if (actionContext.ActionArguments.ContainsKey(parametername))
@@ -56,6 +63,13 @@ namespace GB.SIMEF.API.Model
             }
         }
 
+        /// <summary>
+        /// Fecha 23/01/2023
+        /// Georgi Mesen Cerdas
+        /// Metodo para obtener varios valores en el url
+        /// </summary>
+        /// <param name="actionContext"></param>
+        /// <returns></returns>
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
 
