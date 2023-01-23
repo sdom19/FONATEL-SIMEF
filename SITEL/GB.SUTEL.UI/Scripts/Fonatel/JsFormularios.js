@@ -83,7 +83,7 @@
             if (codigo.length == 0) {
                 $(JsFormulario.Controles.txtCodigoFormularioHelp).removeClass("hidden");
                 $(JsFormulario.Controles.txtCodigoFormulario).parent().addClass("has-error");
-                Validar = false;
+                validar = false;
             }
             if (nombre.length == 0) {
                 $(JsFormulario.Controles.txtNombreFormularioHelp).removeClass("hidden");
@@ -287,7 +287,13 @@
         "CargarIndicadores": function (obj) {
             $(JsFormulario.Controles.txtTituloHoja).val(obj.TituloHojas);
             $(JsFormulario.Controles.txtNotasEncargadoFormulario).val(obj.NotasEncargado);
+            var comboIndicador = document.getElementById("ddlIndicador");
+            comboIndicador.innerHTML = '';
+           
+            comboIndicador.options[0] = new Option(obj.Indicador.Nombre, obj.idIndicador);
             $(JsFormulario.Controles.ddlIndicador).val(obj.idIndicador).change();
+            $(JsFormulario.Controles.ddlIndicador).prop("disabled", true);
+            
         },
 
         "ReestablecerIndicadores": function (obj) {
@@ -878,6 +884,11 @@ $(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', async function (closeEvent) {
             await JsFormulario.Consultas.EliminarIndicadores(idIndicador, idFormulario);
+            $(JsFormulario.Controles.txtNotasEncargadoFormulario).val("");
+            $(JsFormulario.Controles.txtTituloHoja).val("");
+            JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
+            $(JsFormulario.Controles.ddlIndicador).prop("disabled", false);
+            JsFormulario.Variables.NuevoIndicador = true;
         });
 });
 
