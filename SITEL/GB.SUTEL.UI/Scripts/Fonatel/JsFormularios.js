@@ -120,8 +120,12 @@
             $(JsFormulario.Controles.txtDescripcionFormularioHelp).addClass("hidden");
             $(JsFormulario.Controles.txtCantidadIndicadoresFormularioHelp).addClass("hidden");
             $(JsFormulario.Controles.ddlFrecuenciaHelp).addClass("hidden");
+
             $(JsFormulario.Controles.txtNombreFormulario).parent().removeClass("has-error");
             $(JsFormulario.Controles.txtCodigoFormulario).parent().removeClass("has-error");
+            $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).parent().removeClass("has-error");
+            $(JsFormulario.Controles.txtDescripcionFormulario).parent().removeClass("has-error");
+            $(JsFormulario.Controles.ddlFrecuanciaEnvio).parent().removeClass("has-error");
 
             let codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
             let nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
@@ -131,26 +135,31 @@
 
             if (codigo == 0) {
                 $(JsFormulario.Controles.txtCodigoFormularioHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtCodigoFormulario).parent().addClass("has-error");
                 validar = false;
             }
 
             if (nombre == 0) {
                 $(JsFormulario.Controles.txtNombreFormularioHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtNombreFormulario).parent().addClass("has-error");
                 validar = false;
             }
 
             if (descripcion == 0) {
                 $(JsFormulario.Controles.txtDescripcionFormularioHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtDescripcionFormulario).parent().addClass("has-error");
                 validar = false;
             }
 
             if (cantidadIndicadores == 0) {
                 $(JsFormulario.Controles.txtCantidadIndicadoresFormularioHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).parent().addClass("has-error");
                 validar = false;
             }
 
             if (idFrecuencia == 0) {
                 $(JsFormulario.Controles.ddlFrecuenciaHelp).removeClass("hidden");
+                $(JsFormulario.Controles.ddlFrecuanciaEnvio).parent().addClass("has-error");
                 validar = false;
             }
             return validar;
@@ -164,6 +173,7 @@
             $(JsFormulario.Controles.ddlIndicadorHelp).addClass("hidden");
             $(JsFormulario.Controles.txtTituloHoja).parent().removeClass("has-error");
             $(JsFormulario.Controles.ddlIndicador).parent().removeClass("has-error");
+            $(JsFormulario.Controles.txtNotasEncargadoFormulario).parent().removeClass("has-error");
 
             let notas = $(JsFormulario.Controles.txtNotasEncargadoFormulario).val().trim();
             let indicador = $(JsFormulario.Controles.ddlIndicador).val();
@@ -174,12 +184,13 @@
                 $(JsFormulario.Controles.txtTituloHoja).parent().addClass("has-error");
                 validar = false;
             }
-            //if (notas.length == 0) {
-            //    $(JsFormulario.Controles.txtNotasEncargadoFormularioHelp).removeClass("hidden");
-            //    validar = false;
-            //}
+            if (notas.length == 0) {
+                $(JsFormulario.Controles.txtNotasEncargadoFormularioHelp).removeClass("hidden");
+                $(JsFormulario.Controles.txtNotasEncargadoFormulario).parent().addClass("has-error");
+                validar = false;
+            }
 
-            if (indicador == "") {
+            if (indicador == "" || indicador == "-1") {
                 $(JsFormulario.Controles.ddlIndicadorHelp).removeClass("hidden");
                 $(JsFormulario.Controles.ddlIndicador).parent().addClass("has-error");
                 validar = false;
