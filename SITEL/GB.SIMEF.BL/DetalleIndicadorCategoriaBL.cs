@@ -186,6 +186,8 @@ namespace GB.SIMEF.BL
                     DetallesAgrupados = false // contabilizar por detalle, no por categoria
                 }).ToList();
 
+                List<DetalleIndicadorCategoria> detallesAnterioresBitacora = new List<DetalleIndicadorCategoria>(detallesActuales);
+
                 if (pDetalleIndicadorCategoria.listaDetallesCategoriaString.Count > 0) // evitar ejecuciones cuando el tipo no es texto o numerico
                 {
                     for (int i = 0; i < pDetalleIndicadorCategoria.listaDetallesCategoriaString.Count; i++)
@@ -224,15 +226,57 @@ namespace GB.SIMEF.BL
                     resultado.Clase = modulo;
                     resultado.Accion = (int)Accion.Insertar;
 
-                    var objeto = detalleIndicadorCategoriaDAL.ObtenerDatos(pDetalleIndicadorCategoria).Single();
+                    var objeto = detalleIndicadorCategoriaDAL.ObtenerDatos(pDetalleIndicadorCategoria);
 
-                    string JsonActual = objeto.ToString();
-                    string JsonAnterior = detallesActuales.Where(x => x.idCategoriaDetalle == objeto.idCategoriaDetalle && x.idDetalleIndicador == objeto.idDetalleIndicador).Single().ToString();
+                    
+                    string JsonAnterior = "";
+                    string JsonNuevo = "";
+                    if (objeto.Count() > detallesAnterioresBitacora.Count())
+                    {
+                        for(int i = detallesAnterioresBitacora.Count(); i < objeto.Count(); i++)
+                        {
+                            var objetoNuevo = objeto[i];
+                            JsonAnterior = objetoNuevo.ToString();
+                            detalleIndicadorCategoriaDAL.RegistrarBitacora(resultado.Accion,
+                                                        resultado.Usuario,
+                                                            resultado.Clase, objetoNuevo.Codigo
+                                                            ,"" ,"", JsonAnterior);
+                        }
+                        
 
-                    detalleIndicadorCategoriaDAL.RegistrarBitacora(resultado.Accion,
-                            resultado.Usuario,
-                                resultado.Clase, objeto.Codigo
-                                , JsonActual, JsonAnterior, "");
+                    }
+                    else if (objeto.Count() < detallesAnterioresBitacora.Count())
+                    {
+                        resultado.Accion = (int)Accion.Eliminar;
+                        foreach(DetalleIndicadorCategoria item in detallesActuales)
+                        {
+                            JsonAnterior = item.ToString();
+                            detalleIndicadorCategoriaDAL.RegistrarBitacora(resultado.Accion,
+                                                        resultado.Usuario,
+                                                            resultado.Clase, item.Codigo
+                                                            , "", "", JsonAnterior);
+                        }
+
+                    }
+                    else
+                    {
+                        resultado.Accion = (int)Accion.Editar;
+                        for (int i = 0; i < objeto.Count(); i++)
+                        {
+                            if (objeto[i].Etiquetas != detallesAnterioresBitacora[i].Etiquetas)
+                            {
+                                var objetoNuevo = objeto[i];
+                                JsonAnterior = objetoNuevo.ToString();
+                                JsonNuevo = detallesAnterioresBitacora[i].ToString();
+                                detalleIndicadorCategoriaDAL.RegistrarBitacora(resultado.Accion,
+                                                            resultado.Usuario,
+                                                                resultado.Clase, objetoNuevo.Codigo
+                                                                , JsonAnterior, JsonNuevo, "");
+                            }
+                        }
+                    }
+
+                    
                     //detalleIndicadorCategoriaDAL.RegistrarBitacora(resultado.Accion,
                     //        resultado.Usuario, resultado.Clase, pDetalleIndicadorCategoria.NombreCategoria);
                 }
