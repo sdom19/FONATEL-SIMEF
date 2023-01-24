@@ -635,7 +635,7 @@ CreateView = {
             let rootObj = this;
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar el Indicador?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaClonarIndicador, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
                     .set("oncancel", function () {
                         rootObj.VerificarCamposIncompletosFormularioIndicador(false);
