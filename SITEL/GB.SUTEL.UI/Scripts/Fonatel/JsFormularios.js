@@ -716,6 +716,7 @@
                 $("#loading").fadeOut();
             })
         },
+
         "ConsultaVizualizarFormulario": function () {
             $("#loading").fadeIn();
             let detalleIndicadorFonatel = new Object();
