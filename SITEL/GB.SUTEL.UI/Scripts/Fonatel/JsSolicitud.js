@@ -513,7 +513,7 @@ JsSolicitud = {
 
             execAjaxCall("/SolicitudFonatel/ClonarSolicitud", "POST", Solicitud)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud de Información ha sido creada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/SolicitudFonatel/index";
                         });
@@ -1131,10 +1131,9 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function 
 
 $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
     let id = encodeURIComponent($(this).val());
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Solicitud?", jsMensajes.Variables.actionType.clonar)
-        .set('onok', function (closeEvent) {
+    
             window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
-        });
+     
 });
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e) {
@@ -1220,7 +1219,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
 
 
         } else if (modo == jsUtilidades.Variables.Acciones.Clonar){
-            jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Solicitud de Información?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsSolicitud.Consultas.ClonarSolicitud();
                 })

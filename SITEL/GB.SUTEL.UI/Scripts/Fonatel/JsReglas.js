@@ -1279,7 +1279,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
 
 
         } else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsReglas.Consultas.ClonarReglaValidacion();
                 })
@@ -1349,8 +1349,9 @@ $(document).on("click", JsReglas.Controles.btnEditarRegla, function () {
 
 $(document).on("click", JsReglas.Controles.btnClonarRegla, function () {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Regla?", jsMensajes.Variables.actionType.clonar)
-        .set('onok', function (closeEvent) { window.location.href = "/Fonatel/ReglasValidacion/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar });
+    
+            window.location.href = "/Fonatel/ReglasValidacion/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar
+      
 });
 
 $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {

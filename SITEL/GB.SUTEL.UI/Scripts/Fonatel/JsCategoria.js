@@ -314,7 +314,7 @@
 
                         }
                         else if (modo == jsUtilidades.Variables.Acciones.Clonar) {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Categoría?", jsMensajes.Variables.actionType.agregar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
                                 .set('onok', function (closeEvent) {
                                     JsCategoria.Consultas.ClonarCategoria();
                                 });
@@ -631,7 +631,7 @@
                 categoria.DetalleCategoriaFecha.FechaMaxima = $(JsCategoria.Controles.txtFechaMaximaCategoria).val();
                 execAjaxCall("/CategoriasDesagregacion/ClonarCategoria", "POST", categoria)
                     .then((obj) => {
-                        jsMensajes.Metodos.OkAlertModal("La Categoría ha sido creada")
+                        jsMensajes.Metodos.OkAlertModal("La Categoría de Desagregación ha sido creada")
                             .set('onok', function (closeEvent) { window.location.href = "/Fonatel/CategoriasDesagregacion/index" });
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -935,10 +935,9 @@ $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, functi
 
 $(document).on("click", JsCategoria.Controles.btnClonarCategoria, function () {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar la Categoría?", jsMensajes.Variables.actionType.clonar)
-        .set('onok', function (closeEvent) {
+    
             window.location.href = "/Fonatel/CategoriasDesagregacion/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
-        });
+        
 });
 
 $(document).on("click", JsCategoria.Controles.btnCargarDetalle, function (e) {
