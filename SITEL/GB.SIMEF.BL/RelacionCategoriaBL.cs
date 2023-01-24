@@ -732,10 +732,10 @@ namespace GB.SIMEF.BL
                                 throw new Exception("Error en la lectura de la columna "+ValorColumna);
                             }
                             //else if(ResultadoConsulta.objetoRespuesta.Single().RelacionCategoriaId.Where(i=>i.idCategoriaId==valorId).Count()>0)
-                            else if (relacion.RelacionCategoriaId.Where(i => i.idCategoriaId == valorId).Count() > 0)
+                            else if (relacion.RelacionCategoriaId.Where(i => i.idCategoriaId == valorId && i.idEstado != (int)Constantes.EstadosRegistro.Eliminado).Count() > 0)
                             {
                                         ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                                throw new Exception("La Categoría id se encuentra ya se encuentra registrada " + ValorColumna);
+                                throw new Exception("La Categoría id ya se encuentra registrada " + ValorColumna);
                             }
                             else
                             {
@@ -750,7 +750,7 @@ namespace GB.SIMEF.BL
 
                                 if (temp == 2)
                                 {
-                                    listaRelacion.Add(new RelacionCategoriaId() { idRelacion = relacion.IdRelacionCategoria, idCategoriaId = valorId });
+                                    listaRelacion.Add(new RelacionCategoriaId() { idRelacion = relacion.IdRelacionCategoria, idCategoriaId = valorId, idEstado = (int)Constantes.EstadosRegistro.Activo });
                                 }
 
                                 if (detalleCategoriaTexto == null)
@@ -778,14 +778,14 @@ namespace GB.SIMEF.BL
                     {
                         foreach (var item in listaRelacion)
                         {
-                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(item);
+                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(item, Accion.Insertar);
                         }
                     }
                     if (lista.Count() > 0)
                     {
                         foreach (var item in lista)
                         {
-                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(item);
+                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(item, Accion.Insertar);
                         }
                     }
                     if (relacion.CantidadFilas-2 == numeroFila-1)
