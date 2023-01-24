@@ -111,7 +111,8 @@ namespace GB.SIMEF.BL
                 {
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion = (int)Accion.Consultar;
-                    var resul = clsDatos.ObtenerDatos(objeto).Where(x => x.IdFuente == fuente.idFuente).ToList();
+                    objeto.IdFuente = fuente.idFuente;
+                    var resul = clsDatos.ObtenerDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
                 }
