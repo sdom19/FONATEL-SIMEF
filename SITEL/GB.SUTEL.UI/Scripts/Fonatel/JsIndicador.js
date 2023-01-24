@@ -213,15 +213,9 @@
         },
 
         ClonarIndicador: function (pIdIndicador) {
-            new Promise((resolve, rejected) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaClonarIndicador, jsMensajes.Variables.actionType.clonar)
-                    .set('onok', function (closeEvent) {
-                        resolve(true);
-                    });
-            })
-                .then(data => {
+            
                     window.location.href = IndexView.Variables.cloneViewURL + pIdIndicador;
-                });
+               
         }
     },
 
@@ -641,7 +635,7 @@ CreateView = {
             let rootObj = this;
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + CreateView.Mensajes.preguntaGuardadoParcialIndicador, jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar el Indicador?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
                     .set("oncancel", function () {
                         rootObj.VerificarCamposIncompletosFormularioIndicador(false);
