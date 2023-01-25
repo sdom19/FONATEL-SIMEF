@@ -34,6 +34,7 @@
         "btnGuardarIndicador": "#btnGuardarIndicadorFormulario",
         "divContenedor": ".contenedor_formulario",
         "btnAtrasFormularioRegla": "#btnAtrasFormularioRegla",
+        "btnAtrasFormularioVisualizar": "#btnAtrasFormularioVisualizar",
         "btnGuardarFormularioCompleto": "#btnGuardarFormularioCompleto",
         "txtTituloHoja": "#txtTituloHoja",
         "txtNotasEncargadoFormulario": "#txtNotasEncargadoFormulario",
@@ -489,11 +490,13 @@
             detalleFormulario.formularioweb = formularioweb;
             execAjaxCall("/FormularioWeb/EditarIndicadoresFormulario", "POST", detalleFormulario)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("El Indicador ha sido editado")
+                    jsMensajes.Metodos.OkAlertModal("El Indicador del Formulario ha sido editado")
                         .set('onok', function (closeEvent) {
+                            $(JsFormulario.Controles.ddlIndicador).prop("disabled", false);
                             JsFormulario.Consultas.ConsultaListaIndicadoresFormulario();
                             JsFormulario.Variables.NuevoIndicador = true;
                             JsFormulario.Metodos.ReestablecerIndicadores();
+                            JsFormulario.Metodos.ValidarButonGuardarIndicador();
                         });
                 }).catch((obj) => {
                     JsFormulario.Metodos.MensajeError(obj);
@@ -789,7 +792,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e)
                 });
         }
         else {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Indicador?", jsMensajes.Variables.actionType.cancelar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Indicador del Formulario?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsFormulario.Consultas.EditarIndicadores();
                     JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
@@ -803,6 +806,7 @@ $(document).on("click", JsFormulario.Controles.btnEditarIndicadores, function ()
     let idIndicador = $(this).val();
     let idFormulario =ObtenerValorParametroUrl('id');
     JsFormulario.Variables.NuevoIndicador = false;
+    $(JsFormulario.Controles.btnGuardarIndicador).removeAttr("disabled");
     JsFormulario.Consultas.ConsultaDetalleFormularioWebAjax(idIndicador, idFormulario);
 });
 
@@ -839,7 +843,8 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
                 });
         } else {
        
-            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
+       
                 .set('onok', async function (closeEvent) {
 
                     let modoMsj = "";
@@ -850,10 +855,10 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
 
                     if (modo == jsUtilidades.Variables.Acciones.Editar) {
                         await JsFormulario.Consultas.EditarFormularioWeb();
-                        modoMsj = "modificado";
+                    modoMsj = "editado";
                     }
                     if (JsFormulario.Variables.HayError === false) {
-                        jsMensajes.Metodos.OkAlertModal("El Formulario ha sido " + modoMsj)
+                    jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido " + modoMsj)
                             .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
                     }
                 })
@@ -908,10 +913,10 @@ $(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', async function (closeEvent) {
             await JsFormulario.Consultas.EliminarIndicadores(idIndicador, idFormulario);
+            $(JsFormulario.Controles.ddlIndicador).prop("disabled", false);
             $(JsFormulario.Controles.txtNotasEncargadoFormulario).val("");
             $(JsFormulario.Controles.txtTituloHoja).val("");
-            JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
-            $(JsFormulario.Controles.ddlIndicador).prop("disabled", false);
+            JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();           
             JsFormulario.Variables.NuevoIndicador = true;
         });
 });
@@ -942,7 +947,13 @@ $(document).on("click", JsFormulario.Controles.btnAtrasFormularioRegla, function
     $("a[href='#step-1']").trigger('click');
 
     $(JsFormulario.Controles.txtCodigoFormulario).prop("disabled", true);
-    InsertarParametroUrl("modo", jsUtilidades.Variables.Acciones.Editar);
+    InsertarParametroUrl("modo", jsUtilidades.Variables.Acciones.Editar); 
+});
+
+//Atras visualizar
+$(document).on("click", JsFormulario.Controles.btnAtrasFormularioVisualizar, function (e) {
+    e.preventDefault();
+    window.location.href = "/Fonatel/FormularioWeb/index";
 });
 
 // GUARDAR FORMULARIO COMPLETO

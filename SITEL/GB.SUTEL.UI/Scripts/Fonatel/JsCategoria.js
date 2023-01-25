@@ -291,19 +291,9 @@
             "ValidacionTipoGuardado": function () {
                 validar = JsCategoria.Metodos.ValidarFormularioCategoria(false);
                 new Promise((resolve, reject) => {
-                    if (!validar) {
-
-                        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado parcial de la Categoría?", jsMensajes.Variables.actionType.agregar)
-                            .set('onok', function () {
-                                resolve(true);
-                            })
-                            .set('oncancel', function () {
-                                resolve(false);
-                            });
-                    }
-                    else {
+                    
                         resolve(true);
-                    }
+                    
 
                 }).then(result => {
                     if (result) {
@@ -361,7 +351,7 @@
                             let modo = ObtenerValorParametroUrl("modo");
                             if (modo == jsUtilidades.Variables.Acciones.Editar) {
                                 if (obj.objetoRespuesta[0].idEstado == 1) {
-                                    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Categoría?", jsMensajes.Variables.actionType.agregar)
+                                    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Categoría?", jsMensajes.Variables.actionType.agregar)
                                         .set('onok', function (closeEvent) {
                                             JsCategoria.Consultas.EditarCategoria();
                                         });
@@ -680,7 +670,7 @@
                 detalleCategoria.Etiqueta = $(JsCategoria.Controles.txtEtiquetaDetalle).val().trim();
                 execAjaxCall("/CategoriasDesagregacion/ModificaCategoriasDetalle", "POST", detalleCategoria)
                     .then((obj) => {
-                        jsMensajes.Metodos.OkAlertModal("El Detalle ha sido modificado")
+                        jsMensajes.Metodos.OkAlertModal("El Detalle ha sido editado")
                             .set('onok', function (closeEvent) {
                                 location.reload();
                             });
@@ -919,7 +909,7 @@ $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, functi
     else {
 
         if (JsCategoria.Metodos.ValidarFormularioDetalle()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea modificar el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el detalle de la Categoría?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsCategoria.Consultas.ModificarDetalleCategoria();
                   
