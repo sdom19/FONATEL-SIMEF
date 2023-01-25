@@ -823,7 +823,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
                     });
             }
             else {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado parcial de la Relación?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsRelacion.Consultas.EditarRelacion();
                     })
@@ -944,7 +944,7 @@ $(document).on("click", JsRelacion.Controles.btnEditarDetalleRelacion, function 
 $(document).on("click", JsRelacion.Controles.btnGuardarDetalleEditar, function (e) {
     e.preventDefault();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Detalle?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el detalle de la Relación?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsRelacion.Consultas.EditarDetalleRelacionId();
         });

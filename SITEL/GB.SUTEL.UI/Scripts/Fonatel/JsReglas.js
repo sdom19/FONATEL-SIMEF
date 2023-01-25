@@ -1260,7 +1260,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
 
             if (Estado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsReglas.Consultas.EditarReglaValidacion();
                     })

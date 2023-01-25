@@ -72,12 +72,14 @@ namespace GB.SIMEF.BL
                 DetalleFormularioWeb detalleFormularioWeb = clsDatos.ObtenerDatos(objeto).Single();
                 objeto.idDetalle = detalleFormularioWeb.idDetalle;
                 objeto.Estado = true;
-                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                var objetoActualizado = clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.objetoRespuesta = objetoActualizado;
 
-                string jsonValorInicial = objeto.ToString();
+                string jsonValorActual = objetoActualizado.LastOrDefault().ToString();
+                string jsonValorAnterior = detalleFormularioWeb.ToString();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
-                                ResultadoConsulta.Clase, objeto.Indicador.Codigo, objeto.ToString(), detalleFormularioWeb.ToString(), "");
+                                ResultadoConsulta.Clase, objetoActualizado.LastOrDefault().Indicador.Codigo, jsonValorActual, jsonValorAnterior, "");
             }
             catch (Exception ex)
             {

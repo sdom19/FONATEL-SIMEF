@@ -57,6 +57,10 @@ namespace GB.SIMEF.BL
                     objeto.UsuarioModificacion = user;
 
                     string fuente = objeto.Fuente.Trim();
+                    if (objeto.CantidadDestinatario == null)
+                    {
+                        objeto.CantidadDestinatario = 0;
+                    }
                     int Cantidad = (int)objeto.CantidadDestinatario;
                     
                     var consultardatos = clsDatos.ObtenerDatos(new FuentesRegistro());
@@ -78,11 +82,7 @@ namespace GB.SIMEF.BL
                         ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.FuenteRegistrada);
                     }
-                    else if (Cantidad <= 0)
-                    {
-                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                        throw new Exception(Errores.FuentesCantidadDestinatarios);
-                    }
+                    
                     else if (Cantidad < objeto.DetalleFuentesRegistro.Count())
                     {
                         ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
@@ -294,11 +294,10 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.FuenteRegistrada);
                 }
-                if (objeto.CantidadDestinatario<=0)
+                if(objeto.CantidadDestinatario == null)
                 {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                    throw new Exception(Errores.FuentesCantidadDestinatarios);
-                }
+                    objeto.CantidadDestinatario = 0;
+                } 
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();

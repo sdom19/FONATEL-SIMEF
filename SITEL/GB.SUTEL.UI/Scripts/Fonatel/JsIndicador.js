@@ -402,8 +402,11 @@ CreateView = {
         preguntaCancelarAccion: "¿Desea cancelar la acción?",
 
         exitoCrearIndicador: "El Indicador ha sido creado",
+        exitoEditarIndicador: "El Indicador ha sido editado",
         preguntaGuardadoParcialIndicador: "¿Desea realizar un guardado parcial del Indicador?",
         preguntaAgregarIndicador: "¿Desea agregar el Indicador?",
+        preguntaGuardadoEditar: "¿Desea editar el Indicador?",
+        preguntaGuardadoClonar: "¿Desea clonar el Indicador?",
 
         preguntaEliminarTipoIndicador: "¿Desea eliminar el Tipo Indicador?",
         exitoEliminarTipoIndicador: "El Tipo Indicador ha sido eliminado",
@@ -420,13 +423,16 @@ CreateView = {
         preguntaEliminarVariable: "¿Desea eliminar la Variable?",
         exitoEliminarVariable: "La Variable ha sido eliminada",
         preguntaAgregarVariable: "¿Desea agregar la Variable?",
-        exitoEditarVariable: "La Variable ha sido editada",
+        preguntaEditarVariable: "¿Desea editar la Variable Dato?",
+        exitoEditarVariable: "La Variable Dato ha sido editada",
         exitoAgregarVariable: "La Variable ha sido agregada",
 
         preguntaEliminarCategoria: "¿Desea eliminar la Categoría?",
         exitoEliminarCategoria: "La Categoría ha sido eliminada",
         preguntaAgregarCategoria: "¿Desea agregar la Categoría?",
+        preguntaEditarCategoria: "¿Desea editar la Categoría?",
         exitoAgregarCategoria: "La Categoría ha sido agregada",
+        exitoEditarCategoria: "La Categoría ha sido editada",
 
         existenCamposVacios: "Existen campos vacíos. "
     },
@@ -538,7 +544,7 @@ CreateView = {
             let rootObj = this;
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + CreateView.Mensajes.preguntaGuardadoParcialIndicador, jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarIndicador, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
                     .set("oncancel", function () {
                         rootObj.VerificarCamposIncompletosFormularioIndicador(false);
@@ -589,7 +595,7 @@ CreateView = {
             let rootObj = this;
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + CreateView.Mensajes.preguntaGuardadoParcialIndicador, jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaGuardadoEditar, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
                     .set("oncancel", function () {
                         rootObj.VerificarCamposIncompletosFormularioIndicador(false);
@@ -600,7 +606,7 @@ CreateView = {
                     return CreateView.Consultas.EditarIndicador(this.CrearObjFormularioIndicador(true));
                 })
                 .then(data => {
-                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador)
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoEditarIndicador)
                         .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
                 .catch(error => { ManejoDeExcepciones(error); })
@@ -641,7 +647,7 @@ CreateView = {
             let rootObj = this;
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + CreateView.Mensajes.preguntaGuardadoParcialIndicador, jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaGuardadoClonar, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
                     .set("oncancel", function () {
                         rootObj.VerificarCamposIncompletosFormularioIndicador(false);
@@ -1119,7 +1125,7 @@ CreateView = {
             }
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarVariable, jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaEditarVariable, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -1409,7 +1415,7 @@ CreateView = {
             if (!formValido) { return; }
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarCategoria, jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaEditarCategoria, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         resolve(true);
                     });
@@ -1425,7 +1431,7 @@ CreateView = {
                     CreateView.Metodos.RestablecerCamposFormularioDetalleCategoria();
                     CreateView.Variables.objEditarDetallesCategoria = null;
 
-                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoAgregarCategoria)
+                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoEditarCategoria)
                         .set('onok', function (closeEvent) {
                             CreateView.Variables.hizoCargaDetallesCategorias = false;
                             CreateView.Metodos.CargarDetallesCategoria(pIdIndicador);

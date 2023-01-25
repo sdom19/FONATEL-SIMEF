@@ -110,6 +110,17 @@
             }
             return validar;
         },
+        "ValidarFuenteParcial": function () {
+            $(JsFuentes.Controles.FuenteHelp).addClass("hidden");
+            $(JsFuentes.Controles.CantidadDetalleHelp).addClass("hidden");
+            let validar = true;
+            if ($(JsFuentes.Controles.txtFuente).val().trim().length == 0) {
+                $(JsFuentes.Controles.FuenteHelp).removeClass("hidden");
+                validar = false;
+            }
+            
+            return validar;
+        },
         "ValidarFormularioDetalle": function () {
             $(JsFuentes.Controles.nombreHelp).addClass("hidden");
             $(JsFuentes.Controles.CorreoHelp).addClass("hidden");
@@ -207,9 +218,9 @@
             execAjaxCall("/Fuentes/AgregarFuente", "POST", objetoFuente)
                 .then((obj) => {
                     if (parcial) {
-                        let mensaje = "La Fuente ha sido creada";
+                        let mensaje = "La Fuente de Registro ha sido creada";
                         if (objetoFuente.id != null) {
-                            mensaje = "La Fuente ha sido editada";
+                            mensaje = "La Fuente de Registro ha sido editada";
                         }
                         jsMensajes.Metodos.OkAlertModal(mensaje)
                             .set('onok', function (closeEvent) {
@@ -385,10 +396,39 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
     e.preventDefault();
     let validar = JsFuentes.Metodos.ValidarFuente();
     if (validar) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para la Fuente?", jsMensajes.Variables.actionType.agregar)
-            .set('onok', function (closeEvent) {
-                JsFuentes.Consultas.AgregarFuente(true);
-            });
+        if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Editar) {
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Fuente de Registro?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    JsFuentes.Consultas.AgregarFuente(true);
+                });
+        } else {
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Fuente de Registro?", jsMensajes.Variables.actionType.agregar)
+                .set('onok', function (closeEvent) {
+                    JsFuentes.Consultas.AgregarFuente(true);
+                });
+        }
+    } else {
+        let validarParcial = JsFuentes.Metodos.ValidarFuenteParcial();
+        if (validarParcial) {
+            if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Editar) {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Fuente de Registro?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok',async function (closeEvent) {
+                        JsFuentes.Consultas.AgregarFuente(true);
+                    })
+                    .set('oncancel', function () {
+                        JsFuentes.Metodos.ValidarFuente();
+                    });
+
+            } else {
+                jsMensajes.Metodos.ConfirmYesOrNoModal("Existen Campos vacíos.¿Desea realizar un guardado parcial de la Fuente de Registro?", jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) {
+                        JsFuentes.Consultas.AgregarFuente(true);
+                    })
+                    .set('oncancel', function () {
+                        JsFuentes.Metodos.ValidarFuente();
+                    });
+            }
+        }
     }
 
 });

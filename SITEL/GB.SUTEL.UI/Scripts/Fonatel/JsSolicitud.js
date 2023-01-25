@@ -718,7 +718,7 @@ JsSolicitud = {
 
             execAjaxCall("/SolicitudFonatel/EditarSolicitud", "POST", Solicitud)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido editada")
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud de Información ha sido editada")
                         .set('onok', function (closeEvent) {
                             window.location.href = "/Fonatel/SolicitudFonatel/index";
                         });
@@ -1199,7 +1199,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
 
             if (JsSolicitud.Variables.EstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo) {
 
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Solicitud?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Solicitud de Información?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsSolicitud.Consultas.EditarSolicitud();
                     })
@@ -1209,7 +1209,7 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) 
             }
             else {
 
-                jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial para la Solicitud?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Solicitud de Información?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsSolicitud.Consultas.EditarSolicitud();
                     })
