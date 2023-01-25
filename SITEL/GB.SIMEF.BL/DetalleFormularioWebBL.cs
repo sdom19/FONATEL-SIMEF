@@ -212,7 +212,7 @@ namespace GB.SIMEF.BL
                 ResultadoVisualizar.Accion = (int)Accion.Consultar;
                 Indicador indicador = new Indicador();
                 indicador.idIndicador = objeto.IdIndicador;
-                indicador.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                //indicador.idEstado = (int)Constantes.EstadosRegistro.Activo;
                 indicador = indicadorFonatelDAL.ObtenerDatos(indicador).FirstOrDefault();
                 DetalleRegistroIndicadorFonatel detalle = new DetalleRegistroIndicadorFonatel();
                 detalle.IdIndicador = indicador.idIndicador;
