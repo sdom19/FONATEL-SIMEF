@@ -59,7 +59,7 @@ namespace GB.SIMEF.DAL
 
             using (db=new SIMEFContext())
             {
-                lista= db.RelacionCategoriaId.Where(x => x.idRelacion == idRelacion).ToList();
+                lista= db.RelacionCategoriaId.Where(x => x.idRelacion == idRelacion && x.idEstado != (int)Constantes.EstadosRegistro.Eliminado).ToList();
 
             }
             lista = lista.Select(x => new RelacionCategoriaId()
