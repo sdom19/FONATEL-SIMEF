@@ -59,15 +59,17 @@
                 html += `<th scope='row'>${ item.EstadoRegistro.Nombre }</th>`;
                 html += "<td>";
                 html += `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${item.id}></button>`;
-                html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id}></button>`;
 
                 if (item.idEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
+                    html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id}></button>`;
                     html += `<button class="btn-icon-base btn-power-on" type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" value=${item.id}></button>`;
                 }
                 else if (item.idEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+                    html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id} disabled></button>`;
                     html += `<button class="btn-icon-base btn-power-on" type="button" disabled></button>`;
                 }
                 else {
+                    html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id} disabled></button>`;
                     html += `<button class="btn-icon-base btn-power-off" type="button" data-toggle="tooltip" data-placement="top" title="Activar" value=${item.id}></button>`;
                 }
 
@@ -427,6 +429,7 @@ CreateView = {
         preguntaEditarCategoria: "¿Desea editar la Categoría?",
         exitoAgregarCategoria: "La Categoría ha sido agregada",
         exitoEditarCategoria: "La Categoría ha sido editada",
+        preguntaClonarIndicador: "¿Desea clonar el Indicador?",
 
         existenCamposVacios: "Existen campos vacíos. "
     },
@@ -641,7 +644,7 @@ CreateView = {
             let rootObj = this;
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaGuardadoClonar, jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaClonarIndicador, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
                     .set("oncancel", function () {
                         rootObj.VerificarCamposIncompletosFormularioIndicador(false);
