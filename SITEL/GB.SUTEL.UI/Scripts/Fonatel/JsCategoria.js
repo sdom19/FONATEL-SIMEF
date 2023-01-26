@@ -310,7 +310,7 @@
                                 });
                         }
                         else {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos ¿Desea realizar un guardado parcial de la Categoría?", jsMensajes.Variables.actionType.agregar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
                                 .set('onok', function (closeEvent) {
                                     JsCategoria.Consultas.InsertarCategoria();
                                 });
