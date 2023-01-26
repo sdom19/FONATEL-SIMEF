@@ -117,9 +117,13 @@
         "ValidarFuenteParcial": function () {
             $(JsFuentes.Controles.FuenteHelp).addClass("hidden");
             $(JsFuentes.Controles.CantidadDetalleHelp).addClass("hidden");
+            $(JsFuentes.Controles.txtFuente).parent().removeClass("has-error");
+            $(JsFuentes.Controles.txtCantidad).parent().removeClass("has-error");
+
             let validar = true;
             if ($(JsFuentes.Controles.txtFuente).val().trim().length == 0) {
                 $(JsFuentes.Controles.FuenteHelp).removeClass("hidden");
+                $(JsFuentes.Controles.txtFuente).parent().addClass("has-error");
                 validar = false;
             }
             
