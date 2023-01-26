@@ -134,5 +134,32 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        public RespuestaConsulta<List<RegistroIndicadorFonatel>> ObtenerEditarRegistroIndicador(RegistroIndicadorFonatel objeto, string usuario)
+        {
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ObtenerDatos(objeto);
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                if(resul == null)
+                {
+                    ResultadoConsulta.Clase = modulo;
+                    ResultadoConsulta.Accion = (int)Accion.Consultar;
+                    ResultadoConsulta.objetoRespuesta = new List<RegistroIndicadorFonatel>();
+                    ResultadoConsulta.CantidadRegistros = 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
+        }
+
     }
 }

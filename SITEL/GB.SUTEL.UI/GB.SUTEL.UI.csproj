@@ -260,6 +260,7 @@
     <Compile Include="Controllers\EspectroController.cs" />
     <Compile Include="Controllers\Fonatel\DescargaFormularioController.cs" />
     <Compile Include="Controllers\Fonatel\EditarFormularioController.cs" />
+    <Compile Include="Controllers\Fonatel\GeneradorURLController.cs" />
     <Compile Include="Controllers\Fonatel\RegistroIndicadorFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\FormularioWebController.cs" />
     <Compile Include="Controllers\Fonatel\PublicacionIndicadoresController.cs" />
@@ -681,6 +682,7 @@
     <Content Include="Scripts\Fonatel\JsEditarFormularioWeb.js" />
     <Content Include="Scripts\Fonatel\JsFormularios.min.js" />
     <Content Include="Scripts\Fonatel\JsFuentes.min.js" />
+    <Content Include="Scripts\Fonatel\JsGeneradorURL.js" />
     <Content Include="Scripts\Fonatel\JsHistorico.js" />
     <Content Include="Scripts\Fonatel\JsHistorico.min.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />

@@ -124,7 +124,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             registroIndicadorFonatel.FormularioId = lista[1];
             RespuestaConsulta<List<RegistroIndicadorFonatel>> registro = null;
             registro = registroIndicadorBL.ObtenerDatos(registroIndicadorFonatel);
-            nombre = registro.objetoRespuesta[0].Formulario;
+            nombre = registro.objetoRespuesta[0].Formulario.Trim();
 
             List<DetalleRegistroIndicadorCategoriaFonatel> listaCategoria = result.objetoRespuesta[0].DetalleRegistroIndicadorCategoriaFonatel;
             List<DetalleRegistroIndicadorVariableFonatel> listaVariable = result.objetoRespuesta[0].DetalleRegistroIndicadorVariableFonatel;
