@@ -118,13 +118,14 @@ JsSolicitud = {
                 html = html + "<td>" + solicitud.Estado.Nombre + "</td >";
 
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Editar' class='btn-icon-base btn-edit'></button>";
-                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Clonar' class='btn-icon-base btn-clone'></button>";
 
                 if (EnProceso == "SI") {
 
+                    html = html + "<button type='button' data-toggle='tooltip' disabled data-placement='top' value=" + solicitud.id + " title='Clonar' class='btn-icon-base btn-clone'></button>";
                     html += "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + solicitud.id + " class='btn-icon-base btn-power-on'></button>";
-
                 } else {
+
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Clonar' class='btn-icon-base btn-clone'></button>";
 
                     if (solicitud.IdEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
                         html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + solicitud.id + " class='btn-icon-base btn-power-off'></button>";

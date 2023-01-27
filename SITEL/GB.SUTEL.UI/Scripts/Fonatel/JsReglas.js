@@ -144,21 +144,23 @@
             let html = "";
             for (var i = 0; i < JsReglas.Variables.ListaReglas.length; i++) {
                 let reglas = JsReglas.Variables.ListaReglas[i];
+                let EnProceso = reglas.idEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso ? "SI" : "NO";
 
                 html = html + "<tr>"
 
                 html = html + "<td scope='row'>" + reglas.Codigo + "</td>";
                 html = html + "<td>" + reglas.Nombre + "</td>";
                 html = html + "<td>" + reglas.ListadoTipoReglas + "</td>";
-
-
                 html = html + "<td>" + reglas.EstadoRegistro.Nombre + "</td>";
 
-                html = html + "<td><button type='button' data - toggle='tooltip' data - placement='top' value = '" + reglas.id + "' title = 'Editar' class='btn-icon-base btn-edit' ></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Clonar' value = '" + reglas.id + "' class='btn-icon-base btn-clone'></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value = '" + reglas.id + "' class='btn-icon-base btn-delete'></button></td>";
+                html = html + "<td><button type='button' data - toggle='tooltip' data - placement='top' value = '" + reglas.id + "' title = 'Editar' class='btn-icon-base btn-edit' ></button>";
 
-
+                if (EnProceso == "SI") {
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' disabled title='Clonar' value = '" + reglas.id + "' class='btn-icon-base btn-clone'></button>";
+                } else {
+                    html = html +"<button type='button' data-toggle='tooltip' data-placement='top' title='Clonar' value = '" + reglas.id + "' class='btn-icon-base btn-clone'></button>";
+                }
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value = '" + reglas.id + "' class='btn-icon-base btn-delete'></button></td>";
                 html = html + "</tr>"
             }
             $(JsReglas.Controles.TablaReglas).html(html);
