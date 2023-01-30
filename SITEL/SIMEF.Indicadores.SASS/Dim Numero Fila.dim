@@ -1,14 +1,14 @@
 ﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
-  <ID>Dim Categoria</ID>
-  <Name>Dim Categoria</Name>
-  <CreatedTimestamp>2023-01-13T20:37:35.266667Z</CreatedTimestamp>
-  <LastSchemaUpdate>2023-01-16T14:52:54.286667Z</LastSchemaUpdate>
+  <ID>Dim Numero Fila</ID>
+  <Name>Dim Numero Fila</Name>
+  <CreatedTimestamp>2023-01-16T14:49:10.473333Z</CreatedTimestamp>
+  <LastSchemaUpdate>2023-01-16T14:52:54.303333Z</LastSchemaUpdate>
   <Annotations>
     <Annotation>
       <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
       <Value>
         <dds xmlns="">
-          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="2" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-3134" scrolltop="-7525" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="9610" y="16997" backcolor="16119285" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="2" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-3285" scrolltop="-7704" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="9610" y="16997" backcolor="16119285" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
             <font>
               <ddsxmlobjectstreamwrapper binary="010000009001b0300100065461686f6d61" />
             </font>
@@ -19,13 +19,13 @@
           <layoutmanager>
             <ddsxmlobj />
           </layoutmanager>
-          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge" tooltip="DimCategoria" left="20" top="0" logicalid="1" controlid="1" masterid="0" hint1="0" hint2="0" width="3302" height="1947" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge" tooltip="DimNumeroFila" left="20" top="0" logicalid="1" controlid="1" masterid="0" hint1="0" hint2="0" width="3000" height="1588" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
             <control>
-              <ddsxmlobjectstreaminitwrapper binary="000e0000e60c00009b070000" />
+              <ddsxmlobjectstreaminitwrapper binary="000e0000b80b000034060000" />
             </control>
             <layoutobject>
               <ddsxmlobj>
-                <property name="LogicalObject" value="dbo_DimCategoria" vartype="8" />
+                <property name="LogicalObject" value="dbo_DimNumeroFila" vartype="8" />
               </ddsxmlobj>
             </layoutobject>
             <shape groupshapeid="0" groupnode="0" />
@@ -47,11 +47,11 @@
     </Annotation>
     <Annotation>
       <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
-      <Value>-3134</Value>
+      <Value>-3285</Value>
     </Annotation>
     <Annotation>
       <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
-      <Value>-7525</Value>
+      <Value>-7704</Value>
     </Annotation>
     <Annotation>
       <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
@@ -66,7 +66,7 @@
       <Value>100</Value>
     </Annotation>
   </Annotations>
-  <LastProcessed>2023-01-25T21:08:55.776667Z</LastProcessed>
+  <LastProcessed>2023-01-25T21:08:56.583333Z</LastProcessed>
   <State>Processed</State>
   <Source xsi:type="DataSourceViewBinding">
     <DataSourceViewID>DWSIMEF 1</DataSourceViewID>
@@ -82,33 +82,29 @@
   <UnknownMemberName>Unknown</UnknownMemberName>
   <Attributes>
     <Attribute>
-      <ID>Id Categoria</ID>
-      <Name>Id Categoria</Name>
+      <ID>Id Num Fila</ID>
+      <Name>Id Num Fila</Name>
       <Usage>Key</Usage>
       <KeyColumns>
         <KeyColumn>
           <DataType>BigInt</DataType>
           <Source xsi:type="ColumnBinding">
-            <TableID>dbo_DimCategoria</TableID>
-            <ColumnID>IdCategoria</ColumnID>
+            <TableID>dbo_DimNumeroFila</TableID>
+            <ColumnID>IdNumFila</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
       <NameColumn>
         <DataType>WChar</DataType>
         <Source xsi:type="ColumnBinding">
-          <TableID>dbo_DimCategoria</TableID>
-          <ColumnID>IdCategoria</ColumnID>
+          <TableID>dbo_DimNumeroFila</TableID>
+          <ColumnID>IdNumFila</ColumnID>
         </Source>
       </NameColumn>
       <AttributeRelationships>
         <AttributeRelationship>
-          <AttributeID>Nombre Columna</AttributeID>
-          <Name>Nombre Columna</Name>
-        </AttributeRelationship>
-        <AttributeRelationship>
-          <AttributeID>Valor</AttributeID>
-          <Name>Valor</Name>
+          <AttributeID>Num Fila</AttributeID>
+          <Name>Num Fila</Name>
         </AttributeRelationship>
       </AttributeRelationships>
       <OrderBy>Key</OrderBy>
@@ -116,46 +112,22 @@
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
     <Attribute>
-      <ID>Nombre Columna</ID>
-      <Name>Nombre Columna</Name>
+      <ID>Num Fila</ID>
+      <Name>Num Fila</Name>
       <KeyColumns>
         <KeyColumn>
-          <DataType>WChar</DataType>
-          <DataSize>300</DataSize>
+          <DataType>BigInt</DataType>
           <Source xsi:type="ColumnBinding">
-            <TableID>dbo_DimCategoria</TableID>
-            <ColumnID>NombreColumna</ColumnID>
-          </Source>
-        </KeyColumn>
-      </KeyColumns>
-      <NameColumn>
-        <DataType>WChar</DataType>
-        <DataSize>300</DataSize>
-        <Source xsi:type="ColumnBinding">
-          <TableID>dbo_DimCategoria</TableID>
-          <ColumnID>NombreColumna</ColumnID>
-        </Source>
-      </NameColumn>
-      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
-      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
-    </Attribute>
-    <Attribute>
-      <ID>Valor</ID>
-      <Name>Valor</Name>
-      <KeyColumns>
-        <KeyColumn>
-          <DataType>WChar</DataType>
-          <Source xsi:type="ColumnBinding">
-            <TableID>dbo_DimCategoria</TableID>
-            <ColumnID>Valor</ColumnID>
+            <TableID>dbo_DimNumeroFila</TableID>
+            <ColumnID>NumFila</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
       <NameColumn>
         <DataType>WChar</DataType>
         <Source xsi:type="ColumnBinding">
-          <TableID>dbo_DimCategoria</TableID>
-          <ColumnID>Valor</ColumnID>
+          <TableID>dbo_DimNumeroFila</TableID>
+          <ColumnID>NumFila</ColumnID>
         </Source>
       </NameColumn>
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>

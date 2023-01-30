@@ -20,20 +20,24 @@
   </Cubes>
   <Dimensions>
     <ProjectItem>
-      <Name>Dim Solicitud.dim</Name>
-      <FullPath>Dim Solicitud.dim</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>Dim Variable.dim</Name>
-      <FullPath>Dim Variable.dim</FullPath>
+      <Name>Dim Categoria.dim</Name>
+      <FullPath>Dim Categoria.dim</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>Dim Indicador.dim</Name>
       <FullPath>Dim Indicador.dim</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>Dim Categoria.dim</Name>
-      <FullPath>Dim Categoria.dim</FullPath>
+      <Name>Dim Numero Fila.dim</Name>
+      <FullPath>Dim Numero Fila.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Solicitud.dim</Name>
+      <FullPath>Dim Solicitud.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Tipo.dim</Name>
+      <FullPath>Dim Tipo.dim</FullPath>
     </ProjectItem>
   </Dimensions>
   <DataSources>
@@ -51,22 +55,7 @@
   <Configurations>
     <Configuration>
       <Name>Development</Name>
-      <Options>
-        <ConnectionMappings>
-          <ConfigurationSetting>
-            <Id>DWSIMEF</Id>
-            <Name>DWSIMEF</Name>
-            <Value xsi:type="xsd:string">Provider=SQLNCLI11.1;Data Source=.;Integrated Security=SSPI;Initial Catalog=DWSIMEF</Value>
-          </ConfigurationSetting>
-        </ConnectionMappings>
-        <ConnectionSecurityMappings>
-          <ConfigurationSetting>
-            <Id>DWSIMEF</Id>
-            <Name>DWSIMEF</Name>
-            <Value xsi:type="xsd:int">0</Value>
-          </ConfigurationSetting>
-        </ConnectionSecurityMappings>
-      </Options>
+      <Options />
     </Configuration>
   </Configurations>
 </Project>

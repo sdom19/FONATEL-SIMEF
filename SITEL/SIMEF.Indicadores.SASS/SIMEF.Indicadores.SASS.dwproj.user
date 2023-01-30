@@ -3,13 +3,12 @@
     <Configuration>
       <Name>Development</Name>
       <Options>
-        <TargetServer>SIMEF</TargetServer>
-        <TargetDatabase>SIMEF_Indicadores</TargetDatabase>
+        <TargetServer>localhost</TargetServer>
+        <TargetDatabase>SIMEF.Indicadores.SASS</TargetDatabase>
         <StartObject>
           <ObjectId></ObjectId>
           <ObjectType>Current</ObjectType>
         </StartObject>
-        <DeploymentMode>DeployAll</DeploymentMode>
       </Options>
     </Configuration>
   </Configurations>
