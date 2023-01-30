@@ -49,7 +49,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault() != null)
             {
                 string nombreUsuario = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault().Value;
-                RespuestaConsulta<List<RegistroIndicadorFonatel>> model = EditarRegistroIndicadorBL.ObtenerRegistroIndicador(new RegistroIndicadorFonatel()
+                RespuestaConsulta<List<RegistroIndicadorFonatel>> model = EditarRegistroIndicadorBL.ObtenerEditarRegistroIndicador(new RegistroIndicadorFonatel()
                 {
                     RangoFecha = true
                 }, nombreUsuario);
@@ -93,6 +93,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             using (ExcelPackage package = new ExcelPackage(stream))
             {
                 var Formulario = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormulario }).objetoRespuesta.Single();
+
+                var NombreExcel = Formulario.Formulario.Trim();
 
                 for (int ws = 0; ws < Formulario.DetalleRegistroIndcadorFonatel.Count(); ws++)
                 {
@@ -162,7 +164,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
-                Response.AddHeader("content-disposition", "attachment;  filename=" + Formulario.Formulario + ".xlsx");
+                Response.AddHeader("content-disposition", "attachment;  filename=" + NombreExcel + ".xlsx");
             }
 
             return new EmptyResult();
@@ -173,6 +175,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             var Formulario = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormulario, IndicadorId = idIndicador }).objetoRespuesta.Single();
             var Detalle = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, IdFormularioString = idFormulario, IdIndicadorString = idIndicador }).objetoRespuesta.Single();
+
+            var NombreExcel = Formulario.Formulario.Trim();
 
             var maxFilas = Detalle.CantidadFilas;
             var cantVariables = Detalle.DetalleRegistroIndicadorVariableFonatel.Count();
@@ -241,7 +245,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
-                Response.AddHeader("content-disposition", "attachment;  filename=" + Formulario.Formulario + ".xlsx");
+                Response.AddHeader("content-disposition", "attachment;  filename=" + NombreExcel + ".xlsx");
             }
 
             return new EmptyResult();
@@ -354,6 +358,28 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
+        /// <summary>
+        /// Autor: Francisco Vindas RUiz
+        /// Fecha: 27/01/2023
+        /// Metodo: El metodo sirve para realizar la carga total de la informacion de Registro Indicador a la Base de Datos de SITELP
+        /// </summary>
+        /// <param name="lista"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CargaTotalRegistroIndicador(List<DetalleRegistroIndicadorFonatel> lista)
+        {
+
+            RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = DetalleRegistroIndicadorBL.CargaTotalRegistroIndicador(lista);
+
+            });
+
+            return JsonConvert.SerializeObject(result);
+
+        }
 
         #endregion
 

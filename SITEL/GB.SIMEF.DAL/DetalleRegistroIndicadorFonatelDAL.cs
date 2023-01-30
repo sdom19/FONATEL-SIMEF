@@ -18,6 +18,35 @@ namespace GB.SIMEF.DAL
 
         #region Consultas
 
+        /// Autor: Francisco Vindas
+        /// Fecha: 03/01/2023
+        /// El metodo crea una lista generica de la solicitud que puede ser utilizado en lo metodos que lo necesiten 
+        /// </summary>
+        /// <param name="ListaSolicitud"></param>
+        /// <returns></returns>
+        private List<DetalleRegistroIndicadorFonatel> CrearListado(List<DetalleRegistroIndicadorFonatel> ListaRegistroIndicador)
+        {
+            return ListaRegistroIndicador.Select(x => new DetalleRegistroIndicadorFonatel
+            {
+                IdFormulario = x.IdFormulario,
+                IdIndicador = x.IdIndicador,
+                IdDetalleRegistroIndicador = x.IdDetalleRegistroIndicador,
+                NombreIndicador = x.NombreIndicador,
+                NotasEncargado = x.NotasEncargado,
+                NotasInformante = x.NotasInformante,
+                CantidadFilas = x.CantidadFilas,
+                CodigoIndicador = x.CodigoIndicador,
+                TituloHojas = x.TituloHojas,
+                IdSolicitud = x.IdSolicitud,
+                DetalleRegistroIndicadorVariableFonatel = ObtenerDatoDetalleRegistroIndicadorVariable(x),
+                DetalleRegistroIndicadorCategoriaFonatel = ObtenerDatoDetalleRegistroIndicadorCategoria(x),
+                IdFormularioString = Utilidades.Encriptar(x.IdFormulario.ToString()),
+                IdIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
+                IdSolicitudString = Utilidades.Encriptar(x.IdSolicitud.ToString())
+
+            }).ToList();
+        }
+
         /// <summary>
         /// Detalle Registro Indicador Variable Fonatel
         /// </summary>
@@ -60,7 +89,6 @@ namespace GB.SIMEF.DAL
 
             return ListaRegistroIndicadorFonatel;
         }
-
 
         /// <summary>
         /// Carga las variable de registro indicador
@@ -164,9 +192,6 @@ namespace GB.SIMEF.DAL
                     control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputNumerico, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.RangoMinimo, DetalleRegistroIndicadorCategoriaFonatel.RangoMaximo);
                     break;
                 default:
-
-                
-
                     control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputSelect, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.JSON);
                     break;
             }
@@ -209,6 +234,7 @@ namespace GB.SIMEF.DAL
             }
             return ListaDetalleRegistroIndicadorCategoriaValorFonatel;
         }
+
 
         /// <summary>
         /// Autor: Georgi Mesen Cerdas
@@ -311,6 +337,39 @@ namespace GB.SIMEF.DAL
                    new SqlParameter("@idCategoria", objeto.idCategoria)
                 ).ToList();
             }
+        }
+
+
+        //CARGATOTAL
+        /// <summary>
+        /// Autor:Francisco Vindas Ruiz
+        /// Fecha: 26/01/2023
+        /// Metodo: Cargar los datos totales a Registro indicador para que pueda ser enviados por correo a los usuarios Encargado e Informante
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public List<DetalleRegistroIndicadorFonatel> CargaTotalRegistroIndicadorFonatel(DetalleRegistroIndicadorFonatel objeto)
+        {
+            List<DetalleRegistroIndicadorFonatel> ListaRegistroIndicadorFonatel = new List<DetalleRegistroIndicadorFonatel>();
+            using (db = new SITELContext())
+            {
+                ListaRegistroIndicadorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorFonatel>
+                 ("execute FONATEL.spCargarRegistroIndicadorFonatel @idSolicitud, @idFormulario, @idIndicador, @IdDetalleRegistroIndicador, @TituloHojas, @NotasEncargado, @NotasInformante, @CodigoIndicador, @NombreIndicador, @CantidadFilas",
+                   new SqlParameter("@idSolicitud", objeto.IdSolicitud),
+                   new SqlParameter("@idFormulario", objeto.IdFormulario),
+                   new SqlParameter("@idIndicador", objeto.IdIndicador),
+                   new SqlParameter("@IdDetalleRegistroIndicador", objeto.IdDetalleRegistroIndicador),
+                   new SqlParameter("@TituloHojas", objeto.TituloHojas),
+                   new SqlParameter("@NotasEncargado", objeto.NotasEncargado),
+                   new SqlParameter("@NotasInformante", objeto.NotasInformante),
+                   new SqlParameter("@CodigoIndicador", objeto.CodigoIndicador),
+                   new SqlParameter("@NombreIndicador", objeto.NombreIndicador),
+                   new SqlParameter("@CantidadFilas", objeto.CantidadFilas)
+                 ).ToList();
+
+                CrearListado(ListaRegistroIndicadorFonatel);
+            }
+            return ListaRegistroIndicadorFonatel;
         }
 
         #endregion

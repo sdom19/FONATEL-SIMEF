@@ -134,5 +134,39 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 27/01/2023
+        /// Metodo: El metodo funciona para obtener los datos de Registro Indicador en el modulo de Descarga y Edicion el cual solo obtendran los registros activos y registros de fechas pasadas
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<RegistroIndicadorFonatel>> ObtenerEditarRegistroIndicador(RegistroIndicadorFonatel objeto)
+        {
+            try
+            {
+                ResultadoConsulta.Clase = modulo;
+                ResultadoConsulta.Accion = (int)Accion.Consultar;
+                var resul = clsDatos.ObtenerDatos(objeto);
+                ResultadoConsulta.objetoRespuesta = resul;
+                ResultadoConsulta.CantidadRegistros = resul.Count();
+
+                if(resul == null)
+                {
+                    ResultadoConsulta.Clase = modulo;
+                    ResultadoConsulta.Accion = (int)Accion.Consultar;
+                    ResultadoConsulta.objetoRespuesta = new List<RegistroIndicadorFonatel>();
+                    ResultadoConsulta.CantidadRegistros = 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
+        }
+
     }
 }
