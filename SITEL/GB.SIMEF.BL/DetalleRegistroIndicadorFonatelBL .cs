@@ -193,12 +193,13 @@ namespace GB.SIMEF.BL
 
                     var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
 
-                    //Cambia de estado el registro indicador a Enviado
+
                     RegistroIndicadorFonatel reg = new RegistroIndicadorFonatel();
                     reg.IdFormulario = objeto.IdFormulario;
                     reg.IdSolicitud = objeto.IdSolicitud;
                     reg.IdEstado = (int)Constantes.EstadosRegistro.Enviado;
                     registroIndicadorFonatelBl.ActualizarElemento(reg);
+
 
                     result = result.Where(x => x.IdSolicitud == detalle.IdSolicitud).ToList();
 
