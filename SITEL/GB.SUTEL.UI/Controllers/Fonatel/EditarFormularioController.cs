@@ -371,12 +371,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> result = null;
 
+            RespuestaConsulta<bool> envioCorreo = new RespuestaConsulta<bool>();
+
+            RegistroIndicadorFonatel registroIndicador = new RegistroIndicadorFonatel();
+
             await Task.Run(() =>
             {
                 result = DetalleRegistroIndicadorBL.CargaTotalRegistroIndicador(lista);
 
-            });
+            })
+            .ContinueWith(data =>
+            {
+                if (result.objetoRespuesta.Count() > 0)
+                {
+                    var respuestaConsulta = result.objetoRespuesta.FirstOrDefault();
 
+                    registroIndicador.IdSolicitud = respuestaConsulta.IdSolicitud;
+
+                    registroIndicador.IdFormulario = respuestaConsulta.IdFormulario;
+
+                    envioCorreo = EditarRegistroIndicadorBL.EnvioCorreoInformante(registroIndicador);
+
+                    envioCorreo = EditarRegistroIndicadorBL.EnvioCorreoEncargado(registroIndicador);
+
+                }
+            });
             return JsonConvert.SerializeObject(result);
 
         }
