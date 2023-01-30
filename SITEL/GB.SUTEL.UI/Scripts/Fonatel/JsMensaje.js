@@ -33,7 +33,8 @@
                     .set('label', jsMensajes.Variables.btnlisto)
                     .set({ 'modal': true, 'closable': false })
                 alertifyObject.setContent(jsMensajes.Variables.ContentError("Favor comunicarse con soporte de aplicaciones"));
-                $(".ajs-close").last().addClass("custom-tooltip custom-tooltip-close");
+                let buttons = $(".btn.btn-fonatel.btn-success-fonatel.custom-tooltip.custom-tooltip-yes");
+                buttons.last().removeClass("custom-tooltip-yes").addClass("custom-tooltip-aceptar");
                 return alertifyObject;
             }
             else {
@@ -41,7 +42,8 @@
                     .set('label', jsMensajes.Variables.btnlisto)
                     .set({ 'modal': true, 'closable': false })
                 alertifyObject.setContent(jsMensajes.Variables.ContentError(mensaje));
-                $(".ajs-close").last().addClass("custom-tooltip custom-tooltip-close");
+                let buttons = $(".btn.btn-fonatel.btn-success-fonatel.custom-tooltip.custom-tooltip-yes");
+                buttons.last().removeClass("custom-tooltip-yes").addClass("custom-tooltip-aceptar");
                 return alertifyObject;
             }
         },
