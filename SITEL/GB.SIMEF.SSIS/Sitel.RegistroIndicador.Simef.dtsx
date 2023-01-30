@@ -7,12 +7,12 @@
   DTS:CreatorName="SIMEF\Administrador"
   DTS:DTSID="{07D4B4E7-6C9A-4F17-A295-8347FFBE6341}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.948.0"
+  DTS:LastModifiedProductVersion="16.0.845.0"
   DTS:LocaleID="1033"
   DTS:ObjectName="Sitel RegistroIndicador Simef"
   DTS:PackageType="5"
-  DTS:VersionBuild="79"
-  DTS:VersionGUID="{3E0F33AB-B402-46A3-9BEA-2205FD5CD017}">
+  DTS:VersionBuild="93"
+  DTS:VersionGUID="{EA4D4A17-9035-4283-9690-5B03BABDB826}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -135,7 +135,7 @@
                           refId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NombreIndicador]"
                           cachedCodepage="1252"
                           cachedDataType="str"
-                          cachedLength="300"
+                          cachedLength="16"
                           cachedName="NombreIndicador"
                           externalMetadataColumnId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreIndicador]"
                           lineageId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreIndicador]" />
@@ -372,7 +372,7 @@ and a.IdFormulario=b.IdFormulario</property>
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
                           externalMetadataColumnId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreIndicador]"
-                          length="300"
+                          length="16"
                           lineageId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreIndicador]"
                           name="NombreIndicador"
                           truncationRowDisposition="FailComponent" />
@@ -460,7 +460,7 @@ and a.IdFormulario=b.IdFormulario</property>
                           refId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreIndicador]"
                           codePage="1252"
                           dataType="str"
-                          length="300"
+                          length="16"
                           name="NombreIndicador" />
                         <externalMetadataColumn
                           refId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FechaCreacion]"
@@ -523,7 +523,7 @@ and a.IdFormulario=b.IdFormulario</property>
                           refId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreIndicador]"
                           codePage="1252"
                           dataType="str"
-                          length="300"
+                          length="16"
                           lineageId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreIndicador]"
                           name="NombreIndicador" />
                         <outputColumn
@@ -824,9 +824,7 @@ from FONATEL.DetalleRegistroIndicadorCategoriaFonatel a
 inner join FONATEL.DetalleRegistroIndicadorCategoriaValorFonatel b
 on a.IdSolicitud=b.IdSolicitud
 and a.IdFormulario=b.IdFormulario
-and a.IdIndicador=b.IdIndicador
-
-where a.IdTipoCategoria!=99</property>
+and a.IdIndicador=b.IdIndicador</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
@@ -1203,8 +1201,10 @@ where a.IdTipoCategoria!=99</property>
                           name="NumeroFila" />
                         <externalMetadataColumn
                           refId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Cargar Datos Temp.Inputs[OLE DB Destination Input].ExternalColumns[Valor]"
-                          dataType="i4"
-                          name="Valor" />
+                          dataType="numeric"
+                          name="Valor"
+                          precision="18"
+                          scale="3" />
                         <externalMetadataColumn
                           refId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Cargar Datos Temp.Inputs[OLE DB Destination Input].ExternalColumns[IdSolicitud]"
                           dataType="i4"
@@ -1269,32 +1269,13 @@ where a.IdTipoCategoria!=99</property>
                       UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select 
 NewId() IdResultadoDetalle,
 a.IdSolicitud,
-a.IdIndicador,
-a.IdFormulario,
-a.NumeroFila,
-b.NombreCategoria  NombreVariable,
-a.Valor Valor
-from  FONATEL.DetalleRegistroIndicadorCategoriaValorFonatel a
-inner join FONATEL.DetalleRegistroIndicadorCategoriaFonatel b
-on a.IdFormulario=b.IdFormulario
-and a.IdIndicador=b.IdIndicador
-and a.IdSolicitud=b.IdSolicitud
-where IdTipoCategoria=99
-union
-select 
-NewId() IdResultadoDetalle,
-a.IdSolicitud,
 b.IdIndicador,
 b.IdFormulario,
 b.NumeroFila,
 a.NombreVariable,
-
-1 Valor
-
-
-
+b.Valor 
 from FONATEL.DetalleRegistroIndicadorVariableFonatel a
-inner join FONATEL.DetalleRegistroIndicadorCategoriaValorFonatel b
+inner join FONATEL.DetalleRegistroIndicadorVariableValorFonatel b
 on a.IdFormulario=b.IdFormulario
 and a.IdIndicador=b.IdIndicador
 and a.IdSolicitud=b.IdSolicitud</property>
@@ -1425,8 +1406,10 @@ and a.IdSolicitud=b.IdSolicitud</property>
                           name="NombreVariable" />
                         <externalMetadataColumn
                           refId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Valor]"
-                          dataType="i4"
-                          name="Valor" />
+                          dataType="numeric"
+                          name="Valor"
+                          precision="18"
+                          scale="3" />
                         <externalMetadataColumn
                           refId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdResultadoDetalle]"
                           dataType="guid"
@@ -1472,9 +1455,11 @@ and a.IdSolicitud=b.IdSolicitud</property>
                           name="NombreVariable" />
                         <outputColumn
                           refId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Valor]"
-                          dataType="i4"
+                          dataType="numeric"
                           lineageId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Valor]"
-                          name="Valor" />
+                          name="Valor"
+                          precision="18"
+                          scale="3" />
                         <outputColumn
                           refId="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
@@ -1886,8 +1871,10 @@ and a.IdSolicitud=b.IdSolicitud</property>
 	 cast( a.Valor as varchar(4000)) valor,
                  1 Estado
   FROM dbo.tempIndicardorResultadoDetalleCategoria A
+   INNER JOIN EnvioSolicitudes C
+  on C.IdEnvio=a.IdSolicitud
 INNER JOIN IndicadorResultadoSolicitud B
-ON A.idSolicitud=b.IdSolicitud
+ON A.idSolicitud=C.IdEnvio
 and a.IdFormulario=b.IdFormulario
 AND A.idIndicador=B.IdIndicador</property>
                     <property
@@ -2317,16 +2304,18 @@ where [refTable].[IdResultado] = ? and [refTable].[IdCategoria] = ? and [refTabl
                       dataType="System.String"
                       description="The SQL command to be executed."
                       name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT   IdResultado
-      ,[idIndicador]
-      ,[NombreIndicador]
-      ,[FechaCreacion]
-      ,[UsuarioModificacion]
-      ,[TipoIndicador]
-      ,[Estado]
-,idmes
-,idanno
-  FROM [dbo].[tempIndicadorResultado]</property>
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT   a.IdResultado
+		,a.idIndicador
+		,a.NombreIndicador
+		,a.FechaCreacion
+		,a.UsuarioModificacion
+		,b.IdTipoIndicador   TipoIndicador
+		,a.Estado
+		,idmes
+		,idanno
+  FROM dbo.tempIndicadorResultado a
+  inner join Indicador b
+  on a.idIndicador=b.IdIndicador</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
@@ -3186,7 +3175,7 @@ where [refTable].[IdIndicador] = ?</property>
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[IdResultadoDetalle]" />
                         <inputColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input].Columns[IdVariable]"
-                          cachedDataType="i8"
+                          cachedDataType="i4"
                           cachedName="IdVariable"
                           externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input].ExternalColumns[IdVariable]"
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[IdVariable]" />
@@ -3198,8 +3187,10 @@ where [refTable].[IdIndicador] = ?</property>
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[NumeroFila]" />
                         <inputColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input].Columns[Valor]"
-                          cachedDataType="i4"
+                          cachedDataType="numeric"
                           cachedName="Valor"
+                          cachedPrecision="18"
+                          cachedScale="3"
                           externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input].ExternalColumns[Valor]"
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[Valor]" />
                         <inputColumn
@@ -3239,8 +3230,10 @@ where [refTable].[IdIndicador] = ?</property>
                           name="NumeroFila" />
                         <externalMetadataColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input].ExternalColumns[Valor]"
-                          dataType="i4"
-                          name="Valor" />
+                          dataType="numeric"
+                          name="Valor"
+                          precision="18"
+                          scale="3" />
                         <externalMetadataColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable.Inputs[OLE DB Destination Input].ExternalColumns[IdResultado]"
                           dataType="guid"
@@ -3311,10 +3304,10 @@ where [refTable].[IdIndicador] = ?</property>
        B.IdResultado,
        A.idIndicador,
 	 cast(  ROW_NUMBER() OVER (
-      PARTITION BY A.IdSolicitud,
+      PARTITION BY c.IdSolicitud,
 	  A.IdFormulario,
 	  A.idIndicador
-      ORDER BY A.IdSolicitud,
+      ORDER BY c.IdSolicitud,
 	  A.IdFormulario,
 	  A.idIndicador) as int)IdVariable,
 	   a.NumeroFila,
@@ -3324,10 +3317,12 @@ where [refTable].[IdIndicador] = ?</property>
                    1 Estado
    
   FROM dbo.tempIndicadorResultadoDetalleVariable A
-INNER JOIN IndicadorResultadoSolicitud B
-ON A.IdSolicitud=b.IdSolicitud
-and a.IdFormulario=b.IdFormulario
-AND A.idIndicador=B.IdIndicador</property>
+  INNER JOIN EnvioSolicitudes C
+  on C.IdEnvio=a.IdSolicitud
+  INNER JOIN IndicadorResultadoSolicitud B
+  ON A.IdSolicitud=C.IdEnvio
+  and a.IdFormulario=b.IdFormulario
+  AND A.idIndicador=B.IdIndicador</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
@@ -3392,7 +3387,7 @@ AND A.idIndicador=B.IdIndicador</property>
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[IdVariable]"
-                          dataType="i8"
+                          dataType="i4"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
                           externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdVariable]"
@@ -3410,12 +3405,14 @@ AND A.idIndicador=B.IdIndicador</property>
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[Valor]"
-                          dataType="i4"
+                          dataType="numeric"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
                           externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Valor]"
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[Valor]"
                           name="Valor"
+                          precision="18"
+                          scale="3"
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreVariable]"
@@ -3462,8 +3459,10 @@ AND A.idIndicador=B.IdIndicador</property>
                           name="NumeroFila" />
                         <externalMetadataColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Valor]"
-                          dataType="i4"
-                          name="Valor" />
+                          dataType="numeric"
+                          name="Valor"
+                          precision="18"
+                          scale="3" />
                         <externalMetadataColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreVariable]"
                           codePage="1252"
@@ -3508,9 +3507,11 @@ AND A.idIndicador=B.IdIndicador</property>
                           name="NumeroFila" />
                         <outputColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Valor]"
-                          dataType="i4"
+                          dataType="numeric"
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Valor]"
-                          name="Valor" />
+                          name="Valor"
+                          precision="18"
+                          scale="3" />
                         <outputColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreVariable]"
                           codePage="1252"
@@ -3778,8 +3779,10 @@ where [refTable].[IdResultado] = ? and [refTable].[IdIndicador] = ? and [refTabl
                       <inputColumns>
                         <inputColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].Columns[Valor]"
-                          cachedDataType="i4"
+                          cachedDataType="numeric"
                           cachedName="Valor"
+                          cachedPrecision="18"
+                          cachedScale="3"
                           externalMetadataColumnId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
                           lineageId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos.Outputs[OLE DB Source Output].Columns[Valor]" />
                         <inputColumn
@@ -3813,8 +3816,10 @@ where [refTable].[IdResultado] = ? and [refTable].[IdIndicador] = ? and [refTabl
                         isUsed="True">
                         <externalMetadataColumn
                           refId="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
-                          dataType="i4"
-                          name="Param_0">
+                          dataType="numeric"
+                          name="Param_0"
+                          precision="18"
+                          scale="3">
                           <properties>
                             <property
                               dataType="System.Int32"
@@ -4250,14 +4255,16 @@ where [refTable].[IdResultado] = ?</property>
                       UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT  
        B.IdResultado
       ,A.IdFormulario
-      ,A.IdSolicitud
+      ,C.IdSolicitud
       ,A.idIndicador
    
-  FROM dbo.TempIndicadorResultado A
+FROM dbo.TempIndicadorResultado A
 INNER JOIN IndicadorResultado B
 ON A.IdAnno=B.IdAnno
 AND A.idMes=B.idMes
-AND A.idIndicador=B.IdIndicador</property>
+AND A.idIndicador=B.IdIndicador
+INNER JOIN EnvioSolicitudes C
+ON A.IdSolicitud=C.IdEnvio</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
@@ -4502,7 +4509,7 @@ AND A.idIndicador=B.IdIndicador</property>
           DTS:ExecutableType="Microsoft.ExecuteSQLTask"
           DTS:LocaleID="-1"
           DTS:ObjectName="Crear tabla Indicador Resultado"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="2">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -4518,7 +4525,7 @@ AND A.idIndicador=B.IdIndicador</property>
           DTS:ExecutableType="Microsoft.ExecuteSQLTask"
           DTS:LocaleID="-1"
           DTS:ObjectName="Crear tabla indicador Resultado Categoria"
-          DTS:ThreadHint="1">
+          DTS:ThreadHint="0">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -4534,12 +4541,12 @@ AND A.idIndicador=B.IdIndicador</property>
           DTS:ExecutableType="Microsoft.ExecuteSQLTask"
           DTS:LocaleID="-1"
           DTS:ObjectName="Crear tabla indicador Resultado Variable"
-          DTS:ThreadHint="2">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{F18F5338-8C65-4779-BF3B-2095830FE784}"
-              SQLTask:SqlStatementSource="if OBJECT_ID('dbo.tempIndicadorResultadoDetalleVariable') is not null&#xA;begin&#xA; drop table dbo.tempIndicadorResultadoDetalleVariable&#xA;&#xA;end&#xA;go&#xA;&#xA;&#xA;CREATE TABLE dbo.tempIndicadorResultadoDetalleVariable(&#xA; IdResultadoDetalle uniqueidentifier NOT NULL,&#xA; IdSolicitud int not null,&#xA; IdIndicador int not null,&#xA; IdFormulario int not null,&#xA; NombreVariable varchar(300),&#xA; NumeroFila int NOT NULL,&#xA; Valor int NOT NULL&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStatementSource="if OBJECT_ID('dbo.tempIndicadorResultadoDetalleVariable') is not null&#xA;begin&#xA; drop table dbo.tempIndicadorResultadoDetalleVariable&#xA;&#xA;end&#xA;go&#xA;&#xA;&#xA;CREATE TABLE dbo.tempIndicadorResultadoDetalleVariable(&#xA; IdResultadoDetalle uniqueidentifier NOT NULL,&#xA; IdSolicitud int not null,&#xA; IdIndicador int not null,&#xA; IdFormulario int not null,&#xA; NombreVariable varchar(300),&#xA; NumeroFila int NOT NULL,&#xA; Valor decimal(18, 3) NOT NULL&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
       </DTS:Executables>
@@ -4576,7 +4583,7 @@ AND A.idIndicador=B.IdIndicador</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="235.2,41.6"
+          Size="265.6,41.6"
           Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado"
           TopLeft="5.50000000000003,5.50000000000007" />
         <NodeLayout
@@ -4805,7 +4812,7 @@ AND A.idIndicador=B.IdIndicador</property>
     design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="140.8,41.6"
           Id="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado\OLE DB Source"
@@ -4845,7 +4852,9 @@ AND A.idIndicador=B.IdIndicador</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -4981,6 +4990,19 @@ AND A.idIndicador=B.IdIndicador</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
+    design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Cargar Datos Temp">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\Carga de datos a tablas temporales\Cargar Tabla Temp Indicador Resultado Variable\Leer Datos">
     <Properties>
       <Property>
@@ -5009,42 +5031,6 @@ AND A.idIndicador=B.IdIndicador</property>
           Size="116.8,41.6"
           Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria\Actualizar"
           TopLeft="637.333333333333,339.333333333333" />
-        <EdgeLayout
-          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria.Paths[Lookup Match Output]"
-          TopLeft="513.2,318.8">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="124.133333333333,41.3333333333333"
-              Start="0,0"
-              End="116.633333333333,41.3333333333333">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="58.0666666666666,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="58.0666666666666,0"
-                    Point2="62.0666666666666,0"
-                    Point3="62.0666666666666,4" />
-                  <mssgle:LineSegment
-                    End="62.0666666666666,37.3333333333333" />
-                  <mssgle:CubicBezierSegment
-                    Point1="62.0666666666666,37.3333333333333"
-                    Point2="62.0666666666666,41.3333333333333"
-                    Point3="66.0666666666666,41.3333333333333" />
-                  <mssgle:LineSegment
-                    End="116.633333333333,41.3333333333333" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="13.8752799479166,-17.609375,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria.Paths[OLE DB Source Output]"
           TopLeft="312.8,228.6">
@@ -5076,7 +5062,9 @@ AND A.idIndicador=B.IdIndicador</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5112,6 +5100,42 @@ AND A.idIndicador=B.IdIndicador</property>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
               BoundingBox="-94.9397200520833,-17.609375,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Categoria.Paths[Lookup Match Output]"
+          TopLeft="513.2,318.8">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="124.133333333333,41.3333333333333"
+              Start="0,0"
+              End="116.633333333333,41.3333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="58.0666666666666,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="58.0666666666666,0"
+                    Point2="62.0666666666666,0"
+                    Point3="62.0666666666666,4" />
+                  <mssgle:LineSegment
+                    End="62.0666666666666,37.3333333333333" />
+                  <mssgle:CubicBezierSegment
+                    Point1="62.0666666666666,37.3333333333333"
+                    Point2="62.0666666666666,41.3333333333333"
+                    Point3="66.0666666666666,41.3333333333333" />
+                  <mssgle:LineSegment
+                    End="116.633333333333,41.3333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="13.8752799479166,-17.609375,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -5286,7 +5310,9 @@ AND A.idIndicador=B.IdIndicador</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -5342,55 +5368,21 @@ AND A.idIndicador=B.IdIndicador</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="121.6,41.6"
-          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos"
-          TopLeft="189,197" />
+          Size="107.2,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup"
+          TopLeft="524,338" />
         <NodeLayout
           Size="164.8,41.6"
           Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Cargar Tabla Variable"
           TopLeft="174.666666666667,381.333333333333" />
         <NodeLayout
-          Size="107.2,41.6"
-          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Lookup"
-          TopLeft="524,338" />
-        <EdgeLayout
-          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable.Paths[OLE DB Source Output]"
-          TopLeft="249.8,238.6">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="327.8,99.4000000000001"
-              Start="0,0"
-              End="327.8,91.9000000000001">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,45.7" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,45.7"
-                    Point2="0,49.7"
-                    Point3="4,49.7" />
-                  <mssgle:LineSegment
-                    End="323.8,49.7" />
-                  <mssgle:CubicBezierSegment
-                    Point1="323.8,49.7"
-                    Point2="327.8,49.7"
-                    Point3="327.8,53.7" />
-                  <mssgle:LineSegment
-                    End="327.8,91.9000000000001" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
           Size="153.6,41.6"
           Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\OLE DB Command"
           TopLeft="653,475" />
+        <NodeLayout
+          Size="121.6,41.6"
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable\Leer Datos"
+          TopLeft="189,197" />
         <EdgeLayout
           Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable.Paths[Lookup No Match Output]"
           TopLeft="524,358.8">
@@ -5423,7 +5415,7 @@ AND A.idIndicador=B.IdIndicador</property>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-148.073053385416,-17.609375,111.6127734375,11.609375"
+              BoundingBox="-148.073053385417,-17.609375,111.6127734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -5461,6 +5453,40 @@ AND A.idIndicador=B.IdIndicador</property>
             <mssgm:EdgeLabel
               BoundingBox="27.90861328125,52.7,96.3827734375,11.609375"
               RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga de información a tablas finales\Cargar Tabla Indicador Variable.Paths[OLE DB Source Output]"
+          TopLeft="249.8,238.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="327.8,99.4000000000001"
+              Start="0,0"
+              End="327.8,91.9000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,45.7"
+                    Point2="0,49.7"
+                    Point3="4,49.7" />
+                  <mssgle:LineSegment
+                    End="323.8,49.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="323.8,49.7"
+                    Point2="327.8,49.7"
+                    Point3="327.8,53.7" />
+                  <mssgle:LineSegment
+                    End="327.8,91.9000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

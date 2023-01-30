@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="1/5/2023 3:14:42 PM"
@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="28"
-  DTS:VersionGUID="{39E85EF0-87C3-4129-A09A-27249DD1EF5F}">
+  DTS:VersionBuild="57"
+  DTS:VersionGUID="{C4D14576-3935-4BA2-A06F-B19188FA2C9E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -25,7 +25,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Data Source=localhost;Initial Catalog=SIMEF_Indicadores;Provider=MSOLAP.8;Integrated Security=SSPI;Impersonation Level=Impersonate;" />
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=SIMEF_CUBE;Provider=MSOLAP.8;Integrated Security=SSPI;Impersonation Level=Impersonate;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -54,7 +54,7 @@
           <DTS:ObjectData>
             <ASProcessingData
               ConnectionName="localhost.SIMEF_Indicadores"
-              ProcessingCommands="&lt;Batch xmlns=&quot;http://schemas.microsoft.com/analysisservices/2003/engine&quot;&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_Indicadores&lt;/DatabaseID&gt;&#xA;      &lt;CubeID&gt;DWSIMEF&lt;/CubeID&gt;&#xA;      &lt;MeasureGroupID&gt;TH Indicador&lt;/MeasureGroupID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessFull&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_Indicadores&lt;/DatabaseID&gt;&#xA;      &lt;CubeID&gt;DWSIMEF&lt;/CubeID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessFull&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_Indicadores&lt;/DatabaseID&gt;&#xA;      &lt;CubeID&gt;DWSIMEF&lt;/CubeID&gt;&#xA;      &lt;MeasureGroupID&gt;TH Indicador&lt;/MeasureGroupID&gt;&#xA;      &lt;PartitionID&gt;TH Indicador&lt;/PartitionID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessFull&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;&lt;/Batch&gt;" />
+              ProcessingCommands="&lt;Batch xmlns=&quot;http://schemas.microsoft.com/analysisservices/2003/engine&quot;&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_CUBE&lt;/DatabaseID&gt;&#xA;      &lt;CubeID&gt;DWSIMEF&lt;/CubeID&gt;&#xA;      &lt;MeasureGroupID&gt;TH Indicador&lt;/MeasureGroupID&gt;&#xA;      &lt;PartitionID&gt;TH Indicador&lt;/PartitionID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessFull&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_CUBE&lt;/DatabaseID&gt;&#xA;      &lt;CubeID&gt;DWSIMEF&lt;/CubeID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessFull&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_CUBE&lt;/DatabaseID&gt;&#xA;      &lt;CubeID&gt;DWSIMEF&lt;/CubeID&gt;&#xA;      &lt;MeasureGroupID&gt;TH Indicador&lt;/MeasureGroupID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessFull&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;&lt;/Batch&gt;" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -96,7 +96,7 @@
                       dataType="System.String"
                       description="The SQL command to be executed."
                       name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -150,14 +150,6 @@
                           externalMetadataColumnId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[IdCategoria]"
                           lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[Idcategoria]" />
                         <inputColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].Columns[NombreCategoria]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="300"
-                          cachedName="NombreCategoria"
-                          externalMetadataColumnId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[NombreCategoria]"
-                          lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreCategoria]" />
-                        <inputColumn
                           refId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].Columns[ValorCategoria]"
                           cachedCodepage="1252"
                           cachedDataType="text"
@@ -165,43 +157,31 @@
                           externalMetadataColumnId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[Valor]"
                           lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[ValorCategoria]" />
                         <inputColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].Columns[idNumeroFila]"
-                          cachedDataType="i8"
-                          cachedName="idNumeroFila"
-                          externalMetadataColumnId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[IdNumFila]"
-                          lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[idNumeroFila]" />
-                        <inputColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].Columns[IdIndicador]"
-                          cachedDataType="i4"
-                          cachedName="IdIndicador"
-                          externalMetadataColumnId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
-                          lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[IdIndicador]" />
+                          refId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].Columns[NombreCategoria]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="300"
+                          cachedName="NombreCategoria"
+                          externalMetadataColumnId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[NombreColumna]"
+                          lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreCategoria]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[IdNumFila]"
-                          dataType="i8"
-                          name="IdNumFila" />
-                        <externalMetadataColumn
                           refId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[IdCategoria]"
                           dataType="i8"
                           name="IdCategoria" />
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[NombreCategoria]"
-                          codePage="1252"
-                          dataType="str"
-                          length="300"
-                          name="NombreCategoria" />
                         <externalMetadataColumn
                           refId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[Valor]"
                           codePage="1252"
                           dataType="text"
                           name="Valor" />
                         <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
-                          dataType="i4"
-                          name="IdIndicador" />
+                          refId="Package\Carga DWH\Carga Dim Categoria\Cargar Datos.Inputs[OLE DB Destination Input].ExternalColumns[NombreColumna]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          name="NombreColumna" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -255,13 +235,10 @@
                       dataType="System.String"
                       description="The SQL command to be executed."
                       name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT distinct cast(concat( IdIndicador ,IdColumna) as bigint) Idcategoria
-      ,cast(concat( IdIndicador ,NumeroFila) as bigint) idNumeroFila,
-IdIndicador
-      ,NombreColumna NombreCategoria
-      ,ValorColumna ValorCategoria
-  FROM dbo.TempStageIndicador
-  where VariableDato=0</property>
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT distinct cast(concat( IdIndicador ,IdColumna, NumeroFila) as bigint) Idcategoria
+		,NombreColumna NombreCategoria
+		,ValorColumna ValorCategoria
+  FROM dbo.TempStageIndicador</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
@@ -307,15 +284,6 @@ IdIndicador
                           name="Idcategoria"
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[idNumeroFila]"
-                          dataType="i8"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[idNumeroFila]"
-                          lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[idNumeroFila]"
-                          name="idNumeroFila"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
                           refId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreCategoria]"
                           codePage="1252"
                           dataType="str"
@@ -336,15 +304,6 @@ IdIndicador
                           lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[ValorCategoria]"
                           name="ValorCategoria"
                           truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[IdIndicador]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
-                          lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].Columns[IdIndicador]"
-                          name="IdIndicador"
-                          truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -352,10 +311,6 @@ IdIndicador
                           refId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Idcategoria]"
                           dataType="i8"
                           name="Idcategoria" />
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[idNumeroFila]"
-                          dataType="i8"
-                          name="idNumeroFila" />
                         <externalMetadataColumn
                           refId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreCategoria]"
                           codePage="1252"
@@ -367,10 +322,6 @@ IdIndicador
                           codePage="1252"
                           dataType="text"
                           name="ValorCategoria" />
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
-                          dataType="i4"
-                          name="IdIndicador" />
                       </externalMetadataColumns>
                     </output>
                     <output
@@ -383,16 +334,6 @@ IdIndicador
                           dataType="i8"
                           lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Idcategoria]"
                           name="Idcategoria" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Error Output].Columns[idNumeroFila]"
-                          dataType="i8"
-                          lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Error Output].Columns[idNumeroFila]"
-                          name="idNumeroFila" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
-                          dataType="i4"
-                          lineageId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
-                          name="IdIndicador" />
                         <outputColumn
                           refId="Package\Carga DWH\Carga Dim Categoria\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreCategoria]"
                           codePage="1252"
@@ -473,7 +414,7 @@ IdIndicador
                       dataType="System.String"
                       description="The SQL command to be executed."
                       name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -558,6 +499,14 @@ IdIndicador
                           cachedName="CodigoIndicador"
                           externalMetadataColumnId="Package\Carga DWH\Carga Dim Indicador\Insertar.Inputs[OLE DB Destination Input].ExternalColumns[CodigoIndicador]"
                           lineageId="Package\Carga DWH\Carga Dim Indicador\Leer Datos.Outputs[OLE DB Source Output].Columns[CodigoIndicador]" />
+                        <inputColumn
+                          refId="Package\Carga DWH\Carga Dim Indicador\Insertar.Inputs[OLE DB Destination Input].Columns[Sigitel]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="Sigitel"
+                          externalMetadataColumnId="Package\Carga DWH\Carga Dim Indicador\Insertar.Inputs[OLE DB Destination Input].ExternalColumns[SIGITEL]"
+                          lineageId="Package\Carga DWH\Carga Dim Indicador\Leer Datos.Outputs[OLE DB Source Output].Columns[Sigitel]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -589,6 +538,12 @@ IdIndicador
                           dataType="str"
                           length="300"
                           name="Clasificacion" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga Dim Indicador\Insertar.Inputs[OLE DB Destination Input].ExternalColumns[SIGITEL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="SIGITEL" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -642,17 +597,19 @@ IdIndicador
                       dataType="System.String"
                       description="The SQL command to be executed."
                       name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select distinct
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Select distinct
 
-IdIndicador,
+a.IdIndicador,
 CodigoIndicador,
 NombreIndicador,
-NombreGrupo,
-NombreClasificacion
-
+a.NombreGrupo,
+a.NombreClasificacion,
+case b.VisualizaSigitel when 1 then 'SI' ELSE 'NO' end Sigitel
 from 
 
-dbo.TempStageIndicador</property>
+dbo.TempStageIndicador a
+full outer join FONATEL.DimTablaIndicadores b
+on a.IdIndicador=b.IdIndicador</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
@@ -741,6 +698,17 @@ dbo.TempStageIndicador</property>
                           lineageId="Package\Carga DWH\Carga Dim Indicador\Leer Datos.Outputs[OLE DB Source Output].Columns[CodigoIndicador]"
                           name="CodigoIndicador"
                           truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga Dim Indicador\Leer Datos.Outputs[OLE DB Source Output].Columns[Sigitel]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga DWH\Carga Dim Indicador\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Sigitel]"
+                          length="2"
+                          lineageId="Package\Carga DWH\Carga Dim Indicador\Leer Datos.Outputs[OLE DB Source Output].Columns[Sigitel]"
+                          name="Sigitel"
+                          truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -772,6 +740,12 @@ dbo.TempStageIndicador</property>
                           dataType="str"
                           length="30"
                           name="CodigoIndicador" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga Dim Indicador\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Sigitel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Sigitel" />
                       </externalMetadataColumns>
                     </output>
                     <output
@@ -812,6 +786,13 @@ dbo.TempStageIndicador</property>
                           length="300"
                           lineageId="Package\Carga DWH\Carga Dim Indicador\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreClasificacion]"
                           name="NombreClasificacion" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga Dim Indicador\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Sigitel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Carga DWH\Carga Dim Indicador\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Sigitel]"
+                          name="Sigitel" />
                         <outputColumn
                           refId="Package\Carga DWH\Carga Dim Indicador\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
@@ -879,7 +860,7 @@ dbo.TempStageIndicador</property>
                       dataType="System.String"
                       description="The SQL command to be executed."
                       name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT distinct cast(concat(IdIndicador,IdSolicitud,IdFormulario,idMes,IdAnno) as bigint) Idsolicitud
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT distinct cast(concat(IdIndicador,IdSolicitud,IdFormulario,idMes,IdAnno) as bigint) Idsolicitud
       ,NombreSolicitud
       ,CodigoSolicitud
       ,NombreFuente    
@@ -1186,7 +1167,7 @@ dbo.TempStageIndicador</property>
                       dataType="System.String"
                       description="The SQL command to be executed."
                       name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -1398,376 +1379,13 @@ dbo.TempStageIndicador</property>
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Carga DWH\Carga THIndicadores"
-          DTS:CreationName="Microsoft.Pipeline"
-          DTS:Description="Data Flow Task"
-          DTS:DTSID="{C513E7C9-E685-470A-B23B-161D2C503C26}"
-          DTS:ExecutableType="Microsoft.Pipeline"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Carga THIndicadores"
-          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <pipeline
-              version="1">
-              <components>
-                <component
-                  refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination"
-                  componentClassID="Microsoft.OLEDBDestination"
-                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
-                  description="OLE DB Destination"
-                  name="OLE DB Destination"
-                  usesDispositions="true"
-                  version="4">
-                  <properties>
-                    <property
-                      dataType="System.Int32"
-                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                      name="CommandTimeout">0</property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the name of the database object used to open a rowset."
-                      name="OpenRowset">[dbo].[THIndicador]</property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the variable that contains the name of the database object used to open a rowset."
-                      name="OpenRowsetVariable"></property>
-                    <property
-                      dataType="System.String"
-                      description="The SQL command to be executed."
-                      name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the column code page to use when code page information is unavailable from the data source."
-                      name="DefaultCodePage">1252</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Forces the use of the DefaultCodePage property value when describing character data."
-                      name="AlwaysUseDefaultCodePage">false</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the mode used to access the database."
-                      name="AccessMode"
-                      typeConverter="AccessMode">3</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
-                      name="FastLoadKeepIdentity">false</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
-                      name="FastLoadKeepNulls">false</property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
-                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
-                      name="FastLoadMaxInsertCommitSize">2147483647</property>
-                  </properties>
-                  <connections>
-                    <connection
-                      refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Connections[OleDbConnection]"
-                      connectionManagerID="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}:external"
-                      connectionManagerRefId="Project.ConnectionManagers[DWSIMEF]"
-                      description="The OLE DB runtime connection used to access the database."
-                      name="OleDbConnection" />
-                  </connections>
-                  <inputs>
-                    <input
-                      refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input]"
-                      errorOrTruncationOperation="Insert"
-                      errorRowDisposition="FailComponent"
-                      hasSideEffects="true"
-                      name="OLE DB Destination Input">
-                      <inputColumns>
-                        <inputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Idsolicitud]"
-                          cachedDataType="i8"
-                          cachedName="Idsolicitud"
-                          externalMetadataColumnId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdSolicitud]"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[Idsolicitud]" />
-                        <inputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdIndicador]"
-                          cachedDataType="i4"
-                          cachedName="IdIndicador"
-                          externalMetadataColumnId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]" />
-                        <inputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ValorVariable]"
-                          cachedDataType="i4"
-                          cachedName="ValorVariable"
-                          externalMetadataColumnId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Valor]"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[ValorVariable]" />
-                        <inputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[idNumeroFila]"
-                          cachedDataType="i8"
-                          cachedName="idNumeroFila"
-                          externalMetadataColumnId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdNumFila]"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[idNumeroFila]" />
-                        <inputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdVariable]"
-                          cachedDataType="i8"
-                          cachedName="IdVariable"
-                          externalMetadataColumnId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdVariable]"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdVariable]" />
-                      </inputColumns>
-                      <externalMetadataColumns
-                        isUsed="True">
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
-                          dataType="i8"
-                          name="IdIndicador" />
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdSolicitud]"
-                          dataType="i8"
-                          name="IdSolicitud" />
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdNumFila]"
-                          dataType="i8"
-                          name="IdNumFila" />
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Valor]"
-                          dataType="i4"
-                          name="Valor" />
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdVariable]"
-                          dataType="i8"
-                          name="IdVariable" />
-                      </externalMetadataColumns>
-                    </input>
-                  </inputs>
-                  <outputs>
-                    <output
-                      refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
-                      exclusionGroup="1"
-                      isErrorOut="true"
-                      name="OLE DB Destination Error Output"
-                      synchronousInputId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input]">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
-                          dataType="i4"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
-                          name="ErrorCode"
-                          specialFlags="1" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
-                          dataType="i4"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
-                          name="ErrorColumn"
-                          specialFlags="2" />
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-                <component
-                  refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source"
-                  componentClassID="Microsoft.OLEDBSource"
-                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
-                  description="OLE DB Source"
-                  name="OLE DB Source"
-                  usesDispositions="true"
-                  version="7">
-                  <properties>
-                    <property
-                      dataType="System.Int32"
-                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                      name="CommandTimeout">0</property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the name of the database object used to open a rowset."
-                      name="OpenRowset"></property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the variable that contains the name of the database object used to open a rowset."
-                      name="OpenRowsetVariable"></property>
-                    <property
-                      dataType="System.String"
-                      description="The SQL command to be executed."
-                      name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select distinct
-cast(concat(IdIndicador,IdSolicitud,IdFormulario,idMes,IdAnno) as bigint) Idsolicitud
-,cast(concat( IdIndicador ,NumeroFila) as bigint) idNumeroFila
-,cast(concat( IdIndicador,NumeroFila ,ROW_NUMBER() over(partition by idColumna order by IdIndicador)) as bigint) IdVariable
-,IdIndicador
-,cast(ValorColumna as int)ValorVariable
-from TempStageIndicador
-where Variabledato=1</property>
-                    <property
-                      dataType="System.String"
-                      description="The variable that contains the SQL command to be executed."
-                      name="SqlCommandVariable"></property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the column code page to use when code page information is unavailable from the data source."
-                      name="DefaultCodePage">1252</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Forces the use of the DefaultCodePage property value when describing character data."
-                      name="AlwaysUseDefaultCodePage">false</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the mode used to access the database."
-                      name="AccessMode"
-                      typeConverter="AccessMode">2</property>
-                    <property
-                      dataType="System.String"
-                      description="The mappings between the parameters in the SQL command and variables."
-                      name="ParameterMapping"></property>
-                  </properties>
-                  <connections>
-                    <connection
-                      refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Connections[OleDbConnection]"
-                      connectionManagerID="{0988B716-91C0-48CB-B3C5-49DB1BD91137}:external"
-                      connectionManagerRefId="Project.ConnectionManagers[SIGITEL]"
-                      description="The OLE DB runtime connection used to access the database."
-                      name="OleDbConnection" />
-                  </connections>
-                  <outputs>
-                    <output
-                      refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output]"
-                      name="OLE DB Source Output">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[Idsolicitud]"
-                          dataType="i8"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Idsolicitud]"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[Idsolicitud]"
-                          name="Idsolicitud"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[idNumeroFila]"
-                          dataType="i8"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[idNumeroFila]"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[idNumeroFila]"
-                          name="idNumeroFila"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]"
-                          name="IdIndicador"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[ValorVariable]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ValorVariable]"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[ValorVariable]"
-                          name="ValorVariable"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdVariable]"
-                          dataType="i8"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdVariable]"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdVariable]"
-                          name="IdVariable"
-                          truncationRowDisposition="FailComponent" />
-                      </outputColumns>
-                      <externalMetadataColumns
-                        isUsed="True">
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Idsolicitud]"
-                          dataType="i8"
-                          name="Idsolicitud" />
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[idNumeroFila]"
-                          dataType="i8"
-                          name="idNumeroFila" />
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
-                          dataType="i4"
-                          name="IdIndicador" />
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ValorVariable]"
-                          dataType="i4"
-                          name="ValorVariable" />
-                        <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdVariable]"
-                          dataType="i8"
-                          name="IdVariable" />
-                      </externalMetadataColumns>
-                    </output>
-                    <output
-                      refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output]"
-                      isErrorOut="true"
-                      name="OLE DB Source Error Output">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Idsolicitud]"
-                          dataType="i8"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Idsolicitud]"
-                          name="Idsolicitud" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[idNumeroFila]"
-                          dataType="i8"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[idNumeroFila]"
-                          name="idNumeroFila" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdVariable]"
-                          dataType="i8"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdVariable]"
-                          name="IdVariable" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
-                          dataType="i4"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
-                          name="IdIndicador" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ValorVariable]"
-                          dataType="i4"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ValorVariable]"
-                          name="ValorVariable" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                          dataType="i4"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                          name="ErrorCode"
-                          specialFlags="1" />
-                        <outputColumn
-                          refId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                          dataType="i4"
-                          lineageId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                          name="ErrorColumn"
-                          specialFlags="2" />
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-              </components>
-              <paths>
-                <path
-                  refId="Package\Carga DWH\Carga THIndicadores.Paths[OLE DB Source Output]"
-                  endId="Package\Carga DWH\Carga THIndicadores\OLE DB Destination.Inputs[OLE DB Destination Input]"
-                  name="OLE DB Source Output"
-                  startId="Package\Carga DWH\Carga THIndicadores\OLE DB Source.Outputs[OLE DB Source Output]" />
-              </paths>
-            </pipeline>
-          </DTS:ObjectData>
-        </DTS:Executable>
-        <DTS:Executable
-          DTS:refId="Package\Carga DWH\Carga Variable Dato"
+          DTS:refId="Package\Carga DWH\Carga dim tipo"
           DTS:CreationName="Microsoft.Pipeline"
           DTS:Description="Data Flow Task"
           DTS:DTSID="{2895dd5e-6aa6-41e4-b175-67364e80a2d4}"
           DTS:ExecutableType="Microsoft.Pipeline"
           DTS:LocaleID="-1"
-          DTS:ObjectName="Carga Variable Dato"
+          DTS:ObjectName="Carga dim tipo"
           DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
           <DTS:Variables />
           <DTS:ObjectData>
@@ -1775,7 +1393,7 @@ where Variabledato=1</property>
               version="1">
               <components>
                 <component
-                  refId="Package\Carga DWH\Carga Variable Dato\Cargar datos"
+                  refId="Package\Carga DWH\Carga dim tipo\Cargar datos"
                   componentClassID="Microsoft.OLEDBDestination"
                   contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
                   description="OLE DB Destination"
@@ -1790,7 +1408,7 @@ where Variabledato=1</property>
                     <property
                       dataType="System.String"
                       description="Specifies the name of the database object used to open a rowset."
-                      name="OpenRowset">[dbo].[DimVariable]</property>
+                      name="OpenRowset">[dbo].[DimTipo]</property>
                     <property
                       dataType="System.String"
                       description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -1799,7 +1417,7 @@ where Variabledato=1</property>
                       dataType="System.String"
                       description="The SQL command to be executed."
                       name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -1832,7 +1450,7 @@ where Variabledato=1</property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Connections[OleDbConnection]"
+                      refId="Package\Carga DWH\Carga dim tipo\Cargar datos.Connections[OleDbConnection]"
                       connectionManagerID="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}:external"
                       connectionManagerRefId="Project.ConnectionManagers[DWSIMEF]"
                       description="The OLE DB runtime connection used to access the database."
@@ -1840,60 +1458,60 @@ where Variabledato=1</property>
                   </connections>
                   <inputs>
                     <input
-                      refId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Inputs[OLE DB Destination Input]"
+                      refId="Package\Carga DWH\Carga dim tipo\Cargar datos.Inputs[OLE DB Destination Input]"
                       errorOrTruncationOperation="Insert"
                       errorRowDisposition="FailComponent"
                       hasSideEffects="true"
                       name="OLE DB Destination Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Inputs[OLE DB Destination Input].Columns[IdVariable]"
-                          cachedDataType="i8"
-                          cachedName="IdVariable"
-                          externalMetadataColumnId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Inputs[OLE DB Destination Input].ExternalColumns[idVariable]"
-                          lineageId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output].Columns[IdVariable]" />
+                          refId="Package\Carga DWH\Carga dim tipo\Cargar datos.Inputs[OLE DB Destination Input].Columns[idTipo]"
+                          cachedDataType="i4"
+                          cachedName="idTipo"
+                          externalMetadataColumnId="Package\Carga DWH\Carga dim tipo\Cargar datos.Inputs[OLE DB Destination Input].ExternalColumns[idTipo]"
+                          lineageId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output].Columns[idTipo]" />
                         <inputColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Inputs[OLE DB Destination Input].Columns[NombreVariable]"
+                          refId="Package\Carga DWH\Carga dim tipo\Cargar datos.Inputs[OLE DB Destination Input].Columns[Nombre]"
                           cachedCodepage="1252"
                           cachedDataType="str"
-                          cachedLength="300"
-                          cachedName="NombreVariable"
-                          externalMetadataColumnId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Inputs[OLE DB Destination Input].ExternalColumns[NombreVariable]"
-                          lineageId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output].Columns[NombreVariable]" />
+                          cachedLength="23"
+                          cachedName="Nombre"
+                          externalMetadataColumnId="Package\Carga DWH\Carga dim tipo\Cargar datos.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
+                          lineageId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output].Columns[Nombre]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Inputs[OLE DB Destination Input].ExternalColumns[idVariable]"
+                          refId="Package\Carga DWH\Carga dim tipo\Cargar datos.Inputs[OLE DB Destination Input].ExternalColumns[idTipo]"
                           dataType="i8"
-                          name="idVariable" />
+                          name="idTipo" />
                         <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Inputs[OLE DB Destination Input].ExternalColumns[NombreVariable]"
+                          refId="Package\Carga DWH\Carga dim tipo\Cargar datos.Inputs[OLE DB Destination Input].ExternalColumns[Nombre]"
                           codePage="1252"
                           dataType="str"
-                          length="300"
-                          name="NombreVariable" />
+                          length="30"
+                          name="Nombre" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
                   <outputs>
                     <output
-                      refId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Outputs[OLE DB Destination Error Output]"
+                      refId="Package\Carga DWH\Carga dim tipo\Cargar datos.Outputs[OLE DB Destination Error Output]"
                       exclusionGroup="1"
                       isErrorOut="true"
                       name="OLE DB Destination Error Output"
-                      synchronousInputId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Inputs[OLE DB Destination Input]">
+                      synchronousInputId="Package\Carga DWH\Carga dim tipo\Cargar datos.Inputs[OLE DB Destination Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          refId="Package\Carga DWH\Carga dim tipo\Cargar datos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          lineageId="Package\Carga DWH\Carga dim tipo\Cargar datos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          refId="Package\Carga DWH\Carga dim tipo\Cargar datos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\Carga DWH\Carga dim tipo\Cargar datos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -1902,7 +1520,7 @@ where Variabledato=1</property>
                   </outputs>
                 </component>
                 <component
-                  refId="Package\Carga DWH\Carga Variable Dato\Leer datos"
+                  refId="Package\Carga DWH\Carga dim tipo\Leer datos"
                   componentClassID="Microsoft.OLEDBSource"
                   contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
                   description="OLE DB Source"
@@ -1926,13 +1544,9 @@ where Variabledato=1</property>
                       dataType="System.String"
                       description="The SQL command to be executed."
                       name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT cast(concat( IdIndicador,NumeroFila ,ROW_NUMBER() over(partition by idColumna order by IdIndicador)) as bigint) IdVariable
-      ,NombreColumna NombreVariable
-
-  FROM dbo.TempStageIndicador
-  where VariableDato=1
-  
-order by IdIndicador</property>
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 1 idTipo, 'Variable Dato' Nombre
+union
+Select 0 idTipo, 'Categoría Desagregación' Nombre</property>
                     <property
                       dataType="System.String"
                       description="The variable that contains the SQL command to be executed."
@@ -1957,7 +1571,7 @@ order by IdIndicador</property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\Carga DWH\Carga Variable Dato\Leer datos.Connections[OleDbConnection]"
+                      refId="Package\Carga DWH\Carga dim tipo\Leer datos.Connections[OleDbConnection]"
                       connectionManagerID="{0988B716-91C0-48CB-B3C5-49DB1BD91137}:external"
                       connectionManagerRefId="Project.ConnectionManagers[SIGITEL]"
                       description="The OLE DB runtime connection used to access the database."
@@ -1965,71 +1579,71 @@ order by IdIndicador</property>
                   </connections>
                   <outputs>
                     <output
-                      refId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output]"
+                      refId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output]"
                       name="OLE DB Source Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output].Columns[IdVariable]"
-                          dataType="i8"
+                          refId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output].Columns[idTipo]"
+                          dataType="i4"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output].ExternalColumns[IdVariable]"
-                          lineageId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output].Columns[IdVariable]"
-                          name="IdVariable"
+                          externalMetadataColumnId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output].ExternalColumns[idTipo]"
+                          lineageId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output].Columns[idTipo]"
+                          name="idTipo"
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output].Columns[NombreVariable]"
+                          refId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output].Columns[Nombre]"
                           codePage="1252"
                           dataType="str"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output].ExternalColumns[NombreVariable]"
-                          length="300"
-                          lineageId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output].Columns[NombreVariable]"
-                          name="NombreVariable"
+                          externalMetadataColumnId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
+                          length="23"
+                          lineageId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output].Columns[Nombre]"
+                          name="Nombre"
                           truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output].ExternalColumns[IdVariable]"
-                          dataType="i8"
-                          name="IdVariable" />
+                          refId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output].ExternalColumns[idTipo]"
+                          dataType="i4"
+                          name="idTipo" />
                         <externalMetadataColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output].ExternalColumns[NombreVariable]"
+                          refId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output].ExternalColumns[Nombre]"
                           codePage="1252"
                           dataType="str"
-                          length="300"
-                          name="NombreVariable" />
+                          length="23"
+                          name="Nombre" />
                       </externalMetadataColumns>
                     </output>
                     <output
-                      refId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Error Output]"
+                      refId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Error Output]"
                       isErrorOut="true"
                       name="OLE DB Source Error Output">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Error Output].Columns[IdVariable]"
-                          dataType="i8"
-                          lineageId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Error Output].Columns[IdVariable]"
-                          name="IdVariable" />
+                          refId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Error Output].Columns[idTipo]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Error Output].Columns[idTipo]"
+                          name="idTipo" />
                         <outputColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Error Output].Columns[NombreVariable]"
+                          refId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Error Output].Columns[Nombre]"
                           codePage="1252"
                           dataType="str"
-                          length="300"
-                          lineageId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Error Output].Columns[NombreVariable]"
-                          name="NombreVariable" />
+                          length="23"
+                          lineageId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Error Output].Columns[Nombre]"
+                          name="Nombre" />
                         <outputColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          refId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          lineageId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          refId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -2040,10 +1654,698 @@ order by IdIndicador</property>
               </components>
               <paths>
                 <path
-                  refId="Package\Carga DWH\Carga Variable Dato.Paths[OLE DB Source Output]"
-                  endId="Package\Carga DWH\Carga Variable Dato\Cargar datos.Inputs[OLE DB Destination Input]"
+                  refId="Package\Carga DWH\Carga dim tipo.Paths[OLE DB Source Output]"
+                  endId="Package\Carga DWH\Carga dim tipo\Cargar datos.Inputs[OLE DB Destination Input]"
                   name="OLE DB Source Output"
-                  startId="Package\Carga DWH\Carga Variable Dato\Leer datos.Outputs[OLE DB Source Output]" />
+                  startId="Package\Carga DWH\Carga dim tipo\Leer datos.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Carga DWH\Carga THINDICADOR"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{544D1AA5-ABA0-401A-826E-9AD0A1A5D00D}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Carga THINDICADOR"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[THIndicador]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DWSIMEF]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdIndicador]"
+                          cachedDataType="i4"
+                          cachedName="IdIndicador"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]" />
+                        <inputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Idsolicitud]"
+                          cachedDataType="i8"
+                          cachedName="Idsolicitud"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdSolicitud]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[Idsolicitud]" />
+                        <inputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Idcategoria]"
+                          cachedDataType="i8"
+                          cachedName="Idcategoria"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdCategoria]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[Idcategoria]" />
+                        <inputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdTipo]"
+                          cachedDataType="i4"
+                          cachedName="IdTipo"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdTipo]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdTipo]" />
+                        <inputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Valor]"
+                          cachedDataType="i4"
+                          cachedName="Valor"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Valor]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[Valor]" />
+                        <inputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdNumFila]"
+                          cachedDataType="i8"
+                          cachedName="IdNumFila"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdNumfila]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdNumFila]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
+                          dataType="i8"
+                          name="IdIndicador" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdSolicitud]"
+                          dataType="i8"
+                          name="IdSolicitud" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdCategoria]"
+                          dataType="i8"
+                          name="IdCategoria" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdTipo]"
+                          dataType="i8"
+                          name="IdTipo" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Valor]"
+                          dataType="i4"
+                          name="Valor" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdNumfila]"
+                          dataType="i8"
+                          name="IdNumfila" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select distinct
+IdIndicador
+,cast(concat(IdIndicador,IdSolicitud,IdFormulario,idMes,IdAnno) as bigint) Idsolicitud
+,cast(concat( IdIndicador ,IdColumna, NumeroFila) as bigint) Idcategoria
+,cast(Variabledato as int) IdTipo
+,cast(concat(IdIndicador ,NumeroFila) as bigint) IdNumFila
+,cast(ValorColumna as int)Valor
+from TempStageIndicador
+where Variabledato=1
+
+union
+
+select distinct
+IdIndicador
+,cast(concat(IdIndicador,IdSolicitud,IdFormulario,idMes,IdAnno) as bigint) Idsolicitud
+,cast(concat( IdIndicador ,IdColumna, NumeroFila) as bigint) Idcategoria
+,cast(Variabledato as int) IdTipo
+,cast(concat(IdIndicador ,NumeroFila) as bigint) IdNumFila
+,0 Valor
+from TempStageIndicador
+where Variabledato=0</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="{0988B716-91C0-48CB-B3C5-49DB1BD91137}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SIGITEL]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]"
+                          name="IdIndicador"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[Idsolicitud]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Idsolicitud]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[Idsolicitud]"
+                          name="Idsolicitud"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[Idcategoria]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Idcategoria]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[Idcategoria]"
+                          name="Idcategoria"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdTipo]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdTipo]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdTipo]"
+                          name="IdTipo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[Valor]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Valor]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[Valor]"
+                          name="Valor"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdNumFila]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdNumFila]"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdNumFila]"
+                          name="IdNumFila"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
+                          dataType="i4"
+                          name="IdIndicador" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Idsolicitud]"
+                          dataType="i8"
+                          name="Idsolicitud" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Idcategoria]"
+                          dataType="i8"
+                          name="Idcategoria" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdTipo]"
+                          dataType="i4"
+                          name="IdTipo" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Valor]"
+                          dataType="i4"
+                          name="Valor" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdNumFila]"
+                          dataType="i8"
+                          name="IdNumFila" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
+                          name="IdIndicador" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Idsolicitud]"
+                          dataType="i8"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Idsolicitud]"
+                          name="Idsolicitud" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Idcategoria]"
+                          dataType="i8"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Idcategoria]"
+                          name="Idcategoria" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdTipo]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdTipo]"
+                          name="IdTipo" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdNumFila]"
+                          dataType="i8"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdNumFila]"
+                          name="IdNumFila" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Valor]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Valor]"
+                          name="Valor" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Carga DWH\Carga THINDICADOR.Paths[OLE DB Source Output]"
+                  endId="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Carga DWH\Carga THINDICADOR\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Carga DWH\DimNumFila"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{F6615A51-26FD-43BA-9281-24F3FF410B42}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DimNumFila"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Carga DWH\DimNumFila\Carga de datos"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Carga de datos"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[DimNumeroFila]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga DWH\DimNumFila\Carga de datos.Connections[OleDbConnection]"
+                      connectionManagerID="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DWSIMEF]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Carga DWH\DimNumFila\Carga de datos.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Carga DWH\DimNumFila\Carga de datos.Inputs[OLE DB Destination Input].Columns[NumeroFila]"
+                          cachedDataType="i4"
+                          cachedName="NumeroFila"
+                          externalMetadataColumnId="Package\Carga DWH\DimNumFila\Carga de datos.Inputs[OLE DB Destination Input].ExternalColumns[NumFila]"
+                          lineageId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output].Columns[NumeroFila]" />
+                        <inputColumn
+                          refId="Package\Carga DWH\DimNumFila\Carga de datos.Inputs[OLE DB Destination Input].Columns[IdNumfila]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="24"
+                          cachedName="IdNumfila"
+                          externalMetadataColumnId="Package\Carga DWH\DimNumFila\Carga de datos.Inputs[OLE DB Destination Input].ExternalColumns[IdNumFila]"
+                          lineageId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output].Columns[IdNumfila]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\DimNumFila\Carga de datos.Inputs[OLE DB Destination Input].ExternalColumns[NumFila]"
+                          dataType="i8"
+                          name="NumFila" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\DimNumFila\Carga de datos.Inputs[OLE DB Destination Input].ExternalColumns[IdNumFila]"
+                          dataType="i8"
+                          name="IdNumFila" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Carga DWH\DimNumFila\Carga de datos.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Carga DWH\DimNumFila\Carga de datos.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga DWH\DimNumFila\Carga de datos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\DimNumFila\Carga de datos.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga DWH\DimNumFila\Carga de datos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\DimNumFila\Carga de datos.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Carga DWH\DimNumFila\Leer tabla"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Leer tabla"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Select distinct
+
+concat(a.IdIndicador,a.NumeroFila) IdNumfila,
+a.NumeroFila
+from dbo.TempStageIndicador a</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Carga DWH\DimNumFila\Leer tabla.Connections[OleDbConnection]"
+                      connectionManagerID="{0988B716-91C0-48CB-B3C5-49DB1BD91137}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SIGITEL]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output].Columns[NumeroFila]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output].ExternalColumns[NumeroFila]"
+                          lineageId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output].Columns[NumeroFila]"
+                          name="NumeroFila"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output].Columns[IdNumfila]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output].ExternalColumns[IdNumfila]"
+                          length="24"
+                          lineageId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output].Columns[IdNumfila]"
+                          name="IdNumfila"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output].ExternalColumns[NumeroFila]"
+                          dataType="i4"
+                          name="NumeroFila" />
+                        <externalMetadataColumn
+                          refId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output].ExternalColumns[IdNumfila]"
+                          codePage="1252"
+                          dataType="str"
+                          length="24"
+                          name="IdNumfila" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Error Output].Columns[IdNumfila]"
+                          codePage="1252"
+                          dataType="str"
+                          length="24"
+                          lineageId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Error Output].Columns[IdNumfila]"
+                          name="IdNumfila" />
+                        <outputColumn
+                          refId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Error Output].Columns[NumeroFila]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Error Output].Columns[NumeroFila]"
+                          name="NumeroFila" />
+                        <outputColumn
+                          refId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Carga DWH\DimNumFila.Paths[OLE DB Source Output]"
+                  endId="Package\Carga DWH\DimNumFila\Carga de datos.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Carga DWH\DimNumFila\Leer tabla.Outputs[OLE DB Source Output]" />
               </paths>
             </pipeline>
           </DTS:ObjectData>
@@ -2061,7 +2363,7 @@ order by IdIndicador</property>
           <DTS:ObjectData>
             <ASProcessingData
               ConnectionName="localhost.SIMEF_Indicadores"
-              ProcessingCommands="&lt;Batch xmlns=&quot;http://schemas.microsoft.com/analysisservices/2003/engine&quot;&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_Indicadores&lt;/DatabaseID&gt;&#xA;      &lt;DimensionID&gt;Dim Indicador&lt;/DimensionID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessFull&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_Indicadores&lt;/DatabaseID&gt;&#xA;      &lt;DimensionID&gt;Dim Categoria&lt;/DimensionID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessFull&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_Indicadores&lt;/DatabaseID&gt;&#xA;      &lt;DimensionID&gt;Dim Variable&lt;/DimensionID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessFull&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_Indicadores&lt;/DatabaseID&gt;&#xA;      &lt;DimensionID&gt;Dim Solicitud&lt;/DimensionID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessFull&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;&lt;/Batch&gt;" />
+              ProcessingCommands="&lt;Batch xmlns=&quot;http://schemas.microsoft.com/analysisservices/2003/engine&quot;&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_CUBE&lt;/DatabaseID&gt;&#xA;      &lt;DimensionID&gt;Dim Solicitud&lt;/DimensionID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessUpdate&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_CUBE&lt;/DatabaseID&gt;&#xA;      &lt;DimensionID&gt;Dim Tipo&lt;/DimensionID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessUpdate&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_CUBE&lt;/DatabaseID&gt;&#xA;      &lt;DimensionID&gt;Dim Categoria&lt;/DimensionID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessUpdate&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_CUBE&lt;/DatabaseID&gt;&#xA;      &lt;DimensionID&gt;Dim Indicador&lt;/DimensionID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessUpdate&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;  &lt;Process xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:ddl2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2&quot; xmlns:ddl2_2=&quot;http://schemas.microsoft.com/analysisservices/2003/engine/2/2&quot; xmlns:ddl100_100=&quot;http://schemas.microsoft.com/analysisservices/2008/engine/100/100&quot; xmlns:ddl200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200&quot; xmlns:ddl200_200=&quot;http://schemas.microsoft.com/analysisservices/2010/engine/200/200&quot; xmlns:ddl300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300&quot; xmlns:ddl300_300=&quot;http://schemas.microsoft.com/analysisservices/2011/engine/300/300&quot; xmlns:ddl400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400&quot; xmlns:ddl400_400=&quot;http://schemas.microsoft.com/analysisservices/2012/engine/400/400&quot; xmlns:ddl500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500&quot; xmlns:ddl500_500=&quot;http://schemas.microsoft.com/analysisservices/2013/engine/500/500&quot;&gt;&#xA;    &lt;Object&gt;&#xA;      &lt;DatabaseID&gt;SIMEF_CUBE&lt;/DatabaseID&gt;&#xA;      &lt;DimensionID&gt;Dim Numero Fila&lt;/DimensionID&gt;&#xA;    &lt;/Object&gt;&#xA;    &lt;Type&gt;ProcessUpdate&lt;/Type&gt;&#xA;    &lt;WriteBackTableCreation&gt;UseExisting&lt;/WriteBackTableCreation&gt;&#xA;  &lt;/Process&gt;&#xA;&lt;/Batch&gt;" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -2077,7 +2379,7 @@ order by IdIndicador</property>
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{0ABA96D0-0573-4C80-B9BF-B3CC9C6F1CEF}"
-              SQLTask:SqlStatementSource="&#xA;delete from dbo.THIndicador&#xA;go&#xA;&#xA;delete from dbo.DimCategoria&#xA;go&#xA;delete from dbo.DimIndicador&#xA;go&#xA;delete from dbo.DimSolicitud&#xA;go&#xA;delete from dbo.DimVariable&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStatementSource="&#xA;delete from dbo.THIndicador&#xA;go&#xA;&#xA;delete from dbo.DimCategoria&#xA;go&#xA;delete from dbo.DimIndicador&#xA;go&#xA;delete from dbo.DimSolicitud&#xA;go&#xA;delete from dbo.DimVariable&#xA;go &#xA;&#xA;delete from dbo.DimTipo&#xA;go&#xA;delete from dbo.DimNumeroFila" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
       </DTS:Executables>
@@ -2105,7 +2407,7 @@ order by IdIndicador</property>
           DTS:From="Package\Carga DWH\Carga Dim Categoria"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 2"
-          DTS:To="Package\Carga DWH\Carga Variable Dato" />
+          DTS:To="Package\Carga DWH\Carga dim tipo" />
         <DTS:PrecedenceConstraint
           DTS:refId="Package\Carga DWH.PrecedenceConstraints[Constraint 3]"
           DTS:CreationName=""
@@ -2117,16 +2419,16 @@ order by IdIndicador</property>
         <DTS:PrecedenceConstraint
           DTS:refId="Package\Carga DWH.PrecedenceConstraints[Constraint 4]"
           DTS:CreationName=""
-          DTS:DTSID="{6C3EDE6A-3150-4331-BCA6-37513D179EE3}"
-          DTS:From="Package\Carga DWH\Carga Variable Dato"
+          DTS:DTSID="{3CA04B00-6B20-4E34-BF3F-C0CA40E643D9}"
+          DTS:From="Package\Carga DWH\Carga dim tipo"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 4"
-          DTS:To="Package\Carga DWH\Carga THIndicadores" />
+          DTS:To="Package\Carga DWH\DimNumFila" />
         <DTS:PrecedenceConstraint
           DTS:refId="Package\Carga DWH.PrecedenceConstraints[Constraint 5]"
           DTS:CreationName=""
-          DTS:DTSID="{4B9DBD5C-D09A-4642-906F-5960F4F4F66D}"
-          DTS:From="Package\Carga DWH\Carga THIndicadores"
+          DTS:DTSID="{9AB7EAFB-EA5C-4B12-8EBE-A017CBB2E104}"
+          DTS:From="Package\Carga DWH\Carga THINDICADOR"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 5"
           DTS:To="Package\Carga DWH\Procesar Dimensiones" />
@@ -2138,6 +2440,14 @@ order by IdIndicador</property>
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 6"
           DTS:To="Package\Carga DWH\Analysis Services Processing Task" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Carga DWH.PrecedenceConstraints[Constraint 7]"
+          DTS:CreationName=""
+          DTS:DTSID="{4B60B1AF-FCEF-4570-A9A2-939866983592}"
+          DTS:From="Package\Carga DWH\DimNumFila"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 7"
+          DTS:To="Package\Carga DWH\Carga THINDICADOR" />
       </DTS:PrecedenceConstraints>
     </DTS:Executable>
   </DTS:Executables>
@@ -2152,7 +2462,7 @@ order by IdIndicador</property>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="236,41.6"
           Id="Package\Carga DWH\Analysis Services Processing Task"
@@ -2170,13 +2480,17 @@ order by IdIndicador</property>
           Id="Package\Carga DWH\Carga Dim Solicitud"
           TopLeft="6.87142854710018,114.852942710104" />
         <NodeLayout
-          Size="177.6,41.6"
-          Id="Package\Carga DWH\Carga THIndicadores"
-          TopLeft="5.00000110694344,506.564711909641" />
-        <NodeLayout
-          Size="172,41.6"
-          Id="Package\Carga DWH\Carga Variable Dato"
+          Size="147.2,41.6"
+          Id="Package\Carga DWH\Carga dim tipo"
           TopLeft="8.92857145289989,399.770589490085" />
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\Carga DWH\Carga THINDICADOR"
+          TopLeft="29.2857158062409,554.576474181014" />
+        <NodeLayout
+          Size="135.2,41.6"
+          Id="Package\Carga DWH\DimNumFila"
+          TopLeft="31.4285729855908,475.141179891771" />
         <NodeLayout
           Size="181.6,41.6"
           Id="Package\Carga DWH\Procesar Dimensiones"
@@ -2231,18 +2545,30 @@ order by IdIndicador</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Carga DWH.PrecedenceConstraints[Constraint 2]"
-          TopLeft="98.8571429483745,355.829413244716">
+          TopLeft="102.785714443849,355.829413244716">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,43.9411762453686"
+              EndConnector="-20.2571429909492,43.941176245369"
               Start="0,0"
-              End="0,36.4411762453686">
+              End="-20.2571429909492,36.441176245369">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.4411762453686" />
+                    End="0,17.9705881226845" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.9705881226845"
+                    Point2="0,21.9705881226845"
+                    Point3="-4,21.9705881226845" />
+                  <mssgle:LineSegment
+                    End="-16.2571429909492,21.9705881226845" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-16.2571429909492,21.9705881226845"
+                    Point2="-20.2571429909492,21.9705881226845"
+                    Point3="-20.2571429909492,25.9705881226845" />
+                  <mssgle:LineSegment
+                    End="-20.2571429909492,36.441176245369" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2275,18 +2601,30 @@ order by IdIndicador</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Carga DWH.PrecedenceConstraints[Constraint 4]"
-          TopLeft="94.3642862799217,441.370589490085">
+          TopLeft="82.5285714528999,441.370589490085">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,65.194122419556"
+              EndConnector="16.5000015326909,33.7705904016863"
               Start="0,0"
-              End="0,57.694122419556">
+              End="16.5000015326909,26.2705904016863">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,57.694122419556" />
+                    End="0,12.8852952008431" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.8852952008431"
+                    Point2="0,16.8852952008431"
+                    Point3="4,16.8852952008431" />
+                  <mssgle:LineSegment
+                    End="12.5000015326909,16.8852952008431" />
+                  <mssgle:CubicBezierSegment
+                    Point1="12.5000015326909,16.8852952008431"
+                    Point2="16.5000015326909,16.8852952008431"
+                    Point3="16.5000015326909,20.8852952008431" />
+                  <mssgle:LineSegment
+                    End="16.5000015326909,26.2705904016863" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2297,30 +2635,18 @@ order by IdIndicador</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Carga DWH.PrecedenceConstraints[Constraint 5]"
-          TopLeft="93.8000011069434,548.164711909641">
+          TopLeft="116.271430037216,596.176474181014">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="19.8571431612482,77.2941167676321"
+              EndConnector="0,29.2823544962592"
               Start="0,0"
-              End="19.8571431612482,69.7941167676321">
+              End="0,21.7823544962592">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,34.647058383816" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,34.647058383816"
-                    Point2="0,38.647058383816"
-                    Point3="4,38.647058383816" />
-                  <mssgle:LineSegment
-                    End="15.8571431612482,38.647058383816" />
-                  <mssgle:CubicBezierSegment
-                    Point1="15.8571431612482,38.647058383816"
-                    Point2="19.8571431612482,38.647058383816"
-                    Point3="19.8571431612482,42.647058383816" />
-                  <mssgle:LineSegment
-                    End="19.8571431612482,69.7941167676321" />
+                    End="0,21.7823544962592" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2363,6 +2689,40 @@ order by IdIndicador</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga DWH.PrecedenceConstraints[Constraint 7]"
+          TopLeft="99.0285729855908,516.741179891771">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="19.8571428206501,37.8352942892425"
+              Start="0,0"
+              End="19.8571428206501,30.3352942892425">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.9176471446212" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.9176471446212"
+                    Point2="0,18.9176471446212"
+                    Point3="4,18.9176471446212" />
+                  <mssgle:LineSegment
+                    End="15.8571428206501,18.9176471446212" />
+                  <mssgle:CubicBezierSegment
+                    Point1="15.8571428206501,18.9176471446212"
+                    Point2="19.8571428206501,18.9176471446212"
+                    Point3="19.8571428206501,22.9176471446212" />
+                  <mssgle:LineSegment
+                    End="19.8571428206501,30.3352942892425" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
@@ -2383,13 +2743,13 @@ order by IdIndicador</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="140,41.6"
-          Id="Package\Carga DWH\Carga Dim Categoria\Cargar Datos"
-          TopLeft="212,380" />
-        <NodeLayout
           Size="128.8,41.6"
           Id="Package\Carga DWH\Carga Dim Categoria\Leer Datos"
           TopLeft="273,167" />
+        <NodeLayout
+          Size="140,41.6"
+          Id="Package\Carga DWH\Carga Dim Categoria\Cargar Datos"
+          TopLeft="212,380" />
         <EdgeLayout
           Id="Package\Carga DWH\Carga Dim Categoria.Paths[OLE DB Source Output]"
           TopLeft="337.4,208.6">
@@ -2456,13 +2816,13 @@ order by IdIndicador</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="115.2,41.6"
-          Id="Package\Carga DWH\Carga Dim Indicador\Insertar"
-          TopLeft="80,374" />
-        <NodeLayout
           Size="128.8,41.6"
           Id="Package\Carga DWH\Carga Dim Indicador\Leer Datos"
           TopLeft="113,74" />
+        <NodeLayout
+          Size="115.2,41.6"
+          Id="Package\Carga DWH\Carga Dim Indicador\Insertar"
+          TopLeft="80,374" />
         <EdgeLayout
           Id="Package\Carga DWH\Carga Dim Indicador.Paths[OLE DB Source Output]"
           TopLeft="177.4,115.6">
@@ -2597,81 +2957,20 @@ order by IdIndicador</property>
     </Properties>
   </PipelineComponentMetadata>
   <TaskHost
-    design-time-name="Package\Carga DWH\Carga THIndicadores">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="170.4,41.6"
-          Id="Package\Carga DWH\Carga THIndicadores\OLE DB Destination"
-          TopLeft="122.142859222938,354.823534388031" />
-        <NodeLayout
-          Size="149.6,41.6"
-          Id="Package\Carga DWH\Carga THIndicadores\OLE DB Source"
-          TopLeft="135.000002299036,152.176472722453" />
-        <EdgeLayout
-          Id="Package\Carga DWH\Carga THIndicadores.Paths[OLE DB Source Output]"
-          TopLeft="208.571430760987,193.776472722453">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,161.047061665578"
-              Start="0,0"
-              End="0,153.547061665578">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,153.547061665578" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Carga DWH\Carga THIndicadores\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Carga DWH\Carga THIndicadores\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\Carga DWH\Carga Variable Dato">
+    design-time-name="Package\Carga DWH\Carga dim tipo">
     <LayoutInfo>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="128,41.6"
-          Id="Package\Carga DWH\Carga Variable Dato\Leer datos"
+          Id="Package\Carga DWH\Carga dim tipo\Leer datos"
           TopLeft="259,105" />
         <NodeLayout
           Size="138.4,41.6"
-          Id="Package\Carga DWH\Carga Variable Dato\Cargar datos"
+          Id="Package\Carga DWH\Carga dim tipo\Cargar datos"
           TopLeft="135,260" />
         <EdgeLayout
-          Id="Package\Carga DWH\Carga Variable Dato.Paths[OLE DB Source Output]"
+          Id="Package\Carga DWH\Carga dim tipo.Paths[OLE DB Source Output]"
           TopLeft="323,146.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -2710,7 +3009,7 @@ order by IdIndicador</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Carga DWH\Carga Variable Dato\Cargar datos">
+    design-time-name="Package\Carga DWH\Carga dim tipo\Cargar datos">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2723,7 +3022,151 @@ order by IdIndicador</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Carga DWH\Carga Variable Dato\Leer datos">
+    design-time-name="Package\Carga DWH\Carga dim tipo\Leer datos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga DWH\Carga THINDICADOR">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Carga DWH\Carga THINDICADOR\OLE DB Source"
+          TopLeft="142.142859563536,103.235295565483" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination"
+          TopLeft="194.28571759438,274.529415614877" />
+        <EdgeLayout
+          Id="Package\Carga DWH\Carga THINDICADOR.Paths[OLE DB Source Output]"
+          TopLeft="216.942859563536,144.835295565483">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="62.5428580308447,129.694120049394"
+              Start="0,0"
+              End="62.5428580308447,122.194120049394">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.8470600246971" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,60.8470600246971"
+                    Point2="0,64.8470600246971"
+                    Point3="4,64.8470600246971" />
+                  <mssgle:LineSegment
+                    End="58.5428580308447,64.8470600246971" />
+                  <mssgle:CubicBezierSegment
+                    Point1="58.5428580308447,64.8470600246971"
+                    Point2="62.5428580308447,64.8470600246971"
+                    Point3="62.5428580308447,68.8470600246971" />
+                  <mssgle:LineSegment
+                    End="62.5428580308447,122.194120049394" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga DWH\Carga THINDICADOR\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga DWH\Carga THINDICADOR\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Carga DWH\DimNumFila">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="125.6,41.6"
+          Id="Package\Carga DWH\DimNumFila\Leer tabla"
+          TopLeft="267,98" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Carga DWH\DimNumFila\Carga de datos"
+          TopLeft="322,266" />
+        <EdgeLayout
+          Id="Package\Carga DWH\DimNumFila.Paths[OLE DB Source Output]"
+          TopLeft="329.8,139.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="67,126.4"
+              Start="0,0"
+              End="67,118.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,59.2"
+                    Point2="0,63.2"
+                    Point3="4,63.2" />
+                  <mssgle:LineSegment
+                    End="63,63.2" />
+                  <mssgle:CubicBezierSegment
+                    Point1="63,63.2"
+                    Point2="67,63.2"
+                    Point3="67,67.2" />
+                  <mssgle:LineSegment
+                    End="67,118.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga DWH\DimNumFila\Carga de datos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga DWH\DimNumFila\Leer tabla">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

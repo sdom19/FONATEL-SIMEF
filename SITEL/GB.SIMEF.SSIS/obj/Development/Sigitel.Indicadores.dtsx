@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="72"
-  DTS:VersionGUID="{E50F7F47-5C00-4A1E-B45B-BC49876C1728}">
+  DTS:VersionBuild="76"
+  DTS:VersionGUID="{AEC15EAF-1191-4B5D-AD43-2E2615CE5C60}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -21,7 +21,6 @@
       DTS:refId="Package\Carga Sigitel"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
-      DTS:Disabled="True"
       DTS:DTSID="{5A947092-26C2-4D2C-BE97-DD99888E7B75}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -4054,11 +4053,727 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ? and [refTable].
               version="1">
               <components>
                 <component
-                  refId="Package\CargarReporte\Cargar Data\OLE DB Destination"
+                  refId="Package\CargarReporte\Cargar Data\Leer Datos"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Leer Datos"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select a.IdIndicador,
+m.Codigo CodigoIndicador,
+upper(a.NombreIndicador) NombreIndicador,
+c.IdCategoria IdColumna,
+c.NombreCategoria NombreColumna,
+cast(b.Valor as varchar(max)) ValorColumna,
+b.NumeroFila,
+f.IdMes,
+f.Nombre Mes,
+g.IdAnno,
+g.Nombre Anno,
+i.IdSolicitud,
+n.IdGrupo,
+n.Nombre NombreGrupo,
+o.IdClasificacion,
+o.Nombre NombreClasificacion,
+i.Codigo CodigoSolicitud,
+i.Nombre NombreSolicitud,
+j.Fuente NombreFuente,
+k.IdFormulario,
+cast(k.Codigo as varchar(30)) CodigoFormulario,
+cast(k.Nombre as varchar(300)) NombreFormulario,
+concat(g.Nombre,'-',f.Nombre) AnnoMes,
+0 VariableDato,
+m.VisualizaSigitel EstadoIndicador
+from IndicadorResultado a
+inner join IndicardorResultadoDetalleCategoria b
+on a.IdResultado=b.IdResultado
+inner join Indicador m
+on m.IdIndicador=a.IdIndicador
+inner join GrupoIndicadores n
+on n.IdGrupo=m.IdGrupo
+inner join ClasificacionIndicadores o
+on o.IdClasificacion=m.IdClasificacion
+inner join CategoriasDesagregacion c
+on b.IdCategoria=c.IdCategoria
+inner join Mes f
+on f.IdMes=a.idMes
+inner join Anno g
+on g.IdAnno=a.IdAnno
+inner join IndicadorResultadoSolicitud h
+on h.IdResultado=a.IdResultado
+inner join Solicitud i
+on i.IdSolicitud=h.IdSolicitud
+inner join FuentesRegistro j
+on i.IdFuente=j.IdFuente
+inner join FormularioWeb k
+on k.IdFormulario=h.IdFormulario
+  
+
+union
+
+select a.IdIndicador,
+m.Codigo CodigoIndicador,
+upper(a.NombreIndicador) NombreIndicador,
+0 IdColumna,
+d.NombreVariable NombreColumna,
+cast(d.Valor as varchar(max)) ValorColumna,
+d.NumeroFila,
+f.IdMes,
+f.Nombre Mes,
+g.IdAnno,
+g.Nombre Anno,
+i.IdSolicitud,
+n.IdGrupo,
+n.Nombre NombreGrupo,
+o.IdClasificacion,
+o.Nombre NombreClasificacion,
+i.Codigo CodigoSolicitud,
+i.Nombre NombreSolicitud,
+j.Fuente NombreFuente,
+k.IdFormulario,
+cast(k.Codigo as varchar(30)) CodigoFormulario,
+cast(k.Nombre as varchar(300)) NombreFormulario,
+concat(g.Nombre,'-',f.Nombre) AnnoMes,
+1 VariableDato,
+m.VisualizaSigitel EstadoIndicador
+from IndicadorResultado a
+inner join Indicador m
+on m.IdIndicador=a.IdIndicador
+inner join GrupoIndicadores n
+on n.IdGrupo=m.IdGrupo
+inner join ClasificacionIndicadores o
+on o.IdClasificacion=m.IdClasificacion
+inner join IndicadorResultadoDetalleVariable d
+on d.IdResultado=a.IdResultado
+inner join Mes f
+on f.IdMes=a.idMes
+inner join Anno g
+on g.IdAnno=a.IdAnno
+inner join IndicadorResultadoSolicitud h
+on h.IdResultado=a.IdResultado
+inner join Solicitud i
+on i.IdSolicitud=h.IdSolicitud
+inner join FuentesRegistro j
+on i.IdFuente=j.IdFuente
+inner join FormularioWeb k
+on k.IdFormulario=h.IdFormulario</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\CargarReporte\Cargar Data\Leer Datos.Connections[OleDbConnection]"
+                      connectionManagerID="{F18F5338-8C65-4779-BF3B-2095830FE784}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SIMEFBD]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdIndicador]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdIndicador]"
+                          name="IdIndicador"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[CodigoIndicador]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[CodigoIndicador]"
+                          length="30"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[CodigoIndicador]"
+                          name="CodigoIndicador"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreIndicador]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreIndicador]"
+                          length="300"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreIndicador]"
+                          name="NombreIndicador"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdColumna]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdColumna]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdColumna]"
+                          name="IdColumna"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreColumna]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreColumna]"
+                          length="300"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreColumna]"
+                          name="NombreColumna"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[ValorColumna]"
+                          codePage="1252"
+                          dataType="text"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[ValorColumna]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[ValorColumna]"
+                          name="ValorColumna"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NumeroFila]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NumeroFila]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NumeroFila]"
+                          name="NumeroFila"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdMes]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdMes]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdMes]"
+                          name="IdMes"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[Mes]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Mes]"
+                          length="50"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[Mes]"
+                          name="Mes"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdAnno]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdAnno]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdAnno]"
+                          name="IdAnno"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[Anno]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Anno]"
+                          length="50"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[Anno]"
+                          name="Anno"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdSolicitud]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdSolicitud]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdSolicitud]"
+                          name="IdSolicitud"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdGrupo]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdGrupo]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdGrupo]"
+                          name="IdGrupo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreGrupo]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreGrupo]"
+                          length="60"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreGrupo]"
+                          name="NombreGrupo"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdClasificacion]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdClasificacion]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdClasificacion]"
+                          name="IdClasificacion"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreClasificacion]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreClasificacion]"
+                          length="30"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreClasificacion]"
+                          name="NombreClasificacion"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[CodigoSolicitud]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[CodigoSolicitud]"
+                          length="30"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[CodigoSolicitud]"
+                          name="CodigoSolicitud"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreSolicitud]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreSolicitud]"
+                          length="300"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreSolicitud]"
+                          name="NombreSolicitud"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreFuente]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreFuente]"
+                          length="300"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreFuente]"
+                          name="NombreFuente"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdFormulario]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdFormulario]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdFormulario]"
+                          name="IdFormulario"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[CodigoFormulario]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[CodigoFormulario]"
+                          length="30"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[CodigoFormulario]"
+                          name="CodigoFormulario"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreFormulario]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreFormulario]"
+                          length="300"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreFormulario]"
+                          name="NombreFormulario"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[AnnoMes]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[AnnoMes]"
+                          length="101"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[AnnoMes]"
+                          name="AnnoMes"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[VariableDato]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[VariableDato]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[VariableDato]"
+                          name="VariableDato"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[EstadoIndicador]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[EstadoIndicador]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[EstadoIndicador]"
+                          name="EstadoIndicador"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
+                          dataType="i4"
+                          name="IdIndicador" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[CodigoIndicador]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="CodigoIndicador" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreIndicador]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          name="NombreIndicador" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdColumna]"
+                          dataType="i4"
+                          name="IdColumna" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreColumna]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          name="NombreColumna" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[ValorColumna]"
+                          codePage="1252"
+                          dataType="text"
+                          name="ValorColumna" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NumeroFila]"
+                          dataType="i4"
+                          name="NumeroFila" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdMes]"
+                          dataType="i4"
+                          name="IdMes" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Mes]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Mes" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdAnno]"
+                          dataType="i4"
+                          name="IdAnno" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[Anno]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Anno" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdSolicitud]"
+                          dataType="i4"
+                          name="IdSolicitud" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdGrupo]"
+                          dataType="i4"
+                          name="IdGrupo" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreGrupo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="60"
+                          name="NombreGrupo" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdClasificacion]"
+                          dataType="i4"
+                          name="IdClasificacion" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreClasificacion]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="NombreClasificacion" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[CodigoSolicitud]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="CodigoSolicitud" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreSolicitud]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          name="NombreSolicitud" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreFuente]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          name="NombreFuente" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[IdFormulario]"
+                          dataType="i4"
+                          name="IdFormulario" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[CodigoFormulario]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="CodigoFormulario" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[NombreFormulario]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          name="NombreFormulario" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[AnnoMes]"
+                          codePage="1252"
+                          dataType="str"
+                          length="101"
+                          name="AnnoMes" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[VariableDato]"
+                          dataType="i4"
+                          name="VariableDato" />
+                        <externalMetadataColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].ExternalColumns[EstadoIndicador]"
+                          dataType="bool"
+                          name="EstadoIndicador" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
+                          name="IdIndicador" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[CodigoIndicador]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[CodigoIndicador]"
+                          name="CodigoIndicador" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreIndicador]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreIndicador]"
+                          name="NombreIndicador" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdColumna]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdColumna]"
+                          name="IdColumna" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreColumna]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreColumna]"
+                          name="NombreColumna" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ValorColumna]"
+                          codePage="1252"
+                          dataType="text"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ValorColumna]"
+                          name="ValorColumna" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NumeroFila]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NumeroFila]"
+                          name="NumeroFila" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdMes]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdMes]"
+                          name="IdMes" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Mes]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Mes]"
+                          name="Mes" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdAnno]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdAnno]"
+                          name="IdAnno" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Anno]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[Anno]"
+                          name="Anno" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdSolicitud]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdSolicitud]"
+                          name="IdSolicitud" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdGrupo]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdGrupo]"
+                          name="IdGrupo" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreGrupo]"
+                          codePage="1252"
+                          dataType="str"
+                          length="60"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreGrupo]"
+                          name="NombreGrupo" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdClasificacion]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdClasificacion]"
+                          name="IdClasificacion" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreClasificacion]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreClasificacion]"
+                          name="NombreClasificacion" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[CodigoSolicitud]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[CodigoSolicitud]"
+                          name="CodigoSolicitud" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreSolicitud]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreSolicitud]"
+                          name="NombreSolicitud" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreFuente]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreFuente]"
+                          name="NombreFuente" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdFormulario]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[IdFormulario]"
+                          name="IdFormulario" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[CodigoFormulario]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[CodigoFormulario]"
+                          name="CodigoFormulario" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreFormulario]"
+                          codePage="1252"
+                          dataType="str"
+                          length="300"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[NombreFormulario]"
+                          name="NombreFormulario" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[AnnoMes]"
+                          codePage="1252"
+                          dataType="str"
+                          length="101"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[AnnoMes]"
+                          name="AnnoMes" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[VariableDato]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[VariableDato]"
+                          name="VariableDato" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[EstadoIndicador]"
+                          dataType="bool"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[EstadoIndicador]"
+                          name="EstadoIndicador" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1"
                   componentClassID="Microsoft.OLEDBDestination"
                   contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
                   description="OLE DB Destination"
-                  name="OLE DB Destination"
+                  name="OLE DB Destination 1"
                   usesDispositions="true"
                   version="4">
                   <properties>
@@ -4111,7 +4826,7 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ? and [refTable].
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Connections[OleDbConnection]"
+                      refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Connections[OleDbConnection]"
                       connectionManagerID="{0988B716-91C0-48CB-B3C5-49DB1BD91137}:external"
                       connectionManagerRefId="Project.ConnectionManagers[SIGITEL]"
                       description="The OLE DB runtime connection used to access the database."
@@ -4119,315 +4834,315 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ? and [refTable].
                   </connections>
                   <inputs>
                     <input
-                      refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
                       errorOrTruncationOperation="Insert"
                       errorRowDisposition="FailComponent"
                       hasSideEffects="true"
                       name="OLE DB Destination Input">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdIndicador]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[IdIndicador]"
                           cachedDataType="i4"
                           cachedName="IdIndicador"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]" />
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdIndicador]" />
                         <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NombreIndicador]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="300"
-                          cachedName="NombreIndicador"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreIndicador]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreIndicador]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdColumna]"
-                          cachedDataType="i4"
-                          cachedName="IdColumna"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdColumna]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdColumna]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NombreColumna]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="300"
-                          cachedName="NombreColumna"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreColumna]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreColumna]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ValorColumna]"
-                          cachedCodepage="1252"
-                          cachedDataType="text"
-                          cachedName="ValorColumna"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ValorColumna]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[ValorColumna]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NumeroFila]"
-                          cachedDataType="i4"
-                          cachedName="NumeroFila"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NumeroFila]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumeroFila]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdMes]"
-                          cachedDataType="i4"
-                          cachedName="IdMes"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[idMes]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdMes]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Mes]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="50"
-                          cachedName="Mes"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Mes]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[Mes]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdAnno]"
-                          cachedDataType="i4"
-                          cachedName="IdAnno"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdAnno]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdAnno]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Anno]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="50"
-                          cachedName="Anno"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Anno]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[Anno]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdSolicitud]"
-                          cachedDataType="i4"
-                          cachedName="IdSolicitud"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdSolicitud]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdSolicitud]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdGrupo]"
-                          cachedDataType="i4"
-                          cachedName="IdGrupo"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[idGrupo]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdGrupo]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NombreGrupo]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="60"
-                          cachedName="NombreGrupo"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreGrupo]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreGrupo]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdClasificacion]"
-                          cachedDataType="i4"
-                          cachedName="IdClasificacion"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdClasificacion]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdClasificacion]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NombreClasificacion]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="30"
-                          cachedName="NombreClasificacion"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreClasificacion]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreClasificacion]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CodigoSolicitud]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="30"
-                          cachedName="CodigoSolicitud"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CodigoSolicitud]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[CodigoSolicitud]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NombreSolicitud]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="300"
-                          cachedName="NombreSolicitud"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreSolicitud]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreSolicitud]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NombreFuente]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="300"
-                          cachedName="NombreFuente"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreFuente]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreFuente]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IdFormulario]"
-                          cachedDataType="i4"
-                          cachedName="IdFormulario"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdFormulario]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdFormulario]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CodigoFormulario]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="50"
-                          cachedName="CodigoFormulario"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CodigoFormulario]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[CodigoFormulario]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NombreFormulario]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="300"
-                          cachedName="NombreFormulario"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreFormulario]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreFormulario]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[AnnoMes]"
-                          cachedCodepage="1252"
-                          cachedDataType="str"
-                          cachedLength="101"
-                          cachedName="AnnoMes"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AnnoMes]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[AnnoMes]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VariableDato]"
-                          cachedDataType="i4"
-                          cachedName="VariableDato"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VariableDato]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[VariableDato]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EstadoIndicador]"
-                          cachedDataType="bool"
-                          cachedName="EstadoIndicador"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EstadoIndicador]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[EstadoIndicador]" />
-                        <inputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CodigoIndicador]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[CodigoIndicador]"
                           cachedCodepage="1252"
                           cachedDataType="str"
                           cachedLength="30"
                           cachedName="CodigoIndicador"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CodigoIndicador]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[CodigoIndicador]" />
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[CodigoIndicador]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[CodigoIndicador]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[NombreIndicador]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="300"
+                          cachedName="NombreIndicador"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreIndicador]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreIndicador]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[IdColumna]"
+                          cachedDataType="i4"
+                          cachedName="IdColumna"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdColumna]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdColumna]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[NombreColumna]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="300"
+                          cachedName="NombreColumna"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreColumna]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreColumna]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[ValorColumna]"
+                          cachedCodepage="1252"
+                          cachedDataType="text"
+                          cachedName="ValorColumna"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[ValorColumna]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[ValorColumna]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[NumeroFila]"
+                          cachedDataType="i4"
+                          cachedName="NumeroFila"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NumeroFila]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NumeroFila]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[IdMes]"
+                          cachedDataType="i4"
+                          cachedName="IdMes"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[idMes]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdMes]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[Mes]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Mes"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Mes]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[Mes]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[IdAnno]"
+                          cachedDataType="i4"
+                          cachedName="IdAnno"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdAnno]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdAnno]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[Anno]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Anno"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Anno]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[Anno]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[IdSolicitud]"
+                          cachedDataType="i4"
+                          cachedName="IdSolicitud"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdSolicitud]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdSolicitud]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[IdGrupo]"
+                          cachedDataType="i4"
+                          cachedName="IdGrupo"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[idGrupo]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdGrupo]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[NombreGrupo]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="60"
+                          cachedName="NombreGrupo"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreGrupo]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreGrupo]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[IdClasificacion]"
+                          cachedDataType="i4"
+                          cachedName="IdClasificacion"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdClasificacion]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdClasificacion]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[NombreClasificacion]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="NombreClasificacion"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreClasificacion]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreClasificacion]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[CodigoSolicitud]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="CodigoSolicitud"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[CodigoSolicitud]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[CodigoSolicitud]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[NombreSolicitud]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="300"
+                          cachedName="NombreSolicitud"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreSolicitud]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreSolicitud]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[NombreFuente]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="300"
+                          cachedName="NombreFuente"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreFuente]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreFuente]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[IdFormulario]"
+                          cachedDataType="i4"
+                          cachedName="IdFormulario"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdFormulario]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[IdFormulario]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[CodigoFormulario]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="CodigoFormulario"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[CodigoFormulario]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[CodigoFormulario]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[NombreFormulario]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="300"
+                          cachedName="NombreFormulario"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreFormulario]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[NombreFormulario]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[AnnoMes]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="101"
+                          cachedName="AnnoMes"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[AnnoMes]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[AnnoMes]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[VariableDato]"
+                          cachedDataType="i4"
+                          cachedName="VariableDato"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[VariableDato]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[VariableDato]" />
+                        <inputColumn
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[EstadoIndicador]"
+                          cachedDataType="bool"
+                          cachedName="EstadoIndicador"
+                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[EstadoIndicador]"
+                          lineageId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output].Columns[EstadoIndicador]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdIndicador]"
                           dataType="i4"
                           name="IdIndicador" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreIndicador]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreIndicador]"
                           codePage="1252"
                           dataType="str"
                           length="300"
                           name="NombreIndicador" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EstadoIndicador]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[EstadoIndicador]"
                           dataType="bool"
                           name="EstadoIndicador" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CodigoIndicador]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[CodigoIndicador]"
                           codePage="1252"
                           dataType="str"
                           length="30"
                           name="CodigoIndicador" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdSolicitud]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdSolicitud]"
                           dataType="i4"
                           name="IdSolicitud" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreSolicitud]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreSolicitud]"
                           codePage="1252"
                           dataType="str"
                           length="300"
                           name="NombreSolicitud" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CodigoSolicitud]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[CodigoSolicitud]"
                           codePage="1252"
                           dataType="str"
                           length="30"
                           name="CodigoSolicitud" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreFuente]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreFuente]"
                           codePage="1252"
                           dataType="str"
                           length="300"
                           name="NombreFuente" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdFormulario]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdFormulario]"
                           dataType="i4"
                           name="IdFormulario" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CodigoFormulario]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[CodigoFormulario]"
                           codePage="1252"
                           dataType="str"
                           length="30"
                           name="CodigoFormulario" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreFormulario]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreFormulario]"
                           codePage="1252"
                           dataType="str"
                           length="300"
                           name="NombreFormulario" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[idMes]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[idMes]"
                           dataType="i4"
                           name="idMes" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Mes]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Mes]"
                           codePage="1252"
                           dataType="str"
                           length="50"
                           name="Mes" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[idGrupo]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[idGrupo]"
                           dataType="i4"
                           name="idGrupo" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreGrupo]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreGrupo]"
                           codePage="1252"
                           dataType="str"
                           length="300"
                           name="NombreGrupo" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdClasificacion]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdClasificacion]"
                           dataType="i4"
                           name="IdClasificacion" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreClasificacion]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreClasificacion]"
                           codePage="1252"
                           dataType="str"
                           length="300"
                           name="NombreClasificacion" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdAnno]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdAnno]"
                           dataType="i4"
                           name="IdAnno" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Anno]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Anno]"
                           codePage="1252"
                           dataType="str"
                           length="50"
                           name="Anno" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NumeroFila]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NumeroFila]"
                           dataType="i4"
                           name="NumeroFila" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IdColumna]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[IdColumna]"
                           dataType="i4"
                           name="IdColumna" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NombreColumna]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[NombreColumna]"
                           codePage="1252"
                           dataType="str"
                           length="300"
                           name="NombreColumna" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ValorColumna]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[ValorColumna]"
                           codePage="1252"
                           dataType="text"
                           name="ValorColumna" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VariableDato]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[VariableDato]"
                           dataType="bool"
                           name="VariableDato" />
                         <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AnnoMes]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[AnnoMes]"
                           codePage="1252"
                           dataType="str"
                           length="100"
@@ -4437,738 +5152,22 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ? and [refTable].
                   </inputs>
                   <outputs>
                     <output
-                      refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Outputs[OLE DB Destination Error Output]"
                       exclusionGroup="1"
                       isErrorOut="true"
                       name="OLE DB Destination Error Output"
-                      synchronousInputId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      synchronousInputId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          refId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
-                          name="ErrorColumn"
-                          specialFlags="2" />
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-                <component
-                  refId="Package\CargarReporte\Cargar Data\OLE DB Source"
-                  componentClassID="Microsoft.OLEDBSource"
-                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
-                  description="OLE DB Source"
-                  name="OLE DB Source"
-                  usesDispositions="true"
-                  version="7">
-                  <properties>
-                    <property
-                      dataType="System.Int32"
-                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                      name="CommandTimeout">0</property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the name of the database object used to open a rowset."
-                      name="OpenRowset"></property>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the variable that contains the name of the database object used to open a rowset."
-                      name="OpenRowsetVariable"></property>
-                    <property
-                      dataType="System.String"
-                      description="The SQL command to be executed."
-                      name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select a.IdIndicador,
-m.Codigo CodigoIndicador,
-upper(a.NombreIndicador) NombreIndicador,
-c.IdCategoria IdColumna,
-c.NombreCategoria NombreColumna,
-cast(b.Valor as varchar(max)) ValorColumna,
-b.NumeroFila,
-f.IdMes,
-f.Nombre Mes,
-g.IdAnno,
-g.Nombre Anno,
-i.IdSolicitud,
-n.IdGrupo,
-n.Nombre NombreGrupo,
-o.IdClasificacion,
-o.Nombre NombreClasificacion,
-i.Codigo CodigoSolicitud,
-i.Nombre NombreSolicitud,
-j.Fuente NombreFuente,
-k.IdFormulario,
-k.Codigo CodigoFormulario,
-k.Nombre NombreFormulario,
-concat(g.Nombre,'-',f.Nombre) AnnoMes,
-0 VariableDato,
-m.VisualizaSigitel EstadoIndicador
-from IndicadorResultado a
-inner join IndicardorResultadoDetalleCategoria b
-on a.IdResultado=b.IdResultado
-inner join Indicador m
-on m.IdIndicador=a.IdIndicador
-inner join GrupoIndicadores n
-on n.IdGrupo=m.IdGrupo
-inner join ClasificacionIndicadores o
-on o.IdClasificacion=m.IdClasificacion
-inner join CategoriasDesagregacion c
-on b.IdCategoria=c.IdCategoria
-inner join Mes f
-on f.IdMes=a.idMes
-inner join Anno g
-on g.IdAnno=a.IdAnno
-inner join IndicadorResultadoSolicitud h
-on h.IdResultado=a.IdResultado
-inner join Solicitud i
-on i.IdSolicitud=h.IdSolicitud
-inner join FuentesRegistro j
-on i.IdFuente=j.IdFuente
-inner join FormularioWeb k
-on k.IdFormulario=h.IdFormulario
-  
-
-union
-
-select a.IdIndicador,
-m.Codigo CodigoIndicador,
-upper(a.NombreIndicador) NombreIndicador,
-0 IdColumna,
-d.NombreVariable NombreColumna,
-cast(d.Valor as varchar(max)) ValorColumna,
-d.NumeroFila,
-f.IdMes,
-f.Nombre Mes,
-g.IdAnno,
-g.Nombre Anno,
-i.IdSolicitud,
-n.IdGrupo,
-n.Nombre NombreGrupo,
-o.IdClasificacion,
-o.Nombre NombreClasificacion,
-i.Codigo CodigoSolicitud,
-i.Nombre NombreSolicitud,
-j.Fuente NombreFuente,
-k.IdFormulario,
-k.Codigo CodigoFormulario,
-k.Nombre NombreFormulario,
-concat(g.Nombre,'-',f.Nombre) AnnoMes,
-1 VariableDato,
-m.VisualizaSigitel EstadoIndicador
-from IndicadorResultado a
-inner join Indicador m
-on m.IdIndicador=a.IdIndicador
-inner join GrupoIndicadores n
-on n.IdGrupo=m.IdGrupo
-inner join ClasificacionIndicadores o
-on o.IdClasificacion=m.IdClasificacion
-inner join IndicadorResultadoDetalleVariable d
-on d.IdResultado=a.IdResultado
-inner join Mes f
-on f.IdMes=a.idMes
-inner join Anno g
-on g.IdAnno=a.IdAnno
-inner join IndicadorResultadoSolicitud h
-on h.IdResultado=a.IdResultado
-inner join Solicitud i
-on i.IdSolicitud=h.IdSolicitud
-inner join FuentesRegistro j
-on i.IdFuente=j.IdFuente
-inner join FormularioWeb k
-on k.IdFormulario=h.IdFormulario</property>
-                    <property
-                      dataType="System.String"
-                      description="The variable that contains the SQL command to be executed."
-                      name="SqlCommandVariable"></property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the column code page to use when code page information is unavailable from the data source."
-                      name="DefaultCodePage">1252</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Forces the use of the DefaultCodePage property value when describing character data."
-                      name="AlwaysUseDefaultCodePage">false</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the mode used to access the database."
-                      name="AccessMode"
-                      typeConverter="AccessMode">2</property>
-                    <property
-                      dataType="System.String"
-                      description="The mappings between the parameters in the SQL command and variables."
-                      name="ParameterMapping"></property>
-                  </properties>
-                  <connections>
-                    <connection
-                      refId="Package\CargarReporte\Cargar Data\OLE DB Source.Connections[OleDbConnection]"
-                      connectionManagerID="{F18F5338-8C65-4779-BF3B-2095830FE784}:external"
-                      connectionManagerRefId="Project.ConnectionManagers[SIMEFBD]"
-                      description="The OLE DB runtime connection used to access the database."
-                      name="OleDbConnection" />
-                  </connections>
-                  <outputs>
-                    <output
-                      refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output]"
-                      name="OLE DB Source Output">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdIndicador]"
-                          name="IdIndicador"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreIndicador]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreIndicador]"
-                          length="300"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreIndicador]"
-                          name="NombreIndicador"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdColumna]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdColumna]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdColumna]"
-                          name="IdColumna"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreColumna]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreColumna]"
-                          length="300"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreColumna]"
-                          name="NombreColumna"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[ValorColumna]"
-                          codePage="1252"
-                          dataType="text"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ValorColumna]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[ValorColumna]"
-                          name="ValorColumna"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumeroFila]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NumeroFila]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumeroFila]"
-                          name="NumeroFila"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdMes]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdMes]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdMes]"
-                          name="IdMes"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[Mes]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Mes]"
-                          length="50"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[Mes]"
-                          name="Mes"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdAnno]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdAnno]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdAnno]"
-                          name="IdAnno"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[Anno]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Anno]"
-                          length="50"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[Anno]"
-                          name="Anno"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdSolicitud]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdSolicitud]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdSolicitud]"
-                          name="IdSolicitud"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdGrupo]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdGrupo]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdGrupo]"
-                          name="IdGrupo"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreGrupo]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreGrupo]"
-                          length="60"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreGrupo]"
-                          name="NombreGrupo"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdClasificacion]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdClasificacion]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdClasificacion]"
-                          name="IdClasificacion"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreClasificacion]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreClasificacion]"
-                          length="30"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreClasificacion]"
-                          name="NombreClasificacion"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[CodigoSolicitud]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CodigoSolicitud]"
-                          length="30"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[CodigoSolicitud]"
-                          name="CodigoSolicitud"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreSolicitud]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreSolicitud]"
-                          length="300"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreSolicitud]"
-                          name="NombreSolicitud"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreFuente]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreFuente]"
-                          length="300"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreFuente]"
-                          name="NombreFuente"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdFormulario]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdFormulario]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[IdFormulario]"
-                          name="IdFormulario"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[CodigoFormulario]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CodigoFormulario]"
-                          length="50"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[CodigoFormulario]"
-                          name="CodigoFormulario"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreFormulario]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreFormulario]"
-                          length="300"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[NombreFormulario]"
-                          name="NombreFormulario"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[AnnoMes]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AnnoMes]"
-                          length="101"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[AnnoMes]"
-                          name="AnnoMes"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[VariableDato]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VariableDato]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[VariableDato]"
-                          name="VariableDato"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[CodigoIndicador]"
-                          codePage="1252"
-                          dataType="str"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CodigoIndicador]"
-                          length="30"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[CodigoIndicador]"
-                          name="CodigoIndicador"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[EstadoIndicador]"
-                          dataType="bool"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EstadoIndicador]"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].Columns[EstadoIndicador]"
-                          name="EstadoIndicador"
-                          truncationRowDisposition="FailComponent" />
-                      </outputColumns>
-                      <externalMetadataColumns
-                        isUsed="True">
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdIndicador]"
-                          dataType="i4"
-                          name="IdIndicador" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreIndicador]"
-                          codePage="1252"
-                          dataType="str"
-                          length="300"
-                          name="NombreIndicador" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdColumna]"
-                          dataType="i4"
-                          name="IdColumna" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreColumna]"
-                          codePage="1252"
-                          dataType="str"
-                          length="300"
-                          name="NombreColumna" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ValorColumna]"
-                          codePage="1252"
-                          dataType="text"
-                          name="ValorColumna" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NumeroFila]"
-                          dataType="i4"
-                          name="NumeroFila" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdMes]"
-                          dataType="i4"
-                          name="IdMes" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Mes]"
-                          codePage="1252"
-                          dataType="str"
-                          length="50"
-                          name="Mes" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdAnno]"
-                          dataType="i4"
-                          name="IdAnno" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Anno]"
-                          codePage="1252"
-                          dataType="str"
-                          length="50"
-                          name="Anno" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdSolicitud]"
-                          dataType="i4"
-                          name="IdSolicitud" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdGrupo]"
-                          dataType="i4"
-                          name="IdGrupo" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreGrupo]"
-                          codePage="1252"
-                          dataType="str"
-                          length="60"
-                          name="NombreGrupo" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdClasificacion]"
-                          dataType="i4"
-                          name="IdClasificacion" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreClasificacion]"
-                          codePage="1252"
-                          dataType="str"
-                          length="30"
-                          name="NombreClasificacion" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CodigoSolicitud]"
-                          codePage="1252"
-                          dataType="str"
-                          length="30"
-                          name="CodigoSolicitud" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreSolicitud]"
-                          codePage="1252"
-                          dataType="str"
-                          length="300"
-                          name="NombreSolicitud" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreFuente]"
-                          codePage="1252"
-                          dataType="str"
-                          length="300"
-                          name="NombreFuente" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IdFormulario]"
-                          dataType="i4"
-                          name="IdFormulario" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CodigoFormulario]"
-                          codePage="1252"
-                          dataType="str"
-                          length="50"
-                          name="CodigoFormulario" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NombreFormulario]"
-                          codePage="1252"
-                          dataType="str"
-                          length="300"
-                          name="NombreFormulario" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AnnoMes]"
-                          codePage="1252"
-                          dataType="str"
-                          length="101"
-                          name="AnnoMes" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VariableDato]"
-                          dataType="i4"
-                          name="VariableDato" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CodigoIndicador]"
-                          codePage="1252"
-                          dataType="str"
-                          length="30"
-                          name="CodigoIndicador" />
-                        <externalMetadataColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EstadoIndicador]"
-                          dataType="bool"
-                          name="EstadoIndicador" />
-                      </externalMetadataColumns>
-                    </output>
-                    <output
-                      refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output]"
-                      isErrorOut="true"
-                      name="OLE DB Source Error Output">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdIndicador]"
-                          name="IdIndicador" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CodigoIndicador]"
-                          codePage="1252"
-                          dataType="str"
-                          length="30"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CodigoIndicador]"
-                          name="CodigoIndicador" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreIndicador]"
-                          codePage="1252"
-                          dataType="str"
-                          length="300"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreIndicador]"
-                          name="NombreIndicador" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdColumna]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdColumna]"
-                          name="IdColumna" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreColumna]"
-                          codePage="1252"
-                          dataType="str"
-                          length="300"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreColumna]"
-                          name="NombreColumna" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ValorColumna]"
-                          codePage="1252"
-                          dataType="text"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ValorColumna]"
-                          name="ValorColumna" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NumeroFila]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NumeroFila]"
-                          name="NumeroFila" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdMes]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdMes]"
-                          name="IdMes" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Mes]"
-                          codePage="1252"
-                          dataType="str"
-                          length="50"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Mes]"
-                          name="Mes" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdAnno]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdAnno]"
-                          name="IdAnno" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Anno]"
-                          codePage="1252"
-                          dataType="str"
-                          length="50"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Anno]"
-                          name="Anno" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdSolicitud]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdSolicitud]"
-                          name="IdSolicitud" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdGrupo]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdGrupo]"
-                          name="IdGrupo" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreGrupo]"
-                          codePage="1252"
-                          dataType="str"
-                          length="60"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreGrupo]"
-                          name="NombreGrupo" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdClasificacion]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdClasificacion]"
-                          name="IdClasificacion" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreClasificacion]"
-                          codePage="1252"
-                          dataType="str"
-                          length="30"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreClasificacion]"
-                          name="NombreClasificacion" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CodigoSolicitud]"
-                          codePage="1252"
-                          dataType="str"
-                          length="30"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CodigoSolicitud]"
-                          name="CodigoSolicitud" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreSolicitud]"
-                          codePage="1252"
-                          dataType="str"
-                          length="300"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreSolicitud]"
-                          name="NombreSolicitud" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreFuente]"
-                          codePage="1252"
-                          dataType="str"
-                          length="300"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreFuente]"
-                          name="NombreFuente" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdFormulario]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IdFormulario]"
-                          name="IdFormulario" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CodigoFormulario]"
-                          codePage="1252"
-                          dataType="str"
-                          length="50"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CodigoFormulario]"
-                          name="CodigoFormulario" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreFormulario]"
-                          codePage="1252"
-                          dataType="str"
-                          length="300"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NombreFormulario]"
-                          name="NombreFormulario" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AnnoMes]"
-                          codePage="1252"
-                          dataType="str"
-                          length="101"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AnnoMes]"
-                          name="AnnoMes" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VariableDato]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VariableDato]"
-                          name="VariableDato" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EstadoIndicador]"
-                          dataType="bool"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EstadoIndicador]"
-                          name="EstadoIndicador" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                          name="ErrorCode"
-                          specialFlags="1" />
-                        <outputColumn
-                          refId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                          dataType="i4"
-                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          lineageId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -5180,9 +5179,9 @@ on k.IdFormulario=h.IdFormulario</property>
               <paths>
                 <path
                   refId="Package\CargarReporte\Cargar Data.Paths[OLE DB Source Output]"
-                  endId="Package\CargarReporte\Cargar Data\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  endId="Package\CargarReporte\Cargar Data\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
                   name="OLE DB Source Output"
-                  startId="Package\CargarReporte\Cargar Data\OLE DB Source.Outputs[OLE DB Source Output]" />
+                  startId="Package\CargarReporte\Cargar Data\Leer Datos.Outputs[OLE DB Source Output]" />
               </paths>
             </pipeline>
           </DTS:ObjectData>
@@ -6280,7 +6279,7 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ?</property>
     design-time-name="Package\Carga Sigitel\CargaDimIndicadores\CargarTableDimIndicadores">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="206.4,41.6"
           Id="Package\Carga Sigitel\CargaDimIndicadores\CargarTableDimIndicadores\Leer datos"
@@ -6320,9 +6319,7 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -6535,7 +6532,9 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -6709,7 +6708,9 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -6837,39 +6838,39 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ?</property>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="149.6,41.6"
-          Id="Package\CargarReporte\Cargar Data\OLE DB Source"
-          TopLeft="108.571430420389,86.4117659177748" />
+          Size="121.6,41.6"
+          Id="Package\CargarReporte\Cargar Data\Leer Datos"
+          TopLeft="55,71" />
         <NodeLayout
-          Size="170.4,41.6"
-          Id="Package\CargarReporte\Cargar Data\OLE DB Destination"
-          TopLeft="181.428574518282,272.235297935644" />
+          Size="164,41.6"
+          Id="Package\CargarReporte\Cargar Data\OLE DB Destination 1"
+          TopLeft="75.9999999999999,251" />
         <EdgeLayout
           Id="Package\CargarReporte\Cargar Data.Paths[OLE DB Source Output]"
-          TopLeft="183.371430420389,128.011765917775">
+          TopLeft="115.8,112.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="83.2571440978926,144.22353201787"
+              EndConnector="42.1999999999999,138.4"
               Start="0,0"
-              End="83.2571440978926,136.72353201787">
+              End="42.1999999999999,130.9">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,68.1117660089348" />
+                    End="0,65.2" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,68.1117660089348"
-                    Point2="0,72.1117660089348"
-                    Point3="4,72.1117660089348" />
+                    Point1="0,65.2"
+                    Point2="0,69.2"
+                    Point3="4,69.2" />
                   <mssgle:LineSegment
-                    End="79.2571440978926,72.1117660089348" />
+                    End="38.1999999999999,69.2" />
                   <mssgle:CubicBezierSegment
-                    Point1="79.2571440978926,72.1117660089348"
-                    Point2="83.2571440978926,72.1117660089348"
-                    Point3="83.2571440978926,76.1117660089348" />
+                    Point1="38.1999999999999,69.2"
+                    Point2="42.1999999999999,69.2"
+                    Point3="42.1999999999999,73.2" />
                   <mssgle:LineSegment
-                    End="83.2571440978926,136.72353201787" />
+                    End="42.1999999999999,130.9" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6933,7 +6934,9 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -7056,7 +7059,7 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\CargarReporte\Cargar Data\OLE DB Source">
+    design-time-name="Package\CargarReporte\Cargar Data\Leer Datos">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -7064,7 +7067,7 @@ where [refTable].[IdTabla] = ? and [refTable].[IdEncabezado] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\CargarReporte\Cargar Data\OLE DB Destination">
+    design-time-name="Package\CargarReporte\Cargar Data\OLE DB Destination 1">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
