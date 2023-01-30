@@ -908,7 +908,7 @@ textarea.form-control-fonatel {
     content: "Cerrar";
     position: absolute;
     top: -33px;
-    right: 0%;
+    right: -50%;
     display: none;
     text-align: center;
     background-color: #000;
