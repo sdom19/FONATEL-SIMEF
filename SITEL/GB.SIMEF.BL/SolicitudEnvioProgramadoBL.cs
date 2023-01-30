@@ -80,15 +80,10 @@ namespace GB.SIMEF.BL
             }
             catch (Exception ex)
             {
-                //if (ex.Message == Errores.NoRegistrosActualizar)
-                //{
-                //    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                //}
-                //else
-                //{
-                //    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-                //}
-
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
                 ResultadoConsulta.MensajeError = ex.Message;
             }
 
