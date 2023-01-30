@@ -1,44 +1,44 @@
 <?xml version="1.0"?>
 <BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectInfo>
-    <Name>GB.SIMEF.SSIS</Name>
-    <LastWriteTime>2023-01-06T18:12:15.2791049Z</LastWriteTime>
+    <Name>SIMEF</Name>
+    <LastWriteTime>2023-01-25T21:08:24.3078517Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
       <Name>Sitel.RegistroIndicadorFonatel.dtsx</Name>
-      <LastWriteTime>2023-01-03T14:35:30.8097643Z</LastWriteTime>
+      <LastWriteTime>2023-01-26T15:05:55.1005188Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>Simef.HistoricoImportacion.dtsx</Name>
-      <LastWriteTime>2022-12-21T18:43:31.6459722Z</LastWriteTime>
+      <LastWriteTime>2023-01-25T20:36:17.7243023Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>Sitel.EnvioSolicitudes.dtsx</Name>
-      <LastWriteTime>2022-12-28T18:44:30.0984692Z</LastWriteTime>
+      <LastWriteTime>2023-01-25T21:08:24.2838533Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>Sigitel.Indicadores.dtsx</Name>
-      <LastWriteTime>2023-01-06T19:16:57.8989153Z</LastWriteTime>
+      <LastWriteTime>2023-01-25T20:36:17.7868038Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>Orquestador.dtsx</Name>
-      <LastWriteTime>2023-01-05T21:22:07.3890766Z</LastWriteTime>
+      <LastWriteTime>2023-01-25T20:36:17.8024995Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>Sitel.RegistroIndicador.Simef.dtsx</Name>
-      <LastWriteTime>2023-01-03T15:24:56.740467Z</LastWriteTime>
+      <LastWriteTime>2023-01-26T15:58:27.9404329Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>Sitel.DWH.dtsx</Name>
-      <LastWriteTime>2023-01-07T00:30:22.9223853Z</LastWriteTime>
+      <LastWriteTime>2023-01-25T20:36:17.8805539Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

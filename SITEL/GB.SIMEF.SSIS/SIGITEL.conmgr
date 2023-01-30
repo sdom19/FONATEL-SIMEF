@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:ObjectName="SIGITEL"
   DTS:DTSID="{0988B716-91C0-48CB-B3C5-49DB1BD91137}"

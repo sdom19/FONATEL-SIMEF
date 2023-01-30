@@ -1,14 +1,14 @@
-﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="f26d49d9-01b2-4200-b9fd-a9dc9b811c0d" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
   <ID>Dim Solicitud</ID>
   <Name>Dim Solicitud</Name>
-  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
-  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <CreatedTimestamp>2023-01-13T20:37:35.26Z</CreatedTimestamp>
+  <LastSchemaUpdate>2023-01-16T14:52:54.28Z</LastSchemaUpdate>
   <Annotations>
     <Annotation>
       <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
       <Value>
         <dds xmlns="">
-          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="2" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-1822" scrolltop="-5091" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="7112" y="14288" backcolor="16119285" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="2" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-3071" scrolltop="-6445" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="9610" y="16997" backcolor="16119285" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
             <font>
               <ddsxmlobjectstreamwrapper binary="010000009001b0300100065461686f6d61" />
             </font>
@@ -47,11 +47,11 @@
     </Annotation>
     <Annotation>
       <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
-      <Value>-1822</Value>
+      <Value>-3071</Value>
     </Annotation>
     <Annotation>
       <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
-      <Value>-5091</Value>
+      <Value>-6445</Value>
     </Annotation>
     <Annotation>
       <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
@@ -66,53 +66,71 @@
       <Value>100</Value>
     </Annotation>
   </Annotations>
-  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
-  <State>Unprocessed</State>
-  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="aef0163c-4bbe-4d6b-a71d-602fa382fa09">
-    <DataSourceViewID>DWSIMEF</DataSourceViewID>
+  <LastProcessed>2023-01-25T21:08:54.766667Z</LastProcessed>
+  <State>Processed</State>
+  <Source xsi:type="DataSourceViewBinding">
+    <DataSourceViewID>DWSIMEF 1</DataSourceViewID>
   </Source>
-  <ErrorConfiguration dwd:design-time-name="8c7949e3-1ab0-4efa-a66f-17151a1061c7">
+  <ErrorConfiguration>
     <KeyNotFound>ReportAndStop</KeyNotFound>
     <KeyDuplicate>ReportAndStop</KeyDuplicate>
     <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
   </ErrorConfiguration>
   <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Language>1033</Language>
+  <Collation>Latin1_General_CI_AS</Collation>
+  <UnknownMemberName>Unknown</UnknownMemberName>
   <Attributes>
-    <Attribute dwd:design-time-name="90a2a56a-259a-40d6-ae24-1cb5700c998b">
+    <Attribute>
       <ID>Idsolicitud</ID>
       <Name>Idsolicitud</Name>
       <Usage>Key</Usage>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="4dfa0225-0ed7-44b5-ac58-c9242575589f">
+        <KeyColumn>
           <DataType>BigInt</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="d9887561-2aaf-4860-a7e0-e36588f68695">
+          <Source xsi:type="ColumnBinding">
             <TableID>dbo_DimSolicitud</TableID>
             <ColumnID>Idsolicitud</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
+      <NameColumn>
+        <DataType>WChar</DataType>
+        <Source xsi:type="ColumnBinding">
+          <TableID>dbo_DimSolicitud</TableID>
+          <ColumnID>Idsolicitud</ColumnID>
+        </Source>
+      </NameColumn>
       <AttributeRelationships>
-        <AttributeRelationship dwd:design-time-name="dc1a1f73-7747-42af-8202-a763cad9bd9c">
+        <AttributeRelationship>
           <AttributeID>Codigo Solicitud</AttributeID>
           <Name>Codigo Solicitud</Name>
         </AttributeRelationship>
-        <AttributeRelationship dwd:design-time-name="e2ee4056-3719-4b14-8aa8-f2c0b18b7928">
+        <AttributeRelationship>
           <AttributeID>Nombre Solicitud</AttributeID>
           <Name>Nombre Solicitud</Name>
         </AttributeRelationship>
-        <AttributeRelationship dwd:design-time-name="6bc8d882-7440-4df3-911c-dc117541d5bc">
+        <AttributeRelationship>
           <AttributeID>Codigo Formulario</AttributeID>
           <Name>Codigo Formulario</Name>
         </AttributeRelationship>
-        <AttributeRelationship dwd:design-time-name="1f5f7937-130e-4175-925e-4159e941007f">
+        <AttributeRelationship>
           <AttributeID>Formulario</AttributeID>
           <Name>Formulario</Name>
         </AttributeRelationship>
-        <AttributeRelationship dwd:design-time-name="9f9f0c26-7bb4-491d-bdda-639918a5fe40">
+        <AttributeRelationship>
+          <AttributeID>Mes</AttributeID>
+          <Name>Mes</Name>
+        </AttributeRelationship>
+        <AttributeRelationship>
+          <AttributeID>Anno</AttributeID>
+          <Name>Anno</Name>
+        </AttributeRelationship>
+        <AttributeRelationship>
           <AttributeID>Fuente</AttributeID>
           <Name>Fuente</Name>
         </AttributeRelationship>
-        <AttributeRelationship dwd:design-time-name="da64b3a5-f87e-4d14-b7e7-3e49c9d530d9">
+        <AttributeRelationship>
           <AttributeID>Anno Mes</AttributeID>
           <Name>Anno Mes</Name>
         </AttributeRelationship>
@@ -121,102 +139,205 @@
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="0d71523e-129b-48bf-ad3d-a7c568273e48">
+    <Attribute>
       <ID>Codigo Solicitud</ID>
       <Name>Codigo Solicitud</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="c3921392-9f7e-4fa8-be29-5d49b529b899">
+        <KeyColumn>
           <DataType>WChar</DataType>
           <DataSize>50</DataSize>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="7513c798-33c3-406a-8f7e-4888eae163d1">
+          <Source xsi:type="ColumnBinding">
             <TableID>dbo_DimSolicitud</TableID>
             <ColumnID>CodigoSolicitud</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
+      <NameColumn>
+        <DataType>WChar</DataType>
+        <DataSize>50</DataSize>
+        <Source xsi:type="ColumnBinding">
+          <TableID>dbo_DimSolicitud</TableID>
+          <ColumnID>CodigoSolicitud</ColumnID>
+        </Source>
+      </NameColumn>
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="64b89a0a-0859-4d97-91e1-9c88865bcc51">
+    <Attribute>
       <ID>Nombre Solicitud</ID>
       <Name>Nombre Solicitud</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="46607cc5-2b51-480a-a8a3-5d720e1b896d">
+        <KeyColumn>
           <DataType>WChar</DataType>
           <DataSize>300</DataSize>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="b32bf081-0cc5-4fca-ab23-05a63a955970">
+          <Source xsi:type="ColumnBinding">
             <TableID>dbo_DimSolicitud</TableID>
             <ColumnID>NombreSolicitud</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
+      <NameColumn>
+        <DataType>WChar</DataType>
+        <DataSize>300</DataSize>
+        <Source xsi:type="ColumnBinding">
+          <TableID>dbo_DimSolicitud</TableID>
+          <ColumnID>NombreSolicitud</ColumnID>
+        </Source>
+      </NameColumn>
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="0c223f4e-91c4-47f8-b5ce-a2cec3ac181e">
+    <Attribute>
       <ID>Codigo Formulario</ID>
       <Name>Codigo Formulario</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="2c07be5c-d933-4a4f-babf-ea96805985c8">
+        <KeyColumn>
           <DataType>WChar</DataType>
           <DataSize>50</DataSize>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="b556c9b8-9ca8-4340-8862-8aa0a8d618fc">
+          <Source xsi:type="ColumnBinding">
             <TableID>dbo_DimSolicitud</TableID>
             <ColumnID>CodigoFormulario</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
+      <NameColumn>
+        <DataType>WChar</DataType>
+        <DataSize>50</DataSize>
+        <Source xsi:type="ColumnBinding">
+          <TableID>dbo_DimSolicitud</TableID>
+          <ColumnID>CodigoFormulario</ColumnID>
+        </Source>
+      </NameColumn>
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="6c87610f-6940-4ebf-8553-835fdb092b8a">
+    <Attribute>
       <ID>Formulario</ID>
       <Name>Formulario</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="9a939726-8d5a-4dc0-aa1f-b81e37d26ee4">
+        <KeyColumn>
           <DataType>WChar</DataType>
           <DataSize>300</DataSize>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="4ca35fcd-6efb-4429-a18e-20e5df147087">
+          <Source xsi:type="ColumnBinding">
             <TableID>dbo_DimSolicitud</TableID>
             <ColumnID>Formulario</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
+      <NameColumn>
+        <DataType>WChar</DataType>
+        <DataSize>300</DataSize>
+        <Source xsi:type="ColumnBinding">
+          <TableID>dbo_DimSolicitud</TableID>
+          <ColumnID>Formulario</ColumnID>
+        </Source>
+      </NameColumn>
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="d9f1668e-2e64-4aa6-9769-1c0d259254a0">
+    <Attribute>
+      <ID>Mes</ID>
+      <Name>Mes</Name>
+      <KeyColumns>
+        <KeyColumn>
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding">
+            <TableID>dbo_DimSolicitud</TableID>
+            <ColumnID>Mes</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn>
+        <DataType>WChar</DataType>
+        <DataSize>50</DataSize>
+        <Source xsi:type="ColumnBinding">
+          <TableID>dbo_DimSolicitud</TableID>
+          <ColumnID>Mes</ColumnID>
+        </Source>
+      </NameColumn>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute>
+      <ID>Anno</ID>
+      <Name>Anno</Name>
+      <KeyColumns>
+        <KeyColumn>
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding">
+            <TableID>dbo_DimSolicitud</TableID>
+            <ColumnID>Anno</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn>
+        <DataType>WChar</DataType>
+        <DataSize>50</DataSize>
+        <Source xsi:type="ColumnBinding">
+          <TableID>dbo_DimSolicitud</TableID>
+          <ColumnID>Anno</ColumnID>
+        </Source>
+      </NameColumn>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute>
       <ID>Fuente</ID>
       <Name>Fuente</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="0959a495-1f7c-400c-9340-2ea3e398cf90">
+        <KeyColumn>
           <DataType>WChar</DataType>
           <DataSize>300</DataSize>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="7d8b9b38-28c9-452f-aa93-cbcca6108b49">
+          <Source xsi:type="ColumnBinding">
             <TableID>dbo_DimSolicitud</TableID>
             <ColumnID>Fuente</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
+      <NameColumn>
+        <DataType>WChar</DataType>
+        <DataSize>300</DataSize>
+        <Source xsi:type="ColumnBinding">
+          <TableID>dbo_DimSolicitud</TableID>
+          <ColumnID>Fuente</ColumnID>
+        </Source>
+      </NameColumn>
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="a69d4ca4-96be-455c-a0e0-65a503584720">
+    <Attribute>
       <ID>Anno Mes</ID>
       <Name>Anno Mes</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="5d0d8d34-668a-4439-88ae-0ca11b64f498">
+        <KeyColumn>
           <DataType>WChar</DataType>
           <DataSize>50</DataSize>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="2c26dcdd-0df4-4c08-907f-5c0bad709241">
+          <Source xsi:type="ColumnBinding">
             <TableID>dbo_DimSolicitud</TableID>
             <ColumnID>AnnoMes</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
+      <NameColumn>
+        <DataType>WChar</DataType>
+        <DataSize>50</DataSize>
+        <Source xsi:type="ColumnBinding">
+          <TableID>dbo_DimSolicitud</TableID>
+          <ColumnID>AnnoMes</ColumnID>
+        </Source>
+      </NameColumn>
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
   </Attributes>
+  <ProactiveCaching>
+    <SilenceInterval>-PT1S</SilenceInterval>
+    <Latency>-PT1S</Latency>
+    <SilenceOverrideInterval>-PT1S</SilenceOverrideInterval>
+    <ForceRebuildInterval>-PT1S</ForceRebuildInterval>
+    <Source xsi:type="ProactiveCachingInheritedBinding" />
+  </ProactiveCaching>
   <ddl300:ProcessingState>Unprocessed</ddl300:ProcessingState>
 </Dimension>
