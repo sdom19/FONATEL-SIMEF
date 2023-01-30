@@ -33,6 +33,7 @@
                     .set('label', jsMensajes.Variables.btnlisto)
                     .set({ 'modal': true, 'closable': false })
                 alertifyObject.setContent(jsMensajes.Variables.ContentError("Favor comunicarse con soporte de aplicaciones"));
+                $(".ajs-close").last().addClass("custom-tooltip custom-tooltip-close");
                 return alertifyObject;
             }
             else {
@@ -40,6 +41,7 @@
                     .set('label', jsMensajes.Variables.btnlisto)
                     .set({ 'modal': true, 'closable': false })
                 alertifyObject.setContent(jsMensajes.Variables.ContentError(mensaje));
+                $(".ajs-close").last().addClass("custom-tooltip custom-tooltip-close");
                 return alertifyObject;
             }
         },
@@ -110,7 +112,7 @@
                 alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
             }
            
-
+            $(".ajs-close").last().addClass("custom-tooltip custom-tooltip-close");
             return alertifyObject;
         },
 
@@ -120,6 +122,11 @@
                 .set('label', jsMensajes.Variables.btnlisto)
                 .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
             alertifyObject.setContent(jsMensajes.Variables.ContentSuccess(mensaje));
+
+            let buttons = $(".btn.btn-fonatel.btn-success-fonatel.custom-tooltip.custom-tooltip-yes");
+            buttons.last().removeClass("custom-tooltip-yes").addClass("custom-tooltip-aceptar");
+            $(".ajs-close").last().addClass("custom-tooltip custom-tooltip-close");
+
             return alertifyObject;
         },
 
@@ -129,8 +136,8 @@
 
 $(function () {
     alertify.defaults.transition = "";
-    alertify.defaults.theme.ok = "btn btn-fonatel btn-success-fonatel"; //"btn btn-success success-icon-btn btn-base-icon";
-    alertify.defaults.theme.cancel = "btn btn-fonatel btn-error-fonatel";
+    alertify.defaults.theme.ok = "btn btn-fonatel btn-success-fonatel custom-tooltip custom-tooltip-yes"; //"btn btn-success success-icon-btn btn-base-icon";
+    alertify.defaults.theme.cancel = "btn btn-fonatel btn-error-fonatel custom-tooltip custom-tooltip-no";
     alertify.defaults.theme.input = "form-control";
 
 })

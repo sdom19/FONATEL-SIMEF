@@ -34,14 +34,14 @@
         <div class="col-lg-12 text-center">
             @if (Model.CantidadDestinatario > Model.DetalleFuentesRegistro.Count)
             {
-                <button type="submit" id="btnGuardarDestinatario" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+                <button type="submit" id="btnGuardarDestinatario" class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonGuardar">@Etiquetas.BotonGuardar</button>
             }
             else
             {
-                <button type="submit" disabled id="btnGuardarDestinatario" class="btn btn-fonatel btn-success-fonatel">@Etiquetas.BotonGuardar</button>
+                <button type="submit" disabled id="btnGuardarDestinatario" class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonGuardar">@Etiquetas.BotonGuardar</button>
             }
 
-            <button type="submit" id="btnCancelarFuente" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
+            <button type="submit" id="btnCancelarFuente" class="btn btn-fonatel btn-error-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCancelar">@Etiquetas.BotonCancelar</button>
 
         </div>
     </div>
