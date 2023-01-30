@@ -134,7 +134,14 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<RegistroIndicadorFonatel>> ObtenerEditarRegistroIndicador(RegistroIndicadorFonatel objeto, string usuario)
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 27/01/2023
+        /// Metodo: El metodo funciona para obtener los datos de Registro Indicador en el modulo de Descarga y Edicion el cual solo obtendran los registros activos y registros de fechas pasadas
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<RegistroIndicadorFonatel>> ObtenerEditarRegistroIndicador(RegistroIndicadorFonatel objeto)
         {
             try
             {

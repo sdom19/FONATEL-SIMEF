@@ -358,6 +358,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
+        /// <summary>
+        /// Autor: Francisco Vindas RUiz
+        /// Fecha: 27/01/2023
+        /// Metodo: El metodo sirve para realizar la carga total de la informacion de Registro Indicador a la Base de Datos de SITELP
+        /// </summary>
+        /// <param name="lista"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<string> CargaTotalRegistroIndicador(List<DetalleRegistroIndicadorFonatel> lista)
         {

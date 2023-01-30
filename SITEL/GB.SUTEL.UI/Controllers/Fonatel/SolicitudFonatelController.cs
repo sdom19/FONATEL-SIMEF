@@ -446,9 +446,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> InsertarEnvioProgramado(SolicitudEnvioProgramado objeto)
         {
-
-
-
             RespuestaConsulta<List<SolicitudEnvioProgramado>> result = null;
 
             await Task.Run(() =>
