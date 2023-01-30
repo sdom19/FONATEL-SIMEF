@@ -60,8 +60,6 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-    
-
         public RespuestaConsulta<List<RegistroIndicadorFonatel>> ActualizarElemento(RegistroIndicadorFonatel objeto)
         {
            
@@ -141,7 +139,7 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<RegistroIndicadorFonatel>> ObtenerEditarRegistroIndicador(RegistroIndicadorFonatel objeto)
+        public RespuestaConsulta<List<RegistroIndicadorFonatel>> ObtenerEditarRegistroIndicador(RegistroIndicadorFonatel objeto, string usuario)
         {
             try
             {
