@@ -822,3 +822,110 @@ textarea.form-control-fonatel {
 .success-icon:before {
     content: url("../../Images/icon-success.svg");
 }
+
+
+/*
+    ===============================================================
+                           Tooltip Alertify Modal
+    ===============================================================
+*/
+
+.custom-tooltip:before{
+    content: "";
+    display: none;
+    position: absolute;
+    left: calc(50% - 9px);
+    height: 12px;
+    width: 10px;
+    background-color: black;
+    transform: rotate(45deg);
+    top: -20px;
+}
+
+.custom-tooltip{
+    position: relative;
+    display: inline-block;
+}
+
+.custom-tooltip-yes:after {
+    content: "Si";
+    position: absolute;
+    top: -33px;
+    right: 25%;
+    left: 25%;
+    display: none;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+    padding: 0px;
+    font-weight: normal;
+    font-size: 13px;
+    max-width: 50%;
+    text-transform: capitalize;
+    padding-top: 3px;
+}
+
+.custom-tooltip-no:after {
+    content: "No";
+    position: absolute;
+    top: -33px;
+    right: 25%;
+    left: 25%;
+    display: none;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+    padding: 0px;
+    font-weight: normal;
+    font-size: 13px;
+    max-width: 50%;
+    text-transform: capitalize;
+    padding-top: 3px;
+}
+
+.custom-tooltip-aceptar:after {
+    content: "Aceptar";
+    position: absolute;
+    top: -33px;
+    right: 10%;
+    left: 10%;
+    display: none;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+    padding: 0px;
+    font-weight: normal;
+    font-size: 13px;
+    max-width: 70%;
+    text-transform: capitalize;
+    padding-top:3px;
+}
+
+.custom-tooltip-close:after {
+    content: "Cerrar";
+    position: absolute;
+    top: -33px;
+    right: -50%;
+    display: none;
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: normal;
+    font-size: 13px;
+    text-transform: capitalize;
+    padding-top: 3px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.custom-tooltip:hover:after, .custom-tooltip:hover:before{
+    display: block;
+}
+
+.custom-tooltip-yes:focus, .custom-tooltip-no:focus, .custom-tooltip-aceptar:focus {
+    outline: none;
+}

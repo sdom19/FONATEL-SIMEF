@@ -42,11 +42,11 @@
 
                 @if (Model.CantidadFilas > Model.RelacionCategoriaId.Where(x => x.idEstado == (int)Constantes.EstadosRegistro.Activo).Count())
                 {
-                    <button type="submit" disabled class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
+                    <button type="submit" disabled class="btn btn-fonatel btn-info-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonFinalizar">@Etiquetas.BotonFinalizar</button>
                 }
                 else
                 {
-                    <button type="submit" id="btnFinalizarDetalle" class="btn btn-fonatel btn-info-fonatel">@Etiquetas.BotonFinalizar</button>
+                    <button type="submit" id="btnFinalizarDetalle" class="btn btn-fonatel btn-info-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonFinalizar">@Etiquetas.BotonFinalizar</button>
                 }
 
             </div>
