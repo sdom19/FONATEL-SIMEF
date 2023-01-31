@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GB.SIMEF.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -15,9 +16,22 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// Función que permite construir el predicado SQL del argumento
         /// </summary>
         /// <returns></returns>
-        public string ConstruirPredicadoSQL()
+        public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula)
         {
-            throw new NotImplementedException();
+
+
+            FormulasVariableDatoCriterio formulasVariableDatoCriterio = (FormulasVariableDatoCriterio)pArgumentoFormula;
+
+            //formulasVariableDatoCriterio.IdAcumulacion;
+
+
+
+            if (formulasVariableDatoCriterio.EsValorTotal)
+            {
+
+            }
+
+            return "";
         }
     }
 }

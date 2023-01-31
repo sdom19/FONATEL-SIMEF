@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GB.SIMEF.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -10,29 +11,44 @@ namespace GB.SIMEF.BL.GestionCalculo
     /// <summary>
     /// 20/01/2023
     /// José Navarro Acuña
-    /// Contexto para dar uso al patrón funcional Strategy
+    /// Clase contexto para dar uso al patrón de comportamiento Strategy
     /// </summary>
     public class FormulaPredicado
     {
         private IArgumento argumento; // mantener una referencia al tipo de argumento a construir 
+        private ArgumentoFormula argumentoFormula;
 
         /// <summary>
+        /// 21/01/2023
+        /// José Navarro Acuña
         /// Establecer el tipo de argumento matemetico.
         /// </summary>
         /// <param name="argumento"></param>
-        public void SetArgumento(IArgumento argumento)
+        public void SetFuenteArgumento(IArgumento pIArgumento)
         {
-            this.argumento = argumento; // permite intercambiar la funcionalidad de construir el predicado en tiempo de ejecución
+            argumento = pIArgumento; // permite intercambiar la funcionalidad de construir el predicado en tiempo de ejecución
         }
 
         /// <summary>
+        /// 21/01/2023
+        /// José Navarro Acuña
+        /// Establecer el objeto ArgumentoFormula
+        /// </summary>
+        /// <param name="pFormulasVariableDatoCriterio"></param>
+        public void SetArgumentoFormula(ArgumentoFormula pArgumentoFormula)
+        {
+            argumentoFormula = pArgumentoFormula;
+        }
+
+        /// <summary>
+        /// 21/01/2023
+        /// José Navarro Acuña
         /// Ejecutar una llamada que construye el predicado SQL de acuerdo al tipo argumento
         /// </summary>
-        /// <param name="dbContext"></param>
         /// <returns></returns>
         public string GetArgumentoComoPredicadoSQL()
         {
-            return argumento.ConstruirPredicadoSQL(); // nótese que no nos importa cual argumento es, por tanto aqui se delega comportamiento
+            return argumento.ConstruirPredicadoSQL(argumentoFormula); // nótese que no nos importa cúal argumento es, por tanto se delega comportamiento
         }
     }
 }

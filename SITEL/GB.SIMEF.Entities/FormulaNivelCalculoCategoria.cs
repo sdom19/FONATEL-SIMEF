@@ -12,8 +12,8 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("FormulaNivelCalculoCategoria")]
-    public partial class FormulaNivelCalculoCategoria
+    [Table("FormulasNivelCalculoCategoria")]
+    public partial class FormulasNivelCalculoCategoria
     {
         [Key]
         public int IdFormulaNivel { get; set; }

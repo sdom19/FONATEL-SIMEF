@@ -88,7 +88,6 @@
     <Compile Include="GestionCalculo\ArgumentoExterno.cs" />
     <Compile Include="GestionCalculo\ArgumentoFonatel.cs" />
     <Compile Include="GestionCalculo\ArgumentoMercados.cs" />
-    <Compile Include="GestionCalculo\ArgumentoUIT.cs" />
     <Compile Include="GestionCalculo\FormulaPredicado.cs" />
     <Compile Include="GestionCalculo\IArgumento.cs" />
     <Compile Include="FrecuenciaEnvioBL.cs" />

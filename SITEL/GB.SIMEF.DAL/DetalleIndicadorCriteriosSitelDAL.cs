@@ -2,9 +2,11 @@
 using GB.SIMEF.Resources;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.DAL
 {
@@ -24,10 +26,9 @@ namespace GB.SIMEF.DAL
 
             using (SIGITELContext db = new SIGITELContext())
             {
-                listaDetallesCriterio = db.Database.SqlQuery<CriterioIndicador>(
-                    string.Format(
-                        "select distinct cast(IdCriterio as varchar) as IdCriterio, CodCriterio, DesCriterio as NombreCriterio from [DIM].[Criterio] " +
-                        "where IdIndicador = {0} ", pDetalleIndicadorVariables.idIndicador.ToString())
+                listaDetallesCriterio = db.Database.SqlQuery<CriterioIndicador>
+                    ("execute spObtenerCriteriosDeIndicador @pIndicador ",
+                     new SqlParameter("@pIndicador", pDetalleIndicadorVariables.idIndicador.ToString())
                     ).ToList();
             }
 
@@ -50,22 +51,33 @@ namespace GB.SIMEF.DAL
         public List<DetalleIndicadorVariables> ObtenerDatosCalidad(DetalleIndicadorVariables pDetalleIndicadorVariables)
         {
             List<DetalleIndicadorVariables> listaDetalles = new List<DetalleIndicadorVariables>();
-            List<CriterioIndicador> listaDetallesCriterio = new List<CriterioIndicador>();
+            List<CriterioIndicador> listaDetallesCriterios = new List<CriterioIndicador>();
 
             using (CALIDADContext db = new CALIDADContext())
             {
-                listaDetallesCriterio = db.Database.SqlQuery<CriterioIndicador>(
+                listaDetallesCriterios = db.Database.SqlQuery<CriterioIndicador>(
                     string.Format(
-                        "select distinct IdCriterio, NombreCriterio from [FONATEL].[viewIndicadorDGC] " +
+                        "select top 1 IdIndicador as IdCriterio from [CalidadIndicadorCalculo].[dbo].[FactRigurosidadFac] " +
                         "where IdIndicador = '{0}' ", pDetalleIndicadorVariables.id)
                     ).ToList();
             }
 
-            listaDetalles = listaDetallesCriterio.Select(x => new DetalleIndicadorVariables()
+            if (listaDetallesCriterios.Count > 0)
             {
-                id = Utilidades.Encriptar(x.IdCriterio.ToString()),
-                NombreVariable = x.NombreCriterio
-            }).ToList();
+                listaDetalles.Add( // al mostrar columnas como valores para seleccionar y siendo ajenas a la BD de Fonatel, se procede con constantes
+                    new DetalleIndicadorVariables()
+                    {
+                        id = Utilidades.Encriptar(((int)TipoPorcentajeIndicadorCalculoEnum.indicador).ToString()),
+                        NombreVariable = CriteriosIndicadoresCalidad.procentajeIndicador
+                    });
+
+                listaDetalles.Add(
+                    new DetalleIndicadorVariables()
+                    {
+                        id = Utilidades.Encriptar(((int)TipoPorcentajeIndicadorCalculoEnum.indicador).ToString()),
+                        NombreVariable = CriteriosIndicadoresCalidad.procentajeCumplimiento
+                    });
+            }
 
             return listaDetalles;
         }
@@ -168,6 +180,7 @@ namespace GB.SIMEF.DAL
         private class CriterioIndicador
         {
             public string IdCriterio { get; set; }
+            public string CodigoCriterio { get; set; }
             public string NombreCriterio { get; set; }
         }
     }
