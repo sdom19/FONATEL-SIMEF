@@ -14,6 +14,7 @@
         "txtNotasDefinicion": "#txtNotasDefinicion",
         "txtNotasDefinicionHelp":"#txtNotasDefinicionHelp",
         "txtFuenteDefinicionHelp": "#txtFuenteDefinicionHelp",
+        "ddlIndicadorHelp": "#ddlIndicadorHelp",
         "txtDefinicionHelp": "#txtDefinicionHelp",
         "ddlindicador": "#ddlindicador",
         "txtCodigoIndicador": "#txtCodigoIndicador",
@@ -31,21 +32,41 @@
             $(JsDefiniciones.Controles.txtNotasDefinicionHelp).addClass("hidden");
             $(JsDefiniciones.Controles.txtFuenteDefinicionHelp).addClass("hidden");
             $(JsDefiniciones.Controles.txtDefinicionHelp).addClass("hidden");
+            $(JsDefiniciones.Controles.ddlIndicadorHelp).addClass("hidden");
+
+            $(JsDefiniciones.Controles.txtDefinicion).parent().removeClass("has-error");
+            $(JsDefiniciones.Controles.txtFuenteDefinicion).parent().removeClass("has-error");
+            $(JsDefiniciones.Controles.txtNotasDefinicion).parent().removeClass("has-error");
+            $(JsDefiniciones.Controles.ddlindicador).parent().removeClass("has-error");
 
             let definiciones = $(JsDefiniciones.Controles.txtDefinicion).val().trim();
             let fuentes = $(JsDefiniciones.Controles.txtFuenteDefinicion).val().trim();
             let notas = $(JsDefiniciones.Controles.txtNotasDefinicion).val().trim();
 
+            let modo = ObtenerValorParametroUrl("modo");
+            if (modo == jsUtilidades.Variables.Acciones.Clonar) {
+                let idClonado = $(JsDefiniciones.Controles.ddlindicador).val().trim();
+
+                if (idClonado == null || idClonado.length == 0) {
+                    $(JsDefiniciones.Controles.ddlIndicadorHelp).removeClass("hidden");
+                    $(JsDefiniciones.Controles.ddlindicador).parent().addClass("has-error");
+                    validar = false;
+                }
+            }
+
             if (definiciones.length == 0) {
                 $(JsDefiniciones.Controles.txtDefinicionHelp).removeClass("hidden");
-                Validar = false;
+                $(JsDefiniciones.Controles.txtDefinicion).parent().addClass("has-error");
+                validar = false;
             }
             if (fuentes.length == 0) {
                 $(JsDefiniciones.Controles.txtFuenteDefinicionHelp).removeClass("hidden");
+                $(JsDefiniciones.Controles.txtFuenteDefinicion).parent().addClass("has-error");
                 validar = false;
             }
             if (notas.length == 0) {
                 $(JsDefiniciones.Controles.txtNotasDefinicionHelp).removeClass("hidden");
+                $(JsDefiniciones.Controles.txtNotasDefinicion).parent().addClass("has-error");
                 validar = false;
             }
             return validar;
