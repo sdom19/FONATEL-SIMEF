@@ -541,7 +541,8 @@ CreateView = {
             let rootObj = this;
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarIndicador, jsMensajes.Variables.actionType.agregar)
+
+                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + CreateView.Mensajes.preguntaGuardadoParcialIndicador, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
                     .set("oncancel", function () {
                         rootObj.VerificarCamposIncompletosFormularioIndicador(false);
