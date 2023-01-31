@@ -185,7 +185,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
-        public async Task<string> InsertarRegistroIndicadorVariable(List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleIndicadorValor)
+        public async Task<string> InsertarRegistroIndicadorVariable(DetalleRegistroIndicadorFonatel ListaDetalleIndicadorValor)
         {
 
             //Creamos una variable resultado de tipo lista relacion categoria
@@ -278,13 +278,32 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpPost]
-        public async Task<string> ObtenerListaDetalleRegistroIndicadorCategoriaValorFonatel(DetalleRegistroIndicadorCategoriaValorFonatel detalle)
+        public async Task<string> ObtenerListaDetalleRegistroIndicadorValoresFonatel(DetalleRegistroIndicadorFonatel detalle)
         {
-            RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> result = null;
+            RespuestaConsulta<DetalleRegistroIndicadorFonatel> result = null;
 
             await Task.Run(() =>
             {
-                result = detalleRegistroIndicadorCategoriaValorFonatelBL.ObtenerDatos(detalle);
+                result = detalleRegistroIndicadorBL.ObtenerListaDetalleRegistroIndicadorValoresFonatel(detalle);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha 28/11/2022
+        /// Georgi Mesen Cerdas
+        /// Metodo para obtener la lista de DetalleRegistroIndicadorCategoriaValorFonatel
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<string> ActualizarRegistroIndicador(RegistroIndicadorFonatel objeto)
+        {
+            RespuestaConsulta<List<RegistroIndicadorFonatel>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = registroIndicadorBL.ActualizarElemento(objeto);
             });
             return JsonConvert.SerializeObject(result);
         }

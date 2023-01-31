@@ -45,7 +45,9 @@ namespace GB.SIMEF.Resources
             EnProceso = 1,
             Activo = 2,
             Desactivado = 3,
-            Eliminado = 4
+            Eliminado = 4,
+            Pendiente = 5,
+            Enviado = 6,
         }
         /// <summary>
         /// TiposReglasDetalle

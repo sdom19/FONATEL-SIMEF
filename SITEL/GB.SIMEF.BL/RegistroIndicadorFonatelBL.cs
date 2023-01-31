@@ -64,7 +64,36 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<RegistroIndicadorFonatel>> ActualizarElemento(RegistroIndicadorFonatel objeto)
         {
-           
+
+            ResultadoConsulta.Clase = modulo;
+            ResultadoConsulta.Accion = (int)Accion.Consultar;
+            if (!string.IsNullOrEmpty(objeto.FormularioId))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.FormularioId), out int temp);
+                objeto.IdFormulario = temp;
+            }
+            if (!string.IsNullOrEmpty(objeto.Solicitudid))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.Solicitudid), out int temp);
+                objeto.IdSolicitud = temp;
+            }
+
+            switch (objeto.IdEstado)
+            {
+                case 1:
+                    objeto.Estado = "En Proceso";
+                    break;
+                case 6:
+                    objeto.Estado = "Enviado";
+                    break;
+                default:
+                    break;
+            }
+
+            var result = clsDatos.ActualizarRegistroIndicadorFonatel(objeto);
+
+            ResultadoConsulta.objetoRespuesta = result;
+            ResultadoConsulta.CantidadRegistros = result.Count();
 
             return ResultadoConsulta;
         }

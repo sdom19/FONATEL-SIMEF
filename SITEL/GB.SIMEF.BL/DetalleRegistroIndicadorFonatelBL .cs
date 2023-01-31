@@ -178,5 +178,54 @@ namespace GB.SIMEF.BL
             }
             return ResultadoConsulta;
         }
+
+        public RespuestaConsulta<DetalleRegistroIndicadorFonatel> ObtenerListaDetalleRegistroIndicadorValoresFonatel(DetalleRegistroIndicadorFonatel objeto)
+        {
+
+            RespuestaConsulta<DetalleRegistroIndicadorFonatel> resultado = new RespuestaConsulta<DetalleRegistroIndicadorFonatel>();
+            try
+            {      
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                if (!string.IsNullOrEmpty(objeto.IdFormularioString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.IdFormularioString), out int temp);
+                    objeto.IdFormulario = temp;
+                }
+                if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.IdSolicitudString), out int temp);
+                    objeto.IdSolicitud = temp;
+                }
+                if (!string.IsNullOrEmpty(objeto.IdIndicadorString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.IdIndicadorString), out int temp);
+                    objeto.IdIndicador = temp;
+                }
+
+                DetalleRegistroIndicadorFonatel detalle = new DetalleRegistroIndicadorFonatel();
+                DetalleRegistroIndicadorCategoriaValorFonatel valor = new DetalleRegistroIndicadorCategoriaValorFonatel();
+                valor.IdFormulario = objeto.IdFormulario;
+                valor.IdSolicitud = objeto.IdSolicitud;
+                valor.IdIndicador = objeto.IdIndicador;
+                DetalleRegistroIndicadorVariableValorFonatel variable = new DetalleRegistroIndicadorVariableValorFonatel();
+                variable.IdFormulario = objeto.IdFormulario;
+                variable.IdSolicitud = objeto.IdSolicitud;
+                variable.IdIndicador = objeto.IdIndicador;
+
+                detalle.DetalleRegistroIndicadorCategoriaValorFonatel = DetalleRegistroIndicadorFonatelDAL.ObtenerDetalleRegistroIndicadorCategoriaValorFonatel(valor);
+                detalle.DetalleRegistroIndicadorVariableValorFonatel = DetalleRegistroIndicadorFonatelDAL.ObtenerDetalleRegistroIndicadorVariableValorFonatel(variable);
+
+
+                resultado.objetoRespuesta = detalle;
+                resultado.CantidadRegistros = 1;
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Constantes.Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
     }
 }
