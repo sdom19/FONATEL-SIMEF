@@ -175,9 +175,13 @@ namespace GB.SIMEF.BL
 
                     var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
 
+                    result = result.Where(x => x.IdSolicitud == detalle.IdSolicitud).ToList();
+
                     ResultadoConsulta.objetoRespuesta = result;
                     ResultadoConsulta.CantidadRegistros = result.Count();
                 }
+
+
             }
             catch (Exception ex)
             {
