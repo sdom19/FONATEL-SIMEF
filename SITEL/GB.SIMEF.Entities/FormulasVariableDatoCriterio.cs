@@ -7,7 +7,7 @@ namespace GB.SIMEF.Entities
     public class FormulasVariableDatoCriterio : ArgumentoFormula
     {
         [Key]
-        public new int IdFormulasVariablesDatoCriterio { set; get; }
+        public new int IdFormulasVariableDatoCriterio { set; get; }
         public int IdFuenteIndicador { get; set; }
         public int IdIndicador { get; set; }
         public int IdVariableDato { get; set; }
@@ -21,6 +21,8 @@ namespace GB.SIMEF.Entities
         public string IdFormulasVariablesDatoCriterioString { set; get; }
         [NotMapped]
         public string IdFuenteIndicadorString { get; set; }
+        [NotMapped]
+        public string IdIndicadorDesencriptado { get; set; } // debido a otras fuentes de indicador, existen IDs alfanumnericos
         [NotMapped]
         public string IdIndicadorString { get; set; }
         [NotMapped]

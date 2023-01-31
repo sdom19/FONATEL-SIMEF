@@ -954,12 +954,15 @@ GestionFormulaView = {
                 $(GestionFormulaView.Controles.modalDetalleAgregacion.divCriterio).css("display", "block");
             }
 
-            if (pFuenteIndicador == GestionFormulaView.Variables.FuenteIndicador.IndicadorFuenteExterna) {
+            if (pFuenteIndicador == GestionFormulaView.Variables.FuenteIndicador.IndicadorFuenteExterna
+                || pFuenteIndicador == GestionFormulaView.Variables.FuenteIndicador.IndicadorUIT
+                || pFuenteIndicador == GestionFormulaView.Variables.FuenteIndicador.IndicadorCruzado) {
                 $(GestionFormulaView.Controles.form.divServicio).css("display", "none");
                 $(GestionFormulaView.Controles.form.divGrupo).css("display", "none");
                 $(GestionFormulaView.Controles.form.divClasificacion).css("display", "none");
                 $(GestionFormulaView.Controles.form.divAcumulacion).css("display", "none");
                 $(GestionFormulaView.Controles.form.divTipoIndicador).css("display", "none");
+                $(GestionFormulaView.Controles.form.divIndicador).css("display", "none");
                 
             }
         },
@@ -1189,13 +1192,23 @@ GestionFormulaView = {
             EliminarDatasource();
             let html = "";
             for (var i = 0; i < pListado?.length; i++) {
+                let codigo = GestionFormulaView.Variables.codigoIndicadorSeleccionado;
+                if (codigo == "" || codigo == null) { codigo = "-"; }
+
+                let fuenteSeleccionada = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
+                let disabled, checked = "";
+
+                if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGC) {
+                    disabled = "disabled"; checked = "checked";
+                }
+
                 let detalle = pListado[i];
                 html += `<tr value="${detalle.id}">`;
-                html += `<td scope='row'>${GestionFormulaView.Variables.codigoIndicadorSeleccionado}</td>`;
+                html += `<td scope='row'>${codigo}</td>`;
                 html += `<td>${detalle.NombreVariable}</td>`;
-                html += `<td><input type='checkbox' id='${GestionFormulaView.Controles.form.chkValorTotal.slice(1)}'/></td>`;
+                html += `<td><input type='checkbox' id='${GestionFormulaView.Controles.form.chkValorTotal.slice(1)}' ${disabled} ${checked}/></td>`;
                 html += `<td><button type='submit' id='${GestionFormulaView.Controles.form.btnAgregarDetalleAgregacion.slice(1)}'
-                        class='btn-icon-base btn-touch' data-toggle='tooltip' data-placement='top' title='${GestionFormulaView.Variables.tooltipBtnAgregarDetalleAgregacionAgregar}'></button></td>`;
+                        class='btn-icon-base btn-touch' data-toggle='tooltip' data-placement='top' title='${GestionFormulaView.Variables.tooltipBtnAgregarDetalleAgregacionAgregar}' ${disabled}></button></td>`;
                 html += `<td><button type='submit' id='' class='btn-icon-base btn-add' data-toggle='tooltip' data-placement='top' title='Agregar'></button></td>`;
                 html += "</tr>";
             }
@@ -1271,7 +1284,7 @@ GestionFormulaView = {
         RegistrarCriterio: function (pElementRoot) {
             GestionFormulaView.Variables.filaSeleccionadaTablaDetalles = $(pElementRoot).parent().parent();
             let argumento = GestionFormulaView.Metodos.ConstruirArgumento(GestionFormulaView.Variables.TipoArgumento.criterio);
-
+            
             if (argumento) {
                 new Promise((resolve, reject) => {
                     jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaAgregarArgumento, jsMensajes.Variables.actionType.agregar)
@@ -2255,12 +2268,14 @@ GestionFormulaView = {
             if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGF) {
                 GestionFormulaView.Metodos.CargarCatalogosParaFuenteIndicadorFonatel();
             }
-            else if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorFuenteExterna) {
-                GestionFormulaView.Metodos.CargarDatosIndicador(fuenteSeleccionada);
-            }
-            else {
+            else if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGM
+                || fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGC) {
                 GestionFormulaView.Metodos.CargarCatalogosParaFuenteIndicadorFueraDeFonatel(fuenteSeleccionada);
             }
+            //else if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorFuenteExterna) {
+            //    GestionFormulaView.Metodos.CargarDatosIndicador(fuenteSeleccionada);
+            //}
+            
         });
 
         $(GestionFormulaView.Controles.form.ddlGrupo).on('select2:select', function () {
@@ -2303,7 +2318,24 @@ GestionFormulaView = {
         });
 
         $(document).on("click", GestionFormulaView.Controles.form.btnAgregarArgumento, function () {
-            GestionFormulaView.Metodos.RegistrarCriterio(this);
+            let acumulacion = $(GestionFormulaView.Controles.form.ddlAcumulacion).val();
+            let fuente = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
+
+            if (fuente == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGF) {
+                if (acumulacion != "" && acumulacion != null) {
+                    GestionFormulaView.Metodos.RegistrarCriterio(this);
+                }
+            }
+            else if (fuente == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGC) {
+                // como no tenemos opcion de selecionar Valor Total o Detalle de Agrupación, por default debe ser Valor Total
+                GestionFormulaView.Variables.filaSeleccionadaTablaDetalles = $(this).parent().parent();
+                GestionFormulaView.Metodos.AgregarObjDetalleModalDetalle(true);
+                GestionFormulaView.Metodos.RegistrarCriterio(this);
+            }
+            else {
+                GestionFormulaView.Metodos.RegistrarCriterio(this);
+            }
+
         });
 
         // Modal detalle desagregación/agrupación
@@ -2460,7 +2492,9 @@ GestionFormulaView = {
         // Acciones de la pantalla
 
         $(document).on("click", GestionFormulaView.Controles.form.btnGuardar, function (e) {
-            GestionFormulaView.Metodos.CrearFormulaGuardadoParcial();
+            if (ObtenerValorParametroUrl("id") != null) {
+                GestionFormulaView.Metodos.CrearFormulaGuardadoParcial();
+            }
         });
 
         // | Eventos por probar y rehacer   |

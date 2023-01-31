@@ -595,14 +595,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     case FuenteIndicadorEnum.IndicadorDGC:
                         resultado = grupoIndicadorBL.ObtenerDatosCalidad();
                         break;
-                    case FuenteIndicadorEnum.IndicadorUIT:
-                        resultado = grupoIndicadorBL.ObtenerDatosUIT();
-                        break;
-                    case FuenteIndicadorEnum.IndicadorCruzado:
-                        resultado = grupoIndicadorBL.ObtenerDatosCruzado();
-                        break;
-                    case FuenteIndicadorEnum.IndicadorFuenteExterna:
-                        break;
+                    // se conservan debido a futuros cambios
+                    //case FuenteIndicadorEnum.IndicadorUIT:
+                    //    resultado = grupoIndicadorBL.ObtenerDatosCruzado();
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorCruzado:
+                    //    resultado = grupoIndicadorBL.ObtenerDatosCruzado();
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorFuenteExterna:
+                    //    break;
                     default:
                         resultado.HayError = (int)Error.ErrorSistema;
                         break;
@@ -637,14 +638,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     case FuenteIndicadorEnum.IndicadorDGC:
                         resultado = tipoIndicadorBL.ObtenerDatosCalidad();
                         break;
-                    case FuenteIndicadorEnum.IndicadorUIT:
-                        resultado = tipoIndicadorBL.ObtenerDatosUIT();
-                        break;
-                    case FuenteIndicadorEnum.IndicadorCruzado:
-                        resultado = tipoIndicadorBL.ObtenerDatosCruzado();
-                        break;
-                    case FuenteIndicadorEnum.IndicadorFuenteExterna:
-                        break;
+                    // se conservan debido a futuros cambios
+                    //case FuenteIndicadorEnum.IndicadorUIT:
+                    //    resultado = tipoIndicadorBL.ObtenerDatosUIT();
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorCruzado:
+                    //    resultado = tipoIndicadorBL.ObtenerDatosCruzado();
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorFuenteExterna:
+                    //    break;
                     default:
                         resultado.HayError = (int)Error.ErrorSistema;
                         break;
@@ -714,12 +716,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     case FuenteIndicadorEnum.IndicadorDGC:
                         resultado = servicioSitelBL.ObtenerDatosCalidad();
                         break;
-                    case FuenteIndicadorEnum.IndicadorUIT:
-                        resultado = servicioSitelBL.ObtenerDatosUIT();
-                        break;
-                    case FuenteIndicadorEnum.IndicadorCruzado:
-                        resultado = servicioSitelBL.ObtenerDatosCruzado();
-                        break;
+                    // se conservan debido a futuros cambios
+                    //case FuenteIndicadorEnum.IndicadorUIT:
+                    //    resultado = servicioSitelBL.ObtenerDatosUIT();
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorCruzado:
+                    //    resultado = servicioSitelBL.ObtenerDatosCruzado();
+                    //    break;
                     default:
                         resultado.HayError = (int)Error.ErrorSistema;
                         break;

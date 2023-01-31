@@ -20,8 +20,8 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public string IdFormulasDefinicionFechaString { set; get; }
-        [NotMapped]
-        public string IdUnidadMedidaString { set; get; }
+        //[NotMapped]
+        //public string IdUnidadMedidaString { set; get; }
         [NotMapped]
         public string IdTipoFechaInicioString { set; get; }
         [NotMapped]

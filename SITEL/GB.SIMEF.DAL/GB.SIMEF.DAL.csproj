@@ -65,6 +65,7 @@
     <Compile Include="DetalleIndicadorCategoriaDAL.cs" />
     <Compile Include="DetalleIndicadorCriteriosSitelDAL.cs" />
     <Compile Include="DetalleIndicadorVariablesDAL.cs" />
+    <Compile Include="DWHSUTELContext.cs" />
     <Compile Include="EditarDetalleRegistroIndicadorFonatelDAL.cs" />
     <Compile Include="DetalleSolicitudesDAL.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatelDAL.cs" />
@@ -72,6 +73,8 @@
     <Compile Include="EnvioSolicitudDAL.cs" />
     <Compile Include="FormulasCalculoTipoFechaDAL.cs" />
     <Compile Include="FormulasCalculoUnidadMedidaDAL.cs" />
+    <Compile Include="FormulasDefinicionFecha.cs" />
+    <Compile Include="FormulasVariableDatoCriterioDAL.cs" />
     <Compile Include="FuenteIndicadorDAL.cs" />
     <Compile Include="PlantillaHtmlDAL.cs" />
     <Compile Include="EditarRegistroIndicadorDAL.cs" />
