@@ -47,7 +47,7 @@
                     html = html + "</tr></thead><tbody>";
                     let totalFilas = datoHistorico.DetalleDatoHistoricoFila.reduce((prev, current) => { return prev.NumeroFila > current.NumeroFila ? prev : current }).NumeroFila || 20;
                     let totalColumnas = datoHistorico.DetalleDatoHistoricoColumna.length;
-                    for (var numfila = 1; numfila < totalFilas; numfila++) {
+                    for (var numfila = 1; numfila <= totalFilas; numfila++) {
                         let fila = datoHistorico.DetalleDatoHistoricoFila.filter(x => x.NumeroFila == numfila);
                         html = html + "<tr>";
                         for (var i = 0; i < totalColumnas; i++) {
