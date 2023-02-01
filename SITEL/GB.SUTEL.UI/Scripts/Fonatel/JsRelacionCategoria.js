@@ -846,7 +846,7 @@ $(document).on("click", JsRelacion.Controles.btnFinalizarDetalle, function (e) {
 
     let id = ObtenerValorParametroUrl("idRelacionCategoria");
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Relación?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Relación entre Categorías?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsRelacion.Consultas.CambiarEstadoActivo(id);
         });

@@ -1072,7 +1072,7 @@ $(document).on("click", JsSolicitud.Controles.btnFinalizarSolicitud, function (e
 
     let id = ObtenerValorParametroUrl("id");
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Solicitud?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Solicitud de Información?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsSolicitud.Consultas.CambiarEstadoFinalizado(id);
         });
