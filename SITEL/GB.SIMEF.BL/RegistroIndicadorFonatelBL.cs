@@ -43,7 +43,7 @@ namespace GB.SIMEF.BL
 
             try
             {
-                
+
                 envioCorreo.objetoRespuesta = false;
 
                 PlantillaHtml plantilla = plantillaDal.ObtenerDatos((int)Constantes.PlantillaCorreoEnum.EnvioRegistroIndicadorInformante);
@@ -51,7 +51,7 @@ namespace GB.SIMEF.BL
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
 
                 var FechaActual = DateTime.Today.ToShortDateString();
-                var HoraActual = DateTime.Now.ToShortTimeString(); 
+                var HoraActual = DateTime.Now.ToShortTimeString();
 
                 if (objeto.Fuente.idEstado == (int)Constantes.EstadosRegistro.Activo)
                 {
@@ -64,7 +64,6 @@ namespace GB.SIMEF.BL
                         var result = correoDal.EnviarCorreo();
                         envioCorreo.objetoRespuesta = result == 0 ? false : true;
                     }
-
                 }
                 else
                 {
@@ -72,7 +71,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.SolicitudesFuenteRegistrada);
                 }
 
-                //clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarSolicitud, "Sistema automático", modulo, objeto.Codigo);
+                clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarCorreoInformante, "Sistema automático", modulo, objeto.Codigo);
 
 
             }
@@ -98,8 +97,11 @@ namespace GB.SIMEF.BL
 
                 envioCorreo.objetoRespuesta = false;
 
-                //FILTRAR POR MEDIO DEL USER
-                var usuarioEncargado = clsUsuarioFonatelDAL.ObtenerDatos().ToList();
+                var ListaUsuarios = clsUsuarioFonatelDAL.ObtenerDatos().Where(x => x.AccesoUsuario == user).ToList();
+
+                string UsuarioEncargado = ListaUsuarios[0].NombreUsuario;
+
+                string CorreoEncargado = ListaUsuarios[0].CorreoUsuario;
 
                 PlantillaHtml plantilla = plantillaDal.ObtenerDatos((int)Constantes.PlantillaCorreoEnum.EnvioRegistroIndicadorEncargado);
 
@@ -112,14 +114,9 @@ namespace GB.SIMEF.BL
                 {
 
                     plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(objeto.Fuente.Fuente), objeto.Codigo, objeto.Nombre, objeto.Fuente.Fuente, FechaActual, HoraActual);
-
-                    foreach (var detalleFuente in objeto.Fuente.DetalleFuentesRegistro.Where(x => x.Estado == true))
-                    {
-                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), user), "Carga de Solicitud exitosa");
-                        var result = correoDal.EnviarCorreo();
-                        envioCorreo.objetoRespuesta = result == 0 ? false : true;
-                    }
-
+                    correoDal = new CorreoDal(CorreoEncargado, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), UsuarioEncargado), "Carga de Solicitud exitosa");
+                    var result = correoDal.EnviarCorreo();
+                    envioCorreo.objetoRespuesta = result == 0 ? false : true;
                 }
                 else
                 {
@@ -127,8 +124,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.SolicitudesFuenteRegistrada);
                 }
 
-                //clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarSolicitud, "Sistema automático", modulo, objeto.Codigo);
-
+                clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarCorreoEncargado, "Sistema automático", modulo, objeto.Codigo);
 
             }
             catch (Exception ex)
@@ -175,7 +171,36 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<RegistroIndicadorFonatel>> ActualizarElemento(RegistroIndicadorFonatel objeto)
         {
-           
+
+            ResultadoConsulta.Clase = modulo;
+            ResultadoConsulta.Accion = (int)Accion.Consultar;
+            if (!string.IsNullOrEmpty(objeto.FormularioId))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.FormularioId), out int temp);
+                objeto.IdFormulario = temp;
+            }
+            if (!string.IsNullOrEmpty(objeto.Solicitudid))
+            {
+                int.TryParse(Utilidades.Desencriptar(objeto.Solicitudid), out int temp);
+                objeto.IdSolicitud = temp;
+            }
+
+            switch (objeto.IdEstado)
+            {
+                case 1:
+                    objeto.Estado = "En Proceso";
+                    break;
+                case 6:
+                    objeto.Estado = "Enviado";
+                    break;
+                default:
+                    break;
+            }
+
+            var result = clsDatos.ActualizarRegistroIndicadorFonatel(objeto);
+
+            ResultadoConsulta.objetoRespuesta = result;
+            ResultadoConsulta.CantidadRegistros = result.Count();
 
             return ResultadoConsulta;
         }

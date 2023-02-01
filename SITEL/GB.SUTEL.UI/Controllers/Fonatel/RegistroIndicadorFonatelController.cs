@@ -185,7 +185,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
-        public async Task<string> InsertarRegistroIndicadorVariable(List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleIndicadorValor)
+        public async Task<string> InsertarRegistroIndicadorVariable(DetalleRegistroIndicadorFonatel ListaDetalleIndicadorValor)
         {
 
             //Creamos una variable resultado de tipo lista relacion categoria
@@ -273,21 +273,81 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// Fecha 28/11/2022
         /// Georgi Mesen Cerdas
-        /// Metodo para obtener la lista de DetalleRegistroIndicadorCategoriaValorFonatel
+        /// Metodo para obtener la lista de DetalleRegistroIndicadorCategoriaValorFonatel y DetalleRegistroIndicadorVariableValorFonatel
         /// </summary>
         /// <returns></returns>
 
         [HttpPost]
-        public async Task<string> ObtenerListaDetalleRegistroIndicadorCategoriaValorFonatel(DetalleRegistroIndicadorCategoriaValorFonatel detalle)
+        public async Task<string> ObtenerListaDetalleRegistroIndicadorValoresFonatel(DetalleRegistroIndicadorFonatel detalle)
         {
-            RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> result = null;
+            RespuestaConsulta<DetalleRegistroIndicadorFonatel> result = null;
 
             await Task.Run(() =>
             {
-                result = detalleRegistroIndicadorCategoriaValorFonatelBL.ObtenerDatos(detalle);
+                result = detalleRegistroIndicadorBL.ObtenerListaDetalleRegistroIndicadorValoresFonatel(detalle);
             });
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Fecha 28/11/2022
+        /// Georgi Mesen Cerdas
+        /// Metodo para obtener la Actualizar el estado de registro indicador
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<string> ActualizarRegistroIndicador(RegistroIndicadorFonatel objeto)
+        {
+            RespuestaConsulta<List<RegistroIndicadorFonatel>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = registroIndicadorBL.ActualizarElemento(objeto);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Autor: Francisco Vindas RUiz
+        /// Fecha: 27/01/2023
+        /// Metodo: El metodo sirve para realizar la carga total de la informacion de Registro Indicador a la Base de Datos de SITELP
+        /// </summary>
+        /// <param name="lista"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CargaTotalRegistroIndicador(List<DetalleRegistroIndicadorFonatel> lista)
+        {
+
+            RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> result = null;
+
+            RespuestaConsulta<bool> envioCorreo = new RespuestaConsulta<bool>();
+
+            RegistroIndicadorFonatel registroIndicador = new RegistroIndicadorFonatel();
+
+            await Task.Run(() =>
+            {
+                result = detalleRegistroIndicadorBL.CargaTotalRegistroIndicador(lista);
+
+            })
+            .ContinueWith(data =>
+            {
+                if (result.objetoRespuesta.Count() > 0)
+                {
+                    var respuestaConsulta = result.objetoRespuesta.FirstOrDefault();
+
+                    registroIndicador.IdSolicitud = respuestaConsulta.IdSolicitud;
+
+                    registroIndicador.IdFormulario = respuestaConsulta.IdFormulario;
+
+                    envioCorreo = registroIndicadorBL.EnvioCorreoInformante(registroIndicador);
+
+                    envioCorreo = registroIndicadorBL.EnvioCorreoEncargado(registroIndicador);
+
+                }
+            });
+            return JsonConvert.SerializeObject(result);
+
+        }
     }
 }

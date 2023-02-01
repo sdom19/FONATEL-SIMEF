@@ -52,7 +52,8 @@ namespace GB.SIMEF.Entities
         public virtual List<DetalleRegistroIndicadorVariableFonatel> DetalleRegistroIndicadorVariableFonatel { get; set; }
         [NotMapped]
         public virtual List<DetalleRegistroIndicadorCategoriaValorFonatel> DetalleRegistroIndicadorCategoriaValorFonatel { get; set; }
-
+        [NotMapped]
+        public virtual List<DetalleRegistroIndicadorVariableValorFonatel> DetalleRegistroIndicadorVariableValorFonatel { get; set; }
 
     }
 }
