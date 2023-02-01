@@ -95,6 +95,32 @@ namespace GB.SIMEF.DAL
             }
         }
 
+        /// <summary>
+        /// Metodo que actualiza los estados de registro indicador fonatel
+        /// fecha 25-01-2023
+        /// Georgi Mesen Cerdas
+        /// </summary>
+        /// <param name="objRegistroIndicadorFonatel"></param>
+        public List<RegistroIndicadorFonatel> ActualizarRegistroIndicadorFonatel(RegistroIndicadorFonatel objRegistroIndicadorFonatel)
+        {
+            List<RegistroIndicadorFonatel> ListaRegistroIndicadorFonatel = new List<RegistroIndicadorFonatel>();
+            using (db = new SITELContext())
+            {
+
+                ListaRegistroIndicadorFonatel = db.Database.SqlQuery<RegistroIndicadorFonatel>
+                    ("execute Fonatel.pa_ActualizarRegistroIndicadorFonatel @IdSolicitud,@IdFormulario,@Estado, @idEstado",
+                     new SqlParameter("@IdSolicitud", objRegistroIndicadorFonatel.IdSolicitud),
+                     new SqlParameter("@IdFormulario", objRegistroIndicadorFonatel.IdFormulario),
+                     new SqlParameter("@Estado", objRegistroIndicadorFonatel.Estado),
+                     new SqlParameter("@IdEstado", objRegistroIndicadorFonatel.IdEstado)
+                    ).ToList();
+
+                ListaRegistroIndicadorFonatel = CrearListado(ListaRegistroIndicadorFonatel);
+            }
+
+            return ListaRegistroIndicadorFonatel;
+        }
+
 
         ///// <summary>
         ///// Actualiza los datos e inserta por medio de merge

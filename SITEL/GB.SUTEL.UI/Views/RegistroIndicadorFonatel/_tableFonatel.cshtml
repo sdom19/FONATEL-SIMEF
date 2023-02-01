@@ -29,16 +29,7 @@
                 <td>@item.Mes</td>
                 <th>@item.Formulario</th>
                 <td>@item.Estado</td>
-                @if (item.IdEstado == (int)Constantes.EstadosRegistro.Activo || item.IdEstado == (int)Constantes.EstadosRegistro.EnProceso)
-                {
-                    <td><button type="button" data-toggle="tooltip" data-placement="top"  onclick="location.href='@Url.Action("Create", "RegistroIndicadorFonatel",new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'"  title=@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb class="btn-icon-base btn-edit-form"></button></td>
-               
-                }
-                else
-                {
-                    <td><button type="button" data-toggle="tooltip" data-placement="top" value="" title=@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb class="btn-icon-base btn-edit-form disabled"></button></td>
-                }
-
+                <td><button type="button" data-toggle="tooltip" data-placement="top"  onclick="location.href='@Url.Action("Create", "RegistroIndicadorFonatel",new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'"  title=@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb class="btn-icon-base btn-edit-form"></button></td>
             </tr>
             }
         </tbody>

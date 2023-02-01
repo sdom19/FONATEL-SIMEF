@@ -60,6 +60,7 @@
     <Compile Include="DetalleRegistroIndicadorCategoriaValorFonatel.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatel.cs" />
     <Compile Include="DetalleRegistroIndicadorCategoriaFonatel.cs" />
+    <Compile Include="DetalleRegistroIndicadorVariableValorFonatel.cs" />
     <Compile Include="DetalleReglaValidacion.cs" />
     <Compile Include="EstadoLogico.cs" />
     <Compile Include="FormulasCalculoTipoFecha.cs" />
