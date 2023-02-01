@@ -747,7 +747,7 @@ $(document).on("click", JsCategoria.Controles.btnCancelar, function (e) {
 
 $(document).on("click", JsCategoria.Controles.btnFinalizarDetalle, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Categoría?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsCategoria.Consultas.FinalizarCategoria();
         });

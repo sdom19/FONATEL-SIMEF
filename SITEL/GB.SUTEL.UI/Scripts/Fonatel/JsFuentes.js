@@ -462,7 +462,7 @@ $(document).on("click", JsFuentes.Controles.step2, function (e) {
 $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function (e) {
     e.preventDefault();
  
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea crear la Fuente?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Fuente de Registro?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsFuentes.Consultas.ActivarFuente();
         });

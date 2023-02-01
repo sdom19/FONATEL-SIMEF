@@ -45,11 +45,17 @@
                         html = html + " <th>" + datoHistorico.DetalleDatoHistoricoColumna[i].Nombre + "</th>"
                     }
                     html = html + "</tr></thead><tbody>";
-                    for (var numfila = 1; numfila < 20; numfila++) {
+                    let totalFilas = datoHistorico.DetalleDatoHistoricoFila.reduce((prev, current) => { return prev.NumeroFila > current.NumeroFila ? prev : current }).NumeroFila || 20;
+                    let totalColumnas = datoHistorico.DetalleDatoHistoricoColumna.length;
+                    for (var numfila = 1; numfila <= totalFilas; numfila++) {
                         let fila = datoHistorico.DetalleDatoHistoricoFila.filter(x => x.NumeroFila == numfila);
                         html = html + "<tr>";
-                        for (var i = 0; i < fila.length; i++) {
-                            html = html + " <th>" + fila[i].Atributo + "</th>"
+                        for (var i = 0; i < totalColumnas; i++) {
+                            if (i < fila.length) {
+                                html = html + " <th>" + fila[i].Atributo + "</th>"
+                            } else {
+                                html = html + " <th></th>"
+                            }
                         }
                         html = html + "</tr>";
                     }
@@ -61,7 +67,7 @@
 
                 html = html + " </div>";
                 $(JsHistorico.Controles.divHistorica).html(html);
-                CargarDatasourceV2(".dataTable");
+                CargarDatasource(".dataTable");
             },
 
      },

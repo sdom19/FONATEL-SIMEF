@@ -11,6 +11,7 @@
                 <label for="ddlTipoRegla" class="col-sm-12  ">@EtiquetasViewDefinicionIndicadores.Indicador</label>
                 <div class="select2-wrapper col-sm-12 ">
                     @Html.DropDownListFor(model => model.Indicador.id, new SelectList(ViewBag.ListaIndicadores, "Value", "Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlindicador" })
+                    <small id="ddlIndicadorHelp" class="form-text form-text-danger-fonatel col-md-12 pl-0 hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
 
