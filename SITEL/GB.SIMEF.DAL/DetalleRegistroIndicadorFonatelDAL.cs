@@ -80,6 +80,7 @@ namespace GB.SIMEF.DAL
                     DetalleRegistroIndicadorVariableFonatel=ObtenerDatoDetalleRegistroIndicadorVariable(x),
                     DetalleRegistroIndicadorCategoriaFonatel=ObtenerDatoDetalleRegistroIndicadorCategoria(x),
                     DetalleRegistroIndicadorCategoriaValorFonatel = ObtenerDetalleRegistroIndicadorCategoriaValor(x),
+                    DetalleRegistroIndicadorVariableValorFonatel = ObtenerDetalleRegistroIndicadorVariableValor(x),
                     IdFormularioString = Utilidades.Encriptar(x.IdFormulario.ToString()),
                     IdIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                     IdSolicitudString = Utilidades.Encriptar(x.IdSolicitud.ToString())
@@ -372,6 +373,130 @@ namespace GB.SIMEF.DAL
             return ListaRegistroIndicadorFonatel;
         }
 
+        #endregion
+
+        #region DetalleRegistroIndicadorVariableValorFonatel
+        /// <summary>
+        /// Autor: Georgi Mesen Cerdas
+        /// Fecha: 26/01/2023
+        /// Ejecutar procedimiento almacenado para obtener DetalleRegistroIndicadorVariableValorFonatel
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public List<DetalleRegistroIndicadorVariableValorFonatel> ObtenerDetalleRegistroIndicadorVariableValorFonatel(DetalleRegistroIndicadorVariableValorFonatel objeto)
+        {
+            List<DetalleRegistroIndicadorVariableValorFonatel> ListaDetalleRegistroIndicadorVariableValorFonatel = new List<DetalleRegistroIndicadorVariableValorFonatel>();
+            using (db = new SITELContext())
+            {
+                ListaDetalleRegistroIndicadorVariableValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorVariableValorFonatel>
+                ("execute FONATEL.spObtenerDetalleRegistroIndicadorVariableValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @IdVariable",
+                   new SqlParameter("@idSolicitud", objeto.IdSolicitud),
+                   new SqlParameter("@idFormulario", objeto.IdFormulario),
+                   new SqlParameter("@idIndicador", objeto.IdIndicador),
+                   new SqlParameter("@IdVariable", objeto.IdVariable)
+                ).ToList();
+
+                ListaDetalleRegistroIndicadorVariableValorFonatel = ListaDetalleRegistroIndicadorVariableValorFonatel.Select(x => new DetalleRegistroIndicadorVariableValorFonatel()
+                {
+                    IdSolicitud = x.IdSolicitud,
+                    IdFormulario = x.IdFormulario,
+                    IdIndicador = x.IdIndicador,
+                    IdVariable = x.IdVariable,
+                    NumeroFila = x.NumeroFila,
+                    Valor = x.Valor,
+                }).ToList();
+            }
+
+            return ListaDetalleRegistroIndicadorVariableValorFonatel;
+        }
+
+        /// <summary>
+        /// Autor: Georgi Mesen Cerdas
+        /// Fecha: 26/01/2023
+        /// Ejecutar procedimiento almacenado para obtener DetalleRegistroIndicadorVariableValorFonatel
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public List<DetalleRegistroIndicadorVariableValorFonatel> ObtenerDetalleRegistroIndicadorVariableValor(DetalleRegistroIndicadorFonatel objeto)
+        {
+            List<DetalleRegistroIndicadorVariableValorFonatel> ListaDetalleRegistroIndicadorVariableValorFonatel = new List<DetalleRegistroIndicadorVariableValorFonatel>();
+
+            ListaDetalleRegistroIndicadorVariableValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorVariableValorFonatel>
+            ("execute FONATEL.spObtenerDetalleRegistroIndicadorVariableValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @IdVariable",
+               new SqlParameter("@idSolicitud", objeto.IdSolicitud),
+               new SqlParameter("@idFormulario", objeto.IdFormulario),
+               new SqlParameter("@idIndicador", objeto.IdIndicador),
+               new SqlParameter("@IdVariable", objeto.idCategoria)
+            ).ToList();
+
+
+            ListaDetalleRegistroIndicadorVariableValorFonatel = ListaDetalleRegistroIndicadorVariableValorFonatel.Select(x => new DetalleRegistroIndicadorVariableValorFonatel()
+            {
+                IdSolicitud = x.IdSolicitud,
+                IdFormulario = x.IdFormulario,
+                IdIndicador = x.IdIndicador,
+                IdVariable = x.IdVariable,
+                NumeroFila = x.NumeroFila,
+                Valor = x.Valor,
+            }).ToList();
+
+            return ListaDetalleRegistroIndicadorVariableValorFonatel;
+        }
+
+        /// <summary>
+        /// Autor: Georgi Mesen Cerdas
+        /// Fecha: 26/01/2023
+        /// Ejecutar procedimiento almacenado para actualizar o insertar datos de DetalleRegistroIndicadorVariableValorFonatel
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public List<DetalleRegistroIndicadorVariableValorFonatel> InsertarDetalleRegistroIndicadorVariableValorFonatel(DataTable objeto)
+        {
+            List<DetalleRegistroIndicadorVariableValorFonatel> ListaDetalleRegistroIndicadorVariableValorFonatel = new List<DetalleRegistroIndicadorVariableValorFonatel>();
+            using (db = new SITELContext())
+            {
+                var parametros = new SqlParameter("@lst", SqlDbType.Structured);
+                parametros.SqlValue = objeto;
+                parametros.TypeName = "FONATEL.TypeDetalleRegistroIndicadorVariableValorFonatel";
+
+                ListaDetalleRegistroIndicadorVariableValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorVariableValorFonatel>
+                ("execute FONATEL.spInsertarDetalleRegistroIndicadorVariableValorFonatel @lst", parametros
+                    ).ToList();
+
+                ListaDetalleRegistroIndicadorVariableValorFonatel = ListaDetalleRegistroIndicadorVariableValorFonatel.Select(x => new DetalleRegistroIndicadorVariableValorFonatel()
+                {
+                    IdSolicitud = x.IdSolicitud,
+                    IdFormulario = x.IdFormulario,
+                    IdIndicador = x.IdIndicador,
+                    IdVariable = x.IdVariable,
+                    NumeroFila = x.NumeroFila,
+                    Valor = x.Valor,
+                }).ToList();
+            }
+            return ListaDetalleRegistroIndicadorVariableValorFonatel;
+        }
+
+        /// <summary>
+        /// Autor: Georgi Mesen Cerdas
+        /// Fecha: 26/01/2023
+        /// Ejecutar procedimiento almacenado para eliminar DetalleRegistroIndicadorVariableValorFonatel
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public void EliminarDetalleRegistroIndicadorVariableValorFonatel(DetalleRegistroIndicadorVariableValorFonatel objeto)
+        {
+            List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleRegistroIndicadorVariableValorFonatel = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
+            using (db = new SITELContext())
+            {
+                ListaDetalleRegistroIndicadorVariableValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
+                ("execute FONATEL.spEliminarDetalleRegistroIndicadorVariableValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idVariable",
+                   new SqlParameter("@idSolicitud", objeto.IdSolicitud),
+                   new SqlParameter("@idFormulario", objeto.IdFormulario),
+                   new SqlParameter("@idIndicador", objeto.IdIndicador),
+                   new SqlParameter("@idVariable", objeto.IdVariable)
+                ).ToList();
+            }
+        }
         #endregion
     }
 }
