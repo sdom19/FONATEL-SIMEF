@@ -61,7 +61,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Clonar Definición.
+        ///   Busca una cadena traducida similar a Clonar Definiciones de Indicadores.
         /// </summary>
         public static string Clonar {
             get {
@@ -70,7 +70,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Crear Definición.
+        ///   Busca una cadena traducida similar a Crear Definiciones de Indicadores.
         /// </summary>
         public static string Crear {
             get {
@@ -79,7 +79,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Detalle de Definición.
+        ///   Busca una cadena traducida similar a Detalle de Definiciones de Indicadores.
         /// </summary>
         public static string Detalle {
             get {
@@ -88,7 +88,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Editar Definición.
+        ///   Busca una cadena traducida similar a Editar Definiciones de Indicadores.
         /// </summary>
         public static string Editar {
             get {
