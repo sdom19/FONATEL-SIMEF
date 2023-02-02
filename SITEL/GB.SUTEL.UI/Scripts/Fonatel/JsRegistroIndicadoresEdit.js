@@ -59,7 +59,7 @@
         "Validacion": false,
         "paginasActualizadasConSelect2_tablaIndicador": {},
         "DetalleRegistroIndicador": [],
-        "ListadoDetalleRegistroIndicador": [],
+        "ListadoDetalleRegistroIndicador": new Object(),
         "GuardadoTotal": false,
     },
 
@@ -103,7 +103,9 @@
 
         "CrearRegistroIndicadorMultiple": function () {
 
-            jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador = [];
+            jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador = new Object();
+            jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador.DetalleRegistroIndicadorCategoriaValorFonatel = [];
+            jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador.DetalleRegistroIndicadorVariableValorFonatel = [];
             let NumeroFila = 0;
             var cantIndicadores = parseInt($(jsRegistroIndicadorFonatelEdit.Controles.txtcantidadIndicadores).val());
             for (var i = 1; i <= cantIndicadores; i++) {
@@ -122,22 +124,30 @@
                             registroIndicador.NumeroFila = NumeroFila;
                             if ($(this).children("input").length != 0) {
                                 var input = $(this).children("input");
-                                registroIndicador.IdCategoria = $(input).attr("name").replace("name_", "");
-                                registroIndicador.Valor = input.val(); //(input.val() == "" ? " " : input.val());
+                                if (input.hasClass("VariableDato")) {
+                                    let registroVariable = new Object();
+                                    registroVariable.SolicitudId = ObtenerValorParametroUrl("idSolicitud");
+                                    registroVariable.FormularioId = ObtenerValorParametroUrl("idFormulario");
+                                    registroVariable.IndicadorId = $(jsRegistroIndicadorFonatelEdit.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
+                                    registroVariable.Valor = "";
+                                    registroVariable.NumeroFila = NumeroFila;
+                                    registroVariable.IdVariable = $(input).attr("name").replace("name_", "");
+                                    registroVariable.Valor = input.val();
+                                    if (registroVariable.Valor.length != 0) {
+                                        jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador.DetalleRegistroIndicadorVariableValorFonatel.push(registroVariable);
+                                    }
+                                } else {
+                                    registroIndicador.IdCategoria = $(input).attr("name").replace("name_", "");
+                                    registroIndicador.Valor = input.val();
+                                }
                             }
                             else if ($(this).children(".select2-wrapper").length != 0) {
                                 var select = $(this).children(".select2-wrapper");
                                 registroIndicador.IdCategoria = $(select.children(".listasDesplegables")).attr("name").replace("name_", "");
                                 registroIndicador.Valor = select.children(".listasDesplegables").val();
                             }
-                            //else if ($(this).children(".VariableDato").length != 0) {
-                            //    var etiqueta = $(this).children(".VariableDato");
-                            //    registroIndicador.IdCategoria = $(etiqueta).attr("name").replace("name_", "");
-                            //    registroIndicador.Valor = $(etiqueta).text();
-                            //}
-                            //registroIndicador.Valor.hasOwnProperty("IdCategoria")
                             if (registroIndicador.Valor.length != 0) {
-                                jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador.push(registroIndicador);
+                                jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador.DetalleRegistroIndicadorCategoriaValorFonatel.push(registroIndicador);
                             }
                         });
                     });
@@ -173,7 +183,9 @@
             let html = "<tr><td></td>";
 
             for (var i = 0; i < jsRegistroIndicadorFonatelEdit.Variables.DetalleRegistroIndicador.DetalleRegistroIndicadorVariableFonatel.length; i++) {
-                html = html + "<td>1</td>";
+                let variable = jsRegistroIndicadorFonatelEdit.Variables.DetalleRegistroIndicador.DetalleRegistroIndicadorVariableFonatel[i];
+                html = html + "<td><input type='number' name='name_" + variable.idVariable + "' class='form-control form-control-fonatel solo_numeros VariableDato' id='[0]-" + variable.idVariable + "'></td>";
+
             }
 
             for (var i = 0; i < jsRegistroIndicadorFonatelEdit.Variables.DetalleRegistroIndicador.DetalleRegistroIndicadorCategoriaFonatel.length; i++) {
@@ -202,9 +214,22 @@
             $(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicadorRecorrido).each(function (index) {
                 NumeroFila++;
                 var elementotd = $(this).children("td");
-                Listado.forEach(function (item) {
+                Listado.DetalleRegistroIndicadorCategoriaValorFonatel.forEach(function (item) {
                     if (item.NumeroFila == NumeroFila) {
                         var elementoInput = elementotd.find("[name='name_" + item.idCategoria + "']");
+                        elementoInput.val(item.Valor).change();
+                    }
+                });
+                $(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicador_filter).addClass("hidden");
+            });
+
+            NumeroFila = 0
+            $(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicadorRecorrido).each(function (index) {
+                NumeroFila++;
+                var elementotd = $(this).children("td");
+                Listado.DetalleRegistroIndicadorVariableValorFonatel.forEach(function (item) {
+                    if (item.NumeroFila == NumeroFila) {
+                        var elementoInput = elementotd.find("[name='name_" + item.IdVariable + "']");
                         elementoInput.val(item.Valor).change();
                     }
                 });
@@ -232,7 +257,6 @@
             $("#loading").fadeIn();
 
             let detalleIndicadorFonatel = new Object();
-
             detalleIndicadorFonatel.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
             detalleIndicadorFonatel.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
             detalleIndicadorFonatel.IdIndicadorString = $(jsRegistroIndicadorFonatelEdit.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
@@ -261,14 +285,15 @@
                 }).finally(() => {
                     CargarDatasourceV2(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicador);
                     if (jsRegistroIndicadorFonatelEdit.Variables.ModoConsulta) {
-                        jsRegistroIndicadorFonatelEdit.Consultas.ConsultaDetalleRegistroIndicadorCategoriaValorFonatel();
+                        jsRegistroIndicadorFonatelEdit.Consultas.ConsultaDetalleRegistroIndicadorValoresFonatel();
                     }
+                    $(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicador_filter).addClass("hidden");
                     $("#loading").fadeOut();
                 });
 
         },
 
-        "ConsultaDetalleRegistroIndicadorCategoriaValorFonatel": function () {
+        "ConsultaDetalleRegistroIndicadorValoresFonatel": function () {
 
             $("#loading").fadeIn();
 
@@ -278,7 +303,7 @@
             detalle.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
             detalle.IdIndicadorString = $(jsRegistroIndicadorFonatelEdit.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
 
-            execAjaxCall("/EditarFormulario/ObtenerListaDetalleRegistroIndicadorCategoriaValorFonatel", "POST", detalle)
+            execAjaxCall("/EditarFormulario/ObtenerListaDetalleRegistroIndicadorValoresFonatel", "POST", detalle)
                 .then((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -306,44 +331,47 @@
             $("#loading").fadeIn();
 
             jsRegistroIndicadorFonatelEdit.Metodos.CrearRegistroIndicadorMultiple();
-
             let detalleIndicadorValor = jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador;
+            if (detalleIndicadorValor.DetalleRegistroIndicadorCategoriaValorFonatel.length > 0 || detalleIndicadorValor.DetalleRegistroIndicadorVariableValorFonatel.length > 0) {
 
-            $.ajax({
-                url: '/EditarFormulario/InsertarRegistroIndicadorVariable',
-                type: 'post',
-                contentType: 'application/json;charset=UTF-8',
-                dataType: 'json',
-                data: JSON.stringify({ ListaDetalleIndicadorValor: detalleIndicadorValor }),
-                success: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
-                            .set('onok', function (closeEvent) { $("#loading").fadeOut(); });
-                    }
-                },
-                error: function (obj) {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { })
-                    }
-                },
-                async: false
-            });
+                $.ajax({
+                    url: '/EditarFormulario/InsertarRegistroIndicadorVariable',
+                    type: 'post',
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType: 'json',
+                    data: JSON.stringify({ ListaDetalleIndicadorValor: detalleIndicadorValor }),
+                    success: function (obj) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { location.reload(); });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertModal("Los Datos han sido guardados")
+                                .set('onok', function (closeEvent) { $("#loading").fadeOut(); });
+                        }
+                    },
+                    error: function (obj) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { location.reload(); });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) { })
+                        }
+                    },
+                    async: false
+                });
+            } else {
+                jsMensajes.Metodos.OkAlertErrorModal("No ha completado la ninguna información")
+                    .set('onok', function (closeEvent) { $("#loading").fadeOut(); });
+            }
         },
 
         "ActualizarDetalleRegistroIndicador": function () {
 
             $("#loading").fadeIn();
-
-           
+         
             let listaActDetalleRegistroIndicador = [];
             let cantIndicadores = parseInt($(jsRegistroIndicadorFonatelEdit.Controles.txtcantidadIndicadores).val());
 
@@ -354,10 +382,7 @@
                 obj.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
                 obj.IdIndicadorString = $(jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador(i)).attr('data-Indicador');
                 obj.NotasEncargado = $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.txtNotasEncargado).val();
-                
-
                 let CantidadFilas = $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador).val();
-
                 obj.CantidadFilas = CantidadFilas;
 
                 if (CantidadFilas > 0) {
@@ -373,12 +398,13 @@
                     }
                     else {
                         jsRegistroIndicadorFonatelEdit.Consultas.InsertarRegistroIndicadorDetalleValor();
-                        if (GuardadoTotal) {
+
+                        if (jsRegistroIndicadorFonatelEdit.Variables.GuardadoTotal) {
                             jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
                             .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index";});
                         }
-                    }
 
+                    }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -389,15 +415,14 @@
                             .set('onok', function (closeEvent) { })
                     }
                 })
-            //.finally(() => {
-            //    $("#loading").fadeOut();
-            //});
+            .finally(() => {
+                $("#loading").fadeOut();
+            });
         },
 
-        "CargadoTotalRegistroIndicador": function (GuardadoTotal) {
+        "CargadoTotalRegistroIndicador": function (guardadoTotal) {
 
             $("#loading").fadeIn();
-
 
             let listaActDetalleRegistroIndicador = [];
             let cantIndicadores = parseInt($(jsRegistroIndicadorFonatelEdit.Controles.txtcantidadIndicadores).val());
@@ -409,10 +434,7 @@
                 obj.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
                 obj.IdIndicadorString = $(jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador(i)).attr('data-Indicador');
                 obj.NotasEncargado = $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.txtNotasEncargado).val();
-
-
                 let CantidadFilas = $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador).val();
-
                 obj.CantidadFilas = CantidadFilas;
 
                 if (CantidadFilas > 0) {
@@ -428,12 +450,13 @@
                     }
                     else {
                         jsRegistroIndicadorFonatelEdit.Consultas.InsertarRegistroIndicadorDetalleValor();
-                        if (GuardadoTotal) {
+
+                        if (guardadoTotal) {
                             jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
                                 .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
                         }
-                    }
 
+                    }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal()
@@ -444,6 +467,9 @@
                             .set('onok', function (closeEvent) { })
                     }
                 })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
         },
 
         "ImportarExcel": function () {
@@ -522,7 +548,9 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistr
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado del Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
 
-            jsRegistroIndicadorFonatelEdit.Consultas.CargadoTotalRegistroIndicador(GuardadoTotal);
+            let guardadoTotal = true;
+
+            jsRegistroIndicadorFonatelEdit.Consultas.CargadoTotalRegistroIndicador(guardadoTotal);
 
         });
 });
