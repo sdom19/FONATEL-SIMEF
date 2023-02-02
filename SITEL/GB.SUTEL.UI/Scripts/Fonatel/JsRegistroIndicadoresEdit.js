@@ -93,6 +93,7 @@
                                     registroVariable.SolicitudId = ObtenerValorParametroUrl("idSolicitud");
                                     registroVariable.FormularioId = ObtenerValorParametroUrl("idFormulario");
                                     registroVariable.IndicadorId = $(jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador(i)).attr('data-Indicador');
+                                    registroVariable.IndicadorId = $(jsRegistroIndicadorFonatelEdit.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
                                     registroVariable.Valor = "";
                                     registroVariable.NumeroFila = NumeroFila;
                                     registroVariable.IdVariable = $(input).attr("name").replace("name_", "");
