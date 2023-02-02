@@ -322,16 +322,32 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Fecha 01/02/2023
+        /// Francisco Vindas 
+        /// Metodo para obtener la lista de DetalleRegistroIndicadorCategoriaValorFonatel y DetalleRegistroIndicadorVariableValorFonatel
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<string> ObtenerListaDetalleRegistroIndicadorValoresFonatel(DetalleRegistroIndicadorFonatel detalle)
+        {
+            RespuestaConsulta<DetalleRegistroIndicadorFonatel> result = null;
+
+            await Task.Run(() =>
+            {
+                result = DetalleRegistroIndicadorBL.ObtenerListaDetalleRegistroIndicadorValoresFonatel(detalle);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
         [HttpPost]
         public async Task<string> ActualizarDetalleRegistroIndicador(List<DetalleRegistroIndicadorFonatel> lista)
         {
-
-            //Creamos una variable resultado de tipo lista DetalleRegistroIndicadorFonatel
             RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> result = null;
 
             await Task.Run(() =>
             {
-                //Conectamos con el BL de relacion categoria para insertar y enviamos  la relacion
                 result = DetalleRegistroIndicadorBL.ActualizarDetalleRegistroIndicadorFonatelMultiple(lista);
               
             });
@@ -342,14 +358,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
-        public async Task<string> InsertarRegistroIndicadorVariable(List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleIndicadorValor)
+        public async Task<string> InsertarRegistroIndicadorVariable(DetalleRegistroIndicadorFonatel ListaDetalleIndicadorValor)
         {
 
             RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> result = null;
 
             await Task.Run(() =>
             {
-
                 result = DetalleRegistroIndicadorCategoriaValorFonatelBL.InsertarDatos(ListaDetalleIndicadorValor);
 
             });
@@ -400,11 +415,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
+
+
         #endregion
-
-
-
-
     }
-
 }
