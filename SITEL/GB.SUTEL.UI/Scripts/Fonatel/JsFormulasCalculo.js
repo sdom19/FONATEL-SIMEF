@@ -261,7 +261,7 @@ CrearFormulaView = {
                         pCallback();
                     }
                 })
-                .catch(error => { ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); console.log(error) })
                 .finally(() => { $("#loading").fadeOut(); });
         },
 
@@ -295,7 +295,7 @@ CrearFormulaView = {
                                 true
                             );
                         })
-                        .catch(error => { ManejoDeExcepciones(error); })
+                        .catch(error => { ManejoDeExcepciones(error); console.log(error); })
                         .finally(() => {
                             $("#loading").fadeOut();
                         });
@@ -2239,15 +2239,6 @@ GestionFormulaView = {
         },
 
         CrearDetallesFormulaCalculo: function (pFormulaCalculo, pListaArgumentos) {
-            console.log(pFormulaCalculo);
-            console.log(pListaArgumentos);
-            //try {
-            //    pListaArgumentos = JSON.stringify(pListaArgumentos);
-            //    console.log(pListaArgumentos);
-            //}
-            //catch (error) {
-            //    console.log(error);
-            //}
             return execAjaxCall("/FormulaCalculo/CrearDetallesFormulaCalculo", "POST", { pFormulaCalculo, pListaArgumentos });
         },
     },

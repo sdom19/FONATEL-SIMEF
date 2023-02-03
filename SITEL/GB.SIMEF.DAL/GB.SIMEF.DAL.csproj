@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcumulacionFormulaDAL.cs" />
+    <Compile Include="ArgumentoFormulaDAL.cs" />
     <Compile Include="CorreoDal.cs" />
     <Compile Include="DatosHistoricosDAL.cs" />
     <Compile Include="ClasificacionIndicadorDAL.cs" />

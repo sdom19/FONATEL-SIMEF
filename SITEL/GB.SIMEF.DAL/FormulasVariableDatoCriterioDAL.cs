@@ -21,26 +21,41 @@ namespace GB.SIMEF.DAL
         /// <returns></returns>
         public FormulasVariableDatoCriterio ActualizarDatos(FormulasVariableDatoCriterio pFormulasVariableDatoCriterio)
         {
-            FormulasVariableDatoCriterio envioSolicitudes = new FormulasVariableDatoCriterio();
+            FormulasVariableDatoCriterio variableDato = new FormulasVariableDatoCriterio();
 
             using (db = new SIMEFContext())
             {
-                envioSolicitudes = db.Database.SqlQuery<FormulasVariableDatoCriterio>
+                variableDato = db.Database.SqlQuery<FormulasVariableDatoCriterio>
                 ("execute spActualizarFormulasVariableDatoCriterio @pIdFormulasVariableDatoCriterio, @pIdFuenteIndicador, @pIdIndicador, @pIdVariableDato, @pIdCriterio, @pIdCategoria, @pIdDetalleCategoria, @pIdAcumulacion, @pEsValorTotal",
-                    new SqlParameter("@pIdFormulasVariablesDatoCriterio", pFormulasVariableDatoCriterio.IdFormulasVariableDatoCriterio),
+                    new SqlParameter("@pIdFormulasVariableDatoCriterio", pFormulasVariableDatoCriterio.IdFormulasVariableDatoCriterio),
                     new SqlParameter("@pIdFuenteIndicador", pFormulasVariableDatoCriterio.IdFuenteIndicador),
                     new SqlParameter("@pIdIndicador", pFormulasVariableDatoCriterio.IdIndicador),
-                    new SqlParameter("@pIdVariableDato", pFormulasVariableDatoCriterio.IdVariableDato),
-                    new SqlParameter("@pIdCriterio", pFormulasVariableDatoCriterio.IdCriterio),
-                    new SqlParameter("@pIdCategoria", pFormulasVariableDatoCriterio.IdCategoria),
-                    new SqlParameter("@pIdDetalleCategoria", pFormulasVariableDatoCriterio.IdDetalleCategoria),
+                    pFormulasVariableDatoCriterio.IdVariableDato == 0 ?
+                        new SqlParameter("@pIdVariableDato", DBNull.Value)
+                        :
+                        new SqlParameter("@pIdVariableDato", pFormulasVariableDatoCriterio.IdVariableDato),
+
+                    string.IsNullOrEmpty(pFormulasVariableDatoCriterio.IdCriterio) ?
+                        new SqlParameter("@pIdCriterio", DBNull.Value)
+                        :
+                        new SqlParameter("@pIdCriterio", pFormulasVariableDatoCriterio.IdCriterio),
+
+                    pFormulasVariableDatoCriterio.IdCategoria == 0 ?
+                        new SqlParameter("@pIdCategoria", DBNull.Value)
+                        :
+                        new SqlParameter("@pIdCategoria", pFormulasVariableDatoCriterio.IdCategoria),
+
+                    pFormulasVariableDatoCriterio.IdDetalleCategoria == 0 ?
+                        new SqlParameter("@pIdDetalleCategoria", DBNull.Value)
+                        :
+                        new SqlParameter("@pIdDetalleCategoria", pFormulasVariableDatoCriterio.IdDetalleCategoria),
+
                     new SqlParameter("@pIdAcumulacion", pFormulasVariableDatoCriterio.IdAcumulacion),
                     new SqlParameter("@pEsValorTotal", pFormulasVariableDatoCriterio.EsValorTotal)
                 ).FirstOrDefault();
-
             }
 
-            return envioSolicitudes;
+            return variableDato;
         }
     }
 }

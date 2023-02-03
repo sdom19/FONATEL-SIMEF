@@ -9,8 +9,8 @@ namespace GB.SIMEF.Entities
     {
         [Key]
         public new int IdFormulasDefinicionFecha { set; get; }
-        public DateTime FechaInicio { set; get; }
-        public DateTime FechaFinal { set; get; }
+        public DateTime? FechaInicio { set; get; }
+        public DateTime? FechaFinal { set; get; }
         public int IdUnidadMedida { set; get; }
         public int IdTipoFechaInicio { set; get; }
         public int IdTipoFechaFinal { set; get; }

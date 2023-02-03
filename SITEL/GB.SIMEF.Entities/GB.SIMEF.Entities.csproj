@@ -96,7 +96,7 @@
     <Compile Include="FormulaIndicadorDSF.cs" />
     <Compile Include="FormulaIndicadorFecha.cs" />
     <Compile Include="FormulaIndicadorMC.cs" />
-    <Compile Include="FormulaNivelCalculoCategoria.cs" />
+    <Compile Include="FormulasNivelCalculoCategoria.cs" />
     <Compile Include="FormularioWeb.cs" />
     <Compile Include="FormulasCalculo.cs" />
     <Compile Include="FormulasCalculoDetalle.cs" />

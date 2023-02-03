@@ -90,17 +90,16 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public FormulasCalculo ActualizarEtiquetaFormula(FormulasCalculo pFormulasCalculo)
+        public void ActualizarEtiquetaFormula(FormulasCalculo pFormulasCalculo)
         {
-            FormulasCalculo _formula = new FormulasCalculo();
-
             using (db = new SIMEFContext())
             {
-                db.FormulasCalculo.Attach(pFormulasCalculo);
-                db.Entry(pFormulasCalculo).Property(x => x.Formula).IsModified = true;
-                db.SaveChanges();
+                db.Database.SqlQuery<object>("exec spActualizarEtiquetaFormula @pIdFormula, @pEtiquetaFormula, @pUsuarioModificacion",
+                    new SqlParameter("@pIdFormula", pFormulasCalculo.IdFormula),
+                    new SqlParameter("@pEtiquetaFormula", pFormulasCalculo.Formula),
+                    new SqlParameter("@pUsuarioModificacion", pFormulasCalculo.UsuarioModificacion)
+                    ).FirstOrDefault();
             }
-            return _formula;
         }
 
         /// <summary>
@@ -115,7 +114,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listaFormulasCalculo = db.Database.SqlQuery<FormulasCalculo>
-                    ("execute spObtenerFormulasCalculo  @IdFormula",
+                    ("execute spObtenerFormulasCalculo @IdFormula",
                      new SqlParameter("@IdFormula", pformulasCalculo.IdFormula)
                     ).ToList();
 

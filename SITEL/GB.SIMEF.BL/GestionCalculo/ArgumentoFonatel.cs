@@ -1,10 +1,6 @@
 ﻿using GB.SIMEF.Entities;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GB.SIMEF.Resources;
 
 namespace GB.SIMEF.BL.GestionCalculo
 {
@@ -18,20 +14,30 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// <returns></returns>
         public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula)
         {
+            FormulasVariableDatoCriterio argumentoVariable = (FormulasVariableDatoCriterio)pArgumentoFormula;
+            string predicadoSQL = string.Empty;
 
-
-            FormulasVariableDatoCriterio formulasVariableDatoCriterio = (FormulasVariableDatoCriterio)pArgumentoFormula;
-
-            //formulasVariableDatoCriterio.IdAcumulacion;
-
-
-
-            if (formulasVariableDatoCriterio.EsValorTotal)
+            if (argumentoVariable.EsValorTotal)
             {
-
+                predicadoSQL = string.Format(
+                    PredicadosSQLFormulasCalculo.fonatelValorTotal,
+                    argumentoVariable.IdVariableDato,
+                    argumentoVariable.IdIndicador,
+                    argumentoVariable.IdFormula
+                    );
             }
-
-            return "";
+            else // detalle de desagregación
+            {
+                predicadoSQL = string.Format(
+                    PredicadosSQLFormulasCalculo.fonatelDetalleDesagregacion,
+                    argumentoVariable.IdVariableDato,
+                    argumentoVariable.IdIndicador,
+                    argumentoVariable.IdCategoria,
+                    argumentoVariable.IdDetalleCategoria,
+                    argumentoVariable.IdFormula
+                    );
+            }
+            return predicadoSQL;
         }
     }
 }

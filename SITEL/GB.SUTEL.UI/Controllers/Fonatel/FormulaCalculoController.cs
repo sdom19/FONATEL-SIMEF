@@ -775,15 +775,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     case FuenteIndicadorEnum.IndicadorDGC:
                         resultado = indicadorFonatelBL.ObtenerDatosCalidad(pIndicador, pServicio);
                         break;
-                    case FuenteIndicadorEnum.IndicadorUIT:
-                        resultado = indicadorFonatelBL.ObtenerDatosUIT(pIndicador, pServicio);
-                        break;
-                    case FuenteIndicadorEnum.IndicadorCruzado:
-                        resultado = indicadorFonatelBL.ObtenerDatosCruzado(pIndicador, pServicio);
-                        break;
-                    case FuenteIndicadorEnum.IndicadorFuenteExterna:
-                        resultado = indicadorFonatelBL.ObtenerDatosFuenteExterna();
-                        break;
+                    //case FuenteIndicadorEnum.IndicadorUIT:
+                    //    resultado = indicadorFonatelBL.ObtenerDatosUIT(pIndicador, pServicio);
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorCruzado:
+                    //    resultado = indicadorFonatelBL.ObtenerDatosCruzado(pIndicador, pServicio);
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorFuenteExterna:
+                    //    resultado = indicadorFonatelBL.ObtenerDatosFuenteExterna();
+                    //    break;
                     default:
                         resultado.HayError = (int)Error.ErrorSistema;
                         break;
@@ -831,15 +831,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     case FuenteIndicadorEnum.IndicadorDGC:
                         resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosCalidad(detalleIndicador);
                         break;
-                    case FuenteIndicadorEnum.IndicadorUIT:
-                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosUIT(detalleIndicador);
-                        break;
-                    case FuenteIndicadorEnum.IndicadorCruzado:
-                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosCruzado(detalleIndicador);
-                        break;
-                    case FuenteIndicadorEnum.IndicadorFuenteExterna:
-                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosExterno(detalleIndicador);
-                        break;
+                    //case FuenteIndicadorEnum.IndicadorUIT:
+                    //    resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosUIT(detalleIndicador);
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorCruzado:
+                    //    resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosCruzado(detalleIndicador);
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorFuenteExterna:
+                    //    resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosExterno(detalleIndicador);
+                    //    break;
                     default:
                         resultado.HayError = (int)Error.ErrorSistema;
                         break;
@@ -858,7 +858,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> CrearDetallesFormulaCalculo(FormulasCalculo pFormulaCalculo, List<ArgumentoConstruidoDTO> pListaArgumentos)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
 
             if (string.IsNullOrEmpty(pFormulaCalculo.id) || pListaArgumentos.Count < 0)
             {
@@ -867,9 +867,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
+            pFormulaCalculo.UsuarioCreacion = usuario;
+
             await Task.Run(() =>
             {
-                formulaBL.InsertarDetallesFormulaCalculo(pFormulaCalculo, pListaArgumentos);
+                resultado = formulaBL.InsertarDetallesFormulaCalculo(pFormulaCalculo, pListaArgumentos);
             });
 
             return JsonConvert.SerializeObject(resultado);
