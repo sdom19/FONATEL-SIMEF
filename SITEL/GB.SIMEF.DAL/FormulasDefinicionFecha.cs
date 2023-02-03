@@ -28,13 +28,27 @@ namespace GB.SIMEF.DAL
                 envioSolicitudes = db.Database.SqlQuery<FormulasDefinicionFecha>
                 ("execute spActualizarFormulasDefinicionFecha @pIdFormulasDefinicionFecha, @pFechaInicio, @pFechaFinal, @pIdUnidadMedida, @pIdTipoFechaInicio, @pIdTipoFechaFinal, @pIdCategoriaInicio, @pIdCategoriaFinal, @pIdIndicador",
                     new SqlParameter("@pIdFormulasDefinicionFecha", pFormulasDefinicionFecha.IdFormulasDefinicionFecha),
-                    new SqlParameter("@pFechaInicio", pFormulasDefinicionFecha.FechaInicio),
-                    new SqlParameter("@pFechaFinal", pFormulasDefinicionFecha.FechaFinal),
+                    pFormulasDefinicionFecha.FechaInicio <= DateTime.MinValue || pFormulasDefinicionFecha.FechaInicio == null ?
+                        new SqlParameter("@pFechaInicio", DBNull.Value)
+                        :
+                        new SqlParameter("@pFechaInicio", pFormulasDefinicionFecha.FechaInicio),
+
+                    pFormulasDefinicionFecha.FechaFinal <= DateTime.MinValue || pFormulasDefinicionFecha.FechaFinal == null ?
+                        new SqlParameter("@pFechaFinal", DBNull.Value)
+                        :
+                        new SqlParameter("@pFechaFinal", pFormulasDefinicionFecha.FechaFinal),
                     new SqlParameter("@pIdUnidadMedida", pFormulasDefinicionFecha.IdUnidadMedida),
                     new SqlParameter("@pIdTipoFechaInicio", pFormulasDefinicionFecha.IdTipoFechaInicio),
                     new SqlParameter("@pIdTipoFechaFinal", pFormulasDefinicionFecha.IdTipoFechaFinal),
-                    new SqlParameter("@pIdCategoriaInicio", pFormulasDefinicionFecha.IdCategoriaInicio),
-                    new SqlParameter("@pIdCategoriaFinal", pFormulasDefinicionFecha.IdCategoriaFinal),
+                    pFormulasDefinicionFecha.IdCategoriaInicio == 0 ?
+                        new SqlParameter("@pIdCategoriaInicio", DBNull.Value)
+                        :    
+                        new SqlParameter("@pIdCategoriaInicio", pFormulasDefinicionFecha.IdCategoriaInicio),
+
+                    pFormulasDefinicionFecha.IdCategoriaFinal == 0 ?
+                        new SqlParameter("@pIdCategoriaFinal", DBNull.Value)
+                        :
+                        new SqlParameter("@pIdCategoriaFinal", pFormulasDefinicionFecha.IdCategoriaFinal),
                     new SqlParameter("@pIdIndicador", pFormulasDefinicionFecha.IdIndicador)
                 ).FirstOrDefault();
 

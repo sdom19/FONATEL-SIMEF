@@ -1,9 +1,6 @@
 ﻿using GB.SIMEF.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GB.SIMEF.Resources;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL.GestionCalculo
@@ -21,13 +18,13 @@ namespace GB.SIMEF.BL.GestionCalculo
             FormulasVariableDatoCriterio argumentoVariable = (FormulasVariableDatoCriterio)pArgumentoFormula;
             string predicadoSQL = string.Empty;
 
-            if (argumentoVariable.IdCriterio == (int)TipoPorcentajeIndicadorCalculoEnum.indicador)
+            if (argumentoVariable.IdCriterio.Equals(((int)TipoPorcentajeIndicadorCalculoEnum.indicador).ToString()))
             {
-                predicadoSQL = "SELECT SUM(PorcentInd) FROM [CalidadIndicadorCalculo].[dbo].[FactRigurosidadFac] where IdIndicador = '{0}'";
+                predicadoSQL = PredicadosSQLFormulasCalculo.calidadPorcentajeIndicador;
             }
-            else if (argumentoVariable.IdCriterio == (int)TipoPorcentajeIndicadorCalculoEnum.cumplimiento)
+            else if (argumentoVariable.IdCriterio.Equals(((int)TipoPorcentajeIndicadorCalculoEnum.cumplimiento).ToString()))
             {
-                predicadoSQL = "SELECT SUM(PorcCumpl) FROM [CalidadIndicadorCalculo].[dbo].[FactRigurosidadFac] where IdIndicador = '{0}'";
+                predicadoSQL = PredicadosSQLFormulasCalculo.calidadPorcentajeCumplimiento;
             }
             return predicadoSQL != string.Empty ? string.Format(predicadoSQL, argumentoVariable.IdIndicador) : string.Empty;
         }
