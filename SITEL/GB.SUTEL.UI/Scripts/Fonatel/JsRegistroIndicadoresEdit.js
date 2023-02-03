@@ -21,7 +21,7 @@
         "columnaTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table thead tr th",
         "filasTablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table tbody",
         "tablaIndicador": "div.tab-pane.active .table-wrapper-fonatel table",
-        "tablaIndicadorRecorrido": "div.tab-pane.active .table-wrapper-fonatel table  tbody  tr",
+        "tablaIndicadorRecorrido": "div.tab-pane.active .table-wrapper-fonatel table tbody  tr",
 
         //CONTROLES DE FORMULARIO
         "txtCantidadRegistroIndicador": "#txtCantidadRegistroIndicador",
@@ -579,6 +579,10 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnValidar, fun
 
 });
 
+$(document).on('draw.dt', jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador, function (e) {
+    setSelect2();
+});
+
 /*
  Evento para cada input Cantidad de Registros de cada tab o indicador.
  */
@@ -624,10 +628,6 @@ function setSelect2() {
     });
 }
 
-$(document).on('draw.dt', jsRegistroIndicadorFonatelEdit.Controles.tablaIndicador, function (e) {
-    setSelect2();
-});
-
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador, function () {
 
     var cantidadFilas = parseInt($(jsRegistroIndicadorFonatelEdit.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador).val());
@@ -643,7 +643,6 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndi
 });
     
 $(document).ready(function () {
-
     $(jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador(1)).click();
 });
 
