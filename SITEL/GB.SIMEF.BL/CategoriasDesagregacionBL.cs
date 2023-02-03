@@ -121,6 +121,12 @@ namespace GB.SIMEF.BL
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
                     objeto.idCategoria = temp;
                 }
+                List<CategoriasDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
+                 if (buscarRegistro.Where(x => x.NombreCategoria.ToUpper().TrimStart().TrimEnd() == objeto.NombreCategoria.ToUpper().TrimStart().TrimEnd() && x.Codigo.ToUpper() != objeto.Codigo.ToUpper()).ToList().Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(Errores.NombreRegistrado);
+                }
                 var result = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
                 if (listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Count() == 0)
                 {
