@@ -217,9 +217,11 @@ namespace GB.SIMEF.BL
         }
         public RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>> CargarExcelVariable(HttpPostedFileBase file, DetalleRegistroIndicadorFonatel detalleRegistro, int cantidadFilas) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
         {
-            RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>> resultVariable = null;
+
             try
             {
+                Boolean ind = true;
+
                 using (var package = new ExcelPackage(file.InputStream))
                 {
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[1]; //POSICION DEL CODIGO y NOMBRE
@@ -257,24 +259,40 @@ namespace GB.SIMEF.BL
                     {
                         for (int j = 2; j < cantidadFilas + 2; j++)
                         {
-                            //var prueba = worksheet.Cells[j, i].Value;
+                            Regex Val = null;
                             var variableDato = worksheet.Cells[j, i].Value.ToString();
 
-                            if (variableDato!= null)
+                            Val = new Regex(@"[0-9]{1,9}(\.[0-9]{0,2})?$");
+
+                            if (!Val.IsMatch(worksheet.Cells[j, i].Value.ToString()))
+                            {
+                                ind = false;
+                            }
+                            else
                             {
                                 DetalleRegistroIndicadorVariableValorFonatel obj = new DetalleRegistroIndicadorVariableValorFonatel();
-                                obj.Valor = Decimal.Parse(variableDato);
+                                obj.Valor = Decimal.Parse(variableDato.Replace(",","."));
                                 obj.IdFormulario = detalle.IdFormulario;
                                 obj.IdIndicador = detalle.IdIndicador;
                                 obj.IdSolicitud = detalle.IdSolicitud;
                                 obj.NumeroFila = j - 1;
-                                //var testVariable = listaDetalle[0].DetalleRegistroIndicadorVariableValorFonatel.Where(x => x.NumeroFila == obj.NumeroFila).FirstOrDefault();
                                 obj.IdVariable = listaDetalle[0].DetalleRegistroIndicadorVariableValorFonatel.Where(x => x.NumeroFila == obj.NumeroFila).FirstOrDefault().IdVariable;
                                 listaValores.Add(obj);
-
                             }
+
                         }
 
+                    }
+
+                    if (ind)
+                    {
+                        ResultadoConsultaVariable.objetoRespuesta = listaValores;
+                        ResultadoConsultaVariable.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                    }
+                    else
+                    {
+                        ResultadoConsultaVariable.MensajeError = "El formato de la variable es incorrecto";
+                        ResultadoConsultaVariable.HayError = (int)Error.ErrorControlado;
                     }
 
 
@@ -284,10 +302,10 @@ namespace GB.SIMEF.BL
             catch (Exception ex)
             {
 
-                ResultadoConsulta.MensajeError = ex.Message;
+                ResultadoConsultaVariable.MensajeError = ex.Message;
             }
 
-            return resultVariable;
+            return ResultadoConsultaVariable;
         }
 
         public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> CargarExcel(HttpPostedFileBase file, DetalleRegistroIndicadorFonatel detalleRegistro, int cantidadFilas) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
