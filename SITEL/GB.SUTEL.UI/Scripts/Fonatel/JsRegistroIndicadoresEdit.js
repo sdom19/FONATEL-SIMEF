@@ -65,42 +65,6 @@
 
     "Metodos": {
 
-        "CrearRegistroIndicador": function () {
-
-            jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador = [];
-            let NumeroFila = 0
-
-            $(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicadorRecorrido).each(function (index) {
-                NumeroFila++;
-                $(this).children("td").each(function (td) {
-
-                    let registroIndicador = new Object();
-
-                    registroIndicador.SolicitudId = ObtenerValorParametroUrl("idSolicitud");
-                    registroIndicador.FormularioId = ObtenerValorParametroUrl("idFormulario");
-                    registroIndicador.IndicadorId = $(jsRegistroIndicadorFonatelEdit.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
-                    registroIndicador.Valor = "";
-                    registroIndicador.NumeroFila = NumeroFila;
-
-                    if ($(this).children("input").length != 0) {
-                        var input = $(this).children("input");
-                        registroIndicador.IdCategoria = $(input).attr("name").replace("name_", "");
-                        registroIndicador.Valor = input.val();
-                    }
-                    else if ($(this).children(".select2-wrapper").length != 0) {
-                        var select = $(this).children(".select2-wrapper");
-                        registroIndicador.IdCategoria = $(select.children(".listasDesplegables")).attr("name").replace("name_", "");
-                        registroIndicador.Valor = select.children(".listasDesplegables").val();
-                    }
-
-                    if (registroIndicador.Valor.length != 0) {
-                        jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador.push(registroIndicador);
-                    }
-                });
-            });
-
-        },
-
         "CrearRegistroIndicadorMultiple": function () {
 
             jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador = new Object();
@@ -128,7 +92,7 @@
                                     let registroVariable = new Object();
                                     registroVariable.SolicitudId = ObtenerValorParametroUrl("idSolicitud");
                                     registroVariable.FormularioId = ObtenerValorParametroUrl("idFormulario");
-                                    registroVariable.IndicadorId = $(jsRegistroIndicadorFonatelEdit.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
+                                    registroVariable.IndicadorId = $(jsRegistroIndicadorFonatelEdit.Controles.tabRegistroIndicador(i)).attr('data-Indicador');
                                     registroVariable.Valor = "";
                                     registroVariable.NumeroFila = NumeroFila;
                                     registroVariable.IdVariable = $(input).attr("name").replace("name_", "");
@@ -495,22 +459,30 @@
                     $("#loading").fadeIn();
                 },
                 success: function (obj) {
+
                     $(jsRegistroIndicadorFonatelEdit.Controles.inputFileCargarPlantilla).val('');
                     var respuesta = JSON.parse(obj);
                     if (respuesta.HayError == jsUtilidades.Variables.Error.NoError) {
                         jsRegistroIndicadorFonatelEdit.Metodos.CargarDatosTablaIndicador(respuesta.objetoRespuesta);
 
-                    } else if (respuesta.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal(respuesta.MensajeError)
-                            .set('onok', function (closeEvent) { location.reload(); });
+                    } else if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                            $("#loading").fadeOut();
                     }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { })
+                            $("#loading").fadeOut();
+                    }
+
 
                 }
             }).fail(function (obj) {
                 $(jsRegistroIndicadorFonatelEdit.Controles.inputFileCargarPlantilla).val('');
                 jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Datos")
                     .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
+                
 
             })
         },

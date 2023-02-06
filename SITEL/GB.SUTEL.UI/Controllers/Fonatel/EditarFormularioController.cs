@@ -300,13 +300,33 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 await Task.Run(() =>
                 {
                     result = DetalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcel(file, obj, cantidadFilas);
-                    //resultDetalle.objetoRespuesta.DetalleRegistroIndicadorCategoriaValorFonatel = result.objetoRespuesta;
+                    resultDetalle.objetoRespuesta = new DetalleRegistroIndicadorFonatel();
+                    if (result.HayError == 0)
+                    {
+                        resultDetalle.objetoRespuesta.DetalleRegistroIndicadorCategoriaValorFonatel = result.objetoRespuesta.ToList();
+                    }
+                    else
+                    {
+                        resultDetalle.HayError = result.HayError;
+                        resultDetalle.MensajeError = result.MensajeError;
+                        
+                    }
 
                 }).ContinueWith(data =>
                 {
-
-                    resultVariable = DetalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcelVariable(file, obj, cantidadFilas);
-                    //resultDetalle.objetoRespuesta.DetalleRegistroIndicadorVariableValorFonatel = resultVariable.objetoRespuesta;
+                    if (resultDetalle.HayError == 0)
+                    {
+                        resultVariable = DetalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcelVariable(file, obj, cantidadFilas);
+                        if (resultVariable.HayError == 0)
+                        {
+                            resultDetalle.objetoRespuesta.DetalleRegistroIndicadorVariableValorFonatel = resultVariable.objetoRespuesta.ToList();
+                        }
+                        else
+                        {
+                            resultDetalle.HayError = resultVariable.HayError;
+                            resultDetalle.MensajeError = resultVariable.MensajeError;
+                        }
+                    }
 
                 });
 
