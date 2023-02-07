@@ -24,11 +24,11 @@
         preguntaEliminarFormula: "¿Desea eliminar la Fórmula?",
         exitoEliminarFormula: "La Fórmula ha sido eliminada",
 
-        preguntaActivarFormula: "¿Desea activar la Fórmula?",
-        exitoActivarFormula: "La Fórmula ha sido activada",
+        preguntaActivarFormula: "¿Desea activar la Fórmula de Cálculo?",
+        exitoActivarFormula: "La Fórmula de Cálculo ha sido activada",
 
-        preguntaDesactivarFormula: "¿Desea desactivar la Fórmula?",
-        exitoDesactivarFormula: "La Fórmula ha sido desactivada"
+        preguntaDesactivarFormula: "¿Desea desactivar la Fórmula de Cálculo?",
+        exitoDesactivarFormula: "La Fórmula de Cálculo ha sido desactivada"
     },
 
     Metodos: {
