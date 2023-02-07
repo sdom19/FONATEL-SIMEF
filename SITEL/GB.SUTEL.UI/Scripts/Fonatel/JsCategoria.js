@@ -524,13 +524,13 @@
                     .then((obj) => {
                         let mensaje=""
                         if (estado == jsUtilidades.Variables.EstadoRegistros.Activo) {
-                            mensaje = "La Categoría ha sido activada";
+                            mensaje = "La Categoría de Desagregación ha sido activada";
                         }
                         else if (estado == jsUtilidades.Variables.EstadoRegistros.Eliminado) {
                             mensaje = "La Categoría de Desagregación ha sido eliminada";
                         }
                         else {
-                            mensaje="La Categoría ha sido desactivada";
+                            mensaje="La Categoría de Desagregación ha sido desactivada";
                         }
                         jsMensajes.Metodos.OkAlertModal(mensaje)
                             .set('onok', function (closeEvent) {
@@ -711,7 +711,7 @@
                                     });
                             }
                             else {
-                                jsMensajes.Metodos.ConfirmYesOrNoModal("La Categoría está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                                jsMensajes.Metodos.ConfirmYesOrNoModal("La Categoría de Desagregación está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
                                     .set('onok', function (closeEvent) {
                                         JsCategoria.Consultas.CambiarEstadoCategoria(idCategoria, estado);
                                     });
@@ -833,7 +833,7 @@ $(document).on("click", JsCategoria.Controles.btnDesactivarCategoria, function (
 
     let id = $(this).val();
     let estado = jsUtilidades.Variables.EstadoRegistros.Activo;
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Categoría?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Categoría de Desagregación?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
            
             JsCategoria.Consultas.CambiarEstadoCategoria(id, estado);
@@ -858,7 +858,7 @@ $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
     let id = $(this).val();
     let estado = jsUtilidades.Variables.EstadoRegistros.Desactivado;
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Categoría?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Categoría de Desagregación?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
             JsCategoria.Consultas.ValidarExistenciaCategoria(id, estado);
             //JsCategoria.Consultas.CambiarEstadoCategoria(id, estado);

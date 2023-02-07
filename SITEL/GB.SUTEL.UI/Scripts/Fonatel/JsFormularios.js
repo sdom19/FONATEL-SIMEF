@@ -562,7 +562,7 @@
             objFormulario.id = idFormulario;
             execAjaxCall("/FormularioWeb/DesactivarFormulario", "POST", objFormulario)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido desactivado")
+                    jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido desactivado")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -582,7 +582,7 @@
             objFormulario.id = idFormulario;
             execAjaxCall("/FormularioWeb/ActivarFormulario", "POST", objFormulario)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido activado")
+                    jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido activado")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
                 }).catch((obj) => {
                     JsFormulario.Metodos.MensajeError(obj);
@@ -608,13 +608,13 @@
                     } else {
                         let dependencias = obj.objetoRespuesta[0] + "<br>"
                         if (eliminado) {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario ya está en uso en las<br>" + dependencias + "<br>¿Desea eliminarlo?", jsMensajes.Variables.actionType.eliminar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario Web ya está en uso en las<br>" + dependencias + "<br>¿Desea eliminarlo?", jsMensajes.Variables.actionType.eliminar)
                                 .set('onok', function (closeEvent) {
                                     JsFormulario.Consultas.EliminarFormulario(idFormulario);
                                 })
                         }
                         else {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario ya está en uso en las<br>" + dependencias + "<br>¿Desea desactivarlo?", jsMensajes.Variables.actionType.estado)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario Web ya está en uso en las<br>" + dependencias + "<br>¿Desea desactivarlo?", jsMensajes.Variables.actionType.estado)
                                 .set('onok', function (closeEvent) {
                                     JsFormulario.Consultas.DesactivarFormulario(idFormulario);
                                 })
@@ -931,7 +931,7 @@ $(document).on("click", JsFormulario.Controles.btnDesactivadoFormulario, functio
     e.preventDefault();
     let id = $(this).val();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar el Formulario?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar el Formulario Web?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
             JsFormulario.Consultas.ActivarFormulario(id);
         });
@@ -940,7 +940,7 @@ $(document).on("click", JsFormulario.Controles.btnDesactivadoFormulario, functio
 // DESACTIVAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (e) {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Formulario?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Formulario Web?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
             JsFormulario.Consultas.ValidarExistenciaFormulario(id);
         });

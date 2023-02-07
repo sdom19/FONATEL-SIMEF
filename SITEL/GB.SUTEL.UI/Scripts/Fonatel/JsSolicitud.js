@@ -414,13 +414,13 @@ JsSolicitud = {
                             dependencias = dependencias + obj.objetoRespuesta[i] + "<br>"
                         }
                         if (Eliminado) {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud de Información ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
                                 .set('onok', function (closeEvent) {
                                     JsSolicitud.Consultas.EliminarSolicitud(idSolicitud);
                                 });
                         }
                         else {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud ya está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud de Información ya está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
                                 .set('onok', function (closeEvent) {
                                     JsSolicitud.Consultas.CambiarEstadoDesactivado(idSolicitud);
                                 });
@@ -541,7 +541,7 @@ JsSolicitud = {
 
             execAjaxCall("/SolicitudFonatel/CambiarEstadoDesactivado", "POST", Solicitud)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido desactivada")
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud de Información ha sido desactivada")
                         .set('onok', function (closeEvent) {
                             location.reload();
                         });
@@ -572,7 +572,7 @@ JsSolicitud = {
 
             execAjaxCall("/SolicitudFonatel/CambiarEstadoActivado", "POST", Solicitud)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido activada")
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud de Información ha sido activada")
                         .set('onok', function (closeEvent) {
                             location.reload();
                         });
@@ -1270,7 +1270,7 @@ $(document).on("click", JsSolicitud.Controles.btnDesactivadoSolicitud, function 
 
     let id = $(this).val();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Solicitud?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Solicitud de Información?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
             JsSolicitud.Consultas.CambiarEstadoActivado(id);
         });
@@ -1282,7 +1282,7 @@ $(document).on("click", JsSolicitud.Controles.btnActivadoSolicitud, function (e)
 
     let id = $(this).val();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud?", jsMensajes.Variables.actionType.estado)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Solicitud de Información?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
             JsSolicitud.Consultas.CambiarEstadoDesactivado(id);
 
