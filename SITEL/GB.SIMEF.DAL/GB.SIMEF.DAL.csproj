@@ -74,7 +74,7 @@
     <Compile Include="EnvioSolicitudDAL.cs" />
     <Compile Include="FormulasCalculoTipoFechaDAL.cs" />
     <Compile Include="FormulasCalculoUnidadMedidaDAL.cs" />
-    <Compile Include="FormulasDefinicionFecha.cs" />
+    <Compile Include="FormulasDefinicionFechaDAL.cs" />
     <Compile Include="FormulasVariableDatoCriterioDAL.cs" />
     <Compile Include="FuenteIndicadorDAL.cs" />
     <Compile Include="PlantillaHtmlDAL.cs" />

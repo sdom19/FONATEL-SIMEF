@@ -15,7 +15,7 @@ namespace GB.SIMEF.DAL
         /// <summary>
         /// 01/02/2023
         /// José Navarro Acuña
-        /// Función qu permite insertar o actualizar un objeto tipo ArgumentoFormula
+        /// Función que permite insertar o actualizar un objeto tipo ArgumentoFormula
         /// </summary>
         /// <param name="pArgumentoFormula"></param>
         /// <returns></returns>
@@ -26,23 +26,54 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 argumento = db.Database.SqlQuery<ArgumentoFormula>
-                ("execute spActualizarArgumentoFormula @pIdArgumentoFormula, @pIdFormulasTipoArgumento, @pIdFormulasDefinicionFecha, @pIdFormulasVariablesDatoCriterio, @pIdFormula, @pPredicadoSQL, @pOrdenEnFormula",
+                ("execute spActualizarArgumentoFormula @pIdArgumentoFormula, @pIdFormulasTipoArgumento, @pIdDefinicionFecha, @pIdVariableDatoCriterio, @pIdFormula, @pPredicadoSQL, @pOrdenEnFormula, @pEtiqueta",
                     new SqlParameter("@pIdArgumentoFormula", pArgumentoFormula.IdArgumentoFormula),
                     new SqlParameter("@pIdFormulasTipoArgumento", pArgumentoFormula.IdFormulasTipoArgumento),
-                    pArgumentoFormula.IdFormulasDefinicionFecha == 0 ?
-                        new SqlParameter("@pIdFormulasDefinicionFecha", DBNull.Value)
+                    pArgumentoFormula.IdDefinicionFecha == 0 || pArgumentoFormula.IdDefinicionFecha == null ?
+                        new SqlParameter("@pIdDefinicionFecha", DBNull.Value)
                         :
-                        new SqlParameter("@pIdFormulasDefinicionFecha", pArgumentoFormula.IdFormulasDefinicionFecha),
-                    pArgumentoFormula.IdFormulasVariableDatoCriterio == 0 ?
-                        new SqlParameter("@pIdFormulasVariablesDatoCriterio", DBNull.Value)
+                        new SqlParameter("@pIdDefinicionFecha", pArgumentoFormula.IdDefinicionFecha),
+                    pArgumentoFormula.IdVariableDatoCriterio == 0 || pArgumentoFormula.IdVariableDatoCriterio == null ?
+                        new SqlParameter("@pIdVariableDatoCriterio", DBNull.Value)
                         :
-                        new SqlParameter("@pIdFormulasVariablesDatoCriterio", pArgumentoFormula.IdFormulasVariableDatoCriterio),
+                        new SqlParameter("@pIdVariableDatoCriterio", pArgumentoFormula.IdVariableDatoCriterio),
                     new SqlParameter("@pIdFormula", pArgumentoFormula.IdFormula),
                     new SqlParameter("@pPredicadoSQL", pArgumentoFormula.PredicadoSQL),
-                    new SqlParameter("@pOrdenEnFormula", pArgumentoFormula.OrdenEnFormula)
+                    new SqlParameter("@pOrdenEnFormula", pArgumentoFormula.OrdenEnFormula),
+                    new SqlParameter("@pEtiqueta", pArgumentoFormula.Etiqueta)
                 ).FirstOrDefault();
             }
             return argumento;
+        }
+
+        /// <summary>
+        /// 08/02/2023
+        /// José Navarro Acuña
+        /// Función que permite obtener los argumentos de una formula. Se puede filtrar por el ID, por el ID de la fórmula u obtener todos los argumentos registrados
+        /// </summary>
+        /// <param name="pArgumentoFormula"></param>
+        /// <returns></returns>
+        public List<ArgumentoFormula> ObtenerDatos(ArgumentoFormula pArgumentoFormula)
+        {
+            List<ArgumentoFormula> listaArgumentos = new List<ArgumentoFormula>();
+
+            using (db = new SIMEFContext())
+            {
+                listaArgumentos = db.Database.SqlQuery<ArgumentoFormula>
+                    (
+                        "execute spObtenerArgumentosFormula @pIdArgumentoFormula, @pIdFormula",
+                        pArgumentoFormula.IdArgumentoFormula == 0 ?
+                            new SqlParameter("@pIdArgumentoFormula", DBNull.Value)
+                            :
+                            new SqlParameter("@pIdArgumentoFormula", pArgumentoFormula.IdArgumentoFormula),
+
+                        pArgumentoFormula.IdFormula == 0 ?
+                            new SqlParameter("@pIdFormula", DBNull.Value)
+                            :
+                            new SqlParameter("@pIdFormula", pArgumentoFormula.IdFormula)
+                    ).ToList();
+            }
+            return listaArgumentos;
         }
     }
 }

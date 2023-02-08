@@ -12,7 +12,7 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// Función que permite construir el predicado SQL del argumento
         /// </summary>
         /// <returns></returns>
-        public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula)
+        public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulasCalculo pFormulasCalculo)
         {
             FormulasVariableDatoCriterio argumentoVariable = (FormulasVariableDatoCriterio)pArgumentoFormula;
             string predicadoSQL = string.Empty;
@@ -20,22 +20,28 @@ namespace GB.SIMEF.BL.GestionCalculo
             if (argumentoVariable.EsValorTotal)
             {
                 predicadoSQL = string.Format(
-                    PredicadosSQLFormulasCalculo.fonatelValorTotal,
+                    PredicadosSQLFormulasCalculo.fonatel,
+                    pFormulasCalculo.IdIndicador,
+                    argumentoVariable.IdAcumulacion,
                     argumentoVariable.IdVariableDato,
                     argumentoVariable.IdIndicador,
-                    argumentoVariable.IdFormula
-                    );
+                    DBNull.Value,
+                    DBNull.Value,
+                    pFormulasCalculo.IdFormula
+                );
             }
             else // detalle de desagregación
             {
                 predicadoSQL = string.Format(
-                    PredicadosSQLFormulasCalculo.fonatelDetalleDesagregacion,
+                    PredicadosSQLFormulasCalculo.fonatel,
+                    pFormulasCalculo.IdIndicador,
+                    argumentoVariable.IdAcumulacion,
                     argumentoVariable.IdVariableDato,
                     argumentoVariable.IdIndicador,
                     argumentoVariable.IdCategoria,
                     argumentoVariable.IdDetalleCategoria,
-                    argumentoVariable.IdFormula
-                    );
+                    pFormulasCalculo.IdFormula
+                );
             }
             return predicadoSQL;
         }

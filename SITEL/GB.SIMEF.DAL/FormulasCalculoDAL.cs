@@ -77,7 +77,8 @@ namespace GB.SIMEF.DAL
                 listaformulas = listaformulas.Select(x => new FormulasCalculo()
                 {
                     id = Utilidades.Encriptar(x.IdFormula.ToString()),
-                    IdFormula = x.IdFormula
+                    IdFormula = x.IdFormula,
+                    IdIndicadorSalidaString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                 }).ToList();
             }
             return listaformulas;

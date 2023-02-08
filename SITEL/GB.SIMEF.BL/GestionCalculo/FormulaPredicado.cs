@@ -17,6 +17,7 @@ namespace GB.SIMEF.BL.GestionCalculo
     {
         private IArgumento argumento; // mantener una referencia al tipo de argumento a construir 
         private ArgumentoFormula argumentoFormula;
+        private FormulasCalculo formulasCalculo;
 
         /// <summary>
         /// 21/01/2023
@@ -41,6 +42,17 @@ namespace GB.SIMEF.BL.GestionCalculo
         }
 
         /// <summary>
+        /// 06/02/2013
+        /// José Navarro Acuña
+        /// Establecer el objeto Formula de Calculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        public void SetFormulasCalculo(FormulasCalculo pFormulasCalculo)
+        {
+            formulasCalculo = pFormulasCalculo;
+        }
+
+        /// <summary>
         /// 21/01/2023
         /// José Navarro Acuña
         /// Ejecutar una llamada que construye el predicado SQL de acuerdo al tipo argumento
@@ -48,7 +60,7 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// <returns></returns>
         public string GetArgumentoComoPredicadoSQL()
         {
-            return argumento.ConstruirPredicadoSQL(argumentoFormula); // nótese que no nos importa cúal argumento es, por tanto se delega comportamiento
+            return argumento.ConstruirPredicadoSQL(argumentoFormula, formulasCalculo); // nótese que no nos importa cúal argumento es, por tanto se delega comportamiento
         }
     }
 }

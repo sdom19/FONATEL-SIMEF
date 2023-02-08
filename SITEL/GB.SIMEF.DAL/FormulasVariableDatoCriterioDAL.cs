@@ -30,7 +30,7 @@ namespace GB.SIMEF.DAL
                     new SqlParameter("@pIdFormulasVariableDatoCriterio", pFormulasVariableDatoCriterio.IdFormulasVariableDatoCriterio),
                     new SqlParameter("@pIdFuenteIndicador", pFormulasVariableDatoCriterio.IdFuenteIndicador),
                     new SqlParameter("@pIdIndicador", pFormulasVariableDatoCriterio.IdIndicador),
-                    pFormulasVariableDatoCriterio.IdVariableDato == 0 ?
+                    pFormulasVariableDatoCriterio.IdVariableDato == null || pFormulasVariableDatoCriterio.IdVariableDato == 0 ?
                         new SqlParameter("@pIdVariableDato", DBNull.Value)
                         :
                         new SqlParameter("@pIdVariableDato", pFormulasVariableDatoCriterio.IdVariableDato),
@@ -40,12 +40,12 @@ namespace GB.SIMEF.DAL
                         :
                         new SqlParameter("@pIdCriterio", pFormulasVariableDatoCriterio.IdCriterio),
 
-                    pFormulasVariableDatoCriterio.IdCategoria == 0 ?
+                    pFormulasVariableDatoCriterio.IdCategoria == null || pFormulasVariableDatoCriterio.IdCategoria == 0 ?
                         new SqlParameter("@pIdCategoria", DBNull.Value)
                         :
                         new SqlParameter("@pIdCategoria", pFormulasVariableDatoCriterio.IdCategoria),
 
-                    pFormulasVariableDatoCriterio.IdDetalleCategoria == 0 ?
+                    pFormulasVariableDatoCriterio.IdDetalleCategoria == null || pFormulasVariableDatoCriterio.IdDetalleCategoria == 0 ?
                         new SqlParameter("@pIdDetalleCategoria", DBNull.Value)
                         :
                         new SqlParameter("@pIdDetalleCategoria", pFormulasVariableDatoCriterio.IdDetalleCategoria),
@@ -56,6 +56,31 @@ namespace GB.SIMEF.DAL
             }
 
             return variableDato;
+        }
+
+        /// <summary>
+        /// 08/02/2023
+        /// José Navarro Acuña
+        /// Función que permite obtener los argumentos de tipo Variable dato/Criterio de una formula. Se puede filtrar por el ID de la fórmula
+        /// </summary>
+        /// <param name="pFormulasVariableDatoCriterio"></param>
+        /// <returns></returns>
+        public List<FormulasVariableDatoCriterio> ObtenerDatos(FormulasVariableDatoCriterio pFormulasVariableDatoCriterio)
+        {
+            List<FormulasVariableDatoCriterio> listaDetalles = new List<FormulasVariableDatoCriterio>();
+
+            using (db = new SIMEFContext())
+            {
+                listaDetalles = db.Database.SqlQuery<FormulasVariableDatoCriterio>
+                    (
+                        "execute spObtenerVariableDatoCriterioFormulas @pIdFormula",
+                        pFormulasVariableDatoCriterio.IdFormula == 0 ?
+                            new SqlParameter("@pIdFormula", DBNull.Value)
+                            :
+                            new SqlParameter("@pIdFormula", pFormulasVariableDatoCriterio.IdFormula)
+                    ).ToList();
+            }
+            return listaDetalles;
         }
     }
 }

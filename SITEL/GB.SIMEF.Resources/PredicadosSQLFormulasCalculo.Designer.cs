@@ -79,42 +79,26 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to select isnull(SUM(a.Valor),0) Valor, b.NumeroFila, a.IdVariable
-        ///FROM dbo.IndicadorResultadoDetalleVariable a
-        ///inner join dbo.IndicardorResultadoDetalleCategoria b
-        ///on a.IdResultado=b.IdResultado
-        ///inner join DetalleCategoriaTexto c
-        ///on b.IdCategoria=c.IdCategoria
-        ///and upper(trim(c.Etiqueta)) like upper(&apos;&apos;%&apos;&apos;+trim(b.valor)+&apos;&apos;%&apos;&apos;) 
-        ///inner join FormulasVariableDatoCriterio d
-        ///on d.IdVariableDato=a.IdVariable
-        ///and d.IdIndicador=a.IdIndicador
-        ///inner join ArgumentoFormula e
-        ///on e.IdFormulasVariablesDatoCriterio=d [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to declare @FechaUltimoRegistro date = null
+        ///declare @IndicadorSalida int = {0}
+        ///declare @IdAcumulacion int = {1}
+        ///declare @IdVariable int = {2}
+        ///declare @IndicadorReferencia int = {3}
+        ///declare @IdCategoria int = {4}
+        ///declare @IdCategoriaDetalle int = {5}
+        ///declare @IdFormula int = {6}
+        ///
+        ///SELECT top 1 @FechaUltimoRegistro = FechaCreacion from IndicadorResultado
+        ///WHERE IdIndicador = @IndicadorSalida
+        ///ORDER BY FechaCreacion DESC
+        ///
+        ///IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
+        ///BEGIN
+        ///	SET @IdAcumulacio [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string fonatelDetalleDesagregacion {
+        public static string fonatel {
             get {
-                return ResourceManager.GetString("fonatelDetalleDesagregacion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to select isnull(SUM(a.Valor),0) Valor, b.NumeroFila, a.IdVariable
-        ///FROM dbo.IndicadorResultadoDetalleVariable a
-        ///inner join dbo.IndicardorResultadoDetalleCategoria b
-        ///on a.IdResultado=b.IdResultado
-        ///inner join DetalleCategoriaTexto c
-        ///on b.IdCategoria=c.IdCategoria
-        ///and upper(trim(c.Etiqueta)) like upper(&apos;&apos;%&apos;&apos;+trim(b.valor)+&apos;&apos;%&apos;&apos;) 
-        ///inner join FormulasVariableDatoCriterio d
-        ///on d.IdVariableDato=a.IdVariable
-        ///and d.IdIndicador=a.IdIndicador
-        ///inner join ArgumentoFormula e
-        ///on e.IdFormulasVariablesDatoCriterio=d [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string fonatelValorTotal {
-            get {
-                return ResourceManager.GetString("fonatelValorTotal", resourceCulture);
+                return ResourceManager.GetString("fonatel", resourceCulture);
             }
         }
     }

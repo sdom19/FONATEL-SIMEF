@@ -536,7 +536,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             string creacionFormula = await CrearFormulaCalculo(pFormulaCalculo);
             RespuestaConsulta<List<FormulasCalculo>> formulaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<FormulasCalculo>>>(creacionFormula);
 
-            if (formulaDeserializado.HayError != (int)Error.NoError) // se creó el indicador correctamente?
+            if (formulaDeserializado.HayError != (int)Error.NoError) // se creó la formula (paso 1) correctamente?
             {
                 return creacionFormula;
             }
@@ -545,7 +545,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                // clonar los detalles del paso 2 del formulario
+                // clonar los detalles del paso 2 del formulario, se envia la fórmula clonada (paso 1) y el ID de la fórmula de donde se va a obtener los argumentos para duplicar
+                resultado = formulaBL.ClonarArgumentosDeFormula(formulaDeserializado.objetoRespuesta[0], idFormulaAClonar);
             });
 
             return JsonConvert.SerializeObject(resultado);

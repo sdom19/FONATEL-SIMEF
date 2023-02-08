@@ -15,9 +15,18 @@ namespace GB.SIMEF.Entities
         public int IdArgumentoFormula { get; set; }
         public int IdFormula { get; set; }
         public int IdFormulasTipoArgumento { get; set; }
-        public int IdFormulasDefinicionFecha { get; set; }
-        public int IdFormulasVariableDatoCriterio { get; set; }
+        public int? IdDefinicionFecha { get; set; }
+        public int? IdVariableDatoCriterio { get; set; }
+
+        [MaxLength(8000)]
         public string PredicadoSQL { get; set; }
+
         public int OrdenEnFormula { get; set; }
+
+        [MaxLength(100)]
+        public string Etiqueta { get; set; }
+
+        [NotMapped]
+        public bool EsOperadorMatematico { get; set; }
     }
 }
