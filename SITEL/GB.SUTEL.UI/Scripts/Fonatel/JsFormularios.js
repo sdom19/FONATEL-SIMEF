@@ -964,7 +964,7 @@ $(document).on("click", JsFormulario.Controles.btnAtrasFormularioVisualizar, fun
 // GUARDAR FORMULARIO COMPLETO
 $(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Formulario?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
         .set('onok', async function (closeEvent) {
             await JsFormulario.Consultas.GuardadoCompleto();
             if (JsFormulario.Variables.HayError === false) {

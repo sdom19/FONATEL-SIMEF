@@ -113,6 +113,13 @@ namespace GB.SIMEF.BL
             {
                 var objetoAnterior = new FormularioWeb { idFormulario = objeto.idFormulario, idEstado = 0, Codigo = objeto.Codigo };
                 objetoAnterior.idFormulario = DesencriptarId(objetoAnterior.id);
+                List<FormularioWeb> buscarRegistro = clsDatos.ObtenerDatos(new FormularioWeb());
+                 if (buscarRegistro.Where(x => x.Nombre.ToUpper().TrimStart().TrimEnd() == objeto.Nombre.ToUpper().TrimStart().TrimEnd() && x.Codigo.ToUpper().TrimStart().TrimEnd() != objeto.Codigo.ToUpper().TrimStart().TrimEnd()).ToList().Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(Errores.NombreRegistrado);
+                }
+
                 string jsonAnterior = clsDatos.ObtenerDatos(objetoAnterior).FirstOrDefault().ToString();
 
                 objeto.idFormulario = DesencriptarId(objeto.id);

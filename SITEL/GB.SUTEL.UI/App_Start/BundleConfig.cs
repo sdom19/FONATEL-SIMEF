@@ -144,7 +144,7 @@ namespace GB.SUTEL.UI
                 "~/Content/bootstrap.min.css",
                 "~/Content/pnotify.custom.min.css",
                 "~/Content/Site.css",
-                "~/Content/structure.scss",
+                "~/Content/structure.css",
                 "~/Content/jsTree/themes/default/style.min.css",
                 "~/Content/DataTables/datatables.min.css",
                 "~/Content/Select2.min.css",

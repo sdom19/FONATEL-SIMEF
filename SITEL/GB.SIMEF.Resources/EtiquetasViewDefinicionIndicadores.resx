@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Clonar" xml:space="preserve">
-    <value>Clonar Definición</value>
+    <value>Clonar Definiciones de Indicadores</value>
   </data>
   <data name="Crear" xml:space="preserve">
-    <value>Crear Definición</value>
+    <value>Crear Definiciones de Indicadores</value>
   </data>
   <data name="Detalle" xml:space="preserve">
-    <value>Detalle de Definición</value>
+    <value>Detalle de Definiciones de Indicadores</value>
   </data>
   <data name="Editar" xml:space="preserve">
-    <value>Editar Definición</value>
+    <value>Editar Definiciones de Indicadores</value>
   </data>
   <data name="Indicador" xml:space="preserve">
     <value>Indicador</value>

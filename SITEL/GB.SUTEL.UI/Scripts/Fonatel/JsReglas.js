@@ -1291,7 +1291,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
 
         }
         else {
-            jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal(CamposVacios + "¿Desea realizar un guardado parcial de la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsReglas.Consultas.InsertarReglaValidacion();
                 })
@@ -1425,7 +1425,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarReglaTipo, function (e) {
 $(document).on("click", JsReglas.Controles.btnFinalizar, function (e) {
     e.preventDefault();
     let id = ObtenerValorParametroUrl("id");
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsReglas.Consultas.CambioEstado(id);
         });

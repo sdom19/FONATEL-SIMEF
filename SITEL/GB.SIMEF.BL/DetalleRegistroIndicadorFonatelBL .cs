@@ -135,7 +135,16 @@ namespace GB.SIMEF.BL
                     RegistroIndicadorFonatel reg = new RegistroIndicadorFonatel();
                     reg.IdFormulario = objeto.IdFormulario;
                     reg.IdSolicitud = objeto.IdSolicitud;
-                    reg.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                    var BuscarRegistrosIndicador = registroIndicadorFonatelBl.ObtenerDatos(reg);
+
+                    if(BuscarRegistrosIndicador.objetoRespuesta[0].IdEstado == (int)Constantes.EstadosRegistro.Enviado)
+                    {
+                        reg.IdEstado = (int)Constantes.EstadosRegistro.Enviado;
+                    }
+                    else
+                    {
+                        reg.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                    }
                     registroIndicadorFonatelBl.ActualizarElemento(reg);
 
                     ResultadoConsulta.objetoRespuesta = result;

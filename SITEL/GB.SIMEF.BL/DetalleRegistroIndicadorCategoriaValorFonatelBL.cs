@@ -19,7 +19,7 @@ namespace GB.SIMEF.BL
         readonly string modulo = "";
         readonly string user = "";
         private readonly DetalleRegistroIndicadorFonatelDAL detalleRegistroIndicadorFonatelDAL;
-        private readonly CategoriasDesagregacionDAL categoriasDesagregacionDAL; 
+        private readonly CategoriasDesagregacionDAL categoriasDesagregacionDAL;
         RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> ResultadoConsulta;
         RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>> ResultadoConsultaVariable;
 
@@ -215,8 +215,100 @@ namespace GB.SIMEF.BL
         {
             throw new NotImplementedException();
         }
+        public RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>> CargarExcelVariable(HttpPostedFileBase file, DetalleRegistroIndicadorFonatel detalleRegistro, int cantidadFilas) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
+        {
 
-        public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> CargarExcel(HttpPostedFileBase file, DetalleRegistroIndicadorFonatel detalleRegistro,int cantidadFilas) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
+            try
+            {
+                Boolean ind = true;
+
+                using (var package = new ExcelPackage(file.InputStream))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[1]; //POSICION DEL CODIGO y NOMBRE
+                    string Codigo = worksheet.Name; //POSICION DEL CODIGO
+
+                    DetalleRegistroIndicadorFonatel detalle = new DetalleRegistroIndicadorFonatel();
+                    if (!string.IsNullOrEmpty(detalleRegistro.IdSolicitudString))
+                    {
+                        int temp = 0;
+                        int.TryParse(Utilidades.Desencriptar(detalleRegistro.IdSolicitudString), out temp);
+                        detalle.IdSolicitud = temp;
+                    }
+
+                    if (!string.IsNullOrEmpty(detalleRegistro.IdFormularioString))
+                    {
+                        int temp = 0;
+                        int.TryParse(Utilidades.Desencriptar(detalleRegistro.IdFormularioString), out temp);
+                        detalle.IdFormulario = temp;
+                    }
+
+                    if (!string.IsNullOrEmpty(detalleRegistro.IdIndicadorString))
+                    {
+                        int temp = 0;
+                        int.TryParse(Utilidades.Desencriptar(detalleRegistro.IdIndicadorString), out temp);
+                        detalle.IdIndicador = temp;
+                    }
+
+                    List<DetalleRegistroIndicadorFonatel> listaDetalle = detalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(detalle);
+
+                    int cantColumnas = listaDetalle[0].DetalleRegistroIndicadorVariableFonatel.Count;
+
+                    List<DetalleRegistroIndicadorVariableValorFonatel> listaValores = new List<DetalleRegistroIndicadorVariableValorFonatel>();
+
+                    for (int i = 1; i < cantColumnas + 1; i++)
+                    {
+                        for (int j = 2; j < cantidadFilas + 2; j++)
+                        {
+                            Regex Val = null;
+                            var variableDato = worksheet.Cells[j, i].Value.ToString();
+
+                            Val = new Regex(@"[0-9]{1,9}(\.[0-9]{0,2})?$");
+
+                            if (!Val.IsMatch(worksheet.Cells[j, i].Value.ToString()))
+                            {
+                                ind = false;
+                            }
+                            else
+                            {
+                                DetalleRegistroIndicadorVariableValorFonatel obj = new DetalleRegistroIndicadorVariableValorFonatel();
+                                obj.Valor = Decimal.Parse(variableDato.Replace(",","."));
+                                obj.IdFormulario = detalle.IdFormulario;
+                                obj.IdIndicador = detalle.IdIndicador;
+                                obj.IdSolicitud = detalle.IdSolicitud;
+                                obj.NumeroFila = j - 1;
+                                obj.IdVariable = listaDetalle[0].DetalleRegistroIndicadorVariableValorFonatel.Where(x => x.NumeroFila == obj.NumeroFila).FirstOrDefault().IdVariable;
+                                listaValores.Add(obj);
+                            }
+
+                        }
+
+                    }
+
+                    if (ind)
+                    {
+                        ResultadoConsultaVariable.objetoRespuesta = listaValores;
+                        ResultadoConsultaVariable.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                    }
+                    else
+                    {
+                        ResultadoConsultaVariable.MensajeError = "El formato de la variable es incorrecto";
+                        ResultadoConsultaVariable.HayError = (int)Error.ErrorControlado;
+                    }
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ResultadoConsultaVariable.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsultaVariable;
+        }
+
+        public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> CargarExcel(HttpPostedFileBase file, DetalleRegistroIndicadorFonatel detalleRegistro, int cantidadFilas) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
         {
             try
             {
@@ -256,7 +348,7 @@ namespace GB.SIMEF.BL
                     List<DetalleRegistroIndicadorCategoriaValorFonatel> listaValores = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
 
                     for (int i = 1; i < cantColumnas + 1; i++)
-                    {                      
+                    {
                         if (worksheet.Cells[1, i].Value != null)
                         {
                             string desCategoria = worksheet.Cells[1, i].Value.ToString();
@@ -291,16 +383,17 @@ namespace GB.SIMEF.BL
                                                 else
                                                 {
                                                     ind = false;
-                                                }                                           
-                                            break;
+                                                }
+                                                break;
                                             case 1:
                                                 Val = new Regex(@"[0-9]{1,9}(\.[0-9]{0,2})?$");
-                                                if (!Val.IsMatch(worksheet.Cells[j, i].Value.ToString())) {
+                                                if (!Val.IsMatch(worksheet.Cells[j, i].Value.ToString()))
+                                                {
                                                     ind = false;
                                                 }
                                                 else
                                                 {
-                                                    if ((Convert.ToDecimal(categoria.RangoMinimo) <= Convert.ToDecimal(worksheet.Cells[j, i].Value.ToString().Replace(",","."))) && (Convert.ToDecimal(worksheet.Cells[j, i].Value.ToString().Replace(",", ".")) <= Convert.ToDecimal(categoria.RangoMaximo)))
+                                                    if ((Convert.ToDecimal(categoria.RangoMinimo) <= Convert.ToDecimal(worksheet.Cells[j, i].Value.ToString().Replace(",", "."))) && (Convert.ToDecimal(worksheet.Cells[j, i].Value.ToString().Replace(",", ".")) <= Convert.ToDecimal(categoria.RangoMaximo)))
                                                     {
                                                         valor = worksheet.Cells[j, i].Value.ToString().Replace(",", ".");
                                                     }
@@ -353,13 +446,14 @@ namespace GB.SIMEF.BL
                                                         ind = false;
                                                     }
                                                 }
-                                                
+
                                                 break;
                                             default:
                                                 valor = worksheet.Cells[j, i].Value.ToString();
                                                 break;
                                         }
-                                        if(ind){
+                                        if (ind)
+                                        {
                                             DetalleRegistroIndicadorCategoriaValorFonatel obj = new DetalleRegistroIndicadorCategoriaValorFonatel();
                                             obj.Valor = valor;
                                             obj.IdFormulario = detalle.IdFormulario;
@@ -390,7 +484,7 @@ namespace GB.SIMEF.BL
                         {
                             ind = false;
                             break;
-                        }                                        
+                        }
                     }
 
                     ResultadoConsulta.Clase = modulo;
@@ -409,7 +503,7 @@ namespace GB.SIMEF.BL
                             ResultadoConsulta.MensajeError = "El formato de la fecha es incorrecto, por favor utilizar el formato año-mes-día";
                         }
                         ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-                    }                                  
+                    }
                 }
             }
             catch (Exception ex)

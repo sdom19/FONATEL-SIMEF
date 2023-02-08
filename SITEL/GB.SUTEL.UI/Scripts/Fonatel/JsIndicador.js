@@ -401,6 +401,7 @@ CreateView = {
         exitoEditarIndicador: "El Indicador ha sido editado",
         preguntaGuardadoParcialIndicador: "¿Desea realizar un guardado parcial del Indicador?",
         preguntaAgregarIndicador: "¿Desea agregar el Indicador?",
+        preguntaFinalizarIndicador: "¿Desea guardar el Indicador?",
         preguntaGuardadoEditar: "¿Desea editar el Indicador?",
         preguntaGuardadoClonar: "¿Desea clonar el Indicador?",
 
@@ -541,7 +542,8 @@ CreateView = {
             let rootObj = this;
 
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarIndicador, jsMensajes.Variables.actionType.agregar)
+
+                jsMensajes.Metodos.ConfirmYesOrNoModal(mensaje + CreateView.Mensajes.preguntaGuardadoParcialIndicador, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
                     .set("oncancel", function () {
                         rootObj.VerificarCamposIncompletosFormularioIndicador(false);
@@ -666,7 +668,7 @@ CreateView = {
 
         GuardadoDefinitivoIndicador: function (pIdIndicador) {
             new Promise((resolve, reject) => {
-                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaAgregarIndicador, jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaFinalizarIndicador, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) { resolve(true); });
             })
                 .then(data => {

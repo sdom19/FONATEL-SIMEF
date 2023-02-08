@@ -527,7 +527,7 @@
                             mensaje = "La Categoría ha sido activada";
                         }
                         else if (estado == jsUtilidades.Variables.EstadoRegistros.Eliminado) {
-                            mensaje = "La Categoría ha sido eliminada";
+                            mensaje = "La Categoría de Desagregación ha sido eliminada";
                         }
                         else {
                             mensaje="La Categoría ha sido desactivada";
@@ -705,13 +705,13 @@
                                 dependencias = obj.objetoRespuesta[i] + "<br>"
                             }
                             if (estado == jsUtilidades.Variables.EstadoRegistros.Eliminado) {
-                                jsMensajes.Metodos.ConfirmYesOrNoModal("La Categoría ya está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                                jsMensajes.Metodos.ConfirmYesOrNoModal("La Categoría de Desagregación está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
                                     .set('onok', function (closeEvent) {
                                         JsCategoria.Consultas.CambiarEstadoCategoria(idCategoria, estado);
                                     });
                             }
                             else {
-                                jsMensajes.Metodos.ConfirmYesOrNoModal("La Categoría ya está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                                jsMensajes.Metodos.ConfirmYesOrNoModal("La Categoría está en uso en el/los<br>" + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
                                     .set('onok', function (closeEvent) {
                                         JsCategoria.Consultas.CambiarEstadoCategoria(idCategoria, estado);
                                     });
@@ -747,7 +747,7 @@ $(document).on("click", JsCategoria.Controles.btnCancelar, function (e) {
 
 $(document).on("click", JsCategoria.Controles.btnFinalizarDetalle, function (e) {
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Categoría?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             JsCategoria.Consultas.FinalizarCategoria();
         });
@@ -844,7 +844,7 @@ $(document).on("click", JsCategoria.Controles.btnEliminarCategoria, function () 
 
     let id = $(this).val();
     let estado = jsUtilidades.Variables.EstadoRegistros.Eliminado;
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Categoría?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Categoría de Desagregación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
 
             JsCategoria.Consultas.ValidarExistenciaCategoria(id, estado);;
@@ -944,7 +944,7 @@ $(document).on("change", JsCategoria.Controles.inputFileCargarDetalle, function 
 
 $(document).on("click", JsCategoria.Controles.btnEliminarDetalle, function (e) {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el detalle de la Categoría de Desagregación?", jsMensajes.Variables.actionType.eliminar)
        .set('onok', function (closeEvent) {
          
            JsCategoria.Consultas.EliminarDetalleCategoria(id);
