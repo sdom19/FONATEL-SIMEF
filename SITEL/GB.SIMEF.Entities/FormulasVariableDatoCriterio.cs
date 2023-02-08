@@ -7,13 +7,13 @@ namespace GB.SIMEF.Entities
     public class FormulasVariableDatoCriterio : ArgumentoFormula
     {
         [Key]
-        public new int IdFormulasVariableDatoCriterio { set; get; }
+        public int IdFormulasVariableDatoCriterio { set; get; }
         public int IdFuenteIndicador { get; set; }
         public string IdIndicador { get; set; }
-        public int IdVariableDato { get; set; }
+        public int? IdVariableDato { get; set; }
         public string IdCriterio { get; set; }
-        public int IdCategoria { get; set; }
-        public int IdDetalleCategoria { get; set; }
+        public int? IdCategoria { get; set; }
+        public int? IdDetalleCategoria { get; set; }
         public int IdAcumulacion { get; set; }
         public bool EsValorTotal { get; set; }
 

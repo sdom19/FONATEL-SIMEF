@@ -16,6 +16,6 @@ namespace GB.SIMEF.BL.GestionCalculo
     /// </summary>
     public interface IArgumento
     {
-        string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula);
+        string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulasCalculo pFormulasCalculo);
     }
 }

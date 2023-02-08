@@ -40,21 +40,44 @@ namespace GB.SIMEF.DAL
                     new SqlParameter("@pIdUnidadMedida", pFormulasDefinicionFecha.IdUnidadMedida),
                     new SqlParameter("@pIdTipoFechaInicio", pFormulasDefinicionFecha.IdTipoFechaInicio),
                     new SqlParameter("@pIdTipoFechaFinal", pFormulasDefinicionFecha.IdTipoFechaFinal),
-                    pFormulasDefinicionFecha.IdCategoriaInicio == 0 ?
+                    pFormulasDefinicionFecha.IdCategoriaInicio == null || pFormulasDefinicionFecha.IdCategoriaInicio == 0 ?
                         new SqlParameter("@pIdCategoriaInicio", DBNull.Value)
                         :    
                         new SqlParameter("@pIdCategoriaInicio", pFormulasDefinicionFecha.IdCategoriaInicio),
 
-                    pFormulasDefinicionFecha.IdCategoriaFinal == 0 ?
+                    pFormulasDefinicionFecha.IdCategoriaFinal == null || pFormulasDefinicionFecha.IdCategoriaFinal == 0 ?
                         new SqlParameter("@pIdCategoriaFinal", DBNull.Value)
                         :
                         new SqlParameter("@pIdCategoriaFinal", pFormulasDefinicionFecha.IdCategoriaFinal),
                     new SqlParameter("@pIdIndicador", pFormulasDefinicionFecha.IdIndicador)
                 ).FirstOrDefault();
-
             }
-
             return envioSolicitudes;
+        }
+
+        /// <summary>
+        /// 08/02/2023
+        /// José Navarro Acuña
+        /// Función que permite obtener los argumentos de tipo Variable dato/Criterio de una formula. Se puede filtrar por el ID de la fórmula
+        /// </summary>
+        /// <param name="pFormulasDefinicionFecha"></param>
+        /// <returns></returns>
+        public List<FormulasDefinicionFecha> ObtenerDatos(FormulasDefinicionFecha pFormulasDefinicionFecha)
+        {
+            List<FormulasDefinicionFecha> listaDetalles = new List<FormulasDefinicionFecha>();
+
+            using (db = new SIMEFContext())
+            {
+                listaDetalles = db.Database.SqlQuery<FormulasDefinicionFecha>
+                    (
+                        "execute spObtenerDefinicionFechasFormulas @pIdFormula",
+                        pFormulasDefinicionFecha.IdFormula == 0 ?
+                            new SqlParameter("@pIdFormula", DBNull.Value)
+                            :
+                            new SqlParameter("@pIdFormula", pFormulasDefinicionFecha.IdFormula)
+                    ).ToList();
+            }
+            return listaDetalles;
         }
     }
 }

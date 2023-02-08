@@ -8,14 +8,14 @@ namespace GB.SIMEF.Entities
     public class FormulasDefinicionFecha : ArgumentoFormula
     {
         [Key]
-        public new int IdFormulasDefinicionFecha { set; get; }
+        public int IdFormulasDefinicionFecha { set; get; }
         public DateTime? FechaInicio { set; get; }
         public DateTime? FechaFinal { set; get; }
         public int IdUnidadMedida { set; get; }
         public int IdTipoFechaInicio { set; get; }
         public int IdTipoFechaFinal { set; get; }
-        public int IdCategoriaInicio { set; get; }
-        public int IdCategoriaFinal { set; get; }
+        public int? IdCategoriaInicio { set; get; }
+        public int? IdCategoriaFinal { set; get; }
         public int IdIndicador { set; get; }
 
         [NotMapped]
