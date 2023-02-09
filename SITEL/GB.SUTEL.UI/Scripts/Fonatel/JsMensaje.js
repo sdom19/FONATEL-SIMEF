@@ -113,7 +113,10 @@
                     .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
                 alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
             }
-           
+
+            let buttons = $(".btn.btn-fonatel.btn-success-fonatel.custom-tooltip");
+            buttons.last().removeClass("custom-tooltip-aceptar").addClass("custom-tooltip-yes");
+
             $(".ajs-close").last().addClass("custom-tooltip custom-tooltip-close");
             return alertifyObject;
         },
