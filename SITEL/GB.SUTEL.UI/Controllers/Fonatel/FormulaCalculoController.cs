@@ -502,8 +502,28 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 };
             }
 
+            string mensajesValidacion = ValidarObjectoCrearFormulaCalculo(pFormulaCalculo);
+
+            if (!string.IsNullOrEmpty(mensajesValidacion))
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorControlado, MensajeError = mensajesValidacion });
+            }
+
+            pFormulaCalculo.IdEstado = (int)EstadosRegistro.EnProceso;
+            pFormulaCalculo.IdFormula = 0;
+            pFormulaCalculo.IdFrecuencia = 0;
+            pFormulaCalculo.IdIndicador = 0;
+            pFormulaCalculo.IdIndicadorVariable = 0;
             pFormulaCalculo.UsuarioModificacion = usuario;
-            return await CrearFormulaCalculo(pFormulaCalculo);
+
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            await Task.Run(() =>
+            {
+                resultado = formulaBL.ActualizarElemento(pFormulaCalculo);
+            });
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>
