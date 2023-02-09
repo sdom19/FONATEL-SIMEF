@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="calidadPorcentajeCumplimiento" xml:space="preserve">
+    <value>SELECT SUM(PorcCumpl) FROM [CalidadIndicadorCalculo].[dbo].[FactRigurosidadFac] where IdIndicador = '{0}'</value>
+  </data>
+  <data name="calidadPorcentajeIndicador" xml:space="preserve">
+    <value>SELECT SUM(PorcentInd) FROM [CalidadIndicadorCalculo].[dbo].[FactRigurosidadFac] where IdIndicador = '{0}'</value>
+  </data>
+  <data name="fonatel" xml:space="preserve">
+    <value>declare @FechaUltimoRegistro date = null
+declare @IndicadorSalida int = {0}
+declare @IdAcumulacion int = {1}
+declare @IdVariable int = {2}
+declare @IndicadorReferencia int = {3}
+declare @IdCategoria int = {4}
+declare @IdCategoriaDetalle int = {5}
+declare @IdFormula int = {6}
+
+SELECT top 1 @FechaUltimoRegistro = FechaCreacion from IndicadorResultado
+WHERE IdIndicador = @IndicadorSalida
+ORDER BY FechaCreacion DESC
+
+IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
+BEGIN
+	SET @IdAcumulacion = 0;
+END;
+
+WITH MainQuery
+AS (
+	SELECT ISNULL(SUM(a.Valor),0) Valor, b.NumeroFila, a.IdVariable, b.FechaCreacion
+    FROM dbo.IndicadorResultado r
+	inner join dbo.IndicadorResultadoDetalleVariable a
+	ON r.IdResultado=a.IdResultado
+	inner join dbo.IndicardorResultadoDetalleCategoria b
+	ON a.IdResultado=b.IdResultado
+	inner join DetalleCategoriaTexto c
+	ON b.IdCategoria=c.IdCategoria
+	and UPPER(trim(c.Etiqueta)) like UPPER('%'+TRIM(b.valor)+'%') 
+	inner join FormulasVariableDatoCriterio d
+	ON d.IdVariableDato=a.IdVariable
+	and d.IdIndicador=a.IdIndicador
+	inner join ArgumentoFormula e
+	on e.IdFormulasVariableDatoCriterio=d.IdFormulasVariableDatoCriterio
+	inner join FormulasCalculo f
+	ON e.IdFormula=f.IdFormula
+	WHERE a.IdVariable=@IdVariable and b.IndicadorReferencia=@IndicadorReferencia and f.IdFormula=@IdFormula
+		and b.IdCategoria=ISNULL(@IdCategoria, b.IdCategoria) -- valor total y por detalle
+		and c.IdCategoriaDetalle=ISNULL(@IdCategoriaDetalle, c.IdCategoriaDetalle) -- valor total y por detalle
+	GROUP BY b.NumeroFila, a.IdVariable, b.FechaCreacion
+)
+
+SELECT Valor, NumeroFila, IdVariable 
+FROM MainQuery
+WHERE format(FechaCreacion,'MM-yy') = 
+	CASE @IdAcumulacion
+	-- acumulacion mensual
+	WHEN 3 THEN format(DATEADD(MONTH, DATEDIFF(MONTH, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
+	-- acumulacion anual
+	WHEN 2 THEN format(DATEADD(YEAR, DATEDIFF(YEAR, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
+	-- acumulación total
+	ELSE format(FechaCreacion,'MM-yy')
+	END</value>
+  </data>
+</root>

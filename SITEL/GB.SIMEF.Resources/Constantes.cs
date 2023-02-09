@@ -110,13 +110,47 @@ namespace GB.SIMEF.Resources
             IndicadorFuenteExterna = 6
         }
 
-        public enum UnidedMedidaDefinicionFechasFormulas : int
+        public enum UnidadMedidaDefinicionFechasFormulasEnum : int
         {
             dias = 1,
             meses = 2,
             anios = 3
         }
-             
+
+        public enum TipoFechaDeficionFechasFormulasEnum : int
+        {
+            fecha = 1,
+            categoriaDesagregacion = 2,
+            fechaActual = 3
+        }
+
+        /// <summary>
+        /// Enum para indicador que tipo de argumento se registra en la fórmula de cálculo dentro de la tabla de edición
+        /// </summary>
+        public enum FormulasTipoArgumentoEnum : int
+        {
+            VariableDatoCriterio = 1,
+            DefinicionFecha = 2
+        }
+
+        /// <summary>
+        /// Enum que indica el tipo de porcentaje a seleccionar en la fórmula, para indicadores de calidad
+        /// </summary>
+        public enum TipoPorcentajeIndicadorCalculoEnum : int
+        {
+            indicador = 1,
+            cumplimiento = 2
+        }
+        
+        /// <summary>
+        /// Debido a la lógica de negocios, no se tienen registros fisicos respecto a los indicadores de calidad, sino columnas de una entidad en BD
+        /// </summary>
+        public struct CriteriosIndicadoresCalidad
+        {
+            public const string procentajeIndicador = "Porcentaje Indicador";
+            public const string procentajeCumplimiento = "Porcentaje de Cumplimiento";
+        }
+
         public struct CifradoDatos
         {
             public const String strPermutacion = "ouiveyxaqtd";
@@ -126,6 +160,7 @@ namespace GB.SIMEF.Resources
             public const Int32 intBytePermutacionCuatro = 0x41;
             public const int intDivisionPassword = 8;
         }
+
         public struct EstructuraHtmlRegistroIndicador
         {
             public const string NumeroLinea = "<th style='min-width:30PX'>  </th>";

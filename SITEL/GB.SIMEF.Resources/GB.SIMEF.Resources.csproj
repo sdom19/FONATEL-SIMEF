@@ -123,6 +123,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PlantillasCorreo.resx</DependentUpon>
     </Compile>
+    <Compile Include="PredicadosSQLFormulasCalculo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PredicadosSQLFormulasCalculo.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EtiquetasViewDefinicionIndicadores.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -206,6 +211,10 @@
     <EmbeddedResource Include="PlantillasCorreo.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PlantillasCorreo.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredicadosSQLFormulasCalculo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PredicadosSQLFormulasCalculo.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

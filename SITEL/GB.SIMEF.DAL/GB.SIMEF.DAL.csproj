@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcumulacionFormulaDAL.cs" />
+    <Compile Include="ArgumentoFormulaDAL.cs" />
     <Compile Include="CorreoDal.cs" />
     <Compile Include="DatosHistoricosDAL.cs" />
     <Compile Include="ClasificacionIndicadorDAL.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="DetalleIndicadorCategoriaDAL.cs" />
     <Compile Include="DetalleIndicadorCriteriosSitelDAL.cs" />
     <Compile Include="DetalleIndicadorVariablesDAL.cs" />
+    <Compile Include="DWHSUTELContext.cs" />
     <Compile Include="EditarDetalleRegistroIndicadorFonatelDAL.cs" />
     <Compile Include="DetalleSolicitudesDAL.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatelDAL.cs" />
@@ -72,6 +74,8 @@
     <Compile Include="EnvioSolicitudDAL.cs" />
     <Compile Include="FormulasCalculoTipoFechaDAL.cs" />
     <Compile Include="FormulasCalculoUnidadMedidaDAL.cs" />
+    <Compile Include="FormulasDefinicionFechaDAL.cs" />
+    <Compile Include="FormulasVariableDatoCriterioDAL.cs" />
     <Compile Include="FuenteIndicadorDAL.cs" />
     <Compile Include="PlantillaHtmlDAL.cs" />
     <Compile Include="EditarRegistroIndicadorDAL.cs" />

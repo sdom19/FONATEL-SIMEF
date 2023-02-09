@@ -1,6 +1,9 @@
-﻿using GB.SIMEF.DAL;
+﻿using GB.SIMEF.BL.GestionCalculo;
+using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
+using GB.SIMEF.Entities.DTO;
 using GB.SIMEF.Resources;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +15,16 @@ namespace GB.SIMEF.BL
 {
     public class FormulasCalculoBL : IMetodos<FormulasCalculo>
     {
-        readonly string modulo = "";
-        readonly string user = "";
+        readonly string modulo = string.Empty;
+        readonly string user = string.Empty;
         private readonly FormulasCalculoDAL formulasCalculoDAL;
         private readonly IndicadorFonatelDAL indicadorFonatelDAL;
         private readonly FrecuenciaEnvioDAL frecuenciaEnvioDAL;
         private readonly DetalleIndicadorVariablesDAL detalleIndicadorVariablesDAL;
         private readonly FormulaNivelCalculoCategoriaDAL formulaNivelCalculoCategoriaDAL;
+        private readonly FormulasVariableDatoCriterioDAL formulasVariableDatoCriterioDAL;
+        private readonly FormulasDefinicionFechaDAL formulasDefinicionFechaDAL;
+        private readonly ArgumentoFormulaDAL argumentoFormulaDAL;
 
         public FormulasCalculoBL(string modulo, string user)
         {
@@ -29,11 +35,64 @@ namespace GB.SIMEF.BL
             frecuenciaEnvioDAL = new FrecuenciaEnvioDAL();
             detalleIndicadorVariablesDAL = new DetalleIndicadorVariablesDAL();
             formulaNivelCalculoCategoriaDAL = new FormulaNivelCalculoCategoriaDAL();
+            formulasVariableDatoCriterioDAL = new FormulasVariableDatoCriterioDAL();
+            formulasDefinicionFechaDAL = new FormulasDefinicionFechaDAL();
+            argumentoFormulaDAL = new ArgumentoFormulaDAL();
         }
 
-        public RespuestaConsulta<List<FormulasCalculo>> ActualizarElemento(FormulasCalculo objeto)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<FormulasCalculo>> ActualizarElemento(FormulasCalculo pFormulasCalculo)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 20/01/2023
+        /// José Navarro Acuña
+        /// Función que permite actualizar la etiqueta formula del objeto formula de calculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<FormulasCalculo> ActualizarEtiquetaFormula(FormulasCalculo pFormulasCalculo)
+        {
+            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            bool errorControlado = false;
+
+            try
+            {
+                PrepararObjetoFormulaCalculo(pFormulasCalculo);
+                
+                if (pFormulasCalculo.IdFormula == 0)
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                pFormulasCalculo.UsuarioModificacion = user;
+                formulasCalculoDAL.ActualizarEtiquetaFormula(pFormulasCalculo);
+
+                resultado.Usuario = user;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Editar;
+
+                formulasCalculoDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, pFormulasCalculo.Codigo);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+
+            return resultado;
         }
 
         /// <summary>
@@ -89,7 +148,72 @@ namespace GB.SIMEF.BL
 
         public RespuestaConsulta<List<FormulasCalculo>> ClonarDatos(FormulasCalculo objeto)
         {
+            // la clonación se creó a travez de la creación y la carga inicial de la pantalla
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 07/02/2023
+        /// José Navarro Acuña
+        /// Función que permite clonar los argumentos de una fórmula de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculoClonada"></param>
+        /// <param name="pIdFormulaArgumentosAClonar"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<FormulasCalculo> ClonarArgumentosDeFormula(FormulasCalculo pFormulasCalculoClonada, string pIdFormulaArgumentosAClonar)
+        {
+            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            int idFormulaArgumentosAClonar;
+            bool errorControlado = false;
+
+            try
+            {
+                PrepararObjetoFormulaCalculo(pFormulasCalculoClonada); // descriptar los IDs de la formula creada en el paso 1
+
+                if (pFormulasCalculoClonada.IdFormula == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                int.TryParse(Utilidades.Desencriptar(pIdFormulaArgumentosAClonar), out int number);
+                idFormulaArgumentosAClonar = number;
+
+                if (idFormulaArgumentosAClonar == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                FormulaPredicado formulaPredicado = new FormulaPredicado();
+                formulaPredicado.SetFormulasCalculo(pFormulasCalculoClonada);
+
+                ClonarFormulasVariableDatoCriterio(formulaPredicado, pFormulasCalculoClonada, idFormulaArgumentosAClonar);
+                ClonarFormulasDefinicionFechas(formulaPredicado, pFormulasCalculoClonada, idFormulaArgumentosAClonar);
+
+                // se debe obtener la etiqueta que representa la fórmula matemática. No se maneja desde js para evitar SQL Inyection
+                List<FormulasCalculo> formulaBasadaParaClonar = formulasCalculoDAL.ObtenerDatos(new FormulasCalculo() { IdFormula = idFormulaArgumentosAClonar });
+
+                if (formulaBasadaParaClonar.Count <= 0)
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                pFormulasCalculoClonada.Formula = formulaBasadaParaClonar[0].Formula;
+                resultado = ActualizarEtiquetaFormula(pFormulasCalculoClonada);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+
+            return resultado;
         }
 
         public RespuestaConsulta<List<FormulasCalculo>> EliminarElemento(FormulasCalculo pFormulasCalculo)
@@ -260,6 +384,390 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
+        /// 30/01/2023
+        /// José Navarro Acuña
+        /// Función que valida los datos ingresados en cada argumento de la fórmula
+        /// </summary>
+        /// <param name="pListadoArgumento"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<FormulasCalculo> ValidarDatosArgumentoEnFormula(ArgumentoFormula pArgumento)
+        {
+            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>
+            {
+                HayError = (int)Error.NoError
+            };
+
+            try
+            {
+                if (pArgumento.IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.VariableDatoCriterio)
+                {
+                    FormulasVariableDatoCriterio argVariableDato = (FormulasVariableDatoCriterio)pArgumento; // casteo explícito
+
+                    if (string.IsNullOrEmpty(argVariableDato.IdIndicador))
+                    {
+                        throw new Exception(Errores.CamposIncompletos);
+                    }
+
+                    if ((argVariableDato.IdVariableDato == null || argVariableDato.IdVariableDato <= 0) && string.IsNullOrEmpty(argVariableDato.IdCriterio))
+                    {
+                        throw new Exception(Errores.CamposIncompletos);
+                    }
+
+                    if (argVariableDato.IdFuenteIndicador == (int)FuenteIndicadorEnum.IndicadorDGF)
+                    {
+                        if (argVariableDato.IdAcumulacion <= 0)
+                        {
+                            throw new Exception(Errores.CamposIncompletos);
+                        }
+                    }
+
+                    if (argVariableDato.IdFuenteIndicador == (int)FuenteIndicadorEnum.IndicadorDGF
+                        || argVariableDato.IdFuenteIndicador == (int)FuenteIndicadorEnum.IndicadorDGM)
+                    {
+                        if (!argVariableDato.EsValorTotal)
+                        {
+                            if (argVariableDato.IdCategoria == null || argVariableDato.IdCategoria <= 0 || argVariableDato.IdDetalleCategoria == null || argVariableDato.IdDetalleCategoria <= 0)
+                            {
+                                throw new Exception(Errores.CamposIncompletos);
+                            }
+                        }
+                    }
+
+                    if (argVariableDato.IdFuenteIndicador == (int)FuenteIndicadorEnum.IndicadorDGC)
+                    {
+                        if (!argVariableDato.IdCriterio.Equals(((int)TipoPorcentajeIndicadorCalculoEnum.cumplimiento).ToString())
+                            && !argVariableDato.IdCriterio.Equals(((int)TipoPorcentajeIndicadorCalculoEnum.indicador).ToString()))
+                        {
+                            throw new Exception(Errores.CamposIncompletos);
+                        }
+                    }
+                }
+                else if (pArgumento.IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
+                {
+                    FormulasDefinicionFecha argDefinicionFecha = (FormulasDefinicionFecha)pArgumento; // casteo explícito
+
+                    if (argDefinicionFecha.IdTipoFechaInicio < (int)UnidadMedidaDefinicionFechasFormulasEnum.dias
+                        && argDefinicionFecha.IdTipoFechaInicio > (int)UnidadMedidaDefinicionFechasFormulasEnum.anios)
+                    {
+                        throw new Exception(Errores.CamposIncompletos);
+                    }
+
+                    if (argDefinicionFecha.IdTipoFechaInicio == (int)TipoFechaDeficionFechasFormulasEnum.categoriaDesagregacion)
+                    {
+                        if (argDefinicionFecha.IdCategoriaInicio == null || argDefinicionFecha.IdCategoriaInicio <= 0)
+                        {
+                            throw new Exception(Errores.CamposIncompletos);
+                        }
+                    }
+
+                    if (argDefinicionFecha.IdTipoFechaFinal == (int)TipoFechaDeficionFechasFormulasEnum.categoriaDesagregacion)
+                    {
+                        if (argDefinicionFecha.IdCategoriaFinal == null || argDefinicionFecha.IdCategoriaFinal <= 0)
+                        {
+                            throw new Exception(Errores.CamposIncompletos);
+                        }
+                    }
+
+                    if (argDefinicionFecha.IdTipoFechaInicio == (int)TipoFechaDeficionFechasFormulasEnum.fecha)
+                    {
+                        if (argDefinicionFecha.FechaInicio == DateTime.MinValue || argDefinicionFecha.FechaInicio == null)
+                        {
+                            throw new Exception(Errores.CamposIncompletos);
+                        }
+                    }
+
+                    if (argDefinicionFecha.IdTipoFechaFinal == (int)TipoFechaDeficionFechasFormulasEnum.fecha)
+                    {
+                        if (argDefinicionFecha.FechaFinal == DateTime.MinValue || argDefinicionFecha.FechaFinal == null)
+                        {
+                            throw new Exception(Errores.CamposIncompletos);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception(Errores.CamposIncompletos);
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+                resultado.HayError = (int)Error.ErrorControlado;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 20/01/2023
+        /// José Navarro Acuña
+        /// Función que permite registrar los detalles de la fórmula matematica del módulo gestión de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <param name="pListaArgumentosDTO"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<FormulasCalculo> InsertarDetallesFormulaCalculo(FormulasCalculo pFormulasCalculo, List<ArgumentoConstruidoDTO> pListaArgumentosDTO)
+        {
+            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            resultado.HayError = (int)Error.NoError;
+            bool errorControlado = false;
+
+            try
+            {
+                // consultar el indicador de salida almacenado previamente
+                PrepararObjetoFormulaCalculo(pFormulasCalculo);
+                FormulasCalculo formulaAlmacenada = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
+
+                if (formulaAlmacenada == null || string.IsNullOrEmpty(formulaAlmacenada.IdIndicadorSalidaString))
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                pFormulasCalculo.IdIndicadorSalidaString = formulaAlmacenada.IdIndicadorSalidaString;
+                PrepararObjetoFormulaCalculo(pFormulasCalculo);
+
+                FormulaPredicado formulaPredicado = new FormulaPredicado();
+
+                if (pFormulasCalculo.IdFormula == 0 || pFormulasCalculo.IdIndicador == 0)
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // procesar los objetos del DTO para obtener los datos basados en los modelos
+                RespuestaConsulta<List<ArgumentoFormula>> respuestaArgumentosValidados = ProcesarArgumentosEnDTO(pListaArgumentosDTO, pFormulasCalculo.IdFormula);
+
+                if (respuestaArgumentosValidados.HayError != (int) Error.NoError)
+                {
+                    throw new Exception(respuestaArgumentosValidados.MensajeError);
+                }
+
+                List<ArgumentoFormula> argumentosValidados = respuestaArgumentosValidados.objetoRespuesta;
+                formulaPredicado.SetFormulasCalculo(pFormulasCalculo); // datos almacenados del paso 1 del formulario
+
+                StringBuilder etiquetaFormula = new StringBuilder();
+                int ordenEnFormula = 0;
+
+                for (int i = 0; i < argumentosValidados.Count; i++)
+                {
+                    if (!argumentosValidados[i].EsOperadorMatematico)
+                    {
+                        etiquetaFormula.Append("{" + string.Format("{0}", ordenEnFormula) + "}");
+
+                        formulaPredicado.SetArgumentoFormula(argumentosValidados[i]); // establecer cada argumento a utilizar para computar el predicado SQL
+
+                        if (argumentosValidados[i].IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.VariableDatoCriterio) // determinar el tipo de argumento a evaluar
+                        {
+                            FormulasVariableDatoCriterio argVariableDato = (FormulasVariableDatoCriterio)argumentosValidados[i]; // casteo explícito
+
+                            switch (argVariableDato.IdFuenteIndicador)
+                            {
+                                case (int)FuenteIndicadorEnum.IndicadorDGF:
+                                    formulaPredicado.SetFuenteArgumento(new ArgumentoFonatel());
+                                    break;
+                                case (int)FuenteIndicadorEnum.IndicadorDGM:
+                                    formulaPredicado.SetFuenteArgumento(new ArgumentoMercados());
+                                    break;
+                                case (int)FuenteIndicadorEnum.IndicadorDGC:
+                                    formulaPredicado.SetFuenteArgumento(new ArgumentoCalidad());
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            string predicadoSQL = formulaPredicado.GetArgumentoComoPredicadoSQL(); // Paso 4, construir el predicado SQL
+                            InsertarArgumentoVariableDatoCriterio(predicadoSQL, pFormulasCalculo, argVariableDato, ordenEnFormula);
+                            ordenEnFormula++;
+
+                        }
+                        else if (argumentosValidados[i].IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
+                        {
+                            formulaPredicado.SetFuenteArgumento(new ArgumentoDefinicionFecha());
+                            string predicadoSQL = formulaPredicado.GetArgumentoComoPredicadoSQL(); // Paso 4, construir el predicado SQL
+                            InsertarArgumentoDefinicionDeFecha(predicadoSQL, pFormulasCalculo, (FormulasDefinicionFecha)argumentosValidados[i], ordenEnFormula);
+                            ordenEnFormula++;
+                        }
+                    }
+                    else
+                    {
+                        etiquetaFormula.Append(argumentosValidados[i].Etiqueta);
+                    }
+                }
+
+                pFormulasCalculo.Formula = etiquetaFormula.ToString();
+                resultado = ActualizarEtiquetaFormula(pFormulasCalculo);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 08/02/2023
+        /// José Navarro Acuña
+        /// Función que permite clonar los argumentos de tipo variables dato / criterios de una fórmula a otra
+        /// El objeto pFormulaPredicado debe tener establecida la fórmula y el objeto pFormulasCalculo tiene que tener todos los valores 
+        /// </summary>
+        /// <param name="pFormulaPredicado"></param>
+        /// <param name="pFormulasCalculo"></param>
+        /// <param name="pIdFormulaArgumentosAClonar"></param>
+        private void ClonarFormulasVariableDatoCriterio(FormulaPredicado pFormulaPredicado, FormulasCalculo pFormulasCalculo, int pIdFormulaArgumentosAClonar)
+        {
+            List<FormulasVariableDatoCriterio> listaArgumentosVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulasVariableDatoCriterio() { IdFormula = pIdFormulaArgumentosAClonar });
+
+            for (int i = 0; i < listaArgumentosVariables.Count; i++)
+            {
+                listaArgumentosVariables[i].IdFormulasVariableDatoCriterio = 0; // evitar actualizar el registro existente
+                pFormulaPredicado.SetArgumentoFormula(listaArgumentosVariables[i]);
+
+                switch (listaArgumentosVariables[i].IdFuenteIndicador)
+                {
+                    case (int)FuenteIndicadorEnum.IndicadorDGF:
+                        pFormulaPredicado.SetFuenteArgumento(new ArgumentoFonatel());
+                        break;
+                    case (int)FuenteIndicadorEnum.IndicadorDGM:
+                        pFormulaPredicado.SetFuenteArgumento(new ArgumentoMercados());
+                        break;
+                    case (int)FuenteIndicadorEnum.IndicadorDGC:
+                        pFormulaPredicado.SetFuenteArgumento(new ArgumentoCalidad());
+                        break;
+                    default:
+                        break;
+                }
+
+                string predicadoSQL = pFormulaPredicado.GetArgumentoComoPredicadoSQL(); // construir el predicado SQL
+                InsertarArgumentoVariableDatoCriterio(predicadoSQL, pFormulasCalculo, listaArgumentosVariables[i], listaArgumentosVariables[i].OrdenEnFormula);
+            }
+        }
+
+        /// <summary>
+        /// 08/02/2023
+        /// José Navarro Acuña
+        /// Función que permite clonar los argumentos de tipo variables dato / criterios de una fórmula a otra.
+        /// El objeto pFormulaPredicado debe tener establecida la fórmula y el objeto pFormulasCalculo tiene que tener todos los valores 
+        /// </summary>
+        /// <param name="pFormulaPredicado"></param>
+        /// <param name="pFormulasCalculo"></param>
+        /// <param name="pIdFormulaArgumentosAClonar"></param>
+        private void ClonarFormulasDefinicionFechas(FormulaPredicado pFormulaPredicado, FormulasCalculo pFormulasCalculo, int pIdFormulaArgumentosAClonar)
+        {
+            List<FormulasDefinicionFecha> listaArgumentosDefinicionFecha = formulasDefinicionFechaDAL.ObtenerDatos(new FormulasDefinicionFecha() { IdFormula = pIdFormulaArgumentosAClonar });
+
+            for (int i = 0; i < listaArgumentosDefinicionFecha.Count; i++)
+            {
+                listaArgumentosDefinicionFecha[i].IdFormulasDefinicionFecha = 0; // evitar actualizar el registro existente
+                pFormulaPredicado.SetArgumentoFormula(listaArgumentosDefinicionFecha[i]);
+                pFormulaPredicado.SetFuenteArgumento(new ArgumentoDefinicionFecha());
+
+                string predicadoSQL = pFormulaPredicado.GetArgumentoComoPredicadoSQL(); // construir el predicado SQL
+                InsertarArgumentoDefinicionDeFecha(predicadoSQL, pFormulasCalculo, listaArgumentosDefinicionFecha[i], listaArgumentosDefinicionFecha[i].OrdenEnFormula);
+            }
+        }
+
+        /// <summary>
+        /// 06/02/2023
+        /// José Navarro Acuña
+        /// Función procesa objectos argumentos y los traspasa al modelo de datos. Desencripta IDs y valida el contenido de cada argumento.
+        /// </summary>
+        /// <param name="pListaArgumentosDTO"></param>
+        /// <param name="pIdFormula"></param>
+        /// <returns></returns>
+        private RespuestaConsulta<List<ArgumentoFormula>> ProcesarArgumentosEnDTO(List<ArgumentoConstruidoDTO> pListaArgumentosDTO, int pIdFormula)
+        {
+            List<ArgumentoFormula> argumentosValidados = new List<ArgumentoFormula>();
+            RespuestaConsulta<List<ArgumentoFormula>> respuesta = new RespuestaConsulta<List<ArgumentoFormula>>();
+
+            for (int i = 0; i < pListaArgumentosDTO.Count; i++)
+            {
+                ArgumentoFormula argumento = PrepararObjetoArgumentoFormula(pListaArgumentosDTO[i]);
+
+                if (argumento != null) // obviar operadores de suma, resta, división, etc
+                {
+                    argumento.Etiqueta = pListaArgumentosDTO[i].Etiqueta;
+                    argumento.IdFormula = pIdFormula;
+                    argumentosValidados.Add(argumento);
+
+                    // se valida la información proporcionada para cada argumento
+                    RespuestaConsulta<FormulasCalculo> validacionArgumento = ValidarDatosArgumentoEnFormula(argumento);
+
+                    if (validacionArgumento.HayError != (int)Error.NoError)
+                    {
+                        respuesta.MensajeError = validacionArgumento.MensajeError;
+                        return respuesta;
+                    }
+                }
+                else // +, -, *, /, (, ), etc..
+                {
+                    argumentosValidados.Add(new ArgumentoFormula() {
+                        EsOperadorMatematico = true,
+                        Etiqueta = pListaArgumentosDTO[i].Etiqueta
+                    });
+                }
+            }
+            respuesta.objetoRespuesta = argumentosValidados;
+            return respuesta;
+        }
+
+        /// <summary>
+        /// 30/01/2023
+        /// José Navarro Acuña
+        /// Función que permite registrar un argumento variable dato/criterio en una fórmula dada
+        /// </summary>
+        /// <param name="pPredicadoSQL"></param>
+        /// <param name="pFormulasCalculo"></param>
+        /// <param name="pFormulasVariableDatoCriterio"></param>
+        /// <param name="pOrden"></param>
+        private void InsertarArgumentoVariableDatoCriterio(string pPredicadoSQL, FormulasCalculo pFormulasCalculo, FormulasVariableDatoCriterio pFormulasVariableDatoCriterio, int pOrden)
+        {
+            FormulasVariableDatoCriterio argumento = formulasVariableDatoCriterioDAL.ActualizarDatos(pFormulasVariableDatoCriterio);
+
+            if (argumento != null)
+            {
+                argumentoFormulaDAL.ActualizarDatos(new ArgumentoFormula() {
+                    IdVariableDatoCriterio = argumento.IdFormulasVariableDatoCriterio,
+                    IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.VariableDatoCriterio,
+                    IdFormula = pFormulasCalculo.IdFormula,
+                    PredicadoSQL = pPredicadoSQL,
+                    OrdenEnFormula = pOrden,
+                    Etiqueta = pFormulasVariableDatoCriterio.Etiqueta
+                });
+            }
+        }
+
+        /// <summary>
+        /// 30/01/2023
+        /// José Navarro Acuña
+        /// Función que permite registrar un argumento definición de fecha en una fórmula dada
+        /// </summary>
+        /// <param name="pPredicadoSQL"></param>
+        /// <param name="pFormulasCalculo"></param>
+        /// <param name="pFormulasDefinicionFecha"></param>
+        /// <param name="pOrden"></param>
+        private void InsertarArgumentoDefinicionDeFecha(string pPredicadoSQL, FormulasCalculo pFormulasCalculo, FormulasDefinicionFecha pFormulasDefinicionFecha, int pOrden)
+        {
+            FormulasDefinicionFecha argumento = formulasDefinicionFechaDAL.ActualizarDatos(pFormulasDefinicionFecha);
+
+            if (argumento != null)
+            {
+                argumentoFormulaDAL.ActualizarDatos(new ArgumentoFormula() {
+                    IdDefinicionFecha = argumento.IdFormulasDefinicionFecha,
+                    IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.DefinicionFecha,
+                    IdFormula = pFormulasCalculo.IdFormula,
+                    PredicadoSQL = pPredicadoSQL,
+                    OrdenEnFormula = pOrden,
+                    Etiqueta = pFormulasDefinicionFecha.Etiqueta
+                });
+            }
+        }
+
+        /// <summary>
         /// 24/10/2022
         /// José Navarro Acuña
         /// Prepara un objeto de fórmula para ser enviado al servicio DAL.
@@ -300,6 +808,108 @@ namespace GB.SIMEF.BL
                     pFormulasCalculo.ListaCategoriasNivelesCalculo[i].IdCategoria = number;
                 }
             }
+        }
+
+        /// <summary>
+        /// 20/01/2023
+        /// José Navarro Acuña
+        /// Procesa un objeto argumento DTO para construir un argumento basado en el modelo,
+        /// para luego ser utilizado en el proceso de la construicción de la fórmula matemática.
+        /// Adicional al patrón de mapeo del DTO, se desencriptan IDs para el manejo del modelo en la capa DAL.
+        /// </summary>
+        /// <param name="pListaArgumentos"></param>
+        private ArgumentoFormula PrepararObjetoArgumentoFormula(ArgumentoConstruidoDTO pArgumentoDTO)
+        {
+            ArgumentoFormula argumento = null;
+
+            if (pArgumentoDTO.TipoArgumento == FormulasTipoArgumentoEnum.VariableDatoCriterio)
+            {
+                argumento = pArgumentoDTO.ConvertToVariableDatoCriterio();
+                argumento.IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.VariableDatoCriterio;
+                FormulasVariableDatoCriterio argVariableDato = (FormulasVariableDatoCriterio)argumento; // casteo explicito
+
+                if (!string.IsNullOrEmpty(argVariableDato.IdFuenteIndicadorString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(argVariableDato.IdFuenteIndicadorString), out int number);
+                    argVariableDato.IdFuenteIndicador = number;
+                }
+
+                if (argVariableDato.IdFuenteIndicador == (int)FuenteIndicadorEnum.IndicadorDGF)
+                {
+                    if (!string.IsNullOrEmpty(argVariableDato.IdVariableDatoString))
+                    {
+                        int.TryParse(Utilidades.Desencriptar(argVariableDato.IdVariableDatoString), out int number);
+                        argVariableDato.IdVariableDato = number;
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(argVariableDato.IdCriterioString))
+                    {
+                        argVariableDato.IdCriterio = Utilidades.Desencriptar(argVariableDato.IdCriterioString);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(argVariableDato.IdCategoriaString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(argVariableDato.IdCategoriaString), out int number);
+                    argVariableDato.IdCategoria = number;
+                }
+
+                if (!string.IsNullOrEmpty(argVariableDato.IdDetalleCategoriaString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(argVariableDato.IdDetalleCategoriaString), out int number);
+                    argVariableDato.IdDetalleCategoria = number;
+                }
+
+                if (!string.IsNullOrEmpty(argVariableDato.IdAcumulacionString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(argVariableDato.IdAcumulacionString), out int number);
+                    argVariableDato.IdAcumulacion = number;
+                }
+
+                if (!string.IsNullOrEmpty(argVariableDato.IdIndicadorString))
+                {
+                    argVariableDato.IdIndicador = Utilidades.Desencriptar(argVariableDato.IdIndicadorString);
+                }
+            }
+            else if (pArgumentoDTO.TipoArgumento == FormulasTipoArgumentoEnum.DefinicionFecha) // FormulasTipoArgumentoEnum.DefinicionFecha
+            {
+                argumento = pArgumentoDTO.ConvertToFormulasDefinicionFecha();
+                argumento.IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.DefinicionFecha;
+                FormulasDefinicionFecha argDefinicionFecha = (FormulasDefinicionFecha)argumento;
+
+                if (!string.IsNullOrEmpty(argDefinicionFecha.IdTipoFechaInicioString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(argDefinicionFecha.IdTipoFechaInicioString), out int number);
+                    argDefinicionFecha.IdTipoFechaInicio = number;
+                }
+
+                if (!string.IsNullOrEmpty(argDefinicionFecha.IdTipoFechaFinalString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(argDefinicionFecha.IdTipoFechaFinalString), out int number);
+                    argDefinicionFecha.IdTipoFechaFinal = number;
+                }
+
+                if (!string.IsNullOrEmpty(argDefinicionFecha.IdCategoriaInicioString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(argDefinicionFecha.IdCategoriaInicioString), out int number);
+                    argDefinicionFecha.IdCategoriaInicio = number;
+                }
+
+                if (!string.IsNullOrEmpty(argDefinicionFecha.IdCategoriaFinalString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(argDefinicionFecha.IdCategoriaFinalString), out int number);
+                    argDefinicionFecha.IdCategoriaFinal = number;
+                }
+
+                if (!string.IsNullOrEmpty(argDefinicionFecha.IdIndicadorString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(argDefinicionFecha.IdIndicadorString), out int number);
+                    argDefinicionFecha.IdIndicador = number;
+                }
+            }
+            return argumento;
         }
     }
 }

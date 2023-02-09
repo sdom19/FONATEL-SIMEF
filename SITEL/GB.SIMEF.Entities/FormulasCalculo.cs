@@ -21,7 +21,7 @@ namespace GB.SIMEF.Entities
 
         public FormulasCalculo()
         {
-            ListaCategoriasNivelesCalculo = new List<FormulaNivelCalculoCategoria>();
+            ListaCategoriasNivelesCalculo = new List<FormulasNivelCalculoCategoria>();
             IdIndicador = 0;
             IdIndicadorVariable = 0;
             IdFrecuencia = 0;
@@ -57,6 +57,9 @@ namespace GB.SIMEF.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<DateTime> FechaCalculo { get; set; }
 
+        [MaxLength(8000)]
+        public string Formula { get; set; }
+
         #region Variable fuera del modelo
         [NotMapped]
         public string id { get; set; }
@@ -71,7 +74,7 @@ namespace GB.SIMEF.Entities
         public string IdFrecuenciaString { get; set; }
 
         [NotMapped]
-        public List<FormulaNivelCalculoCategoria> ListaCategoriasNivelesCalculo { get; set; }
+        public List<FormulasNivelCalculoCategoria> ListaCategoriasNivelesCalculo { get; set; }
 
         [NotMapped]
         public EstadoRegistro EstadoRegistro { get; set; }

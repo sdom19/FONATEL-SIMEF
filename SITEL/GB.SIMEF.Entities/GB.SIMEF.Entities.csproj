@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="AcumulacionFormula.cs" />
     <Compile Include="Anno.cs" />
+    <Compile Include="ArgumentoFormula.cs" />
     <Compile Include="Bitacora.cs" />
     <Compile Include="DatoHistorico.cs" />
     <Compile Include="DetalleDatoHistoricoFila.cs" />
@@ -61,9 +62,13 @@
     <Compile Include="DetalleRegistroIndicadorFonatel.cs" />
     <Compile Include="DetalleRegistroIndicadorCategoriaFonatel.cs" />
     <Compile Include="DetalleReglaValidacion.cs" />
+    <Compile Include="DTO\ArgumentoConstruidoDTO.cs" />
+    <Compile Include="DTO\ArgumentoDTO.cs" />
     <Compile Include="EstadoLogico.cs" />
     <Compile Include="FormulasCalculoTipoFecha.cs" />
     <Compile Include="FormulasCalculoUnidadMedida.cs" />
+    <Compile Include="FormulasDefinicionFecha.cs" />
+    <Compile Include="FormulasVariableDatoCriterio.cs" />
     <Compile Include="PlantillaHtml.cs" />
     <Compile Include="ReglaComparacionIndicador.cs" />
     <Compile Include="ReglaIndicadorEntrada.cs" />
@@ -91,7 +96,7 @@
     <Compile Include="FormulaIndicadorDSF.cs" />
     <Compile Include="FormulaIndicadorFecha.cs" />
     <Compile Include="FormulaIndicadorMC.cs" />
-    <Compile Include="FormulaNivelCalculoCategoria.cs" />
+    <Compile Include="FormulasNivelCalculoCategoria.cs" />
     <Compile Include="FormularioWeb.cs" />
     <Compile Include="FormulasCalculo.cs" />
     <Compile Include="FormulasCalculoDetalle.cs" />
@@ -133,6 +138,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -261,7 +261,7 @@ CrearFormulaView = {
                         pCallback();
                     }
                 })
-                .catch(error => { ManejoDeExcepciones(error); })
+                .catch(error => { ManejoDeExcepciones(error); console.log(error) })
                 .finally(() => { $("#loading").fadeOut(); });
         },
 
@@ -280,7 +280,7 @@ CrearFormulaView = {
             if ($(CrearFormulaView.Controles.form.radioCategoriaDesagregacion).is(':checked')) {
                 let idParemeter = ObtenerValorParametroUrl("id");
                 let indicador = $(CrearFormulaView.Controles.form.ddlIndicadorFormulario).val();
-
+                
                 if (idParemeter != null && idParemeter != "" && indicador != null && indicador != "") {
                     let formula = idParemeter;
 
@@ -295,7 +295,7 @@ CrearFormulaView = {
                                 true
                             );
                         })
-                        .catch(error => { ManejoDeExcepciones(error); })
+                        .catch(error => { ManejoDeExcepciones(error); console.log(error); })
                         .finally(() => {
                             $("#loading").fadeOut();
                         });
@@ -351,7 +351,8 @@ CrearFormulaView = {
                 NivelCalculoTotal: $(controles.radioTotal).is(':checked'),
                 FechaCalculo: $(controles.txtFechaCalculo).val(),
                 ListaCategoriasNivelesCalculo: listaCategorias,
-                EsGuardadoParcial: pEsGuardadoParcial ? true : false,
+                EsGuardadoParcial: pEsGuardadoParcial,
+                Formula: ""
             };
             return formData;
         },
@@ -520,7 +521,7 @@ CrearFormulaView = {
                 CrearFormulaView.Consultas.ClonarFormulaCalculo(this.CrearObjFormularioCrearFormula(false))
                     .then(data => {
                         CrearFormulaView.Variables.laFormulaFueClonada = true;
-                        InsertarParametroUrl("id", data.objetoRespuesta.id); // actualizar el id del URL (previamente se tiene el id del indicador para clonar)
+                        InsertarParametroUrl("id", data.objetoRespuesta.id); // actualizar el id del URL (previamente se tiene el id de la fórmula a clonar)
 
                         $(CrearFormulaView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
                     })
@@ -825,13 +826,13 @@ GestionFormulaView = {
             categoria: 2
         },
 
+        //Define el comporamiento de un elemento de la fórmula cuando se quiere borrar o insertar un caracter dependiendo de la posicion del cursor
+        //Numero permite insertar objetos en medio y lo divide para que sean dos numeros, de lo contrario el nuevo caracter se inserta fuera de la variable u operador
         TipoObjetoFormulaCalculo :{
             Numero: 1,
             Operador: 2,
             Variable: 3
         },
-
-        FormulaCalculo: [],
 
         FuenteIndicador: {
             IndicadorDGF: 1,
@@ -857,6 +858,7 @@ GestionFormulaView = {
             GetRegex: () => /^[\+\-*\/<>=().0-9 ]+$/
         },
 
+        //Se usa para definir el tipo de objeto de un operador en la fórmula, si es fecha se puede modificar, si es criterio solo se puede borrar
         TipoArgumento: {
             criterio: 1,
             fecha: 2
@@ -874,10 +876,11 @@ GestionFormulaView = {
         cargoFuentesIndicador: false,
         cargoTiposFechasModalDeficionFechas: false,
         listaConfigDetallesIndicador: [],
-        listaConfigDefinicionFechas: {},
+        listaConfigDefinicionFechas: [],
         filaSeleccionadaTablaDetalles: null,
+        FormulaCalculo: [],
 
-        GetArgumentoConFormato: (pArgIzquierda, pArgDerecha) => `{${pArgIzquierda} - ${pArgDerecha}}`,
+        indexViewURL: "/Fonatel/FormulaCalculo/Index",
     },
 
     Mensajes: {
@@ -901,6 +904,8 @@ GestionFormulaView = {
         exitoFormulaEjecutada: "La Fórmula ha sido ejecutada",
         preguntaAgregarFormula: "¿Desea agregar la Fórmula de Cálculo?",
         preguntaEjecutarFormula: "¿Desea ejecutar la Fórmula?",
+
+        preguntaGuardadoParcial: "¿Desea realizar un guardado parcial de la Fórmula de Cálculo?",
     },
 
     Metodos: {
@@ -949,12 +954,15 @@ GestionFormulaView = {
                 $(GestionFormulaView.Controles.modalDetalleAgregacion.divCriterio).css("display", "block");
             }
 
-            if (pFuenteIndicador == GestionFormulaView.Variables.FuenteIndicador.IndicadorFuenteExterna) {
+            if (pFuenteIndicador == GestionFormulaView.Variables.FuenteIndicador.IndicadorFuenteExterna
+                || pFuenteIndicador == GestionFormulaView.Variables.FuenteIndicador.IndicadorUIT
+                || pFuenteIndicador == GestionFormulaView.Variables.FuenteIndicador.IndicadorCruzado) {
                 $(GestionFormulaView.Controles.form.divServicio).css("display", "none");
                 $(GestionFormulaView.Controles.form.divGrupo).css("display", "none");
                 $(GestionFormulaView.Controles.form.divClasificacion).css("display", "none");
                 $(GestionFormulaView.Controles.form.divAcumulacion).css("display", "none");
                 $(GestionFormulaView.Controles.form.divTipoIndicador).css("display", "none");
+                $(GestionFormulaView.Controles.form.divIndicador).css("display", "none");
                 
             }
         },
@@ -974,8 +982,11 @@ GestionFormulaView = {
             pData.objetoRespuesta?.forEach(item => {
                 dataSet.push(
                     {
-                        value: item.IdFuenteIndicador,
+                        value: item.id,
                         text: item.Fuente,
+                        extraParameters: [
+                            { attr: GestionFormulaView.Variables.attrIdentificador, value: item.IdFuenteIndicador }
+                        ]
                     });
             });
             InsertarDataSetSelect2(GestionFormulaView.Controles.form.ddlFuenteIndicador, dataSet, false);
@@ -1133,7 +1144,7 @@ GestionFormulaView = {
         },
 
         SeleccionarCargaDeDatosIndicador: function () {
-            let fuenteIndicador = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).val();
+            let fuenteIndicador = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
             let grupo = $(GestionFormulaView.Controles.form.ddlGrupo).val();
             let servicio = $(GestionFormulaView.Controles.form.ddlServicio).val();
             let clasificacion = $(GestionFormulaView.Controles.form.ddlClasificacion).val();
@@ -1165,7 +1176,7 @@ GestionFormulaView = {
         },
 
         CargarTablaDetallesIndicador: function (pIdIndicador) {
-            let fuenteIndicador = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).val();
+            let fuenteIndicador = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
 
             $("#loading").fadeIn();
 
@@ -1181,13 +1192,23 @@ GestionFormulaView = {
             EliminarDatasource();
             let html = "";
             for (var i = 0; i < pListado?.length; i++) {
+                let codigo = GestionFormulaView.Variables.codigoIndicadorSeleccionado;
+                if (codigo == "" || codigo == null) { codigo = "-"; }
+
+                let fuenteSeleccionada = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
+                let disabled, checked = "";
+
+                if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGC) {
+                    disabled = "disabled"; checked = "checked";
+                }
+
                 let detalle = pListado[i];
                 html += `<tr value="${detalle.id}">`;
-                html += `<td scope='row'>${GestionFormulaView.Variables.codigoIndicadorSeleccionado}</td>`;
+                html += `<td scope='row'>${codigo}</td>`;
                 html += `<td>${detalle.NombreVariable}</td>`;
-                html += `<td><input type='checkbox' id='${GestionFormulaView.Controles.form.chkValorTotal.slice(1)}'/></td>`;
+                html += `<td><input type='checkbox' id='${GestionFormulaView.Controles.form.chkValorTotal.slice(1)}' ${disabled} ${checked}/></td>`;
                 html += `<td><button type='submit' id='${GestionFormulaView.Controles.form.btnAgregarDetalleAgregacion.slice(1)}'
-                        class='btn-icon-base btn-touch' data-toggle='tooltip' data-placement='top' title='${GestionFormulaView.Variables.tooltipBtnAgregarDetalleAgregacionAgregar}'></button></td>`;
+                        class='btn-icon-base btn-touch' data-toggle='tooltip' data-placement='top' title='${GestionFormulaView.Variables.tooltipBtnAgregarDetalleAgregacionAgregar}' ${disabled}></button></td>`;
                 html += `<td><button type='submit' id='' class='btn-icon-base btn-add' data-toggle='tooltip' data-placement='top' title='Agregar'></button></td>`;
                 html += "</tr>";
             }
@@ -1196,20 +1217,29 @@ GestionFormulaView = {
             CargarDatasource();
         },
 
-        AgregarArgumentoAFormula: function (pTipoArgumento) {
+        CrearObjArgumento: function (pTipoObjeto, pEtiqueta, pTipoArgumento, pArgumento) {
+            return {
+                tipoObjeto: pTipoObjeto,
+                etiqueta: pEtiqueta,
+                tipoArgumento: pTipoArgumento,
+                argumento: pArgumento
+            }
+        },
+
+        ConstruirArgumento: function (pTipoArgumento) {
+            let argumentoConstruido = null;
+
             if (pTipoArgumento == GestionFormulaView.Variables.TipoArgumento.criterio) {
                 let variableCriterio = $(GestionFormulaView.Variables.filaSeleccionadaTablaDetalles).attr("value");
                 let objDetalle = GestionFormulaView.Variables.listaConfigDetallesIndicador[variableCriterio];
 
                 if (objDetalle != null) {
-                    let argumentoConstruido = {
-                        tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable,
-                        valor: {
-                            text: GestionFormulaView.Variables.GetArgumentoConFormato(objDetalle.codigoIndicador, objDetalle.nombreVariable),
-                            objeto: objDetalle
-                        }
-                    };
-                    RegistrarArgumento(this.AgregarVariableAFormula, argumentoConstruido);
+                    argumentoConstruido = this.CrearObjArgumento(
+                        GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable,
+                        this.ConstruirLabelArgumentoTipoVariableDatoCriterio(objDetalle.codigoIndicador, objDetalle.nombreVariable),
+                        pTipoArgumento,
+                        objDetalle
+                    );
                 }
             }
             else { // definición de fecha
@@ -1217,32 +1247,22 @@ GestionFormulaView = {
                 let objFecha = GestionFormulaView.Variables.listaConfigDefinicionFechas[indicador];
 
                 if (objFecha != null) {
-                    
-                    let argumentoConstruido = {
-                        tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable,
-                        valor: {
-                            text: this.ConstruirArgumentoTipoFecha(objFecha),
-                            objeto: objFecha
-                        }
-                    };
-                    this.AgregarVariableAFormula(argumentoConstruido);
+                    argumentoConstruido = this.CrearObjArgumento(
+                        GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable,
+                        this.ConstruirLabelArgumentoTipoFecha(objFecha),
+                        pTipoArgumento,
+                        objFecha,
+                    );
                 }
             }
-
-            function RegistrarArgumento(pCallback, pArgumento) {
-                new Promise((resolve, reject) => {
-                    jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaAgregarArgumento, jsMensajes.Variables.actionType.agregar)
-                        .set('onok', function (_) { resolve(true); });
-                })
-                    .then(_ => {
-                        pCallback(pArgumento);
-                        jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoAgregado)
-                            .set('onok', function (_) { });
-                    });
-            }
+            return argumentoConstruido;
         },
 
-        ConstruirArgumentoTipoFecha: function (pConfigDefinicionFecha) {
+        ConstruirLabelArgumentoTipoVariableDatoCriterio: function (pArgIzquierda, pArgDerecha) {
+            return `{${pArgIzquierda} - ${pArgDerecha}}`;
+        },
+
+        ConstruirLabelArgumentoTipoFecha: function (pConfigDefinicionFecha) {
             // tipo fecha final
             let parametro1, parametro2 = "";
 
@@ -1267,55 +1287,73 @@ GestionFormulaView = {
                 parametro2 = GestionFormulaView.Variables.labelHoy;
             }
 
-            return GestionFormulaView.Variables.GetArgumentoConFormato(parametro1, parametro2);
+            return this.ConstruirLabelArgumentoTipoVariableDatoCriterio(parametro1, parametro2);
         },
 
-        AniadirOperadorAFormula: function (pOperador, pIndex) {
+        RegistrarCriterio: function (pElementRoot) {
+            GestionFormulaView.Variables.filaSeleccionadaTablaDetalles = $(pElementRoot).parent().parent();
+            let argumento = GestionFormulaView.Metodos.ConstruirArgumento(GestionFormulaView.Variables.TipoArgumento.criterio);
+            
+            if (argumento) {
+                new Promise((resolve, reject) => {
+                    jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaAgregarArgumento, jsMensajes.Variables.actionType.agregar)
+                        .set('onok', function (_) { resolve(true); });
+                })
+                    .then(_ => {
+                        GestionFormulaView.Metodos.AgregarVariableAFormula(argumento);
+                        jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoAgregado)
+                            .set('onok', function (_) { });
+                    });
+            }
+        },
+
+        AniadirElementoAFormula: function (pOperador, pIndex) {
             let cantCaracteres = 0;
 
             if (GestionFormulaView.Variables.FormulaCalculo.length == 0) {
                 GestionFormulaView.Variables.FormulaCalculo.push(pOperador)
-                if (pOperador.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
-                    return pOperador.valor.text.toString().length;
+                if (pOperador.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
+                    return pOperador.etiqueta.toString().length;
                 }
-                return pOperador.valor.toString().length;
+                return pOperador.argumento.toString().length;
             }
 
             for (let i = 0; i < GestionFormulaView.Variables.FormulaCalculo.length; i++) {
                 let item = GestionFormulaView.Variables.FormulaCalculo[i];
-                if (item.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
-                    cantCaracteres += item.valor.text.toString().length;
+                if (item.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
+                    cantCaracteres += item.etiqueta.toString().length;
                     if (cantCaracteres > (pIndex - 1)) {
                         GestionFormulaView.Variables.FormulaCalculo.splice((i), 0, pOperador)
 
-                        if (pOperador.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
+                        if (pOperador.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
                             return cantCaracteres;
                         } else {
-                            return pIndex + pOperador.valor.toString().length - 1;
+                            return pIndex + pOperador.argumento.toString().length - 1;
                         }
 
                     } else if (cantCaracteres == (pIndex - 1)) {
                         GestionFormulaView.Variables.FormulaCalculo.splice((i + 1), 0, pOperador)
-                        if (pOperador.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
-                            return cantCaracteres + pOperador.valor.text.toString().length;
+                        if (pOperador.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
+                            return cantCaracteres + pOperador.etiqueta.toString().length;
                         } else {
-                            return cantCaracteres + pOperador.valor.toString().length;
+                            return cantCaracteres + pOperador.argumento.toString().length;
                         }
                     }
                 } else {
-                    let itemStr = item.valor.toString();
+                    let itemStr = item.argumento.toString();
                     cantCaracteres += itemStr.length;
-                    if (cantCaracteres >= (pIndex - 1) && item.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero && pOperador.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero) {
+                    if (cantCaracteres >= (pIndex - 1) && item.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero && pOperador.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero) {
                         let inicioSimbolo = cantCaracteres - itemStr.length;
                         let charPos = pIndex - inicioSimbolo - 1;
 
                         let nuevo = itemStr.substring(0, (charPos))
                         let nuevo2 = itemStr.substring((charPos), itemStr.length)
-                        GestionFormulaView.Variables.FormulaCalculo[i].valor = nuevo + pOperador.valor.toString() + nuevo2;
+                        GestionFormulaView.Variables.FormulaCalculo[i].argumento = nuevo + pOperador.argumento.toString() + nuevo2;
+                        GestionFormulaView.Variables.FormulaCalculo[i].etiqueta = nuevo + pOperador.argumento.toString() + nuevo2;
                         
                         return (inicioSimbolo + charPos + 1);
                     }
-                    else if (cantCaracteres >= (pIndex - 1) && item.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero && pOperador.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador) {
+                    else if (cantCaracteres >= (pIndex - 1) && item.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero && pOperador.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador) {
                         let inicioSimbolo = cantCaracteres - itemStr.length;
                         let charPos = pIndex - inicioSimbolo - 1;
 
@@ -1324,12 +1362,21 @@ GestionFormulaView = {
 
                         GestionFormulaView.Variables.FormulaCalculo.splice(i, 1);
 
-                        if (nuevo != "") GestionFormulaView.Variables.FormulaCalculo.splice(i, 0, { tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, valor: nuevo })
+                        if (nuevo != "") {
+                            GestionFormulaView.Variables.FormulaCalculo.splice(
+                                i, 0,
+                                this.CrearObjArgumento(GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, nuevo, null, nuevo)
+                            );
+                        }
                         GestionFormulaView.Variables.FormulaCalculo.splice((i + (nuevo == "" ? 0 : 1)), 0, pOperador)
-                        if (nuevo2 != "") GestionFormulaView.Variables.FormulaCalculo.splice((i + (nuevo == "" ? 1 : 2)), 0, { tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, valor: nuevo2 })
+                        if (nuevo2 != "") {
+                            GestionFormulaView.Variables.FormulaCalculo.splice(
+                                (i + (nuevo == "" ? 1 : 2)),
+                                0,
+                                this.CrearObjArgumento(GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, nuevo2, null, nuevo2))
+                        }
 
-                        return (inicioSimbolo + charPos + pOperador.valor.toString().length);
-
+                        return (inicioSimbolo + charPos + pOperador.argumento.toString().length);
                     }
                     else if (cantCaracteres >= (pIndex - 1)) {
 
@@ -1343,11 +1390,11 @@ GestionFormulaView = {
                             GestionFormulaView.Variables.FormulaCalculo.splice((i + 1), 0, pOperador)
                         }
 
-                        if (pOperador.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
-                            return pIndex + pOperador.valor.text.toString().length - 1;
+                        if (pOperador.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
+                            return pIndex + pOperador.etiqueta.toString().length - 1;
                         }
 
-                        return cantCaracteres + pOperador.valor.toString().length - complementoCursor
+                        return cantCaracteres + pOperador.argumento.toString().length - complementoCursor
                     }
                 }
             }
@@ -1356,18 +1403,28 @@ GestionFormulaView = {
         BorrarOperadorAFormula: function (pIndex) {
             let cantCaracteres = 0;
             let posicionCursor = 0;
+
             for (let i = 0; i < GestionFormulaView.Variables.FormulaCalculo.length; i++) {
                 let item = GestionFormulaView.Variables.FormulaCalculo[i];
-                if (item.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
-                    cantCaracteres += item.valor.text.toString().length;
+
+                if (item.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
+                    cantCaracteres += item.etiqueta.toString().length;
                     if (cantCaracteres >= pIndex) {
                         let borrado = GestionFormulaView.Variables.FormulaCalculo.splice(i, 1);
-                        posicionCursor = cantCaracteres - (borrado[0].valor.text.toString().length);
+                        posicionCursor = cantCaracteres - (borrado[0].etiqueta.toString().length);
+
+                        //ELIMINAR DEL OBJETO DEFINICION DE FECHAS
+                        let indicador = borrado[0].argumento.indicador;
+                        if (borrado[0].tipoArgumento == GestionFormulaView.Variables.TipoArgumento.fecha && GestionFormulaView.Variables.listaConfigDefinicionFechas.hasOwnProperty(indicador)) {
+                            delete GestionFormulaView.Variables.listaConfigDefinicionFechas[indicador];
+                        }
+
                         break;
                     }
                 } else {
-                    item = item.valor.toString();
+                    item = item.argumento.toString();
                     cantCaracteres += item.length;
+
                     if (cantCaracteres >= pIndex) {
                         if (item.length == 1) {
                             GestionFormulaView.Variables.FormulaCalculo.splice(i, 1);
@@ -1379,7 +1436,8 @@ GestionFormulaView = {
 
                             let nuevo = item.substring(0, (charPos - 1))
                             let nuevo2 = item.substring((charPos), item.length)
-                            GestionFormulaView.Variables.FormulaCalculo[i].valor = nuevo + nuevo2;
+                            GestionFormulaView.Variables.FormulaCalculo[i].argumento = nuevo + nuevo2;
+                            GestionFormulaView.Variables.FormulaCalculo[i].etiqueta = nuevo + nuevo2;
                             //console.log({longitud:item.length, charPos, cantCaracteres, index, inicioSimbolo, nuevo, nuevo2})
                             posicionCursor = inicioSimbolo + charPos - 1;
                             break;
@@ -1393,13 +1451,13 @@ GestionFormulaView = {
                 let item = GestionFormulaView.Variables.FormulaCalculo[i];
 
                 if (i < (GestionFormulaView.Variables.FormulaCalculo.length - 1)) {
-                    if (item.tipo == GestionFormulaView.Variables.FormulaCalculo[(i + 1)].tipo && item.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero) {
+                    if (item.tipoObjeto == GestionFormulaView.Variables.FormulaCalculo[(i + 1)].tipoObjeto && item.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero) {
                         let borrado = GestionFormulaView.Variables.FormulaCalculo.splice((i + 1), 1)[0];
-                        GestionFormulaView.Variables.FormulaCalculo[i].valor = item.valor.toString() + borrado.valor.toString();
+                        GestionFormulaView.Variables.FormulaCalculo[i].argumento = item.argumento.toString() + borrado.argumento.toString();
+                        GestionFormulaView.Variables.FormulaCalculo[i].etiqueta = item.argumento.toString() + borrado.argumento.toString();
                     }
                 }
             }
-
             return posicionCursor;
         },
 
@@ -1413,10 +1471,10 @@ GestionFormulaView = {
             let txtFormula = ""
             for (let i = 0; i < GestionFormulaView.Variables.FormulaCalculo.length; i++) {
                 let item = GestionFormulaView.Variables.FormulaCalculo[i];
-                if (item.tipo == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
-                    simbolo = item.valor.text;
+                if (item.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
+                    simbolo = item.etiqueta;
                 } else {
-                    simbolo = item.valor.toString();
+                    simbolo = item.argumento.toString();
                 }
                 if (i == 0) {
                     txtFormula += simbolo;
@@ -1429,18 +1487,90 @@ GestionFormulaView = {
 
         BotonAgregarOperadorFormula: function (pOperador) {
             let index = GestionFormulaView.Metodos.ObtenerPosicionCursor();
-            let newIndex = GestionFormulaView.Metodos.AniadirOperadorAFormula({ tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador, valor: pOperador }, (index))
+            let newIndex = GestionFormulaView.Metodos.AniadirElementoAFormula(this.CrearObjArgumento(GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador, pOperador, null, pOperador)  /*{ tipoObjeto: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador, argumento: pOperador, etiqueta: pOperador}*/, (index))
             GestionFormulaView.Metodos.MostrarFormulaCalculo();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).focus();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
         },
 
-        AgregarVariableAFormula: function (pVariable){
+        AgregarVariableAFormula: function (pVariable) {
             let index = GestionFormulaView.Metodos.ObtenerPosicionCursor();
-            let newIndex = GestionFormulaView.Metodos.AniadirOperadorAFormula(pVariable, (index))
+            let newIndex = GestionFormulaView.Metodos.AniadirElementoAFormula(pVariable, (index))
             GestionFormulaView.Metodos.MostrarFormulaCalculo();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).focus();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
+        },
+
+        AgregarFechaAFormula: function (pVariable) {
+            let index = GestionFormulaView.Metodos.ObtenerPosicionCursor();
+            let nuevo = true;
+
+            //VERIFICAR SI LA FECHA YA EXISTE, Modificarlo
+            for (let i = 0; i < GestionFormulaView.Variables.FormulaCalculo.length; i++) {
+                let item = GestionFormulaView.Variables.FormulaCalculo[i];
+                if (item.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable) {
+                    if (item.argumento.indicador == pVariable.argumento.indicador && item.tipoArgumento == GestionFormulaView.Variables.TipoArgumento.fecha) {
+                        GestionFormulaView.Variables.FormulaCalculo.splice(i, 1);
+                        GestionFormulaView.Variables.FormulaCalculo.splice(i, 0, pVariable)
+                        nuevo = false;
+                        break;
+                    }
+                }
+            }
+
+            if (nuevo) {
+                index = GestionFormulaView.Metodos.AniadirElementoAFormula(pVariable, (index))
+            }
+
+            GestionFormulaView.Metodos.MostrarFormulaCalculo();
+            $(GestionFormulaView.Controles.form.inputFormulaCalculo).focus();
+            $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(index);
+        },
+
+        BotonRemoverOperadorFormula: function () {
+            jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEliminaArgumento, jsMensajes.Variables.actionType.eliminar)
+                .set('onok', function (closeEvent) {
+                    GestionFormulaView.Variables.FormulaCalculo.pop();
+                    GestionFormulaView.Metodos.MostrarFormulaCalculo();
+
+                    jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoEliminado).set('onok', function (_) { });
+                });
+        },
+
+        CrearObjFormularioCrearFormula: function (pEsGuardadoParcial) {
+            let formData = {
+                id: ObtenerValorParametroUrl("id"),
+                EsGuardadoParcial: pEsGuardadoParcial
+            };
+            return formData;
+        },
+
+        CrearFormulaGuardadoParcial: function () {
+            let formulaConstruida = GestionFormulaView.Variables.FormulaCalculo;
+
+            if (formulaConstruida != null && formulaConstruida.length > 0) {
+
+                new Promise((resolve, reject) => {
+                    jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaGuardadoParcial, jsMensajes.Variables.actionType.agregar)
+                        .set('onok', function (closeEvent) { resolve(true); })
+                })
+                    .then(_ => {
+                        $("#loading").fadeIn();
+
+                        return GestionFormulaView.Consultas.CrearDetallesFormulaCalculo(
+                            GestionFormulaView.Metodos.CrearObjFormularioCrearFormula(true),
+                            formulaConstruida
+                        );
+                    })
+                    .then(_ => {
+                        jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoFormulaCreada)
+                            .set('onok', function (closeEvent) {
+                                window.location.href = GestionFormulaView.Variables.indexViewURL;
+                            });
+                    })
+                    .catch(error => { ManejoDeExcepciones(error); console.log(error); })
+                    .finally(() => { $("#loading").fadeOut(); });
+            }
         },
 
         // Modal detalle desagregacion/agrupación
@@ -1494,7 +1624,7 @@ GestionFormulaView = {
         CargarModalDetallesIndicador: function () {
             this.LimpiarMensajesValidacionModalDetalle();
 
-            let fuenteIndicador = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).val();
+            let fuenteIndicador = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
             let pIdIndicador = $(GestionFormulaView.Controles.form.ddlIndicador).val();
             let idDetalle = $(GestionFormulaView.Variables.filaSeleccionadaTablaDetalles).attr("value");
             let objDetalle = GestionFormulaView.Variables.listaConfigDetallesIndicador[idDetalle];
@@ -1536,7 +1666,7 @@ GestionFormulaView = {
 
         CargarComboBoxDetallesModalDetalle: function (pIdCategoria) {
             $("#loading").fadeIn();
-            let fuenteIndicador = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).val();
+            let fuenteIndicador = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
             let idIndicador = $(GestionFormulaView.Controles.form.ddlIndicador).val();
 
             if (fuenteIndicador == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGF) {
@@ -1662,10 +1792,10 @@ GestionFormulaView = {
                 fuente: $(GestionFormulaView.Controles.form.ddlFuenteIndicador).val(),
                 indicador: $(GestionFormulaView.Controles.form.ddlIndicador).val(),
                 codigoIndicador: GestionFormulaView.Variables.codigoIndicadorSeleccionado,
+                variableDatoCriterio: variableCriterio,
                 nombreVariable: $(GestionFormulaView.Variables.filaSeleccionadaTablaDetalles).children().eq(1).text(),
                 categoria: $(GestionFormulaView.Controles.modalDetalleAgregacion.ddlCategoria).val(),
                 detalle: $(GestionFormulaView.Controles.modalDetalleAgregacion.ddlDetalle).val(),
-                criterio: $(GestionFormulaView.Controles.modalDetalleAgregacion.ddlCriterio).val(),
                 acumulacion: $(GestionFormulaView.Controles.form.ddlAcumulacion).val(),
                 valorTotal: pEsValorTotal
             };
@@ -1677,7 +1807,7 @@ GestionFormulaView = {
         },
 
         GuardarDetalleModalDetalle: function () {
-            let fuenteIndicador = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).val();
+            let fuenteIndicador = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
 
             if (this.ValidarComboBoxesModalDetalle(fuenteIndicador)) {
                 this.AgregarObjDetalleModalDetalle();
@@ -1888,7 +2018,7 @@ GestionFormulaView = {
         },
 
         CargarComboboxCategoriasTipoFecha: function (pComboboxCategorias) {
-            let fuente = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).val();
+            let fuente = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
 
             if (fuente == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGF) {
                 let idIndicador = $(GestionFormulaView.Controles.form.ddlIndicador).val();
@@ -2006,19 +2136,39 @@ GestionFormulaView = {
         },
 
         EliminarObjDefinicionModalFecha: function () {
+            let index = GestionFormulaView.Metodos.ObtenerPosicionCursor();
             let indicador = $(GestionFormulaView.Controles.form.ddlIndicador).val();
             delete GestionFormulaView.Variables.listaConfigDefinicionFechas[indicador];
+
+            for (let i = 0; i < GestionFormulaView.Variables.FormulaCalculo.length; i++) {
+                let item = GestionFormulaView.Variables.FormulaCalculo[i];
+                if (item.tipoObjeto == GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable && item.tipoArgumento == GestionFormulaView.Variables.TipoArgumento.fecha) {
+                    if (item.argumento.indicador == indicador) {
+                        GestionFormulaView.Variables.FormulaCalculo.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+
+            GestionFormulaView.Metodos.MostrarFormulaCalculo();
+            $(GestionFormulaView.Controles.form.inputFormulaCalculo).focus();
+            $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(index);
         },
 
         GuardarDefinicionDeFechas: function () {
             if (this.ValidarFormularioModalDefinicionFechas()) {
                 this.AgregarObjConfigDefinicionFechas();
-                this.AgregarArgumentoAFormula(GestionFormulaView.Variables.TipoArgumento.fecha);
+                let argumento = this.ConstruirArgumento(GestionFormulaView.Variables.TipoArgumento.fecha);
 
-                jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoFechaCreado)
-                    .set('onok', function (closeEvent) {
-                        $(GestionFormulaView.Controles.modalFechaCalculo.modal).modal('hide');
-                    });
+                if (argumento) {
+                    this.AgregarFechaAFormula(argumento);
+
+                    jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoFechaCreado)
+                        .set('onok', function (closeEvent) {
+                            $(GestionFormulaView.Controles.modalFechaCalculo.modal).modal('hide');
+                        });
+                }
+
             }
         },
 
@@ -2104,7 +2254,11 @@ GestionFormulaView = {
 
         ConsultarTiposFechas: function () {
             return execAjaxCall("/FormulaCalculo/ObtenerTiposFechasDefinicion", "GET");
-        }
+        },
+
+        CrearDetallesFormulaCalculo: function (pFormulaCalculo, pListaArgumentos) {
+            return execAjaxCall("/FormulaCalculo/CrearDetallesFormulaCalculo", "POST", { pFormulaCalculo, pListaArgumentos });
+        },
     },
 
     Eventos: function () {
@@ -2115,7 +2269,7 @@ GestionFormulaView = {
         });
 
         $(GestionFormulaView.Controles.form.ddlFuenteIndicador).on('select2:select', function () {
-            let fuenteSeleccionada = $(this).val();
+            let fuenteSeleccionada = $(this).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
 
             GestionFormulaView.Metodos.HabilitarComboboxddlFuenteIndicador(fuenteSeleccionada);
             GestionFormulaView.Metodos.InsertarDatosTablaDetallesIndicador([]); // reutilizar el método para limpiar la tabla
@@ -2123,12 +2277,14 @@ GestionFormulaView = {
             if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGF) {
                 GestionFormulaView.Metodos.CargarCatalogosParaFuenteIndicadorFonatel();
             }
-            else if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorFuenteExterna) {
-                GestionFormulaView.Metodos.CargarDatosIndicador(fuenteSeleccionada);
-            }
-            else {
+            else if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGM
+                || fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGC) {
                 GestionFormulaView.Metodos.CargarCatalogosParaFuenteIndicadorFueraDeFonatel(fuenteSeleccionada);
             }
+            //else if (fuenteSeleccionada == GestionFormulaView.Variables.FuenteIndicador.IndicadorFuenteExterna) {
+            //    GestionFormulaView.Metodos.CargarDatosIndicador(fuenteSeleccionada);
+            //}
+            
         });
 
         $(GestionFormulaView.Controles.form.ddlGrupo).on('select2:select', function () {
@@ -2171,8 +2327,24 @@ GestionFormulaView = {
         });
 
         $(document).on("click", GestionFormulaView.Controles.form.btnAgregarArgumento, function () {
-            GestionFormulaView.Variables.filaSeleccionadaTablaDetalles = $(this).parent().parent();
-            GestionFormulaView.Metodos.AgregarArgumentoAFormula(GestionFormulaView.Variables.TipoArgumento.criterio);
+            let acumulacion = $(GestionFormulaView.Controles.form.ddlAcumulacion).val();
+            let fuente = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
+
+            if (fuente == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGF) {
+                if (acumulacion != "" && acumulacion != null) {
+                    GestionFormulaView.Metodos.RegistrarCriterio(this);
+                }
+            }
+            else if (fuente == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGC) {
+                // como no tenemos opcion de selecionar Valor Total o Detalle de Agrupación, por default debe ser Valor Total
+                GestionFormulaView.Variables.filaSeleccionadaTablaDetalles = $(this).parent().parent();
+                GestionFormulaView.Metodos.AgregarObjDetalleModalDetalle(true);
+                GestionFormulaView.Metodos.RegistrarCriterio(this);
+            }
+            else {
+                GestionFormulaView.Metodos.RegistrarCriterio(this);
+            }
+
         });
 
         // Modal detalle desagregación/agrupación
@@ -2235,24 +2407,35 @@ GestionFormulaView = {
             let regex = GestionFormulaView.Variables.Operadores.GetRegex();
             let char = String.fromCharCode(keyCode);
             let index = event.target.selectionStart;
-
+            
             if (keyCode >= 48 && keyCode <= 57) {
-                let newIndex = GestionFormulaView.Metodos.AniadirOperadorAFormula({ tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, valor: char }, (index + 1))
+                let newIndex = GestionFormulaView.Metodos.AniadirElementoAFormula(/*{ tipoObjeto: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, argumento: char, etiqueta: char }*/
+                    GestionFormulaView.Metodos.CrearObjArgumento(GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, char, null, char),
+                    (index + 1)
+                );
                 $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
                 GestionFormulaView.Metodos.MostrarFormulaCalculo();
-            } else if (regex.test(char)) {
-                let newIndex = GestionFormulaView.Metodos.AniadirOperadorAFormula({ tipo: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador, valor: char }, (index + 1))
+            }
+            else if (regex.test(char)) {
+                let newIndex = GestionFormulaView.Metodos.AniadirElementoAFormula(/*{ tipoObjeto: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador, argumento: char, etiqueta: char  }*/
+                    GestionFormulaView.Metodos.CrearObjArgumento(GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador, char, null, char),
+                    (index + 1)
+                );
                 $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
                 GestionFormulaView.Metodos.MostrarFormulaCalculo();
             }
             return false
         });
 
-        $(document).on("keydown", GestionFormulaView.Controles.form.inputFormulaCalculo, function (e) {
+        $(document).on("keydown", GestionFormulaView.Controles.form.inputFormulaCalculo, function (event) {
+            let index = event.target.selectionStart;
+            let keyCode = event.keyCode || event.which;
 
-            let index = e.target.selectionStart;
+            if (keyCode == 46) { // suppress key
+                event.preventDefault();
+            }
 
-            if (e.keyCode == 8) {
+            if (keyCode == 8) { // backspace key
                 let newIndex = GestionFormulaView.Metodos.BorrarOperadorAFormula(index);
                 $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
                 GestionFormulaView.Metodos.MostrarFormulaCalculo();
@@ -2266,7 +2449,7 @@ GestionFormulaView = {
 
         $(document).on("click", GestionFormulaView.Controles.form.btnCalendario, function (e) {
             let idIndicador = $(GestionFormulaView.Controles.form.ddlIndicador).val();
-            let fuente = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).val();
+            let fuente = $(GestionFormulaView.Controles.form.ddlFuenteIndicador).find(":selected").attr(GestionFormulaView.Variables.attrIdentificador);
 
             if (idIndicador != null && idIndicador != "" && fuente != null && fuente != "") {
                 GestionFormulaView.Metodos.CargarModalDefinicionFechas(fuente);
@@ -2317,6 +2500,18 @@ GestionFormulaView = {
             GestionFormulaView.Metodos.BotonAgregarOperadorFormula(GestionFormulaView.Variables.Operadores.cerrarParentesis);
         });
 
+        $(document).on("click", GestionFormulaView.Controles.form.btnRemoverItemFormula, function () {
+            GestionFormulaView.Metodos.BotonRemoverOperadorFormula();
+        });
+
+        // Acciones de la pantalla
+
+        $(document).on("click", GestionFormulaView.Controles.form.btnGuardar, function (e) {
+            if (ObtenerValorParametroUrl("id") != null) {
+                GestionFormulaView.Metodos.CrearFormulaGuardadoParcial();
+            }
+        });
+
         // | Eventos por probar y rehacer   |
         // |                                |
         // V                                V
@@ -2332,46 +2527,12 @@ GestionFormulaView = {
                 });
         });
 
-        $(document).on("click", GestionFormulaView.Controles.form.btnGuardar, function (e) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaGuardadoParcial, jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
-                    jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoFormulaCreada)
-                        .set('onok', function (closeEvent) {
-                            window.location.href = GestionFormulaView.Variables.indexViewURL;
-                        });
-                });
-        });
+        
 
         $(document).on("click", GestionFormulaView.Controles.form.btnCancelar, function (e) {
             jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     window.location.href = GestionFormulaView.Variables.indexViewURL;
-                });
-        });
-
-
-
-        $(document).on("click", GestionFormulaView.Controles.radioManual_modalFechaFormula, function () {
-            $(GestionFormulaView.Controles.divTxtFechaInicio_modalFechaFormula).css("display", "block");
-            $(GestionFormulaView.Controles.divTxtFechaFinal_modalFechaFormula).css("display", "block");
-            $(GestionFormulaView.Controles.divDdlCategoríasTipoFecha_modalFechaFormula).css("display", "none");
-        });
-
-        $(document).on("click", GestionFormulaView.Controles.radioCategoríaDesagregacion_modalFechaFormula, function () {
-            $(GestionFormulaView.Controles.divTxtFechaInicio_modalFechaFormula).css("display", "none");
-            $(GestionFormulaView.Controles.divTxtFechaFinal_modalFechaFormula).css("display", "none");
-            $(GestionFormulaView.Controles.divDdlCategoríasTipoFecha_modalFechaFormula).css("display", "block");
-        });
-
-        $(document).on("click", GestionFormulaView.Controles.form.btnRemoverItemFormula, function () {
-            jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEliminaArgumento, jsMensajes.Variables.actionType.eliminar)
-                .set('onok', function (closeEvent) {
-                    GestionFormulaView.Variables.FormulaCalculo.pop();
-                    GestionFormulaView.Metodos.MostrarFormulaCalculo();
-                    jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoEliminado)
-                        .set('onok', function (closeEvent) {
-
-                        });
                 });
         });
 
@@ -2390,8 +2551,28 @@ GestionFormulaView = {
         });
     },
 
+    CustomJQueryFunctions: function () {
+        $.fn.setCursorPosition = function (pos) {
+            this.each(function (index, elem) {
+                if (elem.setSelectionRange) {
+                    window.setTimeout(function () {
+                        elem.setSelectionRange(pos, pos);
+                    }, 0);
+                } else if (elem.createTextRange) {
+                    var range = elem.createTextRange();
+                    range.collapse(true);
+                    range.moveEnd('character', pos);
+                    range.moveStart('character', pos);
+                    range.select();
+                }
+            });
+            return this;
+        };
+    },
+
     Init: function () {
         GestionFormulaView.Eventos();
+        GestionFormulaView.CustomJQueryFunctions();
     }
 };
 
@@ -2404,21 +2585,4 @@ $(function () {
         CrearFormulaView.Init();    // paso 1
         GestionFormulaView.Init();  // paso 2
     }
-
-    $.fn.setCursorPosition = function (pos) {
-        this.each(function (index, elem) {
-            if (elem.setSelectionRange) {
-                window.setTimeout(function () {
-                    elem.setSelectionRange(pos, pos);
-                }, 0);
-            } else if (elem.createTextRange) {
-                var range = elem.createTextRange();
-                range.collapse(true);
-                range.moveEnd('character', pos);
-                range.moveStart('character', pos);
-                range.select();
-            }
-        });
-        return this;
-    };
 });

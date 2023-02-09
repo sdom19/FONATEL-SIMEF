@@ -1,5 +1,6 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
+using GB.SIMEF.Entities.DTO;
 using GB.SIMEF.Resources;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
@@ -534,7 +536,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             string creacionFormula = await CrearFormulaCalculo(pFormulaCalculo);
             RespuestaConsulta<List<FormulasCalculo>> formulaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<FormulasCalculo>>>(creacionFormula);
 
-            if (formulaDeserializado.HayError != (int)Error.NoError) // se creó el indicador correctamente?
+            if (formulaDeserializado.HayError != (int)Error.NoError) // se creó la formula (paso 1) correctamente?
             {
                 return creacionFormula;
             }
@@ -543,7 +545,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                // clonar los detalles del paso 2 del formulario
+                // clonar los detalles del paso 2 del formulario, se envia la fórmula clonada (paso 1) y el ID de la fórmula de donde se va a obtener los argumentos para duplicar
+                resultado = formulaBL.ClonarArgumentosDeFormula(formulaDeserializado.objetoRespuesta[0], idFormulaAClonar);
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -593,14 +596,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     case FuenteIndicadorEnum.IndicadorDGC:
                         resultado = grupoIndicadorBL.ObtenerDatosCalidad();
                         break;
-                    case FuenteIndicadorEnum.IndicadorUIT:
-                        resultado = grupoIndicadorBL.ObtenerDatosUIT();
-                        break;
-                    case FuenteIndicadorEnum.IndicadorCruzado:
-                        resultado = grupoIndicadorBL.ObtenerDatosCruzado();
-                        break;
-                    case FuenteIndicadorEnum.IndicadorFuenteExterna:
-                        break;
+                    // se conservan debido a futuros cambios
+                    //case FuenteIndicadorEnum.IndicadorUIT:
+                    //    resultado = grupoIndicadorBL.ObtenerDatosCruzado();
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorCruzado:
+                    //    resultado = grupoIndicadorBL.ObtenerDatosCruzado();
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorFuenteExterna:
+                    //    break;
                     default:
                         resultado.HayError = (int)Error.ErrorSistema;
                         break;
@@ -635,14 +639,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     case FuenteIndicadorEnum.IndicadorDGC:
                         resultado = tipoIndicadorBL.ObtenerDatosCalidad();
                         break;
-                    case FuenteIndicadorEnum.IndicadorUIT:
-                        resultado = tipoIndicadorBL.ObtenerDatosUIT();
-                        break;
-                    case FuenteIndicadorEnum.IndicadorCruzado:
-                        resultado = tipoIndicadorBL.ObtenerDatosCruzado();
-                        break;
-                    case FuenteIndicadorEnum.IndicadorFuenteExterna:
-                        break;
+                    // se conservan debido a futuros cambios
+                    //case FuenteIndicadorEnum.IndicadorUIT:
+                    //    resultado = tipoIndicadorBL.ObtenerDatosUIT();
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorCruzado:
+                    //    resultado = tipoIndicadorBL.ObtenerDatosCruzado();
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorFuenteExterna:
+                    //    break;
                     default:
                         resultado.HayError = (int)Error.ErrorSistema;
                         break;
@@ -712,12 +717,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     case FuenteIndicadorEnum.IndicadorDGC:
                         resultado = servicioSitelBL.ObtenerDatosCalidad();
                         break;
-                    case FuenteIndicadorEnum.IndicadorUIT:
-                        resultado = servicioSitelBL.ObtenerDatosUIT();
-                        break;
-                    case FuenteIndicadorEnum.IndicadorCruzado:
-                        resultado = servicioSitelBL.ObtenerDatosCruzado();
-                        break;
+                    // se conservan debido a futuros cambios
+                    //case FuenteIndicadorEnum.IndicadorUIT:
+                    //    resultado = servicioSitelBL.ObtenerDatosUIT();
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorCruzado:
+                    //    resultado = servicioSitelBL.ObtenerDatosCruzado();
+                    //    break;
                     default:
                         resultado.HayError = (int)Error.ErrorSistema;
                         break;
@@ -770,15 +776,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     case FuenteIndicadorEnum.IndicadorDGC:
                         resultado = indicadorFonatelBL.ObtenerDatosCalidad(pIndicador, pServicio);
                         break;
-                    case FuenteIndicadorEnum.IndicadorUIT:
-                        resultado = indicadorFonatelBL.ObtenerDatosUIT(pIndicador, pServicio);
-                        break;
-                    case FuenteIndicadorEnum.IndicadorCruzado:
-                        resultado = indicadorFonatelBL.ObtenerDatosCruzado(pIndicador, pServicio);
-                        break;
-                    case FuenteIndicadorEnum.IndicadorFuenteExterna:
-                        resultado = indicadorFonatelBL.ObtenerDatosFuenteExterna();
-                        break;
+                    //case FuenteIndicadorEnum.IndicadorUIT:
+                    //    resultado = indicadorFonatelBL.ObtenerDatosUIT(pIndicador, pServicio);
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorCruzado:
+                    //    resultado = indicadorFonatelBL.ObtenerDatosCruzado(pIndicador, pServicio);
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorFuenteExterna:
+                    //    resultado = indicadorFonatelBL.ObtenerDatosFuenteExterna();
+                    //    break;
                     default:
                         resultado.HayError = (int)Error.ErrorSistema;
                         break;
@@ -796,6 +802,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIdIndicador"></param>
         /// <param name="pFuenteIndicadorEnum"></param>
         /// <returns></returns>
+        [HttpGet]
         public async Task<string> ObtenerVariablesDatoCriteriosIndicador(string pIdIndicador, FuenteIndicadorEnum pFuenteIndicador)
         {
             RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
@@ -825,15 +832,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     case FuenteIndicadorEnum.IndicadorDGC:
                         resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosCalidad(detalleIndicador);
                         break;
-                    case FuenteIndicadorEnum.IndicadorUIT:
-                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosUIT(detalleIndicador);
-                        break;
-                    case FuenteIndicadorEnum.IndicadorCruzado:
-                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosCruzado(detalleIndicador);
-                        break;
-                    case FuenteIndicadorEnum.IndicadorFuenteExterna:
-                        resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosExterno(detalleIndicador);
-                        break;
+                    //case FuenteIndicadorEnum.IndicadorUIT:
+                    //    resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosUIT(detalleIndicador);
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorCruzado:
+                    //    resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosCruzado(detalleIndicador);
+                    //    break;
+                    //case FuenteIndicadorEnum.IndicadorFuenteExterna:
+                    //    resultado = detalleIndicadorCriteriosSitelBL.ObtenerDatosExterno(detalleIndicador);
+                    //    break;
                     default:
                         resultado.HayError = (int)Error.ErrorSistema;
                         break;
@@ -843,11 +850,41 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         /// <summary>
+        /// Función que permite crear los detalles matematicos de la fórmula de cálculo.
+        /// Se debe ingresar la fórmula asociada a los argumentos, e ingresar el listado de dichos argumentos
+        /// </summary>
+        /// <param name="pFormulaCalculo"></param>
+        /// <param name="pListaArgumentos"></param>
+        /// <returns></returns
+        [HttpPost]
+        public async Task<string> CrearDetallesFormulaCalculo(FormulasCalculo pFormulaCalculo, List<ArgumentoConstruidoDTO> pListaArgumentos)
+        {
+            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+
+            if (string.IsNullOrEmpty(pFormulaCalculo.id) || pListaArgumentos.Count < 0)
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.CamposIncompletos;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            pFormulaCalculo.UsuarioCreacion = usuario;
+
+            await Task.Run(() =>
+            {
+                resultado = formulaBL.InsertarDetallesFormulaCalculo(pFormulaCalculo, pListaArgumentos);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
         /// 09/01/2023
         /// José Navarro Acuña
         /// Función que permite cargar los tipos de fechas para la defición de fechas de un argumento
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public async Task<string> ObtenerTiposFechasDefinicion()
         {
             RespuestaConsulta<List<FormulasCalculoTipoFecha>> resultado = new RespuestaConsulta<List<FormulasCalculoTipoFecha>>();

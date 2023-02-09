@@ -34,6 +34,7 @@ namespace GB.SIMEF.DAL
 
                 listaFuentes = listaFuentes.Select(x => new FuenteIndicador
                 {
+                    id = Utilidades.Encriptar(x.IdFuenteIndicador.ToString()),
                     IdFuenteIndicador = x.IdFuenteIndicador,
                     Fuente = x.Fuente,
                     Estado = x.Estado,

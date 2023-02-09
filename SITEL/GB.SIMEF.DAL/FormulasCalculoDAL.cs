@@ -77,10 +77,30 @@ namespace GB.SIMEF.DAL
                 listaformulas = listaformulas.Select(x => new FormulasCalculo()
                 {
                     id = Utilidades.Encriptar(x.IdFormula.ToString()),
-                    IdFormula = x.IdFormula
+                    IdFormula = x.IdFormula,
+                    IdIndicadorSalidaString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                 }).ToList();
             }
             return listaformulas;
+        }
+
+        /// <summary>
+        /// 20/01/2023
+        /// José Navarro Acuña
+        /// Función que permite actualizar la etiqueta formula del objeto formula de calculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public void ActualizarEtiquetaFormula(FormulasCalculo pFormulasCalculo)
+        {
+            using (db = new SIMEFContext())
+            {
+                db.Database.SqlQuery<object>("exec spActualizarEtiquetaFormula @pIdFormula, @pEtiquetaFormula, @pUsuarioModificacion",
+                    new SqlParameter("@pIdFormula", pFormulasCalculo.IdFormula),
+                    new SqlParameter("@pEtiquetaFormula", pFormulasCalculo.Formula),
+                    new SqlParameter("@pUsuarioModificacion", pFormulasCalculo.UsuarioModificacion)
+                    ).FirstOrDefault();
+            }
         }
 
         /// <summary>
@@ -95,7 +115,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listaFormulasCalculo = db.Database.SqlQuery<FormulasCalculo>
-                    ("execute spObtenerFormulasCalculo  @IdFormula",
+                    ("execute spObtenerFormulasCalculo @IdFormula",
                      new SqlParameter("@IdFormula", pformulasCalculo.IdFormula)
                     ).ToList();
 
@@ -115,7 +135,8 @@ namespace GB.SIMEF.DAL
                     FechaModificacion = x.FechaModificacion,
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
-                    FechaCalculo = x.FechaCalculo
+                    FechaCalculo = x.FechaCalculo,
+                    Formula = x.Formula
                 }).ToList();
             }
 
