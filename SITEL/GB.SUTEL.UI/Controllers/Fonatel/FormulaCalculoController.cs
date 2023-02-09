@@ -1006,7 +1006,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return string.Format(Errores.CampoRequeridoV2, EtiquetasViewFormulasCalculo.CrearFormula_LabelNombre);
             }
             else if (!Utilidades.rx_soloTexto.Match(pFormulaCalculo.Nombre.Trim()).Success // validar formato
-                || pFormulaCalculo.Nombre.Trim().Length > 300)
+                || pFormulaCalculo.Nombre.Trim().Length > 500)
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewFormulasCalculo.CrearFormula_LabelNombre);
             }
