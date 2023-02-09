@@ -278,7 +278,8 @@
                                 InsertarParametroUrl("id", relacion.id);
                                 $(JsRelacion.Controles.stepRelacionCategoria2).click();
                             } else {
-                                window.location.href = "/Fonatel/RelacionCategoria/Index";
+                                jsMensajes.Metodos.OkAlertModal("La Relación entre Categorías ha sido creada")
+                                    .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/Index" });
                             }
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
