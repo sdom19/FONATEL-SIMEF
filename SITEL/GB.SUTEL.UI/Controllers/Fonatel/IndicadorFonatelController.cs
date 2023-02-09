@@ -1066,7 +1066,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
             }
             else if (!Utilidades.rx_soloTexto.Match(pIndicador.Nombre.Trim()).Success       // validar el formato correcto
-                || pIndicador.Nombre.Trim().Length > 300)                                   // validar la cantidad de caracteres
+                || pIndicador.Nombre.Trim().Length > 500)                                   // validar la cantidad de caracteres
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
             }
@@ -1144,13 +1144,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             if (!Utilidades.rx_soloTexto.Match(pDetalleIndicadorVariables.NombreVariable).Success       // validar el formato correcto
-                || pDetalleIndicadorVariables.NombreVariable.Trim().Length > 350)                       // validar la cantidad de caracteres
+                || pDetalleIndicadorVariables.NombreVariable.Trim().Length > 300)                       // validar la cantidad de caracteres
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable);
             }
 
             if (!Utilidades.rx_soloTexto.Match(pDetalleIndicadorVariables.Descripcion).Success      // validar el formato correcto
-                || pDetalleIndicadorVariables.Descripcion.Trim().Length > 2000)                     // validar la cantidad de caracteres
+                || pDetalleIndicadorVariables.Descripcion.Trim().Length > 3000)                     // validar la cantidad de caracteres
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable);
             }
