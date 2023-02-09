@@ -2317,6 +2317,7 @@ GestionFormulaView = {
             GestionFormulaView.Variables.filaSeleccionadaTablaDetalles = $(this).parent().parent();
             let isChecked = $(this).is(':checked');
             $(GestionFormulaView.Variables.filaSeleccionadaTablaDetalles).find(GestionFormulaView.Controles.form.btnAgregarDetalleAgregacion).prop("disabled", isChecked);
+            GestionFormulaView.Metodos.LimpiarComboxBoxModalDetallesIndicador();
 
             if (isChecked) {
                 GestionFormulaView.Metodos.AgregarObjDetalleModalDetalle(true);
@@ -2409,7 +2410,7 @@ GestionFormulaView = {
             let index = event.target.selectionStart;
             
             if (keyCode >= 48 && keyCode <= 57) {
-                let newIndex = GestionFormulaView.Metodos.AniadirElementoAFormula(/*{ tipoObjeto: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, argumento: char, etiqueta: char }*/
+                let newIndex = GestionFormulaView.Metodos.AniadirElementoAFormula(
                     GestionFormulaView.Metodos.CrearObjArgumento(GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Numero, char, null, char),
                     (index + 1)
                 );
@@ -2417,7 +2418,7 @@ GestionFormulaView = {
                 GestionFormulaView.Metodos.MostrarFormulaCalculo();
             }
             else if (regex.test(char)) {
-                let newIndex = GestionFormulaView.Metodos.AniadirElementoAFormula(/*{ tipoObjeto: GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador, argumento: char, etiqueta: char  }*/
+                let newIndex = GestionFormulaView.Metodos.AniadirElementoAFormula(
                     GestionFormulaView.Metodos.CrearObjArgumento(GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Operador, char, null, char),
                     (index + 1)
                 );

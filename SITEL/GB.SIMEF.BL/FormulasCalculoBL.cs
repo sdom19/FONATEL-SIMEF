@@ -41,13 +41,67 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
-        /// 
+        /// 09/02/2023
+        /// José Navarro Acuña
+        /// Función que edita un registro en la entidad Fórmula de Cálculo
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
         public RespuestaConsulta<List<FormulasCalculo>> ActualizarElemento(FormulasCalculo pFormulasCalculo)
         {
-            throw new NotImplementedException();
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            bool errorControlado = false;
+
+            try
+            {
+                PrepararObjetoFormulaCalculo(pFormulasCalculo);
+                resultado = ValidarDatos(pFormulasCalculo);
+
+                if (resultado.HayError != 0)
+                {
+                    return resultado;
+                }
+
+                if (pFormulasCalculo.IdFormula == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // bitacora
+                FormulasCalculo formulaAntesDelCambio = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo).Single();
+                // ---------
+
+                List<FormulasCalculo> formulaCalculo = formulasCalculoDAL.ActualizarDatos(pFormulasCalculo);
+
+                // en este punto tenemos la fórmula creada/actualizada
+                // eliminar las categorias del nivel de cálculo
+                formulaNivelCalculoCategoriaDAL.EliminarFormulaNivelCalculoCategoriaPorIDFormula(formulaCalculo[0].IdFormula);
+
+                // el indicador fue proporcionado, marcada la opcion de categorias y se incluye el listado de categorias?
+                if (pFormulasCalculo.IdIndicador != 0 && pFormulasCalculo.ListaCategoriasNivelesCalculo.Count > 0 && !pFormulasCalculo.NivelCalculoTotal)
+                {
+                    formulaNivelCalculoCategoriaDAL.InsertarFormulaNivelCalculoCategoria(formulaCalculo[0].IdFormula, pFormulasCalculo.ListaCategoriasNivelesCalculo);
+                }
+
+                formulaCalculo[0].IdFormula = 0;
+                resultado.objetoRespuesta = formulaCalculo;
+                resultado.Usuario = user;
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Editar;
+
+                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion, resultado.Usuario, resultado.Clase, 
+                    formulaCalculo[0].Codigo, formulaCalculo[0].ToString(), formulaAntesDelCambio.ToString(), "");
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
         }
 
         /// <summary>
@@ -72,15 +126,19 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
+                // bitacora
+                FormulasCalculo formulaAntesDelCambio = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo).Single();
+                // ---------
+
                 pFormulasCalculo.UsuarioModificacion = user;
-                formulasCalculoDAL.ActualizarEtiquetaFormula(pFormulasCalculo);
+                FormulasCalculo formulaActualizada = formulasCalculoDAL.ActualizarEtiquetaFormula(pFormulasCalculo);
 
                 resultado.Usuario = user;
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Editar;
 
-                formulasCalculoDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pFormulasCalculo.Codigo);
+                formulasCalculoDAL.RegistrarBitacora(resultado.Accion, resultado.Usuario, resultado.Clase,
+                    formulaAntesDelCambio.Codigo, formulaActualizada.ToString(), formulaAntesDelCambio.ToString(), "");
             }
             catch (Exception ex)
             {
@@ -124,19 +182,26 @@ namespace GB.SIMEF.BL
 
                 PrepararObjetoFormulaCalculo(formulaExistente);
 
+                // bitacora
+                FormulasCalculo formulaAntesDelCambio = formulaExistente.Shallowcopy();
+                //----------
+
                 formulaExistente.UsuarioModificacion = user;
                 formulaExistente.IdEstado = pFormulasCalculo.IdEstado;
-                List<FormulasCalculo> resul = formulasCalculoDAL.ActualizarDatos(formulaExistente);
+                List<FormulasCalculo> resultadoActualizar = formulasCalculoDAL.ActualizarDatos(formulaExistente);
+
+                // bitacora
+                FormulasCalculo formulaDespuesDelCambio = formulaExistente;
+                //----------
 
                 resultadoConsulta.Clase = modulo;
                 resultadoConsulta.Accion = pFormulasCalculo.IdEstado;
                 resultadoConsulta.Usuario = user;
-                resultadoConsulta.objetoRespuesta = resul;
-                resultadoConsulta.CantidadRegistros = resul.Count();
+                resultadoConsulta.objetoRespuesta = resultadoActualizar;
+                resultadoConsulta.CantidadRegistros = resultadoActualizar.Count();
 
-                formulasCalculoDAL.RegistrarBitacora(resultadoConsulta.Accion,
-                        resultadoConsulta.Usuario,
-                            resultadoConsulta.Clase, formulaExistente.Codigo);
+                formulasCalculoDAL.RegistrarBitacora(resultadoConsulta.Accion, resultadoConsulta.Usuario,
+                      resultadoConsulta.Clase, formulaDespuesDelCambio.Codigo, formulaDespuesDelCambio.ToString(), formulaAntesDelCambio.ToString(), "");
             }
             catch (Exception ex)
             {
@@ -261,8 +326,8 @@ namespace GB.SIMEF.BL
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Insertar;
 
-                formulasCalculoDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pFormulasCalculo.Codigo);
+                indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario, resultado.Clase, formulaCalculo[0].Codigo, "", "", formulaCalculo[0].ToString());
             }
             catch (Exception ex)
             {
