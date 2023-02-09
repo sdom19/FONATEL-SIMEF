@@ -14,8 +14,6 @@
                             @Html.DropDownListFor(model => model.idIndicador, new SelectList(ViewBag.Indicador, "Value","Text"), "Seleccione", new { @class = "listasDesplegables", id = "ddlIndicador" })
                         </div>
                     </div>
-
-
                     <small id="ddlIndicadorHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
@@ -27,32 +25,21 @@
             <div class="form-group row">
                 <label for="txtTituloHoja" class="col-sm-12 col-form-label">@EtiquetasViewFormulario.TituloHoja</label>
                 <div class="col-sm-12">
-                    <input type="text" class="form-control form-control-fonatel" id="txtTituloHoja" placeholder=@EtiquetasViewFormulario.TituloHoja>
+                    <input type="text" class="form-control form-control-fonatel alfa_numerico" maxlength="300" id="txtTituloHoja" placeholder=@EtiquetasViewFormulario.TituloHoja>
                     <small id="txtTituloHojaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
-            @*<div class="form-group row">
-                    <label for="txtNotasInformanteFormlulario" class="col-sm-12 col-form-label">Notas del Informante</label>
-                    <div class="col-sm-12">
-                        <textarea class="form-control form-control-fonatel" id="txtNotasInformanteFormlulario" placeholder="Notas del Informante"></textarea>
-                        <small id="txtNotasInformanteFormlularioHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
-                    </div>
-                </div>*@
-
-
         </div>
 
         <div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0">
             <div class="form-group row">
                 <label for="txtNotasEncargadoFormlulario" class="col-sm-12 col-form-label">@EtiquetasViewFormulario.NotasEncargado</label>
                 <div class="col-sm-12">
-                    <textarea class="form-control form-control-fonatel" id="txtNotasEncargadoFormulario" placeholder=@EtiquetasViewFormulario.NotasEncargado></textarea>
+                    <textarea class="form-control form-control-fonatel alfa_numerico" maxlength="3000" id="txtNotasEncargadoFormulario" placeholder=@EtiquetasViewFormulario.NotasEncargado></textarea>
                     <small id="txtNotasEncargadoFormularioHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>
         </div>
-
-
     </div>
     <div class="row mt-4">
         <div class="col-lg-12 text-center">
