@@ -157,38 +157,20 @@ namespace GB.SIMEF.BL
                 objeto.UsuarioCreacion = user;
                 ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
 
-                if (!string.IsNullOrEmpty(objeto.id))
-                {
-                    int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idSolicitud = temp;
-                }
-
                 var objetoAnterior = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
+
+                DesencriptarSolicitud(objeto);
+
+                ValidarObjetoSolicitud(objeto);
 
                 var result = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
 
-                if (BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Count() == 0)
-                {
-                    throw new Exception(Errores.NoRegistrosActualizar);
-                }
-                else if (result.SolicitudFormulario.Count > objeto.CantidadFormularios)
+                if (result.SolicitudFormulario.Count > objeto.CantidadFormularios)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.SolicitudesCantidadFormularios);
                 }
-                else if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() >= 1)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.NombreRegistrado);
-                }
-                else if (objeto.FechaFin < objeto.FechaInicio)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.ValorFecha);
-                }
-                else
-                {
+
                     if (objetoAnterior.idFuente == objeto.idFuente && objetoAnterior.CantidadFormularios == objeto.CantidadFormularios)
                     {
                         objeto.IdEstado = (int)EstadosRegistro.Activo;
@@ -200,7 +182,7 @@ namespace GB.SIMEF.BL
 
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
-                }
+                
 
                 objeto = ResultadoConsulta.objetoRespuesta.Single();
                 string JsonActual = objeto.ToString();
@@ -406,43 +388,27 @@ namespace GB.SIMEF.BL
 
                 DesencriptarSolicitud(objeto);
 
-                if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.CodigoRegistrado);
-                }
+                ValidarObjetoSolicitud(objeto);
 
-                if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
+                if (objeto.idSolicitud == 0)
                 {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.NombreRegistrado);
-                }
-                if (objeto.FechaFin < objeto.FechaInicio)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(Errores.ValorFecha);
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                 }
                 else
-                {   
-                    if(objeto.idSolicitud == 0)
+                {
+                    var result = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
+
+                    if (result.SolicitudFormulario.Count > objeto.CantidadFormularios)
                     {
-                        ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                        ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                        throw new Exception(Errores.SolicitudesCantidadFormularios);
                     }
                     else
                     {
-                        var result = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
-
-                        if (result.SolicitudFormulario.Count > objeto.CantidadFormularios)
-                        {
-                            ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                            throw new Exception(Errores.SolicitudesCantidadFormularios);
-                        }
-                        else
-                        {
-                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
-                        }
+                        ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
                     }
                 }
+
                 string jsonValorInicial = ResultadoConsulta.objetoRespuesta.Single().ToString();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
@@ -529,7 +495,72 @@ namespace GB.SIMEF.BL
                     objeto.idSolicitud = temp;
                 }
             }
+        }
 
+        /// <summary>
+        /// Fecha: 10-02-2023
+        /// Autor: Francisco Vindas Ruiz
+        /// Metodo que funciona para validar que el objeto solicitud cumpla con las validaciones correspondientes
+        /// </summary>
+        /// <param name="objeto"></param>
+        private void ValidarObjetoSolicitud(Solicitud objeto)
+        {
+
+            var BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
+
+            if (BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Count() == 0)
+            {
+                throw new Exception(Errores.NoRegistrosActualizar);
+            }
+
+            if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(Errores.CodigoRegistrado);
+            }
+
+            if (BuscarRegistros.Where(X => X.Nombre.ToUpper() == objeto.Nombre.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(Errores.NombreRegistrado);
+            }
+
+            if (objeto.FechaFin < objeto.FechaInicio)
+            {
+                ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                throw new Exception(Errores.ValorFecha);
+            }
+
+            if (objeto.Codigo == null || string.IsNullOrEmpty(objeto.Codigo.Trim()))
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewSolicitudes.Codigo));
+            }
+
+            if (!Utilidades.rx_alfanumerico.Match(objeto.Codigo).Success || objeto.Codigo.Trim().Length > 30)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewSolicitudes.Codigo));
+            }
+
+            if (objeto.Nombre == null || string.IsNullOrEmpty(objeto.Nombre.Trim()))
+            {
+
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception( string.Format(Errores.CampoConValorInvalido, EtiquetasViewSolicitudes.Nombre));
+            }
+
+            if (!Utilidades.rx_alfanumerico.Match(objeto.Nombre).Success || objeto.Nombre.Trim().Length > 500)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewSolicitudes.Nombre));
+            }
+
+            if (!Utilidades.rx_alfanumerico.Match(objeto.Mensaje).Success || objeto.Mensaje.Trim().Length > 3000)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewSolicitudes.Mensaje));
+            }
 
         }
 

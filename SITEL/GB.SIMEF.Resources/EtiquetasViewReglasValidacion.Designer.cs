@@ -97,6 +97,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Código.
+        /// </summary>
+        public static string Codigo {
+            get {
+                return ResourceManager.GetString("Codigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Variable Dato de Comparación.
         /// </summary>
         public static string Comparacion {
@@ -111,6 +120,15 @@ namespace GB.SIMEF.Resources {
         public static string Crear {
             get {
                 return ResourceManager.GetString("Crear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Descripción.
+        /// </summary>
+        public static string Descripcion {
+            get {
+                return ResourceManager.GetString("Descripcion", resourceCulture);
             }
         }
         
@@ -174,6 +192,15 @@ namespace GB.SIMEF.Resources {
         public static string LabelNombre {
             get {
                 return ResourceManager.GetString("LabelNombre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nombre.
+        /// </summary>
+        public static string Nombre {
+            get {
+                return ResourceManager.GetString("Nombre", resourceCulture);
             }
         }
         

@@ -129,11 +129,17 @@
   <data name="Clonar" xml:space="preserve">
     <value>Clonar Reglas de Validación</value>
   </data>
+  <data name="Codigo" xml:space="preserve">
+    <value>Código</value>
+  </data>
   <data name="Comparacion" xml:space="preserve">
     <value>Variable Dato de Comparación</value>
   </data>
   <data name="Crear" xml:space="preserve">
     <value>Crear Reglas de Validación</value>
+  </data>
+  <data name="Descripcion" xml:space="preserve">
+    <value>Descripción</value>
   </data>
   <data name="Editar" xml:space="preserve">
     <value>Editar Reglas de Validación</value>
@@ -154,6 +160,9 @@
     <value>Indicador a Aplicar</value>
   </data>
   <data name="LabelNombre" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Nombre" xml:space="preserve">
     <value>Nombre</value>
   </data>
   <data name="Operador" xml:space="preserve">

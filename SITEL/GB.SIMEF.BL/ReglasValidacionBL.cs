@@ -33,36 +33,27 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Editar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioModificacion = user;
-                DesencriptarReglasValidacion(objeto);
 
                 var objetoAnterior  = listadoReglas.Where(x => x.idRegla == objeto.idRegla).Single();
 
+                DesencriptarReglasValidacion(objeto);
+
+                ValidarObjetoRegla(objeto);
+
                 objeto.idEstado = objetoAnterior.idEstado;
 
-                if (listadoReglas.Where(x => x.idRegla == objeto.idRegla).Count() == 0)
+                if (objeto.Descripcion.Equals(objetoAnterior.Descripcion) && objeto.idIndicador.Equals(objetoAnterior.idIndicador) && objeto.idEstado == (int)Constantes.EstadosRegistro.Activo)
                 {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                    throw new Exception(Errores.NoRegistrosActualizar);
-                }
-                else if (listadoReglas.Where(x => x.idRegla != objeto.idRegla && x.Nombre.ToUpper() == objeto.Nombre.ToUpper()).Count() > 0)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                    throw new Exception(Errores.NombreRegistrado);
+                    objeto.idEstado = (int)EstadosRegistro.Activo;
                 }
                 else
                 {
-                    if (objeto.Descripcion.Equals(objetoAnterior.Descripcion) && objeto.idIndicador.Equals(objetoAnterior.idIndicador) && objeto.idEstado == (int)Constantes.EstadosRegistro.Activo)
-                    {
-                        objeto.idEstado = (int)EstadosRegistro.Activo;
-                    }
-                    else
-                    {
-                        objeto.idEstado = (int)EstadosRegistro.EnProceso;
-                    }
-
-                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
-                    ResultadoConsulta.CantidadRegistros = listadoReglas.Count();
+                    objeto.idEstado = (int)EstadosRegistro.EnProceso;
                 }
+
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.CantidadRegistros = listadoReglas.Count();
+                
 
                 objeto = ResultadoConsulta.objetoRespuesta.Single();
                 string JsonActual = objeto.ToString();
@@ -296,29 +287,14 @@ namespace GB.SIMEF.BL
                 objeto.UsuarioCreacion = user;
                 objeto.idEstado = (int)EstadosRegistro.EnProceso;
 
-                var BuscarDatos = clsDatos.ObtenerDatos(new ReglaValidacion());
-
                 DesencriptarReglasValidacion(objeto);
 
-                if (BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Codigo.ToUpper() == objeto.Codigo.ToUpper() && x.idEstado != 4).Count() > 0){
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                    throw new Exception(Errores.CodigoRegistrado);
-                }
-
-                if (BuscarDatos.Where(x=> x.idRegla != objeto.idRegla && x.Nombre.ToUpper() == objeto.Nombre.ToUpper() && x.idEstado != 4).Count() > 0)
-                {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                    throw new Exception(Errores.NombreRegistrado);
-                }
-                else
-                {
+                ValidarObjetoRegla(objeto);
 
                 var resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
-
-                }
-                
+         
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
 
                 string jsonValorInicial = objeto.ToString();
@@ -326,8 +302,6 @@ namespace GB.SIMEF.BL
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
                             ResultadoConsulta.Usuario,
                                 ResultadoConsulta.Clase, objeto.Codigo, "", "", jsonValorInicial);
-
-
             }
             catch (Exception ex)
             {
@@ -418,6 +392,67 @@ namespace GB.SIMEF.BL
                     objeto.idIndicador = temp;
                 }
             }
+        }
+
+        /// <summary>
+        /// Fecha: 10-02-2023
+        /// Autor: Francisco Vindas Ruiz
+        /// Metodo que funciona para validar que el objeto regla cumpla con las validaciones correspondientes
+        /// </summary>
+        /// <param name="objeto"></param>
+        private void ValidarObjetoRegla(ReglaValidacion objeto)
+        {
+
+            var BuscarDatos = clsDatos.ObtenerDatos(new ReglaValidacion());
+
+            if (BuscarDatos.Where(x => x.idRegla == objeto.idRegla).Count() == 0)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(Errores.NoRegistrosActualizar);
+            }
+
+            if (BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Codigo.ToUpper() == objeto.Codigo.ToUpper() && x.idEstado != 4).Count() > 0)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(Errores.CodigoRegistrado);
+            }
+
+            if (BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Nombre.ToUpper() == objeto.Nombre.ToUpper() && x.idEstado != 4).Count() > 0)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(Errores.NombreRegistrado);
+            }
+
+            if (objeto.Codigo == null || string.IsNullOrEmpty(objeto.Codigo.Trim()))
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewReglasValidacion.Codigo));
+            }
+
+            if (!Utilidades.rx_alfanumerico.Match(objeto.Codigo).Success || objeto.Codigo.Trim().Length > 30)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewReglasValidacion.Codigo));
+            }
+
+            if (objeto.Nombre == null || string.IsNullOrEmpty(objeto.Nombre.Trim()))
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewReglasValidacion.Nombre));
+            }
+
+            if (!Utilidades.rx_alfanumerico.Match(objeto.Nombre).Success || objeto.Nombre.Trim().Length > 500)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewReglasValidacion.Nombre));
+            }
+
+            if (!Utilidades.rx_alfanumerico.Match(objeto.Descripcion).Success || objeto.Descripcion.Trim().Length > 3000)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewReglasValidacion.Descripcion));
+            }
+
         }
     }
 }

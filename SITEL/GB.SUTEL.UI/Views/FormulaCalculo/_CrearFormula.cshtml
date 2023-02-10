@@ -43,8 +43,8 @@
                     var htmlAttrNombre = new Dictionary<string, object>
                     {
                         { "id", "txtNombreFormula" },
-                        { "class" , "form-control form-control-fonatel solo_texto"},
-                        { "maxlength", 300 },
+                        { "class" , "form-control form-control-fonatel alfa_numerico"},
+                        { "maxlength", 500 },
                         { "placeholder", EtiquetasViewFormulasCalculo.CrearFormula_LabelNombre },
                         { modoVisualizacion ? "disabled":"true", "" }
                     };
@@ -91,7 +91,7 @@
                 @{ 
                     var htmlAttrDescripcion = new Dictionary<string, object>
                     {
-                        { "class", "form-control form-control-fonatel solo_texto" },
+                        { "class", "form-control form-control-fonatel alfa_numerico" },
                         { "id", "txtDescripcionFormula" },
                         { "placeholder", EtiquetasViewFormulasCalculo.CrearFormula_LabelDescripcion },
                         { "maxlength", 1500 },
