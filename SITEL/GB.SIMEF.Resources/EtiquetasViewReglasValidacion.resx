@@ -138,6 +138,15 @@
   <data name="Editar" xml:space="preserve">
     <value>Editar Reglas de Validación</value>
   </data>
+  <data name="FormatoCodigoIncorrecto" xml:space="preserve">
+    <value>El formato del campo Código es incorreto</value>
+  </data>
+  <data name="FormatoDescripcionIncorrecto" xml:space="preserve">
+    <value>El formato del campo Descripción es incorreto</value>
+  </data>
+  <data name="FormatoNombreIncorrecto" xml:space="preserve">
+    <value>El formato del campo Nombre es incorrecto</value>
+  </data>
   <data name="IndicadorComparacion" xml:space="preserve">
     <value>Indicador de Comparación</value>
   </data>

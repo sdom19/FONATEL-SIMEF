@@ -1065,7 +1065,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
             }
-            else if (!Utilidades.rx_soloTexto.Match(pIndicador.Nombre.Trim()).Success       // validar el formato correcto
+            else if (!Utilidades.rx_alfanumerico.Match(pIndicador.Nombre.Trim()).Success       // validar el formato correcto
                 || pIndicador.Nombre.Trim().Length > 500)                                   // validar la cantidad de caracteres
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre);
@@ -1075,7 +1075,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (!string.IsNullOrEmpty(pIndicador.Descripcion?.Trim())) // ¿se ingresó el dato?
             {
-                if (!Utilidades.rx_soloTexto.Match(pIndicador.Descripcion).Success          // la descripción solo debe contener texto como valor
+                if (!Utilidades.rx_alfanumerico.Match(pIndicador.Descripcion).Success          // la descripción solo debe contener texto como valor
                     || pIndicador.Descripcion.Trim().Length > 3000)                         // validar la cantidad de caracteres
                 {
                     return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelDescripcion);
@@ -1084,7 +1084,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (!string.IsNullOrEmpty(pIndicador.Notas?.Trim())) // ¿se ingresó el dato?
             {
-                if (!Utilidades.rx_soloTexto.Match(pIndicador.Notas).Success                // las notas solo deben contener texto como valor
+                if (!Utilidades.rx_alfanumerico.Match(pIndicador.Notas).Success                // las notas solo deben contener texto como valor
                     || pIndicador.Notas.Trim().Length > 3000)                               // validar la cantidad de caracteres
                 {
                     return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas);
@@ -1093,7 +1093,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (!string.IsNullOrEmpty(pIndicador.Fuente?.Trim())) // ¿se ingresó el dato?
             {
-                if (!Utilidades.rx_soloTexto.Match(pIndicador.Fuente).Success               // la fuente solo debe contener texto como valor
+                if (!Utilidades.rx_alfanumerico.Match(pIndicador.Fuente).Success               // la fuente solo debe contener texto como valor
                     || pIndicador.Fuente.Trim().Length > 300)                               // validar la cantidad de caracteres
                 {
                     return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador);
@@ -1143,13 +1143,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable);
             }
 
-            if (!Utilidades.rx_soloTexto.Match(pDetalleIndicadorVariables.NombreVariable).Success       // validar el formato correcto
+            if (!Utilidades.rx_alfanumerico.Match(pDetalleIndicadorVariables.NombreVariable).Success       // validar el formato correcto
                 || pDetalleIndicadorVariables.NombreVariable.Trim().Length > 300)                       // validar la cantidad de caracteres
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable);
             }
 
-            if (!Utilidades.rx_soloTexto.Match(pDetalleIndicadorVariables.Descripcion).Success      // validar el formato correcto
+            if (!Utilidades.rx_alfanumerico.Match(pDetalleIndicadorVariables.Descripcion).Success      // validar el formato correcto
                 || pDetalleIndicadorVariables.Descripcion.Trim().Length > 3000)                     // validar la cantidad de caracteres
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable);
