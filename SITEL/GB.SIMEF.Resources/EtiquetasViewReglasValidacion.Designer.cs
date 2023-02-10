@@ -124,6 +124,33 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El formato del campo Código es incorreto.
+        /// </summary>
+        public static string FormatoCodigoIncorrecto {
+            get {
+                return ResourceManager.GetString("FormatoCodigoIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El formato del campo Descripción es incorreto.
+        /// </summary>
+        public static string FormatoDescripcionIncorrecto {
+            get {
+                return ResourceManager.GetString("FormatoDescripcionIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El formato del campo Nombre es incorrecto.
+        /// </summary>
+        public static string FormatoNombreIncorrecto {
+            get {
+                return ResourceManager.GetString("FormatoNombreIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Indicador de Comparación.
         /// </summary>
         public static string IndicadorComparacion {
