@@ -146,6 +146,7 @@ function EliminarDatasource(pDataTable = ".datatable_simef") {
 function CargarDatasourceV2 (table) {
     let t = $(table).DataTable({
         ordering: false,
+        destroy: true,
         pageLength: 5,
         lengthMenu: [[5, 25, 50, 100], [5, 25, 50, 100]],
         columnDefs: [
