@@ -1076,7 +1076,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (!string.IsNullOrEmpty(pIndicador.Descripcion?.Trim())) // ¿se ingresó el dato?
             {
                 if (!Utilidades.rx_alfanumerico.Match(pIndicador.Descripcion).Success          // la descripción solo debe contener texto como valor
-                    || pIndicador.Descripcion.Trim().Length > 3000)                         // validar la cantidad de caracteres
+                    || pIndicador.Descripcion.Trim().Length > 2000)                         // validar la cantidad de caracteres
                 {
                     return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelDescripcion);
                 }
