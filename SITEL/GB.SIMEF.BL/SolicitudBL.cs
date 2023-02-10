@@ -533,34 +533,33 @@ namespace GB.SIMEF.BL
 
             if (objeto.Codigo == null || string.IsNullOrEmpty(objeto.Codigo.Trim()))
             {
-
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(EtiquetasViewReglasValidacion.FormatoCodigoIncorrecto);
+                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewSolicitudes.Codigo));
             }
 
             if (!Utilidades.rx_alfanumerico.Match(objeto.Codigo).Success || objeto.Codigo.Trim().Length > 30)
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(EtiquetasViewReglasValidacion.FormatoCodigoIncorrecto);
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewSolicitudes.Codigo));
             }
 
             if (objeto.Nombre == null || string.IsNullOrEmpty(objeto.Nombre.Trim()))
             {
 
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(EtiquetasViewSolicitudes.FormatoNombreIncorrecto);
+                throw new Exception( string.Format(Errores.CampoConValorInvalido, EtiquetasViewSolicitudes.Nombre));
             }
 
             if (!Utilidades.rx_alfanumerico.Match(objeto.Nombre).Success || objeto.Nombre.Trim().Length > 500)
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(EtiquetasViewSolicitudes.FormatoNombreIncorrecto);
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewSolicitudes.Nombre));
             }
 
             if (!Utilidades.rx_alfanumerico.Match(objeto.Mensaje).Success || objeto.Mensaje.Trim().Length > 3000)
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(EtiquetasViewSolicitudes.FormatoMensaje);
+                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewSolicitudes.Mensaje));
             }
 
         }

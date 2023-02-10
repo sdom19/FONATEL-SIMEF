@@ -160,33 +160,6 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El formato del campo Código es incorreto.
-        /// </summary>
-        public static string FormatoCodigoIncorrecto {
-            get {
-                return ResourceManager.GetString("FormatoCodigoIncorrecto", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El formato del campo Mensaje es incorreto.
-        /// </summary>
-        public static string FormatoMensaje {
-            get {
-                return ResourceManager.GetString("FormatoMensaje", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El formato del campo Nombre es incorrecto.
-        /// </summary>
-        public static string FormatoNombreIncorrecto {
-            get {
-                return ResourceManager.GetString("FormatoNombreIncorrecto", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a Formulario Web.
         /// </summary>
         public static string Formulario {

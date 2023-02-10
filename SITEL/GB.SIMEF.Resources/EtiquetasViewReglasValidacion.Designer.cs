@@ -97,6 +97,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Código.
+        /// </summary>
+        public static string Codigo {
+            get {
+                return ResourceManager.GetString("Codigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Variable Dato de Comparación.
         /// </summary>
         public static string Comparacion {
@@ -115,38 +124,20 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Descripción.
+        /// </summary>
+        public static string Descripcion {
+            get {
+                return ResourceManager.GetString("Descripcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Editar Reglas de Validación.
         /// </summary>
         public static string Editar {
             get {
                 return ResourceManager.GetString("Editar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El formato del campo Código es incorreto.
-        /// </summary>
-        public static string FormatoCodigoIncorrecto {
-            get {
-                return ResourceManager.GetString("FormatoCodigoIncorrecto", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El formato del campo Descripción es incorreto.
-        /// </summary>
-        public static string FormatoDescripcionIncorrecto {
-            get {
-                return ResourceManager.GetString("FormatoDescripcionIncorrecto", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El formato del campo Nombre es incorrecto.
-        /// </summary>
-        public static string FormatoNombreIncorrecto {
-            get {
-                return ResourceManager.GetString("FormatoNombreIncorrecto", resourceCulture);
             }
         }
         
@@ -201,6 +192,15 @@ namespace GB.SIMEF.Resources {
         public static string LabelNombre {
             get {
                 return ResourceManager.GetString("LabelNombre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nombre.
+        /// </summary>
+        public static string Nombre {
+            get {
+                return ResourceManager.GetString("Nombre", resourceCulture);
             }
         }
         

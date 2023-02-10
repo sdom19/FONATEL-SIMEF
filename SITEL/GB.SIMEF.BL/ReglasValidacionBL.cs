@@ -425,34 +425,32 @@ namespace GB.SIMEF.BL
 
             if (objeto.Codigo == null || string.IsNullOrEmpty(objeto.Codigo.Trim()))
             {
-
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(EtiquetasViewReglasValidacion.FormatoCodigoIncorrecto);
+                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewReglasValidacion.Codigo));
             }
 
             if (!Utilidades.rx_alfanumerico.Match(objeto.Codigo).Success || objeto.Codigo.Trim().Length > 30)
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(EtiquetasViewReglasValidacion.FormatoCodigoIncorrecto);
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewReglasValidacion.Codigo));
             }
 
             if (objeto.Nombre == null || string.IsNullOrEmpty(objeto.Nombre.Trim()))
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(EtiquetasViewReglasValidacion.FormatoNombreIncorrecto);
+                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewReglasValidacion.Nombre));
             }
 
             if (!Utilidades.rx_alfanumerico.Match(objeto.Nombre).Success || objeto.Nombre.Trim().Length > 500)
             {
-
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(EtiquetasViewReglasValidacion.FormatoNombreIncorrecto);
+                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewReglasValidacion.Nombre));
             }
 
             if (!Utilidades.rx_alfanumerico.Match(objeto.Descripcion).Success || objeto.Descripcion.Trim().Length > 3000)
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(EtiquetasViewReglasValidacion.FormatoDescripcionIncorrecto);
+                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewReglasValidacion.Descripcion));
             }
 
         }
