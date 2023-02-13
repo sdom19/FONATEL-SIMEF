@@ -157,9 +157,9 @@ namespace GB.SIMEF.BL
                 objeto.UsuarioCreacion = user;
                 ResultadoConsulta.Usuario = objeto.UsuarioCreacion;
 
-                var objetoAnterior = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
-
                 DesencriptarSolicitud(objeto);
+
+                var objetoAnterior = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
 
                 ValidarObjetoSolicitud(objeto);
 
