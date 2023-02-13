@@ -508,11 +508,6 @@ namespace GB.SIMEF.BL
 
             var BuscarRegistros = clsDatos.ObtenerDatos(new Solicitud());
 
-            if (BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Count() == 0)
-            {
-                throw new Exception(Errores.NoRegistrosActualizar);
-            }
-
             if (BuscarRegistros.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.idSolicitud.Equals(objeto.idSolicitud)).ToList().Count() > 0)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
@@ -556,10 +551,14 @@ namespace GB.SIMEF.BL
                 throw new Exception(string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewSolicitudes.Nombre));
             }
 
-            if (!Utilidades.rx_alfanumerico.Match(objeto.Mensaje).Success || objeto.Mensaje.Trim().Length > 3000)
+            if (!string.IsNullOrEmpty(objeto.Mensaje?.Trim())) // ¿se ingresó el dato?
             {
-                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewSolicitudes.Mensaje));
+                if (!Utilidades.rx_alfanumerico.Match(objeto.Mensaje).Success          // la descripción solo debe contener texto como valor
+                    || objeto.Mensaje.Trim().Length > 3000)                         // validar la cantidad de caracteres
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewSolicitudes.Mensaje));
+                }
             }
 
         }
