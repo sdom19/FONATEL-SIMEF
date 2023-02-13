@@ -34,9 +34,9 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioModificacion = user;
 
-                var objetoAnterior  = listadoReglas.Where(x => x.idRegla == objeto.idRegla).Single();
-
                 DesencriptarReglasValidacion(objeto);
+
+                var objetoAnterior  = listadoReglas.Where(x => x.idRegla == objeto.idRegla).Single();
 
                 ValidarObjetoRegla(objeto);
 
@@ -405,12 +405,6 @@ namespace GB.SIMEF.BL
 
             var BuscarDatos = clsDatos.ObtenerDatos(new ReglaValidacion());
 
-            if (BuscarDatos.Where(x => x.idRegla == objeto.idRegla).Count() == 0)
-            {
-                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(Errores.NoRegistrosActualizar);
-            }
-
             if (BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Codigo.ToUpper() == objeto.Codigo.ToUpper() && x.idEstado != 4).Count() > 0)
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
@@ -447,10 +441,14 @@ namespace GB.SIMEF.BL
                 throw new Exception(string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewReglasValidacion.Nombre));
             }
 
-            if (!Utilidades.rx_alfanumerico.Match(objeto.Descripcion).Success || objeto.Descripcion.Trim().Length > 3000)
+            if (!string.IsNullOrEmpty(objeto.Descripcion?.Trim())) // ¿se ingresó el dato?
             {
-                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewReglasValidacion.Descripcion));
+                if (!Utilidades.rx_alfanumerico.Match(objeto.Descripcion).Success          // la descripción solo debe contener texto como valor
+                    || objeto.Descripcion.Trim().Length > 3000)                         // validar la cantidad de caracteres
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewReglasValidacion.Descripcion));
+                }
             }
 
         }
