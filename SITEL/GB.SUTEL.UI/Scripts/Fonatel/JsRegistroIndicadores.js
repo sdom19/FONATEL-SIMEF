@@ -613,7 +613,9 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroI
             var cantIndicadores = parseInt($(jsRegistroIndicadorFonatel.Controles.txtcantidadIndicadores).val());
             for (var i = 1; i <= cantIndicadores; i++) {
                 let tabla = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(".data-table-indicador");
-                tabla.DataTable().destroy();
+                if ($.fn.DataTable.isDataTable(tabla)) {
+                    tabla.DataTable().destroy();
+                }
             }
 
             jsRegistroIndicadorFonatel.Consultas.ActualizarDetalleRegistroIndicadorFonatel();
