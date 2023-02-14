@@ -51,7 +51,11 @@ namespace GB.SIMEF.BL
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
 
                 var FechaActual = DateTime.Today.ToShortDateString();
+
                 var HoraActual = DateTime.Now.ToShortTimeString();
+
+                var HoraActual = DateTime.Now.ToShortTimeString(); 
+
 
                 if (objeto.Fuente.idEstado == (int)Constantes.EstadosRegistro.Activo)
                 {
@@ -64,6 +68,7 @@ namespace GB.SIMEF.BL
                         var result = correoDal.EnviarCorreo();
                         envioCorreo.objetoRespuesta = result == 0 ? false : true;
                     }
+
                 }
                 else
                 {
@@ -103,6 +108,8 @@ namespace GB.SIMEF.BL
 
                 string CorreoEncargado = ListaUsuarios[0].CorreoUsuario;
 
+                var usuarioEncargado = clsUsuarioFonatelDAL.ObtenerDatos().ToList();
+
                 PlantillaHtml plantilla = plantillaDal.ObtenerDatos((int)Constantes.PlantillaCorreoEnum.EnvioRegistroIndicadorEncargado);
 
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
@@ -114,9 +121,18 @@ namespace GB.SIMEF.BL
                 {
 
                     plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(objeto.Fuente.Fuente), objeto.Codigo, objeto.Nombre, objeto.Fuente.Fuente, FechaActual, HoraActual);
+
                     correoDal = new CorreoDal(CorreoEncargado, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), UsuarioEncargado), "Carga de Solicitud exitosa");
                     var result = correoDal.EnviarCorreo();
                     envioCorreo.objetoRespuesta = result == 0 ? false : true;
+
+                    foreach (var detalleFuente in objeto.Fuente.DetalleFuentesRegistro.Where(x => x.Estado == true))
+                    {
+                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), user), "Carga de Solicitud exitosa");
+                        var result = correoDal.EnviarCorreo();
+                        envioCorreo.objetoRespuesta = result == 0 ? false : true;
+                    }
+
                 }
                 else
                 {
