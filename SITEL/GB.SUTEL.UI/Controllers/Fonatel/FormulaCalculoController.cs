@@ -33,6 +33,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly AcumulacionFormulaBL acumulacionFormulaBL;
         private readonly DetalleIndicadorCriteriosSitelBL detalleIndicadorCriteriosSitelBL;
         private readonly FormulasCalculoTipoFechaBL formulasCalculoTipoFechaBL;
+        private readonly ArgumentoFormulaBL argumentoFormulaBL;
 
         private readonly string usuario = string.Empty;
         private readonly string nombreVista = string.Empty;
@@ -58,6 +59,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             acumulacionFormulaBL = new AcumulacionFormulaBL(nombreVista, usuario);
             detalleIndicadorCriteriosSitelBL = new DetalleIndicadorCriteriosSitelBL();
             formulasCalculoTipoFechaBL = new FormulasCalculoTipoFechaBL();
+            argumentoFormulaBL = new ArgumentoFormulaBL();
         }
 
         #region Eventos de página
@@ -205,7 +207,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = formulaBL.CambioEstado(new FormulasCalculo() { 
+                resultado = formulaBL.CambioEstado(new FormulasCalculo() {
                     id = pFormulaCalculo.id, IdEstado = (int)EstadosRegistro.Eliminado
                 });
             });
@@ -264,6 +266,32 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     id = pFormulaCalculo.id,
                     IdEstado = (int)EstadosRegistro.Desactivado
                 });
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 13/02/2023
+        /// José Navarro Acuña
+        /// Función que permite verificar si una fórmula ha sido ejecutada
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> VerificarSiFormulaEjecuto(string pIdFormula)
+        {
+            RespuestaConsulta<string> resultado = new RespuestaConsulta<string>();
+
+            if (string.IsNullOrEmpty(pIdFormula))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = formulaBL.VerificarSiFormulaEjecuto(pIdFormula);
             });
             return JsonConvert.SerializeObject(resultado);
         }
@@ -349,7 +377,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 resultado = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionTipoFechaDeIndicador(
-                    pIdIndicador, 
+                    pIdIndicador,
                     Utilidades.Encriptar(((int)TipoDetalleCategoriaEnum.Fecha).ToString()
                     ));
             });
@@ -573,6 +601,32 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         /// <summary>
+        /// 13/02/2023
+        /// José Navarro Acuña
+        /// Función que permite realizar un guardado definitivo de una fórmula de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> GuardadoDefinitivoFormulaCalculo(string pIdFormulaCalculo)
+        {
+            if (string.IsNullOrEmpty(pIdFormulaCalculo)) // id indicador requerido
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            await Task.Run(() =>
+            {
+                resultado = formulaBL.GuardadoDefinitivoFormulaCalculo(new FormulasCalculo() { id = pIdFormulaCalculo });
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
         /// 22/11/2022
         /// José Navarro Acuña
         /// Función que permite obtener las fuentes de un los indicadores
@@ -691,7 +745,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                 resultado = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores());
+                resultado = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores());
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -916,6 +970,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 10/01/2023
+        /// José Navarro Acuña
+        /// Función que consulta los argumentos de una fórmula de cálculo
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ConsultarArgumentosDeFormula(string pIdFormula) 
+        {
+            RespuestaConsulta<List<ArgumentoConstruidoDTO>> resultado = new RespuestaConsulta<List<ArgumentoConstruidoDTO>>();
+
+            if (string.IsNullOrEmpty(pIdFormula))
+            {
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorSistema });
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = argumentoFormulaBL.ObtenerArgumentosCompletosDeFormula(pIdFormula);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
         #endregion
 
         #region Funciones privadas
@@ -994,7 +1073,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pFormulaCalculo"></param>
         /// <param name="pEsGuardadoParcial"></param>
         /// <returns></returns>
-        public string ValidarObjectoCrearFormulaCalculo(FormulasCalculo pFormulaCalculo)
+        private string ValidarObjectoCrearFormulaCalculo(FormulasCalculo pFormulaCalculo)
         {
             if (!pFormulaCalculo.EsGuardadoParcial)
             {

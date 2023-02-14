@@ -1,4 +1,5 @@
 ﻿using GB.SIMEF.Entities;
+using GB.SIMEF.Entities.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -47,33 +48,24 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
-        /// 08/02/2023
+        /// 12/02/2023
         /// José Navarro Acuña
-        /// Función que permite obtener los argumentos de una formula. Se puede filtrar por el ID, por el ID de la fórmula u obtener todos los argumentos registrados
+        /// Función que permite eliminar todos los argumentos de una fórmula (variables dato / criterios & definición de fechas)
         /// </summary>
         /// <param name="pArgumentoFormula"></param>
         /// <returns></returns>
-        public List<ArgumentoFormula> ObtenerDatos(ArgumentoFormula pArgumentoFormula)
+        public bool EliminarArgumentos(ArgumentoFormula pArgumentoFormula)
         {
-            List<ArgumentoFormula> listaArgumentos = new List<ArgumentoFormula>();
+            int exito;
 
             using (db = new SIMEFContext())
             {
-                listaArgumentos = db.Database.SqlQuery<ArgumentoFormula>
-                    (
-                        "execute spObtenerArgumentosFormula @pIdArgumentoFormula, @pIdFormula",
-                        pArgumentoFormula.IdArgumentoFormula == 0 ?
-                            new SqlParameter("@pIdArgumentoFormula", DBNull.Value)
-                            :
-                            new SqlParameter("@pIdArgumentoFormula", pArgumentoFormula.IdArgumentoFormula),
-
-                        pArgumentoFormula.IdFormula == 0 ?
-                            new SqlParameter("@pIdFormula", DBNull.Value)
-                            :
-                            new SqlParameter("@pIdFormula", pArgumentoFormula.IdFormula)
-                    ).ToList();
+                exito = db.Database.SqlQuery<int>(
+                    "execute spEliminarArgumentosDeFormula @pIdFormula",
+                    new SqlParameter("@pIdFormula", pArgumentoFormula.IdFormula)
+                ).FirstOrDefault();
             }
-            return listaArgumentos;
+            return exito == 1;
         }
     }
 }
