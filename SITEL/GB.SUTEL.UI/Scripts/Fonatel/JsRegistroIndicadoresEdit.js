@@ -8,7 +8,7 @@
         "tablaIndicador_filter": "div.tab-pane.active #tablaIndicador_filter",
         "InputBuscar": "div.tab-pane.active #tablaIndicador_filter input",
         "tabMenu": (id) => `#menu${id}`,
-        "tablaIndicadorRecorridoMultiple": (index) => `#DataTables_Table_${index} tbody  tr`,
+        "tablaIndicadorRecorridoMultiple": '.data-table-indicador tbody  tr',
 
         //TABLA PRINCIPAL DE EDITAR REGISTRO
         "TablaEditarRegistroIndicador": "#TablaEditarRegistroIndicador tbody",
@@ -74,7 +74,7 @@
                 var cantFilas = $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador).val();
                 if (cantFilas > 0) {
                     NumeroFila = 0;
-                    $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicadorRecorridoMultiple(i-1)).each(function (index) {
+                    $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicadorRecorridoMultiple).each(function (index) {
                         NumeroFila++;
                         $(this).children("td").each(function (td) {
 
@@ -168,7 +168,9 @@
 
         "CargarDatosTablaIndicador": function (Listado) {
 
-            EliminarDatasource(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicadorActivo);
+            if ($.fn.DataTable.isDataTable(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicadorActivo)) {
+                EliminarDatasource(jsRegistroIndicadorFonatelEdit.Controles.tablaIndicadorActivo);
+            }
 
             jsRegistroIndicadorFonatelEdit.Variables.ListadoDetalleRegistroIndicador = [];
             let NumeroFila = 0
@@ -267,36 +269,7 @@
         },
 
         "ConsultaDetalleRegistroIndicadorValoresFonatel": function () {
-
-            $("#loading").fadeIn();
-
-            let detalle = new Object();
-
-            detalle.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
-            detalle.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
-            detalle.IdIndicadorString = $(jsRegistroIndicadorFonatelEdit.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
-
-            execAjaxCall("/EditarFormulario/ObtenerListaDetalleRegistroIndicadorValoresFonatel", "POST", detalle)
-                .then((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { });
-                    }
-                    else {                    
-                        jsRegistroIndicadorFonatelEdit.Metodos.CargarDatosTablaIndicador(obj.objetoRespuesta);
-                    }
-                }).catch((obj) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { location.reload(); });
-                    }
-                    else {
-                        jsMensajes.Metodos.OkAlertErrorModal()
-                            .set('onok', function (closeEvent) { })
-                    }
-                }).finally(() => {
-                   
-                });
+            jsRegistroIndicadorFonatelEdit.Metodos.CargarDatosTablaIndicador(jsRegistroIndicadorFonatelEdit.Variables.DetalleRegistroIndicador);
         },
 
         "InsertarRegistroIndicadorDetalleValor": function () {
@@ -319,7 +292,7 @@
                                 .set('onok', function (closeEvent) { location.reload(); });
                         }
                         else {
-                            CargarDatasourceV2("div.tab-pane .data-table-indicador");
+                            CargarDatasourceV2("div.tab-pane .data-table-indicador.revisado");
                             jsMensajes.Metodos.OkAlertModal("Los Datos han sido guardados")
                                 .set('onok', function (closeEvent) { });
                         }
@@ -465,7 +438,6 @@
                 datatype: 'json',
                 contentType: false,
                 processData: false,
-                async: false,
                 data: data,
                 beforeSend: function () {
                     $("#loading").fadeIn();

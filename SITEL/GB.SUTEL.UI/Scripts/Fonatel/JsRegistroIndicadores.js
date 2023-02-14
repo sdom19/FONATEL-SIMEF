@@ -217,7 +217,6 @@
                 datatype: 'json',
                 contentType: false,
                 processData: false,
-                async: false,
                 data: data,
                 beforeSend: function () {
                     $("#loading").fadeIn();
@@ -545,7 +544,7 @@
                         jsRegistroIndicadorFonatel.Consultas.InsertarRegistroIndicadorDetalleValor();
                         if (GuardadoTotal) {
                             jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
-                                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
+                                .set('onok', function (closeEvent) { window.location.href = "/RegistroIndicador/Index"; });
                         }
                     }
 
@@ -599,7 +598,7 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargaRegistroInd
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado del Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             let GuardadoTotal = true;
-            jsRegistroIndicadorFonatelEdit.Consultas.CargadoTotalRegistroIndicador(GuardadoTotal);
+            jsRegistroIndicadorFonatel.Consultas.CargadoTotalRegistroIndicador(GuardadoTotal);
 
         });
 });

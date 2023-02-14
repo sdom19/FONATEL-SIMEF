@@ -147,7 +147,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
                     worksheetInicio.Cells[1, celda].AutoFitColumns();
 
-                    worksheetInicio.Cells[2, celda, detalleRegistroIndicadorFonatel.CantidadFilas+1, celda].Value = "1";
+                    worksheetInicio.Cells[2, celda, detalleRegistroIndicadorFonatel.CantidadFilas+1, celda].Value = "";
 
                     celda++;
                 }
@@ -180,9 +180,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return new EmptyResult();
 
         }
-
-
-
 
         [HttpPost]
         public async Task<string> InsertarRegistroIndicadorVariable(DetalleRegistroIndicadorFonatel ListaDetalleIndicadorValor)
@@ -225,14 +222,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Georgi Mesen Cerdas
         /// Cargar de los datos desde un Excel
         /// </summary>
-
         [HttpPost]
-        public async Task<string> CargarExcel(Object datos,int cantidadFilas)
+        public async Task<string> CargarExcel(Object datos, int cantidadFilas)
         {
+            //retonar un detalle registro indicador con result / resultVariable
+
             RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> result = null;
+
+            RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>> resultVariable = null;
+
+            RespuestaConsulta<DetalleRegistroIndicadorFonatel> resultDetalle = new RespuestaConsulta<DetalleRegistroIndicadorFonatel>();
+
             string ruta = Utilidades.RutaCarpeta(ConfigurationManager.AppSettings["rutaCarpetaSimef"]);
             string hilera = ((string[])datos)[0].Replace("{\"datos\":", "").Replace("}}", "}");
             DetalleRegistroIndicadorFonatel obj = JsonConvert.DeserializeObject<DetalleRegistroIndicadorFonatel>(hilera);
+
             if (Request.Files.Count > 0)
             {
                 HttpFileCollectionBase files = Request.Files;
@@ -244,12 +248,40 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 await Task.Run(() =>
                 {
                     result = detalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcel(file, obj, cantidadFilas);
+                    resultDetalle.objetoRespuesta = new DetalleRegistroIndicadorFonatel();
+                    if (result.HayError == 0)
+                    {
+                        resultDetalle.objetoRespuesta.DetalleRegistroIndicadorCategoriaValorFonatel = result.objetoRespuesta.ToList();
+                    }
+                    else
+                    {
+                        resultDetalle.HayError = result.HayError;
+                        resultDetalle.MensajeError = result.MensajeError;
+
+                    }
+
+                }).ContinueWith(data =>
+                {
+                    if (resultDetalle.HayError == 0)
+                    {
+                        resultVariable = detalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcelVariable(file, obj, cantidadFilas);
+                        if (resultVariable.HayError == 0)
+                        {
+                            resultDetalle.objetoRespuesta.DetalleRegistroIndicadorVariableValorFonatel = resultVariable.objetoRespuesta.ToList();
+                        }
+                        else
+                        {
+                            resultDetalle.HayError = resultVariable.HayError;
+                            resultDetalle.MensajeError = resultVariable.MensajeError;
+                        }
+                    }
 
                 });
-                
+
                 file.SaveAs(path);
             }
-            return JsonConvert.SerializeObject(result);
+
+            return JsonConvert.SerializeObject(resultDetalle);
         }
 
         [HttpPost]
