@@ -41,9 +41,39 @@ namespace GB.SIMEF.DAL
                     Estado = x.Estado
                 }).ToList();
             }
+            return listaDetalles;
+        }
 
-           
+        /// <summary>
+        /// 14/02/2022
+        /// José Navarro Acuña
+        /// Función que permite obtener los detalles variables dato de un indicador que no estan en uso por formulas de calculo.
+        /// A su vez, permite hacer una excepcion por una fórmula (es decir, incluir el registro de una fórmula, esto es útil cuando se edita)
+        /// </summary>
+        /// <param name="pDetalleIndicadorVariables"></param>
+        /// <param name="pIdFormula"></param>
+        /// <returns></returns>
+        public List<DetalleIndicadorVariables> ObtenerVariablesSinUsoEnFormula(DetalleIndicadorVariables pDetalleIndicadorVariables, int pIdFormula)
+        {
+            List<DetalleIndicadorVariables> listaDetalles = new List<DetalleIndicadorVariables>();
 
+            using (db = new SIMEFContext())
+            {
+                listaDetalles = db.Database.SqlQuery<DetalleIndicadorVariables>
+                    ("execute spObtenerVariablesSinUsoEnFormula @pIdIndicador, @pIdFormula",
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorVariables.idIndicador),
+                     new SqlParameter("@pIdFormula", pIdFormula)
+                    ).ToList();
+
+                listaDetalles = listaDetalles.Select(x => new DetalleIndicadorVariables()
+                {
+                    id = Utilidades.Encriptar(x.idDetalleIndicador.ToString()),
+                    idIndicadorString = Utilidades.Encriptar(x.idIndicador.ToString()),
+                    NombreVariable = x.NombreVariable,
+                    Descripcion = x.Descripcion,
+                    Estado = x.Estado
+                }).ToList();
+            }
             return listaDetalles;
         }
 

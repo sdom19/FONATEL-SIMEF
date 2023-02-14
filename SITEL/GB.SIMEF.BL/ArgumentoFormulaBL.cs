@@ -110,7 +110,7 @@ namespace GB.SIMEF.BL
                     {
                         TipoObjeto = (int)FormulasTipoObjetoEnum.Variable,
                         Etiqueta = argumentoAInsertar.Etiqueta,
-                        TipoArgumento = FormulasTipoArgumentoEnum.VariableDatoCriterio,
+                        TipoArgumento = (FormulasTipoArgumentoEnum)argumentoAInsertar.IdFormulasTipoArgumento,
                         Argumento = EncriptarObjetoArgumento(argumentoAInsertar)
                     });
 
@@ -164,10 +164,10 @@ namespace GB.SIMEF.BL
                     fuente = Utilidades.Encriptar(variableDatoCriterio.IdFuenteIndicador.ToString()),
                     indicador = Utilidades.Encriptar(variableDatoCriterio.IdIndicador.ToString()),
                     //codigoIndicador = variableDatoCriterio
-                    variableDatoCriterio = Utilidades.Encriptar(variableDatoCriterio.IdVariableDato?.ToString()),
+                    variableDatoCriterio = variableDatoCriterio.IdVariableDato != null ? Utilidades.Encriptar(variableDatoCriterio.IdVariableDato.ToString()) : Utilidades.Encriptar(variableDatoCriterio.IdCriterio.ToString()),
                     //nombreVariable = variableDatoCriterio
-                    categoria = Utilidades.Encriptar(variableDatoCriterio.IdCategoria.ToString()),
-                    detalle = Utilidades.Encriptar(variableDatoCriterio.IdDetalleCategoria.ToString()),
+                    categoria = variableDatoCriterio.IdCategoria != null ? Utilidades.Encriptar(variableDatoCriterio.IdCategoria.ToString()) : null,
+                    detalle = variableDatoCriterio.IdCategoria != null ? Utilidades.Encriptar(variableDatoCriterio.IdDetalleCategoria.ToString()) : null,
                     acumulacion = Utilidades.Encriptar(variableDatoCriterio.IdAcumulacion.ToString()),
                     valorTotal = variableDatoCriterio.EsValorTotal
                 };
@@ -180,12 +180,12 @@ namespace GB.SIMEF.BL
                     indicador = Utilidades.Encriptar(definicionFecha.IdIndicador.ToString()),
                     unidadMedida = definicionFecha.IdUnidadMedida,
                     tipoFechaInicio = Utilidades.Encriptar(definicionFecha.IdTipoFechaInicio.ToString()),
-                    fechaInicio = (DateTime)definicionFecha.FechaInicio,
-                    categoriaInicio = Utilidades.Encriptar(definicionFecha.IdCategoriaInicio.ToString()),
+                    fechaInicio = definicionFecha.FechaInicio != null ? (DateTime)definicionFecha.FechaInicio : DateTime.MinValue,
+                    categoriaInicio = definicionFecha.IdCategoriaInicio != null ? Utilidades.Encriptar(definicionFecha.IdCategoriaInicio?.ToString()) : null,
                     //nombreCategoriaInicio 
                     tipoFechaFinal = Utilidades.Encriptar(definicionFecha.IdTipoFechaFinal.ToString()),
-                    fechaFinal = (DateTime)definicionFecha.FechaFinal,
-                    categoriaFinal = Utilidades.Encriptar(definicionFecha.IdCategoriaFinal.ToString())
+                    fechaFinal = definicionFecha.FechaFinal != null ? (DateTime)definicionFecha.FechaFinal : DateTime.MinValue,
+                    categoriaFinal = definicionFecha.IdCategoriaFinal != null ? Utilidades.Encriptar(definicionFecha.IdCategoriaFinal?.ToString()) : null
                     //nombreCategoriaFinal
 
                 };

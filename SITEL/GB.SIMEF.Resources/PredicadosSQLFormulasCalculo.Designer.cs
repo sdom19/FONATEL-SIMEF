@@ -79,6 +79,38 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to declare @IndicadorReferencia int = {0};
+        ///declare @UnidadMedida int = {1};
+        ///declare @ValorInicio varchar(30) = &apos;{2}&apos;;
+        ///declare @OpcionInicio int = {3};
+        ///declare @ValorFin varchar(30) = &apos;{4}&apos;;
+        ///declare @OpcionFin int = {5};
+        ///
+        ///declare @numeroFila int =1;
+        ///declare @IdResultadoIndicador uniqueidentifier;
+        ///
+        ///select top 1 @IdResultadoIndicador= a.IdResultado 
+        ///from IndicadorResultado a
+        ///inner join IndicardorResultadoDetalleCategoria b
+        ///on a.IdResultado=b.IdResultado
+        ///where a.IdIndicador=@IndicadorReferencia order [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string definicionFechasFonatel {
+            get {
+                return ResourceManager.GetString("definicionFechasFonatel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to inserte aqui el predicado SQL para indicadores de mercados.
+        /// </summary>
+        public static string mercados {
+            get {
+                return ResourceManager.GetString("mercados", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to declare @FechaUltimoRegistro date = null
         ///declare @IndicadorSalida int = {0}
         ///declare @IdAcumulacion int = {1}
@@ -95,9 +127,9 @@ namespace GB.SIMEF.Resources {
         ///    SET @IdAcumulacion = 0;
         ///END; WITH MainQuery        /// [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string fonatel {
+        public static string variablesDatoFonatel {
             get {
-                return ResourceManager.GetString("fonatel", resourceCulture);
+                return ResourceManager.GetString("variablesDatoFonatel", resourceCulture);
             }
         }
     }

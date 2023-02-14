@@ -123,7 +123,67 @@
   <data name="calidadPorcentajeIndicador" xml:space="preserve">
     <value>SELECT SUM(PorcentInd) FROM [CalidadIndicadorCalculo].[dbo].[FactRigurosidadFac] where IdIndicador = '{0}'</value>
   </data>
-  <data name="fonatel" xml:space="preserve">
+  <data name="definicionFechasFonatel" xml:space="preserve">
+    <value>declare @IndicadorReferencia int = {0};
+declare @UnidadMedida int = {1};
+declare @ValorInicio varchar(30) = '{2}';
+declare @OpcionInicio int = {3};
+declare @ValorFin varchar(30) = '{4}';
+declare @OpcionFin int = {5};
+
+declare @numeroFila int =1;
+declare @IdResultadoIndicador uniqueidentifier;
+
+select top 1 @IdResultadoIndicador= a.IdResultado 
+from IndicadorResultado a
+inner join IndicardorResultadoDetalleCategoria b
+on a.IdResultado=b.IdResultado
+where a.IdIndicador=@IndicadorReferencia order by a.FechaCreacion desc;
+
+
+with FechaInicio as
+(
+	select cast(@ValorInicio as datetime) FechaInicio, @numeroFila numeroFila
+	where @OpcionInicio=1
+	union
+	select top 1 cast(b.Valor as datetime) FechaInicio, @numeroFila numeroFila
+	from IndicadorResultado a
+    inner join IndicardorResultadoDetalleCategoria b
+    on a.IdResultado=b.IdResultado
+	where b.IdCategoria=case @OpcionInicio when 2 then cast(@ValorInicio  as int) else 0 end
+	and  a.IdIndicador=@IndicadorReferencia
+	and NumeroFila=@numeroFila and a.IdResultado=@IdResultadoIndicador
+	union
+	select GETDATE() FechaInicio, @numeroFila numeroFila
+	where @OpcionInicio=3
+),
+FechaFin as
+(
+	select cast(@ValorFin as datetime) FechaFin, @numeroFila numeroFila
+	where @OpcionFin=1
+	union
+	select top 1 cast(b.Valor as datetime) FechaFin, @numeroFila numeroFila
+    from IndicadorResultado a
+    inner join IndicardorResultadoDetalleCategoria b
+    on a.IdResultado=b.IdResultado
+	where b.IdCategoria=case @OpcionFin when 2 then cast(@ValorFin  as int) else 0 end
+	and  @OpcionFin=2 and a.IdIndicador=@IndicadorReferencia
+	and NumeroFila=@numeroFila and a.IdResultado=@IdResultadoIndicador
+	union
+	select GETDATE() FechaFin, @numeroFila numeroFila
+	where @OpcionFin=3
+)
+select case @UnidadMedida 
+when 1 then DATEDIFF(DAY, a.FechaInicio, b.FechaFin ) 
+when 2 then DATEDIFF(MONTH, a.FechaInicio, b.FechaFin  ) 
+else DATEDIFF(YEAR, a.FechaInicio, b.FechaFin  ) end 
+valor
+from  FechaInicio a,  FechaFin b;</value>
+  </data>
+  <data name="mercados" xml:space="preserve">
+    <value>inserte aqui el predicado SQL para indicadores de mercados</value>
+  </data>
+  <data name="variablesDatoFonatel" xml:space="preserve">
     <value>declare @FechaUltimoRegistro date = null
 declare @IndicadorSalida int = {0}
 declare @IdAcumulacion int = {1}

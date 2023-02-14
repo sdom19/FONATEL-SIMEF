@@ -1,4 +1,5 @@
 ﻿using GB.SIMEF.Entities;
+using GB.SIMEF.Entities.DTO;
 using GB.SIMEF.Resources;
 using System;
 using System.Collections.Generic;
@@ -151,7 +152,7 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@IdFormula", pformulasCalculo.IdFormula)
                     ).ToList();
 
-                bool esUnicoRegistro = pformulasCalculo.IdFormula != 0 && listaFormulasCalculo.Count == 1; // optimizar un poco la consulta
+                bool esUnicoRegistro = pformulasCalculo.IdFormula != 0 && listaFormulasCalculo.Count == 1; // optimizar la consulta para 1 solo registro
 
                 listaFormulasCalculo = listaFormulasCalculo.Select(x => new FormulasCalculo()
                 {
@@ -268,6 +269,27 @@ namespace GB.SIMEF.DAL
             }
 
             return formula;
+        }
+
+        /// <summary>
+        /// 14/02/2023
+        /// José Navarro Acuña
+        /// Función que permite verificar si una fórmula ha sido ejecutada
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <returns></returns>
+        public FormulaCalculoDTO VerificarSiFormulaEjecuto(int pIdFormula)
+        {
+            FormulaCalculoDTO formulaDTO = null;
+
+            using (db = new SIMEFContext())
+            {
+                formulaDTO = db.Database.SqlQuery<FormulaCalculoDTO>
+                    ("execute spVerificarSiFormulaEjecuto @pIdFormula",
+                     new SqlParameter("@pIdFormula", pIdFormula)
+                    ).FirstOrDefault();
+            }
+            return formulaDTO;
         }
 
         /// <summary>

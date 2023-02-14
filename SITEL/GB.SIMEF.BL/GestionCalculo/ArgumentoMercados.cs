@@ -1,4 +1,5 @@
 ﻿using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// <returns></returns>
         public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulasCalculo pFormulasCalculo)
         {
-            throw new NotImplementedException();
+            return PredicadosSQLFormulasCalculo.mercados;
         }
     }
 }
