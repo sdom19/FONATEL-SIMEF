@@ -113,7 +113,7 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public RespuestaConsulta<FormulasCalculo> ActualizarEtiquetaFormula(FormulasCalculo pFormulasCalculo)
+        public RespuestaConsulta<FormulasCalculo> ActualizarEtiquetaFormula(FormulasCalculo pFormulasCalculo, FormulasCalculo pFormulaCalculoAntesDeActualizar = null)
         {
             RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
             bool errorControlado = false;
@@ -129,7 +129,7 @@ namespace GB.SIMEF.BL
                 }
 
                 // bitacora
-                FormulasCalculo formulaAntesDelCambio = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo).Single();
+                FormulasCalculo formulaAntesDelCambio = pFormulaCalculoAntesDeActualizar == null ? formulasCalculoDAL.ObtenerDatos(pFormulasCalculo).Single() : pFormulaCalculoAntesDeActualizar;
                 // ---------
 
                 pFormulasCalculo.UsuarioModificacion = user;
@@ -138,6 +138,7 @@ namespace GB.SIMEF.BL
                 resultado.Usuario = user;
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Editar;
+                resultado.objetoRespuesta = formulaActualizada;
 
                 formulasCalculoDAL.RegistrarBitacora(resultado.Accion, resultado.Usuario, resultado.Clase,
                     formulaAntesDelCambio.Codigo, formulaActualizada.ToString(), formulaAntesDelCambio.ToString(), "");
@@ -374,7 +375,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                // validar que la fórmula tenga sus datos completos
+                // validar que la fórmula tenga sus datos completos y exista al menos un argumento registrado
                 string msgFormulaCompleto = VerificarDatosCompletosFormulaCalculo(formulaRegistrada);
 
                 if (!string.IsNullOrEmpty(msgFormulaCompleto))
@@ -383,7 +384,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(msgFormulaCompleto);
                 }
 
-                pFormulasCalculo.IdEstado = (int)EstadosRegistro.Activo;
+                pFormulasCalculo.IdEstado = (int)EstadosRegistro.Activo; // estado que representa "Finalizado"
                 return CambioEstado(pFormulasCalculo); // reutilizar la función de cambio de estado
             }
             catch (Exception ex)
@@ -643,7 +644,21 @@ namespace GB.SIMEF.BL
                     idFormula = number;
                 }
 
-                // inserte llamada al api
+                FormulaCalculoDTO formulaDTO = formulasCalculoDAL.VerificarSiFormulaEjecuto(idFormula);
+                
+                if (formulaDTO != null)
+                {
+                    string.Format(
+                        EtiquetasViewFormulasCalculo.MensajeAdvertenciaFormulaEjecutada,
+                        formulaDTO.NombreIndicador,
+                        formulaDTO.NombreVariableDato,
+                        formulaDTO.FechaEjecucion.ToShortDateString() // dd-mm-yyyy
+                    );
+                }
+                else
+                {
+                    resultado.objetoRespuesta = string.Empty;
+                }
 
                 if (idFormula == 0)
                 {
@@ -686,8 +701,6 @@ namespace GB.SIMEF.BL
                 pFormulasCalculo.IdIndicadorSalidaString = formulaAlmacenada.IdIndicadorSalidaString;
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
 
-                FormulaPredicado formulaPredicado = new FormulaPredicado();
-
                 if (pFormulasCalculo.IdFormula == 0 || pFormulasCalculo.IdIndicador == 0)
                 {
                     errorControlado = true;
@@ -702,6 +715,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(respuestaArgumentosValidados.MensajeError);
                 }
 
+                // remover los argumentos anteriores, ya sea por que cambiaron o es un guardado parcial
                 bool elimino = argumentoFormulaDAL.EliminarArgumentos(new ArgumentoFormula() { IdFormula = pFormulasCalculo.IdFormula });
 
                 if (!elimino)
@@ -709,60 +723,10 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                List<ArgumentoFormula> argumentosValidados = respuestaArgumentosValidados.objetoRespuesta;
-                formulaPredicado.SetFormulasCalculo(pFormulasCalculo); // datos almacenados del paso 1 del formulario
-
-                StringBuilder etiquetaFormula = new StringBuilder();
-                int ordenEnFormula = 0;
-
-                for (int i = 0; i < argumentosValidados.Count; i++)
-                {
-                    if (!argumentosValidados[i].EsOperadorMatematico)
-                    {
-                        etiquetaFormula.Append("{" + string.Format("{0}", ordenEnFormula) + "}");
-
-                        formulaPredicado.SetArgumentoFormula(argumentosValidados[i]); // establecer cada argumento a utilizar para computar el predicado SQL
-
-                        if (argumentosValidados[i].IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.VariableDatoCriterio) // determinar el tipo de argumento a evaluar
-                        {
-                            FormulasVariableDatoCriterio argVariableDato = (FormulasVariableDatoCriterio)argumentosValidados[i]; // casteo explícito
-
-                            switch (argVariableDato.IdFuenteIndicador)
-                            {
-                                case (int)FuenteIndicadorEnum.IndicadorDGF:
-                                    formulaPredicado.SetFuenteArgumento(new ArgumentoFonatel());
-                                    break;
-                                case (int)FuenteIndicadorEnum.IndicadorDGM:
-                                    formulaPredicado.SetFuenteArgumento(new ArgumentoMercados());
-                                    break;
-                                case (int)FuenteIndicadorEnum.IndicadorDGC:
-                                    formulaPredicado.SetFuenteArgumento(new ArgumentoCalidad());
-                                    break;
-                                default:
-                                    break;
-                            }
-
-                            string predicadoSQL = formulaPredicado.GetArgumentoComoPredicadoSQL(); // Paso 4, construir el predicado SQL
-                            InsertarArgumentoVariableDatoCriterio(predicadoSQL, pFormulasCalculo, argVariableDato, ordenEnFormula);
-                            ordenEnFormula++;
-
-                        }
-                        else if (argumentosValidados[i].IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
-                        {
-                            formulaPredicado.SetFuenteArgumento(new ArgumentoDefinicionFecha());
-                            string predicadoSQL = formulaPredicado.GetArgumentoComoPredicadoSQL(); // Paso 4, construir el predicado SQL
-                            InsertarArgumentoDefinicionDeFecha(predicadoSQL, pFormulasCalculo, (FormulasDefinicionFecha)argumentosValidados[i], ordenEnFormula);
-                            ordenEnFormula++;
-                        }
-                    }
-                    else
-                    {
-                        etiquetaFormula.Append(argumentosValidados[i].Etiqueta);
-                    }
-                }
+                string etiquetaFormula = InsertarArgumentosEnFormula(pFormulasCalculo, respuestaArgumentosValidados.objetoRespuesta);
 
                 pFormulasCalculo.Formula = etiquetaFormula.ToString();
-                resultado = ActualizarEtiquetaFormula(pFormulasCalculo);
+                resultado = ActualizarEtiquetaFormula(pFormulasCalculo, formulaAlmacenada);
             }
             catch (Exception ex)
             {
@@ -774,6 +738,71 @@ namespace GB.SIMEF.BL
                     resultado.HayError = (int)Error.ErrorSistema;
             }
             return resultado;
+        }
+
+        /// <summary>
+        /// 14/02/2023
+        /// José Navarro
+        /// Función que inserta un listado de argumentos a una fórmula de cálculo.
+        /// Retorna una etiqueta parametrizada que representa la fórmula matemática construida, por ej.: ({0} + 2) / {1} - 25
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <param name="pArgumentosValidados"></param>
+        /// <returns></returns>
+        private string InsertarArgumentosEnFormula(FormulasCalculo pFormulasCalculo, List<ArgumentoFormula> pArgumentosValidados)
+        {
+            FormulaPredicado formulaPredicado = new FormulaPredicado();
+            formulaPredicado.SetFormulasCalculo(pFormulasCalculo); // datos almacenados del paso 1 del formulario
+
+            StringBuilder etiquetaFormula = new StringBuilder();
+            int ordenEnFormula = 0;
+
+            for (int i = 0; i < pArgumentosValidados.Count; i++)
+            {
+                if (!pArgumentosValidados[i].EsOperadorMatematico)
+                {
+                    etiquetaFormula.Append("{" + string.Format("{0}", ordenEnFormula) + "}");
+
+                    formulaPredicado.SetArgumentoFormula(pArgumentosValidados[i]); // establecer cada argumento a utilizar para computar el predicado SQL
+
+                    if (pArgumentosValidados[i].IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.VariableDatoCriterio) // determinar el tipo de argumento a evaluar
+                    {
+                        FormulasVariableDatoCriterio argVariableDato = (FormulasVariableDatoCriterio)pArgumentosValidados[i]; // casteo explícito
+
+                        switch (argVariableDato.IdFuenteIndicador)
+                        {
+                            case (int)FuenteIndicadorEnum.IndicadorDGF:
+                                formulaPredicado.SetFuenteArgumento(new ArgumentoFonatel());
+                                break;
+                            case (int)FuenteIndicadorEnum.IndicadorDGM:
+                                formulaPredicado.SetFuenteArgumento(new ArgumentoMercados());
+                                break;
+                            case (int)FuenteIndicadorEnum.IndicadorDGC:
+                                formulaPredicado.SetFuenteArgumento(new ArgumentoCalidad());
+                                break;
+                            default:
+                                break;
+                        }
+
+                        string predicadoSQL = formulaPredicado.GetArgumentoComoPredicadoSQL(); // Paso 4, construir el predicado SQL
+                        InsertarArgumentoVariableDatoCriterio(predicadoSQL, pFormulasCalculo, argVariableDato, ordenEnFormula);
+                        ordenEnFormula++;
+
+                    }
+                    else if (pArgumentosValidados[i].IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
+                    {
+                        formulaPredicado.SetFuenteArgumento(new ArgumentoDefinicionFecha());
+                        string predicadoSQL = formulaPredicado.GetArgumentoComoPredicadoSQL(); // Paso 4, construir el predicado SQL
+                        InsertarArgumentoDefinicionDeFecha(predicadoSQL, pFormulasCalculo, (FormulasDefinicionFecha)pArgumentosValidados[i], ordenEnFormula);
+                        ordenEnFormula++;
+                    }
+                }
+                else
+                {
+                    etiquetaFormula.Append(pArgumentosValidados[i].Etiqueta);
+                }
+            }
+            return etiquetaFormula.ToString();
         }
 
         /// <summary>
@@ -1083,7 +1112,7 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 13/02/2023
         /// José Navarro Acuña
-        /// Función que verifica si todos los campos de una fórmula estan completos.
+        /// Función que verifica si todos los campos de una fórmula estan completos, e incluidos al menos 1 argumento en la fórmula
         /// </summary>
         /// <returns></returns>
         private string VerificarDatosCompletosFormulaCalculo(FormulasCalculo pFormulasCalculo)

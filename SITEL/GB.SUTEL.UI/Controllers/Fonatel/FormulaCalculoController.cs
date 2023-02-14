@@ -79,7 +79,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Create()
         {
-            CargarDatosEnVistas();
+            CargarDatosEnVistas(Accion.Insertar, new FormulasCalculo());
             ViewBag.ModoFormulario = ((int)Accion.Insertar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
 
@@ -103,7 +103,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (objFormulaCalculo == null)
                 return View("Index");
 
-            CargarDatosEnVistas(objFormulaCalculo.IdIndicadorSalidaString, objFormulaCalculo.NivelCalculoTotal);
+            CargarDatosEnVistas(Accion.Editar, objFormulaCalculo);
 
             ViewBag.ModoFormulario = ((int)Accion.Editar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloEditar;
@@ -132,8 +132,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             objFormulaCalculo.Nombre = string.Empty;
             objFormulaCalculo.Codigo = string.Empty;
+            objFormulaCalculo.IdVariableDatoString = string.Empty;
 
-            CargarDatosEnVistas(objFormulaCalculo.IdIndicadorSalidaString, objFormulaCalculo.NivelCalculoTotal);
+            CargarDatosEnVistas(Accion.Clonar, objFormulaCalculo);
 
             ViewBag.ModoFormulario = ((int)Accion.Clonar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloClonar;
@@ -158,7 +159,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (objFormulaCalculo == null)
                 return View("Index");
 
-            CargarDatosEnVistas(objFormulaCalculo.IdIndicadorSalidaString, objFormulaCalculo.NivelCalculoTotal);
+            CargarDatosEnVistas(Accion.Visualizar, objFormulaCalculo);
 
             ViewBag.ModoFormulario = ((int)Accion.Visualizar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloVisualizar;
@@ -301,13 +302,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region Funciones async - Create
 
         /// <summary>
-        /// 18/10/20122
+        /// 14/02/2023
         /// José Navarro Acuña
-        /// Obtiene un listado de las variables dato de un indicador
+        /// Obtiene un listado de las variables dato de un indicador que no esta siendo utilizadas en las demás fórmulas de cálculo
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<string> ObtenerVariablesDatoDeIndicador(string pIdIndicador)
+        public async Task<string> ObtenerVariablesSinUsoEnFormula(string pIdFormula, string pIdIndicador)
         {
             RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
 
@@ -320,10 +321,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
+                resultado = detalleIndicadorVariablesBL.ObtenerVariablesSinUsoEnFormula(new DetalleIndicadorVariables()
                 {
                     idIndicadorString = pIdIndicador
-                });
+                }, 
+                pIdFormula
+                );
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -935,7 +938,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
 
-            if (string.IsNullOrEmpty(pFormulaCalculo.id) || pListaArgumentos.Count < 0)
+            if (string.IsNullOrEmpty(pFormulaCalculo.id))
             {
                 resultado.HayError = (int)Error.ErrorControlado;
                 resultado.MensajeError = Errores.CamposIncompletos;
@@ -1004,7 +1007,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// José Navarro Acuña
         /// Método que permite cargar los datos necesarios del formulario de Fórmulas de Cálculo
         /// </summary>
-        private void CargarDatosEnVistas(string pIdIndicador = null, bool pEsNivelCalculoTotal = true)
+        private void CargarDatosEnVistas(Accion pAccionPantalla, FormulasCalculo pFormulasDeCalculo)
         {
             ViewBag.VariablesDato = Enumerable.Empty<SelectListItem>();
             ViewBag.CategoriasDeIndicador = Enumerable.Empty<SelectListItem>();
@@ -1041,12 +1044,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 ViewBag.IndicadorSalida = indicadoresDeSalida;
             }
 
-            if (!string.IsNullOrEmpty(pIdIndicador))
+            if (!string.IsNullOrEmpty(pFormulasDeCalculo.IdIndicadorSalidaString))
             {
-                List<DetalleIndicadorVariables> detalles = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
+                List<DetalleIndicadorVariables> detalles = detalleIndicadorVariablesBL.ObtenerVariablesSinUsoEnFormula(new DetalleIndicadorVariables()
                 {
-                    idIndicadorString = pIdIndicador
-                }).objetoRespuesta;
+                    idIndicadorString = pFormulasDeCalculo.IdIndicadorSalidaString
+                }, 
+                pAccionPantalla == Accion.Editar ? pFormulasDeCalculo.id : string.Empty // en caso de editar la opcion debe estar disponible
+                ).objetoRespuesta;
 
                 if (detalles != null)
                 {
@@ -1054,9 +1059,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
             }
 
-            if (!pEsNivelCalculoTotal)
+            if (!pFormulasDeCalculo.NivelCalculoTotal)
             {
-                List<CategoriasDesagregacion> categorias = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pIdIndicador, true).objetoRespuesta;
+                List<CategoriasDesagregacion> categorias = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pFormulasDeCalculo.IdIndicadorSalidaString, true).objetoRespuesta;
 
                 if (categorias != null)
                 {

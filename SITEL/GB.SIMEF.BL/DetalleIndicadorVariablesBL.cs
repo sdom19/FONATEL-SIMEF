@@ -231,6 +231,48 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
+        /// 14/02/2023
+        /// José Navarro Acuña
+        /// Función que permite obtener los detalles variables dato que no estan siendo utilizados por fórmulas de cálculo
+        /// </summary>
+        /// <param name="pDetalleIndicadorVariables"></param>
+        /// <param name="pIdFormula"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerVariablesSinUsoEnFormula(DetalleIndicadorVariables pDetalleIndicadorVariables, string pIdFormula)
+        {
+            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>
+            {
+                HayError = (int)Error.NoError,
+            };
+
+            try
+            {
+                PrepararObjetoDetalle(pDetalleIndicadorVariables);
+
+                if (pDetalleIndicadorVariables.idIndicador == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                int idFormula = 0;
+                if (!string.IsNullOrEmpty(pIdFormula))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pIdFormula), out int number);
+                    idFormula = number;
+                }
+
+                resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ObtenerVariablesSinUsoEnFormula(pDetalleIndicadorVariables, idFormula).ToList();
+                resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+                resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
         /// 12/09/2022
         /// José Navarro Acuña
         /// Función que valida el objeto DetalleIndicadorVariables. Valida la existencia del indicador relacionado y la cantidad de detalles restantes del mismo

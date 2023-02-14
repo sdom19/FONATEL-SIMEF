@@ -259,6 +259,16 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La Fórmula de Cálculo ya ha sido ejecutada para la obtención del indicador {0} para la variable dato {1} siendo la última fecha de ejecución el {2}.
+        ///¿Desea eliminarla?.
+        /// </summary>
+        public static string MensajeAdvertenciaFormulaEjecutada {
+            get {
+                return ResourceManager.GetString("MensajeAdvertenciaFormulaEjecutada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categoría.
         /// </summary>
         public static string ModalDetalle_LabelCategoria {

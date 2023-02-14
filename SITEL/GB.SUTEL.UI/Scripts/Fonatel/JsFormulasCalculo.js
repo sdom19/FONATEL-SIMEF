@@ -266,10 +266,10 @@ CrearFormulaView = {
     },
 
     Metodos: {
-        CargarDatosDependientesDeIndicador: function (pIdIndicador, pCallback = null) { // variables dato y categorias de desagregación
+        CargarDatosDependientesDeIndicador: function (pIdFormula, pIdIndicador, pCallback = null) { // variables dato y categorias de desagregación
             $("#loading").fadeIn();
 
-            CrearFormulaView.Consultas.ConsultarVariablesDatoDeIndicador(pIdIndicador)
+            CrearFormulaView.Consultas.ConsultarVariablesSinUsoEnFormula(pIdFormula, pIdIndicador)
                 .then(data => {
                     this.InsertarDatosEnComboVariablesDato(data);
                     return true;
@@ -553,9 +553,9 @@ CrearFormulaView = {
                         CrearFormulaView.Variables.laFormulaFueClonada = true;
                         InsertarParametroUrl("id", data.objetoRespuesta.id); // actualizar el id del URL (previamente se tiene el id de la fórmula a clonar)
 
-                        $(CrearFormulaView.Controles.step2Variable).trigger('click'); // cargar los respectivos datos
+                        $(CrearFormulaView.Controles.step2).trigger('click'); // cargar los respectivos datos
                     })
-                    .catch(error => { ManejoDeExcepciones(error); })
+                    .catch(error => { ManejoDeExcepciones(error); console.log(error); })
                     .finally(() => {
                         $("#loading").fadeOut();
                     });
@@ -593,8 +593,8 @@ CrearFormulaView = {
     },
 
     Consultas: {
-        ConsultarVariablesDatoDeIndicador: function (pIdIndicador) {
-            return execAjaxCall("/FormulaCalculo/ObtenerVariablesDatoDeIndicador", "GET", { pIdIndicador });
+        ConsultarVariablesSinUsoEnFormula: function (pIdFormula, pIdIndicador) {
+            return execAjaxCall("/FormulaCalculo/ObtenerVariablesSinUsoEnFormula", "GET", { pIdFormula, pIdIndicador });
         },
 
         ConsultarCategoriasDesagregacionDeIndicador: function (pIdIndicador) {
@@ -677,6 +677,7 @@ CrearFormulaView = {
             let idIndicador = $(this).val();
             if (idIndicador != null || $.trim(idIndicador) != "") {
                 CrearFormulaView.Metodos.CargarDatosDependientesDeIndicador(
+                    ObtenerValorParametroUrl("id"),
                     idIndicador,
                     CrearFormulaView.Metodos.EventosEnInputsFormularioCrearFormulaCalculo
                 );
@@ -1592,29 +1593,26 @@ GestionFormulaView = {
         CrearDetallesFormulaGuardadoParcial: function () {
             let formulaConstruida = GestionFormulaView.Variables.FormulaCalculo;
 
-            if (formulaConstruida != null && formulaConstruida.length > 0) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaGuardadoParcial, jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) { resolve(true); })
+            })
+                .then(_ => {
+                    $("#loading").fadeIn();
 
-                new Promise((resolve, reject) => {
-                    jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaGuardadoParcial, jsMensajes.Variables.actionType.agregar)
-                        .set('onok', function (closeEvent) { resolve(true); })
+                    return GestionFormulaView.Consultas.CrearDetallesFormulaCalculo(
+                        GestionFormulaView.Metodos.CrearObjFormularioCrearFormula(true),
+                        formulaConstruida
+                    );
                 })
-                    .then(_ => {
-                        $("#loading").fadeIn();
-
-                        return GestionFormulaView.Consultas.CrearDetallesFormulaCalculo(
-                            GestionFormulaView.Metodos.CrearObjFormularioCrearFormula(true),
-                            formulaConstruida
-                        );
-                    })
-                    .then(_ => {
-                        jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoFormulaCreada)
-                            .set('onok', function (closeEvent) {
-                                window.location.href = GestionFormulaView.Variables.indexViewURL;
-                            });
-                    })
-                    .catch(error => { ManejoDeExcepciones(error); console.log(error); })
-                    .finally(() => { $("#loading").fadeOut(); });
-            }
+                .then(_ => {
+                    jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoFormulaCreada)
+                        .set('onok', function (closeEvent) {
+                            window.location.href = GestionFormulaView.Variables.indexViewURL;
+                        });
+                })
+                .catch(error => { ManejoDeExcepciones(error); console.log(error); })
+                .finally(() => { $("#loading").fadeOut(); });
         },
 
         CargarArgumentosDeFormula: function (pIdFormula) {
@@ -1625,7 +1623,7 @@ GestionFormulaView = {
                         GestionFormulaView.Variables.FormulaCalculo = data.objetoRespuesta;
                         GestionFormulaView.Variables.hizoCargaDeArgumentos = true;
                     })
-                    .catch(error => { ManejoDeExcepciones(error); })
+                    .catch(error => { ManejoDeExcepciones(error); console.log(error); })
                     .finally(() => {
                         $("#loading").fadeOut();
                     });
