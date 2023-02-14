@@ -52,12 +52,7 @@ namespace GB.SIMEF.BL
 
                 var FechaActual = DateTime.Today.ToShortDateString();
 
-
                 var HoraActual = DateTime.Now.ToShortTimeString();
-
-                var HoraActual = DateTime.Now.ToShortTimeString(); 
-
-                var HoraActual = DateTime.Now.ToShortTimeString(); 
 
                 if (objeto.Fuente.idEstado == (int)Constantes.EstadosRegistro.Activo)
                 {
@@ -70,7 +65,6 @@ namespace GB.SIMEF.BL
                         var result = correoDal.EnviarCorreo();
                         envioCorreo.objetoRespuesta = result == 0 ? false : true;
                     }
-
                 }
                 else
                 {
@@ -79,8 +73,6 @@ namespace GB.SIMEF.BL
                 }
 
                 clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarCorreoInformante, "Sistema automático", modulo, objeto.Codigo);
-
-
 
             }
             catch (Exception ex)
@@ -128,14 +120,6 @@ namespace GB.SIMEF.BL
                     correoDal = new CorreoDal(CorreoEncargado, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), UsuarioEncargado), "Carga de Solicitud exitosa");
                     var result = correoDal.EnviarCorreo();
                     envioCorreo.objetoRespuesta = result == 0 ? false : true;
-
-
-                    foreach (var detalleFuente in objeto.Fuente.DetalleFuentesRegistro.Where(x => x.Estado == true))
-                    {
-                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), user), "Carga de Solicitud exitosa");
-                        var result = correoDal.EnviarCorreo();
-                        envioCorreo.objetoRespuesta = result == 0 ? false : true;
-                    }
 
                 }
                 else
