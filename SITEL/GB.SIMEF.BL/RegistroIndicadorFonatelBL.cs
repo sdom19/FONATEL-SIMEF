@@ -14,8 +14,10 @@ namespace GB.SIMEF.BL
     {
         private readonly RegistroIndicadorFonatelDAL clsDatos;
         private readonly FuentesRegistroDestinatarioDAL clsFuentesRegistroDestinatarioDAL;
+        private readonly SolicitudDAL clsSolicitudesDAL;
         private readonly FuentesRegistroDAL clsFuentesRegistroDAL;
         private readonly UsuarioFonatelDAL clsUsuarioFonatelDAL;
+        private readonly EnvioSolicitudDAL clsEnvioSolicitudesDAL;
 
         private CorreoDal correoDal;
         private PlantillaHtmlDAL plantillaDal;
@@ -33,6 +35,8 @@ namespace GB.SIMEF.BL
             this.clsFuentesRegistroDAL = new FuentesRegistroDAL();
             this.plantillaDal = new PlantillaHtmlDAL();
             this.clsUsuarioFonatelDAL = new UsuarioFonatelDAL();
+            this.clsEnvioSolicitudesDAL = new EnvioSolicitudDAL();
+            this.clsSolicitudesDAL = new SolicitudDAL();
             this.user = user;
             this.modulo = modulo;
         }
@@ -92,18 +96,25 @@ namespace GB.SIMEF.BL
         {
             RespuestaConsulta<bool> envioCorreo = new RespuestaConsulta<bool>();
 
+            Solicitud solicitud = new Solicitud();
+
             try
             {
-
                 envioCorreo.objetoRespuesta = false;
 
-                var ListaUsuarios = clsUsuarioFonatelDAL.ObtenerDatos().Where(x => x.AccesoUsuario == user).ToList();
+                var EnvioSolicitudes = clsEnvioSolicitudesDAL.ObtenerEnviosCorrectos().ToList();
 
-                string UsuarioEncargado = ListaUsuarios[0].NombreUsuario;
+                var SolicitudDeEnvio = EnvioSolicitudes.Where(x => x.idEnvio == objeto.IdSolicitud).FirstOrDefault();
 
-                string CorreoEncargado = ListaUsuarios[0].CorreoUsuario;
+                var Solicitudes = clsSolicitudesDAL.ObtenerDatos(solicitud).ToList();
 
-                var usuarioEncargado = clsUsuarioFonatelDAL.ObtenerDatos().ToList();
+                var SolicitudSIMEF = Solicitudes.Where(x => x.idSolicitud == SolicitudDeEnvio.IdSolicitud).FirstOrDefault();
+
+                var UsuarioEncargado = clsUsuarioFonatelDAL.ObtenerDatos(1).Where(x => x.AccesoUsuario.ToUpper() == SolicitudSIMEF.UsuarioCreacion.ToUpper()).ToList();
+
+                string NombreEncargado = UsuarioEncargado[0].NombreUsuario;
+
+                string CorreoEncargado = UsuarioEncargado[0].CorreoUsuario;
 
                 PlantillaHtml plantilla = plantillaDal.ObtenerDatos((int)Constantes.PlantillaCorreoEnum.EnvioRegistroIndicadorEncargado);
 
@@ -117,7 +128,7 @@ namespace GB.SIMEF.BL
 
                     plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(objeto.Fuente.Fuente), objeto.Codigo, objeto.Nombre, objeto.Fuente.Fuente, FechaActual, HoraActual);
 
-                    correoDal = new CorreoDal(CorreoEncargado, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), UsuarioEncargado), "Carga de Solicitud exitosa");
+                    correoDal = new CorreoDal(CorreoEncargado, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), NombreEncargado), "Carga de Solicitud exitosa");
                     var result = correoDal.EnviarCorreo();
                     envioCorreo.objetoRespuesta = result == 0 ? false : true;
 
