@@ -98,8 +98,13 @@ namespace GB.SIMEF.BL
                     //Se elimina los detalles valores para insertar los nuevos
                     DetalleRegistroIndicadorVariableValorFonatel eliminar = objeto.DetalleRegistroIndicadorVariableValorFonatel[0];
                     eliminar.IdVariable = 0;
-                    eliminar.IdIndicador = 0;
-                    detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorVariableValorFonatel(eliminar);
+
+                    //Se eliminan unicamente los indicadores actalizados
+                    var indicadoresUnicos = objeto.DetalleRegistroIndicadorVariableValorFonatel.GroupBy(x => x.IdIndicador).Select(g=>g.First()).ToList();
+                    foreach (var ind in indicadoresUnicos) {
+                        eliminar.IdIndicador = ind.IdIndicador;
+                        detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorVariableValorFonatel(eliminar);
+                    }
 
                     detalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorVariableValorFonatel(dt);
                 }
@@ -145,8 +150,13 @@ namespace GB.SIMEF.BL
                     //Se elimina los detalles valores para insertar los nuevos
                     DetalleRegistroIndicadorCategoriaValorFonatel eliminar = objeto.DetalleRegistroIndicadorCategoriaValorFonatel[0];
                     eliminar.idCategoria = 0;
-                    eliminar.IdIndicador = 0;
-                    detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorCategoriaValorFonatel(eliminar);
+
+                    var indicadoresUnicos = objeto.DetalleRegistroIndicadorVariableValorFonatel.GroupBy(x => x.IdIndicador).Select(g => g.First()).ToList();
+                    foreach (var ind in indicadoresUnicos)
+                    {
+                        eliminar.IdIndicador = ind.IdIndicador;
+                        detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorCategoriaValorFonatel(eliminar);
+                    }
 
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion = (int)Accion.Insertar;
