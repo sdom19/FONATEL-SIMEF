@@ -22,26 +22,16 @@
 
 
         "table": "",
-        "btnGuardarCategoría": "#btnGuardarCategoría",
         "btnDescargarPlantillaRegistro": "#btnDescargarPlantillaRegistro",
         "btnCargarPlantillaRegistro": "#btnCargarPlantillaRegistro",
         "inputFileCargarPlantilla": "#inputFileCargarPlantilla",
-
         "fileCargaRegistro": "#fileCargaRegistro",
-        "btnCancelar": "#btnCancelarRegistroIndicador",
 
         "btnGuardar": "div.tab-pane.active #btnGuardarRegistroIndicador",
         //"btnValidar": "div.tab-pane.active #btnValidarRegistroIndicador",
         "btnValidar": "#btnValidarRegistroIndicador",
 
-        "btnCargarPlantillaRegistro2": "#btnCargarPlantillaRegistro2",
-        "btnGuardarRegistroIndicador2": "#btnGuardarRegistroIndicador2",
-        "btnValidar2": "#btnValidarRegistroIndicador2",
-
-        "IndicadorCorrecto": "#Indicador1",
-        "IndicadorErroneo": "#Indicador2",
         "btnCargaRegistroIndicador": "#btnCargaRegistroIndicador",
-        "btnCargaRegistroIndicadorEdicion": "#btnCargaRegistroIndicadorEdicion",
         "btnGuardarRegistroIndicador": "#btnGuardarRegistroIndicador",
         "btnValidarRegistroIndicador": "#btnValidarRegistroIndicador",
         "btnCancelarRegistroIndicador": "#btnCancelarRegistroIndicador",
@@ -56,6 +46,7 @@
         "paginasActualizadasConSelect2_tablaIndicador": {},
         "ListadoDetalleRegistroIndicador": new Object(),
         "ModoConsulta": false,
+        "GuardadoTotal": false
 
     },
 
@@ -106,6 +97,7 @@
                 });
             });
         },
+
         "CrearRegistroIndicadorMultiple": function () {
 
             jsRegistroIndicadorFonatel.Variables.ListadoDetalleRegistroIndicador = new Object();
@@ -159,6 +151,7 @@
                 }
             }
         },
+
         "CargarColumnasTabla": function () {
             if ($(jsRegistroIndicadorFonatel.Controles.columnaTablaIndicador).length == 0) {
                 let html = "<th style='min-width:30PX'>  </th>";
@@ -199,14 +192,9 @@
 
         },
 
-
         "CargarDatosVisualizar": function () {
             $('.container button').prop('disabled', true);
             $('textarea').prop('disabled', true);
-        },
-
-        "CargarExcel": function () {
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
         },
 
         "DescargarExcel": function () {
@@ -296,6 +284,7 @@
             CargarDatasourceV2(jsRegistroIndicadorFonatel.Controles.tablaIndicadorActivo);
             $("#loading").fadeOut();
         },
+
         "ValidarRegistroIndicadorDetalleValor": function () {
             $("#loading").fadeIn();
             jsRegistroIndicadorFonatel.Metodos.CrearRegistroIndicador();
@@ -335,6 +324,7 @@
             }
 
         },
+
         "ValidarDetalle": function () {
 
             var valor = "";
@@ -361,6 +351,7 @@
             });
             return true;
         },
+
         "VerificarCargado": function () {
             var cantIndicadores = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicador).length;
             var cantVerificados = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorVerificado).length;
@@ -416,6 +407,7 @@
             }
 
         },
+
         "ActualizarDetalleRegistroIndicadorFonatel": function () {
             $("#loading").fadeIn();
             var listaActDetalleRegistroIndicador = [];
@@ -539,6 +531,7 @@
                     //$("#loading").fadeOut();
                 });
         },
+
         "CargadoTotalRegistroIndicador": function (GuardadoTotal) {
 
             $("#loading").fadeIn();
@@ -604,7 +597,6 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCancelarRegistro
         });
 });
 
-
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroIndicador, function (e) {
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
@@ -624,33 +616,17 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroI
 
 });
 
-
-//BTN GUARDAR REGISTRO SEGUNDO INDICADOR SOLO PARA ENTREGA DOCUMENTO SIMER REVISAR LINEA 293 - FRANCISCO VINDAS RUIZ
-$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroIndicador2, function (e) {
-    e.preventDefault();
-    e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
-        .set('onok', function (closeEvent) {
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
-                .set('onok', function (closeEvent) { window.location.href = "/Fonatel/RegistroIndicadorFonatel/Index"; });
-        });
-});
-
-
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicador, function (e) {
     e.preventDefault();
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado del Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
-
+            let GuardadoTotal = true;
             jsRegistroIndicadorFonatelEdit.Consultas.CargadoTotalRegistroIndicador(GuardadoTotal);
 
         });
 });
 
-
-
-//DESCARGAR EXCEL
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnDescargarPlantillaRegistro, function () {
 
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
@@ -667,22 +643,7 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnDescargarPlantil
         });
 });
 
-//DESCARGAR EXCEL
-$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarCategoría, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
-        .set('onok', function (closeEvent) {
-            window.open(jsUtilidades.Variables.urlOrigen + "/RegistroIndicadorFonatel/DescargarExcel");
-            jsRegistroIndicadorFonatel.Metodos.CargarExcel();
-        });
-});
-
-
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro, function () {
-    $(jsRegistroIndicadorFonatel.Controles.inputFileCargarPlantilla).click();
-});
-
-//BTN CARGAR SEGUNDO INDICADOR SOLO PARA ENTREGA DOCUMENTO SIMER REVISAR LINEA 293 - FRANCISCO VINDAS RUIZ
-$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargarPlantillaRegistro2, function () {
     $(jsRegistroIndicadorFonatel.Controles.inputFileCargarPlantilla).click();
 });
 
@@ -695,7 +656,6 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.IndicadorCorrecto, 
     jsRegistroIndicadorFonatel.Variables.Validacion = false;
 });
 
-
 $(document).on('draw.dt', jsRegistroIndicadorFonatel.Controles.tablaIndicador, function (e) {
     setSelect2();
 });
@@ -704,9 +664,6 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     var target = $(e.target).attr("href") // activated tab
     setSelect2();
 });
-
-
-
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar, function () {
     if (jsRegistroIndicadorFonatel.Metodos.ValidarDetalle()) {
@@ -726,7 +683,6 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar, functio
 
 });
 
-
 /*
  Evento para cada input Cantidad de Registros de cada tab o indicador.
  */
@@ -740,12 +696,6 @@ $(document).on("keypress", jsRegistroIndicadorFonatel.Controles.txtCantidadRegis
     }
 });
 
-/*
- Evento que captura los eventos de siguiente y atras de los datatables.
- Se maneja una variable que almacena las paginas visitadas de cada tab o indicador, 
- para así refrescar los select2.
- */
-
 function getTabActivoRegistroIndicador() {
     return $(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).attr("id");
 }
@@ -756,11 +706,6 @@ function setSelect2() {
         width: 'resolve'
     });
 }
-
-$(document).on("click", "#btnPruebaCombos", function () {
-    setSelect2();
-});
-
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.tabRegistroIndicador, function () {
 
@@ -778,7 +723,6 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.tabRegistroIndicado
     }
 
 });
-
 
 $(document).ready(function () {
 
