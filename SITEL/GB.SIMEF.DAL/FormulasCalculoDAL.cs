@@ -251,6 +251,26 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
+        /// 13/02/2023
+        /// José Navarro Acuña
+        /// Función que permite buscar y verificar por medio del identificador la existencia de una fórmula en estado diferente de eliminado.
+        /// Importante: No encripta IDs
+        /// </summary>
+        /// <param name="pIdIdentificador"></param>
+        /// <returns></returns>
+        public FormulasCalculo VerificarExistenciaFormulaPorID(int pIdIdentificador)
+        {
+            FormulasCalculo formula = null;
+
+            using (db = new SIMEFContext())
+            {
+                formula = db.FormulasCalculo.Where(x => x.IdFormula == pIdIdentificador && x.IdEstado != (int)EstadosRegistro.Eliminado).FirstOrDefault();
+            }
+
+            return formula;
+        }
+
+        /// <summary>
         /// 21/10/2022
         /// José Navarro Acuña
         /// Función que retorna un objeto tipo variable datos

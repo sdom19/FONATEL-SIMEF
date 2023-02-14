@@ -131,51 +131,39 @@ declare @IdVariable int = {2}
 declare @IndicadorReferencia int = {3}
 declare @IdCategoria int = {4}
 declare @IdCategoriaDetalle int = {5}
-declare @IdFormula int = {6}
 
 SELECT top 1 @FechaUltimoRegistro = FechaCreacion from IndicadorResultado
 WHERE IdIndicador = @IndicadorSalida
-ORDER BY FechaCreacion DESC
+ORDER BY FechaCreacion DESC IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
 
-IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
 BEGIN
-	SET @IdAcumulacion = 0;
-END;
-
-WITH MainQuery
+    SET @IdAcumulacion = 0;
+END; WITH MainQuery
 AS (
-	SELECT ISNULL(SUM(a.Valor),0) Valor, b.NumeroFila, a.IdVariable, b.FechaCreacion
+    SELECT ISNULL(SUM(a.Valor),0) Valor, b.NumeroFila, a.IdVariable, b.FechaCreacion
     FROM dbo.IndicadorResultado r
-	inner join dbo.IndicadorResultadoDetalleVariable a
-	ON r.IdResultado=a.IdResultado
-	inner join dbo.IndicardorResultadoDetalleCategoria b
-	ON a.IdResultado=b.IdResultado
-	inner join DetalleCategoriaTexto c
-	ON b.IdCategoria=c.IdCategoria
-	and UPPER(trim(c.Etiqueta)) like UPPER('%'+TRIM(b.valor)+'%') 
-	inner join FormulasVariableDatoCriterio d
-	ON d.IdVariableDato=a.IdVariable
-	and d.IdIndicador=a.IdIndicador
-	inner join ArgumentoFormula e
-	on e.IdFormulasVariableDatoCriterio=d.IdFormulasVariableDatoCriterio
-	inner join FormulasCalculo f
-	ON e.IdFormula=f.IdFormula
-	WHERE a.IdVariable=@IdVariable and b.IndicadorReferencia=@IndicadorReferencia and f.IdFormula=@IdFormula
-		and b.IdCategoria=ISNULL(@IdCategoria, b.IdCategoria) -- valor total y por detalle
-		and c.IdCategoriaDetalle=ISNULL(@IdCategoriaDetalle, c.IdCategoriaDetalle) -- valor total y por detalle
-	GROUP BY b.NumeroFila, a.IdVariable, b.FechaCreacion
-)
-
-SELECT Valor, NumeroFila, IdVariable 
+    inner join dbo.IndicadorResultadoDetalleVariable a
+    ON r.IdResultado=a.IdResultado
+    inner join dbo.IndicardorResultadoDetalleCategoria b
+    ON a.IdResultado=b.IdResultado
+    and a.NumeroFila=b.NumeroFila
+    inner join DetalleCategoriaTexto c
+    ON b.IdCategoria=c.IdCategoria
+    and UPPER(trim(c.Etiqueta)) like UPPER('%'+TRIM(b.valor)+'%')      
+WHERE r.IdIndicador=@IndicadorReferencia and IdVariable=@IdVariable
+    and b.IdCategoria=ISNULL(@IdCategoria, b.IdCategoria) -- valor total y por detalle
+    and c.IdCategoriaDetalle=ISNULL(@IdCategoriaDetalle, c.IdCategoriaDetalle) -- valor total y por detalle
+    GROUP BY b.NumeroFila, a.IdVariable, b.FechaCreacion
+) SELECT Valor, NumeroFila, IdVariable
 FROM MainQuery
-WHERE format(FechaCreacion,'MM-yy') = 
-	CASE @IdAcumulacion
-	-- acumulacion mensual
-	WHEN 3 THEN format(DATEADD(MONTH, DATEDIFF(MONTH, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
-	-- acumulacion anual
-	WHEN 2 THEN format(DATEADD(YEAR, DATEDIFF(YEAR, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
-	-- acumulación total
-	ELSE format(FechaCreacion,'MM-yy')
-	END</value>
+WHERE format(FechaCreacion,'MM-yy') = 
+    CASE @IdAcumulacion
+    -- acumulacion mensual
+    WHEN 3 THEN format(DATEADD(MONTH, DATEDIFF(MONTH, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
+    -- acumulacion anual
+    WHEN 2 THEN format(DATEADD(YEAR, DATEDIFF(YEAR, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
+    -- acumulación total
+    ELSE format(FechaCreacion,'MM-yy')
+    END</value>
   </data>
 </root>

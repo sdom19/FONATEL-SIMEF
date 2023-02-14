@@ -86,15 +86,14 @@ namespace GB.SIMEF.Resources {
         ///declare @IndicadorReferencia int = {3}
         ///declare @IdCategoria int = {4}
         ///declare @IdCategoriaDetalle int = {5}
-        ///declare @IdFormula int = {6}
         ///
         ///SELECT top 1 @FechaUltimoRegistro = FechaCreacion from IndicadorResultado
         ///WHERE IdIndicador = @IndicadorSalida
-        ///ORDER BY FechaCreacion DESC
+        ///ORDER BY FechaCreacion DESC IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
         ///
-        ///IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
         ///BEGIN
-        ///	SET @IdAcumulacio [rest of string was truncated]&quot;;.
+        ///    SET @IdAcumulacion = 0;
+        ///END; WITH MainQuery        /// [rest of string was truncated]&quot;;.
         /// </summary>
         public static string fonatel {
             get {

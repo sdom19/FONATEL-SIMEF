@@ -7,9 +7,10 @@ namespace GB.SIMEF.Entities.DTO
     {
         public ArgumentoConstruidoDTO() { }
 
-        public int TipoObjecto { get; set; }
+        public int TipoObjeto { get; set; }
         public string Etiqueta { get; set; }
         public FormulasTipoArgumentoEnum TipoArgumento { get; set; }
+        public int OrdenEnFormula { get; set; }
         public ArgumentoDTO Argumento { get; set; }
 
         /// <summary>

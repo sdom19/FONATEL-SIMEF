@@ -17,6 +17,7 @@ namespace GB.SIMEF.BL
     {
         readonly string modulo = string.Empty;
         readonly string user = string.Empty;
+
         private readonly FormulasCalculoDAL formulasCalculoDAL;
         private readonly IndicadorFonatelDAL indicadorFonatelDAL;
         private readonly FrecuenciaEnvioDAL frecuenciaEnvioDAL;
@@ -30,6 +31,7 @@ namespace GB.SIMEF.BL
         {
             this.modulo = modulo;
             this.user = user;
+
             formulasCalculoDAL = new FormulasCalculoDAL();
             indicadorFonatelDAL = new IndicadorFonatelDAL();
             frecuenciaEnvioDAL = new FrecuenciaEnvioDAL();
@@ -342,6 +344,61 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
+        /// 13/02/2023
+        /// José Navarro Acuña
+        /// Función que permite realizar un guardado definitivo de una fórmula de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<FormulasCalculo>> GuardadoDefinitivoFormulaCalculo(FormulasCalculo pFormulasCalculo)
+        {
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            bool errorControlado = false;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.id), out int number);
+                pFormulasCalculo.IdFormula = number;
+
+                if (pFormulasCalculo.IdFormula == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                FormulasCalculo formulaRegistrada = formulasCalculoDAL.VerificarExistenciaFormulaPorID(pFormulasCalculo.IdFormula);
+
+                if (formulaRegistrada == null) // la fórmula existe?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // validar que la fórmula tenga sus datos completos
+                string msgFormulaCompleto = VerificarDatosCompletosFormulaCalculo(formulaRegistrada);
+
+                if (!string.IsNullOrEmpty(msgFormulaCompleto))
+                {
+                    errorControlado = true;
+                    throw new Exception(msgFormulaCompleto);
+                }
+
+                pFormulasCalculo.IdEstado = (int)EstadosRegistro.Activo;
+                return CambioEstado(pFormulasCalculo); // reutilizar la función de cambio de estado
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
         /// 21/10/2022
         /// José Navarro Acuña
         /// Función que permite obtener todos los datos de las fórmulas de cálculo
@@ -563,6 +620,44 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
+        /// 13/02/2023
+        /// José Navarro Acuña
+        /// Función que permite verificar si una fórmula ha sido ejecutada
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<string> VerificarSiFormulaEjecuto(string pIdFormula)
+        {
+            RespuestaConsulta<string> resultado = new RespuestaConsulta<string>
+            {
+                HayError = (int)Error.NoError
+            };
+
+            try
+            {
+                int idFormula = 0;
+
+                if (!string.IsNullOrEmpty(pIdFormula))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pIdFormula), out int number);
+                    idFormula = number;
+                }
+
+                // inserte llamada al api
+
+                if (idFormula == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+            }
+            return resultado;
+        }
+
+        /// <summary>
         /// 20/01/2023
         /// José Navarro Acuña
         /// Función que permite registrar los detalles de la fórmula matematica del módulo gestión de cálculo
@@ -605,6 +700,13 @@ namespace GB.SIMEF.BL
                 if (respuestaArgumentosValidados.HayError != (int) Error.NoError)
                 {
                     throw new Exception(respuestaArgumentosValidados.MensajeError);
+                }
+
+                bool elimino = argumentoFormulaDAL.EliminarArgumentos(new ArgumentoFormula() { IdFormula = pFormulasCalculo.IdFormula });
+
+                if (!elimino)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
                 List<ArgumentoFormula> argumentosValidados = respuestaArgumentosValidados.objetoRespuesta;
@@ -764,6 +866,7 @@ namespace GB.SIMEF.BL
 
                     if (validacionArgumento.HayError != (int)Error.NoError)
                     {
+                        respuesta.HayError = (int)Error.ErrorControlado;
                         respuesta.MensajeError = validacionArgumento.MensajeError;
                         return respuesta;
                     }
@@ -975,6 +1078,48 @@ namespace GB.SIMEF.BL
                 }
             }
             return argumento;
+        }
+
+        /// <summary>
+        /// 13/02/2023
+        /// José Navarro Acuña
+        /// Función que verifica si todos los campos de una fórmula estan completos.
+        /// </summary>
+        /// <returns></returns>
+        private string VerificarDatosCompletosFormulaCalculo(FormulasCalculo pFormulasCalculo)
+        {
+            if (
+                pFormulasCalculo.Codigo == null || string.IsNullOrEmpty(pFormulasCalculo.Codigo.Trim()) ||
+                pFormulasCalculo.Nombre == null || string.IsNullOrEmpty(pFormulasCalculo.Nombre.Trim()) ||
+                pFormulasCalculo.IdIndicador == null || pFormulasCalculo.IdIndicador == 0 ||
+                pFormulasCalculo.IdIndicadorVariable == null || pFormulasCalculo.IdIndicadorVariable == 0 ||
+                pFormulasCalculo.IdFrecuencia == null || pFormulasCalculo.IdFrecuencia == 0 ||
+                pFormulasCalculo.Descripcion == null || string.IsNullOrEmpty(pFormulasCalculo.Descripcion.Trim()) ||
+                pFormulasCalculo.FechaCalculo == null || pFormulasCalculo.FechaCalculo <= DateTime.MinValue
+                )
+            {
+                return Errores.CamposIncompletos;
+            }
+
+            List<FormulasVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulasVariableDatoCriterio() { IdFormula = pFormulasCalculo.IdFormula });
+            List<FormulasDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulasDefinicionFecha() { IdFormula = pFormulasCalculo.IdFormula });
+
+            if (listadoVariables.Count <= 0 && listadoDefinicionFechas.Count <= 0) // existen argumentos?
+            {
+                return Errores.CamposIncompletos;
+            }
+
+            if (!pFormulasCalculo.NivelCalculoTotal) // en caso de que el nivel de cálculo sea por categorias, existen categorias relacionadas?
+            {
+                List<FormulasNivelCalculoCategoria> listaCategorias = formulaNivelCalculoCategoriaDAL.ObtenerDatos(pFormulasCalculo.IdFormula);
+
+                if (listaCategorias.Count <= 0)
+                {
+                    return Errores.CamposIncompletos;
+                }
+            }
+
+            return string.Empty;
         }
     }
 }

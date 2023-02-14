@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcumulacionFormulaBL.cs" />
+    <Compile Include="ArgumentoFormulaBL.cs" />
     <Compile Include="DatosHistoricosBL.cs" />
     <Compile Include="AnnoBL.cs" />
     <Compile Include="BitacoraBL.cs" />

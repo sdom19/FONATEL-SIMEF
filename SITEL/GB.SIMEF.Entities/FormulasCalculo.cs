@@ -9,10 +9,12 @@
 
 namespace GB.SIMEF.Entities
 {
+    using GB.SIMEF.Resources;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
     using System.Web.Mvc;
 
     [Table("FormulasCalculo")]
@@ -58,7 +60,7 @@ namespace GB.SIMEF.Entities
         public Nullable<DateTime> FechaCalculo { get; set; }
 
         [MaxLength(8000)]
-        public string Formula { get; set; }
+        public string Formula { get; set; } // ( {0} / {1} ) * 2
 
         #region Variable fuera del modelo
         [NotMapped]
@@ -81,6 +83,61 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
         public bool EsGuardadoParcial { get; set; }
+
+        [NotMapped]
+        public Indicador IndicadorSalida { get; set; }
+
+        [NotMapped]
+        public DetalleIndicadorVariables VariableSalida { get; set; }
+
+        [NotMapped]
+        public FrecuenciaEnvio FrecuenciaEnvio { set; get; }
+
+        [NotMapped]
+        public string EtiquetaFormulaConArgumentos { get; set; } // se utiliza para visualizar la fórmula tipo: ( { Cod 12 - cantidad torres } / { Cod 97 - Cantidad torres instaladas } ) * 2
         #endregion
+    
+
+        public override string ToString()
+        {
+            StringBuilder json = new StringBuilder();
+            json.Append("{\"Código\":\"").Append(this.Codigo).Append("\",");
+            json.Append("\"Nombre de la fórmula\":\"").Append(this.Nombre).Append("\",");
+            json.Append("\"Frecuencia de aplicación\":\"").Append(this.FrecuenciaEnvio?.Nombre).Append("\",");
+            json.Append("\"Descripción\":\"").Append(this.Descripcion).Append("\",");
+            json.Append("\"Indicador de salida\":\"").Append(this.IndicadorSalida?.Nombre).Append("\",");
+            json.Append("\"Variable-dato de salida\":\"").Append(this.VariableSalida?.NombreVariable).Append("\",");
+            json.Append("\"Fórmula\":\"").Append(this.EtiquetaFormulaConArgumentos).Append("\",");
+
+            switch (this.IdEstado)
+            {
+                case (int)Constantes.EstadosRegistro.Desactivado:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Desactivado)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.Activo:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Activo)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.Eliminado:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Eliminado)).Append("\"}");
+                    break;
+                case (int)Constantes.EstadosRegistro.EnProceso:
+                    json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.EnProceso)).Append("\"}");
+                    break;
+            }
+
+            return json.ToString();
+        }
+
+        /// <summary>
+        /// 09/02/2023
+        /// José Navarro Acuña
+        /// Clona el objeto. 
+        /// Los tipos de datos por medio de referencia se conservan y apuntan a la misma dirección en memoria
+        /// </summary>
+        /// <returns></returns>
+        public FormulasCalculo Shallowcopy()
+        {
+            return (FormulasCalculo) this.MemberwiseClone();
+        }
     }
 }
