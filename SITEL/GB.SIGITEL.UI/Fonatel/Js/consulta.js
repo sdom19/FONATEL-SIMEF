@@ -2,10 +2,11 @@ var el_ind = "";
 var el_cri = "";
 var Grupo = document.querySelector('#selectGrupo');
 var arbol;
-var urlAPI = 'http://20.127.147.228:44313/api/DescargaIndicadores/'; // Acá se cambia el url del api
+var urlAPI = 'https://localhost:44313/api/DescargaIndicadores/'; // Acá se cambia el url del api
 
 
 jQuery(document).ready(function () {
+    jQuery("#right-nav").html('<li style="text-align: center;padding-top: auto;"><a href="definiciones.html" style="height: 80px;width: 100%;margin-left: 0%;"><figure class="effect-bubba" style="height: 80px;margin-top: 0px !important;padding-top: 30px;background: #006671;font-weight: bold !important;">CATÁLOGO<figcaption class="navbar-rigth"></figcaption></figure></a></li><li style="text-align: center;padding-top: auto;"><a href="TabladescargaIndicadores.html" style=" height: 80px;width: 100%;margin-left: 0%;"><figure class="effect-bubba" style="height: 80px;margin-top: 0px !important;padding-top: 30px;background: #449ca4;font-weight: bold !important;">TABLAS<figcaption class="navbar-rigth"></figcaption></figure></a></li><li style="text-align: center;padding-top: auto;"><a href="graficosIndicadores.html" style="height: 80px;width: 100%;margin-left: 0%;"><figure class="effect-bubba" style="height: 80px;margin-top: 0px !important;padding-top: 30px;background: #006671;font-weight: bold !important;"> GRÁFICOS <figcaption class="navbar-rigth"></figcaption></figure></a></li><li style="text-align: center;padding-top: auto;"><a href="descargaIndicadores.html"  style="height: 80px;width: 100%; margin-left: 0%;"><figure class="effect-bubba" style="height: 80px;margin-top: 0px !important;padding-top: 20px;background: #006671;font-weight: bold !important;">INFORMES<br>INTERACTIVOS<figcaption class="navbar-rigth"></figcaption></figure></a></li>');
     //Menu
     var trigger = jQuery('.hamburger'),
         overlay = jQuery('.overlay'),
@@ -52,7 +53,7 @@ jQuery(document).ready(function () {
         fetch(urlAPI + 'GetTipo')
             .then(res => res.json())
             .then(datos => {
-                cargarSelect(datos, Tipo, 'idTipoIdicador', 'nombre')
+                cargarSelect(datos, Tipo, 'id', 'descripcion')
             });
     });
     //Temática Change
@@ -68,7 +69,7 @@ jQuery(document).ready(function () {
             '&Tipo=' + IdTipo )
             .then(res => res.json())
             .then(datos => {
-                cargarSelect(datos, Indicador, 'id', 'desIndicador')
+                cargarSelect(datos, Indicador, 'id', 'descripcion')
             })
     });
     //Operador Change
@@ -84,7 +85,7 @@ jQuery(document).ready(function () {
             '&Tipo=' + IdTipo )
             .then(res => res.json())
             .then(datos => {
-                cargarSelect(datos, Indicador, 'id', 'desIndicador')
+                cargarSelect(datos, Indicador, 'id', 'descripcion')
                 /*Indicador.innerHTML = '<option value="-1" selected="true" disabled="disabled">(Selecciona)</option>'
                 for (let valor of datos) {
                     Indicador.innerHTML +=
@@ -98,36 +99,28 @@ jQuery(document).ready(function () {
         ocultarSubs();
         var variable = document.querySelector('#selectvariable');
         var IndicadorPadre = jQuery("#selectIndicador option:selected").val();
-        var idInd = jQuery("#selectIndicador option:selected").val();
-        var raizId = jQuery("#selectIndicador option:selected").data('raiz');
+        var divCategorias = document.querySelector('#CategoriasIndicador');
         
             fetch(urlAPI + 'GetVariableDato?IdIndicador=' + IndicadorPadre)
                 .then(res => res.json())
                 .then(datos => {
-                    cargarSelect(datos, variable, 'idIndicador', 'nombreVariable')
+                    cargarSelect(datos, variable, 'id', 'descripcion')
                 })
-        
-            /*pedirFecha(raizId, idInd);*/
+                
+           var categoria = document.querySelector('#selectcategoria');
+           jQuery("#categorias").show();
+            fetch(urlAPI + 'GetCategoria?IdIndicador=' + IndicadorPadre)
+                .then(res => res.json())
+                .then(datos => {
+                    cargarSelect(datos, categoria, 'id', 'descripcion')
+                })
+            
         
     });
     //Criterio Change
     jQuery("#selectvariable").change(function () {
         ocultarSubs();
-        var Categoria = document.querySelector('#selectSub1');
-        var idOp = jQuery("#selectOperador option:selected").val();
-        var idCrit = jQuery("#selectCriterio option:selected").val();
-        var opts = -1;
-       /* fetch(urlAPI + 'GetSubIndicadores?IdCriterio=' + idCrit + '&IdOperador=' + idOp)
-            .then(res => res.json())
-            .then(datos => {
-                arbol = datos;
-                CargaSubArbol(1, '');
-            });*/
-        
-            Categoria.innerHTML = '<option value="-1" selected="true" disabled="disabled">(Selecciona)</option>'
-            Categoria.innerHTML += '<option value="1">CD-01 CODIGO-SITIO</option>';
-            
-            jQuery("#sub1").show();
+        pedirFecha();
         
     });
     //Sub1 Change
@@ -195,57 +188,26 @@ jQuery(document).ready(function () {
     });
      //Año Inicial Change
     jQuery("#cbAno0").change(function () {
-        var idU = ""; //jQuery("#txUsuario").val();
-        var idA = jQuery("#cbAno0").val();
-        var idOp = jQuery("#selectOperador option:selected").val();
+        var idInd = jQuery("#selectIndicador option:selected").val();
         var mes0 = document.querySelector('#cbMes0');
-        mes0.innerHTML = '<option value="-1" selected="true" disabled="disabled">(Selecciona)</option>';
-        mes0.innerHTML += '<option value="1">Enero</option>';
-        mes0.innerHTML += '<option value="2">Febrero</option>';
-        mes0.innerHTML += '<option value="3">Marzo</option>';
-        mes0.innerHTML += '<option value="4">Abril</option>';
-        mes0.innerHTML += '<option value="5">Mayo</option>';
-        mes0.innerHTML += '<option value="6">Junio</option>';
-        mes0.innerHTML += '<option value="7">Julio</option>';
-        mes0.innerHTML += '<option value="8">Agosto</option>';
-        mes0.innerHTML += '<option value="9">Septiembre</option>';
-        mes0.innerHTML += '<option value="10">Octubre</option>';
-        mes0.innerHTML += '<option value="11">Noviembre</option>';
-        mes0.innerHTML += '<option value="12">Diciembre</option>';
-       /* fetch(urlAPI + 'GetParametrosMeses?idOperador=' + idOp + '&idIndicador=' + el_ind + "&idUsuario=" + idU + "&ano=" + idA)
-            .then(res => res.json())
-            .then(datos => {
-                for (let obj of datos) {
-                    mes0.innerHTML += `<option value="${obj}">${mes(obj)}</option>`
-                }
-            })*/
+
+        fetch(urlAPI + 'GetMes?IdIndicador=' + idInd)
+        .then(res => res.json())
+        .then(datos => {
+            cargarSelect(datos, mes0, 'id', 'descripcion')
+        });
     });
      //Año Final Change
     jQuery("#cbAno1").change(function () {
-        var idU = ""; //jQuery("#txUsuario").val();
-        var idA = jQuery("#cbAno1").val();
-        var idOp = jQuery("#selectOperador option:selected").val();
+
+        var idInd = jQuery("#selectIndicador option:selected").val();
         var mes1 = document.querySelector('#cbMes1');
-        mes1.innerHTML = '<option value="-1" selected="true" disabled="disabled">(Selecciona)</option>';
-        mes1.innerHTML += '<option value="1">Enero</option>';
-        mes1.innerHTML += '<option value="2">Febrero</option>';
-        mes1.innerHTML += '<option value="3">Marzo</option>';
-        mes1.innerHTML += '<option value="4">Abril</option>';
-        mes1.innerHTML += '<option value="5">Mayo</option>';
-        mes1.innerHTML += '<option value="6">Junio</option>';
-        mes1.innerHTML += '<option value="7">Julio</option>';
-        mes1.innerHTML += '<option value="8">Agosto</option>';
-        mes1.innerHTML += '<option value="9">Septiembre</option>';
-        mes1.innerHTML += '<option value="10">Octubre</option>';
-        mes1.innerHTML += '<option value="11">Noviembre</option>';
-        mes1.innerHTML += '<option value="12">Diciembre</option>';
-        /*fetch(urlAPI + 'GetParametrosMeses?idOperador=' + idOp + '&idIndicador=' + el_ind + "&idUsuario=" + idU + "&ano=" + idA)
-            .then(res => res.json())
-            .then(datos => {
-                for (let obj of datos) {
-                    mes1.innerHTML += `<option value="${obj}">${mes(obj)}</option>`
-                }
-            })*/
+
+        fetch(urlAPI + 'GetMes?IdIndicador=' + idInd)
+        .then(res => res.json())
+        .then(datos => {
+            cargarSelect(datos, mes1, 'id', 'descripcion')
+        });
     });
 });
  //Get Servicios
@@ -267,47 +229,27 @@ function cargarSelect(datos, select, id, desc) {
         tema.innerHTML = '<option value="-1" selected="true" disabled="disabled">(Selecciona)</option>';
     }
     for (let valor of datos) {
-        tema.innerHTML += `<option value="${valor[id]}"> ${valor[desc]}</option>`
+        tema.innerHTML += `<option value="${valor.id}"> ${valor.descripcion}</option>`
     }
 }
  //Pedir fechas por año
 function pedirFecha() {
     jQuery("#cbMes0").empty();
     jQuery("#cbMes1").empty();
-    //jQuery("#add").attr("disabled", true);
-    var idOp = jQuery("#selectOperador option:selected").val();
+
     var idInd = jQuery("#selectIndicador option:selected").val();
-    el_ind = idInd;
     var ano0 = document.querySelector('#cbAno0');
-    ano0.innerHTML = '<option value="-1" selected="true" disabled="disabled">(Selecciona)</option>';
-    ano0.innerHTML += '<option value="1">2018</option>';
-    ano0.innerHTML += '<option value="2">2019</option>';
-    ano0.innerHTML += '<option value="3">2020</option>';
-    ano0.innerHTML += '<option value="4">2021</option>';
-    ano0.innerHTML += '<option value="5">2022</option>';
-    /*fetch(urlAPI + 'GetParametrosAnos?idOperador=' + idOp + '&idIndicador=' + el_ind)
-        .then(res => res.json())
-        .then(datos => {
-            for (let obj of datos) {
-                ano0.innerHTML += `<option value="${obj}">${obj}</option>`
-            }
-        });*/
     var ano1 = document.querySelector('#cbAno1');
-    ano1.innerHTML = '<option value="-1" selected="true" disabled="disabled">(Selecciona)</option>';
-    //ano1.innerHTML = '<option value="-1" selected="true" disabled="disabled">(Selecciona)</option>';
-    ano1.innerHTML += '<option value="1">2018</option>';
-    ano1.innerHTML += '<option value="2">2019</option>';
-    ano1.innerHTML += '<option value="3">2020</option>';
-    ano1.innerHTML += '<option value="4">2021</option>';
-    ano1.innerHTML += '<option value="5">2022</option>';
-    /*fetch(urlAPI + 'GetParametrosAnos?idOperador=' + idOp + '&idIndicador=' + el_ind)
+    
+    fetch(urlAPI + 'GetAnno?IdIndicador=' + idInd)
         .then(res => res.json())
         .then(datos => {
-            for (let obj of datos) {
-                ano1.innerHTML += `<option value="${obj}">${obj}</option>`
-            }
-        });*/
+            cargarSelect(datos, ano0, 'id', 'descripcion')
+            cargarSelect(datos, ano1, 'id', 'descripcion')
+        });
+   
     jQuery("#fechas").show();
+    jQuery("#categorias").show();
 }
 
 var sub_last=-1;
@@ -325,14 +267,8 @@ function subStrArr(arr) {
 }
 //Hide Selects Sub Nivel
 function ocultarSubs() {
-    jQuery("#sub1").hide();
-    jQuery("#sub2").hide();
-    jQuery("#sub3").hide();
-    jQuery("#sub4").hide();
-    jQuery("#sub5").hide();
-    jQuery("#sub6").hide();
-    jQuery("#sub7").hide();
     jQuery("#fechas").hide();
+    jQuery("#categorias").hide();
 }
 //Cargar arbol sub nivel
 function CargaSubArbol(sub, cad) {
@@ -451,4 +387,54 @@ function mes(numero) {
         default:
     }
 
+}
+
+function EnvioDatos(){
+    var idIndicador = jQuery("#selectIndicador option:selected").val();
+    var idVariable = jQuery("#selectvariable option:selected").val();
+    var idCategoria = jQuery("#selectcategoria option:selected").val();
+    var AnnoInicio = jQuery("#cbAno0 option:selected").val();
+    var MesInicio = jQuery("#cbMes0 option:selected").val();
+    var AnnoFin = jQuery("#cbAno1 option:selected").val();
+    var MesFin = jQuery("#cbMes1 option:selected").val();
+
+    var ind = true;
+    if(AnnoInicio == -1){
+        jQuery("#cbAno0Help").removeClass("hidden");
+        ind=false;
+    }else{
+        jQuery("#cbAno0Help").addClass("hidden");
+    }
+
+    if(MesInicio == -1 || MesInicio == undefined){
+        jQuery("#cbMes0Help").removeClass("hidden");
+        ind=false;
+    }else{
+        jQuery("#cbMes0Help").addClass("hidden");
+    }
+
+    if(AnnoFin == -1){
+        jQuery("#cbAno1Help").removeClass("hidden");
+        ind=false;
+    }else{
+        jQuery("#cbAno1Help").addClass("hidden");
+    }
+
+    if(MesFin == -1 || MesFin == undefined){
+        jQuery("#cbMes1Help").removeClass("hidden");
+        ind=false;
+    }else{
+        jQuery("#cbMes1Help").addClass("hidden");
+    }
+
+    if(ind){
+        window.location.href = 'Tabladescarga.html?indicador='+idIndicador+
+        '&idVariable='+idVariable+
+        '&AnnoInicio='+AnnoInicio+
+        '&MesInicio='+MesInicio+
+        '&AnnoFin='+AnnoFin+
+        '&MesFin='+MesFin+
+        '&idCategoria='+idCategoria;
+    }
+    
 }

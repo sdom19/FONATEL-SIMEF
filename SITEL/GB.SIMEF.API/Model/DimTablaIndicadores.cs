@@ -43,6 +43,9 @@ namespace SIMEF.API.Models
         public string UsuarioModificacion { get; set; }
         public bool VisualizaSigitel { get; set; }
         public int idEstado { get; set; }
+        public string NombreEstado { get; set; }
+        public int idCategoria { get; set; }
+        public string NombreCategoria { get; set; }
         //public virtual ClasificacionIndicadores ClasificacionIndicadores { get; set; }
         //public virtual EstadoRegistro EstadoRegistro { get; set; }
         //public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
