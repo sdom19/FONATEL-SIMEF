@@ -84,7 +84,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #region Metodos de controlador
 
-
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 17-02-2023
+        /// Metodo que permite Descargar el Excel Multiple de las tablas principal segun los datos, categorias, variables dato de un Indicador en especifico
+        /// </summary>
+        /// <param name="idSolicitud"></param>
+        /// <param name="idFormulario"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult DescargarExcel(string idSolicitud, string idFormulario)
         {
@@ -138,18 +145,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                             worksheetInicio.Cells[fila + FilaVariableDato, columna + 1].AutoFitColumns();
                         }
 
-                        //for (int x = 1; x <= maxFilas; x++)
-                        //{
-                        //    worksheetInicio.Cells[fila + x, columna + 1].Style.Font.Bold = true;
-                        //    worksheetInicio.Cells[fila + x, columna + 1].Style.Font.Size = 12;
-                        //    worksheetInicio.Cells[fila + x, columna + 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        //    worksheetInicio.Cells[fila + x, columna + 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(64, 152, 166));
-                        //    worksheetInicio.Cells[fila + x, columna + 1].Style.Font.Color.SetColor(System.Drawing.Color.White);
-                        //    worksheetInicio.Cells[fila + x, columna + 1].AutoFitColumns();
-                        //    worksheetInicio.Cells[fila + x, columna + 1].Value = "1";
-
-                        //}
-
                         columna++;
                     }
 
@@ -189,6 +184,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return new EmptyResult();
         }
 
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 17-02-2023
+        /// Metodo que permite Descargar el Excel Unitario de la tabla principal segun los datos, categorias, variables dato de un Indicador en especifico
+        /// </summary>
+        /// <param name="idSolicitud"></param>
+        /// <param name="idFormulario"></param>
+        /// <param name="idIndicador"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult DescargarExcelUnitario(string idSolicitud, string idFormulario, string idIndicador)
         {
@@ -274,6 +278,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
+
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 17-02-2023
+        /// Metodo que permite subir los datos de una Excel a la tabla principal segun los datos, categorias, variables dato de un Indicador en especifico
+        /// </summary>
+        /// <param name="datos"></param>
+        /// <param name="cantidadFilas"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<string> CargarExcel(Object datos, int cantidadFilas)
         {

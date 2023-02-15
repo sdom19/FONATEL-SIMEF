@@ -41,6 +41,13 @@ namespace GB.SIMEF.BL
             this.modulo = modulo;
         }
 
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 14-02-2023
+        /// Metodo que permite enviar un correo electornica al informante del formulario web de la carga exitosa de la solucitud 
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
         public RespuestaConsulta<bool> EnvioCorreoInformante(RegistroIndicadorFonatel objeto)
         {
             RespuestaConsulta<bool> envioCorreo = new RespuestaConsulta<bool>();
@@ -65,7 +72,7 @@ namespace GB.SIMEF.BL
 
                     foreach (var detalleFuente in objeto.Fuente.DetalleFuentesRegistro.Where(x => x.Estado == true))
                     {
-                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), detalleFuente.NombreDestinatario), "Carga de Solicitud exitosa");
+                        correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), detalleFuente.NombreDestinatario), EtiquetasViewRegistroIndicadorFonatel.CargaExitosa);
                         var result = correoDal.EnviarCorreo();
                         envioCorreo.objetoRespuesta = result == 0 ? false : true;
                     }
@@ -76,7 +83,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.SolicitudesFuenteRegistrada);
                 }
 
-                clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarCorreoInformante, "Sistema automático", modulo, objeto.Codigo);
+                clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarCorreoInformante, EtiquetasViewRegistroIndicadorFonatel.SistemaAutomatico, modulo, objeto.Codigo);
 
             }
             catch (Exception ex)
@@ -92,6 +99,12 @@ namespace GB.SIMEF.BL
 
         }
 
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 14-02-2023
+        /// Metodo que permite enviar un correo electornica al Administrador del formulario web de la carga exitosa de la solucitud 
+        /// </summary>
+        /// <param name="objeto"></param>
         public RespuestaConsulta<bool> EnvioCorreoEncargado(RegistroIndicadorFonatel objeto)
         {
             RespuestaConsulta<bool> envioCorreo = new RespuestaConsulta<bool>();
@@ -128,7 +141,7 @@ namespace GB.SIMEF.BL
 
                     plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(objeto.Fuente.Fuente), objeto.Codigo, objeto.Nombre, objeto.Fuente.Fuente, FechaActual, HoraActual);
 
-                    correoDal = new CorreoDal(CorreoEncargado, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), NombreEncargado), "Carga de Solicitud exitosa");
+                    correoDal = new CorreoDal(CorreoEncargado, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), NombreEncargado), EtiquetasViewRegistroIndicadorFonatel.CargaExitosa);
                     var result = correoDal.EnviarCorreo();
                     envioCorreo.objetoRespuesta = result == 0 ? false : true;
 
@@ -139,7 +152,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.SolicitudesFuenteRegistrada);
                 }
 
-                clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarCorreoEncargado, "Sistema automático", modulo, objeto.Codigo);
+                clsDatos.RegistrarBitacora((int)Constantes.Accion.EnviarCorreoEncargado, EtiquetasViewRegistroIndicadorFonatel.SistemaAutomatico, modulo, objeto.Codigo);
 
             }
             catch (Exception ex)
@@ -203,10 +216,10 @@ namespace GB.SIMEF.BL
             switch (objeto.IdEstado)
             {
                 case 1:
-                    objeto.Estado = "En Proceso";
+                    objeto.Estado = EtiquetasViewRegistroIndicadorFonatel.EstadoSolicitudProceso;
                     break;
                 case 6:
-                    objeto.Estado = "Enviado";
+                    objeto.Estado = EtiquetasViewRegistroIndicadorFonatel.EstadoSolicitudEnviado;
                     break;
                 default:
                     break;

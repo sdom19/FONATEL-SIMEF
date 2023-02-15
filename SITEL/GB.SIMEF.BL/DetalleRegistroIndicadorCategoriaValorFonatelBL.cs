@@ -225,6 +225,15 @@ namespace GB.SIMEF.BL
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 14-02-2023
+        /// Metodo que permite subir el valor de las variables dato a la tabla principal del modulo por medio de un excel
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="detalleRegistro"></param>
+        /// <param name="cantidadFilas"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>> CargarExcelVariable(HttpPostedFileBase file, DetalleRegistroIndicadorFonatel detalleRegistro, int cantidadFilas) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
         {
 
@@ -301,7 +310,7 @@ namespace GB.SIMEF.BL
                     }
                     else
                     {
-                        ResultadoConsultaVariable.MensajeError = "El formato de la variable es incorrecto";
+                        ResultadoConsultaVariable.MensajeError = EtiquetasViewRegistroIndicadorFonatel.FormatoVariableIncorrecto;
                         ResultadoConsultaVariable.HayError = (int)Error.ErrorControlado;
                     }
 
@@ -510,7 +519,7 @@ namespace GB.SIMEF.BL
                     {
                         if (!indFecha)
                         {
-                            ResultadoConsulta.MensajeError = "El formato de la fecha es incorrecto, por favor utilizar el formato año-mes-día";
+                            ResultadoConsulta.MensajeError = EtiquetasViewRegistroIndicadorFonatel.FormatoFechaIncorrecto;
                         }
                         ResultadoConsulta.HayError = (int)Error.ErrorSistema;
                     }
@@ -533,6 +542,15 @@ namespace GB.SIMEF.BL
 
         #region DetalleRegistroIndicadorVariableValorFonatel
 
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 14-02-2023
+        /// Metodo que permite insertar el valor N de las variables dato a la tabla principal del modulo
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="detalleRegistro"></param>
+        /// <param name="cantidadFilas"></param>
+        /// <returns></returns>
         public RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>> InsertarDetalleRegistroIndicadorVariableValorFonatel(List<DetalleRegistroIndicadorVariableValorFonatel> objeto)
         {
             try

@@ -70,6 +70,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Carga de Solicitud exitosa.
+        /// </summary>
+        public static string CargaExitosa {
+            get {
+                return ResourceManager.GetString("CargaExitosa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Cargar plantilla.
         /// </summary>
         public static string CargarPlanilla {
@@ -97,6 +106,24 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Enviado.
+        /// </summary>
+        public static string EstadoSolicitudEnviado {
+            get {
+                return ResourceManager.GetString("EstadoSolicitudEnviado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a En Proceso .
+        /// </summary>
+        public static string EstadoSolicitudProceso {
+            get {
+                return ResourceManager.GetString("EstadoSolicitudProceso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Fecha Fin.
         /// </summary>
         public static string FechaFinal {
@@ -111,6 +138,24 @@ namespace GB.SIMEF.Resources {
         public static string FechaInicio {
             get {
                 return ResourceManager.GetString("FechaInicio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El formato de la Fecha es incorrecto, por favor utilizar el formato año-mes-día.
+        /// </summary>
+        public static string FormatoFechaIncorrecto {
+            get {
+                return ResourceManager.GetString("FormatoFechaIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El formato de la Variable Dato es incorrecto.
+        /// </summary>
+        public static string FormatoVariableIncorrecto {
+            get {
+                return ResourceManager.GetString("FormatoVariableIncorrecto", resourceCulture);
             }
         }
         
@@ -165,6 +210,15 @@ namespace GB.SIMEF.Resources {
         public static string RegistroIndicador {
             get {
                 return ResourceManager.GetString("RegistroIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sistema automático.
+        /// </summary>
+        public static string SistemaAutomatico {
+            get {
+                return ResourceManager.GetString("SistemaAutomatico", resourceCulture);
             }
         }
         

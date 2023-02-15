@@ -543,7 +543,7 @@
                     else {
                         jsRegistroIndicadorFonatel.Consultas.InsertarRegistroIndicadorDetalleValor();
                         if (GuardadoTotal) {
-                            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
+                            jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido cargado")
                                 .set('onok', function (closeEvent) { window.location.href = "/RegistroIndicador/Index"; });
                         }
                     }
@@ -595,7 +595,7 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroI
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicador, function (e) {
     e.preventDefault();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado del Formulario?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga del Formulario Web?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
             let GuardadoTotal = true;
             jsRegistroIndicadorFonatel.Consultas.CargadoTotalRegistroIndicador(GuardadoTotal);
