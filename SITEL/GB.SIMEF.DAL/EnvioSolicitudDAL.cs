@@ -39,15 +39,24 @@ namespace GB.SIMEF.DAL
 
 
 
+        /// <summary>
+        /// Autor: Francisco Vindas RuiZ
+        /// Fecha: 14-02-2023
+        /// Metodo para obtner todos los envios de solicitudes realizados a SITELP
+        /// </summary>
+        /// <returns></returns>
+        public List<EnvioSolicitudes> ObtenerEnviosCorrectos()
+        {
+            List<EnvioSolicitudes> envioSolicitudes = new List<EnvioSolicitudes>();
 
+            using (db = new SIMEFContext())
+            {
 
+                envioSolicitudes = db.EnvioSolicitudes.Where(x => x.Enviado == true).ToList();
+            }
 
-
-
-
-
-
-
+            return envioSolicitudes;
+        }
 
 
         /// <summary>

@@ -19,8 +19,9 @@ namespace GB.SIMEF.BL
         readonly string modulo = "";
         readonly string user = "";
         private readonly DetalleRegistroIndicadorFonatelDAL detalleRegistroIndicadorFonatelDAL;
-        private readonly CategoriasDesagregacionDAL categoriasDesagregacionDAL; 
+        private readonly CategoriasDesagregacionDAL categoriasDesagregacionDAL;
         RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> ResultadoConsulta;
+        RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>> ResultadoConsultaVariable;
 
         public DetalleRegistroIndicadorCategoriaValorFonatelBL(string modulo, string user)
         {
@@ -29,6 +30,7 @@ namespace GB.SIMEF.BL
             this.detalleRegistroIndicadorFonatelDAL = new DetalleRegistroIndicadorFonatelDAL();
             this.categoriasDesagregacionDAL = new CategoriasDesagregacionDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>>();
+            this.ResultadoConsultaVariable = new RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>>();
         }
 
         public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> ActualizarElemento(DetalleRegistroIndicadorCategoriaValorFonatel objeto)
@@ -51,11 +53,64 @@ namespace GB.SIMEF.BL
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> InsertarDatos(List<DetalleRegistroIndicadorCategoriaValorFonatel> objeto)
+        public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> InsertarDatos(DetalleRegistroIndicadorFonatel objeto)
         {
             try
-            {//Se revisa si la lista contiene informacion
-                if (objeto.Count > 0)
+            {
+                //Se revisa si la lista contiene informacion
+                if (objeto.DetalleRegistroIndicadorVariableValorFonatel.Count > 0)
+                {
+                    //Se crea datatable con la informacion de la lista
+                    var dt = new DataTable();
+                    dt.Columns.Add("IdSolicitud", typeof(int));
+                    dt.Columns.Add("IdFormulario", typeof(int));
+                    dt.Columns.Add("IdIndicador", typeof(int));
+                    dt.Columns.Add("idVariable", typeof(int));
+                    dt.Columns.Add("NumeroFila", typeof(int));
+                    dt.Columns.Add("Valor", typeof(string));
+
+                    foreach (var item in objeto.DetalleRegistroIndicadorVariableValorFonatel)
+                    {
+                        if (!string.IsNullOrEmpty(item.Solicitudid))
+                        {
+                            int temp = 0;
+                            int.TryParse(Utilidades.Desencriptar(item.Solicitudid), out temp);
+                            item.IdSolicitud = temp;
+                        }
+
+                        if (!string.IsNullOrEmpty(item.FormularioId))
+                        {
+                            int temp = 0;
+                            int.TryParse(Utilidades.Desencriptar(item.FormularioId), out temp);
+                            item.IdFormulario = temp;
+                        }
+
+                        if (!string.IsNullOrEmpty(item.IndicadorId))
+                        {
+                            int temp = 0;
+                            int.TryParse(Utilidades.Desencriptar(item.IndicadorId), out temp);
+                            item.IdIndicador = temp;
+                        }
+
+                        dt.Rows.Add(item.IdSolicitud, item.IdFormulario, item.IdIndicador, item.IdVariable, item.NumeroFila, item.Valor);
+                    }
+
+                    //Se elimina los detalles valores para insertar los nuevos
+                    DetalleRegistroIndicadorVariableValorFonatel eliminar = objeto.DetalleRegistroIndicadorVariableValorFonatel[0];
+                    eliminar.IdVariable = 0;
+
+                    //Se eliminan unicamente los indicadores actalizados
+                    var indicadoresUnicos = objeto.DetalleRegistroIndicadorVariableValorFonatel.GroupBy(x => x.IdIndicador).Select(g=>g.First()).ToList();
+                    foreach (var ind in indicadoresUnicos) {
+                        eliminar.IdIndicador = ind.IdIndicador;
+                        detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorVariableValorFonatel(eliminar);
+                    }
+
+                    detalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorVariableValorFonatel(dt);
+                }
+
+                //Se revisa si la lista contiene informacion
+                if (objeto.DetalleRegistroIndicadorCategoriaValorFonatel.Count > 0)
                 {
                     //Se crea datatable con la informacion de la lista
                     var dt = new DataTable();
@@ -66,7 +121,7 @@ namespace GB.SIMEF.BL
                     dt.Columns.Add("NumeroFila", typeof(int));
                     dt.Columns.Add("Valor", typeof(string));
 
-                    foreach (var item in objeto)
+                    foreach (var item in objeto.DetalleRegistroIndicadorCategoriaValorFonatel)
                     {
                         if (!string.IsNullOrEmpty(item.Solicitudid))
                         {
@@ -93,15 +148,20 @@ namespace GB.SIMEF.BL
                     }
 
                     //Se elimina los detalles valores para insertar los nuevos
-                    DetalleRegistroIndicadorCategoriaValorFonatel eliminar = objeto[0];
+                    DetalleRegistroIndicadorCategoriaValorFonatel eliminar = objeto.DetalleRegistroIndicadorCategoriaValorFonatel[0];
                     eliminar.idCategoria = 0;
-                    eliminar.IdIndicador = 0;
-                    detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorCategoriaValorFonatel(eliminar);
+
+                    var indicadoresUnicos = objeto.DetalleRegistroIndicadorVariableValorFonatel.GroupBy(x => x.IdIndicador).Select(g => g.First()).ToList();
+                    foreach (var ind in indicadoresUnicos)
+                    {
+                        eliminar.IdIndicador = ind.IdIndicador;
+                        detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorCategoriaValorFonatel(eliminar);
+                    }
 
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion = (int)Accion.Insertar;
                     ResultadoConsulta.Usuario = user;
-                    
+
                     ResultadoConsulta.objetoRespuesta = detalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorCategoriaValorFonatel(dt);
                     ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
                 }
@@ -165,8 +225,109 @@ namespace GB.SIMEF.BL
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 14-02-2023
+        /// Metodo que permite subir el valor de las variables dato a la tabla principal del modulo por medio de un excel
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="detalleRegistro"></param>
+        /// <param name="cantidadFilas"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>> CargarExcelVariable(HttpPostedFileBase file, DetalleRegistroIndicadorFonatel detalleRegistro, int cantidadFilas) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
+        {
 
-        public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> CargarExcel(HttpPostedFileBase file, DetalleRegistroIndicadorFonatel detalleRegistro,int cantidadFilas) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
+            try
+            {
+                Boolean ind = true;
+
+                using (var package = new ExcelPackage(file.InputStream))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[1]; //POSICION DEL CODIGO y NOMBRE
+                    string Codigo = worksheet.Name; //POSICION DEL CODIGO
+
+                    DetalleRegistroIndicadorFonatel detalle = new DetalleRegistroIndicadorFonatel();
+                    if (!string.IsNullOrEmpty(detalleRegistro.IdSolicitudString))
+                    {
+                        int temp = 0;
+                        int.TryParse(Utilidades.Desencriptar(detalleRegistro.IdSolicitudString), out temp);
+                        detalle.IdSolicitud = temp;
+                    }
+
+                    if (!string.IsNullOrEmpty(detalleRegistro.IdFormularioString))
+                    {
+                        int temp = 0;
+                        int.TryParse(Utilidades.Desencriptar(detalleRegistro.IdFormularioString), out temp);
+                        detalle.IdFormulario = temp;
+                    }
+
+                    if (!string.IsNullOrEmpty(detalleRegistro.IdIndicadorString))
+                    {
+                        int temp = 0;
+                        int.TryParse(Utilidades.Desencriptar(detalleRegistro.IdIndicadorString), out temp);
+                        detalle.IdIndicador = temp;
+                    }
+
+                    List<DetalleRegistroIndicadorFonatel> listaDetalle = detalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(detalle);
+
+                    int cantColumnas = listaDetalle[0].DetalleRegistroIndicadorVariableFonatel.Count;
+
+                    List<DetalleRegistroIndicadorVariableValorFonatel> listaValores = new List<DetalleRegistroIndicadorVariableValorFonatel>();
+
+                    for (int i = 1; i < cantColumnas + 1; i++)
+                    {
+                        for (int j = 2; j < cantidadFilas + 2; j++)
+                        {
+                            Regex Val = null;
+                            var variableDato = worksheet.Cells[j, i].Value.ToString();
+
+                            Val = new Regex(@"[0-9]{1,9}(\.[0-9]{0,2})?$");
+
+                            if (!Val.IsMatch(worksheet.Cells[j, i].Value.ToString()))
+                            {
+                                ind = false;
+                            }
+                            else
+                            {
+                                DetalleRegistroIndicadorVariableValorFonatel obj = new DetalleRegistroIndicadorVariableValorFonatel();
+                                obj.Valor = Decimal.Parse(variableDato.Replace(",","."));
+                                obj.IdFormulario = detalle.IdFormulario;
+                                obj.IdIndicador = detalle.IdIndicador;
+                                obj.IdSolicitud = detalle.IdSolicitud;
+                                obj.NumeroFila = j - 1;
+                                obj.IdVariable = listaDetalle[0].DetalleRegistroIndicadorVariableValorFonatel.Where(x => x.NumeroFila == obj.NumeroFila).FirstOrDefault().IdVariable;
+                                listaValores.Add(obj);
+                            }
+
+                        }
+
+                    }
+
+                    if (ind)
+                    {
+                        ResultadoConsultaVariable.objetoRespuesta = listaValores;
+                        ResultadoConsultaVariable.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                    }
+                    else
+                    {
+                        ResultadoConsultaVariable.MensajeError = EtiquetasViewRegistroIndicadorFonatel.FormatoVariableIncorrecto;
+                        ResultadoConsultaVariable.HayError = (int)Error.ErrorControlado;
+                    }
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ResultadoConsultaVariable.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsultaVariable;
+        }
+
+        public RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> CargarExcel(HttpPostedFileBase file, DetalleRegistroIndicadorFonatel detalleRegistro, int cantidadFilas) //NOMBRE DEL ARCHIVO Y UN CODIGO - SI
         {
             try
             {
@@ -206,7 +367,7 @@ namespace GB.SIMEF.BL
                     List<DetalleRegistroIndicadorCategoriaValorFonatel> listaValores = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
 
                     for (int i = 1; i < cantColumnas + 1; i++)
-                    {                      
+                    {
                         if (worksheet.Cells[1, i].Value != null)
                         {
                             string desCategoria = worksheet.Cells[1, i].Value.ToString();
@@ -241,16 +402,17 @@ namespace GB.SIMEF.BL
                                                 else
                                                 {
                                                     ind = false;
-                                                }                                           
-                                            break;
+                                                }
+                                                break;
                                             case 1:
                                                 Val = new Regex(@"[0-9]{1,9}(\.[0-9]{0,2})?$");
-                                                if (!Val.IsMatch(worksheet.Cells[j, i].Value.ToString())) {
+                                                if (!Val.IsMatch(worksheet.Cells[j, i].Value.ToString()))
+                                                {
                                                     ind = false;
                                                 }
                                                 else
                                                 {
-                                                    if ((Convert.ToDecimal(categoria.RangoMinimo) <= Convert.ToDecimal(worksheet.Cells[j, i].Value.ToString().Replace(",","."))) && (Convert.ToDecimal(worksheet.Cells[j, i].Value.ToString().Replace(",", ".")) <= Convert.ToDecimal(categoria.RangoMaximo)))
+                                                    if ((Convert.ToDecimal(categoria.RangoMinimo) <= Convert.ToDecimal(worksheet.Cells[j, i].Value.ToString().Replace(",", "."))) && (Convert.ToDecimal(worksheet.Cells[j, i].Value.ToString().Replace(",", ".")) <= Convert.ToDecimal(categoria.RangoMaximo)))
                                                     {
                                                         valor = worksheet.Cells[j, i].Value.ToString().Replace(",", ".");
                                                     }
@@ -303,13 +465,14 @@ namespace GB.SIMEF.BL
                                                         ind = false;
                                                     }
                                                 }
-                                                
+
                                                 break;
                                             default:
                                                 valor = worksheet.Cells[j, i].Value.ToString();
                                                 break;
                                         }
-                                        if(ind){
+                                        if (ind)
+                                        {
                                             DetalleRegistroIndicadorCategoriaValorFonatel obj = new DetalleRegistroIndicadorCategoriaValorFonatel();
                                             obj.Valor = valor;
                                             obj.IdFormulario = detalle.IdFormulario;
@@ -340,7 +503,7 @@ namespace GB.SIMEF.BL
                         {
                             ind = false;
                             break;
-                        }                                        
+                        }
                     }
 
                     ResultadoConsulta.Clase = modulo;
@@ -356,10 +519,10 @@ namespace GB.SIMEF.BL
                     {
                         if (!indFecha)
                         {
-                            ResultadoConsulta.MensajeError = "El formato de la fecha es incorrecto, por favor utilizar el formato año-mes-día";
+                            ResultadoConsulta.MensajeError = EtiquetasViewRegistroIndicadorFonatel.FormatoFechaIncorrecto;
                         }
                         ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-                    }                                  
+                    }
                 }
             }
             catch (Exception ex)
@@ -376,5 +539,89 @@ namespace GB.SIMEF.BL
             }
             return ResultadoConsulta;
         }
+
+        #region DetalleRegistroIndicadorVariableValorFonatel
+
+        /// <summary>
+        /// Autor: Francisco Vindas Ruiz
+        /// Fecha: 14-02-2023
+        /// Metodo que permite insertar el valor N de las variables dato a la tabla principal del modulo
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="detalleRegistro"></param>
+        /// <param name="cantidadFilas"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>> InsertarDetalleRegistroIndicadorVariableValorFonatel(List<DetalleRegistroIndicadorVariableValorFonatel> objeto)
+        {
+            try
+            {//Se revisa si la lista contiene informacion
+                if (objeto.Count > 0)
+                {
+                    //Se crea datatable con la informacion de la lista
+                    var dt = new DataTable();
+                    dt.Columns.Add("IdSolicitud", typeof(int));
+                    dt.Columns.Add("IdFormulario", typeof(int));
+                    dt.Columns.Add("IdIndicador", typeof(int));
+                    dt.Columns.Add("idVariable", typeof(int));
+                    dt.Columns.Add("NumeroFila", typeof(int));
+                    dt.Columns.Add("Valor", typeof(string));
+
+                    foreach (var item in objeto)
+                    {
+                        if (!string.IsNullOrEmpty(item.Solicitudid))
+                        {
+                            int temp = 0;
+                            int.TryParse(Utilidades.Desencriptar(item.Solicitudid), out temp);
+                            item.IdSolicitud = temp;
+                        }
+
+                        if (!string.IsNullOrEmpty(item.FormularioId))
+                        {
+                            int temp = 0;
+                            int.TryParse(Utilidades.Desencriptar(item.FormularioId), out temp);
+                            item.IdFormulario = temp;
+                        }
+
+                        if (!string.IsNullOrEmpty(item.IndicadorId))
+                        {
+                            int temp = 0;
+                            int.TryParse(Utilidades.Desencriptar(item.IndicadorId), out temp);
+                            item.IdIndicador = temp;
+                        }
+
+                        dt.Rows.Add(item.IdSolicitud, item.IdFormulario, item.IdIndicador, item.IdVariable, item.NumeroFila, item.Valor);
+                    }
+
+                    //Se elimina los detalles valores para insertar los nuevos
+                    DetalleRegistroIndicadorVariableValorFonatel eliminar = objeto[0];
+                    eliminar.IdVariable = 0;
+                    eliminar.IdIndicador = 0;
+                    detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorVariableValorFonatel(eliminar);
+
+                    ResultadoConsultaVariable.Clase = modulo;
+                    ResultadoConsultaVariable.Accion = (int)Accion.Insertar;
+                    ResultadoConsultaVariable.Usuario = user;
+
+                    ResultadoConsultaVariable.objetoRespuesta = detalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorVariableValorFonatel(dt);
+                    ResultadoConsultaVariable.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == Errores.CantidadRegistros || ex.Message == Errores.CodigoRegistrado || ex.Message == Errores.DetalleRegistrado)
+                {
+                    ResultadoConsultaVariable.HayError = (int)Error.ErrorControlado;
+                }
+                else
+                {
+                    ResultadoConsultaVariable.HayError = (int)Error.ErrorSistema;
+                }
+                ResultadoConsultaVariable.MensajeError = ex.Message;
+            }
+
+            return ResultadoConsultaVariable;
+        }
+
+        #endregion
     }
 }

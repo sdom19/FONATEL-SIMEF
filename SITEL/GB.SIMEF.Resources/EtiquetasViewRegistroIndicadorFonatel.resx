@@ -120,6 +120,9 @@
   <data name="CantidadFilas" xml:space="preserve">
     <value>Ingresar Cantidad de filas</value>
   </data>
+  <data name="CargaExitosa" xml:space="preserve">
+    <value>Carga de Solicitud exitosa</value>
+  </data>
   <data name="CargarPlanilla" xml:space="preserve">
     <value>Cargar plantilla</value>
   </data>
@@ -129,11 +132,23 @@
   <data name="Estado" xml:space="preserve">
     <value>Estado</value>
   </data>
+  <data name="EstadoSolicitudEnviado" xml:space="preserve">
+    <value>Enviado</value>
+  </data>
+  <data name="EstadoSolicitudProceso" xml:space="preserve">
+    <value>En Proceso </value>
+  </data>
   <data name="FechaFinal" xml:space="preserve">
     <value>Fecha Fin</value>
   </data>
   <data name="FechaInicio" xml:space="preserve">
     <value>Fecha Inicial</value>
+  </data>
+  <data name="FormatoFechaIncorrecto" xml:space="preserve">
+    <value>El formato de la Fecha es incorrecto, por favor utilizar el formato año-mes-día</value>
+  </data>
+  <data name="FormatoVariableIncorrecto" xml:space="preserve">
+    <value>El formato de la Variable Dato es incorrecto</value>
   </data>
   <data name="LLenadoWeb" xml:space="preserve">
     <value>Llenado Web</value>
@@ -152,6 +167,9 @@
   </data>
   <data name="RegistroIndicador" xml:space="preserve">
     <value>Registro de Indicador</value>
+  </data>
+  <data name="SistemaAutomatico" xml:space="preserve">
+    <value>Sistema automático</value>
   </data>
   <data name="Solicitud" xml:space="preserve">
     <value>Solicitud</value>

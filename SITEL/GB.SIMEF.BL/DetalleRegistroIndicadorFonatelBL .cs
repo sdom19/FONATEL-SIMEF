@@ -16,6 +16,7 @@ namespace GB.SIMEF.BL
         readonly string user = "";
         private readonly DetalleRegistroIndicadorFonatelDAL DetalleRegistroIndicadorFonatelDAL;
         RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> ResultadoConsulta;
+        private readonly RegistroIndicadorFonatelBL registroIndicadorFonatelBl;
 
         public DetalleRegistroIndicadorFonatelBL(string modulo, string user)
         {
@@ -23,6 +24,7 @@ namespace GB.SIMEF.BL
             this.user = user;
             this.DetalleRegistroIndicadorFonatelDAL = new DetalleRegistroIndicadorFonatelDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>>();
+            this.registroIndicadorFonatelBl = new RegistroIndicadorFonatelBL(this.modulo, this.user);
         }
 
         public RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> ActualizarElemento(DetalleRegistroIndicadorFonatel objeto)
@@ -129,6 +131,22 @@ namespace GB.SIMEF.BL
 
                     var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
 
+                    //Cambia de estado el registro indicador a Enviado
+                    RegistroIndicadorFonatel reg = new RegistroIndicadorFonatel();
+                    reg.IdFormulario = objeto.IdFormulario;
+                    reg.IdSolicitud = objeto.IdSolicitud;
+                    var BuscarRegistrosIndicador = registroIndicadorFonatelBl.ObtenerDatos(reg);
+
+                    if(BuscarRegistrosIndicador.objetoRespuesta[0].IdEstado == (int)Constantes.EstadosRegistro.Enviado)
+                    {
+                        reg.IdEstado = (int)Constantes.EstadosRegistro.Enviado;
+                    }
+                    else
+                    {
+                        reg.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                    }
+                    registroIndicadorFonatelBl.ActualizarElemento(reg);
+
                     ResultadoConsulta.objetoRespuesta = result;
                     ResultadoConsulta.CantidadRegistros = result.Count();
                 }
@@ -175,9 +193,19 @@ namespace GB.SIMEF.BL
 
                     var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
 
+                    RegistroIndicadorFonatel reg = new RegistroIndicadorFonatel();
+                    reg.IdFormulario = objeto.IdFormulario;
+                    reg.IdSolicitud = objeto.IdSolicitud;
+                    reg.IdEstado = (int)Constantes.EstadosRegistro.Enviado;
+                    registroIndicadorFonatelBl.ActualizarElemento(reg);
+
+                    result = result.Where(x => x.IdSolicitud == detalle.IdSolicitud).ToList();
+
                     ResultadoConsulta.objetoRespuesta = result;
                     ResultadoConsulta.CantidadRegistros = result.Count();
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -210,6 +238,61 @@ namespace GB.SIMEF.BL
                 int.TryParse(Utilidades.Desencriptar(objeto.IdIndicadorString), out int temp);
                 objeto.IdIndicador = temp;
             }
+        }
+
+        /// <summary>
+        /// Autor:Georgi Mesen Cerdas 
+        /// Fecha:31/01/2023
+        /// Metodo para obtener los valores fonatel de categorias y variables
+        /// </summary>
+        /// <param name="objeto"></param>
+        public RespuestaConsulta<DetalleRegistroIndicadorFonatel> ObtenerListaDetalleRegistroIndicadorValoresFonatel(DetalleRegistroIndicadorFonatel objeto)
+        {
+
+            RespuestaConsulta<DetalleRegistroIndicadorFonatel> resultado = new RespuestaConsulta<DetalleRegistroIndicadorFonatel>();
+            try
+            {
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                if (!string.IsNullOrEmpty(objeto.IdFormularioString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.IdFormularioString), out int temp);
+                    objeto.IdFormulario = temp;
+                }
+                if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.IdSolicitudString), out int temp);
+                    objeto.IdSolicitud = temp;
+                }
+                if (!string.IsNullOrEmpty(objeto.IdIndicadorString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.IdIndicadorString), out int temp);
+                    objeto.IdIndicador = temp;
+                }
+
+                DetalleRegistroIndicadorFonatel detalle = new DetalleRegistroIndicadorFonatel();
+                DetalleRegistroIndicadorCategoriaValorFonatel valor = new DetalleRegistroIndicadorCategoriaValorFonatel();
+                valor.IdFormulario = objeto.IdFormulario;
+                valor.IdSolicitud = objeto.IdSolicitud;
+                valor.IdIndicador = objeto.IdIndicador;
+                DetalleRegistroIndicadorVariableValorFonatel variable = new DetalleRegistroIndicadorVariableValorFonatel();
+                variable.IdFormulario = objeto.IdFormulario;
+                variable.IdSolicitud = objeto.IdSolicitud;
+                variable.IdIndicador = objeto.IdIndicador;
+
+                detalle.DetalleRegistroIndicadorCategoriaValorFonatel = DetalleRegistroIndicadorFonatelDAL.ObtenerDetalleRegistroIndicadorCategoriaValorFonatel(valor);
+                detalle.DetalleRegistroIndicadorVariableValorFonatel = DetalleRegistroIndicadorFonatelDAL.ObtenerDetalleRegistroIndicadorVariableValorFonatel(variable);
+
+
+                resultado.objetoRespuesta = detalle;
+                resultado.CantidadRegistros = 1;
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Constantes.Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
         }
     }
 }

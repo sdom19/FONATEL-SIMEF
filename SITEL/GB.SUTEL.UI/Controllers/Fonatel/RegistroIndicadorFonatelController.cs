@@ -147,7 +147,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
                     worksheetInicio.Cells[1, celda].AutoFitColumns();
 
-                    worksheetInicio.Cells[2, celda, detalleRegistroIndicadorFonatel.CantidadFilas+1, celda].Value = "1";
+                    worksheetInicio.Cells[2, celda, detalleRegistroIndicadorFonatel.CantidadFilas+1, celda].Value = "";
 
                     celda++;
                 }
@@ -181,11 +181,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
-
-
-
         [HttpPost]
-        public async Task<string> InsertarRegistroIndicadorVariable(List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleIndicadorValor)
+        public async Task<string> InsertarRegistroIndicadorVariable(DetalleRegistroIndicadorFonatel ListaDetalleIndicadorValor)
         {
 
             //Creamos una variable resultado de tipo lista relacion categoria
@@ -225,14 +222,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Georgi Mesen Cerdas
         /// Cargar de los datos desde un Excel
         /// </summary>
-
         [HttpPost]
-        public async Task<string> CargarExcel(Object datos,int cantidadFilas)
+        public async Task<string> CargarExcel(Object datos, int cantidadFilas)
         {
+            //retonar un detalle registro indicador con result / resultVariable
+
             RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> result = null;
+
+            RespuestaConsulta<List<DetalleRegistroIndicadorVariableValorFonatel>> resultVariable = null;
+
+            RespuestaConsulta<DetalleRegistroIndicadorFonatel> resultDetalle = new RespuestaConsulta<DetalleRegistroIndicadorFonatel>();
+
             string ruta = Utilidades.RutaCarpeta(ConfigurationManager.AppSettings["rutaCarpetaSimef"]);
             string hilera = ((string[])datos)[0].Replace("{\"datos\":", "").Replace("}}", "}");
             DetalleRegistroIndicadorFonatel obj = JsonConvert.DeserializeObject<DetalleRegistroIndicadorFonatel>(hilera);
+
             if (Request.Files.Count > 0)
             {
                 HttpFileCollectionBase files = Request.Files;
@@ -244,12 +248,40 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 await Task.Run(() =>
                 {
                     result = detalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcel(file, obj, cantidadFilas);
+                    resultDetalle.objetoRespuesta = new DetalleRegistroIndicadorFonatel();
+                    if (result.HayError == 0)
+                    {
+                        resultDetalle.objetoRespuesta.DetalleRegistroIndicadorCategoriaValorFonatel = result.objetoRespuesta.ToList();
+                    }
+                    else
+                    {
+                        resultDetalle.HayError = result.HayError;
+                        resultDetalle.MensajeError = result.MensajeError;
+
+                    }
+
+                }).ContinueWith(data =>
+                {
+                    if (resultDetalle.HayError == 0)
+                    {
+                        resultVariable = detalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcelVariable(file, obj, cantidadFilas);
+                        if (resultVariable.HayError == 0)
+                        {
+                            resultDetalle.objetoRespuesta.DetalleRegistroIndicadorVariableValorFonatel = resultVariable.objetoRespuesta.ToList();
+                        }
+                        else
+                        {
+                            resultDetalle.HayError = resultVariable.HayError;
+                            resultDetalle.MensajeError = resultVariable.MensajeError;
+                        }
+                    }
 
                 });
-                
+
                 file.SaveAs(path);
             }
-            return JsonConvert.SerializeObject(result);
+
+            return JsonConvert.SerializeObject(resultDetalle);
         }
 
         [HttpPost]
@@ -273,21 +305,81 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// Fecha 28/11/2022
         /// Georgi Mesen Cerdas
-        /// Metodo para obtener la lista de DetalleRegistroIndicadorCategoriaValorFonatel
+        /// Metodo para obtener la lista de DetalleRegistroIndicadorCategoriaValorFonatel y DetalleRegistroIndicadorVariableValorFonatel
         /// </summary>
         /// <returns></returns>
 
         [HttpPost]
-        public async Task<string> ObtenerListaDetalleRegistroIndicadorCategoriaValorFonatel(DetalleRegistroIndicadorCategoriaValorFonatel detalle)
+        public async Task<string> ObtenerListaDetalleRegistroIndicadorValoresFonatel(DetalleRegistroIndicadorFonatel detalle)
         {
-            RespuestaConsulta<List<DetalleRegistroIndicadorCategoriaValorFonatel>> result = null;
+            RespuestaConsulta<DetalleRegistroIndicadorFonatel> result = null;
 
             await Task.Run(() =>
             {
-                result = detalleRegistroIndicadorCategoriaValorFonatelBL.ObtenerDatos(detalle);
+                result = detalleRegistroIndicadorBL.ObtenerListaDetalleRegistroIndicadorValoresFonatel(detalle);
             });
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Fecha 28/11/2022
+        /// Georgi Mesen Cerdas
+        /// Metodo para obtener la Actualizar el estado de registro indicador
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task<string> ActualizarRegistroIndicador(RegistroIndicadorFonatel objeto)
+        {
+            RespuestaConsulta<List<RegistroIndicadorFonatel>> result = null;
+
+            await Task.Run(() =>
+            {
+                result = registroIndicadorBL.ActualizarElemento(objeto);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Autor: Francisco Vindas RUiz
+        /// Fecha: 27/01/2023
+        /// Metodo: El metodo sirve para realizar la carga total de la informacion de Registro Indicador a la Base de Datos de SITELP
+        /// </summary>
+        /// <param name="lista"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> CargaTotalRegistroIndicador(List<DetalleRegistroIndicadorFonatel> lista)
+        {
+
+            RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> result = null;
+
+            RespuestaConsulta<bool> envioCorreo = new RespuestaConsulta<bool>();
+
+            RegistroIndicadorFonatel registroIndicador = new RegistroIndicadorFonatel();
+
+            await Task.Run(() =>
+            {
+                result = detalleRegistroIndicadorBL.CargaTotalRegistroIndicador(lista);
+
+            })
+            .ContinueWith(data =>
+            {
+                if (result.objetoRespuesta.Count() > 0)
+                {
+                    var respuestaConsulta = result.objetoRespuesta.FirstOrDefault();
+
+                    registroIndicador.IdSolicitud = respuestaConsulta.IdSolicitud;
+
+                    registroIndicador.IdFormulario = respuestaConsulta.IdFormulario;
+
+                    envioCorreo = registroIndicadorBL.EnvioCorreoInformante(registroIndicador);
+
+                    envioCorreo = registroIndicadorBL.EnvioCorreoEncargado(registroIndicador);
+
+                }
+            });
+            return JsonConvert.SerializeObject(result);
+
+        }
     }
 }
