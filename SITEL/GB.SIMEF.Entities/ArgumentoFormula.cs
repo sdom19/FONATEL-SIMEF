@@ -23,7 +23,7 @@ namespace GB.SIMEF.Entities
 
         public int OrdenEnFormula { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(1000)]
         public string Etiqueta { get; set; }
 
         [NotMapped]

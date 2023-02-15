@@ -428,6 +428,45 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         /// <summary>
+        /// 14/02/2022
+        /// José Navarro Acuña
+        /// Obtiene los detalles relacionados con un criterio de mercados, y a su vez con un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <param name="pIdCategoria"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesDeCriterioMercados(string pIdIndicador, string pIdCriterio)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            if (string.IsNullOrEmpty(pIdCriterio))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorCriteriosSitelBL.ObtenerDetallesDeCriterioMercado(
+                    new DetalleIndicadorCategoria()
+                    {
+                        idIndicadorString = pIdIndicador,
+                        idCriterioString = pIdCriterio
+                    });
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
         /// 17/11/2022
         /// José Navarro Acuña
         /// Obtiene un listado de las categorias de desagregación relacionadas a una formula respecto al nivel de calculo
@@ -945,6 +984,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
+            if (pListaArgumentos == null) pListaArgumentos = new List<ArgumentoConstruidoDTO>();
+
             pFormulaCalculo.UsuarioCreacion = usuario;
 
             await Task.Run(() =>
@@ -1050,7 +1091,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     idIndicadorString = pFormulasDeCalculo.IdIndicadorSalidaString
                 }, 
-                pAccionPantalla == Accion.Editar ? pFormulasDeCalculo.id : string.Empty // en caso de editar la opcion debe estar disponible
+                pAccionPantalla == Accion.Editar || pAccionPantalla == Accion.Visualizar ? pFormulasDeCalculo.id : string.Empty // en caso de editar la opcion debe estar disponible
                 ).objetoRespuesta;
 
                 if (detalles != null)

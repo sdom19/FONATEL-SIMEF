@@ -1,9 +1,7 @@
 ﻿using GB.SIMEF.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GB.SIMEF.Resources;
+using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL.GestionCalculo
 {
@@ -17,7 +15,20 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// <returns></returns>
         public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulasCalculo pFormulasCalculo)
         {
-            return "";
+            FormulasDefinicionFecha argumentoFecha = (FormulasDefinicionFecha)pArgumentoFormula;
+
+            return string.Format(
+                PredicadosSQLFormulasCalculo.fonatel_definicionFechas,
+                argumentoFecha.IdUnidadMedida,
+                
+                argumentoFecha.IdTipoFechaInicio,
+                argumentoFecha.FechaInicio != null ? argumentoFecha.FechaInicio.ToString() : DateTime.MinValue.ToString(),
+                argumentoFecha.IdCategoriaInicio != null ? argumentoFecha.IdCategoriaInicio : 0,
+                
+                argumentoFecha.IdTipoFechaFinal,
+                argumentoFecha.FechaFinal != null ? argumentoFecha.FechaFinal.ToString() : DateTime.MinValue.ToString(),
+                argumentoFecha.IdCategoriaFinal != null ? argumentoFecha.IdCategoriaFinal : 0
+                );
         }
     }
 }
