@@ -538,18 +538,28 @@ namespace GB.SIMEF.BL
 
                     if (argVariableDato.IdFuenteIndicador == (int)FuenteIndicadorEnum.IndicadorDGF)
                     {
-                        if (argVariableDato.IdAcumulacion <= 0)
+                        if (argVariableDato.IdAcumulacion == null || argVariableDato.IdAcumulacion <= 0)
                         {
                             throw new Exception(Errores.CamposIncompletos);
                         }
                     }
 
-                    if (argVariableDato.IdFuenteIndicador == (int)FuenteIndicadorEnum.IndicadorDGF
-                        || argVariableDato.IdFuenteIndicador == (int)FuenteIndicadorEnum.IndicadorDGM)
+                    if (argVariableDato.IdFuenteIndicador == (int)FuenteIndicadorEnum.IndicadorDGF)
                     {
                         if (!argVariableDato.EsValorTotal)
                         {
                             if (argVariableDato.IdCategoria == null || argVariableDato.IdCategoria <= 0 || argVariableDato.IdDetalleCategoria == null || argVariableDato.IdDetalleCategoria <= 0)
+                            {
+                                throw new Exception(Errores.CamposIncompletos);
+                            }
+                        }
+                    }
+
+                    if (argVariableDato.IdFuenteIndicador == (int)FuenteIndicadorEnum.IndicadorDGM)
+                    {
+                        if (!argVariableDato.EsValorTotal)
+                        {
+                            if (argVariableDato.IdDetalleCategoria == null || argVariableDato.IdDetalleCategoria <= 0)
                             {
                                 throw new Exception(Errores.CamposIncompletos);
                             }
@@ -870,7 +880,7 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 06/02/2023
         /// José Navarro Acuña
-        /// Función procesa objectos argumentos y los traspasa al modelo de datos. Desencripta IDs y valida el contenido de cada argumento.
+        /// Función que procesa objectos argumentos y los traspasa al modelo de datos. Desencripta IDs y valida el contenido de cada argumento.
         /// </summary>
         /// <param name="pListaArgumentosDTO"></param>
         /// <param name="pIdFormula"></param>

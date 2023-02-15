@@ -18,7 +18,26 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// <returns></returns>
         public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulasCalculo pFormulasCalculo)
         {
-            return PredicadosSQLFormulasCalculo.mercados;
+            FormulasVariableDatoCriterio argumentoCriterio = (FormulasVariableDatoCriterio)pArgumentoFormula;
+            string predicadoSQL = string.Empty;
+
+            if (argumentoCriterio.EsValorTotal)
+            {
+                predicadoSQL = string.Format(
+                    PredicadosSQLFormulasCalculo.mercados,
+                    argumentoCriterio.IdCriterio,
+                    "null"
+                );
+            }
+            else
+            {
+                predicadoSQL = string.Format(
+                    PredicadosSQLFormulasCalculo.mercados,
+                    argumentoCriterio.IdCriterio,
+                    argumentoCriterio.IdDetalleCategoria
+                );
+            }
+            return predicadoSQL;
         }
     }
 }

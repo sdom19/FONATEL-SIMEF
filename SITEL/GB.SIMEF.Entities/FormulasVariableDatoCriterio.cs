@@ -14,7 +14,7 @@ namespace GB.SIMEF.Entities
         public string IdCriterio { get; set; }
         public int? IdCategoria { get; set; }
         public int? IdDetalleCategoria { get; set; }
-        public int IdAcumulacion { get; set; }
+        public int? IdAcumulacion { get; set; }
         public bool EsValorTotal { get; set; }
 
         [NotMapped]

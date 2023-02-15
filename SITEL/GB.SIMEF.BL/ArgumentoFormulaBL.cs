@@ -97,7 +97,7 @@ namespace GB.SIMEF.BL
 
             MatchCollection matchesArgumentos = Regex.Matches(pEtiquetaFormula, @"\{[0-9]+\}", RegexOptions.Compiled);
             MatchCollection matchesOperadores = Regex.Matches(pEtiquetaFormula, @"[+\-*\/\<\>=\(\)]", RegexOptions.Compiled);
-            MatchCollection matchesNumeros = Regex.Matches(pEtiquetaFormula, @"[^\{][0-9]+[^\}]", RegexOptions.Compiled);
+            MatchCollection matchesNumeros = Regex.Matches(pEtiquetaFormula, @"[0-9]+", RegexOptions.Compiled);
 
             for (int i = 0; i < pEtiquetaFormula.Length; i++)
             {
@@ -114,9 +114,9 @@ namespace GB.SIMEF.BL
                         Argumento = EncriptarObjetoArgumento(argumentoAInsertar)
                     });
 
-                    // calcular la cantidad de caracteres a obviar
-                    i += matchesArgumentos[cantidadArgumentos].Captures[0].Value.Length - 1;
+                    i += matchesArgumentos[cantidadArgumentos].Captures[0].Value.Length - 1; // calcular la cantidad de caracteres a obviar
                     cantidadArgumentos++;
+                    cantidadNumeros++; // el regex de numeros tambien contempla argumentos, por tanto, avanzar en el indice para obviarlo
                 }
                 else if (matchesOperadores.Count > cantidadOperadores && matchesOperadores[cantidadOperadores].Captures[0].Index == i)
                 {
@@ -129,18 +129,17 @@ namespace GB.SIMEF.BL
                     i += matchesOperadores[cantidadOperadores].Captures[0].Value.Length - 1;
                     cantidadOperadores++;
                 }
-                else if (matchesNumeros.Count > cantidadNumeros && matchesNumeros[cantidadNumeros].Captures[0].Index == 1)
+                else if (matchesNumeros.Count > cantidadNumeros && matchesNumeros[cantidadNumeros].Captures[0].Index == i)
                 {
                     string numeroParseado = matchesNumeros[cantidadNumeros].Captures[0].Value;
-                    string numeroProcesado = Regex.Match(numeroParseado, @"\d+").Value;
 
                     argumentosConstruidos.Add(new ArgumentoConstruidoDTO()
                     {
                         TipoObjeto = (int)FormulasTipoObjetoEnum.Numero,
-                        Etiqueta = numeroProcesado
+                        Etiqueta = numeroParseado
                     });
 
-                    i += numeroProcesado.Length - 1;
+                    i += numeroParseado.Length - 1;
                     cantidadNumeros++;
                 }
             }
@@ -167,8 +166,8 @@ namespace GB.SIMEF.BL
                     variableDatoCriterio = variableDatoCriterio.IdVariableDato != null ? Utilidades.Encriptar(variableDatoCriterio.IdVariableDato.ToString()) : Utilidades.Encriptar(variableDatoCriterio.IdCriterio.ToString()),
                     //nombreVariable = variableDatoCriterio
                     categoria = variableDatoCriterio.IdCategoria != null ? Utilidades.Encriptar(variableDatoCriterio.IdCategoria.ToString()) : null,
-                    detalle = variableDatoCriterio.IdCategoria != null ? Utilidades.Encriptar(variableDatoCriterio.IdDetalleCategoria.ToString()) : null,
-                    acumulacion = Utilidades.Encriptar(variableDatoCriterio.IdAcumulacion.ToString()),
+                    detalle = variableDatoCriterio.IdDetalleCategoria != null ? Utilidades.Encriptar(variableDatoCriterio.IdDetalleCategoria.ToString()) : null,
+                    acumulacion = variableDatoCriterio.IdAcumulacion != null ? Utilidades.Encriptar(variableDatoCriterio.IdAcumulacion.ToString()) : null,
                     valorTotal = variableDatoCriterio.EsValorTotal
                 };
             }
@@ -187,7 +186,6 @@ namespace GB.SIMEF.BL
                     fechaFinal = definicionFecha.FechaFinal != null ? (DateTime)definicionFecha.FechaFinal : DateTime.MinValue,
                     categoriaFinal = definicionFecha.IdCategoriaFinal != null ? Utilidades.Encriptar(definicionFecha.IdCategoriaFinal?.ToString()) : null
                     //nombreCategoriaFinal
-
                 };
             }
             return new ArgumentoDTO();

@@ -20,11 +20,11 @@ namespace GB.SIMEF.BL.GestionCalculo
 
             if (argumentoVariable.IdCriterio.Equals(((int)TipoPorcentajeIndicadorCalculoEnum.indicador).ToString()))
             {
-                predicadoSQL = PredicadosSQLFormulasCalculo.calidadPorcentajeIndicador;
+                predicadoSQL = PredicadosSQLFormulasCalculo.calidad_PorcentajeIndicador;
             }
             else if (argumentoVariable.IdCriterio.Equals(((int)TipoPorcentajeIndicadorCalculoEnum.cumplimiento).ToString()))
             {
-                predicadoSQL = PredicadosSQLFormulasCalculo.calidadPorcentajeCumplimiento;
+                predicadoSQL = PredicadosSQLFormulasCalculo.calidad_PorcentajeCumplimiento;
             }
             return predicadoSQL != string.Empty ? string.Format(predicadoSQL, argumentoVariable.IdIndicador) : string.Empty;
         }

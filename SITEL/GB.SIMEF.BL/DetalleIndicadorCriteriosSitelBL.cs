@@ -22,7 +22,7 @@ namespace GB.SIMEF.BL
         /// <summary>
         /// 23/12/2022
         /// José Navarro Acuña
-        /// Función que retorna los detalles criterio de un indicador proveniente de mercado
+        /// Función que retorna los criterios de un indicador proveniente de mercado
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
@@ -39,6 +39,47 @@ namespace GB.SIMEF.BL
                 }
 
                 resultado.objetoRespuesta = detalleIndicadorCriteriosSitelDAL.ObtenerDatosMercado(pDetalleIndicadorVariables).ToList();
+                resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+                resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 23/12/2022
+        /// José Navarro Acuña
+        /// Función que retorna los detalles de un criterio proveniente de mercados
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<DetalleIndicadorCategoria>> ObtenerDetallesDeCriterioMercado(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(pDetalleIndicadorCategoria.idIndicadorString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.idIndicadorString), out int number);
+                    pDetalleIndicadorCategoria.idIndicador = number;
+                }
+
+                if (!string.IsNullOrEmpty(pDetalleIndicadorCategoria.idCriterioString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.idCriterioString), out int number);
+                    pDetalleIndicadorCategoria.idCriterioInt = number;
+                }
+
+                if (pDetalleIndicadorCategoria.idIndicador == 0 || pDetalleIndicadorCategoria.idCriterioInt == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                resultado.objetoRespuesta = detalleIndicadorCriteriosSitelDAL.ObtenerDetallesDeCriterioMercado(pDetalleIndicadorCategoria).ToList();
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
             }
             catch (Exception ex)

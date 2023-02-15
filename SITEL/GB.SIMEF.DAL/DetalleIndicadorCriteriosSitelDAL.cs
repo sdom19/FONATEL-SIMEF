@@ -42,6 +42,36 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
+        /// 14/02/2023
+        /// José Navarro Acuña
+        /// Función que retorna los detalles de un criterio proveniente de mercados
+        /// </summary>
+        /// <param name="pDetalleIndicadorVariables"></param>
+        /// <returns></returns>
+        public List<DetalleIndicadorCategoria> ObtenerDetallesDeCriterioMercado(DetalleIndicadorCategoria pDetalleIndicadorVariables)
+        {
+            List<DetalleIndicadorCategoria> listaDetalles = new List<DetalleIndicadorCategoria>();
+            List<DetalleCriterioIndicador> listaDetallesCriterio = new List<DetalleCriterioIndicador>();
+
+            using (SIGITELContext db = new SIGITELContext())
+            {
+                listaDetallesCriterio = db.Database.SqlQuery<DetalleCriterioIndicador>
+                    ("execute spObtenerDetallesAgrupacionDeCriterio @pIdCriterio, @pIdDetalle",
+                     new SqlParameter("@pIdCriterio", pDetalleIndicadorVariables.idCriterioInt.ToString()),
+                     new SqlParameter("@pIdDetalle", DBNull.Value) // retornar toda la lista
+                    ).ToList();
+            }
+
+            listaDetalles = listaDetallesCriterio.Select(x => new DetalleIndicadorCategoria()
+            {
+                id = Utilidades.Encriptar(x.IdDetalle.ToString()),
+                Etiquetas = x.Detalle
+            }).ToList();
+
+            return listaDetalles;
+        }
+
+        /// <summary>
         /// 23/12/2022
         /// José Navarro Acuña
         /// Función que retorna los criterios de indicadores de calidad
@@ -182,6 +212,23 @@ namespace GB.SIMEF.DAL
             public string IdCriterio { get; set; }
             public string CodigoCriterio { get; set; }
             public string NombreCriterio { get; set; }
+        }
+
+        /// <summary>
+        /// 14/02/2022
+        /// José Navarro Acuña
+        /// Clase privada del modelo DAL para el consumo de la vista que consulta los criterios
+        /// </summary>
+        private class DetalleCriterioIndicador
+        {
+            public int IdIndicador { get; set; }
+            public string CodidogIndicador { get; set; }
+            public int IdCriterio { get; set; }
+            public string CodigoCriterio { get; set; }
+            public string Criterio { get; set; }
+            public int IdDetalle { get; set; }
+            public string Detalle { get; set; }
+            public int IdFechaIndicador { get; set; }
         }
     }
 }
