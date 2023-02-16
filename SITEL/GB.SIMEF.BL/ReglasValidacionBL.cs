@@ -451,6 +451,13 @@ namespace GB.SIMEF.BL
                 }
             }
 
+            if (objeto.Descripcion == null)
+            {
+                objeto.Descripcion = "";
+            }
+
+
+
         }
     }
 }

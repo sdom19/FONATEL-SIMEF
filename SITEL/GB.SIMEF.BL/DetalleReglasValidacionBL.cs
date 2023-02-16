@@ -166,7 +166,7 @@ namespace GB.SIMEF.BL
 
                 DesencriptarObjReglasValidacion(objeto);
 
-                var BuscarDatos = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
+                var BuscarDatos = clsDatos.ObtenerDatos(new DetalleReglaValidacion { IdRegla = objeto.IdRegla, Estado = true });
 
                 if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.IdTipo != (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.IdDetalleIndicador == objeto.IdDetalleIndicador && x.Estado == true).Count() > 0)
                 {

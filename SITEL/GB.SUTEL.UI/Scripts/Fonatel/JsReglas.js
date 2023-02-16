@@ -125,6 +125,8 @@
                     break;
                 case JsReglas.Variables.FormulaActualizacionSecuencial:
                     $(JsReglas.Controles.divFormulaActualizacionSecuencial).removeClass("hidden");
+                    $(JsReglas.Controles.ddlVariableRegla).val('...').change();
+                    $(JsReglas.Controles.ddlVariableRegla).prop("disabled", true);
                     break;
 
                 case JsReglas.Variables.FormulaContraIndicadorSalida:
@@ -363,9 +365,6 @@
             if (Tipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
                 if (Operador > 0) {
                     $(JsReglas.Controles.ddlOperadorRegla).parent().removeClass("has-error");
-                }
-                if (Variable.length > 0) {
-                    $(JsReglas.Controles.ddlVariableRegla).parent().removeClass("has-error");
                 }
                 if ($(JsReglas.Controles.ddlCategoríaActualizableRegla).val() == 0 || $(JsReglas.Controles.ddlCategoríaActualizableRegla).val() == null) {
                     $(JsReglas.Controles.ddlCategoríaActualizableReglaHelp).removeClass("hidden");
