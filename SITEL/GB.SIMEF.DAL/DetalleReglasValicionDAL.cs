@@ -47,7 +47,9 @@ namespace GB.SIMEF.DAL
                     operadorArismetico = ObtenerOperador(x.IdOperador),
                     IdDetalleIndicador = x.IdDetalleIndicador,
                     IdIndicador = x.IdIndicador,
-                    NombreVariable =  x.IdTipo==(int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos? ObtenerVariable(x.IdDetalleReglaValidacion, true) : ObtenerVariable(x.IdDetalleIndicador, false),
+                    NombreVariable = x.IdTipo == (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos ? ObtenerVariable(x.IdDetalleReglaValidacion, 1)
+                    : x.IdTipo == (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial ? ObtenerVariable(x.IdDetalleReglaValidacion, 2)
+                    : ObtenerVariable(x.IdDetalleIndicador, 0),
                     reglaIndicadorEntrada = ObtenerReglaIndicadorEntrada(x.IdDetalleReglaValidacion),
                     reglaComparacionConstante = ObtenerReglaContraConstante(x.IdDetalleReglaValidacion),
                     reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdDetalleReglaValidacion),
@@ -119,7 +121,15 @@ namespace GB.SIMEF.DAL
             }
         }
 
-        private string ObtenerVariable(int id, bool Tipo)
+        /// <summary>
+        /// Autor: Francisco Vindas
+        /// Fecha: 16-02-2023
+        /// Metodo que permite obtener las etiquetas para la tabla del detalle de la regla de validación 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="Tipo"></param>
+        /// <returns></returns>
+        private string ObtenerVariable(int id, int Tipo)
         {
 
             string NombreVariables = "";
@@ -127,7 +137,7 @@ namespace GB.SIMEF.DAL
             NombreVariables = db.Database.SqlQuery<string>
                 ("exec spObtenerNombreVariableDetalleReglaValidacion @IdBusqueda, @Tipo",
                    new SqlParameter("@IdBusqueda", id),
-                   new SqlParameter("@Tipo", Tipo == true? 1 : 0)
+                   new SqlParameter("@Tipo", Tipo)
                 ).Single();
 
             return NombreVariables;
