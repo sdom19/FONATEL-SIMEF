@@ -140,6 +140,16 @@ namespace GB.SIMEF.Resources
         }
 
         /// <summary>
+        /// Enum para clasificar de manera general la fórmula matemática
+        /// </summary>
+        public enum FormulasTipoObjetoEnum : int
+        {
+            Numero = 1,
+            Operador = 2,
+            Variable = 3
+        }
+
+        /// <summary>
         /// Enum que indica el tipo de porcentaje a seleccionar en la fórmula, para indicadores de calidad
         /// </summary>
         public enum TipoPorcentajeIndicadorCalculoEnum : int
@@ -147,7 +157,7 @@ namespace GB.SIMEF.Resources
             indicador = 1,
             cumplimiento = 2
         }
-        
+
         /// <summary>
         /// Debido a la lógica de negocios, no se tienen registros fisicos respecto a los indicadores de calidad, sino columnas de una entidad en BD
         /// </summary>

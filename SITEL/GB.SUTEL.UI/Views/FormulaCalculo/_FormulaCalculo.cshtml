@@ -1,4 +1,5 @@
 ﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.FormulasCalculo
 
 @Html.Partial("_ModalFechaFormulaCalculo")
 
@@ -52,7 +53,7 @@
     </div>
 
     <div class="formula col-lg-9 col-md-11 col-sm-12 mt-4 mb-1 text-center">
-        <input class="form-control form-control-fonatel editable" @modoVisualizacion />
+        <input class="form-control form-control-fonatel editable" @modoVisualizacion value="@Model.EtiquetaFormulaConArgumentos" />
     </div>
 
 </div>

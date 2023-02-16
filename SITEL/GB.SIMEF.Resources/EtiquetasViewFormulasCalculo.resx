@@ -183,6 +183,10 @@
   <data name="LabelStepperIndicador" xml:space="preserve">
     <value>Indicador</value>
   </data>
+  <data name="MensajeAdvertenciaFormulaEjecutada" xml:space="preserve">
+    <value>La Fórmula de Cálculo ya ha sido ejecutada para la obtención del indicador {0} para la variable dato {1} siendo la última fecha de ejecución el {2}.
+¿Desea eliminarla?</value>
+  </data>
   <data name="ModalDetalle_LabelCategoria" xml:space="preserve">
     <value>Categoría</value>
   </data>

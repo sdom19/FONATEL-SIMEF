@@ -12,6 +12,31 @@ namespace GB.SIMEF.DAL
         private SIMEFContext db;
 
         /// <summary>
+        /// 13/02/2023
+        /// José Navarro Acuña
+        /// Función que permite obtener las categorias asociadas al nivel de cálculo de una fórmula
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <returns></returns>
+        public List<FormulasNivelCalculoCategoria> ObtenerDatos(int pIdFormula)
+        {
+            List<FormulasNivelCalculoCategoria> detallesFormulas = new List<FormulasNivelCalculoCategoria>();
+
+            using (db = new SIMEFContext())
+            {
+                detallesFormulas = db.FormulasNivelCalculoCategoria.Where(x => x.IdFormula == pIdFormula).ToList();
+                detallesFormulas = detallesFormulas.Select(x => new FormulasNivelCalculoCategoria()
+                {
+                    id = Utilidades.Encriptar(x.IdFormulaNivel.ToString()),
+                    IdFormulaString = Utilidades.Encriptar(pIdFormula.ToString()),
+                    IdCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString())
+                }).ToList();
+            }
+
+            return detallesFormulas;
+        }
+
+        /// <summary>
         /// 24/10/2022
         /// José Navarro Acuña
         /// Permite insertar un detalle de nivel de cálculo a una fórmula

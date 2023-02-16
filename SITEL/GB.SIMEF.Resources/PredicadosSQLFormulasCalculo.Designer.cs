@@ -63,18 +63,44 @@ namespace GB.SIMEF.Resources {
         /// <summary>
         ///   Looks up a localized string similar to SELECT SUM(PorcCumpl) FROM [CalidadIndicadorCalculo].[dbo].[FactRigurosidadFac] where IdIndicador = &apos;{0}&apos;.
         /// </summary>
-        public static string calidadPorcentajeCumplimiento {
+        public static string calidad_PorcentajeCumplimiento {
             get {
-                return ResourceManager.GetString("calidadPorcentajeCumplimiento", resourceCulture);
+                return ResourceManager.GetString("calidad_PorcentajeCumplimiento", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to SELECT SUM(PorcentInd) FROM [CalidadIndicadorCalculo].[dbo].[FactRigurosidadFac] where IdIndicador = &apos;{0}&apos;.
         /// </summary>
-        public static string calidadPorcentajeIndicador {
+        public static string calidad_PorcentajeIndicador {
             get {
-                return ResourceManager.GetString("calidadPorcentajeIndicador", resourceCulture);
+                return ResourceManager.GetString("calidad_PorcentajeIndicador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to declare @UnidadMedida int = {0};
+        ///
+        ///declare @IdTipoFechaInicio int = {1};
+        ///declare @FechaInicio datetime = &apos;{2}&apos;;
+        ///declare @IdCategoriaInicio int = {3};
+        ///
+        ///declare @IdTipoFechaFinal int = {4};
+        ///declare @FechaFinal datetime = &apos;{5}&apos;;
+        ///declare @IdCategoriaFinal int = {6};
+        ///
+        ///declare @IndicadorReferencia int = $$$;
+        ///
+        ///declare @numeroFila int =1;
+        ///declare @IdResultadoIndicador uniqueidentifier;
+        ///
+        ///select top 1 @IdResultadoIndicador= a.IdResultado 
+        ///from IndicadorResultado a
+        ///inner join IndicardorResultadoDetalle [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string fonatel_definicionFechas {
+            get {
+                return ResourceManager.GetString("fonatel_definicionFechas", resourceCulture);
             }
         }
         
@@ -86,19 +112,43 @@ namespace GB.SIMEF.Resources {
         ///declare @IndicadorReferencia int = {3}
         ///declare @IdCategoria int = {4}
         ///declare @IdCategoriaDetalle int = {5}
-        ///declare @IdFormula int = {6}
         ///
         ///SELECT top 1 @FechaUltimoRegistro = FechaCreacion from IndicadorResultado
         ///WHERE IdIndicador = @IndicadorSalida
-        ///ORDER BY FechaCreacion DESC
+        ///ORDER BY FechaCreacion DESC IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
         ///
-        ///IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
         ///BEGIN
-        ///	SET @IdAcumulacio [rest of string was truncated]&quot;;.
+        ///    SET @IdAcumulacion = 0;
+        ///END; WITH MainQuery        /// [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string fonatel {
+        public static string fonatel_variablesDatoCriterio {
             get {
-                return ResourceManager.GetString("fonatel", resourceCulture);
+                return ResourceManager.GetString("fonatel_variablesDatoCriterio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to declare @pIdCriterio int = {0}
+        ///	declare @pIdDetalle int = {1}
+        ///
+        ///WITH PrincipalQuery
+        ///	AS
+        ///	(	
+        ///	SELECT 
+        ///		DIM.Indicador.IdIndicador, 
+        ///		DIM.Indicador.CodIndicador, 
+        ///		DIM.Criterio.IdCriterio, 
+        ///		DIM.Criterio.CodCriterio,
+        ///		DIM.Criterio.DesCriterio, 
+        ///		DIM.JerarquiaIndicadorUnico.DesJerarquiaIndicadorUnico,
+        ///		FACT.JerarquiaIndicadorMercados.IdFechaIndicador, 
+        ///		FACT.JerarquiaIndicadorMercados.Valor, 
+        ///		FACT.JerarquiaIndicadorMercados.IdOperador, 
+        ///		DIM.ParametroIndicador.FechaUltimaPublicacion,         /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string mercados {
+            get {
+                return ResourceManager.GetString("mercados", resourceCulture);
             }
         }
     }

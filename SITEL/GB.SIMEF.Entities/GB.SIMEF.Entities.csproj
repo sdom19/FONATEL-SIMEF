@@ -65,6 +65,7 @@
     <Compile Include="DetalleReglaValidacion.cs" />
     <Compile Include="DTO\ArgumentoConstruidoDTO.cs" />
     <Compile Include="DTO\ArgumentoDTO.cs" />
+    <Compile Include="DTO\FormulaCalculoDTO.cs" />
     <Compile Include="EstadoLogico.cs" />
     <Compile Include="FormulasCalculoTipoFecha.cs" />
     <Compile Include="FormulasCalculoUnidadMedida.cs" />

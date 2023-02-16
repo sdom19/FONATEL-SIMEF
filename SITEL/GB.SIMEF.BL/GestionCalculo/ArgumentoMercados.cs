@@ -1,4 +1,5 @@
 ﻿using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,26 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// <returns></returns>
         public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulasCalculo pFormulasCalculo)
         {
-            throw new NotImplementedException();
+            FormulasVariableDatoCriterio argumentoCriterio = (FormulasVariableDatoCriterio)pArgumentoFormula;
+            string predicadoSQL = string.Empty;
+
+            if (argumentoCriterio.EsValorTotal)
+            {
+                predicadoSQL = string.Format(
+                    PredicadosSQLFormulasCalculo.mercados,
+                    argumentoCriterio.IdCriterio,
+                    "null"
+                );
+            }
+            else
+            {
+                predicadoSQL = string.Format(
+                    PredicadosSQLFormulasCalculo.mercados,
+                    argumentoCriterio.IdCriterio,
+                    argumentoCriterio.IdDetalleCategoria
+                );
+            }
+            return predicadoSQL;
         }
     }
 }

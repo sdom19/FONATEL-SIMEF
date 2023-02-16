@@ -64,6 +64,20 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public int IdTipoDetalle { get; set; }
 
+        [NotMapped]
+        public string idCriterioString { get; set; }
+        [NotMapped]
+        public int idCriterioInt { get; set; }
+
+        [NotMapped]
+        public string idDetalleCriterioString { get; set; }
+
+        [NotMapped]
+        public int idDetalleCriterioInt{ get; set; }
+
+        [NotMapped]
+        public string NombreDetalle { get; set; }
+
         public override string ToString()
         {
             StringBuilder json = new StringBuilder();

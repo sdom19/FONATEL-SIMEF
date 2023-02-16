@@ -20,20 +20,20 @@ namespace GB.SIMEF.BL.GestionCalculo
             if (argumentoVariable.EsValorTotal)
             {
                 predicadoSQL = string.Format(
-                    PredicadosSQLFormulasCalculo.fonatel,
+                    PredicadosSQLFormulasCalculo.fonatel_variablesDatoCriterio,
                     pFormulasCalculo.IdIndicador,
                     argumentoVariable.IdAcumulacion,
                     argumentoVariable.IdVariableDato,
                     argumentoVariable.IdIndicador,
-                    DBNull.Value,
-                    DBNull.Value,
+                    "null",
+                    "null",
                     pFormulasCalculo.IdFormula
                 );
             }
             else // detalle de desagregación
             {
                 predicadoSQL = string.Format(
-                    PredicadosSQLFormulasCalculo.fonatel,
+                    PredicadosSQLFormulasCalculo.fonatel_variablesDatoCriterio,
                     pFormulasCalculo.IdIndicador,
                     argumentoVariable.IdAcumulacion,
                     argumentoVariable.IdVariableDato,

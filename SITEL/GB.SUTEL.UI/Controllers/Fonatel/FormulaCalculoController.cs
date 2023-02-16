@@ -33,6 +33,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly AcumulacionFormulaBL acumulacionFormulaBL;
         private readonly DetalleIndicadorCriteriosSitelBL detalleIndicadorCriteriosSitelBL;
         private readonly FormulasCalculoTipoFechaBL formulasCalculoTipoFechaBL;
+        private readonly ArgumentoFormulaBL argumentoFormulaBL;
 
         private readonly string usuario = string.Empty;
         private readonly string nombreVista = string.Empty;
@@ -58,6 +59,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             acumulacionFormulaBL = new AcumulacionFormulaBL(nombreVista, usuario);
             detalleIndicadorCriteriosSitelBL = new DetalleIndicadorCriteriosSitelBL();
             formulasCalculoTipoFechaBL = new FormulasCalculoTipoFechaBL();
+            argumentoFormulaBL = new ArgumentoFormulaBL();
         }
 
         #region Eventos de página
@@ -77,7 +79,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Create()
         {
-            CargarDatosEnVistas();
+            CargarDatosEnVistas(Accion.Insertar, new FormulasCalculo());
             ViewBag.ModoFormulario = ((int)Accion.Insertar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
 
@@ -101,7 +103,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (objFormulaCalculo == null)
                 return View("Index");
 
-            CargarDatosEnVistas(objFormulaCalculo.IdIndicadorSalidaString, objFormulaCalculo.NivelCalculoTotal);
+            CargarDatosEnVistas(Accion.Editar, objFormulaCalculo);
 
             ViewBag.ModoFormulario = ((int)Accion.Editar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloEditar;
@@ -130,8 +132,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             objFormulaCalculo.Nombre = string.Empty;
             objFormulaCalculo.Codigo = string.Empty;
+            objFormulaCalculo.IdVariableDatoString = string.Empty;
 
-            CargarDatosEnVistas(objFormulaCalculo.IdIndicadorSalidaString, objFormulaCalculo.NivelCalculoTotal);
+            CargarDatosEnVistas(Accion.Clonar, objFormulaCalculo);
 
             ViewBag.ModoFormulario = ((int)Accion.Clonar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloClonar;
@@ -156,7 +159,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (objFormulaCalculo == null)
                 return View("Index");
 
-            CargarDatosEnVistas(objFormulaCalculo.IdIndicadorSalidaString, objFormulaCalculo.NivelCalculoTotal);
+            CargarDatosEnVistas(Accion.Visualizar, objFormulaCalculo);
 
             ViewBag.ModoFormulario = ((int)Accion.Visualizar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloVisualizar;
@@ -205,7 +208,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = formulaBL.CambioEstado(new FormulasCalculo() { 
+                resultado = formulaBL.CambioEstado(new FormulasCalculo() {
                     id = pFormulaCalculo.id, IdEstado = (int)EstadosRegistro.Eliminado
                 });
             });
@@ -268,18 +271,44 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 13/02/2023
+        /// José Navarro Acuña
+        /// Función que permite verificar si una fórmula ha sido ejecutada
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> VerificarSiFormulaEjecuto(string pIdFormula)
+        {
+            RespuestaConsulta<string> resultado = new RespuestaConsulta<string>();
+
+            if (string.IsNullOrEmpty(pIdFormula))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = formulaBL.VerificarSiFormulaEjecuto(pIdFormula);
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
         #endregion
 
         #region Funciones async - Create
 
         /// <summary>
-        /// 18/10/20122
+        /// 14/02/2023
         /// José Navarro Acuña
-        /// Obtiene un listado de las variables dato de un indicador
+        /// Obtiene un listado de las variables dato de un indicador que no esta siendo utilizadas en las demás fórmulas de cálculo
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<string> ObtenerVariablesDatoDeIndicador(string pIdIndicador)
+        public async Task<string> ObtenerVariablesSinUsoEnFormula(string pIdFormula, string pIdIndicador)
         {
             RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
 
@@ -292,10 +321,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
+                resultado = detalleIndicadorVariablesBL.ObtenerVariablesSinUsoEnFormula(new DetalleIndicadorVariables()
                 {
                     idIndicadorString = pIdIndicador
-                });
+                }, 
+                pIdFormula
+                );
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -349,7 +380,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 resultado = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionTipoFechaDeIndicador(
-                    pIdIndicador, 
+                    pIdIndicador,
                     Utilidades.Encriptar(((int)TipoDetalleCategoriaEnum.Fecha).ToString()
                     ));
             });
@@ -392,6 +423,45 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     idIndicadorString = pIdIndicador,
                     idCategoriaString = pIdCategoria
                 });
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 14/02/2022
+        /// José Navarro Acuña
+        /// Obtiene los detalles relacionados con un criterio de mercados, y a su vez con un indicador
+        /// </summary>
+        /// <param name="pIdIndicador"></param>
+        /// <param name="pIdCategoria"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaDetallesDeCriterioMercados(string pIdIndicador, string pIdCriterio)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+
+            if (string.IsNullOrEmpty(pIdIndicador))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            if (string.IsNullOrEmpty(pIdCriterio))
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = detalleIndicadorCriteriosSitelBL.ObtenerDetallesDeCriterioMercado(
+                    new DetalleIndicadorCategoria()
+                    {
+                        idIndicadorString = pIdIndicador,
+                        idCriterioString = pIdCriterio
+                    });
             });
             return JsonConvert.SerializeObject(resultado);
         }
@@ -502,8 +572,28 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 };
             }
 
+            string mensajesValidacion = ValidarObjectoCrearFormulaCalculo(pFormulaCalculo);
+
+            if (!string.IsNullOrEmpty(mensajesValidacion))
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorControlado, MensajeError = mensajesValidacion });
+            }
+
+            pFormulaCalculo.IdEstado = (int)EstadosRegistro.EnProceso;
+            pFormulaCalculo.IdFormula = 0;
+            pFormulaCalculo.IdFrecuencia = 0;
+            pFormulaCalculo.IdIndicador = 0;
+            pFormulaCalculo.IdIndicadorVariable = 0;
             pFormulaCalculo.UsuarioModificacion = usuario;
-            return await CrearFormulaCalculo(pFormulaCalculo);
+
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            await Task.Run(() =>
+            {
+                resultado = formulaBL.ActualizarElemento(pFormulaCalculo);
+            });
+            return JsonConvert.SerializeObject(resultado);
         }
 
         /// <summary>
@@ -547,6 +637,32 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 // clonar los detalles del paso 2 del formulario, se envia la fórmula clonada (paso 1) y el ID de la fórmula de donde se va a obtener los argumentos para duplicar
                 resultado = formulaBL.ClonarArgumentosDeFormula(formulaDeserializado.objetoRespuesta[0], idFormulaAClonar);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 13/02/2023
+        /// José Navarro Acuña
+        /// Función que permite realizar un guardado definitivo de una fórmula de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<string> GuardadoDefinitivoFormulaCalculo(string pIdFormulaCalculo)
+        {
+            if (string.IsNullOrEmpty(pIdFormulaCalculo)) // id indicador requerido
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            await Task.Run(() =>
+            {
+                resultado = formulaBL.GuardadoDefinitivoFormulaCalculo(new FormulasCalculo() { id = pIdFormulaCalculo });
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -671,7 +787,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                 resultado = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores());
+                resultado = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores());
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -861,12 +977,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
 
-            if (string.IsNullOrEmpty(pFormulaCalculo.id) || pListaArgumentos.Count < 0)
+            if (string.IsNullOrEmpty(pFormulaCalculo.id))
             {
                 resultado.HayError = (int)Error.ErrorControlado;
                 resultado.MensajeError = Errores.CamposIncompletos;
                 return JsonConvert.SerializeObject(resultado);
             }
+
+            if (pListaArgumentos == null) pListaArgumentos = new List<ArgumentoConstruidoDTO>();
 
             pFormulaCalculo.UsuarioCreacion = usuario;
 
@@ -896,6 +1014,31 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(resultado);
         }
 
+        /// <summary>
+        /// 10/01/2023
+        /// José Navarro Acuña
+        /// Función que consulta los argumentos de una fórmula de cálculo
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ConsultarArgumentosDeFormula(string pIdFormula) 
+        {
+            RespuestaConsulta<List<ArgumentoConstruidoDTO>> resultado = new RespuestaConsulta<List<ArgumentoConstruidoDTO>>();
+
+            if (string.IsNullOrEmpty(pIdFormula))
+            {
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorSistema });
+            }
+
+            await Task.Run(() =>
+            {
+                resultado = argumentoFormulaBL.ObtenerArgumentosCompletosDeFormula(pIdFormula);
+            });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
         #endregion
 
         #region Funciones privadas
@@ -905,7 +1048,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// José Navarro Acuña
         /// Método que permite cargar los datos necesarios del formulario de Fórmulas de Cálculo
         /// </summary>
-        private void CargarDatosEnVistas(string pIdIndicador = null, bool pEsNivelCalculoTotal = true)
+        private void CargarDatosEnVistas(Accion pAccionPantalla, FormulasCalculo pFormulasDeCalculo)
         {
             ViewBag.VariablesDato = Enumerable.Empty<SelectListItem>();
             ViewBag.CategoriasDeIndicador = Enumerable.Empty<SelectListItem>();
@@ -942,12 +1085,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 ViewBag.IndicadorSalida = indicadoresDeSalida;
             }
 
-            if (!string.IsNullOrEmpty(pIdIndicador))
+            if (!string.IsNullOrEmpty(pFormulasDeCalculo.IdIndicadorSalidaString))
             {
-                List<DetalleIndicadorVariables> detalles = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
+                List<DetalleIndicadorVariables> detalles = detalleIndicadorVariablesBL.ObtenerVariablesSinUsoEnFormula(new DetalleIndicadorVariables()
                 {
-                    idIndicadorString = pIdIndicador
-                }).objetoRespuesta;
+                    idIndicadorString = pFormulasDeCalculo.IdIndicadorSalidaString
+                }, 
+                pAccionPantalla == Accion.Editar || pAccionPantalla == Accion.Visualizar ? pFormulasDeCalculo.id : string.Empty // en caso de editar la opcion debe estar disponible
+                ).objetoRespuesta;
 
                 if (detalles != null)
                 {
@@ -955,9 +1100,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
             }
 
-            if (!pEsNivelCalculoTotal)
+            if (!pFormulasDeCalculo.NivelCalculoTotal)
             {
-                List<CategoriasDesagregacion> categorias = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pIdIndicador, true).objetoRespuesta;
+                List<CategoriasDesagregacion> categorias = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pFormulasDeCalculo.IdIndicadorSalidaString, true).objetoRespuesta;
 
                 if (categorias != null)
                 {
@@ -974,7 +1119,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pFormulaCalculo"></param>
         /// <param name="pEsGuardadoParcial"></param>
         /// <returns></returns>
-        public string ValidarObjectoCrearFormulaCalculo(FormulasCalculo pFormulaCalculo)
+        private string ValidarObjectoCrearFormulaCalculo(FormulasCalculo pFormulaCalculo)
         {
             if (!pFormulaCalculo.EsGuardadoParcial)
             {

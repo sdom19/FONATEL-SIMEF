@@ -117,13 +117,83 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="calidadPorcentajeCumplimiento" xml:space="preserve">
+  <data name="calidad_PorcentajeCumplimiento" xml:space="preserve">
     <value>SELECT SUM(PorcCumpl) FROM [CalidadIndicadorCalculo].[dbo].[FactRigurosidadFac] where IdIndicador = '{0}'</value>
   </data>
-  <data name="calidadPorcentajeIndicador" xml:space="preserve">
+  <data name="calidad_PorcentajeIndicador" xml:space="preserve">
     <value>SELECT SUM(PorcentInd) FROM [CalidadIndicadorCalculo].[dbo].[FactRigurosidadFac] where IdIndicador = '{0}'</value>
   </data>
-  <data name="fonatel" xml:space="preserve">
+  <data name="fonatel_definicionFechas" xml:space="preserve">
+    <value>declare @UnidadMedida int = {0};
+
+declare @IdTipoFechaInicio int = {1};
+declare @FechaInicio datetime = '{2}';
+declare @IdCategoriaInicio int = {3};
+
+declare @IdTipoFechaFinal int = {4};
+declare @FechaFinal datetime = '{5}';
+declare @IdCategoriaFinal int = {6};
+
+declare @IndicadorReferencia int = $$$;
+
+declare @numeroFila int =1;
+declare @IdResultadoIndicador uniqueidentifier;
+
+select top 1 @IdResultadoIndicador= a.IdResultado 
+from IndicadorResultado a
+inner join IndicardorResultadoDetalleCategoria b
+on a.IdResultado=b.IdResultado
+where a.IdIndicador=@IndicadorReferencia order by a.FechaCreacion desc;
+
+
+with FechaInicio as
+(
+	select @FechaInicio as FechaInicio, @numeroFila numeroFila
+	where @IdTipoFechaInicio=1
+	
+	union
+
+	select top 1 cast(b.Valor as datetime) FechaInicio, @numeroFila numeroFila
+	from IndicadorResultado a
+    inner join IndicardorResultadoDetalleCategoria b
+    on a.IdResultado=b.IdResultado
+	where b.IdCategoria=case @IdTipoFechaInicio when 2 then @IdCategoriaInicio else 0 end
+	and  a.IdIndicador=@IndicadorReferencia
+	and NumeroFila=@numeroFila and a.IdResultado=@IdResultadoIndicador
+	
+	union
+	
+	select GETDATE() FechaInicio, @numeroFila numeroFila
+	where @IdTipoFechaInicio=3
+),
+FechaFin as
+(
+	select @FechaFinal as FechaFin, @numeroFila numeroFila
+	where @IdTipoFechaFinal=1
+
+	union
+
+	select top 1 cast(b.Valor as datetime) FechaFin, @numeroFila numeroFila
+    from IndicadorResultado a
+    inner join IndicardorResultadoDetalleCategoria b
+    on a.IdResultado=b.IdResultado
+	where b.IdCategoria=case @IdTipoFechaFinal when 2 then @IdCategoriaFinal else 0 end
+	and  @IdTipoFechaFinal=2 and a.IdIndicador=@IndicadorReferencia
+	and NumeroFila=@numeroFila and a.IdResultado=@IdResultadoIndicador
+	
+	union
+
+	select GETDATE() FechaFin, @numeroFila numeroFila
+	where @IdTipoFechaFinal=3
+)
+select case @UnidadMedida 
+when 1 then DATEDIFF(DAY, a.FechaInicio, b.FechaFin ) 
+when 2 then DATEDIFF(MONTH, a.FechaInicio, b.FechaFin  ) 
+else DATEDIFF(YEAR, a.FechaInicio, b.FechaFin  ) end 
+valor
+from  FechaInicio a,  FechaFin b;</value>
+  </data>
+  <data name="fonatel_variablesDatoCriterio" xml:space="preserve">
     <value>declare @FechaUltimoRegistro date = null
 declare @IndicadorSalida int = {0}
 declare @IdAcumulacion int = {1}
@@ -131,51 +201,89 @@ declare @IdVariable int = {2}
 declare @IndicadorReferencia int = {3}
 declare @IdCategoria int = {4}
 declare @IdCategoriaDetalle int = {5}
-declare @IdFormula int = {6}
 
 SELECT top 1 @FechaUltimoRegistro = FechaCreacion from IndicadorResultado
 WHERE IdIndicador = @IndicadorSalida
-ORDER BY FechaCreacion DESC
+ORDER BY FechaCreacion DESC IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
 
-IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
 BEGIN
-	SET @IdAcumulacion = 0;
-END;
-
-WITH MainQuery
+    SET @IdAcumulacion = 0;
+END; WITH MainQuery
 AS (
-	SELECT ISNULL(SUM(a.Valor),0) Valor, b.NumeroFila, a.IdVariable, b.FechaCreacion
+    SELECT ISNULL(SUM(a.Valor),0) Valor, b.NumeroFila, a.IdVariable, b.FechaCreacion
     FROM dbo.IndicadorResultado r
-	inner join dbo.IndicadorResultadoDetalleVariable a
-	ON r.IdResultado=a.IdResultado
-	inner join dbo.IndicardorResultadoDetalleCategoria b
-	ON a.IdResultado=b.IdResultado
-	inner join DetalleCategoriaTexto c
-	ON b.IdCategoria=c.IdCategoria
-	and UPPER(trim(c.Etiqueta)) like UPPER('%'+TRIM(b.valor)+'%') 
-	inner join FormulasVariableDatoCriterio d
-	ON d.IdVariableDato=a.IdVariable
-	and d.IdIndicador=a.IdIndicador
-	inner join ArgumentoFormula e
-	on e.IdFormulasVariableDatoCriterio=d.IdFormulasVariableDatoCriterio
-	inner join FormulasCalculo f
-	ON e.IdFormula=f.IdFormula
-	WHERE a.IdVariable=@IdVariable and b.IndicadorReferencia=@IndicadorReferencia and f.IdFormula=@IdFormula
-		and b.IdCategoria=ISNULL(@IdCategoria, b.IdCategoria) -- valor total y por detalle
-		and c.IdCategoriaDetalle=ISNULL(@IdCategoriaDetalle, c.IdCategoriaDetalle) -- valor total y por detalle
-	GROUP BY b.NumeroFila, a.IdVariable, b.FechaCreacion
-)
-
-SELECT Valor, NumeroFila, IdVariable 
+    inner join dbo.IndicadorResultadoDetalleVariable a
+    ON r.IdResultado=a.IdResultado
+    inner join dbo.IndicardorResultadoDetalleCategoria b
+    ON a.IdResultado=b.IdResultado
+    and a.NumeroFila=b.NumeroFila
+    inner join DetalleCategoriaTexto c
+    ON b.IdCategoria=c.IdCategoria
+    and UPPER(trim(c.Etiqueta)) like UPPER('%'+TRIM(b.valor)+'%')      
+WHERE r.IdIndicador=@IndicadorReferencia and IdVariable=@IdVariable
+    and b.IdCategoria=ISNULL(@IdCategoria, b.IdCategoria) -- valor total y por detalle
+    and c.IdCategoriaDetalle=ISNULL(@IdCategoriaDetalle, c.IdCategoriaDetalle) -- valor total y por detalle
+    GROUP BY b.NumeroFila, a.IdVariable, b.FechaCreacion
+) SELECT Valor, NumeroFila, IdVariable
 FROM MainQuery
-WHERE format(FechaCreacion,'MM-yy') = 
-	CASE @IdAcumulacion
-	-- acumulacion mensual
-	WHEN 3 THEN format(DATEADD(MONTH, DATEDIFF(MONTH, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
-	-- acumulacion anual
-	WHEN 2 THEN format(DATEADD(YEAR, DATEDIFF(YEAR, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
-	-- acumulación total
-	ELSE format(FechaCreacion,'MM-yy')
-	END</value>
+WHERE format(FechaCreacion,'MM-yy') = 
+    CASE @IdAcumulacion
+    -- acumulacion mensual
+    WHEN 3 THEN format(DATEADD(MONTH, DATEDIFF(MONTH, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
+    -- acumulacion anual
+    WHEN 2 THEN format(DATEADD(YEAR, DATEDIFF(YEAR, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
+    -- acumulación total
+    ELSE format(FechaCreacion,'MM-yy')
+    END</value>
+  </data>
+  <data name="mercados" xml:space="preserve">
+    <value>declare @pIdCriterio int = {0}
+	declare @pIdDetalle int = {1}
+
+WITH PrincipalQuery
+	AS
+	(	
+	SELECT 
+		DIM.Indicador.IdIndicador, 
+		DIM.Indicador.CodIndicador, 
+		DIM.Criterio.IdCriterio, 
+		DIM.Criterio.CodCriterio,
+		DIM.Criterio.DesCriterio, 
+		DIM.JerarquiaIndicadorUnico.DesJerarquiaIndicadorUnico,
+		FACT.JerarquiaIndicadorMercados.IdFechaIndicador, 
+		FACT.JerarquiaIndicadorMercados.Valor, 
+		FACT.JerarquiaIndicadorMercados.IdOperador, 
+		DIM.ParametroIndicador.FechaUltimaPublicacion, 
+		FACT.JerarquiaIndicadorMercados.IdJerarquiaIndicadorUnico
+	FROM     
+		FACT.JerarquiaIndicadorMercados INNER JOIN
+		DIM.Agrupacion ON FACT.JerarquiaIndicadorMercados.IdAgrupacion = DIM.Agrupacion.IdAgrupacion INNER JOIN
+		DIM.Indicador ON FACT.JerarquiaIndicadorMercados.IdIndicador = DIM.Indicador.IdIndicador AND FACT.JerarquiaIndicadorMercados.IdIndicador = DIM.Indicador.IdIndicador AND 
+		FACT.JerarquiaIndicadorMercados.IdIndicador = DIM.Indicador.IdIndicador INNER JOIN
+		DIM.JerarquiaIndicadorUnico ON FACT.JerarquiaIndicadorMercados.IdJerarquiaIndicadorUnico = DIM.JerarquiaIndicadorUnico.IdJerarquiaIndicadorUnico INNER JOIN
+		DIM.Criterio ON FACT.JerarquiaIndicadorMercados.IdCriterio = DIM.Criterio.IdCriterio AND FACT.JerarquiaIndicadorMercados.IdCriterio = DIM.Criterio.IdCriterio AND 
+		FACT.JerarquiaIndicadorMercados.IdCriterio = DIM.Criterio.IdCriterio AND DIM.Indicador.IdIndicador = DIM.Criterio.IdIndicador INNER JOIN
+		DIM.ParametroIndicador ON FACT.JerarquiaIndicadorMercados.IdParametroIndicador = DIM.ParametroIndicador.IdParametroIndicador
+	WHERE  
+		(FACT.JerarquiaIndicadorMercados.Valor &gt; 0) AND 
+		(DIM.Criterio.IdCriterio = @pIdCriterio) AND 
+		(FACT.JerarquiaIndicadorMercados.Visible = 1) AND 
+		(FACT.JerarquiaIndicadorMercados.IdOperador = - 1)
+	)
+	 select
+		IdIndicador, 
+		CodIndicador as CodigoIndicador, 
+		IdCriterio, 
+		CodCriterio as CodigoCriterio,
+		DesCriterio as Criterio, 
+		IdJerarquiaIndicadorUnico as IdDetalle,
+		DesJerarquiaIndicadorUnico as Detalle,
+		IdFechaIndicador, 
+		Valor, 
+		FechaUltimaPublicacion
+	 from PrincipalQuery 
+	 where 
+		IdJerarquiaIndicadorUnico = ISNULL(@pIdDetalle, IdJerarquiaIndicadorUnico) and
+		IdFechaIndicador in(select  distinct top(1) IdFechaIndicador from  PrincipalQuery order by IdFechaIndicador desc)</value>
   </data>
 </root>

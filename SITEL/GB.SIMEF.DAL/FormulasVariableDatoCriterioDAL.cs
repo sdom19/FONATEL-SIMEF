@@ -50,7 +50,11 @@ namespace GB.SIMEF.DAL
                         :
                         new SqlParameter("@pIdDetalleCategoria", pFormulasVariableDatoCriterio.IdDetalleCategoria),
 
-                    new SqlParameter("@pIdAcumulacion", pFormulasVariableDatoCriterio.IdAcumulacion),
+                    pFormulasVariableDatoCriterio.IdAcumulacion == null || pFormulasVariableDatoCriterio.IdAcumulacion == 0 ?
+                        new SqlParameter("@pIdAcumulacion", DBNull.Value)
+                        :
+                        new SqlParameter("@pIdAcumulacion", pFormulasVariableDatoCriterio.IdAcumulacion)
+                        ,
                     new SqlParameter("@pEsValorTotal", pFormulasVariableDatoCriterio.EsValorTotal)
                 ).FirstOrDefault();
             }
