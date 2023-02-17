@@ -33,7 +33,7 @@
                                 <option value="">Seleccione</option>
                                 @if (Model.CategoriasDesagregacionid.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Numerico)
                                 {
-                                    for (int i = Model.CategoriasDesagregacionid.DetalleCategoriaNumerico.Minimo; i <= Model.CategoriasDesagregacionid.DetalleCategoriaNumerico.Maximo; i++)
+                                    for (int i = (int)Model.CategoriasDesagregacionid.DetalleCategoriaNumerico.Minimo; i <= (int)Model.CategoriasDesagregacionid.DetalleCategoriaNumerico.Maximo; i++)
                                     {
                                         <option value="@i">@i</option>
                                     }
