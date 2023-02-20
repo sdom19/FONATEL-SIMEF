@@ -56,9 +56,10 @@ namespace GB.SIMEF.DAL
             using (SIGITELContext db = new SIGITELContext())
             {
                 listaDetallesCriterio = db.Database.SqlQuery<DetalleCriterioIndicador>
-                    ("execute spObtenerDetallesAgrupacionDeCriterio @pIdCriterio, @pIdDetalle",
+                    ("execute spObtenerDetallesAgrupacionDeCriterio @pIdCriterio, @pIdDetalle, @pIncluirColumnaValor",
                      new SqlParameter("@pIdCriterio", pDetalleIndicadorVariables.idCriterioInt.ToString()),
-                     new SqlParameter("@pIdDetalle", DBNull.Value) // retornar toda la lista
+                     new SqlParameter("@pIdDetalle", DBNull.Value), // retornar toda la lista
+                     new SqlParameter("@pIncluirColumnaValor", false)
                     ).ToList();
             }
 
