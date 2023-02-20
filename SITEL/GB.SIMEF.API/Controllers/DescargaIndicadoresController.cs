@@ -287,18 +287,77 @@ namespace GB.SIMEF.API.Controllers
         /// <returns>Indicador</returns>
         [HttpGet]
         [Route("/api/DescargaIndicadores/GetResultado")]
-        [ProducesResponseType(typeof(List<DimResultadoIndicador>), 200)]
-        public ActionResult<IEnumerable<DimResultadoIndicador>> GetResultado(int IdIndicador, int idVariable, string desde, string hasta, int idCategoria)
+        [ProducesResponseType(typeof(InformeResultadoIndicadorSalida), 200)]
+        public ActionResult<InformeResultadoIndicadorSalida> GetResultado(int IdIndicador, string variable, string desde, string hasta, int idCategoria)
         {
-            var SqlQuery = "execute [FONATEL].[spObtenerDimResultadoIndicador] @idIndicador,@desde,@hasta,@idCategoria";
+            var SqlQuery = "execute [FONATEL].[spObtenerDimResultadoIndicador] @pi_Desde, @pi_Hasta, @pi_Variable, @pi_IdCategoria, @pi_IdIndicador";
 
-            List<DimResultadoIndicador> lista = null;
+            List<InformeResultadoIndicador> lista = null;
 
             using (var connection = new SqlConnection(Connection.SIGITELDatabase))
             {
-                lista = connection.Query<DimResultadoIndicador>(SqlQuery, new { IdIndicador = IdIndicador, idVariable=idVariable, desde= desde, hasta = hasta, idCategoria = idCategoria }).ToList();
+                lista = connection.Query<InformeResultadoIndicador>(SqlQuery, new { pi_Desde = desde, pi_Hasta = hasta, pi_Variable = variable, pi_IdCategoria = idCategoria, pi_IdIndicador = IdIndicador }).ToList();
             }
-            return lista;
+            
+            InformeResultadoIndicadorSalida salida = new InformeResultadoIndicadorSalida();
+                
+            if (lista != null) 
+            {
+                salida.Encabezados = lista.GroupBy(g => g.AnnoMes).Select(encabezado => encabezado.Key).ToList();
+                var elementos = lista.Where(c => c.Categoria != null && c.Categoria != "" ).GroupBy(g => g.Categoria).Select(categoria => categoria.Key).ToList();
+                salida.Datos = new List<InformeResultadoDatos>();
+
+                if (elementos.Count > 0)
+                {
+                    foreach (var categoria in elementos)
+                    {
+                        InformeResultadoDatos informeResultadoDatos = new InformeResultadoDatos();
+                        informeResultadoDatos.Categoria = categoria;
+                        informeResultadoDatos.Variable = lista.Where(v => v.Categoria == categoria).Select(v => v.Variable).First();
+                        informeResultadoDatos.Valores = new Dictionary<string, double>();
+
+                        var query = lista.Where(v => v.Categoria == categoria).Select(v => new { v.AnnoMes, v.Total});
+
+                        foreach (var item in query)
+                        {
+                            informeResultadoDatos.Valores.Add(item.AnnoMes,item.Total);
+                        }
+
+                        salida.Datos.Add(informeResultadoDatos);
+                    }
+                }
+                else
+                {
+                    elementos = lista.GroupBy(g => g.Variable).Select(variable => variable.Key).ToList();
+
+                    foreach (var variableCategoria in elementos)
+                    {
+                        InformeResultadoDatos informeResultadoDatos = new InformeResultadoDatos();
+                        informeResultadoDatos.Categoria = null;
+                        informeResultadoDatos.Variable = variableCategoria;
+                        informeResultadoDatos.Valores = new Dictionary<string, double>();
+
+                        var query = lista.Where(v => v.Variable == variableCategoria).Select(v => new { v.AnnoMes, v.Total });
+
+                        foreach (var item in query)
+                        {
+                            informeResultadoDatos.Valores.Add(item.AnnoMes, item.Total);
+                        }
+
+                        salida.Datos.Add(informeResultadoDatos);
+                    }
+                }
+                
+
+                salida.Totales = new Dictionary<string, double>();
+                foreach (var encabezado in salida.Encabezados)
+                {
+                    double total = lista.Where(e => e.AnnoMes == encabezado).Sum(e => e.Total);
+                    salida.Totales.Add(encabezado, total);
+                }
+            }
+
+            return salida;
         }
 
         /// <summary>

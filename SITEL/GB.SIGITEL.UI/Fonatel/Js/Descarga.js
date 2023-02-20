@@ -10,37 +10,55 @@ function CargarTabla(){
     var urlParams = new URLSearchParams(queryString);
 
     var idIndicador = urlParams.get('indicador');
-    var idVariable = urlParams.get('idVariable');
+    var variable = urlParams.get('variable');
     var AnnoInicio = urlParams.get('AnnoInicio');
     var MesInicio = urlParams.get('MesInicio');
     var AnnoFin = urlParams.get('AnnoFin');
     var MesFin = urlParams.get('MesFin');
     var idCategoria = urlParams.get('idCategoria');
 
-    var ultimoDiaInicio = new Date(parseInt(AnnoInicio),parseInt(MesInicio), 0);
+    idCategoria = (idCategoria > 0 ? idCategoria : 0);
+
     var ultimoDiaFin = new Date(parseInt(AnnoFin), parseInt(MesFin), 0);
 
-    var desde = AnnoInicio+'-'+MesInicio.padStart(2,'0')+'-'+ultimoDiaInicio.getDate();
-    var hasta = AnnoFin+'-'+MesFin.padStart(2,'0')+'-'+ultimoDiaFin.getDate();
+    var desde = AnnoInicio + '-' + MesInicio.padStart(2,'0') + '-01';
+    var hasta = AnnoFin + '-' + MesFin.padStart(2,'0') + '-' + ultimoDiaFin.getDay();
 
    var htmlTabla = '';
    var htmlTotales = ''; 
 
     fetch(urlAPI + 'GetResultado?idIndicador=' + idIndicador +
-    '&idVariable='+idVariable+
+    '&variable='+variable+
     '&desde='+desde+
     '&hasta='+hasta+
     '&idCategoria='+idCategoria)
     .then(res => res.json())
-        .then(datos => {
+        .then(resultado => {
+
             htmlTabla = '<tbody><tr><th></th>';
-            datos.forEach(element => {
-                htmlTabla += '<th>'+element.annoMes+'</th>'
+
+            resultado.encabezados.forEach(element => {
+                htmlTabla += '<th>' + element + '</th>'
             });
-            htmlTabla += '</tr><tr><td>Variable 1</td>'
-            datos.forEach(element => {
-                htmlTabla += '<td align="rigth">'+Intl.NumberFormat('es-419',{minimumFractionDigits: 2,}).format(parseFloat(element.total))+'</td>'
+
+            htmlTabla += '</tr>';
+
+            resultado.datos.forEach( dato => {
+                var nombreGrupo = dato.categoria == null ? dato.variable : dato.categoria;
+                htmlTabla += '<tr><td>' + nombreGrupo + '</td>';
+                resultado.encabezados.forEach(encabezado => {
+                    var valorCategoria = dato.valores[encabezado] == undefined ? '0' : dato.valores[encabezado];
+                    htmlTabla += '<td align="rigth">'+Intl.NumberFormat('es-419',{minimumFractionDigits: 2,}).format(parseFloat(valorCategoria))+'</td>'
+                });
+                htmlTabla += '</tr>';
             });
+
+            htmlTabla += '<tr><td>Totales</td>';
+            resultado.encabezados.forEach(encabezado => {
+                var totalEncabezado = resultado.totales[encabezado] == undefined ? '0' : resultado.totales[encabezado];
+                htmlTabla += '<td align="rigth">'+Intl.NumberFormat('es-419',{minimumFractionDigits: 2,}).format(parseFloat(totalEncabezado))+'</td>'
+            });
+
             htmlTabla += '</tr></tbody>';
             jQuery("#tablaSigitel").append(htmlTabla);
         });

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using GB.SIMEF.API.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,6 @@ namespace SIMEF.API.Models
         public virtual DbSet<DimTipoIndicadores> DimTipoIndicadores { get; set; }
         public virtual DbSet<DimTablaIndicadores> DimTablaIndicadores { get; set; }
         public virtual DbSet<DimDetalleIndicadorVariables> DimDetalleIndicadorVariables { get; set; }
-
+        public virtual DbSet<IndicadorResultado> IndicadorResultado { get; set; }
     }
 }

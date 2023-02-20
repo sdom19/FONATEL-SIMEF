@@ -104,7 +104,7 @@ jQuery(document).ready(function () {
             fetch(urlAPI + 'GetVariableDato?IdIndicador=' + IndicadorPadre)
                 .then(res => res.json())
                 .then(datos => {
-                    cargarSelect(datos, variable, 'id', 'descripcion')
+                    cargarSelect(datos, variable, 'idVariable', 'descripcion')
                 })
                 
            var categoria = document.querySelector('#selectcategoria');
@@ -228,9 +228,17 @@ function cargarSelect(datos, select, id, desc) {
     } else {
         tema.innerHTML = '<option value="-1" selected="true" disabled="disabled">(Selecciona)</option>';
     }
-    for (let valor of datos) {
-        tema.innerHTML += `<option value="${valor.id}"> ${valor.descripcion}</option>`
+    if (id == 'idVariable'){
+        for (let valor of datos) {
+            tema.innerHTML += `<option value="${valor.descripcion}"> ${valor.descripcion}</option>`;
+        }
     }
+    else{
+        for (let valor of datos) {
+            tema.innerHTML += `<option value="${valor.id}"> ${valor.descripcion}</option>`;
+        }
+    }
+    
 }
  //Pedir fechas por año
 function pedirFecha() {
@@ -391,7 +399,7 @@ function mes(numero) {
 
 function EnvioDatos(){
     var idIndicador = jQuery("#selectIndicador option:selected").val();
-    var idVariable = jQuery("#selectvariable option:selected").val();
+    var variable = jQuery("#selectvariable option:selected").val();
     var idCategoria = jQuery("#selectcategoria option:selected").val();
     var AnnoInicio = jQuery("#cbAno0 option:selected").val();
     var MesInicio = jQuery("#cbMes0 option:selected").val();
@@ -429,7 +437,7 @@ function EnvioDatos(){
 
     if(ind){
         window.location.href = 'Tabladescarga.html?indicador='+idIndicador+
-        '&idVariable='+idVariable+
+        '&variable='+variable+
         '&AnnoInicio='+AnnoInicio+
         '&MesInicio='+MesInicio+
         '&AnnoFin='+AnnoFin+

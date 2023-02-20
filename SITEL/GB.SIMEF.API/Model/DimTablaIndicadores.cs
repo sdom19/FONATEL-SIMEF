@@ -20,6 +20,7 @@ namespace SIMEF.API.Models
         }
 
         [Key]
+        public int IdTablaIndicador { get; set; }
         public int idIndicador { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
