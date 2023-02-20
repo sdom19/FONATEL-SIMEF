@@ -51,6 +51,42 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
+        /// 20/02/2023
+        /// José Navarro Acuña
+        /// Función que permite obtener los detalles indicador de una categoría e indicador
+        /// </summary>
+        /// <param name="pDetalleIndicadorCategoria"></param>
+        /// <returns></returns>
+        public List<DetalleIndicadorCategoria> ObtenerDetallesDeCategoria(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
+        {
+            List<DetalleIndicadorCategoria> listaDetalles = new List<DetalleIndicadorCategoria>();
+            List<Model_spObtenerDetallesIndicadorCategoria> listado = new List<Model_spObtenerDetallesIndicadorCategoria>();
+
+            using (db = new SIMEFContext())
+            {
+                listado = db.Database.SqlQuery<Model_spObtenerDetallesIndicadorCategoria>
+                    ("execute spObtenerDetallesDeCategoria  @pIdIndicador, @pIdCategoria",
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.idIndicador),
+                     new SqlParameter("@pIdCategoria", pDetalleIndicadorCategoria.idCategoria)
+                    ).ToList();
+
+                listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
+                {
+                    id = Utilidades.Encriptar(x.IdDetalleIndicador.ToString()),
+                    idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
+                    idCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString()),
+                    idCategoriaDetalleString = x.IdCategoriaDetalle != null ? Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()) : null,
+                    Estado = x.Estado,
+                    Etiquetas = x.Etiquetas,
+                    Codigo = x.Codigo,
+                    NombreCategoria = x.NombreCategoria,
+                }).ToList();
+            }
+
+            return listaDetalles;
+        }
+
+        /// <summary>
         /// 08/11/2022
         /// José Navarro Acuña
         /// Función que permite insertar o actualizar un detalle categoria de un indicador

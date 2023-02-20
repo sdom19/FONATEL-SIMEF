@@ -417,9 +417,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicadorYCategoria(new DetalleIndicadorCategoria()
+                resultado = detalleIndicadorCategoriaBL.ObtenerDetallesDeCategoria(new DetalleIndicadorCategoria()
                 {
-                    DetallesAgrupados = false,
                     idIndicadorString = pIdIndicador,
                     idCategoriaString = pIdCategoria
                 });
