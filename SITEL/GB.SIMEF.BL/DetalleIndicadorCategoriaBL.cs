@@ -386,6 +386,49 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
+        /// 20/02/2023
+        /// José Navarro Acuña
+        /// Función que permiter obtener los detalles de categorias de un indicador y categoria, pero sin contemplar el campo 'No definido'
+        /// </summary>
+        /// <param name="pDetalleIndicadorCategoria"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<DetalleIndicadorCategoria>> ObtenerDetallesDeCategoria(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
+        {
+            RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
+            bool errorControlado = false;
+
+            try
+            {
+                PrepararObjetoDetalle(pDetalleIndicadorCategoria);
+
+                if (pDetalleIndicadorCategoria.idIndicador == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                if (pDetalleIndicadorCategoria.idCategoria == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                resultado.objetoRespuesta = detalleIndicadorCategoriaDAL.ObtenerDetallesDeCategoria(pDetalleIndicadorCategoria).ToList();
+                resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
         /// 08/11/2022
         /// José Navarro Acuña
         /// Función que valida el objeto DetalleIndicadorCategoria. Valida la existencia del indicador relacionado y la cantidad de detalles restantes del mismo
