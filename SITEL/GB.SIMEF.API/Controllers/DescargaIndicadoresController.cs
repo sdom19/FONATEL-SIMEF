@@ -279,11 +279,10 @@ namespace GB.SIMEF.API.Controllers
         /// Obtiene los resultados
         /// </summary>
         /// <param name="IdIndicador">Id del indicador</param>
-        /// <param name="idVariable">Id del variable</param>
-        /// <param name="AnnoInicio">Año de inicio</param>
-        /// <param name="MesInicio">Mes Inicio</param>
-        /// <param name="AnnoFin">Año fin</param>
-        /// <param name="MesFin">Mes fin</param>
+        /// <param name="variable">Id del variable</param>
+        /// <param name="desde">Fecha desde</param>
+        /// <param name="hasta">Fecha hasta</param>
+        /// <param name="idCategoria">categoria</param>
         /// <returns>Indicador</returns>
         [HttpGet]
         [Route("/api/DescargaIndicadores/GetResultado")]
@@ -400,6 +399,25 @@ namespace GB.SIMEF.API.Controllers
                 AnnoMes = x.AnnoMes,
             }).ToList();
             return lista;
+        }
+
+        /// <summary>
+        /// Obtiene la definicion del indicador seleccionada
+        /// </summary>
+        [HttpGet]
+        [Route("/api/DescargaIndicadores/GetDefinicion")]
+        [ProducesResponseType(typeof(DimDefinicionIndicador), 200)]
+        public ActionResult<DimDefinicionIndicador> GetDefinicion(int tipo,int grupo,int indicador)
+        {
+            DimDefinicionIndicador definicion = db.DimDefinicionIndicador.Where(x => x.IdTipoindicador == tipo &&
+            x.Idgrupo == grupo && x.IdIndicador == indicador).Select(x => new DimDefinicionIndicador
+            {
+              
+                Nombre = x.Nombre,
+                Fuente=x.Fuente,
+                Notas=x.Notas,
+            }).FirstOrDefault();
+            return definicion;
         }
 
     }

@@ -16,57 +16,87 @@ function CargarTabla(){
     var AnnoFin = urlParams.get('AnnoFin');
     var MesFin = urlParams.get('MesFin');
     var idCategoria = urlParams.get('idCategoria');
+    var DescCategoria = urlParams.get('DescCategoria');
+
+    var idGrupo = urlParams.get('idGrupo');
+    var idTipo = urlParams.get('idTipo');
 
     idCategoria = (idCategoria > 0 ? idCategoria : 0);
 
     var ultimoDiaFin = new Date(parseInt(AnnoFin), parseInt(MesFin), 0);
 
     var desde = AnnoInicio + '-' + MesInicio.padStart(2,'0') + '-01';
-    var hasta = AnnoFin + '-' + MesFin.padStart(2,'0') + '-' + ultimoDiaFin.getDay();
+    var hasta = AnnoFin + '-' + MesFin.padStart(2,'0') + '-' + ultimoDiaFin.getDate();
 
    var htmlTabla = '';
-   var htmlTotales = ''; 
 
-    fetch(urlAPI + 'GetResultado?idIndicador=' + idIndicador +
-    '&variable='+variable+
-    '&desde='+desde+
-    '&hasta='+hasta+
-    '&idCategoria='+idCategoria)
+   fetch(urlAPI + 'GetDefinicion?tipo=' + idTipo +
+    '&grupo='+idGrupo+
+    '&indicador='+idIndicador)
     .then(res => res.json())
-        .then(resultado => {
+        .then(definicion => {
+            var hilera = "";
+            if(idCategoria != 0){
+                hilera = ' por '+DescCategoria;
+            }
 
-            htmlTabla = '<tbody><tr><th></th>';
+            jQuery("#IndicadorNombre").append('Cantidad de '+ variable+ ' de '+definicion.nombre + hilera);
+            jQuery("#Fuente").append('Fuente: '+definicion.fuente);
+            jQuery("#Nota").append('Nota al pie: '+definicion.notas);
 
-            resultado.encabezados.forEach(element => {
-                htmlTabla += '<th>' + element + '</th>'
-            });
+            fetch(urlAPI + 'GetResultado?IdIndicador=' + idIndicador +
+            '&variable='+variable+
+            '&desde='+desde+
+            '&hasta='+hasta+
+            '&idCategoria='+idCategoria)
+            .then(res => res.json())
+                .then(resultado => {
 
-            htmlTabla += '</tr>';
+                    htmlTabla = '<tbody><tr><th></th>';
 
-            resultado.datos.forEach( dato => {
-                var nombreGrupo = dato.categoria == null ? dato.variable : dato.categoria;
-                htmlTabla += '<tr><td>' + nombreGrupo + '</td>';
-                resultado.encabezados.forEach(encabezado => {
-                    var valorCategoria = dato.valores[encabezado] == undefined ? '0' : dato.valores[encabezado];
-                    htmlTabla += '<td align="rigth">'+Intl.NumberFormat('es-419',{minimumFractionDigits: 2,}).format(parseFloat(valorCategoria))+'</td>'
+                    resultado.encabezados.forEach(element => {
+                        htmlTabla += '<th>' + element + '</th>'
+                    });
+
+                    htmlTabla += '</tr>';
+
+                    resultado.datos.forEach( dato => {
+                        var nombreGrupo = dato.categoria == null ? dato.variable : dato.categoria;
+                        htmlTabla += '<tr><td>' + nombreGrupo + '</td>';
+                        resultado.encabezados.forEach(encabezado => {
+                            var valorCategoria = dato.valores[encabezado] == undefined ? '0' : dato.valores[encabezado];
+                            htmlTabla += '<td align="rigth">'+Intl.NumberFormat('es-419',{minimumFractionDigits: 2,}).format(parseFloat(valorCategoria))+'</td>'
+                        });
+                        htmlTabla += '</tr>';
+                    });
+
+                    htmlTabla += '<tr><td>Totales</td>';
+                    resultado.encabezados.forEach(encabezado => {
+                        var totalEncabezado = resultado.totales[encabezado] == undefined ? '0' : resultado.totales[encabezado];
+                        htmlTabla += '<td align="rigth">'+Intl.NumberFormat('es-419',{minimumFractionDigits: 2,}).format(parseFloat(totalEncabezado))+'</td>'
+                    });
+
+                    htmlTabla += '</tr></tbody>';
+                    jQuery("#tablaSigitel").append(htmlTabla);
                 });
-                htmlTabla += '</tr>';
-            });
-
-            htmlTabla += '<tr><td>Totales</td>';
-            resultado.encabezados.forEach(encabezado => {
-                var totalEncabezado = resultado.totales[encabezado] == undefined ? '0' : resultado.totales[encabezado];
-                htmlTabla += '<td align="rigth">'+Intl.NumberFormat('es-419',{minimumFractionDigits: 2,}).format(parseFloat(totalEncabezado))+'</td>'
-            });
-
-            htmlTabla += '</tr></tbody>';
-            jQuery("#tablaSigitel").append(htmlTabla);
-        });
-                
+        });               
 }
 
-const esBisiesto = (year) => {
-    return (year % 400 === 0) ? true : 
-                (year % 100 === 0) ? false : 
-                    year % 4 === 0;
-  };
+function descargarExcel(){
+    window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#dvData').html()));
+}
+
+function ExportarPDF() {
+    html2canvas($('#dvData')[0], {
+        onrendered: function (canvas) {
+            var data = canvas.toDataURL();
+            var docDefinition = {
+                content: [{
+                    image: data,
+                    width: 500
+                }]
+            };
+            pdfMake.createPdf(docDefinition).download("Tabla.pdf");
+        }      
+    });
+}

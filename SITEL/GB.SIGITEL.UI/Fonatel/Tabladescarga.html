@@ -112,6 +112,7 @@
                     <div class="col-sm-10  col-md-8  col-lg-12 form-box">
                         <div class="content">
                             <div class="row filtros">
+                                <div id="dvData">
                                 <html><head>
                                     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
                                     <style> 
@@ -122,14 +123,18 @@
                                         th { background-color: #0c6e70; color: #fff;}
                                         th,td {text-align: left;padding: 0.5em 1em;white-space: nowrap;}</style>
                                         </head><body>
-                                    <br><h2> Cantidad de beneficiarios de FONATEL por programa</h2><h2></h2><h4> &nbsp;</h4>
+                                    <br><h2><div id="IndicadorNombre"></div></h2><h2></h2><h4> &nbsp;</h4>
+                                    
                                     <table border="1" id="tablaSigitel">
                                     </table>
-                                        <div>Fuente: SUTEL, Dirección General de FONATEL,Sutel, Costa Rica.</div><div>Nota al pie: Los beneficiarios corresponden a todas las personasy hogares que han recibido los beneficios y prestaciones otorgados por el programa FONATEL .</div>
+                                    <br>
+                                        <div id="Fuente"></div>
+                                        <div id="Nota"></div>
                                         <br>
-                                        <br><a class="btn btn-blue" style="color: #ffffff !important;margin-left: 0px;" href="https://apidescargas.sutel.go.cr/API/Excel?idCriterio=424&amp;listaIndicadores=Clasificaci%C3%B3n/%20Ingreso|&amp;idOperador=-1&amp;anoInic=2018&amp;anoFin=2019&amp;mesInic=1&amp;mesFin=9">Descargar excel</a>
-                                <a  class="btn btn-blue" style="color: #ffffff !important;" href="https://apidescargas.sutel.go.cr/API/Excel?idCriterio=424&amp;listaIndicadores=Clasificaci%C3%B3n/%20Ingreso|&amp;idOperador=-1&amp;anoInic=2018&amp;anoFin=2019&amp;mesInic=1&amp;mesFin=9">Descargar PDF</a>
-                                <a  class="btn btn-blue" style="color: #ffffff !important;" href="TabladescargaIndicadoresFonatel.html">Atrás</a>
+                                    </div>
+                                        <br><a class="btn btn-blue" style="color: #ffffff !important;margin-left: 0px;" onclick="descargarExcel()">Descargar excel</a>
+                                <a  class="btn btn-blue" style="color: #ffffff !important;" onclick="ExportarPDF()">Descargar PDF</a>
+                                <a  class="btn btn-blue" style="color: #ffffff !important;" href="TabladescargaIndicadores.html">Atrás</a>
                                 </body></html>
                             </div>
                         </div>
@@ -198,3 +203,6 @@
     <script src="js/datatable/responsive.bootstrap.min.js"></script>
     <script src="js/datatable/dataTables.scroller.min.js"></script>
     <script src="js/datatable/dataTables.fixedHeader.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>

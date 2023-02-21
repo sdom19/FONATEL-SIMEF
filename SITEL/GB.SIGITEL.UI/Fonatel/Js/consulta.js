@@ -401,10 +401,14 @@ function EnvioDatos(){
     var idIndicador = jQuery("#selectIndicador option:selected").val();
     var variable = jQuery("#selectvariable option:selected").val();
     var idCategoria = jQuery("#selectcategoria option:selected").val();
+    var descCategoria = jQuery("#selectcategoria option:selected").text();
     var AnnoInicio = jQuery("#cbAno0 option:selected").val();
     var MesInicio = jQuery("#cbMes0 option:selected").val();
     var AnnoFin = jQuery("#cbAno1 option:selected").val();
     var MesFin = jQuery("#cbMes1 option:selected").val();
+
+    var idGrupo = jQuery("#selectGrupo option:selected").val();
+    var idTipo = jQuery("#selectTipo option:selected").val();
 
     var ind = true;
     if(AnnoInicio == -1){
@@ -442,7 +446,10 @@ function EnvioDatos(){
         '&MesInicio='+MesInicio+
         '&AnnoFin='+AnnoFin+
         '&MesFin='+MesFin+
-        '&idCategoria='+idCategoria;
+        '&idCategoria='+idCategoria+
+        '&idGrupo='+idGrupo+
+        '&idTipo='+idTipo+
+        '&DescCategoria='+descCategoria;
     }
     
 }

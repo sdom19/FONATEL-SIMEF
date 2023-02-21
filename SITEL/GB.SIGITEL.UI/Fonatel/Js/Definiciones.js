@@ -3,8 +3,8 @@ var indicador2 = null;
 var indicador3 = null;
 var indicador4 = null;
 var contadorIndicadores = 0;
-var urlAPI = 'http://20.127.147.228:44313/api/CatalogoIndicadores/'; // Acá se cambia el url del api
-var urlAPIConsulta = 'http://20.127.147.228:44313/api/DescargaIndicadores/'; // Acá se cambia el url del api
+var urlAPI = 'https://localhost:44313/api/CatalogoIndicadores/'; // Acá se cambia el url del api
+var urlAPIConsulta = 'https://localhost:44313/api/DescargaIndicadores/'; // Acá se cambia el url del api
 
 jQuery(document).ready(function () {
 
@@ -160,7 +160,7 @@ jQuery(document).ready(function () {
  //Carga los grupos en la pagina
  function CargarGrupos() {
     var html = "";
-    fetch(urlAPIConsulta + 'GetGrupo')
+    fetch(urlAPI + 'GetGrupo')
         .then(res => res.json())
         .then(datos => {
             for (let valor of datos) {
@@ -175,7 +175,7 @@ jQuery(document).ready(function () {
  //Carga los tipos en la pagina
  function CargarTipos() {
     var html = "";
-    fetch(urlAPIConsulta + 'GetTipo')
+    fetch(urlAPI + 'GetTipo')
         .then(res => res.json())
         .then(datos => {
             for (let valor of datos) {
