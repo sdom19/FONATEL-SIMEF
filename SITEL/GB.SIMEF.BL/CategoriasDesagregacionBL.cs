@@ -433,11 +433,12 @@ namespace GB.SIMEF.BL
                     }
                     if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
-                        if (objeto.DetalleCategoriaFecha.FechaMinima >= objeto.DetalleCategoriaFecha.FechaMaxima & objeto.EsParcial == false)
+                        if (objeto.DetalleCategoriaFecha.FechaMinima >= objeto.DetalleCategoriaFecha.FechaMaxima && !objeto.EsParcial)
                         {
                             ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                             throw new Exception(Errores.ValorFecha);
                         }
+                        objeto.idEstado = objeto.EsParcial ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
                         var result = clsDatos.ActualizarDatos(objeto)
                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
                         objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
@@ -450,12 +451,13 @@ namespace GB.SIMEF.BL
                     }
                     else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
-                        if ((objeto.DetalleCategoriaNumerico.Minimo >= objeto.DetalleCategoriaNumerico.Maximo) && (!objeto.EsParcial) && (objeto.IdTipoCategoria != (int)Constantes.TipoCategoriaEnum.VariableDato))
+                        if ((objeto.DetalleCategoriaNumerico.Minimo >= objeto.DetalleCategoriaNumerico.Maximo) && !objeto.EsParcial && (objeto.IdTipoCategoria != (int)Constantes.TipoCategoriaEnum.VariableDato))
                         {
                             ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                             throw new Exception(Errores.ValorMinimo);
                         }
-                        objeto.idEstado = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)Constantes.EstadosRegistro.Activo : objeto.idEstado;
+                        var estadoNumerico = objeto.EsParcial ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
+                        objeto.idEstado = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)Constantes.EstadosRegistro.Activo : estadoNumerico;
                         var result = clsDatos.ActualizarDatos(objeto)
                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
                         objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
