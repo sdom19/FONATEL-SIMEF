@@ -38,6 +38,9 @@
         "txtcantidadIndicadores": "#cantidadIndicadores",
         "tabRgistroIndicadorVerificado": "div.tab-pane.verificado",
         "tabRgistroIndicadoractivo": "div.tab-pane.active",
+
+        "txtCantidadRegistroIndicadorHelp": "#txtCantidadRegistroIndicadorHelp",
+        "txtNotasInformanteHelp": "#txtNotasInformanteHelp"
     },
     "Variables": {
         "VariableIndicador": 1,
@@ -364,6 +367,40 @@
                 return false;
             }
         },
+
+        "ValidarCampos": function () {
+            let validar = true;
+
+            $(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicadorHelp).addClass("hidden");
+            $(jsRegistroIndicadorFonatel.Controles.txtNotasInformanteHelp).addClass("hidden");
+            $(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).parent().addClass("has-error");
+            $(jsRegistroIndicadorFonatel.Controles.txtNotasInformante).parent().addClass("has-error");
+
+            let CantidadRegistros = $(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val().trim();
+            let NotasInformante = $(jsRegistroIndicadorFonatel.Controles.txtNotasInformante).val().trim();
+
+            if (CantidadRegistros.length == 0) {
+                $(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicadorHelp).removeClass("hidden");
+                $(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).parent().addClass("has-error");
+                validar = false;
+            } else {
+                $(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicadorHelp).parent().removeClass("has-error");
+                $(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicadorHelp).addClass("hidden");
+                Validar = false;
+            }
+
+            if (NotasInformante.length == 0) {
+                $(jsRegistroIndicadorFonatel.Controles.txtNotasInformanteHelp).removeClass("hidden");
+                $(jsRegistroIndicadorFonatel.Controles.txtNotasInformante).parent().addClass("has-error");
+                validar = false;
+            } else {
+                $(jsRegistroIndicadorFonatel.Controles.txtNotasInformanteHelp).addClass("hidden");
+                $(jsRegistroIndicadorFonatel.Controles.txtNotasInformante).parent().removeClass("has-error");
+                Validar = false;
+            }
+
+            return validar;
+        },
     },
     "Consultas": {
 
@@ -404,8 +441,7 @@
                     $("#loading").fadeOut();
                 });
             } else {
-                jsMensajes.Metodos.OkAlertErrorModal("No ha completado la ninguna información")
-                    .set('onok', function (closeEvent) { $("#loading").fadeOut(); });
+                location.reload();
             }
 
         },
@@ -575,6 +611,9 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCancelarRegistro
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroIndicador, function (e) {
     e.preventDefault();
+
+    if (jsRegistroIndicadorFonatel.Metodos.ValidarCampos()) {
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
           
@@ -589,7 +628,7 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnGuardarRegistroI
             jsRegistroIndicadorFonatel.Consultas.ActualizarDetalleRegistroIndicadorFonatel();
         });
 
-
+    }
 });
 
 $(document).on("click", jsRegistroIndicadorFonatel.Controles.btnCargaRegistroIndicador, function (e) {
