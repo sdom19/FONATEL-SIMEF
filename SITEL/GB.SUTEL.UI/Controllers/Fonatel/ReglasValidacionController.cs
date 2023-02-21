@@ -89,11 +89,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             var ListadoIndicador = indicadorfonatelBL
                 .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
-            var ListadoIndicadorSalida = ListadoIndicador.Where(x => x.IdClasificacion == 2).ToList();
+            var ListadoIndicadorSalida = ListadoIndicador.Where(x => x.IdClasificacion == (int)Constantes.ClasificacionIndicadorEnum.Salida).ToList();
 
-            var ListadoIndicadorEntradaSalida = ListadoIndicador.Where(x => x.IdClasificacion == 3).ToList();
+            var ListadoIndicadorEntradaSalida = ListadoIndicador.Where(x => x.IdClasificacion == (int)Constantes.ClasificacionIndicadorEnum.EntradaSalida).ToList();
 
-            var ListadoIndicadorEntrada = ListadoIndicador.Where(x => x.IdClasificacion == 4).ToList();
+            var ListadoIndicadorEntrada = ListadoIndicador.Where(x => x.IdClasificacion == (int)Constantes.ClasificacionIndicadorEnum.Entrada).ToList();
 
             var listadoCategoria = categoriasDesagregacionBL
                .ObtenerDatos(new CategoriasDesagregacion() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;

@@ -58,16 +58,26 @@ namespace GB.SIMEF.BL
 
                 var BuscarDatos = clsDatos.ObtenerDatos(new DetalleReglaValidacion());
 
-                if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdDetalleReglaValidacion != objeto.IdDetalleReglaValidacion && x.IdTipo == objeto.IdTipo && x.IdTipo != (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.IdDetalleIndicador == objeto.IdDetalleIndicador && x.Estado == true).Count() > 0)
+                if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.IdTipo != (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.IdTipo != (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial && x.IdDetalleIndicador == objeto.IdDetalleIndicador && x.Estado == true).Count() > 0)
                 {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.ReglasVariableIngresada);
                 }
-                if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdDetalleReglaValidacion != objeto.IdDetalleReglaValidacion && x.IdTipo == objeto.IdTipo && x.IdTipo == (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.reglaAtributosValidos.IdCategoria == objeto.reglaAtributosValidos.IdCategoria && x.Estado == true).Count() > 0)
+                if (objeto.reglaAtributosValidos != null)
                 {
-                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
-
-                    throw new Exception(Errores.ReglasVariableIngresada);
+                    if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.reglaAtributosValidos.IdCategoria == objeto.reglaAtributosValidos.IdCategoria && x.Estado == true).Count() > 0)
+                    {
+                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                        throw new Exception(Errores.ReglasCategoriaIngresada);
+                    }
+                }
+                if (objeto.reglaSecuencial != null)
+                {
+                    if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.reglaSecuencial.IdCategoria == objeto.reglaSecuencial.IdCategoria && x.Estado == true).Count() > 0)
+                    {
+                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                        throw new Exception(Errores.ReglasCategoriaIngresada);
+                    }
                 }
                 else
                 {
