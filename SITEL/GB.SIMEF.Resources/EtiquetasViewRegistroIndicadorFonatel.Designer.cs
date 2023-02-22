@@ -205,6 +205,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La Fecha ingresada no cumple con el rango establecido.
+        /// </summary>
+        public static string RangoFechaIncorrecto {
+            get {
+                return ResourceManager.GetString("RangoFechaIncorrecto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Registro de Indicador.
         /// </summary>
         public static string RegistroIndicador {

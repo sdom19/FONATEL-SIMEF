@@ -233,7 +233,11 @@
                         //.set('onok', function (closeEvent) { window.location.href = "/Fonatel/RelacionCategoria/index" });
                     } else if (respuesta.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal(respuesta.MensajeError)
-                            .set('onok', function (closeEvent) { location.reload(); });
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else if (respuesta.HayError == jsUtilidades.Variables.Error.ErrorControlado) {
+                        jsMensajes.Metodos.OkAlertErrorModal(respuesta.MensajeError)
+                            .set('onok', function (closeEvent) { });
                     }
 
 
@@ -242,8 +246,9 @@
                 $(jsRegistroIndicadorFonatel.Controles.inputFileCargarPlantilla).val('');
                 jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Datos")
                     .set('onok', function (closeEvent) { })
-                $("#loading").fadeOut();
 
+            }).always(function () {
+                $("#loading").fadeOut();
             })
         },
 

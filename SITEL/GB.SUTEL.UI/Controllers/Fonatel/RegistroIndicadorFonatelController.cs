@@ -146,7 +146,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     worksheetInicio.Cells[1, celda].Style.Font.Bold = true;
                     worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
                     worksheetInicio.Cells[1, celda].AutoFitColumns();
-
+                    worksheetInicio.Column(celda).Style.Numberformat.Format = "@";
                     worksheetInicio.Cells[2, celda, detalleRegistroIndicadorFonatel.CantidadFilas+1, celda].Value = "";
 
                     celda++;
@@ -163,6 +163,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     worksheetInicio.Cells[1, celda].Style.Font.Bold = true;
                     worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
                     worksheetInicio.Cells[1, celda].AutoFitColumns();
+                    worksheetInicio.Column(celda).Style.Numberformat.Format = "@";
 
                     celda++;
                 }
@@ -257,7 +258,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     {
                         resultDetalle.HayError = result.HayError;
                         resultDetalle.MensajeError = result.MensajeError;
-
                     }
 
                 }).ContinueWith(data =>
