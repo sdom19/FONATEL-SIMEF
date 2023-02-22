@@ -247,6 +247,7 @@ namespace GB.SIMEF.BL
                     string Codigo = worksheet.Name; //POSICION DEL CODIGO
 
                     DetalleRegistroIndicadorFonatel detalle = new DetalleRegistroIndicadorFonatel();
+
                     if (!string.IsNullOrEmpty(detalleRegistro.IdSolicitudString))
                     {
                         int temp = 0;
@@ -295,7 +296,7 @@ namespace GB.SIMEF.BL
                                 obj.IdIndicador = detalle.IdIndicador;
                                 obj.IdSolicitud = detalle.IdSolicitud;
                                 obj.NumeroFila = j - 1;
-                                obj.IdVariable = listaDetalle[0].DetalleRegistroIndicadorVariableValorFonatel.Where(x => x.NumeroFila == obj.NumeroFila).FirstOrDefault().IdVariable;
+                                obj.IdVariable = listaDetalle[0].DetalleRegistroIndicadorVariableFonatel[i - 1].idVariable;
                                 listaValores.Add(obj);
                             }
 
@@ -333,6 +334,8 @@ namespace GB.SIMEF.BL
             {
                 Boolean ind = true;
                 Boolean indFecha = true;
+                Boolean indRango = true;
+
                 using (var package = new ExcelPackage(file.InputStream))
                 {
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[1]; //POSICION DEL CODIGO y NOMBRE
@@ -371,6 +374,7 @@ namespace GB.SIMEF.BL
                         if (worksheet.Cells[1, i].Value != null)
                         {
                             string desCategoria = worksheet.Cells[1, i].Value.ToString();
+
                             DetalleRegistroIndicadorCategoriaFonatel categoria = listaDetalle[0].DetalleRegistroIndicadorCategoriaFonatel.Where(x => x.NombreCategoria == desCategoria).FirstOrDefault();
 
                             if (categoria != null)
@@ -446,15 +450,18 @@ namespace GB.SIMEF.BL
                                                 break;
                                             case 4:
                                                 DateTime outConvert;
+
+
                                                 bool isDate = DateTime.TryParse(worksheet.Cells[j, i].Value.ToString(), out outConvert);
+
                                                 if (!isDate)
                                                 {
                                                     ind = false;
-                                                    indFecha = false;
+                                                    indFecha = false;                                                   
                                                 }
                                                 else
                                                 {
-
+                                                   
                                                     DateTime fechaValor = DateTime.Parse(worksheet.Cells[j, i].Value.ToString());
                                                     if ((DateTime.Parse(categoria.RangoMinimo) <= fechaValor) && (fechaValor <= DateTime.Parse(categoria.RangoMaximo)))
                                                     {
@@ -463,6 +470,7 @@ namespace GB.SIMEF.BL
                                                     else
                                                     {
                                                         ind = false;
+                                                        indRango = false;
                                                     }
                                                 }
 
@@ -521,7 +529,13 @@ namespace GB.SIMEF.BL
                         {
                             ResultadoConsulta.MensajeError = EtiquetasViewRegistroIndicadorFonatel.FormatoFechaIncorrecto;
                         }
-                        ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+
+                        if (!indRango)
+                        {
+                            ResultadoConsulta.MensajeError = EtiquetasViewRegistroIndicadorFonatel.RangoFechaIncorrecto;
+                        }
+
+                        ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     }
                 }
             }

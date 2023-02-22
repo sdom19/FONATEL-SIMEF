@@ -257,7 +257,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     {
                         resultDetalle.HayError = result.HayError;
                         resultDetalle.MensajeError = result.MensajeError;
-
                     }
 
                 }).ContinueWith(data =>
