@@ -162,7 +162,7 @@
 
         "CargarExcel": function () {
 
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado")
+            jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido descargado")
                 .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
         },
 
@@ -212,7 +212,7 @@
             
             window.open(jsUtilidades.Variables.urlOrigen + "/EditarFormulario/DescargarExcelUnitario?idSolicitud=" + idSolicitud + "&idFormulario=" + idFormulario + "&idIndicador=" + idIndicador);
 
-            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido descargado");           
+            jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido descargado");           
         },
     },
 
@@ -349,7 +349,7 @@
                         jsRegistroIndicadorFonatelEdit.Consultas.InsertarRegistroIndicadorDetalleValor();
 
                         if (jsRegistroIndicadorFonatelEdit.Variables.GuardadoTotal) {
-                            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
+                            jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido guardado")
                             .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index";});
                         }
 
@@ -401,7 +401,7 @@
                         jsRegistroIndicadorFonatelEdit.Consultas.InsertarRegistroIndicadorDetalleValor();
 
                         if (guardadoTotal) {
-                            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido guardado")
+                            jsMensajes.Metodos.OkAlertModal("El Formulario ha sido cargado")
                                 .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
                         }
 
@@ -487,7 +487,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardarRegis
 
     e.preventDefault();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial para el Formulario?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial del Formulario Web?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
 
             var cantIndicadores = parseInt($(jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador).val());
@@ -507,7 +507,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistr
 
     e.preventDefault();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado del Formulario?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga del Formulario Web?", jsMensajes.Variables.actionType.agregar)
         .set('onok', function (closeEvent) {
 
             let guardadoTotal = true;
@@ -518,7 +518,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistr
 });
 
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario?", null, "Descargar Registro")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario Web?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
 
             var idSolicitud = ObtenerValorParametroUrl("idSolicitud");
@@ -530,7 +530,12 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPla
 });
 
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCargarPlantillaRegistro, function () {
-    $(jsRegistroIndicadorFonatelEdit.Controles.inputFileCargarPlantilla).click();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga del Formulario Web?", jsMensajes.Variables.actionType.cargar)
+        .set('onok', function (closeEvent) {
+
+            $(jsRegistroIndicadorFonatelEdit.Controles.inputFileCargarPlantilla).click();
+
+        });
 });
 
 $(document).on("change", jsRegistroIndicadorFonatelEdit.Controles.inputFileCargarPlantilla, function (e) {
