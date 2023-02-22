@@ -229,7 +229,7 @@
                         }
                     }
                     else if ($(JsCategoria.Controles.ddlTipoDetalle).val() == jsUtilidades.Variables.TipoDetalleCategoria.Numerico) {
-                        if ($(JsCategoria.Controles.txtRangoMinimaCategoria).val() < 0) {
+                        if ($(JsCategoria.Controles.txtRangoMinimaCategoria).val() == '') {
                             validar = false;
                             if (opcion) {
                                 $(JsCategoria.Controles.RangoMinimaCategoriaHelp).removeClass("hidden");
@@ -237,7 +237,7 @@
                             }
                            
                         }
-                        if ($(JsCategoria.Controles.txtRangoMaximaCategoria).val() == 0) {
+                        if ($(JsCategoria.Controles.txtRangoMaximaCategoria).val() == '') {
                             validar = false;
                             if (opcion) {
                                 $(JsCategoria.Controles.RangoMaximaCategoriaHelp).removeClass("hidden");
@@ -288,6 +288,16 @@
                 categoria.EsParcial = JsCategoria.Metodos.ValidarFormularioCategoria(false) == false ? true : false;
                 return categoria;
             },
+            "ValidarGuardadoCompletoSinDetalle": function () {
+                let tipoDetalle = $(JsCategoria.Controles.ddlTipoDetalle).val();
+                if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Fecha && $(JsCategoria.Controles.txtFechaMinimaCategoria).val().length > 0 && $(JsCategoria.Controles.txtFechaMaximaCategoria).val().length > 0) {
+                    return true;
+                } else if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Numerico && $(JsCategoria.Controles.txtRangoMinimaCategoria).val().length > 0 && $(JsCategoria.Controles.txtRangoMaximaCategoria).val().length > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
             "ValidacionTipoGuardado": function () {
                 validar = JsCategoria.Metodos.ValidarFormularioCategoria(false);
                 new Promise((resolve, reject) => {
@@ -310,10 +320,17 @@
                                 });
                         }
                         else {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
-                                .set('onok', function (closeEvent) {
-                                    JsCategoria.Consultas.InsertarCategoria();
-                                });
+                            if (JsCategoria.Metodos.ValidarGuardadoCompletoSinDetalle()) {
+                                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
+                                    .set('onok', function (closeEvent) {
+                                        JsCategoria.Consultas.InsertarCategoria();
+                                    });
+                            } else {
+                                jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial de la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
+                                    .set('onok', function (closeEvent) {
+                                        JsCategoria.Consultas.InsertarCategoria();
+                                    });
+                            }
                         }
                     }
                     else {
