@@ -165,6 +165,9 @@
   <data name="NotasInformante" xml:space="preserve">
     <value>Notas del informante para FONATEL</value>
   </data>
+  <data name="RangoFechaIncorrecto" xml:space="preserve">
+    <value>La Fecha ingresada no cumple con el rango establecido</value>
+  </data>
   <data name="RegistroIndicador" xml:space="preserve">
     <value>Registro de Indicador</value>
   </data>
