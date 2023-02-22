@@ -6,7 +6,8 @@
         "MensajeClonar": "Clonar Registro",
         "MensajeEliminar": "Eliminar Registro",
         "MensajeConfirmacion": "Proceso Exitoso",
-        "MensajeDescargarRegistro":"Descargar Registro",
+        "MensajeDescargarRegistro": "Descargar Registro",
+        "MensajeCargarRegistro": "Cargar Registro",
         "ErrorTransaccion": "Error",
         "ContentDelete": (mensaje) => { return "<div class='text-center'><div class='icon warning-icon'></div> <strong>" + mensaje + "</strong></div>" },
         "ContentError": (mensaje) => { return "<div class='text-center'><div class='icon warning-icon'></div> <strong>" + mensaje + "</strong></div>" },
@@ -22,7 +23,8 @@
             eliminar: 2,
             estado: 3,
             cancelar: 4,
-            descargar: 5
+            descargar: 5,
+            cargar: 6,
         }
 
     },
@@ -86,6 +88,9 @@
                 }
                 else if (actionType == jsMensajes.Variables.actionType.descargar) { // se busca por medio del actionType
                     _question = jsMensajes.Variables.MensajeDescargarRegistro;
+                }
+                else if (actionType == jsMensajes.Variables.actionType.cargar) {
+                    _question = jsMensajes.Variables.MensajeCargarRegistro;
                 }
             }
             else {
