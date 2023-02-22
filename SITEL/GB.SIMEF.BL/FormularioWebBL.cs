@@ -64,33 +64,42 @@ namespace GB.SIMEF.BL
         // La cantidad de Indicadores no puede ser inferior
         private bool ValidarCantidadIndicadores(FormularioWeb formularioWebNuevo)
         {
-            formularioWebNuevo.idEstado = 0;
-            string[] arrayIndicadores = new string[] { };
-            int cantidadIndicadores = 0;
-            FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
-            if (formularioWebViejo.ListaIndicadores != null)
+            bool resultadoValidacion = false;
+            try
             {
-                arrayIndicadores = formularioWebViejo.ListaIndicadores.Split(',');
-                cantidadIndicadores = arrayIndicadores.Count();
-            }
-            if (cantidadIndicadores > 0)
-            {          
-                if (formularioWebViejo.CantidadIndicadores > formularioWebNuevo.CantidadIndicadores)
-                    throw new Exception(Errores.CantidadIndicadoresMenor);
-                //if (formularioWebViejo.CantidadIndicadores < formularioWebNuevo.CantidadIndicadores)
-                if (formularioWebNuevo.CantidadIndicadores > cantidadIndicadores)
+                formularioWebNuevo.idEstado = 0;
+                string[] arrayIndicadores = new string[] { };
+                int cantidadIndicadores = 0;
+                FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
+                if (formularioWebViejo.ListaIndicadores != null)
                 {
-                    return true;
+                    arrayIndicadores = formularioWebViejo.ListaIndicadores.Split(',');
+                    cantidadIndicadores = arrayIndicadores.Count();
+                }
+                if (cantidadIndicadores > 0)
+                {
+                    if (formularioWebNuevo.CantidadIndicadores < cantidadIndicadores)
+                    {
+                        resultadoValidacion = true;
+                        ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                        throw new Exception(Errores.CantidadIndicadoresMenor);
+                    }
                 }
                 else
                 {
-                    return false;
+                    resultadoValidacion = true;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return true;
+                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
+                {
+
+                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
+                }
+                ResultadoConsulta.MensajeError = ex.Message;
             }
+            return resultadoValidacion;
         }
 
         private int ValidarEstado(FormularioWeb obj)
@@ -114,7 +123,7 @@ namespace GB.SIMEF.BL
                 var objetoAnterior = new FormularioWeb { idFormulario = objeto.idFormulario, idEstado = 0, Codigo = objeto.Codigo };
                 objetoAnterior.idFormulario = DesencriptarId(objetoAnterior.id);
                 List<FormularioWeb> buscarRegistro = clsDatos.ObtenerDatos(new FormularioWeb());
-                 if (buscarRegistro.Where(x => x.Nombre.ToUpper().TrimStart().TrimEnd() == objeto.Nombre.ToUpper().TrimStart().TrimEnd() && x.Codigo.ToUpper().TrimStart().TrimEnd() != objeto.Codigo.ToUpper().TrimStart().TrimEnd()).ToList().Count() > 0)
+                if (buscarRegistro.Where(x => x.Nombre.ToUpper().TrimStart().TrimEnd() == objeto.Nombre.ToUpper().TrimStart().TrimEnd() && x.Codigo.ToUpper().TrimStart().TrimEnd() != objeto.Codigo.ToUpper().TrimStart().TrimEnd()).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
