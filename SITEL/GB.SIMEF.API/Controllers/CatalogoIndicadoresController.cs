@@ -198,5 +198,43 @@ namespace GB.SIMEF.API.Controllers
             //Retorna lista de indicadores
             return indicadoresViewModel;
         }
+
+        /// <summary>
+        /// Obtiene los grupos
+        /// </summary>
+        [HttpGet]
+        [Route("/api/CatalogoIndicadores/GetGrupo")]
+        [ProducesResponseType(typeof(List<DimGrupoIndicadores>), 200)]
+        public ActionResult<IEnumerable<DimGrupoIndicadores>> GetGrupo()
+        {
+            var lista = db.DimGrupoIndicador.Where(x => x.Estado == true).Select(x => new DimGrupoIndicadores
+            {
+                id = x.id,
+                Nombre = x.Nombre,
+                idGrupo = x.idGrupo,
+                Estado = x.Estado,
+                DetalleHtml = x.DetalleHtml
+            }).ToList();
+
+            return lista;
+        }
+
+        /// <summary>
+        /// Obtiene los tipos
+        /// </summary>
+        [HttpGet]
+        [Route("/api/CatalogoIndicadores/GetTipo")]
+        [ProducesResponseType(typeof(List<DimTipoIndicadores>), 200)]
+        public ActionResult<IEnumerable<DimTipoIndicadores>> GetTipo()
+        {
+            var lista = db.DimTipoIndicadores.Where(x => x.Estado == true).Select(x => new DimTipoIndicadores
+            {
+                id = x.id,
+                Nombre = x.Nombre,
+                IdTipoIdicador = x.IdTipoIdicador,
+                Estado = x.Estado
+            }).ToList();
+            return lista;
+        }
     }
 }

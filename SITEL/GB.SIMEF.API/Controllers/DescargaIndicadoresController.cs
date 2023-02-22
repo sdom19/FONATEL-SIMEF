@@ -11,6 +11,9 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using GB.SIMEF.API.Model;
+using Microsoft.Data.SqlClient;
+using Dapper;
 
 namespace GB.SIMEF.API.Controllers
 {
@@ -19,10 +22,10 @@ namespace GB.SIMEF.API.Controllers
     [ApiController]
     public class DescargaIndicadoresController : ControllerBase
     {
-              
+
         //private SIMEFContext db;
-        private  DWHSIMEFContext db = new DWHSIMEFContext();
-        
+        private DWHSIMEFContext db = new DWHSIMEFContext();
+
 
         /// <summary>
         /// Obtiene los indicadores filtrados por servicio y tipo
@@ -32,57 +35,17 @@ namespace GB.SIMEF.API.Controllers
         /// <returns>Lista de indicadores</returns>
         [HttpGet]
         [Route("/api/DescargaIndicadores/GetGrupo")]
-        [ProducesResponseType(typeof(List<DimGrupoIndicadores>), 200)]
-        public ActionResult<IEnumerable<DimGrupoIndicadores>> GetGrupo()
+        [ProducesResponseType(typeof(List<Combos>), 200)]
+        public ActionResult<IEnumerable<Combos>> GetGrupo()
         {
-            var lista = db.DimGrupoIndicador.Where(x => x.Estado ==true).Select(x => new DimGrupoIndicadores
+            var SqlQuery = "execute [FONATEL].[spObtenerGrupos]";
+
+            List<Combos> lista = null;
+
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
             {
-                id = x.id,
-                Nombre = x.Nombre,
-                idGrupo = x.idGrupo,
-                Estado=x.Estado,
-                DetalleHtml = x.DetalleHtml
-            }).ToList();
-
-            //// para cada servicio ver si hay datos en  el cubo
-            //foreach (var s in lista)
-            //{
-            //    var li = (from u in DB.JerarquiaIndicadorMercados
-            //              join k in DB.Indicador on u.IdIndicador equals k.IdIndicador
-            //              where u.IdServicio == s.IdServicio
-            //              select k.CodIndicador).Distinct().ToList();
-            //    int cnt = 0;
-            //    // para cada servicio, ver cuantos indicadores tenemos visibles
-            //    foreach (var lii in li)
-            //    {
-            //        cnt += pi.Where(x => x.IdIndicador == lii).Count();
-
-            //    }
-            //    // la cantidad corresponde al # de indicadores visibles.
-            //    s.Cantidad = cnt;
-            //}
-            //// vemos si hay que aplicar algun cambio en codigos o nombres
-            //var servicios_convertir = ConsultasMapeo.UnCampo_iis("select * from mapeoservicio");
-            //foreach (var sc in servicios_convertir)
-            //{
-            //    // obtenemos las tematicas que hay. 
-            //    var l = GetTematicas(sc.i1, "") as JsonResult;
-            //    var l2 = l.Value as List<ModelTematica>;
-
-            //    lista.RemoveAll(x => x.IdServicio == sc.i0);
-
-            //    // si la cantidad de tematicas que tiene este servicio es 0, no lo incluimos
-            //    if (l2.Count > 0)
-            //    {
-            //        lista.Add(new _IDC0
-            //        {
-            //            IdServicio = sc.i1,
-            //            DesServicio = sc.s2,
-            //            Cantidad = l2.Count,
-            //        });
-            //    }
-            //}
-            // filtrar lista de servicios segun si tiene indicador parametrizado.
+                lista = connection.Query<Combos>(SqlQuery, new { }).ToList();
+            }
             return lista;
         }
         /// <summary>
@@ -93,16 +56,17 @@ namespace GB.SIMEF.API.Controllers
         /// <returns>Lista de indicadores</returns>
         [HttpGet]
         [Route("/api/DescargaIndicadores/GetTipo")]
-        [ProducesResponseType(typeof(List<DimTipoIndicadores>), 200)]
-        public ActionResult<IEnumerable<DimTipoIndicadores>> GetTipo()
+        [ProducesResponseType(typeof(List<Combos>), 200)]
+        public ActionResult<IEnumerable<Combos>> GetTipo()
         {
-            var lista = db.DimTipoIndicadores.Where(x => x.Estado == true).Select(x => new DimTipoIndicadores
+            var SqlQuery = "execute [FONATEL].[spObtenerTipos]";
+
+            List<Combos> lista = null;
+
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
             {
-                id = x.id,
-                Nombre = x.Nombre,
-                IdTipoIdicador = x.IdTipoIdicador,
-                Estado = x.Estado
-            }).ToList();
+                lista = connection.Query<Combos>(SqlQuery, new { }).ToList();
+            }
             return lista;
         }
         /// <summary>
@@ -113,17 +77,17 @@ namespace GB.SIMEF.API.Controllers
         /// <returns>Indicador</returns>
         [HttpGet]
         [Route("/api/DescargaIndicadores/GetIndicadores")]
-        [ProducesResponseType(typeof(List<ModelIndicador>), 200)]
-        public ActionResult<IEnumerable<ModelIndicador>> GetIndicadores(int Grupo, int Tipo)
+        [ProducesResponseType(typeof(List<Combos>), 200)]
+        public ActionResult<IEnumerable<Combos>> GetIndicadores(int Grupo, int Tipo)
         {
-            var lista = db.DimTablaIndicadores.Where(x => x.idGrupo == Grupo && x.IdTipoIndicador == Tipo).Select(x => new ModelIndicador
+            var SqlQuery = "execute [FONATEL].[spObtenerIndicadores] @idtipoIndicador,@idGrupo";
+
+            List<Combos> lista = null;
+
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
             {
-                Id = x.idIndicador,
-                IdIndicador = x.Codigo,
-                DesIndicador = (x.Codigo.ToString() +' ' + x.Nombre)
-
-
-            }).Distinct().ToList();
+                lista = connection.Query<Combos>(SqlQuery, new { idtipoIndicador = Tipo , idGrupo = Grupo }).ToList();
+            }
             return lista;
         }
         /// <summary>
@@ -134,21 +98,81 @@ namespace GB.SIMEF.API.Controllers
         /// <returns>Indicador</returns>
         [HttpGet]
         [Route("/api/DescargaIndicadores/GetVariableDato")]
-        [ProducesResponseType(typeof(List<DimDetalleIndicadorVariables>), 200)]
-        public ActionResult<IEnumerable<DimDetalleIndicadorVariables>> GetVariableDato(int IdIndicador)
+        [ProducesResponseType(typeof(List<Combos>), 200)]
+        public ActionResult<IEnumerable<Combos>> GetVariableDato(int IdIndicador)
         {
-            var lista = db.DimTablaIndicadores.Where(x => x.idIndicador == IdIndicador).Select(x => new DimDetalleIndicadorVariables
+            var SqlQuery = "execute [FONATEL].[spObtenerVariables] @idIndicador";
+
+            List<Combos> lista = null;
+
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
             {
-                idIndicador = x.idIndicador,
-                idDetalleIndicador = 0,
-                NombreVariable =  x.NombreVariable
+                lista = connection.Query<Combos>(SqlQuery, new { idIndicador = IdIndicador }).ToList();
+            }
+            return lista;
+        }
+        /// <summary>
+        /// Obtiene las categorias por indicador
+        /// </summary>
+        /// <param name="IdIndicador">Id del Indicador</param>
+        /// <returns>Indicador</returns>
+        [HttpGet]
+        [Route("/api/DescargaIndicadores/GetCategoria")]
+        [ProducesResponseType(typeof(List<Combos>), 200)]
+        public ActionResult<IEnumerable<Combos>> GetCategoria(int IdIndicador)
+        {
+            var SqlQuery = "execute [FONATEL].[spObtenerCategorias] @idIndicador";
 
+            List<Combos> lista = null;
 
-            }).ToList();
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
+            {
+                lista = connection.Query<Combos>(SqlQuery, new { idIndicador = IdIndicador }).ToList();
+            }
             return lista;
         }
 
+        /// <summary>
+        /// Obtiene las categorias por indicador
+        /// </summary>
+        /// <param name="IdIndicador">Id del Indicador</param>
+        /// <returns>Indicador</returns>
+        [HttpGet]
+        [Route("/api/DescargaIndicadores/GetAnno")]
+        [ProducesResponseType(typeof(List<Combos>), 200)]
+        public ActionResult<IEnumerable<Combos>> GetAnno(int IdIndicador)
+        {
+            var SqlQuery = "execute [FONATEL].[spObtenerAnno] @idIndicador";
 
+            List<Combos> lista = null;
+
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
+            {
+                lista = connection.Query<Combos>(SqlQuery, new { idIndicador = IdIndicador }).ToList();
+            }
+            return lista;
+        }
+
+        /// <summary>
+        /// Obtiene las categorias por indicador
+        /// </summary>
+        /// <param name="IdIndicador">Id del Indicador</param>
+        /// <returns>Indicador</returns>
+        [HttpGet]
+        [Route("/api/DescargaIndicadores/GetMes")]
+        [ProducesResponseType(typeof(List<Combos>), 200)]
+        public ActionResult<IEnumerable<Combos>> GetMes(int IdIndicador)
+        {
+            var SqlQuery = "execute [FONATEL].[spObtenerMes] @idIndicador";
+
+            List<Combos> lista = null;
+
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
+            {
+                lista = connection.Query<Combos>(SqlQuery, new { idIndicador = IdIndicador }).ToList();
+            }
+            return lista;
+        }
 
 
         /// <summary>
@@ -197,10 +221,10 @@ namespace GB.SIMEF.API.Controllers
                     // .ToList();
                     break;
                 default:
-                     indicadores = db.DimDefinicionIndicador
-                     .Where(x => (x.Idgrupo == IdGrupo))
-                     .Select(x => new DimDefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion,IdTipoindicador = x.IdTipoindicador })
-                     .ToList();
+                    indicadores = db.DimDefinicionIndicador
+                    .Where(x => (x.Idgrupo == IdGrupo))
+                    .Select(x => new DimDefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion, IdTipoindicador = x.IdTipoindicador })
+                    .ToList();
                     break;
             }
             //Retorna lista de indicadores
@@ -215,16 +239,16 @@ namespace GB.SIMEF.API.Controllers
         /// <returns>Lista de indicadores</returns>
         internal List<IndicadorViewModel> FiltrarTipo(List<DimDefinicionIndicador> indicadores, string tipo)
         {
-            var indicadoresViewModel = new List<IndicadorViewModel>();           
+            var indicadoresViewModel = new List<IndicadorViewModel>();
             switch (tipo)
             {
-                
+
                 case "Gestion":
                     //Tipo Suscripción
                     indicadoresViewModel = indicadores.Where(x => x.IdTipoindicador == 2)
                         .Select(x => new IndicadorViewModel { IdIndicador = x.IdIndicador.ToString(), NombreIndicador = x.Nombre, DefinicionIndicador = x.Definicion })
                         .ToList();
-                     
+
                     break;
                 case "Tráfico":
                 case "Trafico":
@@ -241,14 +265,160 @@ namespace GB.SIMEF.API.Controllers
                     break;
                 case "General":
                     //Tipo General
-                   // List<int> rechazados = new List<int>() { 5, 7, 10, 11, 12, 13, 14 };
-                   // indicadoresViewModel = indicadores.Where(x => x.IndicadorDireccion.Any(y => y.IdDireccion == 1) && (!rechazados.Contains(x.IdTipoInd)))
-                   //.Select(x => new IndicadorViewModel { IdIndicador = x.IdIndicador, NombreIndicador = x.NombreIndicador, DefinicionIndicador = x.DefinicionIndicador })
-                   //  .ToList();
+                    // List<int> rechazados = new List<int>() { 5, 7, 10, 11, 12, 13, 14 };
+                    // indicadoresViewModel = indicadores.Where(x => x.IndicadorDireccion.Any(y => y.IdDireccion == 1) && (!rechazados.Contains(x.IdTipoInd)))
+                    //.Select(x => new IndicadorViewModel { IdIndicador = x.IdIndicador, NombreIndicador = x.NombreIndicador, DefinicionIndicador = x.DefinicionIndicador })
+                    //  .ToList();
                     break;
             }
             //Retorna lista de indicadores
             return indicadoresViewModel;
         }
+
+        /// <summary>
+        /// Obtiene los resultados
+        /// </summary>
+        /// <param name="IdIndicador">Id del indicador</param>
+        /// <param name="variable">Id del variable</param>
+        /// <param name="desde">Fecha desde</param>
+        /// <param name="hasta">Fecha hasta</param>
+        /// <param name="idCategoria">categoria</param>
+        /// <returns>Indicador</returns>
+        [HttpGet]
+        [Route("/api/DescargaIndicadores/GetResultado")]
+        [ProducesResponseType(typeof(InformeResultadoIndicadorSalida), 200)]
+        public ActionResult<InformeResultadoIndicadorSalida> GetResultado(int IdIndicador, string variable, string desde, string hasta, int idCategoria)
+        {
+            var SqlQuery = "execute [FONATEL].[spObtenerDimResultadoIndicador] @pi_Desde, @pi_Hasta, @pi_Variable, @pi_IdCategoria, @pi_IdIndicador";
+
+            List<InformeResultadoIndicador> lista = null;
+
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
+            {
+                lista = connection.Query<InformeResultadoIndicador>(SqlQuery, new { pi_Desde = desde, pi_Hasta = hasta, pi_Variable = variable, pi_IdCategoria = idCategoria, pi_IdIndicador = IdIndicador }).ToList();
+            }
+            
+            InformeResultadoIndicadorSalida salida = new InformeResultadoIndicadorSalida();
+                
+            if (lista != null) 
+            {
+                salida.Encabezados = lista.GroupBy(g => g.AnnoMes).Select(encabezado => encabezado.Key).ToList();
+                var elementos = lista.Where(c => c.Categoria != null && c.Categoria != "" ).GroupBy(g => g.Categoria).Select(categoria => categoria.Key).ToList();
+                salida.Datos = new List<InformeResultadoDatos>();
+
+                if (elementos.Count > 0)
+                {
+                    foreach (var categoria in elementos)
+                    {
+                        InformeResultadoDatos informeResultadoDatos = new InformeResultadoDatos();
+                        informeResultadoDatos.Categoria = categoria;
+                        informeResultadoDatos.Variable = lista.Where(v => v.Categoria == categoria).Select(v => v.Variable).First();
+                        informeResultadoDatos.Valores = new Dictionary<string, double>();
+
+                        var query = lista.Where(v => v.Categoria == categoria).Select(v => new { v.AnnoMes, v.Total});
+
+                        foreach (var item in query)
+                        {
+                            informeResultadoDatos.Valores.Add(item.AnnoMes,item.Total);
+                        }
+
+                        salida.Datos.Add(informeResultadoDatos);
+                    }
+                }
+                else
+                {
+                    elementos = lista.GroupBy(g => g.Variable).Select(variable => variable.Key).ToList();
+
+                    foreach (var variableCategoria in elementos)
+                    {
+                        InformeResultadoDatos informeResultadoDatos = new InformeResultadoDatos();
+                        informeResultadoDatos.Categoria = null;
+                        informeResultadoDatos.Variable = variableCategoria;
+                        informeResultadoDatos.Valores = new Dictionary<string, double>();
+
+                        var query = lista.Where(v => v.Variable == variableCategoria).Select(v => new { v.AnnoMes, v.Total });
+
+                        foreach (var item in query)
+                        {
+                            informeResultadoDatos.Valores.Add(item.AnnoMes, item.Total);
+                        }
+
+                        salida.Datos.Add(informeResultadoDatos);
+                    }
+                }
+                
+
+                salida.Totales = new Dictionary<string, double>();
+                foreach (var encabezado in salida.Encabezados)
+                {
+                    double total = lista.Where(e => e.AnnoMes == encabezado).Sum(e => e.Total);
+                    salida.Totales.Add(encabezado, total);
+                }
+            }
+
+            return salida;
+        }
+
+        /// <summary>
+        /// Obtiene los detalles de categoria
+        /// </summary>
+        /// <param name="IdIndicador">Id del Indicador</param>
+        /// <returns>Indicador</returns>
+        [HttpGet]
+        [Route("/api/DescargaIndicadores/GetDetalleCategoria")]
+        [ProducesResponseType(typeof(List<IndicadorResultado>), 200)]
+        public ActionResult<IEnumerable<IndicadorResultado>> GetDetalleCategoria(int IdIndicador)
+        {
+            var lista = db.IndicadorResultado.Where(x => x.IdIndicador == IdIndicador && x.VariableDato == false).Select(x => new IndicadorResultado
+            {
+                idResultado = x.idResultado,
+                IdIndicador = x.IdIndicador,
+                NombreIndicador = x.NombreIndicador,
+                EstadoIndicador = x.EstadoIndicador,
+                CodigoIndicador = x.CodigoIndicador,
+                IdSolicitud = x.IdSolicitud,
+                NombreSolicitud = x.NombreSolicitud,
+                CodigoSolicitud = x.CodigoSolicitud,
+                NombreFuente = x.NombreFuente,
+                IdFormulario = x.IdFormulario,
+                CodigoFormulario = x.CodigoFormulario,
+                NombreFormulario = x.NombreFormulario,
+                idMes = x.idMes,
+                Mes = x.Mes,
+                idGrupo = x.idGrupo,
+                NombreGrupo = x.NombreGrupo,
+                IdClasificacion = x.IdClasificacion,
+                NombreClasificacion = x.NombreClasificacion,
+                IdAnno = x.IdAnno,
+                Anno = x.Anno,
+                NumeroFila = x.NumeroFila,
+                IdColumna = x.IdColumna,
+                NombreColumna = x.NombreColumna,
+                ValorColumna = x.ValorColumna,
+                VariableDato = x.VariableDato,
+                AnnoMes = x.AnnoMes,
+            }).ToList();
+            return lista;
+        }
+
+        /// <summary>
+        /// Obtiene la definicion del indicador seleccionada
+        /// </summary>
+        [HttpGet]
+        [Route("/api/DescargaIndicadores/GetDefinicion")]
+        [ProducesResponseType(typeof(DimDefinicionIndicador), 200)]
+        public ActionResult<DimDefinicionIndicador> GetDefinicion(int tipo,int grupo,int indicador)
+        {
+            DimDefinicionIndicador definicion = db.DimDefinicionIndicador.Where(x => x.IdTipoindicador == tipo &&
+            x.Idgrupo == grupo && x.IdIndicador == indicador).Select(x => new DimDefinicionIndicador
+            {
+              
+                Nombre = x.Nombre,
+                Fuente=x.Fuente,
+                Notas=x.Notas,
+            }).FirstOrDefault();
+            return definicion;
+        }
+
     }
 }

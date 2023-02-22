@@ -1,4 +1,4 @@
-<!--LINKS CSS-->
+<!--LINKS-->
 <link href="assets/css/bootstrap.min.css" rel="stylesheet">
 <link href="assets/css/animate.min.css" rel="stylesheet">
 <link href="assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet">
@@ -19,9 +19,9 @@
 <meta name="viewport" content="width=device-width">
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
-<link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet">
+<link href="/assets/css/pe-icon-7-stroke.css" rel="stylesheet">
 <link href="https://cdn.rawgit.com/bantikyan/icheck-bootstrap/master/icheck-bootstrap.min.css" rel="stylesheet">
-<!--STYLES CSS-->
+<!--STYLE CSS-->
 <style type="text/css">
     #right-nav>li {
         margin-bottom: 10px;
@@ -41,47 +41,45 @@
         transition: opacity 0.35s, transform 0.35s;
     }
 </style>
-<!--BODY-->
 <div class="">
     <!--SIDEBAR-->
     <div class="sidebar" data-color="blue" data-image="image/sidebar-5.jpg">
         <div class="sidebar-wrapper">
             <!--LOGO-->
-            <div style="margin-bottom:40px"><a href="Indicadores"><img src="image/asd1.png"
+            <div style="margin-bottom:40px"><a href="/Indicadores"><img alt="Logo" src="image/asd1.png"
                         style="padding: inherit;" width="95%"></a></div>
-            <!--ENLACES-->
-            <ul class="nav" id="right-nav" style="list-style:none;list-style: none;">
-                <!--ENLACE GRAFICOS-->
+            <!--NAVBAR-->
+            <ul class="nav" id="right-nav" style="list-style:none;">
+                <!--GRAFICOS LINK-->
                 <li style="text-align: center;padding-top: auto;">
                     <figure class="effect-bubba"
                         style="height: 80px;margin-top: 0px !important;padding-top: 20px;background: #006671;"><a
-                            href="/SUTELnew/Graficos" style="height: 80px;width: 80%;margin-left: 10%;">GRÁFICO<br>DE
+                            href="/graficosIndicadores" style="height: 80px;width: 80%;margin-left: 10%;">GR�FICO<br>DE
                             INDICADORES</a>
-                        <figcaption class="navbar-rigth">&nbsp;</figcaption><a href="/SUTELnew/Graficos"
+                        <figcaption class="navbar-rigth">&nbsp;</figcaption><a href="/graficosIndicadores"
                             style="height: 80px;width: 80%;margin-left: 10%;"> </a>
                     </figure>
                 </li>
-                <!--ENLACE DEFINICIONES-->
+                <!--DEFINICIONES LINK-->
                 <li style="text-align: center;padding-top: auto;">
                     <figure class="effect-bubba"
                         style="height: 80px;margin-top: 0px !important;padding-top: 30px;background: #006671;"><a
-                            href="/SUTELnew/definiciones"
-                            style="height: 80px;width: 80%;margin-left: 10%;">CAT�LOGO</a>
-                        <figcaption class="navbar-rigth">&nbsp;</figcaption><a href="/SUTELnew/definiciones"
+                            href="/definiciones" style="height: 80px;width: 80%;margin-left: 10%;">DEFINICIONES</a>
+                        <figcaption class="navbar-rigth">&nbsp;</figcaption><a href="/definiciones"
                             style="height: 80px;width: 80%;margin-left: 10%;"> </a>
                     </figure>
                 </li>
-                <!--ENLACE DESCARGA-->
+                <!--DESCARGA LINK-->
                 <li style="text-align: center;padding-top: auto;">
                     <figure class="effect-bubba"
                         style="height: 80px;margin-top: 0px !important;padding-top: 20px;background: #006671;"><a
-                            href="/SUTELnew/Descarga" style=" height: 80px;width: 80%;margin-left: 10%;">DESCARGA<br>DE
-                            INDICADORES</a>
-                        <figcaption class="navbar-rigth">&nbsp;</figcaption><a href="/SUTELnew/Descarga"
+                            href="/descargaIndicadores"
+                            style=" height: 80px;width: 80%;margin-left: 10%;">DESCARGA<br>DE INDICADORES</a>
+                        <figcaption class="navbar-rigth">&nbsp;</figcaption><a href="/descargaIndicadores"
                             style=" height: 80px;width: 80%;margin-left: 10%;"> </a>
                     </figure>
                 </li>
-                <!--ENLACE PUBLICACIONES-->
+                <!--PUBLICACIONES LINK-->
                 <li style="text-align: center;padding-top: auto;">
                     <figure class="effect-bubba"
                         style="height: 80px;margin-top: 0px !important;padding-top: 30px;background: #006671;"><a
@@ -94,8 +92,9 @@
                 </li>
             </ul>
         </div>
-        <div class="sidebar-background" style="background-image: url(/image/sidebar-5.jpg) ">&nbsp;</div>
+        <div class="sidebar-background" style="background-image: url(image/sidebar-5.jpg) ">&nbsp;</div>
     </div>
+    <!--BODY-->
     <div class="main-panel">
         <!-- Content -->
         <div class="content" style="padding: 0px 15px;">
@@ -144,41 +143,12 @@
                                                         <select class="form-control" id="selectvariable"> </select>
                                                     </div>
                                                     
-                                                    <!--CRITERIO-->
-                                                   <!-- <div class="col-sm-3" >
-                                                        <label for="selectCriterio">Categoria1</label>
-                                                        <select class="form-control" id="selectCriterio"> </select>
-                                                    </div>-->
-                                                    <!--GRUPO 1-->
-                                                    <div class="col-sm-2" id="sub1">
-                                                        <label for="selectSub1" id="tSubInd1" style="font-size: medium;color: #000000;font-weight: bold;">Categoria 1</label>
-                                                        <select class="form-control" id="selectSub1"> </select>
-                                                    </div>
-                                                        <br>
-                                                    <!--GRUPO 2-->
-                                                    <div class="col-sm-2" id="sub2">
-                                                        <label for="selectSub2" id="tSubInd2" style="font-size: medium;color: #000000;font-weight: bold;">Categoria 2</label>
-                                                        <select class="form-control" id="selectSub2"> </select>
-                                                    </div>
-                                                    <!--GRUPO 3-->
-                                                    <div class="col-sm-2" id="sub3">
-                                                        <label for="selectSub3" id="tSubInd3" style="font-size: medium;color: #000000;font-weight: bold;">Categoria 3</label>
-                                                        <select class="form-control" id="selectSub3"> </select>
-                                                    </div>
-                                                    <!--GRUPO 4-->
-                                                    <div class="col-sm-2" id="sub4">
-                                                        <label for="selectSub4" id="tSubInd4" style="font-size: medium;color: #000000;font-weight: bold;">Categoria 4</label>
-                                                        <select class="form-control" id="selectSub4"> </select>
-                                                    </div>
-                                                    <!--GRUPO 5-->
-                                                    <div class="col-sm-2" id="sub5">
-                                                        <label for="selectSub5" id="tSubInd5"style="font-size: medium;color: #000000;font-weight: bold;">Categoria 5</label>
-                                                        <select class="form-control" id="selectSub5"> </select>
-                                                    </div>
-                                                    <!--GRUPO 6-->
-                                                    <div class="col-sm-2" id="sub6"style="font-size: medium;color: #000000;font-weight: bold;">
-                                                        <label for="selectSub6" id="tSubInd6">Grupo 6</label>
-                                                        <select class="form-control" id="selectSub6"> </select>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-2" id="categorias">
+                                                        <label for="selectcategoria" style="font-size: medium;color: #000000;font-weight: bold;">Categorias Desagregación</label>
+                                                        <select class="form-control" id="selectcategoria"> </select>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -188,30 +158,34 @@
                                                     <div class="col-sm-2">
                                                         <label for="cbAno0"style="font-size: medium;color: #000000;font-weight: bold;">Año Inicial</label>
                                                         <select class="form-control" id="cbAno0"> </select>
+                                                        <small id="cbAno0Help" class="form-text form-text-danger-fonatel hidden" style="color: rgb(255 0 0);">*Campo Requerido</small>
                                                     </div>
                                                     <!--MES INICIAL-->
                                                     <div class="col-sm-3">
                                                         <label for="cbMes0"style="font-size: medium;color: #000000;font-weight: bold;">Mes Inicial</label>
                                                         <select class="form-control" id="cbMes0"> </select>
+                                                        <small id="cbMes0Help" class="form-text form-text-danger-fonatel hidden" style="color: rgb(255 0 0);">*Campo Requerido</small>
                                                     </div>
                                                     <!--AÑO LIMITE-->
                                                     <div class="col-sm-2">
                                                         <label for="cbAno1"style="font-size: medium;color: #000000;font-weight: bold;">Año Límite</label>
                                                         <select class="form-control" id="cbAno1"> </select>
+                                                        <small id="cbAno1Help" class="form-text form-text-danger-fonatel hidden" style="color: rgb(255 0 0);">*Campo Requerido</small>
                                                     </div>
                                                     <!--MES LIMITE-->
                                                     <div class="col-sm-3">
                                                         <label for="cbMes1"style="font-size: medium;color: #000000;font-weight: bold;">Mes Límite</label>
                                                         <select class="form-control" id="cbMes1"> </select>
+                                                        <small id="cbMes1Help" class="form-text form-text-danger-fonatel hidden" style="color: rgb(255 0 0);">*Campo Requerido</small>
                                                     </div>
                                                     <!--BOTON BUSCAR-->
                                                     <div style="align-content:center ;">
                                                     <div class="col-sm-1" style="margin-top: 25px; margin-left: 450px;">
-                                                        <a class="btn btn-blue" id="add"  href="Tabladescarga.html" style="color: #ffffff !important;">Generar Tabla</a>
+                                                        <a class="btn btn-blue" id="add"   onclick="EnvioDatos();" style="color: #ffffff !important;">Generar Tabla</a>
                                                        
                                                     </div> 
                                                     <div class="col-sm-1" style="margin-top: 25px;margin-left: 20px;">
-                                                        <a class="btn btn-blue" id="Reiniciar" onclick="buscar(); " href=""  style="color: #ffffff !important;">Borrar Filtros</a>
+                                                        <a class="btn btn-blue" id="Reiniciar" onclick="window.location.reload();" href=""  style="color: #ffffff !important;">Borrar Filtros</a>
                                                         
                                                     </div>
                                                     </div>
@@ -258,60 +232,60 @@
         </div>
     </div>
 </div>
-<div class="main-panel">&nbsp;</div>
-<div id="wrapper">
-    <div class="overlay">&nbsp;</div><!-- Sidebar -->
-    <nav class="navbar  navbar-fixed-top" id="sidebar-wrapper" role="navigation"
-        style="background-color: white !important">
-        <!--ENLACES-->
-        <ul class="nav sidebar-nav">
-            <!--INDICADORES LINK-->
-            <li style="margin-bottom: 100px;">
-                <div class="user-view" style="height:200px;">
-                    <div class="background"><a href="Indicadores"><img src="Sutel/image/asd1.png"
-                                style="padding: inherit;" width="95%"></a>
+    <div id="wrapper">
+        <div class="overlay">&nbsp;</div><!-- Sidebar -->
+        <!--NAVBAR-->
+        <nav class="navbar  navbar-fixed-top" id="sidebar-wrapper" role="navigation"
+            style="background-color: white !important">
+            <!--LINKS-->
+            <ul class="nav sidebar-nav">
+                <!--LOGO-->
+                <li style="margin-bottom: 100px;">
+                    <div class="user-view" style="height:200px;">
+                        <div class="background">
+                            <a href="/Indicadores">
+                                <img alt="Logo" src="image/asd1.png" style="padding: inherit;" width="95%"></a>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <!--GRAFICOS LINK-->
-            <li><a class="waves-effect " href="graficosSutel"><i class="material-icons">bar_chart</i> Gr�fico de
-                    Indicadores</a></li>
-            <!--DEFINICIONES LINK-->
-            <li><a class="waves-effect modal-trigger " href="definiciones"><i class="material-icons">edit</i>
-                    Definiciones</a></li>
-            <!--DESCARGA LINK-->
-            <li><a class="waves-effect modal-trigger" href="descargaIndicadores"><i
-                        class="material-icons">cloud_download</i> Descarga de Indicadores</a></li>
-            <!--PUBLICACIONES LINK-->
-            <li><a class="waves-effect modal-trigger" href="https://www.sutel.go.cr/informes-indicadores"><i
-                        class="material-icons">tab</i> Publicaciones</a></li>
-        </ul>
-    </nav>
-    <!--HAMBURGER-->
-    <div id="page-content-wrapper">
-        <div class="container"><button class="hamburger is-closed" data-toggle="offcanvas" type="button"><span
-                    class="hamb-top"></span> <span class="hamb-middle"></span> <span
-                    class="hamb-bottom"></span></button></div>
+                </li>
+                <!--DEFINICIONES LINK-->
+                <li><a class="waves-effect modal-trigger " href="/definiciones"><i class="material-icons">edit</i>
+                        Definiciones</a></li>
+                <!--DESCARGA LINK-->
+                <li><a class="waves-effect modal-trigger" href="/descargaIndicadores"><i
+                            class="material-icons">cloud_download</i> Descarga de Indicadores</a></li>
+                <!--GRAFICO LINK-->
+                <li><a class="waves-effect " href="/graficosIndicadores"><i class="material-icons">bar_chart</i> Gr�fico
+                        de Indicadores</a></li>
+                <!--PUBLICACIONES LINK-->
+                <li><a class="waves-effect modal-trigger" href="https://www.sutel.go.cr/informes-indicadores"><i
+                            class="material-icons">tab</i> Publicaciones</a></li>
+            </ul>
+        </nav><!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container"><button class="hamburger is-closed" data-toggle="offcanvas" type="button"><span
+                        class="hamb-top"></span> <span class="hamb-middle"></span> <span
+                        class="hamb-bottom"></span></button></div>
+        </div><!-- /#page-content-wrapper -->
     </div>
-</div>
-<!--SCRIPTS-->
-
-<script src="js/jquery.min.js"></script>
-<!--<script src="js/scripts.js"></script>-->
-<script src="js/consulta.js"></script>
-<script src="js/Descarga.js"></script>
-<script src="js/jquery.backstretch.min.js"></script>
-<script src="js/datatable/jquery.dataTables.js"></script>
-<script src="js/datatable/dataTables.bootstrap.js"></script>
-<script src="js/datatable/dataTables.buttons.min.js"></script>
-<script src="js/datatable/buttons.flash.min.js"></script>
-<script src="js/datatable/jszip.min.js"></script>
-<script src="js/datatable/pdfmake.min.js"></script>
-<script src="js/datatable/vfs_fonts.js"></script>
-<script src="js/datatable/buttons.html5.min.js"></script>
-<script src="js/datatable/buttons.print.min.js"></script>
-<script src="js/datatable/dataTables.keyTable.min.js"></script>
-<script src="js/datatable/dataTables.responsive.min.js"></script>
-<script src="js/datatable/responsive.bootstrap.min.js"></script>
-<script src="js/datatable/dataTables.scroller.min.js"></script>
-<script src="js/datatable/dataTables.fixedHeader.min.js"></script>
+    <!--SCRIPTS-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/consulta.js"></script>
+    <!-- <script src="js/Graficos.js"></script> -->
+    <script src="js/jquery.backstretch.min.js"></script>
+    <script src="js/datatable/jquery.dataTables.js"></script>
+    <script src="js/datatable/dataTables.bootstrap.js"></script>
+    <script src="js/datatable/dataTables.buttons.min.js"></script>
+    <script src="js/datatable/buttons.flash.min.js"></script>
+    <script src="js/datatable/jszip.min.js"></script>
+    <script src="js/datatable/pdfmake.min.js"></script>
+    <script src="js/datatable/vfs_fonts.js"></script>
+    <script src="js/datatable/buttons.html5.min.js"></script>
+    <script src="js/datatable/buttons.print.min.js"></script>
+    <script src="js/datatable/dataTables.keyTable.min.js"></script>
+    <script src="js/datatable/dataTables.responsive.min.js"></script>
+    <script src="js/datatable/responsive.bootstrap.min.js"></script>
+    <script src="js/datatable/dataTables.scroller.min.js"></script>
+    <script src="js/datatable/dataTables.fixedHeader.min.js"></script>

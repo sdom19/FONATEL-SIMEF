@@ -20,6 +20,7 @@ namespace SIMEF.API.Models
         }
 
         [Key]
+        public int IdTablaIndicador { get; set; }
         public int idIndicador { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
@@ -43,6 +44,9 @@ namespace SIMEF.API.Models
         public string UsuarioModificacion { get; set; }
         public bool VisualizaSigitel { get; set; }
         public int idEstado { get; set; }
+        public string NombreEstado { get; set; }
+        public int idCategoria { get; set; }
+        public string NombreCategoria { get; set; }
         //public virtual ClasificacionIndicadores ClasificacionIndicadores { get; set; }
         //public virtual EstadoRegistro EstadoRegistro { get; set; }
         //public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
