@@ -30,17 +30,12 @@
                 <td>@item.Estado</td>
                 @if (item.IdEstado == (int)Constantes.EstadosRegistro.Enviado)
                 {
-                    <td>
-                        <button type="button" data-toggle="tooltip" data-placement="top" onclick="location.href='@Url.Action("Edit", "EditarFormulario",new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'" title=@EtiquetasViewEditarRegistroIndicador.Editar class="btn-icon-base btn-edit"></button>
-                        <button type="button" data-toggle="tooltip" data-placement="top" onclick="location.href='@Url.Action("DescargarExcel", "EditarFormulario", new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'" title=@EtiquetasViewEditarRegistroIndicador.Descargar class="btn-icon-base btn-download"></button>
-                    </td>
+            <td>
+                <button type="button" data-toggle="tooltip" data-placement="top" id="BtnEditarPrincipal" onclick="location.href='@Url.Action("Edit", "EditarFormulario", new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )'" title=@EtiquetasViewEditarRegistroIndicador.Editar class="btn-icon-base btn-edit"></button>
+                <button type="button" data-toggle="tooltip" data-placement="top" onclick="DescargarExcelPrincipal('@Url.Action("DescargarExcel", "EditarFormulario", new {idSolicitud= item.Solicitudid, idFormulario=item.FormularioId } )')" title=@EtiquetasViewEditarRegistroIndicador.Descargar class="btn-icon-base btn-download"></button>
+            </td>
 
                 }
-                else
-                {
-                    <td><button type="button" data-toggle="tooltip" data-placement="top" value="" title=@EtiquetasViewRegistroIndicadorFonatel.LLenadoWeb class="btn-icon-base btn-edit-form disabled"></button></td>
-                }
-
             </tr>
             }
 
