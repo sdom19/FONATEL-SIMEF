@@ -12,6 +12,8 @@
 
         //TABLA PRINCIPAL DE EDITAR REGISTRO
         "TablaEditarRegistroIndicador": "#TablaEditarRegistroIndicador tbody",
+        "BtnDescargaTablaPrincipal": "#BtnDescargaPrincipal",
+        "BtnEditarTablaPrincipal": "#BtnEditarPrincipal",
 
         //TABLA DETALLES
         "tablaIndicadorActivo": "div.tab-pane.active .data-table-indicador",
@@ -371,7 +373,7 @@
                         jsRegistroIndicadorFonatelEdit.Consultas.InsertarRegistroIndicadorDetalleValor();
 
                         if (jsRegistroIndicadorFonatelEdit.Variables.GuardadoTotal) {
-                            jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido guardado")
+                            jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido editado")
                             .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index";});
                         }
 
@@ -507,7 +509,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardarRegis
 
     if (jsRegistroIndicadorFonatelEdit.Metodos.ValidarCampos()) {
 
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar un guardado parcial del Formulario Web?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 var cantIndicadores = parseInt($(jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador).val());
                 for (var i = 1; i <= cantIndicadores; i++) {
@@ -527,7 +529,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistr
 
     e.preventDefault();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga del Formulario Web?", jsMensajes.Variables.actionType.agregar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga del Formulario Web?", jsMensajes.Variables.actionType.cargar)
         .set('onok', function (closeEvent) {
 
             let guardadoTotal = true;
@@ -538,7 +540,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistr
 });
 
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro, function () {
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar la Plantilla?", null, "Descargar Registro")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario Web?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
 
             var idSolicitud = ObtenerValorParametroUrl("idSolicitud");
@@ -583,6 +585,13 @@ $(document).on("keypress", jsRegistroIndicadorFonatelEdit.Controles.txtCantidadR
         jsRegistroIndicadorFonatelEdit.Consultas.ConsultaRegistroIndicadorDetalle(true);
     }
 });
+
+function DescargarExcelPrincipal(URL) {
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario Web?", null, "Descargar Registro")
+        .set('onok', function (closeEvent) {
+            location.href = URL;
+        });
+}
 
 /*
  Evento que captura los eventos de siguiente y atras de los datatables.

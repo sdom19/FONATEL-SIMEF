@@ -63,26 +63,26 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.ReglasVariableIngresada);
                 }
+
                 if (objeto.reglaAtributosValidos != null)
                 {
-                    if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.reglaAtributosValidos.IdCategoria == objeto.reglaAtributosValidos.IdCategoria && x.Estado == true).Count() > 0)
+                    if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdDetalleReglaValidacion != objeto.IdDetalleReglaValidacion && x.IdTipo == objeto.IdTipo && x.reglaAtributosValidos.IdCategoria == objeto.reglaAtributosValidos.IdCategoria && x.Estado == true).Count() > 0)
                     {
                         ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.ReglasCategoriaIngresada);
                     }
                 }
+
                 if (objeto.reglaSecuencial != null)
                 {
-                    if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.reglaSecuencial.IdCategoria == objeto.reglaSecuencial.IdCategoria && x.Estado == true).Count() > 0)
+                    if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdDetalleReglaValidacion != objeto.IdDetalleReglaValidacion && x.IdTipo == objeto.IdTipo && x.reglaSecuencial.IdCategoria == objeto.reglaSecuencial.IdCategoria && x.Estado == true).Count() > 0)
                     {
                         ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.ReglasCategoriaIngresada);
                     }
                 }
-                else
-                {
 
-                    var resul = clsDatos.ActualizarDatos(objeto);
+                var resul = clsDatos.ActualizarDatos(objeto);
                     objeto.IdDetalleReglaValidacion = resul.Single().IdDetalleReglaValidacion;
                     AgregarTipoDetalleReglaValidacion(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
@@ -97,7 +97,7 @@ namespace GB.SIMEF.BL
                             ResultadoConsulta.Usuario,
                                 ResultadoConsulta.Clase, objeto.IdDetalleReglaValidacion.ToString()
                                 , JsonActual, JsonAnterior, "");
-                }
+                
 
 
             }
@@ -187,6 +187,15 @@ namespace GB.SIMEF.BL
                 if (objeto.reglaAtributosValidos != null)
                 {
                     if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.reglaAtributosValidos.IdCategoria == objeto.reglaAtributosValidos.IdCategoria && x.Estado == true).Count() > 0)
+                    {
+                        ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                        throw new Exception(Errores.ReglasCategoriaIngresada);
+                    }
+                }
+
+                if (objeto.reglaSecuencial != null)
+                {
+                    if (BuscarDatos.Where(x => x.IdRegla == objeto.IdRegla && x.IdTipo == objeto.IdTipo && x.reglaSecuencial.IdCategoria == objeto.reglaSecuencial.IdCategoria && x.Estado == true).Count() > 0)
                     {
                         ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.ReglasCategoriaIngresada);
