@@ -672,8 +672,10 @@
                                 .set('onok', function (closeEvent) { location.reload(); })
                         }
                     }).catch((obj) => {
-                        jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Detalles")
-                            .set('onok', function (closeEvent) { location.reload(); })
+                        if (obj != undefined) {
+                            jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Detalles")
+                                .set('onok', function (closeEvent) { location.reload(); })
+                        }
                     }).finally(() => {
                         $("#loading").fadeOut();
                     });
