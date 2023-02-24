@@ -65,55 +65,49 @@ namespace GB.SIMEF.BL
         private bool ValidarCantidadIndicadores(FormularioWeb formularioWebNuevo)
         {
             bool resultadoValidacion = false;
-            try
+
+            formularioWebNuevo.idEstado = 0;
+            string[] arrayIndicadores = new string[] { };
+            int cantidadIndicadores = 0;
+            FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
+            if (formularioWebViejo.ListaIndicadores != null)
             {
-                formularioWebNuevo.idEstado = 0;
-                string[] arrayIndicadores = new string[] { };
-                int cantidadIndicadores = 0;
-                FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(formularioWebNuevo).Single();
-                if (formularioWebViejo.ListaIndicadores != null)
-                {
-                    arrayIndicadores = formularioWebViejo.ListaIndicadores.Split(',');
-                    cantidadIndicadores = arrayIndicadores.Count();
-                }
-                if (cantidadIndicadores > 0)
-                {
-                    if (formularioWebNuevo.CantidadIndicadores < cantidadIndicadores)
-                    {
-                        resultadoValidacion = true;
-                        ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                        throw new Exception(Errores.CantidadIndicadoresMenor);
-                    }
-                }
-                else
+                arrayIndicadores = formularioWebViejo.ListaIndicadores.Split(',');
+                cantidadIndicadores = arrayIndicadores.Count();
+            }
+            if (cantidadIndicadores > 0)
+            {
+                if (formularioWebNuevo.CantidadIndicadores < cantidadIndicadores)
                 {
                     resultadoValidacion = true;
                 }
             }
-            catch (Exception ex)
+            else
             {
-                if (ResultadoConsulta.HayError != (int)Error.ErrorControlado)
-                {
-
-                    ResultadoConsulta.HayError = (int)Error.ErrorSistema;
-                }
-                ResultadoConsulta.MensajeError = ex.Message;
+                resultadoValidacion = true;
             }
+
             return resultadoValidacion;
         }
 
         private int ValidarEstado(FormularioWeb obj)
         {
             FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(obj).Single();
-            if (ValidarCantidadIndicadores(obj) || obj.Descripcion == null || obj.Descripcion == "" ||
-                    obj.CantidadIndicadores == 0 || obj.idFrecuencia == 0)
+            if (obj.Descripcion == null || obj.Descripcion == "" || obj.CantidadIndicadores == 0 || obj.idFrecuencia == 0)
+            { 
                 if (formularioWebViejo.EstadoRegistro.idEstado == (int)Constantes.EstadosRegistro.Desactivado)
-                
+                { 
                     return (int)Constantes.EstadosRegistro.Desactivado;
+                }
                 else
+                { 
                     return (int)Constantes.EstadosRegistro.EnProceso;
+                }
+            }
             else
+            { 
                 return (int)Constantes.EstadosRegistro.Activo;
+            }
         }
 
         public RespuestaConsulta<List<FormularioWeb>> ActualizarElemento(FormularioWeb objeto)
@@ -123,15 +117,28 @@ namespace GB.SIMEF.BL
                 var objetoAnterior = new FormularioWeb { idFormulario = objeto.idFormulario, idEstado = 0, Codigo = objeto.Codigo };
                 objetoAnterior.idFormulario = DesencriptarId(objetoAnterior.id);
                 List<FormularioWeb> buscarRegistro = clsDatos.ObtenerDatos(new FormularioWeb());
+                
+                string jsonAnterior = clsDatos.ObtenerDatos(objetoAnterior).FirstOrDefault().ToString();
+                objeto.idFormulario = DesencriptarId(objeto.id); 
+                
                 if (buscarRegistro.Where(x => x.Nombre.ToUpper().TrimStart().TrimEnd() == objeto.Nombre.ToUpper().TrimStart().TrimEnd() && x.Codigo.ToUpper().TrimStart().TrimEnd() != objeto.Codigo.ToUpper().TrimStart().TrimEnd()).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
 
-                string jsonAnterior = clsDatos.ObtenerDatos(objetoAnterior).FirstOrDefault().ToString();
+                if (buscarRegistro.Where(X => X.Codigo.ToUpper() == objeto.Codigo.ToUpper() && !X.id.Equals(objeto.id)).ToList().Count() > 0)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(Errores.CodigoRegistrado);
+                }
 
-                objeto.idFormulario = DesencriptarId(objeto.id);
+                if (ValidarCantidadIndicadores(objeto))
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(Errores.CantidadIndicadoresMenor);
+                }
+                
                 objeto.idEstado = ValidarEstado(objeto);
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
@@ -201,7 +208,14 @@ namespace GB.SIMEF.BL
                 var objInicial = clsDatos.ObtenerDatos(new FormularioWeb { idFormulario = objeto.idFormulario});
                 string jsonInicial = objInicial.FirstOrDefault().ToString();
 
-                ValidarCantidadIndicadores(new FormularioWeb() { idFormulario = objeto.idFormulario, Codigo = "", CantidadIndicadores = objeto.CantidadIndicadores });
+                bool validacionCantidad =  ValidarCantidadIndicadores(new FormularioWeb() { idFormulario = objeto.idFormulario, Codigo = "", CantidadIndicadores = objeto.CantidadIndicadores });
+                
+                if (validacionCantidad)
+                {
+                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
+                    throw new Exception(Errores.CantidadIndicadoresMenor);
+                }
+
                 //var ListaDetalleFormulariosWeb = ObtenerDetalleFormularioWeb(objeto.idFormulario);
 
                 // resetear el id original
