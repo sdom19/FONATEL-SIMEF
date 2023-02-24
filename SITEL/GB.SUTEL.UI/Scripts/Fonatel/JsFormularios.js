@@ -354,7 +354,7 @@
             let html = "<tr><td></td>";
             for (var i = 0; i < JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel.length; i++) {
                 let variable = JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorVariableFonatel[i];
-                html = html + "<td><p name='name_" + variable.idVariable + "' class='VariableDato' >1</p></td>";
+                html = html + "<td><input type='number' name='name_" + variable.idVariable + "' class='form-control form-control-fonatel solo_numeros VariableDato' id='[0]-" + variable.idVariable + "'></td>";
                 //html = html + "<td>1</td>";
             }
             for (var i = 0; i < JsFormulario.Variables.detalleIndicadorFonatel.DetalleRegistroIndicadorCategoriaFonatel.length; i++) {
