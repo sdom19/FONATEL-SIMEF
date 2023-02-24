@@ -4,8 +4,10 @@ using GB.SIMEF.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
@@ -293,6 +295,42 @@ namespace GB.SIMEF.BL
                 resultado.MensajeError = ex.Message;
             }
             return resultado;
+        }
+
+        /// <summary>
+        /// Autor:Adofo Cunquero
+        /// Fecha:23/02/2023
+        /// Metodo para consumir API reglas de validacion
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// 
+        public async Task<RespuestaConsulta<string>> AplicarReglasValidacion(DetalleRegistroIndicadorFonatel objeto)
+        {
+            DesencriptarRegistroIndicador(objeto);
+            var result = new RespuestaConsulta<string>();
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(WebConfigurationManager.AppSettings["rutaAPIReglasValidacion"].ToString());
+                    if (response.IsSuccessStatusCode)
+                    {
+                        result.objetoRespuesta = await response.Content.ReadAsStringAsync();
+                    }
+                    else
+                    {
+                        result.HayError = (int)Constantes.Error.ErrorSistema;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.MensajeError = ex.Message;
+                result.HayError = (int)Constantes.Error.ErrorSistema;
+            }
+
+            return result;
         }
     }
 }

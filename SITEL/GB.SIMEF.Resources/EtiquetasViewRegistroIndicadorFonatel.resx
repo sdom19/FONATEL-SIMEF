@@ -169,7 +169,7 @@
     <value>La Fecha ingresada no cumple con el rango establecido</value>
   </data>
   <data name="RegistroIndicador" xml:space="preserve">
-    <value>Registro de Indicador</value>
+    <value>Registro Indicador</value>
   </data>
   <data name="SistemaAutomatico" xml:space="preserve">
     <value>Sistema automático</value>
