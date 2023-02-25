@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using GB.SUTEL.UI.Filters;
 using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
@@ -59,6 +60,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Detalle(string idregla)
         {
 
@@ -80,6 +82,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Create(string id, int? modo)
         {
             ViewBag.Modo = modo.ToString();
@@ -294,6 +297,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="objetoRegla"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarReglaValidacion(ReglaValidacion objeto)
         {
 
@@ -315,6 +319,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="objetoRegla"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ClonarReglaValidacion(ReglaValidacion objeto)
         {
 
@@ -336,6 +341,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EditarReglaValidacion(ReglaValidacion objeto)
         {
             RespuestaConsulta<List<ReglaValidacion>> result = null;
@@ -357,6 +363,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="objetoTipoRegla"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarDetalleRegla(DetalleReglaValidacion objetoTipoRegla)
         {
 
@@ -378,6 +385,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="objetoTipoRegla"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EditarDetalleRegla(DetalleReglaValidacion objetoTipoRegla)
         {
 
@@ -398,6 +406,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
+        [ConsultasFonatelFilter]
         public async Task<string> ClonarRegla(ReglaValidacion objeto)
         {
             objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
@@ -434,6 +443,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="regla"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarRegla(ReglaValidacion regla)
         {
             RespuestaConsulta<List<ReglaValidacion>> result = null;
@@ -452,6 +462,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="regla"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarDetalleRegla(DetalleReglaValidacion detalleRegla)
         {
 
@@ -473,6 +484,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="regla"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CambioEstado(ReglaValidacion regla)
         {
             RespuestaConsulta<List<ReglaValidacion>> result = null;

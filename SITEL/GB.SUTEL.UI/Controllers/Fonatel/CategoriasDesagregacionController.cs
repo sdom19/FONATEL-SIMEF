@@ -128,7 +128,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [AuthorizeUserAttribute]
-
+        [ConsultasFonatelFilter]
         [HttpGet]
         public ActionResult DescargarExcel(string id)
         {

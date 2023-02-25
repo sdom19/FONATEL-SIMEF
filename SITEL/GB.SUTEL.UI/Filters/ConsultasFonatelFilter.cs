@@ -18,10 +18,18 @@ namespace GB.SUTEL.UI.Filters
             var roles = ((ClaimsIdentity)ctx.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
             if(roles.Contains(Constantes.RolConsultasFonatel))
             {
-                var descriptor = filterContext.ActionDescriptor;
-                var controllerName = descriptor.ControllerDescriptor.ControllerName;
+                if (filterContext.HttpContext.Request.IsAjaxRequest())
+                {
+                    filterContext.HttpContext.Response.StatusCode = 401;
+                    filterContext.Result = new HttpUnauthorizedResult();
+                }
+                else
+                {
+                    var descriptor = filterContext.ActionDescriptor;
+                    var controllerName = descriptor.ControllerDescriptor.ControllerName;
 
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = controllerName, action = Constantes.RedirectActionConsultasFonatel }));
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = controllerName, action = Constantes.RedirectActionConsultasFonatel }));
+                }
             }
         }
     }

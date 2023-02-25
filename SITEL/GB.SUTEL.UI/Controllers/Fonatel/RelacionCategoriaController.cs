@@ -13,6 +13,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using GB.SUTEL.UI.Filters;
 using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
@@ -60,6 +61,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Create(string id)
         {
             RelacionCategoria model = new RelacionCategoria();
@@ -98,6 +100,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Detalle(string idRelacionCategoria)
         {
             RelacionCategoria model = relacionCategoriaBL
@@ -114,13 +117,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
 
-            /// Fecha 16/09/2022
-            /// Francisco Vindas Ruiz
-            /// Validar existencia en Indicadores
-            /// </summary>
-            /// <param name="categoria"></param>
-            /// <returns></returns>
-            [HttpPost]
+        /// Fecha 16/09/2022
+        /// Francisco Vindas Ruiz
+        /// Validar existencia en Indicadores
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ValidarRelacion(RelacionCategoria relacion)
         {
             RespuestaConsulta<List<string>> result = null;
@@ -156,7 +160,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarRelacionCategoria(RelacionCategoria relacion)
         {
 
@@ -187,6 +191,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EditarRelacionCategoria(RelacionCategoria relacion)
         {
 
@@ -216,6 +221,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idRelacionCategoria></param>
         /// <returns>JSON</returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarRelacionCategoria(RelacionCategoria relacionCategoria)
         {
 
@@ -237,6 +243,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="relacion"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CambiarEstadoActivado(RelacionCategoria relacion)
         {
             RespuestaConsulta<List<RelacionCategoria>> result = null;
@@ -257,6 +264,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         #region Metodos ASYN DetalleRelacion Categoria
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarDetalleRelacion(DetalleRelacionCategoria DetalleRelacionCategoria)
         {
             RespuestaConsulta<List<RelacionCategoria>> result = null;
@@ -271,6 +279,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarDetalleRelacion(DetalleRelacionCategoria DetalleRelacionCategoria)
         {
             RespuestaConsulta<List<RelacionCategoria>> result = null;
@@ -292,6 +301,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region Metodos ASYN Excel
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult DescargarExcel(string id)
         {
 
@@ -366,6 +376,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CargarExcel()
         {
 
@@ -399,6 +410,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarRegistroRelacionId(RelacionCategoriaId relacionCategoriaId)
         {
 
@@ -424,6 +436,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarRelacionCategoriaId(RelacionCategoriaId relacionCategoriaId)
         {
 
@@ -438,6 +451,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ObtenerRegistroRelacionId(RelacionCategoriaId relacionCategoriaId)
         {
 
@@ -451,6 +465,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ActualizarRelacionCategoriaId(RelacionCategoriaId relacionCategoriaId)
         {
 

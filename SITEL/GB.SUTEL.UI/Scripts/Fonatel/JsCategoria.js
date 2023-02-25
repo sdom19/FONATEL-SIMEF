@@ -555,17 +555,19 @@
                             });
 
                     }).catch((data) => {
-                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                            jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) {
-                                    location.reload();
-                                });
-                        }
-                        else {
-                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                                .set('onok', function (closeEvent) {
-                                   
-                                });
+                        if (data != undefined) {
+                            if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                                jsMensajes.Metodos.OkAlertErrorModal()
+                                    .set('onok', function (closeEvent) {
+                                        location.reload();
+                                    });
+                            }
+                            else {
+                                jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                    .set('onok', function (closeEvent) {
+
+                                    });
+                            }
                         }
                     }).finally(() => {
                         $("#loading").fadeOut();
@@ -737,17 +739,19 @@
                             }                           
                         }
                     }).catch((obj) => {
-                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                            jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) {
-                                    location.reload();
-                                });
-                        }
-                        else {
-                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                                .set('onok', function (closeEvent) {
-                                    location.reload();
-                                });
+                        if (obj != undefined) {
+                            if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                                jsMensajes.Metodos.OkAlertErrorModal()
+                                    .set('onok', function (closeEvent) {
+                                        location.reload();
+                                    });
+                            }
+                            else {
+                                jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                    .set('onok', function (closeEvent) {
+                                        location.reload();
+                                    });
+                            }
                         }
                     }).finally(() => {
                         $("#loading").fadeOut();
