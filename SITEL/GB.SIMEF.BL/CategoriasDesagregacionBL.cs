@@ -299,11 +299,6 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
-                else if (!Utilidades.rx_soloTexto.Match(objetoClonar.NombreCategoria.Trim()).Success)
-                {
-                    ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "nombre de Categoría"));
-                }
                 else if (!Utilidades.rx_alfanumerico.Match(objetoClonar.Codigo.Trim()).Success)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
