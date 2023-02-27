@@ -82,6 +82,10 @@ namespace GB.SIMEF.BL
                     resultadoValidacion = true;
                 }
             }
+            else if(formularioWebViejo.ListaIndicadores == null)
+            {
+                resultadoValidacion = false;
+            }
             else
             {
                 resultadoValidacion = true;
