@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
@@ -13,6 +14,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using GB.SUTEL.UI.Filters;
 using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
@@ -50,18 +52,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
             return View();
         }
 
         // GET: CategoriasDesagregacion/Details/5
         [AuthorizeUserAttribute]
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Detalle(string idCategoria)
         {
-            if (string.IsNullOrEmpty( idCategoria))
+            if (string.IsNullOrEmpty(idCategoria))
             {
                 return View("Index");
-            }else
+            } else
             {
                 CategoriasDesagregacion objCategoria = new CategoriasDesagregacion();
                 if (!string.IsNullOrEmpty(idCategoria))
@@ -71,11 +76,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
                 return View(objCategoria);
             }
-           
+
         }
 
         [HttpGet]
         [AuthorizeUserAttribute]
+        [ConsultasFonatelFilter]
         public ActionResult Create(string id, int? modo)
         {
             ViewBag.TipoCategoria = TipoCategoriaBL.ObtenerDatos(new TipoCategoria() { })
@@ -89,7 +95,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 objCategoria.id = id;
                 objCategoria = categoriaBL.ObtenerDatos(objCategoria).objetoRespuesta.SingleOrDefault();
-                if (modo==(int)Constantes.Accion.Clonar)
+                if (modo == (int)Constantes.Accion.Clonar)
                 {
                     ViewBag.titulo = EtiquetasViewCategorias.Clonar;
                     objCategoria.Codigo = string.Empty;
@@ -108,7 +114,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             return View(objCategoria);
-           
+
         }
 
 
@@ -124,7 +130,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [AuthorizeUserAttribute]
-
+        [ConsultasFonatelFilter]
         [HttpGet]
         public ActionResult DescargarExcel(string id)
         {
@@ -132,14 +138,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     .ObtenerDatos(new CategoriasDesagregacion() { id = id }).objetoRespuesta.Single();
 
             categoria.DetalleCategoriaTexto = categoriaDetalleBL.ObtenerDatos
-                (new DetalleCategoriaTexto() { idCategoria=categoria.idCategoria }).objetoRespuesta;
+                (new DetalleCategoriaTexto() { idCategoria = categoria.idCategoria }).objetoRespuesta;
             MemoryStream stream = new MemoryStream();
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(categoria.Codigo);
                 worksheetInicio.Cells["A1"].LoadFromCollection(categoria.DetalleCategoriaTexto
-                   
+
                     .Select(i => new { i.Codigo, i.Etiqueta }), true);
                 worksheetInicio.Cells["A1"].Value = "Código";
                 worksheetInicio.Cells["B1"].Value = "Etiqueta";
@@ -180,25 +186,25 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region Métodos de ASYNC Categoria
 
 
-      /// <summary>
-      /// Fecha 04-08-2022
-      /// Michael Hernández Cordero
-      /// Obtiene datos para la table de categorías INDEX
-      /// </summary>
-      /// <returns></returns>
+        /// <summary>
+        /// Fecha 04-08-2022
+        /// Michael Hernández Cordero
+        /// Obtiene datos para la table de categorías INDEX
+        /// </summary>
+        /// <returns></returns>
 
-      [HttpGet]
+        [HttpGet]
         public async Task<string> ObtenerListaCategorias()
         {
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
             await Task.Run(() =>
             {
-               result = categoriaBL.ObtenerDatos(new CategoriasDesagregacion());
+                result = categoriaBL.ObtenerDatos(new CategoriasDesagregacion());
             });
 
             return JsonConvert.SerializeObject(result);
-          
- 
+
+
         }
 
         /// <summary>
@@ -209,6 +215,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="Categoria"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
 
         public async Task<string> CambiarEstadoCategoria(CategoriasDesagregacion categoria)
         {
@@ -240,7 +247,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpPost]
-
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarCategoria(CategoriasDesagregacion categoria)
         {
 
@@ -263,7 +270,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpPost]
-
+        [ConsultasFonatelFilter]
         public async Task<string> EditarCategoria(CategoriasDesagregacion categoria)
         {
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
@@ -287,7 +294,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpPost]
-
+        [ConsultasFonatelFilter]
         public async Task<string> ClonarCategoria(CategoriasDesagregacion categoria)
         {
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
@@ -307,6 +314,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<String> CargaExcel()
         {
             RespuestaConsulta<List<DetalleCategoriaTexto>> resultado = null;
@@ -336,6 +344,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="categoria"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ValidarCategoria(CategoriasDesagregacion categoria)
         {
             RespuestaConsulta<List<string>> result = null;
@@ -386,7 +395,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpPost]
-
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarCategoriasDetalle(DetalleCategoriaTexto DetalleCategoria)
         {
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
@@ -408,7 +417,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpPost]
-
+        [ConsultasFonatelFilter]
         public async Task<string> ModificaCategoriasDetalle(DetalleCategoriaTexto detalleCategoria)
         {
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
@@ -430,6 +439,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idDetalleCategoria"></param>
         /// <returns>JSON</returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarCategoriasDetalle( DetalleCategoriaTexto DetalleCategoriaTexto)
         {
             RespuestaConsulta<List<DetalleCategoriaTexto>> result = null;
@@ -486,6 +496,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="indicador"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CambiarEstadoFinalizado(CategoriasDesagregacion categoria)
         {
             RespuestaConsulta<List<CategoriasDesagregacion>> result = null;

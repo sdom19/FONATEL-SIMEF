@@ -14,6 +14,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using GB.SUTEL.UI.Filters;
 using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
@@ -46,6 +47,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
+
             if (((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault() != null)
             {
                 string nombreUsuario = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault().Value;
@@ -62,6 +66,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Edit(string idSolicitud, string idFormulario)
         {
             RespuestaConsulta<List<RegistroIndicadorFonatel>> model = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel()
@@ -93,6 +98,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idFormulario"></param>
         /// <returns></returns>
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult DescargarExcel(string idSolicitud, string idFormulario)
         {
             MemoryStream stream = new MemoryStream();
@@ -194,6 +200,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idIndicador"></param>
         /// <returns></returns>
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult DescargarExcelUnitario(string idSolicitud, string idFormulario, string idIndicador)
         {
             var Formulario = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormulario, IndicadorId = idIndicador }).objetoRespuesta.Single();
@@ -288,6 +295,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="cantidadFilas"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CargarExcel(Object datos, int cantidadFilas)
         {
             //retonar un detalle registro indicador con result / resultVariable
@@ -411,6 +419,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ActualizarDetalleRegistroIndicador(List<DetalleRegistroIndicadorFonatel> lista)
         {
             RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> result = null;
@@ -427,6 +436,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarRegistroIndicadorVariable(DetalleRegistroIndicadorFonatel ListaDetalleIndicadorValor)
         {
 
@@ -450,6 +460,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="lista"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CargaTotalRegistroIndicador(List<DetalleRegistroIndicadorFonatel> lista)
         {
 

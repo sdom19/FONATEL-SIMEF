@@ -90,6 +90,7 @@
 }
 
 $(document).on("click", JsPublicar.Controles.btnEliminarPublicacion, function () {
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea publicar el Indicador?", jsMensajes.Variables.actionType.estado, "Publicar Registro")
         .set('onok', function (closeEvent) {
@@ -100,6 +101,7 @@ $(document).on("click", JsPublicar.Controles.btnEliminarPublicacion, function ()
 
 $(document).on("click", JsPublicar.Controles.btnPublicar, function (e) {
     e.preventDefault();
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la publicación del Indicador?", jsMensajes.Variables.actionType.agregar, "Desactivar Publicación")
         .set('onok', function (closeEvent) {

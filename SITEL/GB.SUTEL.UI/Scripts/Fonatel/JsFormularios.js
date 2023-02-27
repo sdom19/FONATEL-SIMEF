@@ -770,6 +770,7 @@ $(document).on("change", JsFormulario.Controles.ControlesStep1, function (e) {
 
 // CANCELAR
 $(document).on("click", JsFormulario.Controles.btnCancelar, function (e) {
+    if (consultasFonatel) { return; }
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
@@ -787,6 +788,7 @@ $(document).on("change", JsFormulario.Controles.ControlesStep1, function (e) {
 
 // GUARDAR INDICADOR
 $(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e) {
+    if (consultasFonatel) { return; }
     e.preventDefault();
     if (JsFormulario.Metodos.ValidarFormularioIndicador()) {
         if (JsFormulario.Variables.NuevoIndicador === true) {
@@ -808,6 +810,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e)
 
 // EDITAR INDICADORES
 $(document).on("click", JsFormulario.Controles.btnEditarIndicadores, function () {
+    if (consultasFonatel) { return; }
     let idIndicador = $(this).val();
     let idFormulario =ObtenerValorParametroUrl('id');
     JsFormulario.Variables.NuevoIndicador = false;
@@ -817,12 +820,14 @@ $(document).on("click", JsFormulario.Controles.btnEditarIndicadores, function ()
 
 // EDITAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnEditarFormulario, function () {
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     window.location.href = "/Fonatel/FormularioWeb/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
 
 // CLONAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnCloneFormulario, function () {
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     
             window.location.href = "/Fonatel/FormularioWeb/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
@@ -831,6 +836,7 @@ $(document).on("click", JsFormulario.Controles.btnCloneFormulario, function () {
 
 // GUARDAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
+    if (consultasFonatel) { return; }
     e.preventDefault();
     if (JsFormulario.Metodos.ValidarDatosMinimos()) {
         let modo = ObtenerValorParametroUrl('modo');
@@ -904,6 +910,7 @@ $(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, async fun
 
 // DELETE(BORRAR) FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnDeleteFormulario, function (e) {
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
@@ -913,6 +920,7 @@ $(document).on("click", JsFormulario.Controles.btnDeleteFormulario, function (e)
 
 // DELETE(BORRAR) INDICADOR
 $(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) {
+    if (consultasFonatel) { return; }
     let idIndicador = $(this).val();
     let idFormulario = ObtenerValorParametroUrl("id");
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Indicador?", jsMensajes.Variables.actionType.eliminar)
@@ -928,6 +936,7 @@ $(document).on("click", JsFormulario.Controles.btnDeleteIndicador, function (e) 
 
 // ACTIVAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnDesactivadoFormulario, function (e) {
+    if (consultasFonatel) { return; }
     e.preventDefault();
     let id = $(this).val();
 
@@ -939,6 +948,7 @@ $(document).on("click", JsFormulario.Controles.btnDesactivadoFormulario, functio
 
 // DESACTIVAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (e) {
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Formulario Web?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
@@ -963,6 +973,7 @@ $(document).on("click", JsFormulario.Controles.btnAtrasFormularioVisualizar, fun
 
 // GUARDAR FORMULARIO COMPLETO
 $(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, function (e) {
+    if (consultasFonatel) { return; }
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
         .set('onok', async function (closeEvent) {

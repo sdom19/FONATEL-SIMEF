@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using GB.SUTEL.UI.Helpers;
+using GB.SUTEL.UI.Filters;
+using System.Security.Claims;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -31,6 +33,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
             return View();
 
         }
@@ -70,6 +74,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CambiarEstadoSigitel(Indicador indicador)
         {
             RespuestaConsulta<List<Indicador>> result = null;

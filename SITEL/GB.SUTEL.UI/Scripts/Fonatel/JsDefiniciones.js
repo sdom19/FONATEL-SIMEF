@@ -324,6 +324,7 @@ $(document).on("click", JsDefiniciones.Controles.btnGuardar, function (e) {
 });
 
 $(document).on("click", JsDefiniciones.Controles.btnDeleteDefiniciones, function (e) {
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Definición?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {

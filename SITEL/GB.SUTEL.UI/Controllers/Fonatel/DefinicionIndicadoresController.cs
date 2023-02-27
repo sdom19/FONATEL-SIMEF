@@ -12,8 +12,8 @@ using GB.SIMEF.Resources;
 using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
-
-
+using GB.SUTEL.UI.Filters;
+using System.Security.Claims;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -37,6 +37,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
             return View();
         }
 
@@ -55,6 +57,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Clonar(string id, int? modo)
         {
 
@@ -76,6 +79,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Create(string id, int? modo)
         {
             if (modo==(int)Constantes.Accion.Editar)
@@ -124,6 +128,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarDefinicion(DefinicionIndicador definicion)
         {
 
@@ -146,6 +151,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ActualizarDefinicion(DefinicionIndicador objDefinicion)
         {
 
@@ -173,6 +179,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ClonarDefinicion(DefinicionIndicador objDefinicion)
         {
 
@@ -194,6 +201,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> AgregarDefinicion(DefinicionIndicador objDefinicion)
         {
 

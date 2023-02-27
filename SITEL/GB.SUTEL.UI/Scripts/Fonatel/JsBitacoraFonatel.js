@@ -176,7 +176,7 @@
                     JsBitacora.Variables.ListaBitacora = obj.objetoRespuesta;
                     JsBitacora.Metodos.CargarTablaBitacora();
                 }).catch((data) => {
-                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                    if (data.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
                         jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
                             .set('onok', function (closeEvent) { });
                     }
@@ -200,6 +200,7 @@ $(document).on("click", JsBitacora.Controles.btnBuscarBitacora, function (e) {
 
 $(document).on("click", JsBitacora.Controles.btnCancelar, function (e) {
     e.preventDefault();
+    if (consultasFonatel) { return; }
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
             location.reload()

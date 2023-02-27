@@ -1,10 +1,12 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
+using GB.SIMEF.Resources;
 using GB.SUTEL.UI.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -36,6 +38,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.Usuario = listaUsuario.Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
 
             ViewBag.Accion = ListaAcciones.Select(x => new SelectListItem() { Selected = false, Value = x.ToString(), Text = Enum.GetName(typeof(Accion), x) }).ToList();
+
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
 
             return View();
         }

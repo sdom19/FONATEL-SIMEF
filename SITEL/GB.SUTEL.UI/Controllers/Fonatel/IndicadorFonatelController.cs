@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity;
 using GB.SIMEF.Resources;
 using static GB.SIMEF.Resources.Constantes;
 using GB.SUTEL.UI.Helpers;
+using GB.SUTEL.UI.Filters;
+using System.Security.Claims;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -57,28 +59,33 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
             return View();
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Detalle(int id)
         {
             return View();
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult DetalleVariables(int id)
         {
             return View();
         }
 
-
+        [ConsultasFonatelFilter]
         public ActionResult DetalleCategoria(int id)
         {
             return View();
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Create()
         {
             CargarDatosEnVistas();
@@ -89,6 +96,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Edit(string id)
         {
             CargarDatosEnVistas();
@@ -112,6 +120,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Clone(string id)
         {
             CargarDatosEnVistas();
@@ -166,6 +175,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarIndicador(string pIdIndicador)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
@@ -197,6 +207,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> DesactivarIndicador(string pIdIndicador)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
@@ -228,6 +239,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ActivarIndicador(string pIdIndicador)
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
@@ -343,6 +355,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIdTipoIndicador"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarTipoIndicador(string pIdTipoIndicador)
         {
             RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
@@ -374,6 +387,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIdTipoIndicador"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarGrupoIndicador(string pIdGrupoIndicador)
         {
             RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
@@ -405,6 +419,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIdTipoIndicador"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarUnidadEstudio(string pIdUnidadEstudio)
         {
             RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
@@ -436,6 +451,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pNombre"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CrearTipoIndicador(string pNombre)
         {
             RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
@@ -476,6 +492,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pNombre"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CrearGrupoIndicador(string pNombre)
         {
             RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
@@ -516,6 +533,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pNombre"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CrearUnidadEstudio(string pNombre)
         {
             RespuestaConsulta<List<UnidadEstudio>> resultado = new RespuestaConsulta<List<UnidadEstudio>>();
@@ -556,6 +574,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIndicador"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CrearIndicador(Indicador pIndicador)
         {
             string mensajeValidacionIndicador = ValidarObjetoIndicador(pIndicador, pIndicador.esGuardadoParcial);
@@ -600,6 +619,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIndicador"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EditarIndicador(Indicador pIndicador)
         {
             if (string.IsNullOrEmpty(pIndicador.id)) // id indicador requerido
@@ -639,6 +659,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIndicador"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ClonarIndicador(Indicador pIndicador)
         {
             if (string.IsNullOrEmpty(pIndicador.id)) // id indicador requerido
@@ -678,6 +699,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> GuardadoDefinitivoIndicador(string pIdIndicador)
         {
             if (string.IsNullOrEmpty(pIdIndicador)) // id indicador requerido
@@ -704,6 +726,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
         [HttpGet]
+        [ConsultasFonatelFilter]
         public async Task<string> ObtenerListaDetallesVariable(string pIdIndicador)
         {
             RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
@@ -847,6 +870,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pDetalleIndicadorCategoria"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CrearDetalleCategoriaDesagregacion(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
         {
             RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
@@ -875,6 +899,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="pDetalleIndicadorCategoria"></param>
         /// <returns></returns>
+        [ConsultasFonatelFilter]
         public async Task<string> EditarDetalleCategoriaDesagreagacion(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
         {
             RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
@@ -904,6 +929,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pDetalleIndicadorCategoria"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarDetalleCategoria(DetalleIndicadorCategoria pDetalleIndicadorCategoria)
         {
             RespuestaConsulta<List<DetalleIndicadorCategoria>> resultado = new RespuestaConsulta<List<DetalleIndicadorCategoria>>();
@@ -932,6 +958,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CrearDetalleVariableDato(DetalleIndicadorVariables pDetalleIndicadorVariables)
         {
             RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
@@ -959,6 +986,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EditarDetalleVariableDato(DetalleIndicadorVariables pDetalleIndicadorVariables)
         {
             RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
@@ -994,6 +1022,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarDetalleVariableDato(DetalleIndicadorVariables pDetalleIndicadorVariables)
         {
             RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();

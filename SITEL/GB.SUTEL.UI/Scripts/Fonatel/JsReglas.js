@@ -1356,6 +1356,7 @@ $(document).on("click", JsReglas.Controles.btnClonarRegla, function () {
 });
 
 $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Regla?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {

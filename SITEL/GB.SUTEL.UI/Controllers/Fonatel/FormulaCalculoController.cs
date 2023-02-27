@@ -2,11 +2,13 @@
 using GB.SIMEF.Entities;
 using GB.SIMEF.Entities.DTO;
 using GB.SIMEF.Resources;
+using GB.SUTEL.UI.Filters;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -67,16 +69,20 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         // GET: Solicitud
         public ActionResult Index()
         {
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
             return View();
         }
 
         // GET: Solicitud/Details/5
+        [ConsultasFonatelFilter]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Create()
         {
             CargarDatosEnVistas(Accion.Insertar, new FormulasCalculo());
@@ -87,6 +93,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Edit(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -114,6 +121,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         // GET: Solicitud/Clone/5
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Clone(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -195,6 +203,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="formulaCalculo"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarFormula(FormulasCalculo pFormulaCalculo)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
@@ -221,6 +230,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="formulaCalculo"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ActivarFormula(FormulasCalculo pFormulaCalculo)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
@@ -249,6 +259,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="formulaCalculo"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> DesactivarFormula(FormulasCalculo pFormulaCalculo)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
@@ -279,6 +290,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pIdFormula"></param>
         /// <returns></returns>
         [HttpGet]
+        [ConsultasFonatelFilter]
         public async Task<string> VerificarSiFormulaEjecuto(string pIdFormula)
         {
             RespuestaConsulta<string> resultado = new RespuestaConsulta<string>();
@@ -500,6 +512,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CrearFormulaCalculo(FormulasCalculo pFormulaCalculo)
         {
             modoFormulario = (string)Session[keyModoFormulario];
@@ -541,6 +554,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EditarFormulaCalculo(FormulasCalculo pFormulaCalculo)
         {
             modoFormulario = (string)Session[keyModoFormulario];
@@ -603,6 +617,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pFormulaCalculo"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ClonarFormulaCalculo(FormulasCalculo pFormulaCalculo)
         {
             modoFormulario = (string)Session[keyModoFormulario];
@@ -649,6 +664,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> GuardadoDefinitivoFormulaCalculo(string pIdFormulaCalculo)
         {
             if (string.IsNullOrEmpty(pIdFormulaCalculo)) // id indicador requerido

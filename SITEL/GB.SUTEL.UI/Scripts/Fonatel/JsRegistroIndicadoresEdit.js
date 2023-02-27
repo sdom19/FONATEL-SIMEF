@@ -587,6 +587,7 @@ $(document).on("keypress", jsRegistroIndicadorFonatelEdit.Controles.txtCantidadR
 });
 
 function DescargarExcelPrincipal(URL) {
+    if (consultasFonatel) { return; }
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar el Formulario Web?", null, "Descargar Registro")
         .set('onok', function (closeEvent) {
             location.href = URL;
