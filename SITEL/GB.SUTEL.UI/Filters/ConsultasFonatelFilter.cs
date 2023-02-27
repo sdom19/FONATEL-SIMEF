@@ -7,6 +7,7 @@ using System.Web.Mvc.Filters;
 using System.Web.Mvc;
 using System.Web.Routing;
 using GB.SIMEF.Resources;
+using System.Net;
 
 namespace GB.SUTEL.UI.Filters
 {
@@ -20,7 +21,7 @@ namespace GB.SUTEL.UI.Filters
             {
                 if (filterContext.HttpContext.Request.IsAjaxRequest())
                 {
-                    filterContext.HttpContext.Response.StatusCode = 401;
+                    filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     filterContext.Result = new HttpUnauthorizedResult();
                 }
                 else
@@ -30,6 +31,7 @@ namespace GB.SUTEL.UI.Filters
 
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = controllerName, action = Constantes.RedirectActionConsultasFonatel }));
                 }
+                base.OnActionExecuting(filterContext);
             }
         }
     }

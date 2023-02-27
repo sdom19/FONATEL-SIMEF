@@ -33,6 +33,7 @@
 
     Metodos: {
         EliminarFormulaCalculo: function (pIdFormula) {
+            if (consultasFonatel) { return; }
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaEliminarFormula, jsMensajes.Variables.actionType.eliminar)
                     .set('onok', function (closeEvent) { resolve(true); });
@@ -172,6 +173,7 @@
         });
 
         $(document).on("click", IndexView.Controles.btnDesactivarFormula, function (e) {
+            if (consultasFonatel) { return; }
             let idFormula = $(this).val();
             jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaActivarFormula, jsMensajes.Variables.actionType.estado)
                 .set('onok', function (closeEvent) {
@@ -180,6 +182,7 @@
         });
 
         $(document).on("click", IndexView.Controles.btnActivarFormula, function (e) {
+            if (consultasFonatel) { return; }
             let idFormula = $(this).val();
             jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaDesactivarFormula, jsMensajes.Variables.actionType.estado)
                 .set('onok', function (closeEvent) {

@@ -175,6 +175,7 @@
         },
 
         "MetodoDescarga": function (idRelacion) {
+            if (consultasFonatel) { return; }
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar la Plantilla?", jsMensajes.Variables.actionType.descargar)
                 .set('onok', function (closeEvent) {
                     window.open(jsUtilidades.Variables.urlOrigen + "/RelacionCategoria/DescargarExcel?id=" + idRelacion);
@@ -457,15 +458,13 @@
                     jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
                         .set('onok', function (closeEvent) { location.reload() });
                 }).catch((obj) => {
-                    if (obj != undefined) {
-                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                            jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) { location.reload() });
-                        }
-                        else {
-                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                                .set('onok', function (closeEvent) { location.reload() });
-                        }
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { location.reload() });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) { location.reload() });
                     }
                 }).finally(() => {
                     $("#loading").fadeOut();
@@ -498,19 +497,17 @@
                             });
                     }
                 }).catch((obj) => {
-                    if (obj != undefined) {
-                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                            jsMensajes.Metodos.OkAlertErrorModal()
-                                .set('onok', function (closeEvent) {
-                                    location.reload();
-                                });
-                        }
-                        else {
-                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                                .set('onok', function (closeEvent) {
-                                    location.reload();
-                                });
-                        }
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                            .set('onok', function (closeEvent) {
+                                location.reload();
+                            });
                     }
                 }).finally(() => {
                     $("#loading").fadeOut();
@@ -824,7 +821,7 @@ $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, functio
 
 
 $(document).on("click", JsRelacion.Controles.btnCargarDetalle, function (e) {
-
+    if (consultasFonatel) { return; }
     $(JsRelacion.Controles.inputFileCargarDetalle).click();
 });
 
@@ -887,6 +884,7 @@ $(document).on("click", JsRelacion.Controles.TableCategoriaAtributoEliminar, fun
 });
 
 $(document).on("click", JsRelacion.Controles.btnDeleteRelacion, function (e) {
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Relación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {

@@ -13,6 +13,8 @@ using Newtonsoft.Json;
 using System.IO;
 using OfficeOpenXml;
 using GB.SUTEL.UI.Helpers;
+using GB.SUTEL.UI.Filters;
+using System.Security.Claims;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -37,6 +39,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.ListadoDatosHistoricos =
                 historicoBl.ObtenerDatos(new DatoHistorico()).objetoRespuesta
                 .Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombrePrograma)}).ToList();
+            
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
 
             return View();
         }
@@ -70,6 +75,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public async Task<ActionResult> DescargarExcel(string id)
         {
             await Task.Run(() =>

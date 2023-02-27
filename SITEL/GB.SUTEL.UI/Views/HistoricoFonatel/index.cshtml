@@ -5,9 +5,13 @@
     Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
 }
 
-@section scripts {
+<script>
+    const consultasFonatel = @ViewBag.ConsultasFonatel;
+</script>
+
+@*@section scripts {
     @Scripts.Render("~/bundles/FONATEL/HistoricoFonatel")
-}
+}*@
 
 <div class="container body-content">
     <div class="text-right">
@@ -36,11 +40,11 @@
         <div class="col-md-12">
             <div class="modal-footer text-center">
                 <div class="text-center">
-                    <button id="btnDescargarHistorico" class="btn btn-fonatel btn-purple-fonatel" disabled>@Etiquetas.BotonDescarga</button>
+                    <button id="btnDescargarHistorico" disabled="@ViewBag.ConsultasFonatel" class="btn btn-fonatel btn-purple-fonatel" disabled>@Etiquetas.BotonDescarga</button>
 
                     <button id="btnVisualizarHistorico" class="btn btn-fonatel btn-next-fonatel" disabled >@Etiquetas.BotonVisualizar</button>
 
-                    <button id="btnCancelarHistorico" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">@Etiquetas.BotonCancelar</button>
+                    <button id="btnCancelarHistorico" disabled="@ViewBag.ConsultasFonatel" class="btn btn-fonatel btn-error-fonatel" data-dismiss="modal">@Etiquetas.BotonCancelar</button>
                 </div>
 
             </div>
@@ -52,7 +56,7 @@
 
 
 
-@*<script src="~/Scripts/Fonatel/JsHistorico.js"></script>*@
+<script src="~/Scripts/Fonatel/JsHistorico.js"></script>
 
 
 

@@ -12,6 +12,7 @@ using GB.SIMEF.Resources;
 using static GB.SIMEF.Resources.Constantes;
 using GB.SUTEL.UI.Helpers;
 using GB.SUTEL.UI.Filters;
+using System.Security.Claims;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -58,6 +59,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
             return View();
         }
 

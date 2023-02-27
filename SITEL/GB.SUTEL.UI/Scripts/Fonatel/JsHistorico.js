@@ -100,6 +100,7 @@
 
 $(document).on("click", JsHistorico.Controles.btnCancelarHistorico, function (e) {
     e.preventDefault();
+    if (consultasFonatel) { return; }
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
             window.location.href = "/Fonatel/HistoricoFonatel/Index";
@@ -129,6 +130,7 @@ $(document).on("click", JsHistorico.Controles.btnVisualizarHistorico, function (
     window.location.href = "/Fonatel/HistoricoFonatel/Detalle?id=" + id; 
 });
 $(document).on("click", JsHistorico.Controles.btnDescargarHistorico, function () {
+    if (consultasFonatel) { return; }
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea generar el Reporte?", "", "Generar Registro")
         .set('onok', function (closeEvent) {
               new Promise((resolve, reject) => {

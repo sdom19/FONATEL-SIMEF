@@ -82,6 +82,7 @@
         },
 
         EliminarIndicador: function (pIdIndicador) {
+            if (consultasFonatel) { return; }
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaEliminarIndicador, jsMensajes.Variables.actionType.eliminar)
                     .set('onok', function (closeEvent) {
@@ -134,6 +135,7 @@
         },
 
         DesactivarIndicador: function (pIdIndicador) {
+            if (consultasFonatel) { return; }
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaDesactivarIndicador, jsMensajes.Variables.actionType.estado)
                     .set('onok', function (closeEvent) {
@@ -186,6 +188,7 @@
         },
 
         ActivarIndicador: function (pIdIndicador) {
+            if (consultasFonatel) { return; }
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal(IndexView.Mensajes.preguntaActivarIndicador, jsMensajes.Variables.actionType.estado)
                     .set('onok', function (closeEvent) {

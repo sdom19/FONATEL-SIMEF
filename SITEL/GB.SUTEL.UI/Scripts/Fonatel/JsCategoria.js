@@ -555,19 +555,17 @@
                             });
 
                     }).catch((data) => {
-                        if (data != undefined) {
-                            if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                                jsMensajes.Metodos.OkAlertErrorModal()
-                                    .set('onok', function (closeEvent) {
-                                        location.reload();
-                                    });
-                            }
-                            else {
-                                jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                                    .set('onok', function (closeEvent) {
+                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) {
 
-                                    });
-                            }
+                                });
                         }
                     }).finally(() => {
                         $("#loading").fadeOut();
@@ -674,10 +672,8 @@
                                 .set('onok', function (closeEvent) { location.reload(); })
                         }
                     }).catch((obj) => {
-                        if (obj != undefined) {
-                            jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Detalles")
-                                .set('onok', function (closeEvent) { location.reload(); })
-                        }
+                        jsMensajes.Metodos.OkAlertErrorModal("Error al cargar los Detalles")
+                            .set('onok', function (closeEvent) { location.reload(); })
                     }).finally(() => {
                         $("#loading").fadeOut();
                     });
@@ -739,19 +735,17 @@
                             }                           
                         }
                     }).catch((obj) => {
-                        if (obj != undefined) {
-                            if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                                jsMensajes.Metodos.OkAlertErrorModal()
-                                    .set('onok', function (closeEvent) {
-                                        location.reload();
-                                    });
-                            }
-                            else {
-                                jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
-                                    .set('onok', function (closeEvent) {
-                                        location.reload();
-                                    });
-                            }
+                        if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                            jsMensajes.Metodos.OkAlertErrorModal()
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
+                        }
+                        else {
+                            jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                                .set('onok', function (closeEvent) {
+                                    location.reload();
+                                });
                         }
                     }).finally(() => {
                         $("#loading").fadeOut();
@@ -829,6 +823,7 @@ $(document).on("click", JsCategoria.Controles.btnEditarCategoria, function () {
 
 $(document).on("click", JsCategoria.Controles.btnDescargarDetalle, function () {
     let id = $(this).val();
+    if (consultasFonatel) { return; }
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea descargar la Plantilla?", jsMensajes.Variables.actionType.descargar)
         .set('onok', function (closeEvent) {
             let win = window.open(jsUtilidades.Variables.urlOrigen + "/CategoriasDesagregacion/DescargarExcel?id=" + id);
@@ -853,7 +848,7 @@ $(document).on("click", JsCategoria.Controles.btnAddCategoria, function () {
 
 
 $(document).on("click", JsCategoria.Controles.btnDesactivarCategoria, function () {
-
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     let estado = jsUtilidades.Variables.EstadoRegistros.Activo;
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea activar la Categoría de Desagregación?", jsMensajes.Variables.actionType.estado)
@@ -864,7 +859,7 @@ $(document).on("click", JsCategoria.Controles.btnDesactivarCategoria, function (
 });
 
 $(document).on("click", JsCategoria.Controles.btnEliminarCategoria, function () {
-
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     let estado = jsUtilidades.Variables.EstadoRegistros.Eliminado;
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Categoría de Desagregación?", jsMensajes.Variables.actionType.eliminar)
@@ -878,6 +873,7 @@ $(document).on("click", JsCategoria.Controles.btnEliminarCategoria, function () 
 
 
 $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
+    if (consultasFonatel) { return; }
     let id = $(this).val();
     let estado = jsUtilidades.Variables.EstadoRegistros.Desactivado;
 
@@ -954,7 +950,7 @@ $(document).on("click", JsCategoria.Controles.btnClonarCategoria, function () {
 });
 
 $(document).on("click", JsCategoria.Controles.btnCargarDetalle, function (e) {
- 
+    if (consultasFonatel) { return; }
     $(JsCategoria.Controles.inputFileCargarDetalle).click();
 });
 
