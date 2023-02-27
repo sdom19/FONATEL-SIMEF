@@ -1,12 +1,14 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using GB.SUTEL.UI.Filters;
 using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -55,7 +57,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ActionResult Index()
         {
             ViewBag.ListaFrecuencia = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
-
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
             return View();
         }
 
@@ -63,6 +66,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region METODOS DE PAGINA
 
         // GET: Solicitud/Create
+
+        [ConsultasFonatelFilter]
         public ActionResult Create(string id, int? modo)
         {
             Solicitud solicitud = new Solicitud();
@@ -128,6 +133,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarSolicitud(Solicitud solicitud)
         {
 
@@ -155,6 +161,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> Clonar(Solicitud solicitud)
         {
             solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
@@ -180,6 +187,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EditarSolicitud(Solicitud solicitud)
         {
 
@@ -204,6 +212,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ClonarSolicitud(Solicitud solicitud)
         {
             solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
@@ -244,6 +253,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CambiarEstadoEliminado(Solicitud solicitud)
         {
             RespuestaConsulta<List<Solicitud>> result = null;
@@ -266,6 +276,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idSolicitud></param>
         /// <returns>JSON</returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarSolicitud(string idSolicitud)
         {
             RespuestaConsulta<List<Solicitud>> result = null;
@@ -292,6 +303,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CambiarEstadoActivado(Solicitud solicitud)
         {
             RespuestaConsulta<List<Solicitud>> result = null;
@@ -314,6 +326,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> CambiarEstadoDesactivado(Solicitud solicitud)
         {
             RespuestaConsulta<List<Solicitud>> result = null;
@@ -329,6 +342,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ValidarExistenciaSolicitud(Solicitud solicitud )
         {
             RespuestaConsulta<List<string>> result = null;
@@ -372,6 +386,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarDetalleSolicitud(DetalleSolicitudFormulario Solicitud)
         {
 
@@ -395,6 +410,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idDetalleSolicitud></param>
         /// <returns>JSON</returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarDetalleSolicitud(string idSolicitud, string idFormulario)
         {
             RespuestaConsulta<List<DetalleSolicitudFormulario>> result = null;
@@ -427,6 +443,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EnvioSolicitud(EnvioSolicitudes objeto)
         {
             RespuestaConsulta<List<EnvioSolicitudes>> result = null;
@@ -444,6 +461,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="solicitud"></param>
         /// <returns></returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarEnvioProgramado(SolicitudEnvioProgramado objeto)
         {
             RespuestaConsulta<List<SolicitudEnvioProgramado>> result = null;
@@ -466,6 +484,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="idSolicitud></param>
         /// <returns>JSON</returns>
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarEnvioProgramado(SolicitudEnvioProgramado objeto)
         {
 
