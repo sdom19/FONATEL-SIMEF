@@ -13,6 +13,12 @@ namespace GB.SUTEL.UI.Filters
 {
     public class ConsultasFonatelFilter : ActionFilterAttribute
     {
+        /// <summary>
+        /// Fecha 27-03-2023
+        /// Adolfo Cunquero
+        /// ActionFilter para interceptar las solicitudes y redireccionar al index para los usuarios de solo lectura
+        /// </summary>
+        /// <returns></returns>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var ctx = filterContext.HttpContext;
