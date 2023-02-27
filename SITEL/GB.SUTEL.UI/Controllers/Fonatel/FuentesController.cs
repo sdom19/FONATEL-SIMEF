@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using GB.SIMEF.Resources;
+using System.Security.Claims;
+using GB.SUTEL.UI.Filters;
+
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
     [AuthorizeUserAttribute]
@@ -34,6 +37,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
             return View();
         }
 
@@ -46,6 +51,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         // GET: FuentesRegistro/Create
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Create(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -103,7 +109,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="categoria"></param>
         /// <returns></returns>
         [HttpPost]
-
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarFuente(FuentesRegistro fuente)
         {
             user = User.Identity.GetUserId();
@@ -118,7 +124,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
 
-
+        [ConsultasFonatelFilter]
         [HttpPost]
         public async Task<string> AgregarFuente(FuentesRegistro objetoFuente)
         {
@@ -145,7 +151,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="fuente"></param>
         /// <returns></returns>
-
+        [ConsultasFonatelFilter]
         [HttpPost]
         public async Task<string> ActivarFuente(FuentesRegistro fuente)
         {
@@ -181,6 +187,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="categoria"></param>
         /// <returns></returns>
+        [ConsultasFonatelFilter]
         [HttpPost]
         public async Task<string> ValidarFuente(FuentesRegistro fuente)
         {
@@ -222,7 +229,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="fuente"></param>
         /// <returns></returns>
-
+        [ConsultasFonatelFilter]
         [HttpPost]
         public async Task<string> AgregarDestinatario(DetalleFuentesRegistro destinatario)
         {
@@ -275,7 +282,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="fuente"></param>
         /// <returns></returns>
         /// 
-
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarDestinatario(DetalleFuentesRegistro destinatario)
         {
             RespuestaConsulta<List<FuentesRegistro>> result = null;

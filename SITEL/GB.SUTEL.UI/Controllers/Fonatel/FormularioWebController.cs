@@ -1,12 +1,14 @@
 ﻿using GB.SIMEF.BL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using GB.SUTEL.UI.Filters;
 using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -37,6 +39,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
+            var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
+            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
             return View();
         }
 
@@ -79,6 +83,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarFormulario(FormularioWeb objFormulario)
         {
 
@@ -104,6 +109,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <returns></returns>
         //[HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarDetalleIndicadoresFormulario(FormularioWeb objFormulario)
         {
 
@@ -128,6 +134,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> DesactivarFormulario(FormularioWeb objFormulario)
         {
 
@@ -147,6 +154,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ActivarFormulario(FormularioWeb objFormulario)
         {
 
@@ -166,6 +174,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> GuardadoCompleto(FormularioWeb objFormulario)
         {
 
@@ -185,6 +194,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ClonarFormulario(FormularioWeb objFormulario)
         {
             RespuestaConsulta<List<FormularioWeb>> result = null;
@@ -197,6 +207,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EditarFormularioWeb(FormularioWeb objFormulario)
         {
             RespuestaConsulta<List<FormularioWeb>> result = null;
@@ -215,6 +226,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> ValidarFormulario( FormularioWeb objFormulario)
         {
             RespuestaConsulta<List<string>> result = null;
@@ -232,6 +244,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarFormularioWeb(FormularioWeb formulario)
         {
             RespuestaConsulta<List<FormularioWeb>> result = null;
@@ -247,6 +260,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> InsertarIndicadoresFormulario(DetalleFormularioWeb detalleformulario)
         {
             RespuestaConsulta<List<DetalleFormularioWeb>> result = null;
@@ -258,6 +272,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EliminarIndicadoresFormulario(DetalleFormularioWeb detalleformulario) 
         {
             int temp = 0;
@@ -272,6 +287,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public async Task<string> EditarIndicadoresFormulario(DetalleFormularioWeb detalleformulario)
         {
             int temp = 0;
@@ -286,6 +302,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult Create(string id, int? modo)
         {
             ViewBag.FrecuanciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
@@ -368,6 +385,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        [ConsultasFonatelFilter]
         public ActionResult _CrearIndicador(int idIndicador, int idFormulario)
         {
             var indicadores = indicadorBL.ObtenerDatos(new Indicador() { })
@@ -383,6 +401,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
+        [ConsultasFonatelFilter]
         public ActionResult Create(FormCollection collection)
         {
             try
