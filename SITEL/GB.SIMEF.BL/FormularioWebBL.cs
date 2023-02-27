@@ -78,6 +78,11 @@ namespace GB.SIMEF.BL
             if (cantidadIndicadores > 0)
             {
                 if (formularioWebNuevo.CantidadIndicadores < cantidadIndicadores)
+                    if (formularioWebNuevo.CantidadIndicadores != formularioWebViejo.CantidadIndicadores)
+                    {
+                        resultadoValidacion = true;
+                    }
+                    if (formularioWebNuevo.CantidadIndicadores < cantidadIndicadores)
                 {
                     resultadoValidacion = true;
                 }

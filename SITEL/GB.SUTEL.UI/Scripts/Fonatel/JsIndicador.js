@@ -1581,6 +1581,9 @@ CreateView = {
     Eventos: function () {
         // Formulario Indicador
         $(document).on("click", CreateView.Controles.formIndicador.btnSiguienteCrearIndicador, function (e) {
+
+            CreateView.Variables.hizoCargaDetallesVariables = false;
+
             if (ObtenerValorParametroUrl("id") == null) {
                 CreateView.Metodos.CrearIndicador();
             }
@@ -1607,6 +1610,9 @@ CreateView = {
         });
 
         $(document).on("click", CreateView.Controles.formIndicador.btnSiguienteClonarIndicador, function (e) {
+
+            CreateView.Variables.hizoCargaDetallesVariables = false;
+
             if (ObtenerValorParametroUrl("id") != null) {
                 if (CreateView.Variables.elIndicadorFueClonado) {
                     CreateView.Metodos.EditarIndicador();
