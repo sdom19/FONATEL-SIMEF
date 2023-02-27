@@ -1348,6 +1348,9 @@ $(document).on("click", JsSolicitud.Controles.btnCancelarEnvio, function () {
 
 $(document).on("click", JsSolicitud.Controles.btnAtrasSolicitud, function (e) {
     e.preventDefault();
+    InsertarParametroUrl("modo", jsUtilidades.Variables.Acciones.Editar);
+    $(JsSolicitud.Controles.txtModo).val(jsUtilidades.Variables.Acciones.Editar);
+    $(JsSolicitud.Controles.id).val(ObtenerValorParametroUrl("id"));
     $(JsSolicitud.Controles.step1).trigger('click');
 });
 
