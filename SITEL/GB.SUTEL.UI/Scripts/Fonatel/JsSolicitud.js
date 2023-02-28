@@ -1079,7 +1079,6 @@ $(document).on("click", JsSolicitud.Controles.btnFinalizarSolicitud, function (e
 });
 
 $(document).on("click", JsSolicitud.Controles.btnCancelar, function (e) {
-    if (consultasFonatel) { return; }
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
@@ -1088,7 +1087,6 @@ $(document).on("click", JsSolicitud.Controles.btnCancelar, function (e) {
 });
 
 $(document).on("click", JsSolicitud.Controles.btnDeleteFormulario, function (e) {
-    if (consultasFonatel) { return; }
 
     let idSolicitud = ObtenerValorParametroUrl("id");
 
@@ -1109,7 +1107,6 @@ $(document).on("click", JsSolicitud.Controles.btnEditarSolicitud, function () {
 });
 
 $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function () {
-    if (consultasFonatel) { return; }
     JsSolicitud.Variables.esModoEliminar = true;
     let CargarCodigo = $(this).attr("data-index");
     JsSolicitud.Consultas.CargarCodigo(CargarCodigo);
@@ -1142,7 +1139,6 @@ $(document).on("click", JsSolicitud.Controles.btnCloneSolicitud, function () {
 });
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e) {
-    if (consultasFonatel) { return; }
     e.preventDefault();
 
     if (JsSolicitud.Metodos.ValidarFormularioWeb()) {
@@ -1154,13 +1150,11 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarFormulario, function (e)
 });
 
 $(document).on("click", JsSolicitud.Controles.btnCancelarFormulario, function (e) {
-    if (consultasFonatel) { return; }
     e.preventDefault();
     $(JsSolicitud.Controles.ddlFormularioWeb).val("").trigger('change');
 });
 
 $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function () {
-    if (consultasFonatel) { return; }
 
     let id = $(this).val();
     $(JsSolicitud.Controles.txtSolicitudEnvio).val(id);
@@ -1175,7 +1169,6 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function 
 });
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
-    if (consultasFonatel) { return; }
 
     e.preventDefault();
 
@@ -1190,7 +1183,6 @@ $(document).on("click", JsSolicitud.Controles.btnGuardarEnvio, function (e) {
 });
 
 $(document).on("click", JsSolicitud.Controles.btnGuardarSolicitud, function (e) {
-    if (consultasFonatel) { return; }
     e.preventDefault();
 
     let modo = $(JsSolicitud.Controles.txtModo).val();
@@ -1343,7 +1335,6 @@ $(document).on("click", JsSolicitud.Controles.btnEnvioSolicitud, function (e) {
 });
 
 $(document).on("click", JsSolicitud.Controles.btnEliminarSolicituProgramardEnvio, function () {
-    if (consultasFonatel) { return; }
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Programación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             $(JsSolicitud.Controles.modalEnvio).modal('hide');
@@ -1352,12 +1343,10 @@ $(document).on("click", JsSolicitud.Controles.btnEliminarSolicituProgramardEnvio
 });
 
 $(document).on("click", JsSolicitud.Controles.btnCancelarEnvio, function () {
-    if (consultasFonatel) { return; }
     $(JsSolicitud.Controles.modalEnvio).modal('hide');
 });
 
 $(document).on("click", JsSolicitud.Controles.btnAtrasSolicitud, function (e) {
-    if (consultasFonatel) { return; }
     e.preventDefault();
     InsertarParametroUrl("modo", jsUtilidades.Variables.Acciones.Editar);
     $(JsSolicitud.Controles.txtModo).val(jsUtilidades.Variables.Acciones.Editar);
