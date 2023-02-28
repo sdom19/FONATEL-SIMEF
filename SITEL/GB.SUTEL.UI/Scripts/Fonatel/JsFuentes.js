@@ -393,7 +393,6 @@
 }
 
 $(document).on("click", JsFuentes.Controles.btnCancelar, function (e) {
-    if (consultasFonatel) { return; }
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
@@ -402,7 +401,6 @@ $(document).on("click", JsFuentes.Controles.btnCancelar, function (e) {
 });
 
 $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
-    if (consultasFonatel) { return; }
     e.preventDefault();
     let validar = JsFuentes.Metodos.ValidarFuente();
     if (validar) {
@@ -444,7 +442,6 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuente, function (e) {
 });
 
 $(document).on("click", JsFuentes.Controles.btnSiguienteFuente, function (e) {
-    if (consultasFonatel) { return; }
     e.preventDefault();
     let validar = JsFuentes.Metodos.ValidarFuente();
     if (validar) {
@@ -463,7 +460,6 @@ $(document).on("click", JsFuentes.Controles.step2, function (e) {
 });
 
 $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function (e) {
-    if (consultasFonatel) { return; }
     e.preventDefault();
  
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea guardar la Fuente de Registro?", jsMensajes.Variables.actionType.agregar)
@@ -473,7 +469,6 @@ $(document).on("click", JsFuentes.Controles.btnGuardarFuentesCompleto, function 
 });
 
 $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e) {
-    if (consultasFonatel) { return; }
     e.preventDefault();
     let validar = JsFuentes.Metodos.ValidarFormularioDetalle();
     if (validar) {
@@ -506,7 +501,6 @@ $(document).on("click", JsFuentes.Controles.btnEditarFuente, function () {
 });
 
 $(document).on("click", JsFuentes.Controles.btnBorrarDetalle, function () {
-    if (consultasFonatel) { return; }
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Destinatario?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {        
@@ -515,7 +509,6 @@ $(document).on("click", JsFuentes.Controles.btnBorrarDetalle, function () {
 });
 
 $(document).on("click", JsFuentes.Controles.btnEditarDetalle, function () {
-    if (consultasFonatel) { return; }
     let id = $(this).val();
     JsFuentes.Consultas.ConsultarDestinatarios(id);
 });
