@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -313,7 +314,29 @@ namespace GB.SIMEF.BL
             {
                 using (var client = new HttpClient())
                 {
-                    HttpResponseMessage response = await client.GetAsync(WebConfigurationManager.AppSettings["rutaAPIReglasValidacion"].ToString());
+                    var payload = new {
+                        user = user,
+                        application = WebConfigurationManager.AppSettings["APIReglasValidacionApplicationId"].ToString(),
+                        //dispatch = "Unique",
+                        startNow = true,
+                        parameters = new object[] {
+                            new {
+                                name = Constantes.ParametrosReglaValidacion.Solicitud,
+                                value = objeto.IdSolicitud.ToString()
+                            },
+                            new {
+                                name = Constantes.ParametrosReglaValidacion.Formulario,
+                                value = objeto.IdFormulario.ToString()
+                            },
+                            new {
+                                name = Constantes.ParametrosReglaValidacion.Indicador,
+                                value = objeto.IdIndicador.ToString()
+                            }
+                        }
+                    };
+                    var stringPayload = JsonConvert.SerializeObject(payload);
+                    var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PostAsync(WebConfigurationManager.AppSettings["APIReglasValidacionRuta"].ToString(), httpContent);
                     if (response.IsSuccessStatusCode)
                     {
                         result.objetoRespuesta = await response.Content.ReadAsStringAsync();
