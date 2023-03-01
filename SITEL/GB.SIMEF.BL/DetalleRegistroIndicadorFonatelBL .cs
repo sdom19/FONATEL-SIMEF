@@ -2,6 +2,7 @@
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -309,15 +310,18 @@ namespace GB.SIMEF.BL
         {
             DesencriptarRegistroIndicador(objeto);
             var result = new RespuestaConsulta<string>();
-
+            JObject task = new JObject();
             try
             {
+                var finalizado = false;
+                //crear la tarea
                 using (var client = new HttpClient())
                 {
                     var payload = new {
                         user = user,
                         application = WebConfigurationManager.AppSettings["APIReglasValidacionApplicationId"].ToString(),
-                        //dispatch = "Unique",
+                        dispatch = Constantes.ParametrosReglaValidacionDispatch,
+                        periodicity = Constantes.ParametrosReglaValidacionPeriodicity,
                         startNow = true,
                         parameters = new object[] {
                             new {
@@ -339,12 +343,49 @@ namespace GB.SIMEF.BL
                     HttpResponseMessage response = await client.PostAsync(WebConfigurationManager.AppSettings["APIReglasValidacionRuta"].ToString(), httpContent);
                     if (response.IsSuccessStatusCode)
                     {
-                        result.objetoRespuesta = await response.Content.ReadAsStringAsync();
+                        var content = await response.Content.ReadAsStringAsync();
+                        task = JObject.Parse(content);
                     }
                     else
                     {
                         result.HayError = (int)Constantes.Error.ErrorSistema;
+                        return result;
                     }
+                }
+
+                //verificar si ya finalizo
+                while (!finalizado)
+                {
+                    using (var client = new HttpClient())
+                    {
+                        HttpResponseMessage response = await client.GetAsync(WebConfigurationManager.AppSettings["APIReglasValidacionRuta"].ToString() +"/"+ task["id"].ToString());
+                        if (response.IsSuccessStatusCode)
+                        {
+                            JObject jobStatus = JObject.Parse(await response.Content.ReadAsStringAsync());
+                            var tasks = jobStatus["tasks"].ToArray();
+                            if(tasks.Count() > 0)
+                            {
+                                var item = tasks[0];
+                                if (item["status"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Finished)
+                                {
+                                    result.objetoRespuesta = jobStatus.ToString();
+                                    finalizado = true;
+                                }
+                                else if(item["status"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Stopend)
+                                {
+                                    result.objetoRespuesta = jobStatus.ToString();
+                                    finalizado = true;
+                                    result.HayError = (int)Constantes.Error.ErrorSistema;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            result.HayError = (int)Constantes.Error.ErrorSistema;
+                        }
+                    }
+
+                    await Task.Delay(1000);
                 }
             }
             catch (Exception ex)

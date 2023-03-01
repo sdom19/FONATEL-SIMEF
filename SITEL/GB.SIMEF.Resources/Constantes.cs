@@ -208,6 +208,21 @@ namespace GB.SIMEF.Resources
             public const string no = "NO";
         }
 
+        public struct ParametrosReglaValidacion
+        {
+            public const string Solicitud = "Solicitud";
+            public const string Formulario = "Formulario";
+            public const string Indicador = "Indicador";
+        }
+
+        public static readonly string ParametrosReglaValidacionDispatch = "Unique";
+        public static readonly string ParametrosReglaValidacionPeriodicity = "Only";
+        public struct RespuestaEstadoReglasValidacion
+        {
+            public const string Finished = "Finished";
+            public const string Stopend = "Stoped";
+        }
+
         public readonly static string defaultInputTextValue = "No definido";
         public readonly static int defaultInputNumberValue = 0;
         public readonly static int defaultDropDownValue = 1; // Representa el valor: "Sin definir". En Utilidades.cs existe un método para encriptarlo
