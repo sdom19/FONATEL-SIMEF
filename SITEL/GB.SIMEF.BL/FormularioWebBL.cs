@@ -78,11 +78,6 @@ namespace GB.SIMEF.BL
             if (cantidadIndicadores > 0)
             {
                 if (formularioWebNuevo.CantidadIndicadores < cantidadIndicadores)
-                    if (formularioWebNuevo.CantidadIndicadores != formularioWebViejo.CantidadIndicadores)
-                    {
-                        resultadoValidacion = true;
-                    }
-                    if (formularioWebNuevo.CantidadIndicadores < cantidadIndicadores)
                 {
                     resultadoValidacion = true;
                 }
@@ -102,7 +97,7 @@ namespace GB.SIMEF.BL
         private int ValidarEstado(FormularioWeb obj)
         {
             FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(obj).Single();
-            if (obj.Descripcion == null || obj.Descripcion == "" || obj.CantidadIndicadores == 0 || obj.idFrecuencia == 0)
+            if (obj.Descripcion == null || obj.Descripcion == "" || obj.CantidadIndicadores == 0 || obj.idFrecuencia == 0 || obj.CantidadIndicadores != formularioWebViejo.CantidadIndicadores)
             { 
                 if (formularioWebViejo.EstadoRegistro.idEstado == (int)Constantes.EstadosRegistro.Desactivado)
                 { 
