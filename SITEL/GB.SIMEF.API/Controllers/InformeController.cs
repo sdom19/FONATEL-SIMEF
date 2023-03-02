@@ -18,15 +18,11 @@ namespace GB.SIMEF.API.Controllers
     public class InformeController : Controller
     {
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         /// <summary>
         /// Método para obtener json con la informacion guardada
         /// </summary>
         /// <param name="tabla">Nombre de tabla</param>
+        [HttpGet]
         [Route("~/api/Informe/{tabla}")]
         public JObject Get(string tabla)
         {
@@ -48,6 +44,7 @@ namespace GB.SIMEF.API.Controllers
         /// Método para obtener json con la informacion guardada de varias tablas
         /// </summary>
         /// <param name="nn">Nombre de tablas</param>
+        [HttpGet]
         [ArrayInput("nn")]
         [Route("~/Informes/{nn?}")]
         public JObject Informes(string nn = "")
