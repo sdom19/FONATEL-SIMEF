@@ -97,7 +97,8 @@ namespace GB.SIMEF.BL
         private int ValidarEstado(FormularioWeb obj)
         {
             FormularioWeb formularioWebViejo = clsDatos.ObtenerDatos(obj).Single();
-            if (obj.Descripcion == null || obj.Descripcion == "" || obj.CantidadIndicadores == 0 || obj.idFrecuencia == 0 || obj.CantidadIndicadores != formularioWebViejo.CantidadIndicadores)
+            if (obj.Descripcion == null || obj.Descripcion == "" || obj.CantidadIndicadores == 0 || obj.idFrecuencia == 0 
+                || obj.CantidadIndicadores != formularioWebViejo.CantidadIndicadores || formularioWebViejo.idEstado == (int)Constantes.EstadosRegistro.EnProceso)
             { 
                 if (formularioWebViejo.EstadoRegistro.idEstado == (int)Constantes.EstadosRegistro.Desactivado)
                 { 
