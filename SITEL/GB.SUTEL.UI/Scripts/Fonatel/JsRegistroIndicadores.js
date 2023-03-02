@@ -581,7 +581,7 @@
                         jsRegistroIndicadorFonatel.Consultas.InsertarRegistroIndicadorDetalleValor();
                         if (GuardadoTotal) {
                             jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido cargado")
-                                .set('onok', function (closeEvent) { window.location.href = "/RegistroIndicador/Index"; });
+                                .set('onok', function (closeEvent) { window.location.href = "/RegistroIndicadorFonatel/Index"; });
                         }
                     }
 
@@ -633,22 +633,6 @@
             } else {
                 location.reload();
             }
-        },
-
-        "NotificacionResultadoReglasValidacion": function (trackerGuid) {
-            var connection = signalR.HubConnectionBuilder()
-                .withUrl("server", { connectionId: trackerGuid })
-                .build();
-
-            connection.start()
-                .then(() => { console.log("Connected to server") })
-                .catch((err) => { console.log(err) });
-
-            connection.on("Event", (user, message) => {
-                console.log(user)
-                console.log(message)
-            })
-
         },
 
         "AplicarReglasValidacion": function () {
