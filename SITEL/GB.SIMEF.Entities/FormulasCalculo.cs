@@ -62,6 +62,8 @@ namespace GB.SIMEF.Entities
         [MaxLength(8000)]
         public string Formula { get; set; } // ( {0} / {1} ) * 2
 
+        public Guid? IdJob { get; set; }
+
         #region Variable fuera del modelo
         [NotMapped]
         public string id { get; set; }
