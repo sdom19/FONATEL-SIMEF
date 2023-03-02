@@ -1,11 +1,15 @@
 ﻿using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
@@ -293,6 +297,98 @@ namespace GB.SIMEF.BL
                 resultado.MensajeError = ex.Message;
             }
             return resultado;
+        }
+
+        /// <summary>
+        /// Autor:Adofo Cunquero
+        /// Fecha:23/02/2023
+        /// Metodo para consumir API reglas de validacion
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// 
+        public async Task<RespuestaConsulta<string>> AplicarReglasValidacion(DetalleRegistroIndicadorFonatel objeto)
+        {
+            DesencriptarRegistroIndicador(objeto);
+            var result = new RespuestaConsulta<string>();
+            JObject task = new JObject();
+            try
+            {
+                var finalizado = false;
+                //crear la tarea
+                using (var client = new HttpClient())
+                {
+                    var payload = new {
+                        user = user,
+                        application = WebConfigurationManager.AppSettings["APIReglasValidacionApplicationId"].ToString(),
+                        dispatch = Constantes.ParametrosReglaValidacionDispatch,
+                        periodicity = Constantes.ParametrosReglaValidacionPeriodicity,
+                        startNow = true,
+                        parameters = new object[] {
+                            new {
+                                name = Constantes.ParametrosReglaValidacion.Solicitud,
+                                value = objeto.IdSolicitud.ToString()
+                            },
+                            new {
+                                name = Constantes.ParametrosReglaValidacion.Formulario,
+                                value = objeto.IdFormulario.ToString()
+                            },
+                            new {
+                                name = Constantes.ParametrosReglaValidacion.Indicador,
+                                value = objeto.IdIndicador.ToString()
+                            }
+                        }
+                    };
+                    var stringPayload = JsonConvert.SerializeObject(payload);
+                    var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PostAsync(WebConfigurationManager.AppSettings["APIReglasValidacionRuta"].ToString(), httpContent);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        task = JObject.Parse(content);
+                    }
+                    else
+                    {
+                        result.HayError = (int)Constantes.Error.ErrorSistema;
+                        return result;
+                    }
+                }
+
+                //verificar si ya finalizo
+                while (!finalizado)
+                {
+                    using (var client = new HttpClient())
+                    {
+                        HttpResponseMessage response = await client.GetAsync(WebConfigurationManager.AppSettings["APIReglasValidacionRuta"].ToString() +"/"+ task["id"].ToString());
+                        if (response.IsSuccessStatusCode)
+                        {
+                            JObject jobStatus = JObject.Parse(await response.Content.ReadAsStringAsync());
+                            var tasks = jobStatus["tasks"].ToArray();
+                            if(tasks.Count() > 0)
+                            {
+                                var item = tasks[0];
+                                if (item["status"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Finished || item["status"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Stopend)
+                                {
+                                    result.objetoRespuesta = jobStatus.ToString();
+                                    finalizado = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            result.HayError = (int)Constantes.Error.ErrorSistema;
+                        }
+                    }
+
+                    await Task.Delay(1000);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.MensajeError = ex.Message;
+                result.HayError = (int)Constantes.Error.ErrorSistema;
+            }
+
+            return result;
         }
     }
 }

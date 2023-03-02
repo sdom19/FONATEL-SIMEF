@@ -381,5 +381,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return JsonConvert.SerializeObject(result);
 
         }
+
+        /// <summary>
+        /// Autor: Adolfo Cunquero
+        /// Fecha: 21/02/2023
+        /// Metodo: Metodo para llamar al API de validaciones
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        public async Task<string> AplicarReglasValidacion(DetalleRegistroIndicadorFonatel objeto)
+        {
+            var resultado = await detalleRegistroIndicadorBL.AplicarReglasValidacion(objeto);
+            return JsonConvert.SerializeObject(resultado);
+        }
     }
 }

@@ -214,7 +214,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Registro de Indicador.
+        ///   Busca una cadena traducida similar a Registro Indicador.
         /// </summary>
         public static string RegistroIndicador {
             get {
