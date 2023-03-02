@@ -55,12 +55,12 @@
 
         "SubtitulosReglas": {
             '1': 'Fórmula cambio mensual',
-            '2': 'Fórmula contra otro indicador E',
+            '2': 'Fórmula contra otro indicador',
             '3': 'Fórmula contra constante',
             '4': 'Fórmula contra atributos válidos',
             '5': 'Fórmula actualización secuencial',
-            '6': 'Fórmula contra otro indicador S',
-            '7': 'Fórmula contra otro indicador ES'
+            '6': 'Fórmula contra otro indicador',
+            '7': 'Fórmula contra otro indicador'
         },
         "IndicadoresValidados": [],
 
@@ -581,7 +581,7 @@
                         jsRegistroIndicadorFonatel.Consultas.InsertarRegistroIndicadorDetalleValor();
                         if (GuardadoTotal) {
                             jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido cargado")
-                                .set('onok', function (closeEvent) { window.location.href = "/RegistroIndicador/Index"; });
+                                .set('onok', function (closeEvent) { window.location.href = "/RegistroIndicadorFonatel/Index"; });
                         }
                     }
 
@@ -633,22 +633,6 @@
             } else {
                 location.reload();
             }
-        },
-
-        "NotificacionResultadoReglasValidacion": function (trackerGuid) {
-            var connection = signalR.HubConnectionBuilder()
-                .withUrl("server", { connectionId: trackerGuid })
-                .build();
-
-            connection.start()
-                .then(() => { console.log("Connected to server") })
-                .catch((err) => { console.log(err) });
-
-            connection.on("Event", (user, message) => {
-                console.log(user)
-                console.log(message)
-            })
-
         },
 
         "AplicarReglasValidacion": function () {
