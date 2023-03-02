@@ -158,6 +158,17 @@ namespace GB.SIMEF.Resources
             cumplimiento = 2
         }
 
+        public enum FrecuenciaEnvioEnum : int
+        {
+            Semana = 2,
+            Mes = 3,
+            Quincenal = 4,
+            Bimestre = 5,
+            Trimestre = 6,
+            Cuatrimestre = 7,
+            Anual = 8
+        }
+
         /// <summary>
         /// Debido a la lógica de negocios, no se tienen registros fisicos respecto a los indicadores de calidad, sino columnas de una entidad en BD
         /// </summary>
@@ -219,5 +230,26 @@ namespace GB.SIMEF.Resources
 
         public readonly static string RolConsultasFonatel = "Consultas Fonatel";
         public readonly static string RedirectActionConsultasFonatel = "Index";
+
+        public readonly static string Dispatch_Task = "Task";
+        public readonly static string Dispatch_Unique = "Unique";
+
+        public static Dictionary<FrecuenciaEnvioEnum, string> mapFrecuenciasConMotor = new Dictionary<FrecuenciaEnvioEnum, string>() {
+            { FrecuenciaEnvioEnum.Semana, "Weekly"},
+            { FrecuenciaEnvioEnum.Mes, "Monthly"},
+            { FrecuenciaEnvioEnum.Quincenal, "Biweekly"},
+            { FrecuenciaEnvioEnum.Bimestre, "Bimonthly"},
+            { FrecuenciaEnvioEnum.Trimestre, "Quarterly"},
+            { FrecuenciaEnvioEnum.Cuatrimestre, "Four-month period"},
+            { FrecuenciaEnvioEnum.Anual, "Annual"}
+        };
+
+        public static Dictionary<EstadosRegistro, string> mapEstadoFormulaConMotor = new Dictionary<EstadosRegistro, string>() {
+            { EstadosRegistro.EnProceso, "Waiting"},
+            { EstadosRegistro.Pendiente, "Waiting"},
+            { EstadosRegistro.Activo, "New"},
+            { EstadosRegistro.Desactivado, "Stopped"},
+            { EstadosRegistro.Eliminado, "Stopped"}
+        };
     }
 }

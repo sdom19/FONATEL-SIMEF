@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Mvc">
       <HintPath>..\GB.SUTEL.UI\bin\System.Web.Mvc.dll</HintPath>
