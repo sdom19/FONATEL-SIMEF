@@ -55,12 +55,12 @@
 
         "SubtitulosReglas": {
             '1': 'Fórmula cambio mensual',
-            '2': 'Fórmula contra otro indicador E',
+            '2': 'Fórmula contra otro indicador',
             '3': 'Fórmula contra constante',
             '4': 'Fórmula contra atributos válidos',
             '5': 'Fórmula actualización secuencial',
-            '6': 'Fórmula contra otro indicador S',
-            '7': 'Fórmula contra otro indicador ES'
+            '6': 'Fórmula contra otro indicador',
+            '7': 'Fórmula contra otro indicador'
         },
         "IndicadoresValidados": [],
 
