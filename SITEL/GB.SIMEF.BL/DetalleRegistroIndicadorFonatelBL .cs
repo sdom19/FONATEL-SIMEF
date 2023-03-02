@@ -366,16 +366,10 @@ namespace GB.SIMEF.BL
                             if(tasks.Count() > 0)
                             {
                                 var item = tasks[0];
-                                if (item["status"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Finished)
+                                if (item["status"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Finished || item["status"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Stopend)
                                 {
                                     result.objetoRespuesta = jobStatus.ToString();
                                     finalizado = true;
-                                }
-                                else if(item["status"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Stopend)
-                                {
-                                    result.objetoRespuesta = jobStatus.ToString();
-                                    finalizado = true;
-                                    result.HayError = (int)Constantes.Error.ErrorSistema;
                                 }
                             }
                         }

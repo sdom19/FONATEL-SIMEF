@@ -220,7 +220,7 @@ namespace GB.SIMEF.Resources
         public struct RespuestaEstadoReglasValidacion
         {
             public const string Finished = "Finished";
-            public const string Stopend = "Stoped";
+            public const string Stopend = "Stopped";
         }
 
         public readonly static string defaultInputTextValue = "No definido";
