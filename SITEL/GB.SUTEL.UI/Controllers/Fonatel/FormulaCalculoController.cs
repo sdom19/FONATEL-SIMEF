@@ -215,12 +215,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
+            FormulasCalculo formulaAEnviar = new FormulasCalculo()
+            {
+                id = pFormulaCalculo.id,
+                IdEstado = (int)EstadosRegistro.Eliminado
+            };
+
             await Task.Run(() =>
             {
-                resultado = formulaBL.CambioEstado(new FormulasCalculo() {
-                    id = pFormulaCalculo.id, IdEstado = (int)EstadosRegistro.Eliminado
-                });
+                resultado = formulaBL.CambioEstado(formulaAEnviar);
             });
+
+            if (resultado.HayError == (int)Error.NoError)
+            {
+                await formulaBL.CambiarEstadoJob(formulaAEnviar);
+            }
+
             return JsonConvert.SerializeObject(resultado);
         }
 
@@ -242,14 +252,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
+            FormulasCalculo formulaAEnviar = new FormulasCalculo()
+            {
+                id = pFormulaCalculo.id,
+                IdEstado = (int)EstadosRegistro.Activo
+            };
+
             await Task.Run(() =>
             {
-                resultado = formulaBL.CambioEstado(new FormulasCalculo()
-                {
-                    id = pFormulaCalculo.id,
-                    IdEstado = (int)EstadosRegistro.Activo
-                });
+                resultado = formulaBL.CambioEstado(formulaAEnviar);
             });
+
+            if (resultado.HayError == (int)Error.NoError)
+            {
+                await formulaBL.CambiarEstadoJob(formulaAEnviar);
+            }
+
             return JsonConvert.SerializeObject(resultado);
         }
 
@@ -271,14 +289,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
+            FormulasCalculo formulaAEnviar = new FormulasCalculo()
+            {
+                id = pFormulaCalculo.id,
+                IdEstado = (int)EstadosRegistro.Desactivado
+            };
+
             await Task.Run(() =>
             {
-                resultado = formulaBL.CambioEstado(new FormulasCalculo()
-                {
-                    id = pFormulaCalculo.id,
-                    IdEstado = (int)EstadosRegistro.Desactivado
-                });
+                resultado = formulaBL.CambioEstado(formulaAEnviar);
             });
+
+            if (resultado.HayError == (int)Error.NoError)
+            {
+                await formulaBL.CambiarEstadoJob(formulaAEnviar);
+            }
+
             return JsonConvert.SerializeObject(resultado);
         }
 
@@ -606,6 +632,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 resultado = formulaBL.ActualizarElemento(pFormulaCalculo);
             });
+
+            if (resultado.HayError == (int)Error.NoError)
+            {
+                await formulaBL.CambiarEstadoJob(pFormulaCalculo);
+            }
+
             return JsonConvert.SerializeObject(resultado);
         }
 
@@ -679,6 +711,44 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 resultado = formulaBL.GuardadoDefinitivoFormulaCalculo(new FormulasCalculo() { id = pIdFormulaCalculo });
             });
+
+            if (resultado.HayError != (int)Error.NoError)
+            {
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            resultado = await formulaBL.CrearJobEnMotorAsync(new FormulasCalculo() { id = pIdFormulaCalculo, UsuarioCreacion = usuario });
+
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 01/03/2023
+        /// José Navarro Acuña
+        /// Función que permite ejecutar una formula de cálculo de manera manual en el motor
+        /// </summary>
+        /// <param name="pIdFormulaCalculo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ConsultasFonatelFilter]
+        public async Task<string> EjecutarFormula(string pIdFormulaCalculo)
+        {
+            if (string.IsNullOrEmpty(pIdFormulaCalculo)) // id indicador requerido
+            {
+                return JsonConvert.SerializeObject(
+                    new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+            }
+
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            resultado = await formulaBL.EjecutarJobFormulaManualmente(new FormulasCalculo() { id = pIdFormulaCalculo });
+            
+            if (resultado.HayError != (int)Error.NoError)
+            {
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            resultado = await formulaBL.CrearJobEnMotorAsync(new FormulasCalculo() { id = pIdFormulaCalculo, UsuarioCreacion = usuario });
 
             return JsonConvert.SerializeObject(resultado);
         }

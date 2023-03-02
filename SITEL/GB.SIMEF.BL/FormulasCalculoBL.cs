@@ -750,6 +750,147 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
+        #region Funciones del motor de cálculo
+
+        /// <summary>
+        /// 01/03/2023
+        /// José Navarro Acuña
+        /// Función que permite crear un job en el motor de cálculo para correr una fórmula
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public async Task<RespuestaConsulta<List<FormulasCalculo>>> CrearJobEnMotorAsync(FormulasCalculo pFormulasCalculo)
+        {
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            resultado.objetoRespuesta = new List<FormulasCalculo>();
+            resultado.HayError = (int)Error.NoError;
+            bool errorControlado = false;
+
+            try
+            {
+                PrepararObjetoFormulaCalculo(pFormulasCalculo);
+
+                FormulasCalculo formulaAlmacenda = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
+                
+                PrepararObjetoFormulaCalculo(formulaAlmacenda);
+
+                if (formulasCalculoDAL.ObtenerJobMotor(pFormulasCalculo) != null)
+                {
+                    JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.ActualizarCalendarizacionJob(formulaAlmacenda);
+                }
+                else
+                {
+                    JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.CrearJobEnMotorAsync(formulaAlmacenda);
+                    
+                    formulaAlmacenda.IdJob = jobDTO.id;
+                    FormulasCalculo formula = formulasCalculoDAL.RegistrarJobEnFormula(formulaAlmacenda);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 01/03/2023
+        /// José Navarro Acuña
+        /// Función que permite cambiar el estado de la formula relacionada a un job en el motor de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public async Task<RespuestaConsulta<FormulasCalculo>> CambiarEstadoJob(FormulasCalculo pFormulasCalculo)
+        {
+            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            resultado.HayError = (int)Error.NoError;
+            bool errorControlado = false;
+
+            try
+            {
+                PrepararObjetoFormulaCalculo(pFormulasCalculo);
+
+                if (formulasCalculoDAL.ObtenerJobMotor(pFormulasCalculo) != null)
+                {
+                    JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.CambiarEstadoJob(pFormulasCalculo);
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        /// <summary>
+        /// 01/03/2023
+        /// José Navarro Acuña
+        /// Función que permite ejecutar de manera manual una fórmula de cálculo en el motor de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public async Task<RespuestaConsulta<List<FormulasCalculo>>> EjecutarJobFormulaManualmente(FormulasCalculo pFormulasCalculo)
+        {
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            bool errorControlado = false;
+
+            try
+            {
+                int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.id), out int number);
+                pFormulasCalculo.IdFormula = number;
+
+                if (pFormulasCalculo.IdFormula == 0) // ¿ID descencriptado con éxito?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                FormulasCalculo formulaRegistrada = formulasCalculoDAL.VerificarExistenciaFormulaPorID(pFormulasCalculo.IdFormula);
+
+                if (formulaRegistrada == null) // la fórmula existe?
+                {
+                    errorControlado = true;
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
+                // validar que la fórmula tenga sus datos completos y exista al menos un argumento registrado
+                string msgFormulaCompleto = VerificarDatosCompletosFormulaCalculo(formulaRegistrada);
+
+                if (!string.IsNullOrEmpty(msgFormulaCompleto))
+                {
+                    errorControlado = true;
+                    throw new Exception(msgFormulaCompleto);
+                }
+
+                _ = await formulasCalculoDAL.EjecutarFormulaManualmenteEnMotor(pFormulasCalculo);
+            }
+            catch (Exception ex)
+            {
+                resultado.MensajeError = ex.Message;
+
+                if (errorControlado)
+                    resultado.HayError = (int)Error.ErrorControlado;
+                else
+                    resultado.HayError = (int)Error.ErrorSistema;
+            }
+            return resultado;
+        }
+
+        #endregion
+
+        #region Funciones privadas
+
         /// <summary>
         /// 14/02/2023
         /// José Navarro
@@ -1160,5 +1301,7 @@ namespace GB.SIMEF.BL
 
             return string.Empty;
         }
+
+        #endregion
     }
 }

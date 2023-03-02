@@ -6,10 +6,14 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using static GB.SIMEF.Resources.Constantes;
+using System.Configuration;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace GB.SIMEF.DAL
 {
@@ -133,6 +137,34 @@ namespace GB.SIMEF.DAL
                 }
             }
 
+            return formula;
+        }
+
+        /// <summary>
+        /// 01/03/2023
+        /// José Navarro Acuña
+        /// Función que permite registrar el job creado en el motor de cálculo en la fórmula de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public FormulasCalculo RegistrarJobEnFormula(FormulasCalculo pFormulasCalculo)
+        {
+            FormulasCalculo formula = null;
+
+            using (db = new SIMEFContext())
+            {
+                db.FormulasCalculo.Attach(pFormulasCalculo);
+                db.Entry(pFormulasCalculo).Property(r => r.IdJob).IsModified = true;
+                db.SaveChanges();
+
+                /*formula = db.FormulasCalculo.SingleOrDefault(x => x.IdFormula == pFormulasCalculo.IdFormula);
+
+                if (formula != null)
+                {
+                    formula.IdJob = pFormulasCalculo.IdJob;
+                    db.SaveChanges();
+                }*/
+            }
             return formula;
         }
 
@@ -292,6 +324,185 @@ namespace GB.SIMEF.DAL
             return formulaDTO;
         }
 
+        #region Funciones de motor de cáculo
+
+        /// <summary>
+        /// 01/03/2023
+        /// José Navarro Acuña
+        /// Función que permite obtener el job de una formula
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public async Task<JobMotorFormulaDTO> ObtenerJobMotor(FormulasCalculo pFormulasCalculo)
+        {
+            JobMotorFormulaDTO jobDTO = null;
+
+            using (var apiClient = new HttpClient())
+            {
+                HttpResponseMessage response = await apiClient.GetAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    jobDTO = JObject.Parse(content).ToObject<JobMotorFormulaDTO>();
+                }
+                else
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+            }
+            return jobDTO;
+        }
+
+        /// <summary>
+        /// 01/03/3023
+        /// José Navarro Acuña
+        /// Función que permite crear un job en el motor de cálculo para calendarizar la ejecución de una fórmula
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public async Task<JobMotorFormulaDTO> CrearJobEnMotorAsync(FormulasCalculo pFormulasCalculo)
+        {
+            JobMotorFormulaDTO jobDTO = null;
+
+            using (var apiClient = new HttpClient())
+            {
+                var payload = new
+                {
+                    user = pFormulasCalculo.UsuarioCreacion,
+                    application = ConfigurationManager.AppSettings["APIMotorApplicationId"].ToString(),
+                    dispatch = Dispatch_Unique,
+                    periodicity = mapFrecuenciasConMotor[(FrecuenciaEnvioEnum) pFormulasCalculo.IdFrecuencia],
+                    startNow = false,
+                    startDate = new { 
+                        year = pFormulasCalculo.FechaCalculo.Value.Year,
+                        month = pFormulasCalculo.FechaCalculo.Value.Month,
+                        day = pFormulasCalculo.FechaCalculo.Value.Day,
+                        dayOfWeek = pFormulasCalculo.FechaCalculo.Value.DayOfWeek
+                    },
+                    parameters = new object[]
+                    {
+                        new {
+                            name = "Formula",
+                            value = pFormulasCalculo.IdFormula
+                        }
+                    }
+                };
+
+                var stringPayload = JsonConvert.SerializeObject(payload);
+                var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs", httpContent);
+
+                if (response.IsSuccessStatusCode) 
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    jobDTO = JObject.Parse(content).ToObject<JobMotorFormulaDTO>();
+                }
+                else
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+            }
+            return jobDTO;
+        }
+
+        /// <summary>
+        /// 01/03/2023
+        /// José Navarro Acuña
+        /// Función que permite actualizar la calendarización de una fórmula a nivel del motor de cáculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public async Task<JobMotorFormulaDTO> ActualizarCalendarizacionJob(FormulasCalculo pFormulasCalculo)
+        {
+            JobMotorFormulaDTO jobDTO = null;
+
+            using (var apiClient = new HttpClient())
+            {
+                var payload = new
+                {
+                    periodicity = mapFrecuenciasConMotor[(FrecuenciaEnvioEnum)pFormulasCalculo.IdFrecuencia],
+                    startDate = pFormulasCalculo.FechaCalculo
+                };
+
+                var stringPayload = JsonConvert.SerializeObject(payload);
+                var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/NewPeriodicity", httpContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    jobDTO = JObject.Parse(content).ToObject<JobMotorFormulaDTO>();
+                }
+                else
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+            }
+            return jobDTO;
+        }
+
+        /// <summary>
+        /// 01/03/2023
+        /// José Navarro Acuña
+        /// Función que permite ejecutar de manera manual una fórmula en el motor de cálculo, sin contemplar la fecha de cálculo y la frecuencia
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public async Task<JobMotorFormulaDTO> EjecutarFormulaManualmenteEnMotor(FormulasCalculo pFormulasCalculo)
+        {
+            JobMotorFormulaDTO jobDTO = null;
+
+            using (var apiClient = new HttpClient())
+            {
+                HttpResponseMessage response = await apiClient.GetAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "LaunchNow");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    jobDTO = JObject.Parse(content).ToObject<JobMotorFormulaDTO>();
+                }
+                else
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+            }
+            return jobDTO;
+        }
+
+        /// <summary>
+        /// 01/03/2023
+        /// José Navarro Acuña
+        /// Función que permite cambiar el estado de la formula relacionada a un job en el motor de cálculo
+        /// </summary>
+        /// <param name="pFormulasCalculo"></param>
+        /// <returns></returns>
+        public async Task<JobMotorFormulaDTO> CambiarEstadoJob(FormulasCalculo pFormulasCalculo)
+        {
+            JobMotorFormulaDTO jobDTO = null;
+
+            using (var apiClient = new HttpClient())
+            {
+                string estadoJob = mapEstadoFormulaConMotor[(EstadosRegistro)pFormulasCalculo.IdEstado];
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/Status/" + estadoJob, null);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    jobDTO = JObject.Parse(content).ToObject<JobMotorFormulaDTO>();
+                }
+                else
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+            }
+            return jobDTO;
+        }
+
+        #endregion
+
+        #region Métodos privados
+
         /// <summary>
         /// 21/10/2022
         /// José Navarro Acuña
@@ -385,5 +596,7 @@ namespace GB.SIMEF.DAL
             }
             return indicador;
         }
+
+        #endregion
     }
 }

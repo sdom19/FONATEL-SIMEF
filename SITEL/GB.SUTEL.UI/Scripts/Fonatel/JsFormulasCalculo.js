@@ -942,9 +942,9 @@ GestionFormulaView = {
 
         exitoFormulaCreada: "La Fórmula de Cálculo ha sido creada",
         exitoFormulaAgregada: "La Fórmula ha sido agregada",
-        exitoFormulaEjecutada: "La Fórmula ha sido ejecutada",
+        exitoFormulaEjecutada: "La Fórmula de Cálculo ha sido ejecutada",
         preguntaAgregarFormula: "¿Desea agregar la Fórmula de Cálculo?",
-        preguntaEjecutarFormula: "¿Desea ejecutar la Fórmula?",
+        preguntaEjecutarFormula: "¿Desea ejecutar la Fórmula de Cálculo?",
 
         preguntaGuardadoParcial: "¿Desea realizar un guardado parcial de la Fórmula de Cálculo?",
         preguntaFinalizarFormula: "¿Desea guardar la Fórmula de Cálculo?"
@@ -1650,6 +1650,29 @@ GestionFormulaView = {
                     .then(data => {
                         jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoFormulaCreada)
                             .set('onok', function (closeEvent) { window.location.href = GestionFormulaView.Variables.indexViewURL; });
+                    })
+                    .catch(error => { ManejoDeExcepciones(error); })
+                    .finally(() => {
+                        $("#loading").fadeOut();
+                    });
+            }
+        },
+
+        EjecutarFormula: function (pIdFormula) {
+            let formulaConstruida = GestionFormulaView.Variables.FormulaCalculo;
+
+            if (formulaConstruida != null && formulaConstruida.length > 0) {
+
+                new Promise((resolve, reject) => {
+                    jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEjecutarFormula, jsMensajes.Variables.actionType.agregar)
+                        .set('onok', function (closeEvent) { resolve(true); });
+                })
+                    .then(data => {
+                        return GestionFormulaView.Consultas.EjecutarFormula(pIdFormula);
+                    })
+                    .then(data => {
+                        jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoFormulaEjecutada)
+                            .set('onok', function (closeEvent) { });
                     })
                     .catch(error => { ManejoDeExcepciones(error); })
                     .finally(() => {
@@ -2400,7 +2423,11 @@ GestionFormulaView = {
         },
 
         ConsultarArgumentosDeFormula: function (pIdFormula) {
-            return execAjaxCall("/FormulaCalculo/ConsultarArgumentosDeFormula", "GET", { pIdFormula })
+            return execAjaxCall("/FormulaCalculo/ConsultarArgumentosDeFormula", "GET", { pIdFormula });
+        },
+
+        EjecutarFormula: function (pIdFormulaCalculo) {
+            return execAjaxCall("/FormulaCalculo/EjecutarFormula", "POST", { pIdFormulaCalculo });
         }
     },
 
@@ -2669,26 +2696,17 @@ GestionFormulaView = {
             }
         });
 
-        // | Eventos por probar y rehacer   |
-        // |                                |
-        // V                                V
-
-        
+        $(document).on("click", GestionFormulaView.Controles.form.btnEjecutarFormula, function () {
+            let id = ObtenerValorParametroUrl("id");
+            if (id != null || $.trim(id) != "") {
+                GestionFormulaView.Metodos.EjecutarFormula(id);
+            }
+        });
 
         $(document).on("click", GestionFormulaView.Controles.form.btnCancelar, function (e) {
             jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     window.location.href = GestionFormulaView.Variables.indexViewURL;
-                });
-        });
-
-        $(document).on("click", GestionFormulaView.Controles.form.btnEjecutarFormula, function () {
-            jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEjecutarFormula, jsMensajes.Variables.actionType.agregar)
-                .set('onok', function (closeEvent) {
-                    jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoFormulaEjecutada)
-                        .set('onok', function (closeEvent) {
-
-                        });
                 });
         });
 
