@@ -156,14 +156,6 @@ namespace GB.SIMEF.DAL
                 db.FormulasCalculo.Attach(pFormulasCalculo);
                 db.Entry(pFormulasCalculo).Property(r => r.IdJob).IsModified = true;
                 db.SaveChanges();
-
-                /*formula = db.FormulasCalculo.SingleOrDefault(x => x.IdFormula == pFormulasCalculo.IdFormula);
-
-                if (formula != null)
-                {
-                    formula.IdJob = pFormulasCalculo.IdJob;
-                    db.SaveChanges();
-                }*/
             }
             return formula;
         }
@@ -204,6 +196,7 @@ namespace GB.SIMEF.DAL
                     UsuarioModificacion = x.UsuarioModificacion,
                     FechaCalculo = x.FechaCalculo,
                     Formula = x.Formula,
+                    IdJob = x.IdJob,
 
                     FrecuenciaEnvio = esUnicoRegistro && x.IdFrecuencia != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuencia) : null,
                     IndicadorSalida = esUnicoRegistro && x.IdIndicador != null ? ObtenerIndicador((int)x.IdIndicador) : null,
@@ -371,20 +364,15 @@ namespace GB.SIMEF.DAL
                 {
                     user = pFormulasCalculo.UsuarioCreacion,
                     application = ConfigurationManager.AppSettings["APIMotorApplicationId"].ToString(),
-                    dispatch = Dispatch_Unique,
+                    dispatch = Dispatch_Task,
                     periodicity = mapFrecuenciasConMotor[(FrecuenciaEnvioEnum) pFormulasCalculo.IdFrecuencia],
                     startNow = false,
-                    startDate = new { 
-                        year = pFormulasCalculo.FechaCalculo.Value.Year,
-                        month = pFormulasCalculo.FechaCalculo.Value.Month,
-                        day = pFormulasCalculo.FechaCalculo.Value.Day,
-                        dayOfWeek = pFormulasCalculo.FechaCalculo.Value.DayOfWeek
-                    },
+                    startDate = pFormulasCalculo.FechaCalculo,
                     parameters = new object[]
                     {
                         new {
                             name = "Formula",
-                            value = pFormulasCalculo.IdFormula
+                            value = pFormulasCalculo.IdFormula.ToString()
                         }
                     }
                 };

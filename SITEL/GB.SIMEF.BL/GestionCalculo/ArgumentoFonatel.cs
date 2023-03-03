@@ -21,26 +21,22 @@ namespace GB.SIMEF.BL.GestionCalculo
             {
                 predicadoSQL = string.Format(
                     PredicadosSQLFormulasCalculo.fonatel_variablesDatoCriterio,
-                    pFormulasCalculo.IdIndicador,
+                    argumentoVariable.IdIndicador,
                     argumentoVariable.IdAcumulacion,
                     argumentoVariable.IdVariableDato,
-                    argumentoVariable.IdIndicador,
                     "null",
-                    "null",
-                    pFormulasCalculo.IdFormula
+                    "null"
                 );
             }
             else // detalle de desagregación
             {
                 predicadoSQL = string.Format(
                     PredicadosSQLFormulasCalculo.fonatel_variablesDatoCriterio,
-                    pFormulasCalculo.IdIndicador,
+                    argumentoVariable.IdIndicador,
                     argumentoVariable.IdAcumulacion,
                     argumentoVariable.IdVariableDato,
-                    argumentoVariable.IdIndicador,
                     argumentoVariable.IdCategoria,
-                    argumentoVariable.IdDetalleCategoria,
-                    pFormulasCalculo.IdFormula
+                    argumentoVariable.IdDetalleCategoria
                 );
             }
             return predicadoSQL;
