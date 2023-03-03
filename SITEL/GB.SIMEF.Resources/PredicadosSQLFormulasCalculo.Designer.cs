@@ -105,13 +105,13 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to declare @FechaUltimoRegistro date = null
-        ///declare @IndicadorSalida int = {0}
-        ///declare @IdAcumulacion int = {1}
-        ///declare @IdVariable int = {2}
-        ///declare @IndicadorReferencia int = {3}
-        ///declare @IdCategoria int = {4}
-        ///declare @IdCategoriaDetalle int = {5}
+        ///   Looks up a localized string similar to declare @FechaUltimoRegistro date = null;
+        ///declare @IndicadorSalida int = {0};
+        ///declare @IdAcumulacion int = {1};
+        ///declare @IdVariable int = {2};
+        ///declare @IdCategoria int = {3};
+        ///declare @IdCategoriaDetalle int = {4};
+        ///declare @IndicadorReferencia int = $$$;
         ///
         ///SELECT top 1 @FechaUltimoRegistro = FechaCreacion from IndicadorResultado
         ///WHERE IdIndicador = @IndicadorSalida
@@ -119,7 +119,7 @@ namespace GB.SIMEF.Resources {
         ///
         ///BEGIN
         ///    SET @IdAcumulacion = 0;
-        ///END; WITH MainQuery        /// [rest of string was truncated]&quot;;.
+        ///END; WITH Mai [rest of string was truncated]&quot;;.
         /// </summary>
         public static string fonatel_variablesDatoCriterio {
             get {
@@ -128,8 +128,8 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to declare @pIdCriterio int = {0}
-        ///	declare @pIdDetalle int = {1}
+        ///   Looks up a localized string similar to declare @pIdCriterio int = {0};
+        ///	declare @pIdDetalle int = {1};
         ///
         ///WITH PrincipalQuery
         ///	AS
@@ -144,7 +144,7 @@ namespace GB.SIMEF.Resources {
         ///		FACT.JerarquiaIndicadorMercados.IdFechaIndicador, 
         ///		FACT.JerarquiaIndicadorMercados.Valor, 
         ///		FACT.JerarquiaIndicadorMercados.IdOperador, 
-        ///		DIM.ParametroIndicador.FechaUltimaPublicacion,         /// [rest of string was truncated]&quot;;.
+        ///		DIM.ParametroIndicador.FechaUltimaPublicacion, [rest of string was truncated]&quot;;.
         /// </summary>
         public static string mercados {
             get {

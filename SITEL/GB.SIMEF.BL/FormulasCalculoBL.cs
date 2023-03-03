@@ -759,7 +759,7 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<RespuestaConsulta<List<FormulasCalculo>>> CrearJobEnMotorAsync(FormulasCalculo pFormulasCalculo)
+        public async Task<RespuestaConsulta<List<FormulasCalculo>>> CrearJobEnMotor(FormulasCalculo pFormulasCalculo)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
             resultado.objetoRespuesta = new List<FormulasCalculo>();
@@ -769,14 +769,13 @@ namespace GB.SIMEF.BL
             try
             {
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
-
                 FormulasCalculo formulaAlmacenda = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
-                
                 PrepararObjetoFormulaCalculo(formulaAlmacenda);
 
-                if (formulasCalculoDAL.ObtenerJobMotor(pFormulasCalculo) != null)
+                if (formulaAlmacenda.IdJob != null && formulasCalculoDAL.ObtenerJobMotor(formulaAlmacenda) != null) // existe un job para esta formula?
                 {
-                    JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.ActualizarCalendarizacionJob(formulaAlmacenda);
+                    JobMotorFormulaDTO jobDTO_frecuencia = await formulasCalculoDAL.ActualizarCalendarizacionJob(formulaAlmacenda);
+                    JobMotorFormulaDTO jobDTO_estado = await formulasCalculoDAL.CambiarEstadoJob(formulaAlmacenda);
                 }
                 else
                 {
@@ -785,7 +784,6 @@ namespace GB.SIMEF.BL
                     formulaAlmacenda.IdJob = jobDTO.id;
                     FormulasCalculo formula = formulasCalculoDAL.RegistrarJobEnFormula(formulaAlmacenda);
                 }
-
             }
             catch (Exception ex)
             {
@@ -806,17 +804,19 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<RespuestaConsulta<FormulasCalculo>> CambiarEstadoJob(FormulasCalculo pFormulasCalculo)
+        public async Task<RespuestaConsulta<List<FormulasCalculo>>> CambiarEstadoJob(FormulasCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
             resultado.HayError = (int)Error.NoError;
             bool errorControlado = false;
 
             try
             {
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
+                FormulasCalculo formulaAlmacenda = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
+                PrepararObjetoFormulaCalculo(formulaAlmacenda);
 
-                if (formulasCalculoDAL.ObtenerJobMotor(pFormulasCalculo) != null)
+                if (formulaAlmacenda.IdJob != null && formulasCalculoDAL.ObtenerJobMotor(formulaAlmacenda) != null)
                 {
                     JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.CambiarEstadoJob(pFormulasCalculo);
                 }

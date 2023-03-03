@@ -260,8 +260,8 @@ namespace GB.SIMEF.Resources
         };
 
         public static Dictionary<EstadosRegistro, string> mapEstadoFormulaConMotor = new Dictionary<EstadosRegistro, string>() {
-            { EstadosRegistro.EnProceso, "Waiting"},
-            { EstadosRegistro.Pendiente, "Waiting"},
+            { EstadosRegistro.EnProceso, "Stopped"},
+            { EstadosRegistro.Pendiente, "Stopped"},
             { EstadosRegistro.Activo, "New"},
             { EstadosRegistro.Desactivado, "Stopped"},
             { EstadosRegistro.Eliminado, "Stopped"}

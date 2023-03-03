@@ -228,7 +228,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (resultado.HayError == (int)Error.NoError)
             {
-                await formulaBL.CambiarEstadoJob(formulaAEnviar);
+                resultado = await formulaBL.CambiarEstadoJob(formulaAEnviar);
             }
 
             return JsonConvert.SerializeObject(resultado);
@@ -237,7 +237,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// Permite activar una fórmula
         /// </summary>
-        /// <param name="formulaCalculo"></param>
+        /// <param name="pFormulaCalculo"></param>
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
@@ -265,7 +265,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (resultado.HayError == (int)Error.NoError)
             {
-                await formulaBL.CambiarEstadoJob(formulaAEnviar);
+                resultado = await formulaBL.CambiarEstadoJob(formulaAEnviar);
             }
 
             return JsonConvert.SerializeObject(resultado);
@@ -302,7 +302,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (resultado.HayError == (int)Error.NoError)
             {
-                await formulaBL.CambiarEstadoJob(formulaAEnviar);
+                resultado = await formulaBL.CambiarEstadoJob(formulaAEnviar);
             }
 
             return JsonConvert.SerializeObject(resultado);
@@ -535,7 +535,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// José Navarro Acuña
         /// Función que permite crear una fórmula de cálculo
         /// </summary>
-        /// <param name="pFormulasCalculo"></param>
+        /// <param name="pFormulaCalculo"></param>
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
@@ -569,6 +569,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 resultado = formulaBL.InsertarDatos(pFormulaCalculo);
             });
+
+            RespuestaConsulta<List<FormulasCalculo>> resultadoJob = new RespuestaConsulta<List<FormulasCalculo>>();
+
+            if (resultado.HayError == (int)Error.NoError)
+            {
+                resultadoJob = await formulaBL.CambiarEstadoJob(pFormulaCalculo);
+                resultado.HayError = resultadoJob.HayError;
+            }
+
             return JsonConvert.SerializeObject(resultado);
         }
 
@@ -635,7 +644,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (resultado.HayError == (int)Error.NoError)
             {
-                await formulaBL.CambiarEstadoJob(pFormulaCalculo);
+                resultado = await formulaBL.CambiarEstadoJob(pFormulaCalculo);
             }
 
             return JsonConvert.SerializeObject(resultado);
@@ -691,7 +700,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 13/02/2023
         /// José Navarro Acuña
-        /// Función que permite realizar un guardado definitivo de una fórmula de cálculo
+        /// Función que permite realizar un guardado definitivo de una fórmula de cálculo. Se establece el estado 'Activo'
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
@@ -712,12 +721,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = formulaBL.GuardadoDefinitivoFormulaCalculo(new FormulasCalculo() { id = pIdFormulaCalculo });
             });
 
-            if (resultado.HayError != (int)Error.NoError)
+            if (resultado.HayError == (int)Error.NoError)
             {
-                return JsonConvert.SerializeObject(resultado);
+                resultado = await formulaBL.CrearJobEnMotor(new FormulasCalculo() { id = pIdFormulaCalculo, UsuarioCreacion = usuario });
             }
-
-            resultado = await formulaBL.CrearJobEnMotorAsync(new FormulasCalculo() { id = pIdFormulaCalculo, UsuarioCreacion = usuario });
 
             return JsonConvert.SerializeObject(resultado);
         }
@@ -742,13 +749,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
 
             resultado = await formulaBL.EjecutarJobFormulaManualmente(new FormulasCalculo() { id = pIdFormulaCalculo });
-            
-            if (resultado.HayError != (int)Error.NoError)
-            {
-                return JsonConvert.SerializeObject(resultado);
-            }
-
-            resultado = await formulaBL.CrearJobEnMotorAsync(new FormulasCalculo() { id = pIdFormulaCalculo, UsuarioCreacion = usuario });
 
             return JsonConvert.SerializeObject(resultado);
         }
