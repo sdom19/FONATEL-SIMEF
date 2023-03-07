@@ -230,7 +230,8 @@
 
         "CargarEditar": function (relacionId) {
             var ValorId = relacionId.RelacionCategoriaId[0].idCategoriaId;
-            $("#dd_" + relacionId.idCategoria).val(ValorId).change();
+            Valor = ValorId.toUpperCase();
+            $("#dd_" + relacionId.idCategoria).val(Valor).change();
             $("#dd_" + relacionId.idCategoria).prop('disabled', true);
 
             relacionId.RelacionCategoriaId[0].listaCategoriaAtributo.forEach(function (item) {
@@ -489,7 +490,7 @@
                             dependencias = obj.objetoRespuesta[i] + "<br>"
                         }
 
-                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Relación está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.estado)
+                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Relación entre Categorías está en uso en " + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
                             .set('onok', function (closeEvent) {
 
                                 JsRelacion.Consultas.EliminarRelacionCategoria(idRelacionCategoria);
@@ -923,7 +924,10 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalleEditar, function (
 
 $(document).on("click", JsRelacion.Controles.btnCancelarEditar, function (e) {
     e.preventDefault();
-    location.reload();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            window.location.href = "/Fonatel/RelacionCategoria/Index";
+        });
 });
 
 $(function () {

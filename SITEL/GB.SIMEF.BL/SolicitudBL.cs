@@ -58,7 +58,7 @@ namespace GB.SIMEF.BL
 
                     }
                     string fechaVigencia = string.Format("{0:MM/dd/yyyy} al {1:MM/dd/yyyy}", solicitud.FechaInicio, solicitud.FechaFin);
-                    plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(solicitud.Fuente.Fuente), solicitud.Nombre, fechaVigencia, solicitud.Mes.Nombre + " " + solicitud.Anno.Nombre, formularios);
+                    plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(solicitud.Fuente.Fuente), solicitud.Nombre, fechaVigencia, solicitud.Mes.Nombre + " " + solicitud.Anno.Nombre, formularios, solicitud.Mensaje);
                     foreach (var detalleFuente in solicitud.Fuente.DetalleFuentesRegistro.Where(x => x.Estado == true))
                     {
                         correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(solicitud.Fuente.Fuente), detalleFuente.NombreDestinatario), "Envío de solicitud");

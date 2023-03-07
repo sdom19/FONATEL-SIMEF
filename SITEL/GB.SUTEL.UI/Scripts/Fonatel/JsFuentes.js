@@ -369,7 +369,7 @@
                     } else {
                         let dependencias = obj.objetoRespuesta[0] + "<br>"
 
-                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Fuente ya está en uso en las<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Fuente de Registro está asignada en la Solicitud de Información " + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
                             .set('onok', function (closeEvent) {
                                 JsFuentes.Consultas.EliminarFuente(idfuente);
                             })

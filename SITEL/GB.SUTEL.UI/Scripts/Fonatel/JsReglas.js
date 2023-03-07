@@ -772,7 +772,7 @@
                         JsReglas.Consultas.EliminarRegla(IdRegla);
                     } else {
                         let dependencias = obj.objetoRespuesta[0] + "<br>"
-                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Regla ya está en uso en los<br>" + dependencias + "<br>¿Desea Eliminar?", jsMensajes.Variables.actionType.eliminar)
+                        jsMensajes.Metodos.ConfirmYesOrNoModal("La Regla de Validación se está aplicando en el " + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
                             .set('onok', function (closeEvent) {
                                 JsReglas.Consultas.EliminarRegla(IdRegla);
                             });

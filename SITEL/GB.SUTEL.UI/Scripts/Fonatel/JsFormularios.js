@@ -608,13 +608,13 @@
                     } else {
                         let dependencias = obj.objetoRespuesta[0] + "<br>"
                         if (eliminado) {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario Web ya está en uso en las<br>" + dependencias + "<br>¿Desea eliminarlo?", jsMensajes.Variables.actionType.eliminar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario Web está en uso en la  " + dependencias + "<br>¿Desea eliminarlo?", jsMensajes.Variables.actionType.eliminar)
                                 .set('onok', function (closeEvent) {
                                     JsFormulario.Consultas.EliminarFormulario(idFormulario);
                                 })
                         }
                         else {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario Web ya está en uso en las<br>" + dependencias + "<br>¿Desea desactivarlo?", jsMensajes.Variables.actionType.estado)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("El Formulario Web está en uso en la " + dependencias + "<br>¿Desea desactivarlo?", jsMensajes.Variables.actionType.estado)
                                 .set('onok', function (closeEvent) {
                                     JsFormulario.Consultas.DesactivarFormulario(idFormulario);
                                 })

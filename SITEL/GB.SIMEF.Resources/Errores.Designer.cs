@@ -205,6 +205,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El Correo Electrónico ingresado no tiene formato válido.
+        /// </summary>
+        public static string CorreoInvalido {
+            get {
+                return ResourceManager.GetString("CorreoInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El Correo ingresado ya se encuentra registrado.
         /// </summary>
         public static string CorreoRegistrado {
