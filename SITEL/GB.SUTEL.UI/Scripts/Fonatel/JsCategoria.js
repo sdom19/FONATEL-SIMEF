@@ -714,13 +714,18 @@
                 categoria.id = idCategoria;
                 execAjaxCall("/CategoriasDesagregacion/ValidarCategoria", "POST", categoria)
                     .then((obj) => {
-                        if (obj.objetoRespuesta.length == 0) {
+
+                        let dependencias = '';
+                        for (var i = 0; i < obj.objetoRespuesta.length; i++) {
+                            if (obj.objetoRespuesta[i] != null) {
+                                dependencias += obj.objetoRespuesta[i] + "<br>";
+                            }
+                        }
+
+                        if (dependencias == '') {
                             JsCategoria.Consultas.CambiarEstadoCategoria(idCategoria, estado);
                         } else {
-                            let dependencias = '';
-                            for (var i = 0; i < obj.objetoRespuesta.length; i++) {
-                                dependencias = obj.objetoRespuesta[i] + "<br>"
-                            }
+
                             if (estado == jsUtilidades.Variables.EstadoRegistros.Eliminado) {
                                 jsMensajes.Metodos.ConfirmYesOrNoModal("La Categoría de Desagregación está en uso en el/los<br>" + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
                                     .set('onok', function (closeEvent) {
@@ -732,7 +737,7 @@
                                     .set('onok', function (closeEvent) {
                                         JsCategoria.Consultas.CambiarEstadoCategoria(idCategoria, estado);
                                     });
-                            }                           
+                            }
                         }
                     }).catch((obj) => {
                         if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
