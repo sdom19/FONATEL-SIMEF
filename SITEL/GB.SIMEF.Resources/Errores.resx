@@ -165,6 +165,9 @@
   <data name="CodigoRegistrado" xml:space="preserve">
     <value>El Código ingresado ya se encuentra registrado</value>
   </data>
+  <data name="CorreoInvalido" xml:space="preserve">
+    <value>El Correo Electrónico ingresado no tiene formato válido</value>
+  </data>
   <data name="CorreoRegistrado" xml:space="preserve">
     <value>El Correo ingresado ya se encuentra registrado</value>
   </data>
