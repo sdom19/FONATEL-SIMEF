@@ -414,13 +414,13 @@ JsSolicitud = {
                             dependencias = dependencias + obj.objetoRespuesta[i] + "<br>"
                         }
                         if (Eliminado) {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud de Información ya ha sido enviada a la " + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud de Información ya ha sido enviada a la/las " + dependencias + "<br>¿Desea eliminarla?", jsMensajes.Variables.actionType.eliminar)
                                 .set('onok', function (closeEvent) {
                                     JsSolicitud.Consultas.EliminarSolicitud(idSolicitud);
                                 });
                         }
                         else {
-                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud de Información ya ha sido enviada a la " + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
+                            jsMensajes.Metodos.ConfirmYesOrNoModal("La Solicitud de Información ya ha sido enviada a la/las " + dependencias + "<br>¿Desea desactivarla?", jsMensajes.Variables.actionType.estado)
                                 .set('onok', function (closeEvent) {
                                     JsSolicitud.Consultas.CambiarEstadoDesactivado(idSolicitud);
                                 });
