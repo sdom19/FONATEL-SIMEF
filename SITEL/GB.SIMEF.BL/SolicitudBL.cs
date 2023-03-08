@@ -175,6 +175,10 @@ namespace GB.SIMEF.BL
                 {
                     objeto.IdEstado = (int)EstadosRegistro.Activo;
                 }
+                else if (objetoAnterior.IdEstado == (int)EstadosRegistro.Desactivado)
+                {
+                    objeto.IdEstado = (int)EstadosRegistro.Desactivado;
+                }
                 else
                 {
                     objeto.IdEstado = (int)EstadosRegistro.EnProceso;
