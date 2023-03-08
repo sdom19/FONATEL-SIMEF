@@ -61,7 +61,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Ingresar Cantidad de filas.
+        ///   Busca una cadena traducida similar a Ingresar Cantidad de Filas.
         /// </summary>
         public static string CantidadFilas {
             get {
@@ -187,7 +187,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Notas de FONATEL para el informante.
+        ///   Busca una cadena traducida similar a Notas de FONATEL para el Informante.
         /// </summary>
         public static string NotasEncargado {
             get {
@@ -196,7 +196,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Notas del informante para FONATEL.
+        ///   Busca una cadena traducida similar a Notas del Informante para FONATEL.
         /// </summary>
         public static string NotasInformante {
             get {
