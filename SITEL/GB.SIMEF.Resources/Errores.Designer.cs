@@ -178,6 +178,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La cantidad ingresa en {0} no puede ser menor al valor actual.
+        /// </summary>
+        public static string CantidadVariableDatoCategoria {
+            get {
+                return ResourceManager.GetString("CantidadVariableDatoCategoria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La Categoría seleccionada ya se encuentra registrada.
         /// </summary>
         public static string CategoriaYaRegistrada {

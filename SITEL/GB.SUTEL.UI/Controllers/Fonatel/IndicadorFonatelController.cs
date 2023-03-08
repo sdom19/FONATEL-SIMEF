@@ -1129,19 +1129,29 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
             }
 
-            if (pIndicador.CantidadVariableDato != null)
+            //Validacion de cantidad de variables dato y cateogrias no pueden ser menor a la cantidad actual
+
+            if (!string.IsNullOrEmpty(pIndicador.id))
             {
-                if (pIndicador.CantidadVariableDato < 1) // ¿menor o igual 0?
+                pIndicador.CantidadVariableDato = pIndicador.CantidadVariableDato ?? 0;
+                pIndicador.CantidadCategoriasDesagregacion = pIndicador.CantidadCategoriasDesagregacion ?? 0;
+
+                var detalleVariableDato = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables() { idIndicadorString = pIndicador.id });
+                var detalleCategorias = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
                 {
-                    return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador);
+                    DetallesAgrupados = true,
+                    idIndicadorString = pIndicador.id,
+                    Estado = true
+                });
+
+                if (pIndicador.CantidadVariableDato < detalleVariableDato.objetoRespuesta.Count())
+                {
+                    return string.Format(Errores.CantidadVariableDatoCategoria, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador);
                 }
-            }
-            
-            if (pIndicador.CantidadCategoriasDesagregacion != null)
-            {
-                if (pIndicador.CantidadCategoriasDesagregacion < 1) // ¿menor o igual 0?
+
+                if (pIndicador.CantidadCategoriasDesagregacion < detalleCategorias.objetoRespuesta.Count())
                 {
-                    return string.Format(Errores.CampoRequeridoV2, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador);
+                    return string.Format(Errores.CantidadVariableDatoCategoria, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador);
                 }
             }
 
