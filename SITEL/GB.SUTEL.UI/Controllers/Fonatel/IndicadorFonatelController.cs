@@ -590,7 +590,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 PrepararObjetoIndicadorGuardadoParcial(pIndicador);
             }
 
-            pIndicador.idEstado = (int)EstadosRegistro.EnProceso;
+            pIndicador.idEstado = pIndicador.idEstado == (int)EstadosRegistro.Desactivado ? pIndicador.idEstado : (int)EstadosRegistro.EnProceso;
             pIndicador.UsuarioCreacion = usuario;
 
             // evitar datos indeseados en los ids
@@ -639,6 +639,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     Indicador objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = pIndicador.id }).objetoRespuesta.FirstOrDefault();
                     pIndicador.Codigo = objIndicador.Codigo;
+                    pIndicador.idEstado = objIndicador.idEstado;
                 }
                 catch (Exception)
                 {
