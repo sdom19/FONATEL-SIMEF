@@ -46,7 +46,7 @@ namespace GB.SIMEF.BL
             if (!Utilidades.ValidarEmail(objeto.CorreoUsuario))
             {
                 resultado.HayError = (int)Constantes.Error.ErrorControlado;
-                throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Correo electrónico"));
+                throw new Exception(string.Format(Errores.CorreoInvalido));
             }
             else if (consultardatos.Where(x => x.CorreoUsuario.ToUpper() == objeto.CorreoUsuario).Count() > 0 && agregar)
             {
