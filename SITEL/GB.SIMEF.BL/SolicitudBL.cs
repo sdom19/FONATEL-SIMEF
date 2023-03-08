@@ -171,17 +171,21 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.SolicitudesCantidadFormularios);
                 }
 
-                    if (objetoAnterior.idFuente == objeto.idFuente && objetoAnterior.CantidadFormularios == objeto.CantidadFormularios)
-                    {
-                        objeto.IdEstado = (int)EstadosRegistro.Activo;
-                    }
-                    else
-                    {
-                        objeto.IdEstado = (int)EstadosRegistro.EnProceso;
-                    }
+                if (objetoAnterior.IdEstado == (int)EstadosRegistro.Activo && objetoAnterior.idFuente == objeto.idFuente && objetoAnterior.CantidadFormularios == objeto.CantidadFormularios)
+                {
+                    objeto.IdEstado = (int)EstadosRegistro.Activo;
+                }
+                else if (objetoAnterior.IdEstado == (int)EstadosRegistro.Desactivado)
+                {
+                    objeto.IdEstado = (int)EstadosRegistro.Desactivado;
+                }
+                else
+                {
+                    objeto.IdEstado = (int)EstadosRegistro.EnProceso;
+                }
 
-                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
-                    ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
+                ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
                 
 
                 objeto = ResultadoConsulta.objetoRespuesta.Single();

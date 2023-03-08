@@ -156,6 +156,9 @@
   <data name="CantidadRegistrosLimiteRelaciones" xml:space="preserve">
     <value>La cantidad ingresada en Cantidad de Atributos no puede ser menor al valor actual</value>
   </data>
+  <data name="CantidadVariableDatoCategoria" xml:space="preserve">
+    <value>La cantidad ingresa en {0} no puede ser menor al valor actual</value>
+  </data>
   <data name="CategoriaYaRegistrada" xml:space="preserve">
     <value>La Categoría seleccionada ya se encuentra registrada</value>
   </data>
