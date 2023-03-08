@@ -835,7 +835,9 @@ $(document).on("click", JsFormulario.Controles.btnCloneFormulario, function () {
 $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
     e.preventDefault();
     if (JsFormulario.Metodos.ValidarDatosMinimos()) {
+
         let modo = ObtenerValorParametroUrl('modo');
+
         if (modo == jsUtilidades.Variables.Acciones.Clonar) {
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea clonar el Formulario Web? ", jsMensajes.Variables.actionType.agregar)
                 .set('onok', async function (closeEvent) {
@@ -848,24 +850,41 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
                 .set("oncancel", function () {
                     JsFormulario.Metodos.ValidarFormularioWebTotal();
                 });
-        } else {
-       
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
-       
+
+        } else if (modo == jsUtilidades.Variables.Acciones.Editar) {
+
+            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
+
+                .set('onok', async function (closeEvent) {
+
+                    if (modo == jsUtilidades.Variables.Acciones.Editar) {
+                        await JsFormulario.Consultas.EditarFormularioWeb();
+                        modoMsj = "editado";
+                    }
+                    if (JsFormulario.Variables.HayError === false) {
+                        jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido " + modoMsj)
+                            .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
+                    }
+                })
+                .set("oncancel", function () {
+                    JsFormulario.Metodos.ValidarFormularioWebTotal();
+                });
+        }
+
+        else {
+
+            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea guardar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
+
                 .set('onok', async function (closeEvent) {
 
                     let modoMsj = "";
+
                     if (modo == undefined) { // Crear
                         await JsFormulario.Consultas.InsertarFormularioWeb();
                         modoMsj = "creado";
                     }
-
-                    if (modo == jsUtilidades.Variables.Acciones.Editar) {
-                        await JsFormulario.Consultas.EditarFormularioWeb();
-                    modoMsj = "editado";
-                    }
                     if (JsFormulario.Variables.HayError === false) {
-                    jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido " + modoMsj)
+                        jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido " + modoMsj)
                             .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
                     }
                 })
