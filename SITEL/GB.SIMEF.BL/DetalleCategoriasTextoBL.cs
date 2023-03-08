@@ -289,6 +289,7 @@ namespace GB.SIMEF.BL
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
                 string Codigo = worksheet.Name;
+                int cantFinal = 0;
 
                 CategoriasDesagregacion categoria =
                                      clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { Codigo = Codigo })
@@ -296,6 +297,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.objetoRespuesta = new List<DetalleCategoriaTexto>();
                 for (int i = 0; i < categoria.CantidadDetalleDesagregacion; i++)
                 {
+                    cantFinal = i;
                     int fila = i + 2;
                     if (worksheet.Cells[fila, 1].Value != null || worksheet.Cells[fila, 2].Value != null)
                     {
@@ -338,6 +340,11 @@ namespace GB.SIMEF.BL
                        
                     }
                 }
+                if (cantFinal+1 == categoria.CantidadDetalleDesagregacion)
+                {
+                    categoria.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                    clsDatosCategoria.ActualizarDatos(categoria);
+                }              
             }
 
             return ResultadoConsulta;
