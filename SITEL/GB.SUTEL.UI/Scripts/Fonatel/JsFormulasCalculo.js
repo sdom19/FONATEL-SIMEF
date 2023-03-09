@@ -129,10 +129,14 @@
                     "<button type = 'button' data - toggle='tooltip' data-placement='top' title = 'Clonar' value='" + formula.id + "' class='btn-icon-base btn-clone' ></button >" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar detalle' value='" + formula.id + "' class='btn-icon-base btn-view'></button>";
 
-                if (formula.IdEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
-                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value='" + formula.id + "' class='btn-icon-base btn-power-off'></button>";
-                } else {
+                if (formula.IdEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
                     html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value='" + formula.id + "' class='btn-icon-base btn-power-on'></button>";
+                }
+                else if (formula.IdEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+                    html += "<button type='button' class='btn-icon-base btn-power-on' disabled></button>";
+                }
+                else {
+                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value='" + formula.id + "' class='btn-icon-base btn-power-off'></button>";
                 }
 
                 html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value='" + formula.id + "'  class='btn-icon-base btn-delete'></button>";
@@ -1017,12 +1021,26 @@ GestionFormulaView = {
             }
         },
 
-        LimpiarComboxBoxDependientesDeddlFuenteIndicador() {
+        LimpiarComboxesDependientesDeddlFuenteIndicador() {
             $(GestionFormulaView.Controles.form.ddlGrupo).empty();
             $(GestionFormulaView.Controles.form.ddlClasificacion).empty();
             $(GestionFormulaView.Controles.form.ddlTipoIndicador).empty();
             $(GestionFormulaView.Controles.form.ddlIndicador).empty();
             $(GestionFormulaView.Controles.form.ddlServicio).empty();
+            $(GestionFormulaView.Controles.form.ddlAcumulacion).empty();
+        },
+
+        ReestablecerComboxes: function () {
+            this.LimpiarComboxesDependientesDeddlFuenteIndicador();
+
+            $(GestionFormulaView.Controles.form.divServicio).css("display", "none");
+            $(GestionFormulaView.Controles.form.divGrupo).css("display", "none");
+            $(GestionFormulaView.Controles.form.divClasificacion).css("display", "none");
+            $(GestionFormulaView.Controles.form.divAcumulacion).css("display", "none");
+            $(GestionFormulaView.Controles.form.divTipoIndicador).css("display", "none");
+            $(GestionFormulaView.Controles.form.divIndicador).css("display", "none");
+
+            SeleccionarItemSelect2(GestionFormulaView.Controles.form.ddlFuenteIndicador, "");
         },
 
         InsertarDatosEnComboBoxFuente: function (pData) {
@@ -1117,7 +1135,7 @@ GestionFormulaView = {
         CargarCatalogosParaFuenteIndicadorFonatel: function () {
             $("#loading").fadeIn();
 
-            this.LimpiarComboxBoxDependientesDeddlFuenteIndicador();
+            this.LimpiarComboxesDependientesDeddlFuenteIndicador();
             let fuenteIndicador = GestionFormulaView.Variables.FuenteIndicador.IndicadorDGF;
 
             GestionFormulaView.Consultas.ConsultarGrupoIndicador(fuenteIndicador)
@@ -1149,7 +1167,7 @@ GestionFormulaView = {
         CargarCatalogosParaFuenteIndicadorFueraDeFonatel: function (pFuenteIndicador) {
             $("#loading").fadeIn();
 
-            this.LimpiarComboxBoxDependientesDeddlFuenteIndicador();
+            this.LimpiarComboxesDependientesDeddlFuenteIndicador();
 
             GestionFormulaView.Consultas.ConsultarGrupoIndicador(pFuenteIndicador)
                 .then(data => {
@@ -1351,6 +1369,11 @@ GestionFormulaView = {
                 })
                     .then(_ => {
                         GestionFormulaView.Metodos.AgregarVariableAFormula(argumento);
+
+                        // limpiar filtros y la tabla
+                        GestionFormulaView.Metodos.ReestablecerComboxes();
+                        GestionFormulaView.Metodos.InsertarDatosTablaDetallesIndicador([]);
+
                         jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoArgumentoAgregado)
                             .set('onok', function (_) { });
                     });
@@ -1644,7 +1667,6 @@ GestionFormulaView = {
                             GestionFormulaView.Metodos.CrearObjFormularioCrearFormula(false),
                             formulaConstruida
                         );
-
                     })
                     .then(data => {
                         return GestionFormulaView.Consultas.GuardadoDefinitivoFormulaCalculo(pIdFormula);
@@ -1669,6 +1691,13 @@ GestionFormulaView = {
                     jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEjecutarFormula, jsMensajes.Variables.actionType.agregar)
                         .set('onok', function (closeEvent) { resolve(true); });
                 })
+                    .then(data => {
+                        $("#loading").fadeIn();
+                        return GestionFormulaView.Consultas.CrearDetallesFormulaCalculo(
+                            GestionFormulaView.Metodos.CrearObjFormularioCrearFormula(false),
+                            formulaConstruida
+                        );
+                    })
                     .then(data => {
                         return GestionFormulaView.Consultas.EjecutarFormula(pIdFormula);
                     })
@@ -2518,7 +2547,6 @@ GestionFormulaView = {
             else {
                 GestionFormulaView.Metodos.RegistrarCriterio(this);
             }
-
         });
 
         // Modal detalle desagregación/agrupación
@@ -2706,7 +2734,7 @@ GestionFormulaView = {
         });
 
         $(document).on("click", GestionFormulaView.Controles.form.btnCancelar, function (e) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaCancelarAccion, jsMensajes.Variables.actionType.cancelar)
                 .set('onok', function (closeEvent) {
                     window.location.href = GestionFormulaView.Variables.indexViewURL;
                 });

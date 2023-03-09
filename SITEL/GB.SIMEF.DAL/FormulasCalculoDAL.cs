@@ -354,7 +354,7 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<JobMotorFormulaDTO> CrearJobEnMotorAsync(FormulasCalculo pFormulasCalculo)
+        public async Task<JobMotorFormulaDTO> CrearJobEnMotorAsync(FormulasCalculo pFormulasCalculo, bool pStartNow)
         {
             JobMotorFormulaDTO jobDTO = null;
 
@@ -366,7 +366,7 @@ namespace GB.SIMEF.DAL
                     application = ConfigurationManager.AppSettings["APIMotorApplicationId"].ToString(),
                     dispatch = Dispatch_Task,
                     periodicity = mapFrecuenciasConMotor[(FrecuenciaEnvioEnum) pFormulasCalculo.IdFrecuencia],
-                    startNow = false,
+                    startNow = pStartNow,
                     startDate = pFormulasCalculo.FechaCalculo,
                     parameters = new object[]
                     {
@@ -419,8 +419,9 @@ namespace GB.SIMEF.DAL
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var content = await response.Content.ReadAsStringAsync();
-                    jobDTO = JObject.Parse(content).ToObject<JobMotorFormulaDTO>();
+                    //var content = await response.Content.ReadAsStringAsync();
+                    //jobDTO = JObject.Parse(content).ToObject<JobMotorFormulaDTO>();
+                    jobDTO = new JobMotorFormulaDTO();
                 }
                 else
                 {
@@ -437,18 +438,19 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<JobMotorFormulaDTO> EjecutarFormulaManualmenteEnMotor(FormulasCalculo pFormulasCalculo)
+        public async Task<JobMotorFormulaDTO> EjecutarJobExistente(FormulasCalculo pFormulasCalculo)
         {
             JobMotorFormulaDTO jobDTO = null;
 
             using (var apiClient = new HttpClient())
             {
-                HttpResponseMessage response = await apiClient.GetAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "LaunchNow");
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/LaunchNow", null);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var content = await response.Content.ReadAsStringAsync();
-                    jobDTO = JObject.Parse(content).ToObject<JobMotorFormulaDTO>();
+                    //var content = await response.Content.ReadAsStringAsync();
+                    //jobDTO = JObject.Parse(content).ToObject<JobMotorFormulaDTO>();
+                    jobDTO = new JobMotorFormulaDTO();
                 }
                 else
                 {
