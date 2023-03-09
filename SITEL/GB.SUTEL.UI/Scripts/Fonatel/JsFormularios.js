@@ -873,7 +873,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
 
         else {
 
-            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea guardar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial del Formulario Web?", jsMensajes.Variables.actionType.agregar)
 
                 .set('onok', async function (closeEvent) {
 
