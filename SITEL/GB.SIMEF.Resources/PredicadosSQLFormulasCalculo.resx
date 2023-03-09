@@ -194,13 +194,13 @@ valor
 from  FechaInicio a,  FechaFin b;</value>
   </data>
   <data name="fonatel_variablesDatoCriterio" xml:space="preserve">
-    <value>declare @FechaUltimoRegistro date = null
-declare @IndicadorSalida int = {0}
-declare @IdAcumulacion int = {1}
-declare @IdVariable int = {2}
-declare @IndicadorReferencia int = {3}
-declare @IdCategoria int = {4}
-declare @IdCategoriaDetalle int = {5}
+    <value>declare @FechaUltimoRegistro date = null;
+declare @IndicadorSalida int = {0};
+declare @IdAcumulacion int = {1};
+declare @IdVariable int = {2};
+declare @IdCategoria int = {3};
+declare @IdCategoriaDetalle int = {4};
+declare @IndicadorReferencia int = $$$;
 
 SELECT top 1 @FechaUltimoRegistro = FechaCreacion from IndicadorResultado
 WHERE IdIndicador = @IndicadorSalida
@@ -221,24 +221,24 @@ AS (
     ON b.IdCategoria=c.IdCategoria
     and UPPER(trim(c.Etiqueta)) like UPPER('%'+TRIM(b.valor)+'%')      
 WHERE r.IdIndicador=@IndicadorReferencia and IdVariable=@IdVariable
-    and b.IdCategoria=ISNULL(@IdCategoria, b.IdCategoria) -- valor total y por detalle
-    and c.IdCategoriaDetalle=ISNULL(@IdCategoriaDetalle, c.IdCategoriaDetalle) -- valor total y por detalle
+    and b.IdCategoria=ISNULL(@IdCategoria, b.IdCategoria) /* valor total y por detalle */
+    and c.IdCategoriaDetalle=ISNULL(@IdCategoriaDetalle, c.IdCategoriaDetalle) /* valor total y por detalle */
     GROUP BY b.NumeroFila, a.IdVariable, b.FechaCreacion
 ) SELECT Valor, NumeroFila, IdVariable
 FROM MainQuery
 WHERE format(FechaCreacion,'MM-yy') = 
     CASE @IdAcumulacion
-    -- acumulacion mensual
+    /* acumulacion mensual */
     WHEN 3 THEN format(DATEADD(MONTH, DATEDIFF(MONTH, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
-    -- acumulacion anual
+    /* acumulacion anual */
     WHEN 2 THEN format(DATEADD(YEAR, DATEDIFF(YEAR, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
-    -- acumulación total
+   /* acumulación total */
     ELSE format(FechaCreacion,'MM-yy')
     END</value>
   </data>
   <data name="mercados" xml:space="preserve">
-    <value>declare @pIdCriterio int = {0}
-	declare @pIdDetalle int = {1}
+    <value>declare @pIdCriterio int = {0};
+	declare @pIdDetalle int = {1};
 
 WITH PrincipalQuery
 	AS

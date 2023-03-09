@@ -654,25 +654,21 @@ namespace GB.SIMEF.BL
                     idFormula = number;
                 }
 
+                if (idFormula == 0)
+                {
+                    throw new Exception(Errores.NoRegistrosActualizar);
+                }
+
                 FormulaCalculoDTO formulaDTO = formulasCalculoDAL.VerificarSiFormulaEjecuto(idFormula);
                 
                 if (formulaDTO != null)
                 {
-                    string.Format(
+                    resultado.objetoRespuesta = string.Format(
                         EtiquetasViewFormulasCalculo.MensajeAdvertenciaFormulaEjecutada,
                         formulaDTO.NombreIndicador,
                         formulaDTO.NombreVariableDato,
                         formulaDTO.FechaEjecucion.ToShortDateString() // dd-mm-yyyy
                     );
-                }
-                else
-                {
-                    resultado.objetoRespuesta = string.Empty;
-                }
-
-                if (idFormula == 0)
-                {
-                    throw new Exception(Errores.NoRegistrosActualizar);
                 }
             }
             catch (Exception ex)
@@ -759,7 +755,7 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<RespuestaConsulta<List<FormulasCalculo>>> CrearJobEnMotorAsync(FormulasCalculo pFormulasCalculo)
+        public async Task<RespuestaConsulta<List<FormulasCalculo>>> CrearJobEnMotor(FormulasCalculo pFormulasCalculo)
         {
             RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
             resultado.objetoRespuesta = new List<FormulasCalculo>();
@@ -769,23 +765,25 @@ namespace GB.SIMEF.BL
             try
             {
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
-
                 FormulasCalculo formulaAlmacenda = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
-                
                 PrepararObjetoFormulaCalculo(formulaAlmacenda);
 
-                if (formulasCalculoDAL.ObtenerJobMotor(pFormulasCalculo) != null)
+
+                if (formulaAlmacenda.IdJob != null) // existe un job para esta formula?
                 {
-                    JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.ActualizarCalendarizacionJob(formulaAlmacenda);
+                    JobMotorFormulaDTO jobMotorDTO = await formulasCalculoDAL.ObtenerJobMotor(formulaAlmacenda);
+                    if (jobMotorDTO != null)
+                    {
+                        JobMotorFormulaDTO jobDTO_frecuencia = await formulasCalculoDAL.ActualizarCalendarizacionJob(formulaAlmacenda);
+                        JobMotorFormulaDTO jobDTO_estado = await formulasCalculoDAL.CambiarEstadoJob(formulaAlmacenda);
+                    }
                 }
                 else
                 {
-                    JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.CrearJobEnMotorAsync(formulaAlmacenda);
-                    
+                    JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.CrearJobEnMotorAsync(formulaAlmacenda, false);
                     formulaAlmacenda.IdJob = jobDTO.id;
                     FormulasCalculo formula = formulasCalculoDAL.RegistrarJobEnFormula(formulaAlmacenda);
                 }
-
             }
             catch (Exception ex)
             {
@@ -806,19 +804,25 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<RespuestaConsulta<FormulasCalculo>> CambiarEstadoJob(FormulasCalculo pFormulasCalculo)
+        public async Task<RespuestaConsulta<List<FormulasCalculo>>> CambiarEstadoJob(FormulasCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
             resultado.HayError = (int)Error.NoError;
             bool errorControlado = false;
 
             try
             {
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
+                FormulasCalculo formulaAlmacenda = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
+                PrepararObjetoFormulaCalculo(formulaAlmacenda);
 
-                if (formulasCalculoDAL.ObtenerJobMotor(pFormulasCalculo) != null)
+                if (formulaAlmacenda.IdJob != null)
                 {
-                    JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.CambiarEstadoJob(pFormulasCalculo);
+                    JobMotorFormulaDTO jobMotorDTO = await formulasCalculoDAL.ObtenerJobMotor(formulaAlmacenda);
+                    if (jobMotorDTO != null)
+                    {
+                        JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.CambiarEstadoJob(formulaAlmacenda);
+                    }
                 }
             }
             catch (Exception ex)
@@ -873,7 +877,23 @@ namespace GB.SIMEF.BL
                     throw new Exception(msgFormulaCompleto);
                 }
 
-                _ = await formulasCalculoDAL.EjecutarFormulaManualmenteEnMotor(pFormulasCalculo);
+                PrepararObjetoFormulaCalculo(formulaRegistrada);
+
+                if (formulaRegistrada.IdJob != null) // en caso de que el job ya haya sido creado anteriormente, mandarlo a correr segun su ID
+                {
+                    JobMotorFormulaDTO jobMotorDTO = await formulasCalculoDAL.ObtenerJobMotor(formulaRegistrada);
+                    if (jobMotorDTO != null)
+                    { 
+                        _ = await formulasCalculoDAL.EjecutarJobExistente(formulaRegistrada);
+                    }
+                }
+                else 
+                {
+                    // el job aun no existe por tanto, mandarlo a crear y correr de una vez
+                    JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.CrearJobEnMotorAsync(formulaRegistrada, true);
+                    formulaRegistrada.IdJob = jobDTO.id;
+                    FormulasCalculo formula = formulasCalculoDAL.RegistrarJobEnFormula(formulaRegistrada);
+                }
             }
             catch (Exception ex)
             {
