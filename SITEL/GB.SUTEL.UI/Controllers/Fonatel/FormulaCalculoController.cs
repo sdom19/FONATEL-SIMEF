@@ -3,6 +3,7 @@ using GB.SIMEF.Entities;
 using GB.SIMEF.Entities.DTO;
 using GB.SIMEF.Resources;
 using GB.SUTEL.UI.Filters;
+using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
@@ -17,6 +18,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class FormulaCalculoController : Controller
     {
         #region Variables Públicas del controller
@@ -70,7 +72,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ActionResult Index()
         {
             var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
-            ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
+            ViewBag.ConsultasFonatel = roles.Contains(RolConsultasFonatel).ToString().ToLower();
             return View();
         }
 
@@ -221,14 +223,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 IdEstado = (int)EstadosRegistro.Eliminado
             };
 
-            await Task.Run(() =>
-            {
-                resultado = formulaBL.CambioEstado(formulaAEnviar);
-            });
+            resultado = await formulaBL.CambiarEstadoJob(formulaAEnviar);
 
             if (resultado.HayError == (int)Error.NoError)
             {
-                resultado = await formulaBL.CambiarEstadoJob(formulaAEnviar);
+                await Task.Run(() =>
+                {
+                    resultado = formulaBL.CambioEstado(formulaAEnviar);
+                });
             }
 
             return JsonConvert.SerializeObject(resultado);
@@ -470,7 +472,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Obtiene los detalles relacionados con un criterio de mercados, y a su vez con un indicador
         /// </summary>
         /// <param name="pIdIndicador"></param>
-        /// <param name="pIdCategoria"></param>
+        /// <param name="pIdCriterio"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<string> ObtenerListaDetallesDeCriterioMercados(string pIdIndicador, string pIdCriterio)
@@ -568,6 +570,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 resultado = formulaBL.InsertarDatos(pFormulaCalculo);
+                pFormulaCalculo = resultado.objetoRespuesta[0];
             });
 
             RespuestaConsulta<List<FormulasCalculo>> resultadoJob = new RespuestaConsulta<List<FormulasCalculo>>();
@@ -575,7 +578,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (resultado.HayError == (int)Error.NoError)
             {
                 resultadoJob = await formulaBL.CambiarEstadoJob(pFormulaCalculo);
-                resultado.HayError = resultadoJob.HayError;
             }
 
             return JsonConvert.SerializeObject(resultado);
@@ -746,9 +748,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
             }
 
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
-
-            resultado = await formulaBL.EjecutarJobFormulaManualmente(new FormulasCalculo() { id = pIdFormulaCalculo });
+            RespuestaConsulta<List<FormulasCalculo>> resultado = await formulaBL.EjecutarJobFormulaManualmente(new FormulasCalculo() { id = pIdFormulaCalculo });
 
             return JsonConvert.SerializeObject(resultado);
         }
@@ -1158,7 +1158,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { }).objetoRespuesta;
 
             List<Indicador> indicadoresDeSalida = indicadorFonatelBL.ObtenerDatos(new Indicador() { }).objetoRespuesta
-                .Where(y => y.IdClasificacion == (int)ClasificacionIndicadorEnum.Salida || y.IdClasificacion == (int)ClasificacionIndicadorEnum.EntradaSalida)
+                .Where(y => (y.IdClasificacion == (int)ClasificacionIndicadorEnum.Salida || y.IdClasificacion == (int)ClasificacionIndicadorEnum.EntradaSalida) && y.idEstado == (int)EstadosRegistro.Activo)
                 .Select(x => new Indicador()
                 {
                     id = x.id,
