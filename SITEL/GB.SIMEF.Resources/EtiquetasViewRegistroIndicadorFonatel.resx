@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CantidadFilas" xml:space="preserve">
-    <value>Ingresar Cantidad de filas</value>
+    <value>Ingresar Cantidad de Filas</value>
   </data>
   <data name="CargaExitosa" xml:space="preserve">
     <value>Carga de Solicitud exitosa</value>
@@ -160,10 +160,10 @@
     <value>Nombre Formulario</value>
   </data>
   <data name="NotasEncargado" xml:space="preserve">
-    <value>Notas de FONATEL para el informante</value>
+    <value>Notas de FONATEL para el Informante</value>
   </data>
   <data name="NotasInformante" xml:space="preserve">
-    <value>Notas del informante para FONATEL</value>
+    <value>Notas del Informante para FONATEL</value>
   </data>
   <data name="RangoFechaIncorrecto" xml:space="preserve">
     <value>La Fecha ingresada no cumple con el rango establecido</value>

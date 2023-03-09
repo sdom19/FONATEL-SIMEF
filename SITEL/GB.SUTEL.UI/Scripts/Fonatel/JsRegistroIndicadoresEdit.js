@@ -52,7 +52,8 @@
         "InputDate": id => `<input type="date" class="form-control form-control-fonatel" id="${id}">`,
         "InputText": (id, placeholder) => `<input type="text" aria-label="${placeholder}" class="form-control form-control-fonatel alfa_numerico" id="${id}" placeholder="${placeholder}" style="min-width:150px;">`,
 
-        "NotasEncargadoHelp": "div.tab-pane.active #NotasEncargadoHelp",
+        "NotasEncargadoHelp": "#NotasEncargadoHelp",
+        "NotasEncargadoValidar": "#txtNotasEncargado",
 
     },
 
@@ -232,21 +233,29 @@
         },
 
         "ValidarCampos": function () {
+
             let validar = true;
 
-            $(jsRegistroIndicadorFonatelEdit.Controles.NotasEncargadoHelp).addClass("hidden");
+            var cantIndicadores = parseInt($(jsRegistroIndicadorFonatelEdit.Controles.txtcantidadIndicadores).val());
 
+            for (var i = 1; i <= cantIndicadores; i++) {
 
-            let NotasEncargado = $(jsRegistroIndicadorFonatelEdit.Controles.txtNotasEncargado).val().trim();
+                var NotasInformante = $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.NotasEncargadoValidar).val();
 
-            if (NotasEncargado.length == 0) {
-                $(jsRegistroIndicadorFonatelEdit.Controles.NotasEncargadoHelp).removeClass("hidden");
-                $(jsRegistroIndicadorFonatelEdit.Controles.txtNotasEncargado).parent().addClass("has-error");
-                validar = false;
-            } else {
-                $(jsRegistroIndicadorFonatelEdit.Controles.NotasEncagradoHepl).addClass("hidden");
-                $(jsRegistroIndicadorFonatelEdit.Controles.txtNotasEncargado).parent().removeClass("has-error");
-                Validar = false;
+                if (NotasInformante.length == 0) {
+
+                    $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.NotasEncargadoHelp).removeClass("hidden");
+                    $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.NotasEncargadoValidar).parent().addClass("has-error");
+                    validar = false;
+
+                } else {
+
+                    $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.NotasEncargadoHelp).addClass("hidden");
+                    $(jsRegistroIndicadorFonatelEdit.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatelEdit.Controles.NotasEncargadoValidar).parent().removeClass("has-error");
+
+                    Validar = false;
+                }
+
             }
 
             return validar;
@@ -707,8 +716,6 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardarRegis
 
     e.preventDefault();
 
-    if (jsRegistroIndicadorFonatelEdit.Metodos.ValidarCampos()) {
-
         jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 var cantIndicadores = parseInt($(jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador).val());
@@ -722,13 +729,13 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardarRegis
                 jsRegistroIndicadorFonatelEdit.Consultas.ActualizarDetalleRegistroIndicador();
 
             });
-    }
+    
 });
 
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistroIndicador, function (e) {
 
     e.preventDefault();
-
+    if (jsRegistroIndicadorFonatelEdit.Metodos.ValidarCampos()) {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea realizar la carga del Formulario Web?", jsMensajes.Variables.actionType.cargar)
         .set('onok', function (closeEvent) {
 
@@ -737,6 +744,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCargaRegistr
             jsRegistroIndicadorFonatelEdit.Consultas.CargadoTotalRegistroIndicador(guardadoTotal);
 
         });
+    }
 });
 
 $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnDescargarPlantillaRegistro, function () {
