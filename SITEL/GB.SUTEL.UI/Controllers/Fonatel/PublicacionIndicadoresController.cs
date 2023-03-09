@@ -20,6 +20,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
     {
 
         private readonly IndicadorFonatelBL indicadorfonatelBL;
+        private readonly DefinicionIndicadorBL definicionBL;
 
         // GET: CategoriasDesagregacion
 
@@ -27,6 +28,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public PublicacionIndicadoresController()
         {
             indicadorfonatelBL = new IndicadorFonatelBL(EtiquetasViewPublicaciones.PublicacionIndicadores, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            definicionBL = new DefinicionIndicadorBL(EtiquetasViewDefinicionIndicadores.TituloIndex, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
 
@@ -57,9 +59,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<Indicador>> result = null;
             await Task.Run(() =>
             {
+                var def = definicionBL.ObtenerDatos(new DefinicionIndicador() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
                 result = indicadorfonatelBL.ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo });
                 result.objetoRespuesta = result
                     .objetoRespuesta.Where(x => x.IdClasificacion != (int)Constantes.ClasificacionIndicadorEnum.Entrada).ToList();
+                for (var i = 0; i < result.objetoRespuesta.Count(); i++)
+                {
+                    result.objetoRespuesta[i].tieneDefinicion = (def.Where(d => d.idIndicador == result.objetoRespuesta[i].idIndicador).Count() > 0);
+                }
             });
             return JsonConvert.SerializeObject(result);
         }
@@ -86,12 +93,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return indicadorfonatelBL.ObtenerDatos(indicador);
 
             }).ContinueWith(data =>
-             {
+            {
                 Indicador objetoActualizar = data.Result.objetoRespuesta.Single();
                 objetoActualizar.VisualizaSigitel = indicador.VisualizaSigitel;
                 result = indicadorfonatelBL.PublicacionSigitel(objetoActualizar);
-             }
-            );
+            });
             return JsonConvert.SerializeObject(result);
         }
 

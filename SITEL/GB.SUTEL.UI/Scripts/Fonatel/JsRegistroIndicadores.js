@@ -395,7 +395,7 @@
 
         "VerificarBotonValidar": function () {
             var cantidadFilas = parseInt($(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val());
-            if (cantidadFilas == 0) {
+            if (cantidadFilas == 0 || isNaN(cantidadFilas)) {
                 $(jsRegistroIndicadorFonatel.Controles.btnValidarRegistroIndicador).attr('disabled', true);
             } else {
                 $(jsRegistroIndicadorFonatel.Controles.btnValidarRegistroIndicador).attr('disabled', false);

@@ -70,6 +70,8 @@ namespace GB.SIMEF.Entities
         public int nuevoEstado { get; set; }
         [NotMapped]
         public bool esGuardadoParcial { get; set; }
+        [NotMapped]
+        public bool tieneDefinicion { get; set; }
         #endregion
 
         public override string ToString()
