@@ -966,7 +966,7 @@ $(document).on("click", JsFormulario.Controles.btnActivadoFormulario, function (
     let id = $(this).val();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar el Formulario Web?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
-            JsFormulario.Consultas.ValidarExistenciaFormulario(id);
+            JsFormulario.Consultas.DesactivarFormulario(id);
         });
 });
 
