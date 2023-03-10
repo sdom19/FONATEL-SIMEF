@@ -294,9 +294,12 @@
                     return true;
                 } else if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Numerico && $(JsCategoria.Controles.txtRangoMinimaCategoria).val().length > 0 && $(JsCategoria.Controles.txtRangoMaximaCategoria).val().length > 0) {
                     return true;
-                } else {
-                    return false;
+                } else if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Alfanumerico) {
+                    return true;
+                } else if (tipoDetalle == jsUtilidades.Variables.TipoDetalleCategoria.Texto) {
+                    return true;
                 }
+                return false;
             },
             "ValidacionTipoGuardado": function () {
                 validar = JsCategoria.Metodos.ValidarFormularioCategoria(false);
