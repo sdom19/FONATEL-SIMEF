@@ -927,7 +927,7 @@ $(document).on("click", JsFormulario.Controles.btnSiguienteFormulario, async fun
 $(document).on("click", JsFormulario.Controles.btnDeleteFormulario, function (e) {
     if (consultasFonatel) { return; }
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario Web?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsFormulario.Consultas.ValidarExistenciaFormulario(id, true);
         });
