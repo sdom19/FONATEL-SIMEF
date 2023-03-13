@@ -286,7 +286,7 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El detalle de la Categoría {0} ya se encuentra registrado.
+        ///   Looks up a localized string similar to El detalle de la Categoría {0} seleccionado ya se encuentra registrado.
         /// </summary>
         public static string IdRelacionDuplicado {
             get {
