@@ -48,6 +48,10 @@
         "ListadoDetalleCategoria":[]
     },
 
+    Mensajes: {
+        preguntaAgregarCategoriaARelacion: "¿Desea agregar la categoría a la Relación entre Categorías?"
+    },
+
     "Metodos": {
 
         "CargarTablaRelacion": function () {
@@ -866,7 +870,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarCategoria, function (e) {
         $(JsRelacion.Controles.CategoriaDetalleHelp).addClass("hidden");
         var ddlCatAtributo = $(JsRelacion.Controles.ddlCategoriaAtributo);
         $(ddlCatAtributo[0]).parent().removeClass("has-error");
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal(JsRelacion.Mensajes.preguntaAgregarCategoriaARelacion, jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.InsertarDetalleCategoria();
             });
