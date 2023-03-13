@@ -50,7 +50,9 @@
 
     Mensajes: {
         preguntaAgregarCategoriaARelacion: "¿Desea agregar la categoría a la Relación entre Categorías?",
-        exitoGuardarCategoria: "La Categoría de Desagregación ha sido agregada"
+        exitoGuardarCategoria: "La Categoría de Desagregación ha sido agregada",
+
+        preguntaAgregarDetalleARelacion: "¿Desea agregar el detalle a la Relación entre Categorías?"
     },
 
     "Metodos": {
@@ -719,7 +721,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
     e.preventDefault();
 
     if (JsRelacion.Metodos.ValidarFormularioDetalle()) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Detalle?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal(JsRelacion.Mensajes.preguntaAgregarDetalleARelacion, jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.InsertarDetalleRelacionId();
             });
