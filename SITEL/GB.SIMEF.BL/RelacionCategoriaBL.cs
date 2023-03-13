@@ -887,7 +887,7 @@ namespace GB.SIMEF.BL
                 if (relacionCategoria.RelacionCategoriaId.Where(x=>x.idCategoriaId==objeto.idCategoriaId && x.idEstado != (int)Constantes.EstadosRegistro.Eliminado).Count()>0 )
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                    throw new Exception (string.Format(Errores.IdRelacionDuplicado, objeto.idCategoriaId));
+                    throw new Exception (string.Format(Errores.IdRelacionDuplicado, relacionCategoria?.CategoriasDesagregacionid?.NombreCategoria));
                 }
 
                 if (relacionCategoria.CantidadCategoria == objeto.listaCategoriaAtributo.Count())

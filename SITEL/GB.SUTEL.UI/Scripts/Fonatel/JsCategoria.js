@@ -59,6 +59,11 @@
             "ListadoCategoriaDetalle": [],
             "ModoEditarAtributo": false
         },
+        Mensajes: {
+            preguntaAgregarDetalleACategoria: "¿Desea agregar el detalle a la Categoría de Desagregación?",
+            preguntaEditarDetalleACategoria: "¿Desea editar el detalle a la Categoría de Desagregación?"
+        },
+
         "Metodos": {
             "CargarTablaCategoria": function () {
                 EliminarDatasource();
@@ -927,7 +932,7 @@ $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, functi
 
     if (!JsCategoria.Variables.ModoEditarAtributo) {
         if (JsCategoria.Metodos.ValidarFormularioDetalle()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar  el detalle a la Categoría?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal(JsCategoria.Mensajes.preguntaAgregarDetalleACategoria, jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsCategoria.Consultas.InsertarDetalleCategoria();
                 });
@@ -936,7 +941,7 @@ $(document).on("click", JsCategoria.Controles.btnGuardarDetalleCategoria, functi
     else {
 
         if (JsCategoria.Metodos.ValidarFormularioDetalle()) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el detalle de la Categoría?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal(JsCategoria.Mensajes.preguntaEditarDetalleACategoria, jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsCategoria.Consultas.ModificarDetalleCategoria();
                   

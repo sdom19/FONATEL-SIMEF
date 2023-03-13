@@ -48,6 +48,13 @@
         "ListadoDetalleCategoria":[]
     },
 
+    Mensajes: {
+        preguntaAgregarCategoriaARelacion: "¿Desea agregar la categoría a la Relación entre Categorías?",
+        exitoGuardarCategoria: "La Categoría de Desagregación ha sido agregada",
+
+        preguntaAgregarDetalleARelacion: "¿Desea agregar el detalle a la Relación entre Categorías?"
+    },
+
     "Metodos": {
 
         "CargarTablaRelacion": function () {
@@ -388,8 +395,8 @@
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
                     JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
-                    
-                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
+
+                    jsMensajes.Metodos.OkAlertModal(JsRelacion.Mensajes.exitoGuardarCategoria)
                         .set('onok', function (closeEvent) {
                         });
                 }).catch((obj) => {
@@ -714,7 +721,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalle, function (e) {
     e.preventDefault();
 
     if (JsRelacion.Metodos.ValidarFormularioDetalle()) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Detalle?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal(JsRelacion.Mensajes.preguntaAgregarDetalleARelacion, jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.InsertarDetalleRelacionId();
             });
@@ -866,7 +873,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarCategoria, function (e) {
         $(JsRelacion.Controles.CategoriaDetalleHelp).addClass("hidden");
         var ddlCatAtributo = $(JsRelacion.Controles.ddlCategoriaAtributo);
         $(ddlCatAtributo[0]).parent().removeClass("has-error");
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar la Categoría?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal(JsRelacion.Mensajes.preguntaAgregarCategoriaARelacion, jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.InsertarDetalleCategoria();
             });
