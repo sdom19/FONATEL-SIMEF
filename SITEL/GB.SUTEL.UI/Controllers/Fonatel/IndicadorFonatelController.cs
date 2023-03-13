@@ -256,7 +256,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = indicadorBL.CambioEstado(new Indicador()
                 {
                     id = pIdIndicador,
-                    nuevoEstado = (int)EstadosRegistro.EnProceso // nuevo estado
+                    nuevoEstado = (int)EstadosRegistro.Activo // nuevo estado
                 });
 
             });
