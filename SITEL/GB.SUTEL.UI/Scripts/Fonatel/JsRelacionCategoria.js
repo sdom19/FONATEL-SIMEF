@@ -49,7 +49,8 @@
     },
 
     Mensajes: {
-        preguntaAgregarCategoriaARelacion: "¿Desea agregar la categoría a la Relación entre Categorías?"
+        preguntaAgregarCategoriaARelacion: "¿Desea agregar la categoría a la Relación entre Categorías?",
+        exitoGuardarCategoria: "La Categoría de Desagregación ha sido agregada"
     },
 
     "Metodos": {
@@ -392,8 +393,8 @@
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
                     JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
-                    
-                    jsMensajes.Metodos.OkAlertModal("El Detalle ha sido agregado")
+
+                    jsMensajes.Metodos.OkAlertModal(JsRelacion.Mensajes.exitoGuardarCategoria)
                         .set('onok', function (closeEvent) {
                         });
                 }).catch((obj) => {
