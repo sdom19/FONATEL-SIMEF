@@ -101,7 +101,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                             worksheetInicio.Cells[1, cell].Style.Font.Bold = true;
                             worksheetInicio.Cells[1, cell].Style.Font.Size = 12;
                             worksheetInicio.Cells[1, cell].AutoFitColumns();
-                            List<DetalleDatoHistoricoFila> listaFila = worksheet.DetalleDatoHistoricoFila.Where(x => x.IdDetalleColumna == columnas.IdDetalleDato).ToList();
+                            List<DetalleDatoHistoricoFila> listaFila = worksheet.DetalleDatoHistoricoFila.Where(x => x.IdDetalleDatoHistoricoColumna == columnas.IdDetalleDatoHistoricoColumna).ToList();
                             foreach (var fila in listaFila)
                             {
                                 int cell2 = fila.NumeroFila + 1;

@@ -31,7 +31,7 @@ namespace GB.SIMEF.BL
             {
 
 
-                objeto.Codigo = string.Format("HistCod-{0}", DatosHistoricosDAL.ObtenerDatos(new DatoHistorico()).Max().IdHistorico+1);
+                objeto.Codigo = string.Format("HistCod-{0}", DatosHistoricosDAL.ObtenerDatos(new DatoHistorico()).Max().IdDatoHistorico+1);
                 resultado.objetoRespuesta = new List<DatoHistorico>();
 
                 resultado.Clase = modulo;
@@ -83,7 +83,7 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(pDatosHistoricos.id, out temp))
                     {
-                        pDatosHistoricos.IdHistorico = temp;
+                        pDatosHistoricos.IdDatoHistorico = temp;
                         pDatosHistoricos.id = string.Empty;
                     }
                 }

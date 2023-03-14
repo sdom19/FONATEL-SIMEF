@@ -46,13 +46,13 @@ namespace GB.SIMEF.Excel
                     {
                         datoHistorio = new DatoHistorico();
                         datoHistorio.NombrePrograma = ds.Tables[tabla].TableName;
-                        datoHistorio.CantidadFilas = ds.Tables[tabla].Rows.Count;
-                        datoHistorio.CantidadColumnas = ds.Tables[tabla].Columns.Count;
+                        datoHistorio.CantidadFila = ds.Tables[tabla].Rows.Count;
+                        datoHistorio.CantidadColumna = ds.Tables[tabla].Columns.Count;
                         datoHistorio.DetalleDatoHistoricoColumna = new List<DetalleDatoHistoricoColumna>();
                         datoHistorio.DetalleDatoHistoricoFila = new List<DetalleDatoHistoricoFila>();
 
 
-                        for (int columna = 0; columna < datoHistorio.CantidadColumnas; columna++)
+                        for (int columna = 0; columna < datoHistorio.CantidadColumna; columna++)
                         {
                             datoHistorio.DetalleDatoHistoricoColumna.Add(new DetalleDatoHistoricoColumna()
                             {
@@ -60,7 +60,7 @@ namespace GB.SIMEF.Excel
                                 NumeroColumna = columna
                             });
 
-                            for (int fila = 1; fila < datoHistorio.CantidadFilas; fila++)
+                            for (int fila = 1; fila < datoHistorio.CantidadFila; fila++)
                             {
                                 datoHistorio.DetalleDatoHistoricoFila.Add(new DetalleDatoHistoricoFila()
                                 {
@@ -78,7 +78,7 @@ namespace GB.SIMEF.Excel
                 }
                 if (result.HayError == 0)
                 {
-                    Console.WriteLine("Se Carga el indicador " + datoHistorio.NombrePrograma + " Cantidad de columnas " + datoHistorio.CantidadColumnas + " cantidad de filas " + datoHistorio.CantidadFilas);
+                    Console.WriteLine("Se Carga el indicador " + datoHistorio.NombrePrograma + " Cantidad de columnas " + datoHistorio.CantidadColumna + " cantidad de filas " + datoHistorio.CantidadFila);
                     System.IO.File.Delete(ruta);
                 }
                 else

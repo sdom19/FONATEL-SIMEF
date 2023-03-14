@@ -28,8 +28,8 @@ namespace GB.SIMEF.DAL
             using (db = new BDHistoricoContext())
             {
 
-                listaDatosHistoricos = db.Database.SqlQuery<DatoHistorico>("exec spObtenerDatoHistorico  @idHistorico,@codigo,@arrayid",
-                      new SqlParameter("@idHistorico", objDato.IdHistorico),
+                listaDatosHistoricos = db.Database.SqlQuery<DatoHistorico>("exec pa_ObtenerDatoHistorico  @idHistorico,@codigo,@arrayid",
+                      new SqlParameter("@idHistorico", objDato.IdDatoHistorico),
                       new SqlParameter("@codigo", string.IsNullOrEmpty(objDato.Codigo) ? DBNull.Value.ToString() : objDato.Codigo),
                      new SqlParameter("@arrayid", string.IsNullOrEmpty(objDato.id) ? DBNull.Value.ToString() : objDato.id))
                     .ToList();
@@ -37,14 +37,14 @@ namespace GB.SIMEF.DAL
                 listaDatosHistoricos = listaDatosHistoricos.Select(x => new DatoHistorico()
                 {
                     Codigo = x.Codigo,
-                    CantidadColumnas = x.CantidadColumnas,
-                    CantidadFilas = x.CantidadFilas,
+                    CantidadColumna = x.CantidadColumna,
+                    CantidadFila = x.CantidadFila,
                     NombrePrograma = x.NombrePrograma,
-                    IdHistorico = x.IdHistorico,
+                    IdDatoHistorico = x.IdDatoHistorico,
                     FechaCarga = x.FechaCarga,
-                    DetalleDatoHistoricoColumna = db.DetalleDatoHistoricoColumna.Where(i => i.IdHistorico == x.IdHistorico).ToList(),
-                    DetalleDatoHistoricoFila=db.DetalleDatoHistoricoFila.Where(i=>i.IdDatoHistorico==x.IdHistorico).ToList(),
-                    id=Utilidades.Encriptar(x.IdHistorico.ToString())
+                    DetalleDatoHistoricoColumna = db.DetalleDatoHistoricoColumna.Where(i => i.IdDatoHistorico == x.IdDatoHistorico).ToList(),
+                    DetalleDatoHistoricoFila=db.DetalleDatoHistoricoFila.Where(i=>i.IdDatoHistorico==x.IdDatoHistorico).ToList(),
+                    id=Utilidades.Encriptar(x.IdDatoHistorico.ToString())
                 }).ToList();
             }
 
@@ -64,13 +64,13 @@ namespace GB.SIMEF.DAL
                 var DatosHistoricos = db.DatoHistorico.Add(objHistorico);
                 db.SaveChanges();
                 DatosHistoricosResult = DatosHistoricos;
-                int idDatoHistorico = objHistorico.IdHistorico;
+                int idDatoHistorico = objHistorico.IdDatoHistorico;
 
 
 
                 DatosHistoricos.DetalleDatoHistoricoColumna= objHistorico.DetalleDatoHistoricoColumna.Select(x => new DetalleDatoHistoricoColumna()
                 {
-                    IdHistorico = idDatoHistorico,
+                    IdDatoHistorico = idDatoHistorico,
                     NumeroColumna =x.NumeroColumna,
                     Nombre=x.Nombre
                 }).ToList();
@@ -81,7 +81,7 @@ namespace GB.SIMEF.DAL
                     var DetalleDatoHistoricoColumna = AgregarDatoColumna(itemColumna);
                     var listadoFilas = objHistorico.DetalleDatoHistoricoFila.Select(x => new DetalleDatoHistoricoFila()
                     {
-                        IdDetalleColumna = DetalleDatoHistoricoColumna.IdDetalleDato,
+                        IdDetalleDatoHistoricoColumna = DetalleDatoHistoricoColumna.IdDetalleDatoHistoricoColumna,
                         NumeroFila = x.NumeroFila,
                         NumeroColumna = x.NumeroColumna,
                         Atributo = x.Atributo,
