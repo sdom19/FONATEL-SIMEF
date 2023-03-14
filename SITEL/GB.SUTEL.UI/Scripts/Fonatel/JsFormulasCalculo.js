@@ -195,15 +195,15 @@
         });
 
         $(document).on("click", IndexView.Controles.btnCloneFormula, function () {
-            window.location.href = IndexView.Variables.cloneViewURL + $(this).val();
+            window.location.href = IndexView.Variables.cloneViewURL + encodeURIComponent($(this).val());
         });
 
         $(document).on("click", IndexView.Controles.btnEditFormula, function () {
-            window.location.href = IndexView.Variables.editViewURL + $(this).val();
+            window.location.href = IndexView.Variables.editViewURL + encodeURIComponent($(this).val());
         });
 
         $(document).on("click", IndexView.Controles.btnVerFormula, function () {
-            window.location.href = IndexView.Variables.visualizeViewURL + $(this).val();
+            window.location.href = IndexView.Variables.visualizeViewURL + encodeURIComponent($(this).val());
         });
     },
 

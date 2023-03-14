@@ -65,8 +65,8 @@
                     html += `<button class="btn-icon-base btn-power-on" type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" value=${item.id}></button>`;
                 }
                 else if (item.idEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
-                    html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id} disabled></button>`;
-                    html += `<button class="btn-icon-base btn-power-on" type="button" disabled></button>`;
+                    html += `<button class="btn-icon-base btn-clone" type="button" aria-hidden="true" disabled></button>`;
+                    html += `<button class="btn-icon-base btn-power-on" type="button" aria-hidden="true" disabled></button>`;
                 }
                 else {
                     html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id} disabled></button>`;
@@ -215,12 +215,6 @@
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
-        },
-
-        ClonarIndicador: function (pIdIndicador) {
-            
-                    window.location.href = IndexView.Variables.cloneViewURL + pIdIndicador;
-               
         }
     },
 
@@ -260,11 +254,11 @@
         });
 
         $(document).on("click", IndexView.Controles.btnEditarIndicador, function () {
-            window.location.href = IndexView.Variables.editViewURL + $(this).val();
+            window.location.href = IndexView.Variables.editViewURL + encodeURIComponent($(this).val());
         });
 
         $(document).on("click", IndexView.Controles.btnClonarIndicador, function () {
-            IndexView.Metodos.ClonarIndicador($(this).val());
+            window.location.href = IndexView.Variables.cloneViewURL + encodeURIComponent($(this).val());
         });
     },
 

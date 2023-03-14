@@ -59,7 +59,6 @@ namespace GB.SIMEF.BL
         {
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
             bool errorControlado = false;
-            Indicador indicadorViejo = indicadorFonatelDAL.ObtenerDatos(pIndicador).Where(x => x.id == pIndicador.id).Single();
             int nuevoEstado = pIndicador.nuevoEstado;
 
             try
@@ -73,6 +72,9 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
+                Indicador indicadorViejo = indicadorFonatelDAL.ObtenerDatos(pIndicador).FirstOrDefault();
+                string JsonAnterior = indicadorViejo?.ToString();
+
                 pIndicador = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pIndicador.idIndicador);
 
                 if (pIndicador == null) // ¿el indicador existe?
@@ -84,7 +86,8 @@ namespace GB.SIMEF.BL
                 // validación para cuando se desactiva un indicador. 
                 if (nuevoEstado == (int)EstadosRegistro.Desactivado)
                 {
-                    if (pIndicador.idEstado == (int)EstadosRegistro.EnProceso) { // Para desactivar tiene que estar en estado "Activo"
+                    if (pIndicador.idEstado == (int)EstadosRegistro.EnProceso) // Para desactivar tiene que estar en estado "Activo"
+                    { 
                         errorControlado = true;
                         throw new Exception(Errores.NoRegistrosActualizar);
                     }
@@ -96,8 +99,6 @@ namespace GB.SIMEF.BL
                 pIndicador.UsuarioModificacion = user;
                 pIndicador.idEstado = nuevoEstado;
 
-                
-                string JsonAnterior = indicadorViejo.ToString();
                 List<Indicador> indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
 
                 // construir respuesta
@@ -121,14 +122,11 @@ namespace GB.SIMEF.BL
 
                 var objeto = indicadorActualizado[0];
 
-
                 string JsonActual = objeto.ToString();
 
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
                       resultado.Usuario,
                       resultado.Clase, objeto.Codigo, JsonActual, JsonAnterior, "");
-                //indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
-                //        resultado.Usuario, resultado.Clase, pIndicador.Codigo);
             }
             catch (Exception ex)
             {
