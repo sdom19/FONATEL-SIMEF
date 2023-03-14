@@ -415,7 +415,7 @@ function InsertarOpcionTodosSelect2Multiple(pSelect2) {
  */
 function InsertarParametroUrl(pParametro, pValor) {
     const url = new URL(window.location);
-    url.searchParams.set(pParametro, pValor);
+    url.searchParams.set(pParametro, encodeURIComponent(pValor));
     window.history.replaceState(null, '', url.toString());
 }
 
@@ -436,7 +436,8 @@ function RemoverOpcionesSelect2Multiple (pOpcion) {
  */
 function ObtenerValorParametroUrl (pParametro) {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(pParametro);
+    let value = urlParams.get(pParametro);
+    return value != null ? decodeURIComponent(value) : null;
 }
 
 /**
