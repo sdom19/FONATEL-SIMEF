@@ -708,7 +708,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCancelar, fu
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
-            window.location.href = "/Fonatel/RegistroIndicadorFonatel/Index";
+            window.location.href = "/Fonatel/EditarFormulario/Index";
         });
 });
 
