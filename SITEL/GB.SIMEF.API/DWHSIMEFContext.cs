@@ -25,11 +25,11 @@ namespace SIMEF.API.Models
             }
         }
 
-        public virtual DbSet<DimDefinicionIndicador> DimDefinicionIndicador { get; set; }
-        public virtual DbSet<DimGrupoIndicadores> DimGrupoIndicador { get; set; }
-        public virtual DbSet<DimTipoIndicadores> DimTipoIndicadores { get; set; }
-        public virtual DbSet<DimTablaIndicadores> DimTablaIndicadores { get; set; }
-        public virtual DbSet<DimDetalleIndicadorVariables> DimDetalleIndicadorVariables { get; set; }
+        public virtual DbSet<DefinicionIndicador> DefinicionIndicador { get; set; }
+        public virtual DbSet<GrupoIndicador> GrupoIndicador { get; set; }
+        public virtual DbSet<TipoIndicador> TipoIndicador { get; set; }
+        public virtual DbSet<TablaIndicador> TablaIndicador { get; set; }
+        public virtual DbSet<DetalleIndicadorVariable> DetalleIndicadorVariable { get; set; }
         public virtual DbSet<IndicadorResultado> IndicadorResultado { get; set; }
     }
 }

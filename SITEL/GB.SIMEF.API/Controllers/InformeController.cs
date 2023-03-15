@@ -30,7 +30,7 @@ namespace GB.SIMEF.API.Controllers
             var resultado = new JObject();
             if (informe != null)
             {
-                List<string> l = ObtenerInformeValor(informe.IdTabla);
+                List<string> l = ObtenerInformeValor(informe.IdInformeNombreTabla);
                 string json = "[" + String.Join(",", l) + "]";
                 JArray filas = JArray.Parse(json);
 
@@ -64,7 +64,7 @@ namespace GB.SIMEF.API.Controllers
 
                     if (informe != null)
                     {
-                        List<string> l = ObtenerInformeValor(informe.IdTabla);
+                        List<string> l = ObtenerInformeValor(informe.IdInformeNombreTabla);
                         string json = "[" + String.Join(",", l) + "]";
                         JArray filas = JArray.Parse(json);
 
@@ -83,7 +83,7 @@ namespace GB.SIMEF.API.Controllers
         /// <returns>Lista de InformeNombreTabla</returns>
         internal InformeNombreTabla ObtenerInformeNombreTabla(string tabla)
         {
-            var SqlQuery = "execute FONATEL.spObtenerInformeNombreTabla @nombre";
+            var SqlQuery = "execute pa_ObtenerInformeNombreTabla @nombre";
 
             InformeNombreTabla obj = null;
 
@@ -91,7 +91,7 @@ namespace GB.SIMEF.API.Controllers
             {
                 obj = connection.Query<InformeNombreTabla>(SqlQuery, new { nombre = tabla }).Select(x => new InformeNombreTabla
                 {
-                    IdTabla = x.IdTabla,
+                    IdInformeNombreTabla = x.IdInformeNombreTabla,
                     NombreTabla = x.NombreTabla,
                     Estado = x.Estado,
                 }).FirstOrDefault();
@@ -107,7 +107,7 @@ namespace GB.SIMEF.API.Controllers
         /// <returns>Lista de json en string</returns>
         internal List<string> ObtenerInformeValor(int IdTabla)
         {
-            var SqlQuery = "execute FONATEL.ObtenerInformeValor @idTabla";
+            var SqlQuery = "execute pa_ObtenerInformeValor @idTabla";
 
             List<string> lista = null;
 

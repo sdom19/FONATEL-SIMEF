@@ -7,9 +7,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GB.SIMEF.API.Model
 {
-    public partial class DimDetalleIndicadorCategoria
+    public partial class DetalleIndicadorCategoria
     {
-        public DimDetalleIndicadorCategoria()
+        public DetalleIndicadorCategoria()
         {
 
         }

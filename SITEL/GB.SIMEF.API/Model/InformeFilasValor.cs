@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GB.SIMEF.API.Model
 {
-    [Table("InformeFilasValor", Schema = "FONATEL")]
+    [Table("InformeFilasValor")]
     public class InformeFilasValor
     {
         public InformeFilasValor()
@@ -16,8 +16,8 @@ namespace GB.SIMEF.API.Model
         }
 
         [Key]
-        public int IdTabla { get; set; }
-        public int IdEncabezado { get; set; }
+        public int IdInformeNombreTabla { get; set; }
+        public int IdInformeEncabezadoTabla { get; set; }
         public int IdFilaValor { get; set; }
         public string Valor { get; set; }
     }
