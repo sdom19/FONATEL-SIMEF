@@ -20,9 +20,9 @@ namespace GB.SIMEF.Entities
     public partial class DetalleDatoHistoricoColumna
     {
         [Key]
-        public int IdDetalleDato { get; set; }
+        public int IdDetalleDatoHistoricoColumna { get; set; }
 
-        public int IdHistorico { get; set; }
+        public int IdDatoHistorico { get; set; }
         public int NumeroColumna { get; set; }
         public string Nombre { get; set; }
       

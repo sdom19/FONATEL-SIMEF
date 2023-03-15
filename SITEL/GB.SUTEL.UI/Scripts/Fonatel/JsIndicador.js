@@ -69,7 +69,7 @@
                     html += `<button class="btn-icon-base btn-power-on" type="button" aria-hidden="true" disabled></button>`;
                 }
                 else {
-                    html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id} disabled></button>`;
+                    html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id}></button>`;
                     html += `<button class="btn-icon-base btn-power-off" type="button" data-toggle="tooltip" data-placement="top" title="Activar" value=${item.id}></button>`;
                 }
 

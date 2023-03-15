@@ -118,10 +118,12 @@ $(document).on("change", JsHistorico.Controles.ddlNombreHistorico, function (e) 
     if (id == null) {
         $(JsHistorico.Controles.btnDescargarHistorico).prop("disabled", true);
         $(JsHistorico.Controles.btnVisualizarHistorico).prop("disabled", true);
+        $(JsHistorico.Controles.btnCancelarHistorico).prop("disabled", true);
     }
     else {
         $(JsHistorico.Controles.btnDescargarHistorico).prop("disabled", false);
         $(JsHistorico.Controles.btnVisualizarHistorico).prop("disabled", false);
+        $(JsHistorico.Controles.btnCancelarHistorico).prop("disabled", false);
     }
 });
 $(document).on("click", JsHistorico.Controles.btnVisualizarHistorico, function (e) {
@@ -130,7 +132,7 @@ $(document).on("click", JsHistorico.Controles.btnVisualizarHistorico, function (
     window.location.href = "/Fonatel/HistoricoFonatel/Detalle?id=" + id; 
 });
 $(document).on("click", JsHistorico.Controles.btnDescargarHistorico, function () {
-    if (consultasFonatel) { return; }
+
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea generar el Reporte?", "", "Generar Registro")
         .set('onok', function (closeEvent) {
               new Promise((resolve, reject) => {

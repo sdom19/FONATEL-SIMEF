@@ -231,11 +231,11 @@
                 html = html + "<td>" + formulario.FrecuenciaEnvio.Nombre + "</td>";
                 html = html + "<td>" + formulario.EstadoRegistro.Nombre + "</td>";
                 html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + formulario.id + " data-original-title='Editar' title='Editar' class='btn-icon-base btn-edit'></button>";
-                if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
-                    html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' value=" + formulario.id + " class='btn-icon-base btn-clone' ></button>";
+                if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+                    html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' disabled class='btn-icon-base btn-clone' ></button>";
                 }
                 else {
-                    html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' disabled title = 'Clonar' data-original-title='Clonar' value=" + formulario.id + " class='btn-icon-base btn-clone' ></button>";
+                    html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' value=" + formulario.id + " class='btn-icon-base btn-clone' ></button>";
                 }
                 if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + formulario.id + " class='btn-icon-base btn-power-off'></button>";

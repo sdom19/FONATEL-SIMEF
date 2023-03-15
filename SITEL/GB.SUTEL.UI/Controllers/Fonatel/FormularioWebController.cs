@@ -308,10 +308,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.FrecuanciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
                 .objetoRespuesta;
             var indicadores = indicadorBL.ObtenerDatos(new Indicador() {idEstado=2 })
-                .objetoRespuesta.Where(x=>x.IdClasificacion!=(int)Constantes.ClasificacionIndicadorEnum.Salida);
+                .objetoRespuesta.Where(x=>x.IdClasificacion!=(int)Constantes.ClasificacionIndicadorEnum.Salida && x.Solicitud == true);
             //indicadores = indicadores.Where(x => x.IdClasificacion == 3 || x.IdClasificacion == 4).ToList();
             indicadores = indicadores.
-                Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.idIndicador && p2.Estado == true)).ToList();
+                Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.idIndicador && p2.Estado == true )).ToList();
 
 
 

@@ -20,12 +20,12 @@ namespace GB.SIMEF.Entities
     public partial class DatoHistorico
     {
         [Key]
-        public int IdHistorico { get; set; }
+        public int IdDatoHistorico { get; set; }
 
         public string Codigo { get; set; }
         public string NombrePrograma { get; set; }
-        public int CantidadFilas { get; set; }
-        public int CantidadColumnas { get; set; }
+        public int CantidadFila { get; set; }
+        public int CantidadColumna { get; set; }
         public System.DateTime Fecha { get; set; }
         public System.DateTime FechaCarga { get; set; }
         public bool Estado { get; set; }
