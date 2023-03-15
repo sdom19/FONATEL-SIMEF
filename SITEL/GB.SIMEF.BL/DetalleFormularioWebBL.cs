@@ -220,7 +220,7 @@ namespace GB.SIMEF.BL
                 detalle.IdIndicador = indicador.idIndicador;
                 detalle.CodigoIndicador = indicador.Codigo;
                 detalle.NombreIndicador = indicador.Nombre;
-                detalle.CantidadFilas = objeto.CantidadFilas;
+                detalle.CantidadFila = objeto.CantidadFila;
                 DetalleIndicadorVariables variable = new DetalleIndicadorVariables();
                 variable.idIndicador = indicador.idIndicador;
                 List<DetalleIndicadorVariables> variables = detalleIndicadorVariables.ObtenerDatos(variable).Where(x => x.Estado == true).ToList();

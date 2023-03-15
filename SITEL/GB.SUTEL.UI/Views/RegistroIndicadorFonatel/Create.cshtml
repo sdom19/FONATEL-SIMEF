@@ -40,7 +40,7 @@
     <ul class="nav nav-tabs nav-tabs-fonatel mt-4">
         @foreach (var item in Model.DetalleRegistroIndcadorFonatel.OrderBy(x => x.IdDetalleRegistroIndicador))
         {
-        <li id="@string.Format("Tab{0}", item.IdDetalleRegistroIndicador)"> <a data-toggle="tab" data-Indicador="@item.IdIndicadorString" href="@string.Format("#menu{0}", item.IdDetalleRegistroIndicador)">@item.TituloHojas</a></li>
+        <li id="@string.Format("Tab{0}", item.IdDetalleRegistroIndicador)"> <a data-toggle="tab" data-Indicador="@item.IdIndicadorString" href="@string.Format("#menu{0}", item.IdDetalleRegistroIndicador)">@item.TituloHoja</a></li>
         }
     </ul>
 
@@ -53,7 +53,7 @@
                         <div class="form-group">
                             <label for="txtCantidadRegistroIndicador" class="col-sm-12 col-form-label">@EtiquetasViewRegistroIndicadorFonatel.CantidadFilas</label>
                             <div class="col-sm-12">
-                                <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadRegistroIndicador" placeholder="Cantidad de Filas" value="@item.CantidadFilas">
+                                <input type="text" class="form-control form-control-fonatel solo_numeros" id="txtCantidadRegistroIndicador" placeholder="Cantidad de Filas" value="@item.CantidadFila">
                                 <small id="txtCantidadRegistroIndicadorHelp" class="form-text  form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                             </div>
                         </div>
@@ -63,14 +63,14 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasEncargado</label>
-                                <textarea class="form-control form-control-fonatel textarea" disabled id="txtNotasEncargado" placeholder="Notas">@item.NotasEncargado</textarea>
+                                <textarea class="form-control form-control-fonatel textarea" disabled id="txtNotasEncargado" placeholder="Notas">@item.NotaEncargado</textarea>
                             </div>
                         </div>
                         <div class="col-sm-6">
 
                             <div class="form-group">
                                 <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasInformante</label>
-                                <textarea class="form-control form-control-fonatel textarea" id="txtNotasInformante" placeholder="Notas">@item.NotasInformante</textarea>
+                                <textarea class="form-control form-control-fonatel textarea" id="txtNotasInformante" placeholder="Notas">@item.NotaInformante</textarea>
                                 <small id="txtNotasInformanteHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
 
                             </div>

@@ -29,7 +29,7 @@ namespace GB.SIMEF.Entities
         public string NombreCategoria { get; set; }
         public int IdTipoCategoria { get; set; }
         public int CantidadDetalleDesagregacion { get; set; }
-        public string JSON { get; set; }
+        public string DetalleCategoriaDesagregacion { get; set; }
         public string RangoMinimo { get; set; }
         public string RangoMaximo { get; set; }
         [NotMapped]

@@ -18,31 +18,31 @@ namespace GB.SIMEF.DAL
 
         #region Metodos de Consulta a Base Datos
 
-        public List<FuentesRegistro> ObtenerDatos(FuentesRegistro objFuentesRegistro)
+        public List<FuenteRegistro> ObtenerDatos(FuenteRegistro objFuentesRegistro)
         {
-            List<FuentesRegistro> ListaFuentesRegistro = new List<FuentesRegistro>();
+            List<FuenteRegistro> ListaFuentesRegistro = new List<FuenteRegistro>();
 
             using (db = new SIMEFContext())
             {
-                ListaFuentesRegistro = db.Database.SqlQuery<FuentesRegistro>
-                ("execute spObtenerFuentesRegistros @idFuentesRegistro,@idEstado",
-                new SqlParameter("@idFuentesRegistro", objFuentesRegistro.idFuente),
-                new SqlParameter("@idEstado", objFuentesRegistro.idEstado)
+                ListaFuentesRegistro = db.Database.SqlQuery<FuenteRegistro>
+                ("execute pa_ObtenerFuenteRegistro @IdFuenteRegistro, @IdEstadoRegistro",
+                new SqlParameter("@IdFuenteRegistro", objFuentesRegistro.IdFuenteRegistro),
+                new SqlParameter("@IdEstadoRegistro", objFuentesRegistro.IdEstadoRegistro)
                 ).ToList();
 
 
-                ListaFuentesRegistro = ListaFuentesRegistro.Select(X => new FuentesRegistro
+                ListaFuentesRegistro = ListaFuentesRegistro.Select(X => new FuenteRegistro
                 {
-                    id = Utilidades.Encriptar(X.idFuente.ToString()),
-                    idFuente = X.idFuente,
+                    id = Utilidades.Encriptar(X.IdFuenteRegistro.ToString()),
+                    IdFuenteRegistro = X.IdFuenteRegistro,
                     Fuente = X.Fuente,
-                    idEstado=X.idEstado,
+                    IdEstadoRegistro=X.IdEstadoRegistro,
                     CantidadDestinatario = X.CantidadDestinatario,
                     FechaCreacion = X.FechaCreacion,
                     UsuarioCreacion = X.UsuarioCreacion,
                     UsuarioModificacion = X.UsuarioModificacion,
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == X.idEstado).Single(),
-                    DetalleFuentesRegistro = ObtenerDetalleFuentesRegistro(X.idFuente)
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == X.IdEstadoRegistro).Single(),
+                    DetalleFuentesRegistro = ObtenerDetalleFuentesRegistro(X.IdFuenteRegistro)
 
                 }).ToList();
 
@@ -57,10 +57,10 @@ namespace GB.SIMEF.DAL
         /// <param name="id"></param>
         /// <returns></returns>
 
-        private List<DetalleFuentesRegistro> ObtenerDetalleFuentesRegistro(int id)
+        private List<DetalleFuenteRegistro> ObtenerDetalleFuentesRegistro(int id)
         {
             return db.DetalleFuentesRegistro
-                .Where(x => x.idFuente == id & x.Estado==true).ToList();
+                .Where(x => x.IdFuenteRegistro == id & x.Estado==true).ToList();
         }
 
         /// <summary>
@@ -69,35 +69,35 @@ namespace GB.SIMEF.DAL
         /// <param name="objFuentesRegistro"></param>
         /// <returns></returns>
 
-        public List<FuentesRegistro> ActualizarDatos(FuentesRegistro objFuentesRegistro)
+        public List<FuenteRegistro> ActualizarDatos(FuenteRegistro objFuentesRegistro)
         {
-            List<FuentesRegistro> ListaFuentesRegistro = new List<FuentesRegistro>();
+            List<FuenteRegistro> ListaFuentesRegistro = new List<FuenteRegistro>();
 
             using (db = new SIMEFContext())
             {
-                ListaFuentesRegistro = db.Database.SqlQuery<FuentesRegistro>
-                ("execute spActualizarFuentesRegistro @idFuente,@Fuente,@CantidadDestinatario ,@UsuarioCreacion ,@UsuarioModificacion ,@Estado",
-                    new SqlParameter("@idFuente", objFuentesRegistro.idFuente),
+                ListaFuentesRegistro = db.Database.SqlQuery<FuenteRegistro>
+                ("execute pa_ActualizarFuenteRegistro @IdFuenteRegistro,@Fuente,@CantidadDestinatario ,@UsuarioCreacion ,@UsuarioModificacion ,@Estado",
+                    new SqlParameter("@IdFuenteRegistro", objFuentesRegistro.IdFuenteRegistro),
                     new SqlParameter("@Fuente", objFuentesRegistro.Fuente),
                     new SqlParameter("@CantidadDestinatario", objFuentesRegistro.CantidadDestinatario),
                     new SqlParameter("@UsuarioCreacion",    objFuentesRegistro.UsuarioCreacion),
                     new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty( objFuentesRegistro.UsuarioModificacion)?DBNull.Value.ToString(): objFuentesRegistro.UsuarioModificacion),
-                new SqlParameter("@Estado", objFuentesRegistro.idEstado)
+                new SqlParameter("@Estado", objFuentesRegistro.IdEstadoRegistro)
                 ).ToList();
 
 
-                ListaFuentesRegistro = ListaFuentesRegistro.Select(X => new FuentesRegistro
+                ListaFuentesRegistro = ListaFuentesRegistro.Select(X => new FuenteRegistro
                 {
-                    id = Utilidades.Encriptar(X.idFuente.ToString()),
-                    idFuente = X.idFuente,
+                    id = Utilidades.Encriptar(X.IdFuenteRegistro.ToString()),
+                    IdFuenteRegistro = X.IdFuenteRegistro,
                     Fuente = X.Fuente,
-                    idEstado = X.idEstado,
+                    IdEstadoRegistro = X.IdEstadoRegistro,
                     CantidadDestinatario = X.CantidadDestinatario,
                     FechaCreacion = X.FechaCreacion,
                     UsuarioCreacion = X.UsuarioCreacion,
                     UsuarioModificacion = X.UsuarioModificacion,
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == X.idEstado).Single(),
-                    DetalleFuentesRegistro = ObtenerDetalleFuentesRegistro(X.idFuente)
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == X.IdEstadoRegistro).Single(),
+                    DetalleFuentesRegistro = ObtenerDetalleFuentesRegistro(X.IdFuenteRegistro)
 
                 }).ToList();
 
@@ -113,14 +113,14 @@ namespace GB.SIMEF.DAL
         /// <param name="fuente"></param>
         /// <returns></returns>
 
-        public List<string> ValidarFuente(FuentesRegistro fuente)
+        public List<string> ValidarFuente(FuenteRegistro fuente)
         {
             List<string> listaValicion = new List<string>();
             using (db = new SIMEFContext())
             {
                 listaValicion = db.Database.SqlQuery<string>
-                    ("exec spValidarFuente @idFuente",
-                       new SqlParameter("@idFuente", fuente.idFuente)
+                    ("exec pa_ValidarFuente @IdFuenteRegistro",
+                       new SqlParameter("@IdFuenteRegistro", fuente.IdFuenteRegistro)
                     ).ToList();
             }
 

@@ -48,7 +48,7 @@ namespace GB.SIMEF.DAL
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     DetalleCategoriaTexto = ListaDetalleCategoriaTexto(x.idCategoria),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).FirstOrDefault(),
                     TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle),
                     TipoCategoria = ObtenerTipoCategoria(x.IdTipoCategoria),
                     DetalleCategoriaFecha = ObtenerDetalleCategoriaFecha(x.idCategoria),
@@ -99,7 +99,7 @@ namespace GB.SIMEF.DAL
                     UsuarioModificacion = x.UsuarioModificacion,
                     TipoCategoria = ObtenerTipoCategoria(x.IdTipoCategoria),
                     DetalleCategoriaTexto = db.DetalleCategoriaTexto.Where(i => i.idCategoria == x.idCategoria).ToList(),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).Single(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).Single(),
                     TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle)
 
                 }).ToList();
@@ -341,7 +341,7 @@ namespace GB.SIMEF.DAL
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     DetalleCategoriaTexto = ListaDetalleCategoriaTexto(x.idCategoria),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).FirstOrDefault(),
                     TieneDetalle = ValidarTieneDetalle(x.idTipoDetalle),
                     TipoCategoria = ObtenerTipoCategoria(x.IdTipoCategoria),
                     DetalleCategoriaFecha = ObtenerDetalleCategoriaFecha(x.idCategoria),

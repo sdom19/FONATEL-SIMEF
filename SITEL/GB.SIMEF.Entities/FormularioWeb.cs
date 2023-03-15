@@ -73,16 +73,16 @@ namespace GB.SIMEF.Entities
             json.Append("\"Cantidad de indicadores\":").Append(this.CantidadIndicadores).Append(",");
 
             string estado = string.Empty;
-            switch (this.EstadoRegistro.idEstado)
+            switch (this.EstadoRegistro.IdEstadoRegistro)
             {
                 case (int)Constantes.EstadosRegistro.Desactivado:
-                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.EstadoRegistro.idEstado);
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.EstadoRegistro.IdEstadoRegistro);
                     break;
                 case (int)Constantes.EstadosRegistro.Activo:
-                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.EstadoRegistro.idEstado);
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.EstadoRegistro.IdEstadoRegistro);
                     break;
                 case (int)Constantes.EstadosRegistro.Eliminado:
-                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.EstadoRegistro.idEstado);
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.EstadoRegistro.IdEstadoRegistro);
                     break;
                 case (int)Constantes.EstadosRegistro.EnProceso:
                     estado = "En Proceso";

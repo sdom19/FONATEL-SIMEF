@@ -112,7 +112,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 for (int ws = 0; ws < Formulario.DetalleRegistroIndcadorFonatel.Count(); ws++)
                 {
 
-                    var maxFilas = Formulario.DetalleRegistroIndcadorFonatel[ws].CantidadFilas;
+                    var maxFilas = Formulario.DetalleRegistroIndcadorFonatel[ws].CantidadFila;
                     var cantVariables = Formulario.DetalleRegistroIndcadorFonatel[ws].DetalleRegistroIndicadorVariableFonatel.Count();
                     var cantCategorias = Formulario.DetalleRegistroIndcadorFonatel[ws].DetalleRegistroIndicadorCategoriaFonatel.Count();
                     var maxColumnas = cantVariables + cantCategorias;
@@ -123,7 +123,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                     var Detalle = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, IdFormularioString = idFormulario, IdIndicadorString = indicador}).objetoRespuesta.Single();
 
-                    ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(Formulario.DetalleRegistroIndcadorFonatel[ws].TituloHojas);
+                    ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(Formulario.DetalleRegistroIndcadorFonatel[ws].TituloHoja);
 
                     for (int i = 0; i < cantVariables; i++)
                     {
@@ -208,7 +208,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             var NombreExcel = Formulario.Formulario.Trim();
 
-            var maxFilas = Detalle.CantidadFilas;
+            var maxFilas = Detalle.CantidadFila;
             var cantVariables = Detalle.DetalleRegistroIndicadorVariableFonatel.Count();
             var cantCategorias = Detalle.DetalleRegistroIndicadorCategoriaFonatel.Count();
             var maxColumnas = cantVariables + cantCategorias;
@@ -220,7 +220,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
-                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(Detalle.TituloHojas);
+                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(Detalle.TituloHoja);
                 
                 for (int i = 0; i < cantVariables; i++)
                 {

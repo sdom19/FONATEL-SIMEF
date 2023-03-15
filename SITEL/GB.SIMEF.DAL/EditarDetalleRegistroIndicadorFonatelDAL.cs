@@ -35,11 +35,11 @@ namespace GB.SIMEF.DAL
                 IdIndicador = x.IdIndicador,
                 IdDetalleRegistroIndicador = x.IdDetalleRegistroIndicador,
                 NombreIndicador = x.NombreIndicador,
-                NotasEncargado = x.NotasEncargado,
-                NotasInformante = x.NotasInformante,
-                CantidadFilas = x.CantidadFilas,
+                NotaEncargado = x.NotaEncargado,
+                NotaInformante = x.NotaInformante,
+                CantidadFila = x.CantidadFila,
                 CodigoIndicador = x.CodigoIndicador,
-                TituloHojas = x.TituloHojas,
+                TituloHoja = x.TituloHoja,
                 IdSolicitud = x.IdSolicitud,
                 DetalleRegistroIndicadorVariableFonatel = ObtenerDatoDetalleRegistroIndicadorVariable(x),
                 DetalleRegistroIndicadorCategoriaFonatel = ObtenerDatoDetalleRegistroIndicadorCategoria(x),
@@ -222,7 +222,7 @@ namespace GB.SIMEF.DAL
                     break;
                 default:
 
-                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputSelect, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.JSON);
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputSelect, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.DetalleCategoriaDesagregacion);
                     break;
             }
             return control;
@@ -240,12 +240,12 @@ namespace GB.SIMEF.DAL
                    new SqlParameter("@idFormulario", objeto.IdFormulario),
                    new SqlParameter("@idIndicador", objeto.IdIndicador),
                    new SqlParameter("@IdDetalleRegistroIndicador", objeto.IdDetalleRegistroIndicador),
-                   new SqlParameter("@TituloHojas", objeto.TituloHojas),
-                   new SqlParameter("@NotasEncargado", objeto.NotasEncargado),
-                   new SqlParameter("@NotasInformante", objeto.NotasInformante),
+                   new SqlParameter("@TituloHojas", objeto.TituloHoja),
+                   new SqlParameter("@NotasEncargado", objeto.NotaEncargado),
+                   new SqlParameter("@NotasInformante", objeto.NotaInformante),
                    new SqlParameter("@CodigoIndicador", objeto.CodigoIndicador),
                    new SqlParameter("@NombreIndicador", objeto.NombreIndicador),
-                   new SqlParameter("@CantidadFilas", objeto.CantidadFilas)
+                   new SqlParameter("@CantidadFilas", objeto.CantidadFila)
                  ).ToList();
 
                 ListaRegistroIndicador = CrearListado(ListaRegistroIndicador);

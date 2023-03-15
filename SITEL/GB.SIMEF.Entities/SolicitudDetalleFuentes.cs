@@ -19,6 +19,6 @@ namespace GB.SIMEF.Entities
         public int IdSolicitud { get; set; }
         public int idFuente { get; set; }
     
-        public virtual FuentesRegistro FuentesRegistro { get; set; }
+        public virtual FuenteRegistro FuentesRegistro { get; set; }
     }
 }

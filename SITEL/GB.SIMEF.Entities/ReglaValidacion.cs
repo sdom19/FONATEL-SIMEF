@@ -70,7 +70,7 @@ namespace GB.SIMEF.Entities
             
             json.Append("\"Descripción\":\"").Append(this.Descripcion).Append("\",");
 
-            switch ((int)this.EstadoRegistro.idEstado)
+            switch ((int)this.EstadoRegistro.IdEstadoRegistro)
             {
                 case (int)Constantes.EstadosRegistro.Desactivado:
                     json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Desactivado)).Append("\"}");
