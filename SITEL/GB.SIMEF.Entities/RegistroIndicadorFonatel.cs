@@ -62,7 +62,7 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
 
-        public FuentesRegistro Fuente { get; set; }
+        public FuenteRegistro Fuente { get; set; }
 
         [NotMapped]
         public Solicitud Solicitud { get; set; }

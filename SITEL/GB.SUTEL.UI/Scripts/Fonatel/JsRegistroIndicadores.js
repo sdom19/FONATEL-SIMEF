@@ -231,7 +231,7 @@
             registroIndicador.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
             registroIndicador.IdIndicadorString = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
             data.append('datos', JSON.stringify({ datos: registroIndicador }));
-            data.append('cantidadFilas', $(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val());
+            data.append('cantidadFila', $(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val());
             $.ajax({
                 url: jsUtilidades.Variables.urlOrigen + '/RegistroIndicadorFonatel/CargarExcel',
                 type: 'post',
@@ -373,7 +373,7 @@
 
 
                 var CantidadRegistros = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
-                var NotasInformante = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtNotasInformante).val();
+                var NotaInformante = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtNotasInformante).val();
 
                      if (CantidadRegistros.length == 0) {
                         
@@ -389,7 +389,7 @@
                         Validar = false;
                      }
 
-                    if (NotasInformante.length == 0) {
+                    if (NotaInformante.length == 0) {
 
                         $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtNotasInformanteHelp).removeClass("hidden");
                         $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtNotasInformanteValidar).parent().addClass("has-error");
@@ -409,8 +409,8 @@
         },
 
         "VerificarBotonValidar": function () {
-            var cantidadFilas = parseInt($(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val());
-            if (cantidadFilas == 0 || isNaN(cantidadFilas)) {
+            var CantidadFila = parseInt($(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val());
+            if (CantidadFila == 0 || isNaN(CantidadFila)) {
                 $(jsRegistroIndicadorFonatel.Controles.btnValidarRegistroIndicador).attr('disabled', true);
             } else {
                 $(jsRegistroIndicadorFonatel.Controles.btnValidarRegistroIndicador).attr('disabled', false);
@@ -471,9 +471,9 @@
                 obj.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
                 obj.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
                 obj.IdIndicadorString = $(jsRegistroIndicadorFonatel.Controles.tabRegistroIndicador(i)).attr('data-Indicador');
-                obj.CantidadFilas = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
-                obj.NotasInformante = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtNotasInformante).val();
-                if (obj.CantidadFilas > 0) {
+                obj.CantidadFila = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
+                obj.NotaInformante = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtNotasInformante).val();
+                if (obj.CantidadFila > 0) {
                     listaActDetalleRegistroIndicador.push(obj);
                 }
             }
@@ -514,7 +514,7 @@
             detalleIndicadorFonatel.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
             detalleIndicadorFonatel.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
             detalleIndicadorFonatel.IdIndicadorString = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
-            detalleIndicadorFonatel.CantidadFilas = $(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
+            detalleIndicadorFonatel.CantidadFila = $(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
             execAjaxCall("/RegistroIndicadorFonatel/ConsultaRegistroIndicadorDetalle", "POST", detalleIndicadorFonatel = detalleIndicadorFonatel)
                 .then((obj) => {
                     $(jsRegistroIndicadorFonatel.Controles.tablaIndicador).removeClass("hidden");
@@ -526,7 +526,7 @@
                         }
 
                         jsRegistroIndicadorFonatel.Metodos.CargarColumnasTabla();
-                        jsRegistroIndicadorFonatel.Metodos.CargarFilasTabla(detalleIndicadorFonatel.CantidadFilas);
+                        jsRegistroIndicadorFonatel.Metodos.CargarFilasTabla(detalleIndicadorFonatel.CantidadFila);
                     } else {
                         jsMensajes.Metodos.OkAlertErrorModal("No se posee datos a cargar")
                             .set('onok', function (closeEvent) { });
@@ -574,14 +574,14 @@
                 obj.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
                 obj.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
                 obj.IdIndicadorString = $(jsRegistroIndicadorFonatel.Controles.tabRegistroIndicador(i)).attr('data-Indicador');
-                obj.NotasEncargado = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtNotasEncargado).val();
+                obj.NotaEncargado = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtNotasEncargado).val();
 
 
-                let CantidadFilas = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
+                let CantidadFila = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
 
-                obj.CantidadFilas = CantidadFilas;
+                obj.CantidadFila = CantidadFila;
 
-                if (CantidadFilas > 0) {
+                if (CantidadFila > 0) {
                     listaActDetalleRegistroIndicador.push(obj);
                 }
             }
@@ -895,10 +895,10 @@ $(document).on("click", jsRegistroIndicadorFonatel.Controles.tabRegistroIndicado
 
     //jsRegistroIndicadorFonatel.Variables.ModoConsulta = false;
 
-    var cantidadFilas = parseInt($(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val());
+    var CantidadFila = parseInt($(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val());
     var tabla = $(jsRegistroIndicadorFonatel.Controles.tablaIndicador);
     var ind = tabla.hasClass("revisado");
-    if (cantidadFilas > 0 && !ind) {
+    if (CantidadFila > 0 && !ind) {
         tabla.addClass("revisado");
         jsRegistroIndicadorFonatel.Variables.ModoConsulta = true;
         jsRegistroIndicadorFonatel.Consultas.ConsultaRegistroIndicadorDetalle();

@@ -83,7 +83,7 @@ namespace GB.SIMEF.Entities
 
             json.Append("\"Cantidad de filas\":\"").Append(this.CantidadFilas).Append("\",");
 
-            switch ((int)this.EstadoRegistro.idEstado)
+            switch ((int)this.EstadoRegistro.IdEstadoRegistro)
             {
                 case (int)Constantes.EstadosRegistro.Desactivado:
                     json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Desactivado)).Append("\"}");

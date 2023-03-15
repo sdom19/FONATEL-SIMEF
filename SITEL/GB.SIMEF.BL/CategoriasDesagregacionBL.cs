@@ -201,7 +201,7 @@ namespace GB.SIMEF.BL
                 objeto = clsDatos.ObtenerDatos(objeto).Single();
                 if (ResultadoConsulta.Accion == (int)Accion.Editar)
                 {
-                    result.EstadoRegistro.idEstado = objeto.EstadoRegistro.idEstado;
+                    result.EstadoRegistro.IdEstadoRegistro = objeto.EstadoRegistro.IdEstadoRegistro;
                 }
                 string JsonActual = objeto.ToString();
                 string JsonAnterior = result.ToString();

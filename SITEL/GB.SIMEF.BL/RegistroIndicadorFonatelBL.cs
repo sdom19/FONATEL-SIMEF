@@ -65,7 +65,7 @@ namespace GB.SIMEF.BL
 
                 var HoraActual = DateTime.Now.ToShortTimeString();
 
-                if (objeto.Fuente.idEstado == (int)Constantes.EstadosRegistro.Activo)
+                if (objeto.Fuente.IdEstadoRegistro == (int)Constantes.EstadosRegistro.Activo)
                 {
 
                     plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(objeto.Fuente.Fuente), objeto.Codigo, objeto.Nombre, objeto.Fuente.Fuente, FechaActual, HoraActual);
@@ -136,7 +136,7 @@ namespace GB.SIMEF.BL
                 var FechaActual = DateTime.Today.ToShortDateString();
                 var HoraActual = DateTime.Now.ToShortTimeString();
 
-                if (objeto.Fuente.idEstado == (int)Constantes.EstadosRegistro.Activo)
+                if (objeto.Fuente.IdEstadoRegistro == (int)Constantes.EstadosRegistro.Activo)
                 {
 
                     plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(objeto.Fuente.Fuente), objeto.Codigo, objeto.Nombre, objeto.Fuente.Fuente, FechaActual, HoraActual);
@@ -265,17 +265,16 @@ namespace GB.SIMEF.BL
         {
             try
             {
+                List<DetalleFuenteRegistro> detalle = 
+                    clsFuentesRegistroDestinatarioDAL.ObtenerDatos(new DetalleFuenteRegistro()).Where(x => x.CorreoElectronico == usuario).ToList();
 
-                List<DetalleFuentesRegistro> detalle = 
-                    clsFuentesRegistroDestinatarioDAL.ObtenerDatos(new DetalleFuentesRegistro()).Where(x => x.CorreoElectronico == usuario).ToList();
-
-                FuentesRegistro fuente = clsFuentesRegistroDAL.ObtenerDatos(new FuentesRegistro()).Where(x => detalle.Any(y => y.idFuente== x.idFuente)).FirstOrDefault();
+                FuenteRegistro fuente = clsFuentesRegistroDAL.ObtenerDatos(new FuenteRegistro()).Where(x => detalle.Any(y => y.IdFuenteRegistro== x.IdFuenteRegistro)).FirstOrDefault();
 
                 if (fuente != null)
                 {
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion = (int)Accion.Consultar;
-                    objeto.IdFuente = fuente.idFuente;
+                    objeto.IdFuente = fuente.IdFuenteRegistro;
                     var resul = clsDatos.ObtenerDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -287,8 +286,6 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.objetoRespuesta = new List<RegistroIndicadorFonatel>();
                     ResultadoConsulta.CantidadRegistros = 0;
                 }
-                
-
             }
             catch (Exception ex)
             {

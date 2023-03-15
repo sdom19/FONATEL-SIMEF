@@ -49,7 +49,7 @@ namespace GB.SIMEF.DAL
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     DetalleReglaValidacion = new List<DetalleReglaValidacion>(),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).Single(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).Single(),
                     ListadoTipoReglas = ObtenerListadoTipoReglas(x.idRegla)
                 }).ToList();
             }
@@ -123,7 +123,7 @@ namespace GB.SIMEF.DAL
                     idIndicador = X.idIndicador,
                     UsuarioCreacion = X.UsuarioCreacion,
                     UsuarioModificacion = X.UsuarioModificacion,
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == X.idEstado).Single()
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == X.idEstado).Single()
 
                 }).ToList();
 

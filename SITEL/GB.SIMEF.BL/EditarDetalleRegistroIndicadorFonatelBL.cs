@@ -52,9 +52,9 @@ namespace GB.SIMEF.BL
 
                     DetalleRegistroIndicadorFonatel detalle = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(objeto).FirstOrDefault();
 
-                    if (!string.IsNullOrEmpty(objeto.NotasEncargado))
+                    if (!string.IsNullOrEmpty(objeto.NotaEncargado))
                     {
-                        detalle.NotasEncargado = objeto.NotasEncargado;
+                        detalle.NotaEncargado = objeto.NotaEncargado;
                     }
 
                     var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
@@ -97,9 +97,9 @@ namespace GB.SIMEF.BL
 
                 DetalleRegistroIndicadorFonatel detalle = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(objeto).FirstOrDefault();
 
-                if (!string.IsNullOrEmpty(objeto.NotasEncargado))
+                if (!string.IsNullOrEmpty(objeto.NotaEncargado))
                 {
-                    detalle.NotasEncargado = objeto.NotasEncargado;
+                    detalle.NotaEncargado = objeto.NotaEncargado;
                 }
 
                 var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);

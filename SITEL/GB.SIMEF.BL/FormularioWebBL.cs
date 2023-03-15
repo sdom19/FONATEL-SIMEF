@@ -106,7 +106,7 @@ namespace GB.SIMEF.BL
             if (obj.Descripcion == null || obj.Descripcion == "" || obj.CantidadIndicadores == 0 || obj.idFrecuencia == 0 
                 || obj.CantidadIndicadores != formularioWebViejo.CantidadIndicadores || formularioWebViejo.idEstado == (int)Constantes.EstadosRegistro.EnProceso)
             { 
-                if (formularioWebViejo.EstadoRegistro.idEstado == (int)Constantes.EstadosRegistro.Desactivado)
+                if (formularioWebViejo.EstadoRegistro.IdEstadoRegistro == (int)Constantes.EstadosRegistro.Desactivado)
                 { 
                     return (int)Constantes.EstadosRegistro.Desactivado;
                 }

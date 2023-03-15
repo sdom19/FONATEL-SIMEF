@@ -41,10 +41,10 @@ namespace GB.SIMEF.BL
                 DesencriptarRegistroIndicador(objeto);
 
                 DetalleRegistroIndicadorFonatel detalle = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(objeto).FirstOrDefault();
-                detalle.CantidadFilas = objeto.CantidadFilas;
-                if (!string.IsNullOrEmpty(objeto.NotasInformante))
+                detalle.CantidadFila = objeto.CantidadFila;
+                if (!string.IsNullOrEmpty(objeto.NotaInformante))
                 {
-                    detalle.NotasInformante = objeto.NotasInformante;
+                    detalle.NotaInformante = objeto.NotaInformante;
                 }
                 
                 var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
@@ -121,16 +121,16 @@ namespace GB.SIMEF.BL
 
                     DetalleRegistroIndicadorFonatel detalle = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(objeto).FirstOrDefault();
 
-                    detalle.CantidadFilas = objeto.CantidadFilas;
+                    detalle.CantidadFila = objeto.CantidadFila;
 
-                    if (!string.IsNullOrEmpty(objeto.NotasInformante))
+                    if (!string.IsNullOrEmpty(objeto.NotaInformante))
                     {
-                        detalle.NotasInformante = objeto.NotasInformante;
+                        detalle.NotaInformante = objeto.NotaInformante;
                     }
 
-                    if (!string.IsNullOrEmpty(objeto.NotasEncargado))
+                    if (!string.IsNullOrEmpty(objeto.NotaEncargado))
                     {
-                        detalle.NotasEncargado = objeto.NotasEncargado;
+                        detalle.NotaEncargado = objeto.NotaEncargado;
                     }
 
                     var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
@@ -183,16 +183,16 @@ namespace GB.SIMEF.BL
 
                     DetalleRegistroIndicadorFonatel detalle = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(objeto).FirstOrDefault();
 
-                    detalle.CantidadFilas = objeto.CantidadFilas;
+                    detalle.CantidadFila = objeto.CantidadFila;
 
-                    if (!string.IsNullOrEmpty(objeto.NotasInformante))
+                    if (!string.IsNullOrEmpty(objeto.NotaInformante))
                     {
-                        detalle.NotasInformante = objeto.NotasInformante;
+                        detalle.NotaInformante = objeto.NotaInformante;
                     }
 
-                    if (!string.IsNullOrEmpty(objeto.NotasEncargado))
+                    if (!string.IsNullOrEmpty(objeto.NotaEncargado))
                     {
-                        detalle.NotasEncargado = objeto.NotasEncargado;
+                        detalle.NotaEncargado = objeto.NotaEncargado;
                     }
 
                     var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);

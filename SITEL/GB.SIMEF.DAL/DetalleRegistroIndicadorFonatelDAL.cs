@@ -32,11 +32,11 @@ namespace GB.SIMEF.DAL
                 IdIndicador = x.IdIndicador,
                 IdDetalleRegistroIndicador = x.IdDetalleRegistroIndicador,
                 NombreIndicador = x.NombreIndicador,
-                NotasEncargado = x.NotasEncargado,
-                NotasInformante = x.NotasInformante,
-                CantidadFilas = x.CantidadFilas,
+                NotaEncargado = x.NotaEncargado,
+                NotaInformante = x.NotaInformante,
+                CantidadFila = x.CantidadFila,
                 CodigoIndicador = x.CodigoIndicador,
-                TituloHojas = x.TituloHojas,
+                TituloHoja = x.TituloHoja,
                 IdSolicitud = x.IdSolicitud,
                 DetalleRegistroIndicadorVariableFonatel = ObtenerDatoDetalleRegistroIndicadorVariable(x),
                 DetalleRegistroIndicadorCategoriaFonatel = ObtenerDatoDetalleRegistroIndicadorCategoria(x),
@@ -71,11 +71,11 @@ namespace GB.SIMEF.DAL
                     IdIndicador = x.IdIndicador,
                     IdDetalleRegistroIndicador = x.IdDetalleRegistroIndicador,
                     NombreIndicador = x.NombreIndicador,
-                    NotasEncargado = x.NotasEncargado,
-                    NotasInformante = x.NotasInformante,
-                    CantidadFilas = x.CantidadFilas,
+                    NotaEncargado = x.NotaEncargado,
+                    NotaInformante = x.NotaInformante,
+                    CantidadFila = x.CantidadFila,
                     CodigoIndicador = x.CodigoIndicador,
-                    TituloHojas = x.TituloHojas,
+                    TituloHoja = x.TituloHoja,
                     IdSolicitud = x.IdSolicitud,
                     DetalleRegistroIndicadorVariableFonatel=ObtenerDatoDetalleRegistroIndicadorVariable(x),
                     DetalleRegistroIndicadorCategoriaFonatel=ObtenerDatoDetalleRegistroIndicadorCategoria(x),
@@ -103,7 +103,7 @@ namespace GB.SIMEF.DAL
         {
             List<DetalleRegistroIndicadorVariableFonatel> ListaRegistroIndicadorFonatelVariable = new List<DetalleRegistroIndicadorVariableFonatel>();
             ListaRegistroIndicadorFonatelVariable = db.Database.SqlQuery<DetalleRegistroIndicadorVariableFonatel>
-             ("execute FONATEL.pa_obtenerDetalleRegistroIndicadorVariableFonatel   @idSolicitud, @idFormulario, @idIndicador",
+             ("execute FONATEL.pa_ObtenerDetalleRegistroIndicadorVariableFonatel   @idSolicitud, @idFormulario, @idIndicador",
                 new SqlParameter("@idSolicitud", pDetalleRegistroIndicador.IdSolicitud),
                 new SqlParameter("@idFormulario", pDetalleRegistroIndicador.IdFormulario),
                 new SqlParameter("@idIndicador", pDetalleRegistroIndicador.IdIndicador)
@@ -125,7 +125,7 @@ namespace GB.SIMEF.DAL
         {
             List<DetalleRegistroIndicadorCategoriaFonatel> ListaRegistroIndicadorFonatelCategoria = new List<DetalleRegistroIndicadorCategoriaFonatel>();
             ListaRegistroIndicadorFonatelCategoria = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaFonatel>
-             ("execute FONATEL.pa_obtenerDetalleRegistroIndicadorCategoriaFonatel   @idSolicitud, @idFormulario, @idIndicador",
+             ("execute FONATEL.pa_ObtenerDetalleRegistroIndicadorCategoriaFonatel   @idSolicitud, @idFormulario, @idIndicador",
                 new SqlParameter("@idSolicitud", pDetalleRegistroIndicador.IdSolicitud),
                 new SqlParameter("@idFormulario", pDetalleRegistroIndicador.IdFormulario),
                 new SqlParameter("@idIndicador", pDetalleRegistroIndicador.IdIndicador)
@@ -154,7 +154,7 @@ namespace GB.SIMEF.DAL
             List<DetalleRegistroIndicadorCategoriaValorFonatel> ListaDetalleRegistroIndicadorCategoriaValorFonatel = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
 
                 ListaDetalleRegistroIndicadorCategoriaValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
-                ("execute FONATEL.spObtenerDetalleRegistroIndicadorCategoriaValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idCategoria",
+                ("execute FONATEL.pa_ObtenerDetalleRegistroIndicadorCategoriaValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idCategoria",
                    new SqlParameter("@idSolicitud", objeto.IdSolicitud),
                    new SqlParameter("@idFormulario", objeto.IdFormulario),
                    new SqlParameter("@idIndicador", objeto.IdIndicador),
@@ -193,7 +193,7 @@ namespace GB.SIMEF.DAL
                     control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputNumerico, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.RangoMinimo, DetalleRegistroIndicadorCategoriaFonatel.RangoMaximo);
                     break;
                 default:
-                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputSelect, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.JSON);
+                    control = string.Format(Constantes.EstructuraHtmlRegistroIndicador.InputSelect, DetalleRegistroIndicadorCategoriaFonatel.idCategoria, DetalleRegistroIndicadorCategoriaFonatel.DetalleCategoriaDesagregacion);
                     break;
             }
             return control;
@@ -220,7 +220,7 @@ namespace GB.SIMEF.DAL
                 parametros.TypeName = "FONATEL.TypeDetalleRegistroIndicadorCategoriaValorFonatel";
 
                 ListaDetalleRegistroIndicadorCategoriaValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
-                ("execute FONATEL.spInsertarDetalleRegistroIndicadorCategoriaValorFonatel @lst", parametros
+                ("execute FONATEL.pa_InsertarDetalleRegistroIndicadorCategoriaValorFonatel @lst", parametros
                     ).ToList();
 
                 ListaDetalleRegistroIndicadorCategoriaValorFonatel = ListaDetalleRegistroIndicadorCategoriaValorFonatel.Select(x => new DetalleRegistroIndicadorCategoriaValorFonatel()
@@ -250,17 +250,17 @@ namespace GB.SIMEF.DAL
             using (db = new SITELContext())
             {
                 ListaRegistroIndicadorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorFonatel>
-                 ("execute FONATEL.spActualizarDetalleRegistroIndicadorFonatel   @idSolicitud, @idFormulario, @idIndicador, @IdDetalleRegistroIndicador, @TituloHojas, @NotasEncargado, @NotasInformante, @CodigoIndicador, @NombreIndicador, @CantidadFilas",
-                   new SqlParameter("@idSolicitud", objeto.IdSolicitud),
-                   new SqlParameter("@idFormulario", objeto.IdFormulario),
-                   new SqlParameter("@idIndicador", objeto.IdIndicador),
+                 ("execute FONATEL.pa_ActualizarDetalleRegistroIndicadorFonatel @IdSolicitud, @IdFormulario, @IdIndicador, @IdDetalleRegistroIndicador, @TituloHoja, @NotaEncargado, @NotaInformante, @CodigoIndicador, @NombreIndicador, @CantidadFila",
+                   new SqlParameter("@IdSolicitud", objeto.IdSolicitud),
+                   new SqlParameter("@IdFormulario", objeto.IdFormulario),
+                   new SqlParameter("@IdIndicador", objeto.IdIndicador),
                    new SqlParameter("@IdDetalleRegistroIndicador", objeto.IdDetalleRegistroIndicador),
-                   new SqlParameter("@TituloHojas", objeto.TituloHojas),
-                   new SqlParameter("@NotasEncargado", objeto.NotasEncargado),
-                   new SqlParameter("@NotasInformante", objeto.NotasInformante), 
+                   new SqlParameter("@TituloHoja", objeto.TituloHoja),
+                   new SqlParameter("@NotaEncargado", objeto.NotaEncargado),
+                   new SqlParameter("@NotaInformante", objeto.NotaInformante), 
                    new SqlParameter("@CodigoIndicador", objeto.CodigoIndicador),
                    new SqlParameter("@NombreIndicador", objeto.NombreIndicador),
-                   new SqlParameter("@CantidadFilas", objeto.CantidadFilas)
+                   new SqlParameter("@CantidadFila", objeto.CantidadFila)
                  ).ToList();
                 ListaRegistroIndicadorFonatel = ListaRegistroIndicadorFonatel.Select(x => new DetalleRegistroIndicadorFonatel()
                 {
@@ -268,11 +268,11 @@ namespace GB.SIMEF.DAL
                     IdIndicador = x.IdIndicador,
                     IdDetalleRegistroIndicador = x.IdDetalleRegistroIndicador,
                     NombreIndicador = x.NombreIndicador,
-                    NotasEncargado = x.NotasEncargado,
-                    NotasInformante = x.NotasInformante,
-                    CantidadFilas = x.CantidadFilas,
+                    NotaEncargado = x.NotaEncargado,
+                    NotaInformante = x.NotaInformante,
+                    CantidadFila = x.CantidadFila,
                     CodigoIndicador = x.CodigoIndicador,
-                    TituloHojas = x.TituloHojas,
+                    TituloHoja = x.TituloHoja,
                     IdSolicitud = x.IdSolicitud,
                     DetalleRegistroIndicadorVariableFonatel = ObtenerDatoDetalleRegistroIndicadorVariable(x),
                     DetalleRegistroIndicadorCategoriaFonatel = ObtenerDatoDetalleRegistroIndicadorCategoria(x),
@@ -297,7 +297,7 @@ namespace GB.SIMEF.DAL
             using (db = new SITELContext())
             {
                  ListaDetalleRegistroIndicadorCategoriaValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
-                 ("execute FONATEL.spObtenerDetalleRegistroIndicadorCategoriaValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idCategoria",
+                 ("execute FONATEL.pa_ObtenerDetalleRegistroIndicadorCategoriaValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idCategoria",
                     new SqlParameter("@idSolicitud", objeto.IdSolicitud),
                     new SqlParameter("@idFormulario", objeto.IdFormulario),
                     new SqlParameter("@idIndicador", objeto.IdIndicador),
@@ -331,7 +331,7 @@ namespace GB.SIMEF.DAL
             using (db = new SITELContext())
             {
                 ListaDetalleRegistroIndicadorCategoriaValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
-                ("execute FONATEL.spEliminarDetalleRegistroIndicadorCategoriaValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idCategoria",
+                ("execute FONATEL.pa_EliminarDetalleRegistroIndicadorCategoriaValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idCategoria",
                    new SqlParameter("@idSolicitud", objeto.IdSolicitud),
                    new SqlParameter("@idFormulario", objeto.IdFormulario),
                    new SqlParameter("@idIndicador", objeto.IdIndicador),
@@ -360,12 +360,12 @@ namespace GB.SIMEF.DAL
                    new SqlParameter("@idFormulario", objeto.IdFormulario),
                    new SqlParameter("@idIndicador", objeto.IdIndicador),
                    new SqlParameter("@IdDetalleRegistroIndicador", objeto.IdDetalleRegistroIndicador),
-                   new SqlParameter("@TituloHojas", objeto.TituloHojas),
-                   new SqlParameter("@NotasEncargado", objeto.NotasEncargado),
-                   new SqlParameter("@NotasInformante", objeto.NotasInformante),
+                   new SqlParameter("@TituloHojas", objeto.TituloHoja),
+                   new SqlParameter("@NotasEncargado", objeto.NotaEncargado),
+                   new SqlParameter("@NotasInformante", objeto.NotaInformante),
                    new SqlParameter("@CodigoIndicador", objeto.CodigoIndicador),
                    new SqlParameter("@NombreIndicador", objeto.NombreIndicador),
-                   new SqlParameter("@CantidadFilas", objeto.CantidadFilas)
+                   new SqlParameter("@CantidadFilas", objeto.CantidadFila)
                  ).ToList();
 
                 CrearListado(ListaRegistroIndicadorFonatel);
@@ -389,7 +389,7 @@ namespace GB.SIMEF.DAL
             using (db = new SITELContext())
             {
                 ListaDetalleRegistroIndicadorVariableValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorVariableValorFonatel>
-                ("execute FONATEL.spObtenerDetalleRegistroIndicadorVariableValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @IdVariable",
+                ("execute FONATEL.pa_ObtenerDetalleRegistroIndicadorVariableValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @IdVariable",
                    new SqlParameter("@idSolicitud", objeto.IdSolicitud),
                    new SqlParameter("@idFormulario", objeto.IdFormulario),
                    new SqlParameter("@idIndicador", objeto.IdIndicador),
@@ -422,7 +422,7 @@ namespace GB.SIMEF.DAL
             List<DetalleRegistroIndicadorVariableValorFonatel> ListaDetalleRegistroIndicadorVariableValorFonatel = new List<DetalleRegistroIndicadorVariableValorFonatel>();
 
             ListaDetalleRegistroIndicadorVariableValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorVariableValorFonatel>
-            ("execute FONATEL.spObtenerDetalleRegistroIndicadorVariableValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @IdVariable",
+            ("execute FONATEL.pa_ObtenerDetalleRegistroIndicadorVariableValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @IdVariable",
                new SqlParameter("@idSolicitud", objeto.IdSolicitud),
                new SqlParameter("@idFormulario", objeto.IdFormulario),
                new SqlParameter("@idIndicador", objeto.IdIndicador),
@@ -460,7 +460,7 @@ namespace GB.SIMEF.DAL
                 parametros.TypeName = "FONATEL.TypeDetalleRegistroIndicadorVariableValorFonatel";
 
                 ListaDetalleRegistroIndicadorVariableValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorVariableValorFonatel>
-                ("execute FONATEL.spInsertarDetalleRegistroIndicadorVariableValorFonatel @lst", parametros
+                ("execute FONATEL.pa_InsertarDetalleRegistroIndicadorVariableValorFonatel @lst", parametros
                     ).ToList();
 
                 ListaDetalleRegistroIndicadorVariableValorFonatel = ListaDetalleRegistroIndicadorVariableValorFonatel.Select(x => new DetalleRegistroIndicadorVariableValorFonatel()
@@ -489,7 +489,7 @@ namespace GB.SIMEF.DAL
             using (db = new SITELContext())
             {
                 ListaDetalleRegistroIndicadorVariableValorFonatel = db.Database.SqlQuery<DetalleRegistroIndicadorCategoriaValorFonatel>
-                ("execute FONATEL.spEliminarDetalleRegistroIndicadorVariableValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idVariable",
+                ("execute FONATEL.pa_EliminarDetalleRegistroIndicadorVariableValorFonatel  @idSolicitud, @idFormulario, @idIndicador, @idVariable",
                    new SqlParameter("@idSolicitud", objeto.IdSolicitud),
                    new SqlParameter("@idFormulario", objeto.IdFormulario),
                    new SqlParameter("@idIndicador", objeto.IdIndicador),

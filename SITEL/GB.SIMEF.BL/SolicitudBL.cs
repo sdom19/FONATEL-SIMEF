@@ -39,7 +39,7 @@ namespace GB.SIMEF.BL
                 envioCorreo.objetoRespuesta = false;
                 PlantillaHtml plantilla = plantillaDal.ObtenerDatos((int)Constantes.PlantillaCorreoEnum.EnvioSolicitud);
                 solicitud = clsDatos.ObtenerDatos(solicitud).Single();
-                if (solicitud.Fuente.idEstado == (int)Constantes.EstadosRegistro.Activo)
+                if (solicitud.Fuente.IdEstadoRegistro == (int)Constantes.EstadosRegistro.Activo)
                 {
 
                     string formularios = string.Empty;

@@ -57,12 +57,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (string.IsNullOrEmpty(id))
             {
                 ViewBag.titulo = EtiquetasViewFuentesRegistro.CrearFuente;
-                return View(new FuentesRegistro());
+                return View(new FuenteRegistro());
             } else
             {
                 ViewBag.titulo = EtiquetasViewFuentesRegistro.Editar;
-                FuentesRegistro fuente =
-                    FuenteBL.ObtenerDatos(new FuentesRegistro() { id = id }).objetoRespuesta.Single();
+                FuenteRegistro fuente =
+                    FuenteBL.ObtenerDatos(new FuenteRegistro() { id = id }).objetoRespuesta.Single();
                 return View(fuente);
             }
 
@@ -92,10 +92,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerListaFuentes()
         {
-            RespuestaConsulta<List<FuentesRegistro>> result = null;
+            RespuestaConsulta<List<FuenteRegistro>> result = null;
             await Task.Run(() =>
             {
-                result = FuenteBL.ObtenerDatos(new FuentesRegistro());
+                result = FuenteBL.ObtenerDatos(new FuenteRegistro());
             });
 
             return JsonConvert.SerializeObject(result);
@@ -110,10 +110,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> EliminarFuente(FuentesRegistro fuente)
+        public async Task<string> EliminarFuente(FuenteRegistro fuente)
         {
             user = User.Identity.GetUserId();
-            RespuestaConsulta<List<FuentesRegistro>> result = null;
+            RespuestaConsulta<List<FuenteRegistro>> result = null;
             await Task.Run(() =>
             {
                 result = FuenteBL.EliminarElemento(fuente);
@@ -126,9 +126,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         [ConsultasFonatelFilter]
         [HttpPost]
-        public async Task<string> AgregarFuente(FuentesRegistro objetoFuente)
+        public async Task<string> AgregarFuente(FuenteRegistro objetoFuente)
         {
-            RespuestaConsulta<List<FuentesRegistro>> result = null;
+            RespuestaConsulta<List<FuenteRegistro>> result = null;
             await Task.Run(() =>
             {
                 if (String.IsNullOrEmpty(objetoFuente.id))
@@ -153,23 +153,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [ConsultasFonatelFilter]
         [HttpPost]
-        public async Task<string> ActivarFuente(FuentesRegistro fuente)
+        public async Task<string> ActivarFuente(FuenteRegistro fuente)
         {
             user = User.Identity.GetUserId();
-            RespuestaConsulta<List<FuentesRegistro>> result = null;
+            RespuestaConsulta<List<FuenteRegistro>> result = null;
             await Task.Run(() =>
             {
                 result = FuenteBL.CambioEstado(fuente);
 
                 return result;
             }).ContinueWith(objFuente=> {
-                FuentesRegistro fuente = result.objetoRespuesta.Single(); 
+                FuenteRegistro fuente = result.objetoRespuesta.Single(); 
                 foreach (var item in fuente.DetalleFuentesRegistro)
                 {
                     if (!item.CorreoEnviado)
                     {
                         usuarioFonatelBL.CambioEstado(new Usuario()
-                        { IdUsuario = item.idUsuario });
+                        { IdUsuario = item.IdUsuario });
                         item.CorreoEnviado = true;
                         FuenteDestinatariosBL.ActualizarElemento(item);
                     }        
@@ -189,7 +189,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [ConsultasFonatelFilter]
         [HttpPost]
-        public async Task<string> ValidarFuente(FuentesRegistro fuente)
+        public async Task<string> ValidarFuente(FuenteRegistro fuente)
         {
 
             RespuestaConsulta<List<string>> result = null;
@@ -211,9 +211,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
         [HttpPost]
-        public async Task<string> ConsultarDestinatarios(DetalleFuentesRegistro destinatario)
+        public async Task<string> ConsultarDestinatarios(DetalleFuenteRegistro destinatario)
         {
-            RespuestaConsulta<List<DetalleFuentesRegistro>> result = null;
+            RespuestaConsulta<List<DetalleFuenteRegistro>> result = null;
             await Task.Run(() =>
             {
                 result = FuenteDestinatariosBL.ObtenerDatos(destinatario);
@@ -231,9 +231,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [ConsultasFonatelFilter]
         [HttpPost]
-        public async Task<string> AgregarDestinatario(DetalleFuentesRegistro destinatario)
+        public async Task<string> AgregarDestinatario(DetalleFuenteRegistro destinatario)
         {
-            RespuestaConsulta<List<FuentesRegistro>> result = null;
+            RespuestaConsulta<List<FuenteRegistro>> result = null;
 
             await Task.Run(() =>
             {
@@ -241,9 +241,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     NombreUsuario = destinatario.NombreDestinatario,
                     CorreoUsuario = destinatario.CorreoElectronico,
-                    IdUsuario = destinatario.idUsuario
+                    IdUsuario = destinatario.IdUsuario
             };
-                if (destinatario.idDetalleFuente == 0)
+                if (destinatario.IdDetalleFuenteRegistro == 0)
                 {
                     return usuarioFonatelBL.InsertarDatos(usuario);
                 }
@@ -253,11 +253,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
             }).ContinueWith(resultado=> {
 
-                if (destinatario.idDetalleFuente == 0)
+                if (destinatario.IdDetalleFuenteRegistro == 0)
                 {
                     if (resultado.Result.HayError == 0)
                     {
-                        destinatario.idUsuario = resultado.Result.objetoRespuesta.Single().IdUsuario;
+                        destinatario.IdUsuario = resultado.Result.objetoRespuesta.Single().IdUsuario;
                         resultado.Result.HayError =FuenteDestinatariosBL.InsertarDatos(destinatario).HayError;
                     }
                 }
@@ -268,7 +268,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         resultado.Result.HayError = FuenteDestinatariosBL.ActualizarElemento(destinatario).HayError;
                     }
                 }
-                result = FuenteBL.ObtenerDatos(new FuentesRegistro() { id=destinatario.FuenteId});
+                result = FuenteBL.ObtenerDatos(new FuenteRegistro() { id=destinatario.FuenteId});
                 result.HayError=resultado.Result.HayError;
                 result.MensajeError= resultado.Result.MensajeError;
                
@@ -283,9 +283,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         /// 
         [ConsultasFonatelFilter]
-        public async Task<string> EliminarDestinatario(DetalleFuentesRegistro destinatario)
+        public async Task<string> EliminarDestinatario(DetalleFuenteRegistro destinatario)
         {
-            RespuestaConsulta<List<FuentesRegistro>> result = null;
+            RespuestaConsulta<List<FuenteRegistro>> result = null;
             await Task.Run(() =>
             {
                 return FuenteDestinatariosBL.EliminarElemento(destinatario);
@@ -293,11 +293,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                return usuarioFonatelBL.EliminarElemento(new Usuario()
                 {
-                    IdUsuario = resultado.Result.objetoRespuesta.Single().idUsuario
+                    IdUsuario = resultado.Result.objetoRespuesta.Single().IdUsuario
                 });
             }).ContinueWith(fuente=>
             {
-                result= FuenteBL.ObtenerDatos(new FuentesRegistro() { idFuente=destinatario.idFuente });
+                result= FuenteBL.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro=destinatario.IdFuenteRegistro });
             });
 
             return JsonConvert.SerializeObject(result);

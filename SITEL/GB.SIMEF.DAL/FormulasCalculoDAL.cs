@@ -189,7 +189,7 @@ namespace GB.SIMEF.DAL
                     IdFrecuenciaString = Utilidades.Encriptar(x.IdFrecuencia.ToString()),
                     IdIndicadorSalidaString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                     IdVariableDatoString = Utilidades.Encriptar(x.IdIndicadorVariable.ToString()),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.IdEstado).Single(),
                     FechaCreacion = x.FechaCreacion,
                     FechaModificacion = x.FechaModificacion,
                     UsuarioCreacion = x.UsuarioCreacion,

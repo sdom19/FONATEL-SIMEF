@@ -42,7 +42,7 @@ namespace GB.SIMEF.DAL
                 UsuarioCreacion = x.UsuarioCreacion,
                 FechaModificacion = x.FechaModificacion,
                 UsuarioModificacion = x.UsuarioModificacion,
-                Estado = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
+                Estado = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.IdEstado).Single(),
                 Fuente = ObtenerFuente(x.idFuente),
                 EnvioProgramado = db.SolicitudEnvioProgramado.Where(i => i.IdSolicitud == x.idSolicitud && i.Estado == true).SingleOrDefault(),
                 SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud && i.Estado == true).ToList(),
@@ -77,10 +77,10 @@ namespace GB.SIMEF.DAL
             }
             return ListaSolicitud;
         }
-        private FuentesRegistro ObtenerFuente(int id)
+        private FuenteRegistro ObtenerFuente(int id)
         {
-            FuentesRegistro fuente = db.FuentesRegistro.Where(i => i.idFuente == id).Single();
-            fuente.DetalleFuentesRegistro = db.DetalleFuentesRegistro.Where(i => i.idFuente == id).ToList();
+            FuenteRegistro fuente = db.FuentesRegistro.Where(i => i.IdFuenteRegistro == id).Single();
+            fuente.DetalleFuentesRegistro = db.DetalleFuentesRegistro.Where(i => i.IdFuenteRegistro == id).ToList();
             return fuente;
         }
 

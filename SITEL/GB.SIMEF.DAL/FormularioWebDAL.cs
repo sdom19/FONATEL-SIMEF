@@ -47,7 +47,7 @@ namespace GB.SIMEF.DAL
                     UsuarioModificacion = x.UsuarioModificacion,
                     idEstado = x.idEstado,
                     ListaIndicadores = ObtenerIndicadoresXFormulario(x.idFormulario), 
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).FirstOrDefault(),
                     FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.idFrecuencia == x.idFrecuencia).FirstOrDefault(),
                     DetalleFormularioWeb = ListaDetalleFormularioWeb(x.idFormulario),
                 }).ToList();
@@ -75,7 +75,7 @@ namespace GB.SIMEF.DAL
                     idEstado = x.idEstado,
                     GrupoIndicadores = db.GrupoIndicadores.Where(g => g.idGrupo == x.idGrupo).FirstOrDefault(),
                     TipoIndicadores = db.TipoIndicadores.Where(i => i.IdTipoIndicador == x.IdTipoIndicador).FirstOrDefault(),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).FirstOrDefault(),
                 }).ToList();
             }
             return listaIndicadores;
@@ -120,7 +120,7 @@ namespace GB.SIMEF.DAL
                     UsuarioModificacion = x.UsuarioModificacion,
                     idEstado = x.idEstado,
                     ListaIndicadores = ObtenerIndicadoresXFormulario(x.idFormulario),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).FirstOrDefault(),
                     FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.idFrecuencia == x.idFrecuencia).FirstOrDefault(),
                     DetalleFormularioWeb = ListaDetalleFormularioWeb(x.idFormulario),
                 }).ToList();

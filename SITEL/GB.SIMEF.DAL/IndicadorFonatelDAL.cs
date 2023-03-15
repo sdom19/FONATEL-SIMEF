@@ -612,14 +612,14 @@ namespace GB.SIMEF.DAL
         private EstadoRegistro ObtenerEstadoRegistro(int pId, bool pUnicamenteActivos = false)
         {
             EstadoRegistro estado = pUnicamenteActivos ?
-                db.EstadoRegistro.Where(i => i.idEstado == pId && i.Estado == true).FirstOrDefault()
+                db.EstadoRegistro.Where(i => i.IdEstadoRegistro == pId && i.Estado == true).FirstOrDefault()
                 :
-                db.EstadoRegistro.Where(i => i.idEstado == pId).FirstOrDefault();
+                db.EstadoRegistro.Where(i => i.IdEstadoRegistro == pId).FirstOrDefault();
 
             if (estado != null)
             {
-                estado.id = Utilidades.Encriptar(estado.idEstado.ToString());
-                estado.idEstado = 0;
+                estado.id = Utilidades.Encriptar(estado.IdEstadoRegistro.ToString());
+                estado.IdEstadoRegistro = 0;
             }
             return estado;
         }
