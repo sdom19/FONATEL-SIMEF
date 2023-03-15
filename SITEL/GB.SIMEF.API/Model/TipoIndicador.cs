@@ -7,18 +7,17 @@ namespace SIMEF.API.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("DimGrupoIndicadores", Schema = "FONATEL")]
-    public partial class DimGrupoIndicadores
+    [Table("TipoIndicador")]
+    public partial class TipoIndicador
     {
-        public DimGrupoIndicadores()
+        public TipoIndicador()
         {
         }
 
         [Key]
-        public int idGrupo { get; set; }
+        public int IdTipoIdicador { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
-        public string DetalleHtml { get; set; }
 
         #region Variables que no forman parte del contexto
         [NotMapped]

@@ -51,7 +51,7 @@ namespace GB.SIMEF.API.Controllers
             if (Indicador.ToString() != null)
             {
                 //Busca en BD el indicador
-                indicadorViewModel = db.DimDefinicionIndicador
+                indicadorViewModel = db.DefinicionIndicador
                     .Where(x => x.IdIndicador == Indicador)
                     .Select(x => new IndicadorViewModel { IdIndicador = x.IdIndicador.ToString(), NombreIndicador = x.Nombre, DefinicionIndicador = x.Fuente })
                     .FirstOrDefault();
@@ -69,9 +69,9 @@ namespace GB.SIMEF.API.Controllers
         /// </summary>
         /// <param name="servicio">Servicio index</param>
         /// <returns>Lista Indicadores</returns>
-        internal List<DimDefinicionIndicador> FiltrarPrograma(string Programa)
+        internal List<DefinicionIndicador> FiltrarPrograma(string Programa)
         {
-            var indicadores = new List<DimDefinicionIndicador>();
+            var indicadores = new List<DefinicionIndicador>();
             int IdGrupo = 0, Tipo = 0;
             switch (Programa)
             {
@@ -110,9 +110,9 @@ namespace GB.SIMEF.API.Controllers
                     // .ToList();
                     break;
                 default:
-                     indicadores = db.DimDefinicionIndicador
-                     .Where(x => (x.Idgrupo == IdGrupo))
-                     .Select(x => new DimDefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion,IdTipoindicador = x.IdTipoindicador })
+                     indicadores = db.DefinicionIndicador
+                     .Where(x => (x.IdGrupoIndicador == IdGrupo))
+                     .Select(x => new DefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion,IdTipoIndicador = x.IdTipoIndicador })
                      .ToList();
                     break;
             }
@@ -126,14 +126,14 @@ namespace GB.SIMEF.API.Controllers
         /// <param name="indicadores">Lista de Indicadores</param>
         /// <param name="tipo">Tipo</param>
         /// <returns>Lista de indicadores</returns>
-        internal List<IndicadorViewModel> FiltrarTipo(List<DimDefinicionIndicador> indicadores, string tipo)
+        internal List<IndicadorViewModel> FiltrarTipo(List<DefinicionIndicador> indicadores, string tipo)
         {
             var indicadoresViewModel = new List<IndicadorViewModel>();           
             switch (tipo)
             {               
                 case "Gestion":
                     //Tipo Suscripción
-                     indicadoresViewModel = indicadores.Where(x => x.IdTipoindicador == 2)
+                     indicadoresViewModel = indicadores.Where(x => x.IdTipoIndicador == 2)
                         .Select(x => new IndicadorViewModel { IdIndicador = x.IdIndicador.ToString(), NombreIndicador = x.Nombre, DefinicionIndicador = x.Definicion })
                         .ToList();
                      
@@ -168,13 +168,13 @@ namespace GB.SIMEF.API.Controllers
         /// </summary>
         /// <param name="IdGrupo">Código de Grupo</param>
         /// <returns>Lista Indicadores</returns>
-        internal List<DimDefinicionIndicador> ObtenerDefinicionXGrupo(int IdGrupo)
+        internal List<DefinicionIndicador> ObtenerDefinicionXGrupo(int IdGrupo)
         {
-            var indicadores = new List<DimDefinicionIndicador>();
+            var indicadores = new List<DefinicionIndicador>();
 
-                    indicadores = db.DimDefinicionIndicador
-                    .Where(x => (x.Idgrupo == IdGrupo))
-                    .Select(x => new DimDefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion, IdTipoindicador = x.IdTipoindicador })
+                    indicadores = db.DefinicionIndicador
+                    .Where(x => (x.IdGrupoIndicador == IdGrupo))
+                    .Select(x => new DefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion, IdTipoIndicador = x.IdTipoIndicador })
                     .ToList();
                     
             //Retorna lista de indicadores
@@ -187,11 +187,11 @@ namespace GB.SIMEF.API.Controllers
         /// <param name="indicadores">Lista de Indicadores</param>
         /// <param name="tipo">Tipo</param>
         /// <returns>Lista de indicadores</returns>
-        internal List<IndicadorViewModel> FiltrarDefinicionXTipo(List<DimDefinicionIndicador> indicadores, int tipo)
+        internal List<IndicadorViewModel> FiltrarDefinicionXTipo(List<DefinicionIndicador> indicadores, int tipo)
         {
             var indicadoresViewModel = new List<IndicadorViewModel>();
 
-            indicadoresViewModel = indicadores.Where(x => x.IdTipoindicador == tipo)
+            indicadoresViewModel = indicadores.Where(x => x.IdTipoIndicador == tipo)
                        .Select(x => new IndicadorViewModel { IdIndicador = x.IdIndicador.ToString(), NombreIndicador = x.Nombre, DefinicionIndicador = x.Definicion })
                        .ToList();
 
@@ -204,14 +204,14 @@ namespace GB.SIMEF.API.Controllers
         /// </summary>
         [HttpGet]
         [Route("/api/CatalogoIndicadores/GetGrupo")]
-        [ProducesResponseType(typeof(List<DimGrupoIndicadores>), 200)]
-        public ActionResult<IEnumerable<DimGrupoIndicadores>> GetGrupo()
+        [ProducesResponseType(typeof(List<GrupoIndicador>), 200)]
+        public ActionResult<IEnumerable<GrupoIndicador>> GetGrupo()
         {
-            var lista = db.DimGrupoIndicador.Where(x => x.Estado == true).Select(x => new DimGrupoIndicadores
+            var lista = db.GrupoIndicador.Where(x => x.Estado == true).Select(x => new GrupoIndicador
             {
                 id = x.id,
                 Nombre = x.Nombre,
-                idGrupo = x.idGrupo,
+                idGrupoIndicador = x.idGrupoIndicador,
                 Estado = x.Estado,
                 DetalleHtml = x.DetalleHtml
             }).ToList();
@@ -224,10 +224,10 @@ namespace GB.SIMEF.API.Controllers
         /// </summary>
         [HttpGet]
         [Route("/api/CatalogoIndicadores/GetTipo")]
-        [ProducesResponseType(typeof(List<DimTipoIndicadores>), 200)]
-        public ActionResult<IEnumerable<DimTipoIndicadores>> GetTipo()
+        [ProducesResponseType(typeof(List<TipoIndicador>), 200)]
+        public ActionResult<IEnumerable<TipoIndicador>> GetTipo()
         {
-            var lista = db.DimTipoIndicadores.Where(x => x.Estado == true).Select(x => new DimTipoIndicadores
+            var lista = db.TipoIndicador.Where(x => x.Estado == true).Select(x => new TipoIndicador
             {
                 id = x.id,
                 Nombre = x.Nombre,

@@ -38,7 +38,7 @@ namespace GB.SIMEF.API.Controllers
         [ProducesResponseType(typeof(List<Combos>), 200)]
         public ActionResult<IEnumerable<Combos>> GetGrupo()
         {
-            var SqlQuery = "execute [FONATEL].[spObtenerGrupos]";
+            var SqlQuery = "execute pa_ObtenerGrupo";
 
             List<Combos> lista = null;
 
@@ -59,7 +59,7 @@ namespace GB.SIMEF.API.Controllers
         [ProducesResponseType(typeof(List<Combos>), 200)]
         public ActionResult<IEnumerable<Combos>> GetTipo()
         {
-            var SqlQuery = "execute [FONATEL].[spObtenerTipos]";
+            var SqlQuery = "execute pa_ObtenerTipo";
 
             List<Combos> lista = null;
 
@@ -80,7 +80,7 @@ namespace GB.SIMEF.API.Controllers
         [ProducesResponseType(typeof(List<Combos>), 200)]
         public ActionResult<IEnumerable<Combos>> GetIndicadores(int Grupo, int Tipo)
         {
-            var SqlQuery = "execute [FONATEL].[spObtenerIndicadores] @idtipoIndicador,@idGrupo";
+            var SqlQuery = "execute pa_ObtenerIndicador @idtipoIndicador,@idGrupo";
 
             List<Combos> lista = null;
 
@@ -101,7 +101,7 @@ namespace GB.SIMEF.API.Controllers
         [ProducesResponseType(typeof(List<Combos>), 200)]
         public ActionResult<IEnumerable<Combos>> GetVariableDato(int IdIndicador)
         {
-            var SqlQuery = "execute [FONATEL].[spObtenerVariables] @idIndicador";
+            var SqlQuery = "execute pa_ObtenerVariable @idIndicador";
 
             List<Combos> lista = null;
 
@@ -121,7 +121,7 @@ namespace GB.SIMEF.API.Controllers
         [ProducesResponseType(typeof(List<Combos>), 200)]
         public ActionResult<IEnumerable<Combos>> GetCategoria(int IdIndicador)
         {
-            var SqlQuery = "execute [FONATEL].[spObtenerCategorias] @idIndicador";
+            var SqlQuery = "execute pa_ObtenerCategoria @idIndicador";
 
             List<Combos> lista = null;
 
@@ -142,7 +142,7 @@ namespace GB.SIMEF.API.Controllers
         [ProducesResponseType(typeof(List<Combos>), 200)]
         public ActionResult<IEnumerable<Combos>> GetAnno(int IdIndicador)
         {
-            var SqlQuery = "execute [FONATEL].[spObtenerAnno] @idIndicador";
+            var SqlQuery = "execute pa_ObtenerAnno @idIndicador";
 
             List<Combos> lista = null;
 
@@ -163,7 +163,7 @@ namespace GB.SIMEF.API.Controllers
         [ProducesResponseType(typeof(List<Combos>), 200)]
         public ActionResult<IEnumerable<Combos>> GetMes(int IdIndicador)
         {
-            var SqlQuery = "execute [FONATEL].[spObtenerMes] @idIndicador";
+            var SqlQuery = "execute pa_ObtenerMes @idIndicador";
 
             List<Combos> lista = null;
 
@@ -180,9 +180,9 @@ namespace GB.SIMEF.API.Controllers
         /// </summary>
         /// <param name="servicio">Servicio index</param>
         /// <returns>Lista Indicadores</returns>
-        internal List<DimDefinicionIndicador> FiltrarPrograma(string Programa)
+        internal List<DefinicionIndicador> FiltrarPrograma(string Programa)
         {
-            var indicadores = new List<DimDefinicionIndicador>();
+            var indicadores = new List<DefinicionIndicador>();
             int IdGrupo = 0, Tipo = 0;
             switch (Programa)
             {
@@ -221,9 +221,9 @@ namespace GB.SIMEF.API.Controllers
                     // .ToList();
                     break;
                 default:
-                    indicadores = db.DimDefinicionIndicador
-                    .Where(x => (x.Idgrupo == IdGrupo))
-                    .Select(x => new DimDefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion, IdTipoindicador = x.IdTipoindicador })
+                    indicadores = db.DefinicionIndicador
+                    .Where(x => (x.IdGrupoIndicador == IdGrupo))
+                    .Select(x => new DefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion, IdTipoIndicador = x.IdTipoIndicador })
                     .ToList();
                     break;
             }
@@ -237,7 +237,7 @@ namespace GB.SIMEF.API.Controllers
         /// <param name="indicadores">Lista de Indicadores</param>
         /// <param name="tipo">Tipo</param>
         /// <returns>Lista de indicadores</returns>
-        internal List<IndicadorViewModel> FiltrarTipo(List<DimDefinicionIndicador> indicadores, string tipo)
+        internal List<IndicadorViewModel> FiltrarTipo(List<DefinicionIndicador> indicadores, string tipo)
         {
             var indicadoresViewModel = new List<IndicadorViewModel>();
             switch (tipo)
@@ -245,7 +245,7 @@ namespace GB.SIMEF.API.Controllers
 
                 case "Gestion":
                     //Tipo Suscripción
-                    indicadoresViewModel = indicadores.Where(x => x.IdTipoindicador == 2)
+                    indicadoresViewModel = indicadores.Where(x => x.IdTipoIndicador == 2)
                         .Select(x => new IndicadorViewModel { IdIndicador = x.IdIndicador.ToString(), NombreIndicador = x.Nombre, DefinicionIndicador = x.Definicion })
                         .ToList();
 
@@ -289,7 +289,7 @@ namespace GB.SIMEF.API.Controllers
         [ProducesResponseType(typeof(InformeResultadoIndicadorSalida), 200)]
         public ActionResult<InformeResultadoIndicadorSalida> GetResultado(int IdIndicador, string variable, string desde, string hasta, int idCategoria)
         {
-            var SqlQuery = "execute [FONATEL].[spObtenerDimResultadoIndicador] @pi_Desde, @pi_Hasta, @pi_Variable, @pi_IdCategoria, @pi_IdIndicador";
+            var SqlQuery = "execute pa_ObtenerResultadoIndicador @pi_Desde, @pi_Hasta, @pi_Variable, @pi_IdCategoria, @pi_IdIndicador";
 
             List<InformeResultadoIndicador> lista = null;
 
@@ -371,7 +371,7 @@ namespace GB.SIMEF.API.Controllers
         {
             var lista = db.IndicadorResultado.Where(x => x.IdIndicador == IdIndicador && x.VariableDato == false).Select(x => new IndicadorResultado
             {
-                idResultado = x.idResultado,
+                idIndicadorResultado = x.idIndicadorResultado,
                 IdIndicador = x.IdIndicador,
                 NombreIndicador = x.NombreIndicador,
                 EstadoIndicador = x.EstadoIndicador,
@@ -385,7 +385,7 @@ namespace GB.SIMEF.API.Controllers
                 NombreFormulario = x.NombreFormulario,
                 idMes = x.idMes,
                 Mes = x.Mes,
-                idGrupo = x.idGrupo,
+                idGrupoIndicador = x.idGrupoIndicador,
                 NombreGrupo = x.NombreGrupo,
                 IdClasificacion = x.IdClasificacion,
                 NombreClasificacion = x.NombreClasificacion,
@@ -406,16 +406,16 @@ namespace GB.SIMEF.API.Controllers
         /// </summary>
         [HttpGet]
         [Route("/api/DescargaIndicadores/GetDefinicion")]
-        [ProducesResponseType(typeof(DimDefinicionIndicador), 200)]
-        public ActionResult<DimDefinicionIndicador> GetDefinicion(int tipo,int grupo,int indicador)
+        [ProducesResponseType(typeof(DefinicionIndicador), 200)]
+        public ActionResult<DefinicionIndicador> GetDefinicion(int tipo,int grupo,int indicador)
         {
-            DimDefinicionIndicador definicion = db.DimDefinicionIndicador.Where(x => x.IdTipoindicador == tipo &&
-            x.Idgrupo == grupo && x.IdIndicador == indicador).Select(x => new DimDefinicionIndicador
+            DefinicionIndicador definicion = db.DefinicionIndicador.Where(x => x.IdTipoIndicador == tipo &&
+            x.IdGrupoIndicador == grupo && x.IdIndicador == indicador).Select(x => new DefinicionIndicador
             {
               
                 Nombre = x.Nombre,
                 Fuente=x.Fuente,
-                Notas=x.Notas,
+                Nota=x.Nota,
             }).FirstOrDefault();
             return definicion;
         }

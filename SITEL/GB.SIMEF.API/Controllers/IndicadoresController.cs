@@ -50,7 +50,7 @@ namespace GB.SIMEF.API.Controllers
             if (Indicador.ToString() != null)
             {
                 //Busca en BD el indicador
-                indicadorViewModel = db.DimDefinicionIndicador
+                indicadorViewModel = db.DefinicionIndicador
                     .Where(x => x.IdIndicador == Indicador)
                     .Select(x => new IndicadorViewModel { IdIndicador = x.IdIndicador.ToString(), NombreIndicador = x.Nombre, DefinicionIndicador = x.Fuente })
                     .FirstOrDefault();
@@ -68,9 +68,9 @@ namespace GB.SIMEF.API.Controllers
         /// </summary>
         /// <param name="servicio">Servicio index</param>
         /// <returns>Lista Indicadores</returns>
-        internal List<DimDefinicionIndicador> FiltrarPrograma(string Programa)
+        internal List<DefinicionIndicador> FiltrarPrograma(string Programa)
         {
-            var indicadores = new List<DimDefinicionIndicador>();
+            var indicadores = new List<DefinicionIndicador>();
             int IdGrupo = 0, Tipo = 0;
             switch (Programa)
             {
@@ -109,9 +109,9 @@ namespace GB.SIMEF.API.Controllers
                     // .ToList();
                     break;
                 default:
-                     indicadores = db.DimDefinicionIndicador
-                     .Where(x => (x.Idgrupo == IdGrupo))
-                     .Select(x => new DimDefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion,IdTipoindicador = x.IdTipoindicador })
+                     indicadores = db.DefinicionIndicador
+                     .Where(x => (x.IdGrupoIndicador == IdGrupo))
+                     .Select(x => new DefinicionIndicador { IdIndicador = x.IdIndicador, Nombre = x.Nombre, Definicion = x.Definicion,IdTipoIndicador = x.IdTipoIndicador })
                      .ToList();
                     break;
             }
@@ -125,7 +125,7 @@ namespace GB.SIMEF.API.Controllers
         /// <param name="indicadores">Lista de Indicadores</param>
         /// <param name="tipo">Tipo</param>
         /// <returns>Lista de indicadores</returns>
-        internal List<IndicadorViewModel> FiltrarTipo(List<DimDefinicionIndicador> indicadores, string tipo)
+        internal List<IndicadorViewModel> FiltrarTipo(List<DefinicionIndicador> indicadores, string tipo)
         {
             var indicadoresViewModel = new List<IndicadorViewModel>();           
             switch (tipo)
@@ -133,7 +133,7 @@ namespace GB.SIMEF.API.Controllers
                 
                 case "Gestion":
                     //Tipo Suscripción
-                    indicadoresViewModel = indicadores.Where(x => x.IdTipoindicador == 2)
+                    indicadoresViewModel = indicadores.Where(x => x.IdTipoIndicador == 2)
                         .Select(x => new IndicadorViewModel { IdIndicador = x.IdIndicador.ToString(), NombreIndicador = x.Nombre, DefinicionIndicador = x.Definicion })
                         .ToList();
                      

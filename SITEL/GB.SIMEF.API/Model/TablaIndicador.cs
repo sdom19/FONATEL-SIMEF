@@ -6,11 +6,11 @@ namespace SIMEF.API.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("DimTablaIndicadores", Schema = "FONATEL")]
-    public partial class DimTablaIndicadores
+    [Table("TablaIndicador")]
+    public partial class TablaIndicador
     {
 
-        public DimTablaIndicadores()
+        public TablaIndicador()
         {
             //this.DetalleFormularioWeb = new HashSet<DetalleFormularioWeb>();
             //this.DetalleIndicadorCategoria = new HashSet<DetalleIndicadorCategoria>();
@@ -37,7 +37,7 @@ namespace SIMEF.API.Models
         public Nullable<bool> Interno { get; set; }
         public bool Solicitud { get; set; }
         public string Fuente { get; set; }
-        public string Notas { get; set; }
+        public string Nota { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }

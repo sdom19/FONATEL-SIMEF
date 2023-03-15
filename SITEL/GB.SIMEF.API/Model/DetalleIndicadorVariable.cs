@@ -7,16 +7,16 @@ namespace SIMEF.API.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("DimDetalleIndicadorVariables", Schema = "FONTAEL")]
-    public partial class DimDetalleIndicadorVariables
+    [Table("DetalleIndicadorVariable")]
+    public partial class DetalleIndicadorVariable
     {
         
-        public DimDetalleIndicadorVariables()
+        public DetalleIndicadorVariable()
         {
             
         }
         [Key]
-        public int idDetalleIndicador { get; set; }
+        public int IdDetalleIndicadorVariable { get; set; }
         public int idIndicador { get; set; }
         public string NombreVariable { get; set; }
     

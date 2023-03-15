@@ -16,8 +16,8 @@ namespace GB.SIMEF.API.Model
         }
 
         [Key]
-        public int IdTabla { get; set; }
-        public int IdEncabezado { get; set; }
+        public int IdInformeNombreTabla { get; set; }
+        public int IdInformeEncabezadoTabla { get; set; }
         public string NombreEncabezado { get; set; }
     }
 }

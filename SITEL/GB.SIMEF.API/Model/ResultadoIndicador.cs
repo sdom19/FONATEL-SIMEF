@@ -8,19 +8,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GB.SIMEF.API.Model
 {
     [Table("DimResultadoIndicador", Schema = "FONATEL")]
-    public class DimResultadoIndicador
+    public class ResultadoIndicador
     {
-        public DimResultadoIndicador()
+        public ResultadoIndicador()
         {
 
         }
 
         [Key]
-        public int IdResultado { get; set; }
+        public int IdResultadoIndicador { get; set; }
         public int IdIndicador { get; set; }
-        public int idGrupo { get; set; }
+        public int idGrupoIndicador { get; set; }
         public string NombreGrupo { get; set; }
-        public int idVariable { get; set; }
+        public int IdVariable { get; set; }
         public string NombreVariable { get; set; }
         public decimal ValorColumna { get; set; }
         public string AnnoMes { get; set; }

@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GB.SIMEF.API.Model
 {
-    [Table("IndicadorResultado", Schema = "FONATEL")]
+    [Table("IndicadorResultado")]
     public class IndicadorResultado
     {
         public IndicadorResultado()
@@ -17,7 +17,7 @@ namespace GB.SIMEF.API.Model
         }
 
         [Key]
-        public int idResultado { get; set; }
+        public int idIndicadorResultado { get; set; }
         public int IdIndicador { get; set; }
         public string NombreIndicador { get; set; }
         public Boolean EstadoIndicador { get; set; }
@@ -31,7 +31,7 @@ namespace GB.SIMEF.API.Model
         public string NombreFormulario { get; set; }
         public int idMes { get; set; }
         public string Mes { get; set; }
-        public int idGrupo { get; set; }
+        public int idGrupoIndicador { get; set; }
         public string NombreGrupo { get; set; }
         public int IdClasificacion { get; set; }
         public string NombreClasificacion { get; set; }
