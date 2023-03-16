@@ -28,9 +28,9 @@ namespace GB.SIMEF.DAL
             return ListaDetalles.Select(x => new DetalleSolicitudFormulario
             {
                 IdSolicitud = x.IdSolicitud,
-                IdFormulario = x.IdFormulario,
+                idFormularioWeb = x.idFormularioWeb,
                 Estado = x.Estado,
-                Completo = db.Solicitud.Where(i => i.idSolicitud == x.IdSolicitud).Single().CantidadFormularios == ListaDetalles.Count() ? true : false
+                Completo = db.Solicitud.Where(i => i.idSolicitud == x.IdSolicitud).Single().CantidadFormulario == ListaDetalles.Count() ? true : false
 
 
             }).ToList();
@@ -49,7 +49,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaDetalle = db.Database.SqlQuery<DetalleSolicitudFormulario>
-                    ("execute spObtenerDetalleSolicitud @pidSolicitud",
+                    ("execute pa_ObtenerDetalleSolicitud @pidSolicitud",
                       new SqlParameter("@pidSolicitud", detalleSolicitud.IdSolicitud)
                     ).ToList();
 
@@ -73,9 +73,9 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaDetalle = db.Database.SqlQuery<DetalleSolicitudFormulario>
-                    ("execute spActualizarDetalleSolicitud @idSolicitud, @idFormulario, @Estado",
+                    ("execute pa_ActualizarDetalleSolicitud @idSolicitud, @idFormularioWeb, @Estado",
                       new SqlParameter("@idSolicitud", detalleSolicitud.IdSolicitud),
-                      new SqlParameter("@idFormulario", detalleSolicitud.IdFormulario),
+                      new SqlParameter("@idFormularioWeb", detalleSolicitud.idFormularioWeb),
                       new SqlParameter("@Estado", detalleSolicitud.Estado)
                     ).ToList();
 
@@ -93,17 +93,17 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listaFormularios = db.Database.SqlQuery<FormularioWeb>(
-                    "execute spObtenerFormularioXSolicitudLista @idSolicitud",
+                    "execute pa_ObtenerFormularioXSolicitudLista @idSolicitud",
                     new SqlParameter("@idSolicitud", detalleSolicitud.IdSolicitud)
                     ).ToList();
 
                 listaFormularios = listaFormularios.Select(x => new FormularioWeb()
                 {
-                    id = Utilidades.Encriptar(x.idFormulario.ToString()),
-                    idFormulario = x.idFormulario,
+                    id = Utilidades.Encriptar(x.idFormularioWeb.ToString()),
+                    idFormularioWeb = x.idFormularioWeb,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).FirstOrDefault(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstadoRegistro).FirstOrDefault(),
                 }).ToList();
             }
 

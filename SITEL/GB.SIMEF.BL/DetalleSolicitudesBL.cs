@@ -60,7 +60,7 @@ namespace GB.SIMEF.BL
 
                 var resul = clsDatos.ObtenerDatos(objeto);
 
-                registroActualizar = resul.Single(x => x.IdSolicitud == objeto.IdSolicitud && x.IdFormulario == objeto.IdFormulario);
+                registroActualizar = resul.Single(x => x.IdSolicitud == objeto.IdSolicitud && x.idFormularioWeb == objeto.idFormularioWeb);
 
                 registroActualizar.Estado = false;
                 resul = clsDatos.ActualizarDatos(registroActualizar);
@@ -101,7 +101,7 @@ namespace GB.SIMEF.BL
 
                 var consultarDatos = clsDatos.ObtenerListaFormularios(objeto);
 
-                if (consultarDatos.Where(x => x.idFormulario == objeto.IdFormulario).Count() > 0)
+                if (consultarDatos.Where(x => x.idFormularioWeb == objeto.idFormularioWeb).Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.FormularioIngresado);
@@ -113,7 +113,7 @@ namespace GB.SIMEF.BL
 
                 consultarDatos = clsDatos.ObtenerListaFormularios(objeto);
                 var objetoInicial = resul.FirstOrDefault();
-                objetoInicial.Formularioid = consultarDatos.Where(x => x.idFormulario == objeto.IdFormulario).FirstOrDefault().Nombre;
+                objetoInicial.Formularioid = consultarDatos.Where(x => x.idFormularioWeb == objeto.idFormularioWeb).FirstOrDefault().Nombre;
 
                 string jsonInicial = objetoInicial.ToString();
                 clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
@@ -215,7 +215,7 @@ namespace GB.SIMEF.BL
                 int temp;
                 if (int.TryParse(objeto.Formularioid, out temp))
                 {
-                    objeto.IdFormulario = temp;
+                    objeto.idFormularioWeb = temp;
                 }
             }
 

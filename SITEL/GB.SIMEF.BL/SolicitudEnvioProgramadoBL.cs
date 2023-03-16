@@ -119,7 +119,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.objetoRespuesta = resul;
 
                 var objetoInicial = objeto;
-                var frecuencia = frecuenciaEnvioDAL.ObtenerDatos(new FrecuenciaEnvio { idFrecuencia = objeto.IdFrecuencia });
+                var frecuencia = frecuenciaEnvioDAL.ObtenerDatos(new FrecuenciaEnvio { idFrecuenciaEnvio = objeto.IdFrecuenciaEnvio });
                 objetoInicial.Frecuencia = frecuencia.FirstOrDefault();
                 string jsonInicial = objetoInicial.ToString();
 

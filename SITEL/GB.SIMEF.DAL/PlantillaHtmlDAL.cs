@@ -22,7 +22,7 @@ namespace GB.SIMEF.DAL
             PlantillaHtml listaPlantillaHtml = new PlantillaHtml();
             using (db = new SIMEFContext())
             { 
-                listaPlantillaHtml = db.PlantillaHtml.Where(x=>x.IdPlantilla==idPlantilla).Single();
+                listaPlantillaHtml = db.PlantillaHtml.Where(x=>x.IdPlantillaHTML==idPlantilla).Single();
             }
             return listaPlantillaHtml;
         }

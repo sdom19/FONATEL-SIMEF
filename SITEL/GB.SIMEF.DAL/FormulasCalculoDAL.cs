@@ -556,14 +556,14 @@ namespace GB.SIMEF.DAL
         private FrecuenciaEnvio ObtenerFrecuenciaEnvio(int pdFrecuenciaEnvio, bool pUnicamenteActivos = false)
         {
             FrecuenciaEnvio frecuencia = pUnicamenteActivos ?
-                db.FrecuenciaEnvio.Where(i => i.idFrecuencia == pdFrecuenciaEnvio && i.Estado == true).FirstOrDefault()
+                db.FrecuenciaEnvio.Where(i => i.idFrecuenciaEnvio == pdFrecuenciaEnvio && i.Estado == true).FirstOrDefault()
                 :
-                db.FrecuenciaEnvio.Where(i => i.idFrecuencia == pdFrecuenciaEnvio).FirstOrDefault();
+                db.FrecuenciaEnvio.Where(i => i.idFrecuenciaEnvio == pdFrecuenciaEnvio).FirstOrDefault();
 
             if (frecuencia != null)
             {
-                frecuencia.id = Utilidades.Encriptar(frecuencia.idFrecuencia.ToString());
-                frecuencia.idFrecuencia = 0;
+                frecuencia.id = Utilidades.Encriptar(frecuencia.idFrecuenciaEnvio.ToString());
+                frecuencia.idFrecuenciaEnvio = 0;
             }
             return frecuencia;
         }

@@ -21,12 +21,12 @@ namespace GB.SIMEF.Entities
         public DetalleFormularioWeb () { }
 
         [Key]
-        public int idDetalle { get; set; }
-        public int idFormulario { get; set; }
+        public int IdDetalleFormularioWeb { get; set; }
+        public int idFormularioWeb { get; set; }
         public int idIndicador { get; set; }
-        public string TituloHojas { get; set; }
-        public string NotasInformante { get; set; }
-        public string NotasEncargado { get; set; }
+        public string TituloHoja { get; set; }
+        public string NotaInformante { get; set; }
+        public string NotaEncargado { get; set; }
         public bool Estado { get; set; }
 
         [NotMapped]
@@ -38,9 +38,9 @@ namespace GB.SIMEF.Entities
         {
             StringBuilder json = new StringBuilder();
             json.Append("{\"Indicador\":\"").Append(this.Indicador.Nombre).Append("\",");
-            json.Append("\"Titulo hojas\":\"").Append(this.TituloHojas).Append("\",");
-            json.Append("\"Notas FONATEL para el informante\":\"").Append(this.NotasEncargado).Append("\",");
-            json.Append("\"Notas informante\":\"").Append(this.NotasInformante).Append("\",");
+            json.Append("\"Titulo hojas\":\"").Append(this.TituloHoja).Append("\",");
+            json.Append("\"Notas FONATEL para el informante\":\"").Append(this.NotaEncargado).Append("\",");
+            json.Append("\"Notas informante\":\"").Append(this.NotaInformante).Append("\",");
             json.Append("\"Activo\":\"").Append(this.Estado ? "Si" : "No").Append("\"}");
 
             return json.ToString();

@@ -16,7 +16,7 @@ namespace GB.SIMEF.Entities
     public partial class DetalleRegistroIndicadorCategoriaValorFonatel
     {
         public int IdSolicitud { get; set; }
-        public int IdFormulario { get; set; }
+        public int idFormularioWeb { get; set; }
         public int IdIndicador { get; set; }
         public int idCategoria { get; set; }
         public int NumeroFila { get; set; }

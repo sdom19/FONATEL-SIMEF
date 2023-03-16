@@ -22,7 +22,7 @@ namespace GB.SIMEF.Entities
       
         [Key]
         public int IdSolicitud { get; set; }
-        public int IdFormulario { get; set; }
+        public int idFormularioWeb { get; set; }
         public bool Estado { get; set; }
 
         #region VARIABLES QUE NO FORMAN PARTE DE LA ENTIDAD

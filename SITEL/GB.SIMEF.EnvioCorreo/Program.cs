@@ -18,7 +18,7 @@ namespace GB.SIMEF.EnvioCorreo
             SolicitudBL solicitudBL = new SolicitudBL("Proceso aútomatico de envío de correos", "Solicitudes");
 
 
-            List<EnvioSolicitudes> envioSolicitud = envioSolicitudBL.ObtenerDatos(new EnvioSolicitudes()).objetoRespuesta;
+            List<EnvioSolicitud> envioSolicitud = envioSolicitudBL.ObtenerDatos(new EnvioSolicitud()).objetoRespuesta;
 
             foreach (var item in envioSolicitud)
             {

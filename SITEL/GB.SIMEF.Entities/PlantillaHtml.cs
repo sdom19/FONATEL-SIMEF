@@ -12,7 +12,7 @@ namespace GB.SIMEF.Entities
     public partial class PlantillaHtml
     {
         [Key]
-        public int IdPlantilla { get; set; }
+        public int IdPlantillaHTML { get; set; }
 
         public string Html { get; set; }
 

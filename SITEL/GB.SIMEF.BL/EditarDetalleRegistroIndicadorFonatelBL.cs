@@ -34,10 +34,10 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion = (int)Accion.Consultar;
 
-                    if (!string.IsNullOrEmpty(objeto.IdFormularioString))
+                    if (!string.IsNullOrEmpty(objeto.idFormularioWebString))
                     {
-                        int.TryParse(Utilidades.Desencriptar(objeto.IdFormularioString), out int temp);
-                        objeto.IdFormulario = temp;
+                        int.TryParse(Utilidades.Desencriptar(objeto.idFormularioWebString), out int temp);
+                        objeto.idFormularioWeb = temp;
                     }
                     if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
                     {
@@ -79,10 +79,10 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
 
-                if (!string.IsNullOrEmpty(objeto.IdFormularioString))
+                if (!string.IsNullOrEmpty(objeto.idFormularioWebString))
                 {
-                    int.TryParse(Utilidades.Desencriptar(objeto.IdFormularioString), out int temp);
-                    objeto.IdFormulario = temp;
+                    int.TryParse(Utilidades.Desencriptar(objeto.idFormularioWebString), out int temp);
+                    objeto.idFormularioWeb = temp;
                 }
                 if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
                 {
@@ -143,10 +143,10 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
-                if (!string.IsNullOrEmpty(objeto.IdFormularioString))
+                if (!string.IsNullOrEmpty(objeto.idFormularioWebString))
                 {
-                    int.TryParse(Utilidades.Desencriptar(objeto.IdFormularioString), out int temp);
-                    objeto.IdFormulario = temp;
+                    int.TryParse(Utilidades.Desencriptar(objeto.idFormularioWebString), out int temp);
+                    objeto.idFormularioWeb = temp;
                 }
                 if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
                 {

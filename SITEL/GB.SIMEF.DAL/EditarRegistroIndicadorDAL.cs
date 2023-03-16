@@ -39,7 +39,7 @@ namespace GB.SIMEF.DAL
                 FechaInicio = x.FechaInicio,
                 FechaFin = x.FechaFin,
                 Formulario = x.Formulario,
-                IdFormulario = x.IdFormulario,
+                idFormularioWeb = x.idFormularioWeb,
                 IdEstado = x.IdEstado,
                 FechaModificacion = x.FechaModificacion,
                 UsuarioModificacion = x.UsuarioModificacion,
@@ -52,8 +52,8 @@ namespace GB.SIMEF.DAL
                 EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.IdEstado).Single(),
                 Solicitud = ObtenerSolicitud(x.IdSolicitud),
                 Solicitudid = Utilidades.Encriptar(x.IdSolicitud.ToString()),
-                FormularioId = Utilidades.Encriptar(x.IdFormulario.ToString()),
-                DetalleRegistroIndcadorFonatel = EditarDetalleRegistroIndicador.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() { IdSolicitud = x.IdSolicitud, IdFormulario = x.IdFormulario })
+                FormularioId = Utilidades.Encriptar(x.idFormularioWeb.ToString()),
+                DetalleRegistroIndcadorFonatel = EditarDetalleRegistroIndicador.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() { IdSolicitud = x.IdSolicitud, idFormularioWeb = x.idFormularioWeb })
             }).ToList();
         }
 
@@ -73,9 +73,9 @@ namespace GB.SIMEF.DAL
             {
                 //SE NECESITARAN LOS PARAMETROS @RangoFecha
                 ListaRegistroIndicadorFonatel = db.Database.SqlQuery<RegistroIndicadorFonatel>
-                    ("execute spObtenerRegistroIndicador @IdSolicitud, @IdFormulario, @Codigo, @IdEstado",
+                    ("execute spObtenerRegistroIndicador @IdSolicitud, @idFormularioWeb, @Codigo, @IdEstado",
                      new SqlParameter("@IdSolicitud", objeto.IdSolicitud),
-                     new SqlParameter("@IdFormulario", objeto.IdFormulario),
+                     new SqlParameter("@idFormularioWeb", objeto.idFormularioWeb),
                      new SqlParameter("@Codigo", string.IsNullOrEmpty(objeto.Codigo) ? DBNull.Value.ToString() : objeto.Codigo),
                      new SqlParameter("@IdEstado", objeto.IdEstado)
                      //new SqlParameter("@RangoFecha", objeto.RangoFecha)

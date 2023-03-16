@@ -231,7 +231,7 @@ namespace GB.SIMEF.API.Controllers
             {
                 id = x.id,
                 Nombre = x.Nombre,
-                IdTipoIdicador = x.IdTipoIdicador,
+                IdTipoIndicador = x.IdTipoIndicador,
                 Estado = x.Estado
             }).ToList();
             return lista;

@@ -486,7 +486,7 @@ namespace GB.SIMEF.BL
 
                 if (pFormulasCalculo.IdFrecuencia != 0)
                 {
-                    if (frecuenciaEnvioDAL.ObtenerDatos(new FrecuenciaEnvio() { idFrecuencia = (int)pFormulasCalculo.IdFrecuencia }).Count <= 0)
+                    if (frecuenciaEnvioDAL.ObtenerDatos(new FrecuenciaEnvio() { idFrecuenciaEnvio = (int)pFormulasCalculo.IdFrecuencia }).Count <= 0)
                     {
                         errorControlado = true;
                         throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewFormulasCalculo.CrearFormula_LabelFrecuencia));

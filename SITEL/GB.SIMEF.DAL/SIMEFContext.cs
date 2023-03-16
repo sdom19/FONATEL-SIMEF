@@ -46,7 +46,7 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<DetalleRelacionCategoria> DetalleRelacionCategoria { get; set; }
         
         public virtual DbSet<DetalleSolicitudFormulario> DetalleSolicitudFormulario { get; set; }
-        public virtual DbSet<EnvioSolicitudes> EnvioSolicitudes { get; set; }
+        public virtual DbSet<EnvioSolicitud> EnvioSolicitudes { get; set; }
 
         public virtual DbSet<RelacionCategoriaAtributo> RelacionCategoriaAtributo { get; set; }
         //public virtual DbSet<FormulaIndicadorFecha> FormulaIndicadorFecha { get; set; }

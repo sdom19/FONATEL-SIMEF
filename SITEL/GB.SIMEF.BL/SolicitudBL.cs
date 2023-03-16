@@ -165,23 +165,23 @@ namespace GB.SIMEF.BL
 
                 var result = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
 
-                if (result.SolicitudFormulario.Count > objeto.CantidadFormularios)
+                if (result.SolicitudFormulario.Count > objeto.CantidadFormulario)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.SolicitudesCantidadFormularios);
                 }
 
-                if (objetoAnterior.IdEstado == (int)EstadosRegistro.Activo && objetoAnterior.idFuente == objeto.idFuente && objetoAnterior.CantidadFormularios == objeto.CantidadFormularios)
+                if (objetoAnterior.IdEstadoRegistro == (int)EstadosRegistro.Activo && objetoAnterior.idFuenteRegistro == objeto.idFuenteRegistro && objetoAnterior.CantidadFormulario == objeto.CantidadFormulario)
                 {
-                    objeto.IdEstado = (int)EstadosRegistro.Activo;
+                    objeto.IdEstadoRegistro = (int)EstadosRegistro.Activo;
                 }
-                else if (objetoAnterior.IdEstado == (int)EstadosRegistro.Desactivado)
+                else if (objetoAnterior.IdEstadoRegistro == (int)EstadosRegistro.Desactivado)
                 {
-                    objeto.IdEstado = (int)EstadosRegistro.Desactivado;
+                    objeto.IdEstadoRegistro = (int)EstadosRegistro.Desactivado;
                 }
                 else
                 {
-                    objeto.IdEstado = (int)EstadosRegistro.EnProceso;
+                    objeto.IdEstadoRegistro = (int)EstadosRegistro.EnProceso;
                 }
 
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
@@ -226,18 +226,18 @@ namespace GB.SIMEF.BL
                 }
 
                 ResultadoConsulta.Clase = modulo;
-                int nuevoEstado = objeto.IdEstado;
-                objeto.IdEstado = 0;
+                int nuevoEstado = objeto.IdEstadoRegistro;
+                objeto.IdEstadoRegistro = 0;
                 ResultadoConsulta.Usuario = user;
 
-                var objetoAnterior = clsDatos.ObtenerDatos(new Solicitud { idSolicitud = objeto.idSolicitud, IdEstado = 0, Codigo = objeto.Codigo });
+                var objetoAnterior = clsDatos.ObtenerDatos(new Solicitud { idSolicitud = objeto.idSolicitud, IdEstadoRegistro = 0, Codigo = objeto.Codigo });
                 string jsonAnterior = objetoAnterior.FirstOrDefault().ToString();
 
                 var resul = clsDatos.ObtenerDatos(objeto);
                 objeto = resul.Single();
-                objeto.IdEstado = nuevoEstado;
+                objeto.IdEstadoRegistro = nuevoEstado;
 
-                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.IdEstado ? (int)Accion.Activar : (int)Accion.Inactiva;
+                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.IdEstadoRegistro ? (int)Accion.Activar : (int)Accion.Inactiva;
                 resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -287,7 +287,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NombreRegistrado);
                 }
 
-                if (ValorInicial.SolicitudFormulario.Count > objeto.CantidadFormularios)
+                if (ValorInicial.SolicitudFormulario.Count > objeto.CantidadFormulario)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.CantidadRegistrosLimite);
@@ -355,7 +355,7 @@ namespace GB.SIMEF.BL
                 else
                 {
                     objeto = resul.SingleOrDefault();
-                    objeto.IdEstado = (int)Constantes.EstadosRegistro.Eliminado;
+                    objeto.IdEstadoRegistro = (int)Constantes.EstadosRegistro.Eliminado;
                     resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -402,7 +402,7 @@ namespace GB.SIMEF.BL
                 {
                     var result = BuscarRegistros.Where(x => x.idSolicitud == objeto.idSolicitud).Single();
 
-                    if (result.SolicitudFormulario.Count > objeto.CantidadFormularios)
+                    if (result.SolicitudFormulario.Count > objeto.CantidadFormulario)
                     {
                         ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                         throw new Exception(Errores.SolicitudesCantidadFormularios);

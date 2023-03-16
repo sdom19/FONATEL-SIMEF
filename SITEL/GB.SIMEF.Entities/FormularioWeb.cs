@@ -28,18 +28,18 @@ namespace GB.SIMEF.Entities
 
         }
         [Key]
-        public int idFormulario { get; set; }
+        public int idFormularioWeb { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public int CantidadIndicadores { get; set; }
+        public int CantidadIndicador { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
         
-        public int idEstado { get; set; }
-        public int idFrecuencia { get; set; }
+        public int idEstadoRegistro { get; set; }
+        public int idFrecuenciaEnvio { get; set; }
         
 
         [NotMapped]
@@ -70,7 +70,7 @@ namespace GB.SIMEF.Entities
             json.Append("\"Nombre\":\"").Append(this.Nombre).Append("\",");
             json.Append("\"Descripción\":\"").Append(this.Descripcion).Append("\",");
             json.Append("\"Frecuencia de envío\":\"").Append(this.FrecuenciaEnvio.Nombre).Append("\",");
-            json.Append("\"Cantidad de indicadores\":").Append(this.CantidadIndicadores).Append(",");
+            json.Append("\"Cantidad de indicadores\":").Append(this.CantidadIndicador).Append(",");
 
             string estado = string.Empty;
             switch (this.EstadoRegistro.IdEstadoRegistro)

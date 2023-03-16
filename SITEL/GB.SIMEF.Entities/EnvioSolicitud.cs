@@ -14,10 +14,10 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class EnvioSolicitudes
+    public partial class EnvioSolicitud
     {
         [Key]
-        public int idEnvio { get; set; }
+        public int idEnvioSolicitud { get; set; }
         public System.DateTime Fecha { get; set; }
         public bool Enviado { get; set; }
         public bool EnvioProgramado { get; set; }

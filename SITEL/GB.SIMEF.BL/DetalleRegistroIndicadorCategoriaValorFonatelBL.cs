@@ -63,7 +63,7 @@ namespace GB.SIMEF.BL
                     //Se crea datatable con la informacion de la lista
                     var dt = new DataTable();
                     dt.Columns.Add("IdSolicitud", typeof(int));
-                    dt.Columns.Add("IdFormulario", typeof(int));
+                    dt.Columns.Add("idFormularioWeb", typeof(int));
                     dt.Columns.Add("IdIndicador", typeof(int));
                     dt.Columns.Add("idVariable", typeof(int));
                     dt.Columns.Add("NumeroFila", typeof(int));
@@ -82,7 +82,7 @@ namespace GB.SIMEF.BL
                         {
                             int temp = 0;
                             int.TryParse(Utilidades.Desencriptar(item.FormularioId), out temp);
-                            item.IdFormulario = temp;
+                            item.idFormularioWeb = temp;
                         }
 
                         if (!string.IsNullOrEmpty(item.IndicadorId))
@@ -92,7 +92,7 @@ namespace GB.SIMEF.BL
                             item.IdIndicador = temp;
                         }
 
-                        dt.Rows.Add(item.IdSolicitud, item.IdFormulario, item.IdIndicador, item.IdVariable, item.NumeroFila, item.Valor);
+                        dt.Rows.Add(item.IdSolicitud, item.idFormularioWeb, item.IdIndicador, item.IdVariable, item.NumeroFila, item.Valor);
                     }
 
                     //Se elimina los detalles valores para insertar los nuevos
@@ -115,7 +115,7 @@ namespace GB.SIMEF.BL
                     //Se crea datatable con la informacion de la lista
                     var dt = new DataTable();
                     dt.Columns.Add("IdSolicitud", typeof(int));
-                    dt.Columns.Add("IdFormulario", typeof(int));
+                    dt.Columns.Add("idFormularioWeb", typeof(int));
                     dt.Columns.Add("IdIndicador", typeof(int));
                     dt.Columns.Add("idCategoria", typeof(int));
                     dt.Columns.Add("NumeroFila", typeof(int));
@@ -134,7 +134,7 @@ namespace GB.SIMEF.BL
                         {
                             int temp = 0;
                             int.TryParse(Utilidades.Desencriptar(item.FormularioId), out temp);
-                            item.IdFormulario = temp;
+                            item.idFormularioWeb = temp;
                         }
 
                         if (!string.IsNullOrEmpty(item.IndicadorId))
@@ -144,7 +144,7 @@ namespace GB.SIMEF.BL
                             item.IdIndicador = temp;
                         }
 
-                        dt.Rows.Add(item.IdSolicitud, item.IdFormulario, item.IdIndicador, item.idCategoria, item.NumeroFila, item.Valor);
+                        dt.Rows.Add(item.IdSolicitud, item.idFormularioWeb, item.IdIndicador, item.idCategoria, item.NumeroFila, item.Valor);
                     }
 
                     //Se elimina los detalles valores para insertar los nuevos
@@ -196,7 +196,7 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(objeto.FormularioId))
                 {
                     int.TryParse(Utilidades.Desencriptar(objeto.FormularioId), out int temp);
-                    objeto.IdFormulario = temp;
+                    objeto.idFormularioWeb = temp;
                 }
                 if (!string.IsNullOrEmpty(objeto.Solicitudid))
                 {
@@ -255,11 +255,11 @@ namespace GB.SIMEF.BL
                         detalle.IdSolicitud = temp;
                     }
 
-                    if (!string.IsNullOrEmpty(detalleRegistro.IdFormularioString))
+                    if (!string.IsNullOrEmpty(detalleRegistro.idFormularioWebString))
                     {
                         int temp = 0;
-                        int.TryParse(Utilidades.Desencriptar(detalleRegistro.IdFormularioString), out temp);
-                        detalle.IdFormulario = temp;
+                        int.TryParse(Utilidades.Desencriptar(detalleRegistro.idFormularioWebString), out temp);
+                        detalle.idFormularioWeb = temp;
                     }
 
                     if (!string.IsNullOrEmpty(detalleRegistro.IdIndicadorString))
@@ -292,7 +292,7 @@ namespace GB.SIMEF.BL
                             {
                                 DetalleRegistroIndicadorVariableValorFonatel obj = new DetalleRegistroIndicadorVariableValorFonatel();
                                 obj.Valor = Decimal.Parse(variableDato.Replace(",","."));
-                                obj.IdFormulario = detalle.IdFormulario;
+                                obj.idFormularioWeb = detalle.idFormularioWeb;
                                 obj.IdIndicador = detalle.IdIndicador;
                                 obj.IdSolicitud = detalle.IdSolicitud;
                                 obj.NumeroFila = j - 1;
@@ -349,11 +349,11 @@ namespace GB.SIMEF.BL
                         detalle.IdSolicitud = temp;
                     }
 
-                    if (!string.IsNullOrEmpty(detalleRegistro.IdFormularioString))
+                    if (!string.IsNullOrEmpty(detalleRegistro.idFormularioWebString))
                     {
                         int temp = 0;
-                        int.TryParse(Utilidades.Desencriptar(detalleRegistro.IdFormularioString), out temp);
-                        detalle.IdFormulario = temp;
+                        int.TryParse(Utilidades.Desencriptar(detalleRegistro.idFormularioWebString), out temp);
+                        detalle.idFormularioWeb = temp;
                     }
 
                     if (!string.IsNullOrEmpty(detalleRegistro.IdIndicadorString))
@@ -483,7 +483,7 @@ namespace GB.SIMEF.BL
                                         {
                                             DetalleRegistroIndicadorCategoriaValorFonatel obj = new DetalleRegistroIndicadorCategoriaValorFonatel();
                                             obj.Valor = valor;
-                                            obj.IdFormulario = detalle.IdFormulario;
+                                            obj.idFormularioWeb = detalle.idFormularioWeb;
                                             obj.IdIndicador = detalle.IdIndicador;
                                             obj.IdSolicitud = detalle.IdSolicitud;
                                             obj.idCategoria = categoria.idCategoria;
@@ -574,7 +574,7 @@ namespace GB.SIMEF.BL
                     //Se crea datatable con la informacion de la lista
                     var dt = new DataTable();
                     dt.Columns.Add("IdSolicitud", typeof(int));
-                    dt.Columns.Add("IdFormulario", typeof(int));
+                    dt.Columns.Add("idFormularioWeb", typeof(int));
                     dt.Columns.Add("IdIndicador", typeof(int));
                     dt.Columns.Add("idVariable", typeof(int));
                     dt.Columns.Add("NumeroFila", typeof(int));
@@ -593,7 +593,7 @@ namespace GB.SIMEF.BL
                         {
                             int temp = 0;
                             int.TryParse(Utilidades.Desencriptar(item.FormularioId), out temp);
-                            item.IdFormulario = temp;
+                            item.idFormularioWeb = temp;
                         }
 
                         if (!string.IsNullOrEmpty(item.IndicadorId))
@@ -603,7 +603,7 @@ namespace GB.SIMEF.BL
                             item.IdIndicador = temp;
                         }
 
-                        dt.Rows.Add(item.IdSolicitud, item.IdFormulario, item.IdIndicador, item.IdVariable, item.NumeroFila, item.Valor);
+                        dt.Rows.Add(item.IdSolicitud, item.idFormularioWeb, item.IdIndicador, item.IdVariable, item.NumeroFila, item.Valor);
                     }
 
                     //Se elimina los detalles valores para insertar los nuevos
