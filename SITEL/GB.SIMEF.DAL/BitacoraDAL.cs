@@ -58,7 +58,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaBitacora = db.Database.SqlQuery<Bitacora>
-                    ("execute spObtenerBitacora @fechaDesde, @fechaHasta, @Pantalla, @Acciones, @Usuario ",
+                    ("execute pa_ObtenerBitacora @fechaDesde, @fechaHasta, @Pantalla, @Acciones, @Usuario ",
                      new SqlParameter("@fechaDesde", string.IsNullOrEmpty(bitacora.FechaDesde) ? DBNull.Value.ToString(): bitacora.FechaDesde),
                      new SqlParameter("@fechaHasta", string.IsNullOrEmpty(bitacora.FechaHasta) ? DBNull.Value.ToString() : bitacora.FechaHasta),
                      new SqlParameter("@Pantalla", string.IsNullOrEmpty(bitacora.Pantalla) ? DBNull.Value.ToString() : bitacora.Pantalla),
