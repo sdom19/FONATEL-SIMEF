@@ -30,8 +30,6 @@
         "fileCargaRegistro": "#fileCargaRegistro",
 
         "btnGuardar": "div.tab-pane.active #btnGuardarRegistroIndicador",
-        //"btnValidar": "div.tab-pane.active #btnValidarRegistroIndicador",
-        "btnValidar": "#btnValidarRegistroIndicador",
 
         "btnCargaRegistroIndicador": "#btnCargaRegistroIndicador",
         "btnGuardarRegistroIndicador": "#btnGuardarRegistroIndicador",
@@ -848,7 +846,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     jsRegistroIndicadorFonatel.Metodos.VerificarBotonValidar();
 });
 
-$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidar, function () {
+$(document).on("click", jsRegistroIndicadorFonatel.Controles.btnValidarRegistroIndicador, function () {
     //jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea aplicar las reglas de validación?", jsMensajes.Variables.actionType.cancelar)
     //    .set('onok', function (closeEvent) {
     //        if (jsRegistroIndicadorFonatel.Metodos.ValidarDetalle()) {
