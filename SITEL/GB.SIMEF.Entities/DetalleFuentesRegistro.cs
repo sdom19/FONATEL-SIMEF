@@ -17,23 +17,23 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Text;
 
-    [Table("DetalleFuentesRegistro")]
-    public partial class DetalleFuentesRegistro
+    [Table("DetalleFuenteRegistro")]
+    public partial class DetalleFuenteRegistro
     {
 
-        public DetalleFuentesRegistro()
+        public DetalleFuenteRegistro()
         {
           
         }
 
         [Key]
-        public int idDetalleFuente { get; set; }
-        public int idFuente { get; set; }
+        public int IdDetalleFuenteRegistro { get; set; }
+        public int IdFuenteRegistro { get; set; }
         public string NombreDestinatario { get; set; }
         public string CorreoElectronico { get; set; }
         public bool Estado { get; set; }
 
-        public int idUsuario { get; set; }
+        public int IdUsuario { get; set; }
 
         public bool CorreoEnviado { get; set; }
 

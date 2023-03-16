@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GB.SIMEF.Entities
 {
 
-    [Table("DetalleRegistroIndcadorFonatel")]
+    [Table("DetalleRegistroIndicadorFonatel")]
     public partial class DetalleRegistroIndicadorFonatel
     {
 
@@ -29,12 +29,12 @@ namespace GB.SIMEF.Entities
         public int IdIndicador { get; set; }
         public int IdDetalleRegistroIndicador { get; set; }
   
-        public string TituloHojas { get; set; }
-        public string NotasEncargado { get; set; }
-        public string NotasInformante { get; set; }
+        public string TituloHoja { get; set; }
+        public string NotaEncargado { get; set; }
+        public string NotaInformante { get; set; }
         public string CodigoIndicador { get; set; }
         public string NombreIndicador { get; set; }
-        public int CantidadFilas { get; set; }
+        public int CantidadFila { get; set; }
 
         [NotMapped]
         public string IdSolicitudString { get; set; }

@@ -26,10 +26,10 @@ namespace GB.SIMEF.Entities
 
         [Key]
       
-        public int idEstado { get; set; }
+        public int IdEstadoRegistro { get; set; }
         public string Nombre { get; set; }
       
-        public string Comentarios { get; set; }
+        public string Comentario { get; set; }
       
         public bool Estado { get; set; }
 

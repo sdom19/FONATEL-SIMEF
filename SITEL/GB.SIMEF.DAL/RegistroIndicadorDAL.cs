@@ -72,7 +72,7 @@ namespace GB.SIMEF.DAL
             {
 
                 ListaRegistroIndicadorFonatel = db.Database.SqlQuery<RegistroIndicadorFonatel>
-                    ("execute Fonatel.pa_obtenerRegistroIndicadorFonatel @IdSolicitud,@IdFormulario,@idFuente, @idEstado, @RangoFecha",
+                    ("execute Fonatel.pa_ObtenerRegistroIndicadorFonatel @IdSolicitud,@IdFormulario,@IdFuente, @IdEstado, @RangoFecha",
                      new SqlParameter("@IdSolicitud", objRegistroIndicadorFonatel.IdSolicitud),
                      new SqlParameter("@IdFormulario", objRegistroIndicadorFonatel.IdFormulario),
                      new SqlParameter("@IdFuente", objRegistroIndicadorFonatel.IdFuente),
@@ -86,11 +86,11 @@ namespace GB.SIMEF.DAL
             return ListaRegistroIndicadorFonatel;
         }
 
-        public FuentesRegistro ObtenerFuente(int id)
+        public FuenteRegistro ObtenerFuente(int id)
         {
             using (SIMEFdb = new SIMEFContext()) { 
-                FuentesRegistro fuente = SIMEFdb.FuentesRegistro.Where(i => i.idFuente == id).Single();
-                fuente.DetalleFuentesRegistro = SIMEFdb.DetalleFuentesRegistro.Where(i => i.idFuente == id).ToList();
+                FuenteRegistro fuente = SIMEFdb.FuentesRegistro.Where(i => i.IdFuenteRegistro == id).Single();
+                fuente.DetalleFuentesRegistro = SIMEFdb.DetalleFuentesRegistro.Where(i => i.IdFuenteRegistro == id).ToList();
                 return fuente;
             }
         }

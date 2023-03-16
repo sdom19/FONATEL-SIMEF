@@ -199,7 +199,7 @@ namespace GB.SIMEF.DAL
         {
             using (db = new SIMEFContext())
             {
-                return db.EstadoRegistro.Where(p => p.idEstado == idEstado).FirstOrDefault();
+                return db.EstadoRegistro.Where(p => p.IdEstadoRegistro == idEstado).FirstOrDefault();
             }
         }
 

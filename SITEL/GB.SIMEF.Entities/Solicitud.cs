@@ -67,7 +67,7 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
 
-        public FuentesRegistro Fuente { get; set; }
+        public FuenteRegistro Fuente { get; set; }
 
         [NotMapped]
         public List<FormularioWeb> FormularioWeb { get; set; }
@@ -102,16 +102,16 @@ namespace GB.SIMEF.Entities
             json.Append("\"Mensaje\":\"").Append(this.Mensaje).Append("\",");
 
             string estado = string.Empty;
-            switch (this.Estado.idEstado)
+            switch (this.Estado.IdEstadoRegistro)
             {
                 case (int)Constantes.EstadosRegistro.Desactivado:
-                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.Estado.idEstado);
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.Estado.IdEstadoRegistro);
                     break;
                 case (int)Constantes.EstadosRegistro.Activo:
-                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.Estado.idEstado);
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.Estado.IdEstadoRegistro);
                     break;
                 case (int)Constantes.EstadosRegistro.Eliminado:
-                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.Estado.idEstado);
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.Estado.IdEstadoRegistro);
                     break;
                 case (int)Constantes.EstadosRegistro.EnProceso:
                     estado = "En Proceso";

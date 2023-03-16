@@ -49,7 +49,7 @@ namespace GB.SIMEF.DAL
                 Anno = x.Anno,
                 IdFuente = x.IdFuente,
                 Fuente = ObtenerFuente(x.IdFuente),
-                EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.IdEstado).Single(),
+                EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.IdEstado).Single(),
                 Solicitud = ObtenerSolicitud(x.IdSolicitud),
                 Solicitudid = Utilidades.Encriptar(x.IdSolicitud.ToString()),
                 FormularioId = Utilidades.Encriptar(x.IdFormulario.ToString()),
@@ -87,10 +87,10 @@ namespace GB.SIMEF.DAL
             return ListaRegistroIndicadorFonatel;
         }
 
-        public FuentesRegistro ObtenerFuente(int id)
+        public FuenteRegistro ObtenerFuente(int id)
         {
-            FuentesRegistro fuente = db.FuentesRegistro.Where(i => i.idFuente == id).Single();
-            fuente.DetalleFuentesRegistro = db.DetalleFuentesRegistro.Where(i => i.idFuente == id).ToList();
+            FuenteRegistro fuente = db.FuentesRegistro.Where(i => i.IdFuenteRegistro == id).Single();
+            fuente.DetalleFuentesRegistro = db.DetalleFuentesRegistro.Where(i => i.IdFuenteRegistro == id).ToList();
             return fuente;
         }
 

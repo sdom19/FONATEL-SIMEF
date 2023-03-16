@@ -12,12 +12,12 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class FuentesRegistroBL : IMetodos<FuentesRegistro>
+    public class FuentesRegistroBL : IMetodos<FuenteRegistro>
     {
         private readonly FuentesRegistroDAL clsDatos;
         private readonly FuentesRegistroDestinatarioDAL clsDatosUsuario;
 
-        private RespuestaConsulta<List<FuentesRegistro>> ResultadoConsulta;
+        private RespuestaConsulta<List<FuenteRegistro>> ResultadoConsulta;
         string modulo = string.Empty;
         string user = string.Empty;
 
@@ -27,7 +27,7 @@ namespace GB.SIMEF.BL
             this.user = user;
             this.clsDatos = new FuentesRegistroDAL();
             this.clsDatosUsuario = new FuentesRegistroDestinatarioDAL();
-            this.ResultadoConsulta = new RespuestaConsulta<List<FuentesRegistro>>();
+            this.ResultadoConsulta = new RespuestaConsulta<List<FuenteRegistro>>();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace GB.SIMEF.BL
         /// <param name="objeto"></param>
         /// <returns></returns>
 
-        public RespuestaConsulta<List<FuentesRegistro>> ActualizarElemento(FuentesRegistro objeto)
+        public RespuestaConsulta<List<FuenteRegistro>> ActualizarElemento(FuenteRegistro objeto)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.id, out temp))
                     {
-                        objeto.idFuente = temp;
+                        objeto.IdFuenteRegistro = temp;
                     }
                     ResultadoConsulta.Clase = modulo;
                     ResultadoConsulta.Accion =  (int) Constantes. Accion.Editar;
@@ -63,21 +63,21 @@ namespace GB.SIMEF.BL
                     }
                     int Cantidad = (int)objeto.CantidadDestinatario;
                     
-                    var consultardatos = clsDatos.ObtenerDatos(new FuentesRegistro());
+                    var consultardatos = clsDatos.ObtenerDatos(new FuenteRegistro());
 
-                    var resul = consultardatos.Where(x => x.idFuente == objeto.idFuente).ToList();
+                    var resul = consultardatos.Where(x => x.IdFuenteRegistro == objeto.IdFuenteRegistro).ToList();
 
-                    string valorAnterior = resul.Where(x=>x.idFuente==objeto.idFuente).Single().ToString();
+                    string valorAnterior = resul.Where(x=>x.IdFuenteRegistro==objeto.IdFuenteRegistro).Single().ToString();
 
-                    objeto = resul.Where(x => x.idFuente == objeto.idFuente).Single();
+                    objeto = resul.Where(x => x.IdFuenteRegistro == objeto.IdFuenteRegistro).Single();
 
 
-                    if (consultardatos.Where(x => x.idFuente == objeto.idFuente).Count() == 0)
+                    if (consultardatos.Where(x => x.IdFuenteRegistro == objeto.IdFuenteRegistro).Count() == 0)
                     {
                         ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.NoRegistrosActualizar);
                     }
-                   else if (consultardatos.Where(x => x.idFuente != objeto.idFuente && x.Fuente.ToUpper()==fuente.ToUpper()).Count() > 0)
+                   else if (consultardatos.Where(x => x.IdFuenteRegistro != objeto.IdFuenteRegistro && x.Fuente.ToUpper()==fuente.ToUpper()).Count() > 0)
                     {
                         ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.FuenteRegistrada);
@@ -94,17 +94,17 @@ namespace GB.SIMEF.BL
 
                         objeto.Fuente = fuente;
                         objeto.CantidadDestinatario = Cantidad;
-                        if (objeto.idEstado == 2)
+                        if (objeto.IdEstadoRegistro == 2)
                         {
                             if(objeto.CantidadDestinatario > objeto.DetalleFuentesRegistro.Count())
                             {
-                                objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                                objeto.IdEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso;
                             }
                             
                         }
                         else
                         {
-                            objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                            objeto.IdEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso;
                         }
                         
                         clsDatos.ActualizarDatos(objeto);
@@ -139,7 +139,7 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FuentesRegistro>> CambioEstado(FuentesRegistro objeto)
+        public RespuestaConsulta<List<FuenteRegistro>> CambioEstado(FuenteRegistro objeto)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.id, out temp))
                     {
-                        objeto.idFuente = temp;
+                        objeto.IdFuenteRegistro = temp;
                     }
                 }
                 ResultadoConsulta.Clase = modulo;
@@ -178,7 +178,7 @@ namespace GB.SIMEF.BL
                 else
                 {
                     objeto = fuente;
-                    objeto.idEstado = nuevoEstado;
+                    objeto.IdEstadoRegistro = nuevoEstado;
                     objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
                     ResultadoConsulta.Accion = (int)Constantes.Accion.Activar;
                     resul = clsDatos.ActualizarDatos(objeto);
@@ -202,7 +202,7 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<FuentesRegistro>> ClonarDatos(FuentesRegistro objeto)
+        public RespuestaConsulta<List<FuenteRegistro>> ClonarDatos(FuenteRegistro objeto)
         {
             throw new NotImplementedException();
         }
@@ -215,7 +215,7 @@ namespace GB.SIMEF.BL
         /// <param name="objeto"></param>
         /// <returns></returns>
 
-        public RespuestaConsulta<List<FuentesRegistro>> EliminarElemento(FuentesRegistro objeto)
+        public RespuestaConsulta<List<FuenteRegistro>> EliminarElemento(FuenteRegistro objeto)
         {
             try
             {
@@ -225,7 +225,7 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.id, out temp))
                     {
-                        objeto.idFuente = temp;
+                        objeto.IdFuenteRegistro = temp;
                     }
                 }
                 ResultadoConsulta.Clase = modulo;
@@ -243,7 +243,7 @@ namespace GB.SIMEF.BL
                 {
 
                     objeto = resul.Single();
-                    objeto.idEstado = nuevoEstado;
+                    objeto.IdEstadoRegistro = nuevoEstado;
                     objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
                     ResultadoConsulta.Accion = (int)Constantes.Accion.Eliminar;
                     resul = clsDatos.ActualizarDatos(objeto);
@@ -277,7 +277,7 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FuentesRegistro>> InsertarDatos(FuentesRegistro objeto)
+        public RespuestaConsulta<List<FuenteRegistro>> InsertarDatos(FuenteRegistro objeto)
         {
             try
             {
@@ -287,8 +287,8 @@ namespace GB.SIMEF.BL
 
                 objeto.UsuarioCreacion = user;
                 objeto.Fuente = objeto.Fuente.Trim();
-                objeto.idEstado = (int)EstadosRegistro.EnProceso;
-                var consultardatos = clsDatos.ObtenerDatos(new FuentesRegistro());
+                objeto.IdEstadoRegistro = (int)EstadosRegistro.EnProceso;
+                var consultardatos = clsDatos.ObtenerDatos(new FuenteRegistro());
                 if (consultardatos.Where(x=>x.Fuente.ToUpper()==objeto.Fuente.ToUpper()).Count()>0)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
@@ -324,7 +324,7 @@ namespace GB.SIMEF.BL
         /// Michael Hernández
         /// Metodo para obtener la lista de fuentes
         /// </summary>
-        public RespuestaConsulta<List<FuentesRegistro>> ObtenerDatos(FuentesRegistro objFuentesRegistro)
+        public RespuestaConsulta<List<FuenteRegistro>> ObtenerDatos(FuenteRegistro objFuentesRegistro)
         {
             try
             {
@@ -332,7 +332,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objFuentesRegistro.id), out temp);
-                    objFuentesRegistro.idFuente = temp;
+                    objFuentesRegistro.IdFuenteRegistro = temp;
                 }
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Consultar;
@@ -355,7 +355,7 @@ namespace GB.SIMEF.BL
         /// <returns></returns>
 
 
-        public RespuestaConsulta<List<string>> ValidarExistencia(FuentesRegistro objeto)
+        public RespuestaConsulta<List<string>> ValidarExistencia(FuenteRegistro objeto)
         {
             RespuestaConsulta<List<string>> listaExistencias = new RespuestaConsulta<List<string>>();
             try
@@ -366,7 +366,7 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.id, out temp))
                     {
-                        objeto.idFuente = temp;
+                        objeto.IdFuenteRegistro = temp;
                     }
                 }
                 ResultadoConsulta.Clase = modulo;
@@ -385,7 +385,7 @@ namespace GB.SIMEF.BL
 
 
 
-        public RespuestaConsulta<List<FuentesRegistro>> ValidarDatos(FuentesRegistro objeto)
+        public RespuestaConsulta<List<FuenteRegistro>> ValidarDatos(FuenteRegistro objeto)
         {
             throw new NotImplementedException();
         }

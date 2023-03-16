@@ -103,7 +103,7 @@ namespace GB.SIMEF.DAL
                     idFormulario = x.idFormulario,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.idEstado == x.idEstado).FirstOrDefault(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).FirstOrDefault(),
                 }).ToList();
             }
 

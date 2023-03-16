@@ -59,9 +59,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
            
         }
 
-
-
-
         [HttpGet]
         public ActionResult Create(string idSolicitud, string idFormulario)
         {
@@ -80,9 +77,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
         
         }
-
-
-
 
         // GET: RegistroIndicadorFonatel/Details/5
         [HttpGet]
@@ -114,7 +108,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             detalleRegistroIndicadorFonatel.IdFormularioString = lista[1];
             detalleRegistroIndicadorFonatel.IdIndicadorString = lista[2];
             detalleRegistroIndicadorFonatel.IdSolicitudString = lista[0];
-            detalleRegistroIndicadorFonatel.CantidadFilas= Convert.ToInt32(lista[3]);
+            detalleRegistroIndicadorFonatel.CantidadFila= Convert.ToInt32(lista[3]);
 
             RespuestaConsulta<List<DetalleRegistroIndicadorFonatel>> result = null;
             result = detalleRegistroIndicadorBL.ObtenerDatos(detalleRegistroIndicadorFonatel);
@@ -133,7 +127,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
-                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(result.objetoRespuesta[0].TituloHojas);
+                ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(result.objetoRespuesta[0].TituloHoja);
                 int celda = 1;
                 foreach (var item in listaVariable)
                 {
@@ -147,7 +141,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
                     worksheetInicio.Cells[1, celda].AutoFitColumns();
                     worksheetInicio.Column(celda).Style.Numberformat.Format = "@";
-                    worksheetInicio.Cells[2, celda, detalleRegistroIndicadorFonatel.CantidadFilas+1, celda].Value = "";
+                    worksheetInicio.Cells[2, celda, detalleRegistroIndicadorFonatel.CantidadFila+1, celda].Value = "";
 
                     celda++;
                 }
@@ -169,9 +163,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
 
 
-                worksheetInicio.Cells[2, 1, detalleRegistroIndicadorFonatel.CantidadFilas+1, celda-1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                worksheetInicio.Cells[2, 1, detalleRegistroIndicadorFonatel.CantidadFilas+1, celda-1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-                worksheetInicio.Cells[2, 1, detalleRegistroIndicadorFonatel.CantidadFilas+1, celda-1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                worksheetInicio.Cells[2, 1, detalleRegistroIndicadorFonatel.CantidadFila+1, celda-1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheetInicio.Cells[2, 1, detalleRegistroIndicadorFonatel.CantidadFila+1, celda-1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                worksheetInicio.Cells[2, 1, detalleRegistroIndicadorFonatel.CantidadFila+1, celda-1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
 
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";

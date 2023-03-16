@@ -35,7 +35,7 @@ namespace GB.SIMEF.DAL
 
 
         public virtual DbSet<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
-        public virtual DbSet<DetalleFuentesRegistro> DetalleFuentesRegistro { get; set; }
+        public virtual DbSet<DetalleFuenteRegistro> DetalleFuentesRegistro { get; set; }
         public virtual DbSet<DetalleIndicadorCategoria> DetalleIndicadorCategoria { get; set; }
         public virtual DbSet<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
         
@@ -58,7 +58,7 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<FormulasOperador> FormulasOperador { get; set; }
         public virtual DbSet<FrecuenciaEnvio> FrecuenciaEnvio { get; set; }
         //public virtual DbSet<FuenteIndicador> FuenteIndicador { get; set; }
-        public virtual DbSet<FuentesRegistro> FuentesRegistro { get; set; }
+        public virtual DbSet<FuenteRegistro> FuentesRegistro { get; set; }
         public virtual DbSet<GrupoIndicadores> GrupoIndicadores { get; set; }
         public virtual DbSet<Indicador> Indicador { get; set; }
         

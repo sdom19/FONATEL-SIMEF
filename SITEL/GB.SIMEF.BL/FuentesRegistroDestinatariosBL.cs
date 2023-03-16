@@ -11,24 +11,24 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class FuentesRegistroDestinatariosBL : IMetodos<DetalleFuentesRegistro>
+    public class FuentesRegistroDestinatariosBL : IMetodos<DetalleFuenteRegistro>
     {
         private readonly FuentesRegistroDestinatarioDAL clsDatos;
         private readonly FuentesRegistroDAL clsfuente;
 
-        private RespuestaConsulta<List<DetalleFuentesRegistro>> ResultadoConsulta;
+        private RespuestaConsulta<List<DetalleFuenteRegistro>> ResultadoConsulta;
         string modulo = string.Empty;
         string user = string.Empty;
         public FuentesRegistroDestinatariosBL(string modulo, string user )
         {
             this.clsDatos = new FuentesRegistroDestinatarioDAL();
-            this.ResultadoConsulta = new RespuestaConsulta<List<DetalleFuentesRegistro>>();
+            this.ResultadoConsulta = new RespuestaConsulta<List<DetalleFuenteRegistro>>();
             this.clsfuente = new FuentesRegistroDAL();
             this.modulo = modulo;
             this.user = user;
         }
 
-        public RespuestaConsulta<List<DetalleFuentesRegistro>> ActualizarElemento(DetalleFuentesRegistro objeto)
+        public RespuestaConsulta<List<DetalleFuenteRegistro>> ActualizarElemento(DetalleFuenteRegistro objeto)
         {
 
             try
@@ -37,7 +37,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.FuenteId), out temp);
-                    objeto.idFuente = temp;
+                    objeto.IdFuenteRegistro = temp;
                 }
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Usuario = user;
@@ -68,17 +68,17 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<DetalleFuentesRegistro>> CambioEstado(DetalleFuentesRegistro objeto)
+        public RespuestaConsulta<List<DetalleFuenteRegistro>> CambioEstado(DetalleFuenteRegistro objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<DetalleFuentesRegistro>> ClonarDatos(DetalleFuentesRegistro objeto)
+        public RespuestaConsulta<List<DetalleFuenteRegistro>> ClonarDatos(DetalleFuenteRegistro objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<DetalleFuentesRegistro>> EliminarElemento(DetalleFuentesRegistro objeto)
+        public RespuestaConsulta<List<DetalleFuenteRegistro>> EliminarElemento(DetalleFuenteRegistro objeto)
         {
             try
             {
@@ -92,12 +92,12 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.FuenteId, out temp))
                     {
-                        objeto.idFuente = temp;
+                        objeto.IdFuenteRegistro = temp;
                     }
                 }
-                var fuente = clsfuente.ObtenerDatos(new FuentesRegistro() { idFuente = objeto.idFuente }).SingleOrDefault();
+                var fuente = clsfuente.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro = objeto.IdFuenteRegistro }).SingleOrDefault();
 
-                var consultardatos = fuente.DetalleFuentesRegistro.Where(x=>x.idDetalleFuente==objeto.idDetalleFuente).ToList();
+                var consultardatos = fuente.DetalleFuentesRegistro.Where(x=>x.IdDetalleFuenteRegistro==objeto.IdDetalleFuenteRegistro).ToList();
                 if (consultardatos.Count()==0)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
@@ -129,11 +129,11 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        private DetalleFuentesRegistro ValidarDatosDetalleFuentes(DetalleFuentesRegistro objeto, bool Agregar=false)
+        private DetalleFuenteRegistro ValidarDatosDetalleFuentes(DetalleFuenteRegistro objeto, bool Agregar=false)
         {
             objeto.CorreoElectronico = objeto.CorreoElectronico.Trim().ToUpper();
             objeto.NombreDestinatario = objeto.NombreDestinatario.Trim().ToUpper();
-            var fuente = clsfuente.ObtenerDatos(new FuentesRegistro() { idFuente = objeto.idFuente }).SingleOrDefault();
+            var fuente = clsfuente.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro = objeto.IdFuenteRegistro }).SingleOrDefault();
 
             var consultardatos = fuente.DetalleFuentesRegistro;
             if (objeto==null && !Agregar)
@@ -156,18 +156,18 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                 throw new Exception(Errores.CantidadRegistrosLimite);
             }
-            else if (consultardatos.Where(x => x.idFuente != objeto.idFuente && objeto.NombreDestinatario.ToUpper() ==objeto.NombreDestinatario).Count() > 0)
+            else if (consultardatos.Where(x => x.IdFuenteRegistro != objeto.IdFuenteRegistro && objeto.NombreDestinatario.ToUpper() ==objeto.NombreDestinatario).Count() > 0)
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                 throw new Exception(Errores.NombreRegistrado);
             }
             objeto.Json = Agregar != true ? consultardatos
-                .Where(x=>x.idDetalleFuente==objeto.idDetalleFuente).Single().ToString()
+                .Where(x=>x.IdDetalleFuenteRegistro==objeto.IdDetalleFuenteRegistro).Single().ToString()
                  : string.Empty;
             objeto.Estado = true;
             return objeto;
         }
-        public RespuestaConsulta<List<DetalleFuentesRegistro>> InsertarDatos(DetalleFuentesRegistro objeto)
+        public RespuestaConsulta<List<DetalleFuenteRegistro>> InsertarDatos(DetalleFuenteRegistro objeto)
         {
             try
             {
@@ -179,7 +179,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.FuenteId), out temp);
-                    objeto.idFuente = temp;
+                    objeto.IdFuenteRegistro = temp;
                 }
                 objeto = ValidarDatosDetalleFuentes(objeto, true);
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto); 
@@ -201,7 +201,7 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<DetalleFuentesRegistro>> ObtenerDatos(DetalleFuentesRegistro objDetalleFuentesRegistro)
+        public RespuestaConsulta<List<DetalleFuenteRegistro>> ObtenerDatos(DetalleFuenteRegistro objDetalleFuentesRegistro)
         {
             try
             {
@@ -209,7 +209,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objDetalleFuentesRegistro.FuenteId), out temp);
-                    objDetalleFuentesRegistro.idFuente = temp;
+                    objDetalleFuentesRegistro.IdFuenteRegistro = temp;
                 }
 
                 ResultadoConsulta.Clase = modulo;
@@ -228,7 +228,7 @@ namespace GB.SIMEF.BL
 
 
 
-        public RespuestaConsulta<List<DetalleFuentesRegistro>> ValidarDatos(DetalleFuentesRegistro objeto)
+        public RespuestaConsulta<List<DetalleFuenteRegistro>> ValidarDatos(DetalleFuenteRegistro objeto)
         {
             throw new NotImplementedException();
         }
