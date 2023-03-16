@@ -70,10 +70,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
-        public async Task<string> ObtenerIndicadoresFormulario(string idFormulario)
+        public async Task<string> ObtenerIndicadoresFormulario(string idFormularioWeb)
         {
             FormularioWeb objFormularioWeb = new FormularioWeb();
-            objFormularioWeb.id = idFormulario;
+            objFormularioWeb.id = idFormularioWeb;
             RespuestaConsulta<List<Indicador>> result = null;
             await Task.Run(() =>
             {
@@ -95,7 +95,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }).ContinueWith(data =>
             {
                 FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
-                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Eliminado;
+                objetoValidar.idEstadoRegistro = (int)Constantes.EstadosRegistro.Eliminado;
                 result = formularioWebBL.EliminarElemento(objetoValidar);
             }
             );
@@ -146,7 +146,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }).ContinueWith(data =>
             {
                 FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
-                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Desactivado;
+                objetoValidar.idEstadoRegistro = (int)Constantes.EstadosRegistro.Desactivado;
                 result = formularioWebBL.CambioEstado(objetoValidar);
             }
             );
@@ -166,7 +166,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }).ContinueWith(data =>
             {
                 FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
-                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                objetoValidar.idEstadoRegistro = (int)Constantes.EstadosRegistro.Activo;
                 result = formularioWebBL.CambioEstado(objetoValidar);
             }
             );
@@ -186,7 +186,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }).ContinueWith(data =>
             {
                 FormularioWeb objetoValidar = data.Result.objetoRespuesta.Single();
-                objetoValidar.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                objetoValidar.idEstadoRegistro = (int)Constantes.EstadosRegistro.Activo;
                 result = formularioWebBL.CambioEstado(objetoValidar);
             }
             );
@@ -252,7 +252,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 result = formularioWebBL.InsertarDatos(formulario);
                 if (result.objetoRespuesta != null)
-                    ViewBag.CantidadMax = result.objetoRespuesta[0].CantidadIndicadores;
+                    ViewBag.CantidadMax = result.objetoRespuesta[0].CantidadIndicador;
                 else
                     ViewBag.CantidadMax = 0;
             });
@@ -277,7 +277,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             int temp = 0;
             int.TryParse(Utilidades.Desencriptar(detalleformulario.formularioweb.id), out temp);
-            detalleformulario.idFormulario = temp;
+            detalleformulario.idFormularioWeb = temp;
             RespuestaConsulta<List<DetalleFormularioWeb>> result = null;
             await Task.Run(() =>
             {
@@ -292,7 +292,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             int temp = 0;
             int.TryParse(Utilidades.Desencriptar(detalleformulario.formularioweb.id), out temp);
-            detalleformulario.idFormulario = temp;
+            detalleformulario.idFormularioWeb = temp;
             RespuestaConsulta<List<DetalleFormularioWeb>> result = null;
             await Task.Run(() =>
             {
@@ -327,9 +327,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 objFormularioWeb = formularioWebBL.ObtenerDatos(objFormularioWeb).objetoRespuesta.SingleOrDefault();
                 objFormularioWeb.ListaIndicadoresObj = formularioWebBL.ObtenerIndicadoresFormulario(objFormularioWeb).objetoRespuesta.ToList();
                 
-                ViewBag.CantidadMax = objFormularioWeb.CantidadIndicadores;
-                int idFormulario = 0;
-                int.TryParse(Utilidades.Desencriptar(id), out idFormulario);
+                ViewBag.CantidadMax = objFormularioWeb.CantidadIndicador;
+                int idFormularioWeb = 0;
+                int.TryParse(Utilidades.Desencriptar(id), out idFormularioWeb);
                 if (modo == (int)Constantes.Accion.Clonar)
                 {
                     ViewBag.ModoTitulo = EtiquetasViewFormulario.ClonarFormulario;
@@ -370,12 +370,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
-        public async Task<string> ObtenerDetalleFormularioWeb(int idIndicador, string idFormulario)
+        public async Task<string> ObtenerDetalleFormularioWeb(int idIndicador, string idFormularioWeb)
         {
             DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();
             int temp = 0;
-            int.TryParse(Utilidades.Desencriptar( idFormulario), out temp );
-            objDetalleFormularioWeb.idFormulario = temp;
+            int.TryParse(Utilidades.Desencriptar( idFormularioWeb), out temp );
+            objDetalleFormularioWeb.idFormularioWeb = temp;
             objDetalleFormularioWeb.idIndicador = idIndicador;
             await Task.Run(() =>
             {
@@ -386,14 +386,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         [HttpGet]
         [ConsultasFonatelFilter]
-        public ActionResult _CrearIndicador(int idIndicador, int idFormulario)
+        public ActionResult _CrearIndicador(int idIndicador, int idFormularioWeb)
         {
             var indicadores = indicadorBL.ObtenerDatos(new Indicador() { })
                 .objetoRespuesta;
             var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
             ViewBag.Indicador = listaValores;
             DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();
-            objDetalleFormularioWeb.TituloHojas = "prueba lo que sea";
+            objDetalleFormularioWeb.TituloHoja = "prueba lo que sea";
             return View(objDetalleFormularioWeb);
         }
 

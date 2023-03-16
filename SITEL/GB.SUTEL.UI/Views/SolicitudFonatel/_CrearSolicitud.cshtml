@@ -7,7 +7,7 @@
 
     <!--   TEXTO PARA SABER EL MODO AGREGAR O EDITAR -->
     @Html.Hidden("txtmodo", (string)ViewBag.Modo)
-    @Html.HiddenFor(model => model.IdEstado, new { IdEstado = "IdEstado" })
+    @Html.HiddenFor(model => model.IdEstadoRegistro, new { IdEstado = "IdEstado" })
 
     <!-- TEXTO PARA ENCRIPTAR ID Y PARA EL EDITAR-->
     @Html.HiddenFor(model => model.id, new { id = "txtidsolicitud" })
@@ -61,7 +61,7 @@
                     <label for="ddlFuentes" class="col-sm-12 col-form-label ">@EtiquetasViewSolicitudes.Fuente</label>
                     <div class="col-sm-12">
                         <div class="select2-wrapper">
-                            @Html.DropDownListFor(model => model.idFuente, new SelectList(ViewBag.ListaFuentes, "idFuente", "Fuente"), "Seleccione", new { @class = "listasDesplegables", id = "ddlFuentes" })
+                            @Html.DropDownListFor(model => model.idFuenteRegistro, new SelectList(ViewBag.ListaFuentes, "idFuenteRegistro", "Fuente"), "Seleccione", new { @class = "listasDesplegables", id = "ddlFuentes" })
                         </div>
                         <small id="FuentesHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                     </div>
@@ -71,7 +71,7 @@
                     <label for="txtCantidadFormularios" class="col-sm-12 col-form-label ">@EtiquetasViewSolicitudes.CantidadFormularios</label>
                     <div class="col-sm-12">
 
-                        @Html.EditorFor(model => model.CantidadFormularios, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewSolicitudes.CantidadFormularios, id = "TxtCantidadFormulario" } })
+                        @Html.EditorFor(model => model.CantidadFormulario, new { htmlAttributes = new { @class = "form-control form-control-fonatel", placeholder = EtiquetasViewSolicitudes.CantidadFormularios, id = "TxtCantidadFormulario" } })
                         <small id="FormulariosHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>

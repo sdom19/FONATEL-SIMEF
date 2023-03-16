@@ -18,7 +18,7 @@
     <div class="row mt-5">
         <div class="col-lg-12 text-center">
 
-                @if (Model != null && Model.CantidadFormularios <= Model.FormularioWeb.Count)
+                @if (Model != null && Model.CantidadFormulario <= Model.FormularioWeb.Count)
                 {
                     <button type="submit" id="btnGuardarFormulario" disabled class="btn btn-fonatel btn-success-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonGuardar">@Etiquetas.BotonGuardar</button>
                 }
