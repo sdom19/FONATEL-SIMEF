@@ -20,9 +20,9 @@ namespace GB.SIMEF.DAL
         /// Se puede filtrar por el ID del objecto
         /// </summary>
         /// <returns></returns>
-        public List<TipoIndicadores> ObtenerDatos(TipoIndicadores pTipoIndicadores)
+        public List<TipoIndicador> ObtenerDatos(TipoIndicador pTipoIndicadores)
         {
-            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+            List<TipoIndicador> listaTipoIndicadores = new List<TipoIndicador>();
 
             using (db = new SIMEFContext())
             {
@@ -36,7 +36,7 @@ namespace GB.SIMEF.DAL
                 }
             }
 
-            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicador()
             {
                 id = Utilidades.Encriptar(x.IdTipoIndicador.ToString()),
                 Nombre = x.Nombre,
@@ -52,13 +52,13 @@ namespace GB.SIMEF.DAL
         /// Función que retorna los tipos de indicadores de mercado
         /// </summary>
         /// <returns></returns>
-        public List<TipoIndicadores> ObtenerDatosMercado()
+        public List<TipoIndicador> ObtenerDatosMercado()
         {
-            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+            List<TipoIndicador> listaTipoIndicadores = new List<TipoIndicador>();
 
             using (SIGITELContext db = new SIGITELContext())
             {
-                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
+                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicador>(
                     "select distinct " +
                     "IdTipoIndicador, " +
                     "TipoIndicador as Nombre, " +
@@ -66,7 +66,7 @@ namespace GB.SIMEF.DAL
                     "from [FONATEL].[viewIndicadorDGM]").ToList();
             }
 
-            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicador()
             {
                 id = Utilidades.Encriptar(x.IdTipoIndicador.ToString()),
                 Nombre = x.Nombre,
@@ -82,13 +82,13 @@ namespace GB.SIMEF.DAL
         /// Función que retorna los tipos de indicadores de mercado
         /// </summary>
         /// <returns></returns>
-        public List<TipoIndicadores> ObtenerDatosCalidad()
+        public List<TipoIndicador> ObtenerDatosCalidad()
         {
-            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+            List<TipoIndicador> listaTipoIndicadores = new List<TipoIndicador>();
 
             using (CALIDADContext db = new CALIDADContext())
             {
-                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
+                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicador>(
                     "select distinct " +
                     "IdTipoIndicador, " +
                     "TipoIndicador as Nombre, " +
@@ -97,7 +97,7 @@ namespace GB.SIMEF.DAL
                     ).ToList();
             }
 
-            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicador()
             {
                 id = Utilidades.Encriptar(x.IdTipoIndicador.ToString()),
                 Nombre = x.Nombre,
@@ -113,13 +113,13 @@ namespace GB.SIMEF.DAL
         /// Función que retorna los tipos de indicadores de UIT
         /// </summary>
         /// <returns></returns>
-        public List<TipoIndicadores> ObtenerDatosUIT()
+        public List<TipoIndicador> ObtenerDatosUIT()
         {
-            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+            List<TipoIndicador> listaTipoIndicadores = new List<TipoIndicador>();
 
             using (SITELContext db = new SITELContext())
             {
-                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
+                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicador>(
                     "select distinct " +
                     "IdTipoIndicador, " +
                     "TipoIndicador as Nombre, " +
@@ -128,7 +128,7 @@ namespace GB.SIMEF.DAL
                     ).ToList();
             }
 
-            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicador()
             {
                 id = Utilidades.Encriptar(x.IdTipoIndicador.ToString()),
                 Nombre = x.Nombre,
@@ -144,13 +144,13 @@ namespace GB.SIMEF.DAL
         /// Función que retorna los tipos de indicadores cruzados
         /// </summary>
         /// <returns></returns>
-        public List<TipoIndicadores> ObtenerDatosCruzado()
+        public List<TipoIndicador> ObtenerDatosCruzado()
         {
-            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+            List<TipoIndicador> listaTipoIndicadores = new List<TipoIndicador>();
 
             using (SITELContext db = new SITELContext())
             {
-                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicadores>(
+                listaTipoIndicadores = db.Database.SqlQuery<TipoIndicador>(
                     "select distinct " +
                     "IdTipoIndicador, " +
                     "TipoIndicador as Nombre, " +
@@ -159,7 +159,7 @@ namespace GB.SIMEF.DAL
                     ).ToList();
             }
 
-            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicadores()
+            listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicador()
             {
                 id = Utilidades.Encriptar(x.IdTipoIndicador.ToString()),
                 Nombre = x.Nombre,
@@ -176,9 +176,9 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pTipoIndicadores"></param>
         /// <returns></returns>
-        public List<TipoIndicadores> ActualizarDatos(TipoIndicadores pTipoIndicadores)
+        public List<TipoIndicador> ActualizarDatos(TipoIndicador pTipoIndicadores)
         {
-            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+            List<TipoIndicador> listaTipoIndicadores = new List<TipoIndicador>();
 
             using (db = new SIMEFContext())
             {
@@ -198,9 +198,9 @@ namespace GB.SIMEF.DAL
         /// Función que crea un nuevo registro tipo indicador.
         /// </summary>
         /// <param name="detalleFecha"></param>
-        public List<TipoIndicadores> InsertarTipoIndicador(TipoIndicadores pTipoIndicadores)
+        public List<TipoIndicador> InsertarTipoIndicador(TipoIndicador pTipoIndicadores)
         {
-            List<TipoIndicadores> listaTipoIndicadores = new List<TipoIndicadores>();
+            List<TipoIndicador> listaTipoIndicadores = new List<TipoIndicador>();
             
             using (db = new SIMEFContext())
             {

@@ -26,44 +26,44 @@ namespace GB.SIMEF.Entities
         }
 
         [Key]
-        public int idIndicador { get; set; }
+        public int IdIndicador { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
         public int IdTipoIndicador { get; set; }
-        public int IdClasificacion { get; set; }
-        public int idGrupo { get; set; }
+        public int IdClasificacionIndicador { get; set; }
+        public int IdGrupoIndicador { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> CantidadVariableDato { get; set; }
-        public Nullable<int> CantidadCategoriasDesagregacion { get; set; }
+        public Nullable<int> CantidadCategoriaDesagregacion { get; set; }
         public Nullable<int> IdUnidadEstudio { get; set; }
-        public int idTipoMedida { get; set; }
-        public int IdFrecuencia { get; set; }
+        public int IdTipoMedida { get; set; }
+        public int IdFrecuenciaEnvio { get; set; }
         public Nullable<bool> Interno { get; set; }
         public Nullable<bool> Solicitud { get; set; }
         public string Fuente { get; set; }
-        public string Notas { get; set; }
+        public string Nota { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
         public bool VisualizaSigitel { get; set; }
-        public int idEstado { get; set; }
+        public int IdEstadoRegistro { get; set; }
 
         #region Variables que no forman parte del contexto
         [NotMapped]
-        public virtual ClasificacionIndicadores ClasificacionIndicadores { get; set; }
+        public virtual ClasificacionIndicador ClasificacionIndicadores { get; set; }
         [NotMapped]
         public virtual EstadoRegistro EstadoRegistro { get; set; }
         [NotMapped]
         public virtual FrecuenciaEnvio FrecuenciaEnvio { get; set; }
         [NotMapped]
-        public virtual GrupoIndicadores GrupoIndicadores { get; set; }
+        public virtual GrupoIndicador GrupoIndicadores { get; set; }
         [NotMapped]
         public virtual TipoMedida TipoMedida { get; set; }
         [NotMapped]
         public virtual UnidadEstudio UnidadEstudio { get; set; }
         [NotMapped]
-        public virtual TipoIndicadores TipoIndicadores { get; set; }
+        public virtual TipoIndicador TipoIndicadores { get; set; }
         [NotMapped]
         public string id { get; set; }
         [NotMapped]
@@ -98,7 +98,7 @@ namespace GB.SIMEF.Entities
             }
             json.Append("\"Fuente\":\"").Append(this.Fuente).Append("\",");
             json.Append("\"Cantidad de variables dato\":\"").Append(this.CantidadVariableDato).Append("\",");
-            json.Append("\"Cantidad de categorías de segregación\":\"").Append(this.CantidadCategoriasDesagregacion).Append("\",");
+            json.Append("\"Cantidad de categorías de segregación\":\"").Append(this.CantidadCategoriaDesagregacion).Append("\",");
             json.Append("\"Unidad de estudio\":\"").Append(this.UnidadEstudio.Nombre).Append("\",");
             switch (this.Solicitud)
             {
@@ -111,14 +111,13 @@ namespace GB.SIMEF.Entities
 
                     break;
             }
-            json.Append("\"Notas\":\"").Append(this.Notas).Append("\",");
+            json.Append("\"Notas\":\"").Append(this.Nota).Append("\",");
 
             int.TryParse(Utilidades.Desencriptar(this.EstadoRegistro.id), out int objEstado);
             if (objEstado == 0) 
             {
-                objEstado = this.idEstado;
+                objEstado = this.IdEstadoRegistro;
             }
-
 
             switch (objEstado)
             {
@@ -135,9 +134,6 @@ namespace GB.SIMEF.Entities
                     json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.EnProceso)).Append("\"}");
                     break;
             }
-
-
-
 
             string resultado = json.ToString();
 

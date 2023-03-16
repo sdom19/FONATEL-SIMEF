@@ -54,7 +54,7 @@ namespace GB.SIMEF.BL
             {
                 PrepararObjetoDetalle(pDetalleIndicadorCategoria);
 
-                if (pDetalleIndicadorCategoria.idIndicador == 0 || pDetalleIndicadorCategoria.idCategoria == 0)
+                if (pDetalleIndicadorCategoria.IdIndicador == 0 || pDetalleIndicadorCategoria.IdCategoriaDesagregacion == 0)
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -120,9 +120,9 @@ namespace GB.SIMEF.BL
                     List<DetalleIndicadorCategoria> result = detalleIndicadorCategoriaDAL.ActualizarDatos(
                         new DetalleIndicadorCategoria()
                         {
-                            idIndicador = pDetalleIndicadorCategoria.idIndicador,
-                            idCategoria = pDetalleIndicadorCategoria.idCategoria,
-                            idCategoriaDetalle = pDetalleIndicadorCategoria.listaDetallesCategoria[i],
+                            IdIndicador = pDetalleIndicadorCategoria.IdIndicador,
+                            IdCategoriaDesagregacion = pDetalleIndicadorCategoria.IdCategoriaDesagregacion,
+                            IdDetalleCategoriaTexto = pDetalleIndicadorCategoria.listaDetallesCategoria[i],
                             Estado = true
                         }
                     );
@@ -181,8 +181,8 @@ namespace GB.SIMEF.BL
 
                 List<DetalleIndicadorCategoria> detallesActuales = detalleIndicadorCategoriaDAL.ObtenerDatos(new DetalleIndicadorCategoria()
                 {
-                    idIndicador = pDetalleIndicadorCategoria.idIndicador,
-                    idCategoria = pDetalleIndicadorCategoria.idCategoria,
+                    IdIndicador = pDetalleIndicadorCategoria.IdIndicador,
+                    IdCategoriaDesagregacion = pDetalleIndicadorCategoria.IdCategoriaDesagregacion,
                     DetallesAgrupados = false // contabilizar por detalle, no por categoria
                 }).ToList();
 
@@ -199,9 +199,9 @@ namespace GB.SIMEF.BL
                             List<DetalleIndicadorCategoria> result = detalleIndicadorCategoriaDAL.ActualizarDatos(
                             new DetalleIndicadorCategoria()
                             {
-                                idIndicador = pDetalleIndicadorCategoria.idIndicador,
-                                idCategoria = pDetalleIndicadorCategoria.idCategoria,
-                                idCategoriaDetalle = pDetalleIndicadorCategoria.listaDetallesCategoria[i],
+                                IdIndicador = pDetalleIndicadorCategoria.IdIndicador,
+                                IdCategoriaDesagregacion = pDetalleIndicadorCategoria.IdCategoriaDesagregacion,
+                                IdDetalleCategoriaTexto = pDetalleIndicadorCategoria.listaDetallesCategoria[i],
                                 Estado = true
                             });
 
@@ -316,7 +316,7 @@ namespace GB.SIMEF.BL
             {
                 PrepararObjetoDetalle(pDetalleIndicadorCategoria);
 
-                if (pDetalleIndicadorCategoria.idIndicador == 0) // ¿ID descencriptado con éxito?
+                if (pDetalleIndicadorCategoria.IdIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -358,13 +358,13 @@ namespace GB.SIMEF.BL
             {
                 PrepararObjetoDetalle(pDetalleIndicadorCategoria);
 
-                if (pDetalleIndicadorCategoria.idIndicador == 0) // ¿ID descencriptado con éxito?
+                if (pDetalleIndicadorCategoria.IdIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                if (pDetalleIndicadorCategoria.idCategoria == 0) // ¿ID descencriptado con éxito?
+                if (pDetalleIndicadorCategoria.IdCategoriaDesagregacion == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -401,13 +401,13 @@ namespace GB.SIMEF.BL
             {
                 PrepararObjetoDetalle(pDetalleIndicadorCategoria);
 
-                if (pDetalleIndicadorCategoria.idIndicador == 0) // ¿ID descencriptado con éxito?
+                if (pDetalleIndicadorCategoria.IdIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                if (pDetalleIndicadorCategoria.idCategoria == 0) // ¿ID descencriptado con éxito?
+                if (pDetalleIndicadorCategoria.IdCategoriaDesagregacion == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -448,7 +448,7 @@ namespace GB.SIMEF.BL
             try
             {
                 // validar si el indicador existe
-                Indicador indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pDetalleIndicadorCategoria.idIndicador);
+                Indicador indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pDetalleIndicadorCategoria.IdIndicador);
 
                 if (indicadorExistente == null)
                 {
@@ -466,7 +466,7 @@ namespace GB.SIMEF.BL
                 // validar la existencia de la categoria
                 CategoriasDesagregacion categoriaExistente = categoriasDesagregacionDAL.ObtenerDatos(new CategoriasDesagregacion()
                 {
-                    idCategoria = pDetalleIndicadorCategoria.idCategoria
+                    idCategoria = pDetalleIndicadorCategoria.IdCategoriaDesagregacion
                 }).FirstOrDefault();
 
                 if (categoriaExistente == null)
@@ -477,7 +477,7 @@ namespace GB.SIMEF.BL
                 // validar la cantidad de detalles registrados actualmente
                 List<DetalleIndicadorCategoria> detallesActuales = detalleIndicadorCategoriaDAL.ObtenerDatos(new DetalleIndicadorCategoria()
                 {
-                    idIndicador = pDetalleIndicadorCategoria.idIndicador,
+                    IdIndicador = pDetalleIndicadorCategoria.IdIndicador,
                     DetallesAgrupados = true // contabilizar por categoria no por detalles (que pueden ser n)
                 }).ToList();
 
@@ -538,25 +538,25 @@ namespace GB.SIMEF.BL
             if (!string.IsNullOrEmpty(pDetalleIndicadorCategoria.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.id), out int number);
-                pDetalleIndicadorCategoria.idDetalleIndicador = number;
+                pDetalleIndicadorCategoria.IdDetalleIndicadorCategoria = number;
             }
 
             if (!string.IsNullOrEmpty(pDetalleIndicadorCategoria.idIndicadorString))
             {
                 int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.idIndicadorString), out int number);
-                pDetalleIndicadorCategoria.idIndicador = number;
+                pDetalleIndicadorCategoria.IdIndicador = number;
             }
 
             if (!string.IsNullOrEmpty(pDetalleIndicadorCategoria.idCategoriaString))
             {
                 int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.idCategoriaString), out int number);
-                pDetalleIndicadorCategoria.idCategoria = number;
+                pDetalleIndicadorCategoria.IdCategoriaDesagregacion = number;
             }
 
             if (!string.IsNullOrEmpty(pDetalleIndicadorCategoria.idCategoriaDetalleString))
             {
                 int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.idCategoriaDetalleString), out int number);
-                pDetalleIndicadorCategoria.idCategoriaDetalle = number;
+                pDetalleIndicadorCategoria.IdDetalleCategoriaTexto = number;
             }
 
             if (pDetalleIndicadorCategoria.listaDetallesCategoriaString.Count > 0)
@@ -591,7 +591,7 @@ namespace GB.SIMEF.BL
             // validar que los detalles ingresados existan y esten disponibles
             List<DetalleCategoriaTexto> detallesDisponibles = detalleCategoriaTextoDAL.ObtenerDatos(new DetalleCategoriaTexto()
             {
-                idCategoria = pDetalleIndicadorCategoria.idCategoria,
+                idCategoria = pDetalleIndicadorCategoria.IdCategoriaDesagregacion,
                 Estado = true
             });
 
@@ -626,7 +626,7 @@ namespace GB.SIMEF.BL
             }
 
             // se realiza la validación de la cantidad de detalles establecidos
-            if (pDetallesRegistradoActualmente.Count + 1 > pIndicador.CantidadCategoriasDesagregacion) // se supera la cantidad establecida en el indicador?
+            if (pDetallesRegistradoActualmente.Count + 1 > pIndicador.CantidadCategoriaDesagregacion) // se supera la cantidad establecida en el indicador?
             {
                 return Errores.CantidadRegistros;
             }

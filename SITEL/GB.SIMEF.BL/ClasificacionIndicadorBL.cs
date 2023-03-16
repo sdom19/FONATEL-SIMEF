@@ -10,7 +10,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class ClasificacionIndicadorBL : IMetodos<ClasificacionIndicadores>
+    public class ClasificacionIndicadorBL : IMetodos<ClasificacionIndicador>
     {
         readonly string modulo = "";
         readonly string user = "";
@@ -23,27 +23,27 @@ namespace GB.SIMEF.BL
             clasificacionIndicadorDAL = new ClasificacionIndicadorDAL();
         }
 
-        public RespuestaConsulta<List<ClasificacionIndicadores>> ActualizarElemento(ClasificacionIndicadores objeto)
+        public RespuestaConsulta<List<ClasificacionIndicador>> ActualizarElemento(ClasificacionIndicador objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<ClasificacionIndicadores>> CambioEstado(ClasificacionIndicadores objeto)
+        public RespuestaConsulta<List<ClasificacionIndicador>> CambioEstado(ClasificacionIndicador objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<ClasificacionIndicadores>> ClonarDatos(ClasificacionIndicadores objeto)
+        public RespuestaConsulta<List<ClasificacionIndicador>> ClonarDatos(ClasificacionIndicador objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<ClasificacionIndicadores>> EliminarElemento(ClasificacionIndicadores objeto)
+        public RespuestaConsulta<List<ClasificacionIndicador>> EliminarElemento(ClasificacionIndicador objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<ClasificacionIndicadores>> InsertarDatos(ClasificacionIndicadores objeto)
+        public RespuestaConsulta<List<ClasificacionIndicador>> InsertarDatos(ClasificacionIndicador objeto)
         {
             throw new NotImplementedException();
         }
@@ -52,9 +52,9 @@ namespace GB.SIMEF.BL
         /// José Navarro Acuña
         /// Función que retorna todas las clasificaciones de indicadores registradas en estado activo
         /// Se puede aplicar un filtro para obtener un único elemento a traves del ID.
-        public RespuestaConsulta<List<ClasificacionIndicadores>> ObtenerDatos(ClasificacionIndicadores pClasificacionIndicadores)
+        public RespuestaConsulta<List<ClasificacionIndicador>> ObtenerDatos(ClasificacionIndicador pClasificacionIndicadores)
         {
-            RespuestaConsulta<List<ClasificacionIndicadores>> resultado = new RespuestaConsulta<List<ClasificacionIndicadores>>();
+            RespuestaConsulta<List<ClasificacionIndicador>> resultado = new RespuestaConsulta<List<ClasificacionIndicador>>();
 
             try
             {
@@ -72,7 +72,7 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<ClasificacionIndicadores>> ValidarDatos(ClasificacionIndicadores objeto)
+        public RespuestaConsulta<List<ClasificacionIndicador>> ValidarDatos(ClasificacionIndicador objeto)
         {
             throw new NotImplementedException();
         }

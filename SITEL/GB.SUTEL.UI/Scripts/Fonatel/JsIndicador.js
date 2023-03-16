@@ -442,11 +442,11 @@ CreateView = {
                 Nombre: $(controles.inputNombre).val(),
                 Descripcion: $(controles.inputDescripcion).val(),
                 CantidadVariableDato: $(controles.inputCantidadVariableDatosIndicador).val(),
-                CantidadCategoriasDesagregacion: $(controles.inputCantidadCategoriaIndicador).val(),
+                CantidadCategoriaDesagregacion: $(controles.inputCantidadCategoriaIndicador).val(),
                 Interno: $(controles.ddlUsoIndicador).val(),
                 Solicitud: $(controles.ddlUsoSolicitud).val(),
                 Fuente: $(controles.inputFuenteIndicador).val(),
-                Notas: $(controles.inputNota).val(),
+                Nota: $(controles.inputNota).val(),
                 TipoIndicadores: {
                     id: $(controles.ddlTipo).val()
                 },

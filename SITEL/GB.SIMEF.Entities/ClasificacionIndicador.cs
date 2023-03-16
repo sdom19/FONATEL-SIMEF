@@ -14,24 +14,22 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("GrupoIndicadores")]
-    public partial class GrupoIndicadores
+    [Table("ClasificacionIndicador")]
+    public partial class ClasificacionIndicador
     {
-        public GrupoIndicadores()
+        public ClasificacionIndicador()
         {
-
         }
 
         [Key]
-        public int idGrupo { get; set; }
+        public int IdClasificacionIndicador { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
+
 
         #region Variables que no forman parte del contexto
         [NotMapped]
         public string id { get; set; }
-        [NotMapped]
-        public bool nuevoEstado { get; set; }
         #endregion
     }
 }

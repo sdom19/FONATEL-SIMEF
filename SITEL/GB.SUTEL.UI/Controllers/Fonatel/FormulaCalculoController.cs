@@ -350,7 +350,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerVariablesSinUsoEnFormula(string pIdFormula, string pIdIndicador)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
 
             if (string.IsNullOrEmpty(pIdIndicador))
             {
@@ -361,7 +361,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = detalleIndicadorVariablesBL.ObtenerVariablesSinUsoEnFormula(new DetalleIndicadorVariables()
+                resultado = detalleIndicadorVariablesBL.ObtenerVariablesSinUsoEnFormula(new DetalleIndicadorVariable()
                 {
                     idIndicadorString = pIdIndicador
                 }, 
@@ -782,14 +782,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerGrupoIndicador(FuenteIndicadorEnum pFuenteIndicador)
         {
-            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            RespuestaConsulta<List<GrupoIndicador>> resultado = new RespuestaConsulta<List<GrupoIndicador>>();
 
             await Task.Run(() =>
             {
                 switch (pFuenteIndicador)
                 {
                     case FuenteIndicadorEnum.IndicadorDGF:
-                        resultado = grupoIndicadorBL.ObtenerDatos(new GrupoIndicadores());
+                        resultado = grupoIndicadorBL.ObtenerDatos(new GrupoIndicador());
                         break;
                     case FuenteIndicadorEnum.IndicadorDGM:
                         resultado = grupoIndicadorBL.ObtenerDatosMercado();
@@ -825,14 +825,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerTipoIndicador(FuenteIndicadorEnum pFuenteIndicador)
         {
-            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            RespuestaConsulta<List<TipoIndicador>> resultado = new RespuestaConsulta<List<TipoIndicador>>();
 
             await Task.Run(() =>
             {
                 switch (pFuenteIndicador)
                 {
                     case FuenteIndicadorEnum.IndicadorDGF:
-                        resultado = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores());
+                        resultado = tipoIndicadorBL.ObtenerDatos(new TipoIndicador());
                         break;
                     case FuenteIndicadorEnum.IndicadorDGM:
                         resultado = tipoIndicadorBL.ObtenerDatosMercado();
@@ -868,11 +868,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerClasificacionIndicador()
         {
-            RespuestaConsulta<List<ClasificacionIndicadores>> resultado = new RespuestaConsulta<List<ClasificacionIndicadores>>();
+            RespuestaConsulta<List<ClasificacionIndicador>> resultado = new RespuestaConsulta<List<ClasificacionIndicador>>();
 
             await Task.Run(() =>
             {
-                resultado = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores());
+                resultado = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicador());
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -1006,7 +1006,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerVariablesDatoCriteriosIndicador(string pIdIndicador, FuenteIndicadorEnum pFuenteIndicador)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
 
             if (string.IsNullOrEmpty(pIdIndicador))
             {
@@ -1015,7 +1015,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
-            DetalleIndicadorVariables detalleIndicador = new DetalleIndicadorVariables()
+            DetalleIndicadorVariable detalleIndicador = new DetalleIndicadorVariable()
             {
                 idIndicadorString = pIdIndicador
             };
@@ -1158,7 +1158,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { }).objetoRespuesta;
 
             List<Indicador> indicadoresDeSalida = indicadorFonatelBL.ObtenerDatos(new Indicador() { }).objetoRespuesta
-                .Where(y => (y.IdClasificacion == (int)ClasificacionIndicadorEnum.Salida || y.IdClasificacion == (int)ClasificacionIndicadorEnum.EntradaSalida) && y.idEstado == (int)EstadosRegistro.Activo)
+                .Where(y => (y.IdClasificacionIndicador == (int)ClasificacionIndicadorEnum.Salida || y.IdClasificacionIndicador == (int)ClasificacionIndicadorEnum.EntradaSalida) && y.IdEstadoRegistro == (int)EstadosRegistro.Activo)
                 .Select(x => new Indicador()
                 {
                     id = x.id,
@@ -1172,7 +1172,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (!string.IsNullOrEmpty(pFormulasDeCalculo.IdIndicadorSalidaString))
             {
-                List<DetalleIndicadorVariables> detalles = detalleIndicadorVariablesBL.ObtenerVariablesSinUsoEnFormula(new DetalleIndicadorVariables()
+                List<DetalleIndicadorVariable> detalles = detalleIndicadorVariablesBL.ObtenerVariablesSinUsoEnFormula(new DetalleIndicadorVariable()
                 {
                     idIndicadorString = pFormulasDeCalculo.IdIndicadorSalidaString
                 }, 

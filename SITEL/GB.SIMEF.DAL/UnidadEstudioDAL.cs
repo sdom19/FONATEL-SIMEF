@@ -26,9 +26,9 @@ namespace GB.SIMEF.DAL
 
             using (db = new SIMEFContext())
             {
-                if (pUnidadEstudio.idUnidad != 0)
+                if (pUnidadEstudio.IdUnidadEstudio != 0)
                 {
-                    listaUnidadEstudio = db.UnidadEstudio.Where(x => x.idUnidad == pUnidadEstudio.idUnidad && x.Estado == true).ToList();
+                    listaUnidadEstudio = db.UnidadEstudio.Where(x => x.IdUnidadEstudio == pUnidadEstudio.IdUnidadEstudio && x.Estado == true).ToList();
                 }
                 else
                 {
@@ -38,7 +38,7 @@ namespace GB.SIMEF.DAL
 
             listaUnidadEstudio = listaUnidadEstudio.Select(x => new UnidadEstudio()
             {
-                id = Utilidades.Encriptar(x.idUnidad.ToString()),
+                id = Utilidades.Encriptar(x.IdUnidadEstudio.ToString()),
                 Nombre = x.Nombre,
                 Estado = x.Estado
             }).ToList();
@@ -63,7 +63,7 @@ namespace GB.SIMEF.DAL
                 db.SaveChanges();
             }
 
-            pUnidadEstudio.idUnidad = 0;
+            pUnidadEstudio.IdUnidadEstudio = 0;
             listaUnidadEstudio.Add(pUnidadEstudio);
 
             return listaUnidadEstudio;
@@ -85,8 +85,8 @@ namespace GB.SIMEF.DAL
                 db.SaveChanges();
 
                 // EF establecerá el objecto cuando sea guardado
-                pUnidadEstudio.id = Utilidades.Encriptar(pUnidadEstudio.idUnidad.ToString());
-                pUnidadEstudio.idUnidad = 0;
+                pUnidadEstudio.id = Utilidades.Encriptar(pUnidadEstudio.IdUnidadEstudio.ToString());
+                pUnidadEstudio.IdUnidadEstudio = 0;
                 listaUnidades.Add(pUnidadEstudio);
             }
             return listaUnidades;

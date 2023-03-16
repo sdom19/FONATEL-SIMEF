@@ -307,16 +307,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             ViewBag.FrecuanciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
                 .objetoRespuesta;
-            var indicadores = indicadorBL.ObtenerDatos(new Indicador() {idEstado=2 })
-                .objetoRespuesta.Where(x=>x.IdClasificacion!=(int)Constantes.ClasificacionIndicadorEnum.Salida && x.Solicitud == true);
+            var indicadores = indicadorBL.ObtenerDatos(new Indicador() {IdEstadoRegistro=2 })
+                .objetoRespuesta.Where(x=>x.IdClasificacionIndicador!=(int)Constantes.ClasificacionIndicadorEnum.Salida && x.Solicitud == true);
             //indicadores = indicadores.Where(x => x.IdClasificacion == 3 || x.IdClasificacion == 4).ToList();
             indicadores = indicadores.
-                Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.idIndicador && p2.Estado == true )).ToList();
+                Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.IdIndicador && p2.Estado == true )).ToList();
 
 
 
 
-            var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+            var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.IdIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
             ViewBag.Indicador = listaValores;
             DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();
             ViewBag.Modo = modo.ToString();
@@ -390,7 +390,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             var indicadores = indicadorBL.ObtenerDatos(new Indicador() { })
                 .objetoRespuesta;
-            var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+            var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.IdIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
             ViewBag.Indicador = listaValores;
             DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();
             objDetalleFormularioWeb.TituloHojas = "prueba lo que sea";
@@ -423,13 +423,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 RespuestaConsulta<List<SelectListItem>> result = new RespuestaConsulta<List<SelectListItem>>();
                // await Task.Run(() =>
                 //{
-                    var indicadores = indicadorBL.ObtenerDatos(new Indicador() { idEstado = 2 })
-                    .objetoRespuesta.Where(x => x.IdClasificacion != (int)Constantes.ClasificacionIndicadorEnum.Salida);
+                    var indicadores = indicadorBL.ObtenerDatos(new Indicador() { IdEstadoRegistro = 2 })
+                    .objetoRespuesta.Where(x => x.IdClasificacionIndicador != (int)Constantes.ClasificacionIndicadorEnum.Salida);
                     //indicadores = indicadores.Where(x => x.IdClasificacion == 3 || x.IdClasificacion == 4).ToList();
                     indicadores = indicadores.
-                        Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.idIndicador && p2.Estado == true)).ToList();
+                        Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.IdIndicador && p2.Estado == true)).ToList();
 
-                    var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.idIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+                    var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.IdIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
 
                     result.objetoRespuesta = listaValores;
                 //});

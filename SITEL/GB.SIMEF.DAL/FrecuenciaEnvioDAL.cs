@@ -24,16 +24,16 @@ namespace GB.SIMEF.DAL
         {
             List<FrecuenciaEnvio> ListaFrecuenciaEnvios = new List<FrecuenciaEnvio>();
             ListaFrecuenciaEnvios = db.Database.SqlQuery<FrecuenciaEnvio>
-                ("execute spObtenerFrecuenciasEnvio @idFrecuencia",
-                new SqlParameter("@idFrecuencia", pFrecuenciaEnvio.idFrecuencia)
+                ("execute pa_ObtenerFrecuenciaEnvio @idFrecuencia",
+                new SqlParameter("@idFrecuencia", pFrecuenciaEnvio.IdFrecuenciaEnvio)
                 ).ToList();
 
             ListaFrecuenciaEnvios = ListaFrecuenciaEnvios.Select(x => new FrecuenciaEnvio()
             {
-                id = Utilidades.Encriptar(x.idFrecuencia.ToString()),
-                idFrecuencia=x.idFrecuencia,
+                id = Utilidades.Encriptar(x.IdFrecuenciaEnvio.ToString()),
+                IdFrecuenciaEnvio=x.IdFrecuenciaEnvio,
                 Nombre = x.Nombre,
-                CantidadDias = x.CantidadDias,
+                CantidadDia = x.CantidadDia,
                 Estado = x.Estado
             }).ToList();
             return ListaFrecuenciaEnvios;

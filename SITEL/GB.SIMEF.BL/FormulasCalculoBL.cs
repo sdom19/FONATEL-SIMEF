@@ -477,7 +477,7 @@ namespace GB.SIMEF.BL
 
                 if (pFormulasCalculo.IdIndicadorVariable != 0) // variable dato
                 {
-                    if (detalleIndicadorVariablesDAL.ObtenerDatos(new DetalleIndicadorVariables() { idDetalleIndicador = (int)pFormulasCalculo.IdIndicadorVariable }).Count <= 0)
+                    if (detalleIndicadorVariablesDAL.ObtenerDatos(new DetalleIndicadorVariable() { IdDetalleIndicadorVariable = (int)pFormulasCalculo.IdIndicadorVariable }).Count <= 0)
                     {
                         errorControlado = true;
                         throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewFormulasCalculo.CrearFormula_LabelVariableDato));
@@ -486,7 +486,7 @@ namespace GB.SIMEF.BL
 
                 if (pFormulasCalculo.IdFrecuencia != 0)
                 {
-                    if (frecuenciaEnvioDAL.ObtenerDatos(new FrecuenciaEnvio() { idFrecuencia = (int)pFormulasCalculo.IdFrecuencia }).Count <= 0)
+                    if (frecuenciaEnvioDAL.ObtenerDatos(new FrecuenciaEnvio() { IdFrecuenciaEnvio = (int)pFormulasCalculo.IdFrecuencia }).Count <= 0)
                     {
                         errorControlado = true;
                         throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewFormulasCalculo.CrearFormula_LabelFrecuencia));

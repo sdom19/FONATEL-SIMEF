@@ -19,15 +19,15 @@ namespace GB.SIMEF.DAL
         /// Se puede filtrar por el ID del objecto
         /// </summary>
         /// <returns></returns>
-        public List<ClasificacionIndicadores> ObtenerDatos(ClasificacionIndicadores pClasificacionIndicadores)
+        public List<ClasificacionIndicador> ObtenerDatos(ClasificacionIndicador pClasificacionIndicadores)
         {
-            List<ClasificacionIndicadores> lista = new List<ClasificacionIndicadores>();
+            List<ClasificacionIndicador> lista = new List<ClasificacionIndicador>();
 
             using (db = new SIMEFContext())
             {
-                if (pClasificacionIndicadores.idClasificacion != 0)
+                if (pClasificacionIndicadores.IdClasificacionIndicador != 0)
                 {
-                    lista = db.ClasificacionIndicadores.Where(x => x.idClasificacion == pClasificacionIndicadores.idClasificacion && x.Estado == true).ToList();
+                    lista = db.ClasificacionIndicadores.Where(x => x.IdClasificacionIndicador == pClasificacionIndicadores.IdClasificacionIndicador && x.Estado == true).ToList();
                 }
                 else
                 {
@@ -35,9 +35,9 @@ namespace GB.SIMEF.DAL
                 }
             }
 
-            lista = lista.Select(x => new ClasificacionIndicadores()
+            lista = lista.Select(x => new ClasificacionIndicador()
             {
-                id = Utilidades.Encriptar(x.idClasificacion.ToString()),
+                id = Utilidades.Encriptar(x.IdClasificacionIndicador.ToString()),
                 Nombre = x.Nombre,
                 Estado = x.Estado
             }).ToList();

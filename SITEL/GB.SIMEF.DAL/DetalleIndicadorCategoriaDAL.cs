@@ -28,9 +28,9 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listado = db.Database.SqlQuery<Model_spObtenerDetallesIndicadorCategoria>
-                    ("execute spObtenerDetallesIndicadorCategoria  @pIdIndicador, @pIdCategoria, @pDetallesAgrupados",
-                     new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.idIndicador),
-                     new SqlParameter("@pIdCategoria", pDetalleIndicadorCategoria.idCategoria),
+                    ("execute pa_ObtenerDetalleIndicadorCategoria  @pIdIndicador, @pIdCategoria, @pDetallesAgrupados",
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.IdIndicador),
+                     new SqlParameter("@pIdCategoria", pDetalleIndicadorCategoria.IdCategoriaDesagregacion),
                      new SqlParameter("@pDetallesAgrupados", pDetalleIndicadorCategoria.DetallesAgrupados)
                     ).ToList();
 
@@ -65,9 +65,9 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listado = db.Database.SqlQuery<Model_spObtenerDetallesIndicadorCategoria>
-                    ("execute spObtenerDetallesDeCategoria  @pIdIndicador, @pIdCategoria",
-                     new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.idIndicador),
-                     new SqlParameter("@pIdCategoria", pDetalleIndicadorCategoria.idCategoria)
+                    ("execute pa_ObtenerDetalleDeCategoria  @pIdIndicador, @pIdCategoria",
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.IdIndicador),
+                     new SqlParameter("@pIdCategoria", pDetalleIndicadorCategoria.IdCategoriaDesagregacion)
                     ).ToList();
 
                 listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
@@ -100,20 +100,20 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listaDetalles = db.Database.SqlQuery<DetalleIndicadorCategoria>
-                    ("execute spActualizarIndicadorCategoria @pIdDetalleIndicador, @pIdIndicador,@pidCategoria ,@pidCategoriaDetalle, @pEstado ",
-                     new SqlParameter("@pIdDetalleIndicador", pDetalleIndicadorCategoria.idDetalleIndicador),
-                     new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.idIndicador),
-                     new SqlParameter("@pidCategoria", pDetalleIndicadorCategoria.idCategoria),
-                     new SqlParameter("@pidCategoriaDetalle", pDetalleIndicadorCategoria.idCategoriaDetalle),
+                    ("execute pa_ActualizarIndicadorCategoria @pIdDetalleIndicador, @pIdIndicador,@pidCategoriaDesagregacion ,@pIdDetalleCategoriaTexto, @pEstado ",
+                     new SqlParameter("@pIdDetalleIndicador", pDetalleIndicadorCategoria.IdDetalleIndicadorCategoria),
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.IdIndicador),
+                     new SqlParameter("@pIdCategoriaDesagregacion", pDetalleIndicadorCategoria.IdCategoriaDesagregacion),
+                     new SqlParameter("@pIdDetalleCategoriaTexto", pDetalleIndicadorCategoria.IdDetalleCategoriaTexto),
                      new SqlParameter("@pEstado", pDetalleIndicadorCategoria.Estado)
                     ).ToList();
             }
 
             listaDetalles = listaDetalles.Select(x => new DetalleIndicadorCategoria()
             {
-                id = Utilidades.Encriptar(x.idDetalleIndicador.ToString()),
-                idCategoriaString = Utilidades.Encriptar(x.idCategoria.ToString()),
-                idIndicadorString = Utilidades.Encriptar(x.idIndicador.ToString()),
+                id = Utilidades.Encriptar(x.IdDetalleIndicadorCategoria.ToString()),
+                idCategoriaString = Utilidades.Encriptar(x.IdCategoriaDesagregacion.ToString()),
+                idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                 Estado = x.Estado
             }).ToList();
 
@@ -153,9 +153,9 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listado = db.Database.SqlQuery<Model_spObtenerDetallesIndicadorCategoria>
-                    ("execute spObtenerVisualizarCategoria  @pIdIndicador, @pIdCategoria, @pDetallesAgrupados",
-                     new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.idIndicador),
-                     new SqlParameter("@pIdCategoria", pDetalleIndicadorCategoria.idCategoria),
+                    ("execute pa_ObtenerVisualizarCategoria  @pIdIndicador, @pIdCategoriaDesagregacion, @pDetallesAgrupados",
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorCategoria.IdIndicador),
+                     new SqlParameter("@pIdCategoriaDesagregacion", pDetalleIndicadorCategoria.IdCategoriaDesagregacion),
                      new SqlParameter("@pDetallesAgrupados", pDetalleIndicadorCategoria.DetallesAgrupados)
                     ).ToList();
                 listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
@@ -169,7 +169,7 @@ namespace GB.SIMEF.DAL
                     Codigo = x.Codigo,
                     NombreCategoria = x.NombreCategoria,
                     IdTipoDetalle = x.IdTipoDetalle,
-                    idCategoria = x.IdCategoria
+                    IdCategoriaDesagregacion = x.IdCategoria
                 }).ToList();
             }
             return listaDetalles;

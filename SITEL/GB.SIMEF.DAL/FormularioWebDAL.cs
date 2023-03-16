@@ -48,7 +48,7 @@ namespace GB.SIMEF.DAL
                     idEstado = x.idEstado,
                     ListaIndicadores = ObtenerIndicadoresXFormulario(x.idFormulario), 
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).FirstOrDefault(),
-                    FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.idFrecuencia == x.idFrecuencia).FirstOrDefault(),
+                    FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.IdFrecuenciaEnvio == x.idFrecuencia).FirstOrDefault(),
                     DetalleFormularioWeb = ListaDetalleFormularioWeb(x.idFormulario),
                 }).ToList();
             }
@@ -67,15 +67,15 @@ namespace GB.SIMEF.DAL
                     ).ToList();
                 listaIndicadores = listaIndicadores.Select(x => new Indicador()
                 {
-                    idIndicador = x.idIndicador,
+                    IdIndicador = x.IdIndicador,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
-                    idGrupo = x.idGrupo,
+                    IdGrupoIndicador = x.IdGrupoIndicador,
                     IdTipoIndicador = x.IdTipoIndicador,
-                    idEstado = x.idEstado,
-                    GrupoIndicadores = db.GrupoIndicadores.Where(g => g.idGrupo == x.idGrupo).FirstOrDefault(),
+                    IdEstadoRegistro = x.IdEstadoRegistro,
+                    GrupoIndicadores = db.GrupoIndicadores.Where(g => g.IdGrupoIndicador == x.IdGrupoIndicador).FirstOrDefault(),
                     TipoIndicadores = db.TipoIndicadores.Where(i => i.IdTipoIndicador == x.IdTipoIndicador).FirstOrDefault(),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).FirstOrDefault(),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.IdEstadoRegistro).FirstOrDefault(),
                 }).ToList();
             }
             return listaIndicadores;
@@ -121,7 +121,7 @@ namespace GB.SIMEF.DAL
                     idEstado = x.idEstado,
                     ListaIndicadores = ObtenerIndicadoresXFormulario(x.idFormulario),
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).FirstOrDefault(),
-                    FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.idFrecuencia == x.idFrecuencia).FirstOrDefault(),
+                    FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.IdFrecuenciaEnvio == x.idFrecuencia).FirstOrDefault(),
                     DetalleFormularioWeb = ListaDetalleFormularioWeb(x.idFormulario),
                 }).ToList();
             }

@@ -43,9 +43,9 @@ namespace GB.SIMEF.BL
             try
             {
                 int.TryParse(Utilidades.Desencriptar(pUnidadEstudio.id), out int idDecencriptado);
-                pUnidadEstudio.idUnidad = idDecencriptado;
+                pUnidadEstudio.IdUnidadEstudio = idDecencriptado;
 
-                if (pUnidadEstudio.idUnidad == 0) // ¿ID descencriptado con éxito?
+                if (pUnidadEstudio.IdUnidadEstudio == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -54,7 +54,7 @@ namespace GB.SIMEF.BL
                 pUnidadEstudio = unidadEstudioDAL.ObtenerDatos(pUnidadEstudio).Single();
 
                 // actualizar el estado del indicador
-                pUnidadEstudio.idUnidad = idDecencriptado;
+                pUnidadEstudio.IdUnidadEstudio = idDecencriptado;
                 pUnidadEstudio.Estado = nuevoEstado;
                 var grupoIndicadorActualizado = unidadEstudioDAL.ActualizarDatos(pUnidadEstudio);
 

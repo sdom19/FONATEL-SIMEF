@@ -25,10 +25,10 @@ namespace GB.SIMEF.Entities
         }
 
         [Key]
-        public int idDetalleIndicador { get; set; }
-        public int idIndicador { get; set; }
-        public int idCategoria { get; set; }
-        public int idCategoriaDetalle { get; set; }
+        public int IdDetalleIndicadorCategoria { get; set; }
+        public int IdIndicador { get; set; }
+        public int IdCategoriaDesagregacion { get; set; }
+        public int IdDetalleCategoriaTexto { get; set; }
         public bool Estado { get; set; }
 
         [NotMapped]

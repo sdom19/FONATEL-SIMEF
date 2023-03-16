@@ -302,10 +302,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerListaTipoIndicador()
         {
-            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            RespuestaConsulta<List<TipoIndicador>> resultado = new RespuestaConsulta<List<TipoIndicador>>();
             await Task.Run(() =>
             {
-                resultado = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores());
+                resultado = tipoIndicadorBL.ObtenerDatos(new TipoIndicador());
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -320,10 +320,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerListaGrupoIndicador()
         {
-            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            RespuestaConsulta<List<GrupoIndicador>> resultado = new RespuestaConsulta<List<GrupoIndicador>>();
             await Task.Run(() =>
             {
-                resultado = grupoIndicadorBL.ObtenerDatos(new GrupoIndicadores());
+                resultado = grupoIndicadorBL.ObtenerDatos(new GrupoIndicador());
             });
 
             return JsonConvert.SerializeObject(resultado);
@@ -358,7 +358,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> EliminarTipoIndicador(string pIdTipoIndicador)
         {
-            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            RespuestaConsulta<List<TipoIndicador>> resultado = new RespuestaConsulta<List<TipoIndicador>>();
 
             if (string.IsNullOrEmpty(pIdTipoIndicador))
             {
@@ -369,7 +369,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = tipoIndicadorBL.CambioEstado(new TipoIndicadores()
+                resultado = tipoIndicadorBL.CambioEstado(new TipoIndicador()
                 {
                     id = pIdTipoIndicador,
                     nuevoEstado = false // eliminar
@@ -390,7 +390,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> EliminarGrupoIndicador(string pIdGrupoIndicador)
         {
-            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            RespuestaConsulta<List<GrupoIndicador>> resultado = new RespuestaConsulta<List<GrupoIndicador>>();
 
             if (string.IsNullOrEmpty(pIdGrupoIndicador))
             {
@@ -401,7 +401,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = grupoIndicadorBL.CambioEstado(new GrupoIndicadores()
+                resultado = grupoIndicadorBL.CambioEstado(new GrupoIndicador()
                 {
                     id = pIdGrupoIndicador,
                     nuevoEstado = false // eliminar
@@ -454,7 +454,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> CrearTipoIndicador(string pNombre)
         {
-            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            RespuestaConsulta<List<TipoIndicador>> resultado = new RespuestaConsulta<List<TipoIndicador>>();
 
             if (string.IsNullOrEmpty(pNombre))
             {
@@ -472,7 +472,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = tipoIndicadorBL.InsertarDatos(new TipoIndicadores()
+                resultado = tipoIndicadorBL.InsertarDatos(new TipoIndicador()
                 {
                     id = "",
                     IdTipoIndicador = 0,
@@ -495,7 +495,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> CrearGrupoIndicador(string pNombre)
         {
-            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            RespuestaConsulta<List<GrupoIndicador>> resultado = new RespuestaConsulta<List<GrupoIndicador>>();
 
             if (string.IsNullOrEmpty(pNombre))
             {
@@ -513,10 +513,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = grupoIndicadorBL.InsertarDatos(new GrupoIndicadores()
+                resultado = grupoIndicadorBL.InsertarDatos(new GrupoIndicador()
                 {
                     id = "",
-                    idGrupo = 0,
+                    IdGrupoIndicador = 0,
                     Nombre = pNombre.Trim(),
                     Estado = true // activo
                 });
@@ -557,7 +557,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 resultado = unidadEstudioBL.InsertarDatos(new UnidadEstudio()
                 {
                     id = "",
-                    idUnidad = 0,
+                    IdUnidadEstudio = 0,
                     Nombre = pNombre.Trim(),
                     Estado = true // activo
                 });
@@ -590,16 +590,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 PrepararObjetoIndicadorGuardadoParcial(pIndicador);
             }
 
-            pIndicador.idEstado = pIndicador.idEstado == (int)EstadosRegistro.Desactivado ? pIndicador.idEstado : (int)EstadosRegistro.EnProceso;
+            pIndicador.IdEstadoRegistro = pIndicador.IdEstadoRegistro == (int)EstadosRegistro.Desactivado ? pIndicador.IdEstadoRegistro : (int)EstadosRegistro.EnProceso;
             pIndicador.UsuarioCreacion = usuario;
 
             // evitar datos indeseados en los ids
-            pIndicador.idIndicador = 0;
+            pIndicador.IdIndicador = 0;
             pIndicador.IdTipoIndicador = 0;
-            pIndicador.IdFrecuencia = 0;
-            pIndicador.IdClasificacion = 0;
+            pIndicador.IdFrecuenciaEnvio = 0;
+            pIndicador.IdClasificacionIndicador = 0;
             pIndicador.IdTipoIndicador = 0;
-            pIndicador.idGrupo = 0;
+            pIndicador.IdGrupoIndicador = 0;
             pIndicador.IdUnidadEstudio = 0;
 
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
@@ -639,7 +639,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     Indicador objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = pIndicador.id }).objetoRespuesta.FirstOrDefault();
                     pIndicador.Codigo = objIndicador.Codigo;
-                    pIndicador.idEstado = objIndicador.idEstado;
+                    pIndicador.IdEstadoRegistro = objIndicador.IdEstadoRegistro;
                 }
                 catch (Exception)
                 {
@@ -671,7 +671,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             string idIndicadorAClonar = pIndicador.id;
             pIndicador.id = string.Empty;
-            pIndicador.idIndicador = 0;
+            pIndicador.IdIndicador = 0;
 
             string creacionIndicador = await CrearIndicador(pIndicador); // reutilizar la función de crear para registrar el nuevo indicador
             RespuestaConsulta<List<Indicador>> indicadorDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<Indicador>>>(creacionIndicador);
@@ -730,7 +730,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> ObtenerListaDetallesVariable(string pIdIndicador)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
 
             if (string.IsNullOrEmpty(pIdIndicador))
             {
@@ -741,7 +741,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                resultado = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
+                resultado = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariable()
                 {
                     idIndicadorString = pIdIndicador
                 });
@@ -960,9 +960,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> CrearDetalleVariableDato(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public async Task<string> CrearDetalleVariableDato(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
 
             string mensajeValidacion = ValidarObjetoDetalleVariable(pDetalleIndicadorVariables);
 
@@ -988,9 +988,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> EditarDetalleVariableDato(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public async Task<string> EditarDetalleVariableDato(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
 
             string mensajeValidacion = ValidarObjetoDetalleVariable(pDetalleIndicadorVariables);
 
@@ -1024,9 +1024,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> EliminarDetalleVariableDato(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public async Task<string> EliminarDetalleVariableDato(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
 
             if (string.IsNullOrEmpty(pDetalleIndicadorVariables.idIndicadorString) ||
                 string.IsNullOrEmpty(pDetalleIndicadorVariables.id)
@@ -1069,9 +1069,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     pIndicador.TipoMedida == null               || string.IsNullOrEmpty(pIndicador.TipoMedida.id) ||
                     pIndicador.GrupoIndicadores == null         || string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id) ||
                     pIndicador.Interno == null ||
-                    pIndicador.Notas == null                    || string.IsNullOrEmpty(pIndicador.Notas.Trim()) ||
+                    pIndicador.Nota == null                    || string.IsNullOrEmpty(pIndicador.Nota.Trim()) ||
                     pIndicador.CantidadVariableDato == null ||
-                    pIndicador.CantidadCategoriasDesagregacion == null ||
+                    pIndicador.CantidadCategoriaDesagregacion == null ||
                     pIndicador.UnidadEstudio == null            || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id) ||
                     pIndicador.Solicitud == null ||
                     pIndicador.Fuente == null                   || string.IsNullOrEmpty(pIndicador.Fuente.Trim())
@@ -1112,10 +1112,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
             }
 
-            if (!string.IsNullOrEmpty(pIndicador.Notas?.Trim())) // ¿se ingresó el dato?
+            if (!string.IsNullOrEmpty(pIndicador.Nota?.Trim())) // ¿se ingresó el dato?
             {
-                if (!Utilidades.rx_alfanumerico.Match(pIndicador.Notas).Success                // las notas solo deben contener texto como valor
-                    || pIndicador.Notas.Trim().Length > 3000)                               // validar la cantidad de caracteres
+                if (!Utilidades.rx_alfanumerico.Match(pIndicador.Nota).Success                // las notas solo deben contener texto como valor
+                    || pIndicador.Nota.Trim().Length > 3000)                               // validar la cantidad de caracteres
                 {
                     return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas);
                 }
@@ -1135,9 +1135,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (!string.IsNullOrEmpty(pIndicador.id))
             {
                 pIndicador.CantidadVariableDato = pIndicador.CantidadVariableDato ?? 0;
-                pIndicador.CantidadCategoriasDesagregacion = pIndicador.CantidadCategoriasDesagregacion ?? 0;
+                pIndicador.CantidadCategoriaDesagregacion = pIndicador.CantidadCategoriaDesagregacion ?? 0;
 
-                var detalleVariableDato = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables() { idIndicadorString = pIndicador.id });
+                var detalleVariableDato = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariable() { idIndicadorString = pIndicador.id });
                 var detalleCategorias = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
                 {
                     DetallesAgrupados = true,
@@ -1150,7 +1150,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     return string.Format(Errores.CantidadVariableDatoCategoria, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador);
                 }
 
-                if (pIndicador.CantidadCategoriasDesagregacion < detalleCategorias.objetoRespuesta.Count())
+                if (pIndicador.CantidadCategoriaDesagregacion < detalleCategorias.objetoRespuesta.Count())
                 {
                     return string.Format(Errores.CantidadVariableDatoCategoria, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador);
                 }
@@ -1166,7 +1166,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        private string ValidarObjetoDetalleVariable(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        private string ValidarObjetoDetalleVariable(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
             if (string.IsNullOrEmpty(pDetalleIndicadorVariables.idIndicadorString))
             {
@@ -1249,8 +1249,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (pIndicador.Interno == null) // Uso
                 pIndicador.Interno = false;
 
-            if (pIndicador.Notas == null || string.IsNullOrEmpty(pIndicador.Notas.Trim()))
-                pIndicador.Notas = defaultInputTextValue;
+            if (pIndicador.Nota == null || string.IsNullOrEmpty(pIndicador.Nota.Trim()))
+                pIndicador.Nota = defaultInputTextValue;
             
             //if (pIndicador.CantidadVariableDato == null)
             //    pIndicador.CantidadVariableDato = defaultInputNumberValue;
@@ -1275,11 +1275,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         private void CargarDatosEnVistas()
         {
-            ViewBag.TiposIndicadores = tipoIndicadorBL.ObtenerDatos(new TipoIndicadores()).objetoRespuesta;
+            ViewBag.TiposIndicadores = tipoIndicadorBL.ObtenerDatos(new TipoIndicador()).objetoRespuesta;
             ViewBag.FrecuenciasEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
-            ViewBag.Clasificaciones = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicadores()).objetoRespuesta;
+            ViewBag.Clasificaciones = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicador()).objetoRespuesta;
             ViewBag.TipoMedidas = tipoMedidaBL.ObtenerDatos(new TipoMedida()).objetoRespuesta;
-            ViewBag.Grupos = grupoIndicadorBL.ObtenerDatos(new GrupoIndicadores()).objetoRespuesta;
+            ViewBag.Grupos = grupoIndicadorBL.ObtenerDatos(new GrupoIndicador()).objetoRespuesta;
             ViewBag.UsosIndicador = indicadorBL.ObtenerListaUsosIndicador().objetoRespuesta;
             ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
             ViewBag.UnidadesEstudio = unidadEstudioBL.ObtenerDatos(new UnidadEstudio()).objetoRespuesta;

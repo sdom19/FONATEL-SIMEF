@@ -27,9 +27,9 @@ namespace GB.SIMEF.DAL
 
             using (db = new SIMEFContext())
             {
-                if (pTipoMedida.idMedida != 0)
+                if (pTipoMedida.IdTipoMedida != 0)
                 {
-                    lista = db.TipoMedida.Where(x => x.idMedida == pTipoMedida.idMedida && x.Estado == true).ToList();
+                    lista = db.TipoMedida.Where(x => x.IdTipoMedida == pTipoMedida.IdTipoMedida && x.Estado == true).ToList();
                 }
                 else
                 {
@@ -39,7 +39,7 @@ namespace GB.SIMEF.DAL
 
             lista = lista.Select(x => new TipoMedida()
             {
-                id = Utilidades.Encriptar(x.idMedida.ToString()),
+                id = Utilidades.Encriptar(x.IdTipoMedida.ToString()),
                 Nombre = x.Nombre,
                 Estado = x.Estado
             }).ToList();

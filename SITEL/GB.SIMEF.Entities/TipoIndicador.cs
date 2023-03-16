@@ -14,22 +14,23 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("ClasificacionIndicadores")]
-    public partial class ClasificacionIndicadores
+    [Table("TipoIndicador")]
+    public partial class TipoIndicador
     {
-        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ClasificacionIndicadores()
+        public TipoIndicador()
         {
         }
+
         [Key]
-        public int idClasificacion { get; set; }
+        public int IdTipoIndicador { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
-
 
         #region Variables que no forman parte del contexto
         [NotMapped]
         public string id { get; set; }
+        [NotMapped]
+        public bool nuevoEstado { get; set; }
         #endregion
     }
 }
