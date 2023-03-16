@@ -29,21 +29,21 @@ namespace GB.SIMEF.DAL
                 id = Utilidades.Encriptar(x.idSolicitud.ToString()),
                 idSolicitud = x.idSolicitud,
                 Nombre = x.Nombre,
-                CantidadFormularios = x.CantidadFormularios,
+                CantidadFormulario = x.CantidadFormulario,
                 Codigo = x.Codigo,
                 FechaInicio = x.FechaInicio,
                 FechaFin = x.FechaFin,
-                IdEstado = x.IdEstado,
+                IdEstadoRegistro = x.IdEstadoRegistro,
                 Mensaje = x.Mensaje,
                 idAnno = x.idAnno,
                 idMes = x.idMes,
-                idFuente = x.idFuente,
+                idFuenteRegistro = x.idFuenteRegistro,
                 FechaCreacion = x.FechaCreacion,
                 UsuarioCreacion = x.UsuarioCreacion,
                 FechaModificacion = x.FechaModificacion,
                 UsuarioModificacion = x.UsuarioModificacion,
-                Estado = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.IdEstado).Single(),
-                Fuente = ObtenerFuente(x.idFuente),
+                Estado = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.IdEstadoRegistro).Single(),
+                Fuente = ObtenerFuente(x.idFuenteRegistro),
                 EnvioProgramado = db.SolicitudEnvioProgramado.Where(i => i.IdSolicitud == x.idSolicitud && i.Estado == true).SingleOrDefault(),
                 SolicitudFormulario = db.DetalleSolicitudFormulario.Where(i => i.IdSolicitud == x.idSolicitud && i.Estado == true).ToList(),
                 FormulariosString = ObtenerListaFormularioString(x.idSolicitud),
@@ -67,10 +67,10 @@ namespace GB.SIMEF.DAL
             {
 
                 ListaSolicitud = db.Database.SqlQuery<Solicitud>
-                    ("execute spObtenerSolicitudes @idSolicitud ,@codigo,@idEstado",
+                    ("execute pa_ObtenerSolicitud @idSolicitud ,@codigo,@idEstadoRegistro",
                      new SqlParameter("@idSolicitud", objSolicitud.idSolicitud),
                      new SqlParameter("@codigo", string.IsNullOrEmpty(objSolicitud.Codigo) ? DBNull.Value.ToString() : objSolicitud.Codigo),
-                    new SqlParameter("@idEstado", objSolicitud.IdEstado)
+                    new SqlParameter("@idEstadoRegistro", objSolicitud.IdEstadoRegistro)
                     ).ToList();
 
                 ListaSolicitud = CrearListadoSolicitud(ListaSolicitud);
@@ -100,7 +100,7 @@ namespace GB.SIMEF.DAL
             {
                 ListaSolicitud = db.Database.SqlQuery<Solicitud>
 
-                ("execute spActualizarSolicitud @idSolicitud ,@Codigo, @Nombre ,@FechaInicio ,@FechaFin ,@idMes ,@idAnno ,@CantidadFormularios ,@idFuente ,@Mensaje ,@UsuarioCreacion ,@UsuarioModificacion ,@idEstado ",
+                ("execute pa_ActualizarSolicitud @idSolicitud ,@Codigo, @Nombre ,@FechaInicio ,@FechaFin ,@idMes ,@idAnno ,@CantidadFormulario ,@idFuente ,@Mensaje ,@UsuarioCreacion ,@UsuarioModificacion ,@idEstadoRegistro ",
                      new SqlParameter("@idSolicitud", objeto.idSolicitud),
                      new SqlParameter("@Codigo", string.IsNullOrEmpty(objeto.Codigo) ? DBNull.Value.ToString() : objeto.Codigo),
                      new SqlParameter("@Nombre", string.IsNullOrEmpty(objeto.Nombre) ? DBNull.Value.ToString() : objeto.Nombre),
@@ -114,12 +114,12 @@ namespace GB.SIMEF.DAL
                         new SqlParameter("@FechaFin", objeto.FechaFin),
                      new SqlParameter("@idMes", objeto.idMes),
                      new SqlParameter("@idAnno", objeto.idAnno),
-                     new SqlParameter("@CantidadFormularios", objeto.CantidadFormularios),
-                     new SqlParameter("@idFuente", objeto.idFuente),
+                     new SqlParameter("@CantidadFormulario", objeto.CantidadFormulario),
+                     new SqlParameter("@idFuente", objeto.idFuenteRegistro),
                      new SqlParameter("@Mensaje", string.IsNullOrEmpty(objeto.Mensaje) ? DBNull.Value.ToString() : objeto.Mensaje),
                      new SqlParameter("@UsuarioCreacion", objeto.UsuarioCreacion),
                      new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objeto.UsuarioModificacion) ? DBNull.Value.ToString() : objeto.UsuarioModificacion),
-                     new SqlParameter("@idEstado", objeto.IdEstado)
+                     new SqlParameter("@idEstadoRegistro", objeto.IdEstadoRegistro)
                     ).ToList();
 
                 ListaSolicitud = CrearListadoSolicitud(ListaSolicitud);
@@ -138,7 +138,7 @@ namespace GB.SIMEF.DAL
         public List<FormularioWeb> ObtenerListaFormulario(int objSolicitud)
         {
             List<FormularioWeb> resultado = db.Database.SqlQuery<FormularioWeb>
-                  ("execute spObtenerFormularioXSolicitudLista @idSolicitud",
+                  ("execute pa_ObtenerFormularioXSolicitudLista @idSolicitud",
                   new SqlParameter("@idSolicitud", objSolicitud)
                     ).ToList();
 
@@ -158,7 +158,7 @@ namespace GB.SIMEF.DAL
         {
             string resultado = string.Empty;
             resultado=  db.Database.SqlQuery<string>
-                  ("execute spObtenerFormularioXSolicitud @idSolicitud",
+                  ("execute pa_ObtenerFormularioXSolicitud @idSolicitud",
                   new SqlParameter("@idSolicitud", objSolicitud)
                     ).SingleOrDefault();
             if (string.IsNullOrEmpty(resultado))
@@ -178,7 +178,7 @@ namespace GB.SIMEF.DAL
             List<string> resultado = new List<string>();
             using (db = new SIMEFContext())
             {
-                resultado = db.Database.SqlQuery<string>("execute spValidarSolicitud @idSolicitud"
+                resultado = db.Database.SqlQuery<string>("execute pa_ValidarSolicitud @idSolicitud"
                 , new SqlParameter("@idSolicitud", objSolicitud.idSolicitud)).ToList();
             }
             return resultado;
@@ -197,7 +197,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 db.Database.SqlQuery<object>
-                    ("execute spClonarDetallesDeSolicitudes @pIdSolicitudAClonar, @pIdSolicitudDestino",
+                    ("execute pa_ClonarDetalleDeSolicitud @pIdSolicitudAClonar, @pIdSolicitudDestino",
                      new SqlParameter("@pIdSolicitudAClonar", pIdSolicitudAClonar),
                      new SqlParameter("@pIdSolicitudDestino", pIdSolicitudDestino)
                     ).ToList();

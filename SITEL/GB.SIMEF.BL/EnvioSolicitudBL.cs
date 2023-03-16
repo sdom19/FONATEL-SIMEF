@@ -10,21 +10,21 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class EnvioSolicitudBL : IMetodos<EnvioSolicitudes>
+    public class EnvioSolicitudBL : IMetodos<EnvioSolicitud>
     {
         readonly string modulo = "";
         readonly string user = "";
         private readonly EnvioSolicitudDAL EnvioSolicitudDAL;
-        RespuestaConsulta<List<EnvioSolicitudes>> resultado;
+        RespuestaConsulta<List<EnvioSolicitud>> resultado;
         public EnvioSolicitudBL(string modulo, string user)
         {
             this.user = user;
             this.modulo = modulo;
             EnvioSolicitudDAL = new EnvioSolicitudDAL(); 
-            resultado = new RespuestaConsulta<List<EnvioSolicitudes>>();
+            resultado = new RespuestaConsulta<List<EnvioSolicitud>>();
         }
 
-        public RespuestaConsulta<List<EnvioSolicitudes>> ActualizarElemento(EnvioSolicitudes objeto)
+        public RespuestaConsulta<List<EnvioSolicitud>> ActualizarElemento(EnvioSolicitud objeto)
         {
             try
             {
@@ -44,28 +44,28 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<EnvioSolicitudes>> CambioEstado(EnvioSolicitudes objeto)
+        public RespuestaConsulta<List<EnvioSolicitud>> CambioEstado(EnvioSolicitud objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<EnvioSolicitudes>> ClonarDatos(EnvioSolicitudes objeto)
+        public RespuestaConsulta<List<EnvioSolicitud>> ClonarDatos(EnvioSolicitud objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<EnvioSolicitudes>> EliminarElemento(EnvioSolicitudes objeto)
+        public RespuestaConsulta<List<EnvioSolicitud>> EliminarElemento(EnvioSolicitud objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<EnvioSolicitudes>> InsertarDatos(EnvioSolicitudes objeto)
+        public RespuestaConsulta<List<EnvioSolicitud>> InsertarDatos(EnvioSolicitud objeto)
         {
             throw new NotImplementedException();
         }
 
 
-        public RespuestaConsulta<List<EnvioSolicitudes>> ObtenerDatos(EnvioSolicitudes objeto)
+        public RespuestaConsulta<List<EnvioSolicitud>> ObtenerDatos(EnvioSolicitud objeto)
         {
            
 
@@ -84,7 +84,7 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<EnvioSolicitudes>> ValidarDatos(EnvioSolicitudes objeto)
+        public RespuestaConsulta<List<EnvioSolicitud>> ValidarDatos(EnvioSolicitud objeto)
         {
             throw new NotImplementedException();
         }
@@ -95,7 +95,7 @@ namespace GB.SIMEF.BL
         /// Metodo que ayuda a desencriptar los datos a utilizar proveniente del objeto EnvioSolicitudes
         /// </summary>
         /// <param name="objeto"></param>
-        private void DesencriptarObjeto(EnvioSolicitudes objeto)
+        private void DesencriptarObjeto(EnvioSolicitud objeto)
         {
 
             if (!string.IsNullOrEmpty(objeto.IdSolicitudString))

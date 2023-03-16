@@ -357,7 +357,7 @@ namespace GB.SIMEF.BL
                     }
                 }
 
-                if ((pIndicador.esGuardadoParcial && pIndicador.FrecuenciaEnvio.idFrecuencia != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
+                if ((pIndicador.esGuardadoParcial && pIndicador.FrecuenciaEnvio.idFrecuenciaEnvio != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
                     if (frecuenciaEnvioDAL.ObtenerDatos(pIndicador.FrecuenciaEnvio).Count <= 0)
                     {
@@ -906,7 +906,7 @@ namespace GB.SIMEF.BL
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.FrecuenciaEnvio.id), out int number);
                 pIndicador.IdFrecuencia = number;
-                pIndicador.FrecuenciaEnvio.idFrecuencia = pIndicador.FrecuenciaEnvio != null ? number : 0;
+                pIndicador.FrecuenciaEnvio.idFrecuenciaEnvio = pIndicador.FrecuenciaEnvio != null ? number : 0;
             }
         }
 
@@ -923,7 +923,7 @@ namespace GB.SIMEF.BL
 
             foreach (FormularioWeb formulario in listaFormularioWeb)
             {
-                formulario.idEstado = (int)pNuevoEstado;
+                formulario.idEstadoRegistro = (int)pNuevoEstado;
                 formulario.UsuarioModificacion = user;
                 formularioWebDAL.ActualizarDatos(formulario);
             }

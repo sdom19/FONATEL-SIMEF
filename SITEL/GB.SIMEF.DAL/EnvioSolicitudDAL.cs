@@ -15,16 +15,16 @@ namespace GB.SIMEF.DAL
         private SIMEFContext db;
 
 
-        public List<EnvioSolicitudes> ActualizarEnvioSolicitud(EnvioSolicitudes solicitud)
+        public List<EnvioSolicitud> ActualizarEnvioSolicitud(EnvioSolicitud solicitud)
         {
-            List<EnvioSolicitudes> envioSolicitudes = new List<EnvioSolicitudes>();
+            List<EnvioSolicitud> envioSolicitudes = new List<EnvioSolicitud>();
 
             using (db = new SIMEFContext())
             {
 
-                envioSolicitudes  = db.Database.SqlQuery<EnvioSolicitudes>
-                ("execute  spActualizarEnvioSolicitudTabla @IdEnvio, @IdSolicitud, @Enviado,@EnvioProgramado, @MensajError, @EjecutarJob",
-                    new SqlParameter("@IdEnvio", solicitud.idEnvio),
+                envioSolicitudes  = db.Database.SqlQuery<EnvioSolicitud>
+                ("execute  pa_ActualizarEnvioSolicitudTabla @IdEnvio, @IdSolicitud, @Enviado,@EnvioProgramado, @MensajError, @EjecutarJob",
+                    new SqlParameter("@IdEnvio", solicitud.idEnvioSolicitud),
                     new SqlParameter("@IdSolicitud", solicitud.IdSolicitud),
                     new SqlParameter("@Enviado", solicitud.Enviado),
                     new SqlParameter("@EnvioProgramado", solicitud.EnvioProgramado),
@@ -45,9 +45,9 @@ namespace GB.SIMEF.DAL
         /// Metodo para obtner todos los envios de solicitudes realizados a SITELP
         /// </summary>
         /// <returns></returns>
-        public List<EnvioSolicitudes> ObtenerEnviosCorrectos()
+        public List<EnvioSolicitud> ObtenerEnviosCorrectos()
         {
-            List<EnvioSolicitudes> envioSolicitudes = new List<EnvioSolicitudes>();
+            List<EnvioSolicitud> envioSolicitudes = new List<EnvioSolicitud>();
 
             using (db = new SIMEFContext())
             {
@@ -63,9 +63,9 @@ namespace GB.SIMEF.DAL
         /// Listado de envíos de solicitud 
         /// </summary>
         /// <returns></returns>
-        public List<EnvioSolicitudes> ObtenerDatos()
+        public List<EnvioSolicitud> ObtenerDatos()
         {
-            List<EnvioSolicitudes> envioSolicitudes = new List<EnvioSolicitudes>();
+            List<EnvioSolicitud> envioSolicitudes = new List<EnvioSolicitud>();
 
             using (db = new SIMEFContext())
             {

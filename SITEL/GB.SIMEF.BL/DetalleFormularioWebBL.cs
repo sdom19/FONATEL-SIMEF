@@ -37,7 +37,7 @@ namespace GB.SIMEF.BL
         private bool ValidarDatosRepetidos(DetalleFormularioWeb objDetalleFormulario)
         {
             List<DetalleFormularioWeb> buscarRegistro = clsDatos.ObtenerDatos(new DetalleFormularioWeb());
-            if (buscarRegistro.Where(x => x.idFormulario == objDetalleFormulario.idFormulario && x.idIndicador == objDetalleFormulario.idIndicador)
+            if (buscarRegistro.Where(x => x.idFormularioWeb == objDetalleFormulario.idFormularioWeb && x.idIndicador == objDetalleFormulario.idIndicador)
                 .ToList().Count() > 0)
             {
                 throw new Exception(Errores.IndicadorFormularioRegistrado);
@@ -66,11 +66,11 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.formularioweb.id, out temp))
                     {
-                        objeto.idFormulario = temp;
+                        objeto.idFormularioWeb = temp;
                     }
                 }
                 DetalleFormularioWeb detalleFormularioWeb = clsDatos.ObtenerDatos(objeto).Single();
-                objeto.idDetalle = detalleFormularioWeb.idDetalle;
+                objeto.IdDetalleFormularioWeb = detalleFormularioWeb.IdDetalleFormularioWeb;
                 objeto.Estado = true;
                 var objetoActualizado = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = objetoActualizado;
@@ -129,7 +129,7 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                objeto.idDetalle = 0;
+                objeto.IdDetalleFormularioWeb = 0;
                 objeto.Estado = true;
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
@@ -140,10 +140,10 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.formularioweb.id, out temp))
                     {
-                        objeto.idFormulario = temp;
+                        objeto.idFormularioWeb = temp;
                     }
                 }
-                int cantidad = ObtenerCantidadIndicadores(objeto.idFormulario);
+                int cantidad = ObtenerCantidadIndicadores(objeto.idFormularioWeb);
                 if (ValidarDatosRepetidos(objeto))
                 {
                     ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
@@ -227,7 +227,7 @@ namespace GB.SIMEF.BL
                 List<DetalleRegistroIndicadorVariableFonatel> registroVariable =
                     variables.Select(x => new DetalleRegistroIndicadorVariableFonatel()
                     {
-                        IdFormulario = 0,
+                        idFormularioWeb = 0,
                         IdSolicitud = 0,
                         IdIndicador = x.idIndicador,
                         idVariable = x.idDetalleIndicador,
@@ -242,7 +242,7 @@ namespace GB.SIMEF.BL
                 List<DetalleRegistroIndicadorCategoriaFonatel> registroCategoria =
                     categorias.Select(x => new DetalleRegistroIndicadorCategoriaFonatel()
                     {
-                        IdFormulario = 0,
+                        idFormularioWeb = 0,
                         IdSolicitud = 0,
                         IdIndicador = x.idIndicador,
                         idCategoria = x.idCategoria,

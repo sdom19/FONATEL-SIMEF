@@ -25,9 +25,9 @@ namespace GB.SIMEF.DAL
 
             using (db = new SIMEFContext())
             {
-                if (pFrecuenciaEnvio.idFrecuencia != 0)
+                if (pFrecuenciaEnvio.idFrecuenciaEnvio != 0)
                 {
-                    lista = db.FrecuenciaEnvio.Where(x => x.idFrecuencia == pFrecuenciaEnvio.idFrecuencia && x.Estado == true).ToList();
+                    lista = db.FrecuenciaEnvio.Where(x => x.idFrecuenciaEnvio == pFrecuenciaEnvio.idFrecuenciaEnvio && x.Estado == true).ToList();
                 }
                 else
                 {
@@ -37,10 +37,10 @@ namespace GB.SIMEF.DAL
 
             lista = lista.Select(x => new FrecuenciaEnvio()
             {
-                id = Utilidades.Encriptar(x.idFrecuencia.ToString()),
-                idFrecuencia=x.idFrecuencia,
+                id = Utilidades.Encriptar(x.idFrecuenciaEnvio.ToString()),
+                idFrecuenciaEnvio=x.idFrecuenciaEnvio,
                 Nombre = x.Nombre,
-                CantidadDias = x.CantidadDias,
+                CantidadDia = x.CantidadDia,
                 Estado = x.Estado
             }).ToList();
 

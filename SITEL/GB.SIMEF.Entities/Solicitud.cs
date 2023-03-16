@@ -37,7 +37,7 @@ namespace GB.SIMEF.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> FechaFin { get; set; }
 
-        public int CantidadFormularios { get; set; }
+        public int CantidadFormulario { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Mensaje { get; set; }
@@ -45,10 +45,10 @@ namespace GB.SIMEF.Entities
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
-        public int idFuente { get; set; }
+        public int idFuenteRegistro { get; set; }
         public int idMes { get; set; }
         public int idAnno { get; set; }
-        public int IdEstado { get; set; }
+        public int IdEstadoRegistro { get; set; }
 
         #region variables que no están en el contexto
 
@@ -96,7 +96,7 @@ namespace GB.SIMEF.Entities
             json.Append("\"Fecha de inicio\":\"").Append(this.FechaInicio).Append("\",");
             json.Append("\"Fecha de fin\":\"").Append(this.FechaFin).Append("\",");
             json.Append("\"Fuente\":\"").Append(this.Fuente.Fuente).Append("\",");
-            json.Append("\"Cantidad de formularios\":").Append(this.CantidadFormularios).Append(",");
+            json.Append("\"Cantidad de formularios\":").Append(this.CantidadFormulario).Append(",");
             json.Append("\"Mes de registro\":\"").Append(this.Mes.Nombre.Trim()).Append("\",");
             json.Append("\"Año de registro\":\"").Append(this.Anno.Nombre).Append("\",");
             json.Append("\"Mensaje\":\"").Append(this.Mensaje).Append("\",");

@@ -137,7 +137,7 @@ namespace GB.SIMEF.BL
 
                     //Cambia de estado el registro indicador a Enviado
                     RegistroIndicadorFonatel reg = new RegistroIndicadorFonatel();
-                    reg.IdFormulario = objeto.IdFormulario;
+                    reg.idFormularioWeb = objeto.idFormularioWeb;
                     reg.IdSolicitud = objeto.IdSolicitud;
                     var BuscarRegistrosIndicador = registroIndicadorFonatelBl.ObtenerDatos(reg);
 
@@ -198,7 +198,7 @@ namespace GB.SIMEF.BL
                     var result = DetalleRegistroIndicadorFonatelDAL.ActualizarDetalleRegistroIndicadorFonatel(detalle);
 
                     RegistroIndicadorFonatel reg = new RegistroIndicadorFonatel();
-                    reg.IdFormulario = objeto.IdFormulario;
+                    reg.idFormularioWeb = objeto.idFormularioWeb;
                     reg.IdSolicitud = objeto.IdSolicitud;
                     reg.IdEstado = (int)Constantes.EstadosRegistro.Enviado;
                     registroIndicadorFonatelBl.ActualizarElemento(reg);
@@ -227,10 +227,10 @@ namespace GB.SIMEF.BL
         /// <param name="objeto"></param>
         private void DesencriptarRegistroIndicador(DetalleRegistroIndicadorFonatel objeto)
         {
-            if (!string.IsNullOrEmpty(objeto.IdFormularioString))
+            if (!string.IsNullOrEmpty(objeto.idFormularioWebString))
             {
-                int.TryParse(Utilidades.Desencriptar(objeto.IdFormularioString), out int temp);
-                objeto.IdFormulario = temp;
+                int.TryParse(Utilidades.Desencriptar(objeto.idFormularioWebString), out int temp);
+                objeto.idFormularioWeb = temp;
             }
             if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
             {
@@ -258,10 +258,10 @@ namespace GB.SIMEF.BL
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                if (!string.IsNullOrEmpty(objeto.IdFormularioString))
+                if (!string.IsNullOrEmpty(objeto.idFormularioWebString))
                 {
-                    int.TryParse(Utilidades.Desencriptar(objeto.IdFormularioString), out int temp);
-                    objeto.IdFormulario = temp;
+                    int.TryParse(Utilidades.Desencriptar(objeto.idFormularioWebString), out int temp);
+                    objeto.idFormularioWeb = temp;
                 }
                 if (!string.IsNullOrEmpty(objeto.IdSolicitudString))
                 {
@@ -276,11 +276,11 @@ namespace GB.SIMEF.BL
 
                 DetalleRegistroIndicadorFonatel detalle = new DetalleRegistroIndicadorFonatel();
                 DetalleRegistroIndicadorCategoriaValorFonatel valor = new DetalleRegistroIndicadorCategoriaValorFonatel();
-                valor.IdFormulario = objeto.IdFormulario;
+                valor.idFormularioWeb = objeto.idFormularioWeb;
                 valor.IdSolicitud = objeto.IdSolicitud;
                 valor.IdIndicador = objeto.IdIndicador;
                 DetalleRegistroIndicadorVariableValorFonatel variable = new DetalleRegistroIndicadorVariableValorFonatel();
-                variable.IdFormulario = objeto.IdFormulario;
+                variable.idFormularioWeb = objeto.idFormularioWeb;
                 variable.IdSolicitud = objeto.IdSolicitud;
                 variable.IdIndicador = objeto.IdIndicador;
 
@@ -330,7 +330,7 @@ namespace GB.SIMEF.BL
                             },
                             new {
                                 name = Constantes.ParametrosReglaValidacion.Formulario,
-                                value = objeto.IdFormulario.ToString()
+                                value = objeto.idFormularioWeb.ToString()
                             },
                             new {
                                 name = Constantes.ParametrosReglaValidacion.Indicador,

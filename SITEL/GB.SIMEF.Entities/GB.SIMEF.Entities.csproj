@@ -94,7 +94,7 @@
     <Compile Include="DetalleRegistroIndicadorVariableFonatel.cs" />
     <Compile Include="DetalleRelacionCategoria.cs" />
     <Compile Include="DetalleSolicitudFormulario.cs" />
-    <Compile Include="EnvioSolicitudes.cs" />
+    <Compile Include="EnvioSolicitud.cs" />
     <Compile Include="EstadoRegistro.cs" />
     <Compile Include="FormulaIndicadorDSF.cs" />
     <Compile Include="FormulaIndicadorFecha.cs" />

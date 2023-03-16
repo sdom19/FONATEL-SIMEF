@@ -41,7 +41,7 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(objeto.FormularioId))
                 {
                     int.TryParse(Utilidades.Desencriptar(objeto.FormularioId), out int temp );
-                    objeto.IdFormulario = temp;
+                    objeto.idFormularioWeb = temp;
                 }
                 if (!string.IsNullOrEmpty(objeto.Solicitudid))
                 {
@@ -109,7 +109,7 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(objeto.FormularioId))
                 {
                     int.TryParse(Utilidades.Desencriptar(objeto.FormularioId), out int temp);
-                    objeto.IdFormulario = temp;
+                    objeto.idFormularioWeb = temp;
                 }
                 if (!string.IsNullOrEmpty(objeto.Solicitudid))
                 {

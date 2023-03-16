@@ -117,7 +117,7 @@ namespace GB.SIMEF.BL
 
                 var EnvioSolicitudes = clsEnvioSolicitudesDAL.ObtenerEnviosCorrectos().ToList();
 
-                var SolicitudDeEnvio = EnvioSolicitudes.Where(x => x.idEnvio == objeto.IdSolicitud).FirstOrDefault();
+                var SolicitudDeEnvio = EnvioSolicitudes.Where(x => x.idEnvioSolicitud == objeto.IdSolicitud).FirstOrDefault();
 
                 var Solicitudes = clsSolicitudesDAL.ObtenerDatos(solicitud).ToList();
 
@@ -177,7 +177,7 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(objeto.FormularioId))
                 {
                     int.TryParse(Utilidades.Desencriptar(objeto.FormularioId), out int temp );
-                    objeto.IdFormulario = temp;
+                    objeto.idFormularioWeb = temp;
                 }
                 if (!string.IsNullOrEmpty(objeto.Solicitudid))
                 {
@@ -205,7 +205,7 @@ namespace GB.SIMEF.BL
             if (!string.IsNullOrEmpty(objeto.FormularioId))
             {
                 int.TryParse(Utilidades.Desencriptar(objeto.FormularioId), out int temp);
-                objeto.IdFormulario = temp;
+                objeto.idFormularioWeb = temp;
             }
             if (!string.IsNullOrEmpty(objeto.Solicitudid))
             {

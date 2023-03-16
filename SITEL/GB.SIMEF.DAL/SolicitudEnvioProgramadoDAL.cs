@@ -28,16 +28,16 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaEnvios = db.Database.SqlQuery<SolicitudEnvioProgramado>
-                    ("execute spObtenerEnviosProgramados @pidSolicitud",
+                    ("execute pa_ObtenerEnvioProgramado @pidSolicitud",
                       new SqlParameter("@pidSolicitud", objeto.IdSolicitud)
                     ).ToList();
 
                 ListaEnvios = ListaEnvios.Select(x => new SolicitudEnvioProgramado()
                 {
-                    IdEnvioProgramado = x.IdEnvioProgramado,
+                    IdSolicitudEnvioProgramado = x.IdSolicitudEnvioProgramado,
                     IdSolicitud = x.IdSolicitud,
-                    IdFrecuencia = x.IdFrecuencia,
-                    CantidadRepeticiones = x.CantidadRepeticiones,
+                    IdFrecuenciaEnvio = x.IdFrecuenciaEnvio,
+                    CantidadRepeticion = x.CantidadRepeticion,
                     FechaCiclo = x.FechaCiclo,
                     Estado = x.Estado
                 }).ToList();
@@ -61,11 +61,11 @@ namespace GB.SIMEF.DAL
             {
                 ListaDetalle = db.Database.SqlQuery<SolicitudEnvioProgramado>
 
-                    ("execute spActualizarEnvioProgramado @pIdEnvioProgramado ,@pIdSolicitud ,@pIdFrecuencia ,@pCantidadRepeticiones ,@pFechaCiclo, @pEstado",
-                      new SqlParameter("@pIdEnvioProgramado", objeto.IdEnvioProgramado),
+                    ("execute pa_ActualizarEnvioProgramado @pIdEnvioProgramado ,@pIdSolicitud ,@pIdFrecuenciaEnvio ,@pCantidadRepeticion ,@pFechaCiclo, @pEstado",
+                      new SqlParameter("@pIdEnvioProgramado", objeto.IdSolicitudEnvioProgramado),
                       new SqlParameter("@pIdSolicitud", objeto.IdSolicitud),
-                      new SqlParameter("@pIdFrecuencia", objeto.IdFrecuencia),
-                      new SqlParameter("@pCantidadRepeticiones", objeto.CantidadRepeticiones),
+                      new SqlParameter("@pIdFrecuenciaEnvio", objeto.IdFrecuenciaEnvio),
+                      new SqlParameter("@pCantidadRepeticion", objeto.CantidadRepeticion),
                       new SqlParameter("@pFechaCiclo", objeto.FechaCiclo),
                       new SqlParameter("@pEstado", objeto.Estado)
                     ).ToList();

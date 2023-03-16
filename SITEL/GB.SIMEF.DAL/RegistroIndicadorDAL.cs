@@ -40,7 +40,7 @@ namespace GB.SIMEF.DAL
                 FechaInicio = x.FechaInicio,
                 FechaFin = x.FechaFin,
                 Formulario = x.Formulario,
-                IdFormulario = x.IdFormulario,
+                idFormularioWeb = x.idFormularioWeb,
                 Mes = x.Mes,
                 Estado = x.Estado,
                 IdEstado = x.IdEstado,
@@ -52,8 +52,8 @@ namespace GB.SIMEF.DAL
                 IdFuente = x.IdFuente,
                 Fuente = ObtenerFuente(x.IdFuente),
                 Solicitudid = Utilidades.Encriptar(x.IdSolicitud.ToString()),
-                FormularioId = Utilidades.Encriptar(x.IdFormulario.ToString()),
-                DetalleRegistroIndcadorFonatel = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() { IdSolicitud = x.IdSolicitud, IdFormulario = x.IdFormulario })
+                FormularioId = Utilidades.Encriptar(x.idFormularioWeb.ToString()),
+                DetalleRegistroIndcadorFonatel = DetalleRegistroIndicadorFonatelDAL.ObtenerDatoDetalleRegistroIndicador(new DetalleRegistroIndicadorFonatel() { IdSolicitud = x.IdSolicitud, idFormularioWeb = x.idFormularioWeb })
 
             }).ToList();
         }
@@ -72,9 +72,9 @@ namespace GB.SIMEF.DAL
             {
 
                 ListaRegistroIndicadorFonatel = db.Database.SqlQuery<RegistroIndicadorFonatel>
-                    ("execute Fonatel.pa_ObtenerRegistroIndicadorFonatel @IdSolicitud,@IdFormulario,@IdFuente, @IdEstado, @RangoFecha",
+                    ("execute Fonatel.pa_ObtenerRegistroIndicadorFonatel @IdSolicitud,@idFormularioWeb,@IdFuente, @IdEstado, @RangoFecha",
                      new SqlParameter("@IdSolicitud", objRegistroIndicadorFonatel.IdSolicitud),
-                     new SqlParameter("@IdFormulario", objRegistroIndicadorFonatel.IdFormulario),
+                     new SqlParameter("@idFormularioWeb", objRegistroIndicadorFonatel.idFormularioWeb),
                      new SqlParameter("@IdFuente", objRegistroIndicadorFonatel.IdFuente),
                      new SqlParameter("@IdEstado", objRegistroIndicadorFonatel.IdEstado),
                      new SqlParameter("@RangoFecha", objRegistroIndicadorFonatel.RangoFecha)
@@ -108,9 +108,9 @@ namespace GB.SIMEF.DAL
             {
 
                 ListaRegistroIndicadorFonatel = db.Database.SqlQuery<RegistroIndicadorFonatel>
-                    ("execute Fonatel.pa_ActualizarRegistroIndicadorFonatel @IdSolicitud,@IdFormulario,@Estado, @idEstado",
+                    ("execute Fonatel.pa_ActualizarRegistroIndicadorFonatel @IdSolicitud,@idFormularioWeb,@Estado, @idEstado",
                      new SqlParameter("@IdSolicitud", objRegistroIndicadorFonatel.IdSolicitud),
-                     new SqlParameter("@IdFormulario", objRegistroIndicadorFonatel.IdFormulario),
+                     new SqlParameter("@idFormularioWeb", objRegistroIndicadorFonatel.idFormularioWeb),
                      new SqlParameter("@Estado", objRegistroIndicadorFonatel.Estado),
                      new SqlParameter("@IdEstado", objRegistroIndicadorFonatel.IdEstado)
                     ).ToList();

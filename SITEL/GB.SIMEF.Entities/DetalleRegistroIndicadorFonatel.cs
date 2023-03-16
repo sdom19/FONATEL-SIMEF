@@ -24,7 +24,7 @@ namespace GB.SIMEF.Entities
         [Key, Column(Order = 0)]
         public int IdSolicitud { get; set; }
         [Key, Column(Order = 1)]
-        public int IdFormulario { get; set; }
+        public int idFormularioWeb { get; set; }
         [Key, Column(Order = 2)]
         public int IdIndicador { get; set; }
         public int IdDetalleRegistroIndicador { get; set; }
@@ -39,7 +39,7 @@ namespace GB.SIMEF.Entities
         [NotMapped]
         public string IdSolicitudString { get; set; }
         [NotMapped]
-        public string IdFormularioString { get; set; }
+        public string idFormularioWebString { get; set; }
         [NotMapped]
         public string IdIndicadorString { get; set; }
 

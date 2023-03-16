@@ -19,12 +19,12 @@ namespace GB.SIMEF.Entities
     public partial class SolicitudEnvioProgramado
     {
         [Key]
-        public int IdEnvioProgramado { get; set; }
+        public int IdSolicitudEnvioProgramado { get; set; }
 
         public int IdSolicitud { get; set; }
 
-        public int IdFrecuencia { get; set; }
-        public int CantidadRepeticiones { get; set; }
+        public int IdFrecuenciaEnvio { get; set; }
+        public int CantidadRepeticion { get; set; }
         //public int Dia { get; set; }
         //public int IdMes { get; set; }
 
@@ -53,7 +53,7 @@ namespace GB.SIMEF.Entities
         {
             StringBuilder json = new StringBuilder();
             json.Append("{\"Frecuencia\":\"").Append(this.Frecuencia.Nombre).Append("\",");
-            json.Append("\"Cantidad de repeticiones\":").Append(this.CantidadRepeticiones).Append(",");
+            json.Append("\"Cantidad de repeticiones\":").Append(this.CantidadRepeticion).Append(",");
             json.Append("\"Fecha de inicio del ciclo\":\"").Append(this.FechaCiclo).Append("\",");
             json.Append("\"Activo\":\"").Append(this.Estado ? "Si" : "No").Append("\"}");
 
