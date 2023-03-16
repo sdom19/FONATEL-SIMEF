@@ -60,11 +60,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
-        public ActionResult Create(string idSolicitud, string idFormulario)
+        public ActionResult Create(string idSolicitud, string idFormularioWeb)
         {
             RespuestaConsulta<List<RegistroIndicadorFonatel>> model = registroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel()
             {
-                FormularioId=idFormulario,
+                FormularioId=idFormularioWeb,
                 Solicitudid=idSolicitud,
             });
             if (model.CantidadRegistros==1)
@@ -105,7 +105,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             string hilera = listaParametros[0];
             string[] lista = hilera.Split(',');
 
-            detalleRegistroIndicadorFonatel.IdFormularioString = lista[1];
+            detalleRegistroIndicadorFonatel.idFormularioWebString = lista[1];
             detalleRegistroIndicadorFonatel.IdIndicadorString = lista[2];
             detalleRegistroIndicadorFonatel.IdSolicitudString = lista[0];
             detalleRegistroIndicadorFonatel.CantidadFila= Convert.ToInt32(lista[3]);
@@ -364,7 +364,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                     registroIndicador.IdSolicitud = respuestaConsulta.IdSolicitud;
 
-                    registroIndicador.IdFormulario = respuestaConsulta.IdFormulario;
+                    registroIndicador.idFormularioWeb = respuestaConsulta.idFormularioWeb;
 
                     envioCorreo = registroIndicadorBL.EnvioCorreoInformante(registroIndicador);
 

@@ -82,7 +82,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.ListaFuentes = fuenteBl.ObtenerDatos(new FuenteRegistro() { IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
 
-            ViewBag.ListaFormularioWeb = formularioWebBL.ObtenerDatos(new FormularioWeb() {idEstado=(int)Constantes.EstadosRegistro.Activo })
+            ViewBag.ListaFormularioWeb = formularioWebBL.ObtenerDatos(new FormularioWeb() {idEstadoRegistro=(int)Constantes.EstadosRegistro.Activo })
                                         .objetoRespuesta.Select(x=>new SelectListItem() { Selected=false, Value=x.id, 
                                             Text=Utilidades.ConcatenadoCombos(x.Codigo,x.Nombre) }).ToList();
 
@@ -138,7 +138,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
 
           
-            solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+            solicitud.IdEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso;
 
             RespuestaConsulta<List<Solicitud>> result = null;
 
@@ -164,7 +164,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> Clonar(Solicitud solicitud)
         {
-            solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+            solicitud.IdEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso;
 
             RespuestaConsulta<List<Solicitud>> result = null;
 
@@ -215,7 +215,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> ClonarSolicitud(Solicitud solicitud)
         {
-            solicitud.IdEstado = (int)Constantes.EstadosRegistro.EnProceso;
+            solicitud.IdEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso;
 
             if (string.IsNullOrEmpty(solicitud.id))
             {
@@ -258,7 +258,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<List<Solicitud>> result = null;
 
-            solicitud.IdEstado = (int)Constantes.EstadosRegistro.Eliminado;
+            solicitud.IdEstadoRegistro = (int)Constantes.EstadosRegistro.Eliminado;
 
             await Task.Run(() =>
             {
@@ -308,7 +308,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<List<Solicitud>> result = null;
 
-            solicitud.IdEstado = (int)Constantes.EstadosRegistro.Activo;
+            solicitud.IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo;
 
             await Task.Run(() =>
             {
@@ -331,7 +331,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<List<Solicitud>> result = null;
 
-            solicitud.IdEstado = (int)Constantes.EstadosRegistro.Desactivado;
+            solicitud.IdEstadoRegistro = (int)Constantes.EstadosRegistro.Desactivado;
 
             await Task.Run(() =>
             {
@@ -411,7 +411,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns>JSON</returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> EliminarDetalleSolicitud(string idSolicitud, string idFormulario)
+        public async Task<string> EliminarDetalleSolicitud(string idSolicitud, string idFormularioWeb)
         {
             RespuestaConsulta<List<DetalleSolicitudFormulario>> result = null;
 
@@ -421,7 +421,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
 
                     id = idSolicitud,
-                    Formularioid = idFormulario
+                    Formularioid = idFormularioWeb
 
                 });
 
@@ -444,9 +444,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> EnvioSolicitud(EnvioSolicitudes objeto)
+        public async Task<string> EnvioSolicitud(EnvioSolicitud objeto)
         {
-            RespuestaConsulta<List<EnvioSolicitudes>> result = null;
+            RespuestaConsulta<List<EnvioSolicitud>> result = null;
             await Task.Run(() =>
             {
                 result = envioSolicitudBL.ActualizarElemento(objeto) ;
