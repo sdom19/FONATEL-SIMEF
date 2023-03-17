@@ -15,7 +15,7 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// Función que permite construir el predicado SQL del argumento
         /// </summary>
         /// <returns></returns>
-        public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulasCalculo pFormulasCalculo)
+        public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulaCalculo pFormulasCalculo)
         {
             throw new NotImplementedException();
         }

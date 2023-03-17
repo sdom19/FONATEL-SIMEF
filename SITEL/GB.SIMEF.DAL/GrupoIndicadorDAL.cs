@@ -28,11 +28,11 @@ namespace GB.SIMEF.DAL
             {
                 if (pGrupoIndicadores.IdGrupoIndicador != 0)
                 {
-                    listaGrupoIndicadores = db.GrupoIndicadores.Where(x => x.IdGrupoIndicador == pGrupoIndicadores.IdGrupoIndicador && x.Estado == true).ToList();
+                    listaGrupoIndicadores = db.GrupoIndicador.Where(x => x.IdGrupoIndicador == pGrupoIndicadores.IdGrupoIndicador && x.Estado == true).ToList();
                 }
                 else
                 {
-                    listaGrupoIndicadores = db.GrupoIndicadores.Where(x => x.Estado == true).ToList();
+                    listaGrupoIndicadores = db.GrupoIndicador.Where(x => x.Estado == true).ToList();
                 }
             }
 
@@ -63,7 +63,7 @@ namespace GB.SIMEF.DAL
                     "0 as idGrupo, " +
                     "Agrupacion as Nombre, " +
                     "cast(1 as bit) as Estado " +
-                    "from [FONATEL].[viewIndicadorDGM]"
+                    "from [FONATEL].[vw_IndicadorDGM]"
                     ).ToList();
             }
 
@@ -205,7 +205,7 @@ namespace GB.SIMEF.DAL
 
             using (db = new SIMEFContext())
             {
-                db.GrupoIndicadores.Add(pGrupoIndicadores);
+                db.GrupoIndicador.Add(pGrupoIndicadores);
                 db.SaveChanges();
 
                 // EF establecerá el objecto cuando sea guardado

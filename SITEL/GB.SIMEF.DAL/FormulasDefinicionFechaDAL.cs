@@ -19,15 +19,15 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasVariableDatoCriterio"></param>
         /// <returns></returns>
-        public FormulasDefinicionFecha ActualizarDatos(FormulasDefinicionFecha pFormulasDefinicionFecha)
+        public FormulaDefinicionFecha ActualizarDatos(FormulaDefinicionFecha pFormulasDefinicionFecha)
         {
-            FormulasDefinicionFecha envioSolicitudes = new FormulasDefinicionFecha();
+            FormulaDefinicionFecha envioSolicitudes = new FormulaDefinicionFecha();
 
             using (db = new SIMEFContext())
             {
-                envioSolicitudes = db.Database.SqlQuery<FormulasDefinicionFecha>
+                envioSolicitudes = db.Database.SqlQuery<FormulaDefinicionFecha>
                 ("execute spActualizarFormulasDefinicionFecha @pIdFormulasDefinicionFecha, @pFechaInicio, @pFechaFinal, @pIdUnidadMedida, @pIdTipoFechaInicio, @pIdTipoFechaFinal, @pIdCategoriaInicio, @pIdCategoriaFinal, @pIdIndicador",
-                    new SqlParameter("@pIdFormulasDefinicionFecha", pFormulasDefinicionFecha.IdFormulasDefinicionFecha),
+                    new SqlParameter("@pIdFormulasDefinicionFecha", pFormulasDefinicionFecha.IdFormulaDefinicionFecha),
                     pFormulasDefinicionFecha.FechaInicio <= DateTime.MinValue || pFormulasDefinicionFecha.FechaInicio == null ?
                         new SqlParameter("@pFechaInicio", DBNull.Value)
                         :
@@ -40,15 +40,15 @@ namespace GB.SIMEF.DAL
                     new SqlParameter("@pIdUnidadMedida", pFormulasDefinicionFecha.IdUnidadMedida),
                     new SqlParameter("@pIdTipoFechaInicio", pFormulasDefinicionFecha.IdTipoFechaInicio),
                     new SqlParameter("@pIdTipoFechaFinal", pFormulasDefinicionFecha.IdTipoFechaFinal),
-                    pFormulasDefinicionFecha.IdCategoriaInicio == null || pFormulasDefinicionFecha.IdCategoriaInicio == 0 ?
+                    pFormulasDefinicionFecha.IdCategoriaDesagregacionInicio == null || pFormulasDefinicionFecha.IdCategoriaDesagregacionInicio == 0 ?
                         new SqlParameter("@pIdCategoriaInicio", DBNull.Value)
                         :    
-                        new SqlParameter("@pIdCategoriaInicio", pFormulasDefinicionFecha.IdCategoriaInicio),
+                        new SqlParameter("@pIdCategoriaInicio", pFormulasDefinicionFecha.IdCategoriaDesagregacionInicio),
 
-                    pFormulasDefinicionFecha.IdCategoriaFinal == null || pFormulasDefinicionFecha.IdCategoriaFinal == 0 ?
+                    pFormulasDefinicionFecha.IdCategoriaDesagregacionFinal == null || pFormulasDefinicionFecha.IdCategoriaDesagregacionFinal == 0 ?
                         new SqlParameter("@pIdCategoriaFinal", DBNull.Value)
                         :
-                        new SqlParameter("@pIdCategoriaFinal", pFormulasDefinicionFecha.IdCategoriaFinal),
+                        new SqlParameter("@pIdCategoriaFinal", pFormulasDefinicionFecha.IdCategoriaDesagregacionFinal),
                     new SqlParameter("@pIdIndicador", pFormulasDefinicionFecha.IdIndicador)
                 ).FirstOrDefault();
             }
@@ -62,13 +62,13 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasDefinicionFecha"></param>
         /// <returns></returns>
-        public List<FormulasDefinicionFecha> ObtenerDatos(FormulasDefinicionFecha pFormulasDefinicionFecha)
+        public List<FormulaDefinicionFecha> ObtenerDatos(FormulaDefinicionFecha pFormulasDefinicionFecha)
         {
-            List<FormulasDefinicionFecha> listaDetalles = new List<FormulasDefinicionFecha>();
+            List<FormulaDefinicionFecha> listaDetalles = new List<FormulaDefinicionFecha>();
 
             using (db = new SIMEFContext())
             {
-                listaDetalles = db.Database.SqlQuery<FormulasDefinicionFecha>
+                listaDetalles = db.Database.SqlQuery<FormulaDefinicionFecha>
                     (
                         "execute spObtenerDefinicionFechasFormulas @pIdFormula",
                         pFormulasDefinicionFecha.IdFormula == 0 ?

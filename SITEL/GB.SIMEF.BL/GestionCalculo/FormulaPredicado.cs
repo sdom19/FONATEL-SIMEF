@@ -17,7 +17,7 @@ namespace GB.SIMEF.BL.GestionCalculo
     {
         private IArgumento argumento; // mantener una referencia al tipo de argumento a construir 
         private ArgumentoFormula argumentoFormula;
-        private FormulasCalculo formulasCalculo;
+        private FormulaCalculo formulasCalculo;
 
         /// <summary>
         /// 21/01/2023
@@ -47,7 +47,7 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// Establecer el objeto Formula de Calculo
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
-        public void SetFormulasCalculo(FormulasCalculo pFormulasCalculo)
+        public void SetFormulasCalculo(FormulaCalculo pFormulasCalculo)
         {
             formulasCalculo = pFormulasCalculo;
         }

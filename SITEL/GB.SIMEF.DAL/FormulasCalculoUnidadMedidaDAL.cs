@@ -17,9 +17,12 @@ namespace GB.SIMEF.DAL
         /// Función que permite obtener un listado de las unidad de medida de la deficion de fecha en estado activo
         /// </summary>
         /// <returns></returns>
-        public List<FormulasCalculoUnidadMedida> ObtenerDatos()
+        public List<FormulaCalculoUnidadMedida> ObtenerDatos()
         {
-            return db.FormulasCalculoUnidadMedida.Where(x => x.Estado == true).ToList();
+            using (db = new SIMEFContext())
+            {
+                return db.FormulaCalculoUnidadMedida.Where(x => x.Estado == true).ToList();
+            }
         }
     }
 }

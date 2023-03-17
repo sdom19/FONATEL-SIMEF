@@ -99,7 +99,7 @@ namespace GB.SIMEF.DAL
             {
                 listaIndicadores = db.Database.SqlQuery<Indicador>(
                     string.Format(
-                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorDGM] " +
+                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[vw_IndicadorDGM] " +
                         "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'", 
                         pIndicador.TipoIndicadores.IdTipoIndicador,
                         pServicioSitel.IdServicio,
@@ -520,9 +520,9 @@ namespace GB.SIMEF.DAL
         private GrupoIndicador ObtenerGrupoIndicadores(int pId, bool pUnicamenteActivos = false)
         {
             GrupoIndicador grupo = pUnicamenteActivos ?
-                db.GrupoIndicadores.Where(i => i.IdGrupoIndicador == pId && i.Estado == true).FirstOrDefault()
+                db.GrupoIndicador.Where(i => i.IdGrupoIndicador == pId && i.Estado == true).FirstOrDefault()
                 :
-                db.GrupoIndicadores.Where(i => i.IdGrupoIndicador == pId).FirstOrDefault();
+                db.GrupoIndicador.Where(i => i.IdGrupoIndicador == pId).FirstOrDefault();
 
             if (grupo != null)
             {

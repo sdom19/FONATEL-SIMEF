@@ -19,9 +19,9 @@ namespace GB.SIMEF.Entities.DTO
         /// Función que ejecuta el mapeo hacia el modelo FormulasVariableDatoCriterio
         /// </summary>
         /// <returns></returns>
-        public FormulasVariableDatoCriterio ConvertToVariableDatoCriterio()
+        public FormulaVariableDatoCriterio ConvertToVariableDatoCriterio()
         {
-            return new FormulasVariableDatoCriterio()
+            return new FormulaVariableDatoCriterio()
             {
                 IdFuenteIndicadorString = Argumento.fuente,
                 IdVariableDatoString = Argumento.variableDatoCriterio,
@@ -40,9 +40,9 @@ namespace GB.SIMEF.Entities.DTO
         /// Función que ejecuta el mapeo hacia el modelo FormulasDefinicionFecha
         /// </summary>
         /// <returns></returns>
-        public FormulasDefinicionFecha ConvertToFormulasDefinicionFecha()
+        public FormulaDefinicionFecha ConvertToFormulasDefinicionFecha()
         {
-            return new FormulasDefinicionFecha()
+            return new FormulaDefinicionFecha()
             {
                 IdUnidadMedida = Argumento.unidadMedida,
                 IdTipoFechaInicioString = Argumento.tipoFechaInicio,

@@ -87,11 +87,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public ActionResult Create()
         {
-            CargarDatosEnVistas(Accion.Insertar, new FormulasCalculo());
+            CargarDatosEnVistas(Accion.Insertar, new FormulaCalculo());
             ViewBag.ModoFormulario = ((int)Accion.Insertar).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
 
-            return View(new FormulasCalculo());
+            return View(new FormulaCalculo());
         }
 
         [HttpGet]
@@ -101,11 +101,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (string.IsNullOrEmpty(id))
                 return View("Index");
 
-            FormulasCalculo objFormulaCalculo = null;
+            FormulaCalculo objFormulaCalculo = null;
 
             try
             {
-                objFormulaCalculo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
+                objFormulaCalculo = formulaBL.ObtenerDatos(new FormulaCalculo() { id = id }).objetoRespuesta.Single();
             }
             catch (Exception) { }
 
@@ -129,11 +129,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (string.IsNullOrEmpty(id))
                 return View("Index");
 
-            FormulasCalculo objFormulaCalculo = null;
+            FormulaCalculo objFormulaCalculo = null;
 
             try
             {
-                objFormulaCalculo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
+                objFormulaCalculo = formulaBL.ObtenerDatos(new FormulaCalculo() { id = id }).objetoRespuesta.Single();
             }
             catch (Exception) { }
 
@@ -158,11 +158,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (string.IsNullOrEmpty(id))
                 return View("Index");
 
-            FormulasCalculo objFormulaCalculo = null;
+            FormulaCalculo objFormulaCalculo = null;
 
             try
             {
-                objFormulaCalculo = formulaBL.ObtenerDatos(new FormulasCalculo() { id = id }).objetoRespuesta.Single();
+                objFormulaCalculo = formulaBL.ObtenerDatos(new FormulaCalculo() { id = id }).objetoRespuesta.Single();
             }
             catch (Exception) { }
 
@@ -188,10 +188,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerListaFormulas()
         {
-            RespuestaConsulta<List<FormulasCalculo>> result = null;
+            RespuestaConsulta<List<FormulaCalculo>> result = null;
             await Task.Run(() =>
             {
-                result = formulaBL.ObtenerDatos(new FormulasCalculo());
+                result = formulaBL.ObtenerDatos(new FormulaCalculo());
             });
 
             return JsonConvert.SerializeObject(result);
@@ -206,9 +206,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> EliminarFormula(FormulasCalculo pFormulaCalculo)
+        public async Task<string> EliminarFormula(FormulaCalculo pFormulaCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
 
             if (string.IsNullOrEmpty(pFormulaCalculo.id))
             {
@@ -217,10 +217,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
-            FormulasCalculo formulaAEnviar = new FormulasCalculo()
+            FormulaCalculo formulaAEnviar = new FormulaCalculo()
             {
                 id = pFormulaCalculo.id,
-                IdEstado = (int)EstadosRegistro.Eliminado
+                IdEstadoRegistro = (int)EstadosRegistro.Eliminado
             };
 
             resultado = await formulaBL.CambiarEstadoJob(formulaAEnviar);
@@ -243,9 +243,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> ActivarFormula(FormulasCalculo pFormulaCalculo)
+        public async Task<string> ActivarFormula(FormulaCalculo pFormulaCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
 
             if (string.IsNullOrEmpty(pFormulaCalculo.id))
             {
@@ -254,10 +254,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
-            FormulasCalculo formulaAEnviar = new FormulasCalculo()
+            FormulaCalculo formulaAEnviar = new FormulaCalculo()
             {
                 id = pFormulaCalculo.id,
-                IdEstado = (int)EstadosRegistro.Activo
+                IdEstadoRegistro = (int)EstadosRegistro.Activo
             };
 
             await Task.Run(() =>
@@ -280,9 +280,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> DesactivarFormula(FormulasCalculo pFormulaCalculo)
+        public async Task<string> DesactivarFormula(FormulaCalculo pFormulaCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
 
             if (string.IsNullOrEmpty(pFormulaCalculo.id))
             {
@@ -291,10 +291,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
-            FormulasCalculo formulaAEnviar = new FormulasCalculo()
+            FormulaCalculo formulaAEnviar = new FormulaCalculo()
             {
                 id = pFormulaCalculo.id,
-                IdEstado = (int)EstadosRegistro.Desactivado
+                IdEstadoRegistro = (int)EstadosRegistro.Desactivado
             };
 
             await Task.Run(() =>
@@ -541,13 +541,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> CrearFormulaCalculo(FormulasCalculo pFormulaCalculo)
+        public async Task<string> CrearFormulaCalculo(FormulaCalculo pFormulaCalculo)
         {
             modoFormulario = (string)Session[keyModoFormulario];
 
             if (modoFormulario.Equals(((int)Accion.Visualizar).ToString()))
             {
-                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorSistema });
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulaCalculo>() { HayError = (int)Error.ErrorSistema });
             }
 
             string mensajesValidacion = ValidarObjectoCrearFormulaCalculo(pFormulaCalculo);
@@ -555,17 +555,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (!string.IsNullOrEmpty(mensajesValidacion))
             {
                 return JsonConvert.SerializeObject(
-                    new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorControlado, MensajeError = mensajesValidacion });
+                    new RespuestaConsulta<FormulaCalculo>() { HayError = (int)Error.ErrorControlado, MensajeError = mensajesValidacion });
             }
 
-            pFormulaCalculo.IdEstado = (int)EstadosRegistro.EnProceso;
+            pFormulaCalculo.IdEstadoRegistro = (int)EstadosRegistro.EnProceso;
             pFormulaCalculo.UsuarioCreacion = usuario;
             pFormulaCalculo.IdFormula = 0;
-            pFormulaCalculo.IdFrecuencia = 0;
+            pFormulaCalculo.IdFrecuenciaEnvio = 0;
             pFormulaCalculo.IdIndicador = 0;
-            pFormulaCalculo.IdIndicadorVariable = 0;
+            pFormulaCalculo.IdDetalleIndicadorVariable = 0;
 
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
 
             await Task.Run(() =>
             {
@@ -573,7 +573,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 pFormulaCalculo = resultado.objetoRespuesta[0];
             });
 
-            RespuestaConsulta<List<FormulasCalculo>> resultadoJob = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultadoJob = new RespuestaConsulta<List<FormulaCalculo>>();
 
             if (resultado.HayError == (int)Error.NoError)
             {
@@ -592,19 +592,19 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> EditarFormulaCalculo(FormulasCalculo pFormulaCalculo)
+        public async Task<string> EditarFormulaCalculo(FormulaCalculo pFormulaCalculo)
         {
             modoFormulario = (string)Session[keyModoFormulario];
 
             if (modoFormulario.Equals(((int)Accion.Visualizar).ToString()))
             {
-                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorSistema });
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulaCalculo>() { HayError = (int)Error.ErrorSistema });
             }
 
             if (string.IsNullOrEmpty(pFormulaCalculo.id))
             {
                 return JsonConvert.SerializeObject(
-                    new RespuestaConsulta<List<FormulasCalculo>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
+                    new RespuestaConsulta<List<FormulaCalculo>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
             }
 
             // tanto crear, clonar y editar pueden actualizar la fórmula, asi que se debe diferenciar la acción
@@ -612,7 +612,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 try
                 {
-                    FormulasCalculo objFormular = formulaBL.ObtenerDatos(new FormulasCalculo() { id = pFormulaCalculo.id }).objetoRespuesta.FirstOrDefault();
+                    FormulaCalculo objFormular = formulaBL.ObtenerDatos(new FormulaCalculo() { id = pFormulaCalculo.id }).objetoRespuesta.FirstOrDefault();
                     pFormulaCalculo.Codigo = objFormular.Codigo;
                 }
                 catch (Exception)
@@ -627,17 +627,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (!string.IsNullOrEmpty(mensajesValidacion))
             {
                 return JsonConvert.SerializeObject(
-                    new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorControlado, MensajeError = mensajesValidacion });
+                    new RespuestaConsulta<FormulaCalculo>() { HayError = (int)Error.ErrorControlado, MensajeError = mensajesValidacion });
             }
 
-            pFormulaCalculo.IdEstado = (int)EstadosRegistro.EnProceso;
+            pFormulaCalculo.IdEstadoRegistro = (int)EstadosRegistro.EnProceso;
             pFormulaCalculo.IdFormula = 0;
-            pFormulaCalculo.IdFrecuencia = 0;
+            pFormulaCalculo.IdFrecuenciaEnvio = 0;
             pFormulaCalculo.IdIndicador = 0;
-            pFormulaCalculo.IdIndicadorVariable = 0;
+            pFormulaCalculo.IdDetalleIndicadorVariable = 0;
             pFormulaCalculo.UsuarioModificacion = usuario;
 
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
 
             await Task.Run(() =>
             {
@@ -661,13 +661,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> ClonarFormulaCalculo(FormulasCalculo pFormulaCalculo)
+        public async Task<string> ClonarFormulaCalculo(FormulaCalculo pFormulaCalculo)
         {
             modoFormulario = (string)Session[keyModoFormulario];
 
             if (modoFormulario.Equals(((int)Accion.Visualizar).ToString()))
             {
-                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorSistema });
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulaCalculo>() { HayError = (int)Error.ErrorSistema });
             }
 
             if (string.IsNullOrEmpty(pFormulaCalculo.id)) // id indicador requerido
@@ -681,14 +681,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             pFormulaCalculo.IdFormula = 0;
 
             string creacionFormula = await CrearFormulaCalculo(pFormulaCalculo);
-            RespuestaConsulta<List<FormulasCalculo>> formulaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<FormulasCalculo>>>(creacionFormula);
+            RespuestaConsulta<List<FormulaCalculo>> formulaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<FormulaCalculo>>>(creacionFormula);
 
             if (formulaDeserializado.HayError != (int)Error.NoError) // se creó la formula (paso 1) correctamente?
             {
                 return creacionFormula;
             }
 
-            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            RespuestaConsulta<FormulaCalculo> resultado = new RespuestaConsulta<FormulaCalculo>();
 
             await Task.Run(() =>
             {
@@ -716,16 +716,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
             }
 
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
 
             await Task.Run(() =>
             {
-                resultado = formulaBL.GuardadoDefinitivoFormulaCalculo(new FormulasCalculo() { id = pIdFormulaCalculo });
+                resultado = formulaBL.GuardadoDefinitivoFormulaCalculo(new FormulaCalculo() { id = pIdFormulaCalculo });
             });
 
             if (resultado.HayError == (int)Error.NoError)
             {
-                resultado = await formulaBL.CrearJobEnMotor(new FormulasCalculo() { id = pIdFormulaCalculo, UsuarioCreacion = usuario });
+                resultado = await formulaBL.CrearJobEnMotor(new FormulaCalculo() { id = pIdFormulaCalculo, UsuarioCreacion = usuario });
             }
 
             return JsonConvert.SerializeObject(resultado);
@@ -748,7 +748,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
             }
 
-            RespuestaConsulta<List<FormulasCalculo>> resultado = await formulaBL.EjecutarJobFormulaManualmente(new FormulasCalculo() { id = pIdFormulaCalculo });
+            RespuestaConsulta<List<FormulaCalculo>> resultado = await formulaBL.EjecutarJobFormulaManualmente(new FormulaCalculo() { id = pIdFormulaCalculo });
 
             return JsonConvert.SerializeObject(resultado);
         }
@@ -1058,9 +1058,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pListaArgumentos"></param>
         /// <returns></returns
         [HttpPost]
-        public async Task<string> CrearDetallesFormulaCalculo(FormulasCalculo pFormulaCalculo, List<ArgumentoConstruidoDTO> pListaArgumentos)
+        public async Task<string> CrearDetallesFormulaCalculo(FormulaCalculo pFormulaCalculo, List<ArgumentoConstruidoDTO> pListaArgumentos)
         {
-            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            RespuestaConsulta<FormulaCalculo> resultado = new RespuestaConsulta<FormulaCalculo>();
 
             if (string.IsNullOrEmpty(pFormulaCalculo.id))
             {
@@ -1090,11 +1090,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerTiposFechasDefinicion()
         {
-            RespuestaConsulta<List<FormulasCalculoTipoFecha>> resultado = new RespuestaConsulta<List<FormulasCalculoTipoFecha>>();
+            RespuestaConsulta<List<FormulaCalculoTipoFecha>> resultado = new RespuestaConsulta<List<FormulaCalculoTipoFecha>>();
 
             await Task.Run(() =>
             {
-                resultado = formulasCalculoTipoFechaBL.ObtenerDatos(new FormulasCalculoTipoFecha());
+                resultado = formulasCalculoTipoFechaBL.ObtenerDatos(new FormulaCalculoTipoFecha());
             });
             return JsonConvert.SerializeObject(resultado);
         }
@@ -1113,7 +1113,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (string.IsNullOrEmpty(pIdFormula))
             {
-                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulasCalculo>() { HayError = (int)Error.ErrorSistema });
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulaCalculo>() { HayError = (int)Error.ErrorSistema });
             }
 
             await Task.Run(() =>
@@ -1133,7 +1133,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// José Navarro Acuña
         /// Método que permite cargar los datos necesarios del formulario de Fórmulas de Cálculo
         /// </summary>
-        private void CargarDatosEnVistas(Accion pAccionPantalla, FormulasCalculo pFormulasDeCalculo)
+        private void CargarDatosEnVistas(Accion pAccionPantalla, FormulaCalculo pFormulasDeCalculo)
         {
             ViewBag.VariablesDato = Enumerable.Empty<SelectListItem>();
             ViewBag.CategoriasDeIndicador = Enumerable.Empty<SelectListItem>();
@@ -1204,7 +1204,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <param name="pFormulaCalculo"></param>
         /// <param name="pEsGuardadoParcial"></param>
         /// <returns></returns>
-        private string ValidarObjectoCrearFormulaCalculo(FormulasCalculo pFormulaCalculo)
+        private string ValidarObjectoCrearFormulaCalculo(FormulaCalculo pFormulaCalculo)
         {
             if (!pFormulaCalculo.EsGuardadoParcial)
             {

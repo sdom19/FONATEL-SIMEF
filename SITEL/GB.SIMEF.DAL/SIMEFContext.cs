@@ -51,15 +51,15 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<RelacionCategoriaAtributo> RelacionCategoriaAtributo { get; set; }
         //public virtual DbSet<FormulaIndicadorFecha> FormulaIndicadorFecha { get; set; }
         //public virtual DbSet<FormulaIndicadorMC> FormulaIndicadorMC { get; set; }
-        public virtual DbSet<FormulasNivelCalculoCategoria> FormulasNivelCalculoCategoria { get; set; }
+        public virtual DbSet<FormulaNivelCalculoCategoria> FormulaNivelCalculoCategoria { get; set; }
         public virtual DbSet<FormularioWeb> FormularioWeb { get; set; }
-        public virtual DbSet<FormulasCalculo> FormulasCalculo { get; set; }
+        public virtual DbSet<FormulaCalculo> FormulaCalculo { get; set; }
         //public virtual DbSet<FormulasCalculoDetalle> FormulasCalculoDetalle { get; set; }
         //public virtual DbSet<FormulasOperador> FormulasOperador { get; set; }
         public virtual DbSet<FrecuenciaEnvio> FrecuenciaEnvio { get; set; }
         //public virtual DbSet<FuenteIndicador> FuenteIndicador { get; set; }
         public virtual DbSet<FuenteRegistro> FuentesRegistro { get; set; }
-        public virtual DbSet<GrupoIndicador> GrupoIndicadores { get; set; }
+        public virtual DbSet<GrupoIndicador> GrupoIndicador { get; set; }
         public virtual DbSet<Indicador> Indicador { get; set; }
         
         public virtual DbSet<Mes> Mes { get; set; }
@@ -84,14 +84,14 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<TipoMedida> TipoMedida { get; set; }
         public virtual DbSet<TipoReglaValidacion> TipoReglaValidacion { get; set; }
         public virtual DbSet<UnidadEstudio> UnidadEstudio { get; set; }
-        public virtual DbSet<DefinicionIndicador> DefinicionIndicadores { get; set; }
+        public virtual DbSet<DefinicionIndicador> DefinicionIndicador { get; set; }
         public virtual DbSet<ReglaIndicadorSalida> ReglaIndicadorSalida { get; set; }
         public virtual DbSet<ReglaIndicadorEntrada> ReglaIndicadorEntrada { get; set; }
         public virtual DbSet<ReglaIndicadorEntradaSalida> ReglaIndicadorEntradaSalida { get; set; }
         public virtual DbSet<RelacionCategoriaId> RelacionCategoriaId { get; set; }
 
         public virtual DbSet<AcumulacionFormula> AcumulacionFormula { get; set; }
-        public virtual DbSet<FormulasCalculoTipoFecha> FormulasCalculoTipoFecha { get; set; }
-        public virtual DbSet<FormulasCalculoUnidadMedida> FormulasCalculoUnidadMedida { get; set; }
+        public virtual DbSet<FormulaCalculoTipoFecha> FormulaCalculoTipoFecha { get; set; }
+        public virtual DbSet<FormulaCalculoUnidadMedida> FormulaCalculoUnidadMedida { get; set; }
     }
 }

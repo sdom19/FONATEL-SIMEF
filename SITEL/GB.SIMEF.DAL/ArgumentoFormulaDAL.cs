@@ -27,9 +27,9 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 argumento = db.Database.SqlQuery<ArgumentoFormula>
-                ("execute spActualizarArgumentoFormula @pIdArgumentoFormula, @pIdFormulasTipoArgumento, @pIdDefinicionFecha, @pIdVariableDatoCriterio, @pIdFormula, @pPredicadoSQL, @pOrdenEnFormula, @pEtiqueta",
+                ("execute pa_ActualizarArgumentoFormula @pIdArgumentoFormula, @pIdFormulaTipoArgumento, @pIdDefinicionFecha, @pIdVariableDatoCriterio, @pIdFormula, @pPredicadoSQL, @pOrdenEnFormula, @pEtiqueta",
                     new SqlParameter("@pIdArgumentoFormula", pArgumentoFormula.IdArgumentoFormula),
-                    new SqlParameter("@pIdFormulasTipoArgumento", pArgumentoFormula.IdFormulasTipoArgumento),
+                    new SqlParameter("@pIdFormulaTipoArgumento", pArgumentoFormula.IdFormulasTipoArgumento),
                     pArgumentoFormula.IdDefinicionFecha == 0 || pArgumentoFormula.IdDefinicionFecha == null ?
                         new SqlParameter("@pIdDefinicionFecha", DBNull.Value)
                         :
@@ -61,8 +61,8 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 exito = db.Database.SqlQuery<int>(
-                    "execute spEliminarArgumentosDeFormula @pIdFormula",
-                    new SqlParameter("@pIdFormula", pArgumentoFormula.IdFormula)
+                    "execute pa_EliminarArgumentoDeFormula @IdFormulaCalculo",
+                    new SqlParameter("@IdFormulaCalculo", pArgumentoFormula.IdFormula)
                 ).FirstOrDefault();
             }
             return exito == 1;

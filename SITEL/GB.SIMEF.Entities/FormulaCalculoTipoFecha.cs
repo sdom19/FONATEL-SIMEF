@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GB.SIMEF.Entities
 {
-    [Table("FormulasCalculoTipoFecha")]
-    public class FormulasCalculoTipoFecha
+    [Table("FormulaCalculoTipoFecha")]
+    public class FormulaCalculoTipoFecha
     {
         [Key]
-        public int IdTipoFecha { get; set; }
+        public int IdFormulaCalculoTipoFecha { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
 

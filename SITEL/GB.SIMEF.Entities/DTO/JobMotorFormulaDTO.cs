@@ -8,8 +8,8 @@ namespace GB.SIMEF.Entities.DTO
 {
     public class JobMotorFormulaDTO
     {
-        public Guid id { get; set; }
-        public DateTime createAt { get; set; }
-        public string status { get; set; }
+        public Guid idJob { get; set; }
+        public DateTime lanzado { get; set; }
+        public string estado { get; set; }
     }
 }

@@ -12,9 +12,9 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// Función que permite construir el predicado SQL del argumento
         /// </summary>
         /// <returns></returns>
-        public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulasCalculo pFormulasCalculo)
+        public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulaCalculo pFormulasCalculo)
         {
-            FormulasVariableDatoCriterio argumentoVariable = (FormulasVariableDatoCriterio)pArgumentoFormula;
+            FormulaVariableDatoCriterio argumentoVariable = (FormulaVariableDatoCriterio)pArgumentoFormula;
             string predicadoSQL = string.Empty;
 
             if (argumentoVariable.EsValorTotal)
@@ -22,8 +22,8 @@ namespace GB.SIMEF.BL.GestionCalculo
                 predicadoSQL = string.Format(
                     PredicadosSQLFormulasCalculo.fonatel_variablesDatoCriterio,
                     argumentoVariable.IdIndicador,
-                    argumentoVariable.IdAcumulacion,
-                    argumentoVariable.IdVariableDato,
+                    argumentoVariable.IdAcumulacionFormula,
+                    argumentoVariable.IdDetalleIndicadorVariable,
                     "null",
                     "null"
                 );
@@ -33,10 +33,10 @@ namespace GB.SIMEF.BL.GestionCalculo
                 predicadoSQL = string.Format(
                     PredicadosSQLFormulasCalculo.fonatel_variablesDatoCriterio,
                     argumentoVariable.IdIndicador,
-                    argumentoVariable.IdAcumulacion,
-                    argumentoVariable.IdVariableDato,
-                    argumentoVariable.IdCategoria,
-                    argumentoVariable.IdDetalleCategoria
+                    argumentoVariable.IdAcumulacionFormula,
+                    argumentoVariable.IdDetalleIndicadorVariable,
+                    argumentoVariable.IdCategoriaDesagregacion,
+                    argumentoVariable.IdDetalleCategoriaTexto
                 );
             }
             return predicadoSQL;

@@ -55,11 +55,11 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                FormulasCalculo formula = null;
+                FormulaCalculo formula = null;
 
-                formula = formulasCalculoDAL.ObtenerDatos(new FormulasCalculo() { IdFormula = idFormula }).Single();
-                List<FormulasVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulasVariableDatoCriterio() { IdFormula = idFormula });
-                List<FormulasDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulasDefinicionFecha() { IdFormula = idFormula });
+                formula = formulasCalculoDAL.ObtenerDatos(new FormulaCalculo() { IdFormula = idFormula }).Single();
+                List<FormulaVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormula = idFormula });
+                List<FormulaDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormula = idFormula });
                 
                 List<ArgumentoFormula> listaArgumentos = new List<ArgumentoFormula>();
                 listaArgumentos.AddRange(listadoVariables);
@@ -157,34 +157,34 @@ namespace GB.SIMEF.BL
         {
             if (pArgumentoFormula.IdFormulasTipoArgumento == (int) FormulasTipoArgumentoEnum.VariableDatoCriterio)
             {
-                FormulasVariableDatoCriterio variableDatoCriterio = (FormulasVariableDatoCriterio)pArgumentoFormula;
+                FormulaVariableDatoCriterio variableDatoCriterio = (FormulaVariableDatoCriterio)pArgumentoFormula;
                 return new ArgumentoDTO() 
                 { 
                     fuente = Utilidades.Encriptar(variableDatoCriterio.IdFuenteIndicador.ToString()),
                     indicador = Utilidades.Encriptar(variableDatoCriterio.IdIndicador.ToString()),
                     //codigoIndicador = variableDatoCriterio
-                    variableDatoCriterio = variableDatoCriterio.IdVariableDato != null ? Utilidades.Encriptar(variableDatoCriterio.IdVariableDato.ToString()) : Utilidades.Encriptar(variableDatoCriterio.IdCriterio.ToString()),
+                    variableDatoCriterio = variableDatoCriterio.IdDetalleIndicadorVariable != null ? Utilidades.Encriptar(variableDatoCriterio.IdDetalleIndicadorVariable.ToString()) : Utilidades.Encriptar(variableDatoCriterio.IdCriterio.ToString()),
                     //nombreVariable = variableDatoCriterio
-                    categoria = variableDatoCriterio.IdCategoria != null ? Utilidades.Encriptar(variableDatoCriterio.IdCategoria.ToString()) : null,
-                    detalle = variableDatoCriterio.IdDetalleCategoria != null ? Utilidades.Encriptar(variableDatoCriterio.IdDetalleCategoria.ToString()) : null,
-                    acumulacion = variableDatoCriterio.IdAcumulacion != null ? Utilidades.Encriptar(variableDatoCriterio.IdAcumulacion.ToString()) : null,
+                    categoria = variableDatoCriterio.IdCategoriaDesagregacion != null ? Utilidades.Encriptar(variableDatoCriterio.IdCategoriaDesagregacion.ToString()) : null,
+                    detalle = variableDatoCriterio.IdDetalleCategoriaTexto != null ? Utilidades.Encriptar(variableDatoCriterio.IdDetalleCategoriaTexto.ToString()) : null,
+                    acumulacion = variableDatoCriterio.IdAcumulacionFormula != null ? Utilidades.Encriptar(variableDatoCriterio.IdAcumulacionFormula.ToString()) : null,
                     valorTotal = variableDatoCriterio.EsValorTotal
                 };
             }
             else if (pArgumentoFormula.IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
             {
-                FormulasDefinicionFecha definicionFecha = (FormulasDefinicionFecha)pArgumentoFormula;
+                FormulaDefinicionFecha definicionFecha = (FormulaDefinicionFecha)pArgumentoFormula;
                 return new ArgumentoDTO()
                 {
                     indicador = Utilidades.Encriptar(definicionFecha.IdIndicador.ToString()),
                     unidadMedida = definicionFecha.IdUnidadMedida,
                     tipoFechaInicio = Utilidades.Encriptar(definicionFecha.IdTipoFechaInicio.ToString()),
                     fechaInicio = definicionFecha.FechaInicio != null ? (DateTime)definicionFecha.FechaInicio : DateTime.MinValue,
-                    categoriaInicio = definicionFecha.IdCategoriaInicio != null ? Utilidades.Encriptar(definicionFecha.IdCategoriaInicio?.ToString()) : null,
+                    categoriaInicio = definicionFecha.IdCategoriaDesagregacionInicio != null ? Utilidades.Encriptar(definicionFecha.IdCategoriaDesagregacionInicio?.ToString()) : null,
                     //nombreCategoriaInicio 
                     tipoFechaFinal = Utilidades.Encriptar(definicionFecha.IdTipoFechaFinal.ToString()),
                     fechaFinal = definicionFecha.FechaFinal != null ? (DateTime)definicionFecha.FechaFinal : DateTime.MinValue,
-                    categoriaFinal = definicionFecha.IdCategoriaFinal != null ? Utilidades.Encriptar(definicionFecha.IdCategoriaFinal?.ToString()) : null
+                    categoriaFinal = definicionFecha.IdCategoriaDesagregacionFinal != null ? Utilidades.Encriptar(definicionFecha.IdCategoriaDesagregacionFinal?.ToString()) : null
                     //nombreCategoriaFinal
                 };
             }

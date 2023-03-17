@@ -18,18 +18,18 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pIdFormula"></param>
         /// <returns></returns>
-        public List<FormulasNivelCalculoCategoria> ObtenerDatos(int pIdFormula)
+        public List<FormulaNivelCalculoCategoria> ObtenerDatos(int pIdFormula)
         {
-            List<FormulasNivelCalculoCategoria> detallesFormulas = new List<FormulasNivelCalculoCategoria>();
+            List<FormulaNivelCalculoCategoria> detallesFormulas = new List<FormulaNivelCalculoCategoria>();
 
             using (db = new SIMEFContext())
             {
-                detallesFormulas = db.FormulasNivelCalculoCategoria.Where(x => x.IdFormula == pIdFormula).ToList();
-                detallesFormulas = detallesFormulas.Select(x => new FormulasNivelCalculoCategoria()
+                detallesFormulas = db.FormulaNivelCalculoCategoria.Where(x => x.IdFormulaCalculo == pIdFormula).ToList();
+                detallesFormulas = detallesFormulas.Select(x => new FormulaNivelCalculoCategoria()
                 {
-                    id = Utilidades.Encriptar(x.IdFormulaNivel.ToString()),
+                    id = Utilidades.Encriptar(x.IdFormulaNivelCalculoCategoria.ToString()),
                     IdFormulaString = Utilidades.Encriptar(pIdFormula.ToString()),
-                    IdCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString())
+                    IdCategoriaString = Utilidades.Encriptar(x.IdCategoriaDesagregacion.ToString())
                 }).ToList();
             }
 
@@ -43,27 +43,27 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulaNivelCalculoCategoria"></param>
         /// <returns></returns>
-        public List<FormulasNivelCalculoCategoria> InsertarFormulaNivelCalculoCategoria(int pIdFormula, List<FormulasNivelCalculoCategoria> pListadoNivelesCalculo)
+        public List<FormulaNivelCalculoCategoria> InsertarFormulaNivelCalculoCategoria(int pIdFormula, List<FormulaNivelCalculoCategoria> pListadoNivelesCalculo)
         {
-            List<FormulasNivelCalculoCategoria> detallesFormulas = new List<FormulasNivelCalculoCategoria>();
+            List<FormulaNivelCalculoCategoria> detallesFormulas = new List<FormulaNivelCalculoCategoria>();
 
             using (db = new SIMEFContext())
             {
                 for (int i = 0; i < pListadoNivelesCalculo.Count; i++)
                 {
-                    FormulasNivelCalculoCategoria detalle = db.FormulasNivelCalculoCategoria.Add(
-                        new FormulasNivelCalculoCategoria()
+                    FormulaNivelCalculoCategoria detalle = db.FormulaNivelCalculoCategoria.Add(
+                        new FormulaNivelCalculoCategoria()
                         {
-                            IdFormula = pIdFormula,
-                            IdCategoria = pListadoNivelesCalculo[i].IdCategoria,
+                            IdFormulaCalculo = pIdFormula,
+                            IdCategoriaDesagregacion = pListadoNivelesCalculo[i].IdCategoriaDesagregacion,
                         });
 
                     detallesFormulas.Add(
-                        new FormulasNivelCalculoCategoria()
+                        new FormulaNivelCalculoCategoria()
                         {
-                            id = Utilidades.Encriptar(detalle.IdFormulaNivel.ToString()),
+                            id = Utilidades.Encriptar(detalle.IdFormulaNivelCalculoCategoria.ToString()),
                             IdFormulaString = Utilidades.Encriptar(pIdFormula.ToString()),
-                            IdCategoriaString = Utilidades.Encriptar(detalle.IdCategoria.ToString())
+                            IdCategoriaString = Utilidades.Encriptar(detalle.IdCategoriaDesagregacion.ToString())
                         });
                 }
                 db.SaveChanges();
@@ -82,14 +82,14 @@ namespace GB.SIMEF.DAL
         {
             using (db = new SIMEFContext())
             {
-                List<FormulasNivelCalculoCategoria> detallesFormula = db.FormulasNivelCalculoCategoria
-                    .Where(d => d.IdFormula == pIdFormula).ToList();
+                List<FormulaNivelCalculoCategoria> detallesFormula = db.FormulaNivelCalculoCategoria
+                    .Where(d => d.IdFormulaCalculo == pIdFormula).ToList();
 
                 if (detallesFormula.Count > 0)
                 {
                     for (int i = 0; i < detallesFormula.Count; i++)
                     {
-                        db.FormulasNivelCalculoCategoria.Remove(detallesFormula[i]);
+                        db.FormulaNivelCalculoCategoria.Remove(detallesFormula[i]);
                     }
                     db.SaveChanges();
                 }

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GB.SIMEF.Entities
 {
-    [Table("FormulasCalculoUnidadMedida")]
-    public class FormulasCalculoUnidadMedida
+    [Table("FormulaCalculoUnidadMedida")]
+    public class FormulaCalculoUnidadMedida
     {
         [Key]
-        public int IdUnidadMedida { get; set; }
+        public int IdFormulaCalculoUnidadMedida { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
 

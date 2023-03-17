@@ -4,18 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GB.SIMEF.Entities
 {
-    [Table("FormulasDefinicionFecha")]
-    public class FormulasDefinicionFecha : ArgumentoFormula
+    [Table("FormulaDefinicionFecha")]
+    public class FormulaDefinicionFecha : ArgumentoFormula
     {
         [Key]
-        public int IdFormulasDefinicionFecha { set; get; }
+        public int IdFormulaDefinicionFecha { set; get; }
         public DateTime? FechaInicio { set; get; }
         public DateTime? FechaFinal { set; get; }
         public int IdUnidadMedida { set; get; }
         public int IdTipoFechaInicio { set; get; }
         public int IdTipoFechaFinal { set; get; }
-        public int? IdCategoriaInicio { set; get; }
-        public int? IdCategoriaFinal { set; get; }
+        public int? IdCategoriaDesagregacionInicio { set; get; }
+        public int? IdCategoriaDesagregacionFinal { set; get; }
         public int IdIndicador { set; get; }
 
         [NotMapped]

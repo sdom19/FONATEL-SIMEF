@@ -16,18 +16,18 @@ namespace GB.SIMEF.DAL
         /// Se puede filtrar por el ID del objecto
         /// </summary>
         /// <returns></returns>
-        public List<FormulasCalculoTipoFecha> ObtenerDatos()
+        public List<FormulaCalculoTipoFecha> ObtenerDatos()
         {
-            List<FormulasCalculoTipoFecha> listaTipoIndicadores = new List<FormulasCalculoTipoFecha>();
+            List<FormulaCalculoTipoFecha> listaTipoIndicadores = new List<FormulaCalculoTipoFecha>();
 
             using (db = new SIMEFContext())
             {
-                listaTipoIndicadores = db.FormulasCalculoTipoFecha.Where(x => x.Estado == true).ToList();
+                listaTipoIndicadores = db.FormulaCalculoTipoFecha.Where(x => x.Estado == true).ToList();
 
-                listaTipoIndicadores = listaTipoIndicadores.Select(x => new FormulasCalculoTipoFecha()
+                listaTipoIndicadores = listaTipoIndicadores.Select(x => new FormulaCalculoTipoFecha()
                 {
-                    id = Utilidades.Encriptar(x.IdTipoFecha.ToString()),
-                    IdTipoFecha = x.IdTipoFecha,
+                    id = Utilidades.Encriptar(x.IdFormulaCalculoTipoFecha.ToString()),
+                    IdFormulaCalculoTipoFecha = x.IdFormulaCalculoTipoFecha,
                     Nombre = x.Nombre,
                     Estado = x.Estado
                 }).ToList();

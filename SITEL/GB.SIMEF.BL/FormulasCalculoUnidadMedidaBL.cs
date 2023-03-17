@@ -7,7 +7,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class FormulasCalculoUnidadMedidaBL : IMetodos<FormulasCalculoUnidadMedida>
+    public class FormulasCalculoUnidadMedidaBL : IMetodos<FormulaCalculoUnidadMedida>
     {
         private readonly FormulasCalculoUnidadMedidaDAL formulasCalculoUnidadMedidaDAL;
 
@@ -23,14 +23,14 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculoUnidadMedida"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FormulasCalculoUnidadMedida>> ObtenerDatos(FormulasCalculoUnidadMedida pFormulasCalculoUnidadMedida)
+        public RespuestaConsulta<List<FormulaCalculoUnidadMedida>> ObtenerDatos(FormulaCalculoUnidadMedida pFormulasCalculoUnidadMedida)
         {
-            RespuestaConsulta<List<FormulasCalculoUnidadMedida>> resultado = new RespuestaConsulta<List<FormulasCalculoUnidadMedida>>();
+            RespuestaConsulta<List<FormulaCalculoUnidadMedida>> resultado = new RespuestaConsulta<List<FormulaCalculoUnidadMedida>>();
 
             try
             {
                 resultado.Accion = (int)Accion.Consultar;
-                List<FormulasCalculoUnidadMedida> listado = formulasCalculoUnidadMedidaDAL.ObtenerDatos();
+                List<FormulaCalculoUnidadMedida> listado = formulasCalculoUnidadMedidaDAL.ObtenerDatos();
                 resultado.objetoRespuesta = listado;
                 resultado.CantidadRegistros = listado.Count();
             }
@@ -42,32 +42,32 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<FormulasCalculoUnidadMedida>> ActualizarElemento(FormulasCalculoUnidadMedida objeto)
+        public RespuestaConsulta<List<FormulaCalculoUnidadMedida>> ActualizarElemento(FormulaCalculoUnidadMedida objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FormulasCalculoUnidadMedida>> CambioEstado(FormulasCalculoUnidadMedida objeto)
+        public RespuestaConsulta<List<FormulaCalculoUnidadMedida>> CambioEstado(FormulaCalculoUnidadMedida objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FormulasCalculoUnidadMedida>> ClonarDatos(FormulasCalculoUnidadMedida objeto)
+        public RespuestaConsulta<List<FormulaCalculoUnidadMedida>> ClonarDatos(FormulaCalculoUnidadMedida objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FormulasCalculoUnidadMedida>> EliminarElemento(FormulasCalculoUnidadMedida objeto)
+        public RespuestaConsulta<List<FormulaCalculoUnidadMedida>> EliminarElemento(FormulaCalculoUnidadMedida objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FormulasCalculoUnidadMedida>> InsertarDatos(FormulasCalculoUnidadMedida objeto)
+        public RespuestaConsulta<List<FormulaCalculoUnidadMedida>> InsertarDatos(FormulaCalculoUnidadMedida objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FormulasCalculoUnidadMedida>> ValidarDatos(FormulasCalculoUnidadMedida objeto)
+        public RespuestaConsulta<List<FormulaCalculoUnidadMedida>> ValidarDatos(FormulaCalculoUnidadMedida objeto)
         {
             throw new NotImplementedException();
         }

@@ -16,9 +16,9 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// Función que permite construir el predicado SQL del argumento
         /// </summary>
         /// <returns></returns>
-        public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulasCalculo pFormulasCalculo)
+        public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulaCalculo pFormulasCalculo)
         {
-            FormulasVariableDatoCriterio argumentoCriterio = (FormulasVariableDatoCriterio)pArgumentoFormula;
+            FormulaVariableDatoCriterio argumentoCriterio = (FormulaVariableDatoCriterio)pArgumentoFormula;
             string predicadoSQL = string.Empty;
 
             if (argumentoCriterio.EsValorTotal)
@@ -34,7 +34,7 @@ namespace GB.SIMEF.BL.GestionCalculo
                 predicadoSQL = string.Format(
                     PredicadosSQLFormulasCalculo.mercados,
                     argumentoCriterio.IdCriterio,
-                    argumentoCriterio.IdDetalleCategoria
+                    argumentoCriterio.IdDetalleCategoriaTexto
                 );
             }
             return predicadoSQL;

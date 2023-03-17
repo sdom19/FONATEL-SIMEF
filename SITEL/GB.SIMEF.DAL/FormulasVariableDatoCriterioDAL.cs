@@ -19,41 +19,41 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasVariableDatoCriterio"></param>
         /// <returns></returns>
-        public FormulasVariableDatoCriterio ActualizarDatos(FormulasVariableDatoCriterio pFormulasVariableDatoCriterio)
+        public FormulaVariableDatoCriterio ActualizarDatos(FormulaVariableDatoCriterio pFormulasVariableDatoCriterio)
         {
-            FormulasVariableDatoCriterio variableDato = new FormulasVariableDatoCriterio();
+            FormulaVariableDatoCriterio variableDato = new FormulaVariableDatoCriterio();
 
             using (db = new SIMEFContext())
             {
-                variableDato = db.Database.SqlQuery<FormulasVariableDatoCriterio>
-                ("execute spActualizarFormulasVariableDatoCriterio @pIdFormulasVariableDatoCriterio, @pIdFuenteIndicador, @pIdIndicador, @pIdVariableDato, @pIdCriterio, @pIdCategoria, @pIdDetalleCategoria, @pIdAcumulacion, @pEsValorTotal",
-                    new SqlParameter("@pIdFormulasVariableDatoCriterio", pFormulasVariableDatoCriterio.IdFormulasVariableDatoCriterio),
+                variableDato = db.Database.SqlQuery<FormulaVariableDatoCriterio>
+                ("execute pa_ActualizarFormulaVariableDatoCriterio @pIdFormulaVariableDatoCriterio, @pIdFuenteIndicador, @pIdIndicador, @pIdDetalleIndicadorVariable, @pIdCriterio, @pidCategoriaDesagregacion, @pIdDetalleCategoriaTexto, @pIdAcumulacionFormula, @pEsValorTotal",
+                    new SqlParameter("@pIdFormulaVariableDatoCriterio", pFormulasVariableDatoCriterio.IdFormulaVariableDatoCriterio),
                     new SqlParameter("@pIdFuenteIndicador", pFormulasVariableDatoCriterio.IdFuenteIndicador),
                     new SqlParameter("@pIdIndicador", pFormulasVariableDatoCriterio.IdIndicador),
-                    pFormulasVariableDatoCriterio.IdVariableDato == null || pFormulasVariableDatoCriterio.IdVariableDato == 0 ?
-                        new SqlParameter("@pIdVariableDato", DBNull.Value)
+                    pFormulasVariableDatoCriterio.IdDetalleIndicadorVariable == null || pFormulasVariableDatoCriterio.IdDetalleIndicadorVariable == 0 ?
+                        new SqlParameter("@pIdDetalleIndicadorVariable", DBNull.Value)
                         :
-                        new SqlParameter("@pIdVariableDato", pFormulasVariableDatoCriterio.IdVariableDato),
+                        new SqlParameter("@pIdDetalleIndicadorVariable", pFormulasVariableDatoCriterio.IdDetalleIndicadorVariable),
 
                     string.IsNullOrEmpty(pFormulasVariableDatoCriterio.IdCriterio) ?
                         new SqlParameter("@pIdCriterio", DBNull.Value)
                         :
                         new SqlParameter("@pIdCriterio", pFormulasVariableDatoCriterio.IdCriterio),
 
-                    pFormulasVariableDatoCriterio.IdCategoria == null || pFormulasVariableDatoCriterio.IdCategoria == 0 ?
-                        new SqlParameter("@pIdCategoria", DBNull.Value)
+                    pFormulasVariableDatoCriterio.IdCategoriaDesagregacion == null || pFormulasVariableDatoCriterio.IdCategoriaDesagregacion == 0 ?
+                        new SqlParameter("@pidCategoriaDesagregacion", DBNull.Value)
                         :
-                        new SqlParameter("@pIdCategoria", pFormulasVariableDatoCriterio.IdCategoria),
+                        new SqlParameter("@pidCategoriaDesagregacion", pFormulasVariableDatoCriterio.IdCategoriaDesagregacion),
 
-                    pFormulasVariableDatoCriterio.IdDetalleCategoria == null || pFormulasVariableDatoCriterio.IdDetalleCategoria == 0 ?
-                        new SqlParameter("@pIdDetalleCategoria", DBNull.Value)
+                    pFormulasVariableDatoCriterio.IdDetalleCategoriaTexto == null || pFormulasVariableDatoCriterio.IdDetalleCategoriaTexto == 0 ?
+                        new SqlParameter("@pIdDetalleCategoriaTexto", DBNull.Value)
                         :
-                        new SqlParameter("@pIdDetalleCategoria", pFormulasVariableDatoCriterio.IdDetalleCategoria),
+                        new SqlParameter("@pIdDetalleCategoriaTexto", pFormulasVariableDatoCriterio.IdDetalleCategoriaTexto),
 
-                    pFormulasVariableDatoCriterio.IdAcumulacion == null || pFormulasVariableDatoCriterio.IdAcumulacion == 0 ?
-                        new SqlParameter("@pIdAcumulacion", DBNull.Value)
+                    pFormulasVariableDatoCriterio.IdAcumulacionFormula == null || pFormulasVariableDatoCriterio.IdAcumulacionFormula == 0 ?
+                        new SqlParameter("@pIdAcumulacionFormula", DBNull.Value)
                         :
-                        new SqlParameter("@pIdAcumulacion", pFormulasVariableDatoCriterio.IdAcumulacion)
+                        new SqlParameter("@pIdAcumulacionFormula", pFormulasVariableDatoCriterio.IdAcumulacionFormula)
                         ,
                     new SqlParameter("@pEsValorTotal", pFormulasVariableDatoCriterio.EsValorTotal)
                 ).FirstOrDefault();
@@ -69,19 +69,19 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasVariableDatoCriterio"></param>
         /// <returns></returns>
-        public List<FormulasVariableDatoCriterio> ObtenerDatos(FormulasVariableDatoCriterio pFormulasVariableDatoCriterio)
+        public List<FormulaVariableDatoCriterio> ObtenerDatos(FormulaVariableDatoCriterio pFormulasVariableDatoCriterio)
         {
-            List<FormulasVariableDatoCriterio> listaDetalles = new List<FormulasVariableDatoCriterio>();
+            List<FormulaVariableDatoCriterio> listaDetalles = new List<FormulaVariableDatoCriterio>();
 
             using (db = new SIMEFContext())
             {
-                listaDetalles = db.Database.SqlQuery<FormulasVariableDatoCriterio>
+                listaDetalles = db.Database.SqlQuery<FormulaVariableDatoCriterio>
                     (
-                        "execute spObtenerVariableDatoCriterioFormulas @pIdFormula",
+                        "execute pa_ObtenerVariableDatoCriterioFormula @pIdFormulaCalculo",
                         pFormulasVariableDatoCriterio.IdFormula == 0 ?
-                            new SqlParameter("@pIdFormula", DBNull.Value)
+                            new SqlParameter("@pIdFormulaCalculo", DBNull.Value)
                             :
-                            new SqlParameter("@pIdFormula", pFormulasVariableDatoCriterio.IdFormula)
+                            new SqlParameter("@pIdFormulaCalculo", pFormulasVariableDatoCriterio.IdFormula)
                     ).ToList();
             }
             return listaDetalles;

@@ -927,11 +927,11 @@ namespace GB.SIMEF.BL
                 formularioWebDAL.ActualizarDatos(formulario);
             }
             
-            List<FormulasCalculo> listaFormulas = formulasCalculoDAL.ObtenerDependenciasIndicadorConFormulasCalculo(pIndicador.IdIndicador);
+            List<FormulaCalculo> listaFormulas = formulasCalculoDAL.ObtenerDependenciasIndicadorConFormulasCalculo(pIndicador.IdIndicador);
 
-            foreach (FormulasCalculo formula in listaFormulas)
+            foreach (FormulaCalculo formula in listaFormulas)
             {
-                formula.IdEstado = (int)pNuevoEstado;
+                formula.IdEstadoRegistro = (int)pNuevoEstado;
                 formula.UsuarioModificacion = user;
                 formulasCalculoDAL.ActualizarDatos(formula);
             }

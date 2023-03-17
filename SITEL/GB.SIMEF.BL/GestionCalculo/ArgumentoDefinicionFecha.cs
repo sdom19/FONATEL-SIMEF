@@ -13,9 +13,9 @@ namespace GB.SIMEF.BL.GestionCalculo
         /// Función que permite construir el predicado SQL del argumento
         /// </summary>
         /// <returns></returns>
-        public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulasCalculo pFormulasCalculo)
+        public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulaCalculo pFormulasCalculo)
         {
-            FormulasDefinicionFecha argumentoFecha = (FormulasDefinicionFecha)pArgumentoFormula;
+            FormulaDefinicionFecha argumentoFecha = (FormulaDefinicionFecha)pArgumentoFormula;
 
             return string.Format(
                 PredicadosSQLFormulasCalculo.fonatel_definicionFechas,
@@ -23,11 +23,11 @@ namespace GB.SIMEF.BL.GestionCalculo
                 
                 argumentoFecha.IdTipoFechaInicio,
                 argumentoFecha.FechaInicio != null ? argumentoFecha.FechaInicio.ToString() : DateTime.MinValue.ToString(),
-                argumentoFecha.IdCategoriaInicio != null ? argumentoFecha.IdCategoriaInicio : 0,
+                argumentoFecha.IdCategoriaDesagregacionInicio != null ? argumentoFecha.IdCategoriaDesagregacionInicio : 0,
                 
                 argumentoFecha.IdTipoFechaFinal,
                 argumentoFecha.FechaFinal != null ? argumentoFecha.FechaFinal.ToString() : DateTime.MinValue.ToString(),
-                argumentoFecha.IdCategoriaFinal != null ? argumentoFecha.IdCategoriaFinal : 0
+                argumentoFecha.IdCategoriaDesagregacionFinal != null ? argumentoFecha.IdCategoriaDesagregacionFinal : 0
                 );
         }
     }

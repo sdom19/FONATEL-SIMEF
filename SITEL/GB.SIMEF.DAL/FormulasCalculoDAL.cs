@@ -21,6 +21,8 @@ namespace GB.SIMEF.DAL
     {
         private SIMEFContext db;
 
+        #region Funciones
+
         /// <summary>
         /// 17/08/2022
         /// José Navarro Acuña
@@ -28,15 +30,15 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public List<FormulasCalculo> ActualizarDatos(FormulasCalculo pFormulasCalculo)
+        public List<FormulaCalculo> ActualizarDatos(FormulaCalculo pFormulasCalculo)
         {
-            List<FormulasCalculo> listaformulas = new List<FormulasCalculo>();
+            List<FormulaCalculo> listaformulas = new List<FormulaCalculo>();
             using (db = new SIMEFContext())
             {
-                listaformulas = db.Database.SqlQuery<FormulasCalculo>
-                ("execute dbo.spActualizarFormulaCalculo " +
-                " @pIdFormula, @pCodigo, @pNombre, @pIdIndicador, @pIdIndicadorVariable, @pFechaCalculo, @pDescripcion, @pIdFrecuencia, @pNivelCalculoTotal, @pUsuarioModificacion, @pUsuarioCreacion, @pIdEstado",
-                     new SqlParameter("@pIdFormula", pFormulasCalculo.IdFormula),
+                listaformulas = db.Database.SqlQuery<FormulaCalculo>
+                ("execute dbo.pa_ActualizarFormulaCalculo " +
+                " @pIdFormulaCalculo, @pCodigo, @pNombre, @pIdIndicador, @pIdDetalleIndicadorVariable, @pFechaCalculo, @pDescripcion, @pIdFrecuenciaEnvio, @pNivelCalculoTotal, @pUsuarioModificacion, @pUsuarioCreacion, @pIdEstadoRegistro",
+                     new SqlParameter("@pIdFormulaCalculo", pFormulasCalculo.IdFormula),
                      new SqlParameter("@pCodigo", pFormulasCalculo.Codigo),
                      new SqlParameter("@pNombre", pFormulasCalculo.Nombre),
                      pFormulasCalculo.IdIndicador == 0 ?
@@ -44,10 +46,10 @@ namespace GB.SIMEF.DAL
                         :
                         new SqlParameter("@pIdIndicador", pFormulasCalculo.IdIndicador),
 
-                     pFormulasCalculo.IdIndicadorVariable == 0 ?
-                        new SqlParameter("@pIdIndicadorVariable", DBNull.Value)
+                     pFormulasCalculo.IdDetalleIndicadorVariable == 0 ?
+                        new SqlParameter("@pIdDetalleIndicadorVariable", DBNull.Value)
                         :
-                        new SqlParameter("@pIdIndicadorVariable", pFormulasCalculo.IdIndicadorVariable),
+                        new SqlParameter("@pIdDetalleIndicadorVariable", pFormulasCalculo.IdDetalleIndicadorVariable),
 
                      pFormulasCalculo.FechaCalculo == null ?
                         new SqlParameter("@pFechaCalculo", DBNull.Value)
@@ -61,10 +63,10 @@ namespace GB.SIMEF.DAL
 
                      new SqlParameter("@pNivelCalculoTotal", pFormulasCalculo.NivelCalculoTotal),
 
-                     pFormulasCalculo.IdFrecuencia == 0 ?
-                        new SqlParameter("@pIdFrecuencia", DBNull.Value)
+                     pFormulasCalculo.IdFrecuenciaEnvio == 0 ?
+                        new SqlParameter("@pIdFrecuenciaEnvio", DBNull.Value)
                         :
-                        new SqlParameter("@pIdFrecuencia", pFormulasCalculo.IdFrecuencia),
+                        new SqlParameter("@pIdFrecuenciaEnvio", pFormulasCalculo.IdFrecuenciaEnvio),
 
                      string.IsNullOrEmpty(pFormulasCalculo.UsuarioCreacion) ?
                         new SqlParameter("@pUsuarioCreacion", DBNull.Value)
@@ -76,10 +78,10 @@ namespace GB.SIMEF.DAL
                         :
                         new SqlParameter("@pUsuarioModificacion", pFormulasCalculo.UsuarioModificacion),
 
-                     new SqlParameter("@pIdEstado", pFormulasCalculo.IdEstado)
+                     new SqlParameter("@pIdEstadoRegistro", pFormulasCalculo.IdEstadoRegistro)
                     ).ToList();
 
-                listaformulas = listaformulas.Select(x => new FormulasCalculo()
+                listaformulas = listaformulas.Select(x => new FormulaCalculo()
                 {
                     id = Utilidades.Encriptar(x.IdFormula.ToString()),
                     IdFormula = x.IdFormula,
@@ -87,11 +89,11 @@ namespace GB.SIMEF.DAL
                     Nombre = x.Nombre,
                     Codigo = x.Codigo,
                     Descripcion = x.Descripcion,
-                    IdEstado = x.IdEstado,
+                    IdEstadoRegistro = x.IdEstadoRegistro,
 
-                    FrecuenciaEnvio = x.IdFrecuencia != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuencia) : null,
+                    FrecuenciaEnvio = x.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuenciaEnvio) : null,
                     IndicadorSalida = x.IdIndicador != null ? ObtenerIndicador((int)x.IdIndicador) : null,
-                    VariableSalida = x.IdIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdIndicadorVariable) : null,
+                    VariableSalida = x.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdDetalleIndicadorVariable) : null,
                     EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(x.IdFormula)
                 }).ToList();
             }
@@ -105,21 +107,21 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public FormulasCalculo ActualizarEtiquetaFormula(FormulasCalculo pFormulasCalculo)
+        public FormulaCalculo ActualizarEtiquetaFormula(FormulaCalculo pFormulasCalculo)
         {
-            FormulasCalculo formula = null;
+            FormulaCalculo formula = null;
 
             using (db = new SIMEFContext())
             {
-                formula = db.Database.SqlQuery<FormulasCalculo>("exec spActualizarEtiquetaFormula @pIdFormula, @pEtiquetaFormula, @pUsuarioModificacion",
-                    new SqlParameter("@pIdFormula", pFormulasCalculo.IdFormula),
+                formula = db.Database.SqlQuery<FormulaCalculo>("exec pa_ActualizarEtiquetaFormula @pIdFormulaCalculo, @pEtiquetaFormula, @pUsuarioModificacion",
+                    new SqlParameter("@pIdFormulaCalculo", pFormulasCalculo.IdFormula),
                     new SqlParameter("@pEtiquetaFormula", pFormulasCalculo.Formula),
                     new SqlParameter("@pUsuarioModificacion", pFormulasCalculo.UsuarioModificacion)
                     ).FirstOrDefault();
 
                 if (formula != null)
                 {
-                    formula = new FormulasCalculo()
+                    formula = new FormulaCalculo()
                     {
                         id = Utilidades.Encriptar(formula.IdFormula.ToString()),
                         IdFormula = formula.IdFormula,
@@ -127,11 +129,11 @@ namespace GB.SIMEF.DAL
                         Nombre = formula.Nombre,
                         Codigo = formula.Codigo,
                         Descripcion = formula.Descripcion,
-                        IdEstado = formula.IdEstado,
+                        IdEstadoRegistro = formula.IdEstadoRegistro,
 
-                        FrecuenciaEnvio = formula.IdFrecuencia != null ? ObtenerFrecuenciaEnvio((int)formula.IdFrecuencia) : null,
+                        FrecuenciaEnvio = formula.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)formula.IdFrecuenciaEnvio) : null,
                         IndicadorSalida = formula.IdIndicador != null ? ObtenerIndicador((int)formula.IdIndicador) : null,
-                        VariableSalida = formula.IdIndicadorVariable != null ? ObtenerVariableDatoSalida((int)formula.IdIndicadorVariable) : null,
+                        VariableSalida = formula.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)formula.IdDetalleIndicadorVariable) : null,
                         EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(formula.IdFormula)
                     };
                 }
@@ -147,13 +149,13 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public FormulasCalculo RegistrarJobEnFormula(FormulasCalculo pFormulasCalculo)
+        public FormulaCalculo RegistrarJobEnFormula(FormulaCalculo pFormulasCalculo)
         {
-            FormulasCalculo formula = null;
+            FormulaCalculo formula = null;
 
             using (db = new SIMEFContext())
             {
-                db.FormulasCalculo.Attach(pFormulasCalculo);
+                db.FormulaCalculo.Attach(pFormulasCalculo);
                 db.Entry(pFormulasCalculo).Property(r => r.IdJob).IsModified = true;
                 db.SaveChanges();
             }
@@ -165,31 +167,31 @@ namespace GB.SIMEF.DAL
         /// Michael Hernández C
         /// </summary>
         /// <returns></returns>
-        public List<FormulasCalculo> ObtenerDatos(FormulasCalculo pformulasCalculo)
+        public List<FormulaCalculo> ObtenerDatos(FormulaCalculo pformulasCalculo)
         {
-            List<FormulasCalculo> listaFormulasCalculo = new List<FormulasCalculo>();
+            List<FormulaCalculo> listaFormulasCalculo = new List<FormulaCalculo>();
 
             using (db = new SIMEFContext())
             {
-                listaFormulasCalculo = db.Database.SqlQuery<FormulasCalculo>
-                    ("execute spObtenerFormulasCalculo @IdFormula",
-                     new SqlParameter("@IdFormula", pformulasCalculo.IdFormula)
+                listaFormulasCalculo = db.Database.SqlQuery<FormulaCalculo>
+                    ("execute pa_ObtenerFormulaCalculo @pIdFormulaCalculo",
+                     new SqlParameter("@pIdFormulaCalculo", pformulasCalculo.IdFormula)
                     ).ToList();
 
                 bool esUnicoRegistro = pformulasCalculo.IdFormula != 0 && listaFormulasCalculo.Count == 1; // optimizar la consulta para 1 solo registro
 
-                listaFormulasCalculo = listaFormulasCalculo.Select(x => new FormulasCalculo()
+                listaFormulasCalculo = listaFormulasCalculo.Select(x => new FormulaCalculo()
                 {
                     id = Utilidades.Encriptar(x.IdFormula.ToString()),
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     Descripcion = x.Descripcion,
-                    IdEstado = x.IdEstado,
+                    IdEstadoRegistro = x.IdEstadoRegistro,
                     NivelCalculoTotal = x.NivelCalculoTotal,
-                    IdFrecuenciaString = Utilidades.Encriptar(x.IdFrecuencia.ToString()),
+                    IdFrecuenciaString = Utilidades.Encriptar(x.IdFrecuenciaEnvio.ToString()),
                     IdIndicadorSalidaString = Utilidades.Encriptar(x.IdIndicador.ToString()),
-                    IdVariableDatoString = Utilidades.Encriptar(x.IdIndicadorVariable.ToString()),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.IdEstado).Single(),
+                    IdVariableDatoString = Utilidades.Encriptar(x.IdDetalleIndicadorVariable.ToString()),
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.IdEstadoRegistro).Single(),
                     FechaCreacion = x.FechaCreacion,
                     FechaModificacion = x.FechaModificacion,
                     UsuarioCreacion = x.UsuarioCreacion,
@@ -198,9 +200,9 @@ namespace GB.SIMEF.DAL
                     Formula = x.Formula,
                     IdJob = x.IdJob,
 
-                    FrecuenciaEnvio = esUnicoRegistro && x.IdFrecuencia != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuencia) : null,
+                    FrecuenciaEnvio = esUnicoRegistro && x.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuenciaEnvio) : null,
                     IndicadorSalida = esUnicoRegistro && x.IdIndicador != null ? ObtenerIndicador((int)x.IdIndicador) : null,
-                    VariableSalida = esUnicoRegistro && x.IdIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdIndicadorVariable) : null,
+                    VariableSalida = esUnicoRegistro && x.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdDetalleIndicadorVariable) : null,
                     EtiquetaFormulaConArgumentos = esUnicoRegistro ? ObtenerEtiquetaFormulaConArgumentos(x.IdFormula) : null
                 }).ToList();
             }
@@ -215,38 +217,38 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
-        public List<FormulasCalculo> ObtenerDependenciasIndicadorConFormulasCalculo(int pIdIndicador)
+        public List<FormulaCalculo> ObtenerDependenciasIndicadorConFormulasCalculo(int pIdIndicador)
         {
-            List<FormulasCalculo> lista = new List<FormulasCalculo>();
+            List<FormulaCalculo> lista = new List<FormulaCalculo>();
 
             using (db = new SIMEFContext())
             {
-                lista = db.Database.SqlQuery<FormulasCalculo>
-                    ("execute spObtenerDependenciasIndicadorConFormulasCalculo @pIdIndicador",
+                lista = db.Database.SqlQuery<FormulaCalculo>
+                    ("execute pa_ObtenerDependenciaIndicadorConFormulaCalculo @pIdIndicador",
                      new SqlParameter("@pIdIndicador", pIdIndicador)
                     ).ToList();
 
-                lista = lista.Select(x => new FormulasCalculo()
+                lista = lista.Select(x => new FormulaCalculo()
                 {
                     id = Utilidades.Encriptar(x.IdFormula.ToString()),
                     IdFormula = x.IdFormula,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     Descripcion = x.Descripcion,
-                    IdEstado = x.IdEstado,
+                    IdEstadoRegistro = x.IdEstadoRegistro,
                     NivelCalculoTotal = x.NivelCalculoTotal,
-                    IdFrecuencia = x.IdFrecuencia,
+                    IdFrecuenciaEnvio = x.IdFrecuenciaEnvio,
                     IdIndicador = x.IdIndicador,
-                    IdIndicadorVariable = x.IdIndicadorVariable,
+                    IdDetalleIndicadorVariable = x.IdDetalleIndicadorVariable,
                     FechaCreacion = x.FechaCreacion,
                     FechaModificacion = x.FechaModificacion,
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     FechaCalculo = x.FechaCalculo,
 
-                    FrecuenciaEnvio = x.IdFrecuencia != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuencia) : null,
+                    FrecuenciaEnvio = x.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuenciaEnvio) : null,
                     IndicadorSalida = x.IdIndicador != null ? ObtenerIndicador((int)x.IdIndicador) : null,
-                    VariableSalida = x.IdIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdIndicadorVariable) : null,
+                    VariableSalida = x.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdDetalleIndicadorVariable) : null,
                     EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(x.IdFormula)
                 }).ToList();
             }
@@ -261,16 +263,16 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public FormulasCalculo VerificarExistenciaFormulaPorCodigoNombre(FormulasCalculo pFormulasCalculo)
+        public FormulaCalculo VerificarExistenciaFormulaPorCodigoNombre(FormulaCalculo pFormulasCalculo)
         {
-            FormulasCalculo formulasCalculo = null;
+            FormulaCalculo formulasCalculo = null;
 
             using (db = new SIMEFContext())
             {
-                formulasCalculo = db.FormulasCalculo.Where(x =>
+                formulasCalculo = db.FormulaCalculo.Where(x =>
                         (x.Nombre.Trim().ToUpper().Equals(pFormulasCalculo.Nombre.Trim().ToUpper()) || x.Codigo.Trim().ToUpper().Equals(pFormulasCalculo.Codigo.Trim().ToUpper())) &&
                         x.IdFormula != pFormulasCalculo.IdFormula &&
-                        x.IdEstado != (int)EstadosRegistro.Eliminado
+                        x.IdEstadoRegistro != (int)EstadosRegistro.Eliminado
                     ).FirstOrDefault();
             }
             return formulasCalculo;
@@ -284,13 +286,13 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pIdIdentificador"></param>
         /// <returns></returns>
-        public FormulasCalculo VerificarExistenciaFormulaPorID(int pIdIdentificador)
+        public FormulaCalculo VerificarExistenciaFormulaPorID(int pIdIdentificador)
         {
-            FormulasCalculo formula = null;
+            FormulaCalculo formula = null;
 
             using (db = new SIMEFContext())
             {
-                formula = db.FormulasCalculo.Where(x => x.IdFormula == pIdIdentificador && x.IdEstado != (int)EstadosRegistro.Eliminado).FirstOrDefault();
+                formula = db.FormulaCalculo.Where(x => x.IdFormula == pIdIdentificador && x.IdEstadoRegistro != (int)EstadosRegistro.Eliminado).FirstOrDefault();
             }
 
             return formula;
@@ -310,12 +312,14 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 formulaDTO = db.Database.SqlQuery<FormulaCalculoDTO>
-                    ("execute spVerificarSiFormulaEjecuto @pIdFormula",
-                     new SqlParameter("@pIdFormula", pIdFormula)
+                    ("execute pa_VerificarSiFormulaEjecuto @pIdFormulaCalculo",
+                     new SqlParameter("@pIdFormulaCalculo", pIdFormula)
                     ).FirstOrDefault();
             }
             return formulaDTO;
         }
+
+        #endregion
 
         #region Funciones de motor de cáculo
 
@@ -326,7 +330,7 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<JobMotorFormulaDTO> ObtenerJobMotor(FormulasCalculo pFormulasCalculo)
+        public async Task<JobMotorFormulaDTO> ObtenerJobMotor(FormulaCalculo pFormulasCalculo)
         {
             JobMotorFormulaDTO jobDTO = null;
 
@@ -354,28 +358,24 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<JobMotorFormulaDTO> CrearJobEnMotorAsync(FormulasCalculo pFormulasCalculo, bool pStartNow)
+        public async Task<JobMotorFormulaDTO> CrearJobEnMotorAsync(FormulaCalculo pFormulasCalculo, bool pStartNow)
         {
             JobMotorFormulaDTO jobDTO = null;
 
             using (var apiClient = new HttpClient())
             {
-                var payload = new
-                {
-                    user = pFormulasCalculo.UsuarioCreacion,
-                    application = ConfigurationManager.AppSettings["APIMotorApplicationId"].ToString(),
-                    dispatch = Dispatch_Task,
-                    periodicity = mapFrecuenciasConMotor[(FrecuenciaEnvioEnum) pFormulasCalculo.IdFrecuencia],
-                    startNow = pStartNow,
-                    startDate = pFormulasCalculo.FechaCalculo,
-                    parameters = new object[]
+                TareaJobMotorDTO payload = new TareaJobMotorDTO(
+                    pFormulasCalculo.UsuarioCreacion,
+                    ConfigurationManager.AppSettings["APIMotorApplicationId"].ToString(),
+                    Dispatch_Task,
+                    mapFrecuenciasConMotor[(FrecuenciaEnvioEnum)pFormulasCalculo.IdFrecuenciaEnvio],
+                    pStartNow,
+                    pFormulasCalculo.FechaCalculo,
+                    new ParametroTareaDTO[] 
                     {
-                        new {
-                            name = "Formula",
-                            value = pFormulasCalculo.IdFormula.ToString()
-                        }
+                        new ParametroTareaDTO("Formula", pFormulasCalculo.IdFormula.ToString())
                     }
-                };
+                );
 
                 var stringPayload = JsonConvert.SerializeObject(payload);
                 var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
@@ -401,21 +401,20 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<JobMotorFormulaDTO> ActualizarCalendarizacionJob(FormulasCalculo pFormulasCalculo)
+        public async Task<JobMotorFormulaDTO> ActualizarCalendarizacionJob(FormulaCalculo pFormulasCalculo)
         {
             JobMotorFormulaDTO jobDTO = null;
 
             using (var apiClient = new HttpClient())
             {
-                var payload = new
-                {
-                    periodicity = mapFrecuenciasConMotor[(FrecuenciaEnvioEnum)pFormulasCalculo.IdFrecuencia],
-                    startDate = pFormulasCalculo.FechaCalculo
-                };
+                TareaJobMotorDTO payload = new TareaJobMotorDTO(
+                    mapFrecuenciasConMotor[(FrecuenciaEnvioEnum)pFormulasCalculo.IdFrecuenciaEnvio],
+                    pFormulasCalculo.FechaCalculo
+                );
 
                 var stringPayload = JsonConvert.SerializeObject(payload);
                 var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/NewPeriodicity", httpContent);
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/NuevaPeriodicidad", httpContent);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -438,13 +437,13 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<JobMotorFormulaDTO> EjecutarJobExistente(FormulasCalculo pFormulasCalculo)
+        public async Task<JobMotorFormulaDTO> EjecutarJobExistente(FormulaCalculo pFormulasCalculo)
         {
             JobMotorFormulaDTO jobDTO = null;
 
             using (var apiClient = new HttpClient())
             {
-                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/LaunchNow", null);
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/LanzarAhora", null);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -467,14 +466,14 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<JobMotorFormulaDTO> CambiarEstadoJob(FormulasCalculo pFormulasCalculo)
+        public async Task<JobMotorFormulaDTO> CambiarEstadoJob(FormulaCalculo pFormulasCalculo)
         {
             JobMotorFormulaDTO jobDTO = null;
 
             using (var apiClient = new HttpClient())
             {
-                string estadoJob = mapEstadoFormulaConMotor[(EstadosRegistro)pFormulasCalculo.IdEstado];
-                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/Status/" + estadoJob, null);
+                string estadoJob = mapEstadoFormulaConMotor[(EstadosRegistro)pFormulasCalculo.IdEstadoRegistro];
+                HttpResponseMessage response = await apiClient.PostAsync(ConfigurationManager.AppSettings["APIMotorFormulas"].ToString() + "/Jobs/" + pFormulasCalculo.IdJob + "/Estado/" + estadoJob, null);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -526,8 +525,8 @@ namespace GB.SIMEF.DAL
         {
             string formula = string.Empty;
 
-            List<ArgumentoFormula> argumentos = db.Database.SqlQuery<ArgumentoFormula>("exec spObtenerEtiquetaFormulaConArgumentos @pIdFormula",
-                new SqlParameter("@pIdFormula", pIdFormula)
+            List<ArgumentoFormula> argumentos = db.Database.SqlQuery<ArgumentoFormula>("exec pa_ObtenerEtiquetaFormulaConArgumento @IdFormulaCalculo",
+                new SqlParameter("@IdFormulaCalculo", pIdFormula)
                 ).ToList();
 
             if (argumentos.Count > 0)

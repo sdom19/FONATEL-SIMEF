@@ -13,7 +13,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class FormulasCalculoBL : IMetodos<FormulasCalculo>
+    public class FormulasCalculoBL : IMetodos<FormulaCalculo>
     {
         readonly string modulo = string.Empty;
         readonly string user = string.Empty;
@@ -49,9 +49,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FormulasCalculo>> ActualizarElemento(FormulasCalculo pFormulasCalculo)
+        public RespuestaConsulta<List<FormulaCalculo>> ActualizarElemento(FormulaCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
             bool errorControlado = false;
 
             try
@@ -70,10 +70,10 @@ namespace GB.SIMEF.BL
                 }
 
                 // bitacora
-                FormulasCalculo formulaAntesDelCambio = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo).Single();
+                FormulaCalculo formulaAntesDelCambio = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo).Single();
                 // ---------
 
-                List<FormulasCalculo> formulaCalculo = formulasCalculoDAL.ActualizarDatos(pFormulasCalculo);
+                List<FormulaCalculo> formulaCalculo = formulasCalculoDAL.ActualizarDatos(pFormulasCalculo);
 
                 // en este punto tenemos la fórmula creada/actualizada
                 // eliminar las categorias del nivel de cálculo
@@ -113,9 +113,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public RespuestaConsulta<FormulasCalculo> ActualizarEtiquetaFormula(FormulasCalculo pFormulasCalculo, FormulasCalculo pFormulaCalculoAntesDeActualizar = null)
+        public RespuestaConsulta<FormulaCalculo> ActualizarEtiquetaFormula(FormulaCalculo pFormulasCalculo, FormulaCalculo pFormulaCalculoAntesDeActualizar = null)
         {
-            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            RespuestaConsulta<FormulaCalculo> resultado = new RespuestaConsulta<FormulaCalculo>();
             bool errorControlado = false;
 
             try
@@ -129,11 +129,11 @@ namespace GB.SIMEF.BL
                 }
 
                 // bitacora
-                FormulasCalculo formulaAntesDelCambio = pFormulaCalculoAntesDeActualizar == null ? formulasCalculoDAL.ObtenerDatos(pFormulasCalculo).Single() : pFormulaCalculoAntesDeActualizar;
+                FormulaCalculo formulaAntesDelCambio = pFormulaCalculoAntesDeActualizar == null ? formulasCalculoDAL.ObtenerDatos(pFormulasCalculo).Single() : pFormulaCalculoAntesDeActualizar;
                 // ---------
 
                 pFormulasCalculo.UsuarioModificacion = user;
-                FormulasCalculo formulaActualizada = formulasCalculoDAL.ActualizarEtiquetaFormula(pFormulasCalculo);
+                FormulaCalculo formulaActualizada = formulasCalculoDAL.ActualizarEtiquetaFormula(pFormulasCalculo);
 
                 resultado.Usuario = user;
                 resultado.Clase = modulo;
@@ -163,9 +163,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FormulasCalculo>> CambioEstado(FormulasCalculo pFormulasCalculo)
+        public RespuestaConsulta<List<FormulaCalculo>> CambioEstado(FormulaCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulaCalculo>>();
 
             try
             {
@@ -176,7 +176,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                FormulasCalculo formulaExistente = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo).FirstOrDefault();
+                FormulaCalculo formulaExistente = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo).FirstOrDefault();
 
                 if (formulaExistente == null) // ¿fórmula registrada?
                 {
@@ -186,19 +186,19 @@ namespace GB.SIMEF.BL
                 PrepararObjetoFormulaCalculo(formulaExistente);
 
                 // bitacora
-                FormulasCalculo formulaAntesDelCambio = formulaExistente.Shallowcopy();
+                FormulaCalculo formulaAntesDelCambio = formulaExistente.Shallowcopy();
                 //----------
 
                 formulaExistente.UsuarioModificacion = user;
-                formulaExistente.IdEstado = pFormulasCalculo.IdEstado;
-                List<FormulasCalculo> resultadoActualizar = formulasCalculoDAL.ActualizarDatos(formulaExistente);
+                formulaExistente.IdEstadoRegistro = pFormulasCalculo.IdEstadoRegistro;
+                List<FormulaCalculo> resultadoActualizar = formulasCalculoDAL.ActualizarDatos(formulaExistente);
 
                 // bitacora
-                FormulasCalculo formulaDespuesDelCambio = formulaExistente;
+                FormulaCalculo formulaDespuesDelCambio = formulaExistente;
                 //----------
 
                 resultadoConsulta.Clase = modulo;
-                resultadoConsulta.Accion = pFormulasCalculo.IdEstado;
+                resultadoConsulta.Accion = pFormulasCalculo.IdEstadoRegistro;
                 resultadoConsulta.Usuario = user;
                 resultadoConsulta.objetoRespuesta = resultadoActualizar;
                 resultadoConsulta.CantidadRegistros = resultadoActualizar.Count();
@@ -214,7 +214,7 @@ namespace GB.SIMEF.BL
             return resultadoConsulta;
         }
 
-        public RespuestaConsulta<List<FormulasCalculo>> ClonarDatos(FormulasCalculo objeto)
+        public RespuestaConsulta<List<FormulaCalculo>> ClonarDatos(FormulaCalculo objeto)
         {
             // la clonación se creó a travez de la creación y la carga inicial de la pantalla
             throw new NotImplementedException();
@@ -228,9 +228,9 @@ namespace GB.SIMEF.BL
         /// <param name="pFormulasCalculoClonada"></param>
         /// <param name="pIdFormulaArgumentosAClonar"></param>
         /// <returns></returns>
-        public RespuestaConsulta<FormulasCalculo> ClonarArgumentosDeFormula(FormulasCalculo pFormulasCalculoClonada, string pIdFormulaArgumentosAClonar)
+        public RespuestaConsulta<FormulaCalculo> ClonarArgumentosDeFormula(FormulaCalculo pFormulasCalculoClonada, string pIdFormulaArgumentosAClonar)
         {
-            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            RespuestaConsulta<FormulaCalculo> resultado = new RespuestaConsulta<FormulaCalculo>();
             int idFormulaArgumentosAClonar;
             bool errorControlado = false;
 
@@ -260,7 +260,7 @@ namespace GB.SIMEF.BL
                 ClonarFormulasDefinicionFechas(formulaPredicado, pFormulasCalculoClonada, idFormulaArgumentosAClonar);
 
                 // se debe obtener la etiqueta que representa la fórmula matemática. No se maneja desde js para evitar SQL Inyection
-                List<FormulasCalculo> formulaBasadaParaClonar = formulasCalculoDAL.ObtenerDatos(new FormulasCalculo() { IdFormula = idFormulaArgumentosAClonar });
+                List<FormulaCalculo> formulaBasadaParaClonar = formulasCalculoDAL.ObtenerDatos(new FormulaCalculo() { IdFormula = idFormulaArgumentosAClonar });
 
                 if (formulaBasadaParaClonar.Count <= 0)
                 {
@@ -284,7 +284,7 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<FormulasCalculo>> EliminarElemento(FormulasCalculo pFormulasCalculo)
+        public RespuestaConsulta<List<FormulaCalculo>> EliminarElemento(FormulaCalculo pFormulasCalculo)
         {
             throw new NotImplementedException();
         }
@@ -296,9 +296,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FormulasCalculo>> InsertarDatos(FormulasCalculo pFormulasCalculo)
+        public RespuestaConsulta<List<FormulaCalculo>> InsertarDatos(FormulaCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
             bool errorControlado = false;
 
             try
@@ -311,7 +311,7 @@ namespace GB.SIMEF.BL
                     return resultado;
                 }
 
-                List<FormulasCalculo> formulaCalculo = formulasCalculoDAL.ActualizarDatos(pFormulasCalculo);
+                List<FormulaCalculo> formulaCalculo = formulasCalculoDAL.ActualizarDatos(pFormulasCalculo);
 
                 // en este punto tenemos la fórmula creada/actualizada
                 // eliminar las categorias del nivel de cálculo
@@ -351,9 +351,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FormulasCalculo>> GuardadoDefinitivoFormulaCalculo(FormulasCalculo pFormulasCalculo)
+        public RespuestaConsulta<List<FormulaCalculo>> GuardadoDefinitivoFormulaCalculo(FormulaCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
             bool errorControlado = false;
 
             try
@@ -367,7 +367,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                FormulasCalculo formulaRegistrada = formulasCalculoDAL.VerificarExistenciaFormulaPorID(pFormulasCalculo.IdFormula);
+                FormulaCalculo formulaRegistrada = formulasCalculoDAL.VerificarExistenciaFormulaPorID(pFormulasCalculo.IdFormula);
 
                 if (formulaRegistrada == null) // la fórmula existe?
                 {
@@ -384,7 +384,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(msgFormulaCompleto);
                 }
 
-                pFormulasCalculo.IdEstado = (int)EstadosRegistro.Activo; // estado que representa "Finalizado"
+                pFormulasCalculo.IdEstadoRegistro = (int)EstadosRegistro.Activo; // estado que representa "Finalizado"
                 return CambioEstado(pFormulasCalculo); // reutilizar la función de cambio de estado
             }
             catch (Exception ex)
@@ -406,9 +406,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FormulasCalculo>> ObtenerDatos(FormulasCalculo pFormulasCalculo)
+        public RespuestaConsulta<List<FormulaCalculo>> ObtenerDatos(FormulaCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultadoConsulta = new RespuestaConsulta<List<FormulaCalculo>>();
 
             try
             {
@@ -422,7 +422,7 @@ namespace GB.SIMEF.BL
 
                 resultadoConsulta.Clase = modulo;
                 resultadoConsulta.Accion = (int)Accion.Consultar;
-                List<FormulasCalculo> result = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo);
+                List<FormulaCalculo> result = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo);
                 resultadoConsulta.objetoRespuesta = result;
                 resultadoConsulta.CantidadRegistros = result.Count();
             }
@@ -441,16 +441,16 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FormulasCalculo>> ValidarDatos(FormulasCalculo pFormulasCalculo)
+        public RespuestaConsulta<List<FormulaCalculo>> ValidarDatos(FormulaCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
             resultado.HayError = (int)Error.NoError;
             bool errorControlado = false;
 
             try
             {
                 // validar la existencia de la fórmula por medio del nombre y/o código
-                FormulasCalculo formulasExistente = formulasCalculoDAL.VerificarExistenciaFormulaPorCodigoNombre(pFormulasCalculo);
+                FormulaCalculo formulasExistente = formulasCalculoDAL.VerificarExistenciaFormulaPorCodigoNombre(pFormulasCalculo);
                 if (formulasExistente != null)
                 {
                     if (formulasExistente.Codigo.Trim().ToUpper().Equals(pFormulasCalculo.Codigo.Trim().ToUpper()))
@@ -475,18 +475,18 @@ namespace GB.SIMEF.BL
                     }
                 }
 
-                if (pFormulasCalculo.IdIndicadorVariable != 0) // variable dato
+                if (pFormulasCalculo.IdDetalleIndicadorVariable != 0) // variable dato
                 {
-                    if (detalleIndicadorVariablesDAL.ObtenerDatos(new DetalleIndicadorVariable() { IdDetalleIndicadorVariable = (int)pFormulasCalculo.IdIndicadorVariable }).Count <= 0)
+                    if (detalleIndicadorVariablesDAL.ObtenerDatos(new DetalleIndicadorVariable() { IdDetalleIndicadorVariable = (int)pFormulasCalculo.IdDetalleIndicadorVariable }).Count <= 0)
                     {
                         errorControlado = true;
                         throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewFormulasCalculo.CrearFormula_LabelVariableDato));
                     }
                 }
 
-                if (pFormulasCalculo.IdFrecuencia != 0)
+                if (pFormulasCalculo.IdFrecuenciaEnvio != 0)
                 {
-                    if (frecuenciaEnvioDAL.ObtenerDatos(new FrecuenciaEnvio() { IdFrecuenciaEnvio = (int)pFormulasCalculo.IdFrecuencia }).Count <= 0)
+                    if (frecuenciaEnvioDAL.ObtenerDatos(new FrecuenciaEnvio() { IdFrecuenciaEnvio = (int)pFormulasCalculo.IdFrecuenciaEnvio }).Count <= 0)
                     {
                         errorControlado = true;
                         throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewFormulasCalculo.CrearFormula_LabelFrecuencia));
@@ -513,9 +513,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pListadoArgumento"></param>
         /// <returns></returns>
-        public RespuestaConsulta<FormulasCalculo> ValidarDatosArgumentoEnFormula(ArgumentoFormula pArgumento)
+        public RespuestaConsulta<FormulaCalculo> ValidarDatosArgumentoEnFormula(ArgumentoFormula pArgumento)
         {
-            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>
+            RespuestaConsulta<FormulaCalculo> resultado = new RespuestaConsulta<FormulaCalculo>
             {
                 HayError = (int)Error.NoError
             };
@@ -524,21 +524,21 @@ namespace GB.SIMEF.BL
             {
                 if (pArgumento.IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.VariableDatoCriterio)
                 {
-                    FormulasVariableDatoCriterio argVariableDato = (FormulasVariableDatoCriterio)pArgumento; // casteo explícito
+                    FormulaVariableDatoCriterio argVariableDato = (FormulaVariableDatoCriterio)pArgumento; // casteo explícito
 
                     if (string.IsNullOrEmpty(argVariableDato.IdIndicador))
                     {
                         throw new Exception(Errores.CamposIncompletos);
                     }
 
-                    if ((argVariableDato.IdVariableDato == null || argVariableDato.IdVariableDato <= 0) && string.IsNullOrEmpty(argVariableDato.IdCriterio))
+                    if ((argVariableDato.IdDetalleIndicadorVariable == null || argVariableDato.IdDetalleIndicadorVariable <= 0) && string.IsNullOrEmpty(argVariableDato.IdCriterio))
                     {
                         throw new Exception(Errores.CamposIncompletos);
                     }
 
                     if (argVariableDato.IdFuenteIndicador == (int)FuenteIndicadorEnum.IndicadorDGF)
                     {
-                        if (argVariableDato.IdAcumulacion == null || argVariableDato.IdAcumulacion <= 0)
+                        if (argVariableDato.IdAcumulacionFormula == null || argVariableDato.IdAcumulacionFormula <= 0)
                         {
                             throw new Exception(Errores.CamposIncompletos);
                         }
@@ -548,7 +548,7 @@ namespace GB.SIMEF.BL
                     {
                         if (!argVariableDato.EsValorTotal)
                         {
-                            if (argVariableDato.IdCategoria == null || argVariableDato.IdCategoria <= 0 || argVariableDato.IdDetalleCategoria == null || argVariableDato.IdDetalleCategoria <= 0)
+                            if (argVariableDato.IdCategoriaDesagregacion == null || argVariableDato.IdCategoriaDesagregacion <= 0 || argVariableDato.IdDetalleCategoriaTexto == null || argVariableDato.IdDetalleCategoriaTexto <= 0)
                             {
                                 throw new Exception(Errores.CamposIncompletos);
                             }
@@ -559,7 +559,7 @@ namespace GB.SIMEF.BL
                     {
                         if (!argVariableDato.EsValorTotal)
                         {
-                            if (argVariableDato.IdDetalleCategoria == null || argVariableDato.IdDetalleCategoria <= 0)
+                            if (argVariableDato.IdDetalleCategoriaTexto == null || argVariableDato.IdDetalleCategoriaTexto <= 0)
                             {
                                 throw new Exception(Errores.CamposIncompletos);
                             }
@@ -577,7 +577,7 @@ namespace GB.SIMEF.BL
                 }
                 else if (pArgumento.IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
                 {
-                    FormulasDefinicionFecha argDefinicionFecha = (FormulasDefinicionFecha)pArgumento; // casteo explícito
+                    FormulaDefinicionFecha argDefinicionFecha = (FormulaDefinicionFecha)pArgumento; // casteo explícito
 
                     if (argDefinicionFecha.IdTipoFechaInicio < (int)UnidadMedidaDefinicionFechasFormulasEnum.dias
                         && argDefinicionFecha.IdTipoFechaInicio > (int)UnidadMedidaDefinicionFechasFormulasEnum.anios)
@@ -587,7 +587,7 @@ namespace GB.SIMEF.BL
 
                     if (argDefinicionFecha.IdTipoFechaInicio == (int)TipoFechaDeficionFechasFormulasEnum.categoriaDesagregacion)
                     {
-                        if (argDefinicionFecha.IdCategoriaInicio == null || argDefinicionFecha.IdCategoriaInicio <= 0)
+                        if (argDefinicionFecha.IdCategoriaDesagregacionInicio == null || argDefinicionFecha.IdCategoriaDesagregacionInicio <= 0)
                         {
                             throw new Exception(Errores.CamposIncompletos);
                         }
@@ -595,7 +595,7 @@ namespace GB.SIMEF.BL
 
                     if (argDefinicionFecha.IdTipoFechaFinal == (int)TipoFechaDeficionFechasFormulasEnum.categoriaDesagregacion)
                     {
-                        if (argDefinicionFecha.IdCategoriaFinal == null || argDefinicionFecha.IdCategoriaFinal <= 0)
+                        if (argDefinicionFecha.IdCategoriaDesagregacionFinal == null || argDefinicionFecha.IdCategoriaDesagregacionFinal <= 0)
                         {
                             throw new Exception(Errores.CamposIncompletos);
                         }
@@ -686,9 +686,9 @@ namespace GB.SIMEF.BL
         /// <param name="pFormulasCalculo"></param>
         /// <param name="pListaArgumentosDTO"></param>
         /// <returns></returns>
-        public RespuestaConsulta<FormulasCalculo> InsertarDetallesFormulaCalculo(FormulasCalculo pFormulasCalculo, List<ArgumentoConstruidoDTO> pListaArgumentosDTO)
+        public RespuestaConsulta<FormulaCalculo> InsertarDetallesFormulaCalculo(FormulaCalculo pFormulasCalculo, List<ArgumentoConstruidoDTO> pListaArgumentosDTO)
         {
-            RespuestaConsulta<FormulasCalculo> resultado = new RespuestaConsulta<FormulasCalculo>();
+            RespuestaConsulta<FormulaCalculo> resultado = new RespuestaConsulta<FormulaCalculo>();
             resultado.HayError = (int)Error.NoError;
             bool errorControlado = false;
 
@@ -696,7 +696,7 @@ namespace GB.SIMEF.BL
             {
                 // consultar el indicador de salida almacenado previamente
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
-                FormulasCalculo formulaAlmacenada = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
+                FormulaCalculo formulaAlmacenada = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
 
                 if (formulaAlmacenada == null || string.IsNullOrEmpty(formulaAlmacenada.IdIndicadorSalidaString))
                 {
@@ -755,17 +755,17 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<RespuestaConsulta<List<FormulasCalculo>>> CrearJobEnMotor(FormulasCalculo pFormulasCalculo)
+        public async Task<RespuestaConsulta<List<FormulaCalculo>>> CrearJobEnMotor(FormulaCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
-            resultado.objetoRespuesta = new List<FormulasCalculo>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
+            resultado.objetoRespuesta = new List<FormulaCalculo>();
             resultado.HayError = (int)Error.NoError;
             bool errorControlado = false;
 
             try
             {
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
-                FormulasCalculo formulaAlmacenda = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
+                FormulaCalculo formulaAlmacenda = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
                 PrepararObjetoFormulaCalculo(formulaAlmacenda);
 
 
@@ -781,8 +781,8 @@ namespace GB.SIMEF.BL
                 else
                 {
                     JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.CrearJobEnMotorAsync(formulaAlmacenda, false);
-                    formulaAlmacenda.IdJob = jobDTO.id;
-                    FormulasCalculo formula = formulasCalculoDAL.RegistrarJobEnFormula(formulaAlmacenda);
+                    formulaAlmacenda.IdJob = jobDTO.idJob;
+                    FormulaCalculo formula = formulasCalculoDAL.RegistrarJobEnFormula(formulaAlmacenda);
                 }
             }
             catch (Exception ex)
@@ -804,16 +804,16 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<RespuestaConsulta<List<FormulasCalculo>>> CambiarEstadoJob(FormulasCalculo pFormulasCalculo)
+        public async Task<RespuestaConsulta<List<FormulaCalculo>>> CambiarEstadoJob(FormulaCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
             resultado.HayError = (int)Error.NoError;
             bool errorControlado = false;
 
             try
             {
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
-                FormulasCalculo formulaAlmacenda = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
+                FormulaCalculo formulaAlmacenda = formulasCalculoDAL.ObtenerDatos(pFormulasCalculo)[0];
                 PrepararObjetoFormulaCalculo(formulaAlmacenda);
 
                 if (formulaAlmacenda.IdJob != null)
@@ -844,9 +844,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculo"></param>
         /// <returns></returns>
-        public async Task<RespuestaConsulta<List<FormulasCalculo>>> EjecutarJobFormulaManualmente(FormulasCalculo pFormulasCalculo)
+        public async Task<RespuestaConsulta<List<FormulaCalculo>>> EjecutarJobFormulaManualmente(FormulaCalculo pFormulasCalculo)
         {
-            RespuestaConsulta<List<FormulasCalculo>> resultado = new RespuestaConsulta<List<FormulasCalculo>>();
+            RespuestaConsulta<List<FormulaCalculo>> resultado = new RespuestaConsulta<List<FormulaCalculo>>();
             bool errorControlado = false;
 
             try
@@ -860,7 +860,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                FormulasCalculo formulaRegistrada = formulasCalculoDAL.VerificarExistenciaFormulaPorID(pFormulasCalculo.IdFormula);
+                FormulaCalculo formulaRegistrada = formulasCalculoDAL.VerificarExistenciaFormulaPorID(pFormulasCalculo.IdFormula);
 
                 if (formulaRegistrada == null) // la fórmula existe?
                 {
@@ -891,8 +891,8 @@ namespace GB.SIMEF.BL
                 {
                     // el job aun no existe por tanto, mandarlo a crear y correr de una vez
                     JobMotorFormulaDTO jobDTO = await formulasCalculoDAL.CrearJobEnMotorAsync(formulaRegistrada, true);
-                    formulaRegistrada.IdJob = jobDTO.id;
-                    FormulasCalculo formula = formulasCalculoDAL.RegistrarJobEnFormula(formulaRegistrada);
+                    formulaRegistrada.IdJob = jobDTO.idJob;
+                    FormulaCalculo formula = formulasCalculoDAL.RegistrarJobEnFormula(formulaRegistrada);
                 }
             }
             catch (Exception ex)
@@ -920,7 +920,7 @@ namespace GB.SIMEF.BL
         /// <param name="pFormulasCalculo"></param>
         /// <param name="pArgumentosValidados"></param>
         /// <returns></returns>
-        private string InsertarArgumentosEnFormula(FormulasCalculo pFormulasCalculo, List<ArgumentoFormula> pArgumentosValidados)
+        private string InsertarArgumentosEnFormula(FormulaCalculo pFormulasCalculo, List<ArgumentoFormula> pArgumentosValidados)
         {
             FormulaPredicado formulaPredicado = new FormulaPredicado();
             formulaPredicado.SetFormulasCalculo(pFormulasCalculo); // datos almacenados del paso 1 del formulario
@@ -938,7 +938,7 @@ namespace GB.SIMEF.BL
 
                     if (pArgumentosValidados[i].IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.VariableDatoCriterio) // determinar el tipo de argumento a evaluar
                     {
-                        FormulasVariableDatoCriterio argVariableDato = (FormulasVariableDatoCriterio)pArgumentosValidados[i]; // casteo explícito
+                        FormulaVariableDatoCriterio argVariableDato = (FormulaVariableDatoCriterio)pArgumentosValidados[i]; // casteo explícito
 
                         switch (argVariableDato.IdFuenteIndicador)
                         {
@@ -964,7 +964,7 @@ namespace GB.SIMEF.BL
                     {
                         formulaPredicado.SetFuenteArgumento(new ArgumentoDefinicionFecha());
                         string predicadoSQL = formulaPredicado.GetArgumentoComoPredicadoSQL(); // Paso 4, construir el predicado SQL
-                        InsertarArgumentoDefinicionDeFecha(predicadoSQL, pFormulasCalculo, (FormulasDefinicionFecha)pArgumentosValidados[i], ordenEnFormula);
+                        InsertarArgumentoDefinicionDeFecha(predicadoSQL, pFormulasCalculo, (FormulaDefinicionFecha)pArgumentosValidados[i], ordenEnFormula);
                         ordenEnFormula++;
                     }
                 }
@@ -985,13 +985,13 @@ namespace GB.SIMEF.BL
         /// <param name="pFormulaPredicado"></param>
         /// <param name="pFormulasCalculo"></param>
         /// <param name="pIdFormulaArgumentosAClonar"></param>
-        private void ClonarFormulasVariableDatoCriterio(FormulaPredicado pFormulaPredicado, FormulasCalculo pFormulasCalculo, int pIdFormulaArgumentosAClonar)
+        private void ClonarFormulasVariableDatoCriterio(FormulaPredicado pFormulaPredicado, FormulaCalculo pFormulasCalculo, int pIdFormulaArgumentosAClonar)
         {
-            List<FormulasVariableDatoCriterio> listaArgumentosVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulasVariableDatoCriterio() { IdFormula = pIdFormulaArgumentosAClonar });
+            List<FormulaVariableDatoCriterio> listaArgumentosVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormula = pIdFormulaArgumentosAClonar });
 
             for (int i = 0; i < listaArgumentosVariables.Count; i++)
             {
-                listaArgumentosVariables[i].IdFormulasVariableDatoCriterio = 0; // evitar actualizar el registro existente
+                listaArgumentosVariables[i].IdFormulaVariableDatoCriterio = 0; // evitar actualizar el registro existente
                 pFormulaPredicado.SetArgumentoFormula(listaArgumentosVariables[i]);
 
                 switch (listaArgumentosVariables[i].IdFuenteIndicador)
@@ -1023,13 +1023,13 @@ namespace GB.SIMEF.BL
         /// <param name="pFormulaPredicado"></param>
         /// <param name="pFormulasCalculo"></param>
         /// <param name="pIdFormulaArgumentosAClonar"></param>
-        private void ClonarFormulasDefinicionFechas(FormulaPredicado pFormulaPredicado, FormulasCalculo pFormulasCalculo, int pIdFormulaArgumentosAClonar)
+        private void ClonarFormulasDefinicionFechas(FormulaPredicado pFormulaPredicado, FormulaCalculo pFormulasCalculo, int pIdFormulaArgumentosAClonar)
         {
-            List<FormulasDefinicionFecha> listaArgumentosDefinicionFecha = formulasDefinicionFechaDAL.ObtenerDatos(new FormulasDefinicionFecha() { IdFormula = pIdFormulaArgumentosAClonar });
+            List<FormulaDefinicionFecha> listaArgumentosDefinicionFecha = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormula = pIdFormulaArgumentosAClonar });
 
             for (int i = 0; i < listaArgumentosDefinicionFecha.Count; i++)
             {
-                listaArgumentosDefinicionFecha[i].IdFormulasDefinicionFecha = 0; // evitar actualizar el registro existente
+                listaArgumentosDefinicionFecha[i].IdFormulaDefinicionFecha = 0; // evitar actualizar el registro existente
                 pFormulaPredicado.SetArgumentoFormula(listaArgumentosDefinicionFecha[i]);
                 pFormulaPredicado.SetFuenteArgumento(new ArgumentoDefinicionFecha());
 
@@ -1062,7 +1062,7 @@ namespace GB.SIMEF.BL
                     argumentosValidados.Add(argumento);
 
                     // se valida la información proporcionada para cada argumento
-                    RespuestaConsulta<FormulasCalculo> validacionArgumento = ValidarDatosArgumentoEnFormula(argumento);
+                    RespuestaConsulta<FormulaCalculo> validacionArgumento = ValidarDatosArgumentoEnFormula(argumento);
 
                     if (validacionArgumento.HayError != (int)Error.NoError)
                     {
@@ -1092,14 +1092,14 @@ namespace GB.SIMEF.BL
         /// <param name="pFormulasCalculo"></param>
         /// <param name="pFormulasVariableDatoCriterio"></param>
         /// <param name="pOrden"></param>
-        private void InsertarArgumentoVariableDatoCriterio(string pPredicadoSQL, FormulasCalculo pFormulasCalculo, FormulasVariableDatoCriterio pFormulasVariableDatoCriterio, int pOrden)
+        private void InsertarArgumentoVariableDatoCriterio(string pPredicadoSQL, FormulaCalculo pFormulasCalculo, FormulaVariableDatoCriterio pFormulasVariableDatoCriterio, int pOrden)
         {
-            FormulasVariableDatoCriterio argumento = formulasVariableDatoCriterioDAL.ActualizarDatos(pFormulasVariableDatoCriterio);
+            FormulaVariableDatoCriterio argumento = formulasVariableDatoCriterioDAL.ActualizarDatos(pFormulasVariableDatoCriterio);
 
             if (argumento != null)
             {
                 argumentoFormulaDAL.ActualizarDatos(new ArgumentoFormula() {
-                    IdVariableDatoCriterio = argumento.IdFormulasVariableDatoCriterio,
+                    IdVariableDatoCriterio = argumento.IdFormulaVariableDatoCriterio,
                     IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.VariableDatoCriterio,
                     IdFormula = pFormulasCalculo.IdFormula,
                     PredicadoSQL = pPredicadoSQL,
@@ -1118,14 +1118,14 @@ namespace GB.SIMEF.BL
         /// <param name="pFormulasCalculo"></param>
         /// <param name="pFormulasDefinicionFecha"></param>
         /// <param name="pOrden"></param>
-        private void InsertarArgumentoDefinicionDeFecha(string pPredicadoSQL, FormulasCalculo pFormulasCalculo, FormulasDefinicionFecha pFormulasDefinicionFecha, int pOrden)
+        private void InsertarArgumentoDefinicionDeFecha(string pPredicadoSQL, FormulaCalculo pFormulasCalculo, FormulaDefinicionFecha pFormulasDefinicionFecha, int pOrden)
         {
-            FormulasDefinicionFecha argumento = formulasDefinicionFechaDAL.ActualizarDatos(pFormulasDefinicionFecha);
+            FormulaDefinicionFecha argumento = formulasDefinicionFechaDAL.ActualizarDatos(pFormulasDefinicionFecha);
 
             if (argumento != null)
             {
                 argumentoFormulaDAL.ActualizarDatos(new ArgumentoFormula() {
-                    IdDefinicionFecha = argumento.IdFormulasDefinicionFecha,
+                    IdDefinicionFecha = argumento.IdFormulaDefinicionFecha,
                     IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.DefinicionFecha,
                     IdFormula = pFormulasCalculo.IdFormula,
                     PredicadoSQL = pPredicadoSQL,
@@ -1142,7 +1142,7 @@ namespace GB.SIMEF.BL
         /// Se preparan los id's de las tablas relacionadas para poder efectuar consultas debido a la encriptación.
         /// </summary>
         /// <param name="pIndicador"></param>
-        private void PrepararObjetoFormulaCalculo(FormulasCalculo pFormulasCalculo)
+        private void PrepararObjetoFormulaCalculo(FormulaCalculo pFormulasCalculo)
         {
             if (!string.IsNullOrEmpty(pFormulasCalculo.id))
             {
@@ -1153,7 +1153,7 @@ namespace GB.SIMEF.BL
             if (!string.IsNullOrEmpty(pFormulasCalculo.IdFrecuenciaString))
             {
                 int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.IdFrecuenciaString), out int number);
-                pFormulasCalculo.IdFrecuencia = number;
+                pFormulasCalculo.IdFrecuenciaEnvio = number;
             }
 
             if (!string.IsNullOrEmpty(pFormulasCalculo.IdIndicadorSalidaString))
@@ -1165,7 +1165,7 @@ namespace GB.SIMEF.BL
             if (!string.IsNullOrEmpty(pFormulasCalculo.IdVariableDatoString))
             {
                 int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.IdVariableDatoString), out int number);
-                pFormulasCalculo.IdIndicadorVariable = number;
+                pFormulasCalculo.IdDetalleIndicadorVariable = number;
             }
 
             if (!pFormulasCalculo.NivelCalculoTotal && pFormulasCalculo.ListaCategoriasNivelesCalculo.Count > 0)
@@ -1173,7 +1173,7 @@ namespace GB.SIMEF.BL
                 for (int i = 0; i < pFormulasCalculo.ListaCategoriasNivelesCalculo.Count; i++)
                 {
                     int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.ListaCategoriasNivelesCalculo[i].IdCategoriaString), out int number);
-                    pFormulasCalculo.ListaCategoriasNivelesCalculo[i].IdCategoria = number;
+                    pFormulasCalculo.ListaCategoriasNivelesCalculo[i].IdCategoriaDesagregacion = number;
                 }
             }
         }
@@ -1194,7 +1194,7 @@ namespace GB.SIMEF.BL
             {
                 argumento = pArgumentoDTO.ConvertToVariableDatoCriterio();
                 argumento.IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.VariableDatoCriterio;
-                FormulasVariableDatoCriterio argVariableDato = (FormulasVariableDatoCriterio)argumento; // casteo explicito
+                FormulaVariableDatoCriterio argVariableDato = (FormulaVariableDatoCriterio)argumento; // casteo explicito
 
                 if (!string.IsNullOrEmpty(argVariableDato.IdFuenteIndicadorString))
                 {
@@ -1207,7 +1207,7 @@ namespace GB.SIMEF.BL
                     if (!string.IsNullOrEmpty(argVariableDato.IdVariableDatoString))
                     {
                         int.TryParse(Utilidades.Desencriptar(argVariableDato.IdVariableDatoString), out int number);
-                        argVariableDato.IdVariableDato = number;
+                        argVariableDato.IdDetalleIndicadorVariable = number;
                     }
                 }
                 else
@@ -1221,19 +1221,19 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(argVariableDato.IdCategoriaString))
                 {
                     int.TryParse(Utilidades.Desencriptar(argVariableDato.IdCategoriaString), out int number);
-                    argVariableDato.IdCategoria = number;
+                    argVariableDato.IdCategoriaDesagregacion = number;
                 }
 
                 if (!string.IsNullOrEmpty(argVariableDato.IdDetalleCategoriaString))
                 {
                     int.TryParse(Utilidades.Desencriptar(argVariableDato.IdDetalleCategoriaString), out int number);
-                    argVariableDato.IdDetalleCategoria = number;
+                    argVariableDato.IdDetalleCategoriaTexto = number;
                 }
 
                 if (!string.IsNullOrEmpty(argVariableDato.IdAcumulacionString))
                 {
                     int.TryParse(Utilidades.Desencriptar(argVariableDato.IdAcumulacionString), out int number);
-                    argVariableDato.IdAcumulacion = number;
+                    argVariableDato.IdAcumulacionFormula = number;
                 }
 
                 if (!string.IsNullOrEmpty(argVariableDato.IdIndicadorString))
@@ -1245,7 +1245,7 @@ namespace GB.SIMEF.BL
             {
                 argumento = pArgumentoDTO.ConvertToFormulasDefinicionFecha();
                 argumento.IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.DefinicionFecha;
-                FormulasDefinicionFecha argDefinicionFecha = (FormulasDefinicionFecha)argumento;
+                FormulaDefinicionFecha argDefinicionFecha = (FormulaDefinicionFecha)argumento;
 
                 if (!string.IsNullOrEmpty(argDefinicionFecha.IdTipoFechaInicioString))
                 {
@@ -1262,13 +1262,13 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(argDefinicionFecha.IdCategoriaInicioString))
                 {
                     int.TryParse(Utilidades.Desencriptar(argDefinicionFecha.IdCategoriaInicioString), out int number);
-                    argDefinicionFecha.IdCategoriaInicio = number;
+                    argDefinicionFecha.IdCategoriaDesagregacionInicio = number;
                 }
 
                 if (!string.IsNullOrEmpty(argDefinicionFecha.IdCategoriaFinalString))
                 {
                     int.TryParse(Utilidades.Desencriptar(argDefinicionFecha.IdCategoriaFinalString), out int number);
-                    argDefinicionFecha.IdCategoriaFinal = number;
+                    argDefinicionFecha.IdCategoriaDesagregacionFinal = number;
                 }
 
                 if (!string.IsNullOrEmpty(argDefinicionFecha.IdIndicadorString))
@@ -1286,14 +1286,14 @@ namespace GB.SIMEF.BL
         /// Función que verifica si todos los campos de una fórmula estan completos, e incluidos al menos 1 argumento en la fórmula
         /// </summary>
         /// <returns></returns>
-        private string VerificarDatosCompletosFormulaCalculo(FormulasCalculo pFormulasCalculo)
+        private string VerificarDatosCompletosFormulaCalculo(FormulaCalculo pFormulasCalculo)
         {
             if (
                 pFormulasCalculo.Codigo == null || string.IsNullOrEmpty(pFormulasCalculo.Codigo.Trim()) ||
                 pFormulasCalculo.Nombre == null || string.IsNullOrEmpty(pFormulasCalculo.Nombre.Trim()) ||
                 pFormulasCalculo.IdIndicador == null || pFormulasCalculo.IdIndicador == 0 ||
-                pFormulasCalculo.IdIndicadorVariable == null || pFormulasCalculo.IdIndicadorVariable == 0 ||
-                pFormulasCalculo.IdFrecuencia == null || pFormulasCalculo.IdFrecuencia == 0 ||
+                pFormulasCalculo.IdDetalleIndicadorVariable == null || pFormulasCalculo.IdDetalleIndicadorVariable == 0 ||
+                pFormulasCalculo.IdFrecuenciaEnvio == null || pFormulasCalculo.IdFrecuenciaEnvio == 0 ||
                 pFormulasCalculo.Descripcion == null || string.IsNullOrEmpty(pFormulasCalculo.Descripcion.Trim()) ||
                 pFormulasCalculo.FechaCalculo == null || pFormulasCalculo.FechaCalculo <= DateTime.MinValue
                 )
@@ -1301,8 +1301,8 @@ namespace GB.SIMEF.BL
                 return Errores.CamposIncompletos;
             }
 
-            List<FormulasVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulasVariableDatoCriterio() { IdFormula = pFormulasCalculo.IdFormula });
-            List<FormulasDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulasDefinicionFecha() { IdFormula = pFormulasCalculo.IdFormula });
+            List<FormulaVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormula = pFormulasCalculo.IdFormula });
+            List<FormulaDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormula = pFormulasCalculo.IdFormula });
 
             if (listadoVariables.Count <= 0 && listadoDefinicionFechas.Count <= 0) // existen argumentos?
             {
@@ -1311,7 +1311,7 @@ namespace GB.SIMEF.BL
 
             if (!pFormulasCalculo.NivelCalculoTotal) // en caso de que el nivel de cálculo sea por categorias, existen categorias relacionadas?
             {
-                List<FormulasNivelCalculoCategoria> listaCategorias = formulaNivelCalculoCategoriaDAL.ObtenerDatos(pFormulasCalculo.IdFormula);
+                List<FormulaNivelCalculoCategoria> listaCategorias = formulaNivelCalculoCategoriaDAL.ObtenerDatos(pFormulasCalculo.IdFormula);
 
                 if (listaCategorias.Count <= 0)
                 {

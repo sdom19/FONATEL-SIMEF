@@ -17,16 +17,16 @@ namespace GB.SIMEF.Entities
     using System.Text;
     using System.Web.Mvc;
 
-    [Table("FormulasCalculo")]
-    public partial class FormulasCalculo
+    [Table("FormulaCalculo")]
+    public partial class FormulaCalculo
     {
 
-        public FormulasCalculo()
+        public FormulaCalculo()
         {
-            ListaCategoriasNivelesCalculo = new List<FormulasNivelCalculoCategoria>();
+            ListaCategoriasNivelesCalculo = new List<FormulaNivelCalculoCategoria>();
             IdIndicador = 0;
-            IdIndicadorVariable = 0;
-            IdFrecuencia = 0;
+            IdDetalleIndicadorVariable = 0;
+            IdFrecuenciaEnvio = 0;
         }
 
         [Key]
@@ -39,8 +39,8 @@ namespace GB.SIMEF.Entities
         public string Nombre { get; set; }
 
         public int? IdIndicador { get; set; }
-        public int? IdIndicadorVariable { get; set; }
-        public int? IdFrecuencia { get; set; }
+        public int? IdDetalleIndicadorVariable { get; set; }
+        public int? IdFrecuenciaEnvio { get; set; }
 
         [MaxLength(1500)]
         [DataType(DataType.MultilineText)]
@@ -48,7 +48,7 @@ namespace GB.SIMEF.Entities
 
         public bool NivelCalculoTotal { get; set; }
         public string UsuarioModificacion { get; set; }
-        public int IdEstado { get; set; }
+        public int IdEstadoRegistro { get; set; }
 
         //public DateTime FechaCalculo { get; set; }
         public Nullable<System.DateTime> FechaCreacion { get; set; }
@@ -78,7 +78,7 @@ namespace GB.SIMEF.Entities
         public string IdFrecuenciaString { get; set; }
 
         [NotMapped]
-        public List<FormulasNivelCalculoCategoria> ListaCategoriasNivelesCalculo { get; set; }
+        public List<FormulaNivelCalculoCategoria> ListaCategoriasNivelesCalculo { get; set; }
 
         [NotMapped]
         public EstadoRegistro EstadoRegistro { get; set; }
@@ -111,7 +111,7 @@ namespace GB.SIMEF.Entities
             json.Append("\"Variable-dato de salida\":\"").Append(this.VariableSalida?.NombreVariable).Append("\",");
             json.Append("\"Fórmula\":\"").Append(this.EtiquetaFormulaConArgumentos).Append("\",");
 
-            switch (this.IdEstado)
+            switch (this.IdEstadoRegistro)
             {
                 case (int)Constantes.EstadosRegistro.Desactivado:
                     json.Append("\"Estado\":\"").Append(Enum.GetName(typeof(Constantes.EstadosRegistro), (int)Constantes.EstadosRegistro.Desactivado)).Append("\"}");
@@ -137,9 +137,9 @@ namespace GB.SIMEF.Entities
         /// Los tipos de datos por medio de referencia se conservan y apuntan a la misma dirección en memoria
         /// </summary>
         /// <returns></returns>
-        public FormulasCalculo Shallowcopy()
+        public FormulaCalculo Shallowcopy()
         {
-            return (FormulasCalculo) this.MemberwiseClone();
+            return (FormulaCalculo) this.MemberwiseClone();
         }
     }
 }

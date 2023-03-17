@@ -12,13 +12,13 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("FormulasNivelCalculoCategoria")]
-    public partial class FormulasNivelCalculoCategoria
+    [Table("FormulaNivelCalculoCategoria")]
+    public partial class FormulaNivelCalculoCategoria
     {
         [Key]
-        public int IdFormulaNivel { get; set; }
-        public int IdFormula { get; set; }
-        public int IdCategoria { get; set; }
+        public int IdFormulaNivelCalculoCategoria { get; set; }
+        public int IdFormulaCalculo { get; set; }
+        public int IdCategoriaDesagregacion { get; set; }
 
         #region Variable fuera del modelo
         [NotMapped]

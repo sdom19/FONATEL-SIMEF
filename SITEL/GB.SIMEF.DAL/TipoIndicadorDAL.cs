@@ -63,7 +63,7 @@ namespace GB.SIMEF.DAL
                     "IdTipoIndicador, " +
                     "TipoIndicador as Nombre, " +
                     "cast(1 as bit) as Estado " +
-                    "from [FONATEL].[viewIndicadorDGM]").ToList();
+                    "from [FONATEL].[vw_IndicadorDGM]").ToList();
             }
 
             listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicador()

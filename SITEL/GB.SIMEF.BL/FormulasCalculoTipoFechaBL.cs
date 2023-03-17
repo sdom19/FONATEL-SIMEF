@@ -9,7 +9,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class FormulasCalculoTipoFechaBL : IMetodos<FormulasCalculoTipoFecha>
+    public class FormulasCalculoTipoFechaBL : IMetodos<FormulaCalculoTipoFecha>
     {
         private readonly FormulasCalculoTipoFechaDAL formulasCalculoTipoFechaDAL;
 
@@ -25,13 +25,13 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pFormulasCalculoTipoFecha"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<FormulasCalculoTipoFecha>> ObtenerDatos(FormulasCalculoTipoFecha pFormulasCalculoTipoFecha)
+        public RespuestaConsulta<List<FormulaCalculoTipoFecha>> ObtenerDatos(FormulaCalculoTipoFecha pFormulasCalculoTipoFecha)
         {
-            RespuestaConsulta<List<FormulasCalculoTipoFecha>> resultado = new RespuestaConsulta<List<FormulasCalculoTipoFecha>>();
+            RespuestaConsulta<List<FormulaCalculoTipoFecha>> resultado = new RespuestaConsulta<List<FormulaCalculoTipoFecha>>();
 
             try
             {
-                List<FormulasCalculoTipoFecha> result = formulasCalculoTipoFechaDAL.ObtenerDatos();
+                List<FormulaCalculoTipoFecha> result = formulasCalculoTipoFechaDAL.ObtenerDatos();
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -43,32 +43,32 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<FormulasCalculoTipoFecha>> ActualizarElemento(FormulasCalculoTipoFecha objeto)
+        public RespuestaConsulta<List<FormulaCalculoTipoFecha>> ActualizarElemento(FormulaCalculoTipoFecha objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FormulasCalculoTipoFecha>> CambioEstado(FormulasCalculoTipoFecha objeto)
+        public RespuestaConsulta<List<FormulaCalculoTipoFecha>> CambioEstado(FormulaCalculoTipoFecha objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FormulasCalculoTipoFecha>> ClonarDatos(FormulasCalculoTipoFecha objeto)
+        public RespuestaConsulta<List<FormulaCalculoTipoFecha>> ClonarDatos(FormulaCalculoTipoFecha objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FormulasCalculoTipoFecha>> EliminarElemento(FormulasCalculoTipoFecha objeto)
+        public RespuestaConsulta<List<FormulaCalculoTipoFecha>> EliminarElemento(FormulaCalculoTipoFecha objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FormulasCalculoTipoFecha>> InsertarDatos(FormulasCalculoTipoFecha objeto)
+        public RespuestaConsulta<List<FormulaCalculoTipoFecha>> InsertarDatos(FormulaCalculoTipoFecha objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<FormulasCalculoTipoFecha>> ValidarDatos(FormulasCalculoTipoFecha objeto)
+        public RespuestaConsulta<List<FormulaCalculoTipoFecha>> ValidarDatos(FormulaCalculoTipoFecha objeto)
         {
             throw new NotImplementedException();
         }
