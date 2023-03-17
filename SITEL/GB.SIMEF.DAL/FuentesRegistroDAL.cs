@@ -42,7 +42,7 @@ namespace GB.SIMEF.DAL
                     UsuarioCreacion = X.UsuarioCreacion,
                     UsuarioModificacion = X.UsuarioModificacion,
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == X.IdEstadoRegistro).Single(),
-                    DetalleFuentesRegistro = ObtenerDetalleFuentesRegistro(X.IdFuenteRegistro)
+                    DetalleFuenteRegistro = ObtenerDetalleFuentesRegistro(X.IdFuenteRegistro)
 
                 }).ToList();
 
@@ -97,7 +97,7 @@ namespace GB.SIMEF.DAL
                     UsuarioCreacion = X.UsuarioCreacion,
                     UsuarioModificacion = X.UsuarioModificacion,
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == X.IdEstadoRegistro).Single(),
-                    DetalleFuentesRegistro = ObtenerDetalleFuentesRegistro(X.IdFuenteRegistro)
+                    DetalleFuenteRegistro = ObtenerDetalleFuentesRegistro(X.IdFuenteRegistro)
 
                 }).ToList();
 

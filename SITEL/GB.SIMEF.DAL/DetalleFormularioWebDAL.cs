@@ -19,7 +19,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaDetalleFormulariosWeb = db.Database.SqlQuery<DetalleFormularioWeb>
-                    ("execute spActualizarDetalleFormularioWeb @idDetalle, @idFormularioWeb, @idIndicador, @TituloHojas, @NotasInformante, " +
+                    ("execute pa_ActualizarDetalleFormularioWeb @idDetalle, @idFormularioWeb, @idIndicador, @TituloHojas, @NotasInformante, " +
                     "@NotasEncargado, @Estado",
                     new SqlParameter("@idDetalle", objDetalleFormulario.IdDetalleFormularioWeb),
                     new SqlParameter("@idFormularioWeb", objDetalleFormulario.idFormularioWeb),
@@ -50,7 +50,7 @@ namespace GB.SIMEF.DAL
             int cantidadFaltante = 0;
             using (db = new SIMEFContext())
             {
-                cantidadFaltante = db.Database.SqlQuery<int>("execute spObtenerFormularioWebCantidadIndicadores @idFormularioWeb",
+                cantidadFaltante = db.Database.SqlQuery<int>("execute pa_ObtenerFormularioWebCantidadIndicador @idFormularioWeb",
                     new SqlParameter("@idFormularioWeb", idFormularioWeb)
                     ).Single();
             }
@@ -63,9 +63,9 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             { 
                 ListaDetalleFormulariosWeb = db.Database.SqlQuery<DetalleFormularioWeb>
-                    ("execute spObtenerDetalleFormularioWeb @idDetalle, @idFormularioWeb, @idIndicador",
+                    ("execute pa_ObtenerDetalleFormularioWeb @idDetalle, @idFormulario, @idIndicador",
                     new SqlParameter("@idDetalle", objDetalleFormulario.IdDetalleFormularioWeb),
-                    new SqlParameter("@idFormularioWeb", objDetalleFormulario.idFormularioWeb),
+                    new SqlParameter("@idFormulario", objDetalleFormulario.idFormularioWeb),
                     new SqlParameter("@idIndicador", objDetalleFormulario.idIndicador)
                     ).ToList();
 

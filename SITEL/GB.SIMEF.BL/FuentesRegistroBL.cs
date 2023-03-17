@@ -83,7 +83,7 @@ namespace GB.SIMEF.BL
                         throw new Exception(Errores.FuenteRegistrada);
                     }
                     
-                    else if (Cantidad < objeto.DetalleFuentesRegistro.Count())
+                    else if (Cantidad < objeto.DetalleFuenteRegistro.Count())
                     {
                         ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                         throw new Exception(Errores.CantidadRegistrosLimiteFuente);
@@ -96,7 +96,7 @@ namespace GB.SIMEF.BL
                         objeto.CantidadDestinatario = Cantidad;
                         if (objeto.IdEstadoRegistro == 2)
                         {
-                            if(objeto.CantidadDestinatario > objeto.DetalleFuentesRegistro.Count())
+                            if(objeto.CantidadDestinatario > objeto.DetalleFuenteRegistro.Count())
                             {
                                 objeto.IdEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso;
                             }
@@ -165,7 +165,7 @@ namespace GB.SIMEF.BL
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
-                else if (fuente.CantidadDestinatario != fuente.DetalleFuentesRegistro.Count())
+                else if (fuente.CantidadDestinatario != fuente.DetalleFuenteRegistro.Count())
                 {
                     ResultadoConsulta.HayError= (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.CantidadDestinatariosIncorrecta);

@@ -305,7 +305,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public ActionResult Create(string id, int? modo)
         {
-            ViewBag.FrecuanciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
+            ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { })
                 .objetoRespuesta;
             var indicadores = indicadorBL.ObtenerDatos(new Indicador() {IdEstadoRegistro=2 })
                 .objetoRespuesta.Where(x=>x.IdClasificacionIndicador!=(int)Constantes.ClasificacionIndicadorEnum.Salida && x.Solicitud == true);

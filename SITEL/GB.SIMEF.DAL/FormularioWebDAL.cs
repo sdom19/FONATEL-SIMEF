@@ -62,7 +62,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listaIndicadores = db.Database.SqlQuery<Indicador>(
-                    "execute spObtenerListaIndicadoresXFormulario @idFormularioWeb",
+                    "execute pa_ObtenerListaIndicadorXFormulario @idFormularioWeb",
                     new SqlParameter("@idFormularioWeb", idFormularioWeb)
                     ).ToList();
                 listaIndicadores = listaIndicadores.Select(x => new Indicador()
@@ -93,7 +93,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaFormulariosWeb = db.Database.SqlQuery<FormularioWeb>
-                    ("execute spActualizarFormularioWeb @idFormularioWeb, @Codigo, @Nombre, @Descripcion, @CantidadIndicadores, @idFrecuencia, @UsuarioCreacion, @UsuarioModificacion, @idEstado",
+                    ("execute pa_ActualizarFormularioWeb @idFormularioWeb, @Codigo, @Nombre, @Descripcion, @CantidadIndicadores, @idFrecuencia, @UsuarioCreacion, @UsuarioModificacion, @idEstadoRegistro",
                     new SqlParameter("@idFormularioWeb", objFormulario.idFormularioWeb),
                     new SqlParameter("@Codigo", string.IsNullOrEmpty(objFormulario.Codigo) ? DBNull.Value.ToString() : objFormulario.Codigo),
                     new SqlParameter("@Nombre", string.IsNullOrEmpty(objFormulario.Nombre) ? DBNull.Value.ToString() : objFormulario.Nombre),
@@ -102,7 +102,7 @@ namespace GB.SIMEF.DAL
                     new SqlParameter("@idFrecuencia", objFormulario.idFrecuenciaEnvio),
                     new SqlParameter("@UsuarioCreacion", string.IsNullOrEmpty(objFormulario.UsuarioCreacion) ? DBNull.Value.ToString() : objFormulario.UsuarioCreacion),
                     new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objFormulario.UsuarioModificacion) ? DBNull.Value.ToString() : objFormulario.UsuarioModificacion),
-                    new SqlParameter("@idEstado", objFormulario.idEstadoRegistro)
+                    new SqlParameter("@idEstadoRegistro", objFormulario.idEstadoRegistro)
                     ).ToList();
 
                 ListaFormulariosWeb = ListaFormulariosWeb.Select(x => new FormularioWeb()
@@ -149,7 +149,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 lista = db.Database.SqlQuery<FormularioWeb>
-                    ("execute spObtenerDependenciasIndicadorConFormulariosWeb @pIdIndicador",
+                    ("execute pa_ObtenerDependenciaIndicadorConFormulariosWeb @pIdIndicador",
                      new SqlParameter("@pIdIndicador", pIdIndicador)
                     ).ToList();
 
@@ -198,7 +198,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listaValicion = db.Database.SqlQuery<string>
-                    ("exec spValidarFormulario @idFormularioWeb",
+                    ("exec pa_ValidarFormulario @idFormularioWeb",
                        new SqlParameter("@idFormularioWeb", formulario.idFormularioWeb)
                     ).ToList();
             }

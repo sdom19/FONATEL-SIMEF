@@ -90,7 +90,7 @@ namespace GB.SIMEF.DAL
         {
             using (SIMEFdb = new SIMEFContext()) { 
                 FuenteRegistro fuente = SIMEFdb.FuentesRegistro.Where(i => i.IdFuenteRegistro == id).Single();
-                fuente.DetalleFuentesRegistro = SIMEFdb.DetalleFuentesRegistro.Where(i => i.IdFuenteRegistro == id).ToList();
+                fuente.DetalleFuenteRegistro = SIMEFdb.DetalleFuentesRegistro.Where(i => i.IdFuenteRegistro == id).ToList();
                 return fuente;
             }
         }

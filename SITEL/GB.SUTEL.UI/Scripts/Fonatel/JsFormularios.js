@@ -11,6 +11,7 @@
         "txtNombreFormulario": "#txtNombreFormulario",
         "ddlFrecuanciaEnvio": "#ddlFrecuanciaEnvio",
         "txtDescripcionFormulario": "#txtDescripcionFormulario",
+
         "txtCantidadIndicadoresFormulario": "#txtCantidadIndicadoresFormulario",
         "txtCodigoFormularioHelp": "#txtCodigoFormularioHelp",
         "txtNombreFormularioHelp": "#txtNombreFormularioHelp",
@@ -231,20 +232,20 @@
                 html = html + "<td>" + formulario.FrecuenciaEnvio.Nombre + "</td>";
                 html = html + "<td>" + formulario.EstadoRegistro.Nombre + "</td>";
                 html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + formulario.id + " data-original-title='Editar' title='Editar' class='btn-icon-base btn-edit'></button>";
-                if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+                if (formulario.idEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
                     html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' disabled class='btn-icon-base btn-clone' ></button>";
                 }
                 else {
                     html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' value=" + formulario.id + " class='btn-icon-base btn-clone' ></button>";
                 }
-                if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
+                if (formulario.idEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + formulario.id + " class='btn-icon-base btn-power-off'></button>";
-                } else if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
+                } else if (formulario.idEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo) {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + formulario.id + " class='btn-icon-base btn-power-on'></button>";
                 } else {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' disabled value=" + formulario.id + " class='btn-icon-base btn-power-off'></button>";
                 }
-                if (formulario.idEstado != jsUtilidades.Variables.EstadoRegistros.Activo) {
+                if (formulario.idEstadoRegistro != jsUtilidades.Variables.EstadoRegistros.Activo) {
                     ind = "disabled"
                 }
                 html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Visualizar' data-original-title='Visualizar' value=" + formulario.id + " class='btn-icon-base btn-view' " + ind + "></button>";
@@ -288,7 +289,7 @@
             html = html + "<td>" + formulario.EstadoRegistro.Nombre + "</td>";
             html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + formulario.id + " data-original-title='Editar' title='Editar' class='btn-icon-base btn-edit'></button>";
             html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' value=" + formulario.id + " class='btn-icon-base btn-clone' ></button>";
-            if (formulario.idEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
+            if (formulario.idEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + formulario.id + " class='btn-icon-base btn-power-off'></button>";
             } else {
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + formulario.id + " class='btn-icon-base btn-power-on'></button>";
@@ -302,8 +303,8 @@
         },
 
         "CargarIndicadores": function (obj) {
-            $(JsFormulario.Controles.txtTituloHoja).val(obj.TituloHojas);
-            $(JsFormulario.Controles.txtNotasEncargadoFormulario).val(obj.NotasEncargado);
+            $(JsFormulario.Controles.txtTituloHoja).val(obj.TituloHoja);
+            $(JsFormulario.Controles.txtNotasEncargadoFormulario).val(obj.NotaEncargado);
             var comboIndicador = document.getElementById("ddlIndicador");
             comboIndicador.innerHTML = '';
            
@@ -376,13 +377,13 @@
             formulario.Codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
             formulario.Nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
             formulario.Descripcion = $(JsFormulario.Controles.txtDescripcionFormulario).val().trim();
-            formulario.CantidadIndicadores = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
-            formulario.idFrecuencia = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
-            formulario.IdEstado = jsUtilidades.Variables.EstadoRegistros.EnProceso;
-            //formulario.IdEstado = JsFormulario.Metodos.ValidarEstadoParcialFormulario(formulario);
+            formulario.CantidadIndicador = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
+            formulario.idFrecuenciaEnvio = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
+            formulario.idEstadoRegistroRegistro = jsUtilidades.Variables.EstadoRegistros.EnProceso;
+            //formulario.idEstadoRegistro = JsFormulario.Metodos.ValidarEstadoParcialFormulario(formulario);
             await execAjaxCall("/FormularioWeb/InsertarFormularioWeb", "POST", formulario)
                 .then((obj) => {
-                    let cantidadMax = obj.objetoRespuesta[0].CantidadIndicadores;
+                    let cantidadMax = obj.objetoRespuesta[0].CantidadIndicador;
                     $(JsFormulario.Controles.CantidadIndicadoresMax).val(cantidadMax);
                     InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
                     JsFormulario.Variables.HayError = false;
@@ -417,12 +418,12 @@
             formulario.Codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
             formulario.Nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
             formulario.Descripcion = $(JsFormulario.Controles.txtDescripcionFormulario).val().trim();
-            formulario.CantidadIndicadores = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
-            formulario.idFrecuencia = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
+            formulario.CantidadIndicador = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
+            formulario.idFrecuenciaEnvio = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
             formulario.id = ObtenerValorParametroUrl("id");
             await execAjaxCall("/FormularioWeb/EditarFormularioWeb", "POST", formulario)
                 .then((obj) => {
-                    $(JsFormulario.Controles.CantidadIndicadoresMax).val(obj.objetoRespuesta[0].CantidadIndicadores)
+                    $(JsFormulario.Controles.CantidadIndicadoresMax).val(obj.objetoRespuesta[0].CantidadIndicador)
                     InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
                     JsFormulario.Variables.HayError = false;
                     JsFormulario.Metodos.ValidarButonFinalizar();
@@ -442,12 +443,12 @@
             formulario.Codigo = $(JsFormulario.Controles.txtCodigoFormulario).val().trim();
             formulario.Nombre = $(JsFormulario.Controles.txtNombreFormulario).val().trim();
             formulario.Descripcion = $(JsFormulario.Controles.txtDescripcionFormulario).val().trim();
-            formulario.CantidadIndicadores = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
-            formulario.idFrecuencia = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
-            formulario.IdEstado = jsUtilidades.Variables.EstadoRegistros.EnProceso;
+            formulario.CantidadIndicador = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
+            formulario.idFrecuenciaEnvio = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
+            formulario.idEstadoRegistroRegistro = jsUtilidades.Variables.EstadoRegistros.EnProceso;
             await execAjaxCall("/FormularioWeb/ClonarFormulario", "POST", formulario)
                 .then((obj) => {
-                    $(JsFormulario.Controles.CantidadIndicadoresMax).val(obj.objetoRespuesta[0].CantidadIndicadores)
+                    $(JsFormulario.Controles.CantidadIndicadoresMax).val(obj.objetoRespuesta[0].CantidadIndicador)
                     InsertarParametroUrl("id", obj.objetoRespuesta[0].id);
                     JsFormulario.Variables.HayError = false;
                 }).catch((obj) => {
@@ -462,8 +463,8 @@
             $("#loading").fadeIn();
             let detalleFormulario = new Object();
             let formularioweb = new Object();
-            detalleFormulario.TituloHojas = $(JsFormulario.Controles.txtTituloHoja).val().trim();
-            detalleFormulario.NotasEncargado = $(JsFormulario.Controles.txtNotasEncargadoFormulario).val().trim();
+            detalleFormulario.TituloHoja = $(JsFormulario.Controles.txtTituloHoja).val().trim();
+            detalleFormulario.NotaEncargado = $(JsFormulario.Controles.txtNotasEncargadoFormulario).val().trim();
             detalleFormulario.idIndicador = $(JsFormulario.Controles.ddlIndicador).val();
             formularioweb.id = ObtenerValorParametroUrl("id");
             detalleFormulario.formularioweb = formularioweb;
@@ -488,8 +489,8 @@
             $("#loading").fadeIn();
             let detalleFormulario = new Object();
             let formularioweb = new Object();
-            detalleFormulario.TituloHojas = $(JsFormulario.Controles.txtTituloHoja).val().trim();
-            detalleFormulario.NotasEncargado = $(JsFormulario.Controles.txtNotasEncargadoFormulario).val().trim();
+            detalleFormulario.TituloHoja = $(JsFormulario.Controles.txtTituloHoja).val().trim();
+            detalleFormulario.NotaEncargado = $(JsFormulario.Controles.txtNotasEncargadoFormulario).val().trim();
             detalleFormulario.idIndicador = $(JsFormulario.Controles.ddlIndicador).val();
             formularioweb.id = ObtenerValorParametroUrl("id");
             detalleFormulario.formularioweb = formularioweb;
@@ -729,7 +730,7 @@
             $("#loading").fadeIn();
             let detalleIndicadorFonatel = new Object();
             detalleIndicadorFonatel.IdIndicador = $(JsFormulario.Controles.tabIndicadorActive).attr('data-Indicador');
-            detalleIndicadorFonatel.CantidadFilas = $(JsFormulario.Controles.tabActivoIndicador).find(JsFormulario.Controles.txtCantidadIndicador).val();
+            detalleIndicadorFonatel.CantidadFila = $(JsFormulario.Controles.tabActivoIndicador).find(JsFormulario.Controles.txtCantidadIndicador).val();
             execAjaxCall("/FormularioWeb/ConsultaVizualizarFormulario", "POST", detalleIndicadorFonatel = detalleIndicadorFonatel)
                 .then((obj) => {
                     $(JsFormulario.Controles.tablaIndicador).removeClass("hidden");
