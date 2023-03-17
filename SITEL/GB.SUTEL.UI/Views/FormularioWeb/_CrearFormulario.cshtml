@@ -33,7 +33,7 @@
                     <div class="col-sm-12">
                         <div class="select2-wrapper">
                             <div class="select2-wrapper">
-                                @Html.DropDownListFor(model => model.formularioweb.idFrecuencia, new SelectList(ViewBag.FrecuanciaEnvio, "idFrecuencia", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlFrecuanciaEnvio" })
+                                @Html.DropDownListFor(model => model.formularioweb.idFrecuenciaEnvio, new SelectList(ViewBag.FrecuenciaEnvio, "IdFrecuenciaEnvio", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlFrecuanciaEnvio" })
                             </div>
                         </div>
                         <small id="ddlFrecuenciaHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
@@ -44,7 +44,7 @@
                 <div class="form-group row">
                     <label for="txtCantidadIndicadoresFormulario" class="col-sm-12 col-form-label">@EtiquetasViewFormulario.CantidadIndicadores</label>
                     <div class="col-sm-12">
-                        @Html.EditorFor(model => model.formularioweb.CantidadIndicadores, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewFormulario.CantidadIndicadores, id = "txtCantidadIndicadoresFormulario" } })
+                        @Html.EditorFor(model => model.formularioweb.CantidadIndicador, new { htmlAttributes = new { @class = "form-control form-control-fonatel solo_numeros", placeholder = EtiquetasViewFormulario.CantidadIndicadores, id = "txtCantidadIndicadoresFormulario" } })
                         <small id="txtCantidadIndicadoresFormularioHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                     </div>
                 </div>

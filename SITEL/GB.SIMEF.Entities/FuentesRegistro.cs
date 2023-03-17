@@ -22,7 +22,7 @@ namespace GB.SIMEF.Entities
         
         public FuenteRegistro()
         {
-            DetalleFuentesRegistro = new List<DetalleFuenteRegistro>();
+            DetalleFuenteRegistro = new List<DetalleFuenteRegistro>();
         }
         [Key]
         public int IdFuenteRegistro { get; set; }
@@ -43,7 +43,7 @@ namespace GB.SIMEF.Entities
         public string id { get; set; }
 
         [NotMapped]
-        public List<DetalleFuenteRegistro> DetalleFuentesRegistro { get; set; }
+        public List<DetalleFuenteRegistro> DetalleFuenteRegistro { get; set; }
 
         public override string ToString()
         {

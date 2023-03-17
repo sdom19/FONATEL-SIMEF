@@ -1,5 +1,5 @@
 ﻿@using GB.SIMEF.Resources;
-@model GB.SIMEF.Entities.FuentesRegistro
+@model GB.SIMEF.Entities.FuenteRegistro
 
 @{
     ViewBag.Title = ViewBag.titulo;
@@ -66,7 +66,7 @@
     </div>
 
     <div class="col-sm-12 text-center">
-        @if (Model.CantidadDestinatario > Model.DetalleFuentesRegistro.Count)
+        @if (Model.CantidadDestinatario > Model.DetalleFuenteRegistro.Count)
         {
             <button type="submit" disabled id="btnGuardarFuentesCompleto" class="btn btn-fonatel btn-info-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonFinalizar">@Etiquetas.BotonFinalizar</button>
 

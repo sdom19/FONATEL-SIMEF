@@ -70,7 +70,7 @@ namespace GB.SIMEF.BL
 
                     plantilla.Html = string.Format(plantilla.Html, Utilidades.Encriptar(objeto.Fuente.Fuente), objeto.Codigo, objeto.Nombre, objeto.Fuente.Fuente, FechaActual, HoraActual);
 
-                    foreach (var detalleFuente in objeto.Fuente.DetalleFuentesRegistro.Where(x => x.Estado == true))
+                    foreach (var detalleFuente in objeto.Fuente.DetalleFuenteRegistro.Where(x => x.Estado == true))
                     {
                         correoDal = new CorreoDal(detalleFuente.CorreoElectronico, "", plantilla.Html.Replace(Utilidades.Encriptar(objeto.Fuente.Fuente), detalleFuente.NombreDestinatario), EtiquetasViewRegistroIndicadorFonatel.CargaExitosa);
                         var result = correoDal.EnviarCorreo();

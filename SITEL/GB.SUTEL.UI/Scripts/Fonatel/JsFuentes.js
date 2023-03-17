@@ -62,7 +62,7 @@
 
                 let fuente = JsFuentes.Variables.ListadoFuentes[i];
                 html = html + "<tr><th scope='row'>" + fuente.Fuente + "</th>" +
-                    "<td>" + fuente.CantidadDestinatario + "/" + fuente.DetalleFuentesRegistro.length + "</td><td>" + fuente.EstadoRegistro.Nombre + "</td>";
+                    "<td>" + fuente.CantidadDestinatario + "/" + fuente.DetalleFuenteRegistro.length + "</td><td>" + fuente.EstadoRegistro.Nombre + "</td>";
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value='"+fuente.id+"' title='Editar' class='btn-icon-base btn-edit'></button>" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' value='" + fuente.id +"' title='Eliminar' class='btn-icon-base btn-delete'></button></td></tr>";
             }
@@ -87,8 +87,8 @@
             for (var i = 0; i < JsFuentes.Variables.ListaDestinatarios.length; i++) {
                 let destinatario = JsFuentes.Variables.ListaDestinatarios[i];
                 html = html + "<tr><th scope='row'>" + destinatario.NombreDestinatario + "</th><td>" + destinatario.CorreoElectronico + "</td>";
-                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + destinatario.idDetalleFuente + " title='Editar' class='btn-icon-base btn-edit'></button>";
-                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + destinatario.idDetalleFuente + " title='Eliminar' class='btn-icon-base btn-delete '></button></td></tr>";
+                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + destinatario.idDetalleFuenteRegistro + " title='Editar' class='btn-icon-base btn-edit'></button>";
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + destinatario.idDetalleFuenteRegistro + " title='Eliminar' class='btn-icon-base btn-delete '></button></td></tr>";
                 html = html + "</tr>"
                
             }
@@ -183,19 +183,19 @@
             destinatario.NombreDestinatario = $(JsFuentes.Controles.txtNombre).val();
             destinatario.CorreoElectronico = $(JsFuentes.Controles.txtCorreo).val();
             destinatario.fuenteId =ObtenerValorParametroUrl('id');
-            destinatario.idDetalleFuente = id;
+            destinatario.idDetalleFuenteRegistro = id;
             destinatario.idUsuario = $(JsFuentes.Controles.txtIdUsuarioDetalle).val();
             $("#loading").fadeIn();
             execAjaxCall("/Fuentes/AgregarDestinatario", "POST", destinatario)
                 .then((obj) => {
                    
                     let mensaje = "El Destinatario ha sido agregado";
-                    if (destinatario.idDetalleFuente!= "") {
+                    if (destinatario.idDetalleFuenteRegistro!= "") {
                         mensaje = "El Destinatario ha sido editado"
                     }
                     jsMensajes.Metodos.OkAlertModal(mensaje)
                         .set('onok', function (closeEvent) {
-                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
+                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuenteRegistro;
                            
 
                             $(JsFuentes.Controles.txtNombre).val("");
@@ -238,7 +238,7 @@
                     else {
                         //$(JsFuentes.Controles.txtidFuente).val(obj.objetoRespuesta[0].id);
                         if (ObtenerValorParametroUrl("modo") == jsUtilidades.Variables.Acciones.Editar) {
-                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
+                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuenteRegistro;
                             JsFuentes.Metodos.HabilitarBotones();
                             JsFuentes.Metodos.CargarTablaDestinatarios();
                         } else {
@@ -265,7 +265,7 @@
         },
         "EliminarDestinatario": function (id) {
          let destinatario = new Object();
-            destinatario.idDetalleFuente = id;
+            destinatario.idDetalleFuenteRegistro = id;
             destinatario.fuenteId = ObtenerValorParametroUrl("id");
          execAjaxCall("/Fuentes/EliminarDestinatario", "POST", destinatario)
              .then((obj) => {
@@ -313,14 +313,14 @@
         "ConsultarDestinatarios": function (id) {
             $("#loading").fadeIn();
             let destinatario = new Object()
-            destinatario.idDetalleFuente = id;
+            destinatario.idDetalleFuenteRegistro = id;
             execAjaxCall("/Fuentes/ConsultarDestinatarios", "POST", destinatario)
                 .then((obj) => {
                     JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta;
 
                     if (JsFuentes.Variables.ListaDestinatarios.length > 0) {
                         let destinatario = JsFuentes.Variables.ListaDestinatarios[0];
-                        $(JsFuentes.Controles.txtidDetalleFuente).val(destinatario.idDetalleFuente);
+                        $(JsFuentes.Controles.txtidDetalleFuente).val(destinatario.idDetalleFuenteRegistro);
                         $(JsFuentes.Controles.txtNombre).val(destinatario.NombreDestinatario);
                         $(JsFuentes.Controles.txtCorreo).val(destinatario.CorreoElectronico);
                         $(JsFuentes.Controles.btnGuardarDestinatario).prop("disabled", false);

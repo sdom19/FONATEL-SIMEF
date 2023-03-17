@@ -45,7 +45,7 @@ namespace GB.SIMEF.DAL
                 using (db = new SIMEFContext())
                 {
                     resultado = db.Database.SqlQuery<int>
-                         ("execute spEnvioCorreo @Para, @CC,@titulo,@html",
+                         ("execute pa_EnvioCorreo @Para, @CC,@titulo,@html",
                           new SqlParameter("@Para", string.IsNullOrEmpty(this.Para) ? DBNull.Value.ToString() : this.Para),
                           new SqlParameter("@CC", string.IsNullOrEmpty(this.Copia) ? DBNull.Value.ToString() : this.Copia),
                           new SqlParameter("@titulo", string.IsNullOrEmpty(this.Asunto) ? DBNull.Value.ToString() : this.Asunto),

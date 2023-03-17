@@ -1,4 +1,4 @@
-﻿@model GB.SIMEF.Entities.FuentesRegistro
+﻿@model GB.SIMEF.Entities.FuenteRegistro
 @using GB.SIMEF.Resources;
 <div class="table-responsive table-wrapper-fonatel">
 
@@ -11,14 +11,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.DetalleFuentesRegistro)
+            @foreach (var item in Model.DetalleFuenteRegistro)
             {
                 <tr>
                     <th scope="row">@item.NombreDestinatario</th>
                     <td>@item.CorreoElectronico</td>
                     <td>
-                        <button type="button" data-toggle="tooltip" data-placement="top" value="@item.idDetalleFuente" title="Editar" class="btn-icon-base btn-edit"></button>
-                        <button type="button" data-toggle="tooltip" data-placement="top" value="@item.idDetalleFuente" title="Eliminar" class="btn-icon-base btn-delete"></button>
+                        <button type="button" data-toggle="tooltip" data-placement="top" value="@item.IdDetalleFuenteRegistro" title="Editar" class="btn-icon-base btn-edit"></button>
+                        <button type="button" data-toggle="tooltip" data-placement="top" value="@item.IdDetalleFuenteRegistro" title="Eliminar" class="btn-icon-base btn-delete"></button>
                     </td>
                 </tr>
             }

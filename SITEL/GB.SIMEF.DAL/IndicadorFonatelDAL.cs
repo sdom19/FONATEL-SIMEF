@@ -42,12 +42,12 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pIdIndicador", pIndicador.IdIndicador),
                      new SqlParameter("@pCodigo", string.IsNullOrEmpty(pIndicador.Codigo) ? DBNull.Value.ToString() : pIndicador.Codigo),
                      new SqlParameter("@pIdTipoIndicador", pIndicador.IdTipoIndicador),
-                     new SqlParameter("@pIdClasificacion", pIndicador.IdClasificacionIndicador),
-                     new SqlParameter("@pIdGrupo", pIndicador.IdGrupoIndicador),
+                     new SqlParameter("@pIdClasificacionIndicador", pIndicador.IdClasificacionIndicador),
+                     new SqlParameter("@pIdGrupoIndicador", pIndicador.IdGrupoIndicador),
                      new SqlParameter("@pIdUnidadEstudio", pIndicador.IdUnidadEstudio != null ? pIndicador.IdUnidadEstudio : 0),
                      new SqlParameter("@pIdTipoMedida", pIndicador.IdTipoMedida),
                      new SqlParameter("@pIdFrecuencia", pIndicador.IdFrecuenciaEnvio),
-                     new SqlParameter("@pIdEstado", pIndicador.IdEstadoRegistro)
+                     new SqlParameter("@pIdEstadoRegistro", pIndicador.IdEstadoRegistro)
                     ).ToList();
 
                 listaIndicadores = listaIndicadores.Select(x => new Indicador()

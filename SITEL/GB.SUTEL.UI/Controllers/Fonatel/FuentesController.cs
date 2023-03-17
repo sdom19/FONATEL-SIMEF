@@ -164,7 +164,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return result;
             }).ContinueWith(objFuente=> {
                 FuenteRegistro fuente = result.objetoRespuesta.Single(); 
-                foreach (var item in fuente.DetalleFuentesRegistro)
+                foreach (var item in fuente.DetalleFuenteRegistro)
                 {
                     if (!item.CorreoEnviado)
                     {

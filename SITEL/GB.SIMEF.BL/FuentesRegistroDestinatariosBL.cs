@@ -97,7 +97,7 @@ namespace GB.SIMEF.BL
                 }
                 var fuente = clsfuente.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro = objeto.IdFuenteRegistro }).SingleOrDefault();
 
-                var consultardatos = fuente.DetalleFuentesRegistro.Where(x=>x.IdDetalleFuenteRegistro==objeto.IdDetalleFuenteRegistro).ToList();
+                var consultardatos = fuente.DetalleFuenteRegistro.Where(x=>x.IdDetalleFuenteRegistro==objeto.IdDetalleFuenteRegistro).ToList();
                 if (consultardatos.Count()==0)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
@@ -135,7 +135,7 @@ namespace GB.SIMEF.BL
             objeto.NombreDestinatario = objeto.NombreDestinatario.Trim().ToUpper();
             var fuente = clsfuente.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro = objeto.IdFuenteRegistro }).SingleOrDefault();
 
-            var consultardatos = fuente.DetalleFuentesRegistro;
+            var consultardatos = fuente.DetalleFuenteRegistro;
             if (objeto==null && !Agregar)
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
