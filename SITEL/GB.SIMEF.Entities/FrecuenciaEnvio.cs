@@ -24,9 +24,10 @@ namespace GB.SIMEF.Entities
         }
 
         [Key]
-        public int idFrecuenciaEnvio { get; set; }
+        public int IdFrecuenciaEnvio { get; set; }
         public string Nombre { get; set; }
         public int CantidadDia { get; set; }
+        public int CantidadMes { get; set; }
         public bool Estado { get; set; }
 
         #region Variables que no forman parte del contexto

@@ -28,7 +28,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listaFuentes = db.Database.SqlQuery<FuenteIndicador>
-                ("execute spObtenerFuentesIndicadores @pIdFuenteIndicador",
+                ("execute pa_ObtenerFuenteIndicador @pIdFuenteIndicador",
                 new SqlParameter("@pIdFuenteIndicador", pFuenteIndicador.IdFuenteIndicador)
                 ).ToList();
 

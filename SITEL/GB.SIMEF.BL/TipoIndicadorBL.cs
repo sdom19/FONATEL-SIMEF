@@ -11,7 +11,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class TipoIndicadorBL : IMetodos<TipoIndicadores>
+    public class TipoIndicadorBL : IMetodos<TipoIndicador>
     {
         readonly string modulo = "";
         readonly string user = "";
@@ -24,7 +24,7 @@ namespace GB.SIMEF.BL
             tipoIndicadorDAL = new TipoIndicadorDAL();
         }
 
-        public RespuestaConsulta<List<TipoIndicadores>> ActualizarElemento(TipoIndicadores objeto)
+        public RespuestaConsulta<List<TipoIndicador>> ActualizarElemento(TipoIndicador objeto)
         {
             throw new NotImplementedException();
         }
@@ -36,9 +36,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pTipoIndicadores"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<TipoIndicadores>> CambioEstado(TipoIndicadores pTipoIndicadores)
+        public RespuestaConsulta<List<TipoIndicador>> CambioEstado(TipoIndicador pTipoIndicadores)
         {
-            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            RespuestaConsulta<List<TipoIndicador>> resultado = new RespuestaConsulta<List<TipoIndicador>>();
             bool errorControlado = false, nuevoEstado = pTipoIndicadores.nuevoEstado;
 
             try
@@ -57,7 +57,7 @@ namespace GB.SIMEF.BL
                 // actualizar el estado del indicador
                 pTipoIndicadores.IdTipoIndicador = idDecencriptado;
                 pTipoIndicadores.Estado = nuevoEstado;
-                List<TipoIndicadores> tipoIndicadorActualizado = tipoIndicadorDAL.ActualizarDatos(pTipoIndicadores);
+                List<TipoIndicador> tipoIndicadorActualizado = tipoIndicadorDAL.ActualizarDatos(pTipoIndicadores);
 
                 if (tipoIndicadorActualizado.Count() <= 0) // ¿actualizó correctamente?
                 {
@@ -87,12 +87,12 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<TipoIndicadores>> ClonarDatos(TipoIndicadores objeto)
+        public RespuestaConsulta<List<TipoIndicador>> ClonarDatos(TipoIndicador objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<TipoIndicadores>> EliminarElemento(TipoIndicadores objeto)
+        public RespuestaConsulta<List<TipoIndicador>> EliminarElemento(TipoIndicador objeto)
         {
             throw new NotImplementedException();
         }
@@ -104,15 +104,15 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pTipoIndicadores"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<TipoIndicadores>> InsertarDatos(TipoIndicadores pTipoIndicadores)
+        public RespuestaConsulta<List<TipoIndicador>> InsertarDatos(TipoIndicador pTipoIndicadores)
         {
-            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            RespuestaConsulta<List<TipoIndicador>> resultado = new RespuestaConsulta<List<TipoIndicador>>();
             bool errorControlado = false;
 
             try
             {
-                List<TipoIndicadores> tipos = tipoIndicadorDAL.ObtenerDatos(new TipoIndicadores());
-                TipoIndicadores indicadorExiste = tipos.FirstOrDefault(x => x.Nombre.ToUpper().Equals(pTipoIndicadores.Nombre.ToUpper()));
+                List<TipoIndicador> tipos = tipoIndicadorDAL.ObtenerDatos(new TipoIndicador());
+                TipoIndicador indicadorExiste = tipos.FirstOrDefault(x => x.Nombre.ToUpper().Equals(pTipoIndicadores.Nombre.ToUpper()));
 
                 if (indicadorExiste != null)
                 {
@@ -120,7 +120,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(string.Format(Errores.CampoYaExiste, pTipoIndicadores.Nombre));
                 }
 
-                List<TipoIndicadores> indicadorInsertado = tipoIndicadorDAL.InsertarTipoIndicador(pTipoIndicadores);
+                List<TipoIndicador> indicadorInsertado = tipoIndicadorDAL.InsertarTipoIndicador(pTipoIndicadores);
                 resultado.objetoRespuesta = indicadorInsertado;
                 resultado.CantidadRegistros = indicadorInsertado.Count();
                 resultado.Accion = (int)Accion.Insertar;
@@ -150,14 +150,14 @@ namespace GB.SIMEF.BL
         /// Se puede aplicar un filtro para obtener un único elemento a traves del ID.
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatos(TipoIndicadores pTipoIndicadores)
+        public RespuestaConsulta<List<TipoIndicador>> ObtenerDatos(TipoIndicador pTipoIndicadores)
         {
-            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            RespuestaConsulta<List<TipoIndicador>> resultado = new RespuestaConsulta<List<TipoIndicador>>();
 
             try
             {
                 resultado.Accion = (int)Accion.Consultar;
-                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatos(pTipoIndicadores);
+                List<TipoIndicador> result = tipoIndicadorDAL.ObtenerDatos(pTipoIndicadores);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -175,13 +175,13 @@ namespace GB.SIMEF.BL
         /// Función que retorna todos los tipos indicadores registrados Mercado
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosMercado()
+        public RespuestaConsulta<List<TipoIndicador>> ObtenerDatosMercado()
         {
-            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            RespuestaConsulta<List<TipoIndicador>> resultado = new RespuestaConsulta<List<TipoIndicador>>();
 
             try
             {
-                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosMercado();
+                List<TipoIndicador> result = tipoIndicadorDAL.ObtenerDatosMercado();
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -199,13 +199,13 @@ namespace GB.SIMEF.BL
         /// Función que retorna todos los tipos indicadores registrados Mercado
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosCalidad()
+        public RespuestaConsulta<List<TipoIndicador>> ObtenerDatosCalidad()
         {
-            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            RespuestaConsulta<List<TipoIndicador>> resultado = new RespuestaConsulta<List<TipoIndicador>>();
 
             try
             {
-                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosCalidad();
+                List<TipoIndicador> result = tipoIndicadorDAL.ObtenerDatosCalidad();
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -223,13 +223,13 @@ namespace GB.SIMEF.BL
         /// Función que retorna todos los tipos indicadores registrado en UIT
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosUIT()
+        public RespuestaConsulta<List<TipoIndicador>> ObtenerDatosUIT()
         {
-            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            RespuestaConsulta<List<TipoIndicador>> resultado = new RespuestaConsulta<List<TipoIndicador>>();
 
             try
             {
-                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosUIT();
+                List<TipoIndicador> result = tipoIndicadorDAL.ObtenerDatosUIT();
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -247,13 +247,13 @@ namespace GB.SIMEF.BL
         /// Función que retorna todos los tipos indicadores registrado en UIT
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<TipoIndicadores>> ObtenerDatosCruzado()
+        public RespuestaConsulta<List<TipoIndicador>> ObtenerDatosCruzado()
         {
-            RespuestaConsulta<List<TipoIndicadores>> resultado = new RespuestaConsulta<List<TipoIndicadores>>();
+            RespuestaConsulta<List<TipoIndicador>> resultado = new RespuestaConsulta<List<TipoIndicador>>();
 
             try
             {
-                List<TipoIndicadores> result = tipoIndicadorDAL.ObtenerDatosCruzado();
+                List<TipoIndicador> result = tipoIndicadorDAL.ObtenerDatosCruzado();
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -266,7 +266,7 @@ namespace GB.SIMEF.BL
         }
 
 
-        public RespuestaConsulta<List<TipoIndicadores>> ValidarDatos(TipoIndicadores objeto)
+        public RespuestaConsulta<List<TipoIndicador>> ValidarDatos(TipoIndicador objeto)
         {
             throw new NotImplementedException();
         }

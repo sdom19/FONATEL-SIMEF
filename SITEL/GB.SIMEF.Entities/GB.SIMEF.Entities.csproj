@@ -81,7 +81,7 @@
     <Compile Include="RelacionCategoriaId.cs" />
     <Compile Include="RespuestaConsulta.cs" />
     <Compile Include="CategoriasDesagregacion.cs" />
-    <Compile Include="ClasificacionIndicadores.cs" />
+    <Compile Include="ClasificacionIndicador.cs" />
     <Compile Include="DefinicionIndicadores.cs" />
     <Compile Include="DetalleCategoriaFecha.cs" />
     <Compile Include="DetalleCategoriaNumerico.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="DetalleFormularioWeb.cs" />
     <Compile Include="DetalleFuentesRegistro.cs" />
     <Compile Include="DetalleIndicadorCategoria.cs" />
-    <Compile Include="DetalleIndicadorVariables.cs" />
+    <Compile Include="DetalleIndicadorVariable.cs" />
     <Compile Include="DetalleRegistroIndicadorCategoria.cs" />
     <Compile Include="DetalleRegistroIndicadorVariableFonatel.cs" />
     <Compile Include="DetalleRelacionCategoria.cs" />
@@ -107,7 +107,7 @@
     <Compile Include="FrecuenciaEnvio.cs" />
     <Compile Include="FuenteIndicador.cs" />
     <Compile Include="FuentesRegistro.cs" />
-    <Compile Include="GrupoIndicadores.cs" />
+    <Compile Include="GrupoIndicador.cs" />
     <Compile Include="Indicador.cs" />
     <Compile Include="Mes.cs" />
     <Compile Include="OperadorArismetico.cs" />
@@ -125,7 +125,7 @@
     <Compile Include="SolicitudDetalleFuentes.cs" />
     <Compile Include="SolicitudEnvioProgramado.cs" />
     <Compile Include="TipoCategoria.cs" />
-    <Compile Include="TipoIndicadores.cs" />
+    <Compile Include="TipoIndicador.cs" />
     <Compile Include="TipoMedida.cs" />
     <Compile Include="TipoReglaValidacion.cs" />
     <Compile Include="TiposDetalleCategoria.cs" />

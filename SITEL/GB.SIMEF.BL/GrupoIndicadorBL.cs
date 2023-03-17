@@ -10,7 +10,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class GrupoIndicadorBL : IMetodos<GrupoIndicadores>
+    public class GrupoIndicadorBL : IMetodos<GrupoIndicador>
     {
         readonly string modulo = "";
         readonly string user = "";
@@ -23,7 +23,7 @@ namespace GB.SIMEF.BL
             grupoIndicadorDAL = new GrupoIndicadorDAL();
         }
 
-        public RespuestaConsulta<List<GrupoIndicadores>> ActualizarElemento(GrupoIndicadores objeto)
+        public RespuestaConsulta<List<GrupoIndicador>> ActualizarElemento(GrupoIndicador objeto)
         {
             throw new NotImplementedException();
         }
@@ -35,17 +35,17 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pGrupoIndicador"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<GrupoIndicadores>> CambioEstado(GrupoIndicadores pGrupoIndicador)
+        public RespuestaConsulta<List<GrupoIndicador>> CambioEstado(GrupoIndicador pGrupoIndicador)
         {
-            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            RespuestaConsulta<List<GrupoIndicador>> resultado = new RespuestaConsulta<List<GrupoIndicador>>();
             bool errorControlado = false, nuevoEstado = pGrupoIndicador.nuevoEstado;
 
             try
             {
                 int.TryParse(Utilidades.Desencriptar(pGrupoIndicador.id), out int idDecencriptado);
-                pGrupoIndicador.idGrupo = idDecencriptado;
+                pGrupoIndicador.IdGrupoIndicador = idDecencriptado;
 
-                if (pGrupoIndicador.idGrupo == 0) // ¿ID descencriptado con éxito?
+                if (pGrupoIndicador.IdGrupoIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -54,7 +54,7 @@ namespace GB.SIMEF.BL
                 pGrupoIndicador = grupoIndicadorDAL.ObtenerDatos(pGrupoIndicador).Single();
 
                 // actualizar el estado del indicador
-                pGrupoIndicador.idGrupo = idDecencriptado;
+                pGrupoIndicador.IdGrupoIndicador = idDecencriptado;
                 pGrupoIndicador.Estado = nuevoEstado;
                 var grupoIndicadorActualizado = grupoIndicadorDAL.ActualizarDatos(pGrupoIndicador);
 
@@ -86,12 +86,12 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<GrupoIndicadores>> ClonarDatos(GrupoIndicadores objeto)
+        public RespuestaConsulta<List<GrupoIndicador>> ClonarDatos(GrupoIndicador objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<GrupoIndicadores>> EliminarElemento(GrupoIndicadores objeto)
+        public RespuestaConsulta<List<GrupoIndicador>> EliminarElemento(GrupoIndicador objeto)
         {
             throw new NotImplementedException();
         }
@@ -103,15 +103,15 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pGrupoIndicador"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<GrupoIndicadores>> InsertarDatos(GrupoIndicadores pGrupoIndicador)
+        public RespuestaConsulta<List<GrupoIndicador>> InsertarDatos(GrupoIndicador pGrupoIndicador)
         {
-            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            RespuestaConsulta<List<GrupoIndicador>> resultado = new RespuestaConsulta<List<GrupoIndicador>>();
             bool errorControlado = false;
 
             try
             {
-                List<GrupoIndicadores> grupos = grupoIndicadorDAL.ObtenerDatos(new GrupoIndicadores());
-                GrupoIndicadores grupoExiste = grupos.FirstOrDefault(x => x.Nombre.ToUpper().Equals(pGrupoIndicador.Nombre.ToUpper()));
+                List<GrupoIndicador> grupos = grupoIndicadorDAL.ObtenerDatos(new GrupoIndicador());
+                GrupoIndicador grupoExiste = grupos.FirstOrDefault(x => x.Nombre.ToUpper().Equals(pGrupoIndicador.Nombre.ToUpper()));
 
                 if (grupoExiste != null)
                 {
@@ -119,7 +119,7 @@ namespace GB.SIMEF.BL
                     throw new Exception(string.Format(Errores.CampoYaExiste, pGrupoIndicador.Nombre));
                 }
 
-                List<GrupoIndicadores> grupoInsertado = grupoIndicadorDAL.InsertarGrupoIndicador(pGrupoIndicador);
+                List<GrupoIndicador> grupoInsertado = grupoIndicadorDAL.InsertarGrupoIndicador(pGrupoIndicador);
                 resultado.objetoRespuesta = grupoInsertado;
                 resultado.CantidadRegistros = grupoInsertado.Count();
                 resultado.Accion = (int)Accion.Insertar;
@@ -149,9 +149,9 @@ namespace GB.SIMEF.BL
         /// Se puede aplicar un filtro para obtener un único elemento a traves del ID.
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatos(GrupoIndicadores pGrupoIndicadores)
+        public RespuestaConsulta<List<GrupoIndicador>> ObtenerDatos(GrupoIndicador pGrupoIndicadores)
         {
-            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            RespuestaConsulta<List<GrupoIndicador>> resultado = new RespuestaConsulta<List<GrupoIndicador>>();
 
             try
             {
@@ -174,9 +174,9 @@ namespace GB.SIMEF.BL
         /// Función que retorna los grupos de indicadores de mercados
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosMercado()
+        public RespuestaConsulta<List<GrupoIndicador>> ObtenerDatosMercado()
         {
-            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            RespuestaConsulta<List<GrupoIndicador>> resultado = new RespuestaConsulta<List<GrupoIndicador>>();
 
             try
             {
@@ -199,9 +199,9 @@ namespace GB.SIMEF.BL
         /// Función que retorna los grupos de indicadores de calidad
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosCalidad()
+        public RespuestaConsulta<List<GrupoIndicador>> ObtenerDatosCalidad()
         {
-            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            RespuestaConsulta<List<GrupoIndicador>> resultado = new RespuestaConsulta<List<GrupoIndicador>>();
 
             try
             {
@@ -224,9 +224,9 @@ namespace GB.SIMEF.BL
         /// Función que retorna los grupos de indicadores UIT
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosUIT()
+        public RespuestaConsulta<List<GrupoIndicador>> ObtenerDatosUIT()
         {
-            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            RespuestaConsulta<List<GrupoIndicador>> resultado = new RespuestaConsulta<List<GrupoIndicador>>();
 
             try
             {
@@ -249,9 +249,9 @@ namespace GB.SIMEF.BL
         /// Función que retorna los grupos de indicadores cruzados
         /// </summary>
         /// <returns></returns>
-        public RespuestaConsulta<List<GrupoIndicadores>> ObtenerDatosCruzado()
+        public RespuestaConsulta<List<GrupoIndicador>> ObtenerDatosCruzado()
         {
-            RespuestaConsulta<List<GrupoIndicadores>> resultado = new RespuestaConsulta<List<GrupoIndicadores>>();
+            RespuestaConsulta<List<GrupoIndicador>> resultado = new RespuestaConsulta<List<GrupoIndicador>>();
 
             try
             {
@@ -268,7 +268,7 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<GrupoIndicadores>> ValidarDatos(GrupoIndicadores objeto)
+        public RespuestaConsulta<List<GrupoIndicador>> ValidarDatos(GrupoIndicador objeto)
         {
             throw new NotImplementedException();
         }

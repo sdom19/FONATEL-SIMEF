@@ -10,7 +10,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class DetalleIndicadorCriteriosSitelBL : IMetodos<DetalleIndicadorVariables> // se adapta el modelo de detalles variables
+    public class DetalleIndicadorCriteriosSitelBL : IMetodos<DetalleIndicadorVariable> // se adapta el modelo de detalles variables
     {
         private readonly DetalleIndicadorCriteriosSitelDAL detalleIndicadorCriteriosSitelDAL;
 
@@ -26,16 +26,16 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerDatosMercado(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ObtenerDatosMercado(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
 
             try
             {
                 if (!string.IsNullOrEmpty(pDetalleIndicadorVariables.idIndicadorString))
                 {
                     int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorVariables.idIndicadorString), out int number);
-                    pDetalleIndicadorVariables.idIndicador = number;
+                    pDetalleIndicadorVariables.IdIndicador = number;
                 }
 
                 resultado.objetoRespuesta = detalleIndicadorCriteriosSitelDAL.ObtenerDatosMercado(pDetalleIndicadorVariables).ToList();
@@ -65,7 +65,7 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(pDetalleIndicadorCategoria.idIndicadorString))
                 {
                     int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorCategoria.idIndicadorString), out int number);
-                    pDetalleIndicadorCategoria.idIndicador = number;
+                    pDetalleIndicadorCategoria.IdIndicador = number;
                 }
 
                 if (!string.IsNullOrEmpty(pDetalleIndicadorCategoria.idCriterioString))
@@ -74,7 +74,7 @@ namespace GB.SIMEF.BL
                     pDetalleIndicadorCategoria.idCriterioInt = number;
                 }
 
-                if (pDetalleIndicadorCategoria.idIndicador == 0 || pDetalleIndicadorCategoria.idCriterioInt == 0)
+                if (pDetalleIndicadorCategoria.IdIndicador == 0 || pDetalleIndicadorCategoria.idCriterioInt == 0)
                 {
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
@@ -97,9 +97,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerDatosCalidad(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ObtenerDatosCalidad(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
 
             try
             {
@@ -126,9 +126,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerDatosUIT(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ObtenerDatosUIT(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
 
             try
             {
@@ -155,9 +155,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerDatosCruzado(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ObtenerDatosCruzado(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
 
             try
             {
@@ -184,9 +184,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerDatosExterno(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ObtenerDatosExterno(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
 
             try
             {
@@ -206,38 +206,38 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerDatos(DetalleIndicadorVariables objeto)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ObtenerDatos(DetalleIndicadorVariable objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ActualizarElemento(DetalleIndicadorVariables objeto)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ActualizarElemento(DetalleIndicadorVariable objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> CambioEstado(DetalleIndicadorVariables objeto)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> CambioEstado(DetalleIndicadorVariable objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ClonarDatos(DetalleIndicadorVariables objeto)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ClonarDatos(DetalleIndicadorVariable objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> EliminarElemento(DetalleIndicadorVariables objeto)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> EliminarElemento(DetalleIndicadorVariable objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> InsertarDatos(DetalleIndicadorVariables objeto)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> InsertarDatos(DetalleIndicadorVariable objeto)
         {
             throw new NotImplementedException();
         }
 
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ValidarDatos(DetalleIndicadorVariables objeto)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ValidarDatos(DetalleIndicadorVariable objeto)
         {
             throw new NotImplementedException();
         }

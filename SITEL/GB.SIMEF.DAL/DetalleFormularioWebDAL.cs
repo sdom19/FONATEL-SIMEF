@@ -39,10 +39,8 @@ namespace GB.SIMEF.DAL
                     NotaInformante = x.NotaInformante,
                     NotaEncargado = x.NotaEncargado,
                     Estado = x.Estado,
-
-                    Indicador = db.Indicador.Where(i => i.idIndicador == x.idIndicador).FirstOrDefault(),
+                    Indicador = db.Indicador.Where(i => i.IdIndicador == x.idIndicador).FirstOrDefault(),
                     formularioweb = db.FormularioWeb.Where(i => i.idFormularioWeb == x.idFormularioWeb).FirstOrDefault(),
-
                 }).ToList();
             }
             return ListaDetalleFormulariosWeb;
@@ -81,7 +79,7 @@ namespace GB.SIMEF.DAL
                     NotaEncargado = x.NotaEncargado,
                     Estado = x.Estado,
 
-                    Indicador = db.Indicador.Where(i => i.idIndicador == x.idIndicador).FirstOrDefault(),
+                    Indicador = db.Indicador.Where(i => i.IdIndicador == x.idIndicador).FirstOrDefault(),
                     formularioweb = db.FormularioWeb.Where(i => i.idFormularioWeb == x.idFormularioWeb).FirstOrDefault(),
                 }
                 ).ToList();

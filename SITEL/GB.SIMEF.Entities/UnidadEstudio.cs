@@ -22,7 +22,7 @@ namespace GB.SIMEF.Entities
         }
 
         [Key]
-        public int idUnidad { get; set; }
+        public int IdUnidadEstudio { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
 

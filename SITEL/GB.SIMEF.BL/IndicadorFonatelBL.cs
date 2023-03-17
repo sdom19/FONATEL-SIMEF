@@ -64,9 +64,9 @@ namespace GB.SIMEF.BL
             try
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
-                pIndicador.idIndicador = number;
+                pIndicador.IdIndicador = number;
 
-                if (pIndicador.idIndicador == 0) // ¿ID descencriptado con éxito?
+                if (pIndicador.IdIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -75,7 +75,7 @@ namespace GB.SIMEF.BL
                 Indicador indicadorViejo = indicadorFonatelDAL.ObtenerDatos(pIndicador).FirstOrDefault();
                 string JsonAnterior = indicadorViejo?.ToString();
 
-                pIndicador = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pIndicador.idIndicador);
+                pIndicador = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pIndicador.IdIndicador);
 
                 if (pIndicador == null) // ¿el indicador existe?
                 {
@@ -86,7 +86,7 @@ namespace GB.SIMEF.BL
                 // validación para cuando se desactiva un indicador. 
                 if (nuevoEstado == (int)EstadosRegistro.Desactivado)
                 {
-                    if (pIndicador.idEstado == (int)EstadosRegistro.EnProceso) // Para desactivar tiene que estar en estado "Activo"
+                    if (pIndicador.IdEstadoRegistro == (int)EstadosRegistro.EnProceso) // Para desactivar tiene que estar en estado "Activo"
                     { 
                         errorControlado = true;
                         throw new Exception(Errores.NoRegistrosActualizar);
@@ -97,7 +97,7 @@ namespace GB.SIMEF.BL
 
                 // actualizar el estado del indicador
                 pIndicador.UsuarioModificacion = user;
-                pIndicador.idEstado = nuevoEstado;
+                pIndicador.IdEstadoRegistro = nuevoEstado;
 
                 List<Indicador> indicadorActualizado = indicadorFonatelDAL.ActualizarDatos(pIndicador);
 
@@ -166,9 +166,9 @@ namespace GB.SIMEF.BL
             try
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
-                pIndicador.idIndicador = number;
+                pIndicador.IdIndicador = number;
 
-                if (pIndicador.idIndicador == 0) // ¿ID descencriptado con éxito?
+                if (pIndicador.IdIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -259,16 +259,16 @@ namespace GB.SIMEF.BL
             try
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
-                pIndicador.idIndicador = number;
+                pIndicador.IdIndicador = number;
 
-                if (pIndicador.idIndicador == 0) // ¿ID descencriptado con éxito?
+                if (pIndicador.IdIndicador == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
                 // validar si el indicador existe
-                Indicador indicadorRegistrado = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pIndicador.idIndicador);
+                Indicador indicadorRegistrado = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pIndicador.IdIndicador);
 
                 if (indicadorRegistrado == null) // el indicador existe?
                 {
@@ -285,15 +285,15 @@ namespace GB.SIMEF.BL
                     throw new Exception(msgIndicadorCompleto);
                 }
 
-                List<DetalleIndicadorVariables> objDetallesVariables = detalleIndicadorVariablesDAL.ObtenerDatos(
-                    new DetalleIndicadorVariables() { idIndicador = indicadorRegistrado.idIndicador });
+                List<DetalleIndicadorVariable> objDetallesVariables = detalleIndicadorVariablesDAL.ObtenerDatos(
+                    new DetalleIndicadorVariable() { IdIndicador = indicadorRegistrado.IdIndicador });
 
                 List<DetalleIndicadorCategoria> objDetallesCategoria = detalleIndicadorCategoriaDAL.ObtenerDatos(
-                    new DetalleIndicadorCategoria() { idIndicador = indicadorRegistrado.idIndicador, DetallesAgrupados = true });
+                    new DetalleIndicadorCategoria() { IdIndicador = indicadorRegistrado.IdIndicador, DetallesAgrupados = true });
 
                 // verificar que los detalles esten completos en cuanto a cantidad
                 if (indicadorRegistrado.CantidadVariableDato != objDetallesVariables.Count() ||
-                    indicadorRegistrado.CantidadCategoriasDesagregacion != objDetallesCategoria.Count())
+                    indicadorRegistrado.CantidadCategoriaDesagregacion != objDetallesCategoria.Count())
                 {
                     errorControlado = true;
                     throw new Exception(Errores.CamposIncompletos);
@@ -356,8 +356,7 @@ namespace GB.SIMEF.BL
                         throw new Exception(string.Format(Errores.CampoConValorInvalido, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo));
                     }
                 }
-
-                if ((pIndicador.esGuardadoParcial && pIndicador.FrecuenciaEnvio.idFrecuenciaEnvio != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
+                if ((pIndicador.esGuardadoParcial && pIndicador.FrecuenciaEnvio.IdFrecuenciaEnvio != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
                     if (frecuenciaEnvioDAL.ObtenerDatos(pIndicador.FrecuenciaEnvio).Count <= 0)
                     {
@@ -366,7 +365,7 @@ namespace GB.SIMEF.BL
                     }
                 }
 
-                if ((pIndicador.esGuardadoParcial && pIndicador.ClasificacionIndicadores.idClasificacion != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
+                if ((pIndicador.esGuardadoParcial && pIndicador.ClasificacionIndicadores.IdClasificacionIndicador != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
                     if (clasificacionIndicadorDAL.ObtenerDatos(pIndicador.ClasificacionIndicadores).Count <= 0)
                     {
@@ -375,7 +374,7 @@ namespace GB.SIMEF.BL
                     }
                 }
 
-                if ((pIndicador.esGuardadoParcial && pIndicador.TipoMedida.idMedida != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
+                if ((pIndicador.esGuardadoParcial && pIndicador.TipoMedida.IdTipoMedida != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
                     if (tipoMedidaDAL.ObtenerDatos(pIndicador.TipoMedida).Count <= 0)
                     {
@@ -384,7 +383,7 @@ namespace GB.SIMEF.BL
                     }
                 }
 
-                if ((pIndicador.esGuardadoParcial && pIndicador.GrupoIndicadores.idGrupo != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
+                if ((pIndicador.esGuardadoParcial && pIndicador.GrupoIndicadores.IdGrupoIndicador != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
                     if (grupoIndicadorDAL.ObtenerDatos(pIndicador.GrupoIndicadores).Count <= 0)
                     {
@@ -393,7 +392,7 @@ namespace GB.SIMEF.BL
                     }
                 }
 
-                if ((pIndicador.esGuardadoParcial && pIndicador.UnidadEstudio.idUnidad != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
+                if ((pIndicador.esGuardadoParcial && pIndicador.UnidadEstudio.IdUnidadEstudio != defaultDropDownValue) || !pIndicador.esGuardadoParcial)
                 {
                     if (unidadEstudioDAL.ObtenerDatos(pIndicador.UnidadEstudio).Count <= 0)
                     {
@@ -403,12 +402,12 @@ namespace GB.SIMEF.BL
                 }
 
                 // validar la cantidad de variables dato y categorias establecidas en el indicador según lo registrado respectivamente en cada detalle, sucede en caso de actualizar
-                if (pIndicador.idIndicador != 0)
+                if (pIndicador.IdIndicador != 0)
                 {
 
-                    Indicador indicadorRegistradoActualmente = indicadorFonatelDAL.ObtenerDatos(new Indicador() { idIndicador = pIndicador.idIndicador }).FirstOrDefault();
-                    List<DetalleIndicadorVariables> ListaVariables = detalleIndicadorVariablesDAL.ObtenerDatos(new DetalleIndicadorVariables() { idIndicador = pIndicador.idIndicador});
-                    List<DetalleIndicadorCategoria> ListaCategorias = detalleIndicadorCategoriaDAL.ObtenerDatos(new DetalleIndicadorCategoria() { idIndicador = pIndicador.idIndicador, DetallesAgrupados = true });
+                    Indicador indicadorRegistradoActualmente = indicadorFonatelDAL.ObtenerDatos(new Indicador() { IdIndicador = pIndicador.IdIndicador }).FirstOrDefault();
+                    List<DetalleIndicadorVariable> ListaVariables = detalleIndicadorVariablesDAL.ObtenerDatos(new DetalleIndicadorVariable() { IdIndicador = pIndicador.IdIndicador});
+                    List<DetalleIndicadorCategoria> ListaCategorias = detalleIndicadorCategoriaDAL.ObtenerDatos(new DetalleIndicadorCategoria() { IdIndicador = pIndicador.IdIndicador, DetallesAgrupados = true });
 
                     if (indicadorRegistradoActualmente != null)
                     {
@@ -421,9 +420,9 @@ namespace GB.SIMEF.BL
                             }
                         }
 
-                        if (pIndicador.CantidadCategoriasDesagregacion != null && indicadorRegistradoActualmente.CantidadCategoriasDesagregacion != null)
+                        if (pIndicador.CantidadCategoriaDesagregacion != null && indicadorRegistradoActualmente.CantidadCategoriaDesagregacion != null)
                         {
-                            if (pIndicador.CantidadCategoriasDesagregacion < ListaCategorias.Count)
+                            if (pIndicador.CantidadCategoriaDesagregacion < ListaCategorias.Count)
                             {
                                 errorControlado = true;
                                 throw new Exception(string.Format(Errores.CampoConValorMenorAlActual, EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador));
@@ -747,9 +746,9 @@ namespace GB.SIMEF.BL
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Clonar;
 
-                var objetoNuevo = indicadorFonatelDAL.ObtenerDatos(objeto).Where(x => x.idIndicador == idIndicadorDestino).Single();
+                var objetoNuevo = indicadorFonatelDAL.ObtenerDatos(objeto).Where(x => x.IdIndicador == idIndicadorDestino).Single();
 
-                objeto = indicadorFonatelDAL.ObtenerDatos(objeto).Where(x => x.idIndicador == idIndicadorAClonar).Single();
+                objeto = indicadorFonatelDAL.ObtenerDatos(objeto).Where(x => x.IdIndicador == idIndicadorAClonar).Single();
 
                 string jsonValorInicial = objeto.ToString();
                 string jsonClonado = objetoNuevo.ToString();
@@ -785,7 +784,7 @@ namespace GB.SIMEF.BL
             try
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
-                pIndicador.idIndicador = number;
+                pIndicador.IdIndicador = number;
                 // actualizar el estado del indicador
                 PrepararObjetoIndicador(pIndicador);
                 pIndicador.UsuarioModificacion = user;
@@ -832,18 +831,18 @@ namespace GB.SIMEF.BL
                 pIndicador.Codigo == null || string.IsNullOrEmpty(pIndicador.Codigo.Trim()) ||
                 pIndicador.Nombre == null || string.IsNullOrEmpty(pIndicador.Nombre.Trim()) ||
                 pIndicador.IdTipoIndicador == 0 || pIndicador.IdTipoIndicador == defaultDropDownValue ||
-                pIndicador.IdClasificacion == 0 || pIndicador.IdClasificacion == defaultDropDownValue ||
-                pIndicador.idGrupo == 0 || pIndicador.idGrupo == defaultDropDownValue ||
+                pIndicador.IdClasificacionIndicador == 0 || pIndicador.IdClasificacionIndicador == defaultDropDownValue ||
+                pIndicador.IdGrupoIndicador == 0 || pIndicador.IdGrupoIndicador == defaultDropDownValue ||
                 pIndicador.Descripcion == null || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()) ||
                 pIndicador.CantidadVariableDato == null ||
-                pIndicador.CantidadCategoriasDesagregacion == null ||
+                pIndicador.CantidadCategoriaDesagregacion == null ||
                 pIndicador.IdUnidadEstudio == null || pIndicador.IdUnidadEstudio == defaultDropDownValue ||
-                pIndicador.idTipoMedida == 0 || pIndicador.idTipoMedida == defaultDropDownValue ||
-                pIndicador.IdFrecuencia == 0 || pIndicador.IdFrecuencia == defaultDropDownValue ||
+                pIndicador.IdTipoMedida == 0 || pIndicador.IdTipoMedida == defaultDropDownValue ||
+                pIndicador.IdFrecuenciaEnvio == 0 || pIndicador.IdFrecuenciaEnvio == defaultDropDownValue ||
                 pIndicador.Interno == null ||
                 pIndicador.Solicitud == null ||
                 pIndicador.Fuente == null || string.IsNullOrEmpty(pIndicador.Fuente.Trim()) ||
-                pIndicador.Notas == null || string.IsNullOrEmpty(pIndicador.Notas.Trim())
+                pIndicador.Nota == null || string.IsNullOrEmpty(pIndicador.Nota.Trim())
                 )
             {
                 return Errores.CamposIncompletos;
@@ -864,7 +863,7 @@ namespace GB.SIMEF.BL
             if (!string.IsNullOrEmpty(pIndicador.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.id), out int number);
-                pIndicador.idIndicador = number;
+                pIndicador.IdIndicador = number;
             }
 
             if (!string.IsNullOrEmpty(pIndicador.TipoIndicadores?.id))
@@ -877,36 +876,36 @@ namespace GB.SIMEF.BL
             if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.ClasificacionIndicadores.id), out int number);
-                pIndicador.IdClasificacion = number;
-                pIndicador.ClasificacionIndicadores.idClasificacion = pIndicador.ClasificacionIndicadores != null ? number : 0;
+                pIndicador.IdClasificacionIndicador = number;
+                pIndicador.ClasificacionIndicadores.IdClasificacionIndicador = pIndicador.ClasificacionIndicadores != null ? number : 0;
             }
             
             if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.GrupoIndicadores.id), out int number);
-                pIndicador.idGrupo = number;
-                pIndicador.GrupoIndicadores.idGrupo = pIndicador.GrupoIndicadores != null ? number: 0;
+                pIndicador.IdGrupoIndicador = number;
+                pIndicador.GrupoIndicadores.IdGrupoIndicador = pIndicador.GrupoIndicadores != null ? number: 0;
             }
             
             if (!string.IsNullOrEmpty(pIndicador.UnidadEstudio?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.UnidadEstudio.id), out int number);
                 pIndicador.IdUnidadEstudio = number;
-                pIndicador.UnidadEstudio.idUnidad = pIndicador.UnidadEstudio != null ? number : 0;
+                pIndicador.UnidadEstudio.IdUnidadEstudio = pIndicador.UnidadEstudio != null ? number : 0;
             }
 
             if (!string.IsNullOrEmpty(pIndicador.TipoMedida?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.TipoMedida.id), out int number);
-                pIndicador.idTipoMedida = number;
-                pIndicador.TipoMedida.idMedida = pIndicador.TipoMedida != null ? number : 0;
+                pIndicador.IdTipoMedida = number;
+                pIndicador.TipoMedida.IdTipoMedida = pIndicador.TipoMedida != null ? number : 0;
             }
 
             if (!string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.FrecuenciaEnvio.id), out int number);
-                pIndicador.IdFrecuencia = number;
-                pIndicador.FrecuenciaEnvio.idFrecuenciaEnvio = pIndicador.FrecuenciaEnvio != null ? number : 0;
+                pIndicador.IdFrecuenciaEnvio = number;
+                pIndicador.FrecuenciaEnvio.IdFrecuenciaEnvio = pIndicador.FrecuenciaEnvio != null ? number : 0;
             }
         }
 
@@ -919,7 +918,7 @@ namespace GB.SIMEF.BL
         /// <returns></returns>
         private bool CambioEstadoDependenciasIndicador(Indicador pIndicador, EstadosRegistro pNuevoEstado)
         {
-            List<FormularioWeb> listaFormularioWeb = formularioWebDAL.ObtenerDependenciasIndicadorConFormulariosWeb(pIndicador.idIndicador);
+            List<FormularioWeb> listaFormularioWeb = formularioWebDAL.ObtenerDependenciasIndicadorConFormulariosWeb(pIndicador.IdIndicador);
 
             foreach (FormularioWeb formulario in listaFormularioWeb)
             {
@@ -928,7 +927,7 @@ namespace GB.SIMEF.BL
                 formularioWebDAL.ActualizarDatos(formulario);
             }
             
-            List<FormulasCalculo> listaFormulas = formulasCalculoDAL.ObtenerDependenciasIndicadorConFormulasCalculo(pIndicador.idIndicador);
+            List<FormulasCalculo> listaFormulas = formulasCalculoDAL.ObtenerDependenciasIndicadorConFormulasCalculo(pIndicador.IdIndicador);
 
             foreach (FormulasCalculo formula in listaFormulas)
             {

@@ -31,13 +31,13 @@ namespace GB.SIMEF.DAL
 
         public virtual DbSet<Anno> Anno { get; set; }
 
-        public virtual DbSet<ClasificacionIndicadores> ClasificacionIndicadores { get; set; }
+        public virtual DbSet<ClasificacionIndicador> ClasificacionIndicadores { get; set; }
 
 
         public virtual DbSet<DetalleFormularioWeb> DetalleFormularioWeb { get; set; }
         public virtual DbSet<DetalleFuenteRegistro> DetalleFuentesRegistro { get; set; }
         public virtual DbSet<DetalleIndicadorCategoria> DetalleIndicadorCategoria { get; set; }
-        public virtual DbSet<DetalleIndicadorVariables> DetalleIndicadorVariables { get; set; }
+        public virtual DbSet<DetalleIndicadorVariable> DetalleIndicadorVariables { get; set; }
         
         
         
@@ -59,7 +59,7 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<FrecuenciaEnvio> FrecuenciaEnvio { get; set; }
         //public virtual DbSet<FuenteIndicador> FuenteIndicador { get; set; }
         public virtual DbSet<FuenteRegistro> FuentesRegistro { get; set; }
-        public virtual DbSet<GrupoIndicadores> GrupoIndicadores { get; set; }
+        public virtual DbSet<GrupoIndicador> GrupoIndicadores { get; set; }
         public virtual DbSet<Indicador> Indicador { get; set; }
         
         public virtual DbSet<Mes> Mes { get; set; }
@@ -80,7 +80,7 @@ namespace GB.SIMEF.DAL
         public virtual DbSet<SolicitudDetalleFuentes> SolicitudDetalleFuentes { get; set; }
         public virtual DbSet<SolicitudEnvioProgramado> SolicitudEnvioProgramado { get; set; }
 
-        public virtual DbSet<TipoIndicadores> TipoIndicadores { get; set; }
+        public virtual DbSet<TipoIndicador> TipoIndicadores { get; set; }
         public virtual DbSet<TipoMedida> TipoMedida { get; set; }
         public virtual DbSet<TipoReglaValidacion> TipoReglaValidacion { get; set; }
         public virtual DbSet<UnidadEstudio> UnidadEstudio { get; set; }

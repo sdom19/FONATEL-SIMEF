@@ -20,22 +20,22 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public List<DetalleIndicadorVariables> ObtenerDatos(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public List<DetalleIndicadorVariable> ObtenerDatos(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            List<DetalleIndicadorVariables> listaDetalles = new List<DetalleIndicadorVariables>();
+            List<DetalleIndicadorVariable> listaDetalles = new List<DetalleIndicadorVariable>();
 
             using (db = new SIMEFContext())
             {
-                listaDetalles = db.Database.SqlQuery<DetalleIndicadorVariables>
-                    ("execute spObtenerDetallesIndicadorVariables @pIdDetalleIndicador,@pIdIndicador ",
-                     new SqlParameter("@pIdDetalleIndicador", pDetalleIndicadorVariables.idDetalleIndicador),
-                     new SqlParameter("@pIdIndicador", pDetalleIndicadorVariables.idIndicador)
+                listaDetalles = db.Database.SqlQuery<DetalleIndicadorVariable>
+                    ("execute pa_ObtenerDetalleIndicadorVariable @pIdDetalleIndicador,@pIdIndicador ",
+                     new SqlParameter("@pIdDetalleIndicador", pDetalleIndicadorVariables.IdDetalleIndicadorVariable),
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorVariables.IdIndicador)
                     ).ToList();
 
-                listaDetalles = listaDetalles.Select(x => new DetalleIndicadorVariables()
+                listaDetalles = listaDetalles.Select(x => new DetalleIndicadorVariable()
                 {
-                    id = Utilidades.Encriptar(x.idDetalleIndicador.ToString()),
-                    idIndicadorString = Utilidades.Encriptar(x.idIndicador.ToString()),
+                    id = Utilidades.Encriptar(x.IdDetalleIndicadorVariable.ToString()),
+                    idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                     NombreVariable = x.NombreVariable,
                     Descripcion = x.Descripcion,
                     Estado = x.Estado
@@ -53,22 +53,22 @@ namespace GB.SIMEF.DAL
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <param name="pIdFormula"></param>
         /// <returns></returns>
-        public List<DetalleIndicadorVariables> ObtenerVariablesSinUsoEnFormula(DetalleIndicadorVariables pDetalleIndicadorVariables, int pIdFormula)
+        public List<DetalleIndicadorVariable> ObtenerVariablesSinUsoEnFormula(DetalleIndicadorVariable pDetalleIndicadorVariables, int pIdFormula)
         {
-            List<DetalleIndicadorVariables> listaDetalles = new List<DetalleIndicadorVariables>();
+            List<DetalleIndicadorVariable> listaDetalles = new List<DetalleIndicadorVariable>();
 
             using (db = new SIMEFContext())
             {
-                listaDetalles = db.Database.SqlQuery<DetalleIndicadorVariables>
-                    ("execute spObtenerVariablesSinUsoEnFormula @pIdIndicador, @pIdFormula",
-                     new SqlParameter("@pIdIndicador", pDetalleIndicadorVariables.idIndicador),
+                listaDetalles = db.Database.SqlQuery<DetalleIndicadorVariable>
+                    ("execute pa_ObtenerVariableSinUsoEnFormula @pIdIndicador, @pIdFormula",
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorVariables.IdIndicador),
                      new SqlParameter("@pIdFormula", pIdFormula)
                     ).ToList();
 
-                listaDetalles = listaDetalles.Select(x => new DetalleIndicadorVariables()
+                listaDetalles = listaDetalles.Select(x => new DetalleIndicadorVariable()
                 {
-                    id = Utilidades.Encriptar(x.idDetalleIndicador.ToString()),
-                    idIndicadorString = Utilidades.Encriptar(x.idIndicador.ToString()),
+                    id = Utilidades.Encriptar(x.IdDetalleIndicadorVariable.ToString()),
+                    idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                     NombreVariable = x.NombreVariable,
                     Descripcion = x.Descripcion,
                     Estado = x.Estado
@@ -84,25 +84,25 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public List<DetalleIndicadorVariables> ActualizarDatos(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public List<DetalleIndicadorVariable> ActualizarDatos(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            List<DetalleIndicadorVariables> listaDetalles = new List<DetalleIndicadorVariables>();
+            List<DetalleIndicadorVariable> listaDetalles = new List<DetalleIndicadorVariable>();
 
             using (db = new SIMEFContext())
             {
-                listaDetalles = db.Database.SqlQuery<DetalleIndicadorVariables>
-                    ("execute spActualizarIndicadorVariable @pIdDetalleIndicador, @pIdIndicador, @pNombreVariable, @pDescripcion, @pEstado ",
-                     new SqlParameter("@pIdDetalleIndicador", pDetalleIndicadorVariables.idDetalleIndicador),
-                     new SqlParameter("@pIdIndicador", pDetalleIndicadorVariables.idIndicador),
+                listaDetalles = db.Database.SqlQuery<DetalleIndicadorVariable>
+                    ("execute pa_ActualizarIndicadorVariable @pIdDetalleIndicador, @pIdIndicador, @pNombreVariable, @pDescripcion, @pEstado ",
+                     new SqlParameter("@pIdDetalleIndicador", pDetalleIndicadorVariables.IdDetalleIndicadorVariable),
+                     new SqlParameter("@pIdIndicador", pDetalleIndicadorVariables.IdIndicador),
                      new SqlParameter("@pNombreVariable", pDetalleIndicadorVariables.NombreVariable),
                      new SqlParameter("@pDescripcion", pDetalleIndicadorVariables.Descripcion),
                      new SqlParameter("@pEstado", pDetalleIndicadorVariables.Estado)
                     ).ToList();
             }
 
-            listaDetalles = listaDetalles.Select(x => new DetalleIndicadorVariables()
+            listaDetalles = listaDetalles.Select(x => new DetalleIndicadorVariable()
             {
-                id = Utilidades.Encriptar(x.idDetalleIndicador.ToString()),
+                id = Utilidades.Encriptar(x.IdDetalleIndicadorVariable.ToString()),
                 NombreVariable = x.NombreVariable,
                 Descripcion = x.Descripcion,
                 Estado = x.Estado

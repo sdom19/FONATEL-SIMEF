@@ -25,6 +25,6 @@ namespace GB.SIMEF.Entities
     
         public virtual FormulasCalculoDetalle FormulasCalculoDetalle { get; set; }
         public virtual FuenteIndicador FuenteIndicador { get; set; }
-        public virtual TipoIndicadores TipoIndicadores { get; set; }
+        public virtual TipoIndicador TipoIndicadores { get; set; }
     }
 }

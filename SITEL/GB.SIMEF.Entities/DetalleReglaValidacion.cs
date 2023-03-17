@@ -57,7 +57,7 @@ namespace GB.SIMEF.Entities
         public virtual OperadorArismetico operadorArismetico { get; set; }
         
         [NotMapped]
-        public virtual DetalleIndicadorVariables detalleIndicadorVariables { get; set; }
+        public virtual DetalleIndicadorVariable detalleIndicadorVariables { get; set; }
 
 
         [NotMapped]

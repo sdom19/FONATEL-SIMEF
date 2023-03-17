@@ -19,20 +19,20 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public List<DetalleIndicadorVariables> ObtenerDatosMercado(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public List<DetalleIndicadorVariable> ObtenerDatosMercado(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            List<DetalleIndicadorVariables> listaDetalles = new List<DetalleIndicadorVariables>();
+            List<DetalleIndicadorVariable> listaDetalles = new List<DetalleIndicadorVariable>();
             List<CriterioIndicador> listaDetallesCriterio = new List<CriterioIndicador>();
 
             using (SIGITELContext db = new SIGITELContext())
             {
                 listaDetallesCriterio = db.Database.SqlQuery<CriterioIndicador>
                     ("execute spObtenerCriteriosDeIndicador @pIndicador ",
-                     new SqlParameter("@pIndicador", pDetalleIndicadorVariables.idIndicador.ToString())
+                     new SqlParameter("@pIndicador", pDetalleIndicadorVariables.IdIndicador.ToString())
                     ).ToList();
             }
 
-            listaDetalles = listaDetallesCriterio.Select(x => new DetalleIndicadorVariables()
+            listaDetalles = listaDetallesCriterio.Select(x => new DetalleIndicadorVariable()
             {
                 id = Utilidades.Encriptar(x.IdCriterio.ToString()),
                 NombreVariable = x.NombreCriterio
@@ -79,9 +79,9 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public List<DetalleIndicadorVariables> ObtenerDatosCalidad(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public List<DetalleIndicadorVariable> ObtenerDatosCalidad(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            List<DetalleIndicadorVariables> listaDetalles = new List<DetalleIndicadorVariables>();
+            List<DetalleIndicadorVariable> listaDetalles = new List<DetalleIndicadorVariable>();
             List<CriterioIndicador> listaDetallesCriterios = new List<CriterioIndicador>();
 
             using (CALIDADContext db = new CALIDADContext())
@@ -96,14 +96,14 @@ namespace GB.SIMEF.DAL
             if (listaDetallesCriterios.Count > 0)
             {
                 listaDetalles.Add( // al mostrar columnas como valores para seleccionar y siendo ajenas a la BD de Fonatel, se procede con constantes
-                    new DetalleIndicadorVariables()
+                    new DetalleIndicadorVariable()
                     {
                         id = Utilidades.Encriptar(((int)TipoPorcentajeIndicadorCalculoEnum.indicador).ToString()),
                         NombreVariable = CriteriosIndicadoresCalidad.procentajeIndicador
                     });
 
                 listaDetalles.Add(
-                    new DetalleIndicadorVariables()
+                    new DetalleIndicadorVariable()
                     {
                         id = Utilidades.Encriptar(((int)TipoPorcentajeIndicadorCalculoEnum.indicador).ToString()),
                         NombreVariable = CriteriosIndicadoresCalidad.procentajeCumplimiento
@@ -120,9 +120,9 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public List<DetalleIndicadorVariables> ObtenerDatosIUT(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public List<DetalleIndicadorVariable> ObtenerDatosIUT(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            List<DetalleIndicadorVariables> listaDetalles = new List<DetalleIndicadorVariables>();
+            List<DetalleIndicadorVariable> listaDetalles = new List<DetalleIndicadorVariable>();
             List<CriterioIndicador> listaDetallesCriterio = new List<CriterioIndicador>();
 
             using (SITELContext db = new SITELContext())
@@ -134,7 +134,7 @@ namespace GB.SIMEF.DAL
                     ).ToList();
             }
 
-            listaDetalles = listaDetallesCriterio.Select(x => new DetalleIndicadorVariables()
+            listaDetalles = listaDetallesCriterio.Select(x => new DetalleIndicadorVariable()
             {
                 id = Utilidades.Encriptar(x.IdCriterio.ToString()),
                 NombreVariable = x.NombreCriterio
@@ -150,9 +150,9 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public List<DetalleIndicadorVariables> ObtenerDatosCruzado(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public List<DetalleIndicadorVariable> ObtenerDatosCruzado(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            List<DetalleIndicadorVariables> listaDetalles = new List<DetalleIndicadorVariables>();
+            List<DetalleIndicadorVariable> listaDetalles = new List<DetalleIndicadorVariable>();
             List<CriterioIndicador> listaDetallesCriterio = new List<CriterioIndicador>();
 
             using (SITELContext db = new SITELContext())
@@ -164,7 +164,7 @@ namespace GB.SIMEF.DAL
                     ).ToList();
             }
 
-            listaDetalles = listaDetallesCriterio.Select(x => new DetalleIndicadorVariables()
+            listaDetalles = listaDetallesCriterio.Select(x => new DetalleIndicadorVariable()
             {
                 id = Utilidades.Encriptar(x.IdCriterio.ToString()),
                 NombreVariable = x.NombreCriterio
@@ -180,9 +180,9 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public List<DetalleIndicadorVariables> ObtenerDatosExterno(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public List<DetalleIndicadorVariable> ObtenerDatosExterno(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            List<DetalleIndicadorVariables> listaDetalles = new List<DetalleIndicadorVariables>();
+            List<DetalleIndicadorVariable> listaDetalles = new List<DetalleIndicadorVariable>();
             List<CriterioIndicador> listaDetallesCriterio = new List<CriterioIndicador>();
 
             using (SITELContext db = new SITELContext())
@@ -194,7 +194,7 @@ namespace GB.SIMEF.DAL
                 //    ).ToList();
             }
 
-            listaDetalles = listaDetallesCriterio.Select(x => new DetalleIndicadorVariables()
+            listaDetalles = listaDetallesCriterio.Select(x => new DetalleIndicadorVariable()
             {
                 id = Utilidades.Encriptar(x.IdCriterio.ToString()),
                 NombreVariable = x.NombreCriterio

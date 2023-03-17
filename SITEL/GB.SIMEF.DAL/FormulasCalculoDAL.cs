@@ -500,16 +500,16 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pIdDetalleIndicadorVariable"></param>
         /// <returns></returns>
-        private DetalleIndicadorVariables ObtenerVariableDatoSalida(int pIdDetalleIndicadorVariable)
+        private DetalleIndicadorVariable ObtenerVariableDatoSalida(int pIdDetalleIndicadorVariable)
         {
-            DetalleIndicadorVariables detalleIndicadorVariables = db.DetalleIndicadorVariables.Where(x => x.idDetalleIndicador == pIdDetalleIndicadorVariable).FirstOrDefault();
+            DetalleIndicadorVariable detalleIndicadorVariables = db.DetalleIndicadorVariables.Where(x => x.IdDetalleIndicadorVariable == pIdDetalleIndicadorVariable).FirstOrDefault();
 
             if (detalleIndicadorVariables != null)
             {
-                detalleIndicadorVariables.id = Utilidades.Encriptar(detalleIndicadorVariables.idDetalleIndicador.ToString());
-                detalleIndicadorVariables.idDetalleIndicador = 0;
-                detalleIndicadorVariables.idIndicadorString = Utilidades.Encriptar(detalleIndicadorVariables.idIndicador.ToString());
-                detalleIndicadorVariables.idIndicador = 0;
+                detalleIndicadorVariables.id = Utilidades.Encriptar(detalleIndicadorVariables.IdDetalleIndicadorVariable.ToString());
+                detalleIndicadorVariables.IdDetalleIndicadorVariable = 0;
+                detalleIndicadorVariables.idIndicadorString = Utilidades.Encriptar(detalleIndicadorVariables.IdIndicador.ToString());
+                detalleIndicadorVariables.IdIndicador = 0;
             }
 
             return detalleIndicadorVariables;
@@ -556,14 +556,14 @@ namespace GB.SIMEF.DAL
         private FrecuenciaEnvio ObtenerFrecuenciaEnvio(int pdFrecuenciaEnvio, bool pUnicamenteActivos = false)
         {
             FrecuenciaEnvio frecuencia = pUnicamenteActivos ?
-                db.FrecuenciaEnvio.Where(i => i.idFrecuenciaEnvio == pdFrecuenciaEnvio && i.Estado == true).FirstOrDefault()
+                db.FrecuenciaEnvio.Where(i => i.IdFrecuenciaEnvio == pdFrecuenciaEnvio && i.Estado == true).FirstOrDefault()
                 :
-                db.FrecuenciaEnvio.Where(i => i.idFrecuenciaEnvio == pdFrecuenciaEnvio).FirstOrDefault();
+                db.FrecuenciaEnvio.Where(i => i.IdFrecuenciaEnvio == pdFrecuenciaEnvio).FirstOrDefault();
 
             if (frecuencia != null)
             {
-                frecuencia.id = Utilidades.Encriptar(frecuencia.idFrecuenciaEnvio.ToString());
-                frecuencia.idFrecuenciaEnvio = 0;
+                frecuencia.id = Utilidades.Encriptar(frecuencia.IdFrecuenciaEnvio.ToString());
+                frecuencia.IdFrecuenciaEnvio = 0;
             }
             return frecuencia;
         }
@@ -577,12 +577,12 @@ namespace GB.SIMEF.DAL
         /// <returns></returns>
         private Indicador ObtenerIndicador(int pIdIndicador)
         {
-            Indicador indicador = db.Indicador.Where(i => i.idIndicador == pIdIndicador).FirstOrDefault();
+            Indicador indicador = db.Indicador.Where(i => i.IdIndicador == pIdIndicador).FirstOrDefault();
 
             if (indicador != null)
             {
-                indicador.id = Utilidades.Encriptar(indicador.idIndicador.ToString());
-                indicador.idIndicador = 0;
+                indicador.id = Utilidades.Encriptar(indicador.IdIndicador.ToString());
+                indicador.IdIndicador = 0;
             }
             return indicador;
         }

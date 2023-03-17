@@ -232,7 +232,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                 int temp = 0;
                 int.TryParse(Utilidades.Desencriptar(indicador.id), out temp);
-                indicador.idIndicador = temp;
+                indicador.IdIndicador = temp;
                 result = indicadorBl.ObtenerDatos(indicador);
             });
             return JsonConvert.SerializeObject(result);

@@ -20,15 +20,15 @@ namespace GB.SIMEF.DAL
         /// Se puede filtrar por el ID del objecto
         /// </summary>
         /// <returns></returns>
-        public List<GrupoIndicadores> ObtenerDatos(GrupoIndicadores pGrupoIndicadores)
+        public List<GrupoIndicador> ObtenerDatos(GrupoIndicador pGrupoIndicadores)
         {
-            List<GrupoIndicadores> listaGrupoIndicadores = new List<GrupoIndicadores>();
+            List<GrupoIndicador> listaGrupoIndicadores = new List<GrupoIndicador>();
 
             using (db = new SIMEFContext())
             {
-                if (pGrupoIndicadores.idGrupo != 0)
+                if (pGrupoIndicadores.IdGrupoIndicador != 0)
                 {
-                    listaGrupoIndicadores = db.GrupoIndicadores.Where(x => x.idGrupo == pGrupoIndicadores.idGrupo && x.Estado == true).ToList();
+                    listaGrupoIndicadores = db.GrupoIndicadores.Where(x => x.IdGrupoIndicador == pGrupoIndicadores.IdGrupoIndicador && x.Estado == true).ToList();
                 }
                 else
                 {
@@ -36,9 +36,9 @@ namespace GB.SIMEF.DAL
                 }
             }
 
-            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicadores()
+            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicador()
             {
-                id = Utilidades.Encriptar(x.idGrupo.ToString()),
+                id = Utilidades.Encriptar(x.IdGrupoIndicador.ToString()),
                 Nombre = x.Nombre,
                 Estado = x.Estado
             }).ToList();
@@ -52,13 +52,13 @@ namespace GB.SIMEF.DAL
         /// Retorna todos los grupos de indicadores registrados de Mercados
         /// </summary>
         /// <returns></returns>
-        public List<GrupoIndicadores> ObtenerDatosMercado()
+        public List<GrupoIndicador> ObtenerDatosMercado()
         {
-            List<GrupoIndicadores> listaGrupoIndicadores = new List<GrupoIndicadores>();
+            List<GrupoIndicador> listaGrupoIndicadores = new List<GrupoIndicador>();
 
             using (SIGITELContext db = new SIGITELContext())
             {
-                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicadores>(
+                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicador>(
                     "select distinct " +
                     "0 as idGrupo, " +
                     "Agrupacion as Nombre, " +
@@ -67,7 +67,7 @@ namespace GB.SIMEF.DAL
                     ).ToList();
             }
 
-            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicadores()
+            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicador()
             {
                 id = x.Nombre,
                 Nombre = x.Nombre,
@@ -83,13 +83,13 @@ namespace GB.SIMEF.DAL
         /// Retorna todos los grupos de indicadores registrados de Calidad
         /// </summary>
         /// <returns></returns>
-        public List<GrupoIndicadores> ObtenerDatosCalidad()
+        public List<GrupoIndicador> ObtenerDatosCalidad()
         {
-            List<GrupoIndicadores> listaGrupoIndicadores = new List<GrupoIndicadores>();
+            List<GrupoIndicador> listaGrupoIndicadores = new List<GrupoIndicador>();
 
             using (CALIDADContext db = new CALIDADContext())
             {
-                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicadores>(
+                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicador>(
                     "select distinct " +
                     "0 as idGrupo, " +
                     "Agrupacion as Nombre, " +
@@ -98,7 +98,7 @@ namespace GB.SIMEF.DAL
                     ).ToList();
             }
 
-            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicadores()
+            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicador()
             {
                 id = x.Nombre,
                 Nombre = x.Nombre,
@@ -114,13 +114,13 @@ namespace GB.SIMEF.DAL
         /// Retorna todos los grupos de indicadores registrados de UIT
         /// </summary>
         /// <returns></returns>
-        public List<GrupoIndicadores> ObtenerDatosUIT()
+        public List<GrupoIndicador> ObtenerDatosUIT()
         {
-            List<GrupoIndicadores> listaGrupoIndicadores = new List<GrupoIndicadores>();
+            List<GrupoIndicador> listaGrupoIndicadores = new List<GrupoIndicador>();
 
             using (SITELContext db = new SITELContext())
             {
-                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicadores>(
+                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicador>(
                     "select distinct " +
                     "0 as idGrupo, " +
                     "Agrupacion as Nombre, " +
@@ -129,7 +129,7 @@ namespace GB.SIMEF.DAL
                     ).ToList();
             }
 
-            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicadores()
+            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicador()
             {
                 id = x.Nombre,
                 Nombre = x.Nombre,
@@ -145,13 +145,13 @@ namespace GB.SIMEF.DAL
         /// Retorna todos los grupos de indicadores cruzados registrado 
         /// </summary>
         /// <returns></returns>
-        public List<GrupoIndicadores> ObtenerDatosCruzado()
+        public List<GrupoIndicador> ObtenerDatosCruzado()
         {
-            List<GrupoIndicadores> listaGrupoIndicadores = new List<GrupoIndicadores>();
+            List<GrupoIndicador> listaGrupoIndicadores = new List<GrupoIndicador>();
 
             using (SITELContext db = new SITELContext())
             {
-                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicadores>(
+                listaGrupoIndicadores = db.Database.SqlQuery<GrupoIndicador>(
                     "select distinct " +
                     "0 as idGrupo, " +
                     "Agrupacion as Nombre, " +
@@ -160,7 +160,7 @@ namespace GB.SIMEF.DAL
                     ).ToList();
             }
 
-            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicadores()
+            listaGrupoIndicadores = listaGrupoIndicadores.Select(x => new GrupoIndicador()
             {
                 id = x.Nombre,
                 Nombre = x.Nombre,
@@ -177,9 +177,9 @@ namespace GB.SIMEF.DAL
         /// </summary>
         /// <param name="pTipoIndicadores"></param>
         /// <returns></returns>
-        public List<GrupoIndicadores> ActualizarDatos(GrupoIndicadores pGrupoIndicadores)
+        public List<GrupoIndicador> ActualizarDatos(GrupoIndicador pGrupoIndicadores)
         {
-            List<GrupoIndicadores> listaGrupoIndicadores = new List<GrupoIndicadores>();
+            List<GrupoIndicador> listaGrupoIndicadores = new List<GrupoIndicador>();
 
             using (db = new SIMEFContext())
             {
@@ -187,7 +187,7 @@ namespace GB.SIMEF.DAL
                 db.SaveChanges();
             }
 
-            pGrupoIndicadores.idGrupo = 0;
+            pGrupoIndicadores.IdGrupoIndicador = 0;
             listaGrupoIndicadores.Add(pGrupoIndicadores);
 
             return listaGrupoIndicadores;
@@ -199,9 +199,9 @@ namespace GB.SIMEF.DAL
         /// Función que crea un nuevo registro grupo indicador.
         /// </summary>
         /// <param name="detalleFecha"></param>
-        public List<GrupoIndicadores> InsertarGrupoIndicador(GrupoIndicadores pGrupoIndicadores)
+        public List<GrupoIndicador> InsertarGrupoIndicador(GrupoIndicador pGrupoIndicadores)
         {
-            List<GrupoIndicadores> listaGrupos = new List<GrupoIndicadores>();
+            List<GrupoIndicador> listaGrupos = new List<GrupoIndicador>();
 
             using (db = new SIMEFContext())
             {
@@ -209,8 +209,8 @@ namespace GB.SIMEF.DAL
                 db.SaveChanges();
 
                 // EF establecerá el objecto cuando sea guardado
-                pGrupoIndicadores.id = Utilidades.Encriptar(pGrupoIndicadores.idGrupo.ToString());
-                pGrupoIndicadores.idGrupo = 0;
+                pGrupoIndicadores.id = Utilidades.Encriptar(pGrupoIndicadores.IdGrupoIndicador.ToString());
+                pGrupoIndicadores.IdGrupoIndicador = 0;
                 listaGrupos.Add(pGrupoIndicadores);
             }
             return listaGrupos;

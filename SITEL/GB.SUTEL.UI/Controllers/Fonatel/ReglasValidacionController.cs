@@ -93,13 +93,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ReglaValidacion objregla = new ReglaValidacion();
 
             var ListadoIndicador = indicadorfonatelBL
-                .ObtenerDatos(new Indicador() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
+                .ObtenerDatos(new Indicador() { IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
-            var ListadoIndicadorSalida = ListadoIndicador.Where(x => x.IdClasificacion == (int)Constantes.ClasificacionIndicadorEnum.Salida).ToList();
+            var ListadoIndicadorSalida = ListadoIndicador.Where(x => x.IdClasificacionIndicador == (int)Constantes.ClasificacionIndicadorEnum.Salida).ToList();
 
-            var ListadoIndicadorEntradaSalida = ListadoIndicador.Where(x => x.IdClasificacion == (int)Constantes.ClasificacionIndicadorEnum.EntradaSalida).ToList();
+            var ListadoIndicadorEntradaSalida = ListadoIndicador.Where(x => x.IdClasificacionIndicador == (int)Constantes.ClasificacionIndicadorEnum.EntradaSalida).ToList();
 
-            var ListadoIndicadorEntrada = ListadoIndicador.Where(x => x.IdClasificacion == (int)Constantes.ClasificacionIndicadorEnum.Entrada).ToList();
+            var ListadoIndicadorEntrada = ListadoIndicador.Where(x => x.IdClasificacionIndicador == (int)Constantes.ClasificacionIndicadorEnum.Entrada).ToList();
 
             var listadoCategoria = categoriasDesagregacionBL
                .ObtenerDatos(new CategoriasDesagregacion() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
@@ -108,9 +108,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             var listaReglas = reglaBL.ObtenerDatos(new ReglaValidacion()).objetoRespuesta;
 
-            var ListaIndicadoresEnUso = ListadoIndicador.Where(x => listaReglas.Any(x2 => x.idIndicador == x2.idIndicador)).ToList();
+            var ListaIndicadoresEnUso = ListadoIndicador.Where(x => listaReglas.Any(x2 => x.IdIndicador == x2.idIndicador)).ToList();
 
-            var ListaIndicadoresSinUso = ListadoIndicador.Where(x => !listaReglas.Any(x2 => x.idIndicador == x2.idIndicador)).ToList();
+            var ListaIndicadoresSinUso = ListadoIndicador.Where(x => !listaReglas.Any(x2 => x.IdIndicador == x2.idIndicador)).ToList();
 
             if (modo == (int)Constantes.Accion.Editar)
             {
@@ -236,11 +236,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerListaVariablesDato(string idIndicadorString)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> result = null;
+            RespuestaConsulta<List<DetalleIndicadorVariable>> result = null;
 
             await Task.Run(() =>
             {
-                result = DetalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariables()
+                result = DetalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariable()
                 {
                     idIndicadorString = idIndicadorString 
                 });

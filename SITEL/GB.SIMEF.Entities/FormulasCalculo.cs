@@ -90,7 +90,7 @@ namespace GB.SIMEF.Entities
         public Indicador IndicadorSalida { get; set; }
 
         [NotMapped]
-        public DetalleIndicadorVariables VariableSalida { get; set; }
+        public DetalleIndicadorVariable VariableSalida { get; set; }
 
         [NotMapped]
         public FrecuenciaEnvio FrecuenciaEnvio { set; get; }

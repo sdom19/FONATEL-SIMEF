@@ -14,15 +14,16 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("TipoIndicadores")]
-    public partial class TipoIndicadores
+    [Table("GrupoIndicador")]
+    public partial class GrupoIndicador
     {
-        public TipoIndicadores()
+        public GrupoIndicador()
         {
+
         }
 
         [Key]
-        public int IdTipoIndicador { get; set; }
+        public int IdGrupoIndicador { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
 

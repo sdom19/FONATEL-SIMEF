@@ -10,7 +10,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class DetalleIndicadorVariablesBL : IMetodos<DetalleIndicadorVariables>
+    public class DetalleIndicadorVariablesBL : IMetodos<DetalleIndicadorVariable>
     {
         private readonly string modulo = "";
         private readonly string user = "";
@@ -32,14 +32,14 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ActualizarElemento(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ActualizarElemento(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
             bool errorControlado = false;
 
             try
             {
-                RespuestaConsulta<List<DetalleIndicadorVariables>> detalleRegistrado = ObtenerDatos(pDetalleIndicadorVariables);
+                RespuestaConsulta<List<DetalleIndicadorVariable>> detalleRegistrado = ObtenerDatos(pDetalleIndicadorVariables);
 
                 if (detalleRegistrado.HayError != (int) Error.NoError)
                 {
@@ -73,7 +73,7 @@ namespace GB.SIMEF.BL
 
                 detalleIndicadorVariablesDAL.RegistrarBitacora(resultado.Accion,
                         resultado.Usuario,
-                            resultado.Clase, objeto.idDetalleIndicador.ToString()
+                            resultado.Clase, objeto.IdDetalleIndicadorVariable.ToString()
                             , JsonActual, JsonAnterior, "");
                 //indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
                 //        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.NombreVariable);
@@ -97,14 +97,14 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> CambioEstado(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> CambioEstado(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
             bool errorControlado = false;
 
             try
             {
-                RespuestaConsulta<List<DetalleIndicadorVariables>> detalleRegistrado = ObtenerDatos(pDetalleIndicadorVariables);
+                RespuestaConsulta<List<DetalleIndicadorVariable>> detalleRegistrado = ObtenerDatos(pDetalleIndicadorVariables);
 
                 if (detalleRegistrado.HayError != (int)Error.NoError)
                 {
@@ -118,10 +118,10 @@ namespace GB.SIMEF.BL
                 }
 
                 // actualizar el estado
-                DetalleIndicadorVariables detalle = detalleRegistrado.objetoRespuesta[0];
+                DetalleIndicadorVariable detalle = detalleRegistrado.objetoRespuesta[0];
                 detalle.Estado = pDetalleIndicadorVariables.Estado;
-                detalle.idDetalleIndicador = pDetalleIndicadorVariables.idDetalleIndicador;
-                detalle.idIndicador = pDetalleIndicadorVariables.idIndicador;
+                detalle.IdDetalleIndicadorVariable = pDetalleIndicadorVariables.IdDetalleIndicadorVariable;
+                detalle.IdIndicador = pDetalleIndicadorVariables.IdIndicador;
                 resultado.objetoRespuesta = detalleIndicadorVariablesDAL.ActualizarDatos(detalle);
 
                 resultado.Usuario = user;
@@ -144,12 +144,12 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ClonarDatos(DetalleIndicadorVariables objeto)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ClonarDatos(DetalleIndicadorVariable objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> EliminarElemento(DetalleIndicadorVariables objeto)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> EliminarElemento(DetalleIndicadorVariable objeto)
         {
             throw new NotImplementedException();
         }
@@ -161,9 +161,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> InsertarDatos(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> InsertarDatos(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>();
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>();
             bool errorControlado = false;
 
             try
@@ -189,7 +189,7 @@ namespace GB.SIMEF.BL
                 string JsonInicial = objetoDetalleBitacora.ToString();
 
                 detalleIndicadorVariablesDAL.RegistrarBitacora(resultado.Accion,
-                        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.idDetalleIndicador.ToString(),"","",JsonInicial);
+                        resultado.Usuario, resultado.Clase, pDetalleIndicadorVariables.IdDetalleIndicadorVariable.ToString(),"","",JsonInicial);
             }
             catch (Exception ex)
             {
@@ -210,9 +210,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerDatos(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ObtenerDatos(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>> {
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>> {
                 HayError = (int)Error.NoError,
             };
 
@@ -238,9 +238,9 @@ namespace GB.SIMEF.BL
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <param name="pIdFormula"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ObtenerVariablesSinUsoEnFormula(DetalleIndicadorVariables pDetalleIndicadorVariables, string pIdFormula)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ObtenerVariablesSinUsoEnFormula(DetalleIndicadorVariable pDetalleIndicadorVariables, string pIdFormula)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>
             {
                 HayError = (int)Error.NoError,
             };
@@ -249,7 +249,7 @@ namespace GB.SIMEF.BL
             {
                 PrepararObjetoDetalle(pDetalleIndicadorVariables);
 
-                if (pDetalleIndicadorVariables.idIndicador == 0)
+                if (pDetalleIndicadorVariables.IdIndicador == 0)
                 {
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
@@ -279,19 +279,19 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<DetalleIndicadorVariables>> ValidarDatos(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        public RespuestaConsulta<List<DetalleIndicadorVariable>> ValidarDatos(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
-            RespuestaConsulta<List<DetalleIndicadorVariables>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariables>>
+            RespuestaConsulta<List<DetalleIndicadorVariable>> resultado = new RespuestaConsulta<List<DetalleIndicadorVariable>>
             {
                 HayError = (int)Error.NoError,
-                objetoRespuesta = new List<DetalleIndicadorVariables>()
+                objetoRespuesta = new List<DetalleIndicadorVariable>()
             };
             bool errorControlado = false;
 
             try
             {
                 // validar si el indicador existe
-                Indicador indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pDetalleIndicadorVariables.idIndicador);
+                Indicador indicadorExistente = indicadorFonatelDAL.VerificarExistenciaIndicadorPorID(pDetalleIndicadorVariables.IdIndicador);
 
                 if (indicadorExistente == null)
                 {
@@ -308,8 +308,8 @@ namespace GB.SIMEF.BL
                     throw new Exception(msgIndicadorCompleto);
                 }
 
-                RespuestaConsulta<List<DetalleIndicadorVariables>> detallesActuales = ObtenerDatos(new DetalleIndicadorVariables() { 
-                    idIndicador = pDetalleIndicadorVariables.idIndicador 
+                RespuestaConsulta<List<DetalleIndicadorVariable>> detallesActuales = ObtenerDatos(new DetalleIndicadorVariable() { 
+                    IdIndicador = pDetalleIndicadorVariables.IdIndicador 
                 });
 
                 if (detallesActuales.HayError != (int)Error.NoError)
@@ -362,18 +362,18 @@ namespace GB.SIMEF.BL
         /// Se preparan los id's de las tablas relacionadas para poder efectuar consultas debido a la encriptación.
         /// </summary>
         /// <param name="pDetalleIndicadorVariables"></param>
-        private void PrepararObjetoDetalle(DetalleIndicadorVariables pDetalleIndicadorVariables)
+        private void PrepararObjetoDetalle(DetalleIndicadorVariable pDetalleIndicadorVariables)
         {
             if (!string.IsNullOrEmpty(pDetalleIndicadorVariables.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorVariables.id), out int number);
-                pDetalleIndicadorVariables.idDetalleIndicador = number;
+                pDetalleIndicadorVariables.IdDetalleIndicadorVariable = number;
             }
 
             if (!string.IsNullOrEmpty(pDetalleIndicadorVariables.idIndicadorString))
             {
                 int.TryParse(Utilidades.Desencriptar(pDetalleIndicadorVariables.idIndicadorString), out int number);
-                pDetalleIndicadorVariables.idIndicador = number;
+                pDetalleIndicadorVariables.IdIndicador = number;
             }
         }
     }

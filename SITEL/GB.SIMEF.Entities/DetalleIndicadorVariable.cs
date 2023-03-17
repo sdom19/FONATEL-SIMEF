@@ -16,17 +16,17 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Text;
 
-    [Table("DetalleIndicadorVariables")]
-    public partial class DetalleIndicadorVariables
+    [Table("DetalleIndicadorVariable")]
+    public partial class DetalleIndicadorVariable
     {
-        public DetalleIndicadorVariables()
+        public DetalleIndicadorVariable()
         {
 
         }
 
         [Key]
-        public int idDetalleIndicador { get; set; }
-        public int idIndicador { get; set; }
+        public int IdDetalleIndicadorVariable { get; set; }
+        public int IdIndicador { get; set; }
         public string NombreVariable { get; set; }
         public string Descripcion { get; set; }
         public bool Estado { get; set; }
