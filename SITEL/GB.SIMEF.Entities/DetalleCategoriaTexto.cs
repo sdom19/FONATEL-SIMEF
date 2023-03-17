@@ -20,11 +20,11 @@ namespace GB.SIMEF.Entities
     {
         public DetalleCategoriaTexto()
         {
-            CategoriasDesagregacion = new CategoriasDesagregacion();
+            CategoriasDesagregacion = new CategoriaDesagregacion();
         }
         [Key]
-        public int idCategoriaDetalle { get; set; }
-        public int idCategoria { get; set; }
+        public int idDetalleCategoriaTexto { get; set; }
+        public int idCategoriaDesagregacion { get; set; }
         public int Codigo { get; set; }
         public string Etiqueta { get; set; }
         public bool Estado { get; set; }
@@ -38,7 +38,7 @@ namespace GB.SIMEF.Entities
         public bool Completo { get; set; }
 
         [NotMapped]
-        public CategoriasDesagregacion CategoriasDesagregacion { get; set; }
+        public CategoriaDesagregacion CategoriasDesagregacion { get; set; }
         [NotMapped]
         public string CodigoCategoria { get; set; }
 

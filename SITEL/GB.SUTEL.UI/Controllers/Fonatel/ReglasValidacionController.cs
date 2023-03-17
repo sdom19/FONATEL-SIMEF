@@ -102,7 +102,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             var ListadoIndicadorEntrada = ListadoIndicador.Where(x => x.IdClasificacionIndicador == (int)Constantes.ClasificacionIndicadorEnum.Entrada).ToList();
 
             var listadoCategoria = categoriasDesagregacionBL
-               .ObtenerDatos(new CategoriasDesagregacion() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
+               .ObtenerDatos(new CategoriaDesagregacion() { idEstadoRegistro = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
 
             var listadoRelaciones = relacionCategoriaBL.ObtenerDatos(new RelacionCategoria()).objetoRespuesta;
 
@@ -139,11 +139,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             ViewBag.ListaCategoria = listadoRelaciones
                 .Where(x=>x.idCategoria!=0)
-                .Select(x => new SelectListItem() { Selected = false, Value = x.CategoriasDesagregacionid.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.CategoriasDesagregacionid.Codigo, x.CategoriasDesagregacionid.NombreCategoria) }).ToList();
+                .Select(x => new SelectListItem() { Selected = false, Value = x.CategoriasDesagregacionid.idCategoriaDesagregacion.ToString(), Text = Utilidades.ConcatenadoCombos(x.CategoriasDesagregacionid.Codigo, x.CategoriasDesagregacionid.NombreCategoria) }).ToList();
 
             ViewBag.ListaCategoriaActualizable = listadoCategoria
                 .Where(x => x.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.Actualizable)
-                .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
+                .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoriaDesagregacion.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
 
             ViewBag.ListaTipoReglas =
                 TipoReglasBL.ObtenerDatos(new TipoReglaValidacion()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.IdTipo.ToString(), Text = x.Nombre }).ToList();

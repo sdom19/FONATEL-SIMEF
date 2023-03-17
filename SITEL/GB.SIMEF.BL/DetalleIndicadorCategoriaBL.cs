@@ -464,10 +464,10 @@ namespace GB.SIMEF.BL
                 }
 
                 // validar la existencia de la categoria
-                CategoriasDesagregacion categoriaExistente = categoriasDesagregacionDAL.ObtenerDatos(new CategoriasDesagregacion()
+                CategoriaDesagregacion categoriaExistente = categoriasDesagregacionDAL.ObtenerDatos(new CategoriaDesagregacion()
                 {
-                    idCategoria = pDetalleIndicadorCategoria.IdCategoriaDesagregacion
-                }).FirstOrDefault();
+                    idCategoriaDesagregacion = pDetalleIndicadorCategoria.IdCategoriaDesagregacion
+                }).Where(x => x.idEstadoRegistro != (int)Constantes.EstadosRegistro.Eliminado).FirstOrDefault();
 
                 if (categoriaExistente == null)
                 {
@@ -502,7 +502,7 @@ namespace GB.SIMEF.BL
                     }
                 }
 
-                if (categoriaExistente.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Texto)
+                if (categoriaExistente.IdTipoDetalleCategoria == (int)TipoDetalleCategoriaEnum.Texto)
                 {
                     mensajeValidacion = ValidacionDetalleTipoCategoriaTextoNumerico(pDetalleIndicadorCategoria);
 
@@ -591,7 +591,7 @@ namespace GB.SIMEF.BL
             // validar que los detalles ingresados existan y esten disponibles
             List<DetalleCategoriaTexto> detallesDisponibles = detalleCategoriaTextoDAL.ObtenerDatos(new DetalleCategoriaTexto()
             {
-                idCategoria = pDetalleIndicadorCategoria.IdCategoriaDesagregacion,
+                idCategoriaDesagregacion = pDetalleIndicadorCategoria.IdCategoriaDesagregacion,
                 Estado = true
             });
 
@@ -615,7 +615,7 @@ namespace GB.SIMEF.BL
         /// <param name="pCategoriaExistente"></param>
         /// <param name="pDetallesRegistradoActualmente"></param>
         /// <returns></returns>
-        private string ValidacionesModoCreacionDetalleCategoria(Indicador pIndicador, CategoriasDesagregacion pCategoriaExistente, List<DetalleIndicadorCategoria> pDetallesRegistradoActualmente)
+        private string ValidacionesModoCreacionDetalleCategoria(Indicador pIndicador, CategoriaDesagregacion pCategoriaExistente, List<DetalleIndicadorCategoria> pDetallesRegistradoActualmente)
         {
             // validar si la categoria ya se encuentra registrada
             bool categoriaRegistrada = pDetallesRegistradoActualmente.Exists(x => x.idCategoriaString.Equals(pCategoriaExistente.id));
@@ -642,7 +642,7 @@ namespace GB.SIMEF.BL
         /// <param name="pCategoriaExistente"></param>
         /// <param name="pDetallesRegistradoActualmente"></param>
         /// <returns></returns>
-        private string ValidacionesModoEdicionDetalleCategoria(CategoriasDesagregacion pCategoriaExistente, List<DetalleIndicadorCategoria> pDetallesRegistradoActualmente)
+        private string ValidacionesModoEdicionDetalleCategoria(CategoriaDesagregacion pCategoriaExistente, List<DetalleIndicadorCategoria> pDetallesRegistradoActualmente)
         {
             // la categoria debe estar registrada en el detalle, no se permiten seleccionar otras categorias aparte de las ya registradas
             bool categoriaRegistrada = pDetallesRegistradoActualmente.Exists(x => x.idCategoriaString.Equals(pCategoriaExistente.id));

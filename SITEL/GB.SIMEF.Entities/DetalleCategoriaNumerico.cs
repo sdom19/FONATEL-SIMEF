@@ -18,8 +18,8 @@ namespace GB.SIMEF.Entities
     public partial class DetalleCategoriaNumerico
     {
         [Key]
-        public int idCategoriaDetalle { get; set; }
-        public int idCategoria { get; set; }
+        public int idDetalleCategoriaNumerico { get; set; }
+        public int idCategoriaDesagregacion { get; set; }
         public double Minimo { get; set; }
         public double Maximo { get; set; }
         public bool Estado { get; set; }

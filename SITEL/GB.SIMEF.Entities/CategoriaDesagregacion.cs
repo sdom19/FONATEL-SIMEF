@@ -16,10 +16,10 @@ namespace GB.SIMEF.Entities
     using System.Text;
     using GB.SIMEF.Resources;
 
-    [Table("CategoriasDesagregacion")]
-    public class CategoriasDesagregacion
+    [Table("CategoriaDesagregacion")]
+    public class CategoriaDesagregacion
     {
-        public CategoriasDesagregacion()
+        public CategoriaDesagregacion()
         {
             this.DetalleCategoriaNumerico = new DetalleCategoriaNumerico();
             this.DetalleCategoriaFecha = new DetalleCategoriaFecha();
@@ -33,7 +33,7 @@ namespace GB.SIMEF.Entities
         [Key]
 
 
-        public int idCategoria { get; set; }
+        public int idCategoriaDesagregacion { get; set; }
         [MaxLength(30)]
         public string Codigo { get; set; }
         [MaxLength(300)]
@@ -45,9 +45,9 @@ namespace GB.SIMEF.Entities
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
 
-        public int idEstado { get; set; }
+        public int idEstadoRegistro { get; set; }
 
-        public int idTipoDetalle { get; set; }
+        public int IdTipoDetalleCategoria { get; set; }
 
         public int IdTipoCategoria { get; set; }
 
@@ -88,7 +88,7 @@ namespace GB.SIMEF.Entities
             json.Append("{\"Código\":\"").Append(this.Codigo).Append("\",");
             json.Append("\"Nombre de categoria\":\"").Append(this.NombreCategoria).Append("\",");
             json.Append("\"Tipo de categoría\":\"").Append(this.TipoCategoria.Nombre).Append("\",");
-            switch (this.idTipoDetalle)
+            switch (this.IdTipoDetalleCategoria)
             {
                 case (int)Constantes.TipoDetalleCategoriaEnum.Fecha:
                     json.Append("\"Tipo de detalle\":\"").Append(Enum.GetName(typeof(Constantes.TipoDetalleCategoriaEnum), (int)Constantes.TipoDetalleCategoriaEnum.Fecha)).Append("\",");

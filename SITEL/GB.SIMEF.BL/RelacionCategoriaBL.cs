@@ -625,10 +625,10 @@ namespace GB.SIMEF.BL
 
                             RelacionCategoriaAtributo relacionCategoriaAtributo = new RelacionCategoriaAtributo()
                             {
-                                idRelacion = item.idRelacion,
-                                IdCategoriaId = item.idCategoriaId,
-                                IdcategoriaAtributo = objeto.idCategoria,
-                                IdcategoriaAtributoDetalle = 0
+                                idRelacionCategoriaId = item.idRelacion,
+                                idCategoriaDesagregacion = item.idCategoriaId,
+                                IdCategoriaDesagregacionAtributo = objeto.idCategoria,
+                                IdDetalleCategoriaTextoAtributo = 0
                             };
 
                             ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(relacionCategoriaAtributo);
@@ -762,10 +762,10 @@ namespace GB.SIMEF.BL
                                 {
                                     RelacionCategoriaAtributo relacionCategoriaAtributo = new RelacionCategoriaAtributo()
                                     {
-                                        idRelacion = relacion.IdRelacionCategoria,
-                                        IdCategoriaId = valorId,
-                                        IdcategoriaAtributo = detalleCategoriaTexto.idCategoria,
-                                        IdcategoriaAtributoDetalle = detalleCategoriaTexto.idCategoriaDetalle
+                                        idRelacionCategoriaId = relacion.IdRelacionCategoria,
+                                        idCategoriaDesagregacion = valorId,
+                                        IdCategoriaDesagregacionAtributo = detalleCategoriaTexto.idCategoriaDesagregacion,
+                                        IdDetalleCategoriaTextoAtributo = detalleCategoriaTexto.idDetalleCategoriaTexto
                                     };
 
                                     lista.Add(relacionCategoriaAtributo);
@@ -875,10 +875,10 @@ namespace GB.SIMEF.BL
                     objeto.idRelacion = temp;
                     objeto.listaCategoriaAtributo=objeto.listaCategoriaAtributo.Select(x => new RelacionCategoriaAtributo()
                     {
-                        IdcategoriaAtributo=x.IdcategoriaAtributo,
-                        idRelacion=objeto.idRelacion,
-                        IdcategoriaAtributoDetalle=x.IdcategoriaAtributoDetalle,
-                        IdCategoriaId=x.IdCategoriaId
+                        IdCategoriaDesagregacionAtributo=x.IdCategoriaDesagregacionAtributo,
+                        idRelacionCategoriaId=objeto.idRelacion,
+                        IdDetalleCategoriaTextoAtributo=x.IdDetalleCategoriaTextoAtributo,
+                        idCategoriaDesagregacion=x.idCategoriaDesagregacion
                     }).ToList();
                 }
 
@@ -967,10 +967,10 @@ namespace GB.SIMEF.BL
                     objeto.idRelacion = temp;
                     objeto.listaCategoriaAtributo = objeto.listaCategoriaAtributo.Select(x => new RelacionCategoriaAtributo()
                     {
-                        IdcategoriaAtributo = x.IdcategoriaAtributo,
-                        idRelacion = objeto.idRelacion,
-                        IdcategoriaAtributoDetalle = x.IdcategoriaAtributoDetalle,
-                        IdCategoriaId = x.IdCategoriaId
+                        IdCategoriaDesagregacionAtributo = x.IdCategoriaDesagregacionAtributo,
+                        idRelacionCategoriaId = objeto.idRelacion,
+                        IdDetalleCategoriaTextoAtributo = x.IdDetalleCategoriaTextoAtributo,
+                        idCategoriaDesagregacion = x.idCategoriaDesagregacion
                     }).ToList();
                 }
 

@@ -19,7 +19,7 @@ namespace GB.SIMEF.Entities
     {
         
         [Key]
-        public int idTipoCategoria { get; set; }
+        public int IdTipoDetalleCategoria { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
         public string TipoSQL { get; set; }

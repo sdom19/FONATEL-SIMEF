@@ -26,36 +26,36 @@ namespace GB.SIMEF.DAL
             List<DetalleCategoriaTexto> ListaCategoriaDetalle = new List<DetalleCategoriaTexto>();
             using (db = new SIMEFContext())
             {
-                List<CategoriasDesagregacion> categoriasDesagregacion = ObtenerCategoria();
+                List<CategoriaDesagregacion> categoriasDesagregacion = ObtenerCategoria();
 
                 ListaCategoriaDetalle = db.Database.SqlQuery<DetalleCategoriaTexto>
-                    ("execute spObtenerDetalleCategoriasTexto @idCategoriaDetalle, @idCategoria,@codigo, @Etiqueta",
-                      new SqlParameter("@idCategoriaDetalle", objCategoria.idCategoriaDetalle),
-                      new SqlParameter("@idCategoria", objCategoria.idCategoria),
+                    ("execute pa_ObtenerDetalleCategoriaTexto @idCategoriaDetalle, @idCategoria,@codigo, @Etiqueta",
+                      new SqlParameter("@idCategoriaDetalle", objCategoria.idDetalleCategoriaTexto),
+                      new SqlParameter("@idCategoria", objCategoria.idCategoriaDesagregacion),
                       new SqlParameter("@codigo", objCategoria.Codigo),
                       new SqlParameter("@Etiqueta", string.IsNullOrEmpty( objCategoria.Etiqueta)?DBNull.Value.ToString():objCategoria.Etiqueta)
                     ).ToList();
 
                 ListaCategoriaDetalle = ListaCategoriaDetalle.Select(x => new DetalleCategoriaTexto()
                 {
-                    idCategoriaDetalle = x.idCategoriaDetalle,
-                    idCategoria = x.idCategoria,
+                    idDetalleCategoriaTexto = x.idDetalleCategoriaTexto,
+                    idCategoriaDesagregacion = x.idCategoriaDesagregacion,
                     Codigo = x.Codigo,
                     Estado = x.Estado,
                     Etiqueta = x.Etiqueta,
-                    Completo = categoriasDesagregacion.Where(i=>i.idCategoria==x.idCategoria)
+                    Completo = categoriasDesagregacion.Where(i=>i.idCategoriaDesagregacion==x.idCategoriaDesagregacion)
                                         .Single().CantidadDetalleDesagregacion== ListaCategoriaDetalle.Count() ? true : false,
-                    CodigoCategoria= categoriasDesagregacion.Where(i => i.idCategoria == x.idCategoria)
+                    CodigoCategoria= categoriasDesagregacion.Where(i => i.idCategoriaDesagregacion == x.idCategoriaDesagregacion)
                                         .Single().Codigo,
-                    id = Utilidades.Encriptar(x.idCategoriaDetalle.ToString()),
-                    categoriaid = Utilidades.Encriptar(x.idCategoria.ToString())
+                    id = Utilidades.Encriptar(x.idDetalleCategoriaTexto.ToString()),
+                    categoriaid = Utilidades.Encriptar(x.idCategoriaDesagregacion.ToString())
                 }).ToList();
             }
             return ListaCategoriaDetalle;
         }
 
 
-        private List<CategoriasDesagregacion> ObtenerCategoria(int id=0)
+        private List<CategoriaDesagregacion> ObtenerCategoria(int id=0)
         {
             if(id==0)
             {
@@ -63,7 +63,7 @@ namespace GB.SIMEF.DAL
             }
             else
             {
-                return db.CategoriasDesagregacion.Where(x=>x.idCategoria==id).ToList();
+                return db.CategoriasDesagregacion.Where(x=>x.idCategoriaDesagregacion==id).ToList();
             }
         }
 
@@ -73,26 +73,26 @@ namespace GB.SIMEF.DAL
             List<DetalleCategoriaTexto> ListaCategoriaDetalle = new List<DetalleCategoriaTexto>();
             using (db = new SIMEFContext())
             {
-                CategoriasDesagregacion categoriasDesagregacion = ObtenerCategoria(objCategoria.idCategoria).Single();
+                CategoriaDesagregacion categoriasDesagregacion = ObtenerCategoria(objCategoria.idCategoriaDesagregacion).Single();
                 ListaCategoriaDetalle = db.Database.SqlQuery<DetalleCategoriaTexto>
-                    ("execute spActualizarDetalleCategoriaTexto @idCategoriaDetalle, @idCategoria,@codigo,@Etiqueta,@Estado",
-                      new SqlParameter("@idCategoriaDetalle", objCategoria.idCategoriaDetalle),
-                      new SqlParameter("@idCategoria", objCategoria.idCategoria),
+                    ("execute pa_ActualizarDetalleCategoriaTexto @idCategoriaDetalle, @idCategoria,@codigo,@Etiqueta,@Estado",
+                      new SqlParameter("@idCategoriaDetalle", objCategoria.idDetalleCategoriaTexto),
+                      new SqlParameter("@idCategoria", objCategoria.idCategoriaDesagregacion),
                       new SqlParameter("@codigo", objCategoria.Codigo),
                       new SqlParameter("@Etiqueta", objCategoria.Etiqueta),
                       new SqlParameter("@Estado", objCategoria.Estado)
                     ).ToList();
                 ListaCategoriaDetalle = ListaCategoriaDetalle.Select(x => new DetalleCategoriaTexto()
                 {
-                    idCategoriaDetalle = x.idCategoriaDetalle,
-                    idCategoria = x.idCategoria,
+                    idDetalleCategoriaTexto = x.idDetalleCategoriaTexto,
+                    idCategoriaDesagregacion = x.idCategoriaDesagregacion,
                     Codigo = x.Codigo,
                     Estado = x.Estado,
                     Etiqueta = x.Etiqueta,
                     Completo = categoriasDesagregacion.CantidadDetalleDesagregacion == ListaCategoriaDetalle.Count() ? true : false,
                     CodigoCategoria = categoriasDesagregacion.Codigo,
-                    id = Utilidades.Encriptar(x.idCategoriaDetalle.ToString()),
-                    categoriaid = Utilidades.Encriptar(x.idCategoria.ToString())
+                    id = Utilidades.Encriptar(x.idDetalleCategoriaTexto.ToString()),
+                    categoriaid = Utilidades.Encriptar(x.idCategoriaDesagregacion.ToString())
                 }).ToList();
             }
 
@@ -106,7 +106,7 @@ namespace GB.SIMEF.DAL
             {
                  db.Database.SqlQuery<DetalleCategoriaTexto>
                     ("execute spDeshabilitarDetalleCategoriaTexto @idCategoria",
-                      new SqlParameter("@idCategoria", objCategoria.idCategoria)
+                      new SqlParameter("@idCategoria", objCategoria.idCategoriaDesagregacion)
                     );
             } 
         }

@@ -67,7 +67,7 @@ namespace GB.SIMEF.Entities
 
         [NotMapped]
 
-        public CategoriasDesagregacion CategoriasDesagregacionid;
+        public CategoriaDesagregacion CategoriasDesagregacionid;
 
         #endregion
 

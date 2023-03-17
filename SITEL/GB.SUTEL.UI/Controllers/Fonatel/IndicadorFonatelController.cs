@@ -791,11 +791,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerCategoriasDesagregacion()
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+            RespuestaConsulta<List<CategoriaDesagregacion>> resultado = new RespuestaConsulta<List<CategoriaDesagregacion>>();
 
             await Task.Run(() =>
             {
-                resultado = categoriasDesagregacionBL.ObtenerDatos(new CategoriasDesagregacion() { idEstado = (int)EstadosRegistro.Activo });
+                resultado = categoriasDesagregacionBL.ObtenerDatos(new CategoriaDesagregacion() { idEstadoRegistro = (int)EstadosRegistro.Activo });
             });
             return JsonConvert.SerializeObject(resultado);
         }

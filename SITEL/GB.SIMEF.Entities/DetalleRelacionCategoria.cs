@@ -35,7 +35,7 @@ namespace GB.SIMEF.Entities
 
 
         [NotMapped]
-        public CategoriasDesagregacion CategoriaAtributo { get; set; }
+        public CategoriaDesagregacion CategoriaAtributo { get; set; }
 
 
         #endregion

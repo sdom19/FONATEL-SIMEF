@@ -24,8 +24,8 @@ namespace GB.SIMEF.Entities
         }
 
         [Key]
-        public int idCategoriaDetalle { get; set; }
-        public int idCategoria { get; set; }
+        public int idDetalleCategoriaFecha { get; set; }
+        public int idCategoriaDesagregacion { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

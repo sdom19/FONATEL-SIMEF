@@ -282,7 +282,7 @@
                 categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val().trim();
                 categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val().trim();
                 categoria.CantidadDetalleDesagregacion = $(JsCategoria.Controles.txtCantidadDetalleCategoria).val();
-                categoria.idTipoDetalle = $(JsCategoria.Controles.ddlTipoDetalle).val();
+                categoria.IdTipoDetalleCategoria= $(JsCategoria.Controles.ddlTipoDetalle).val();
                 categoria.IdTipoCategoria = $(JsCategoria.Controles.ddlTipoCategoria).val();
                 categoria.DetalleCategoriaNumerico = new Object();
                 categoria.DetalleCategoriaNumerico.Minimo = $(JsCategoria.Controles.txtRangoMinimaCategoria).val();
@@ -636,7 +636,7 @@
                 categoria.Codigo = $(JsCategoria.Controles.txtCodigoCategoria).val().trim();
                 categoria.NombreCategoria = $(JsCategoria.Controles.txtNombreCategoria).val().trim();
                 categoria.CantidadDetalleDesagregacion = $(JsCategoria.Controles.txtCantidadDetalleCategoria).val();
-                categoria.idTipoDetalle = $(JsCategoria.Controles.ddlTipoDetalle).val();
+                categoria.IdTipoDetalleCategoria= $(JsCategoria.Controles.ddlTipoDetalle).val();
                 categoria.IdTipoCategoria = $(JsCategoria.Controles.ddlTipoCategoria).val();
                 categoria.DetalleCategoriaNumerico = new Object();
                 categoria.DetalleCategoriaNumerico.Minimo = $(JsCategoria.Controles.txtRangoMinimaCategoria).val();

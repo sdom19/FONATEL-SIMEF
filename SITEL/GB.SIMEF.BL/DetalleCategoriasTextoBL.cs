@@ -100,7 +100,7 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.id, out temp))
                     {
-                        objCategoria.idCategoriaDetalle = temp;
+                        objCategoria.idDetalleCategoriaTexto = temp;
                     }
                 }
                 var resul = clsDatos.ObtenerDatos(objCategoria);
@@ -112,12 +112,12 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
-                    var detallesRelacion = clsRelacionCategoriaDetalles.ObtenerRelacionCategoriaAtributoXIdCategoriaDetalle(objCategoria.idCategoriaDetalle);
+                    var detallesRelacion = clsRelacionCategoriaDetalles.ObtenerRelacionCategoriaAtributoXIdCategoriaDetalle(objCategoria.idDetalleCategoriaTexto);
                     foreach (RelacionCategoriaAtributo item in detallesRelacion)
                     {
-                        item.IdcategoriaAtributoDetalle = 0;
+                        item.IdDetalleCategoriaTextoAtributo = 0;
                         clsRelacionCategoriaDetalles.ActualizarRelacionAtributo(item);
-                        RelacionCategoriaId rel = new RelacionCategoriaId() { idRelacion = item.idRelacion, idCategoriaId = item.IdCategoriaId, idEstado = (int)Constantes.EstadosRegistro.EnProceso, OpcionEliminar = false };
+                        RelacionCategoriaId rel = new RelacionCategoriaId() { idRelacion = item.idRelacionCategoriaId, idCategoriaId = item.idCategoriaDesagregacion, idEstado = (int)Constantes.EstadosRegistro.EnProceso, OpcionEliminar = false };
                         clsRelacionCategoriaDetalles.ActualizarRelacionCategoriaidSinReturn(rel);
                         //break;
                         //clsRelacionCategoriaDetalles.EliminarDetalleRelacionCategoria(item);
@@ -153,23 +153,24 @@ namespace GB.SIMEF.BL
             {
                 int temp = 0;
                 int.TryParse(Utilidades.Desencriptar(objeto.categoriaid), out temp);
-                objeto.idCategoria = temp;
+                objeto.idCategoriaDesagregacion = temp;
             }
             if (!string.IsNullOrEmpty(objeto.id))
             {
                 int temp = 0;
                 int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                objeto.idCategoriaDetalle = temp;
+                objeto.idDetalleCategoriaTexto = temp;
             }
 
             objeto.usuario = user;
             var categoria =
-                       clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { idCategoria = objeto.idCategoria }).Single();
+                       clsDatosCategoria.ObtenerDatos(new CategoriaDesagregacion() { idCategoriaDesagregacion = objeto.idCategoriaDesagregacion 
+                       }).Where(x => x.idEstadoRegistro != (int)Constantes.EstadosRegistro.Eliminado).Single();
             int cantidadDisponible = (int)categoria.CantidadDetalleDesagregacion
                                         - categoria.DetalleCategoriaTexto.Count();
 
             List<DetalleCategoriaTexto> detalleCategoria = categoria.DetalleCategoriaTexto.
-                                 Where(x=>x.idCategoria == objeto.idCategoria ).ToList();
+                                 Where(x=>x.idCategoriaDesagregacion == objeto.idCategoriaDesagregacion ).ToList();
 
             objeto.Json = Agregar == true ? string.Empty : SerializarObjetoBitacora(detalleCategoria.Where(x => x.Codigo == objeto.Codigo).Single());
 
@@ -188,23 +189,23 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.EtiquetaRegistrada);
             }
-            else if (detalleCategoria.Where(x => x.Codigo == objeto.Codigo && x.idCategoriaDetalle!=objeto.idCategoriaDetalle).Count() > 0 && !Agregar)
+            else if (detalleCategoria.Where(x => x.Codigo == objeto.Codigo && x.idDetalleCategoriaTexto!=objeto.idDetalleCategoriaTexto).Count() > 0 && !Agregar)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.CodigoRegistrado);
             }
-            else if (detalleCategoria.Where(x => x.Etiqueta == objeto.Etiqueta.ToUpper() && x.idCategoriaDetalle != objeto.idCategoriaDetalle).Count() > 0 && !Agregar)
+            else if (detalleCategoria.Where(x => x.Etiqueta == objeto.Etiqueta.ToUpper() && x.idDetalleCategoriaTexto != objeto.idDetalleCategoriaTexto).Count() > 0 && !Agregar)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.EtiquetaRegistrada);
             }
 
-            else if (!Utilidades.rx_soloTexto.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Texto)
+            else if (!Utilidades.rx_soloTexto.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Texto)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Etiqueta"));
             }
-            else if (!Utilidades.rx_alfanumerico.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
+            else if (!Utilidades.rx_alfanumerico.Match(objeto.Etiqueta.Trim()).Success && objeto.CategoriasDesagregacion.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Etiqueta"));
@@ -253,13 +254,13 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idCategoriaDetalle = temp;
+                    objeto.idDetalleCategoriaTexto = temp;
                 }
                 if (!string.IsNullOrEmpty(objeto.categoriaid))
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.categoriaid), out temp);
-                    objeto.idCategoria = temp;
+                    objeto.idCategoriaDesagregacion = temp;
                 }
 
 
@@ -291,8 +292,9 @@ namespace GB.SIMEF.BL
                 string Codigo = worksheet.Name;
                 int cantFinal = 0;
 
-                CategoriasDesagregacion categoria =
-                                     clsDatosCategoria.ObtenerDatos(new CategoriasDesagregacion() { Codigo = Codigo })
+                CategoriaDesagregacion categoria =
+                                     clsDatosCategoria.ObtenerDatos(new CategoriaDesagregacion() { Codigo = Codigo })
+                                     .Where(x => x.idEstadoRegistro != (int)Constantes.EstadosRegistro.Eliminado)
                                     .SingleOrDefault();
                 ResultadoConsulta.objetoRespuesta = new List<DetalleCategoriaTexto>();
                 for (int i = 0; i < categoria.CantidadDetalleDesagregacion; i++)
@@ -308,14 +310,14 @@ namespace GB.SIMEF.BL
 
                         var detallecategoria = new DetalleCategoriaTexto()
                         {
-                            idCategoria = categoria.idCategoria,
+                            idCategoriaDesagregacion = categoria.idCategoriaDesagregacion,
                             Codigo = codigo,
                             Etiqueta = Etiqueta,
                             Estado = true
                         };
 
                         DetalleCategoriaTexto consultarCategoria = categoria.DetalleCategoriaTexto.Where
-                                (x=>x.Codigo == detallecategoria.Codigo && x.idCategoria == detallecategoria.idCategoria  ).SingleOrDefault();
+                                (x=>x.Codigo == detallecategoria.Codigo && x.idCategoriaDesagregacion == detallecategoria.idCategoriaDesagregacion  ).SingleOrDefault();
                         
                         if (consultarCategoria==null)
                         {
@@ -342,7 +344,7 @@ namespace GB.SIMEF.BL
                 }
                 if (cantFinal+1 == categoria.CantidadDetalleDesagregacion)
                 {
-                    categoria.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                    categoria.idEstadoRegistro = (int)Constantes.EstadosRegistro.Activo;
                     clsDatosCategoria.ActualizarDatos(categoria);
                 }              
             }

@@ -68,7 +68,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return View("Index");
             } else
             {
-                CategoriasDesagregacion objCategoria = new CategoriasDesagregacion();
+                CategoriaDesagregacion objCategoria = new CategoriaDesagregacion();
                 if (!string.IsNullOrEmpty(idCategoria))
                 {
                     objCategoria.id = idCategoria;
@@ -90,7 +90,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                .objetoRespuesta;
             ViewBag.Modo = modo.ToString();
 
-            CategoriasDesagregacion objCategoria = new CategoriasDesagregacion();
+            CategoriaDesagregacion objCategoria = new CategoriaDesagregacion();
             if (!string.IsNullOrEmpty(id))
             {
                 objCategoria.id = id;
@@ -135,10 +135,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ActionResult DescargarExcel(string id)
         {
             var categoria = categoriaBL
-                    .ObtenerDatos(new CategoriasDesagregacion() { id = id }).objetoRespuesta.Single();
+                    .ObtenerDatos(new CategoriaDesagregacion() { id = id }).objetoRespuesta.Single();
 
             categoria.DetalleCategoriaTexto = categoriaDetalleBL.ObtenerDatos
-                (new DetalleCategoriaTexto() { idCategoria = categoria.idCategoria }).objetoRespuesta;
+                (new DetalleCategoriaTexto() { idCategoriaDesagregacion = categoria.idCategoriaDesagregacion }).objetoRespuesta;
             MemoryStream stream = new MemoryStream();
 
             using (ExcelPackage package = new ExcelPackage(stream))
@@ -196,10 +196,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerListaCategorias()
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            RespuestaConsulta<List<CategoriaDesagregacion>> result = null;
             await Task.Run(() =>
             {
-                result = categoriaBL.ObtenerDatos(new CategoriasDesagregacion());
+                result = categoriaBL.ObtenerDatos(new CategoriaDesagregacion());
             });
 
             return JsonConvert.SerializeObject(result);
@@ -217,15 +217,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         [ConsultasFonatelFilter]
 
-        public async Task<string> CambiarEstadoCategoria(CategoriasDesagregacion categoria)
+        public async Task<string> CambiarEstadoCategoria(CategoriaDesagregacion categoria)
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            RespuestaConsulta<List<CategoriaDesagregacion>> result = null;
             await Task.Run(() =>
             {
-                int nuevoestado = categoria.idEstado;
+                int nuevoestado = categoria.idEstadoRegistro;
                 categoria = categoriaBL.ObtenerDatos(
-                    new CategoriasDesagregacion() {id=categoria.id }).objetoRespuesta.Single();
-                categoria.idEstado = nuevoestado;
+                    new CategoriaDesagregacion() {id=categoria.id }).objetoRespuesta.Single();
+                categoria.idEstadoRegistro = nuevoestado;
                 return categoria;
 
             }).ContinueWith(data =>
@@ -248,10 +248,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> InsertarCategoria(CategoriasDesagregacion categoria)
+        public async Task<string> InsertarCategoria(CategoriaDesagregacion categoria)
         {
 
-            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            RespuestaConsulta<List<CategoriaDesagregacion>> result = null;
             await Task.Run(() =>
             {
                 result = categoriaBL.InsertarDatos(categoria);
@@ -271,9 +271,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> EditarCategoria(CategoriasDesagregacion categoria)
+        public async Task<string> EditarCategoria(CategoriaDesagregacion categoria)
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            RespuestaConsulta<List<CategoriaDesagregacion>> result = null;
             await Task.Run(() =>
             {
                 result = categoriaBL.ActualizarElemento(categoria);
@@ -295,9 +295,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> ClonarCategoria(CategoriasDesagregacion categoria)
+        public async Task<string> ClonarCategoria(CategoriaDesagregacion categoria)
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            RespuestaConsulta<List<CategoriaDesagregacion>> result = null;
             await Task.Run(() =>
             {
                 result = categoriaBL.ClonarDatos(categoria);
@@ -345,7 +345,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> ValidarCategoria(CategoriasDesagregacion categoria)
+        public async Task<string> ValidarCategoria(CategoriaDesagregacion categoria)
         {
             RespuestaConsulta<List<string>> result = null;
             await Task.Run(() =>
@@ -450,8 +450,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             }).ContinueWith(data =>
             {
-                var categoria = categoriaBL.ObtenerDatos(new CategoriasDesagregacion() {id= DetalleCategoriaTexto.categoriaid }).objetoRespuesta.Single();
-                categoria.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                var categoria = categoriaBL.ObtenerDatos(new CategoriaDesagregacion() {id= DetalleCategoriaTexto.categoriaid }).objetoRespuesta.Single();
+                categoria.idEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso;
                 return categoria;
 
             }).ContinueWith(data =>
@@ -497,13 +497,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         [HttpPost]
         [ConsultasFonatelFilter]
-        public async Task<string> CambiarEstadoFinalizado(CategoriasDesagregacion categoria)
+        public async Task<string> CambiarEstadoFinalizado(CategoriaDesagregacion categoria)
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            RespuestaConsulta<List<CategoriaDesagregacion>> result = null;
             await Task.Run(() =>
             {
                 categoria=  categoriaBL.ObtenerDatos(categoria).objetoRespuesta.Single();
-                categoria.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                categoria.idEstadoRegistro = (int)Constantes.EstadosRegistro.Activo;
                 return categoria;
 
             }).ContinueWith(data =>
@@ -525,10 +525,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ListaCategoriasParaRelacion()
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
+            RespuestaConsulta<List<CategoriaDesagregacion>> result = null;
             await Task.Run(() =>
             {
-                result = categoriaBL.ListaCategoriasParaRelacion(new CategoriasDesagregacion());
+                result = categoriaBL.ListaCategoriasParaRelacion(new CategoriaDesagregacion());
+                result.objetoRespuesta = result.objetoRespuesta
+               .Where(x => x.idEstadoRegistro != (int)Constantes.EstadosRegistro.Eliminado).ToList();
             });
 
             return JsonConvert.SerializeObject(result);
@@ -545,15 +547,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public string ObtenerCategoria(string pid)
         {
-            
-            RespuestaConsulta<List<CategoriasDesagregacion>> result = null;
-            
-            result = categoriaBL.ObtenerDatos(new CategoriasDesagregacion() { id = pid });
-              
-
+            RespuestaConsulta<List<CategoriaDesagregacion>> result = null;
+            result = categoriaBL.ObtenerDatos(new CategoriaDesagregacion() { id = pid });
             return JsonConvert.SerializeObject(result);
-
-
         }
 
         #endregion

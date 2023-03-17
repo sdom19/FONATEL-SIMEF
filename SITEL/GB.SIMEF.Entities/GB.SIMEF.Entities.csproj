@@ -80,7 +80,7 @@
     <Compile Include="RelacionCategoriaAtributo.cs" />
     <Compile Include="RelacionCategoriaId.cs" />
     <Compile Include="RespuestaConsulta.cs" />
-    <Compile Include="CategoriasDesagregacion.cs" />
+    <Compile Include="CategoriaDesagregacion.cs" />
     <Compile Include="ClasificacionIndicador.cs" />
     <Compile Include="DefinicionIndicadores.cs" />
     <Compile Include="DetalleCategoriaFecha.cs" />
