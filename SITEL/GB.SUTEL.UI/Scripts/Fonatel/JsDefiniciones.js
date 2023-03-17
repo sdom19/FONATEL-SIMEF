@@ -153,7 +153,7 @@
             let objDefinicion = new Object();
             objDefinicion.id = ObtenerValorParametroUrl("id");
             objDefinicion.fuente = $(JsDefiniciones.Controles.txtFuenteDefinicion).val().trim();
-            objDefinicion.notas = $(JsDefiniciones.Controles.txtNotasDefinicion).val().trim();
+            objDefinicion.nota = $(JsDefiniciones.Controles.txtNotasDefinicion).val().trim();
             objDefinicion.definicion = $(JsDefiniciones.Controles.txtDefinicion).val().trim();
 
             $("#loading").fadeIn();
@@ -179,7 +179,7 @@
             let objDefinicion = new Object();
             objDefinicion.id = ObtenerValorParametroUrl("id");
             objDefinicion .fuente = $(JsDefiniciones.Controles.txtFuenteDefinicion).val().trim();
-            objDefinicion .notas = $(JsDefiniciones.Controles.txtNotasDefinicion).val().trim();
+            objDefinicion .nota = $(JsDefiniciones.Controles.txtNotasDefinicion).val().trim();
             objDefinicion .definicion = $(JsDefiniciones.Controles.txtDefinicion).val().trim();
             $("#loading").fadeIn();
             execAjaxCall("/DefinicionIndicadores/ActualizarDefinicion", "POST", objDefinicion = objDefinicion)
@@ -204,7 +204,7 @@
             let objDefinicion = new Object();
             objDefinicion.id = ObtenerValorParametroUrl("id");
             objDefinicion.fuente = $(JsDefiniciones.Controles.txtFuenteDefinicion).val().trim();
-            objDefinicion.notas = $(JsDefiniciones.Controles.txtNotasDefinicion).val().trim();
+            objDefinicion.nota = $(JsDefiniciones.Controles.txtNotasDefinicion).val().trim();
             objDefinicion.definicion = $(JsDefiniciones.Controles.txtDefinicion).val().trim();
             objDefinicion.idClonado = $(JsDefiniciones.Controles.ddlindicador).val().trim();          
             $("#loading").fadeIn();

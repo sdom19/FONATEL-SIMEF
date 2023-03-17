@@ -34,7 +34,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(Errores.NoRegistrosActualizar);
             }
-            else if (!Utilidades.rx_alfanumerico.Match(objeto.Notas.Trim()).Success)
+            else if (!Utilidades.rx_alfanumerico.Match(objeto.Nota.Trim()).Success)
             {
                 ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                 throw new Exception(string.Format(Errores.CampoConFormatoInvalido, "Notas"));
@@ -62,7 +62,7 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idIndicador = temp;
+                    objeto.idDefinicionIndicador = temp;
                 }
                 ResultadoConsultaValorUnico.Clase = modulo;
                 ResultadoConsultaValorUnico.Accion = (int)Accion.Visualizar;
@@ -133,11 +133,11 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(objeto.idClonado))
                 {
                     int.TryParse(Utilidades.Desencriptar(objeto.idClonado), out temp);
-                    objeto.idIndicador = temp;
+                    objeto.idDefinicionIndicador = temp;
                 }
 
                
-                objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                objeto.IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo;
                 ValidarObjeto(objeto);
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Usuario = user;
@@ -174,7 +174,7 @@ namespace GB.SIMEF.BL
                 }
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Usuario = user;
-                objeto.idEstado = (int)EstadosRegistro.Eliminado;
+                objeto.IdEstadoRegistro = (int)EstadosRegistro.Eliminado;
                 ResultadoConsulta.Accion = (int)Accion.Eliminar ;
                 ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
@@ -203,9 +203,9 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idIndicador = temp;
+                    objeto.idDefinicionIndicador = temp;
                 }
-                objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                objeto.IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo;
                 ValidarObjeto(objeto);
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Usuario = user;
@@ -240,7 +240,7 @@ namespace GB.SIMEF.BL
                 if (!string.IsNullOrEmpty(pDefinicionIndicador.id))
                 {
                     int.TryParse(Utilidades.Desencriptar(pDefinicionIndicador.id), out temp);
-                    pDefinicionIndicador.idIndicador = temp;
+                    pDefinicionIndicador.idDefinicionIndicador = temp;
                 }      
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;

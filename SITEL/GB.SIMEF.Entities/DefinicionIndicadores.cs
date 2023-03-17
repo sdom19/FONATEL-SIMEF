@@ -22,21 +22,21 @@ namespace GB.SIMEF.Entities
     {
         [Key]
 
-        public int idIndicador { get; set; }
+        public int idDefinicionIndicador { get; set; }
 
         [MaxLength(300)]
         [DataType(DataType.MultilineText)]
         public string Fuente { get; set; }
         [DataType(DataType.MultilineText)]
         [MaxLength(3000)]
-        public string Notas { get; set; }
+        public string Nota { get; set; }
 
         [MaxLength(2000)]
         [DataType(DataType.MultilineText)]
         public string Definicion { get; set; }
 
 
-        public int idEstado { get; set; }
+        public int IdEstadoRegistro  { get; set; }
         
         [NotMapped]
         public virtual Indicador Indicador { get; set; }
@@ -66,19 +66,19 @@ namespace GB.SIMEF.Entities
             json.Append("\"Tipo\":\"").Append(this.Indicador.TipoIndicadores.Nombre).Append("\",");
             json.Append("\"Definición\":\"").Append(this.Definicion).Append("\",");
             json.Append("\"Fuente\":\"").Append(this.Fuente).Append("\",");
-            json.Append("\"Notas\":\"").Append(this.Notas).Append("\",");
+            json.Append("\"Notas\":\"").Append(this.Nota).Append("\",");
 
             string estado = string.Empty;
-            switch (this.idEstado)
+            switch (this.IdEstadoRegistro)
             {
                 case (int)Constantes.EstadosRegistro.Desactivado:
-                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.idEstado);
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.IdEstadoRegistro);
                     break;
                 case (int)Constantes.EstadosRegistro.Activo:
-                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.idEstado);
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.IdEstadoRegistro);
                     break;
                 case (int)Constantes.EstadosRegistro.Eliminado:
-                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.idEstado);
+                    estado = Enum.GetName(typeof(Constantes.EstadosRegistro), this.IdEstadoRegistro);
                     break;
                 case (int)Constantes.EstadosRegistro.EnProceso:
                     estado = "En Proceso";
