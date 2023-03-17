@@ -25,8 +25,8 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaCategoria = db.Database.SqlQuery<TipoDetalleCategoria>
-                    ("execute spObtenerTipoDetalleCategoria @idTipoDetalleCategoria",
-                     new SqlParameter("@idTipoDetalleCategoria", objTipoDetalleCategoria.idTipoCategoria)
+                    ("execute pa_ObtenerTipoDetalleCategoria @idTipoCategoria",
+                     new SqlParameter("@idTipoCategoria", objTipoDetalleCategoria.IdTipoDetalleCategoria)
                     ).ToList();
             }
             return ListaCategoria;

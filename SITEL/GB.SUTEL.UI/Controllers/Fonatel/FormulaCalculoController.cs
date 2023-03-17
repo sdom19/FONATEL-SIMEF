@@ -382,7 +382,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public async Task<string> ObtenerCategoriasDesagregacionDeIndicador(string pIdIndicador)
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+            RespuestaConsulta<List<CategoriaDesagregacion>> resultado = new RespuestaConsulta<List<CategoriaDesagregacion>>();
 
             if (string.IsNullOrEmpty(pIdIndicador))
             {
@@ -408,7 +408,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         public async Task<string> ObtenerCategoriasDesagregacionTipoFechaDeIndicador(string pIdIndicador)
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+            RespuestaConsulta<List<CategoriaDesagregacion>> resultado = new RespuestaConsulta<List<CategoriaDesagregacion>>();
 
             if (string.IsNullOrEmpty(pIdIndicador))
             {
@@ -515,7 +515,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         public async Task<string> ObtenerCategoriasDeFormulaNivelCalculo(string pIdFormula, string pIdIndicador)
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+            RespuestaConsulta<List<CategoriaDesagregacion>> resultado = new RespuestaConsulta<List<CategoriaDesagregacion>>();
 
             if (string.IsNullOrEmpty(pIdFormula) || string.IsNullOrEmpty(pIdIndicador))
             {
@@ -1187,7 +1187,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (!pFormulasDeCalculo.NivelCalculoTotal)
             {
-                List<CategoriasDesagregacion> categorias = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pFormulasDeCalculo.IdIndicadorSalidaString, true).objetoRespuesta;
+                List<CategoriaDesagregacion> categorias = categoriasDesagregacionBL.ObtenerCategoriasDesagregacionDeIndicador(pFormulasDeCalculo.IdIndicadorSalidaString, true).objetoRespuesta;
 
                 if (categorias != null)
                 {

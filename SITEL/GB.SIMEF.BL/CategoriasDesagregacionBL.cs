@@ -13,13 +13,13 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class CategoriasDesagregacionBL : IMetodos<CategoriasDesagregacion>
+    public class CategoriasDesagregacionBL : IMetodos<CategoriaDesagregacion>
     {
         private readonly CategoriasDesagregacionDAL clsDatos;
         private readonly DetalleCategoriaTextoDAL clsDatosTexto;
 
 
-        private RespuestaConsulta<List<CategoriasDesagregacion>> ResultadoConsulta;
+        private RespuestaConsulta<List<CategoriaDesagregacion>> ResultadoConsulta;
         string modulo = string.Empty;
         string user = string.Empty;
 
@@ -33,7 +33,7 @@ namespace GB.SIMEF.BL
             this.user = user;
             this.clsDatos = new CategoriasDesagregacionDAL();
             this.clsDatosTexto = new DetalleCategoriaTextoDAL();
-            this.ResultadoConsulta = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+            this.ResultadoConsulta = new RespuestaConsulta<List<CategoriaDesagregacion>>();
         }
 
 
@@ -44,7 +44,7 @@ namespace GB.SIMEF.BL
         
 
 
-        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerDatos(CategoriasDesagregacion objeto)
+        public RespuestaConsulta<List<CategoriaDesagregacion>> ObtenerDatos(CategoriaDesagregacion objeto)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.id, out temp))
                     {
-                        objeto.idCategoria = temp;
+                        objeto.idCategoriaDesagregacion = temp;
                     }
                 }
                 ResultadoConsulta.Clase = modulo;
@@ -72,12 +72,12 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<CategoriasDesagregacion>> ValidarDatos(CategoriasDesagregacion objeto)
+        public RespuestaConsulta<List<CategoriaDesagregacion>> ValidarDatos(CategoriaDesagregacion objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<string>> ValidarExistencia(CategoriasDesagregacion objeto)
+        public RespuestaConsulta<List<string>> ValidarExistencia(CategoriaDesagregacion objeto)
         {
             RespuestaConsulta<List<string>> listaExistencias = new RespuestaConsulta<List<string>>();
             try
@@ -88,7 +88,7 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.id, out temp))
                     {
-                        objeto.idCategoria = temp;
+                        objeto.idCategoriaDesagregacion = temp;
                     }
                 }
                 ResultadoConsulta.Clase = modulo;
@@ -105,30 +105,30 @@ namespace GB.SIMEF.BL
             return listaExistencias;
         }
 
-        public RespuestaConsulta<List<CategoriasDesagregacion>> ActualizarElemento(CategoriasDesagregacion objeto)
+        public RespuestaConsulta<List<CategoriaDesagregacion>> ActualizarElemento(CategoriaDesagregacion objeto)
         {
             try
             {
-                List<CategoriasDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
+                List<CategoriaDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriaDesagregacion());
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Editar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioModificacion = user;
-                objeto.idTipoDetalle = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)TipoDetalleCategoriaEnum.Numerico : objeto.idTipoDetalle;
+                objeto.IdTipoDetalleCategoria = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)TipoDetalleCategoriaEnum.Numerico : objeto.IdTipoDetalleCategoria;
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idCategoria = temp;
+                    objeto.idCategoriaDesagregacion = temp;
                 }
-                List<CategoriasDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
+                List<CategoriaDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriaDesagregacion());
                  if (buscarRegistro.Where(x => x.NombreCategoria.ToUpper().TrimStart().TrimEnd() == objeto.NombreCategoria.ToUpper().TrimStart().TrimEnd() && x.Codigo.ToUpper() != objeto.Codigo.ToUpper()).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
                 }
-                var result = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
-                if (listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Count() == 0)
+                var result = listadoCategorias.Where(x => x.idCategoriaDesagregacion == objeto.idCategoriaDesagregacion).Single();
+                if (listadoCategorias.Where(x => x.idCategoriaDesagregacion == objeto.idCategoriaDesagregacion).Count() == 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -152,47 +152,47 @@ namespace GB.SIMEF.BL
                 {
 
 
-                    if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
+                    if (objeto.IdTipoDetalleCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
-                        objeto.idEstado = objeto.EsParcial == true ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
+                        objeto.idEstadoRegistro = objeto.EsParcial == true ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
                         if (objeto.DetalleCategoriaFecha.FechaMinima >= objeto.DetalleCategoriaFecha.FechaMaxima && !objeto.EsParcial)
                         {
                             ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                             throw new Exception(Errores.ValorFecha);
                         }
                         clsDatos.ActualizarDatos(objeto);
-                        objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
+                        objeto.DetalleCategoriaFecha.idCategoriaDesagregacion = result.idCategoriaDesagregacion;
                         objeto.DetalleCategoriaFecha.Estado = true;
                         clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
                     }
-                    else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
+                    else if (objeto.IdTipoDetalleCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
-                        objeto.idEstado = objeto.EsParcial == true ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
+                        objeto.idEstadoRegistro = objeto.EsParcial == true ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
                         if ((objeto.DetalleCategoriaNumerico.Minimo >= objeto.DetalleCategoriaNumerico.Maximo) && (!objeto.EsParcial) && (objeto.IdTipoCategoria!=(int)Constantes.TipoCategoriaEnum.VariableDato))
                         {
                             ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                             throw new Exception(Errores.ValorMinimo);
                         }
-                        objeto.idEstado = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)Constantes.EstadosRegistro.Activo : objeto.idEstado;
+                        objeto.idEstadoRegistro = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)Constantes.EstadosRegistro.Activo : objeto.idEstadoRegistro;
                         clsDatos.ActualizarDatos(objeto);
-                        objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
+                        objeto.DetalleCategoriaNumerico.idCategoriaDesagregacion = result.idCategoriaDesagregacion;
                         objeto.DetalleCategoriaNumerico.Estado = true;
                         clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
                     }
                     else
                     {
 
-                        if (objeto.CantidadDetalleDesagregacion == 0 && (objeto.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico || objeto.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Texto))
+                        if (objeto.CantidadDetalleDesagregacion == 0 && (objeto.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico || objeto.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Texto))
                         {
-                            objeto.idEstado = (int)Constantes.EstadosRegistro.Activo;
+                            objeto.idEstadoRegistro = (int)Constantes.EstadosRegistro.Activo;
                         }
                         else if (objeto.CantidadDetalleDesagregacion > result.DetalleCategoriaTexto.Count())
                         {
-                            objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+                            objeto.idEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso;
                         }
                         else
                         {
-                            objeto.idEstado = objeto.EsParcial == true ? (int)Constantes.EstadosRegistro.EnProceso : result.idEstado;
+                            objeto.idEstadoRegistro = objeto.EsParcial == true ? (int)Constantes.EstadosRegistro.EnProceso : result.idEstadoRegistro;
                         }
                         clsDatos.ActualizarDatos(objeto);
                     }
@@ -223,13 +223,13 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<CategoriasDesagregacion>> CambioEstado(CategoriasDesagregacion objeto)
+        public RespuestaConsulta<List<CategoriaDesagregacion>> CambioEstado(CategoriaDesagregacion objeto)
         {
             try
             {
                 objeto.UsuarioModificacion = user;
                 ResultadoConsulta.Usuario = user;
-                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.idEstado ? (int)Accion.Activar : (int)Accion.Inactiva;
+                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.idEstadoRegistro ? (int)Accion.Activar : (int)Accion.Inactiva;
                 //if (objeto.CantidadDetalleDesagregacion!=objeto.DetalleCategoriaTexto.Count() && objeto.idEstado == (int)Accion.Activar)
                 //{
                 //    throw new Exception("No se cumple con la cantidad de atributos configurados");
@@ -262,26 +262,26 @@ namespace GB.SIMEF.BL
 
 
 
-        public RespuestaConsulta<List<CategoriasDesagregacion>> ClonarDatos(CategoriasDesagregacion objeto)
+        public RespuestaConsulta<List<CategoriaDesagregacion>> ClonarDatos(CategoriaDesagregacion objeto)
         {
             try
             {
-                List<CategoriasDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
+                List<CategoriaDesagregacion> listadoCategorias = clsDatos.ObtenerDatos(new CategoriaDesagregacion());
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Clonar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
 
-                CategoriasDesagregacion objetoClonar = objeto;
+                CategoriaDesagregacion objetoClonar = objeto;
                 if (!string.IsNullOrEmpty(objeto.id))
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idCategoria = temp;
+                    objeto.idCategoriaDesagregacion = temp;
                 }
 
-                string jsonInicial = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single().ToString();
-                objeto = listadoCategorias.Where(x => x.idCategoria == objeto.idCategoria).Single();
+                string jsonInicial = listadoCategorias.Where(x => x.idCategoriaDesagregacion == objeto.idCategoriaDesagregacion).Single().ToString();
+                objeto = listadoCategorias.Where(x => x.idCategoriaDesagregacion == objeto.idCategoriaDesagregacion).Single();
 
 
                 if (listadoCategorias.Where(x => x.Codigo.ToUpper() == objetoClonar.Codigo.ToUpper().Trim()).Count() > 0)
@@ -308,14 +308,14 @@ namespace GB.SIMEF.BL
                 {
                     objeto.Codigo = objetoClonar.Codigo;
                     objeto.NombreCategoria = objetoClonar.NombreCategoria;
-                    objeto.idCategoria = 0;
+                    objeto.idCategoriaDesagregacion = 0;
                     objeto.CantidadDetalleDesagregacion = objetoClonar.CantidadDetalleDesagregacion;
-                    objeto.idEstado = objeto.DetalleCategoriaTexto.Count() == objeto.CantidadDetalleDesagregacion ?
+                    objeto.idEstadoRegistro = objeto.DetalleCategoriaTexto.Count() == objeto.CantidadDetalleDesagregacion ?
                             (int)Constantes.EstadosRegistro.Activo : (int)Constantes.EstadosRegistro.EnProceso;
 
-                    var result = new CategoriasDesagregacion();
+                    var result = new CategoriaDesagregacion();
 
-                    if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
+                    if (objeto.IdTipoDetalleCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
                         if (objetoClonar.DetalleCategoriaFecha.FechaMinima >= objetoClonar.DetalleCategoriaFecha.FechaMaxima & objetoClonar.EsParcial == false)
                         {
@@ -325,12 +325,12 @@ namespace GB.SIMEF.BL
                         result = clsDatos.ActualizarDatos(objeto)
                             .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
 
-                        objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
+                        objeto.DetalleCategoriaFecha.idCategoriaDesagregacion = result.idCategoriaDesagregacion;
                         objeto.DetalleCategoriaFecha.FechaMaxima = objetoClonar.DetalleCategoriaFecha.FechaMaxima;
                         objeto.DetalleCategoriaFecha.FechaMinima = objetoClonar.DetalleCategoriaFecha.FechaMinima;
                         clsDatos.InsertarDetalleFecha(objeto.DetalleCategoriaFecha);
                     }
-                    else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
+                    else if (objeto.IdTipoDetalleCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
                         if ((objetoClonar.DetalleCategoriaNumerico.Minimo >= objetoClonar.DetalleCategoriaNumerico.Maximo) && (!objetoClonar.EsParcial) && (objetoClonar.IdTipoCategoria != (int)Constantes.TipoCategoriaEnum.VariableDato))
                         {
@@ -340,7 +340,7 @@ namespace GB.SIMEF.BL
                         result = clsDatos.ActualizarDatos(objeto)
                             .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
 
-                        objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
+                        objeto.DetalleCategoriaNumerico.idCategoriaDesagregacion = result.idCategoriaDesagregacion;
                         objeto.DetalleCategoriaNumerico.Minimo = objetoClonar.DetalleCategoriaNumerico.Minimo;
                         objeto.DetalleCategoriaNumerico.Maximo = objetoClonar.DetalleCategoriaNumerico.Maximo;
 
@@ -353,7 +353,7 @@ namespace GB.SIMEF.BL
 
                         foreach (var item in objeto.DetalleCategoriaTexto)
                         {
-                            item.idCategoria = result.idCategoria;
+                            item.idCategoriaDesagregacion = result.idCategoriaDesagregacion;
                             clsDatosTexto.ActualizarDatos(item);
                         }
                     }
@@ -376,7 +376,7 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<CategoriasDesagregacion>> EliminarElemento(CategoriasDesagregacion objeto)
+        public RespuestaConsulta<List<CategoriaDesagregacion>> EliminarElemento(CategoriaDesagregacion objeto)
         {
             throw new NotImplementedException();
         }
@@ -385,17 +385,17 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<CategoriasDesagregacion>> InsertarDatos(CategoriasDesagregacion objeto)
+        public RespuestaConsulta<List<CategoriaDesagregacion>> InsertarDatos(CategoriaDesagregacion objeto)
         {
             try
             {
-                objeto.idCategoria = 0;
+                objeto.idCategoriaDesagregacion = 0;
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
-                objeto.idTipoDetalle = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)TipoDetalleCategoriaEnum.Numerico : objeto.idTipoDetalle;
-                List<CategoriasDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriasDesagregacion());
+                objeto.IdTipoDetalleCategoria = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)TipoDetalleCategoriaEnum.Numerico : objeto.IdTipoDetalleCategoria;
+                List<CategoriaDesagregacion> buscarRegistro = clsDatos.ObtenerDatos(new CategoriaDesagregacion());
                 if (buscarRegistro.Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).ToList().Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Error.ErrorControlado;
@@ -420,23 +420,23 @@ namespace GB.SIMEF.BL
                 {
                     if (objeto.EsParcial || objeto.CantidadDetalleDesagregacion > 0)
                     {
-                        objeto.idEstado = (int)EstadosRegistro.EnProceso;
+                        objeto.idEstadoRegistro = (int)EstadosRegistro.EnProceso;
                     }
                     else
                     {
-                        objeto.idEstado = (int)EstadosRegistro.Activo;
+                        objeto.idEstadoRegistro = (int)EstadosRegistro.Activo;
                     }
-                    if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Fecha)
+                    if (objeto.IdTipoDetalleCategoria == (int)TipoDetalleCategoriaEnum.Fecha)
                     {
                         if (objeto.DetalleCategoriaFecha.FechaMinima >= objeto.DetalleCategoriaFecha.FechaMaxima && !objeto.EsParcial)
                         {
                             ResultadoConsulta.HayError = (int)Error.ErrorControlado;
                             throw new Exception(Errores.ValorFecha);
                         }
-                        objeto.idEstado = objeto.EsParcial ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
+                        objeto.idEstadoRegistro = objeto.EsParcial ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
                         var result = clsDatos.ActualizarDatos(objeto)
                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
-                        objeto.DetalleCategoriaFecha.idCategoria = result.idCategoria;
+                        objeto.DetalleCategoriaFecha.idCategoriaDesagregacion = result.idCategoriaDesagregacion;
                         objeto.DetalleCategoriaFecha.Estado = true;
                         if (objeto.DetalleCategoriaFecha.FechaMaxima != null && objeto.DetalleCategoriaFecha.FechaMinima != null)
                         {
@@ -444,7 +444,7 @@ namespace GB.SIMEF.BL
                         }
 
                     }
-                    else if (objeto.idTipoDetalle == (int)TipoDetalleCategoriaEnum.Numerico)
+                    else if (objeto.IdTipoDetalleCategoria == (int)TipoDetalleCategoriaEnum.Numerico)
                     {
                         if ((objeto.DetalleCategoriaNumerico.Minimo >= objeto.DetalleCategoriaNumerico.Maximo) && !objeto.EsParcial && (objeto.IdTipoCategoria != (int)Constantes.TipoCategoriaEnum.VariableDato))
                         {
@@ -452,10 +452,10 @@ namespace GB.SIMEF.BL
                             throw new Exception(Errores.ValorMinimo);
                         }
                         var estadoNumerico = objeto.EsParcial ? (int)Constantes.EstadosRegistro.EnProceso : (int)Constantes.EstadosRegistro.Activo;
-                        objeto.idEstado = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)Constantes.EstadosRegistro.Activo : estadoNumerico;
+                        objeto.idEstadoRegistro = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)Constantes.EstadosRegistro.Activo : estadoNumerico;
                         var result = clsDatos.ActualizarDatos(objeto)
                            .Where(x => x.Codigo.ToUpper() == objeto.Codigo.ToUpper()).FirstOrDefault();
-                        objeto.DetalleCategoriaNumerico.idCategoria = result.idCategoria;
+                        objeto.DetalleCategoriaNumerico.idCategoriaDesagregacion = result.idCategoriaDesagregacion;
                         objeto.DetalleCategoriaNumerico.Estado = true;
                         clsDatos.InsertarDetalleNumerico(objeto.DetalleCategoriaNumerico);
                     }
@@ -487,7 +487,7 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-        public RespuestaConsulta<List<CategoriasDesagregacion>> ListaCategoriasParaRelacion(CategoriasDesagregacion objeto)
+        public RespuestaConsulta<List<CategoriaDesagregacion>> ListaCategoriasParaRelacion(CategoriaDesagregacion objeto)
         {
             try
             {
@@ -497,7 +497,7 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.id, out temp))
                     {
-                        objeto.idCategoria = temp;
+                        objeto.idCategoriaDesagregacion = temp;
                     }
                 }
                 ResultadoConsulta.Clase = modulo;
@@ -525,9 +525,9 @@ namespace GB.SIMEF.BL
         /// <param name="pIdFormula"></param>
         /// <param name="pIdIndicador"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerCategoriasDeFormulaNivelCalculo(string pIdFormula, string pIdIndicador)
+        public RespuestaConsulta<List<CategoriaDesagregacion>> ObtenerCategoriasDeFormulaNivelCalculo(string pIdFormula, string pIdIndicador)
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+            RespuestaConsulta<List<CategoriaDesagregacion>> resultado = new RespuestaConsulta<List<CategoriaDesagregacion>>();
 
             try
             {
@@ -541,7 +541,7 @@ namespace GB.SIMEF.BL
 
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                List<CategoriasDesagregacion> result = clsDatos.ObtenerCategoriasDeFormulaNivelCalculo(idFormula, idIndicador);
+                List<CategoriaDesagregacion> result = clsDatos.ObtenerCategoriasDeFormulaNivelCalculo(idFormula, idIndicador);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }
@@ -562,9 +562,9 @@ namespace GB.SIMEF.BL
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerCategoriasDesagregacionDeIndicador(string pIdIndicador, bool pInsertarOpcionTodos = false)
+        public RespuestaConsulta<List<CategoriaDesagregacion>> ObtenerCategoriasDesagregacionDeIndicador(string pIdIndicador, bool pInsertarOpcionTodos = false)
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+            RespuestaConsulta<List<CategoriaDesagregacion>> resultado = new RespuestaConsulta<List<CategoriaDesagregacion>>();
 
             try
             {
@@ -582,13 +582,13 @@ namespace GB.SIMEF.BL
 
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                List<CategoriasDesagregacion> result = clsDatos.ObtenerCategoriasDesagregacionDeIndicador(idIndicador);
+                List<CategoriaDesagregacion> result = clsDatos.ObtenerCategoriasDesagregacionDeIndicador(idIndicador);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
 
                 if (resultado.CantidadRegistros > 0 && pInsertarOpcionTodos)
                 {
-                    resultado.objetoRespuesta.Insert(0, new CategoriasDesagregacion() { id = select2MultipleOptionTodosValue, NombreCategoria = select2MultipleOptionTodosText });
+                    resultado.objetoRespuesta.Insert(0, new CategoriaDesagregacion() { id = select2MultipleOptionTodosValue, NombreCategoria = select2MultipleOptionTodosText });
                 }
             }
             catch (Exception ex)
@@ -607,9 +607,9 @@ namespace GB.SIMEF.BL
         /// <param name="pIdIndicador"></param>
         /// <param name="pIdTipoDetalleCategoria"></param>
         /// <returns></returns>
-        public RespuestaConsulta<List<CategoriasDesagregacion>> ObtenerCategoriasDesagregacionTipoFechaDeIndicador(string pIdIndicador, string pIdTipoDetalleCategoria)
+        public RespuestaConsulta<List<CategoriaDesagregacion>> ObtenerCategoriasDesagregacionTipoFechaDeIndicador(string pIdIndicador, string pIdTipoDetalleCategoria)
         {
-            RespuestaConsulta<List<CategoriasDesagregacion>> resultado = new RespuestaConsulta<List<CategoriasDesagregacion>>();
+            RespuestaConsulta<List<CategoriaDesagregacion>> resultado = new RespuestaConsulta<List<CategoriaDesagregacion>>();
 
             try
             {
@@ -632,7 +632,7 @@ namespace GB.SIMEF.BL
                 
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Consultar;
-                List<CategoriasDesagregacion> result = clsDatos.ObtenerCategoriasDesagregacionDeIndicador(idIndicador, idTipoDetalleCategoria);
+                List<CategoriaDesagregacion> result = clsDatos.ObtenerCategoriasDesagregacionDeIndicador(idIndicador, idTipoDetalleCategoria);
                 resultado.objetoRespuesta = result;
                 resultado.CantidadRegistros = result.Count();
             }

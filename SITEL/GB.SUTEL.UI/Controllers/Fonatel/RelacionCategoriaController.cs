@@ -68,9 +68,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ActionResult Create(string id)
         {
             RelacionCategoria model = new RelacionCategoria();
-            List <CategoriasDesagregacion> listaCategorias = categoriasDesagregacionBl.ObtenerDatos(new CategoriasDesagregacion()
+            List <CategoriaDesagregacion> listaCategorias = categoriasDesagregacionBl.ObtenerDatos(new CategoriaDesagregacion()
             {
-                idEstado = (int)Constantes.EstadosRegistro.Activo
+                idEstadoRegistro = (int)Constantes.EstadosRegistro.Activo
             }).objetoRespuesta;
 
             List<RelacionCategoria> listaRelaciones = relacionCategoriaBL
@@ -78,9 +78,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
 
             ViewBag.ListaCategoriaAtributo =listaCategorias.Where(p=>p.IdTipoCategoria==(int)Constantes.TipoCategoriaEnum.Atributo && p.CantidadDetalleDesagregacion>0)
-                .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
+                .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoriaDesagregacion.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
 
-            listaCategorias= listaCategorias.Where(p => !listaRelaciones.Any(p2 => p2.CategoriasDesagregacionid.idCategoria==p.idCategoria)).ToList();
+            listaCategorias= listaCategorias.Where(p => !listaRelaciones.Any(p2 => p2.CategoriasDesagregacionid.idCategoriaDesagregacion ==p.idCategoriaDesagregacion)).ToList();
             if (string.IsNullOrEmpty(id))
             {
                 ViewBag.titulo = EtiquetasViewRelacionCategoria.CrearRelacion;
@@ -94,7 +94,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             ViewBag.ListaCatergoriaIdUnico = listaCategorias.Where(p => p.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.IdUnico)
 
-                    .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoria.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
+                    .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoriaDesagregacion.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
 
             return View(model);
         }
@@ -348,7 +348,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                         List<RelacionCategoriaAtributo> ArrayCategoriaAtributo = ArrayCategoriaId.Length > (fila - 2) ? ArrayCategoriaId[fila - 2].listaCategoriaAtributo : new List<RelacionCategoriaAtributo>();
 
-                        worksheetInicio.Cells[fila, Columna].Value = ArrayCategoriaAtributo.Count > (Columna - 2) ? ArrayCategoriaAtributo.Where(x => x.IdcategoriaAtributo == sub.idCategoriaAtributo).FirstOrDefault().Etiqueta.Replace("N/A", string.Empty) : string.Empty;
+                        worksheetInicio.Cells[fila, Columna].Value = ArrayCategoriaAtributo.Count > (Columna - 2) ? ArrayCategoriaAtributo.Where(x => x.IdCategoriaDesagregacionAtributo == sub.idCategoriaAtributo).FirstOrDefault().Etiqueta.Replace("N/A", string.Empty) : string.Empty;
 
                         worksheetInicio.Cells[fila, Columna].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                             worksheetInicio.Cells[fila, Columna].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);

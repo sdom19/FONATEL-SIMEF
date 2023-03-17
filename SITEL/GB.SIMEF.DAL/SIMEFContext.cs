@@ -17,7 +17,7 @@ namespace GB.SIMEF.DAL
 
 
 
-        public virtual DbSet<CategoriasDesagregacion> CategoriasDesagregacion { get; set; }
+        public virtual DbSet<CategoriaDesagregacion> CategoriasDesagregacion { get; set; }
         public virtual DbSet<DetalleCategoriaTexto> DetalleCategoriaTexto { get; set; }
         public virtual DbSet<EstadoRegistro> EstadoRegistro { get; set; }
         public virtual DbSet<Bitacora> Bitacora { get; set; }

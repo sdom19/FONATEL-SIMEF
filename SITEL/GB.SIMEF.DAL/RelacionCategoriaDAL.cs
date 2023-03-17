@@ -17,12 +17,12 @@ namespace GB.SIMEF.DAL
         
         private List<DetalleRelacionCategoria> listaDetalleRelacionCategoria;
 
-        private List<CategoriasDesagregacion> listaCategorias;
+        private List<CategoriaDesagregacion> listaCategorias;
 
         public  RelacionCategoriaDAL()
         {
             categoriasDesagregacionDAL = new CategoriasDesagregacionDAL();
-            listaCategorias = categoriasDesagregacionDAL.ObtenerTodosCategoriasDesagregacion(new CategoriasDesagregacion());
+            listaCategorias = categoriasDesagregacionDAL.ObtenerTodosDatos(new CategoriaDesagregacion());
         }
 
         #region Metodos de Consulta a Base Datos Relacion Categoria
@@ -93,9 +93,9 @@ namespace GB.SIMEF.DAL
                     {
                         foreach (var item2 in lista)
                         {
-                            if (item2.IdcategoriaAtributo == item.IdcategoriaAtributo && item2.IdcategoriaAtributoDetalle != item.IdcategoriaAtributoDetalle)
+                            if (item2.IdCategoriaDesagregacionAtributo == item.IdCategoriaDesagregacionAtributo && item2.IdDetalleCategoriaTextoAtributo != item.IdDetalleCategoriaTextoAtributo)
                             {
-                                if (item2.IdcategoriaAtributoDetalle == 0)
+                                if (item2.IdDetalleCategoriaTextoAtributo == 0)
                                 {
                                     lista2.Remove(item2);
                                 }
@@ -110,22 +110,22 @@ namespace GB.SIMEF.DAL
                     {
                         lista = lista2.Select(x => new RelacionCategoriaAtributo()
                         {
-                            idRelacion = x.idRelacion,
-                        IdcategoriaAtributo=x.IdcategoriaAtributo,
-                        IdcategoriaAtributoDetalle=x.IdcategoriaAtributoDetalle,
-                        IdCategoriaId=x.IdCategoriaId,
+                            idRelacionCategoriaId = x.idRelacionCategoriaId,
+                        IdCategoriaDesagregacionAtributo=x.IdCategoriaDesagregacionAtributo,
+                        IdDetalleCategoriaTextoAtributo=x.IdDetalleCategoriaTextoAtributo,
+                        idCategoriaDesagregacion=x.idCategoriaDesagregacion,
                         Etiqueta=db.DetalleCategoriaTexto
-                            .Where(p=>p.idCategoria==x.IdcategoriaAtributo && p.idCategoriaDetalle==x.IdcategoriaAtributoDetalle) != null ? db.DetalleCategoriaTexto
-                            .Where(p => p.idCategoria == x.IdcategoriaAtributo && p.idCategoriaDetalle == x.IdcategoriaAtributoDetalle).FirstOrDefault().Etiqueta : ""
+                            .Where(p=>p.idCategoriaDesagregacion==x.IdCategoriaDesagregacionAtributo && p.idDetalleCategoriaTexto==x.IdDetalleCategoriaTextoAtributo) != null ? db.DetalleCategoriaTexto
+                            .Where(p => p.idCategoriaDesagregacion == x.IdCategoriaDesagregacionAtributo && p.idDetalleCategoriaTexto == x.IdDetalleCategoriaTextoAtributo).FirstOrDefault().Etiqueta : ""
                         }).ToList();
                     }
 
                 }
                 foreach (RelacionCategoriaAtributo item in lista)
                 {
-                    if (item.IdcategoriaAtributoDetalle == 0)
+                    if (item.IdDetalleCategoriaTextoAtributo == 0)
                     {
-                        RelacionCategoriaId rel = new RelacionCategoriaId() { idRelacion = item.idRelacion, idCategoriaId = item.IdCategoriaId, idEstado = (int)Constantes.EstadosRegistro.EnProceso, OpcionEliminar = false };
+                        RelacionCategoriaId rel = new RelacionCategoriaId() { idRelacion = item.idRelacionCategoriaId, idCategoriaId = item.idCategoriaDesagregacion, idEstado = (int)Constantes.EstadosRegistro.EnProceso, OpcionEliminar = false };
                         ActualizarRelacionCategoriaidSinReturn(rel);
                         break;
                     }
@@ -278,7 +278,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaRelacionCategoriaDetalle = db.Database.SqlQuery<RelacionCategoriaAtributo>
-                ("execute spObtenerRelacionCategoriaAtributoXIdCategoriaDetalle @IdCategoriaDetalle   ",
+                ("execute pa_ObtenerRelacionCategoriaAtributoXIdCategoriaDetalle @IdCategoriaDetalle   ",
                      new SqlParameter("@IdCategoriaDetalle", idCategoriaDetalle)
                     ).ToList();
             }
@@ -311,16 +311,16 @@ namespace GB.SIMEF.DAL
             
         }
 
-        private CategoriasDesagregacion ObtenerCategoria(int idCategoria )
+        private CategoriaDesagregacion ObtenerCategoria(int idCategoria )
         {
             if (idCategoria == 0)
             {
-                return new CategoriasDesagregacion();
+                return new CategoriaDesagregacion();
             }
             else
             {
 
-                return listaCategorias.Where(p => p.idCategoria == idCategoria).SingleOrDefault();
+                return listaCategorias.Where(p => p.idCategoriaDesagregacion == idCategoria).SingleOrDefault();
             }     
         }
 
@@ -415,10 +415,10 @@ namespace GB.SIMEF.DAL
             {
                 ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
                 ("execute spActualizarRelacionCategoriaAtributo  @idRelacion,@IdCategoriaId,@IdcategoriaAtributo,@IdcategoriaAtributoDetalle",
-                     new SqlParameter("@idRelacion", objeto.idRelacion),
-                     new SqlParameter("@IdCategoriaId", objeto.IdCategoriaId),
-                      new SqlParameter("@IdcategoriaAtributo", objeto.IdcategoriaAtributo),
-                     new SqlParameter("@IdcategoriaAtributoDetalle", objeto.IdcategoriaAtributoDetalle)
+                     new SqlParameter("@idRelacion", objeto.idRelacionCategoriaId),
+                     new SqlParameter("@IdCategoriaId", objeto.idCategoriaDesagregacion),
+                      new SqlParameter("@IdcategoriaAtributo", objeto.IdCategoriaDesagregacionAtributo),
+                     new SqlParameter("@IdcategoriaAtributoDetalle", objeto.IdDetalleCategoriaTextoAtributo)
 
                     ).ToList();
             }
@@ -445,8 +445,8 @@ namespace GB.SIMEF.DAL
             {
                 ListaRelacionCategoria = db.Database.SqlQuery<RelacionCategoria>
                 ("execute spEliminarRelacionCategoriaAtributoDetalle @IdRelacion,@IdCategoriaId   ",
-                     new SqlParameter("@IdRelacion", objeto.idRelacion),
-                     new SqlParameter("@IdCategoriaId", objeto.IdCategoriaId)
+                     new SqlParameter("@IdRelacion", objeto.idRelacionCategoriaId),
+                     new SqlParameter("@IdCategoriaId", objeto.idCategoriaDesagregacion)
                     ).ToList();
             }
             return ListaRelacionCategoria;

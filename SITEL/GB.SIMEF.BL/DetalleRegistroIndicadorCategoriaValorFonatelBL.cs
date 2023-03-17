@@ -388,9 +388,9 @@ namespace GB.SIMEF.BL
                                         switch (categoria.IdTipoCategoria)
                                         {
                                             case 0:
-                                                CategoriasDesagregacion cd = new CategoriasDesagregacion();
-                                                cd.idCategoria = categoria.idCategoria;
-                                                List<CategoriasDesagregacion> listaCD = categoriasDesagregacionDAL.ObtenerDatos(cd);
+                                                CategoriaDesagregacion cd = new CategoriaDesagregacion();
+                                                cd.idCategoriaDesagregacion = categoria.idCategoria;
+                                                List<CategoriaDesagregacion> listaCD = categoriasDesagregacionDAL.ObtenerDatos(cd);
                                                 if (listaCD.Count > 0)
                                                 {
                                                     int cont = listaCD[0].DetalleCategoriaTexto.Where(x => x.Etiqueta == worksheet.Cells[j, i].Value.ToString()).ToList().Count;

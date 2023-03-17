@@ -18,14 +18,14 @@ namespace GB.SIMEF.Entities
     public partial class RelacionCategoriaAtributo
     {
         [Key, Column(Order = 0)]
-        public int idRelacion { get; set; }
+        public int idRelacionCategoriaId { get; set; }
         [Key, Column(Order = 1)]
-        public string IdCategoriaId { get; set; }
+        public string idCategoriaDesagregacion { get; set; }
 
         [Key, Column(Order = 2)]
-        public int IdcategoriaAtributo { get; set; }
+        public int IdCategoriaDesagregacionAtributo { get; set; }
         [Key, Column(Order = 3)]
-        public int IdcategoriaAtributoDetalle { get; set; }
+        public int IdDetalleCategoriaTextoAtributo { get; set; }
 
 
         [NotMapped]

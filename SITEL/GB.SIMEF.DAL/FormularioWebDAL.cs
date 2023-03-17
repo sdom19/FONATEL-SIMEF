@@ -48,7 +48,7 @@ namespace GB.SIMEF.DAL
                     idEstadoRegistro = x.idEstadoRegistro,
                     ListaIndicadores = ObtenerIndicadoresXFormulario(x.idFormularioWeb), 
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstadoRegistro).FirstOrDefault(),
-                    FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.idFrecuenciaEnvio == x.idFrecuenciaEnvio).FirstOrDefault(),
+                    FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.IdFrecuenciaEnvio == x.idFrecuenciaEnvio).FirstOrDefault(),
                     DetalleFormularioWeb = ListaDetalleFormularioWeb(x.idFormularioWeb),
                 }).ToList();
             }
@@ -121,7 +121,7 @@ namespace GB.SIMEF.DAL
                     idEstadoRegistro = x.idEstadoRegistro,
                     ListaIndicadores = ObtenerIndicadoresXFormulario(x.idFormularioWeb),
                     EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstadoRegistro).FirstOrDefault(),
-                    FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.IdFrecuenciaEnvio == x.idFrecuencia).FirstOrDefault(),
+                    FrecuenciaEnvio = db.FrecuenciaEnvio.Where(i => i.IdFrecuenciaEnvio == x.idFrecuenciaEnvio).FirstOrDefault(),
                     DetalleFormularioWeb = ListaDetalleFormularioWeb(x.idFormularioWeb),
                 }).ToList();
             }
