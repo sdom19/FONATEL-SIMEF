@@ -49,7 +49,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             int temp;
             int.TryParse(Utilidades.Desencriptar(id), out temp);
             
-            var model = definicionBL.VisualizarElemento(new DefinicionIndicador() { idIndicador = temp }).objetoRespuesta;
+            var model = definicionBL.VisualizarElemento(new DefinicionIndicador() { idDefinicionIndicador = temp }).objetoRespuesta;
            
             return View(model);
         }
@@ -62,13 +62,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
 
             ViewBag.ListaIndicadores =
-                definicionBL.ObtenerDatos(new DefinicionIndicador()).objetoRespuesta.Where( x=>x.idEstado!=(int)Constantes.EstadosRegistro.Activo)
+                definicionBL.ObtenerDatos(new DefinicionIndicador()).objetoRespuesta.Where( x=>x.IdEstadoRegistro !=(int)Constantes.EstadosRegistro.Activo)
                             .Select(x => new SelectListItem()  {  Value = x.Indicador.id, Text = Utilidades.ConcatenadoCombos(x.Indicador.Codigo, x.Indicador.Nombre) }).ToList();
                 
 
             int temp;
             int.TryParse( Utilidades.Desencriptar( id), out temp);
-            var model = definicionBL.ObtenerDatos(new DefinicionIndicador() { idIndicador = temp }).objetoRespuesta.Single();
+            var model = definicionBL.ObtenerDatos(new DefinicionIndicador() { idDefinicionIndicador = temp }).objetoRespuesta.Single();
             model.Indicador.Codigo = string.Empty;
             model.Indicador.Nombre = string.Empty;
             model.Indicador.id = string.Empty;
@@ -93,7 +93,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             int temp;
             int.TryParse(Utilidades.Desencriptar( id), out temp);
             ViewBag.Modo = modo.ToString();
-            var model = definicionBL.ObtenerDatos(new DefinicionIndicador() {idIndicador=temp }).objetoRespuesta.Single();
+            var model = definicionBL.ObtenerDatos(new DefinicionIndicador() {idDefinicionIndicador=temp }).objetoRespuesta.Single();
             return View(model);
         }
    
@@ -166,7 +166,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     pdefinicion = obj.Result.objetoRespuesta.Single();
                     pdefinicion.json = pdefinicion.ToString();
-                    pdefinicion.Notas = objDefinicion.Notas.Trim();
+                    pdefinicion.Nota = objDefinicion.Nota.Trim();
                     pdefinicion.Definicion = objDefinicion.Definicion.Trim();
                     pdefinicion.Fuente = objDefinicion.Fuente.Trim();
                     

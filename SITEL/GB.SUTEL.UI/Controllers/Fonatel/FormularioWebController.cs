@@ -70,10 +70,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
-        public async Task<string> ObtenerIndicadoresFormulario(string idFormularioWeb)
+        public async Task<string> ObtenerIndicadoresFormulario(string idFormulario)
         {
             FormularioWeb objFormularioWeb = new FormularioWeb();
-            objFormularioWeb.id = idFormularioWeb;
+            objFormularioWeb.id = idFormulario;
             RespuestaConsulta<List<Indicador>> result = null;
             await Task.Run(() =>
             {
@@ -370,11 +370,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
-        public async Task<string> ObtenerDetalleFormularioWeb(int idIndicador, string idFormularioWeb)
+        public async Task<string> ObtenerDetalleFormularioWeb(int idIndicador, string idFormulario)
         {
             DetalleFormularioWeb objDetalleFormularioWeb = new DetalleFormularioWeb();
             int temp = 0;
-            int.TryParse(Utilidades.Desencriptar( idFormularioWeb), out temp );
+            int.TryParse(Utilidades.Desencriptar( idFormulario), out temp );
             objDetalleFormularioWeb.idFormularioWeb = temp;
             objDetalleFormularioWeb.idIndicador = idIndicador;
             await Task.Run(() =>

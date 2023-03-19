@@ -59,13 +59,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<Indicador>> result = null;
             await Task.Run(() =>
             {
-                var def = definicionBL.ObtenerDatos(new DefinicionIndicador() { idEstado = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
+                var def = definicionBL.ObtenerDatos(new DefinicionIndicador() { IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta;
                 result = indicadorfonatelBL.ObtenerDatos(new Indicador() { IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo });
                 result.objetoRespuesta = result
                     .objetoRespuesta.Where(x => x.IdClasificacionIndicador != (int)Constantes.ClasificacionIndicadorEnum.Entrada && x.Interno==false).ToList();
                 for (var i = 0; i < result.objetoRespuesta.Count(); i++)
                 {
-                    result.objetoRespuesta[i].tieneDefinicion = (def.Where(d => d.idIndicador == result.objetoRespuesta[i].IdIndicador).Count() > 0);
+                    result.objetoRespuesta[i].tieneDefinicion = (def.Where(d => d.idDefinicionIndicador == result.objetoRespuesta[i].IdIndicador).Count() > 0);
                 }
             });
             return JsonConvert.SerializeObject(result);

@@ -270,8 +270,8 @@
                 html = html + "<td class='dt-center'>" + indicadores.GrupoIndicadores.Nombre + " </td>";
                 html = html + "<td class='dt-center'>" + indicadores.TipoIndicadores.Nombre + " </td>";
                 html = html + "<td class='dt-center'>" + indicadores.EstadoRegistro.Nombre + " </td>";
-                html = html + "<td class='dt-center'><button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value=" + indicadores.idIndicador + " class='btn-icon-base btn-edit'></button>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar'  value=" + indicadores.idIndicador + " class='btn-icon-base btn-delete'></button></td>";
+                html = html + "<td class='dt-center'><button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value=" + indicadores.IdIndicador + " class='btn-icon-base btn-edit'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar'  value=" + indicadores.IdIndicador + " class='btn-icon-base btn-delete'></button></td>";
                 html = html + "</tr>"
             }
             $(JsFormulario.Controles.TableIndicadorFormularioBody).html(html);
@@ -379,7 +379,7 @@
             formulario.Descripcion = $(JsFormulario.Controles.txtDescripcionFormulario).val().trim();
             formulario.CantidadIndicador = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
             formulario.idFrecuenciaEnvio = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
-            formulario.idEstadoRegistroRegistro = jsUtilidades.Variables.EstadoRegistros.EnProceso;
+            formulario.idEstadoRegistro = jsUtilidades.Variables.EstadoRegistros.EnProceso;
             //formulario.idEstadoRegistro = JsFormulario.Metodos.ValidarEstadoParcialFormulario(formulario);
             await execAjaxCall("/FormularioWeb/InsertarFormularioWeb", "POST", formulario)
                 .then((obj) => {
@@ -445,7 +445,7 @@
             formulario.Descripcion = $(JsFormulario.Controles.txtDescripcionFormulario).val().trim();
             formulario.CantidadIndicador = $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val().trim();
             formulario.idFrecuenciaEnvio = $(JsFormulario.Controles.ddlFrecuanciaEnvio).val();
-            formulario.idEstadoRegistroRegistro = jsUtilidades.Variables.EstadoRegistros.EnProceso;
+            formulario.idEstadoRegistro = jsUtilidades.Variables.EstadoRegistros.EnProceso;
             await execAjaxCall("/FormularioWeb/ClonarFormulario", "POST", formulario)
                 .then((obj) => {
                     $(JsFormulario.Controles.CantidadIndicadoresMax).val(obj.objetoRespuesta[0].CantidadIndicador)
@@ -470,7 +470,7 @@
             detalleFormulario.formularioweb = formularioweb;
             await execAjaxCall("/FormularioWeb/InsertarIndicadoresFormulario", "POST", detalleFormulario)
                 .then((obj) => {
-                    let cantidadMax = obj.objetoRespuesta[0].formularioweb.CantidadIndicadores;
+                    let cantidadMax = obj.objetoRespuesta[0].formularioweb.CantidadIndicador;
                     $(JsFormulario.Controles.CantidadIndicadoresMax).val(cantidadMax);
                     jsMensajes.Metodos.OkAlertModal("El Indicador ha sido agregado")
                         .set('onok', function (closeEvent) {

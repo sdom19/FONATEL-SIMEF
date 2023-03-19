@@ -29,23 +29,23 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaDefiniciones = db.Database.SqlQuery<DefinicionIndicador>
-                    ("execute spObtenerDefinicionesIndicador @idIndicador, @idEstado",
-                        new SqlParameter("@idIndicador", objDefinicion.idIndicador),
-                        new SqlParameter("@idEstado", objDefinicion.idEstado)
+                    ("execute pa_ObtenerDefinicionIndicador @idIndicador, @idEstado",
+                        new SqlParameter("@idIndicador", objDefinicion.idDefinicionIndicador),
+                        new SqlParameter("@idEstado", objDefinicion.IdEstadoRegistro)
                     ).ToList();
             }
             ListaDefiniciones = ListaDefiniciones.Select(x => new DefinicionIndicador()
             {
                 Definicion = x.Definicion,
-                idIndicador = x.idIndicador,
+                idDefinicionIndicador = x.idDefinicionIndicador,
                 Fuente = x.Fuente,
-                Notas = x.Notas,
-                idEstado = x.idEstado,
-                id=Utilidades.Encriptar(x.idIndicador.ToString()),
+                Nota = x.Nota,
+                IdEstadoRegistro = x.IdEstadoRegistro,
+                id=Utilidades.Encriptar(x.idDefinicionIndicador.ToString()),
                 Indicador = listaIndicador
-                .Where(i => i.id==Utilidades.Encriptar(x.idIndicador.ToString()) ).Single(),
+                .Where(i => i.id==Utilidades.Encriptar(x.idDefinicionIndicador.ToString()) ).Single(),
                 NombreIndicador = listaIndicador
-               .Where(i => i.id == Utilidades.Encriptar(x.idIndicador.ToString())).Single().Nombre,
+               .Where(i => i.id == Utilidades.Encriptar(x.idDefinicionIndicador.ToString())).Single().Nombre,
             }).ToList();
 
 
@@ -72,11 +72,11 @@ namespace GB.SIMEF.DAL
             {
                 Definiciones = db.Database.SqlQuery<DefinicionIndicador>
                 ("execute " +
-                "dbo.spActualizarDefinicionIndicador @Fuente,@Notas,@idIndicador,@idEstado,@Definicion",
+                "dbo.pa_ActualizarDefinicionIndicador @Fuente,@Nota,@idIndicador,@idEstado,@Definicion",
                      new SqlParameter("@Fuente", objDefinicion.Fuente),
-                     new SqlParameter("@Notas", objDefinicion.Notas),
-                     new SqlParameter("@idIndicador", objDefinicion.idIndicador),
-                     new SqlParameter("@idEstado", objDefinicion.idEstado),
+                     new SqlParameter("@Nota", objDefinicion.Nota),
+                     new SqlParameter("@idIndicador", objDefinicion.idDefinicionIndicador),
+                     new SqlParameter("@idEstado", objDefinicion.IdEstadoRegistro),
                      new SqlParameter("@Definicion", objDefinicion.Definicion)
                     ).ToList();
 
@@ -86,15 +86,15 @@ namespace GB.SIMEF.DAL
             Definiciones = Definiciones.Select(x => new DefinicionIndicador()
             {
                 Definicion = x.Definicion,
-                idIndicador = x.idIndicador,
+                idDefinicionIndicador = x.idDefinicionIndicador,
                 Fuente = x.Fuente,
-                Notas = x.Notas,
-                idEstado = x.idEstado,
-                id = Utilidades.Encriptar(x.idIndicador.ToString()),
+                Nota = x.Nota,
+                IdEstadoRegistro = x.IdEstadoRegistro,
+                id = Utilidades.Encriptar(x.idDefinicionIndicador.ToString()),
                 Indicador = listaIndicador
-               .Where(i => i.id == Utilidades.Encriptar(x.idIndicador.ToString())).Single(),
+               .Where(i => i.id == Utilidades.Encriptar(x.idDefinicionIndicador.ToString())).Single(),
                 NombreIndicador  = listaIndicador
-               .Where(i => i.id == Utilidades.Encriptar(x.idIndicador.ToString())).Single().Nombre,
+               .Where(i => i.id == Utilidades.Encriptar(x.idDefinicionIndicador.ToString())).Single().Nombre,
             }).ToList();
 
 
