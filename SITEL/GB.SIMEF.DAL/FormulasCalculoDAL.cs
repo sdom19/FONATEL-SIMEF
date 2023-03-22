@@ -38,7 +38,7 @@ namespace GB.SIMEF.DAL
                 listaformulas = db.Database.SqlQuery<FormulaCalculo>
                 ("execute dbo.pa_ActualizarFormulaCalculo " +
                 " @pIdFormulaCalculo, @pCodigo, @pNombre, @pIdIndicador, @pIdDetalleIndicadorVariable, @pFechaCalculo, @pDescripcion, @pIdFrecuenciaEnvio, @pNivelCalculoTotal, @pUsuarioModificacion, @pUsuarioCreacion, @pIdEstadoRegistro",
-                     new SqlParameter("@pIdFormulaCalculo", pFormulasCalculo.IdFormula),
+                     new SqlParameter("@pIdFormulaCalculo", pFormulasCalculo.IdFormulaCalculo),
                      new SqlParameter("@pCodigo", pFormulasCalculo.Codigo),
                      new SqlParameter("@pNombre", pFormulasCalculo.Nombre),
                      pFormulasCalculo.IdIndicador == 0 ?
@@ -83,8 +83,8 @@ namespace GB.SIMEF.DAL
 
                 listaformulas = listaformulas.Select(x => new FormulaCalculo()
                 {
-                    id = Utilidades.Encriptar(x.IdFormula.ToString()),
-                    IdFormula = x.IdFormula,
+                    id = Utilidades.Encriptar(x.IdFormulaCalculo.ToString()),
+                    IdFormulaCalculo = x.IdFormulaCalculo,
                     IdIndicadorSalidaString = Utilidades.Encriptar(x.IdIndicador.ToString()),
                     Nombre = x.Nombre,
                     Codigo = x.Codigo,
@@ -94,7 +94,7 @@ namespace GB.SIMEF.DAL
                     FrecuenciaEnvio = x.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuenciaEnvio) : null,
                     IndicadorSalida = x.IdIndicador != null ? ObtenerIndicador((int)x.IdIndicador) : null,
                     VariableSalida = x.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdDetalleIndicadorVariable) : null,
-                    EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(x.IdFormula)
+                    EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(x.IdFormulaCalculo)
                 }).ToList();
             }
             return listaformulas;
@@ -114,7 +114,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 formula = db.Database.SqlQuery<FormulaCalculo>("exec pa_ActualizarEtiquetaFormula @pIdFormulaCalculo, @pEtiquetaFormula, @pUsuarioModificacion",
-                    new SqlParameter("@pIdFormulaCalculo", pFormulasCalculo.IdFormula),
+                    new SqlParameter("@pIdFormulaCalculo", pFormulasCalculo.IdFormulaCalculo),
                     new SqlParameter("@pEtiquetaFormula", pFormulasCalculo.Formula),
                     new SqlParameter("@pUsuarioModificacion", pFormulasCalculo.UsuarioModificacion)
                     ).FirstOrDefault();
@@ -123,8 +123,8 @@ namespace GB.SIMEF.DAL
                 {
                     formula = new FormulaCalculo()
                     {
-                        id = Utilidades.Encriptar(formula.IdFormula.ToString()),
-                        IdFormula = formula.IdFormula,
+                        id = Utilidades.Encriptar(formula.IdFormulaCalculo.ToString()),
+                        IdFormulaCalculo = formula.IdFormulaCalculo,
                         IdIndicadorSalidaString = Utilidades.Encriptar(formula.IdIndicador.ToString()),
                         Nombre = formula.Nombre,
                         Codigo = formula.Codigo,
@@ -134,7 +134,7 @@ namespace GB.SIMEF.DAL
                         FrecuenciaEnvio = formula.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)formula.IdFrecuenciaEnvio) : null,
                         IndicadorSalida = formula.IdIndicador != null ? ObtenerIndicador((int)formula.IdIndicador) : null,
                         VariableSalida = formula.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)formula.IdDetalleIndicadorVariable) : null,
-                        EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(formula.IdFormula)
+                        EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(formula.IdFormulaCalculo)
                     };
                 }
             }
@@ -175,14 +175,14 @@ namespace GB.SIMEF.DAL
             {
                 listaFormulasCalculo = db.Database.SqlQuery<FormulaCalculo>
                     ("execute pa_ObtenerFormulaCalculo @pIdFormulaCalculo",
-                     new SqlParameter("@pIdFormulaCalculo", pformulasCalculo.IdFormula)
+                     new SqlParameter("@pIdFormulaCalculo", pformulasCalculo.IdFormulaCalculo)
                     ).ToList();
 
-                bool esUnicoRegistro = pformulasCalculo.IdFormula != 0 && listaFormulasCalculo.Count == 1; // optimizar la consulta para 1 solo registro
+                bool esUnicoRegistro = pformulasCalculo.IdFormulaCalculo != 0 && listaFormulasCalculo.Count == 1; // optimizar la consulta para 1 solo registro
 
                 listaFormulasCalculo = listaFormulasCalculo.Select(x => new FormulaCalculo()
                 {
-                    id = Utilidades.Encriptar(x.IdFormula.ToString()),
+                    id = Utilidades.Encriptar(x.IdFormulaCalculo.ToString()),
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     Descripcion = x.Descripcion,
@@ -203,7 +203,7 @@ namespace GB.SIMEF.DAL
                     FrecuenciaEnvio = esUnicoRegistro && x.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuenciaEnvio) : null,
                     IndicadorSalida = esUnicoRegistro && x.IdIndicador != null ? ObtenerIndicador((int)x.IdIndicador) : null,
                     VariableSalida = esUnicoRegistro && x.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdDetalleIndicadorVariable) : null,
-                    EtiquetaFormulaConArgumentos = esUnicoRegistro ? ObtenerEtiquetaFormulaConArgumentos(x.IdFormula) : null
+                    EtiquetaFormulaConArgumentos = esUnicoRegistro ? ObtenerEtiquetaFormulaConArgumentos(x.IdFormulaCalculo) : null
                 }).ToList();
             }
 
@@ -230,8 +230,8 @@ namespace GB.SIMEF.DAL
 
                 lista = lista.Select(x => new FormulaCalculo()
                 {
-                    id = Utilidades.Encriptar(x.IdFormula.ToString()),
-                    IdFormula = x.IdFormula,
+                    id = Utilidades.Encriptar(x.IdFormulaCalculo.ToString()),
+                    IdFormulaCalculo = x.IdFormulaCalculo,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     Descripcion = x.Descripcion,
@@ -249,7 +249,7 @@ namespace GB.SIMEF.DAL
                     FrecuenciaEnvio = x.IdFrecuenciaEnvio != null ? ObtenerFrecuenciaEnvio((int)x.IdFrecuenciaEnvio) : null,
                     IndicadorSalida = x.IdIndicador != null ? ObtenerIndicador((int)x.IdIndicador) : null,
                     VariableSalida = x.IdDetalleIndicadorVariable != null ? ObtenerVariableDatoSalida((int)x.IdDetalleIndicadorVariable) : null,
-                    EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(x.IdFormula)
+                    EtiquetaFormulaConArgumentos = ObtenerEtiquetaFormulaConArgumentos(x.IdFormulaCalculo)
                 }).ToList();
             }
 
@@ -271,7 +271,7 @@ namespace GB.SIMEF.DAL
             {
                 formulasCalculo = db.FormulaCalculo.Where(x =>
                         (x.Nombre.Trim().ToUpper().Equals(pFormulasCalculo.Nombre.Trim().ToUpper()) || x.Codigo.Trim().ToUpper().Equals(pFormulasCalculo.Codigo.Trim().ToUpper())) &&
-                        x.IdFormula != pFormulasCalculo.IdFormula &&
+                        x.IdFormulaCalculo != pFormulasCalculo.IdFormulaCalculo &&
                         x.IdEstadoRegistro != (int)EstadosRegistro.Eliminado
                     ).FirstOrDefault();
             }
@@ -292,7 +292,7 @@ namespace GB.SIMEF.DAL
 
             using (db = new SIMEFContext())
             {
-                formula = db.FormulaCalculo.Where(x => x.IdFormula == pIdIdentificador && x.IdEstadoRegistro != (int)EstadosRegistro.Eliminado).FirstOrDefault();
+                formula = db.FormulaCalculo.Where(x => x.IdFormulaCalculo == pIdIdentificador && x.IdEstadoRegistro != (int)EstadosRegistro.Eliminado).FirstOrDefault();
             }
 
             return formula;
@@ -373,7 +373,7 @@ namespace GB.SIMEF.DAL
                     pFormulasCalculo.FechaCalculo,
                     new ParametroTareaDTO[] 
                     {
-                        new ParametroTareaDTO("Formula", pFormulasCalculo.IdFormula.ToString())
+                        new ParametroTareaDTO("Formula", pFormulasCalculo.IdFormulaCalculo.ToString())
                     }
                 );
 

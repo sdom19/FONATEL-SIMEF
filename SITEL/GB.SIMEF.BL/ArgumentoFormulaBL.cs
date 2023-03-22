@@ -57,7 +57,7 @@ namespace GB.SIMEF.BL
 
                 FormulaCalculo formula = null;
 
-                formula = formulasCalculoDAL.ObtenerDatos(new FormulaCalculo() { IdFormula = idFormula }).Single();
+                formula = formulasCalculoDAL.ObtenerDatos(new FormulaCalculo() { IdFormulaCalculo = idFormula }).Single();
                 List<FormulaVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormula = idFormula });
                 List<FormulaDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormula = idFormula });
                 

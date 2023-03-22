@@ -30,7 +30,7 @@ namespace GB.SIMEF.Entities
         }
 
         [Key]
-        public int IdFormula { get; set; }
+        public int IdFormulaCalculo { get; set; }
 
         [MaxLength(30)]
         public string Codigo { get; set; }

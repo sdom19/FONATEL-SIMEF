@@ -63,7 +63,7 @@ namespace GB.SIMEF.DAL
                     "0 as idGrupo, " +
                     "Agrupacion as Nombre, " +
                     "cast(1 as bit) as Estado " +
-                    "from [FONATEL].[viewIndicadorDGM]"
+                    "from [FONATEL].[vw_IndicadorDGM]"
                     ).ToList();
             }
 
@@ -94,7 +94,7 @@ namespace GB.SIMEF.DAL
                     "0 as idGrupo, " +
                     "Agrupacion as Nombre, " +
                     "cast(1 as bit) as Estado " +
-                    "from [FONATEL].[viewIndicadorDGC]"
+                    "from [FONATEL].[vw_IndicadorDGC]"
                     ).ToList();
             }
 
@@ -125,7 +125,7 @@ namespace GB.SIMEF.DAL
                     "0 as idGrupo, " +
                     "Agrupacion as Nombre, " +
                     "cast(1 as bit) as Estado " +
-                    "from [FONATEL].[viewIndicadorUIT]"
+                    "from [FONATEL].[vw_IndicadorUIT]"
                     ).ToList();
             }
 
@@ -156,7 +156,7 @@ namespace GB.SIMEF.DAL
                     "0 as idGrupo, " +
                     "Agrupacion as Nombre, " +
                     "cast(1 as bit) as Estado " +
-                    "from [FONATEL].[viewIndicadorCruzado]"
+                    "from [FONATEL].[vw_IndicadorCruzado]"
                     ).ToList();
             }
 

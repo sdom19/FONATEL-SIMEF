@@ -26,8 +26,8 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 envioSolicitudes = db.Database.SqlQuery<FormulaDefinicionFecha>
-                ("execute spActualizarFormulasDefinicionFecha @pIdFormulasDefinicionFecha, @pFechaInicio, @pFechaFinal, @pIdUnidadMedida, @pIdTipoFechaInicio, @pIdTipoFechaFinal, @pIdCategoriaInicio, @pIdCategoriaFinal, @pIdIndicador",
-                    new SqlParameter("@pIdFormulasDefinicionFecha", pFormulasDefinicionFecha.IdFormulaDefinicionFecha),
+                ("execute pa_ActualizarFormulaDefinicionFecha @pIdFormulaDefinicionFecha, @pFechaInicio, @pFechaFinal, @pIdUnidadMedida, @pIdTipoFechaInicio, @pIdTipoFechaFinal, @pIdCategoriaInicio, @pIdCategoriaFinal, @pIdIndicador",
+                    new SqlParameter("@pIdFormulaDefinicionFecha", pFormulasDefinicionFecha.IdFormulaDefinicionFecha),
                     pFormulasDefinicionFecha.FechaInicio <= DateTime.MinValue || pFormulasDefinicionFecha.FechaInicio == null ?
                         new SqlParameter("@pFechaInicio", DBNull.Value)
                         :
@@ -70,7 +70,7 @@ namespace GB.SIMEF.DAL
             {
                 listaDetalles = db.Database.SqlQuery<FormulaDefinicionFecha>
                     (
-                        "execute spObtenerDefinicionFechasFormulas @pIdFormula",
+                        "execute pa_ObtenerDefinicionFechaFormula @pIdFormula",
                         pFormulasDefinicionFecha.IdFormula == 0 ?
                             new SqlParameter("@pIdFormula", DBNull.Value)
                             :
