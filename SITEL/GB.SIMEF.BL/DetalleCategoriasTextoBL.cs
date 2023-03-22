@@ -115,9 +115,9 @@ namespace GB.SIMEF.BL
                     var detallesRelacion = clsRelacionCategoriaDetalles.ObtenerRelacionCategoriaAtributoXIdCategoriaDetalle(objCategoria.idDetalleCategoriaTexto);
                     foreach (RelacionCategoriaAtributo item in detallesRelacion)
                     {
-                        item.IdDetalleCategoriaTextoAtributo = 0;
+                        item.idDetalleCategoriaTextoAtributo = 0;
                         clsRelacionCategoriaDetalles.ActualizarRelacionAtributo(item);
-                        RelacionCategoriaId rel = new RelacionCategoriaId() { idRelacion = item.idRelacionCategoriaId, idCategoriaId = item.idCategoriaDesagregacion, idEstado = (int)Constantes.EstadosRegistro.EnProceso, OpcionEliminar = false };
+                        RelacionCategoriaId rel = new RelacionCategoriaId() { idRelacionCategoriaId = item.idRelacionCategoriaId, idCategoriaDesagregacion = item.idCategoriaDesagregacion, idEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso, OpcionEliminar = false };
                         clsRelacionCategoriaDetalles.ActualizarRelacionCategoriaidSinReturn(rel);
                         //break;
                         //clsRelacionCategoriaDetalles.EliminarDetalleRelacionCategoria(item);

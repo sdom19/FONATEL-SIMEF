@@ -146,7 +146,7 @@
             let html = "";
             for (var i = 0; i < JsReglas.Variables.ListaReglas.length; i++) {
                 let reglas = JsReglas.Variables.ListaReglas[i];
-                let EnProceso = reglas.idEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso ? "SI" : "NO";
+                let EnProceso = reglas.idEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.EnProceso ? "SI" : "NO";
 
                 html = html + "<tr>"
 
@@ -479,37 +479,37 @@
                 JsReglas.Variables.objetoTipoRegla = JsReglas.Variables.ListaDetalleReglas[index];
 
                 $(JsReglas.Controles.txtidDetalleReglaValidacion).val(JsReglas.Variables.objetoTipoRegla.IdDetalleReglaValidacion);
-                $(JsReglas.Controles.ddlTipoRegla).val(JsReglas.Variables.objetoTipoRegla.IdTipo).change();
-                $(JsReglas.Controles.ddlOperadorRegla).val(JsReglas.Variables.objetoTipoRegla.IdOperador).change();
+                $(JsReglas.Controles.ddlTipoRegla).val(JsReglas.Variables.objetoTipoRegla.IdTipoReglaValidacion).change();
+                $(JsReglas.Controles.ddlOperadorRegla).val(JsReglas.Variables.objetoTipoRegla.IdOperadorAritmetico).change();
                 $(JsReglas.Controles.ddlVariableRegla).val(JsReglas.Variables.objetoTipoRegla.idIndicadorVariableString).change();
 
                 //REGLA CONTRA OTRO INDICADOR ENTRADA
-                if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada) {
+                if (JsReglas.Variables.objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada) {
                     $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.IdCompara);
                     $(JsReglas.Controles.ddlIndicadorComparacionRegla).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntrada.idIndicadorComparaString).change();
                 }
                 //REGLA CONTRA CONSTANTE
-                if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraConstante) {
+                if (JsReglas.Variables.objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraConstante) {
                     $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaComparacionConstante.idCompara);
                     $(JsReglas.Controles.txtConstanteRegla).val(JsReglas.Variables.objetoTipoRegla.reglaComparacionConstante.Constante);
                 }
                 //REGLA CONTRA ATRIBUTOS VALIDOS
-                if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
+                if (JsReglas.Variables.objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
                     $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.IdCompara);
                     $(JsReglas.Controles.ddlAtributosValidosCategoriaRegla).val(JsReglas.Variables.objetoTipoRegla.reglaAtributosValidos.IdCategoria).change();
                 }
                 //REGLA CONTRA ACTUALIZACION SECUENCIAL
-                if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
+                if (JsReglas.Variables.objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
                     $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaSecuencial.IdCompara);
                     $(JsReglas.Controles.ddlCategoríaActualizableRegla).val(JsReglas.Variables.objetoTipoRegla.reglaSecuencial.IdCategoria).change();
                 }
                 //REGLA CONTRA INDICADOR DE SALIDA
-                if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
+                if (JsReglas.Variables.objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
                     $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorSalida.IdCompara);
                     $(JsReglas.Controles.ddlIndicadorSalidaRegla).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorSalida.idIndicadorComparaString).change();
                 }
                 //REGLA CONTRA INDICADOR DE ENTRADA-SALIDA
-                if (JsReglas.Variables.objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
+                if (JsReglas.Variables.objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
                     $(JsReglas.Controles.txtidCompara).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.IdCompara);
                     $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val(JsReglas.Variables.objetoTipoRegla.reglaIndicadorEntradaSalida.idIndicadorComparaString).change();
                 }
@@ -1031,7 +1031,7 @@
 
                     let html = "<option value='all'>Todos</option>";
                     for (var i = 0; i < respuestaRelacion.length; i++) {
-                        html = html + "<option value=" + respuestaRelacion[i].CategoriaAtributo.idCategoria + ">" + respuestaRelacion[i].CategoriaAtributo.Codigo + " / " + respuestaRelacion[i].CategoriaAtributo.NombreCategoria + "</option>"
+                        html = html + "<option value=" + respuestaRelacion[i].CategoriaAtributo.idCategoriaDesagregacion + ">" + respuestaRelacion[i].CategoriaAtributo.Codigo + " / " + respuestaRelacion[i].CategoriaAtributo.NombreCategoria + "</option>"
                     }
 
                     $(JsReglas.Controles.ddlAtributosValidosRegla).html(html);
@@ -1070,41 +1070,41 @@
             let objetoTipoRegla = new Object()
 
             objetoTipoRegla.id = ObtenerValorParametroUrl("id");
-            objetoTipoRegla.IdTipo = $(JsReglas.Controles.ddlTipoRegla).val();
-            objetoTipoRegla.IdOperador = $(JsReglas.Controles.ddlOperadorRegla).val();
+            objetoTipoRegla.idTipoReglaValidacion = $(JsReglas.Controles.ddlTipoRegla).val();
+            objetoTipoRegla.idOperadorAritmetico = $(JsReglas.Controles.ddlOperadorRegla).val();
             objetoTipoRegla.idIndicadorVariableString = $(JsReglas.Controles.ddlVariableRegla).val();
             objetoTipoRegla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
 
             //REGLA CONTRA OTRO INDICADOR ENTRADA
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada) {
+            if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada) {
                 objetoTipoRegla.reglaIndicadorEntrada = {};
                 objetoTipoRegla.reglaIndicadorEntrada.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorComparacionRegla).val();
                 objetoTipoRegla.reglaIndicadorEntrada.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionRegla).val();
             }
             //REGLA CONTRA CONSTANTE
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraConstante) {
+            if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraConstante) {
                 objetoTipoRegla.reglaComparacionConstante = {};
                 objetoTipoRegla.reglaComparacionConstante.Constante = $(JsReglas.Controles.txtConstanteRegla).val();
             }
             //REGLA CONTRA ATRIBUTOS VALIDOS
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
+            if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
                 objetoTipoRegla.reglaAtributosValidos = {};
-                objetoTipoRegla.reglaAtributosValidos.IdCategoria = $(JsReglas.Controles.ddlAtributosValidosCategoriaRegla).val();
+                objetoTipoRegla.reglaAtributosValidos.idCategoriaDesagregacion = $(JsReglas.Controles.ddlAtributosValidosCategoriaRegla).val();
                 objetoTipoRegla.reglaAtributosValidos.idAtributoString = $(JsReglas.Controles.ddlAtributosValidosRegla).val().toString();
             }
             //REGLA CONTRA ACTUALIZACION SECUENCIAL
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
+            if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
                 objetoTipoRegla.reglaSecuencial = {};
-                objetoTipoRegla.reglaSecuencial.idCategoria = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
+                objetoTipoRegla.reglaSecuencial.idCategoriaDesagregacion = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
             }
             //REGLA CONTRA INDICADOR DE SALIDA
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
+            if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
                 objetoTipoRegla.reglaIndicadorSalida = {};
                 objetoTipoRegla.reglaIndicadorSalida.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorSalidaRegla).val();
                 objetoTipoRegla.reglaIndicadorSalida.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionReglaSalida).val();
             }
             //REGLA CONTRA INDICADOR DE ENTRADA-SALIDA
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
+            if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
                 objetoTipoRegla.reglaIndicadorEntradaSalida = {};
                 objetoTipoRegla.reglaIndicadorEntradaSalida.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val();
                 objetoTipoRegla.reglaIndicadorEntradaSalida.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).val();
@@ -1148,26 +1148,26 @@
             let objetoTipoRegla = new Object()
             objetoTipoRegla.id = ObtenerValorParametroUrl("id");
             objetoTipoRegla.IdDetalleReglaValidacion = $(JsReglas.Controles.txtidDetalleReglaValidacion).val();
-            objetoTipoRegla.IdTipo = $(JsReglas.Controles.ddlTipoRegla).val();
-            objetoTipoRegla.IdOperador = $(JsReglas.Controles.ddlOperadorRegla).val();
+            objetoTipoRegla.IdTipoReglaValidacion = $(JsReglas.Controles.ddlTipoRegla).val();
+            objetoTipoRegla.IdOperadorAritmetico = $(JsReglas.Controles.ddlOperadorRegla).val();
             objetoTipoRegla.idIndicadorVariableString = $(JsReglas.Controles.ddlVariableRegla).val();
             objetoTipoRegla.idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
 
             //REGLA CONTRA OTRO INDICADOR ENTRADA
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada) {
+            if (objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada) {
                 objetoTipoRegla.reglaIndicadorEntrada = {};
                 objetoTipoRegla.reglaIndicadorEntrada.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaIndicadorEntrada.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorComparacionRegla).val();
                 objetoTipoRegla.reglaIndicadorEntrada.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionRegla).val();
             }
             //REGLA CONTRA CONSTANTE
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraConstante) {
+            if (objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraConstante) {
                 objetoTipoRegla.reglaComparacionConstante = {};
                 objetoTipoRegla.reglaComparacionConstante.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaComparacionConstante.Constante = $(JsReglas.Controles.txtConstanteRegla).val();
             }
             //REGLA CONTRA ATRIBUTOS VALIDOS
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
+            if (objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraAtributosValidos) {
                 objetoTipoRegla.reglaAtributosValidos = {};
                 objetoTipoRegla.reglaAtributosValidos.IdCategoria = $(JsReglas.Controles.ddlAtributosValidosCategoriaRegla).val();
                  let array= $(JsReglas.Controles.ddlAtributosValidosRegla).val();
@@ -1175,20 +1175,20 @@
                 objetoTipoRegla.reglaAtributosValidos.idAtributoString = array.join(',');
             }
             // REGLA CONTRA ACTUALIZACION SECUENCIAL
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
+            if (objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
                 objetoTipoRegla.reglaSecuencial = {};
                 objetoTipoRegla.reglaSecuencial.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaSecuencial.idCategoria = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
             }
             //REGLA CONTRA INDICADOR DE SALIDA
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
+            if (objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
                 objetoTipoRegla.reglaIndicadorSalida = {};
                 objetoTipoRegla.reglaIndicadorSalida.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaIndicadorSalida.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorSalidaRegla).val();
                 objetoTipoRegla.reglaIndicadorSalida.idVariableComparaString = $(JsReglas.Controles.ddlVariableComparacionReglaSalida).val();
             }
             //REGLA CONTRA INDICADOR DE ENTRADA-SALIDA
-            if (objetoTipoRegla.IdTipo == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
+            if (objetoTipoRegla.IdTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
                 objetoTipoRegla.reglaIndicadorEntradaSalida = {};
                 objetoTipoRegla.reglaIndicadorEntradaSalida.idCompara = $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaIndicadorEntradaSalida.idIndicadorComparaString = $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val();

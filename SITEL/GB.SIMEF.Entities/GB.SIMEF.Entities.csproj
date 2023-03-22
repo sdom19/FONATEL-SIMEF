@@ -73,7 +73,9 @@
     <Compile Include="FormulaCalculoUnidadMedida.cs" />
     <Compile Include="FormulaDefinicionFecha.cs" />
     <Compile Include="FormulaVariableDatoCriterio.cs" />
+    <Compile Include="OperadorAritmetico.cs" />
     <Compile Include="PlantillaHtml.cs" />
+    <Compile Include="ReglaAtributoValido.cs" />
     <Compile Include="ReglaComparacionIndicador.cs" />
     <Compile Include="ReglaIndicadorEntrada.cs" />
     <Compile Include="ReglaIndicadorEntradaSalida.cs" />
@@ -106,12 +108,10 @@
     <Compile Include="GrupoIndicador.cs" />
     <Compile Include="Indicador.cs" />
     <Compile Include="Mes.cs" />
-    <Compile Include="OperadorArismetico.cs" />
     <Compile Include="ProgramacionSolicitudes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro.cs" />
     <Compile Include="RegistroIndicadorFonatel.cs" />
-    <Compile Include="ReglaAtributosValidos.cs" />
     <Compile Include="ReglaComparacionConstante.cs" />
     <Compile Include="ReglaSecuencial.cs" />
     <Compile Include="ReglaValidacion.cs" />

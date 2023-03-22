@@ -34,14 +34,14 @@ namespace GB.SIMEF.Entities
         public string Nombre { get; set; }
         //VALIDAR EL RANGO
         public int CantidadCategoria { get; set; }
-        public int idCategoria { get; set; }
+        public int idCategoriaDesagregacion { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
 
-        public int idEstado { get; set; }
-        public int CantidadFilas { get; set; }
+        public int IdEstadoRegistro { get; set; }
+        public int CantidadFila { get; set; }
 
 
         #region Variables que no estan en la entiendad
@@ -65,6 +65,8 @@ namespace GB.SIMEF.Entities
 
         public List<RelacionCategoriaId> RelacionCategoriaId { get; set; }
 
+
+
         [NotMapped]
 
         public CategoriaDesagregacion CategoriasDesagregacionid;
@@ -79,9 +81,9 @@ namespace GB.SIMEF.Entities
             json.Append("\"Cantidad de atributos\":\"").Append(this.CantidadCategoria).Append("\",");
             
 
-            json.Append("\"ID de la Categoría\":").Append(this.idCategoria).Append(",");
+            json.Append("\"ID de la Categoría\":").Append(this.idCategoriaDesagregacion).Append(",");
 
-            json.Append("\"Cantidad de filas\":\"").Append(this.CantidadFilas).Append("\",");
+            json.Append("\"Cantidad de filas\":\"").Append(this.CantidadFila).Append("\",");
 
             switch ((int)this.EstadoRegistro.IdEstadoRegistro)
             {

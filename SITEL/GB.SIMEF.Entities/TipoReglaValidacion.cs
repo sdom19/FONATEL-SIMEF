@@ -23,7 +23,7 @@ namespace GB.SIMEF.Entities
      
         }
         [Key]
-        public int IdTipo { get; set; }
+        public int idTipoReglaValidacion { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
     

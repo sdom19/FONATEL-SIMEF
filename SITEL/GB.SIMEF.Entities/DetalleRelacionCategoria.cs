@@ -21,8 +21,8 @@ namespace GB.SIMEF.Entities
 
         [Key]
         public int idDetalleRelacionCategoria { get; set; }
-        public int IdRelacionCategoria { get; set; }
-        public int idCategoriaAtributo { get; set; }
+        public int idRelacionCategoria { get; set; }
+        public int idCategoriaDesagregacion { get; set; }
         public bool Estado { get; set; }
 
         #region Variables Fuera del contexto 

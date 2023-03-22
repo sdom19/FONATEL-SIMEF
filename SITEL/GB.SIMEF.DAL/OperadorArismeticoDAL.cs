@@ -17,9 +17,9 @@ namespace GB.SIMEF.DAL
        /// Listado de años 
        /// </summary>
        /// <returns></returns>
-        public List<OperadorArismetico> ObtenerDatos()
+        public List<OperadorAritmetico> ObtenerDatos()
         {
-            List<OperadorArismetico> listaOperadorArismetico = new List<OperadorArismetico>();
+            List<OperadorAritmetico> listaOperadorArismetico = new List<OperadorAritmetico>();
 
             using (db = new SIMEFContext())
             {

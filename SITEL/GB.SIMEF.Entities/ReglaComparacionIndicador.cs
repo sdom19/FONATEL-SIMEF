@@ -16,12 +16,11 @@ namespace GB.SIMEF.Entities
     public partial class ReglaComparacionIndicador
     {
         [Key]
-        public int idCompara { get; set; }
-        public int IdIndicadorCompara { get; set; }
-        public Nullable<int> idVariableCompara { get; set; }
-        public Nullable<int> idvariable { get; set; }
-        public bool Estado { get; set; }
-    
+        public int idReglaComparacionIndicador { get; set; }
+        public int idDetalleReglaValidacion { get; set; }
+        public Nullable<int> IdDetalleIndicadorVariable { get; set; }
+        public Nullable<int> idIndicador { get; set; }
+
    
         public virtual DetalleReglaValidacion ReglaValidacionTipo { get; set; }
     }

@@ -134,7 +134,7 @@ namespace GB.SIMEF.DAL
             {
                 listaIndicadoresCalidad = db.Database.SqlQuery<IndicadorSitel>(
                     string.Format(
-                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorDGC] " +
+                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[vw_IndicadorDGC] " +
                         "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'",
                         pIndicador.TipoIndicadores.IdTipoIndicador,
                         pServicioSitel.IdServicio,
@@ -169,7 +169,7 @@ namespace GB.SIMEF.DAL
             {
                 listaIndicadores = db.Database.SqlQuery<Indicador>(
                     string.Format(
-                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorUIT] " +
+                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[vw_IndicadorUIT] " +
                         "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'",
                         pIndicador.TipoIndicadores.IdTipoIndicador,
                         pServicioSitel.IdServicio,
@@ -205,7 +205,7 @@ namespace GB.SIMEF.DAL
             {
                 listaIndicadoresCruzados = db.Database.SqlQuery<IndicadorSitel>(
                     string.Format(
-                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[viewIndicadorCruzado] " +
+                        "select distinct IdIndicador, Codigo, Nombre from [FONATEL].[vw_IndicadorCruzado] " +
                         "where IdTipoIndicador = {0} and IdServicio = {1} and Agrupacion = '{2}'",
                         pIndicador.TipoIndicadores.IdTipoIndicador,
                         pServicioSitel.IdServicio,
@@ -237,7 +237,7 @@ namespace GB.SIMEF.DAL
             using (SITELContext db = new SITELContext())
             {
                 listaIndicadores = db.Database.SqlQuery<Indicador>(
-                    "select IdIndicador, id, Nombre from [FONATEL].[viewIndicadorFuenteExterna]"
+                    "select IdIndicador, id, Nombre from [FONATEL].[vw_IndicadorFuenteExterna]"
                     ).ToList();
             }
 
@@ -520,9 +520,9 @@ namespace GB.SIMEF.DAL
         private GrupoIndicador ObtenerGrupoIndicadores(int pId, bool pUnicamenteActivos = false)
         {
             GrupoIndicador grupo = pUnicamenteActivos ?
-                db.GrupoIndicador.Where(i => i.IdGrupoIndicador == pId && i.Estado == true).FirstOrDefault()
+                db.GrupoIndicadores.Where(i => i.IdGrupoIndicador == pId && i.Estado == true).FirstOrDefault()
                 :
-                db.GrupoIndicador.Where(i => i.IdGrupoIndicador == pId).FirstOrDefault();
+                db.GrupoIndicadores.Where(i => i.IdGrupoIndicador == pId).FirstOrDefault();
 
             if (grupo != null)
             {

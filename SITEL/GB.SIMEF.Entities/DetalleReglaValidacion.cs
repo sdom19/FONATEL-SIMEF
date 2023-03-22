@@ -25,10 +25,10 @@ namespace GB.SIMEF.Entities
 
         [Key]
         public int IdDetalleReglaValidacion { get; set; }
-        public int IdRegla { get; set; }
-        public int IdTipo { get; set; }
-        public int IdOperador { get; set; }
-        public int IdDetalleIndicador { get; set; }
+        public int IdReglaValidacion { get; set; }
+        public int IdTipoReglaValidacion { get; set; }
+        public int IdOperadorAritmetico { get; set; }
+        public int IdDetalleIndicadorVariable { get; set; }
         public int IdIndicador { get; set; }
         public bool Estado { get; set; }
     
@@ -54,14 +54,14 @@ namespace GB.SIMEF.Entities
         public virtual TipoReglaValidacion tipoReglaValidacion { get; set; }
         
         [NotMapped]
-        public virtual OperadorArismetico operadorArismetico { get; set; }
+        public virtual OperadorAritmetico operadorArismetico { get; set; }
         
         [NotMapped]
         public virtual DetalleIndicadorVariable detalleIndicadorVariables { get; set; }
 
 
         [NotMapped]
-        public ReglaAtributosValidos reglaAtributosValidos { get; set; }
+        public ReglaAtributoValido reglaAtributoValido { get; set; }
 
         [NotMapped]
         public virtual ReglaComparacionConstante reglaComparacionConstante { get; set; }

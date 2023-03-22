@@ -19,9 +19,9 @@ namespace GB.SIMEF.Entities
     public partial class ReglaIndicadorEntradaSalida
     {
         [Key]
-        public int IdCompara { get; set; }
+        public int idReglaComparacionEntradaSalida { get; set; }
         public int IdDetalleReglaValidacion { get; set; }
-        public int IdDetalleIndicador{ get; set; }
+        public int IdDetalleIndicadorVariable{ get; set; }
         public int IdIndicador { get; set; }
 
 

@@ -25,12 +25,12 @@ namespace GB.SIMEF.Entities
             DetalleReglaValidacion = new List<DetalleReglaValidacion>();
         }
         [Key]
-        public int idRegla { get; set; }
+        public int idReglaValidacion { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int idIndicador { get; set; }
-        public int idEstado { get; set; }
+        public int idEstadoRegistro { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }

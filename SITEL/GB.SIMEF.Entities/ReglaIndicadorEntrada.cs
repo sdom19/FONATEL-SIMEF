@@ -19,10 +19,10 @@ namespace GB.SIMEF.Entities
     public partial class ReglaIndicadorEntrada
     {
         [Key]
-        public int IdCompara { get; set; }
+        public int idReglaComparacionIndicador { get; set; }
         public int IdDetalleReglaValidacion { get; set; }
         public int IdIndicador { get; set; }
-        public int IdDetalleIndicador { get; set; }
+        public int IdDetalleIndicadorVariable { get; set; }
 
 
         [NotMapped]

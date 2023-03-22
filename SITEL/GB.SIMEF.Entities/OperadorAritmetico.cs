@@ -14,13 +14,13 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("OperadorArismetico") ]
-    public partial class OperadorArismetico
+    [Table("OperadorAritmetico") ]
+    public partial class OperadorAritmetico
     {
       
  
         [Key]
-        public int IdOperador { get; set; }
+        public int idOperadorAritmetico { get; set; }
         public string Nombre { get; set; }
         public string Operador { get; set; }
         public Nullable<int> Tipo { get; set; }

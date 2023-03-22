@@ -60,11 +60,11 @@
                 html += "<td>";
                 html += `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${item.id}></button>`;
 
-                if (item.idEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
+                if (item.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo) {
                     html += `<button class="btn-icon-base btn-clone" type="button" data-toggle="tooltip" data-placement="top" title="Clonar" value=${item.id}></button>`;
                     html += `<button class="btn-icon-base btn-power-on" type="button" data-toggle="tooltip" data-placement="top" title="Desactivar" value=${item.id}></button>`;
                 }
-                else if (item.idEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+                else if (item.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
                     html += `<button class="btn-icon-base btn-clone" type="button" aria-hidden="true" disabled></button>`;
                     html += `<button class="btn-icon-base btn-power-on" type="button" aria-hidden="true" disabled></button>`;
                 }

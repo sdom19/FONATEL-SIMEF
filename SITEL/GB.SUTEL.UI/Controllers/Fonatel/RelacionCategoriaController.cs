@@ -108,7 +108,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RelacionCategoria model = relacionCategoriaBL
                    .ObtenerDatos(new RelacionCategoria() { id = idRelacionCategoria }).objetoRespuesta.Single();
-            model.RelacionCategoriaId = model.RelacionCategoriaId.Where(x => x.idEstado != (int)Constantes.EstadosRegistro.Eliminado).ToList();
+            model.RelacionCategoriaId = model.RelacionCategoriaId.Where(x => x.idEstadoRegistro != (int)Constantes.EstadosRegistro.Eliminado).ToList();
             return View(model);
 
         }
@@ -251,7 +251,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             RespuestaConsulta<List<RelacionCategoria>> result = null;
 
-            relacion.idEstado = (int)Constantes.EstadosRegistro.Activo;
+            relacion.IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo;
 
             await Task.Run(() =>
             {
@@ -333,12 +333,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 foreach (var sub in relacion.DetalleRelacionCategoria)
                     {
                         Columna += 1;
-                        for (int fila =2; fila < relacion.CantidadFilas+2; fila++)
+                        for (int fila =2; fila < relacion.CantidadFila+2; fila++)
                         {
                             if (Columna==2)
                             {
            
-                                worksheetInicio.Cells[fila, 1].Value = ArrayCategoriaId.Length > (fila-2)?ArrayCategoriaId[fila-2].idCategoriaId:string.Empty;
+                                worksheetInicio.Cells[fila, 1].Value = ArrayCategoriaId.Length > (fila-2)?ArrayCategoriaId[fila-2].idCategoriaDesagregacion:string.Empty;
                                 worksheetInicio.Cells[fila, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 worksheetInicio.Cells[fila, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                                 worksheetInicio.Cells[fila, 1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
@@ -348,7 +348,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                         List<RelacionCategoriaAtributo> ArrayCategoriaAtributo = ArrayCategoriaId.Length > (fila - 2) ? ArrayCategoriaId[fila - 2].listaCategoriaAtributo : new List<RelacionCategoriaAtributo>();
 
-                        worksheetInicio.Cells[fila, Columna].Value = ArrayCategoriaAtributo.Count > (Columna - 2) ? ArrayCategoriaAtributo.Where(x => x.IdCategoriaDesagregacionAtributo == sub.idCategoriaAtributo).FirstOrDefault().Etiqueta.Replace("N/A", string.Empty) : string.Empty;
+                        worksheetInicio.Cells[fila, Columna].Value = ArrayCategoriaAtributo.Count > (Columna - 2) ? ArrayCategoriaAtributo.Where(x => x.idCategoriaDesagregacionAtributo == sub.idCategoriaDesagregacion).FirstOrDefault().Etiqueta.Replace("N/A", string.Empty) : string.Empty;
 
                         worksheetInicio.Cells[fila, Columna].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                             worksheetInicio.Cells[fila, Columna].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
@@ -421,8 +421,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                var result= relacionCategoriaBL.CambiarEstado(new RelacionCategoria() {id=relacionCategoriaId.RelacionId, idEstado=(int)EstadosRegistro.EnProceso });
-                return result.objetoRespuesta.SingleOrDefault().RelacionCategoriaId.Where(x => x.idCategoriaId == relacionCategoriaId.idCategoriaId);
+                var result= relacionCategoriaBL.CambiarEstado(new RelacionCategoria() {id=relacionCategoriaId.RelacionId, IdEstadoRegistro=(int)EstadosRegistro.EnProceso });
+                return result.objetoRespuesta.SingleOrDefault().RelacionCategoriaId.Where(x => x.idCategoriaDesagregacion == relacionCategoriaId.idCategoriaDesagregacion);
             }).ContinueWith(data =>{
 
                 if (data.Result!=null)

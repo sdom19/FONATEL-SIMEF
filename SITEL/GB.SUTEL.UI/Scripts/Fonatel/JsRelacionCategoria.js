@@ -204,10 +204,10 @@
 
             $(JsRelacion.Controles.listasDesplegables).each(function () {
                 if (categoriaId) {
-                    relacionCategoriaId.idCategoriaId = $(this).val();
+                    relacionCategoriaId.idCategoriaDesagregacion = $(this).val();
                     categoriaId = false;
 
-                    if (relacionCategoriaId.idCategoriaId.length == 0) {
+                    if (relacionCategoriaId.idCategoriaDesagregacion.length == 0) {
                         $("#Categoriaid").removeClass("hidden");
                         $(this).parent().addClass("has-error");
                         validacion = false;
@@ -218,15 +218,15 @@
 
                 } else {
                     let categoriaAtributo = new Object();
-                    categoriaAtributo.IdCategoriaId = relacionCategoriaId.idCategoriaId;
-                    categoriaAtributo.IdcategoriaAtributo = $(this).attr('id').replace("dd_", "");
-                    categoriaAtributo.IdcategoriaAtributoDetalle = $(this).val();
-                    if (categoriaAtributo.IdcategoriaAtributoDetalle == null || categoriaAtributo.IdcategoriaAtributoDetalle.length == 0) {
-                        $("#help_" + categoriaAtributo.IdcategoriaAtributo).removeClass("hidden");
+                    categoriaAtributo.idCategoriaDesagregacion = relacionCategoriaId.idCategoriaDesagregacion;
+                    categoriaAtributo.idCategoriaDesagregacionAtributo = $(this).attr('id').replace("dd_", "");
+                    categoriaAtributo.idDetalleCategoriaTextoAtributo = $(this).val();
+                    if (categoriaAtributo.idDetalleCategoriaTextoAtributo == null || categoriaAtributo.idCategoriaDesagregacionAtributo.length == 0) {
+                        $("#help_" + categoriaAtributo.idCategoriaDesagregacionAtributo).removeClass("hidden");
                         $(this).parent().addClass("has-error");
                         validacion = false;
                     } else {
-                        $("#help_" + categoriaAtributo.IdcategoriaAtributo).addClass("hidden");
+                        $("#help_" + categoriaAtributo.idCategoriaDesagregacionAtributo).addClass("hidden");
                         relacionCategoriaId.listaCategoriaAtributo.push(categoriaAtributo);
                     }
                 }
@@ -236,13 +236,13 @@
         },
 
         "CargarEditar": function (relacionId) {
-            var ValorId = relacionId.RelacionCategoriaId[0].idCategoriaId;
+            var ValorId = relacionId.RelacionCategoriaId[0].idCategoriaDesagregacion;
             Valor = ValorId.toUpperCase();
-            $("#dd_" + relacionId.idCategoria).val(Valor).change();
-            $("#dd_" + relacionId.idCategoria).prop('disabled', true);
+            $("#dd_" + relacionId.idCategoriaDesagregacion).val(Valor).change();
+            $("#dd_" + relacionId.idCategoriaDesagregacion).prop('disabled', true);
 
             relacionId.RelacionCategoriaId[0].listaCategoriaAtributo.forEach(function (item) {
-                $("#dd_" + item.IdcategoriaAtributo).val(item.IdcategoriaAtributoDetalle).change();
+                $("#dd_" + item.idCategoriaDesagregacionAtributo).val(item.idDetalleCategoriaTextoAtributo).change();
             })
 
             $(JsRelacion.Controles.btnGuardarDetalle).addClass("hidden");
@@ -277,8 +277,8 @@
             RelacionCategoria.Codigo = $(JsRelacion.Controles.txtCodigoRelacion).val().trim();
             RelacionCategoria.Nombre = $(JsRelacion.Controles.txtNombreRelacion).val().trim();
             RelacionCategoria.CantidadCategoria = $(JsRelacion.Controles.TxtCantidadCategoria).val();
-            RelacionCategoria.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
-            RelacionCategoria.CantidadFilas = $(JsRelacion.Controles.txtCantidadFilas).val();
+            RelacionCategoria.idCategoriaDesagregacion = $(JsRelacion.Controles.ddlCategoriaId).val();
+            RelacionCategoria.CantidadFila = $(JsRelacion.Controles.txtCantidadFilas).val();
             execAjaxCall("/RelacionCategoria/InsertarRelacionCategoria", "POST", RelacionCategoria)
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
@@ -313,8 +313,8 @@
             RelacionCategoria.Codigo = $(JsRelacion.Controles.txtCodigoRelacion).val().trim();
             RelacionCategoria.Nombre = $(JsRelacion.Controles.txtNombreRelacion).val().trim();
             RelacionCategoria.CantidadCategoria = $(JsRelacion.Controles.TxtCantidadCategoria).val();
-            RelacionCategoria.idCategoria = $(JsRelacion.Controles.ddlCategoriaId).val();
-            RelacionCategoria.CantidadFilas = $(JsRelacion.Controles.txtCantidadFilas).val();
+            RelacionCategoria.idCategoriaDesagregacion = $(JsRelacion.Controles.ddlCategoriaId).val();
+            RelacionCategoria.CantidadFila = $(JsRelacion.Controles.txtCantidadFilas).val();
             execAjaxCall("/RelacionCategoria/EditarRelacionCategoria", "POST", RelacionCategoria)
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
@@ -388,8 +388,8 @@
         "InsertarDetalleCategoria": function () {
             $("#loading").fadeIn();
             let DetalleRelacionCategoria = new Object();
-            DetalleRelacionCategoria.relacionid = ObtenerValorParametroUrl("id");
-            DetalleRelacionCategoria.idCategoriaAtributo = $(JsRelacion.Controles.ddlCategoriaAtributo).val();
+            DetalleRelacionCategoria.IdRelacionCategoria = ObtenerValorParametroUrl("id");
+            DetalleRelacionCategoria.idCategoriaDesagregacion = $(JsRelacion.Controles.ddlCategoriaAtributo).val();
 
             execAjaxCall("/RelacionCategoria/InsertarDetalleRelacion", "POST", DetalleRelacionCategoria)
                 .then((obj) => {
@@ -529,7 +529,7 @@
 
             let relacionCategoriaId = new Object();
             relacionCategoriaId.RelacionId= ObtenerValorParametroUrl("idRelacionCategoria");
-            relacionCategoriaId.idCategoriaId = idRelacionid;
+            relacionCategoriaId.idCategoriaDesagregacion = idRelacionid;
 
             execAjaxCall("/RelacionCategoria/EliminarRegistroRelacionId", "POST", relacionCategoriaId)
                 .then((obj) => {
@@ -564,14 +564,14 @@
 
             $(JsRelacion.Controles.listasDesplegables).each(function () {
                 if (categoriaId) {
-                    relacionCategoriaId.idCategoriaId = $(this).val();
+                    relacionCategoriaId.idCategoriaDesagregacion = $(this).val();
                     categoriaId = false;
                 } else {
                     let categoriaAtributo = new Object();
-                    categoriaAtributo.IdCategoriaId = relacionCategoriaId.idCategoriaId;
-                    categoriaAtributo.IdcategoriaAtributo = $(this).attr('id').replace("dd_", "");
-                    categoriaAtributo.IdcategoriaAtributoDetalle = $(this).val();
-                    if (!categoriaAtributo.IdcategoriaAtributoDetalle.length == 0) {
+                    categoriaAtributo.idCategoriaDesagregacion = relacionCategoriaId.idCategoriaDesagregacion;
+                    categoriaAtributo.idCategoriaDesagregacionAtributo = $(this).attr('id').replace("dd_", "");
+                    categoriaAtributo.idDetalleCategoriaTextoAtributo = $(this).val();
+                    if (!categoriaAtributo.idDetalleCategoriaTextoAtributo.length == 0) {
                         relacionCategoriaId.listaCategoriaAtributo.push(categoriaAtributo);
                     }
                 }
@@ -635,7 +635,7 @@
 
             let relacionCategoriaId = new Object();
             relacionCategoriaId.RelacionId = ObtenerValorParametroUrl("idRelacionCategoria");
-            relacionCategoriaId.idCategoriaId = idRelacionid;
+            relacionCategoriaId.idCategoriaDesagregacion = idRelacionid;
 
             execAjaxCall("/RelacionCategoria/ObtenerRegistroRelacionId", "POST", relacionCategoriaId)
                 .then((obj) => {
@@ -665,14 +665,14 @@
 
             $(JsRelacion.Controles.listasDesplegables).each(function () {
                 if (categoriaId) {
-                    relacionCategoriaId.idCategoriaId = $(this).val();
+                    relacionCategoriaId.idCategoriaDesagregacion = $(this).val();
                     categoriaId = false;
                 } else {
                     let categoriaAtributo = new Object();
-                    categoriaAtributo.IdCategoriaId = relacionCategoriaId.idCategoriaId;
-                    categoriaAtributo.IdcategoriaAtributo = $(this).attr('id').replace("dd_", "");
-                    categoriaAtributo.IdcategoriaAtributoDetalle = $(this).val();
-                    if (!categoriaAtributo.IdcategoriaAtributoDetalle.length == 0) {
+                    categoriaAtributo.idCategoriaDesagregacion = relacionCategoriaId.idCategoriaDesagregacion;
+                    categoriaAtributo.idCategoriaDesagregacionAtributo = $(this).attr('id').replace("dd_", "");
+                    categoriaAtributo.idDetalleCategoriaTextoAtributo = $(this).val();
+                    if (!categoriaAtributo.idDetalleCategoriaTextoAtributo.length == 0) {
                         relacionCategoriaId.listaCategoriaAtributo.push(categoriaAtributo);
                     }
                 }

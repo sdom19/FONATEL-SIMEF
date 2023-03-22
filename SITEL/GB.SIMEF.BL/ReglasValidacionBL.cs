@@ -36,19 +36,19 @@ namespace GB.SIMEF.BL
 
                 DesencriptarReglasValidacion(objeto);
 
-                var objetoAnterior  = listadoReglas.Where(x => x.idRegla == objeto.idRegla).Single();
+                var objetoAnterior  = listadoReglas.Where(x => x.idReglaValidacion == objeto.idReglaValidacion).Single();
 
                 ValidarObjetoRegla(objeto);
 
-                objeto.idEstado = objetoAnterior.idEstado;
+                objeto.idEstadoRegistro = objetoAnterior.idEstadoRegistro;
 
-                if (objeto.Descripcion.Equals(objetoAnterior.Descripcion) && objeto.idIndicador.Equals(objetoAnterior.idIndicador) && objeto.idEstado == (int)Constantes.EstadosRegistro.Activo)
+                if (objeto.Descripcion.Equals(objetoAnterior.Descripcion) && objeto.idIndicador.Equals(objetoAnterior.idIndicador) && objeto.idEstadoRegistro == (int)Constantes.EstadosRegistro.Activo)
                 {
-                    objeto.idEstado = (int)EstadosRegistro.Activo;
+                    objeto.idEstadoRegistro = (int)EstadosRegistro.Activo;
                 }
                 else
                 {
-                    objeto.idEstado = (int)EstadosRegistro.EnProceso;
+                    objeto.idEstadoRegistro = (int)EstadosRegistro.EnProceso;
                 }
 
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto);
@@ -93,7 +93,7 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.id, out temp))
                     {
-                        objeto.idRegla = temp;
+                        objeto.idReglaValidacion = temp;
                     }
                 }
 
@@ -107,7 +107,7 @@ namespace GB.SIMEF.BL
                 else
                 {
                     objeto = resul.Single();
-                    objeto.idEstado = nuevoEstado;
+                    objeto.idEstadoRegistro = nuevoEstado;
                     objeto.UsuarioModificacion = ResultadoConsulta.Usuario;
                     resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
@@ -136,24 +136,24 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Clonar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
-                objeto.idEstado = (int)EstadosRegistro.EnProceso;
+                objeto.idEstadoRegistro = (int)EstadosRegistro.EnProceso;
 
                 DesencriptarReglasValidacion(objeto);
 
                 var BuscarDatos = clsDatos.ObtenerDatos(new ReglaValidacion());
-                var objetoInicial = listadoReglas.Where(x => x.idRegla == objeto.idRegla).Single();
+                var objetoInicial = listadoReglas.Where(x => x.idReglaValidacion == objeto.idReglaValidacion).Single();
 
                 objeto.id = string.Empty;
-                objeto.idRegla = 0;
+                objeto.idReglaValidacion = 0;
 
 
-                if (BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Codigo.ToUpper() == objeto.Codigo.ToUpper() && x.idEstado != 4).Count() > 0)
+                if (BuscarDatos.Where(x => x.idReglaValidacion != objeto.idReglaValidacion && x.Codigo.ToUpper() == objeto.Codigo.ToUpper() && x.idEstadoRegistro != 4).Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.CodigoRegistrado);
                 }
 
-                if (BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Nombre.ToUpper() == objeto.Nombre.ToUpper() && x.idEstado != 4).Count() > 0)
+                if (BuscarDatos.Where(x => x.idReglaValidacion != objeto.idReglaValidacion && x.Nombre.ToUpper() == objeto.Nombre.ToUpper() && x.idEstadoRegistro != 4).Count() > 0)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                     throw new Exception(Errores.NombreRegistrado);
@@ -255,7 +255,7 @@ namespace GB.SIMEF.BL
                 else
                 {
                     objeto = resul.Single();
-                    objeto.idEstado = (int)Constantes.EstadosRegistro.Eliminado;
+                    objeto.idEstadoRegistro = (int)Constantes.EstadosRegistro.Eliminado;
                     resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -285,7 +285,7 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Accion = (int)Constantes.Accion.Insertar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
-                objeto.idEstado = (int)EstadosRegistro.EnProceso;
+                objeto.idEstadoRegistro = (int)EstadosRegistro.EnProceso;
 
                 DesencriptarReglasValidacion(objeto);
 
@@ -325,7 +325,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.id), out temp);
-                    objeto.idRegla = temp;
+                    objeto.idReglaValidacion = temp;
                 }
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
@@ -379,7 +379,7 @@ namespace GB.SIMEF.BL
                 int temp;
                 if (int.TryParse(objeto.id, out temp))
                 {
-                    objeto.idRegla = temp;
+                    objeto.idReglaValidacion = temp;
                 }
             }
 
@@ -405,13 +405,13 @@ namespace GB.SIMEF.BL
 
             var BuscarDatos = clsDatos.ObtenerDatos(new ReglaValidacion());
 
-            if (BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Codigo.ToUpper() == objeto.Codigo.ToUpper() && x.idEstado != 4).Count() > 0)
+            if (BuscarDatos.Where(x => x.idReglaValidacion != objeto.idReglaValidacion && x.Codigo.ToUpper() == objeto.Codigo.ToUpper() && x.idEstadoRegistro != 4).Count() > 0)
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                 throw new Exception(Errores.CodigoRegistrado);
             }
 
-            if (BuscarDatos.Where(x => x.idRegla != objeto.idRegla && x.Nombre.ToUpper() == objeto.Nombre.ToUpper() && x.idEstado != 4).Count() > 0)
+            if (BuscarDatos.Where(x => x.idReglaValidacion != objeto.idReglaValidacion && x.Nombre.ToUpper() == objeto.Nombre.ToUpper() && x.idEstadoRegistro != 4).Count() > 0)
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                 throw new Exception(Errores.NombreRegistrado);

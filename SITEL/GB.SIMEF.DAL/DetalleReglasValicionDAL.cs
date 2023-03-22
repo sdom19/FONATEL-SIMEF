@@ -26,33 +26,33 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaDetalles = db.Database.SqlQuery<DetalleReglaValidacion>
-                    ("execute spObtenerDetalleReglasValidacion @IdDetalleReglaValidacion, @IdRegla, @IdTipo, @IdOperador, @IdDetalleIndicador, @IdIndicador",
+                    ("execute pa_ObtenerDetalleReglaValidacion @IdDetalleReglaValidacion, @IdRegla, @IdTipo, @IdOperador, @IdDetalleIndicador, @IdIndicador",
                         new SqlParameter("@IdDetalleReglaValidacion", objeto.IdDetalleReglaValidacion),
-                        new SqlParameter("@IdRegla", objeto.IdRegla),
-                        new SqlParameter("@IdTipo", objeto.IdTipo),
-                        new SqlParameter("@IdOperador", objeto.IdOperador),
-                        new SqlParameter("@IdDetalleIndicador", objeto.IdDetalleIndicador),
+                        new SqlParameter("@IdRegla", objeto.IdReglaValidacion),
+                        new SqlParameter("@IdTipo", objeto.IdTipoReglaValidacion),
+                        new SqlParameter("@IdOperador", objeto.IdOperadorAritmetico),
+                        new SqlParameter("@IdDetalleIndicador", objeto.IdDetalleIndicadorVariable),
                         new SqlParameter("@IdIndicador", objeto.IdIndicador)
                     ).ToList();
 
                 ListaDetalles = ListaDetalles.Select(x => new DetalleReglaValidacion()
                 {
                     id = Utilidades.Encriptar(x.IdDetalleReglaValidacion.ToString()),
-                    idIndicadorVariableString = Utilidades.Encriptar(x.IdDetalleIndicador.ToString()),
+                    idIndicadorVariableString = Utilidades.Encriptar(x.IdDetalleIndicadorVariable.ToString()),
                     IdDetalleReglaValidacion = x.IdDetalleReglaValidacion,
-                    IdRegla = x.IdRegla,
-                    IdTipo = x.IdTipo,
-                    tipoReglaValidacion = ObtenerTipoRegla(x.IdTipo),
-                    IdOperador = x.IdOperador,
-                    operadorArismetico = ObtenerOperador(x.IdOperador),
-                    IdDetalleIndicador = x.IdDetalleIndicador,
+                    IdReglaValidacion = x.IdReglaValidacion,
+                    IdTipoReglaValidacion = x.IdTipoReglaValidacion,
+                    tipoReglaValidacion = ObtenerTipoRegla(x.IdTipoReglaValidacion),
+                    IdOperadorAritmetico = x.IdOperadorAritmetico,
+                    operadorArismetico = ObtenerOperador(x.IdOperadorAritmetico),
+                    IdDetalleIndicadorVariable = x.IdDetalleIndicadorVariable,
                     IdIndicador = x.IdIndicador,
-                    NombreVariable = x.IdTipo == (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos ? ObtenerVariable(x.IdDetalleReglaValidacion, 1)
-                    : x.IdTipo == (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial ? ObtenerVariable(x.IdDetalleReglaValidacion, 2)
-                    : ObtenerVariable(x.IdDetalleIndicador, 0),
+                    NombreVariable = x.IdTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos ? ObtenerVariable(x.IdDetalleReglaValidacion, 1)
+                    : x.IdTipoReglaValidacion == (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial ? ObtenerVariable(x.IdDetalleReglaValidacion, 2)
+                    : ObtenerVariable(x.IdDetalleIndicadorVariable, 0),
                     reglaIndicadorEntrada = ObtenerReglaIndicadorEntrada(x.IdDetalleReglaValidacion),
                     reglaComparacionConstante = ObtenerReglaContraConstante(x.IdDetalleReglaValidacion),
-                    reglaAtributosValidos = ObtenerReglaAtributosValidos(x.IdDetalleReglaValidacion),
+                    reglaAtributoValido = ObtenerReglaAtributosValidos(x.IdDetalleReglaValidacion),
                     reglaSecuencial = ObtenerReglaSecuencial(x.IdDetalleReglaValidacion),
                     reglaIndicadorEntradaSalida = ObtenerReglaIndicadorEntradaSalida(x.IdDetalleReglaValidacion),
                     reglaIndicadorSalida = ObtenerReglaIndicadorSalida(x.IdDetalleReglaValidacion),
@@ -75,7 +75,7 @@ namespace GB.SIMEF.DAL
             {
                 listaValicion = db.Database.SqlQuery<string>
                     ("exec spValidarRegla @IdRegla",
-                       new SqlParameter("@IdRegla", objeto.IdRegla)
+                       new SqlParameter("@IdRegla", objeto.IdReglaValidacion)
                     ).ToList();
             }
 
@@ -94,12 +94,12 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaDetalleReglaValidacion = db.Database.SqlQuery<DetalleReglaValidacion>
-                ("execute spActualizarDetalleReglaValidacion @pIdDetalleReglaValidacion,@pIdRegla,@pIdTipo,@pIdOperador,@pIdDetalleIndicador,@pIdIndicador,@pEstado",
+                ("execute pa_ActualizarDetalleReglaValidacion @pIdDetalleReglaValidacion,@pIdRegla,@pIdTipo,@pIdOperador,@pIdDetalleIndicador,@pIdIndicador,@pEstado",
                     new SqlParameter("@pIdDetalleReglaValidacion", objeto.IdDetalleReglaValidacion),
-                    new SqlParameter("@pIdRegla", objeto.IdRegla),
-                    new SqlParameter("@pIdTipo", objeto.IdTipo),
-                    new SqlParameter("@pIdOperador", objeto.IdOperador),
-                    new SqlParameter("@pIdDetalleIndicador", objeto.IdDetalleIndicador),
+                    new SqlParameter("@pIdRegla", objeto.IdReglaValidacion),
+                    new SqlParameter("@pIdTipo", objeto.IdTipoReglaValidacion),
+                    new SqlParameter("@pIdOperador", objeto.IdOperadorAritmetico),
+                    new SqlParameter("@pIdDetalleIndicador", objeto.IdDetalleIndicadorVariable),
                     new SqlParameter("@pIdIndicador", objeto.IdIndicador),
                     new SqlParameter("@pEstado", objeto.Estado)
                 ).ToList();
@@ -108,10 +108,10 @@ namespace GB.SIMEF.DAL
                 {
                     id = Utilidades.Encriptar(X.IdDetalleReglaValidacion.ToString()),
                     IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
-                    IdRegla = X.IdRegla,
-                    IdTipo = X.IdTipo,
-                    IdOperador = X.IdOperador,
-                    IdDetalleIndicador = X.IdDetalleIndicador,
+                    IdReglaValidacion = X.IdReglaValidacion,
+                    IdTipoReglaValidacion = X.IdTipoReglaValidacion,
+                    IdOperadorAritmetico = X.IdOperadorAritmetico,
+                    IdDetalleIndicadorVariable = X.IdDetalleIndicadorVariable,
                     IdIndicador = X.IdIndicador,
                     Estado = X.Estado
 
@@ -135,7 +135,7 @@ namespace GB.SIMEF.DAL
             string NombreVariables = "";
 
             NombreVariables = db.Database.SqlQuery<string>
-                ("exec spObtenerNombreVariableDetalleReglaValidacion @IdBusqueda, @Tipo",
+                ("exec pa_ObtenerNombreVariableDetalleReglaValidacion @IdBusqueda, @Tipo",
                    new SqlParameter("@IdBusqueda", id),
                    new SqlParameter("@Tipo", Tipo)
                 ).Single();
@@ -146,20 +146,20 @@ namespace GB.SIMEF.DAL
         private TipoReglaValidacion ObtenerTipoRegla(int id)
         {
             return
-            db.TipoReglaValidacion.Where(x => x.IdTipo == id && x.Estado == true).FirstOrDefault();
+            db.TipoReglaValidacion.Where(x => x.idTipoReglaValidacion == id && x.Estado == true).FirstOrDefault();
         }
 
-        private OperadorArismetico ObtenerOperador(int id)
+        private OperadorAritmetico ObtenerOperador(int id)
         {
             return
-            db.OperadorArismetico.Where(x => x.IdOperador == id && x.Estado == true).FirstOrDefault();
+            db.OperadorArismetico.Where(x => x.idOperadorAritmetico == id && x.Estado == true).FirstOrDefault();
         }
 
-        private ReglaAtributosValidos ObtenerReglaAtributosValidos(int id)
+        private ReglaAtributoValido ObtenerReglaAtributosValidos(int id)
         {
-            ReglaAtributosValidos regla =
-                db.Database.SqlQuery<ReglaAtributosValidos>
-                ("exec spObtenerReglasAtributosValidos @IdDetalleReglaValidacion",
+            ReglaAtributoValido regla =
+                db.Database.SqlQuery<ReglaAtributoValido>
+                ("exec pa_ObtenerReglaAtributoValido @IdDetalleReglaValidacion",
                    new SqlParameter("@IdDetalleReglaValidacion", id)
                 ).FirstOrDefault();
             return regla;
@@ -176,7 +176,7 @@ namespace GB.SIMEF.DAL
         private ReglaSecuencial ObtenerReglaSecuencial(int id)
         {
             ReglaSecuencial regla =
-                db.ReglaSecuencial.Where(x => x.IdDetalleReglaValidacion == id).FirstOrDefault();
+                db.ReglaSecuencial.Where(x => x.idDetalleReglaValidacion == id).FirstOrDefault();
 
             return regla;
         }
@@ -188,7 +188,7 @@ namespace GB.SIMEF.DAL
             if (regla != null)
             {
                 regla.idIndicadorComparaString = Utilidades.Encriptar(regla.IdIndicador.ToString());
-                regla.idVariableComparaString = Utilidades.Encriptar(regla.IdDetalleIndicador.ToString());
+                regla.idVariableComparaString = Utilidades.Encriptar(regla.IdDetalleIndicadorVariable.ToString());
             }
 
             return regla;
@@ -201,7 +201,7 @@ namespace GB.SIMEF.DAL
             if (regla != null)
             {
                 regla.idIndicadorComparaString = Utilidades.Encriptar(regla.IdIndicador.ToString());
-                regla.idVariableComparaString = Utilidades.Encriptar(regla.IdDetalleIndicador.ToString());
+                regla.idVariableComparaString = Utilidades.Encriptar(regla.IdDetalleIndicadorVariable.ToString());
             }
             return regla;
         }
@@ -213,7 +213,7 @@ namespace GB.SIMEF.DAL
             if (regla != null)
             {
                 regla.idIndicadorComparaString = Utilidades.Encriptar(regla.IdIndicador.ToString());
-                regla.idVariableComparaString = Utilidades.Encriptar(regla.IdDetalleIndicador.ToString());
+                regla.idVariableComparaString = Utilidades.Encriptar(regla.IdDetalleIndicadorVariable.ToString());
             }
             return regla;
         }

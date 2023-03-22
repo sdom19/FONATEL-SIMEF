@@ -21,17 +21,17 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaReglaSecuencial = db.Database.SqlQuery<ReglaSecuencial>
-                ("execute spActualizarReglaSecuencial @IdCompara,@IdCategoria,@IdDetalleReglaValidacion",
-                    new SqlParameter("@IdCompara", pReglaSecuencial.IdCompara),
-                    new SqlParameter("@IdCategoria", pReglaSecuencial.IdCategoria),
-                    new SqlParameter("@IdDetalleReglaValidacion", pReglaSecuencial.IdDetalleReglaValidacion)
+                ("execute pa_ActualizarReglaSecuencial @IdCompara,@IdCategoria,@IdDetalleReglaValidacion",
+                    new SqlParameter("@IdCompara", pReglaSecuencial.idReglaSecuencial),
+                    new SqlParameter("@IdCategoria", pReglaSecuencial.idCategoriaDesagregacion),
+                    new SqlParameter("@IdDetalleReglaValidacion", pReglaSecuencial.idDetalleReglaValidacion)
                 ).ToList();
 
                 ListaReglaSecuencial = ListaReglaSecuencial.Select(X => new ReglaSecuencial
                 {
-                    IdCompara = X.IdCompara,
-                    IdCategoria = X.IdCategoria,
-                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion
+                    idReglaSecuencial= X.idReglaSecuencial,
+                    idCategoriaDesagregacion = X.idCategoriaDesagregacion,
+                    idDetalleReglaValidacion = X.idDetalleReglaValidacion
 
                 }).ToList();
 

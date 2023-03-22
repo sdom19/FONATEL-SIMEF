@@ -22,21 +22,21 @@ namespace GB.SIMEF.DAL
             {
                 ListaReglaIndicadorEntrada = db.Database.SqlQuery<ReglaIndicadorEntrada>
 
-                ("execute spActualizarReglaIndicadorEntrada @IdCompara, @IdDetalleReglaValidacion, @IdDetalleIndicador, @IdIndicador",
-                    new SqlParameter("@IdCompara", objeto.IdCompara),
+                ("execute pa_ActualizarReglaIndicadorEntrada @IdCompara, @IdDetalleReglaValidacion, @IdDetalleIndicador, @IdIndicador",
+                    new SqlParameter("@IdCompara", objeto.idReglaComparacionIndicador),
                     new SqlParameter("@IdDetalleReglaValidacion", objeto.IdDetalleReglaValidacion),
                     new SqlParameter("@IdIndicador", objeto.IdIndicador),
-                    new SqlParameter("@IdDetalleIndicador", objeto.IdDetalleIndicador)
+                    new SqlParameter("@IdDetalleIndicador", objeto.IdDetalleIndicadorVariable)
                 ).ToList();
 
                 ListaReglaIndicadorEntrada = ListaReglaIndicadorEntrada.Select(X => new ReglaIndicadorEntrada
                 {
                     idIndicadorComparaString= Utilidades.Encriptar(X.IdIndicador.ToString()),
-                    idVariableComparaString = Utilidades.Encriptar(X.IdDetalleIndicador.ToString()),
-                    IdCompara = X.IdCompara,
+                    idVariableComparaString = Utilidades.Encriptar(X.IdDetalleIndicadorVariable.ToString()),
+                    idReglaComparacionIndicador = X.idReglaComparacionIndicador,
                     IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
                     IdIndicador = X.IdIndicador,
-                    IdDetalleIndicador = X.IdDetalleIndicador,
+                    IdDetalleIndicadorVariable = X.IdDetalleIndicadorVariable,
 
                 }).ToList();
 

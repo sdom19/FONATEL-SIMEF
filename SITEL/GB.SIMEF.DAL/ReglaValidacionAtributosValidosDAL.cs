@@ -20,10 +20,10 @@ namespace GB.SIMEF.DAL
         /// Se puede filtrar por el ID del objecto
         /// </summary>
         /// <returns></returns>
-        public List<ReglaAtributosValidos> ObtenerDatos(ReglaAtributosValidos pReglaAtributosValidos)
+        public List<ReglaAtributoValido> ObtenerDatos(ReglaAtributoValido pReglaAtributosValidos)
         {
-            List<ReglaAtributosValidos> ListaReglaAtributosValidos = new List<ReglaAtributosValidos>();
-            ListaReglaAtributosValidos = db.Database.SqlQuery<ReglaAtributosValidos>
+            List<ReglaAtributoValido> ListaReglaAtributosValidos = new List<ReglaAtributoValido>();
+            ListaReglaAtributosValidos = db.Database.SqlQuery<ReglaAtributoValido>
                 ("execute spObtenerFrecuenciasEnvio @idFrecuencia",
                 new SqlParameter("@idFrecuencia", 1)
                 ).ToList();
@@ -31,27 +31,27 @@ namespace GB.SIMEF.DAL
 
         }
 
-        public List<ReglaAtributosValidos> ActualizarDatos(ReglaAtributosValidos pReglaAtributosValidos)
+        public List<ReglaAtributoValido> ActualizarDatos(ReglaAtributoValido pReglaAtributosValidos)
         {
-            List<ReglaAtributosValidos> ListaReglaAtributosValidos = new List<ReglaAtributosValidos>();
+            List<ReglaAtributoValido> ListaReglaAtributosValidos = new List<ReglaAtributoValido>();
 
             using (db = new SIMEFContext())
             {
-                ListaReglaAtributosValidos = db.Database.SqlQuery<ReglaAtributosValidos>
-                ("execute spActualizarReglaAtributosValidos @IdCompara,@IdDetalleReglaValidacion,@IdCategoria,@IdCategoriaAtributo, @OpcionEliminar",
-                    new SqlParameter("@IdCompara", pReglaAtributosValidos.IdCompara),
+                ListaReglaAtributosValidos = db.Database.SqlQuery<ReglaAtributoValido>
+                ("execute pa_ActualizarReglaAtributoValido @IdCompara,@IdDetalleReglaValidacion,@IdCategoria,@IdCategoriaAtributo, @OpcionEliminar",
+                    new SqlParameter("@IdCompara", pReglaAtributosValidos.idReglaAtributosValido),
                     new SqlParameter("@IdDetalleReglaValidacion", pReglaAtributosValidos.IdDetalleReglaValidacion),
-                    new SqlParameter("@IdCategoria", pReglaAtributosValidos.IdCategoria),
-                    new SqlParameter("@IdCategoriaAtributo", pReglaAtributosValidos.IdCategoriaAtributo),
+                    new SqlParameter("@IdCategoria", pReglaAtributosValidos.idCategoriaDesagregacion),
+                    new SqlParameter("@IdCategoriaAtributo", pReglaAtributosValidos.idDetalleCategoriaTexto),
                     new SqlParameter("@OpcionEliminar", pReglaAtributosValidos.OpcionEliminar==true?1:0)
                 ).ToList();
 
-                ListaReglaAtributosValidos = ListaReglaAtributosValidos.Select(X => new ReglaAtributosValidos
+                ListaReglaAtributosValidos = ListaReglaAtributosValidos.Select(X => new ReglaAtributoValido
                 {
-                    IdCompara = X.IdCompara,
+                    idReglaAtributosValido = X.idReglaAtributosValido,
                     IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
-                    IdCategoria = X.IdCategoria,
-                    IdCategoriaAtributo = X.IdCategoriaAtributo
+                    idCategoriaDesagregacion = X.idCategoriaDesagregacion,
+                    idDetalleCategoriaTexto = X.idDetalleCategoriaTexto
 
                 }).ToList();
 

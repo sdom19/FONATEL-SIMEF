@@ -36,10 +36,10 @@ namespace GB.SIMEF.DAL
 
                 listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
                 {
-                    id = Utilidades.Encriptar(x.IdDetalleIndicador.ToString()),
+                    id = Utilidades.Encriptar(x.IdDetalleIndicadorCategoria.ToString()),
                     idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
-                    idCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString()),
-                    idCategoriaDetalleString = x.IdCategoriaDetalle != null ? Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()) : null,
+                    idCategoriaString = Utilidades.Encriptar(x.idCategoriaDesagregacion.ToString()),
+                    idCategoriaDetalleString = x.IdDetalleCategoriaTexto != null ? Utilidades.Encriptar(x.IdDetalleCategoriaTexto.ToString()) : null,
                     Estado = x.Estado,
                     Etiquetas = string.IsNullOrEmpty(x.Etiquetas) ? Constantes.defaultInputTextValue : x.Etiquetas,
                     Codigo = x.Codigo,
@@ -72,10 +72,10 @@ namespace GB.SIMEF.DAL
 
                 listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
                 {
-                    id = Utilidades.Encriptar(x.IdDetalleIndicador.ToString()),
+                    id = Utilidades.Encriptar(x.IdDetalleIndicadorCategoria.ToString()),
                     idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
-                    idCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString()),
-                    idCategoriaDetalleString = x.IdCategoriaDetalle != null ? Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()) : null,
+                    idCategoriaString = Utilidades.Encriptar(x.idCategoriaDesagregacion.ToString()),
+                    idCategoriaDetalleString = x.IdDetalleCategoriaTexto != null ? Utilidades.Encriptar(x.IdDetalleCategoriaTexto.ToString()) : null,
                     Estado = x.Estado,
                     Etiquetas = x.Etiquetas,
                     Codigo = x.Codigo,
@@ -128,10 +128,10 @@ namespace GB.SIMEF.DAL
         /// 
         private class Model_spObtenerDetallesIndicadorCategoria
         {
-            public int IdDetalleIndicador { get; set; }
+            public int IdDetalleIndicadorCategoria  { get; set; }
             public int IdIndicador { get; set; }
-            public int IdCategoria { get; set; }
-            public int? IdCategoriaDetalle { get; set; }
+            public int idCategoriaDesagregacion { get; set; }
+            public int? IdDetalleCategoriaTexto { get; set; }
             public string Etiquetas { get; set; }
             public string Codigo { get; set; }
             public string NombreCategoria { get; set; }
@@ -160,16 +160,16 @@ namespace GB.SIMEF.DAL
                     ).ToList();
                 listaDetalles = listado.Select(x => new DetalleIndicadorCategoria()
                 {
-                    id = Utilidades.Encriptar(x.IdDetalleIndicador.ToString()),
+                    id = Utilidades.Encriptar(x.IdDetalleIndicadorCategoria.ToString()),
                     idIndicadorString = Utilidades.Encriptar(x.IdIndicador.ToString()),
-                    idCategoriaString = Utilidades.Encriptar(x.IdCategoria.ToString()),
-                    idCategoriaDetalleString = x.IdCategoriaDetalle != null ? Utilidades.Encriptar(x.IdCategoriaDetalle.ToString()) : null,
+                    idCategoriaString = Utilidades.Encriptar(x.idCategoriaDesagregacion.ToString()),
+                    idCategoriaDetalleString = x.IdDetalleCategoriaTexto != null ? Utilidades.Encriptar(x.IdDetalleCategoriaTexto.ToString()) : null,
                     Estado = x.Estado,
                     Etiquetas = string.IsNullOrEmpty(x.Etiquetas) ? Constantes.defaultInputTextValue : x.Etiquetas,
                     Codigo = x.Codigo,
                     NombreCategoria = x.NombreCategoria,
                     IdTipoDetalle = x.IdTipoDetalle,
-                    IdCategoriaDesagregacion = x.IdCategoria
+                    IdCategoriaDesagregacion = x.idCategoriaDesagregacion
                 }).ToList();
             }
             return listaDetalles;

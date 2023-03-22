@@ -15,12 +15,12 @@ namespace GB.SIMEF.Entities
     public partial class RelacionCategoriaId
     {
         [Key, Column(Order = 0)]
-        public int idRelacion { get; set; }
+        public int idRelacionCategoriaId { get; set; }
 
         [Key, Column(Order = 1)]
-        public string idCategoriaId { get; set; }
+        public string idCategoriaDesagregacion { get; set; }
 
-        public int idEstado { get; set; }
+        public int idEstadoRegistro { get; set; }
 
         #region Variables que no estan en la entiendad
         [NotMapped]

@@ -138,7 +138,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             ViewBag.ListaCategoria = listadoRelaciones
-                .Where(x=>x.idCategoria!=0)
+                .Where(x=>x.idCategoriaDesagregacion!=0)
                 .Select(x => new SelectListItem() { Selected = false, Value = x.CategoriasDesagregacionid.idCategoriaDesagregacion.ToString(), Text = Utilidades.ConcatenadoCombos(x.CategoriasDesagregacionid.Codigo, x.CategoriasDesagregacionid.NombreCategoria) }).ToList();
 
             ViewBag.ListaCategoriaActualizable = listadoCategoria
@@ -146,10 +146,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoriaDesagregacion.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
 
             ViewBag.ListaTipoReglas =
-                TipoReglasBL.ObtenerDatos(new TipoReglaValidacion()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.IdTipo.ToString(), Text = x.Nombre }).ToList();
+                TipoReglasBL.ObtenerDatos(new TipoReglaValidacion()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.idTipoReglaValidacion.ToString(), Text = x.Nombre }).ToList();
 
             ViewBag.ListaOperadores =
-                OperadoresBL.ObtenerDatos(new OperadorArismetico()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.IdOperador.ToString(), Text = x.Nombre }).ToList();
+                OperadoresBL.ObtenerDatos(new OperadorAritmetico()).objetoRespuesta.Select(x => new SelectListItem() { Selected = false, Value = x.idOperadorAritmetico.ToString(), Text = x.Nombre }).ToList();
 
             ViewBag.ListaIndicadoresSalida =
             ListadoIndicadorSalida.Select(x => new SelectListItem() { Selected = false, Value = x.id, Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
@@ -413,7 +413,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> ClonarRegla(ReglaValidacion objeto)
         {
-            objeto.idEstado = (int)Constantes.EstadosRegistro.EnProceso;
+            objeto.idEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso;
 
             if (string.IsNullOrEmpty(objeto.id))
             {

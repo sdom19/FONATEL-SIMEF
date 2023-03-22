@@ -10,7 +10,7 @@ using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL
 {
-    public class OperadorArismeticoBL : IMetodos<OperadorArismetico>
+    public class OperadorArismeticoBL : IMetodos<OperadorAritmetico>
     {
         readonly string modulo = "";
         readonly string user = "";
@@ -21,35 +21,35 @@ namespace GB.SIMEF.BL
             OperadorArismeticoDAL = new OperadorArismeticoDAL();
         }
 
-        public RespuestaConsulta<List<OperadorArismetico>> ActualizarElemento(OperadorArismetico objeto)
+        public RespuestaConsulta<List<OperadorAritmetico>> ActualizarElemento(OperadorAritmetico objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<OperadorArismetico>> CambioEstado(OperadorArismetico objeto)
+        public RespuestaConsulta<List<OperadorAritmetico>> CambioEstado(OperadorAritmetico objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<OperadorArismetico>> ClonarDatos(OperadorArismetico objeto)
+        public RespuestaConsulta<List<OperadorAritmetico>> ClonarDatos(OperadorAritmetico objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<OperadorArismetico>> EliminarElemento(OperadorArismetico objeto)
+        public RespuestaConsulta<List<OperadorAritmetico>> EliminarElemento(OperadorAritmetico objeto)
         {
             throw new NotImplementedException();
         }
 
-        public RespuestaConsulta<List<OperadorArismetico>> InsertarDatos(OperadorArismetico objeto)
+        public RespuestaConsulta<List<OperadorAritmetico>> InsertarDatos(OperadorAritmetico objeto)
         {
             throw new NotImplementedException();
         }
 
 
-        public RespuestaConsulta<List<OperadorArismetico>> ObtenerDatos(OperadorArismetico pOperadorArismetico)
+        public RespuestaConsulta<List<OperadorAritmetico>> ObtenerDatos(OperadorAritmetico pOperadorArismetico)
         {
-            RespuestaConsulta<List<OperadorArismetico>> resultado = new RespuestaConsulta<List<OperadorArismetico>>();
+            RespuestaConsulta<List<OperadorAritmetico>> resultado = new RespuestaConsulta<List<OperadorAritmetico>>();
 
             try
             {
@@ -67,7 +67,7 @@ namespace GB.SIMEF.BL
             return resultado;
         }
 
-        public RespuestaConsulta<List<OperadorArismetico>> ValidarDatos(OperadorArismetico objeto)
+        public RespuestaConsulta<List<OperadorAritmetico>> ValidarDatos(OperadorAritmetico objeto)
         {
             throw new NotImplementedException();
         }

@@ -28,29 +28,29 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaCategoriaDetalle = db.Database.SqlQuery<ReglaValidacion>
-                    ("execute spObtenerReglasValidacion @idRegla,@Codigo,@idIndicador",
-                      new SqlParameter("@idRegla", objReglas.idRegla),
+                    ("execute pa_ObtenerReglaValidacion @idRegla,@Codigo,@idIndicador",
+                      new SqlParameter("@idRegla", objReglas.idReglaValidacion),
                       new SqlParameter("@Codigo", string.IsNullOrEmpty(objReglas.Codigo) ? DBNull.Value.ToString() : objReglas.Codigo),
                       new SqlParameter("@idIndicador", objReglas.idIndicador)
                     ).ToList();
 
                 ListaCategoriaDetalle = ListaCategoriaDetalle.Select(x => new ReglaValidacion()
                 {
-                    id = Utilidades.Encriptar(x.idRegla.ToString()),
+                    id = Utilidades.Encriptar(x.idReglaValidacion.ToString()),
                     idIndicadorString = Utilidades.Encriptar(x.idIndicador.ToString()),
-                    idRegla = x.idRegla,
+                    idReglaValidacion = x.idReglaValidacion,
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     Descripcion = x.Descripcion,
                     idIndicador = x.idIndicador,
                     FechaCreacion = x.FechaCreacion,
                     FechaModificacion = x.FechaModificacion,
-                    idEstado = x.idEstado,
+                    idEstadoRegistro = x.idEstadoRegistro,
                     UsuarioCreacion = x.UsuarioCreacion,
                     UsuarioModificacion = x.UsuarioModificacion,
                     DetalleReglaValidacion = new List<DetalleReglaValidacion>(),
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstado).Single(),
-                    ListadoTipoReglas = ObtenerListadoTipoReglas(x.idRegla)
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == x.idEstadoRegistro).Single(),
+                    ListadoTipoReglas = ObtenerListadoTipoReglas(x.idReglaValidacion)
                 }).ToList();
             }
 
@@ -68,8 +68,8 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listaValicion = db.Database.SqlQuery<string>
-                    ("exec spValidarRegla @idRegla",
-                       new SqlParameter("@idRegla", objeto.idRegla)
+                    ("exec pa_ValidarRegla @idRegla",
+                       new SqlParameter("@idRegla", objeto.idReglaValidacion)
                     ).ToList();
             }
 
@@ -81,7 +81,7 @@ namespace GB.SIMEF.DAL
         {
             string tipoReglas= "";
                 tipoReglas = db.Database.SqlQuery<string>
-                    ("exec spObtenerListadoTipoReglaXReglaValidacion @idRegla",
+                    ("exec pa_ObtenerListadoTipoReglaXReglaValidacion @idRegla",
                        new SqlParameter("@idRegla", idRegla)
                     ).Single();
 
@@ -101,29 +101,29 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaReglaValidacion = db.Database.SqlQuery<ReglaValidacion>
-                ("execute spActualizarReglaValidacion @IdRegla,@Codigo,@Nombre,@Descripcion,@IdIndicador,@UsuarioCreacion,@UsuarioModificacion,@IdEstado",
-                    new SqlParameter("@IdRegla", objReglaValidacion.idRegla),
+                ("execute pa_ActualizarReglaValidacion @IdRegla,@Codigo,@Nombre,@Descripcion,@IdIndicador,@UsuarioCreacion,@UsuarioModificacion,@IdEstado",
+                    new SqlParameter("@IdRegla", objReglaValidacion.idReglaValidacion),
                     new SqlParameter("@Codigo", objReglaValidacion.Codigo),
                     new SqlParameter("@Nombre", objReglaValidacion.Nombre),
                     new SqlParameter("@Descripcion", string.IsNullOrEmpty(objReglaValidacion.Descripcion) ? DBNull.Value.ToString() : objReglaValidacion.Descripcion),
                     new SqlParameter("@IdIndicador", objReglaValidacion.idIndicador),
                     new SqlParameter("@UsuarioCreacion", string.IsNullOrEmpty(objReglaValidacion.UsuarioCreacion) ? DBNull.Value.ToString() : objReglaValidacion.UsuarioCreacion),
                     new SqlParameter("@UsuarioModificacion", string.IsNullOrEmpty(objReglaValidacion.UsuarioModificacion) ? DBNull.Value.ToString() : objReglaValidacion.UsuarioModificacion),
-                    new SqlParameter("@IdEstado", objReglaValidacion.idEstado)
+                    new SqlParameter("@IdEstado", objReglaValidacion.idEstadoRegistro)
                 ).ToList();
 
 
                 ListaReglaValidacion = ListaReglaValidacion.Select(X => new ReglaValidacion
                 {
-                    id = Utilidades.Encriptar(X.idRegla.ToString()),
-                    idRegla = X.idRegla,
+                    id = Utilidades.Encriptar(X.idReglaValidacion.ToString()),
+                    idReglaValidacion = X.idReglaValidacion,
                     Codigo = X.Codigo,
                     Nombre = X.Nombre,
                     Descripcion = X.Descripcion,
                     idIndicador = X.idIndicador,
                     UsuarioCreacion = X.UsuarioCreacion,
                     UsuarioModificacion = X.UsuarioModificacion,
-                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == X.idEstado).Single()
+                    EstadoRegistro = db.EstadoRegistro.Where(i => i.IdEstadoRegistro == X.idEstadoRegistro).Single()
 
                 }).ToList();
 

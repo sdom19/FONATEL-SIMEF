@@ -19,9 +19,9 @@ namespace GB.SIMEF.Entities
     public partial class ReglaSecuencial
     {
         [Key]
-        public int IdCompara { get; set; }
-        public int IdCategoria { get; set; }
-        public int IdDetalleReglaValidacion { get; set; }
+        public int idReglaSecuencial { get; set; }
+        public int idCategoriaDesagregacion { get; set; }
+        public int idDetalleReglaValidacion { get; set; }
 
         [NotMapped]
         public string idCategoriaString { get; set; }

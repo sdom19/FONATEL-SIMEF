@@ -18,7 +18,7 @@ namespace GB.SIMEF.Entities
     public partial class ReglaComparacionConstante
     {
         [Key]
-        public int idCompara { get; set; }
+        public int idReglaComparacionConstante { get; set; }
         public int IdDetalleReglaValidacion { get; set; }
         public string Constante { get; set; }
     }

@@ -23,9 +23,9 @@ namespace GB.SIMEF.Entities
         public string idCategoriaDesagregacion { get; set; }
 
         [Key, Column(Order = 2)]
-        public int IdCategoriaDesagregacionAtributo { get; set; }
+        public int idCategoriaDesagregacionAtributo { get; set; }
         [Key, Column(Order = 3)]
-        public int IdDetalleCategoriaTextoAtributo { get; set; }
+        public int idDetalleCategoriaTextoAtributo { get; set; }
 
 
         [NotMapped]
