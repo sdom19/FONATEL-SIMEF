@@ -63,7 +63,7 @@ namespace GB.SIMEF.DAL
                     "IdTipoIndicador, " +
                     "TipoIndicador as Nombre, " +
                     "cast(1 as bit) as Estado " +
-                    "from [FONATEL].[viewIndicadorDGM]").ToList();
+                    "from [FONATEL].[vw_IndicadorDGM]").ToList();
             }
 
             listaTipoIndicadores = listaTipoIndicadores.Select(x => new TipoIndicador()
@@ -93,7 +93,7 @@ namespace GB.SIMEF.DAL
                     "IdTipoIndicador, " +
                     "TipoIndicador as Nombre, " +
                     "cast(1 as bit) as Estado " +
-                    "from [FONATEL].[viewIndicadorDGC]"
+                    "from [FONATEL].[vw_IndicadorDGC]"
                     ).ToList();
             }
 
@@ -124,7 +124,7 @@ namespace GB.SIMEF.DAL
                     "IdTipoIndicador, " +
                     "TipoIndicador as Nombre, " +
                     "cast(1 as bit) as Estado " +
-                    "from [FONATEL].[viewIndicadorUIT]"
+                    "from [FONATEL].[vw_IndicadorUIT]"
                     ).ToList();
             }
 
@@ -155,7 +155,7 @@ namespace GB.SIMEF.DAL
                     "IdTipoIndicador, " +
                     "TipoIndicador as Nombre, " +
                     "cast(1 as bit) as Estado " +
-                    "from [FONATEL].[viewIndicadorCruzado]"
+                    "from [FONATEL].[vw_IndicadorCruzado]"
                     ).ToList();
             }
 

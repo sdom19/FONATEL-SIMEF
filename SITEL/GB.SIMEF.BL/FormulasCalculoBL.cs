@@ -64,7 +64,7 @@ namespace GB.SIMEF.BL
                     return resultado;
                 }
 
-                if (pFormulasCalculo.IdFormula == 0)
+                if (pFormulasCalculo.IdFormulaCalculo == 0)
                 {
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
@@ -77,15 +77,15 @@ namespace GB.SIMEF.BL
 
                 // en este punto tenemos la fórmula creada/actualizada
                 // eliminar las categorias del nivel de cálculo
-                formulaNivelCalculoCategoriaDAL.EliminarFormulaNivelCalculoCategoriaPorIDFormula(formulaCalculo[0].IdFormula);
+                formulaNivelCalculoCategoriaDAL.EliminarFormulaNivelCalculoCategoriaPorIDFormula(formulaCalculo[0].IdFormulaCalculo);
 
                 // el indicador fue proporcionado, marcada la opcion de categorias y se incluye el listado de categorias?
                 if (pFormulasCalculo.IdIndicador != 0 && pFormulasCalculo.ListaCategoriasNivelesCalculo.Count > 0 && !pFormulasCalculo.NivelCalculoTotal)
                 {
-                    formulaNivelCalculoCategoriaDAL.InsertarFormulaNivelCalculoCategoria(formulaCalculo[0].IdFormula, pFormulasCalculo.ListaCategoriasNivelesCalculo);
+                    formulaNivelCalculoCategoriaDAL.InsertarFormulaNivelCalculoCategoria(formulaCalculo[0].IdFormulaCalculo, pFormulasCalculo.ListaCategoriasNivelesCalculo);
                 }
 
-                formulaCalculo[0].IdFormula = 0;
+                formulaCalculo[0].IdFormulaCalculo = 0;
                 resultado.objetoRespuesta = formulaCalculo;
                 resultado.Usuario = user;
                 resultado.Clase = modulo;
@@ -122,7 +122,7 @@ namespace GB.SIMEF.BL
             {
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
                 
-                if (pFormulasCalculo.IdFormula == 0)
+                if (pFormulasCalculo.IdFormulaCalculo == 0)
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -171,7 +171,7 @@ namespace GB.SIMEF.BL
             {
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
 
-                if (pFormulasCalculo.IdFormula == 0) // ¿ID descencriptado?
+                if (pFormulasCalculo.IdFormulaCalculo == 0) // ¿ID descencriptado?
                 {
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
@@ -238,7 +238,7 @@ namespace GB.SIMEF.BL
             {
                 PrepararObjetoFormulaCalculo(pFormulasCalculoClonada); // descriptar los IDs de la formula creada en el paso 1
 
-                if (pFormulasCalculoClonada.IdFormula == 0) // ¿ID descencriptado con éxito?
+                if (pFormulasCalculoClonada.IdFormulaCalculo == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
@@ -260,7 +260,7 @@ namespace GB.SIMEF.BL
                 ClonarFormulasDefinicionFechas(formulaPredicado, pFormulasCalculoClonada, idFormulaArgumentosAClonar);
 
                 // se debe obtener la etiqueta que representa la fórmula matemática. No se maneja desde js para evitar SQL Inyection
-                List<FormulaCalculo> formulaBasadaParaClonar = formulasCalculoDAL.ObtenerDatos(new FormulaCalculo() { IdFormula = idFormulaArgumentosAClonar });
+                List<FormulaCalculo> formulaBasadaParaClonar = formulasCalculoDAL.ObtenerDatos(new FormulaCalculo() { IdFormulaCalculo = idFormulaArgumentosAClonar });
 
                 if (formulaBasadaParaClonar.Count <= 0)
                 {
@@ -315,15 +315,15 @@ namespace GB.SIMEF.BL
 
                 // en este punto tenemos la fórmula creada/actualizada
                 // eliminar las categorias del nivel de cálculo
-                formulaNivelCalculoCategoriaDAL.EliminarFormulaNivelCalculoCategoriaPorIDFormula(formulaCalculo[0].IdFormula);
+                formulaNivelCalculoCategoriaDAL.EliminarFormulaNivelCalculoCategoriaPorIDFormula(formulaCalculo[0].IdFormulaCalculo);
 
                 // el indicador fue proporcionado, marcada la opcion de categorias y se incluye el listado de categorias?
                 if (pFormulasCalculo.IdIndicador != 0 && pFormulasCalculo.ListaCategoriasNivelesCalculo.Count > 0 && !pFormulasCalculo.NivelCalculoTotal)
                 {
-                    formulaNivelCalculoCategoriaDAL.InsertarFormulaNivelCalculoCategoria(formulaCalculo[0].IdFormula, pFormulasCalculo.ListaCategoriasNivelesCalculo);
+                    formulaNivelCalculoCategoriaDAL.InsertarFormulaNivelCalculoCategoria(formulaCalculo[0].IdFormulaCalculo, pFormulasCalculo.ListaCategoriasNivelesCalculo);
                 }
 
-                formulaCalculo[0].IdFormula = 0;
+                formulaCalculo[0].IdFormulaCalculo = 0;
                 resultado.objetoRespuesta = formulaCalculo;
                 resultado.Usuario = user;
                 resultado.Clase = modulo;
@@ -359,15 +359,15 @@ namespace GB.SIMEF.BL
             try
             {
                 int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.id), out int number);
-                pFormulasCalculo.IdFormula = number;
+                pFormulasCalculo.IdFormulaCalculo = number;
 
-                if (pFormulasCalculo.IdFormula == 0) // ¿ID descencriptado con éxito?
+                if (pFormulasCalculo.IdFormulaCalculo == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                FormulaCalculo formulaRegistrada = formulasCalculoDAL.VerificarExistenciaFormulaPorID(pFormulasCalculo.IdFormula);
+                FormulaCalculo formulaRegistrada = formulasCalculoDAL.VerificarExistenciaFormulaPorID(pFormulasCalculo.IdFormulaCalculo);
 
                 if (formulaRegistrada == null) // la fórmula existe?
                 {
@@ -416,7 +416,7 @@ namespace GB.SIMEF.BL
                 {
                     if (int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.id), out int temp))
                     {
-                        pFormulasCalculo.IdFormula = temp;
+                        pFormulasCalculo.IdFormulaCalculo = temp;
                     }
                 }
 
@@ -707,14 +707,14 @@ namespace GB.SIMEF.BL
                 pFormulasCalculo.IdIndicadorSalidaString = formulaAlmacenada.IdIndicadorSalidaString;
                 PrepararObjetoFormulaCalculo(pFormulasCalculo);
 
-                if (pFormulasCalculo.IdFormula == 0 || pFormulasCalculo.IdIndicador == 0)
+                if (pFormulasCalculo.IdFormulaCalculo == 0 || pFormulasCalculo.IdIndicador == 0)
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
                 // procesar los objetos del DTO para obtener los datos basados en los modelos
-                RespuestaConsulta<List<ArgumentoFormula>> respuestaArgumentosValidados = ProcesarArgumentosEnDTO(pListaArgumentosDTO, pFormulasCalculo.IdFormula);
+                RespuestaConsulta<List<ArgumentoFormula>> respuestaArgumentosValidados = ProcesarArgumentosEnDTO(pListaArgumentosDTO, pFormulasCalculo.IdFormulaCalculo);
 
                 if (respuestaArgumentosValidados.HayError != (int) Error.NoError)
                 {
@@ -722,7 +722,7 @@ namespace GB.SIMEF.BL
                 }
 
                 // remover los argumentos anteriores, ya sea por que cambiaron o es un guardado parcial
-                bool elimino = argumentoFormulaDAL.EliminarArgumentos(new ArgumentoFormula() { IdFormula = pFormulasCalculo.IdFormula });
+                bool elimino = argumentoFormulaDAL.EliminarArgumentos(new ArgumentoFormula() { IdFormula = pFormulasCalculo.IdFormulaCalculo });
 
                 if (!elimino)
                 {
@@ -852,15 +852,15 @@ namespace GB.SIMEF.BL
             try
             {
                 int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.id), out int number);
-                pFormulasCalculo.IdFormula = number;
+                pFormulasCalculo.IdFormulaCalculo = number;
 
-                if (pFormulasCalculo.IdFormula == 0) // ¿ID descencriptado con éxito?
+                if (pFormulasCalculo.IdFormulaCalculo == 0) // ¿ID descencriptado con éxito?
                 {
                     errorControlado = true;
                     throw new Exception(Errores.NoRegistrosActualizar);
                 }
 
-                FormulaCalculo formulaRegistrada = formulasCalculoDAL.VerificarExistenciaFormulaPorID(pFormulasCalculo.IdFormula);
+                FormulaCalculo formulaRegistrada = formulasCalculoDAL.VerificarExistenciaFormulaPorID(pFormulasCalculo.IdFormulaCalculo);
 
                 if (formulaRegistrada == null) // la fórmula existe?
                 {
@@ -1101,7 +1101,7 @@ namespace GB.SIMEF.BL
                 argumentoFormulaDAL.ActualizarDatos(new ArgumentoFormula() {
                     IdVariableDatoCriterio = argumento.IdFormulaVariableDatoCriterio,
                     IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.VariableDatoCriterio,
-                    IdFormula = pFormulasCalculo.IdFormula,
+                    IdFormula = pFormulasCalculo.IdFormulaCalculo,
                     PredicadoSQL = pPredicadoSQL,
                     OrdenEnFormula = pOrden,
                     Etiqueta = pFormulasVariableDatoCriterio.Etiqueta
@@ -1127,7 +1127,7 @@ namespace GB.SIMEF.BL
                 argumentoFormulaDAL.ActualizarDatos(new ArgumentoFormula() {
                     IdDefinicionFecha = argumento.IdFormulaDefinicionFecha,
                     IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.DefinicionFecha,
-                    IdFormula = pFormulasCalculo.IdFormula,
+                    IdFormula = pFormulasCalculo.IdFormulaCalculo,
                     PredicadoSQL = pPredicadoSQL,
                     OrdenEnFormula = pOrden,
                     Etiqueta = pFormulasDefinicionFecha.Etiqueta
@@ -1147,7 +1147,7 @@ namespace GB.SIMEF.BL
             if (!string.IsNullOrEmpty(pFormulasCalculo.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pFormulasCalculo.id), out int number);
-                pFormulasCalculo.IdFormula = number;
+                pFormulasCalculo.IdFormulaCalculo = number;
             }
 
             if (!string.IsNullOrEmpty(pFormulasCalculo.IdFrecuenciaString))
@@ -1301,8 +1301,8 @@ namespace GB.SIMEF.BL
                 return Errores.CamposIncompletos;
             }
 
-            List<FormulaVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormula = pFormulasCalculo.IdFormula });
-            List<FormulaDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormula = pFormulasCalculo.IdFormula });
+            List<FormulaVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormula = pFormulasCalculo.IdFormulaCalculo });
+            List<FormulaDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormula = pFormulasCalculo.IdFormulaCalculo });
 
             if (listadoVariables.Count <= 0 && listadoDefinicionFechas.Count <= 0) // existen argumentos?
             {
@@ -1311,7 +1311,7 @@ namespace GB.SIMEF.BL
 
             if (!pFormulasCalculo.NivelCalculoTotal) // en caso de que el nivel de cálculo sea por categorias, existen categorias relacionadas?
             {
-                List<FormulaNivelCalculoCategoria> listaCategorias = formulaNivelCalculoCategoriaDAL.ObtenerDatos(pFormulasCalculo.IdFormula);
+                List<FormulaNivelCalculoCategoria> listaCategorias = formulaNivelCalculoCategoriaDAL.ObtenerDatos(pFormulasCalculo.IdFormulaCalculo);
 
                 if (listaCategorias.Count <= 0)
                 {

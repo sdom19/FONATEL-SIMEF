@@ -27,7 +27,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 listaAcumulaciones= db.Database.SqlQuery<AcumulacionFormula>
-                    ("execute spObtenerAcumulacionesFormula @pIdAcumulacionFormula",
+                    ("execute pa_ObtenerAcumulacionFormula @pIdAcumulacionFormula",
                      new SqlParameter("@pIdAcumulacionFormula", pAcumulacionFormula.IdAcumulacionFormula)
                     ).ToList();
 

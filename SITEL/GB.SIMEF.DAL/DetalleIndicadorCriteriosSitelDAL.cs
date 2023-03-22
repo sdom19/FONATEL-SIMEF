@@ -27,7 +27,7 @@ namespace GB.SIMEF.DAL
             using (SIGITELContext db = new SIGITELContext())
             {
                 listaDetallesCriterio = db.Database.SqlQuery<CriterioIndicador>
-                    ("execute spObtenerCriteriosDeIndicador @pIndicador ",
+                    ("execute [FONATEL].pa_ObtenerCriteriosDeIndicador @pIndicador ",
                      new SqlParameter("@pIndicador", pDetalleIndicadorVariables.IdIndicador.ToString())
                     ).ToList();
             }
@@ -56,7 +56,7 @@ namespace GB.SIMEF.DAL
             using (SIGITELContext db = new SIGITELContext())
             {
                 listaDetallesCriterio = db.Database.SqlQuery<DetalleCriterioIndicador>
-                    ("execute spObtenerDetallesAgrupacionDeCriterio @pIdCriterio, @pIdDetalle, @pIncluirColumnaValor",
+                    ("execute [FONATEL].pa_ObtenerDetallesAgrupacionDeCriterio @pIdCriterio, @pIdDetalle, @pIncluirColumnaValor",
                      new SqlParameter("@pIdCriterio", pDetalleIndicadorVariables.idCriterioInt.ToString()),
                      new SqlParameter("@pIdDetalle", DBNull.Value), // retornar toda la lista
                      new SqlParameter("@pIncluirColumnaValor", false)
@@ -88,7 +88,7 @@ namespace GB.SIMEF.DAL
             {
                 listaDetallesCriterios = db.Database.SqlQuery<CriterioIndicador>(
                     string.Format(
-                        "select top 1 IdIndicador as IdCriterio from [CalidadIndicadorCalculo].[dbo].[FactRigurosidadFac] " +
+                        "select top 1 IdIndicador as IdCriterio from [dbo].[FactRigurosidadFac] " +
                         "where IdIndicador = '{0}' ", pDetalleIndicadorVariables.id)
                     ).ToList();
             }
@@ -129,7 +129,7 @@ namespace GB.SIMEF.DAL
             {
                 listaDetallesCriterio = db.Database.SqlQuery<CriterioIndicador>(
                     string.Format(
-                        "select distinct IdCriterio, NombreCriterio from [FONATEL].[viewIndicadorUIT] " +
+                        "select distinct IdCriterio, NombreCriterio from [FONATEL].[vw_IndicadorUIT] " +
                         "where IdIndicador = '{0}' ", pDetalleIndicadorVariables.id)
                     ).ToList();
             }
@@ -159,7 +159,7 @@ namespace GB.SIMEF.DAL
             {
                 listaDetallesCriterio = db.Database.SqlQuery<CriterioIndicador>(
                     string.Format(
-                        "select distinct IdCriterio, NombreCriterio from [FONATEL].[viewIndicadorCruzado] " +
+                        "select distinct IdCriterio, NombreCriterio from [FONATEL].[vw_IndicadorCruzado] " +
                         "where IdIndicador = '{0}' ", pDetalleIndicadorVariables.id)
                     ).ToList();
             }

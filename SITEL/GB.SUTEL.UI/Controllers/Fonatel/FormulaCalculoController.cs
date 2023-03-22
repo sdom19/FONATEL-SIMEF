@@ -560,7 +560,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             pFormulaCalculo.IdEstadoRegistro = (int)EstadosRegistro.EnProceso;
             pFormulaCalculo.UsuarioCreacion = usuario;
-            pFormulaCalculo.IdFormula = 0;
+            pFormulaCalculo.IdFormulaCalculo = 0;
             pFormulaCalculo.IdFrecuenciaEnvio = 0;
             pFormulaCalculo.IdIndicador = 0;
             pFormulaCalculo.IdDetalleIndicadorVariable = 0;
@@ -631,7 +631,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             pFormulaCalculo.IdEstadoRegistro = (int)EstadosRegistro.EnProceso;
-            pFormulaCalculo.IdFormula = 0;
+            pFormulaCalculo.IdFormulaCalculo = 0;
             pFormulaCalculo.IdFrecuenciaEnvio = 0;
             pFormulaCalculo.IdIndicador = 0;
             pFormulaCalculo.IdDetalleIndicadorVariable = 0;
@@ -678,7 +678,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             string idFormulaAClonar = pFormulaCalculo.id; // id de la formula seleccionada para clonar
             pFormulaCalculo.id = string.Empty;
-            pFormulaCalculo.IdFormula = 0;
+            pFormulaCalculo.IdFormulaCalculo = 0;
 
             string creacionFormula = await CrearFormulaCalculo(pFormulaCalculo);
             RespuestaConsulta<List<FormulaCalculo>> formulaDeserializado = JsonConvert.DeserializeObject<RespuestaConsulta<List<FormulaCalculo>>>(creacionFormula);
@@ -1235,7 +1235,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 return string.Format(Errores.CampoRequeridoV2, EtiquetasViewFormulasCalculo.CrearFormula_LabelNombre);
             }
-            else if (!Utilidades.rx_soloTexto.Match(pFormulaCalculo.Nombre.Trim()).Success // validar formato
+            else if (!Utilidades.rx_alfanumerico.Match(pFormulaCalculo.Nombre.Trim()).Success // validar formato
                 || pFormulaCalculo.Nombre.Trim().Length > 500)
             {
                 return string.Format(Errores.CampoConFormatoInvalido, EtiquetasViewFormulasCalculo.CrearFormula_LabelNombre);
