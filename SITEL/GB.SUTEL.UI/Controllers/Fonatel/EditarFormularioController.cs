@@ -67,11 +67,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         [HttpGet]
         [ConsultasFonatelFilter]
-        public ActionResult Edit(string idSolicitud, string idFormulario)
+        public ActionResult Edit(string idSolicitud, string idFormularioWeb)
         {
             RespuestaConsulta<List<RegistroIndicadorFonatel>> model = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel()
             {
-                FormularioId = idFormulario,
+                FormularioId = idFormularioWeb,
                 Solicitudid = idSolicitud,
             });
 
@@ -95,17 +95,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Metodo que permite Descargar el Excel Multiple de las tablas principal segun los datos, categorias, variables dato de un Indicador en especifico
         /// </summary>
         /// <param name="idSolicitud"></param>
-        /// <param name="idFormulario"></param>
+        /// <param name="idFormularioWeb"></param>
         /// <returns></returns>
         [HttpGet]
         [ConsultasFonatelFilter]
-        public ActionResult DescargarExcel(string idSolicitud, string idFormulario)
+        public ActionResult DescargarExcel(string idSolicitud, string idFormularioWeb)
         {
             MemoryStream stream = new MemoryStream();
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
-                var Formulario = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormulario }).objetoRespuesta.Single();
+                var Formulario = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormularioWeb }).objetoRespuesta.Single();
 
                 var NombreExcel = Formulario.Formulario.Trim();
 
@@ -121,7 +121,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     int fila = 1;
                     int columna = 0;
 
-                    var Detalle = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, idFormularioWebString = idFormulario, IdIndicadorString = indicador}).objetoRespuesta.Single();
+                    var Detalle = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, idFormularioWebString = idFormularioWeb, IdIndicadorString = indicador}).objetoRespuesta.Single();
 
                     ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(Formulario.DetalleRegistroIndcadorFonatel[ws].TituloHoja);
 
@@ -196,15 +196,15 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Metodo que permite Descargar el Excel Unitario de la tabla principal segun los datos, categorias, variables dato de un Indicador en especifico
         /// </summary>
         /// <param name="idSolicitud"></param>
-        /// <param name="idFormulario"></param>
+        /// <param name="idFormularioWeb"></param>
         /// <param name="idIndicador"></param>
         /// <returns></returns>
         [HttpGet]
         [ConsultasFonatelFilter]
-        public ActionResult DescargarExcelUnitario(string idSolicitud, string idFormulario, string idIndicador)
+        public ActionResult DescargarExcelUnitario(string idSolicitud, string idFormularioWeb, string idIndicador)
         {
-            var Formulario = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormulario, IndicadorId = idIndicador }).objetoRespuesta.Single();
-            var Detalle = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, idFormularioWebString = idFormulario, IdIndicadorString = idIndicador }).objetoRespuesta.Single();
+            var Formulario = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormularioWeb, IndicadorId = idIndicador }).objetoRespuesta.Single();
+            var Detalle = DetalleRegistroIndicadorBL.ObtenerDatos(new DetalleRegistroIndicadorFonatel() { IdSolicitudString = idSolicitud, idFormularioWebString = idFormularioWeb, IdIndicadorString = idIndicador }).objetoRespuesta.Single();
 
             var NombreExcel = Formulario.Formulario.Trim();
 
