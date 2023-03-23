@@ -79,7 +79,7 @@
         {
             string activo = "";
             if (i == 0) { activo = "active"; }
-            <li class="@activo" id="@ViewBag.ListaDetalle[i].Indicador.idIndicador"> <a data-toggle="tab" href="#@i" data-Indicador="@ViewBag.ListaDetalle[i].Indicador.idIndicador">@ViewBag.ListaDetalle[i].Indicador.Nombre</a></li>
+            <li class="@activo" id="@ViewBag.ListaDetalle[i].Indicador.IdIndicador"> <a data-toggle="tab" href="#@i" data-Indicador="@ViewBag.ListaDetalle[i].Indicador.IdIndicador">@ViewBag.ListaDetalle[i].Indicador.Nombre</a></li>
         }
     </ul>
 
@@ -105,7 +105,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="txtDescripcionRegla" class="col-form-label">@EtiquetasViewRegistroIndicadorFonatel.NotasEncargado</label>
-                                <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Notas">@ViewBag.ListaDetalle[i].NotasEncargado</textarea>
+                                <textarea class="form-control form-control-fonatel textarea" disabled id="txtDescripcionRegla" placeholder="Notas">@ViewBag.ListaDetalle[i].NotaEncargado</textarea>
                             </div>
                         </div>
                         <div class="col-sm-6">

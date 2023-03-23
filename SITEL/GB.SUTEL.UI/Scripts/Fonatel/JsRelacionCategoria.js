@@ -388,7 +388,7 @@
         "InsertarDetalleCategoria": function () {
             $("#loading").fadeIn();
             let DetalleRelacionCategoria = new Object();
-            DetalleRelacionCategoria.IdRelacionCategoria = ObtenerValorParametroUrl("id");
+            DetalleRelacionCategoria.relacionid = ObtenerValorParametroUrl("id");
             DetalleRelacionCategoria.idCategoriaDesagregacion = $(JsRelacion.Controles.ddlCategoriaAtributo).val();
 
             execAjaxCall("/RelacionCategoria/InsertarDetalleRelacion", "POST", DetalleRelacionCategoria)

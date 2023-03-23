@@ -226,12 +226,12 @@ namespace GB.SIMEF.Resources
             public const string Indicador = "Indicador";
         }
 
-        public static readonly string ParametrosReglaValidacionDispatch = "Unique";
-        public static readonly string ParametrosReglaValidacionPeriodicity = "Only";
+        public static readonly string ParametrosReglaValidacionDispatch = "Unico";
+        public static readonly string ParametrosReglaValidacionPeriodicity = "Solo";
         public struct RespuestaEstadoReglasValidacion
         {
-            public const string Finished = "Finished";
-            public const string Stopend = "Stopped";
+            public const string Finalizado = "Finalizado";
+            public const string Detenido = "Detenido";
         }
 
         public readonly static string defaultInputTextValue = "No definido";
