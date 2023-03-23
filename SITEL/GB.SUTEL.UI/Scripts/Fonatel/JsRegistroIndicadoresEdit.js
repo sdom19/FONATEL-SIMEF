@@ -615,9 +615,9 @@
                     }
                     else {
                         let resultadoValidaciones = JSON.parse(obj.objetoRespuesta);
-                        let resultadoRegla = JSON.parse(resultadoValidaciones.tasks[0].response);
+                        let resultadoRegla = JSON.parse(resultadoValidaciones.tareas[0].respuesta);
 
-                        if (resultadoValidaciones.tasks[0].error) {
+                        if (resultadoValidaciones.tareas[0].error) {
                             jsMensajes.Metodos.OkAlertErrorModal();
                         } else {
 
