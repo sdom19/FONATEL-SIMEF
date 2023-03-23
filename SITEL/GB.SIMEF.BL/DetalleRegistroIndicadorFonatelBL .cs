@@ -318,23 +318,23 @@ namespace GB.SIMEF.BL
                 using (var client = new HttpClient())
                 {
                     var payload = new {
-                        user = user,
-                        application = WebConfigurationManager.AppSettings["APIReglasValidacionApplicationId"].ToString(),
-                        dispatch = Constantes.ParametrosReglaValidacionDispatch,
-                        periodicity = Constantes.ParametrosReglaValidacionPeriodicity,
-                        startNow = true,
-                        parameters = new object[] {
+                        usuario = user,
+                        aplicacion = WebConfigurationManager.AppSettings["APIReglasValidacionApplicationId"].ToString(),
+                        despacho = Constantes.ParametrosReglaValidacionDispatch,
+                        periodicidad = Constantes.ParametrosReglaValidacionPeriodicity,
+                        iniciarAhora = true,
+                        parametros = new object[] {
                             new {
-                                name = Constantes.ParametrosReglaValidacion.Solicitud,
-                                value = objeto.IdSolicitud.ToString()
+                                nombre = Constantes.ParametrosReglaValidacion.Solicitud,
+                                valor = objeto.IdSolicitud.ToString()
                             },
                             new {
-                                name = Constantes.ParametrosReglaValidacion.Formulario,
-                                value = objeto.idFormularioWeb.ToString()
+                                nombre = Constantes.ParametrosReglaValidacion.Formulario,
+                                valor = objeto.idFormularioWeb.ToString()
                             },
                             new {
-                                name = Constantes.ParametrosReglaValidacion.Indicador,
-                                value = objeto.IdIndicador.ToString()
+                                nombre = Constantes.ParametrosReglaValidacion.Indicador,
+                                valor = objeto.IdIndicador.ToString()
                             }
                         }
                     };
@@ -358,15 +358,15 @@ namespace GB.SIMEF.BL
                 {
                     using (var client = new HttpClient())
                     {
-                        HttpResponseMessage response = await client.GetAsync(WebConfigurationManager.AppSettings["APIReglasValidacionRuta"].ToString() +"/"+ task["id"].ToString());
+                        HttpResponseMessage response = await client.GetAsync(WebConfigurationManager.AppSettings["APIReglasValidacionRuta"].ToString() +"/"+ task["idJob"].ToString());
                         if (response.IsSuccessStatusCode)
                         {
                             JObject jobStatus = JObject.Parse(await response.Content.ReadAsStringAsync());
-                            var tasks = jobStatus["tasks"].ToArray();
+                            var tasks = jobStatus["tareas"].ToArray();
                             if(tasks.Count() > 0)
                             {
                                 var item = tasks[0];
-                                if (item["status"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Finished || item["status"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Stopend)
+                                if (item["estado"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Finalizado || item["estado"].ToString() == Constantes.RespuestaEstadoReglasValidacion.Detenido)
                                 {
                                     result.objetoRespuesta = jobStatus.ToString();
                                     finalizado = true;
