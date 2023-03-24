@@ -13,10 +13,10 @@ namespace GB.SIMEF.Entities
     {
         [Key]
         public int IdArgumentoFormula { get; set; }
-        public int IdFormula { get; set; }
-        public int IdFormulasTipoArgumento { get; set; }
-        public int? IdDefinicionFecha { get; set; }
-        public int? IdVariableDatoCriterio { get; set; }
+        public int IdFormulaTipoArgumento { get; set; }
+        public int? IdFormulaDefinicionFecha { get; set; }
+        public int? IdFormulaVariableDatoCriterio { get; set; }
+        public int IdFormulaCalculo { get; set; }
 
         [MaxLength(8000)]
         public string PredicadoSQL { get; set; }

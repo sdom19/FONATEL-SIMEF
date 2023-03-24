@@ -6,8 +6,8 @@ namespace GB.SIMEF.Entities
     [Table("FormulaVariableDatoCriterio")]
     public class FormulaVariableDatoCriterio : ArgumentoFormula
     {
-        [Key]
-        public int IdFormulaVariableDatoCriterio { set; get; }
+        //[Key]
+        //public int IdFormulaVariableDatoCriterio { set; get; }
         public int IdFuenteIndicador { get; set; }
         public string IdIndicador { get; set; }
         public int? IdDetalleIndicadorVariable { get; set; }

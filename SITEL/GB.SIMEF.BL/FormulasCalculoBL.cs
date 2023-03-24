@@ -522,7 +522,7 @@ namespace GB.SIMEF.BL
 
             try
             {
-                if (pArgumento.IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.VariableDatoCriterio)
+                if (pArgumento.IdFormulaTipoArgumento == (int)FormulasTipoArgumentoEnum.VariableDatoCriterio)
                 {
                     FormulaVariableDatoCriterio argVariableDato = (FormulaVariableDatoCriterio)pArgumento; // casteo explícito
 
@@ -575,7 +575,7 @@ namespace GB.SIMEF.BL
                         }
                     }
                 }
-                else if (pArgumento.IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
+                else if (pArgumento.IdFormulaTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
                 {
                     FormulaDefinicionFecha argDefinicionFecha = (FormulaDefinicionFecha)pArgumento; // casteo explícito
 
@@ -722,7 +722,7 @@ namespace GB.SIMEF.BL
                 }
 
                 // remover los argumentos anteriores, ya sea por que cambiaron o es un guardado parcial
-                bool elimino = argumentoFormulaDAL.EliminarArgumentos(new ArgumentoFormula() { IdFormula = pFormulasCalculo.IdFormulaCalculo });
+                bool elimino = argumentoFormulaDAL.EliminarArgumentos(new ArgumentoFormula() { IdFormulaCalculo = pFormulasCalculo.IdFormulaCalculo });
 
                 if (!elimino)
                 {
@@ -936,7 +936,7 @@ namespace GB.SIMEF.BL
 
                     formulaPredicado.SetArgumentoFormula(pArgumentosValidados[i]); // establecer cada argumento a utilizar para computar el predicado SQL
 
-                    if (pArgumentosValidados[i].IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.VariableDatoCriterio) // determinar el tipo de argumento a evaluar
+                    if (pArgumentosValidados[i].IdFormulaTipoArgumento == (int)FormulasTipoArgumentoEnum.VariableDatoCriterio) // determinar el tipo de argumento a evaluar
                     {
                         FormulaVariableDatoCriterio argVariableDato = (FormulaVariableDatoCriterio)pArgumentosValidados[i]; // casteo explícito
 
@@ -960,7 +960,7 @@ namespace GB.SIMEF.BL
                         ordenEnFormula++;
 
                     }
-                    else if (pArgumentosValidados[i].IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
+                    else if (pArgumentosValidados[i].IdFormulaTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
                     {
                         formulaPredicado.SetFuenteArgumento(new ArgumentoDefinicionFecha());
                         string predicadoSQL = formulaPredicado.GetArgumentoComoPredicadoSQL(); // Paso 4, construir el predicado SQL
@@ -987,7 +987,7 @@ namespace GB.SIMEF.BL
         /// <param name="pIdFormulaArgumentosAClonar"></param>
         private void ClonarFormulasVariableDatoCriterio(FormulaPredicado pFormulaPredicado, FormulaCalculo pFormulasCalculo, int pIdFormulaArgumentosAClonar)
         {
-            List<FormulaVariableDatoCriterio> listaArgumentosVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormula = pIdFormulaArgumentosAClonar });
+            List<FormulaVariableDatoCriterio> listaArgumentosVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormulaCalculo = pIdFormulaArgumentosAClonar });
 
             for (int i = 0; i < listaArgumentosVariables.Count; i++)
             {
@@ -1025,7 +1025,7 @@ namespace GB.SIMEF.BL
         /// <param name="pIdFormulaArgumentosAClonar"></param>
         private void ClonarFormulasDefinicionFechas(FormulaPredicado pFormulaPredicado, FormulaCalculo pFormulasCalculo, int pIdFormulaArgumentosAClonar)
         {
-            List<FormulaDefinicionFecha> listaArgumentosDefinicionFecha = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormula = pIdFormulaArgumentosAClonar });
+            List<FormulaDefinicionFecha> listaArgumentosDefinicionFecha = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormulaCalculo = pIdFormulaArgumentosAClonar });
 
             for (int i = 0; i < listaArgumentosDefinicionFecha.Count; i++)
             {
@@ -1058,7 +1058,7 @@ namespace GB.SIMEF.BL
                 if (argumento != null) // obviar operadores de suma, resta, división, etc
                 {
                     argumento.Etiqueta = pListaArgumentosDTO[i].Etiqueta;
-                    argumento.IdFormula = pIdFormula;
+                    argumento.IdFormulaCalculo = pIdFormula;
                     argumentosValidados.Add(argumento);
 
                     // se valida la información proporcionada para cada argumento
@@ -1099,9 +1099,9 @@ namespace GB.SIMEF.BL
             if (argumento != null)
             {
                 argumentoFormulaDAL.ActualizarDatos(new ArgumentoFormula() {
-                    IdVariableDatoCriterio = argumento.IdFormulaVariableDatoCriterio,
-                    IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.VariableDatoCriterio,
-                    IdFormula = pFormulasCalculo.IdFormulaCalculo,
+                    IdFormulaVariableDatoCriterio = argumento.IdFormulaVariableDatoCriterio,
+                    IdFormulaTipoArgumento = (int)FormulasTipoArgumentoEnum.VariableDatoCriterio,
+                    IdFormulaCalculo = pFormulasCalculo.IdFormulaCalculo,
                     PredicadoSQL = pPredicadoSQL,
                     OrdenEnFormula = pOrden,
                     Etiqueta = pFormulasVariableDatoCriterio.Etiqueta
@@ -1125,9 +1125,9 @@ namespace GB.SIMEF.BL
             if (argumento != null)
             {
                 argumentoFormulaDAL.ActualizarDatos(new ArgumentoFormula() {
-                    IdDefinicionFecha = argumento.IdFormulaDefinicionFecha,
-                    IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.DefinicionFecha,
-                    IdFormula = pFormulasCalculo.IdFormulaCalculo,
+                    IdFormulaDefinicionFecha = argumento.IdFormulaDefinicionFecha,
+                    IdFormulaTipoArgumento = (int)FormulasTipoArgumentoEnum.DefinicionFecha,
+                    IdFormulaCalculo = pFormulasCalculo.IdFormulaCalculo,
                     PredicadoSQL = pPredicadoSQL,
                     OrdenEnFormula = pOrden,
                     Etiqueta = pFormulasDefinicionFecha.Etiqueta
@@ -1193,7 +1193,7 @@ namespace GB.SIMEF.BL
             if (pArgumentoDTO.TipoArgumento == FormulasTipoArgumentoEnum.VariableDatoCriterio)
             {
                 argumento = pArgumentoDTO.ConvertToVariableDatoCriterio();
-                argumento.IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.VariableDatoCriterio;
+                argumento.IdFormulaTipoArgumento = (int)FormulasTipoArgumentoEnum.VariableDatoCriterio;
                 FormulaVariableDatoCriterio argVariableDato = (FormulaVariableDatoCriterio)argumento; // casteo explicito
 
                 if (!string.IsNullOrEmpty(argVariableDato.IdFuenteIndicadorString))
@@ -1244,7 +1244,7 @@ namespace GB.SIMEF.BL
             else if (pArgumentoDTO.TipoArgumento == FormulasTipoArgumentoEnum.DefinicionFecha) // FormulasTipoArgumentoEnum.DefinicionFecha
             {
                 argumento = pArgumentoDTO.ConvertToFormulasDefinicionFecha();
-                argumento.IdFormulasTipoArgumento = (int)FormulasTipoArgumentoEnum.DefinicionFecha;
+                argumento.IdFormulaTipoArgumento = (int)FormulasTipoArgumentoEnum.DefinicionFecha;
                 FormulaDefinicionFecha argDefinicionFecha = (FormulaDefinicionFecha)argumento;
 
                 if (!string.IsNullOrEmpty(argDefinicionFecha.IdTipoFechaInicioString))
@@ -1301,8 +1301,8 @@ namespace GB.SIMEF.BL
                 return Errores.CamposIncompletos;
             }
 
-            List<FormulaVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormula = pFormulasCalculo.IdFormulaCalculo });
-            List<FormulaDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormula = pFormulasCalculo.IdFormulaCalculo });
+            List<FormulaVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormulaCalculo = pFormulasCalculo.IdFormulaCalculo });
+            List<FormulaDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormulaCalculo = pFormulasCalculo.IdFormulaCalculo });
 
             if (listadoVariables.Count <= 0 && listadoDefinicionFechas.Count <= 0) // existen argumentos?
             {

@@ -7,8 +7,8 @@ namespace GB.SIMEF.Entities
     [Table("FormulaDefinicionFecha")]
     public class FormulaDefinicionFecha : ArgumentoFormula
     {
-        [Key]
-        public int IdFormulaDefinicionFecha { set; get; }
+        //[Key]
+        //public int IdFormulaDefinicionFecha { set; get; }
         public DateTime? FechaInicio { set; get; }
         public DateTime? FechaFinal { set; get; }
         public int IdUnidadMedida { set; get; }

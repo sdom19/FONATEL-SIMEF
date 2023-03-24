@@ -70,11 +70,11 @@ namespace GB.SIMEF.DAL
             {
                 listaDetalles = db.Database.SqlQuery<FormulaDefinicionFecha>
                     (
-                        "execute pa_ObtenerDefinicionFechaFormula @pIdFormula",
-                        pFormulasDefinicionFecha.IdFormula == 0 ?
-                            new SqlParameter("@pIdFormula", DBNull.Value)
+                        "execute pa_ObtenerDefinicionFechaFormula @pIdFormulaCalculo",
+                        pFormulasDefinicionFecha.IdFormulaCalculo == 0 ?
+                            new SqlParameter("@pIdFormulaCalculo", DBNull.Value)
                             :
-                            new SqlParameter("@pIdFormula", pFormulasDefinicionFecha.IdFormula)
+                            new SqlParameter("@pIdFormulaCalculo", pFormulasDefinicionFecha.IdFormulaCalculo)
                     ).ToList();
             }
             return listaDetalles;
