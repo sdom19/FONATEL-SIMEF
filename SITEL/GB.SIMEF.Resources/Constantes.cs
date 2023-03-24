@@ -246,25 +246,26 @@ namespace GB.SIMEF.Resources
         public readonly static string RolConsultasFonatel = "Consultas Fonatel";
         public readonly static string RedirectActionConsultasFonatel = "Index";
 
-        public readonly static string Dispatch_Task = "Task";
-        public readonly static string Dispatch_Unique = "Unique";
+        public readonly static string Dispatch_Task = "Tarea";
+        public readonly static string Dispatch_Unique = "Unico";
+        public readonly static string Periodicity_Unique = "Solo";
 
         public static Dictionary<FrecuenciaEnvioEnum, string> mapFrecuenciasConMotor = new Dictionary<FrecuenciaEnvioEnum, string>() {
-            { FrecuenciaEnvioEnum.Semana, "Weekly"},
-            { FrecuenciaEnvioEnum.Mes, "Monthly"},
-            { FrecuenciaEnvioEnum.Quincenal, "Biweekly"},
-            { FrecuenciaEnvioEnum.Bimestre, "Bimonthly"},
-            { FrecuenciaEnvioEnum.Trimestre, "Quarterly"},
-            { FrecuenciaEnvioEnum.Cuatrimestre, "Four-month period"},
-            { FrecuenciaEnvioEnum.Anual, "Annual"}
+            { FrecuenciaEnvioEnum.Semana, "Semanal"},
+            { FrecuenciaEnvioEnum.Mes, "Mensual"},
+            { FrecuenciaEnvioEnum.Quincenal, "Quincenal"},
+            { FrecuenciaEnvioEnum.Bimestre, "Bimensual"},
+            { FrecuenciaEnvioEnum.Trimestre, "Trimestral"},
+            { FrecuenciaEnvioEnum.Cuatrimestre, "Cuatrimestral"},
+            { FrecuenciaEnvioEnum.Anual, "Anual"}
         };
 
         public static Dictionary<EstadosRegistro, string> mapEstadoFormulaConMotor = new Dictionary<EstadosRegistro, string>() {
-            { EstadosRegistro.EnProceso, "Stopped"},
-            { EstadosRegistro.Pendiente, "Stopped"},
-            { EstadosRegistro.Activo, "New"},
-            { EstadosRegistro.Desactivado, "Stopped"},
-            { EstadosRegistro.Eliminado, "Stopped"}
+            { EstadosRegistro.EnProceso, "Detenido"},
+            { EstadosRegistro.Pendiente, "Detenido"},
+            { EstadosRegistro.Activo, "Nuevo"},
+            { EstadosRegistro.Desactivado, "Detenido"},
+            { EstadosRegistro.Eliminado, "Detenido"}
         };
     }
 }

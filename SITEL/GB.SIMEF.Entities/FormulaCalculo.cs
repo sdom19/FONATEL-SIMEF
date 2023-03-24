@@ -15,7 +15,6 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Text;
-    using System.Web.Mvc;
 
     [Table("FormulaCalculo")]
     public partial class FormulaCalculo
