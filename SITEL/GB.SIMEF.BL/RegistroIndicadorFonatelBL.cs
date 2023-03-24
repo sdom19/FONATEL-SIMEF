@@ -268,7 +268,7 @@ namespace GB.SIMEF.BL
                 List<DetalleFuenteRegistro> detalle = 
                     clsFuentesRegistroDestinatarioDAL.ObtenerDatos(new DetalleFuenteRegistro()).Where(x => x.CorreoElectronico == usuario).ToList();
 
-                FuenteRegistro fuente = clsFuentesRegistroDAL.ObtenerDatos(new FuenteRegistro()).Where(x => detalle.Any(y => y.IdFuenteRegistro== x.IdFuenteRegistro)).FirstOrDefault();
+                FuenteRegistro fuente = clsFuentesRegistroDAL.ObtenerDatos(new FuenteRegistro()).Where(x => detalle.Any(y => y.idFuenteRegistro== x.IdFuenteRegistro)).FirstOrDefault();
 
                 if (fuente != null)
                 {

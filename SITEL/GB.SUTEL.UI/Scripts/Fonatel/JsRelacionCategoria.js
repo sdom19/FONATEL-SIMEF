@@ -193,7 +193,7 @@
         "ValidarFormularioDetalle": function () {
 
             let relacionCategoriaId = new Object();
-            relacionCategoriaId.RelacionId = ObtenerValorParametroUrl("idRelacionCategoria");
+            relacionCategoriaId.RelacionId = ObtenerValorParametroUrl("id");
             relacionCategoriaId.listaCategoriaAtributo = [];
             let categoriaId = true;
             let validacion = true;
@@ -388,7 +388,7 @@
         "InsertarDetalleCategoria": function () {
             $("#loading").fadeIn();
             let DetalleRelacionCategoria = new Object();
-            DetalleRelacionCategoria.IdRelacionCategoria = ObtenerValorParametroUrl("id");
+            DetalleRelacionCategoria.relacionId = ObtenerValorParametroUrl("id");
             DetalleRelacionCategoria.idCategoriaDesagregacion = $(JsRelacion.Controles.ddlCategoriaAtributo).val();
 
             execAjaxCall("/RelacionCategoria/InsertarDetalleRelacion", "POST", DetalleRelacionCategoria)

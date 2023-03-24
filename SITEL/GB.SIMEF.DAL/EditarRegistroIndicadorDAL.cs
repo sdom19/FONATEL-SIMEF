@@ -90,7 +90,7 @@ namespace GB.SIMEF.DAL
         public FuenteRegistro ObtenerFuente(int id)
         {
             FuenteRegistro fuente = db.FuentesRegistro.Where(i => i.IdFuenteRegistro == id).Single();
-            fuente.DetalleFuenteRegistro = db.DetalleFuentesRegistro.Where(i => i.IdFuenteRegistro == id).ToList();
+            fuente.DetalleFuenteRegistro = db.DetalleFuentesRegistro.Where(i => i.idFuenteRegistro == id).ToList();
             return fuente;
         }
 

@@ -39,7 +39,7 @@ namespace GB.SIMEF.DAL
             {
                 ListaReglaAtributosValidos = db.Database.SqlQuery<ReglaAtributoValido>
                 ("execute pa_ActualizarReglaAtributoValido @IdCompara,@IdDetalleReglaValidacion,@IdCategoria,@IdCategoriaAtributo, @OpcionEliminar",
-                    new SqlParameter("@IdCompara", pReglaAtributosValidos.idReglaAtributosValido),
+                    new SqlParameter("@IdCompara", pReglaAtributosValidos.idReglaAtributoValido),
                     new SqlParameter("@IdDetalleReglaValidacion", pReglaAtributosValidos.IdDetalleReglaValidacion),
                     new SqlParameter("@IdCategoria", pReglaAtributosValidos.idCategoriaDesagregacion),
                     new SqlParameter("@IdCategoriaAtributo", pReglaAtributosValidos.idDetalleCategoriaTexto),
@@ -48,7 +48,7 @@ namespace GB.SIMEF.DAL
 
                 ListaReglaAtributosValidos = ListaReglaAtributosValidos.Select(X => new ReglaAtributoValido
                 {
-                    idReglaAtributosValido = X.idReglaAtributosValido,
+                    idReglaAtributoValido = X.idReglaAtributoValido,
                     IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
                     idCategoriaDesagregacion = X.idCategoriaDesagregacion,
                     idDetalleCategoriaTexto = X.idDetalleCategoriaTexto

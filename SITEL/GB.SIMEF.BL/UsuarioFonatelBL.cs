@@ -66,6 +66,7 @@ namespace GB.SIMEF.BL
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Insertar;
+
                 objeto = ValidarObjeto(objeto);
                 resultado.objetoRespuesta = usuarioFonatelDAL.ActualizarUsuarioSitel(objeto);
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count();

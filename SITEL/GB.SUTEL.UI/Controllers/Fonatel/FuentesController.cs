@@ -169,7 +169,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     if (!item.CorreoEnviado)
                     {
                         usuarioFonatelBL.CambioEstado(new Usuario()
-                        { IdUsuario = item.IdUsuario });
+                        { IdUsuario = item.idUsuario });
                         item.CorreoEnviado = true;
                         FuenteDestinatariosBL.ActualizarElemento(item);
                     }        
@@ -241,9 +241,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     NombreUsuario = destinatario.NombreDestinatario,
                     CorreoUsuario = destinatario.CorreoElectronico,
-                    IdUsuario = destinatario.IdUsuario
+                    IdUsuario = destinatario.idUsuario
             };
-                if (destinatario.IdDetalleFuenteRegistro == 0)
+                if (destinatario.idDetalleFuenteRegistro == 0)
                 {
                     return usuarioFonatelBL.InsertarDatos(usuario);
                 }
@@ -253,11 +253,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 }
             }).ContinueWith(resultado=> {
 
-                if (destinatario.IdDetalleFuenteRegistro == 0)
+                if (destinatario.idDetalleFuenteRegistro == 0)
                 {
                     if (resultado.Result.HayError == 0)
                     {
-                        destinatario.IdUsuario = resultado.Result.objetoRespuesta.Single().IdUsuario;
+                        destinatario.idUsuario = resultado.Result.objetoRespuesta.Single().IdUsuario;
                         resultado.Result.HayError =FuenteDestinatariosBL.InsertarDatos(destinatario).HayError;
                     }
                 }
@@ -293,11 +293,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                return usuarioFonatelBL.EliminarElemento(new Usuario()
                 {
-                    IdUsuario = resultado.Result.objetoRespuesta.Single().IdUsuario
+                    IdUsuario = resultado.Result.objetoRespuesta.Single().idUsuario
                 });
             }).ContinueWith(fuente=>
             {
-                result= FuenteBL.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro=destinatario.IdFuenteRegistro });
+                result= FuenteBL.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro=destinatario.idFuenteRegistro });
             });
 
             return JsonConvert.SerializeObject(result);

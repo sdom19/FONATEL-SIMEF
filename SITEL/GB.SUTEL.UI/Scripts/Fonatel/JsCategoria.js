@@ -88,15 +88,15 @@
                             "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Agregar Detalle' title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
                     }
                     html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Editar' title='Editar' class='btn-icon-base btn-edit'></button>";
-                    if (categoria.idEstado != jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+                    if (categoria.idEstadoRegistro != jsUtilidades.Variables.EstadoRegistros.EnProceso) {
                         html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' value=" + categoria.id + " class='btn-icon-base btn-clone' ></button>";
                     }
                     else {
                         html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' disabled data-original-title='Clonar' value=" + categoria.id + " class='btn-icon-base btn-clone' ></button>";
                     }
-                    if (categoria.idEstado == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
+                    if (categoria.idEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
                         html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + categoria.id + " class='btn-icon-base btn-power-off'></button>";
-                    } else if (categoria.idEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
+                    } else if (categoria.idEstadoRegistro== jsUtilidades.Variables.EstadoRegistros.Activo) {
                         html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value=" + categoria.id + " class='btn-icon-base btn-power-on'></button>";
                     }
                     else {
@@ -375,7 +375,7 @@
                         if (result) {
                             let modo = ObtenerValorParametroUrl("modo");
                             if (modo == jsUtilidades.Variables.Acciones.Editar) {
-                                if (obj.objetoRespuesta[0].idEstado == 1) {
+                                if (obj.objetoRespuesta[0].idEstadoRegistro == 1) {
                                     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Categoría de Desagregación?", jsMensajes.Variables.actionType.agregar)
                                         .set('onok', function (closeEvent) {
                                             JsCategoria.Consultas.EditarCategoria();
@@ -544,7 +544,7 @@
                 $("#loading").fadeIn();
                 let Categoria = new Object()
                 Categoria.id = idCategoria;
-                Categoria.idEstado = estado;
+                Categoria.idEstadoRegistro = estado;
                 execAjaxCall("/CategoriasDesagregacion/CambiarEstadoCategoria", "POST", categoria=Categoria)
                     .then((obj) => {
                         let mensaje=""
@@ -893,7 +893,7 @@ $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Categoría de Desagregación?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
             JsCategoria.Consultas.ValidarExistenciaCategoria(id, estado);
-            //JsCategoria.Consultas.CambiarEstadoCategoria(id, estado);
+            JsCategoria.Consultas.CambiarEstadoCategoria(id, estado);
         });
 });
 

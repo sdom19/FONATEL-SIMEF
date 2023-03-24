@@ -20,9 +20,9 @@ namespace GB.SIMEF.Entities
     {
         [Key]
         public int idReglaComparacionEntradaSalida { get; set; }
-        public int IdDetalleReglaValidacion { get; set; }
-        public int IdDetalleIndicadorVariable{ get; set; }
-        public int IdIndicador { get; set; }
+        public int idDetalleReglaValidacion { get; set; }
+        public int idDetalleIndicadorVariable{ get; set; }
+        public int idIndicador { get; set; }
 
 
         [NotMapped]

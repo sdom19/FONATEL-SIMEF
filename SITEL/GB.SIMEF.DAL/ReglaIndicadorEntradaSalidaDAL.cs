@@ -21,19 +21,19 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 ListaReglaIndicadorEntradaSalida = db.Database.SqlQuery<ReglaIndicadorEntradaSalida>
-                ("execute spActualizarReglaIndicadorEntradaSalida @IdCompara,@IdDetalleReglaValidacion,@IdDetalleIndicador,@IdIndicador",
+                ("execute pa_ActualizarReglaIndicadorEntradaSalida @IdCompara,@IdDetalleReglaValidacion,@IdDetalleIndicador,@IdIndicador",
                     new SqlParameter("@IdCompara", pReglaIndicadorEntradaSalida.idReglaComparacionEntradaSalida),
-                    new SqlParameter("@IdDetalleReglaValidacion", pReglaIndicadorEntradaSalida.IdDetalleReglaValidacion),
-                    new SqlParameter("@IdDetalleIndicador", pReglaIndicadorEntradaSalida.IdDetalleIndicadorVariable),
-                    new SqlParameter("@IdIndicador", pReglaIndicadorEntradaSalida.IdIndicador)
+                    new SqlParameter("@IdDetalleReglaValidacion", pReglaIndicadorEntradaSalida.idDetalleReglaValidacion),
+                    new SqlParameter("@IdDetalleIndicador", pReglaIndicadorEntradaSalida.idDetalleIndicadorVariable),
+                    new SqlParameter("@IdIndicador", pReglaIndicadorEntradaSalida.idIndicador)
                 ).ToList();
 
                 ListaReglaIndicadorEntradaSalida = ListaReglaIndicadorEntradaSalida.Select(X => new ReglaIndicadorEntradaSalida
                 {
                     idReglaComparacionEntradaSalida = X.idReglaComparacionEntradaSalida,
-                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
-                    IdDetalleIndicadorVariable = X.IdDetalleIndicadorVariable,
-                    IdIndicador = X.IdIndicador
+                    idDetalleReglaValidacion = X.idDetalleReglaValidacion,
+                    idDetalleIndicadorVariable = X.idDetalleIndicadorVariable,
+                    idIndicador = X.idIndicador
 
                 }).ToList();
 

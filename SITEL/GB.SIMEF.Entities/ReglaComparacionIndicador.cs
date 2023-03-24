@@ -18,7 +18,7 @@ namespace GB.SIMEF.Entities
         [Key]
         public int idReglaComparacionIndicador { get; set; }
         public int idDetalleReglaValidacion { get; set; }
-        public Nullable<int> IdDetalleIndicadorVariable { get; set; }
+        public Nullable<int> idDetalleIndicadorVariable { get; set; }
         public Nullable<int> idIndicador { get; set; }
 
    

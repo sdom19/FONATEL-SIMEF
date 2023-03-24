@@ -549,10 +549,10 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.Clase = modulo;
 
-                if (!string.IsNullOrEmpty(detalleRelacion.relacionid))
+                if (!string.IsNullOrEmpty(detalleRelacion.relacionId))
                 {
                     int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(detalleRelacion.relacionid), out temp);
+                    int.TryParse(Utilidades.Desencriptar(detalleRelacion.relacionId), out temp);
                     detalleRelacion.idRelacionCategoria = temp;
                     objeto.IdRelacionCategoria = temp;
                 }
@@ -592,10 +592,10 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.Clase = modulo;
 
-                if (!string.IsNullOrEmpty(detalleRelacion.relacionid))
+                if (!string.IsNullOrEmpty(detalleRelacion.relacionId))
                 {
                     int temp = 0;
-                    int.TryParse(Utilidades.Desencriptar(detalleRelacion.relacionid), out temp);
+                    int.TryParse(Utilidades.Desencriptar(detalleRelacion.relacionId), out temp);
                     detalleRelacion.idRelacionCategoria = temp;
                     objeto.IdRelacionCategoria = temp;
                 }

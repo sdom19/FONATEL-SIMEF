@@ -19,7 +19,7 @@ namespace GB.SIMEF.Entities
     {
         [Key]
         public int idReglaComparacionConstante { get; set; }
-        public int IdDetalleReglaValidacion { get; set; }
+        public int idDetalleReglaValidacion { get; set; }
         public string Constante { get; set; }
     }
 }

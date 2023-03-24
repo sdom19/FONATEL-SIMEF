@@ -23,14 +23,14 @@ namespace GB.SIMEF.DAL
                 ListaReglaComparacionConstante = db.Database.SqlQuery<ReglaComparacionConstante>
                 ("execute pa_ActualizarReglaComparacionConstante @IdCompara,@IdDetalleReglaValidacion,@Constante",
                     new SqlParameter("@IdCompara", pReglaComparacionConstante.idReglaComparacionConstante),
-                    new SqlParameter("@IdDetalleReglaValidacion", pReglaComparacionConstante.IdDetalleReglaValidacion),
+                    new SqlParameter("@IdDetalleReglaValidacion", pReglaComparacionConstante.idDetalleReglaValidacion),
                     new SqlParameter("@Constante", pReglaComparacionConstante.Constante)
                 ).ToList();
 
                 ListaReglaComparacionConstante = ListaReglaComparacionConstante.Select(X => new ReglaComparacionConstante
                 {
                     idReglaComparacionConstante = X.idReglaComparacionConstante,
-                    IdDetalleReglaValidacion = X.IdDetalleReglaValidacion,
+                    idDetalleReglaValidacion = X.idDetalleReglaValidacion,
                     Constante = X.Constante
 
                 }).ToList();

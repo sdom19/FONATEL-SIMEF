@@ -17,7 +17,7 @@
             <div class="form-group row">
                 <label for="txtEtiquetaDetalle" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.Etiqueta</label>
                 <div class="col-sm-12">
-                    @if (Model.idTipoDetalle == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
+                    @if (Model.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
                     {
                         <input type="text" maxlength="2000" class="form-control form-control-fonatel alfa_numerico" id="txtEtiquetaDetalle" placeholder="@EtiquetasViewCategorias.Etiqueta">
                     }
