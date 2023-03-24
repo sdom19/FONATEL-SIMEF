@@ -28,7 +28,7 @@ namespace GB.SIMEF.DAL
                     new SqlParameter("@IdSolicitud", solicitud.IdSolicitud),
                     new SqlParameter("@Enviado", solicitud.Enviado),
                     new SqlParameter("@EnvioProgramado", solicitud.EnvioProgramado),
-                    new SqlParameter("@MensajError", string.IsNullOrEmpty( solicitud.MensajError)? DBNull.Value.ToString(): solicitud.MensajError),
+                    new SqlParameter("@MensajeError", string.IsNullOrEmpty( solicitud.MensajeError)? DBNull.Value.ToString(): solicitud.MensajeError),
                      new SqlParameter("@EjecutarJob", solicitud.EjecutaJob==true?1:0)
                 ).ToList();
 

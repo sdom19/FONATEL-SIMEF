@@ -24,7 +24,7 @@ namespace GB.SIMEF.EnvioCorreo
             {
                 bool respuesta = solicitudBL.EnvioCorreo(new Solicitud() { idSolicitud = item.IdSolicitud }).objetoRespuesta;
                 item.Enviado = respuesta;
-                item.MensajError = respuesta == true ? "Correos envíados" : "Correos fallidos";
+                item.MensajeError = respuesta == true ? "Correos envíados" : "Correos fallidos";
                 envioSolicitudBL.ActualizarElemento(item);
             }
 

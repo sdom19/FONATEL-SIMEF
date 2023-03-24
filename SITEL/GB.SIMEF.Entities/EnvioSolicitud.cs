@@ -21,7 +21,7 @@ namespace GB.SIMEF.Entities
         public System.DateTime Fecha { get; set; }
         public bool Enviado { get; set; }
         public bool EnvioProgramado { get; set; }
-        public string MensajError { get; set; }
+        public string MensajeError { get; set; }
 
         public int IdSolicitud { get; set; }
 
