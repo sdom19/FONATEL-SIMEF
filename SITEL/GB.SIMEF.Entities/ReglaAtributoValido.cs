@@ -14,11 +14,11 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("ReglaAtributosValido")]
+    [Table("ReglaAtributoValido")]
     public partial class ReglaAtributoValido
     {
         [Key]
-        public int idReglaAtributosValido { get; set; }
+        public int idReglaAtributoValido { get; set; }
         public int IdDetalleReglaValidacion { get; set; }
         public int idCategoriaDesagregacion { get; set; }
         public int idDetalleCategoriaTexto { get; set; }

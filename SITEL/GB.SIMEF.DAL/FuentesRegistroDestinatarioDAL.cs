@@ -23,19 +23,19 @@ namespace GB.SIMEF.DAL
             {
                 ListaDetalleFuentesRegistro = db.Database.SqlQuery<DetalleFuenteRegistro>
                 ("execute pa_ObtenerFuenteRegistroDestinatario @idDetalleFuente, @idFuentesRegistro",
-                    new SqlParameter("@idDetalleFuente", objDetalleFuentesRegistro.IdDetalleFuenteRegistro),
-                    new SqlParameter("@idFuentesRegistro", objDetalleFuentesRegistro.IdFuenteRegistro)
+                    new SqlParameter("@idDetalleFuente", objDetalleFuentesRegistro.idDetalleFuenteRegistro),
+                    new SqlParameter("@idFuentesRegistro", objDetalleFuentesRegistro.idFuenteRegistro)
                 ).ToList();
                 ListaDetalleFuentesRegistro = ListaDetalleFuentesRegistro.Select(x => new DetalleFuenteRegistro()
                 {
-                    IdDetalleFuenteRegistro = x.IdDetalleFuenteRegistro,
-                    IdFuenteRegistro = x.IdFuenteRegistro,
+                    idDetalleFuenteRegistro = x.idDetalleFuenteRegistro,
+                    idFuenteRegistro = x.idFuenteRegistro,
                     NombreDestinatario = x.NombreDestinatario,
                     CorreoElectronico = x.CorreoElectronico,
                     Estado = x.Estado,
-                    IdUsuario = x.IdUsuario,
-                    NombreFuente = db.FuentesRegistro.Where(i => i.IdFuenteRegistro == x.IdFuenteRegistro).Single().Fuente,
-                    CantidadDisponible = ListaDetalleFuentesRegistro.Count() - (int)db.FuentesRegistro.Where(i => i.IdFuenteRegistro == x.IdFuenteRegistro).Single().CantidadDestinatario,
+                    idUsuario = x.idUsuario,
+                    NombreFuente = db.FuentesRegistro.Where(i => i.IdFuenteRegistro == x.idFuenteRegistro).Single().Fuente,
+                    CantidadDisponible = ListaDetalleFuentesRegistro.Count() - (int)db.FuentesRegistro.Where(i => i.IdFuenteRegistro == x.idFuenteRegistro).Single().CantidadDestinatario,
                     CorreoEnviado = x.CorreoEnviado
                 }).ToList();
 
@@ -52,24 +52,24 @@ namespace GB.SIMEF.DAL
             {
                 ListaDetalleFuentesRegistro = db.Database.SqlQuery<DetalleFuenteRegistro>
                 ("execute pa_ActualizarFuenteRegistroDetalle @IdDetalleFuenteRegistro, @IdFuenteRegistro, @Nombre, @CorreoElectronico, @Estado, @IdUsuario",
-                    new SqlParameter("@IdDetalleFuenteRegistro", objDetalleFuentesRegistro.IdDetalleFuenteRegistro),
-                    new SqlParameter("@IdFuenteRegistro", objDetalleFuentesRegistro.IdFuenteRegistro),
+                    new SqlParameter("@IdDetalleFuenteRegistro", objDetalleFuentesRegistro.idDetalleFuenteRegistro),
+                    new SqlParameter("@IdFuenteRegistro", objDetalleFuentesRegistro.idFuenteRegistro),
                     new SqlParameter("@Nombre", string.IsNullOrEmpty(objDetalleFuentesRegistro.NombreDestinatario)?DBNull.Value.ToString(): objDetalleFuentesRegistro.NombreDestinatario),
                     new SqlParameter("@CorreoElectronico", string.IsNullOrEmpty(objDetalleFuentesRegistro.CorreoElectronico) ? DBNull.Value.ToString() : objDetalleFuentesRegistro.CorreoElectronico),
                     new SqlParameter("@Estado", objDetalleFuentesRegistro.Estado),
-                     new SqlParameter("@IdUsuario", objDetalleFuentesRegistro.IdUsuario)
+                     new SqlParameter("@IdUsuario", objDetalleFuentesRegistro.idUsuario)
                 ).ToList();
 
                 ListaDetalleFuentesRegistro = ListaDetalleFuentesRegistro.Select(x => new DetalleFuenteRegistro()
                 {
-                    IdDetalleFuenteRegistro=x.IdDetalleFuenteRegistro,
-                    IdFuenteRegistro=x.IdFuenteRegistro,
+                    idDetalleFuenteRegistro=x.idDetalleFuenteRegistro,
+                    idFuenteRegistro=x.idFuenteRegistro,
                     NombreDestinatario=x.NombreDestinatario,
                     CorreoElectronico=x.CorreoElectronico,
                     Estado=x.Estado,
-                    IdUsuario=x.IdUsuario,
-                    NombreFuente = db.FuentesRegistro.Where(i => i.IdFuenteRegistro == x.IdFuenteRegistro).Single().Fuente,
-                    CantidadDisponible = ListaDetalleFuentesRegistro.Count() - (int)db.FuentesRegistro.Where(i => i.IdFuenteRegistro == x.IdFuenteRegistro).Single().CantidadDestinatario,
+                    idUsuario=x.idUsuario,
+                    NombreFuente = db.FuentesRegistro.Where(i => i.IdFuenteRegistro == x.idFuenteRegistro).Single().Fuente,
+                    CantidadDisponible = ListaDetalleFuentesRegistro.Count() - (int)db.FuentesRegistro.Where(i => i.IdFuenteRegistro == x.idFuenteRegistro).Single().CantidadDestinatario,
                     CorreoEnviado = x.CorreoEnviado
                 }).ToList();
 

@@ -109,7 +109,7 @@
                 alertifyObject = alertify.confirm(_question, 'Confirm Message', function () { }, function () { })
                     .set('labels', { ok: jsMensajes.Variables.btnyes, cancel: jsMensajes.Variables.btnno })
                     .set({ 'modal': true, 'closable': true, 'movable': false, transition: 'slide' })
-                alertifyObject.setContent(jsMensajes.Variables.ContentSuccess(mensaje));
+                alertifyObject.setContent(jsMensajes.Variables.ContentQuestion(mensaje));
 
             }
             else {

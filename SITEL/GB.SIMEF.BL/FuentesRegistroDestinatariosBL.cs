@@ -37,7 +37,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.FuenteId), out temp);
-                    objeto.IdFuenteRegistro = temp;
+                    objeto.idFuenteRegistro = temp;
                 }
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Usuario = user;
@@ -92,12 +92,12 @@ namespace GB.SIMEF.BL
                     int temp;
                     if (int.TryParse(objeto.FuenteId, out temp))
                     {
-                        objeto.IdFuenteRegistro = temp;
+                        objeto.idFuenteRegistro = temp;
                     }
                 }
-                var fuente = clsfuente.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro = objeto.IdFuenteRegistro }).SingleOrDefault();
+                var fuente = clsfuente.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro = objeto.idFuenteRegistro }).SingleOrDefault();
 
-                var consultardatos = fuente.DetalleFuenteRegistro.Where(x=>x.IdDetalleFuenteRegistro==objeto.IdDetalleFuenteRegistro).ToList();
+                var consultardatos = fuente.DetalleFuenteRegistro.Where(x=>x.idDetalleFuenteRegistro==objeto.idDetalleFuenteRegistro).ToList();
                 if (consultardatos.Count()==0)
                 {
                     ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
@@ -133,7 +133,7 @@ namespace GB.SIMEF.BL
         {
             objeto.CorreoElectronico = objeto.CorreoElectronico.Trim().ToUpper();
             objeto.NombreDestinatario = objeto.NombreDestinatario.Trim().ToUpper();
-            var fuente = clsfuente.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro = objeto.IdFuenteRegistro }).SingleOrDefault();
+            var fuente = clsfuente.ObtenerDatos(new FuenteRegistro() { IdFuenteRegistro = objeto.idFuenteRegistro }).SingleOrDefault();
 
             var consultardatos = fuente.DetalleFuenteRegistro;
             if (objeto==null && !Agregar)
@@ -156,13 +156,13 @@ namespace GB.SIMEF.BL
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                 throw new Exception(Errores.CantidadRegistrosLimite);
             }
-            else if (consultardatos.Where(x => x.IdFuenteRegistro != objeto.IdFuenteRegistro && objeto.NombreDestinatario.ToUpper() ==objeto.NombreDestinatario).Count() > 0)
+            else if (consultardatos.Where(x => x.idFuenteRegistro != objeto.idFuenteRegistro && objeto.NombreDestinatario.ToUpper() ==objeto.NombreDestinatario).Count() > 0)
             {
                 ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
                 throw new Exception(Errores.NombreRegistrado);
             }
             objeto.Json = Agregar != true ? consultardatos
-                .Where(x=>x.IdDetalleFuenteRegistro==objeto.IdDetalleFuenteRegistro).Single().ToString()
+                .Where(x=>x.idDetalleFuenteRegistro==objeto.idDetalleFuenteRegistro).Single().ToString()
                  : string.Empty;
             objeto.Estado = true;
             return objeto;
@@ -179,7 +179,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objeto.FuenteId), out temp);
-                    objeto.IdFuenteRegistro = temp;
+                    objeto.idFuenteRegistro = temp;
                 }
                 objeto = ValidarDatosDetalleFuentes(objeto, true);
                 ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(objeto); 
@@ -209,7 +209,7 @@ namespace GB.SIMEF.BL
                 {
                     int temp = 0;
                     int.TryParse(Utilidades.Desencriptar(objDetalleFuentesRegistro.FuenteId), out temp);
-                    objDetalleFuentesRegistro.IdFuenteRegistro = temp;
+                    objDetalleFuentesRegistro.idFuenteRegistro = temp;
                 }
 
                 ResultadoConsulta.Clase = modulo;

@@ -27,13 +27,13 @@ namespace GB.SIMEF.Entities
         }
 
         [Key]
-        public int IdDetalleFuenteRegistro { get; set; }
-        public int IdFuenteRegistro { get; set; }
+        public int idDetalleFuenteRegistro { get; set; }
+        public int idFuenteRegistro { get; set; }
         public string NombreDestinatario { get; set; }
         public string CorreoElectronico { get; set; }
         public bool Estado { get; set; }
 
-        public int IdUsuario { get; set; }
+        public int idUsuario { get; set; }
 
         public bool CorreoEnviado { get; set; }
 

@@ -338,7 +338,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                             if (Columna==2)
                             {
            
-                                worksheetInicio.Cells[fila, 1].Value = ArrayCategoriaId.Length > (fila-2)?ArrayCategoriaId[fila-2].idCategoriaDesagregacion:string.Empty;
+                                worksheetInicio.Cells[fila, 1].Value = ArrayCategoriaId.Length > (fila-2)?ArrayCategoriaId[fila-2].idCategoriaDesagregacion:null;
                                 worksheetInicio.Cells[fila, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                                 worksheetInicio.Cells[fila, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                                 worksheetInicio.Cells[fila, 1].Style.Font.Color.SetColor(System.Drawing.Color.Black);

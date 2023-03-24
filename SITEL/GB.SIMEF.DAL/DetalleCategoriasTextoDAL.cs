@@ -105,7 +105,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                  db.Database.SqlQuery<DetalleCategoriaTexto>
-                    ("execute spDeshabilitarDetalleCategoriaTexto @idCategoria",
+                    ("execute pa_DeshabilitarDetalleCategoriaTexto @idCategoria",
                       new SqlParameter("@idCategoria", objCategoria.idCategoriaDesagregacion)
                     );
             } 

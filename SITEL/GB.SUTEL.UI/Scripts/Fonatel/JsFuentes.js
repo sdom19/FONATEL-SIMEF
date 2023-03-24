@@ -271,7 +271,7 @@
              .then((obj) => {
                     jsMensajes.Metodos.OkAlertModal("El Destinatario ha sido eliminado")
                         .set('onok', function (closeEvent) {
-                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
+                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuenteRegistro;
                             $(JsFuentes.Controles.txtNombre).val("");
                             $(JsFuentes.Controles.txtCorreo).val("");
                             $(JsFuentes.Controles.txtIdUsuarioDetalle).val("");

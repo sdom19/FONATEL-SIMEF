@@ -60,7 +60,7 @@ namespace GB.SIMEF.DAL
         private List<DetalleFuenteRegistro> ObtenerDetalleFuentesRegistro(int id)
         {
             return db.DetalleFuentesRegistro
-                .Where(x => x.IdFuenteRegistro == id & x.Estado==true).ToList();
+                .Where(x => x.idFuenteRegistro == id & x.Estado==true).ToList();
         }
 
         /// <summary>

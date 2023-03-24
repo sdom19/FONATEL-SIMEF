@@ -31,7 +31,7 @@ namespace GB.SIMEF.Entities
         public string id { get; set; }
 
         [NotMapped]
-        public string relacionid { get; set; }
+        public string relacionId { get; set; }
 
 
         [NotMapped]

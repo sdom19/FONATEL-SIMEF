@@ -144,7 +144,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 db.Database.SqlQuery<object>
-                    ("execute spClonarDetallesReglas @pIdReglaAClonar, @pIdReglaDestino",
+                    ("execute PA_ClonarDetalleRegla @pIdReglaAClonar, @pIdReglaDestino",
                      new SqlParameter("@pIdReglaAClonar", pIdReglaAClonar),
                      new SqlParameter("@pIdReglaDestino", pIdReglaDestino)
                     ).ToList();

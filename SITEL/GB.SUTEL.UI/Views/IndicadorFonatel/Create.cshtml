@@ -6,7 +6,7 @@
 }
 
 @section scripts {
-   @Scripts.Render("~/bundles/FONATEL/IndicadorFonatel")
+ @* @Scripts.Render("~/bundles/FONATEL/IndicadorFonatel")*@
 }
 
 @Html.Hidden(Constantes.keyModoFormulario, (string) ViewBag.ModoFormulario)
@@ -111,3 +111,4 @@
         </div>
     </div>
 </div>
+<script src="~/Scripts/Fonatel/JsIndicador.js"></script>

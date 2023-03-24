@@ -79,65 +79,28 @@ namespace GB.SIMEF.DAL
         private List<RelacionCategoriaAtributo> ObtenerCategoriaAtributo(int idRelacion, string IdCategoriaId)
         {
             List<RelacionCategoriaAtributo> lista = new List<RelacionCategoriaAtributo>();
-            try
-            {
-                using (db = new SIMEFContext())
-                {
-                    lista = db.Database.SqlQuery<RelacionCategoriaAtributo>
-                  ("execute pa_ObtenerRelacionCategoriaAtributo @idRelacion,@idCategoriaId ",
-                  new SqlParameter("@idRelacion", idRelacion),
-                  new SqlParameter("@idCategoriaId", IdCategoriaId)
-                  ).ToList();
-                    List<RelacionCategoriaAtributo> lista2 = new List<RelacionCategoriaAtributo>(lista);
-                    foreach (var item in lista)
-                    {
-                        foreach (var item2 in lista)
-                        {
-                            if (item2.idCategoriaDesagregacionAtributo == item.idCategoriaDesagregacionAtributo && item2.idDetalleCategoriaTextoAtributo != item.idDetalleCategoriaTextoAtributo)
-                            {
-                                if (item2.idDetalleCategoriaTextoAtributo == 0)
-                                {
-                                    lista2.Remove(item2);
-                                }
-                                else
-                                {
-                                    lista2.Remove(item);
-                                }
-                            }
-                        }
-                    }
-                    if (lista2.Count() != 0)
-                    {
-                        lista = lista2.Select(x => new RelacionCategoriaAtributo()
-                        {
-                            idRelacionCategoriaId = x.idRelacionCategoriaId,
-                        idCategoriaDesagregacionAtributo=x.idCategoriaDesagregacionAtributo,
-                        idDetalleCategoriaTextoAtributo=x.idDetalleCategoriaTextoAtributo,
-                        idCategoriaDesagregacion=x.idCategoriaDesagregacion,
-                        Etiqueta=db.DetalleCategoriaTexto
-                            .Where(p=>p.idCategoriaDesagregacion==x.idCategoriaDesagregacionAtributo && p.idDetalleCategoriaTexto==x.idDetalleCategoriaTextoAtributo) != null ? db.DetalleCategoriaTexto
-                            .Where(p => p.idCategoriaDesagregacion == x.idCategoriaDesagregacionAtributo && p.idDetalleCategoriaTexto == x.idDetalleCategoriaTextoAtributo).FirstOrDefault().Etiqueta : ""
-                        }).ToList();
-                    }
 
-                }
-                foreach (RelacionCategoriaAtributo item in lista)
+            using (db = new SIMEFContext())
+            {
+                lista = db.Database.SqlQuery<RelacionCategoriaAtributo>
+              ("execute pa_ObtenerRelacionCategoriaAtributo @idRelacion,@idCategoriaId ",
+              new SqlParameter("@idRelacion", idRelacion),
+              new SqlParameter("@idCategoriaId", IdCategoriaId)
+              ).ToList();
+
+                lista = lista.Select(x => new RelacionCategoriaAtributo()
                 {
-                    if (item.idDetalleCategoriaTextoAtributo == 0)
-                    {
-                        RelacionCategoriaId rel = new RelacionCategoriaId() { idRelacionCategoriaId = item.idRelacionCategoriaId, idCategoriaDesagregacion = item.idCategoriaDesagregacion, idEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso, OpcionEliminar = false };
-                        ActualizarRelacionCategoriaidSinReturn(rel);
-                        break;
-                    }
-                }
+                    idCategoriaDesagregacion = x.idCategoriaDesagregacion,
+                    idRelacionCategoriaId = x.idRelacionCategoriaId,
+                    idCategoriaDesagregacionAtributo = x.idCategoriaDesagregacionAtributo,
+                    idDetalleCategoriaTextoAtributo = x.idDetalleCategoriaTextoAtributo,
+                    Etiqueta = x.idDetalleCategoriaTextoAtributo==0?"N/A": db.DetalleCategoriaTexto.Where(i => i.idCategoriaDesagregacion == x.idCategoriaDesagregacionAtributo &&
+                      i.idDetalleCategoriaTexto == x.idDetalleCategoriaTextoAtributo).Single().Etiqueta
+
+                }).ToList();
             }
-            catch (Exception ex)
-            {
 
-                throw;
-            }         
             return lista;
-
         }
 
 

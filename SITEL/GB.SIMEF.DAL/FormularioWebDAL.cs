@@ -149,7 +149,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 lista = db.Database.SqlQuery<FormularioWeb>
-                    ("execute pa_ObtenerDependenciaIndicadorConFormulariosWeb @pIdIndicador",
+                    ("execute pa_ObtenerDependenciaIndicadorConFormularioWeb @pIdIndicador",
                      new SqlParameter("@pIdIndicador", pIdIndicador)
                     ).ToList();
 
