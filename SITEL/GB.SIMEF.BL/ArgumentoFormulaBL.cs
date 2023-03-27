@@ -58,8 +58,8 @@ namespace GB.SIMEF.BL
                 FormulaCalculo formula = null;
 
                 formula = formulasCalculoDAL.ObtenerDatos(new FormulaCalculo() { IdFormulaCalculo = idFormula }).Single();
-                List<FormulaVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormula = idFormula });
-                List<FormulaDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormula = idFormula });
+                List<FormulaVariableDatoCriterio> listadoVariables = formulasVariableDatoCriterioDAL.ObtenerDatos(new FormulaVariableDatoCriterio() { IdFormulaCalculo = idFormula });
+                List<FormulaDefinicionFecha> listadoDefinicionFechas = formulasDefinicionFechaDAL.ObtenerDatos(new FormulaDefinicionFecha() { IdFormulaCalculo = idFormula });
                 
                 List<ArgumentoFormula> listaArgumentos = new List<ArgumentoFormula>();
                 listaArgumentos.AddRange(listadoVariables);
@@ -110,7 +110,7 @@ namespace GB.SIMEF.BL
                     {
                         TipoObjeto = (int)FormulasTipoObjetoEnum.Variable,
                         Etiqueta = argumentoAInsertar.Etiqueta,
-                        TipoArgumento = (FormulasTipoArgumentoEnum)argumentoAInsertar.IdFormulasTipoArgumento,
+                        TipoArgumento = (FormulasTipoArgumentoEnum)argumentoAInsertar.IdFormulaTipoArgumento,
                         Argumento = EncriptarObjetoArgumento(argumentoAInsertar)
                     });
 
@@ -155,7 +155,7 @@ namespace GB.SIMEF.BL
         /// <returns></returns>
         private ArgumentoDTO EncriptarObjetoArgumento(ArgumentoFormula pArgumentoFormula)
         {
-            if (pArgumentoFormula.IdFormulasTipoArgumento == (int) FormulasTipoArgumentoEnum.VariableDatoCriterio)
+            if (pArgumentoFormula.IdFormulaTipoArgumento == (int) FormulasTipoArgumentoEnum.VariableDatoCriterio)
             {
                 FormulaVariableDatoCriterio variableDatoCriterio = (FormulaVariableDatoCriterio)pArgumentoFormula;
                 return new ArgumentoDTO() 
@@ -171,7 +171,7 @@ namespace GB.SIMEF.BL
                     valorTotal = variableDatoCriterio.EsValorTotal
                 };
             }
-            else if (pArgumentoFormula.IdFormulasTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
+            else if (pArgumentoFormula.IdFormulaTipoArgumento == (int)FormulasTipoArgumentoEnum.DefinicionFecha)
             {
                 FormulaDefinicionFecha definicionFecha = (FormulaDefinicionFecha)pArgumentoFormula;
                 return new ArgumentoDTO()

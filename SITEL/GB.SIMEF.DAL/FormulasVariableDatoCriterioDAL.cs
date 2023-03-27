@@ -27,7 +27,10 @@ namespace GB.SIMEF.DAL
             {
                 variableDato = db.Database.SqlQuery<FormulaVariableDatoCriterio>
                 ("execute pa_ActualizarFormulaVariableDatoCriterio @pIdFormulaVariableDatoCriterio, @pIdFuenteIndicador, @pIdIndicador, @pIdDetalleIndicadorVariable, @pIdCriterio, @pidCategoriaDesagregacion, @pIdDetalleCategoriaTexto, @pIdAcumulacionFormula, @pEsValorTotal",
-                    new SqlParameter("@pIdFormulaVariableDatoCriterio", pFormulasVariableDatoCriterio.IdFormulaVariableDatoCriterio),
+                    pFormulasVariableDatoCriterio.IdFormulaVariableDatoCriterio == null ?
+                        new SqlParameter("@pIdFormulaVariableDatoCriterio", (object)0)
+                        :
+                        new SqlParameter("@pIdFormulaVariableDatoCriterio", pFormulasVariableDatoCriterio.IdFormulaVariableDatoCriterio),
                     new SqlParameter("@pIdFuenteIndicador", pFormulasVariableDatoCriterio.IdFuenteIndicador),
                     new SqlParameter("@pIdIndicador", pFormulasVariableDatoCriterio.IdIndicador),
                     pFormulasVariableDatoCriterio.IdDetalleIndicadorVariable == null || pFormulasVariableDatoCriterio.IdDetalleIndicadorVariable == 0 ?
@@ -78,10 +81,10 @@ namespace GB.SIMEF.DAL
                 listaDetalles = db.Database.SqlQuery<FormulaVariableDatoCriterio>
                     (
                         "execute pa_ObtenerVariableDatoCriterioFormula @pIdFormulaCalculo",
-                        pFormulasVariableDatoCriterio.IdFormula == 0 ?
+                        pFormulasVariableDatoCriterio.IdFormulaCalculo == 0 ?
                             new SqlParameter("@pIdFormulaCalculo", DBNull.Value)
                             :
-                            new SqlParameter("@pIdFormulaCalculo", pFormulasVariableDatoCriterio.IdFormula)
+                            new SqlParameter("@pIdFormulaCalculo", pFormulasVariableDatoCriterio.IdFormulaCalculo)
                     ).ToList();
             }
             return listaDetalles;

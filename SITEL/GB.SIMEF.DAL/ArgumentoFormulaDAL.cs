@@ -29,16 +29,16 @@ namespace GB.SIMEF.DAL
                 argumento = db.Database.SqlQuery<ArgumentoFormula>
                 ("execute pa_ActualizarArgumentoFormula @pIdArgumentoFormula, @pIdFormulaTipoArgumento, @pIdDefinicionFecha, @pIdVariableDatoCriterio, @pIdFormula, @pPredicadoSQL, @pOrdenEnFormula, @pEtiqueta",
                     new SqlParameter("@pIdArgumentoFormula", pArgumentoFormula.IdArgumentoFormula),
-                    new SqlParameter("@pIdFormulaTipoArgumento", pArgumentoFormula.IdFormulasTipoArgumento),
-                    pArgumentoFormula.IdDefinicionFecha == 0 || pArgumentoFormula.IdDefinicionFecha == null ?
+                    new SqlParameter("@pIdFormulaTipoArgumento", pArgumentoFormula.IdFormulaTipoArgumento),
+                    pArgumentoFormula.IdFormulaDefinicionFecha == 0 || pArgumentoFormula.IdFormulaDefinicionFecha == null ?
                         new SqlParameter("@pIdDefinicionFecha", DBNull.Value)
                         :
-                        new SqlParameter("@pIdDefinicionFecha", pArgumentoFormula.IdDefinicionFecha),
-                    pArgumentoFormula.IdVariableDatoCriterio == 0 || pArgumentoFormula.IdVariableDatoCriterio == null ?
+                        new SqlParameter("@pIdDefinicionFecha", pArgumentoFormula.IdFormulaDefinicionFecha),
+                    pArgumentoFormula.IdFormulaVariableDatoCriterio == 0 || pArgumentoFormula.IdFormulaVariableDatoCriterio == null ?
                         new SqlParameter("@pIdVariableDatoCriterio", DBNull.Value)
                         :
-                        new SqlParameter("@pIdVariableDatoCriterio", pArgumentoFormula.IdVariableDatoCriterio),
-                    new SqlParameter("@pIdFormula", pArgumentoFormula.IdFormula),
+                        new SqlParameter("@pIdVariableDatoCriterio", pArgumentoFormula.IdFormulaVariableDatoCriterio),
+                    new SqlParameter("@pIdFormula", pArgumentoFormula.IdFormulaCalculo),
                     new SqlParameter("@pPredicadoSQL", pArgumentoFormula.PredicadoSQL),
                     new SqlParameter("@pOrdenEnFormula", pArgumentoFormula.OrdenEnFormula),
                     new SqlParameter("@pEtiqueta", pArgumentoFormula.Etiqueta)
@@ -62,7 +62,7 @@ namespace GB.SIMEF.DAL
             {
                 exito = db.Database.SqlQuery<int>(
                     "execute pa_EliminarArgumentoDeFormula @IdFormulaCalculo",
-                    new SqlParameter("@IdFormulaCalculo", pArgumentoFormula.IdFormula)
+                    new SqlParameter("@IdFormulaCalculo", pArgumentoFormula.IdFormulaCalculo)
                 ).FirstOrDefault();
             }
             return exito == 1;

@@ -525,8 +525,8 @@ namespace GB.SIMEF.DAL
         {
             string formula = string.Empty;
 
-            List<ArgumentoFormula> argumentos = db.Database.SqlQuery<ArgumentoFormula>("exec pa_ObtenerEtiquetaFormulaConArgumento @IdFormulaCalculo",
-                new SqlParameter("@IdFormulaCalculo", pIdFormula)
+            List<ArgumentoFormula> argumentos = db.Database.SqlQuery<ArgumentoFormula>("exec pa_ObtenerEtiquetaFormulaConArgumentos @pIdFormulaCalculo",
+                new SqlParameter("@pIdFormulaCalculo", pIdFormula)
                 ).ToList();
 
             if (argumentos.Count > 0)

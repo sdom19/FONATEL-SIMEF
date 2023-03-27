@@ -129,10 +129,10 @@
                     "<button type = 'button' data - toggle='tooltip' data-placement='top' title = 'Clonar' value='" + formula.id + "' class='btn-icon-base btn-clone' ></button >" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar detalle' value='" + formula.id + "' class='btn-icon-base btn-view'></button>";
 
-                if (formula.IdEstado == jsUtilidades.Variables.EstadoRegistros.Activo) {
+                if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo) {
                     html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value='" + formula.id + "' class='btn-icon-base btn-power-on'></button>";
                 }
-                else if (formula.IdEstado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+                else if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
                     html += "<button type='button' class='btn-icon-base btn-power-on' disabled></button>";
                 }
                 else {
@@ -2037,7 +2037,7 @@ GestionFormulaView = {
                     {
                         value: item.id, text: item.Nombre,
                         extraParameters: [
-                            { attr: GestionFormulaView.Variables.attrIdentificador, value: item.IdTipoFecha }
+                            { attr: GestionFormulaView.Variables.attrIdentificador, value: item.IdFormulaCalculoTipoFecha }
                         ]
                     });
             });
