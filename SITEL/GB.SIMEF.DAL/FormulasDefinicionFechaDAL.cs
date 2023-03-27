@@ -21,13 +21,17 @@ namespace GB.SIMEF.DAL
         /// <returns></returns>
         public FormulaDefinicionFecha ActualizarDatos(FormulaDefinicionFecha pFormulasDefinicionFecha)
         {
-            FormulaDefinicionFecha envioSolicitudes = new FormulaDefinicionFecha();
+            FormulaDefinicionFecha formulaDefinicion = new FormulaDefinicionFecha();
 
             using (db = new SIMEFContext())
             {
-                envioSolicitudes = db.Database.SqlQuery<FormulaDefinicionFecha>
+                formulaDefinicion = db.Database.SqlQuery<FormulaDefinicionFecha>
                 ("execute pa_ActualizarFormulaDefinicionFecha @pIdFormulaDefinicionFecha, @pFechaInicio, @pFechaFinal, @pIdUnidadMedida, @pIdTipoFechaInicio, @pIdTipoFechaFinal, @pIdCategoriaInicio, @pIdCategoriaFinal, @pIdIndicador",
-                    new SqlParameter("@pIdFormulaDefinicionFecha", pFormulasDefinicionFecha.IdFormulaDefinicionFecha),
+                     pFormulasDefinicionFecha.IdFormulaDefinicionFecha == null ?
+                        new SqlParameter("@pIdFormulaDefinicionFecha", (object)0)
+                        :
+                        new SqlParameter("@pIdFormulaDefinicionFecha", pFormulasDefinicionFecha.IdFormulaDefinicionFecha)
+                    ,
                     pFormulasDefinicionFecha.FechaInicio <= DateTime.MinValue || pFormulasDefinicionFecha.FechaInicio == null ?
                         new SqlParameter("@pFechaInicio", DBNull.Value)
                         :
@@ -52,7 +56,7 @@ namespace GB.SIMEF.DAL
                     new SqlParameter("@pIdIndicador", pFormulasDefinicionFecha.IdIndicador)
                 ).FirstOrDefault();
             }
-            return envioSolicitudes;
+            return formulaDefinicion;
         }
 
         /// <summary>

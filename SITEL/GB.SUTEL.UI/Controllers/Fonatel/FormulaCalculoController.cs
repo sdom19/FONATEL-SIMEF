@@ -570,13 +570,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 resultado = formulaBL.InsertarDatos(pFormulaCalculo);
-                pFormulaCalculo = resultado.objetoRespuesta[0];
             });
 
             RespuestaConsulta<List<FormulaCalculo>> resultadoJob = new RespuestaConsulta<List<FormulaCalculo>>();
 
             if (resultado.HayError == (int)Error.NoError)
             {
+                pFormulaCalculo = resultado.objetoRespuesta[0];
                 resultadoJob = await formulaBL.CambiarEstadoJob(pFormulaCalculo);
             }
 
