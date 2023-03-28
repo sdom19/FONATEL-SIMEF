@@ -169,7 +169,7 @@
             $("#loading").fadeIn();
             execAjaxCall("/Fuentes/EliminarFuente", "POST", fuente)
                 .then((data) => {
-                    jsMensajes.Metodos.OkAlertModal("La Fuente ha sido eliminada ")
+                    jsMensajes.Metodos.OkAlertModal("La Fuente de Registro ha sido eliminada ")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });
                 }).catch((data) => {
                     jsMensajes.Metodos.OkAlertErrorModal()
@@ -296,7 +296,7 @@
             fuente.id = ObtenerValorParametroUrl("id");
             execAjaxCall("/Fuentes/ActivarFuente", "POST", fuente)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("La Fuente ha sido creada")
+                    jsMensajes.Metodos.OkAlertModal("La Fuente de Registro ha sido creada")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/Fuentes/index" });
                 }).catch((obj) => {
                     if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
@@ -488,7 +488,7 @@ $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e)
 $(document).on("click", JsFuentes.Controles.btnBorrarFuente, function () {
     if (consultasFonatel) { return; }
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Fuente?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Fuente de Registro?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsFuentes.Consultas.ValidarExistenciaFuente(id);
         });

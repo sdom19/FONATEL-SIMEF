@@ -187,7 +187,7 @@
     <value>El Formulario ya se encuentra registrado</value>
   </data>
   <data name="FuenteRegistrada" xml:space="preserve">
-    <value>La Fuente ingresada ya se encuentra registrada</value>
+    <value>La Fuente de Registro ingresada ya se encuentra registrada</value>
   </data>
   <data name="FuentesCantidadDestinatarios" xml:space="preserve">
     <value>La cantidad de destinatarios debe ser mayor que 0</value>
