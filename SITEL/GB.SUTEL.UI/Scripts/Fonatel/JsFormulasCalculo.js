@@ -8,6 +8,7 @@
         btnEditFormula: "#tablaFormulasDetalle tbody tr td .btn-edit",
         btnVerFormula: "#tablaFormulasDetalle tbody tr td .btn-view",
         btnCloneFormula: "#tablaFormulasDetalle tbody tr td .btn-clone",
+        btnEjecutarFormula: "#tablaFormulasDetalle tbody tr td .btn-reload",
 
         IndexView: "#ansy7o9dc"
     },
@@ -104,6 +105,25 @@
                 .finally(() => { $("#loading").fadeOut(); });
         },
 
+        EjecutarFormula: function (pIdFormula) {
+            new Promise((resolve, reject) => {
+                jsMensajes.Metodos.ConfirmYesOrNoModal(GestionFormulaView.Mensajes.preguntaEjecutarFormula, jsMensajes.Variables.actionType.agregar)
+                    .set('onok', function (closeEvent) { resolve(true); });
+            })
+                .then(data => {
+                    $("#loading").fadeIn();
+                    return GestionFormulaView.Consultas.EjecutarFormula(pIdFormula);
+                })
+                .then(data => {
+                    jsMensajes.Metodos.OkAlertModal(GestionFormulaView.Mensajes.exitoFormulaEjecutada)
+                        .set('onok', function (closeEvent) { });
+                })
+                .catch(error => { ManejoDeExcepciones(error); })
+                .finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
         CargarTablaFormulas: function () {
             $("#loading").fadeIn();
 
@@ -131,12 +151,15 @@
 
                 if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo) {
                     html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value='" + formula.id + "' class='btn-icon-base btn-power-on'></button>";
+                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Correr proceso' value='" + formula.id + "' class='btn-icon-base btn-reload'></button>";
                 }
                 else if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
                     html += "<button type='button' class='btn-icon-base btn-power-on' disabled></button>";
+                    html += "<button type='button' class='btn-icon-base btn-reload' disabled></button>";
                 }
                 else {
                     html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value='" + formula.id + "' class='btn-icon-base btn-power-off'></button>";
+                    html += "<button type='button' class='btn-icon-base btn-reload' disabled></button>";
                 }
 
                 html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value='" + formula.id + "'  class='btn-icon-base btn-delete'></button>";
@@ -204,6 +227,10 @@
 
         $(document).on("click", IndexView.Controles.btnVerFormula, function () {
             window.location.href = IndexView.Variables.visualizeViewURL + encodeURIComponent($(this).val());
+        });
+
+        $(document).on("click", IndexView.Controles.btnEjecutarFormula, function () {
+            IndexView.Metodos.EjecutarFormula($(this).val());
         });
     },
 
