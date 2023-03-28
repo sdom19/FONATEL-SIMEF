@@ -52,7 +52,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
 
-                envioSolicitudes = db.EnvioSolicitudes.Where(x => x.Enviado == true).ToList();
+                envioSolicitudes = db.EnvioSolicitud.Where(x => x.Enviado == true).ToList();
             }
 
             return envioSolicitudes;
@@ -70,7 +70,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 
-                envioSolicitudes = db.EnvioSolicitudes.Where(x => x.Enviado == false).ToList();
+                envioSolicitudes = db.EnvioSolicitud.Where(x => x.Enviado == false).ToList();
             }
 
             return envioSolicitudes;

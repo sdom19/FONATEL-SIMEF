@@ -153,6 +153,9 @@
   <data name="BotonGuardar" xml:space="preserve">
     <value>Guardar</value>
   </data>
+  <data name="BotonLimpiar" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
   <data name="BotonSiguiente" xml:space="preserve">
     <value>Siguiente</value>
   </data>
