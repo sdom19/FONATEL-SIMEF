@@ -23,7 +23,7 @@ namespace GB.SIMEF.DAL
             {
 
                 envioSolicitudes  = db.Database.SqlQuery<EnvioSolicitud>
-                ("execute  pa_ActualizarEnvioSolicitudTabla @IdEnvio, @IdSolicitud, @Enviado,@EnvioProgramado, @MensajError, @EjecutarJob",
+                ("execute  pa_ActualizarEnvioSolicitudTabla @IdEnvio, @IdSolicitud, @Enviado,@EnvioProgramado, @MensajeError, @EjecutarJob",
                     new SqlParameter("@IdEnvio", solicitud.idEnvioSolicitud),
                     new SqlParameter("@IdSolicitud", solicitud.IdSolicitud),
                     new SqlParameter("@Enviado", solicitud.Enviado),
