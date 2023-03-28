@@ -38,7 +38,7 @@ namespace GB.SIMEF.BL
             {
                 envioCorreo.objetoRespuesta = false;
                 PlantillaHtml plantilla = plantillaDal.ObtenerDatos((int)Constantes.PlantillaCorreoEnum.EnvioSolicitud);
-                solicitud = clsDatos.ObtenerDatos(solicitud).Single();
+                solicitud = clsDatos.ObtenerDatos(solicitud).SingleOrDefault();
                 if (solicitud.Fuente.IdEstadoRegistro == (int)Constantes.EstadosRegistro.Activo)
                 {
 

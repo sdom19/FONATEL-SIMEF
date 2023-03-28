@@ -243,7 +243,7 @@
                             JsFuentes.Metodos.CargarTablaDestinatarios();
                         } else {
                             InsertarParametroUrl("id", obj.objetoRespuesta[0].id)
-                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuentesRegistro;
+                            JsFuentes.Variables.ListaDestinatarios = obj.objetoRespuesta[0].DetalleFuenteRegistro;
                             JsFuentes.Metodos.HabilitarBotones();
                             JsFuentes.Metodos.CargarTablaDestinatarios();
                         }

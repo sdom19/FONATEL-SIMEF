@@ -14,6 +14,7 @@ namespace GB.SIMEF.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("EnvioSolicitud")]
     public partial class EnvioSolicitud
     {
         [Key]

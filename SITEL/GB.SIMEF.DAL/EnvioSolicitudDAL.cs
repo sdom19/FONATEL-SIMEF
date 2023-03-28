@@ -23,7 +23,7 @@ namespace GB.SIMEF.DAL
             {
 
                 envioSolicitudes  = db.Database.SqlQuery<EnvioSolicitud>
-                ("execute  pa_ActualizarEnvioSolicitudTabla @IdEnvio, @IdSolicitud, @Enviado,@EnvioProgramado, @MensajError, @EjecutarJob",
+                ("execute  pa_ActualizarEnvioSolicitudTabla @IdEnvio, @IdSolicitud, @Enviado,@EnvioProgramado, @MensajeError, @EjecutarJob",
                     new SqlParameter("@IdEnvio", solicitud.idEnvioSolicitud),
                     new SqlParameter("@IdSolicitud", solicitud.IdSolicitud),
                     new SqlParameter("@Enviado", solicitud.Enviado),
@@ -52,7 +52,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
 
-                envioSolicitudes = db.EnvioSolicitudes.Where(x => x.Enviado == true).ToList();
+                envioSolicitudes = db.EnvioSolicitud.Where(x => x.Enviado == true).ToList();
             }
 
             return envioSolicitudes;
@@ -70,7 +70,7 @@ namespace GB.SIMEF.DAL
             using (db = new SIMEFContext())
             {
                 
-                envioSolicitudes = db.EnvioSolicitudes.Where(x => x.Enviado == false).ToList();
+                envioSolicitudes = db.EnvioSolicitud.Where(x => x.Enviado == false).ToList();
             }
 
             return envioSolicitudes;
