@@ -33,7 +33,7 @@ namespace GB.SIMEF.DAL
             {
                 idFormularioWeb = x.idFormularioWeb,
                 IdIndicador = x.IdIndicador,
-                IdDetalleRegistroIndicador = x.IdDetalleRegistroIndicador,
+                IdDetalleRegistroIndicadorFonatel = x.IdDetalleRegistroIndicadorFonatel,
                 NombreIndicador = x.NombreIndicador,
                 NotaEncargado = x.NotaEncargado,
                 NotaInformante = x.NotaInformante,
@@ -239,7 +239,7 @@ namespace GB.SIMEF.DAL
                    new SqlParameter("@idSolicitud", objeto.IdSolicitud),
                    new SqlParameter("@idFormularioWeb", objeto.idFormularioWeb),
                    new SqlParameter("@idIndicador", objeto.IdIndicador),
-                   new SqlParameter("@IdDetalleRegistroIndicador", objeto.IdDetalleRegistroIndicador),
+                   new SqlParameter("@IdDetalleRegistroIndicador", objeto.IdDetalleRegistroIndicadorFonatel),
                    new SqlParameter("@TituloHojas", objeto.TituloHoja),
                    new SqlParameter("@NotasEncargado", objeto.NotaEncargado),
                    new SqlParameter("@NotasInformante", objeto.NotaInformante),

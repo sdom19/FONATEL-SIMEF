@@ -467,7 +467,7 @@
             for (var i = 1; i <= cantIndicadores; i++) {
                 let obj = new Object();
                 obj.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
-                obj.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
+                obj.idFormularioWebString = ObtenerValorParametroUrl("idFormulario");
                 obj.IdIndicadorString = $(jsRegistroIndicadorFonatel.Controles.tabRegistroIndicador(i)).attr('data-Indicador');
                 obj.CantidadFila = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
                 obj.NotaInformante = $(jsRegistroIndicadorFonatel.Controles.tabMenu(i)).find(jsRegistroIndicadorFonatel.Controles.txtNotasInformante).val();
@@ -510,7 +510,7 @@
 
             let detalleIndicadorFonatel = new Object();
             detalleIndicadorFonatel.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
-            detalleIndicadorFonatel.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
+            detalleIndicadorFonatel.IdFormularioWebString = ObtenerValorParametroUrl("idFormulario");
             detalleIndicadorFonatel.IdIndicadorString = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
             detalleIndicadorFonatel.CantidadFila = $(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
             execAjaxCall("/RegistroIndicadorFonatel/ConsultaRegistroIndicadorDetalle", "POST", detalleIndicadorFonatel = detalleIndicadorFonatel)
