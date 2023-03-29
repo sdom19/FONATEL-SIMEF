@@ -472,7 +472,7 @@ $(document).on("click", JsFuentes.Controles.btnGuardarDestinatario, function (e)
     e.preventDefault();
     let validar = JsFuentes.Metodos.ValidarFormularioDetalle();
     if (validar) {
-        let mensaje = "¿Desea agregar el Destinatario?";
+        let mensaje = "¿Desea agregar el destinatario a la Fuente de Registro?";
         let id = $(JsFuentes.Controles.txtidDetalleFuente).val();
         if (id!="") {
             mensaje = "¿Desea editar el Destinatario?";
