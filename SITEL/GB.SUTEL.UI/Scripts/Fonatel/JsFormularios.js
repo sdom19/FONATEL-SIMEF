@@ -67,6 +67,11 @@
         "detalleIndicadorFonatel": new Object(),
     },
 
+    Mensajes: {
+        preguntaGuardarIndicador: "¿Desea agregar el Indicador al Formulario Web?",
+        preguntaEditarIndicador: "¿Desea editar el Indicador del Formulario?"
+    },
+
     "Metodos": {
 
         // Validar los datos que son totalmente requeridos, que ni en guardado parcial deben ser omitidos
@@ -791,14 +796,14 @@ $(document).on("click", JsFormulario.Controles.btnGuardarIndicador, function (e)
     e.preventDefault();
     if (JsFormulario.Metodos.ValidarFormularioIndicador()) {
         if (JsFormulario.Variables.NuevoIndicador === true) {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea agregar el Indicador?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal(JsFormulario.Mensajes.preguntaGuardarIndicador, jsMensajes.Variables.actionType.agregar)
                 .set('onok', async function (closeEvent) {
                     await JsFormulario.Consultas.InsertarIndicadores();
                     JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
                 });
         }
         else {
-            jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Indicador del Formulario?", jsMensajes.Variables.actionType.agregar)
+            jsMensajes.Metodos.ConfirmYesOrNoModal(JsFormulario.Mensajes.preguntaEditarIndicador, jsMensajes.Variables.actionType.agregar)
                 .set('onok', function (closeEvent) {
                     JsFormulario.Consultas.EditarIndicadores();
                     JsFormulario.Consultas.ConsultaListaIndicadoresFormularioCombo();
