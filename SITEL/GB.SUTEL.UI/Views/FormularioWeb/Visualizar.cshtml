@@ -79,7 +79,7 @@
         {
             string activo = "";
             if (i == 0) { activo = "active"; }
-            <li class="@activo" id="@ViewBag.ListaDetalle[i].Indicador.IdIndicador"> <a data-toggle="tab" href="#@i" data-Indicador="@ViewBag.ListaDetalle[i].Indicador.IdIndicador">@ViewBag.ListaDetalle[i].Indicador.Nombre</a></li>
+            <li class="@activo" id="@ViewBag.ListaDetalle[i].Indicador.IdIndicador"> <a data-toggle="tab" href="#@i" data-Indicador="@ViewBag.ListaDetalle[i].Indicador.IdIndicador">@ViewBag.ListaDetalle[i].TituloHoja</a></li>
         }
     </ul>
 

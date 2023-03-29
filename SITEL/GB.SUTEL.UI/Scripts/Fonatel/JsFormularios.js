@@ -237,10 +237,10 @@
                 html = html + "<td>" + formulario.EstadoRegistro.Nombre + "</td>";
                 html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + formulario.id + " data-original-title='Editar' title='Editar' class='btn-icon-base btn-edit'></button>";
                 if (formulario.idEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
-                    html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' disabled class='btn-icon-base btn-clone' ></button>";
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Clonar' data-original-title='Clonar' disabled class='btn-icon-base btn-clone'></button>";
                 }
                 else {
-                    html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Clonar' data-original-title='Clonar' value=" + formulario.id + " class='btn-icon-base btn-clone' ></button>";
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Clonar' data-original-title='Clonar' value=" + formulario.id + " class='btn-icon-base btn-clone' ></button>";
                 }
                 if (formulario.idEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Desactivado) {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value=" + formulario.id + " class='btn-icon-base btn-power-off'></button>";
@@ -252,8 +252,8 @@
                 if (formulario.idEstadoRegistro != jsUtilidades.Variables.EstadoRegistros.Activo) {
                     ind = "disabled"
                 }
-                html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Visualizar' data-original-title='Visualizar' value=" + formulario.id + " class='btn-icon-base btn-view' " + ind + "></button>";
-                html = html + "<button type = 'button' data - toggle='tooltip' data - placement='top' title = 'Eliminar' data-original-title='Eliminar' value=" + formulario.id + " class='btn-icon-base btn-delete' ></button></td >";
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar' data-original-title='Visualizar' value=" + formulario.id + " class='btn-icon-base btn-view' " + ind + "></button>";
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' data-original-title='Eliminar' value=" + formulario.id + " class='btn-icon-base btn-delete' ></button></td >";
 
 
                 html = html + "</tr>"
@@ -856,7 +856,6 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
         } else if (modo == jsUtilidades.Variables.Acciones.Editar) {
 
             jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el Formulario Web?", jsMensajes.Variables.actionType.agregar)
-
                 .set('onok', async function (closeEvent) {
 
                     if (modo == jsUtilidades.Variables.Acciones.Editar) {
@@ -876,7 +875,6 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
         else {
 
             jsMensajes.Metodos.ConfirmYesOrNoModal("Existen campos vacíos. ¿Desea realizar un guardado parcial del Formulario Web?", jsMensajes.Variables.actionType.agregar)
-
                 .set('onok', async function (closeEvent) {
 
                     let modoMsj = "";
@@ -899,7 +897,6 @@ $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
 
 // VISUALIZAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnVizualizarFormulario, function (e) {
-    // valor quemado
     let id = $(this).val();
     window.location.href = "/Fonatel/FormularioWeb/Visualizar?id=" + id + "&modo=" + 6;
 });
@@ -1009,9 +1006,11 @@ $(function () {
     $(JsFormulario.Controles.btnGuardarFormularioCompleto).prop("disabled", true);
     JsFormulario.Metodos.ValidarButonFinalizar();
     JsFormulario.Metodos.ValidarButonGuardarIndicador();
+
     if ($(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val() == 0) {
         $(JsFormulario.Controles.txtCantidadIndicadoresFormulario).val("");
     }
+
     if ($(JsFormulario.Controles.FormFormulario).length > 0) {
         JsFormulario.Metodos.ValidarFormularioWebCrear();
         let modo =ObtenerValorParametroUrl('modo');
@@ -1024,6 +1023,7 @@ $(function () {
             JsFormulario.Metodos.ValidarButonGuardarIndicador();
         }
     }
+
     if ($(JsFormulario.Controles.FormularioIndex).length > 0) {
         JsFormulario.Consultas.ConsultaListaFormularioWeb();
     }
