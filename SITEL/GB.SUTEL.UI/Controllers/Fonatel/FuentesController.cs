@@ -241,7 +241,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     NombreUsuario = destinatario.NombreDestinatario,
                     CorreoUsuario = destinatario.CorreoElectronico,
-                    IdUsuario = destinatario.idUsuario
+                    IdUsuario = destinatario.idUsuario,
+                    //Bug 89153 - si se agrega un nuevo usuario que venga ya activo
+                    Activo = 1
             };
                 if (destinatario.idDetalleFuenteRegistro == 0)
                 {
