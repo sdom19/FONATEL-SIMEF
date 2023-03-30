@@ -48,7 +48,7 @@ namespace GB.SIMEF.BL
                 resultado.HayError = (int)Constantes.Error.ErrorControlado;
                 throw new Exception(string.Format(Errores.CorreoInvalido));
             }
-            else if (consultardatos.Where(x => x.CorreoUsuario.ToUpper() == objeto.CorreoUsuario).Count() > 0 && agregar)
+            else if (consultardatos.Where(x => x.CorreoUsuario.Trim().ToUpper() == objeto.CorreoUsuario.Trim().ToUpper()).Count() > 0 && agregar)
             {
                 resultado.HayError = (int)Constantes.Error.ErrorControlado;
                 throw new Exception(Errores.CorreoRegistrado);
