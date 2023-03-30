@@ -27,10 +27,35 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpGet]
         public ActionResult Index()
         {
-            var lista = BitacoraBL.ObtenerDatos( new Bitacora()).objetoRespuesta;
+            var lista = BitacoraBL.ObtenerDatos(new Bitacora()).objetoRespuesta;
 
             var listaUsuario = lista.Select(x => x.Usuario).Distinct();
             var listaPantalla = lista.Select(x => x.Pantalla).Distinct();
+
+            /*Se verifica si hace falta alguna pantalla para mostrar en las opciones del filtro de Pantallas*/
+            List<string> listaPantallas = new List<string> {
+                "Relaciones entre Categorías",
+                "Fuentes de Registro",
+                "Reglas de Validación",
+                "Definición de Indicadores",
+                "Publicación de Indicadores",
+                "Fórmulas de Cálculo",
+                "Indicadores",
+                "Categorías de Desagregación",
+                "Proceso aútomatico de envío de correos",
+                "Solicitud",
+                "Formulario Web",
+                "Descarga de formularios",
+                "Edición de datos",
+                "Consulta de datos históricos"
+            };
+            List<string> pantallaPendientes = new List<string>();
+
+            foreach (string item in listaPantallas)
+                if (!listaPantalla.Contains(item))
+                    pantallaPendientes.Add(item);
+
+            listaPantalla = listaPantalla.Union(pantallaPendientes);
 
             var ListaAcciones = lista.Select(x => x.Accion).Distinct();
 

@@ -53,3 +53,7 @@ GB.SUTEL.UI/obj
 
 SutelSolution/bin
 SutelSolution/obj
+/SITEL/GB.SIMEF.API
+/SITEL/GB.SIMEF.BD
+/SITEL/GB.SIMEF.EnvioCorreo/obj/Debug
+/SITEL/GB.SIMEF.Resources/obj/Debug/GB.SIMEF.Resources.PredicadosSQLFormulasCalculo.resources
