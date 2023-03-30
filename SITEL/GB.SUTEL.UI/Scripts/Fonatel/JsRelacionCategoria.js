@@ -329,7 +329,7 @@
                             if (Siguiente) {
                                 $(JsRelacion.Controles.stepRelacionCategoria2).click();
                             } else {
-                                jsMensajes.Metodos.OkAlertModal("La Relación ha sido editada")
+                                jsMensajes.Metodos.OkAlertModal("La Relación entre Categorías ha sido editada")
                                     .set('onok', function (closeEvent) {
                                         window.location.href = "/Fonatel/RelacionCategoria/Index";
                                     });
@@ -366,7 +366,7 @@
                 .then((obj) => {
                     let relacion = obj.objetoRespuesta[0];
                     JsRelacion.Metodos.CargarTablaDetalleRelacion(relacion);
-                    jsMensajes.Metodos.OkAlertModal("La Relación ha sido eliminada")
+                    jsMensajes.Metodos.OkAlertModal("La Relación entre Categorías ha sido eliminada")
                         .set('onok', function (closeEvent) {
 
                             window.location.href = "/Fonatel/RelacionCategoria/Index";
@@ -896,7 +896,7 @@ $(document).on("click", JsRelacion.Controles.TableCategoriaAtributoEliminar, fun
 $(document).on("click", JsRelacion.Controles.btnDeleteRelacion, function (e) {
     if (consultasFonatel) { return; }
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Relación?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Relación entre Categorías?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsRelacion.Consultas.ValidarExistenciaRelacion(id);
         });
