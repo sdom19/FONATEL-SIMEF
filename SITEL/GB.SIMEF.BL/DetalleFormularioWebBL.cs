@@ -212,17 +212,27 @@ namespace GB.SIMEF.BL
             {
                 ResultadoVisualizar.Clase = modulo;
                 ResultadoVisualizar.Accion = (int)Accion.Consultar;
-                Indicador indicador = new Indicador();
-                indicador.IdIndicador = objeto.IdIndicador;
-                //indicador.idEstado = (int)Constantes.EstadosRegistro.Activo;
+
+                Indicador indicador = new Indicador
+                {
+                    IdIndicador = objeto.IdIndicador
+                    //idEstado = (int)Constantes.EstadosRegistro.Activo;
+                };
                 indicador = indicadorFonatelDAL.ObtenerDatos(indicador).FirstOrDefault();
-                DetalleRegistroIndicadorFonatel detalle = new DetalleRegistroIndicadorFonatel();
-                detalle.IdIndicador = indicador.IdIndicador;
-                detalle.CodigoIndicador = indicador.Codigo;
-                detalle.NombreIndicador = indicador.Nombre;
-                detalle.CantidadFila = objeto.CantidadFila;
-                DetalleIndicadorVariable variable = new DetalleIndicadorVariable();
-                variable.IdIndicador = indicador.IdIndicador;
+
+                DetalleRegistroIndicadorFonatel detalle = new DetalleRegistroIndicadorFonatel
+                {
+                    IdIndicador = indicador.IdIndicador,
+                    CodigoIndicador = indicador.Codigo,
+                    NombreIndicador = indicador.Nombre,
+                    CantidadFila = objeto.CantidadFila
+                };
+
+                DetalleIndicadorVariable variable = new DetalleIndicadorVariable
+                {
+                    IdIndicador = indicador.IdIndicador
+                };
+
                 List<DetalleIndicadorVariable> variables = detalleIndicadorVariables.ObtenerDatos(variable).Where(x => x.Estado == true).ToList();
                 List<DetalleRegistroIndicadorVariableFonatel> registroVariable =
                     variables.Select(x => new DetalleRegistroIndicadorVariableFonatel()
@@ -235,10 +245,20 @@ namespace GB.SIMEF.BL
                         Descripcion = x.Descripcion,
                         html = string.Format(Constantes.EstructuraHtmlRegistroIndicador.Variable, x.NombreVariable),
                     }).ToList();
+
                 detalle.DetalleRegistroIndicadorVariableFonatel = registroVariable;
-                DetalleIndicadorCategoria categoria = new DetalleIndicadorCategoria();
-                categoria.IdIndicador = indicador.IdIndicador;
-                List<DetalleIndicadorCategoria> categorias = detalleIndicadorCategoria.ObtenerVisualizarCategorias(categoria).Where(x => x.Estado == true).ToList();
+
+                DetalleIndicadorCategoria categoria = new DetalleIndicadorCategoria
+                {
+                    IdIndicador = indicador.IdIndicador
+                };
+
+                List<DetalleIndicadorCategoria> categorias = detalleIndicadorCategoria.ObtenerVisualizarCategorias(categoria)
+                                                                                    .Where(x => x.Estado == true)
+                                                                                    .GroupBy(y => y.IdCategoriaDesagregacion) // filtrar por categorias únicamente, tipo distinct
+                                                                                    .Select(y => y.FirstOrDefault())
+                                                                                    .ToList();
+                
                 List<DetalleRegistroIndicadorCategoriaFonatel> registroCategoria =
                     categorias.Select(x => new DetalleRegistroIndicadorCategoriaFonatel()
                     {
@@ -250,9 +270,12 @@ namespace GB.SIMEF.BL
                         IdTipoCategoria = x.IdTipoDetalle,
                         html = DefinirControl(x.IdTipoDetalle, x.NombreCategoria, x.IdCategoriaDesagregacion)
                     }).ToList();
+
                 detalle.DetalleRegistroIndicadorCategoriaFonatel = registroCategoria;
+
                 List<DetalleRegistroIndicadorFonatel> listaResultado = new List<DetalleRegistroIndicadorFonatel>();
                 listaResultado.Add(detalle);
+
                 ResultadoVisualizar.objetoRespuesta = listaResultado;
                 ResultadoVisualizar.CantidadRegistros = listaResultado.Count();
             }

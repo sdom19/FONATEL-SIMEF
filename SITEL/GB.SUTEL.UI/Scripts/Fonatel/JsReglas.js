@@ -557,6 +557,28 @@
 
         },
 
+        "ValidarVariablesDatoDisponibles": function () {
+            //Validacion para no seleccionar el mismo indicador en comparacion
+            var idVariableDato = $(JsReglas.Controles.ddlVariableRegla).val();
+            var opciones = $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida + ' option')
+            var opcionesFiltradas = opciones.filter(function () {
+                return $(this).val() != idVariableDato;
+            })
+            $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).empty().append(opcionesFiltradas).val(null).trigger('change')
+
+            opciones = $(JsReglas.Controles.ddlVariableComparacionReglaSalida + ' option')
+            opcionesFiltradas = opciones.filter(function () {
+                return $(this).val() != idVariableDato;
+            })
+            $(JsReglas.Controles.ddlVariableComparacionReglaSalida).empty().append(opcionesFiltradas).val(null).trigger('change')
+
+            opciones = $(JsReglas.Controles.ddlVariableComparacionRegla + ' option')
+            opcionesFiltradas = opciones.filter(function () {
+                return $(this).val() != idVariableDato;
+            })
+            $(JsReglas.Controles.ddlVariableComparacionRegla).empty().append(opcionesFiltradas).val(null).trigger('change')
+            
+        }
     },
 
     "Consultas": {
@@ -949,6 +971,7 @@
                             .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
+                    JsReglas.Metodos.ValidarVariablesDatoDisponibles();
                     $("#loading").fadeOut();
                 });
         },
@@ -981,6 +1004,7 @@
                             .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
+                    JsReglas.Metodos.ValidarVariablesDatoDisponibles();
                     $("#loading").fadeOut();
                 });
         },
@@ -1013,6 +1037,9 @@
                             .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
+
+                    JsReglas.Metodos.ValidarVariablesDatoDisponibles();
+
                     $("#loading").fadeOut();
                 });
         },
@@ -1483,6 +1510,29 @@ $(document).on("change", JsReglas.Controles.ddlAtributosValidosCategoriaRegla, f
         JsReglas.Consultas.ConsultaDetallesCategoria(idCategoria);
     }
 
+});
+
+$(document).on("change", JsReglas.Controles.ddlVariableRegla, function () {
+    //JsReglas.Metodos.ValidarVariablesDatoDisponibles();
+    var tipoRegla = $(JsReglas.Controles.ddlTipoRegla).val();
+    var idIndicadorString = ''
+
+    if (tipoRegla == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada) {
+        idIndicadorString = $(JsReglas.Controles.ddlIndicadorComparacionRegla).val();
+        if (idIndicadorString != '') {
+            JsReglas.Consultas.ConsultaVariablesDatoEntrada(idIndicadorString);
+        }
+    } else if (tipoRegla == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
+        idIndicadorString = $(JsReglas.Controles.ddlIndicadorSalidaRegla).val();
+        if (idIndicadorString != '') {
+            JsReglas.Consultas.ConsultaVariablesDatoSalida(idIndicadorString);
+        }
+    } else if (tipoRegla == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
+        idIndicadorString = $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val();
+        if (idIndicadorString != '') {
+            JsReglas.Consultas.ConsultaVariablesDatoEntradaSalida(idIndicadorString);
+        }        
+    }
 });
 
 $(function () {

@@ -27,7 +27,7 @@ namespace GB.SIMEF.Entities
         public int idFormularioWeb { get; set; }
         [Key, Column(Order = 2)]
         public int IdIndicador { get; set; }
-        public int IdDetalleRegistroIndicador { get; set; }
+        public long IdDetalleRegistroIndicadorFonatel { get; set; }
   
         public string TituloHoja { get; set; }
         public string NotaEncargado { get; set; }

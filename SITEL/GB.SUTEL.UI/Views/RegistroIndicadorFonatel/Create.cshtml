@@ -21,7 +21,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
-                <li class="breadcrumb-item"><a href="@Url.Action("Index","RegistroIndicadorFonatel")">@EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "RegistroIndicadorFonatel")">@EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Gestión Registro de Indicador</li>
             </ol>
         </nav>
@@ -38,16 +38,21 @@
         <input type="hidden" id="cantidadIndicadores" value="@Model.DetalleRegistroIndcadorFonatel.Count"/>
     </div>
     <ul class="nav nav-tabs nav-tabs-fonatel mt-4">
-        @foreach (var item in Model.DetalleRegistroIndcadorFonatel.OrderBy(x => x.IdDetalleRegistroIndicador))
+        @{
+            var data = Model.DetalleRegistroIndcadorFonatel.OrderBy(x => x.IdDetalleRegistroIndicadorFonatel).ToList();
+        }
+        @for (var i = 1; i < data.Count(); i++)
         {
-        <li id="@string.Format("Tab{0}", item.IdDetalleRegistroIndicador)"> <a data-toggle="tab" data-Indicador="@item.IdIndicadorString" href="@string.Format("#menu{0}", item.IdDetalleRegistroIndicador)">@item.TituloHoja</a></li>
+            var item = data[i];
+        <li id="@string.Format("Tab{0}", i)"> <a data-toggle="tab" data-Indicador="@item.IdIndicadorString" href="@string.Format("#menu{0}", i)">@item.TituloHoja</a></li>
         }
     </ul>
 
     <div class="tab-content">
-        @foreach (var item in Model.DetalleRegistroIndcadorFonatel)
+        @for (var i = 1; i < data.Count(); i++)
         {
-            <div id="@string.Format("menu{0}", item.IdDetalleRegistroIndicador)" class="tab-pane fade ">
+            var item = data[i];
+            <div id="@string.Format("menu{0}", i)" class="tab-pane fade ">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
@@ -101,7 +106,7 @@
             </div>
         }
         <div class="row mt-4">
-            <div class="col-sm-12 text-center">              
+            <div class="col-sm-12 text-center">
                 <button type="submit" id="btnValidarRegistroIndicador" data-toggle="tooltip" data-placement="top" title="Validar" class="btn btn-fonatel btn-next-fonatel">@Etiquetas.BotonValidar</button>
             </div>
         </div>
