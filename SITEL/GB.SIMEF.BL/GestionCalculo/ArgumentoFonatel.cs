@@ -21,7 +21,7 @@ namespace GB.SIMEF.BL.GestionCalculo
             {
                 predicadoSQL = string.Format(
                     PredicadosSQLFormulasCalculo.fonatel_variablesDatoCriterio,
-                    argumentoVariable.IdIndicador,
+                    pFormulasCalculo.IdIndicador,
                     argumentoVariable.IdAcumulacionFormula,
                     argumentoVariable.IdDetalleIndicadorVariable,
                     "null",
@@ -32,7 +32,7 @@ namespace GB.SIMEF.BL.GestionCalculo
             {
                 predicadoSQL = string.Format(
                     PredicadosSQLFormulasCalculo.fonatel_variablesDatoCriterio,
-                    argumentoVariable.IdIndicador,
+                    pFormulasCalculo.IdIndicador,
                     argumentoVariable.IdAcumulacionFormula,
                     argumentoVariable.IdDetalleIndicadorVariable,
                     argumentoVariable.IdCategoriaDesagregacion,
