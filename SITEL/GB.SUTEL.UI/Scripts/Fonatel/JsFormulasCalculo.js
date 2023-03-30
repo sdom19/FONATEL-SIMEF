@@ -1593,6 +1593,7 @@ GestionFormulaView = {
             GestionFormulaView.Metodos.MostrarFormulaCalculo();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).focus();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
+            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", false);
         },
 
         AgregarFechaAFormula: function (pVariable) {
@@ -1670,6 +1671,13 @@ GestionFormulaView = {
                 return GestionFormulaView.Consultas.ConsultarArgumentosDeFormula(pIdFormula)
                     .then(data => {
                         GestionFormulaView.Variables.FormulaCalculo = data.objetoRespuesta;
+
+                        if (GestionFormulaView.Variables.FormulaCalculo.length == 0) {
+                            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", true);
+                        } else {
+                            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", false);
+                        }
+
                         GestionFormulaView.Variables.hizoCargaDeArgumentos = true;
                     })
                     .catch(error => { ManejoDeExcepciones(error); })
