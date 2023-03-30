@@ -69,11 +69,12 @@ namespace GB.SIMEF.BL
         {
             try
             {
-                ResultadoConsulta.Clase = "Bitacora";
-                ResultadoConsulta.Accion = (int)Accion.Consultar;      
-                var resul = clsDatos.ObtenerDatos(objeto);
-                ResultadoConsulta.objetoRespuesta = resul;
-                ResultadoConsulta.CantidadRegistros = resul.Count();
+                    ValidarBitacora(objeto);
+                    ResultadoConsulta.Clase = "Bitacora";
+                    ResultadoConsulta.Accion = (int)Accion.Consultar;
+                    var resul = clsDatos.ObtenerDatos(objeto);
+                    ResultadoConsulta.objetoRespuesta = resul;
+                    ResultadoConsulta.CantidadRegistros = resul.Count();
             }
             catch (Exception ex)
             {
@@ -83,6 +84,36 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
-      
+        /// <summary>
+        /// Fecha 30-03-2023
+        /// Georgi Mesen Cerdas
+        /// Valida el objecto de bitacora
+        /// </summary>
+        /// <returns></returns>
+
+        public Boolean ValidarBitacora(Bitacora objeto)
+        {
+            Boolean ind = false;
+
+            if (objeto.FechaDesde != null && objeto.FechaHasta != null)
+            {
+                if (Convert.ToDateTime(objeto.FechaDesde) > Convert.ToDateTime(objeto.FechaHasta))
+                {
+                    ResultadoConsulta.HayError = (int)Constantes.Error.ErrorControlado;
+                    throw new Exception(Errores.ValorFecha);
+                }
+                else
+                {
+                    ind = true;
+                }
+            }
+            else
+            {
+                ind = true;
+            }
+
+            return ind;
+        }
+
     }
 }

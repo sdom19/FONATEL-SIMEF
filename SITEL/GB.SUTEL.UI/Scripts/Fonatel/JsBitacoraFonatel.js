@@ -177,7 +177,7 @@
                     JsBitacora.Metodos.CargarTablaBitacora();
                 }).catch((data) => {
                     if (data.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
-                        jsMensajes.Metodos.OkAlertErrorModal(obj.MensajeError)
+                        jsMensajes.Metodos.OkAlertErrorModal(data.MensajeError)
                             .set('onok', function (closeEvent) { });
                     }
                     else {
