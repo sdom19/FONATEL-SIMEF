@@ -84,6 +84,13 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        /// <summary>
+        /// Fecha 30-03-2023
+        /// Georgi Mesen Cerdas
+        /// Valida el objecto de bitacora
+        /// </summary>
+        /// <returns></returns>
+
         public Boolean ValidarBitacora(Bitacora objeto)
         {
             Boolean ind = false;
