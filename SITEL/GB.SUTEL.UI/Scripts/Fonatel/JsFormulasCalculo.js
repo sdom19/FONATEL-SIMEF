@@ -151,7 +151,7 @@
 
                 if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo) {
                     html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value='" + formula.id + "' class='btn-icon-base btn-power-on'></button>";
-                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Correr proceso' value='" + formula.id + "' class='btn-icon-base btn-reload'></button>";
+                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Ejecutar fórmula' data-original-title='Ejecutar fórmula' value='" + formula.id + "' class='btn-icon-base btn-reload'></button>";
                 }
                 else if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
                     html += "<button type='button' class='btn-icon-base btn-power-on' disabled></button>";
