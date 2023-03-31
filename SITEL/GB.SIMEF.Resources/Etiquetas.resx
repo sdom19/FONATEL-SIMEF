@@ -147,6 +147,9 @@
   <data name="BotonFinalizar" xml:space="preserve">
     <value>Finalizar</value>
   </data>
+  <data name="BotonGenerar" xml:space="preserve">
+    <value>Generar</value>
+  </data>
   <data name="BotonGuardadoParcial" xml:space="preserve">
     <value>Guardado parcial</value>
   </data>
