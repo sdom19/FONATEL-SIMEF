@@ -204,6 +204,60 @@ declare @IndicadorReferencia int = $$$;
 
 SELECT top 1 @FechaUltimoRegistro = FechaCreacion from IndicadorResultado
 WHERE IdIndicador = @IndicadorSalida
+ORDER BY FechaCreacion DESC 
+
+
+IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
+BEGIN
+    SET @IdAcumulacion = 0;
+END; 
+
+
+WITH MainQuery
+AS (
+    SELECT ISNULL(SUM(a.Valor),0) Valor, b.NumeroFila, a.IdIndicadorResultadoDetalleVariable, b.FechaCreacion
+    FROM dbo.IndicadorResultado r
+    inner join dbo.IndicadorResultadoDetalleVariable a
+    ON r.IdIndicadorResultado=a.IdIndicadorResultado
+    inner join dbo.IndicardorResultadoDetalleCategoria b
+    ON a.IdIndicadorResultado=b.IdIndicadorResultado
+    and a.NumeroFila=b.NumeroFila
+    inner join DetalleCategoriaTexto c
+    ON b.IdCategoriaDesagregacion=c.IdCategoriaDesagregacion
+    and UPPER(trim(c.Etiqueta)) like UPPER('%'+TRIM(b.valor)+'%')      
+WHERE r.IdIndicador=@IndicadorReferencia and a.IdDetalleIndicadorVariable=@IdVariable
+   and b.IdCategoriaDesagregacion=ISNULL(@IdCategoria, b.IdCategoriaDesagregacion) /* valor total y por detalle */
+    and c.IdDetalleCategoriaTexto=ISNULL(@IdCategoriaDetalle, c.IdDetalleCategoriaTexto) /* valor total y por detalle */
+    GROUP BY b.NumeroFila, a.idIndicadorResultadoDetalleVariable, b.FechaCreacion
+) 
+
+
+SELECT isnull(b.Valor,0) Valor, a.NumeroFila, a.idIndicadorResultadoDetalleVariable
+FROM MainQuery a
+LEFT join MainQuery b
+on a.IdIndicadorResultadoDetalleVariable=b.IdIndicadorResultadoDetalleVariable
+and a.NumeroFila=b.NumeroFila
+and  format(a.FechaCreacion,'MM-yy') = 
+    CASE @IdAcumulacion
+    /* acumulacion mensual */
+    WHEN 3 THEN format(DATEADD(MONTH, DATEDIFF(MONTH, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
+    /* acumulacion anual */
+    WHEN 2 THEN format(DATEADD(YEAR, DATEDIFF(YEAR, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
+   /* acumulación total */
+    ELSE format(b.FechaCreacion,'MM-yy')
+    END
+where a.NumeroFila is not null
+order by a.NumeroFila</value>
+    <comment>declare @FechaUltimoRegistro date = null;
+declare @IndicadorSalida int = {0};
+declare @IdAcumulacion int = {1};
+declare @IdVariable int = {2};
+declare @IdCategoria int = {3};
+declare @IdCategoriaDetalle int = {4};
+declare @IndicadorReferencia int = $$$;
+
+SELECT top 1 @FechaUltimoRegistro = FechaCreacion from IndicadorResultado
+WHERE IdIndicador = @IndicadorSalida
 ORDER BY FechaCreacion DESC IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
 
 BEGIN
@@ -234,7 +288,7 @@ WHERE format(FechaCreacion,'MM-yy') = 
     WHEN 2 THEN format(DATEADD(YEAR, DATEDIFF(YEAR, -1, cast(@FechaUltimoRegistro as varchar(100)))-1, -1),'MM-yy')
    /* acumulación total */
     ELSE format(FechaCreacion,'MM-yy')
-    END</value>
+    END</comment>
   </data>
   <data name="mercados" xml:space="preserve">
     <value>declare @pIdCriterio int = {0};

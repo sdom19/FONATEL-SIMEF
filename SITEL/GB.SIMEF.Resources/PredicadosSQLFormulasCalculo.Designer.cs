@@ -115,11 +115,15 @@ namespace GB.SIMEF.Resources {
         ///
         ///SELECT top 1 @FechaUltimoRegistro = FechaCreacion from IndicadorResultado
         ///WHERE IdIndicador = @IndicadorSalida
-        ///ORDER BY FechaCreacion DESC IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
+        ///ORDER BY FechaCreacion DESC 
         ///
+        ///
+        ///IF @FechaUltimoRegistro is null and @IdAcumulacion &lt;&gt; 0
         ///BEGIN
         ///    SET @IdAcumulacion = 0;
-        ///END; WITH Mai [rest of string was truncated]&quot;;.
+        ///END; 
+        ///
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         public static string fonatel_variablesDatoCriterio {
             get {
