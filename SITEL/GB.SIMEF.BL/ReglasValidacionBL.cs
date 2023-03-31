@@ -13,6 +13,8 @@ namespace GB.SIMEF.BL
     {
         private readonly ReglasValicionDAL clsDatos;
         private RespuestaConsulta<List<ReglaValidacion>> ResultadoConsulta;
+        private readonly CategoriasDesagregacionDAL categoriasDesagregacionDAL;
+        private readonly RelacionCategoriaDAL relacionCategoriaDAL;
         string modulo = Etiquetas.ReglasValidacion;
         string user;
         public ReglaValidacionBL(string modulo, string user)
@@ -20,7 +22,88 @@ namespace GB.SIMEF.BL
             this.modulo = modulo;
             this.user = user;
             clsDatos = new ReglasValicionDAL();
+            relacionCategoriaDAL = new RelacionCategoriaDAL();
+            categoriasDesagregacionDAL = new CategoriasDesagregacionDAL();
             ResultadoConsulta = new RespuestaConsulta<List<ReglaValidacion>>();
+        }
+
+        /// <summary>
+        /// Fecha 29-03-2023
+        /// Adolfo Cunquero
+        /// Obtiene las categorias ID del indicador seleccionado
+        /// </summary>
+        /// <param name="idIndicadorString"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<CategoriaDesagregacion>> ObtenerCategoriaIdXIndicador(string idIndicadorString)
+        {
+            RespuestaConsulta<List<CategoriaDesagregacion>> result = new RespuestaConsulta<List<CategoriaDesagregacion>>();
+            try 
+            {
+                List<CategoriaDesagregacion> data = new List<CategoriaDesagregacion>();
+                var idIndicador = Utilidades.Desencriptar(idIndicadorString);
+
+                var listadoCategoria = categoriasDesagregacionDAL.ObtenerCategoriasDesagregacionDeIndicador(int.Parse(idIndicador));
+                foreach (var item in listadoCategoria)
+                {
+                    var cat = categoriasDesagregacionDAL.ObtenerDatos(item).FirstOrDefault();
+                    var rel = relacionCategoriaDAL.ObtenerDatos(new RelacionCategoria() { idCategoriaDesagregacion = cat.idCategoriaDesagregacion, IdEstadoRegistro = (int)Constantes.EstadosRegistro.Activo });
+
+                    if (rel.Count > 0)
+                    {
+                        data.Add(cat);
+                    }
+                }
+                result.objetoRespuesta = data.Where(c => c.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.IdUnico).ToList();
+            }
+            catch(Exception ex)
+            {
+                result.MensajeError = ex.Message;
+
+                if (result.HayError != (int)Error.ErrorControlado)
+                {
+                    result.HayError = (int)Error.ErrorSistema;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Autor: Francisco Vindas
+        /// Fecha: 01/11/2022
+        /// Metodo para obtener los detalles de la Categoria
+        /// </summary>
+        /// <param name="RelacionCategoria"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<RelacionCategoria>> ObtenerListaDetallesCategoria(RelacionCategoria RelacionCategoria)
+        {
+            RespuestaConsulta<List<RelacionCategoria>> result = new RespuestaConsulta<List<RelacionCategoria>>();
+
+            try
+            {
+                var idIndicador = int.Parse(Utilidades.Desencriptar(RelacionCategoria.id));
+                var listadoCategoria = categoriasDesagregacionDAL.ObtenerCategoriasDesagregacionDeIndicador(idIndicador);
+                for (var i = 0; i < listadoCategoria.Count; i++)
+                {
+                    listadoCategoria[i].idCategoriaDesagregacion = int.Parse(Utilidades.Desencriptar(listadoCategoria[i].id));
+                }
+                RelacionCategoria.id = string.Empty;
+                result.objetoRespuesta = relacionCategoriaDAL.ObtenerDatos(RelacionCategoria);
+                var detalleRelacion = result.objetoRespuesta[0].DetalleRelacionCategoria;
+                result.objetoRespuesta[0].DetalleRelacionCategoria = detalleRelacion.Where(c => listadoCategoria.Any(i => i.idCategoriaDesagregacion == c.idCategoriaDesagregacion)).ToList();
+            }
+            catch (Exception ex)
+            {
+                result.MensajeError = ex.Message;
+
+                if (result.HayError != (int)Error.ErrorControlado)
+                {
+                    result.HayError = (int)Error.ErrorSistema;
+                }
+            }
+
+
+            return result;
         }
 
         public RespuestaConsulta<List<ReglaValidacion>> ActualizarElemento(ReglaValidacion objeto)
