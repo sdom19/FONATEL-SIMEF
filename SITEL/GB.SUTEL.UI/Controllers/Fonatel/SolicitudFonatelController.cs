@@ -56,7 +56,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         // GET: Solicitud
         public ActionResult Index()
         {
-            ViewBag.ListaFrecuencia = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
+            List<int> frecuenciasValidas = new List<int> { (int)FrecuenciaEnvioEnum.Mes, (int)FrecuenciaEnvioEnum.Trimestre, (int)FrecuenciaEnvioEnum.Cuatrimestre , (int)FrecuenciaEnvioEnum.Semestral, (int)FrecuenciaEnvioEnum.Anual };
+
+            ViewBag.ListaFrecuencia = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta
+                .Where(d => frecuenciasValidas.Contains(d.IdFrecuenciaEnvio));
             var roles = ((ClaimsIdentity)this.HttpContext.GetOwinContext().Authentication.User.Identity).Claims.Where(x => x.Type == ClaimTypes.Role).FirstOrDefault().Value.Split(',');
             ViewBag.ConsultasFonatel = roles.Contains(Constantes.RolConsultasFonatel).ToString().ToLower();
             return View();
