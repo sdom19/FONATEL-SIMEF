@@ -1,7 +1,5 @@
 ﻿using GB.SIMEF.Entities;
 using System;
-using GB.SIMEF.Resources;
-using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL.GestionCalculo
 {
@@ -18,7 +16,7 @@ namespace GB.SIMEF.BL.GestionCalculo
             FormulaDefinicionFecha argumentoFecha = (FormulaDefinicionFecha)pArgumentoFormula;
 
             return string.Format(
-                PredicadosSQLFormulasCalculo.fonatel_definicionFechas,
+                "EXEC pa_ConstruirArgumentoSalidaFecha {0}, {1}, {2}, {3}, {4}, {5}, {6}",
                 argumentoFecha.IdUnidadMedida,
                 
                 argumentoFecha.IdTipoFechaInicio,
@@ -27,8 +25,10 @@ namespace GB.SIMEF.BL.GestionCalculo
                 
                 argumentoFecha.IdTipoFechaFinal,
                 argumentoFecha.FechaFinal != null ? argumentoFecha.FechaFinal.ToString() : DateTime.MinValue.ToString(),
-                argumentoFecha.IdCategoriaDesagregacionFinal != null ? argumentoFecha.IdCategoriaDesagregacionFinal : 0
-                );
+                argumentoFecha.IdCategoriaDesagregacionFinal != null ? argumentoFecha.IdCategoriaDesagregacionFinal : 0,
+
+                argumentoFecha.IdIndicador
+            );
         }
     }
 }
