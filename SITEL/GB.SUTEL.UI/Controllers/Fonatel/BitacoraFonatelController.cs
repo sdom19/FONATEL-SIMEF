@@ -30,7 +30,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             var lista = BitacoraBL.ObtenerDatos(new Bitacora()).objetoRespuesta;
 
             var listaUsuario = lista.Select(x => x.Usuario).Distinct();
-            var listaPantalla = lista.Select(x => x.Pantalla).Distinct();
 
             /*Se verifica si hace falta alguna pantalla para mostrar en las opciones del filtro de Pantallas*/
             List<string> listaPantallas = new List<string> {
@@ -42,24 +41,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 "Fórmulas de Cálculo",
                 "Indicadores",
                 "Categorías de Desagregación",
-                "Proceso aútomatico de envío de correos",
-                "Solicitud",
+                "Envío Programado",
+                "Solicitud de Información",
                 "Formulario Web",
-                "Descarga de formularios",
-                "Edición de datos",
-                "Consulta de datos históricos"
-            };
-            List<string> pantallaPendientes = new List<string>();
-
-            foreach (string item in listaPantallas)
-                if (!listaPantalla.Contains(item))
-                    pantallaPendientes.Add(item);
-
-            listaPantalla = listaPantalla.Union(pantallaPendientes);
+                "Descarga y Edición de Formulario",
+                "Consulta de Datos Históricos"
+            };           
 
             var ListaAcciones = lista.Select(x => x.Accion).Distinct();
 
-            ViewBag.Pantalla = listaPantalla.Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
+            ViewBag.Pantalla = listaPantallas.Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
             ViewBag.Usuario = listaUsuario.Select(x => new SelectListItem() { Selected = false, Value = x, Text = x }).ToList();
 
             ViewBag.Accion = ListaAcciones.Select(x => new SelectListItem() { Selected = false, Value = x.ToString(), Text = Enum.GetName(typeof(Accion), x) }).ToList();
