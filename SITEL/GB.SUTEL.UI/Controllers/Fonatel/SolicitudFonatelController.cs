@@ -56,7 +56,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         // GET: Solicitud
         public ActionResult Index()
         {
-            List<int> frecuenciasValidas = new List<int> { 3, 6, 7, 8, 9 };
+            List<int> frecuenciasValidas = new List<int> { (int)FrecuenciaEnvioEnum.Mes, (int)FrecuenciaEnvioEnum.Trimestre, (int)FrecuenciaEnvioEnum.Cuatrimestre , (int)FrecuenciaEnvioEnum.Semestral, (int)FrecuenciaEnvioEnum.Anual };
 
             ViewBag.ListaFrecuencia = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta
                 .Where(d => frecuenciasValidas.Contains(d.IdFrecuenciaEnvio));

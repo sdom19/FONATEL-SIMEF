@@ -1275,7 +1275,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         private void CargarDatosEnVistas()
         {
-            List<int> frecuenciasValidas = new List<int> { 3, 6, 7, 8, 9 };
+            List<int> frecuenciasValidas = new List<int> { (int)FrecuenciaEnvioEnum.Mes, (int)FrecuenciaEnvioEnum.Trimestre, (int)FrecuenciaEnvioEnum.Cuatrimestre, (int)FrecuenciaEnvioEnum.Semestral, (int)FrecuenciaEnvioEnum.Anual };
 
             ViewBag.TiposIndicadores = tipoIndicadorBL.ObtenerDatos(new TipoIndicador()).objetoRespuesta;
             ViewBag.FrecuenciasEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta
