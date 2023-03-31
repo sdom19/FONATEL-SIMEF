@@ -1275,8 +1275,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// </summary>
         private void CargarDatosEnVistas()
         {
+            List<int> frecuenciasValidas = new List<int> { 3, 6, 7, 8, 9 };
+
             ViewBag.TiposIndicadores = tipoIndicadorBL.ObtenerDatos(new TipoIndicador()).objetoRespuesta;
-            ViewBag.FrecuenciasEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta;
+            ViewBag.FrecuenciasEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio()).objetoRespuesta
+                .Where(d => frecuenciasValidas.Contains(d.IdFrecuenciaEnvio));
             ViewBag.Clasificaciones = clasificacionIndicadorBL.ObtenerDatos(new ClasificacionIndicador()).objetoRespuesta;
             ViewBag.TipoMedidas = tipoMedidaBL.ObtenerDatos(new TipoMedida()).objetoRespuesta;
             ViewBag.Grupos = grupoIndicadorBL.ObtenerDatos(new GrupoIndicador()).objetoRespuesta;
