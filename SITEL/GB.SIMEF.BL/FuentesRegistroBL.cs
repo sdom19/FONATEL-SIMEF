@@ -15,7 +15,8 @@ namespace GB.SIMEF.BL
     public class FuentesRegistroBL : IMetodos<FuenteRegistro>
     {
         private readonly FuentesRegistroDAL clsDatos;
-        private readonly FuentesRegistroDestinatarioDAL clsDatosUsuario;
+        private readonly FuentesRegistroDestinatarioDAL clsDatosDestinatario;
+        private readonly UsuarioFonatelBL clsDatosUsuarioBL;
 
         private RespuestaConsulta<List<FuenteRegistro>> ResultadoConsulta;
         string modulo = string.Empty;
@@ -26,7 +27,8 @@ namespace GB.SIMEF.BL
             this.modulo = modulo;
             this.user = user;
             this.clsDatos = new FuentesRegistroDAL();
-            this.clsDatosUsuario = new FuentesRegistroDestinatarioDAL();
+            this.clsDatosDestinatario = new FuentesRegistroDestinatarioDAL();
+            this.clsDatosUsuarioBL = new UsuarioFonatelBL(modulo, user);
             this.ResultadoConsulta = new RespuestaConsulta<List<FuenteRegistro>>();
         }
 
@@ -241,6 +243,17 @@ namespace GB.SIMEF.BL
                 }
                 else
                 {
+                    //89152 Se agrega funcionalidad para cuando se elimina la fuente se elimine los usuarios sitel
+                    DetalleFuenteRegistro destinatario = new DetalleFuenteRegistro();
+                    destinatario.idFuenteRegistro = objeto.IdFuenteRegistro;
+                    List<DetalleFuenteRegistro> destinatarios = clsDatosDestinatario.ObtenerDatos(destinatario);
+
+                    foreach (var item in destinatarios)
+                    {
+                        Usuario nuevoUsuario = new Usuario();
+                        nuevoUsuario.IdUsuario = item.idUsuario;
+                        clsDatosUsuarioBL.EliminarElemento(nuevoUsuario);
+                    }
 
                     objeto = resul.Single();
                     objeto.IdEstadoRegistro = nuevoEstado;
