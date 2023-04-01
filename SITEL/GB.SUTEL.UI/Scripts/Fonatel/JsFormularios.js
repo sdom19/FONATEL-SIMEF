@@ -544,7 +544,7 @@
 
             await execAjaxCall("/FormularioWeb/EliminarFormulario", "POST", objFormulario)
                 .then((obj) => {
-                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
+                    jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido eliminado")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
                 }).catch((obj) => {
                     JsFormulario.Metodos.MensajeError(obj);
@@ -991,7 +991,7 @@ $(document).on("click", JsFormulario.Controles.btnGuardarFormularioCompleto, fun
         .set('onok', async function (closeEvent) {
             await JsFormulario.Consultas.GuardadoCompleto();
             if (JsFormulario.Variables.HayError === false) {
-                jsMensajes.Metodos.OkAlertModal("El Formulario ha sido creado")
+                jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido creado")
                     .set('onok', function (closeEvent) { window.location.href = "/Fonatel/FormularioWeb/index" });
             }
         });

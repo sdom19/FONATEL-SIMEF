@@ -91,7 +91,7 @@
         MensajeDetalleEditado: "El Tipo de Regla de Validación ha sido editado",
         MensajeEliminarRegla: "La Regla de Validación ha sido eliminada",
         MensajeAgregarVariasReglas: "Recuerde que puede agregar más de una Regla de Validación para el Indicador seleccionado",
-        MensajeReglaCreada: "La de Regla de Validación ha sido creada"
+        MensajeReglaCreada: "La Regla de Validación ha sido creada"
     },
 
     "Metodos": {

@@ -166,7 +166,8 @@ namespace GB.SIMEF.Resources
             Bimestre = 5,
             Trimestre = 6,
             Cuatrimestre = 7,
-            Anual = 8
+            Semestral = 8,
+            Anual = 9
         }
 
         /// <summary>

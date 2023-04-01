@@ -151,7 +151,7 @@
 
                 if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo) {
                     html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value='" + formula.id + "' class='btn-icon-base btn-power-on'></button>";
-                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Correr proceso' value='" + formula.id + "' class='btn-icon-base btn-reload'></button>";
+                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Ejecutar fórmula' data-original-title='Ejecutar fórmula' value='" + formula.id + "' class='btn-icon-base btn-reload'></button>";
                 }
                 else if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
                     html += "<button type='button' class='btn-icon-base btn-power-on' disabled></button>";
@@ -1593,6 +1593,7 @@ GestionFormulaView = {
             GestionFormulaView.Metodos.MostrarFormulaCalculo();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).focus();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
+            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", false);
         },
 
         AgregarFechaAFormula: function (pVariable) {
@@ -1670,6 +1671,13 @@ GestionFormulaView = {
                 return GestionFormulaView.Consultas.ConsultarArgumentosDeFormula(pIdFormula)
                     .then(data => {
                         GestionFormulaView.Variables.FormulaCalculo = data.objetoRespuesta;
+
+                        if (GestionFormulaView.Variables.FormulaCalculo.length == 0) {
+                            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", true);
+                        } else {
+                            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", false);
+                        }
+
                         GestionFormulaView.Variables.hizoCargaDeArgumentos = true;
                     })
                     .catch(error => { ManejoDeExcepciones(error); })
