@@ -41,17 +41,17 @@
         @{
             var data = Model.DetalleRegistroIndcadorFonatel.OrderBy(x => x.IdDetalleRegistroIndicadorFonatel).ToList();
         }
-        @for (var i = 1; i < data.Count(); i++)
+        @for (var i = 1; i <= data.Count(); i++)
         {
-            var item = data[i];
+            var item = data[i-1];
         <li id="@string.Format("Tab{0}", i)"> <a data-toggle="tab" data-Indicador="@item.IdIndicadorString" href="@string.Format("#menu{0}", i)">@item.TituloHoja</a></li>
         }
     </ul>
 
     <div class="tab-content">
-        @for (var i = 1; i < data.Count(); i++)
+        @for (var i = 1; i <= data.Count(); i++)
         {
-            var item = data[i];
+            var item = data[i-1];
             <div id="@string.Format("menu{0}", i)" class="tab-pane fade ">
                 <div class="row">
                     <div class="col-sm-12">
