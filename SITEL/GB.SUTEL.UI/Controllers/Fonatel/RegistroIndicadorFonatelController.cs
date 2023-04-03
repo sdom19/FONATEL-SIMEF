@@ -60,11 +60,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
-        public ActionResult Create(string idSolicitud, string idFormularioWeb)
+        public ActionResult Create(string idSolicitud, string idFormulario)
         {
             RespuestaConsulta<List<RegistroIndicadorFonatel>> model = registroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel()
             {
-                FormularioId=idFormularioWeb,
+                FormularioId= idFormulario,
                 Solicitudid=idSolicitud,
             });
             if (model.CantidadRegistros==1)
