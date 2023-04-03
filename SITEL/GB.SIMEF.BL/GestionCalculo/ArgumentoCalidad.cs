@@ -18,11 +18,11 @@ namespace GB.SIMEF.BL.GestionCalculo
 
             if (argumentoVariable.IdCriterio.Equals(((int)TipoPorcentajeIndicadorCalculoEnum.indicador).ToString()))
             {
-                predicadoSQL = "EXEC FONATEL.pa_ConstruirArgumentoSalidaPorcentajeIndicador {0}";
+                predicadoSQL = "EXEC FONATEL.pa_ConstruirArgumentoSalidaPorcentajeIndicador '{0}'";
             }
             else if (argumentoVariable.IdCriterio.Equals(((int)TipoPorcentajeIndicadorCalculoEnum.cumplimiento).ToString()))
             {
-                predicadoSQL = "EXEC FONATEL.pa_ConstruirArgumentoSalidaPorcentajeCumplimiento {0}";
+                predicadoSQL = "EXEC FONATEL.pa_ConstruirArgumentoSalidaPorcentajeCumplimiento '{0}'";
             }
             return predicadoSQL != string.Empty ? string.Format(predicadoSQL, argumentoVariable.IdIndicador) : string.Empty;
         }
