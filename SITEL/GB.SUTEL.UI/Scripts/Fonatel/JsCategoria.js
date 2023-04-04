@@ -32,12 +32,14 @@
             "divRangoMaximaCategoria": "#divRangoMaximaCategoria",
             "btnGuardarCategoria": "#btnGuardarCategoria",
             "btnCancelar": "#btnCancelarCategoria",
+            "btnAtrasCategoria":"#btnAtrasCategoria",
             "btnCancelarDetalle": "#btnCancelarDetalleCategoria",
             "btnEditarCategoria": "#TableCategoriaDesagregacion tbody tr td .btn-edit",
             "btnDesactivarCategoria": "#TableCategoriaDesagregacion tbody tr td .btn-power-off",
             "btnActivarCategoria": "#TableCategoriaDesagregacion tbody tr td .btn-power-on",
             "btnClonarCategoria": "#TableCategoriaDesagregacion tbody tr td .btn-clone",
             "btnAddCategoria": "#TableCategoriaDesagregacion tbody tr td .btn-add",
+            "btnViewCategoria": "#TableCategoriaDesagregacion tbody tr td .btn-view",
             "btnGuardarDetalleCategoria": "#btnGuardarDetalleCategoria",
             "tablacategoria": "#TableCategoriaDesagregacion tbody",
             "TablaCategoriaDetalle": "#TableCategoriaDesagregacionDetalle tbody",
@@ -77,14 +79,16 @@
                     html = html + "<td>" + categoria.NombreCategoria + "</td>";
                     if (!categoria.TieneDetalle) {
                         html = html + "<td><strong>N/A</strong></td>";
-                        html = html + "<td>" + categoria.EstadoRegistro.Nombre + "</td>";
+                        html = html + "<td>" + categoria.TipoCategoria.Nombre + "</td>";
+                        html = html + "<td>" + categoria.EstadoRegistro.Nombre + "</td>";                     
                         html = html + "<td><strong>N/A</strong></td>";
                     }
                     else {
                         html = html + "<td>" + categoria.CantidadDetalleDesagregacion + "/" + categoria.DetalleCategoriaTexto.length + "</td>";
+                        html = html + "<td>" + categoria.TipoCategoria.Nombre + "</td>";
                         html = html + "<td>" + categoria.EstadoRegistro.Nombre + "</td>";
-                        html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Cargar Detalle'  title='Cargar Detalle' class='btn-icon-base btn-upload'></button>" +
-                            "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Descargar Plantilla' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
+                        html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Descargar Plantilla'  title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
+                            "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Cargar Detalle' title='Cargar Detalle' class='btn-icon-base btn-upload'></button>" +
                             "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Agregar Detalle' title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
                     }
                     html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Editar' title='Editar' class='btn-icon-base btn-edit'></button>";
@@ -102,6 +106,7 @@
                     else {
                         html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' disabled value=" + categoria.id + " class='btn-icon-base btn-power-off'></button>";
                     }
+                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar' data-original-title='Visualizar' value=" + categoria.id + " class='btn-icon-base btn-view'></button>";
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' data-original-title='Eliminar' value=" + categoria.id + " class='btn-icon-base btn-delete'></button></td >";
                     html = html + "</tr>"
                 }
@@ -988,6 +993,15 @@ $(document).on("click", JsCategoria.Controles.btnEditarDetalle, function (e) {
     let id = $(this).val();
     InsertarParametroUrl("id", id);
     JsCategoria.Consultas.ConsultaCategoriaDetalle();
+});
+
+
+$(document).on("click", JsCategoria.Controles.btnViewCategoria, function (e) {
+    let id = $(this).val();
+    window.location.href = "/Fonatel/CategoriasDesagregacion/Visualizar?id=" + id;
+});
+$(document).on("click", JsCategoria.Controles.btnAtrasCategoria, function (e) {
+    window.location.href = "/Fonatel/CategoriasDesagregacion/index";
 });
 
 
