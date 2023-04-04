@@ -652,7 +652,7 @@
 
             var registroIndicador = new Object();
             registroIndicador.IdSolicitudString = ObtenerValorParametroUrl("idSolicitud");
-            registroIndicador.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
+            registroIndicador.IdFormularioWebString = ObtenerValorParametroUrl("idFormulario");
             registroIndicador.IdIndicadorString = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
             $(".select2-wrapper.has-error").removeClass("has-error");
             $("td.has-error").removeClass("has-error");

@@ -122,11 +122,13 @@
                     $(JsReglas.Controles.divFormulaContraAtributosValido).removeClass("hidden");
                     $(JsReglas.Controles.ddlVariableRegla).val('...').change();
                     $(JsReglas.Controles.ddlVariableRegla).prop("disabled", true);
+                    JsReglas.Consultas.ObtenerCategoriaIdXIndicador();
                     break;
                 case JsReglas.Variables.FormulaActualizacionSecuencial:
                     $(JsReglas.Controles.divFormulaActualizacionSecuencial).removeClass("hidden");
                     $(JsReglas.Controles.ddlVariableRegla).val('...').change();
                     $(JsReglas.Controles.ddlVariableRegla).prop("disabled", true);
+                    JsReglas.Consultas.ConsultarCategoriasActualizables();
                     break;
 
                 case JsReglas.Variables.FormulaContraIndicadorSalida:
@@ -557,26 +559,39 @@
 
         },
 
-        "ValidarVariablesDatoDisponibles": function () {
+        "ValidarVariablesDatoDisponibles": function (selected) {
             //Validacion para no seleccionar el mismo indicador en comparacion
+            var tipoRegla = $(JsReglas.Controles.ddlTipoRegla).val();
             var idVariableDato = $(JsReglas.Controles.ddlVariableRegla).val();
-            var opciones = $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida + ' option')
-            var opcionesFiltradas = opciones.filter(function () {
-                return $(this).val() != idVariableDato;
-            })
-            $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).empty().append(opcionesFiltradas).val(null).trigger('change')
+            var opciones;
+            var opcionesFiltradas;
 
-            opciones = $(JsReglas.Controles.ddlVariableComparacionReglaSalida + ' option')
-            opcionesFiltradas = opciones.filter(function () {
-                return $(this).val() != idVariableDato;
-            })
-            $(JsReglas.Controles.ddlVariableComparacionReglaSalida).empty().append(opcionesFiltradas).val(null).trigger('change')
+            switch (tipoRegla) {
+                case JsReglas.Variables.FormulaContraIndicador:
+                    opciones = $(JsReglas.Controles.ddlVariableComparacionRegla + ' option')
+                    opcionesFiltradas = opciones.filter(function () {
+                        return $(this).val() != idVariableDato;
+                    })
+                    $(JsReglas.Controles.ddlVariableComparacionRegla).empty().append(opcionesFiltradas).val(selected).trigger('change')
+                    break;
 
-            opciones = $(JsReglas.Controles.ddlVariableComparacionRegla + ' option')
-            opcionesFiltradas = opciones.filter(function () {
-                return $(this).val() != idVariableDato;
-            })
-            $(JsReglas.Controles.ddlVariableComparacionRegla).empty().append(opcionesFiltradas).val(null).trigger('change')
+                case JsReglas.Variables.FormulaContraIndicadorSalida:
+                    opciones = $(JsReglas.Controles.ddlVariableComparacionReglaSalida + ' option')
+                    opcionesFiltradas = opciones.filter(function () {
+                        return $(this).val() != idVariableDato;
+                    })
+                    $(JsReglas.Controles.ddlVariableComparacionReglaSalida).empty().append(opcionesFiltradas).val(selected).trigger('change')
+                    break;
+
+                case JsReglas.Variables.FormulaContraIndicadorEntradaSalida:
+                    idVariableDato = $(JsReglas.Controles.ddlVariableRegla).val();
+                    opciones = $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida + ' option')
+                    opcionesFiltradas = opciones.filter(function () {
+                        return $(this).val() != idVariableDato;
+                    })
+                    $(JsReglas.Controles.ddlVariableComparacionReglaEntradaSalida).empty().append(opcionesFiltradas).val(selected).trigger('change')
+                    break;
+            }
             
         }
     },
@@ -946,6 +961,7 @@
         "ConsultaVariablesDatoEntrada": function (idIndicadorString) {
 
             $("#loading").fadeIn();
+            var selected = $(JsReglas.Controles.ddlVariableComparacionRegla).val();
 
             execAjaxCall("/ReglasValidacion/ObtenerListaVariablesDato", "GET", { idIndicadorString })
                 .then((obj) => {
@@ -971,7 +987,7 @@
                             .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
-                    JsReglas.Metodos.ValidarVariablesDatoDisponibles();
+                    JsReglas.Metodos.ValidarVariablesDatoDisponibles(selected);
                     $("#loading").fadeOut();
                 });
         },
@@ -979,6 +995,7 @@
         "ConsultaVariablesDatoSalida": function (idIndicadorString) {
 
             $("#loading").fadeIn();
+            var selected = $(JsReglas.Controles.ddlVariableComparacionReglaSalida).val();
 
             execAjaxCall("/ReglasValidacion/ObtenerListaVariablesDato", "GET", { idIndicadorString })
                 .then((obj) => {
@@ -1004,7 +1021,7 @@
                             .set('onok', function (closeEvent) { })
                     }
                 }).finally(() => {
-                    JsReglas.Metodos.ValidarVariablesDatoDisponibles();
+                    JsReglas.Metodos.ValidarVariablesDatoDisponibles(selected);
                     $("#loading").fadeOut();
                 });
         },
@@ -1012,6 +1029,7 @@
         "ConsultaVariablesDatoEntradaSalida": function (idIndicadorString) {
 
             $("#loading").fadeIn();
+            var selected = $(JsReglas.Controles.ddlVariableComparacionReglaSalida).val();
 
             execAjaxCall("/ReglasValidacion/ObtenerListaVariablesDato", "GET", { idIndicadorString })
                 .then((obj) => {
@@ -1038,7 +1056,7 @@
                     }
                 }).finally(() => {
 
-                    JsReglas.Metodos.ValidarVariablesDatoDisponibles();
+                    JsReglas.Metodos.ValidarVariablesDatoDisponibles(selected);
 
                     $("#loading").fadeOut();
                 });
@@ -1047,13 +1065,16 @@
         "ConsultaDetallesCategoria": function (idCategoria) {
 
             $("#loading").fadeIn();
-
-
             let RelacionCategoria = new Object();
             RelacionCategoria.idCategoriaDesagregacion = idCategoria;
+            RelacionCategoria.id = $(JsReglas.Controles.ddlIndicadorRegla).val();
 
             execAjaxCall("/ReglasValidacion/ObtenerListaDetallesCategoria", "POST", RelacionCategoria)
                 .then((obj) => {
+                    $(JsReglas.Controles.ddlAtributosValidosRegla).html("");
+                    if (obj.objetoRespuesta[0].DetalleRelacionCategoria.length == 0) {
+                        return;
+                    }
                     let respuestaRelacion = obj.objetoRespuesta[0].DetalleRelacionCategoria;
 
                     let html = "<option value='all'>Todos</option>";
@@ -1264,6 +1285,59 @@
                 });
         },
 
+        "ConsultarCategoriasActualizables": function () {
+            $("#loading").fadeIn();
+            var idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
+            $(JsReglas.Controles.ddlCategoríaActualizableRegla).empty()
+
+            execAjaxCall("/ReglasValidacion/ObtenerCategoriasActualizablesIndicador", "GET", { idIndicadorString })
+                .then((obj) => {
+
+                    let html = "<option value=''/>";
+                    for (var i = 0; i < obj.objetoRespuesta.length; i++) {
+                        html = html + "<option value='" + obj.objetoRespuesta[i].id + "'>" + obj.objetoRespuesta[i].Codigo + " / " + obj.objetoRespuesta[i].NombreCategoria + "</option>"
+                    }
+                    $(JsReglas.Controles.ddlCategoríaActualizableRegla).html(html);
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        },
+
+        "ObtenerCategoriaIdXIndicador": function () {
+            $("#loading").fadeIn();
+            var idIndicadorString = $(JsReglas.Controles.ddlIndicadorRegla).val();
+            $(JsReglas.Controles.ddlAtributosValidosCategoriaRegla).empty()
+
+            execAjaxCall("/ReglasValidacion/ObtenerCategoriaIdXIndicador", "GET", { idIndicadorString })
+                .then((obj) => {
+
+                    let html = "<option value=''/>";
+                    for (var i = 0; i < obj.objetoRespuesta.length; i++) {
+                        html = html + "<option value='" + obj.objetoRespuesta[i].idCategoriaDesagregacion + "'>" + obj.objetoRespuesta[i].Codigo + " / " + obj.objetoRespuesta[i].NombreCategoria + "</option>"
+                    }
+                    $(JsReglas.Controles.ddlAtributosValidosCategoriaRegla).html(html);
+                }).catch((obj) => {
+                    if (obj.HayError == jsUtilidades.Variables.Error.ErrorSistema) {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { });
+                    }
+                    else {
+                        jsMensajes.Metodos.OkAlertErrorModal()
+                            .set('onok', function (closeEvent) { })
+                    }
+                }).finally(() => {
+                    $("#loading").fadeOut();
+                });
+        }
     }
 }
 
@@ -1513,25 +1587,30 @@ $(document).on("change", JsReglas.Controles.ddlAtributosValidosCategoriaRegla, f
 });
 
 $(document).on("change", JsReglas.Controles.ddlVariableRegla, function () {
-    //JsReglas.Metodos.ValidarVariablesDatoDisponibles();
     var tipoRegla = $(JsReglas.Controles.ddlTipoRegla).val();
-    var idIndicadorString = ''
+    var idIndicadorReglaString = $(JsReglas.Controles.ddlIndicadorRegla).val();
+    var idIndicadorString = "";
 
     if (tipoRegla == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntrada) {
         idIndicadorString = $(JsReglas.Controles.ddlIndicadorComparacionRegla).val();
-        if (idIndicadorString != '') {
+
+        if (idIndicadorString != '' && idIndicadorString == idIndicadorReglaString) {
             JsReglas.Consultas.ConsultaVariablesDatoEntrada(idIndicadorString);
         }
+
     } else if (tipoRegla == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
         idIndicadorString = $(JsReglas.Controles.ddlIndicadorSalidaRegla).val();
-        if (idIndicadorString != '') {
+
+        if (idIndicadorString != '' && idIndicadorString == idIndicadorReglaString) {
             JsReglas.Consultas.ConsultaVariablesDatoSalida(idIndicadorString);
         }
+
     } else if (tipoRegla == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorEntradaSalida) {
         idIndicadorString = $(JsReglas.Controles.ddlIndicadorComparacionReglaEntradaSalida).val();
-        if (idIndicadorString != '') {
+
+        if (idIndicadorString != '' && idIndicadorString == idIndicadorReglaString) {
             JsReglas.Consultas.ConsultaVariablesDatoEntradaSalida(idIndicadorString);
-        }        
+        }
     }
 });
 
