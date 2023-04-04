@@ -118,6 +118,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
+        [HttpGet]
+        [AuthorizeUserAttribute]
+        public ActionResult Visualizar(string id)
+        {
+            CategoriaDesagregacion objCategoria = new CategoriaDesagregacion();
+            if (!string.IsNullOrEmpty(id))
+            {
+                objCategoria.id = id;
+                objCategoria = categoriaBL.ObtenerDatos(objCategoria).objetoRespuesta.SingleOrDefault();
+            }
+
+            return View(objCategoria);
+
+        }
+
+
 
         /// <summary>
         /// Genera el detalle total de los atributos
