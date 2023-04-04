@@ -35,7 +35,7 @@
         <div class="form-group row">
             <label for="ddlTipoDetalleCategoria" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.TipoDetalle</label>
             <div class="col-sm-12">
-                @Html.EditorFor(model => model.TipoCategoria.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", placeholder = EtiquetasViewCategorias.Cantidad, id = "txtTipoDetalleCategoria" } })
+                @Html.EditorFor(model => model.TipoDetalleCategoria.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", placeholder = EtiquetasViewCategorias.Cantidad, id = "txtTipoDetalleCategoria" } })
             </div>
         </div>
         @if (Model.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Texto || Model.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
