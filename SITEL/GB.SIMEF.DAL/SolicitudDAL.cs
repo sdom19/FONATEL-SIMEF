@@ -137,10 +137,25 @@ namespace GB.SIMEF.DAL
         /// <returns></returns>
         public List<FormularioWeb> ObtenerListaFormulario(int objSolicitud)
         {
-            List<FormularioWeb> resultado = db.Database.SqlQuery<FormularioWeb>
+           var Listado= db.Database.SqlQuery<FormularioWeb>
                   ("execute pa_ObtenerFormularioXSolicitudLista @idSolicitud",
-                  new SqlParameter("@idSolicitud", objSolicitud)
-                    ).ToList();
+                  new SqlParameter("@idSolicitud", objSolicitud)).ToList();
+
+
+            List<FormularioWeb> resultado = Listado.Select(x => new FormularioWeb()
+            {
+                Codigo=x.Codigo,
+                Nombre=x.Nombre,
+                Descripcion=x.Descripcion,
+                CantidadIndicador=x.CantidadIndicador,
+                FrecuenciaEnvio=x.FrecuenciaEnvio,
+                FechaCreacion=x.FechaCreacion,
+                FechaModificacion=x.FechaModificacion,
+                UsuarioCreacion=x.UsuarioCreacion,
+                UsuarioModificacion=x.UsuarioModificacion,
+                idEstadoRegistro=x.idEstadoRegistro,
+                EstadoRegistro=db.EstadoRegistro.Where(s=>s.IdEstadoRegistro==x.idEstadoRegistro).FirstOrDefault()
+            }).ToList();
 
             if (resultado==null)
             {
