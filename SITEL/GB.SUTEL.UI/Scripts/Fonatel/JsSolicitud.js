@@ -13,6 +13,7 @@ JsSolicitud = {
         "btnEliminarProgramacion": "#TablaSolicitud tbody tr td .btn-calendar-disabled",
         "btnsent": "#TablaSolicitud tbody tr td .btn-sent",
         "btnCancelar": "#btnCancelarSolicitud",
+        "btnAtrasSolicitud":"#btnAtrasSolicitud",
         "btnDesactivadoSolicitud": "#TablaSolicitud tbody tr td .btn-power-off",
         "btnActivadoSolicitud": "#TablaSolicitud tbody tr td .btn-power-on",
         "btnGuardarEnvio": "#btnGuardarSolicitudEnvio",
@@ -1371,6 +1372,11 @@ $(document).on("click", JsSolicitud.Controles.btnViewSolicitud, function () {
     let id = $(this).val();
     window.location.href = "/Fonatel/SolicitudFonatel/Visualizacion?id=" + id;
 });
+
+$(document).on("click", JsSolicitud.Controles.btnAtrasSolicitud, function () {
+    window.location.href = "/Fonatel/SolicitudFonatel/Index";
+});
+
 
 
 $(function () {
