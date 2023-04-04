@@ -1455,6 +1455,12 @@
     <Content Include="Views\CategoriasDesagregacion\Visualizar.cshtml" />
     <Content Include="Views\CategoriasDesagregacion\_VisualizaCategoria.cshtml" />
     <Content Include="Views\CategoriasDesagregacion\_TablaVisualizacionDetalleDesagregacion.cshtml" />
+    <Content Include="Views\SolicitudFonatel\_VisualizaSolicitud.cshtml" />
+    <Content Include="Views\SolicitudFonatel\_TablaVisualizaFormularios.cshtml" />
+    <Content Include="Views\SolicitudFonatel\Visualizacion.cshtml" />
+    <Content Include="Views\Fuentes\_TablaVisualizaDetalleFuentes.cshtml" />
+    <Content Include="Views\Fuentes\_VisualizarFuente.cshtml" />
+    <Content Include="Views\Fuentes\Visualizacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
