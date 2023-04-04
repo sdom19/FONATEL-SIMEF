@@ -1,0 +1,55 @@
+﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.FuenteRegistro
+
+@{
+    ViewBag.Title = @EtiquetasViewFuentesRegistro.Visualizacion;
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+    @*@Scripts.Render("~/bundles/FONATEL/Fuentes")*@
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="text-right">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                    <li class="breadcrumb-item active"><a href="/Fonatel/Fuentes/index">@EtiquetasViewFuentesRegistro.Fuente</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewFuentesRegistro.Visualizacion</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="row" >
+    <div class="col-lg-12">
+        <h2 class="page-title-fonatel text-center">@EtiquetasViewFuentesRegistro.Visualizacion</h2>
+        <hr />
+    </div>
+    <div class="col-lg-12">
+
+        @Html.Partial("_VisualizarFuente",Model)
+    </div>
+    <div class="col-lg-12 mt-4">
+        @Html.Partial("_TablaVisualizaDetalleFuentes",Model)
+    </div>
+    <div class="col-12 pull-right mt-4">
+        <button type="button" id="btnAtrasFuentes" class="btn btn-fonatel btn-goback" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonAtras">
+            <span aria-hidden="true"></span>@Etiquetas.BotonAtras
+        </button>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="~/Scripts/Fonatel/JsFuentes.js"></script>

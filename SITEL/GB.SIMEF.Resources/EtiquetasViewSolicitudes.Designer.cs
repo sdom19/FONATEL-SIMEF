@@ -239,5 +239,14 @@ namespace GB.SIMEF.Resources {
                 return ResourceManager.GetString("Solicitudes", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visualización Solicitud.
+        /// </summary>
+        public static string Visualizacion {
+            get {
+                return ResourceManager.GetString("Visualizacion", resourceCulture);
+            }
+        }
     }
 }

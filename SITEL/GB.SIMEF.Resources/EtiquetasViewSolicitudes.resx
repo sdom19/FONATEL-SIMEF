@@ -177,4 +177,7 @@
   <data name="Solicitudes" xml:space="preserve">
     <value>Solicitud</value>
   </data>
+  <data name="Visualizacion" xml:space="preserve">
+    <value>Visualización Solicitud</value>
+  </data>
 </root>
