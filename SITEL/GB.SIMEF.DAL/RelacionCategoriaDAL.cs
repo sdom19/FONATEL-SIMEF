@@ -193,7 +193,7 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@CantidadFila", objeto.CantidadFila)
                     ).ToList();
             }
-            if (accion != Constantes.Accion.Insertar)
+            if (accion != Constantes.Accion.Crear)
             {
                 ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
 
@@ -336,7 +336,7 @@ namespace GB.SIMEF.DAL
                       new SqlParameter("@OpcionEliminar", objeto.OpcionEliminar==true?1:0)
                     ).ToList();
             }
-            if (accion != Constantes.Accion.Insertar)
+            if (accion != Constantes.Accion.Crear)
             {
                 ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
 
@@ -385,7 +385,7 @@ namespace GB.SIMEF.DAL
 
                     ).ToList();
             }
-            if (accion != Constantes.Accion.Insertar)
+            if (accion != Constantes.Accion.Crear)
             {
                 ListaRelacionCategoria = CrearListadoRelacion(ListaRelacionCategoria);
 

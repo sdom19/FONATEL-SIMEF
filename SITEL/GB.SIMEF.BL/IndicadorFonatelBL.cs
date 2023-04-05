@@ -220,7 +220,7 @@ namespace GB.SIMEF.BL
                 resultado.Usuario = user;
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
                 resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Insertar;
+                resultado.Accion = (int)Accion.Crear;
 
                 //var nuevoIndicador = new Indicador { idIndicador = pIndicador.idIndicador };
 

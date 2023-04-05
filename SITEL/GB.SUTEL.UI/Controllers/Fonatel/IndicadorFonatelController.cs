@@ -89,7 +89,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ActionResult Create()
         {
             CargarDatosEnVistas();
-            ViewBag.ModoFormulario = ((int) Accion.Insertar).ToString();
+            ViewBag.ModoFormulario = ((int) Accion.Crear).ToString();
             ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloCrearIndicador;
 
             return View();

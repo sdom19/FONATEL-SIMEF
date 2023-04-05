@@ -104,7 +104,7 @@ namespace GB.SIMEF.BL
                     }
 
                     ResultadoConsulta.Clase = modulo;
-                    ResultadoConsulta.Accion = (int)Accion.Insertar;
+                    ResultadoConsulta.Accion = (int)Accion.Crear;
                     ResultadoConsulta.Usuario = user;
 
                     ResultadoConsulta.objetoRespuesta = detalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorCategoriaValorFonatel(dt);

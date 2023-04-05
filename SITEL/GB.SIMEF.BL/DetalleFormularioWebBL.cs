@@ -132,7 +132,7 @@ namespace GB.SIMEF.BL
                 objeto.IdDetalleFormularioWeb = 0;
                 objeto.Estado = true;
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Accion = (int)Accion.Crear;
                 ResultadoConsulta.Usuario = user;
                 if (!String.IsNullOrEmpty(objeto.formularioweb.id))
                 {

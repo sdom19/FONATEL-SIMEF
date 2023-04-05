@@ -159,7 +159,7 @@ namespace GB.SIMEF.BL
                     }
 
                     ResultadoConsulta.Clase = modulo;
-                    ResultadoConsulta.Accion = (int)Accion.Insertar;
+                    ResultadoConsulta.Accion = (int)Accion.Crear;
                     ResultadoConsulta.Usuario = user;
 
                     ResultadoConsulta.objetoRespuesta = detalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorCategoriaValorFonatel(dt);
@@ -613,7 +613,7 @@ namespace GB.SIMEF.BL
                     detalleRegistroIndicadorFonatelDAL.EliminarDetalleRegistroIndicadorVariableValorFonatel(eliminar);
 
                     ResultadoConsultaVariable.Clase = modulo;
-                    ResultadoConsultaVariable.Accion = (int)Accion.Insertar;
+                    ResultadoConsultaVariable.Accion = (int)Accion.Crear;
                     ResultadoConsultaVariable.Usuario = user;
 
                     ResultadoConsultaVariable.objetoRespuesta = detalleRegistroIndicadorFonatelDAL.InsertarDetalleRegistroIndicadorVariableValorFonatel(dt);

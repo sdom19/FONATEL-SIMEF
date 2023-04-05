@@ -287,7 +287,7 @@ namespace GB.SIMEF.BL
             {
                 objeto.idFormularioWeb = 0;
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Accion = (int)Accion.Crear;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
                 if (ValidarDatosRepetidos(objeto))

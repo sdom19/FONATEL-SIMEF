@@ -105,5 +105,24 @@ namespace GB.SIMEF.BL
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Fecha 31-03-2023
+        /// Georgi Mesen Cerdas
+        /// Metodo para registrar la bitacora cuando se descarga los datos historicos
+        /// </summary>
+        /// <returns></returns>
+        public void BitacoraDescargar(DatoHistorico objeto)
+        {
+            RespuestaConsulta<List<DatoHistorico>> resultado = new RespuestaConsulta<List<DatoHistorico>>();
+            resultado.Clase = modulo;
+            resultado.Accion = (int)Accion.Descargar;
+            resultado.Usuario = user;
+            objeto.id = Utilidades.DesencriptarArray(objeto.id);
+
+            DatosHistoricosDAL.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario,
+                            resultado.Clase, objeto.id, "", "", "");
+        }
     }
 }

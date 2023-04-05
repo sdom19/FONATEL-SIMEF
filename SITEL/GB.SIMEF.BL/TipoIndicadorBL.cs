@@ -123,7 +123,7 @@ namespace GB.SIMEF.BL
                 List<TipoIndicador> indicadorInsertado = tipoIndicadorDAL.InsertarTipoIndicador(pTipoIndicadores);
                 resultado.objetoRespuesta = indicadorInsertado;
                 resultado.CantidadRegistros = indicadorInsertado.Count();
-                resultado.Accion = (int)Accion.Insertar;
+                resultado.Accion = (int)Accion.Crear;
                 resultado.Clase = modulo;
                 resultado.Usuario = user;
 
