@@ -171,4 +171,7 @@
   <data name="ValorMáximo" xml:space="preserve">
     <value>Valor Máximo</value>
   </data>
+  <data name="Vista" xml:space="preserve">
+    <value>Visualización Categoría de Desagregación</value>
+  </data>
 </root>

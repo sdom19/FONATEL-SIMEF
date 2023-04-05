@@ -144,4 +144,7 @@
   <data name="Nombre" xml:space="preserve">
     <value>Nombre </value>
   </data>
+  <data name="Visualizacion" xml:space="preserve">
+    <value>Visualización Fuente de Registro</value>
+  </data>
 </root>

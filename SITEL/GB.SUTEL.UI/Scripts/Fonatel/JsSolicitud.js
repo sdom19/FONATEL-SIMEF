@@ -7,11 +7,13 @@ JsSolicitud = {
         "btnEditarSolicitud": "#TablaSolicitud tbody tr td .btn-edit",
         "btnDeleteSolicitud": "#TablaSolicitud tbody tr td .btn-delete",
         "btnCloneSolicitud": "#TablaSolicitud tbody tr td .btn-clone",
+        "btnViewSolicitud": "#TablaSolicitud tbody tr td .btn-view",
         "btnEliminarDetalleSolicitud": "#TablaSolicitud tbody tr td .btn-delete",
         "btnEnvioSolicitud": "#TablaSolicitud tbody tr td .btn-calendar",
         "btnEliminarProgramacion": "#TablaSolicitud tbody tr td .btn-calendar-disabled",
         "btnsent": "#TablaSolicitud tbody tr td .btn-sent",
         "btnCancelar": "#btnCancelarSolicitud",
+        "btnAtrasSolicitud":"#btnAtrasSolicitud",
         "btnDesactivadoSolicitud": "#TablaSolicitud tbody tr td .btn-power-off",
         "btnActivadoSolicitud": "#TablaSolicitud tbody tr td .btn-power-on",
         "btnGuardarEnvio": "#btnGuardarSolicitudEnvio",
@@ -90,6 +92,7 @@ JsSolicitud = {
 
     "Metodos": {
 
+
         "CargarDiasMesCombo": function () {
             let html = "<option></option>";
             for (var i = 1; i <= JsSolicitud.Variables.CantidadMaxDias; i++) {
@@ -116,7 +119,7 @@ JsSolicitud = {
                 html = html + "<td>" + listaFormularios + "</td>";
                 html = html + "<td>" + envioProgramado + "</td>";
                 html = html + "<td>" + solicitud.Estado.Nombre + "</td >";
-
+           
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Editar' class='btn-icon-base btn-edit'></button>";
 
                 if (EnProceso == "SI") {
@@ -136,7 +139,8 @@ JsSolicitud = {
 
                 }
 
-                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button>";
+                html = html + " <button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar' data-original-title='Visualizar' value=" + solicitud.id + " class='btn-icon-base btn-view'></button>"+
+                              " <button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + " title='Eliminar' class='btn-icon-base btn-delete'></button > ";
 
                 if (EnProceso == "NO") {
                     html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + solicitud.id + "  title='Envío' class='btn-icon-base btn-sent'></button>";
@@ -1106,6 +1110,9 @@ $(document).on("click", JsSolicitud.Controles.btnEditarSolicitud, function () {
     window.location.href = "/Fonatel/SolicitudFonatel/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Editar;
 });
 
+
+
+
 $(document).on("click", JsSolicitud.Controles.btnEliminarProgramacion, function () {
     JsSolicitud.Variables.esModoEliminar = true;
     let CargarCodigo = $(this).attr("data-index");
@@ -1361,6 +1368,16 @@ $(document).on("keyup", JsSolicitud.Controles.ControlesStep1, function (e) {
 $(document).on("change", JsSolicitud.Controles.ControlesStep1, function (e) {
     JsSolicitud.Consultas.ValidarFormularioCrear();
 });
+$(document).on("click", JsSolicitud.Controles.btnViewSolicitud, function () {
+    let id = $(this).val();
+    window.location.href = "/Fonatel/SolicitudFonatel/Visualizacion?id=" + id;
+});
+
+$(document).on("click", JsSolicitud.Controles.btnAtrasSolicitud, function () {
+    window.location.href = "/Fonatel/SolicitudFonatel/Index";
+});
+
+
 
 $(function () {
 
@@ -1373,17 +1390,18 @@ $(function () {
         $(JsSolicitud.Controles.txtCodigo).prop("disabled", true);
         JsSolicitud.Consultas.ValidarFormularioCrear();
     }
-    else {
+    else if ($("#TablaVisualizaFormulario").length==0) {
         JsSolicitud.Consultas.ValidarFormularioCrear();
     }
-
     if ($(JsSolicitud.Controles.TablaFormulario).length > 0) {
         JsSolicitud.Consultas.ConsultaListaFormulario();
     }
-
-    if ($(JsSolicitud.Controles.TxtCantidadFormulario).val() == 0) {
+     if ($(JsSolicitud.Controles.TxtCantidadFormulario).val() == 0) {
         $(JsSolicitud.Controles.TxtCantidadFormulario).val("");
     }
+
+
+
 });
 
 

@@ -5,9 +5,11 @@
         "btnSiguienteFuente":"#btnSiguienteFuente",
         "btnEditarFuente": "#TablaFuentes tbody tr td .btn-edit",
         "btnBorrarFuente": "#TablaFuentes tbody tr td .btn-delete",
+        "btnVisualizaFuente": "#TablaFuentes tbody tr td .btn-view",
         "btnBorrarDetalle": "#TableDetalleFuentes tbody tr td .btn-delete",
         "btnEditarDetalle": "#TableDetalleFuentes tbody tr td .btn-edit",
         "btnAddFuente": "#TablaFuentes tbody tr td .btn-add",
+        "btnAtrasFuentes":"#btnAtrasFuentes",
         "divContenedor": ".divContenedor_fuentes",
         "btnGuardarDestinatario": "#btnGuardarDestinatario",
         "btnGuardarFuentesCompleto": "#btnGuardarFuentesCompleto",
@@ -63,7 +65,8 @@
                 let fuente = JsFuentes.Variables.ListadoFuentes[i];
                 html = html + "<tr><th scope='row'>" + fuente.Fuente + "</th>" +
                     "<td>" + fuente.CantidadDestinatario + "/" + fuente.DetalleFuenteRegistro.length + "</td><td>" + fuente.EstadoRegistro.Nombre + "</td>";
-                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value='"+fuente.id+"' title='Editar' class='btn-icon-base btn-edit'></button>" +
+                html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value='" + fuente.id + "' title='Editar' class='btn-icon-base btn-edit'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar' data-original-title='Visualizar' value=" + fuente.id + " class='btn-icon-base btn-view' ></button>"+
                     "<button type='button' data-toggle='tooltip' data-placement='top' value='" + fuente.id +"' title='Eliminar' class='btn-icon-base btn-delete'></button></td></tr>";
             }
             $(JsFuentes.Controles.TablaFuentes).html(html);
@@ -512,6 +515,20 @@ $(document).on("click", JsFuentes.Controles.btnEditarDetalle, function () {
     let id = $(this).val();
     JsFuentes.Consultas.ConsultarDestinatarios(id);
 });
+
+$(document).on("click", JsFuentes.Controles.btnVisualizaFuente, function () {
+    let id = $(this).val();
+    window.location.href = "/Fonatel/Fuentes/Visualizacion?id=" + id;
+});
+
+
+$(document).on("click", JsFuentes.Controles.btnAtrasFuentes, function () {
+    window.location.href = "/Fonatel/Fuentes/Index";
+});
+
+
+
+
 
 $(document).on("click", JsFuentes.Controles.btnAtrasFuentes, function (e) {
     e.preventDefault();

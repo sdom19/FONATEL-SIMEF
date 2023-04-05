@@ -1,0 +1,25 @@
+﻿@using GB.SIMEF.Resources;
+ @model GB.SIMEF.Entities.FuenteRegistro
+<form>
+    <div class="row">
+        <div class="col-md-4 col-sm-10 col-md-offset-2 col-sm-offset-2">
+            <div class="form-group row">
+                <label for="txtFuente" class="col-sm-12 col-form-label">Fuente</label>
+                <div class="col-sm-12">
+
+                    @Html.EditorFor(model => model.Fuente, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtFuente" } })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-10 col-md-offset-0 col-sm-offset-2">
+            <div class="form-group row">
+                <label for="txtCantidad" class="col-sm-12 col-form-label">Cantidad de Destinatarios</label>
+                <div class="col-sm-12">
+
+                    @Html.EditorFor(model => model.CantidadDestinatario, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled",  id = "txtCantidad" } })
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

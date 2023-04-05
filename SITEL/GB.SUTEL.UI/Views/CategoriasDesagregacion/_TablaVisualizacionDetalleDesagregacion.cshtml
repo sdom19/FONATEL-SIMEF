@@ -1,0 +1,24 @@
+﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.CategoriaDesagregacion
+<div class="table-responsive table-wrapper-fonatel">
+    <table id="TableCategoriaDesagregacionDetalle" class="dataTable datatable_simef table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">@EtiquetasViewCategorias.Codigo</th>
+                <th scope="col">@EtiquetasViewCategorias.Etiqueta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DetalleCategoriaTexto)
+            {
+
+                <tr>
+                    <td>@item.Codigo</td>
+                    <td>@item.Etiqueta</td>
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+</div>
