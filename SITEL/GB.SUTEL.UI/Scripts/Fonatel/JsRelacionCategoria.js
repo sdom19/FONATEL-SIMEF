@@ -5,6 +5,7 @@
         "btnEditarRelacion": "#TablaRelacionCategoria tbody tr td .btn-edit",
         "btnAtrasRelacionCategorias":"#btnAtrasRelacionCategorias",
         "TablaRelacionCategoria": "#TablaRelacionCategoria tbody",
+        "TableVisualizacionCategoriaAtributo":"#TableVisualizacionCategoriaAtributo",
         "btnGuardarCategoria":"#btnGuardarCategoria",
         "btnFinalizar": "#btnFinalizar",
         "btnDescargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-download",
@@ -20,6 +21,7 @@
         "ddlCategoriaId":"#ddlCategoriaId",
         "btnGuardarRelacion": "#btnGuardarRelacion",
         "btnSiguienteRelacionCategoria": "#btnSiguienteRelacionCategoria",
+        "btnSiguienteRelacionCategoriaView":"#btnSiguienteRelacionCategoriaView",
         "ddlCategoriaAtributo":"#ddlCategoriaAtributo",
         "nombreHelp": "#nombreHelp",
         "CodigoHelp": "#CodigoHelp",
@@ -33,6 +35,7 @@
         "TableCategoriaAtributoEliminar": "#TableCategoriaAtributo tbody tr td .btn-delete",
         "btnAgregarRelacion": "#TablaRelacionCategoria tbody tr td .btn-add",
         "btnCargarDetalle": "#TablaRelacionCategoria tbody tr td .btn-upload",
+        "btnViewRelacion": "#TablaRelacionCategoria tbody tr td .btn-view",
         "inputFileCargarDetalle": "#inputFileCargarDetalle",
         "btnGuardarDetalle": "#btnGuardarDetalle",
         "btnFinalizarDetalle": "#btnFinalizarDetalle",
@@ -40,7 +43,9 @@
         "btnCancelarEditar": "#btnCancelarEditar",
         "divBotonesGuardar": "#divBotonesGuardar",
         "divBotonesEditar": "#divBotonesEditar",
-        "listasDesplegables": ".listasDesplegables"
+        "listasDesplegables": ".listasDesplegables",
+        "viewcreate": "#viewcreate",
+        "viewvisualizacion": "#viewvisualizacion"
     },
 
     "Variables": {
@@ -79,11 +84,12 @@
                         "<button type='button' data-toggle='tooltip' data-placement='top' disabled data-original-title='Agregar Detalle' title='Agregar atributos' class='btn-icon-base btn-add'></button></td>";
                 }
                 else {
-                    html = html + "<td><button type ='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + "  data-original-title='Cargar Detalle'  title='Cargar Detalle' class='btn-icon-base btn-upload' ></button >" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + " data-original-title='Descargar Plantilla' title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
+                    html = html + "<td><button type ='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + "  data-original-title='Descargar Plantilla'  title='Descargar Plantilla' class='btn-icon-base btn-download' ></button >" +
+                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + " data-original-title='Cargar Detalle' title='Cargar Detalle' class='btn-icon-base btn-upload'></button>" +
                         "<button type='button' data-toggle='tooltip' data-placement='top' value=" + detalle.id + " data-original-title='Agregar Detalle' title='Agregar atributos' class='btn-icon-base btn-add'></button></td>";
                 }
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value='" + detalle.id + "' title='Editar' class='btn-icon-base btn-edit'></button>" +
+                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar' data-original-title='Visualizar' value=" + detalle.id + " class='btn-icon-base btn-view' ></button>" +
                     "<button type='button' data-toggle='tooltip' data-placement='top' value='" + detalle.id + "' title='Eliminar' class='btn-icon-base btn-delete'></button></td>";
                 html = html + "</tr>";
             }
@@ -93,10 +99,10 @@
         },
 
         "CargarTablaDetalleRelacion": function (relacion) {
+            EliminarDatasource();
             $(JsRelacion.Controles.btnGuardarCategoria).prop("disabled", relacion.DetalleRelacionCategoria.length >= relacion.CantidadCategoria);
             $(JsRelacion.Controles.btnFinalizar).prop("disabled", relacion.DetalleRelacionCategoria.length != relacion.CantidadCategoria);
-            JsRelacion.Variables.ListadoDetalleCategoria = relacion.DetalleRelacionCategoria;
-            EliminarDatasource();
+            JsRelacion.Variables.ListadoDetalleCategoria = relacion.DetalleRelacionCategoria;      
             let html = "";
 
             for (var i = 0; i < JsRelacion.Variables.ListadoDetalleCategoria.length; i++) {
@@ -911,6 +917,15 @@ $(document).on("click", JsRelacion.Controles.btnAgregarRelacion, function () {
     window.location.href = "/Fonatel/RelacionCategoria/Detalle?idRelacionCategoria=" + id;
 });
 
+$(document).on("click", JsRelacion.Controles.btnViewRelacion, function () {
+    let id = $(this).val();
+    window.location.href = "/Fonatel/RelacionCategoria/Visualizacion?idRelacionCategoria=" + id;
+});
+$(document).on("click", JsRelacion.Controles.btnSiguienteRelacionCategoriaView, function (e) {
+    $(JsRelacion.Controles.stepRelacionCategoria2).click();
+});
+
+
 
 $(document).on("click", JsRelacion.Controles.btnEditarDetalleRelacion, function () {
     let id = $(this).val();
@@ -942,20 +957,25 @@ $(function () {
     if ($(JsRelacion.Controles.TablaRelacionCategoria).length > 0) {
         JsRelacion.Consultas.ConsultaListaRelaciones();
     }
-    else if ($(JsRelacion.Controles.txtCodigoRelacion).length>0) {
-      let validacion = !JsRelacion.Metodos.HabilitarBotonSiguiente();
+    else if ($(JsRelacion.Controles.viewcreate).length > 0) {
+        let validacion = !JsRelacion.Metodos.HabilitarBotonSiguiente();
         $(JsRelacion.Controles.btnSiguienteRelacionCategoria).prop("disabled", validacion);
         $(JsRelacion.Controles.txtCodigoRelacion).prop("disabled", ObtenerValorParametroUrl("id") != null)
-        if ($(JsRelacion.Controles.ddlCategoriaId).val()!=0) {
+        if ($(JsRelacion.Controles.ddlCategoriaId).val() != 0) {
             $(JsRelacion.Controles.ddlCategoriaId).prop("disabled", ObtenerValorParametroUrl("id") != null)
-        } 
-       
+        }
+
+    }
+    else if ($(JsRelacion.Controles.viewvisualizacion).length > 0) {
+
     }
    
 
 })
 
 $(document).ready(function () {
+
     $(JsRelacion.Controles.btnCancelarEditar).addClass("hidden");
     $(JsRelacion.Controles.btnGuardarDetalleEditar).addClass("hidden");
+
 });

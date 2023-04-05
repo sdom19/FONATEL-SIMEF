@@ -28,23 +28,22 @@
 
 
 
-<div class="row" >
+<div class="row">
     <div class="col-lg-12">
         <h2 class="page-title-fonatel text-center">@EtiquetasViewFuentesRegistro.Visualizacion</h2>
         <hr />
     </div>
     <div class="col-lg-12">
 
-        @Html.Partial("_VisualizarFuente",Model)
+        @Html.Partial("_VisualizarFuente", Model)
     </div>
-    <div class="col-lg-12 mt-4">
-        @Html.Partial("_TablaVisualizaDetalleFuentes",Model)
+    <div class="col-sm-12 text-center mt-2">
+        <button type="submit" id="btnCancelarCategoria" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCancelar" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
     </div>
-    <div class="col-12 pull-right mt-4">
-        <button type="button" id="btnAtrasFuentes" class="btn btn-fonatel btn-goback" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonAtras">
-            <span aria-hidden="true"></span>@Etiquetas.BotonAtras
-        </button>
+    <div class="col-lg-12 mt-3">
+        @Html.Partial("_TablaVisualizaDetalleFuentes", Model)
     </div>
+
 </div>
 
 

@@ -171,4 +171,7 @@
   <data name="TituloTablaModalCategoria" xml:space="preserve">
     <value>Categorías</value>
   </data>
+  <data name="Visualizacion" xml:space="preserve">
+    <value>Visualización Relaciones entre Categorías</value>
+  </data>
 </root>
