@@ -30,6 +30,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private readonly TipoReglaValidacionBL TipoReglasBL;
         private readonly OperadorArismeticoBL OperadoresBL;
         private readonly DetalleIndicadorVariablesBL DetalleIndicadorVariablesBL;
+        private readonly DetalleIndicadorCategoriaBL detalleIndicadorCategoriaBL;
 
         private readonly RelacionCategoriaBL relacionCategoriaBL;
 
@@ -51,7 +52,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             DetalleIndicadorVariablesBL = new DetalleIndicadorVariablesBL(modulo, user);
             detalleCategoriasTextoBL = new DetalleCategoriasTextoBL(modulo, user);
             relacionCategoriaBL = new RelacionCategoriaBL(modulo, user);
-
+            detalleIndicadorCategoriaBL = new DetalleIndicadorCategoriaBL(modulo, user);
         }
 
         [HttpGet]
@@ -191,6 +192,45 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         #region Metodos Async
 
         /// <summary>
+        /// Fecha 29-03-2023
+        /// Adolfo Cunquero
+        /// Obtiene las categorias actualizables del indicador seleccionado
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerCategoriasActualizablesIndicador(string idIndicadorString)
+        {
+            RespuestaConsulta<List<CategoriaDesagregacion>> result = new RespuestaConsulta<List<CategoriaDesagregacion>>();
+            await Task.Run(() =>
+            {
+                var detalle = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria() { idIndicadorString = idIndicadorString }).objetoRespuesta;
+                result.objetoRespuesta = categoriasDesagregacionBL
+                    .ObtenerDatos(new CategoriaDesagregacion() { idEstadoRegistro = (int)Constantes.EstadosRegistro.Activo }).objetoRespuesta
+                    .Where(x => x.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.Actualizable && detalle.Any(d => d.idCategoriaString == x.id))
+                    .ToList();
+
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
+        /// Fecha 29-03-2023
+        /// Adolfo Cunquero
+        /// Obtiene las categorias ID del indicador seleccionado
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerCategoriaIdXIndicador(string idIndicadorString)
+        {
+            RespuestaConsulta<List<CategoriaDesagregacion>> result = new RespuestaConsulta<List<CategoriaDesagregacion>>();
+            await Task.Run(() =>
+            {
+                result = reglaBL.ObtenerCategoriaIdXIndicador(idIndicadorString);
+            });
+            return JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>
         /// Fecha 17-08-2022
         /// Michael Hernández Cordero
         /// Obtiene datos para la table reglas de validación
@@ -263,7 +303,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
-                result = relacionCategoriaBL.ObtenerDatos(RelacionCategoria);
+                result = reglaBL.ObtenerListaDetallesCategoria(RelacionCategoria);
             });
 
             return JsonConvert.SerializeObject(result);

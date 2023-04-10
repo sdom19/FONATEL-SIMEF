@@ -1,0 +1,93 @@
+﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.Solicitud
+
+
+
+<form id="formCrearSolicitud">
+
+
+
+    <div class="row mt-5">
+        <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+            <div class="justify-content-center">
+
+
+
+                <div class="form-group row">
+                    <label for="txtCodigo" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.Codigo</label>
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtCodigo" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtNombre" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.Nombre</label>
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel  disabled", id = "txtNombre" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtFechaInicio" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.FechaInicio</label>
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.FechaInicio, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtFechaInicio" } })
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="txtFechaFin" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.FechaFin</label>
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.FechaFin, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtFechaFin" } })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+            <div class="justify-content-center">
+
+
+                <div class="form-group row">
+                    <label for="ddlFuentes" class="col-sm-12 col-form-label ">@EtiquetasViewSolicitudes.Fuente</label>
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.Fuente.Fuente, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "TxtFuente" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtCantidadFormularios" class="col-sm-12 col-form-label ">@EtiquetasViewSolicitudes.CantidadFormularios</label>
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.CantidadFormulario, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "TxtCantidadFormulario" } })
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="ddlMesSolicitud" class="col-sm-12 col-form-label ">@EtiquetasViewSolicitudes.Mes</label>
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.Mes.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtMesSolicitud" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="ddlAnoSolicitud" class="col-sm-12 col-form-label ">@EtiquetasViewSolicitudes.Anno</label>
+                    <div class="col-sm-12">
+                         @Html.EditorFor(model => model.Anno.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtAnoSolicitud" } })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0 ">
+            <div class="form-group row">
+                <label for="txtMensajeSolicitud" class="col-sm-12 col-form-label">@EtiquetasViewSolicitudes.Mensaje</label>
+                <div class="col-sm-12">
+                    @Html.EditorFor(model => model.Mensaje, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtMensajeSolicitud" } })
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

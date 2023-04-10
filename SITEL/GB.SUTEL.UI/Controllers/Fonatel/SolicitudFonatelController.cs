@@ -112,6 +112,26 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             return View(model);
         }
 
+
+
+
+
+        [HttpGet]
+        public ActionResult Visualizacion(string id)
+        {
+            Solicitud solicitud = new Solicitud();
+            if (!string.IsNullOrEmpty(id))
+            {
+                solicitud = SolicitudesBL.ObtenerDatos(new Solicitud() { id = id })
+                        .objetoRespuesta.Single();
+            }
+      
+
+            
+            return View(solicitud);
+        }
+
+
         #endregion
 
         #region METODOS DE SOLICITUDES

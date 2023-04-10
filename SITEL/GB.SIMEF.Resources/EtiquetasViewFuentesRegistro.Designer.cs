@@ -140,5 +140,14 @@ namespace GB.SIMEF.Resources {
                 return ResourceManager.GetString("Nombre", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visualización Fuente de Registro.
+        /// </summary>
+        public static string Visualizacion {
+            get {
+                return ResourceManager.GetString("Visualizacion", resourceCulture);
+            }
+        }
     }
 }

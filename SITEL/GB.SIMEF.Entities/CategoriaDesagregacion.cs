@@ -51,6 +51,8 @@ namespace GB.SIMEF.Entities
 
         public int IdTipoCategoria { get; set; }
 
+        public TipoDetalleCategoria TipoDetalleCategoria { get; set; }
+
 
 
 

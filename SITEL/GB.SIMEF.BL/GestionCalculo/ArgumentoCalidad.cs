@@ -1,6 +1,4 @@
 ﻿using GB.SIMEF.Entities;
-using System;
-using GB.SIMEF.Resources;
 using static GB.SIMEF.Resources.Constantes;
 
 namespace GB.SIMEF.BL.GestionCalculo
@@ -20,11 +18,11 @@ namespace GB.SIMEF.BL.GestionCalculo
 
             if (argumentoVariable.IdCriterio.Equals(((int)TipoPorcentajeIndicadorCalculoEnum.indicador).ToString()))
             {
-                predicadoSQL = PredicadosSQLFormulasCalculo.calidad_PorcentajeIndicador;
+                predicadoSQL = "EXEC FONATEL.pa_ConstruirArgumentoSalidaPorcentajeIndicador '{0}'";
             }
             else if (argumentoVariable.IdCriterio.Equals(((int)TipoPorcentajeIndicadorCalculoEnum.cumplimiento).ToString()))
             {
-                predicadoSQL = PredicadosSQLFormulasCalculo.calidad_PorcentajeCumplimiento;
+                predicadoSQL = "EXEC FONATEL.pa_ConstruirArgumentoSalidaPorcentajeCumplimiento '{0}'";
             }
             return predicadoSQL != string.Empty ? string.Format(predicadoSQL, argumentoVariable.IdIndicador) : string.Empty;
         }

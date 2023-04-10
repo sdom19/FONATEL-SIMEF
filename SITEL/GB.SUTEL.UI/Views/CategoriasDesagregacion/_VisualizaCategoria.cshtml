@@ -1,0 +1,89 @@
+﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.CategoriaDesagregacion
+
+
+
+
+<div class="row">
+
+    <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+        <div class="justify-content-center">
+
+            <div class="form-group row">
+                <label for="txtNombreCategoria" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.Nombre</label>
+                <div class="col-sm-12">                  
+                    @Html.EditorFor(model => model.NombreCategoria, new { htmlAttributes = new { @class = "form-control form-control-fonatel alfa_numerico disabled", @maxlength = "500", id = "txtNombreCategoria" } })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="txtCodigo" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.Codigo</label>
+                <div class="col-sm-12">
+                    @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtCodigoCategoria" } })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="ddlTipoCategoria" class="col-sm-12 col-form-label ">@EtiquetasViewCategorias.TipoCategoria</label>
+                <div class="col-sm-12">
+                        @Html.EditorFor(model => model.TipoCategoria.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtCodigoCategoria" } })
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-5 col-sm-12 col-md-offset-1 col-sm-offset-0">
+        <div class="form-group row">
+            <label for="ddlTipoDetalleCategoria" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.TipoDetalle</label>
+            <div class="col-sm-12">
+                @Html.EditorFor(model => model.TipoDetalleCategoria.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", placeholder = EtiquetasViewCategorias.Cantidad, id = "txtTipoDetalleCategoria" } })
+            </div>
+        </div>
+        @if (Model.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Texto || Model.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
+        {
+        <div class="form-group row" id="divCantidadDetalleCategoria">
+            <label for="txtCantidadDetalleCategoria" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.Cantidad</label>
+            <div class="col-sm-12">
+                @Html.EditorFor(model => model.CantidadDetalleDesagregacion, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtCantidadDetalleCategoria" } })
+            </div>
+        </div>
+
+        }
+        else if (Model.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Fecha)
+        {
+        <div class="form-group row" id="divFechaMinimaCategoria">
+            <label for="txtFechaMinimaCategoria" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.FechaInicio</label>
+            <div class="col-sm-12">
+                @Html.EditorFor(model => model.DetalleCategoriaFecha.FechaMinima, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", @type = "date", id = "txtFechaMinimaCategoria" } })
+            </div>
+        </div>
+
+
+        <div class="form-group row" id="divFechaMaximaCategoria">
+            <label for="txtFechaMinimaCategoria" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.FechaHasta</label>
+            <div class="col-sm-12">
+                @Html.EditorFor(model => model.DetalleCategoriaFecha.FechaMaxima, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", @type = "date", id = "txtFechaMaximaCategoria" } })
+            </div>
+        </div>
+        }
+        else if (Model.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Numerico)
+        {
+        <div class="form-group row" id="divRangoMinimaCategoria">
+            <label for="txtRangoMinimaCategoría" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.ValorMinimo</label>
+            <div class="col-sm-12">
+                @Html.EditorFor(model => model.DetalleCategoriaNumerico.Minimo, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "txtRangoMinimaCategoria" } })
+            </div>
+        </div>
+
+        <div class="form-group row" id="divRangoMaximaCategoria">
+            <label for="txtRangoMaximaCategoria" class="col-sm-12 col-form-label">@EtiquetasViewCategorias.ValorMáximo</label>
+            <div class="col-sm-12">
+                @Html.EditorFor(model => model.DetalleCategoriaNumerico.Maximo, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", placeholder = EtiquetasViewCategorias.ValorMáximo, id = "txtRangoMaximaCategoria" } })
+            </div>
+        </div>
+        }
+
+    </div>
+
+</div>
+
+

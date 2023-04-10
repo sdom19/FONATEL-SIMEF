@@ -1,6 +1,4 @@
 ﻿using GB.SIMEF.Entities;
-using System;
-using GB.SIMEF.Resources;
 
 namespace GB.SIMEF.BL.GestionCalculo
 {
@@ -15,31 +13,16 @@ namespace GB.SIMEF.BL.GestionCalculo
         public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulaCalculo pFormulasCalculo)
         {
             FormulaVariableDatoCriterio argumentoVariable = (FormulaVariableDatoCriterio)pArgumentoFormula;
-            string predicadoSQL = string.Empty;
 
-            if (argumentoVariable.EsValorTotal)
-            {
-                predicadoSQL = string.Format(
-                    PredicadosSQLFormulasCalculo.fonatel_variablesDatoCriterio,
-                    pFormulasCalculo.IdIndicador,
-                    argumentoVariable.IdAcumulacionFormula,
-                    argumentoVariable.IdDetalleIndicadorVariable,
-                    "null",
-                    "null"
-                );
-            }
-            else // detalle de desagregación
-            {
-                predicadoSQL = string.Format(
-                    PredicadosSQLFormulasCalculo.fonatel_variablesDatoCriterio,
-                    pFormulasCalculo.IdIndicador,
-                    argumentoVariable.IdAcumulacionFormula,
-                    argumentoVariable.IdDetalleIndicadorVariable,
-                    argumentoVariable.IdCategoriaDesagregacion,
-                    argumentoVariable.IdDetalleCategoriaTexto
-                );
-            }
-            return predicadoSQL;
+            return string.Format(
+                "EXEC pa_ConstruirArgumentoSalidaVariable {0}, {1}, {2}, {3}, {4}, {5}",
+                pFormulasCalculo.IdIndicador,
+                argumentoVariable.IdAcumulacionFormula,
+                argumentoVariable.IdDetalleIndicadorVariable,
+                argumentoVariable.EsValorTotal ? "null" : argumentoVariable.IdCategoriaDesagregacion?.ToString(),
+                argumentoVariable.EsValorTotal ? "null" : argumentoVariable.IdDetalleCategoriaTexto?.ToString(),
+                argumentoVariable.IdIndicador
+            );
         }
     }
 }

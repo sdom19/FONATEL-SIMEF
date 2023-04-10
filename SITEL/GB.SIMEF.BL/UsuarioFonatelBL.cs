@@ -98,7 +98,7 @@ namespace GB.SIMEF.BL
             {
                 resultado.Clase = modulo;
                 resultado.Accion = (int)Accion.Activar;
-                objeto = usuarioFonatelDAL.ObtenerDatos(0).Where(x => x.IdUsuario == objeto.IdUsuario).Single();
+                objeto = usuarioFonatelDAL.ObtenerDatos().Where(x => x.IdUsuario == objeto.IdUsuario).Single();
                 objeto.Activo = 1;
                 objeto.ContrasenaSinEncriptar = generatePassword();
                 objeto.Contrasena = HashPassword(objeto.ContrasenaSinEncriptar);
@@ -130,7 +130,8 @@ namespace GB.SIMEF.BL
             {
                 objeto = usuarioFonatelDAL.ObtenerDatos().Where(X => X.IdUsuario == objeto.IdUsuario).Single();
                 resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Insertar;
+                //Se cambia accion porque se esta eliminando el usuario cambiando su estado
+                resultado.Accion = (int)Accion.Eliminar;
                 objeto.Borrado = 1;
                 objeto.Activo = 0;
                 resultado.objetoRespuesta = usuarioFonatelDAL.ActualizarUsuarioSitel(objeto);

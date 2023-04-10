@@ -52,7 +52,8 @@ namespace GB.SIMEF.DAL
                     TieneDetalle = ValidarTieneDetalle(x.IdTipoDetalleCategoria),
                     TipoCategoria = ObtenerTipoCategoria(x.IdTipoCategoria),
                     DetalleCategoriaFecha = ObtenerDetalleCategoriaFecha(x.idCategoriaDesagregacion),
-                    DetalleCategoriaNumerico = ObtenerDetalleCategoriaNumerico(x.idCategoriaDesagregacion)
+                    DetalleCategoriaNumerico = ObtenerDetalleCategoriaNumerico(x.idCategoriaDesagregacion),
+                    TipoDetalleCategoria= ObtenerTipoDetalleCategoria(x.IdTipoDetalleCategoria)
 
                 }).ToList();
             }
@@ -309,6 +310,13 @@ namespace GB.SIMEF.DAL
             return
             db.DetalleCategoriaNumerico
                              .Where(x => x.idCategoriaDesagregacion == id && x.Estado == true).FirstOrDefault();
+        }
+
+
+        private TipoDetalleCategoria ObtenerTipoDetalleCategoria(int id)
+        {
+            return
+            db.TipoDetalleCategoria.Where(x => x.IdTipoDetalleCategoria == id).FirstOrDefault();
         }
 
 

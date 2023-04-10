@@ -68,6 +68,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         }
 
+
+        [HttpGet]
+        public ActionResult Visualizacion(string id)
+        {
+            FuenteRegistro fuente = new FuenteRegistro();
+            if (!string.IsNullOrEmpty(id))
+            {
+                fuente=
+                    FuenteBL.ObtenerDatos(new FuenteRegistro() { id = id }).objetoRespuesta.Single();
+            }
+            return View(fuente);
+        }
+
+
+
+
         public ActionResult Deatlle(int id)
         {
             return View();

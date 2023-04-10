@@ -1,10 +1,4 @@
 ﻿using GB.SIMEF.Entities;
-using GB.SIMEF.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GB.SIMEF.BL.GestionCalculo
 {
@@ -19,25 +13,12 @@ namespace GB.SIMEF.BL.GestionCalculo
         public string ConstruirPredicadoSQL(ArgumentoFormula pArgumentoFormula, FormulaCalculo pFormulasCalculo)
         {
             FormulaVariableDatoCriterio argumentoCriterio = (FormulaVariableDatoCriterio)pArgumentoFormula;
-            string predicadoSQL = string.Empty;
 
-            if (argumentoCriterio.EsValorTotal)
-            {
-                predicadoSQL = string.Format(
-                    PredicadosSQLFormulasCalculo.mercados,
-                    argumentoCriterio.IdCriterio,
-                    "null"
-                );
-            }
-            else
-            {
-                predicadoSQL = string.Format(
-                    PredicadosSQLFormulasCalculo.mercados,
-                    argumentoCriterio.IdCriterio,
-                    argumentoCriterio.IdDetalleCategoriaTexto
-                );
-            }
-            return predicadoSQL;
+            return string.Format(
+                "EXEC FONATEL.pa_ConstruirArgumentoSalidaVariable {0}, {1}",
+                argumentoCriterio.IdCriterio,
+                argumentoCriterio.EsValorTotal ? "null" : argumentoCriterio.IdDetalleCategoriaTexto?.ToString()
+            );
         }
     }
 }
