@@ -879,7 +879,24 @@ namespace GB.SIMEF.BL
                 pIndicador.IdClasificacionIndicador = number;
                 pIndicador.ClasificacionIndicadores.IdClasificacionIndicador = pIndicador.ClasificacionIndicadores != null ? number : 0;
             }
-            
+
+            if (!string.IsNullOrEmpty(pIndicador.GraficoInforme?.id))
+            {
+                if(pIndicador.GraficoInforme.id != "0")
+                {
+                    int.TryParse(Utilidades.Desencriptar(pIndicador.GraficoInforme.id), out int number);
+                    pIndicador.IdGraficoInforme = number;
+                    pIndicador.GraficoInforme.IdGraficoInforme = pIndicador.GraficoInforme != null ? number : 0;
+                }
+                else
+                {
+                    pIndicador.IdGraficoInforme = 0;
+                    pIndicador.GraficoInforme.IdGraficoInforme = pIndicador.GraficoInforme != null ? 0 : 0;
+                }
+
+                
+            }
+
             if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.GrupoIndicadores.id), out int number);

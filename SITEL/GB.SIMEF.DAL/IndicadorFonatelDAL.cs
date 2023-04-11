@@ -35,6 +35,7 @@ namespace GB.SIMEF.DAL
                     "@pIdTipoIndicador," +
                     "@pIdClasificacionIndicador," +
                     "@pIdGrupoIndicador," +
+                    "@pIdGraficoInforme,"+
                     "@pIdUnidadEstudio," +
                     "@pIdTipoMedida," +
                     "@pIdFrecuencia," +
@@ -44,6 +45,7 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pIdTipoIndicador", pIndicador.IdTipoIndicador),
                      new SqlParameter("@pIdClasificacionIndicador", pIndicador.IdClasificacionIndicador),
                      new SqlParameter("@pIdGrupoIndicador", pIndicador.IdGrupoIndicador),
+                     new SqlParameter("@pIdGraficoInforme", pIndicador.IdGraficoInforme),
                      new SqlParameter("@pIdUnidadEstudio", pIndicador.IdUnidadEstudio != null ? pIndicador.IdUnidadEstudio : 0),
                      new SqlParameter("@pIdTipoMedida", pIndicador.IdTipoMedida),
                      new SqlParameter("@pIdFrecuencia", pIndicador.IdFrecuenciaEnvio),
@@ -57,9 +59,11 @@ namespace GB.SIMEF.DAL
                     Codigo = x.Codigo,
                     Nombre = x.Nombre,
                     IdClasificacionIndicador=x.IdClasificacionIndicador,
+                    IdGraficoInforme = x.IdGraficoInforme,
                     TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),
                     ClasificacionIndicadores = ObtenerClasificacionIndicador(x.IdClasificacionIndicador),
                     GrupoIndicadores = ObtenerGrupoIndicadores(x.IdGrupoIndicador),
+                    GraficoInforme = ObtenerGraficoInforme(x.IdGraficoInforme),
                     Descripcion = x.Descripcion,
                     CantidadVariableDato = x.CantidadVariableDato,
                     CantidadCategoriaDesagregacion = x.CantidadCategoriaDesagregacion,
@@ -294,6 +298,7 @@ namespace GB.SIMEF.DAL
                     "@pNombre," +
                     "@pIdTipoIndicador," +
                     "@pIdClasificacionIndicador," +
+                    "@pIdGraficoInforme," + // opcional
                     "@pIdGrupoIndicador," +
                     "@pDescripcion," + // opcional
                     "@pCantidadVariableDato," + // opcional
@@ -314,6 +319,7 @@ namespace GB.SIMEF.DAL
                      new SqlParameter("@pNombre", string.IsNullOrEmpty(pIndicador.Nombre) ? DBNull.Value.ToString() : pIndicador.Nombre.Trim()),
                      new SqlParameter("@pIdTipoIndicador", pIndicador.IdTipoIndicador),
                      new SqlParameter("@pIdClasificacionIndicador", pIndicador.IdClasificacionIndicador),
+                     new SqlParameter("@pIdGraficoInforme", pIndicador.IdGraficoInforme),
                      new SqlParameter("@pIdGrupoIndicador", pIndicador.IdGrupoIndicador),
                      new SqlParameter("@pDescripcion", string.IsNullOrEmpty(pIndicador.Descripcion) ? DBNull.Value.ToString() : pIndicador.Descripcion),
                      pIndicador.CantidadVariableDato == null ? 
@@ -347,6 +353,7 @@ namespace GB.SIMEF.DAL
                     Nombre = x.Nombre,
                     TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),
                     ClasificacionIndicadores = ObtenerClasificacionIndicador(x.IdClasificacionIndicador),
+                    GraficoInforme = ObtenerGraficoInforme(x.IdGraficoInforme),
                     GrupoIndicadores = ObtenerGrupoIndicadores(x.IdGrupoIndicador),
                     Descripcion = x.Descripcion,
                     CantidadVariableDato = x.CantidadVariableDato,
@@ -530,6 +537,29 @@ namespace GB.SIMEF.DAL
                 grupo.IdGrupoIndicador= 0;
             }
             return grupo;
+        }
+
+        /// <summary>
+        /// 05/04/2023
+        /// Jenifer Mora Badilla
+        /// Función que retorna los tipos de graficos del indicador
+        /// </summary>
+        /// <param name="pId"></param>
+        /// <param name="pUnicamenteActivos"></param>
+        /// <returns></returns>
+        private GraficoInforme ObtenerGraficoInforme(int pId, bool pUnicamenteActivos = false)
+        {
+            GraficoInforme grafico = pUnicamenteActivos ?
+                db.GraficoInforme.Where(i => i.IdGraficoInforme == pId && i.Estado == true).FirstOrDefault()
+                :
+                db.GraficoInforme.Where(i => i.IdGraficoInforme == pId).FirstOrDefault();
+
+            if (grafico != null)
+            {
+                grafico.id = Utilidades.Encriptar(grafico.IdGraficoInforme.ToString());
+                grafico.IdGraficoInforme = 0;
+            }
+            return grafico;
         }
 
         /// <summary>
