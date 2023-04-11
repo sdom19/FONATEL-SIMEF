@@ -151,6 +151,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Generar.
+        /// </summary>
+        public static string BotonGenerar {
+            get {
+                return ResourceManager.GetString("BotonGenerar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Guardado parcial.
         /// </summary>
         public static string BotonGuardadoParcial {
