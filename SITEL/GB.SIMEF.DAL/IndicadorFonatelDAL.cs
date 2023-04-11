@@ -84,6 +84,61 @@ namespace GB.SIMEF.DAL
         }
 
         /// <summary>
+        /// 10/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores registrados en el sistema.
+        /// Se puede realizar un filtrado de acuerdo al objecto que se envia.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public List<Indicador> ObtenerDatosGenerarURL(Indicador pIndicador)
+        {
+            List<Indicador> listaIndicadores = new List<Indicador>();
+
+            using (db = new SIMEFContext())
+            {
+                listaIndicadores = db.Database.SqlQuery<Indicador>
+                    ("execute pa_ObtenerIndicadorparaGenerarURL " +
+                    "@pIdIndicador," +
+                    "@pIdEstadoRegistro",
+                     new SqlParameter("@pIdIndicador", pIndicador.IdIndicador),
+                     new SqlParameter("@pIdEstadoRegistro", pIndicador.IdEstadoRegistro)
+                    ).ToList();
+
+                listaIndicadores = listaIndicadores.Select(x => new Indicador()
+                {
+                    id = Utilidades.Encriptar(x.IdIndicador.ToString()),
+                    IdIndicador = x.IdIndicador,
+                    Codigo = x.Codigo,
+                    Nombre = x.Nombre,
+                    IdClasificacionIndicador = x.IdClasificacionIndicador,
+                    TipoIndicadores = ObtenerTipoIndicador(x.IdTipoIndicador),
+                    ClasificacionIndicadores = ObtenerClasificacionIndicador(x.IdClasificacionIndicador),
+                    GrupoIndicadores = ObtenerGrupoIndicadores(x.IdGrupoIndicador),
+                    Descripcion = x.Descripcion,
+                    CantidadVariableDato = x.CantidadVariableDato,
+                    CantidadCategoriaDesagregacion = x.CantidadCategoriaDesagregacion,
+                    UnidadEstudio = x.IdUnidadEstudio != null ? ObtenerUnidadEstudio((int)x.IdUnidadEstudio) : null,
+                    TipoMedida = ObtenerTipoMedida(x.IdTipoMedida),
+                    FrecuenciaEnvio = ObtenerFrecuenciaEnvia(x.IdFrecuenciaEnvio),
+                    Interno = x.Interno,
+                    Solicitud = x.Solicitud,
+                    Fuente = x.Fuente,
+                    Nota = x.Nota,
+                    FechaCreacion = x.FechaCreacion,
+                    UsuarioCreacion = x.UsuarioCreacion,
+                    FechaModificacion = x.FechaModificacion,
+                    UsuarioModificacion = x.UsuarioModificacion,
+                    VisualizaSigitel = x.VisualizaSigitel,
+                    IdEstadoRegistro = x.IdEstadoRegistro,
+                    EstadoRegistro = ObtenerEstadoRegistro(x.IdEstadoRegistro)
+                }).ToList();
+            }
+
+            return listaIndicadores;
+        }
+
+        /// <summary>
         /// 25/11/2022
         /// José Navarro Acuña
         /// Función que retorna todos los indicadores registrados en el sistema de mercados.
