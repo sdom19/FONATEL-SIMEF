@@ -22,6 +22,8 @@
     --default-border-color: #cccccc;
     --default-stepper-btn-circle: #BDBDBD;
     --default-input-length: 280px;
+    --skyblue-fonatel: #38A2FC;
+    --greenCopy-fonatel: #BABD56;
 }
 
 .page-title-fonatel {
@@ -154,6 +156,16 @@ input[type=number] {
     background-color: var(--orange-fonatel);
 }
 
+.btn-clean-fonatel {
+    color: #ffffff;
+    background-color: var(--skyblue-fonatel);
+}
+
+.btn-copy-fonatel {
+    color: #ffffff;
+    background-color: var(--greenCopy-fonatel);
+}
+
 .btn-purple-fonatel {
     color: #ffffff;
     background-color: var(--purple-fonatel);
@@ -236,6 +248,17 @@ input[type=number] {
 
 .btn-edit-form:before {
     background-image: url("../../Images/icon-form.svg");
+}
+
+.btn-copy:before {
+    background-image: url('../../Images/ico url.png');
+    background-position: bottom;
+}
+
+.btn-clean:before {
+    background-image: url('../../Images/ico limpiar.png');
+    background-position: bottom;
+    margin: -3px;
 }
 
 .btn-sent:before {

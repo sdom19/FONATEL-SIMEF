@@ -172,6 +172,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <summary>
         /// 10/08/2022
         /// José Navarro Acuña
+        /// Función que retorna todos los indicadores registrados en el sistema
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaIndicadoresparaGerarURl()
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            await Task.Run(() =>
+            {
+                resultado = indicadorBL.ObtenerDatosGenerarUrl(new Indicador());
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 10/08/2022
+        /// José Navarro Acuña
         /// Función que permite realizar un eliminado lógico de un indicador
         /// </summary>
         /// <param name="pIdIndicador"></param>
