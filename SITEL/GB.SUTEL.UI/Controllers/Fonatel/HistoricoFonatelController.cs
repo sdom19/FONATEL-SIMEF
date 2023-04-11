@@ -26,7 +26,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public HistoricoFonatelController()
         {
-            historicoBl = new DatosHistoricosBL("Historico", System.Web.HttpContext.Current.User.Identity.GetUserId());
+            historicoBl = new DatosHistoricosBL("Consulta de Datos Históricos", System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
 

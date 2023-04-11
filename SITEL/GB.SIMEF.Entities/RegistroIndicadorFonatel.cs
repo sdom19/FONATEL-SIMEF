@@ -87,6 +87,7 @@ namespace GB.SIMEF.Entities
             json.Append("\"IdEstado\":\"").Append(this.IdEstado).Append("\",");
             json.Append("\"Estado\":\"").Append(this.Estado).Append("\",");
             json.Append("\"UsuarioModificacion\":\"").Append(this.UsuarioModificacion);
+            json.Append("\"}");
 
             string resultado = json.ToString();
 
