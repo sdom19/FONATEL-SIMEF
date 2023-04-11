@@ -1461,6 +1461,10 @@
     <Content Include="Views\Fuentes\_TablaVisualizaDetalleFuentes.cshtml" />
     <Content Include="Views\Fuentes\_VisualizarFuente.cshtml" />
     <Content Include="Views\Fuentes\Visualizacion.cshtml" />
+    <Content Include="Views\RelacionCategoria\Visualizacion.cshtml" />
+    <Content Include="Views\RelacionCategoria\_CrearVisualizacionRelacionCategoria.cshtml" />
+    <Content Include="Views\RelacionCategoria\_TablaVisualizacionCategoriasAtributo.cshtml" />
+    <Content Include="Views\RelacionCategoria\_TablaVisualizarDetalleRelacionCategoria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

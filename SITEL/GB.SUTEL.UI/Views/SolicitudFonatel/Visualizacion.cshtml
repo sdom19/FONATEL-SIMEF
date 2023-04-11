@@ -22,22 +22,20 @@
 
     <div class="mt-5">
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="page-title-fonatel text-center">@EtiquetasViewSolicitudes.Visualizacion</h2>
-                    <hr />
-                </div>
-                <div class="col-lg-12">
-                    @Html.Partial("_VisualizaSolicitud")
-                </div>
-                <div class="col-lg-12 mt-4">
-                    @Html.Partial("_TablaVisualizaFormularios")
-                </div>
-                <div class="col-12 pull-right mt-4">
-                    <button type="button" id="btnAtrasSolicitud" class="btn btn-fonatel btn-goback" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonAtras">
-                        <span aria-hidden="true"></span>@Etiquetas.BotonAtras
-                    </button>
-                </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-title-fonatel text-center">@EtiquetasViewSolicitudes.Visualizacion</h2>
+                <hr />
+            </div>
+            <div class="col-lg-12">
+                @Html.Partial("_VisualizaSolicitud")
+            </div>
+            <div class="col-sm-12 text-center mt-2">
+                <button type="submit" id="btnCancelarSolicitud" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCancelar" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
+            </div>
+            <div class="col-lg-12 mt-3">
+                @Html.Partial("_TablaVisualizaFormularios")
+            </div>
         </div>
     </div>
 </div>

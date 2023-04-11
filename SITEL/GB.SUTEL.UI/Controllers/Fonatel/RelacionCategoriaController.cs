@@ -100,7 +100,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-
+        public ActionResult Visualizacion(string idRelacionCategoria)
+        {
+            RelacionCategoria model = new RelacionCategoria();
+            if (!string.IsNullOrEmpty(idRelacionCategoria))
+            {
+                model = relacionCategoriaBL
+                  .ObtenerDatos(new RelacionCategoria() {id=idRelacionCategoria }).objetoRespuesta.SingleOrDefault();
+            }
+            return View(model);
+        }
 
         [HttpGet]
         [ConsultasFonatelFilter]
@@ -116,7 +125,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             #endregion
 
-            #region Metodos de ASYNC Relacion Categoria
+        #region Metodos de ASYNC Relacion Categoria
 
 
 
