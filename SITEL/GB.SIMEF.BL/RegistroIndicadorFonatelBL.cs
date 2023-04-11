@@ -1,6 +1,7 @@
 ﻿using GB.SIMEF.DAL;
 using GB.SIMEF.Entities;
 using GB.SIMEF.Resources;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -201,7 +202,8 @@ namespace GB.SIMEF.BL
         {
 
             ResultadoConsulta.Clase = modulo;
-            ResultadoConsulta.Accion = (int)Accion.Consultar;
+            
+            ResultadoConsulta.Usuario = user;
             if (!string.IsNullOrEmpty(objeto.FormularioId))
             {
                 int.TryParse(Utilidades.Desencriptar(objeto.FormularioId), out int temp);
@@ -225,10 +227,22 @@ namespace GB.SIMEF.BL
                     break;
             }
 
+            //89482 obtención de datos para bitacora
+            string JsonAnterior = ObtenerDatos(objeto).objetoRespuesta[0].ToString();
+
             var result = clsDatos.ActualizarRegistroIndicadorFonatel(objeto);
 
             ResultadoConsulta.objetoRespuesta = result;
             ResultadoConsulta.CantidadRegistros = result.Count();
+
+            ResultadoConsulta.Accion = (int)Accion.Editar;
+            //89482 datos actual para bitacora
+            string JsonActual = objeto.ToString();
+            //89482 registrar bitacora
+             clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+                    ResultadoConsulta.Usuario,
+                        ResultadoConsulta.Clase, objeto.IdSolicitud.ToString()
+                        , JsonActual, JsonAnterior, "");
 
             return ResultadoConsulta;
         }
@@ -331,5 +345,22 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        /// <summary>
+        /// Fecha 04-04-2023
+        /// Georgi Mesen Cerdas
+        /// Metodo para registrar la bitacora cuando se descarga la plantilla de registro indicador
+        /// </summary>
+        /// <returns></returns>
+        public void BitacoraDescargar(RegistroIndicadorFonatel objeto)
+        {
+            RespuestaConsulta<List<RegistroIndicadorFonatel>> resultado = new RespuestaConsulta<List<RegistroIndicadorFonatel>>();
+            resultado.Clase = modulo;
+            resultado.Accion = (int)Accion.Descargar;
+            resultado.Usuario = user;
+
+            clsDatos.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario,
+                            resultado.Clase, objeto.Solicitudid, "", "", "");
+        }
     }
 }

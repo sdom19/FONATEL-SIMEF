@@ -184,6 +184,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     worksheetInicio.Cells[celdas].Style.Font.Color.SetColor(System.Drawing.Color.Black);
                     worksheetInicio.Cells[celdas].AutoFitColumns();
                 }
+
+                //Bug 89482 se llama metodo para registrar bitacora cuando se descarga
+                categoriaBL.BitacoraDescargar(categoria);
+
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
                 Response.AddHeader("content-disposition", "attachment;  filename=" + categoria.NombreCategoria + ".xlsx");

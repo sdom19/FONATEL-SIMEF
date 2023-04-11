@@ -126,6 +126,9 @@
   <data name="CargarPlanilla" xml:space="preserve">
     <value>Cargar plantilla</value>
   </data>
+  <data name="DescargaPantalla" xml:space="preserve">
+    <value>Descarga y Edición de Formulario</value>
+  </data>
   <data name="DescargarPlanilla" xml:space="preserve">
     <value>Descargar plantilla</value>
   </data>

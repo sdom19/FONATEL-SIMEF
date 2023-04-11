@@ -295,7 +295,7 @@ namespace GB.SIMEF.BL
             try
             {
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Constantes.Accion.Insertar;
+                ResultadoConsulta.Accion = (int)Constantes.Accion.Crear;
                 ResultadoConsulta.Usuario = user;
 
                 objeto.UsuarioCreacion = user;

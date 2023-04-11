@@ -87,8 +87,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public ActionResult Create()
         {
-            CargarDatosEnVistas(Accion.Insertar, new FormulaCalculo());
-            ViewBag.ModoFormulario = ((int)Accion.Insertar).ToString();
+            CargarDatosEnVistas(Accion.Crear, new FormulaCalculo());
+            ViewBag.ModoFormulario = ((int)Accion.Crear).ToString();
             ViewBag.TituloVista = EtiquetasViewFormulasCalculo.TituloCrear;
 
             return View(new FormulaCalculo());

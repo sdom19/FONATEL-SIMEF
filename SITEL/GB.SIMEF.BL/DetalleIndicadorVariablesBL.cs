@@ -183,7 +183,7 @@ namespace GB.SIMEF.BL
                 resultado.Usuario = user;
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
                 resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Insertar;
+                resultado.Accion = (int)Accion.Crear;
 
                 var objetoDetalleBitacora = objetoDetalle.Where(x => x.NombreVariable == pDetalleIndicadorVariables.NombreVariable && x.Descripcion == pDetalleIndicadorVariables.Descripcion).Single();
                 string JsonInicial = objetoDetalleBitacora.ToString();

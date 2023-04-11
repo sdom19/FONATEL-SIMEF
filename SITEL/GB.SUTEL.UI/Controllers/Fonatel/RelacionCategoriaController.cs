@@ -376,7 +376,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         worksheetInicio.Cells[1, Columna].AutoFitColumns();
 
                 }
-                
+                //Bug 89482 se llama metodo para registrar bitacora cuando se descarga
+                relacionCategoriaBL.BitacoraDescargar(relacion);
+
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
                 Response.AddHeader("content-disposition", "attachment;  filename=" + relacion.Nombre + ".xlsx");

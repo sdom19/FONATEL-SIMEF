@@ -36,9 +36,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
         public EditarFormularioController()
         {
-            EditarRegistroIndicadorBL = new RegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            DetalleRegistroIndicadorBL = new DetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
-            DetalleRegistroIndicadorCategoriaValorFonatelBL = new DetalleRegistroIndicadorCategoriaValorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.RegistroIndicador, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            EditarRegistroIndicadorBL = new RegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.DescargaPantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            DetalleRegistroIndicadorBL = new DetalleRegistroIndicadorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.DescargaPantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
+            DetalleRegistroIndicadorCategoriaValorFonatelBL = new DetalleRegistroIndicadorCategoriaValorFonatelBL(EtiquetasViewRegistroIndicadorFonatel.DescargaPantalla, System.Web.HttpContext.Current.User.Identity.GetUserId());
         }
 
 
@@ -181,6 +181,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     }
 
                 }
+                //89482 Llamado de metodo para bitacora al descargar
+                if (!string.IsNullOrEmpty(idSolicitud))
+                {
+                    int.TryParse(Utilidades.Desencriptar(idSolicitud), out int temp);
+                    idSolicitud = temp.ToString();
+                }
+                EditarRegistroIndicadorBL.BitacoraDescargar(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormularioWeb });
 
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
@@ -275,6 +282,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
                     columna++;
                 }
+
+                //89482 Llamado de metodo para bitacora al descargar
+                if (!string.IsNullOrEmpty(idSolicitud))
+                {
+                    int.TryParse(Utilidades.Desencriptar(idSolicitud), out int temp);
+                    idSolicitud = temp.ToString();
+                }
+                EditarRegistroIndicadorBL.BitacoraDescargar(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormularioWeb });
 
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";

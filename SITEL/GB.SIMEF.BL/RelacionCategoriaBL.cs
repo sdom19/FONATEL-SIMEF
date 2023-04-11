@@ -292,7 +292,7 @@ namespace GB.SIMEF.BL
 
                     ResultadoConsulta.Clase = modulo;
                     objeto.UsuarioCreacion = user;
-                    ResultadoConsulta.Accion = (int)Accion.Insertar;
+                    ResultadoConsulta.Accion = (int)Accion.Crear;
                     var resul = clsDatos.ActualizarDatos(objeto);
                     ResultadoConsulta.objetoRespuesta = resul;
                     ResultadoConsulta.Usuario = user;
@@ -499,6 +499,25 @@ namespace GB.SIMEF.BL
             return respuesta;
         }
 
+        /// <summary>
+        /// Fecha 31-03-2023
+        /// Georgi Mesen Cerdas
+        /// Metodo para registrar la bitacora cuando se descarga la plantilla de relacion de categoria
+        /// </summary>
+        /// <returns></returns>
+        public void BitacoraDescargar(RelacionCategoria objeto)
+        {
+            RespuestaConsulta<List<RelacionCategoria>> resultado = new RespuestaConsulta<List<RelacionCategoria>>();
+            resultado.Clase = modulo;
+            resultado.Accion = (int)Accion.Descargar;
+            resultado.Usuario = user;
+            objeto.id = Utilidades.DesencriptarArray(objeto.id);
+
+            clsDatos.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario,
+                            resultado.Clase, objeto.id, "", "", "");
+        }
+
     }
 
 
@@ -689,7 +708,7 @@ namespace GB.SIMEF.BL
             try
             {
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Accion = (int)Accion.Crear;
                 ResultadoConsulta.Usuario = user;
                 ResultadoConsulta.objetoRespuesta = new List<RelacionCategoria>();
                 RelacionCategoriaId relacionId = new RelacionCategoriaId();
@@ -778,14 +797,14 @@ namespace GB.SIMEF.BL
                     {
                         foreach (var item in listaRelacion)
                         {
-                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(item, Accion.Insertar);
+                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(item, Accion.Crear);
                         }
                     }
                     if (lista.Count() > 0)
                     {
                         foreach (var item in lista)
                         {
-                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(item, Accion.Insertar);
+                            ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(item, Accion.Crear);
                         }
                     }
                     if (relacion.CantidadFila-2 == numeroFila-1)
@@ -864,7 +883,7 @@ namespace GB.SIMEF.BL
             try
             {
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Accion = (int)Accion.Crear;
                 ResultadoConsulta.Usuario = user;
 
 
@@ -899,18 +918,18 @@ namespace GB.SIMEF.BL
                     objeto.idEstadoRegistro = (int)Constantes.EstadosRegistro.EnProceso;
                 }
 
-                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(objeto, Accion.Insertar);
+                ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionCategoriaid(objeto, Accion.Crear);
 
                 foreach (var item in objeto.listaCategoriaAtributo)
                 {
-                   ResultadoConsulta.objetoRespuesta= clsDatos.ActualizarRelacionAtributo(item, Accion.Insertar);
+                   ResultadoConsulta.objetoRespuesta= clsDatos.ActualizarRelacionAtributo(item, Accion.Crear);
                 }
 
                 RelacionCategoria relacionActualizada = ResultadoConsulta.objetoRespuesta.SingleOrDefault();
                 if (relacionActualizada.CantidadFila==relacionActualizada.RelacionCategoriaId.Where(x => x.idEstadoRegistro == (int)Constantes.EstadosRegistro.Activo).Count())
                 {
                     relacionActualizada.IdEstadoRegistro = (int)EstadosRegistro.Activo;
-                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacionActualizada, Accion.Insertar);
+                    ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarDatos(relacionActualizada, Accion.Crear);
                 }
 
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();
@@ -956,7 +975,7 @@ namespace GB.SIMEF.BL
             try
             {
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Accion = (int)Accion.Crear;
                 ResultadoConsulta.Usuario = user;
 
 

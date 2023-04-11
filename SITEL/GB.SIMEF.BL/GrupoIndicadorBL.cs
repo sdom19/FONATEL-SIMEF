@@ -122,7 +122,7 @@ namespace GB.SIMEF.BL
                 List<GrupoIndicador> grupoInsertado = grupoIndicadorDAL.InsertarGrupoIndicador(pGrupoIndicador);
                 resultado.objetoRespuesta = grupoInsertado;
                 resultado.CantidadRegistros = grupoInsertado.Count();
-                resultado.Accion = (int)Accion.Insertar;
+                resultado.Accion = (int)Accion.Crear;
                 resultado.Clase = modulo;
                 resultado.Usuario = user;
 

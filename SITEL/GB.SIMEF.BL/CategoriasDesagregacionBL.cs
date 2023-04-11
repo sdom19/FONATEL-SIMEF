@@ -391,7 +391,7 @@ namespace GB.SIMEF.BL
             {
                 objeto.idCategoriaDesagregacion = 0;
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Accion = (int)Accion.Crear;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioCreacion = user;
                 objeto.IdTipoDetalleCategoria = objeto.IdTipoCategoria == (int)Constantes.TipoCategoriaEnum.VariableDato ? (int)TipoDetalleCategoriaEnum.Numerico : objeto.IdTipoDetalleCategoria;
@@ -642,6 +642,25 @@ namespace GB.SIMEF.BL
                 resultado.MensajeError = ex.Message;
             }
             return resultado;
+        }
+
+        /// <summary>
+        /// Fecha 31-03-2023
+        /// Georgi Mesen Cerdas
+        /// Metodo para registrar la bitacora cuando se descarga la plantilla de categorias
+        /// </summary>
+        /// <returns></returns>
+        public void BitacoraDescargar(CategoriaDesagregacion objeto)
+        {
+            RespuestaConsulta<List<CategoriaDesagregacion>> resultado = new RespuestaConsulta<List<CategoriaDesagregacion>>();
+            resultado.Clase = modulo;
+            resultado.Accion = (int)Accion.Descargar;
+            resultado.Usuario = user;
+            objeto.id = Utilidades.DesencriptarArray(objeto.id);
+
+            clsDatos.RegistrarBitacora(resultado.Accion,
+                        resultado.Usuario,
+                            resultado.Clase, objeto.id, "", "", "");
         }
     }
 }
