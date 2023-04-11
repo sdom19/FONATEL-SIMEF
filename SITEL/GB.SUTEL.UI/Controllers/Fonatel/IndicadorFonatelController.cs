@@ -19,6 +19,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
     [AuthorizeUserAttribute]
     public class IndicadorFonatelController : Controller
     {
+        private readonly TipoGraficoBL tipoGraficoBL;
         private readonly IndicadorFonatelBL indicadorBL;
         private readonly TipoIndicadorBL tipoIndicadorBL;
         private readonly GrupoIndicadorBL grupoIndicadorBL;
@@ -39,6 +40,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         {
             usuario = System.Web.HttpContext.Current.User.Identity.GetUserId();
             view = EtiquetasViewIndicadorFonatel.TituloIndex;
+            tipoGraficoBL = new TipoGraficoBL(view, usuario);
             indicadorBL = new IndicadorFonatelBL(view, usuario);
             tipoIndicadorBL = new TipoIndicadorBL(view, usuario);
             grupoIndicadorBL = new GrupoIndicadorBL(view, usuario);
@@ -89,7 +91,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         public ActionResult Create()
         {
             CargarDatosEnVistas();
-            ViewBag.ModoFormulario = ((int) Accion.Insertar).ToString();
+            ViewBag.ModoFormulario = ((int) Accion.Crear).ToString();
             ViewBag.TituloVista = EtiquetasViewIndicadorFonatel.TituloCrearIndicador;
 
             return View();
@@ -601,6 +603,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             pIndicador.IdTipoIndicador = 0;
             pIndicador.IdGrupoIndicador = 0;
             pIndicador.IdUnidadEstudio = 0;
+            pIndicador.IdGraficoInforme = 0;
 
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
 
@@ -1074,7 +1077,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     pIndicador.CantidadCategoriaDesagregacion == null ||
                     pIndicador.UnidadEstudio == null            || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id) ||
                     pIndicador.Solicitud == null ||
-                    pIndicador.Fuente == null                   || string.IsNullOrEmpty(pIndicador.Fuente.Trim())
+                    pIndicador.Fuente == null                   || string.IsNullOrEmpty(pIndicador.Fuente.Trim()) || 
+                    pIndicador.GraficoInforme == null || string.IsNullOrEmpty(pIndicador.GraficoInforme.id)
                 )
                 {
                     return Errores.CamposIncompletos;
@@ -1239,7 +1243,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             
             if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
                 pIndicador.ClasificacionIndicadores.id = defaultDropDownValue;
-            
+
+            if (string.IsNullOrEmpty(pIndicador.GraficoInforme.id))
+                pIndicador.GraficoInforme.id = "0";
+
             if (string.IsNullOrEmpty(pIndicador.TipoMedida.id))
                 pIndicador.TipoMedida.id = defaultDropDownValue;
             
@@ -1287,6 +1294,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
             ViewBag.UnidadesEstudio = unidadEstudioBL.ObtenerDatos(new UnidadEstudio()).objetoRespuesta;
             ViewBag.UsosSolicitud = indicadorBL.ObtenerListaMostrarIndicadorEnSolicitud().objetoRespuesta;
+            ViewBag.TiposGraficos = tipoGraficoBL.ObtenerDatos(new GraficoInforme()).objetoRespuesta;
         }
         #endregion
     }

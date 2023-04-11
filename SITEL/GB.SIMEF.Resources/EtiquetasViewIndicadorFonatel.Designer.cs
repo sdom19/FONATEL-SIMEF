@@ -187,6 +187,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tipo de Gráfico.
+        /// </summary>
+        public static string CrearIndicador_LabelTipoGrafico {
+            get {
+                return ResourceManager.GetString("CrearIndicador_LabelTipoGrafico", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tipo de Medida.
         /// </summary>
         public static string CrearIndicador_LabelTipoMedida {

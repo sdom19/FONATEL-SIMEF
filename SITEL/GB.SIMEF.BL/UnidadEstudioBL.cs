@@ -122,7 +122,7 @@ namespace GB.SIMEF.BL
                 List<UnidadEstudio> unidadInsertada = unidadEstudioDAL.InsertarUnidadEstudio(pUnidadEstudio);
                 resultado.objetoRespuesta = unidadInsertada;
                 resultado.CantidadRegistros = unidadInsertada.Count();
-                resultado.Accion = (int)Accion.Insertar;
+                resultado.Accion = (int)Accion.Crear;
                 resultado.Clase = modulo;
                 resultado.Usuario = user;
 

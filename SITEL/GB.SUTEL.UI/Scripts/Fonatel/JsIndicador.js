@@ -49,7 +49,7 @@
         InsertarDatosTablaIndicadores: function (listaIndicadores) {
             EliminarDatasource();
             let html = "";
-
+            debugger;
             listaIndicadores?.forEach(item => {
                 html += "<tr>";
                 html += `<th scope='row'>${ item.Codigo }</th>`;
@@ -302,6 +302,8 @@ CreateView = {
 
         modoFormulario: "#modoFormulario",
 
+        divTipoGrafico:"#divTipoGrafico",
+
         // ============ Formularios ============
         formIndicador: {
             form: "#formCrearIndicador",
@@ -331,6 +333,7 @@ CreateView = {
             inputDescripcion: "#inputDescripcion",
             inputNota: "#inputNota",
             inputFuenteIndicador: "#inputFuenteIndicador",
+            ddlTipoGrafico:"#ddlTipoGrafico",
         },
 
         formVariable: {
@@ -388,7 +391,11 @@ CreateView = {
         objEditarDetallesCategoria: null,
         cantidadDetallesCategoriaRegistrada: 0,
         cantidadDetallesVariablesRegistrada: 0,
-        elIndicadorFueClonado: false
+        elIndicadorFueClonado: false,
+        salida: "Salida",
+        entradaSalida: "Entrada/salida",
+        entradaSalidaM: "Entrada/Salida",
+        entrada:"Entrada"
     },
 
     Mensajes: {
@@ -465,6 +472,9 @@ CreateView = {
                 FrecuenciaEnvio: {
                     id: $(controles.ddlFrecuencias).val()
                 },
+                GraficoInforme: {
+                    id: $(controles.ddlTipoGrafico).val()
+                },
                 esGuardadoParcial: pEsGuardadoParcial ? true : false
             };
             return formData;
@@ -525,6 +535,7 @@ CreateView = {
         },
 
         CrearIndicadorGuardadoParcial: function () {
+            debugger;
             let mensaje = "";
             let validacion = this.VerificarCamposIncompletosFormularioIndicador(true);
 
@@ -1469,6 +1480,18 @@ CreateView = {
                 .finally(() => {
                     $("#loading").fadeOut();
                 });
+        },
+
+        HabilitarControlesTipoGrafico: function (selected) {
+            if (selected == CreateView.Variables.salida || selected == CreateView.Variables.entradaSalida || selected == CreateView.Variables.entradaSalidaM) {
+                $(CreateView.Controles.divTipoGrafico).removeClass("hidden");
+            }
+            else {
+                debugger;
+                $(CreateView.Controles.divTipoGrafico).addClass("hidden");
+                SeleccionarItemSelect2(CreateView.Controles.formIndicador.ddlTipoGrafico, "");
+                
+            }
         }
 
         // ---
@@ -1584,6 +1607,14 @@ CreateView = {
             else {
                 CreateView.Metodos.EditarIndicador();
             }
+        });
+
+        //Habilitar el div de tipo grafico
+        $(document).on("change", CreateView.Controles.formIndicador.ddlClasificacion, function () {
+            debugger;
+            var selected = $(this).find('option:selected').text();
+           
+            CreateView.Metodos.HabilitarControlesTipoGrafico(selected);
         });
 
         $(document).on("click", CreateView.Controles.formIndicador.btnGuardarCrearIndicador, function (e) {
@@ -1818,5 +1849,14 @@ $(function () {
 
     if ($(CreateView.Controles.CreateView).length > 0) {
         CreateView.Init();
+    }
+});
+
+$(function () {
+    debugger;
+    var selected = $(CreateView.Controles.formIndicador.ddlClasificacion).find('option:selected').text();
+
+    if (selected != "entrada" || selected !="Entrada") {
+        CreateView.Metodos.HabilitarControlesTipoGrafico(selected);
     }
 });

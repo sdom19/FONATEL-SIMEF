@@ -668,6 +668,8 @@
     <Content Include="Scripts\DataTables\datatables.min.js" />
     <Content Include="Scripts\DataTables\dataTables.scroller.js" />
     <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\docx7.1.js" />
+    <Content Include="Scripts\DataTables\FileSaver.js" />
     <Content Include="Scripts\DataTables\jszip.js" />
     <Content Include="Scripts\DataTables\jszip.min.js" />
     <Content Include="Scripts\DataTables\pdfmake.js" />
@@ -1461,6 +1463,10 @@
     <Content Include="Views\Fuentes\_TablaVisualizaDetalleFuentes.cshtml" />
     <Content Include="Views\Fuentes\_VisualizarFuente.cshtml" />
     <Content Include="Views\Fuentes\Visualizacion.cshtml" />
+    <Content Include="Views\RelacionCategoria\Visualizacion.cshtml" />
+    <Content Include="Views\RelacionCategoria\_CrearVisualizacionRelacionCategoria.cshtml" />
+    <Content Include="Views\RelacionCategoria\_TablaVisualizacionCategoriasAtributo.cshtml" />
+    <Content Include="Views\RelacionCategoria\_TablaVisualizarDetalleRelacionCategoria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

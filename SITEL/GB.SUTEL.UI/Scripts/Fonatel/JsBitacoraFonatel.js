@@ -157,7 +157,7 @@
                 }
             }
             $(JsBitacora.Controles.TablaBitacora).html(html);
-            CargarDatasource();
+            CargarDatasourceBitacora();
         },
     },
     "Consulta": {
@@ -211,8 +211,10 @@ $(document).on("click", JsBitacora.Controles.btnCancelar, function (e) {
 $(function () {
     $(JsBitacora.Controles.txtFechaDesde).val("");
     $(JsBitacora.Controles.txtFechaHasta).val("");
-   
+
 })
+
+
 
 
 

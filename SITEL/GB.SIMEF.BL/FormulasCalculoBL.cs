@@ -327,7 +327,7 @@ namespace GB.SIMEF.BL
                 resultado.objetoRespuesta = formulaCalculo;
                 resultado.Usuario = user;
                 resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Insertar;
+                resultado.Accion = (int)Accion.Crear;
 
                 indicadorFonatelDAL.RegistrarBitacora(resultado.Accion,
                         resultado.Usuario, resultado.Clase, formulaCalculo[0].Codigo, "", "", formulaCalculo[0].ToString());

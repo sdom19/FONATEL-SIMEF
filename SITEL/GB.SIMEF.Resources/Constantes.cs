@@ -78,7 +78,7 @@ namespace GB.SIMEF.Resources
 
         public enum Accion : int
         {
-            Insertar = 1,
+            Crear = 1,
             Consultar = 2,
             Editar = 3,
             Eliminar = 4,

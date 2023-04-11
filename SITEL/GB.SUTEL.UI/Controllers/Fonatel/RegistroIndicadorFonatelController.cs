@@ -167,6 +167,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 worksheetInicio.Cells[2, 1, detalleRegistroIndicadorFonatel.CantidadFila+1, celda-1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                 worksheetInicio.Cells[2, 1, detalleRegistroIndicadorFonatel.CantidadFila+1, celda-1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
 
+                //89482 Llamado de metodo para bitacora al descargar 
+                registroIndicadorBL.BitacoraDescargar(registro.objetoRespuesta[0]);
+
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
                 Response.AddHeader("content-disposition", "attachment;  filename=" + nombre + ".xlsx");

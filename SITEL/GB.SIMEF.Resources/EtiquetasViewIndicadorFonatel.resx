@@ -159,6 +159,9 @@
   <data name="CrearIndicador_LabelTipo" xml:space="preserve">
     <value>Tipo Indicador</value>
   </data>
+  <data name="CrearIndicador_LabelTipoGrafico" xml:space="preserve">
+    <value>Tipo de Gráfico</value>
+  </data>
   <data name="CrearIndicador_LabelTipoMedida" xml:space="preserve">
     <value>Tipo de Medida</value>
   </data>

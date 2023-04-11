@@ -95,7 +95,7 @@ namespace GB.SIMEF.BL
             try
             {
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Accion = (int)Accion.ProgramarEnvio;
                 ResultadoConsulta.Usuario = user;
 
                 objeto.Estado = true;

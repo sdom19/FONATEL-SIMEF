@@ -100,7 +100,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-
+        public ActionResult Visualizacion(string idRelacionCategoria)
+        {
+            RelacionCategoria model = new RelacionCategoria();
+            if (!string.IsNullOrEmpty(idRelacionCategoria))
+            {
+                model = relacionCategoriaBL
+                  .ObtenerDatos(new RelacionCategoria() {id=idRelacionCategoria }).objetoRespuesta.SingleOrDefault();
+            }
+            return View(model);
+        }
 
         [HttpGet]
         [ConsultasFonatelFilter]
@@ -116,7 +125,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             #endregion
 
-            #region Metodos de ASYNC Relacion Categoria
+        #region Metodos de ASYNC Relacion Categoria
 
 
 
@@ -367,7 +376,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         worksheetInicio.Cells[1, Columna].AutoFitColumns();
 
                 }
-                
+                //Bug 89482 se llama metodo para registrar bitacora cuando se descarga
+                relacionCategoriaBL.BitacoraDescargar(relacion);
+
                 Response.BinaryWrite(package.GetAsByteArray());
                 Response.ContentType = "application/vnd.ms-excel.sheet.macroEnabled.12";
                 Response.AddHeader("content-disposition", "attachment;  filename=" + relacion.Nombre + ".xlsx");

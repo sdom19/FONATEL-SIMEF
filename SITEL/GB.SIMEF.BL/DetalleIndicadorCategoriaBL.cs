@@ -133,7 +133,7 @@ namespace GB.SIMEF.BL
                 resultado.Usuario = user;
                 resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
                 resultado.Clase = modulo;
-                resultado.Accion = (int)Accion.Insertar;
+                resultado.Accion = (int)Accion.Crear;
 
                 var objeto = detalleIndicadorCategoriaDAL.ObtenerDatos(pDetalleIndicadorCategoria).FirstOrDefault();
 
@@ -224,7 +224,7 @@ namespace GB.SIMEF.BL
                     resultado.Usuario = user;
                     resultado.CantidadRegistros = resultado.objetoRespuesta.Count;
                     resultado.Clase = modulo;
-                    resultado.Accion = (int)Accion.Insertar;
+                    resultado.Accion = (int)Accion.Crear;
 
                     var objeto = detalleIndicadorCategoriaDAL.ObtenerDatos(pDetalleIndicadorCategoria);
 

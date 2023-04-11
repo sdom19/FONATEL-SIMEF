@@ -73,6 +73,7 @@
     <Compile Include="FormulaCalculoUnidadMedida.cs" />
     <Compile Include="FormulaDefinicionFecha.cs" />
     <Compile Include="FormulaVariableDatoCriterio.cs" />
+    <Compile Include="GraficoInforme.cs" />
     <Compile Include="OperadorAritmetico.cs" />
     <Compile Include="PlantillaHtml.cs" />
     <Compile Include="ReglaAtributoValido.cs" />

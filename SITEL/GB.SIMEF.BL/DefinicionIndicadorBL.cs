@@ -209,7 +209,7 @@ namespace GB.SIMEF.BL
                 ValidarObjeto(objeto);
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Usuario = user;
-                ResultadoConsulta.Accion = (int)Accion.Insertar;
+                ResultadoConsulta.Accion = (int)Accion.Crear;
                 ResultadoConsulta.objetoRespuesta = DefinicionIndicadorDAL.ActualizarDatos(objeto);
                 objeto = ResultadoConsulta.objetoRespuesta.Single();
                 ResultadoConsulta.CantidadRegistros = ResultadoConsulta.objetoRespuesta.Count();

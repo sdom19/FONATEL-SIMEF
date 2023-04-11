@@ -92,6 +92,7 @@
     <Compile Include="SITELContext.cs" />
     <Compile Include="ServicioSitelDAL.cs" />
     <Compile Include="SolicitudEnvioProgramadoDAL.cs" />
+    <Compile Include="TipoGraficoDAL.cs" />
     <Compile Include="UsuarioFonatelDAL.cs" />
     <Compile Include="ReglaValidacionAtributosValidosDAL.cs" />
     <Compile Include="FrecuenciaEnvioDAL.cs" />

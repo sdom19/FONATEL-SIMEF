@@ -19,36 +19,39 @@
         <tbody>
             @foreach (var item in Model.RelacionCategoriaId)
             {
-            <tr>
-                <td>@item.idCategoriaDesagregacion</td>
-                @foreach (var item2 in item.listaCategoriaAtributo.OrderBy(x => x.idCategoriaDesagregacionAtributo))
-                {
-                    if (item2.Etiqueta == "N/A")
+                <tr>
+                    <td>@item.idCategoriaDesagregacion</td>
+                    @foreach (var item2 in item.listaCategoriaAtributo.OrderBy(x => x.idCategoriaDesagregacionAtributo))
                     {
-                        <td>@string.Empty</td>
+                        if (item2.Etiqueta == "N/A")
+                        {
+                            <td>@string.Empty</td>
+                        }
+                        else
+                        {
+                            <td>@item2.Etiqueta </td>
+                        }
+
+
+
                     }
-                    else
-                    {
-                        <td>@item2.Etiqueta </td>
-                    }
+                    <td>@item.EstadoRegistro.Nombre</td>
+                    <td>
+                        <button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value='@item.idCategoriaDesagregacion' class='btn-icon-base btn-edit'></button>
+                        <button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value='@item.idCategoriaDesagregacion' class='btn-icon-base btn-delete'></button>
+                    </td>
+                </tr>
 
 
 
-                }
-            <td>@item.EstadoRegistro.Nombre</td>
-                <td><button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value='@item.idCategoriaDesagregacion' class='btn-icon-base btn-edit'></button>
-                <button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value='@item.idCategoriaDesagregacion' class='btn-icon-base btn-delete'></button></td>
-            </tr>
-
-           
-   
             }
         </tbody>
 
-     </table>
-   
+    </table>
+
 
 </div>
+
 
 
 

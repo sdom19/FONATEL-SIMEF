@@ -16,7 +16,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
                 <li class="breadcrumb-item active"><a href="/Fonatel/RelacionCategoria/index">@EtiquetasViewRelacionCategoria.RelacionCategoria</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@ViewBag.titulo</li>
+                <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewRelacionCategoria.Visualizacion</li>
             </ol>
         </nav>
     </div>
@@ -35,31 +35,29 @@
         </div>
     </div>
 
-    <div class="row stepwizard-content-container hidden" id="step-1">
+    <div class="row stepwizard-content-container" id="step-1">
         <div class="col-lg-12">
-            <h2 class="page-title-fonatel text-center">@ViewBag.titulo</h2>
+            <h2 class="page-title-fonatel text-center">@EtiquetasViewRelacionCategoria.Visualizacion</h2>
             <hr />
         </div>
-        <div id="viewcreate" class="col-lg-12">
-            @Html.Partial("_CrearRelacionCategoria")
+        <div id="viewvisualizacion" class="col-lg-12">
+            @Html.Partial("_CrearVisualizacionRelacionCategoria")
+        </div>
+        <div class="col-lg-12 mt-4">
+            @Html.Partial("_TablaVisualizacionCategoriasAtributo")
         </div>
     </div>
 
-    <div class="row stepwizard-content-container hidden" id="step-2">
+    <div class="row stepwizard-content-container" id="step-2">
         <div>
             <h2 class="page-title-fonatel text-center">@EtiquetasViewRelacionCategoria.CategoriaDesagregacion</h2>
             <hr />
         </div>
         <div class="col-lg-12">
-            @Html.Partial("_AsignarCategorias")
+            @Html.Partial("_TablaVisualizarDetalleRelacionCategoria")
         </div>
-        <div class="col-lg-12 mt-4">
-            @Html.Partial("_TablaCategoriasAtributo")
-        </div>
-
-        <div class="col-sm-12 text-center">
-
-            <button type="submit" id="btnFinalizar" class="btn btn-fonatel btn-info-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonFinalizar" alt="@Etiquetas.BotonFinalizar">@Etiquetas.BotonFinalizar</button>
+        <div class="col-lg-12 text-center mt-4">
+                <button type="submit" id="btnCancelar" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCancelar" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
         </div>
 
         <div class="col-12 pull-right mt-4">

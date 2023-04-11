@@ -32,6 +32,7 @@ namespace GB.SIMEF.Entities
         public int IdTipoIndicador { get; set; }
         public int IdClasificacionIndicador { get; set; }
         public int IdGrupoIndicador { get; set; }
+        public int IdGraficoInforme { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> CantidadVariableDato { get; set; }
         public Nullable<int> CantidadCategoriaDesagregacion { get; set; }
@@ -50,6 +51,8 @@ namespace GB.SIMEF.Entities
         public int IdEstadoRegistro { get; set; }
 
         #region Variables que no forman parte del contexto
+        [NotMapped]
+        public virtual GraficoInforme GraficoInforme { get; set; }
         [NotMapped]
         public virtual ClasificacionIndicador ClasificacionIndicadores { get; set; }
         [NotMapped]
@@ -83,6 +86,7 @@ namespace GB.SIMEF.Entities
             json.Append("\"Frecuencia\":\"").Append(this.FrecuenciaEnvio.Nombre).Append("\",");
             json.Append("\"Descripción\":\"").Append(this.Descripcion).Append("\",");
             json.Append("\"Clasificación\":\"").Append(this.ClasificacionIndicadores.Nombre).Append("\",");
+            json.Append("\"Tipo de gráfico\":\"").Append(this.GraficoInforme.Nombre).Append("\",");
             json.Append("\"Tipo de medida\":\"").Append(this.TipoMedida.Nombre).Append("\",");
             json.Append("\"Grupo\":\"").Append(this.GrupoIndicadores.Nombre).Append("\",");
             switch (this.Interno)
