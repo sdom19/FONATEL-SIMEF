@@ -80,7 +80,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.ListaCategoriaAtributo =listaCategorias.Where(p=>p.IdTipoCategoria==(int)Constantes.TipoCategoriaEnum.Atributo && p.CantidadDetalleDesagregacion>0)
                 .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoriaDesagregacion.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
 
-            listaCategorias= listaCategorias.Where(p => !listaRelaciones.Any(p2 => p2.CategoriasDesagregacionid.idCategoriaDesagregacion ==p.idCategoriaDesagregacion)).ToList();
+            //listaCategorias= listaCategorias.Where(p => !listaRelaciones.Any(p2 => p2.CategoriasDesagregacionid.idCategoriaDesagregacion ==p.idCategoriaDesagregacion)).ToList();
             if (string.IsNullOrEmpty(id))
             {
                 ViewBag.titulo = EtiquetasViewRelacionCategoria.CrearRelacion;
