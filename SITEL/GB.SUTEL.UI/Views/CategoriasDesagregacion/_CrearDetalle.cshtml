@@ -42,24 +42,3 @@
         </div>
     </div>
 </form>
-<script>
-    // Obtén los campos por su ID
-    const field1 = document.getElementById("txtCodigoDetalle");
-    const field2 = document.getElementById("txtEtiquetaDetalle");
-    // Agrega un evento al documento que se activará cuando se presione una tecla
-    document.addEventListener("keydown", (event) => {
-        // Verifica si la tecla presionada es Enter
-        if (event.keyCode === 13) {
-
-            // Determina a cuál campo se debe desplazar verticalmente
-            let targetElement;
-            if (document.activeElement === field1) {
-                field2.focus();
-            } else {
-                field1.focus();
-            }
-            // Evita el comportamiento predeterminado del botón Enter (que es enviar un formulario)
-            event.preventDefault();
-        }
-    });
-</script>
