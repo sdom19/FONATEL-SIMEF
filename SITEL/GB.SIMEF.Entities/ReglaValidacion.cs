@@ -59,6 +59,9 @@ namespace GB.SIMEF.Entities
         public List<DetalleReglaValidacion> DetalleReglaValidacion { get; set; }
 
         [NotMapped]
+        public Indicador Indicador { get; set; }
+
+        [NotMapped]
         public string idDetalleReglaValidacion { get; set; }
 
         public override string ToString()

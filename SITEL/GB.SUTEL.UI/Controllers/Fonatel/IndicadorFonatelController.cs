@@ -67,6 +67,29 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        public ActionResult Visualiza(string id)
+        {
+
+            Indicador objIndicador = null;
+            if (!string.IsNullOrEmpty(id))
+            {
+                objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.FirstOrDefault();
+
+                objIndicador.DetalleIndicadorCategoria = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
+                {
+                    idIndicadorString = objIndicador.id,
+                    DetallesAgrupados = true
+                }).objetoRespuesta.ToList();
+
+                objIndicador.DetalleIndicadorVariable = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariable()
+                {
+                    idIndicadorString = objIndicador.id
+                }).objetoRespuesta.ToList();
+            }
+            return View(objIndicador);
+        }
+
+        [HttpGet]
         [ConsultasFonatelFilter]
         public ActionResult Detalle(int id)
         {

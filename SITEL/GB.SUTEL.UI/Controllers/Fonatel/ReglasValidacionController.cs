@@ -64,6 +64,20 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        public ActionResult Visualiza(string id)
+        {
+            ReglaValidacion regla = null;
+            if (!string.IsNullOrEmpty(id))
+            {
+                regla = reglaBL.ObtenerDatos(new ReglaValidacion() { id = id }).objetoRespuesta.Single();
+
+                regla.Indicador = indicadorfonatelBL.ObtenerDatos(new Indicador() { id = regla.idIndicadorString }).objetoRespuesta.SingleOrDefault();
+            }
+
+            return View(regla);
+        }
+
+        [HttpGet]
         [ConsultasFonatelFilter]
         public ActionResult Detalle(string idregla)
         {

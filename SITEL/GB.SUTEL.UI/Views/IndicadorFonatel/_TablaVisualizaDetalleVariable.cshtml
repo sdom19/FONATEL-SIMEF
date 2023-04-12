@@ -1,0 +1,24 @@
+﻿
+@model GB.SIMEF.Entities.Indicador
+@using GB.SIMEF.Resources;
+
+<div class="table-responsive table-wrapper-fonatel" style="min-width:300px">
+    <table id="tableDetallesVariable" class="dataTable datatable_simef table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelNombreVariable</th>
+                <th scope="col">@EtiquetasViewIndicadorFonatel.CrearVariable_LabelDescripcionVariable</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DetalleIndicadorVariable)
+            {
+                <tr>
+                    <td>@item.NombreVariable</td>
+                    <td>@item.Descripcion</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
