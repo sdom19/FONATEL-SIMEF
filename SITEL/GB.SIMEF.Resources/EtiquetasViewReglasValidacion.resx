@@ -180,4 +180,7 @@
   <data name="Variable" xml:space="preserve">
     <value>Variable Dato</value>
   </data>
+  <data name="VIsualiza" xml:space="preserve">
+    <value>Visualización Reglas de Validación</value>
+  </data>
 </root>

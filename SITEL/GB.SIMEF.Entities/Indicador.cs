@@ -32,7 +32,6 @@ namespace GB.SIMEF.Entities
         public int IdTipoIndicador { get; set; }
         public int IdClasificacionIndicador { get; set; }
         public int IdGrupoIndicador { get; set; }
-        public int IdGraficoInforme { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> CantidadVariableDato { get; set; }
         public Nullable<int> CantidadCategoriaDesagregacion { get; set; }
@@ -48,11 +47,10 @@ namespace GB.SIMEF.Entities
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
         public bool VisualizaSigitel { get; set; }
+        public int IdGraficoInforme { get; set; }
         public int IdEstadoRegistro { get; set; }
 
         #region Variables que no forman parte del contexto
-        [NotMapped]
-        public virtual GraficoInforme GraficoInforme { get; set; }
         [NotMapped]
         public virtual ClasificacionIndicador ClasificacionIndicadores { get; set; }
         [NotMapped]
@@ -75,6 +73,16 @@ namespace GB.SIMEF.Entities
         public bool esGuardadoParcial { get; set; }
         [NotMapped]
         public bool tieneDefinicion { get; set; }
+
+        [NotMapped]
+
+        public GraficoInforme GraficoInforme { get; set; }
+
+        [NotMapped]
+
+        public List<DetalleIndicadorVariable> DetalleIndicadorVariable { get; set; }
+
+        public List<DetalleIndicadorCategoria> DetalleIndicadorCategoria { get; set; }
         #endregion
 
         public override string ToString()
@@ -86,7 +94,6 @@ namespace GB.SIMEF.Entities
             json.Append("\"Frecuencia\":\"").Append(this.FrecuenciaEnvio.Nombre).Append("\",");
             json.Append("\"Descripción\":\"").Append(this.Descripcion).Append("\",");
             json.Append("\"Clasificación\":\"").Append(this.ClasificacionIndicadores.Nombre).Append("\",");
-            json.Append("\"Tipo de gráfico\":\"").Append(this.GraficoInforme.Nombre).Append("\",");
             json.Append("\"Tipo de medida\":\"").Append(this.TipoMedida.Nombre).Append("\",");
             json.Append("\"Grupo\":\"").Append(this.GrupoIndicadores.Nombre).Append("\",");
             switch (this.Interno)

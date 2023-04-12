@@ -248,5 +248,14 @@ namespace GB.SIMEF.Resources {
                 return ResourceManager.GetString("Variable", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Visualización Reglas de Validación.
+        /// </summary>
+        public static string VIsualiza {
+            get {
+                return ResourceManager.GetString("VIsualiza", resourceCulture);
+            }
+        }
     }
 }

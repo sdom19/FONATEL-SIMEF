@@ -1,7 +1,7 @@
 ﻿JsReglas = {
 
     "Controles": {
-
+        "dad1f560":"#dad1f560",
         "btnGuardarRegla": "#btnGuardarRegla",
         "btnCancelar": "#btnCancelarRegla",
         "btnSiguienteRegla": "#btnSiguienteRegla",
@@ -11,6 +11,7 @@
         "btnEditTipoRegla": "#TableTipoRegla tbody tr td .btn-edit",
         "btnEliminaTipoRegla": "#TableTipoRegla tbody tr td .btn-delete",
         "btnAddRegla": "#TableReglaDesagregacion tbody tr td .btn-add",
+        "btnViewRegla": "#TableReglaDesagregacion tbody tr td .btn-view",
         "btnAtrasRegla": "#btnAtrasTipoRegla",
         "btnGuardarReglaTipo": "#btnGuardarReglaTipo",
         "divFormulaCambioMensual": "#divFormulaCambioMensual",
@@ -164,7 +165,8 @@
                 } else {
                     html = html +"<button type='button' data-toggle='tooltip' data-placement='top' title='Clonar' value = '" + reglas.id + "' class='btn-icon-base btn-clone'></button>";
                 }
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value = '" + reglas.id + "' class='btn-icon-base btn-delete'></button></td>";
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar' value = '" + reglas.id + "' class='btn-icon-base btn-view'></button>";
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value = '" + reglas.id + "' class='btn-icon-base btn-delete'></button></td>";
                 html = html + "</tr>"
             }
             $(JsReglas.Controles.TablaReglas).html(html);
@@ -1448,6 +1450,12 @@ $(document).on("click", JsReglas.Controles.btnClonarRegla, function () {
             window.location.href = "/Fonatel/ReglasValidacion/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar
       
 });
+$(document).on("click", JsReglas.Controles.btnViewRegla, function () {
+    let id = $(this).val();
+
+    window.location.href = "/Fonatel/ReglasValidacion/Visualiza?id=" + id;
+
+});
 
 $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {
     if (consultasFonatel) { return; }
@@ -1616,6 +1624,9 @@ $(document).on("change", JsReglas.Controles.ddlVariableRegla, function () {
 
 $(function () {
 
+    if ($(JsReglas.Controles.dad1f560).length > 0) {
+        return;
+    }
 
     let indicadorHabilitado = $(JsReglas.Controles.ddlIndicadorRegla).val();
 
