@@ -1112,7 +1112,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     pIndicador.TipoMedida == null               || string.IsNullOrEmpty(pIndicador.TipoMedida.id) ||
                     pIndicador.GrupoIndicadores == null         || string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id) ||
                     pIndicador.Interno == null ||
-                    pIndicador.Nota == null                    || string.IsNullOrEmpty(pIndicador.Nota.Trim()) ||
                     pIndicador.CantidadVariableDato == null ||
                     pIndicador.CantidadCategoriaDesagregacion == null ||
                     pIndicador.UnidadEstudio == null            || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id) ||
