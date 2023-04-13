@@ -313,7 +313,7 @@ CreateView = {
         // ============ Formularios ============
         formIndicador: {
             form: "#formCrearIndicador",
-            inputs: "#formCrearIndicador input, #formCrearIndicador textarea, #formCrearIndicador select",
+            inputs: "#formCrearIndicador input, #formCrearIndicador .textareavalidar, #formCrearIndicador select",
             selects2: "#formCrearIndicador select",
 
             btnSiguienteCrearIndicador: "#btnSiguienteCrearIndicador",
