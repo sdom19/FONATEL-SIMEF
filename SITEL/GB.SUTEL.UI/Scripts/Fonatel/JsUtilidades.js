@@ -81,7 +81,14 @@ $(document).ready(function () {
        
     });
 
-    CargarDatasource();
+    let bitacora = (typeof JsBitacora) != "undefined"
+
+    if (bitacora) {
+        CargarDatasourceBitacora();
+    } else {
+        CargarDatasource();
+    }
+    
    
 
     $('.listasDesplegables').select2({
@@ -292,6 +299,193 @@ function CargarDatasource(pDataTable = ".datatable_simef") {
     $('.datatable_simef > tbody tr td button').tooltip();
 }
 
+function CargarDatasourceBitacora(pDataTable = ".datatable_simef") {
+    $(pDataTable).DataTable({
+        pageLength: 5,
+        destroy:true,
+        lengthMenu: [[5, 25, 50, 100], [5, 25, 50, 100]],
+        "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
+        buttons: [
+            {
+                extend: 'excel',
+                text: '<i class="fa fa-file-excel-o" style="color:green;"></i>',
+                titleAttr: 'Excel',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
+            },
+            {
+                extend: 'pdf',
+                text: '<i class="fa fa-file-pdf-o" style="color:brown;"></i>',
+                titleAttr: 'PDF',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
+            },
+            {
+                extend: 'print',
+                text: '<i class="fa fa-print" style="color:black;"></i>',
+                titleAttr: 'Imprimir',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
+
+            },
+            {
+                text: '<i class="fa fa-file-word-o" style="color:#2E86C1;"></i>',
+                titleAttr: 'Word',
+                action: function (e, dt, button, config) {
+
+                    let fileName = $(".page-title-fonatel").text();
+
+                    const tableFont = "Arial";
+                    var dataTable = $(pDataTable).DataTable();
+
+                    const headers = dataTable.columns().header().map(d => d.textContent).toArray();
+                    const rows = dataTable.rows().data();
+
+                    var filasWord = []
+                    var encabezadoTabla = []
+                    // Agregar las cabeceras a la tabla
+                    for (let i = 0; i < headers.length; i++) {
+                        encabezadoTabla.push(new docx.TableCell({ children: [new docx.Paragraph({ children: [new docx.TextRun({ text: headers[i], font: tableFont })] })] }))
+                        //encabezadoTabla.push(new docx.TableCell({ children: [new docx.Paragraph(headers[i])] }))
+                    }
+
+                    filasWord.push(new docx.TableRow({
+                        children: encabezadoTabla,
+                        //shading: {
+                        //    color:"#1A5276"
+                        //}
+                    }))
+
+                    for (let i = 0; i < rows.length; i++) {
+
+                        var filaBitacora = []
+                        for (let j = 0; j < rows[i].length; j++) {
+                            //filaBitacora.push(new docx.TableCell({ children: [new docx.Paragraph(rows[i][j])] }))
+                            filaBitacora.push(new docx.TableCell({ children: [new docx.Paragraph({ children: [new docx.TextRun({ text: rows[i][j], font: tableFont })] })] }))
+                        }
+
+                        filasWord.push(new docx.TableRow({
+                            children: filaBitacora
+                        }));
+
+                    }
+
+                    const table = new docx.Table({
+                        rows: filasWord
+                    });
+
+                    const doc = new docx.Document({
+                        sections: [{
+                            properties: {
+                                page: {
+                                    margin: {
+                                        top: 500,
+                                        right: 500,
+                                        bottom: 500,
+                                        left: 500,
+                                    },
+                                }
+                            },
+                            children: [
+                                new docx.Paragraph({
+                                    children: [
+                                        new docx.TextRun({ text: fileName, bold: true, font: tableFont })
+                                    ]
+                                }),
+                                new docx.Paragraph({
+                                    children: [
+                                        new docx.TextRun({ text: " " })
+                                    ]
+                                }),
+                                table
+                            ],
+                        }]
+                    });
+
+                    // Generar el archivo y descargarlo
+                    docx.Packer.toBlob(doc).then(blob => {
+                        console.log(blob);
+                        saveAs(blob, fileName + ".doc");
+                    });
+                }
+            },
+            {
+                extend: 'csv',
+                text: '<i class="fa fa-table" style="color:#28B463;"></i>',
+                titleAttr: 'CSV',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
+
+            }
+        ],
+
+        columnDefs: [
+            { "className": "dt-center", "targets": "_all" }
+        ],
+        language: {
+            "decimal": "",
+            "emptyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "searchPlaceholder": "",
+            "zeroRecords": "Sin resultados encontrados",
+
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+        initComplete: function () {
+            this.api()
+                .columns()
+                .every(function () {
+                    var column = this;
+
+                    if ($(column.footer()).hasClass("select2-wrapper")) {
+                        var select = $('<select><option value="">Todos</option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                                column.search(val ? '^' + val + '$' : '', true, false).draw();
+                            });
+
+                        column
+                            .data()
+                            .unique()
+                            .sort()
+                            .each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + '</option>');
+                            });
+                    }
+                });
+        },
+
+
+    });
+
+    $('.table-wrapper-fonatel table tfoot th select').select2({
+        width: 'resolve'
+    });
+
+    $('.datatable_simef > tbody tr td button').tooltip();
+}
 /**
  * Permite remover un item de una tabla DataTable.
  * @param {any} pDataTable tabla DataTable.

@@ -1,0 +1,26 @@
+﻿@model GB.SIMEF.Entities.ReglaValidacion
+@using GB.SIMEF.Resources;
+
+<div class="table-responsive table-wrapper-fonatel" style="min-width:300px">
+    <table id="TableTipoRegla" class="dataTable datatable_simef table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">@EtiquetasViewFormulario.Etiqueta</th>
+                <th scope="col">@EtiquetasViewFormulario.TipoRegla</th>
+                <th scope="col">@EtiquetasViewFormulario.Operador</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DetalleReglaValidacion)
+            {
+            <tr>
+                <td>@item.NombreVariable</td>
+                <td>@item.tipoReglaValidacion.Nombre</td>
+                <td>@item.operadorArismetico.Nombre</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

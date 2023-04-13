@@ -1,0 +1,53 @@
+﻿@using GB.SIMEF.Resources;
+@model GB.SIMEF.Entities.RelacionCategoria
+
+<div class="table-responsive  table-wrapper-fonatel">
+
+    <table id="TablaVisualizacionDetalleRelacionCategoria" class=" dataTable datatable_simef  table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th scope="col">@Model.CategoriasDesagregacionid.NombreCategoria</th>
+                @foreach (var item in Model.DetalleRelacionCategoria.OrderBy(x => x.idCategoriaDesagregacion))
+                {
+                    <th scope="col">@item.CategoriaAtributo.NombreCategoria</th>
+                }
+                <th scope="col">@EtiquetasViewRelacionCategoria.Estado</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.RelacionCategoriaId)
+            {
+            <tr>
+                <td>@item.idCategoriaDesagregacion</td>
+                @foreach (var item2 in item.listaCategoriaAtributo.OrderBy(x => x.idCategoriaDesagregacionAtributo))
+                {
+                    if (item2.Etiqueta == "N/A")
+                    {
+                        <td>@string.Empty</td>
+                    }
+                    else
+                    {
+                        <td>@item2.Etiqueta </td>
+                    }
+
+
+
+                }
+            <td>@item.EstadoRegistro.Nombre</td>
+               
+            </tr>
+
+           
+   
+            }
+        </tbody>
+
+     </table>
+   
+
+</div>
+
+
+
+

@@ -858,3 +858,19 @@ $(document).ready(function () {
 });
 
 
+// Agrega un evento al documento que se activará cuando se presione una tecla
+document.addEventListener("keydown", (event) => {
+    // Verifica si la tecla presionada es Enter
+    if (event.keyCode === 13) {
+
+        // Determina a cuál campo se debe desplazar verticalmente
+        if (document.activeElement === jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador) {
+            jsRegistroIndicadorFonatelEdit.Controles.txtNotasInformante.focus();
+        } else {
+            jsRegistroIndicadorFonatelEdit.Controles.txtCantidadRegistroIndicador.focus();
+        }
+
+        // Evita el comportamiento predeterminado del botón Enter (que es enviar un formulario)
+        event.preventDefault();
+    }
+});

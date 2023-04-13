@@ -100,6 +100,7 @@
     <Compile Include="EnvioSolicitudBL.cs" />
     <Compile Include="RegistroIndicadorFonatelBL.cs" />
     <Compile Include="ServicioSitelBL.cs" />
+    <Compile Include="TipoGraficoBL.cs" />
     <Compile Include="UsuarioFonatelBL.cs" />
     <Compile Include="MesBL.cs" />
     <Compile Include="OperadorArismeticoBL.cs" />

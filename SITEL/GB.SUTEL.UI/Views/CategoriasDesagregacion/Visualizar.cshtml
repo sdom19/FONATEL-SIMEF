@@ -32,18 +32,17 @@
         <div class="col-lg-12">
             @Html.Partial("_VisualizaCategoria", Model)
         </div>
+            <div class="col-sm-12 text-center mt-2">
+                <button type="submit" id="btnCancelarCategoria" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCancelar" class="btn btn-fonatel btn-error-fonatel">@Etiquetas.BotonCancelar</button>
+            </div>
         @if (Model.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Texto || Model.IdTipoDetalleCategoria == (int)Constantes.TipoDetalleCategoriaEnum.Alfanumerico)
         {
-            <div class="col-lg-12 mt-4">
+            <div class="col-lg-12 mt-3">
                 @Html.Partial("_TablaVisualizacionDetalleDesagregacion", Model)
             </div>
         }
 
-        <div class="col-12 pull-right mt-4">
-            <button type="button" id="btnAtrasCategoria" class="btn btn-fonatel btn-goback" aria-label="Left Align">
-                <span aria-hidden="true"></span>@Etiquetas.BotonAtras
-            </button>
-        </div>
+
 
     </div>
 

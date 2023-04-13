@@ -80,7 +80,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.ListaCategoriaAtributo =listaCategorias.Where(p=>p.IdTipoCategoria==(int)Constantes.TipoCategoriaEnum.Atributo && p.CantidadDetalleDesagregacion>0)
                 .Select(x => new SelectListItem() { Selected = false, Value = x.idCategoriaDesagregacion.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.NombreCategoria) }).ToList();
 
-            listaCategorias= listaCategorias.Where(p => !listaRelaciones.Any(p2 => p2.CategoriasDesagregacionid.idCategoriaDesagregacion ==p.idCategoriaDesagregacion)).ToList();
+            //listaCategorias= listaCategorias.Where(p => !listaRelaciones.Any(p2 => p2.CategoriasDesagregacionid.idCategoriaDesagregacion ==p.idCategoriaDesagregacion)).ToList();
             if (string.IsNullOrEmpty(id))
             {
                 ViewBag.titulo = EtiquetasViewRelacionCategoria.CrearRelacion;
@@ -100,7 +100,16 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
 
-
+        public ActionResult Visualizacion(string idRelacionCategoria)
+        {
+            RelacionCategoria model = new RelacionCategoria();
+            if (!string.IsNullOrEmpty(idRelacionCategoria))
+            {
+                model = relacionCategoriaBL
+                  .ObtenerDatos(new RelacionCategoria() {id=idRelacionCategoria }).objetoRespuesta.SingleOrDefault();
+            }
+            return View(model);
+        }
 
         [HttpGet]
         [ConsultasFonatelFilter]
@@ -116,7 +125,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             #endregion
 
-            #region Metodos de ASYNC Relacion Categoria
+        #region Metodos de ASYNC Relacion Categoria
 
 
 

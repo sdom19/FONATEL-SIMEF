@@ -474,6 +474,35 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
+        /// 10/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores registrados en el sistema.
+        /// Se puede realizar un filtrado de acuerdo al objeto que se envia.
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> ObtenerDatosGenerarUrl(Indicador pIndicador)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            try
+            {
+                PrepararObjetoIndicador(pIndicador);
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+                var result = indicadorFonatelDAL.ObtenerDatosGenerarURL(pIndicador);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
         /// 19/12/2022
         /// José Navarro Acuña
         /// Función que retorna todos los indicadores de mercado registrados en el sistema
@@ -879,7 +908,24 @@ namespace GB.SIMEF.BL
                 pIndicador.IdClasificacionIndicador = number;
                 pIndicador.ClasificacionIndicadores.IdClasificacionIndicador = pIndicador.ClasificacionIndicadores != null ? number : 0;
             }
-            
+
+            if (!string.IsNullOrEmpty(pIndicador.GraficoInforme?.id))
+            {
+                if(pIndicador.GraficoInforme.id != "0")
+                {
+                    int.TryParse(Utilidades.Desencriptar(pIndicador.GraficoInforme.id), out int number);
+                    pIndicador.IdGraficoInforme = number;
+                    pIndicador.GraficoInforme.IdGraficoInforme = pIndicador.GraficoInforme != null ? number : 0;
+                }
+                else
+                {
+                    pIndicador.IdGraficoInforme = 0;
+                    pIndicador.GraficoInforme.IdGraficoInforme = pIndicador.GraficoInforme != null ? 0 : 0;
+                }
+
+                
+            }
+
             if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id))
             {
                 int.TryParse(Utilidades.Desencriptar(pIndicador.GrupoIndicadores.id), out int number);

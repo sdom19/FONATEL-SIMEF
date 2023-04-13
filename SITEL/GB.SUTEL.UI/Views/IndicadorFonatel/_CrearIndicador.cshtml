@@ -11,7 +11,7 @@
 
                 @{
                     var htmlAttributes = new Dictionary<string, object>
-                    {
+                                            {
                         { "id", "inputCodigo" },
                         { "class" , "form-control form-control-fonatel alfa_numerico"},
                         { "maxlength", 30 },
@@ -150,6 +150,33 @@
         </div>
 
     </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <div class="form-group" style="display:none;"></div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 hidden" id="divTipoGrafico">
+            <div class="form-group">
+                <label for="ddlTipoGrafico" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipoGrafico</label>
+                <div class="select2-wrapper">
+                    @Html.DropDownListFor(model => model.GraficoInforme.id, new SelectList(ViewBag.TiposGraficos, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipoGrafico", style = "width: 500px !important;" })
+                </div>
+                <small id="ddlTipoGraficoHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            <div class="form-group" style="display:none;"></div>
+        </div>
+
+    </div>
+
+
+
+
+
+
     <div class="row mt-5">
         <div class="col-sm-12">
             <div class="text-center">
@@ -157,7 +184,7 @@
                     string idBtnGuardar = string.Empty, idBtnSiguiente = string.Empty;
                     string modoFormulario = ViewBag.ModoFormulario;
 
-                    if (modoFormulario.Equals(((int)Constantes.Accion.Insertar).ToString()))
+                    if (modoFormulario.Equals(((int)Constantes.Accion.Crear).ToString()))
                     {
                         idBtnGuardar = "btnGuardarCrearIndicador";
                         idBtnSiguiente = "btnSiguienteCrearIndicador";
@@ -181,6 +208,3 @@
         </div>
     </div>
 </form>
-
-
-

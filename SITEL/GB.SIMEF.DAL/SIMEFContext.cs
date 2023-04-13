@@ -62,6 +62,7 @@ namespace GB.SIMEF.DAL
         //public virtual DbSet<FuenteIndicador> FuenteIndicador { get; set; }
         public virtual DbSet<FuenteRegistro> FuentesRegistro { get; set; }
         public virtual DbSet<GrupoIndicador> GrupoIndicadores { get; set; }
+        public virtual DbSet<GraficoInforme> GraficoInforme { get; set; }
         public virtual DbSet<Indicador> Indicador { get; set; }
         
         public virtual DbSet<Mes> Mes { get; set; }
