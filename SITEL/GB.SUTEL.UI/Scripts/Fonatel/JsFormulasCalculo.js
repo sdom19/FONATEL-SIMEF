@@ -987,6 +987,9 @@ GestionFormulaView = {
         CargarDatosStep2: function () {
             $("#loading").fadeIn();
 
+            //Se  habilita el boton de cancelar en el paso 2
+            $(GestionFormulaView.Controles.form.btnCancelar).prop("disabled", false);
+
             GestionFormulaView.Consultas.ConsultarFuentesIndicador()
                 .then(data => {
                     GestionFormulaView.Metodos.InsertarDatosEnComboBoxFuente(data);
