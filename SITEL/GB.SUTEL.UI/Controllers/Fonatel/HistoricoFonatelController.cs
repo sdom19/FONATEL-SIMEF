@@ -109,6 +109,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                                 int cell2 = fila.NumeroFila + 1;
                                 worksheetInicio.Cells[cell2, cell].Value = fila.Atributo;
                             }
+                            
                         }
                         //Bug 89482 se llama metodo para registrar bitacora cuando se descarga
                         historicoBl.BitacoraDescargar(worksheet);

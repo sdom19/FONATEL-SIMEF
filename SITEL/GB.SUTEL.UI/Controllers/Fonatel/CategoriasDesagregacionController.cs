@@ -161,13 +161,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 package.Workbook.Protection.LockRevision = true;
                 package.Workbook.Protection.LockStructure = true;
+                package.Workbook.Protection.SetPassword("UnPassword");
 
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(categoria.Codigo);
+                worksheetInicio.Protection.IsProtected = true;
+                worksheetInicio.Protection.SetPassword("UnPassword");
                 worksheetInicio.Cells["A1"].LoadFromCollection(categoria.DetalleCategoriaTexto
 
                     .Select(i => new { i.Codigo, i.Etiqueta }), true);
                 worksheetInicio.Cells["A1"].Value = "Código";
                 worksheetInicio.Cells["B1"].Value = "Etiqueta";
+                worksheetInicio.Cells.Style.Locked = true;
 
                 worksheetInicio.Cells["A1:B1"].Style.Font.Bold = true;
                 worksheetInicio.Cells["A1:B1"].Style.Font.Size = 12;
@@ -186,6 +190,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     worksheetInicio.Cells[celdas].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                     worksheetInicio.Cells[celdas].Style.Font.Color.SetColor(System.Drawing.Color.Black);
                     worksheetInicio.Cells[celdas].AutoFitColumns();
+                    worksheetInicio.Cells[celdas].Style.Locked = false;
                 }
 
                 //Bug 89482 se llama metodo para registrar bitacora cuando se descarga

@@ -140,7 +140,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                         worksheetInicio.Cells[fila, columna + 1].Style.Font.Color.SetColor(System.Drawing.Color.White);
                         worksheetInicio.Cells[fila, columna + 1].AutoFitColumns();
 
-
+                        
                         foreach (var item in Valores)
                         {
                             var FilaVariableDato = item.NumeroFila;
