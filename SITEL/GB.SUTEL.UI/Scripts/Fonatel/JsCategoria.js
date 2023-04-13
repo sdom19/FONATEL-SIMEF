@@ -898,7 +898,6 @@ $(document).on("click", JsCategoria.Controles.btnActivarCategoria, function () {
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea desactivar la Categoría de Desagregación?", jsMensajes.Variables.actionType.estado)
         .set('onok', function (closeEvent) {
             JsCategoria.Consultas.ValidarExistenciaCategoria(id, estado);
-            JsCategoria.Consultas.CambiarEstadoCategoria(id, estado);
         });
 });
 

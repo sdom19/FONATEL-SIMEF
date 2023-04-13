@@ -32,21 +32,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             var listaUsuario = lista.Select(x => x.Usuario).Distinct();
 
             /*Se verifica si hace falta alguna pantalla para mostrar en las opciones del filtro de Pantallas*/
-            List<string> listaPantallas = new List<string> {
-                "Relaciones entre Categorías",
-                "Fuentes de Registro",
-                "Reglas de Validación",
-                "Definición de Indicadores",
-                "Publicación de Indicadores",
-                "Fórmulas de Cálculo",
-                "Indicadores",
-                "Categorías de Desagregación",
-                "Envío Programado",
-                "Solicitud de Información",
-                "Formulario Web",
-                "Descarga y Edición de Formulario",
-                "Consulta de Datos Históricos"
-            };           
+            var listaPantallas = lista.Select(x => x.Pantalla).Distinct();     
 
             var ListaAcciones = lista.Select(x => x.Accion).Distinct();
 
