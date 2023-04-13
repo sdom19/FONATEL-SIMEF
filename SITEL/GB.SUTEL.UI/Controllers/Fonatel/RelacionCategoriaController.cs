@@ -324,6 +324,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
+                package.Workbook.Protection.LockRevision = true;
+                package.Workbook.Protection.LockStructure = true;
+
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(relacion.Codigo);
 
                 worksheetInicio.Cells["A1"].Value = relacion.CategoriasDesagregacionid.NombreCategoria;

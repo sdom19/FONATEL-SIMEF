@@ -85,6 +85,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 MemoryStream stream = new MemoryStream();
                 using (ExcelPackage package = new ExcelPackage(stream))
                 {
+                    package.Workbook.Protection.LockRevision = true;
+                    package.Workbook.Protection.LockStructure = true;
                     foreach (var worksheet in data.Result.objetoRespuesta)
                     {
                         ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(worksheet.NombrePrograma);

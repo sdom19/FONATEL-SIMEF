@@ -159,6 +159,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
+                package.Workbook.Protection.LockRevision = true;
+                package.Workbook.Protection.LockStructure = true;
+
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(categoria.Codigo);
                 worksheetInicio.Cells["A1"].LoadFromCollection(categoria.DetalleCategoriaTexto
 

@@ -127,6 +127,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
+                package.Workbook.Protection.LockRevision = true;
+                package.Workbook.Protection.LockStructure = true;
+
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(result.objetoRespuesta[0].TituloHoja);
                 int celda = 1;
                 foreach (var item in listaVariable)

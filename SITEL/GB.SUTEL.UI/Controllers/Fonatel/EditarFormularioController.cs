@@ -105,6 +105,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
+                package.Workbook.Protection.LockRevision = true;
+                package.Workbook.Protection.LockStructure = true;
+
                 var Formulario = EditarRegistroIndicadorBL.ObtenerDatos(new RegistroIndicadorFonatel() { Solicitudid = idSolicitud, FormularioId = idFormularioWeb }).objetoRespuesta.Single();
 
                 var NombreExcel = Formulario.Formulario.Trim();
@@ -227,6 +230,9 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
+                package.Workbook.Protection.LockRevision = true;
+                package.Workbook.Protection.LockStructure = true;
+
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(Detalle.TituloHoja);
                 
                 for (int i = 0; i < cantVariables; i++)
