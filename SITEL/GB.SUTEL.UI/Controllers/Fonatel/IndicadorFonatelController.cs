@@ -67,6 +67,29 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        public ActionResult Visualiza(string id)
+        {
+
+            Indicador objIndicador = null;
+            if (!string.IsNullOrEmpty(id))
+            {
+                objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.FirstOrDefault();
+
+                objIndicador.DetalleIndicadorCategoria = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
+                {
+                    idIndicadorString = objIndicador.id,
+                    DetallesAgrupados = true
+                }).objetoRespuesta.ToList();
+
+                objIndicador.DetalleIndicadorVariable = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariable()
+                {
+                    idIndicadorString = objIndicador.id
+                }).objetoRespuesta.ToList();
+            }
+            return View(objIndicador);
+        }
+
+        [HttpGet]
         [ConsultasFonatelFilter]
         public ActionResult Detalle(int id)
         {
@@ -165,6 +188,23 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             await Task.Run(() =>
             {
                 resultado = indicadorBL.ObtenerDatos(new Indicador());
+            });
+            return JsonConvert.SerializeObject(resultado);
+        }
+
+        /// <summary>
+        /// 10/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores registrados en el sistema
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> ObtenerListaIndicadoresparaGerarURl()
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+            await Task.Run(() =>
+            {
+                resultado = indicadorBL.ObtenerDatosGenerarUrl(new Indicador());
             });
             return JsonConvert.SerializeObject(resultado);
         }
@@ -1072,7 +1112,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     pIndicador.TipoMedida == null               || string.IsNullOrEmpty(pIndicador.TipoMedida.id) ||
                     pIndicador.GrupoIndicadores == null         || string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id) ||
                     pIndicador.Interno == null ||
-                    pIndicador.Nota == null                    || string.IsNullOrEmpty(pIndicador.Nota.Trim()) ||
                     pIndicador.CantidadVariableDato == null ||
                     pIndicador.CantidadCategoriaDesagregacion == null ||
                     pIndicador.UnidadEstudio == null            || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id) ||

@@ -5,9 +5,14 @@
         "btnGenerarURL": "#btnGenerarURL",
         "txtURL": "#txtURL",
         "txtRuta": "#txtRuta",
+        "btnCopiar": "#btnCopiar",
+        "btnCancelar": "#btnCancelar",
     },
     Variables: {
         listadoIndicadores:[],
+    },
+    Mensajes: {
+        preguntaCancelarAccion: "¿Desea cancelar la acción?",
     },
     Metodos: {
         CargarTablaIndicadores: function () {
@@ -44,13 +49,14 @@
             CargarDatasource();
         },
         CrearURL: function () {
-
+            debugger;
             $(jsGeneradorURL.Controles.txtURL).val($(jsGeneradorURL.Controles.txtRuta).val()+jsGeneradorURL.Variables.listadoIndicadores.join(","));
         }
     },
     Consultas: {
         ConsultaListaIndicadores: function () {
-            return execAjaxCall('/IndicadorFonatel/ObtenerListaIndicadores', 'GET');
+            debugger;
+            return execAjaxCall('/IndicadorFonatel/ObtenerListaIndicadoresparaGerarURl', 'GET');
         },
     }
 }
@@ -60,7 +66,29 @@ $(document).ready(function () {
 });
 
 $(document).on("click", jsGeneradorURL.Controles.btnGenerarURL, function () {
+    debugger;
     jsGeneradorURL.Metodos.CrearURL();
+});
+
+$(document).on("click", jsGeneradorURL.Controles.btnCopiar, function () {
+    debugger;
+    // Crea un campo de texto "oculto"
+    var aux = document.createElement("input");
+
+    // Asigna el contenido del elemento especificado al valor del campo
+    aux.setAttribute("value", document.getElementById("txtURL").value);
+
+    // Añade el campo a la página
+    document.body.appendChild(aux);
+
+    // Selecciona el contenido del campo
+    aux.select();
+
+    // Copia el texto seleccionado
+    document.execCommand("copy");
+
+    // Elimina el campo de la página
+    document.body.removeChild(aux);
 });
 
 $(document).on("click", jsGeneradorURL.Controles.chkDatos, function () {
@@ -69,4 +97,14 @@ $(document).on("click", jsGeneradorURL.Controles.chkDatos, function () {
     } else {
         jsGeneradorURL.Variables.listadoIndicadores = jsGeneradorURL.Variables.listadoIndicadores.filter(x => x != this.name);
     }
+});
+
+
+$(document).on("click", jsGeneradorURL.Controles.btnCancelar, function (e) {
+    debugger;
+    e.preventDefault();
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
+        .set('onok', function (closeEvent) {
+            preguntarAntesDeSalir = false; window.location.href = "/Fonatel/GeneradorURL/Index";
+        });
 });

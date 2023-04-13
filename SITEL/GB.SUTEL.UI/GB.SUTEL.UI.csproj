@@ -1467,6 +1467,13 @@
     <Content Include="Views\RelacionCategoria\_CrearVisualizacionRelacionCategoria.cshtml" />
     <Content Include="Views\RelacionCategoria\_TablaVisualizacionCategoriasAtributo.cshtml" />
     <Content Include="Views\RelacionCategoria\_TablaVisualizarDetalleRelacionCategoria.cshtml" />
+    <Content Include="Views\IndicadorFonatel\Visualiza.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_CrearVisualizaIndicador.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_TablaVisualizaDetalleVariable.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_TablaVisualizaDetalleCategoria.cshtml" />
+    <Content Include="Views\ReglasValidacion\Visualiza.cshtml" />
+    <Content Include="Views\ReglasValidacion\_VisualizaRegla.cshtml" />
+    <Content Include="Views\ReglasValidacion\_TablaVisualizaTipoRegla.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

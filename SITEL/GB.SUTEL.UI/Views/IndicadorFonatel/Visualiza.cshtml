@@ -1,0 +1,104 @@
+﻿@using GB.SIMEF.Resources;
+
+@{
+    ViewBag.Title = "Indicadores";
+    Layout = "~/Views/Shared/_LayoutFONATEL.cshtml";
+}
+
+@section scripts {
+ @* @Scripts.Render("~/bundles/FONATEL/IndicadorFonatel")*@
+}
+
+
+
+<div class="container body-content">
+    <input type="hidden" id="dad1f560">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">@Etiquetas.LabelInicio</a></li>
+                        <li class="breadcrumb-item active"><a href="@Url.Action( "index","IndicadorFonatel")">@EtiquetasViewIndicadorFonatel.TituloIndex</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@EtiquetasViewIndicadorFonatel.Visualizacion</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel step_navigation_indicador">
+            <div class="stepwizard-step" data-step="0">
+                <p>@EtiquetasViewIndicadorFonatel.LabelStepperIndicador</p>
+                <a href="#step-1" type="button" class="btn btn-circle" disabled>1</a>
+            </div>
+            <div class="stepwizard-step" data-step="1">
+                <p>@EtiquetasViewIndicadorFonatel.LabelStepperVariables</p>
+                <a href="#step-2" type="button" class="btn btn-circle" disabled>2</a>
+            </div>
+            <div class="stepwizard-step" data-step="2">
+                <p>@EtiquetasViewIndicadorFonatel.LabelStepperCategorias</p>
+                <a href="#step-3" type="button" class="btn btn-circle" disabled>3</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-lg-12 stepwizard-content-container hidden" id="step-1">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-title-fonatel text-center">@EtiquetasViewIndicadorFonatel.Visualizacion</h2>
+                    <hr />
+                </div>
+                <div class="col-lg-12">
+                    @Html.Partial("_CrearVisualizaIndicador")
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 stepwizard-content-container hidden" id="step-2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-title-fonatel text-center">@EtiquetasViewIndicadorFonatel.TituloVistaVariableDato</h2>
+                    <hr />
+                </div>
+                <div class="col-lg-12 mt-4">
+                    @Html.Partial("_TablaVisualizaDetalleVariable")
+                </div>
+                <div class="col-lg-12 mt-3 text-center">
+                    <button type="button" id="btnSiguienteVariable" class="btn btn-fonatel btn-next-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonSiguiente">@Etiquetas.BotonSiguiente</button>
+                </div>
+                <div class="col-12 pull-right mt-4">
+                    <button type="button" id="btnAtrasVariable" class="btn btn-fonatel btn-goback" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonAtras">
+                        <span aria-hidden="true"></span>@Etiquetas.BotonAtras
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-12 stepwizard-content-container hidden " id="step-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-title-fonatel text-center">@EtiquetasViewIndicadorFonatel.TituloVistaCategoria</h2>
+                <hr />
+            </div>
+            <div class="col-lg-12 mt-4">
+                 @Html.Partial("_TablaVisualizaDetalleCategoria")
+            </div>
+
+            <div class="col-lg-12 mt-3 text-center">
+                <button type="button" id="btnCancelarIndicador" class="btn btn-fonatel btn-error-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCancelar">@Etiquetas.BotonCancelar</button>
+            </div>
+
+            <div class="col-12 pull-right mt-4">
+                <button type="button" id="btnAtrasCategoria" class="btn btn-fonatel btn-goback" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonAtras">
+                    <span aria-hidden="true"></span>@Etiquetas.BotonAtras
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Fonatel/JsIndicador.js"></script>
