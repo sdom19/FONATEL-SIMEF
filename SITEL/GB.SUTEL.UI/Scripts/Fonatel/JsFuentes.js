@@ -22,7 +22,6 @@
         "nombreHelp":"#nombreHelp",
         "txtNombre": "#txtNombre",
         "txtCorreo": "#txtCorreo",
-        "txtCorreoS": "txtCorreo",
         "txtidDetalleFuente":"#txtidDetalleFuente",
         "txtIdUsuarioDetalle": "#txtIdUsuarioDetalle",
         "FuenteHelp": "#FuenteHelp",
@@ -527,10 +526,10 @@ $(document).on("click", JsFuentes.Controles.btnAtrasFuentes, function () {
     window.location.href = "/Fonatel/Fuentes/Index";
 });
 
-document.getElementById(JsFuentes.Controles.txtCorreoS).addEventListener("paste", function (e) {
+$(document).on("paste", JsFuentes.Controles.txtCorreo, function (e) {
     e.preventDefault(); // previene el comportamiento predeterminado de pegar el texto en el input
-    var text = e.clipboardData.getData("text/plain"); // obtiene el texto del portapapeles
-    this.value = text; // establece el valor del input al texto pegado
+    var text = e.originalEvent.clipboardData.getData("text/plain"); // obtiene el texto del portapapeles
+    $(this).val(text); // establece el valor del input al texto pegado
 });
 
 
