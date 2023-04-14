@@ -65,7 +65,10 @@
             '7': 'Fórmula contra otro indicador'
         },
         "IndicadoresValidados": [],
-
+        "Url":
+        {
+            "ViewList": "/Fonatel/RegistroIndicadorFonatel/index"
+        }
     },
 
     "Metodos": {
@@ -437,7 +440,7 @@
                             CargarDatasourceV2("div.tab-pane .data-table-indicador.revisado");
                             let nombreFormulario = $(jsRegistroIndicadorFonatel.Controles.lblNombreFormulario).text().trim();
                             jsMensajes.Metodos.OkAlertModal(`El Formulario Web ${nombreFormulario} ha sido guardado`)
-                                .set('onok', function (closeEvent) { window.location ="/Fonatel/RegistroIndicadorFonatel/index" });
+                                .set('onok', function (closeEvent) { window.location = jsRegistroIndicadorFonatel.Variables.Url.ViewList });
                         }
                     },
                     error: function (obj) {
