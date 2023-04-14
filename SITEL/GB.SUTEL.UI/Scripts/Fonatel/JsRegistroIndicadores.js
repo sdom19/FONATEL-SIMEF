@@ -437,7 +437,7 @@
                             CargarDatasourceV2("div.tab-pane .data-table-indicador.revisado");
                             let nombreFormulario = $(jsRegistroIndicadorFonatel.Controles.lblNombreFormulario).text().trim();
                             jsMensajes.Metodos.OkAlertModal(`El Formulario Web ${nombreFormulario} ha sido guardado`)
-                                .set('onok', function (closeEvent) { });
+                                .set('onok', function (closeEvent) { window.location ="/Fonatel/RegistroIndicadorFonatel/index" });
                         }
                     },
                     error: function (obj) {

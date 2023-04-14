@@ -228,7 +228,9 @@ namespace GB.SIMEF.BL
             }
 
             //89482 obtención de datos para bitacora
-            string JsonAnterior = ObtenerDatos(objeto).objetoRespuesta[0].ToString();
+            string JsonAnterior = 
+                ObtenerDatos(new RegistroIndicadorFonatel() {idFormularioWeb=objeto.idFormularioWeb
+                ,IdSolicitud=objeto.IdSolicitud }).objetoRespuesta[0].ToString();
 
             var result = clsDatos.ActualizarRegistroIndicadorFonatel(objeto);
 
