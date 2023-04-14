@@ -659,7 +659,7 @@
         },
 
         "EditarReglaValidacion": function () {
-
+            
             $("#loading").fadeIn();
             let objetoRegla = new Object()
             objetoRegla.id = ObtenerValorParametroUrl("id");
@@ -1137,8 +1137,9 @@
             }
             //REGLA CONTRA ACTUALIZACION SECUENCIAL
             if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
+                
                 objetoTipoRegla.reglaSecuencial = {};
-                objetoTipoRegla.reglaSecuencial.idCategoriaDesagregacion = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
+                objetoTipoRegla.reglaSecuencial.idCategoriaString = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
             }
             //REGLA CONTRA INDICADOR DE SALIDA
             if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
@@ -1219,6 +1220,7 @@
             }
             // REGLA CONTRA ACTUALIZACION SECUENCIAL
             if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
+              
                 objetoTipoRegla.reglaSecuencial = {};
                 objetoTipoRegla.reglaSecuencial.IdReglaSecuencial= $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaSecuencial.idCategoriaDesagregacion = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
@@ -1357,6 +1359,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
 
             if (Estado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+               
                 jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsReglas.Consultas.EditarReglaValidacion();
@@ -1365,6 +1368,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
                         JsReglas.Metodos.ValidarControles();
                     });
             } else {
+              
                 jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsReglas.Consultas.EditarReglaValidacion();

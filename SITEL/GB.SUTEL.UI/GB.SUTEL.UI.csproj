@@ -613,6 +613,8 @@
     <Content Include="Content\Images\sort_desc.png" />
     <Content Include="Content\Images\sort_desc_disabled.png" />
     <Content Include="Content\structure.css" />
+    <Content Include="Images\ico limpiar.png" />
+    <Content Include="Images\ico url.png" />
     <Content Include="Images\icon-add.svg" />
     <Content Include="Images\icon-arrow-back.svg" />
     <Content Include="Images\icon-calendar-disabled.svg" />
