@@ -168,7 +168,7 @@ input[type=number] {
 
 .btn-purple-fonatel {
     color: #ffffff;
-    background-color: var(--purple-fonatel);
+    background-color: var(--skyblue-fonatel);
 }
 
 .btn-success-fonatel:hover, .btn-success-fonatel:focus,
