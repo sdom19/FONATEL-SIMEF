@@ -20,6 +20,9 @@ using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using OfficeOpenXml;
 using static GB.SIMEF.Resources.Constantes;
+using OfficeOpenXml;
+using Color = System.Drawing.Color;
+using System.Drawing;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -326,18 +329,42 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 package.Workbook.Protection.LockRevision = true;
                 package.Workbook.Protection.LockStructure = true;
+                package.Workbook.Protection.SetPassword(id);
 
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(relacion.Codigo);
 
-                worksheetInicio.Cells["A1"].Value = relacion.CategoriasDesagregacionid.NombreCategoria;
-                worksheetInicio.Cells["A1:A1"].Style.Font.Bold = true;
-                worksheetInicio.Cells["A1:A1"].Style.Font.Size = 12;
-                worksheetInicio.Cells["A1:A1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                worksheetInicio.Cells["A1:A1"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
-                worksheetInicio.Cells["A1:A1"].Style.Font.Color.SetColor(System.Drawing.Color.White);
-                worksheetInicio.Cells["A1:A1"].Style.Font.Bold = true;
-                worksheetInicio.Cells["A1:A1"].Style.Font.Size = 12;
-                worksheetInicio.Cells["A1:A1"].AutoFitColumns();
+                Color headColorFromHex = System.Drawing.ColorTranslator.FromHtml("#2f75b5");
+                Color fontColorFromHex = System.Drawing.ColorTranslator.FromHtml("#fff");
+                Color grayColorFromHex = System.Drawing.ColorTranslator.FromHtml("#e7e6e6");
+                Color greenColorFromHex = System.Drawing.ColorTranslator.FromHtml("#e2efda");
+                Color greenColorFromHex1 = System.Drawing.ColorTranslator.FromHtml("#f7f7f7");
+
+                worksheetInicio.Cells["A1:E8"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+
+                worksheetInicio.Cells["A1:E6"].Style.Fill.BackgroundColor.SetColor(fontColorFromHex);
+                worksheetInicio.Cells["A7:E7"].Style.Fill.BackgroundColor.SetColor(headColorFromHex);
+                worksheetInicio.Cells["A8:E8"].Style.Fill.BackgroundColor.SetColor(headColorFromHex);
+                worksheetInicio.Row(7).Height = 6;
+                worksheetInicio.Row(8).Height = 4;
+
+                // carga el logo
+                Image logo = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "Content\\Images\\logos\\logo-Sutel_11_3.png");
+                logo = (Image)(new Bitmap(logo, new Size(313, 90)));
+                var picture = worksheetInicio.Drawings.AddPicture("SUTEL", logo);
+                picture.SetPosition(1, 0, 0, 0);
+                //fin del logo
+                worksheetInicio.Protection.IsProtected = true;
+                worksheetInicio.Protection.SetPassword(id);
+
+                worksheetInicio.Cells["A9"].Value = relacion.CategoriasDesagregacionid.NombreCategoria;
+                worksheetInicio.Cells["A9:A9"].Style.Font.Bold = true;
+                worksheetInicio.Cells["A9:A9"].Style.Font.Size = 12;
+                worksheetInicio.Cells["A9:A9"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheetInicio.Cells["A9:A9"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
+                worksheetInicio.Cells["A9:A9"].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                worksheetInicio.Cells["A9:A9"].Style.Font.Bold = true;
+                worksheetInicio.Cells["A9:A9"].Style.Font.Size = 12;
+                //worksheetInicio.Cells["A9:A9"].AutoFitColumns();
 
                     int Columna = 1;
                 var ArrayCategoriaId=relacion.RelacionCategoriaId.ToArray();
@@ -345,38 +372,40 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 foreach (var sub in relacion.DetalleRelacionCategoria)
                     {
                         Columna += 1;
-                        for (int fila =2; fila < relacion.CantidadFila+2; fila++)
+                        for (int fila =10; fila < relacion.CantidadFila+10; fila++)
                         {
                             if (Columna==2)
                             {
-           
-                                worksheetInicio.Cells[fila, 1].Value = ArrayCategoriaId.Length > (fila-2)?ArrayCategoriaId[fila-2].idCategoriaDesagregacion:null;
+                                worksheetInicio.Cells[fila, 1].Value = ArrayCategoriaId.Length > (fila-10)?ArrayCategoriaId[fila-10].idCategoriaDesagregacion:null;
                                 worksheetInicio.Cells[fila, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                worksheetInicio.Cells[fila, 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                                worksheetInicio.Cells[fila, 1].Style.Fill.BackgroundColor.SetColor(greenColorFromHex1);
                                 worksheetInicio.Cells[fila, 1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
                                 worksheetInicio.Cells[fila, 1].AutoFitColumns();
-                            }
+                                worksheetInicio.Cells[fila, 1].Style.Locked = false;
+                        }
 
 
-                        List<RelacionCategoriaAtributo> ArrayCategoriaAtributo = ArrayCategoriaId.Length > (fila - 2) ? ArrayCategoriaId[fila - 2].listaCategoriaAtributo : new List<RelacionCategoriaAtributo>();
+                        List<RelacionCategoriaAtributo> ArrayCategoriaAtributo = ArrayCategoriaId.Length > (fila - 10) ? ArrayCategoriaId[fila - 10].listaCategoriaAtributo : new List<RelacionCategoriaAtributo>();
 
-                        worksheetInicio.Cells[fila, Columna].Value = ArrayCategoriaAtributo.Count > (Columna - 2) ? ArrayCategoriaAtributo.Where(x => x.idCategoriaDesagregacionAtributo == sub.idCategoriaDesagregacion).FirstOrDefault().Etiqueta.Replace("N/A", string.Empty) : string.Empty;
+                            worksheetInicio.Cells[fila, Columna].Value = ArrayCategoriaAtributo.Count > (Columna - 2) ? ArrayCategoriaAtributo.Where(x => x.idCategoriaDesagregacionAtributo == sub.idCategoriaDesagregacion).FirstOrDefault().Etiqueta.Replace("N/A", string.Empty) : string.Empty;
 
-                        worksheetInicio.Cells[fila, Columna].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                            worksheetInicio.Cells[fila, Columna].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                            worksheetInicio.Cells[fila, Columna].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            worksheetInicio.Cells[fila, Columna].Style.Fill.BackgroundColor.SetColor(greenColorFromHex1);
                             worksheetInicio.Cells[fila, Columna].Style.Font.Color.SetColor(System.Drawing.Color.Black);
                             worksheetInicio.Cells[fila, Columna].AutoFitColumns();
-                        }
+                            worksheetInicio.Cells[fila, Columna].Style.Locked = false;
+
+                    }
                         
-                        worksheetInicio.Cells[1, Columna].Value = sub.CategoriaAtributo.NombreCategoria;
-                        worksheetInicio.Cells[1, Columna].Style.Font.Bold = true;
-                        worksheetInicio.Cells[1, Columna].Style.Font.Size = 12;
-                        worksheetInicio.Cells[1, Columna].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        worksheetInicio.Cells[1, Columna].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
-                        worksheetInicio.Cells[1, Columna].Style.Font.Color.SetColor(System.Drawing.Color.White);
-                        worksheetInicio.Cells[1, Columna].Style.Font.Bold = true;
-                        worksheetInicio.Cells[1, Columna].Style.Font.Size = 12;
-                        worksheetInicio.Cells[1, Columna].AutoFitColumns();
+                        worksheetInicio.Cells[9, Columna].Value = sub.CategoriaAtributo.NombreCategoria;
+                        worksheetInicio.Cells[9, Columna].Style.Font.Bold = true;
+                        worksheetInicio.Cells[9, Columna].Style.Font.Size = 12;
+                        worksheetInicio.Cells[9, Columna].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheetInicio.Cells[9, Columna].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
+                        worksheetInicio.Cells[9, Columna].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                        worksheetInicio.Cells[9, Columna].Style.Font.Bold = true;
+                        worksheetInicio.Cells[9, Columna].Style.Font.Size = 12;
+                        worksheetInicio.Cells[9, Columna].AutoFitColumns();
 
                 }
                 //Bug 89482 se llama metodo para registrar bitacora cuando se descarga
