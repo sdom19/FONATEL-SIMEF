@@ -870,8 +870,7 @@ namespace GB.SIMEF.BL
                 pIndicador.IdFrecuenciaEnvio == 0 || pIndicador.IdFrecuenciaEnvio == defaultDropDownValue ||
                 pIndicador.Interno == null ||
                 pIndicador.Solicitud == null ||
-                pIndicador.Fuente == null || string.IsNullOrEmpty(pIndicador.Fuente.Trim()) ||
-                pIndicador.Nota == null || string.IsNullOrEmpty(pIndicador.Nota.Trim())
+                pIndicador.Fuente == null || string.IsNullOrEmpty(pIndicador.Fuente.Trim()) 
                 )
             {
                 return Errores.CamposIncompletos;
