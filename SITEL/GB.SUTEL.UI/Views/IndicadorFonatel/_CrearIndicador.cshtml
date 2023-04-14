@@ -128,7 +128,7 @@
 
             <div class="form-group">
                 <label for="inputDescripcion" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelDescripcion</label>
-                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control form-control-fonatel alfa_numerico textareavalidar", @maxlength = "2000", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_TextAreaDescripcionPlaceholder, id = "inputDescripcion" })
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control form-control-fonatel alfa_numerico", @maxlength = "2000", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_TextAreaDescripcionPlaceholder, id = "inputDescripcion" })
                 <small id="inputDescripcionHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
         </div>
@@ -136,7 +136,7 @@
         <div class="col-md-4 col-sm-12">
             <div class="form-group">
                 <label for="inputFuenteIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador</label>
-                @Html.TextAreaFor(m => m.Fuente, new { @class = "form-control form-control-fonatel alfa_numerico textareavalidar", @maxlength = "300", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador, id = "inputFuenteIndicador" })
+                @Html.TextAreaFor(m => m.Fuente, new { @class = "form-control form-control-fonatel alfa_numerico", @maxlength = "300", placeholder = EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador, id = "inputFuenteIndicador" })
                 <small id="inputFuenteIndicadorHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
         </div>

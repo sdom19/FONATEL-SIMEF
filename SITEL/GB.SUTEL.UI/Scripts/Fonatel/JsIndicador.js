@@ -313,7 +313,7 @@ CreateView = {
         // ============ Formularios ============
         formIndicador: {
             form: "#formCrearIndicador",
-            inputs: "#formCrearIndicador input, #formCrearIndicador .textareavalidar, #formCrearIndicador select",
+            inputs: "#formCrearIndicador input, #formCrearIndicador textarea, #formCrearIndicador select",
             selects2: "#formCrearIndicador select",
 
             btnSiguienteCrearIndicador: "#btnSiguienteCrearIndicador",
@@ -389,7 +389,6 @@ CreateView = {
         indexViewURL: "/Fonatel/IndicadorFonatel/index",
         btnEdit: (pValue) => `<button class="btn-icon-base btn-edit" type="button" data-toggle="tooltip" data-placement="top" title="Editar" value=${pValue}></button>`,
         btnDelete: (pValue) => `<button class="btn-icon-base btn-delete" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar" value=${pValue}></button>`,
-
         hizoCargaDetallesVariables: false,
         hizoCargaDetallesCategorias: false,
         listaVariablesDato: {},
@@ -401,7 +400,8 @@ CreateView = {
         salida: "Salida",
         entradaSalida: "Entrada/salida",
         entradaSalidaM: "Entrada/Salida",
-        entrada:"Entrada"
+        entrada: "Entrada",
+        listaExcepciones: ["inputNota"]
     },
 
     Mensajes: {
@@ -495,7 +495,7 @@ CreateView = {
                 $("#" + $(input).attr("id") + prefijoHelp).css("display", "none");
             }
 
-            let validacionFormulario = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
+            let validacionFormulario = ValidarFormulario(CreateView.Controles.formIndicador.inputs, CreateView.Variables.listaExcepciones);
 
             if (validacionFormulario.objetos.some(x => $(x).attr("id") === $(CreateView.Controles.formIndicador.inputCodigo).attr("id"))) {
                 $(CreateView.Controles.formIndicador.inputCodigo + prefijoHelp).css("display", "block");
@@ -526,7 +526,7 @@ CreateView = {
         },
 
         CrearIndicador: function () {
-            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
+            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs, CreateView.Variables.listaExcepciones).puedeContinuar) {
                 $("#loading").fadeIn();
                 CreateView.Consultas.CrearIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
@@ -578,7 +578,7 @@ CreateView = {
         },
 
         EditarIndicador: function () {
-            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
+            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs, CreateView.Variables.listaExcepciones).puedeContinuar) {
                 $("#loading").fadeIn();
                 CreateView.Consultas.EditarIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
@@ -629,7 +629,7 @@ CreateView = {
         },
 
         ClonarIndicador: function () {
-            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
+            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs, CreateView.Variables.listaExcepciones).puedeContinuar) {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ClonarIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
@@ -1059,7 +1059,7 @@ CreateView = {
         ValidarFormularioDetallesVariable: function () {
             this.LimpiarMensajesValidacionFormularioDetallesVariable();
 
-            let validacion = ValidarFormulario(CreateView.Controles.formVariable.inputs);
+            let validacion = ValidarFormulario(CreateView.Controles.formVariable.inputs, CreateView.Variables.listaExcepciones);
 
             for (let input of validacion.objetos) {
                 $("#" + $(input).attr("id") + CreateView.Controles.prefijoLabelsHelp).css("display", "block");
@@ -1674,12 +1674,12 @@ CreateView = {
                     $(this).val("");
             }
 
-            let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
+            let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs, CreateView.Variables.listaExcepciones);
             CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
         });
 
         $(CreateView.Controles.formIndicador.selects2).on('select2:select', function (e) {
-            let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
+            let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs, CreateView.Variables.listaExcepciones);
             CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
         });
 
@@ -1842,7 +1842,7 @@ CreateView = {
         CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(true);
 
         if (jsUtilidades.Variables.Acciones.Editar == modo) {
-            let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
+            let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs, CreateView.Variables.listaExcepciones);
             CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
         }
     }
