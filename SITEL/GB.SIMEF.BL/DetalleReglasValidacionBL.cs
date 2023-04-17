@@ -179,7 +179,7 @@ namespace GB.SIMEF.BL
 
                 DesencriptarObjReglasValidacion(objeto);
 
-                if (!string.IsNullOrEmpty(objeto.reglaSecuencial.idCategoriaString))
+                if (objeto.reglaSecuencial != null && !string.IsNullOrEmpty(objeto.reglaSecuencial.idCategoriaString))
                 {
                     int.TryParse(Utilidades.Desencriptar(objeto.reglaSecuencial.idCategoriaString), out int temp);
                     objeto.reglaSecuencial.idCategoriaDesagregacion = temp;
