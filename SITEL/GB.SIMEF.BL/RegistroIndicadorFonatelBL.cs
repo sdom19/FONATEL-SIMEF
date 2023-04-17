@@ -241,10 +241,10 @@ namespace GB.SIMEF.BL
             //89482 datos actual para bitacora
             string JsonActual = objeto.ToString();
             //89482 registrar bitacora
-             clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
-                    ResultadoConsulta.Usuario,
-                        ResultadoConsulta.Clase, objeto.IdSolicitud.ToString()
-                        , JsonActual, JsonAnterior, "");
+             //clsDatos.RegistrarBitacora(ResultadoConsulta.Accion,
+             //       ResultadoConsulta.Usuario,
+             //           ResultadoConsulta.Clase, objeto.IdSolicitud.ToString()
+             //           , JsonActual, JsonAnterior, "");
 
             return ResultadoConsulta;
         }
