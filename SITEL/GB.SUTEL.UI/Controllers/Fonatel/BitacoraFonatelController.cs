@@ -34,12 +34,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             /*Se verifica si hace falta alguna pantalla para mostrar en las opciones del filtro de Pantallas*/
             var listaPantallas = lista.Select(x => x.Pantalla).Distinct().ToList();
 
-            //Obtener la posición del elemento buscado
-            var posicion = listaPantallas.ToList().IndexOf("Solicitud");
-            if (posicion >= 0)
-            {
-                listaPantallas[posicion] = "Solicitud de Información";
-            }
+         
 
 
             var ListaAcciones = lista.Select(x => x.Accion).Distinct();
@@ -69,10 +64,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> ObtenerListaBitacora(Bitacora bitacora)
         {
-            if (bitacora.Pantalla == "Solicitud de Información")
-            {
-                bitacora.Pantalla = "Solicitud";
-            }
+          
             RespuestaConsulta<List<Bitacora>> result = null;
             await Task.Run(() =>
             {
