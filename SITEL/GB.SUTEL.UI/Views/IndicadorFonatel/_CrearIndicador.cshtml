@@ -57,7 +57,7 @@
             <div class="form-group">
                 <label for="ddlClasificacion" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelClasificacion</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownListFor(model => model.ClasificacionIndicadores.id, new SelectList(ViewBag.Clasificaciones, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlClasificacion" })
+                    @Html.DropDownListFor(model => model.ClasificacionIndicadores.IdClasificacionIndicador, new SelectList(ViewBag.Clasificaciones, "IdClasificacionIndicador", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlClasificacion" })
                 </div>
                 <small id="ddlClasificacionHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>

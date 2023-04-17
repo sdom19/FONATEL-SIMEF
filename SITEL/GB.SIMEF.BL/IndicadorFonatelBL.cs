@@ -902,11 +902,20 @@ namespace GB.SIMEF.BL
                 pIndicador.TipoIndicadores.IdTipoIndicador = pIndicador.TipoIndicadores != null ? number : 0;
             }
             
-            if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
+             if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
             {
-                int.TryParse(Utilidades.Desencriptar(pIndicador.ClasificacionIndicadores.id), out int number);
-                pIndicador.IdClasificacionIndicador = number;
-                pIndicador.ClasificacionIndicadores.IdClasificacionIndicador = pIndicador.ClasificacionIndicadores != null ? number : 0;
+                if(pIndicador.ClasificacionIndicadores.id.Length != 1)
+                {
+                    int.TryParse(Utilidades.Desencriptar(pIndicador.ClasificacionIndicadores.id), out int number);
+                    pIndicador.IdClasificacionIndicador = number;
+                    pIndicador.ClasificacionIndicadores.IdClasificacionIndicador = pIndicador.ClasificacionIndicadores != null ? number : 0;
+                }
+                else
+                {
+                    pIndicador.IdClasificacionIndicador = Convert.ToInt16(pIndicador.ClasificacionIndicadores.id);
+                    pIndicador.ClasificacionIndicadores.IdClasificacionIndicador = Convert.ToInt16(pIndicador.ClasificacionIndicadores.id);
+                }
+                
             }
 
             if (!string.IsNullOrEmpty(pIndicador.GraficoInforme?.id))

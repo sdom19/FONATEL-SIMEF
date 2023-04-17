@@ -112,6 +112,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             try
             {
                 objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.FirstOrDefault();
+                objIndicador.ClasificacionIndicadores.IdClasificacionIndicador = Convert.ToInt16(Utilidades.Desencriptar(objIndicador.ClasificacionIndicadores.id));
             }
             catch (Exception) { };
 
@@ -136,6 +137,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             try
             {
                 objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.FirstOrDefault();
+                objIndicador.ClasificacionIndicadores.IdClasificacionIndicador = Convert.ToInt16(Utilidades.Desencriptar(objIndicador.ClasificacionIndicadores.id));
             }
             catch (Exception) { };
 
@@ -723,7 +725,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> GuardadoDefinitivoIndicador(string pIdIndicador)
         {
-            if (string.IsNullOrEmpty(pIdIndicador)) // id indicador requerido
+             if (string.IsNullOrEmpty(pIdIndicador)) // id indicador requerido
             {
                 return JsonConvert.SerializeObject(
                     new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = Errores.NoRegistrosActualizar });
@@ -1079,6 +1081,10 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// <returns></returns>
         public string ValidarObjetoIndicador(Indicador pIndicador, bool esGuardadoParcial)
         {
+            if (pIndicador.GraficoInforme.IdGraficoInforme == 0)
+            {
+                pIndicador.GraficoInforme.id = pIndicador.GraficoInforme.IdGraficoInforme.ToString();
+            }
             if (!esGuardadoParcial)
             {
                 if ( // el nombre y código siempre son obligatorios

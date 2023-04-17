@@ -392,10 +392,7 @@ CreateView = {
         cantidadDetallesCategoriaRegistrada: 0,
         cantidadDetallesVariablesRegistrada: 0,
         elIndicadorFueClonado: false,
-        salida: "Salida",
-        entradaSalida: "Entrada/salida",
-        entradaSalidaM: "Entrada/Salida",
-        entrada:"Entrada"
+        
     },
 
     Mensajes: {
@@ -442,7 +439,13 @@ CreateView = {
     Metodos: {
         // Formulario Indicador
         CrearObjFormularioIndicador: function (pEsGuardadoParcial) {
+            debugger;
             let controles = CreateView.Controles.formIndicador;
+            var GraficoInforme = $(controles.ddlTipoGrafico).val();
+
+            if (GraficoInforme == null || GraficoInforme == undefined || GraficoInforme.empty) {
+                GraficoInforme = 0;
+            }
             var formData = {
                 id: ObtenerValorParametroUrl("id"),
                 Codigo: $(controles.inputCodigo).val(),
@@ -473,7 +476,8 @@ CreateView = {
                     id: $(controles.ddlFrecuencias).val()
                 },
                 GraficoInforme: {
-                    id: $(controles.ddlTipoGrafico).val()
+
+                   id: GraficoInforme
                 },
                 esGuardadoParcial: pEsGuardadoParcial ? true : false
             };
@@ -513,14 +517,21 @@ CreateView = {
         },
 
         CambiarEstadoBtnSiguienteFormIndicador: function (pDesactivar) {
+
+            debugger;
             $(CreateView.Controles.formIndicador.btnSiguienteCrearIndicador).prop('disabled', pDesactivar);
             $(CreateView.Controles.formIndicador.btnSiguienteEditarIndicador).prop('disabled', pDesactivar);
             $(CreateView.Controles.formIndicador.btnSiguienteClonarIndicador).prop('disabled', pDesactivar);
             $(CreateView.Controles.step2Variable).prop('disabled', pDesactivar);
         },
+        HabilitarBotonSiguienteClonar: function () {
+
+            $(CreateView.Controles.formIndicador.btnSiguienteClonarIndicador).prop('disabled', false);
+        },
 
         CrearIndicador: function () {
-            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
+            debugger;
+            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs, [CreateView.Controles.formIndicador.ddlTipoGrafico.slice(1)]).puedeContinuar) {
                 $("#loading").fadeIn();
                 CreateView.Consultas.CrearIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
@@ -572,7 +583,7 @@ CreateView = {
         },
 
         EditarIndicador: function () {
-            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
+            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs, [CreateView.Controles.formIndicador.ddlTipoGrafico.slice(1)]).puedeContinuar) {
                 $("#loading").fadeIn();
                 CreateView.Consultas.EditarIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
@@ -623,7 +634,8 @@ CreateView = {
         },
 
         ClonarIndicador: function () {
-            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs).puedeContinuar) {
+            debugger;
+            if (ValidarFormulario(CreateView.Controles.formIndicador.inputs, [CreateView.Controles.formIndicador.ddlTipoGrafico.slice(1)]).puedeContinuar) {
                 $("#loading").fadeIn();
                 CreateView.Consultas.ClonarIndicador(this.CrearObjFormularioIndicador(false))
                     .then(data => {
@@ -640,6 +652,7 @@ CreateView = {
         },
 
         ClonarIndicadorGuardadoParcial: function () {
+            debugger;
             let mensaje = "";
             let validacion = this.VerificarCamposIncompletosFormularioIndicador(true);
 
@@ -652,7 +665,7 @@ CreateView = {
             }
 
             let rootObj = this;
-
+            debugger;
             new Promise((resolve, reject) => {
                 jsMensajes.Metodos.ConfirmYesOrNoModal(CreateView.Mensajes.preguntaClonarIndicador, jsMensajes.Variables.actionType.agregar)
                     .set('onok', function () { resolve(true); })
@@ -1483,14 +1496,12 @@ CreateView = {
         },
 
         HabilitarControlesTipoGrafico: function (selected) {
-            if (selected == CreateView.Variables.salida || selected == CreateView.Variables.entradaSalida || selected == CreateView.Variables.entradaSalidaM) {
+            if (selected == jsUtilidades.Variables.ClasificacionIndicador.Salida || selected == jsUtilidades.Variables.ClasificacionIndicador.EntradaSalida) {
                 $(CreateView.Controles.divTipoGrafico).removeClass("hidden");
             }
             else {
-                debugger;
                 $(CreateView.Controles.divTipoGrafico).addClass("hidden");
                 SeleccionarItemSelect2(CreateView.Controles.formIndicador.ddlTipoGrafico, "");
-                
             }
         }
 
@@ -1612,8 +1623,10 @@ CreateView = {
         //Habilitar el div de tipo grafico
         $(document).on("change", CreateView.Controles.formIndicador.ddlClasificacion, function () {
             debugger;
-            var selected = $(this).find('option:selected').text();
-           
+            var selected = $(CreateView.Controles.formIndicador.ddlClasificacion).val();
+            if (selected == jsUtilidades.Variables.ClasificacionIndicador.Entrada) {
+                CreateView.Metodos.HabilitarBotonSiguienteClonar();
+            }
             CreateView.Metodos.HabilitarControlesTipoGrafico(selected);
         });
 
@@ -1667,14 +1680,29 @@ CreateView = {
                 if (parseInt($(this).val()) < 1)
                     $(this).val("");
             }
-
-            let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
-            CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
+            debugger;
+            var selected = $(CreateView.Controles.formIndicador.ddlClasificacion).val();
+            if (selected == jsUtilidades.Variables.ClasificacionIndicador.Entrada) {
+                let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs, [CreateView.Controles.formIndicador.ddlTipoGrafico.slice(1)]);
+                CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
+            }
+            else {
+                let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
+                CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
+            }
+            
         });
 
         $(CreateView.Controles.formIndicador.selects2).on('select2:select', function (e) {
-            let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
-            CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
+            var selected = $(CreateView.Controles.formIndicador.ddlClasificacion).val();
+            if (selected == jsUtilidades.Variables.ClasificacionIndicador.Entrada) {
+                let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs, [CreateView.Controles.formIndicador.ddlTipoGrafico.slice(1)]);
+                CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
+            }
+            else {
+                let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
+                CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
+            }
         });
 
         // Modals Formulario Indicador
@@ -1839,6 +1867,14 @@ CreateView = {
             let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs);
             CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
         }
+
+        debugger;
+        var selected = $(CreateView.Controles.formIndicador.ddlClasificacion).val();
+        debugger;
+        if (selected != jsUtilidades.Variables.ClasificacionIndicador.Entrada || selected != jsUtilidades.Variables.ClasificacionIndicador.Entrada) {
+            CreateView.Metodos.HabilitarControlesTipoGrafico(selected);
+
+        }
     }
 }
 
@@ -1849,14 +1885,5 @@ $(function () {
 
     if ($(CreateView.Controles.CreateView).length > 0) {
         CreateView.Init();
-    }
-});
-
-$(function () {
-    debugger;
-    var selected = $(CreateView.Controles.formIndicador.ddlClasificacion).find('option:selected').text();
-
-    if (selected != "entrada" || selected !="Entrada") {
-        CreateView.Metodos.HabilitarControlesTipoGrafico(selected);
     }
 });

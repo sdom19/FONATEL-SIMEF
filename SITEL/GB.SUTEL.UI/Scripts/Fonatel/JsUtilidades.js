@@ -47,6 +47,13 @@
             'FormulaActualizacionSecuencial': 5,
             'FormulaContraOtroIndicadorSalida': 6,
             'FormulaContraOtroIndicadorEntradaSalida': 7
+        },
+        "ClasificacionIndicador":
+        {
+            "NoDefinido": 1,
+            "Salida": 2,
+            "EntradaSalida": 3,
+            "Entrada":4
         }
     }
 }
@@ -724,6 +731,7 @@ function execAjaxCallFile(pURL, pParams = null) {
  * @param {any} pExcepciones colección de inputs a ignorar en la validación.
  */
 function ValidarFormulario(pInputs, pExcepciones = []) {
+    debugger;
     let inputList = [...$(pInputs)];
 
     if (pExcepciones.length > 0) {
