@@ -93,6 +93,33 @@ namespace GB.SIMEF.DAL
         /// Función que retorna todos los indicadores registrados en el sistema.
         /// Se puede realizar un filtrado de acuerdo al objecto que se envia.
         /// </summary>
+        /// <param name="pIdFormulaCalculo"></param>
+        /// <returns></returns>
+        public List<Indicador> ObtenerIndicadoresSalidaParaFormulasCalculo(int pIdFormulaCalculo)
+        {
+            List<Indicador> listaIndicadores = new List<Indicador>();
+
+            using (db = new SIMEFContext())
+            {
+                listaIndicadores = db.Database.SqlQuery<Indicador>("execute pa_ObtenerIndicadoresSalidaParaFormulasCalculo @pIdFormulaCalculo",
+                    new SqlParameter("@pIdFormulaCalculo", pIdFormulaCalculo)
+                    ).ToList();
+
+                listaIndicadores = listaIndicadores.Select(x => new Indicador()
+                {
+                    id = Utilidades.Encriptar(x.IdIndicador.ToString()),
+                    Nombre = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre),
+                }).ToList();
+            }
+            return listaIndicadores;
+        }
+
+        /// <summary>
+        /// 10/08/2022
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores registrados en el sistema.
+        /// Se puede realizar un filtrado de acuerdo al objecto que se envia.
+        /// </summary>
         /// <param name="pIndicador"></param>
         /// <returns></returns>
         public List<Indicador> ObtenerDatosGenerarURL(Indicador pIndicador)

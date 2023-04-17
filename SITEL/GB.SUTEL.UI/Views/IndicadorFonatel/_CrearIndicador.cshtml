@@ -46,7 +46,7 @@
             <div class="form-group">
                 <label for="ddlFrecuencias" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFrecuencias</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownListFor(model => model.FrecuenciaEnvio.id, new SelectList(ViewBag.FrecuenciasEnvio, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlFrecuencias" })
+                    @Html.DropDownListFor(model => model.FrecuenciaEnvio.id, new SelectList(ViewBag.FrecuenciasEnvio, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlFrecuencias", "data" = Model.IdClasificacionIndicador })
                 </div>
                 <small id="ddlFrecuenciasHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
@@ -65,7 +65,17 @@
             <div class="form-group">
                 <label for="ddlTipoMedida" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipoMedida</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownListFor(model => model.TipoMedida.id, new SelectList(ViewBag.TipoMedidas, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipoMedida" })
+                    @{
+                        var htmlAttrIndicador = new Dictionary<string, object>
+                        {
+                            { "class", "listasDesplegables" },
+                            { "id", "ddlClasificacion" },
+                            { "data-id",  Model.IdClasificacionIndicador}
+                        };
+                    }
+
+                    @Html.DropDownListFor(model => model.ClasificacionIndicadores.id, new SelectList(ViewBag.Clasificaciones, "id", "Nombre"), "Seleccione", htmlAttrIndicador)
+                    @*@Html.DropDownListFor(model => model.TipoMedida.id, new SelectList(ViewBag.TipoMedidas, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipoMedida" })*@
                 </div>
                 <small id="ddlTipoMedidaHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
