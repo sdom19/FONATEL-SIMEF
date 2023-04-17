@@ -9,7 +9,8 @@
         "btnCancelar": "#btnCancelar",
     },
     Variables: {
-        listadoIndicadores:[],
+        listadoIndicadores: [],
+        rutaOriginalURL: "https://20.57.35.74/Fonatel/",
     },
     Mensajes: {
         preguntaCancelarAccion: "¿Desea cancelar la acción?",
@@ -101,10 +102,6 @@ $(document).on("click", jsGeneradorURL.Controles.chkDatos, function () {
 
 
 $(document).on("click", jsGeneradorURL.Controles.btnCancelar, function (e) {
-    debugger;
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
-        .set('onok', function (closeEvent) {
-            preguntarAntesDeSalir = false; window.location.href = "/Fonatel/GeneradorURL/Index";
-        });
+    $(jsGeneradorURL.Controles.txtURL).val(jsGeneradorURL.Variables.rutaOriginalURL);
 });
