@@ -1,0 +1,152 @@
+﻿@using GB.SIMEF.Resources;
+
+@model GB.SIMEF.Entities.Indicador
+
+<form id="formCrearIndicador">
+    <div class="row">
+        <div class="col-lg-4 col-sm-12">
+
+            <div class="form-group">
+                <label for="inputCodigo" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCodigo</label>
+                @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "inputCodigo" } })
+            </div>
+
+            <div class="form-group">
+                <label for="inputNombre" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNombre</label>
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "inputNombre" } })
+            </div>
+
+            <div class="form-group">
+                <label for="ddlTipo" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipo</label>
+                @Html.EditorFor(model => model.TipoIndicadores.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "inputTipo" } })
+
+            </div>
+
+            <div class="form-group">
+                <label for="ddlFrecuencias" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFrecuencias</label>
+                @Html.EditorFor(model => model.TipoIndicadores.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "inputTipo" } })
+
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+
+            <div class="form-group">
+                <label for="ddlClasificacion" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelClasificacion</label>
+                @Html.EditorFor(model => model.ClasificacionIndicadores.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "inputClasificacion" } })
+
+            </div>
+
+            <div class="form-group">
+                <label for="ddlTipoMedida" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipoMedida</label>
+                @Html.EditorFor(model => model.TipoMedida.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "inputMedida" } })
+
+            </div>
+
+            <div class="form-group">
+                <label for="ddlGrupo" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelGrupo</label>
+                @Html.EditorFor(model => model.GrupoIndicadores.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "inputGrupoIndicadores" } })
+            </div>
+
+            <div class="form-group">
+                <label for="ddlUsoIndicador" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUsoIndicador</label>
+                @if ((bool)Model.Interno)
+                {
+                    <input type="text" id="InputInterno" class="form-control form-control-fonatel disabled" value="SI" />
+                }
+                else
+                {
+                    <input type="text" id="InputInterno" class="form-control form-control-fonatel disabled" value="NO" />
+                }
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-sm-12">
+
+            <div class="form-group">
+                <label for="inputCantidadVariableDatosIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadVariableDatosIndicador</label>
+                @Html.EditorFor(model => model.CantidadVariableDato, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "inputCantidadVariableDatosIndicador" } })
+            </div>
+
+            <div class="form-group">
+                <label for="inputCantidadCategoriaIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelCantidadCategoriaIndicador</label>
+                @Html.EditorFor(model => model.CantidadCategoriaDesagregacion, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "inputCantidadCategoriaIndicador" } })
+            </div>
+
+            <div class="form-group">
+                <label for="ddlUnidadEstudio" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelUnidadEstudio</label>
+                @Html.EditorFor(model => model.UnidadEstudio.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "inputUnidadEstudio" } })
+            </div>
+
+            <div class="form-group">
+                <label for="ddlUsoSolicitud" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelSolicitud</label>
+                @if ((bool)Model.Solicitud)
+                {
+                    <input type="text" id="InputSolicitud" class="form-control form-control-fonatel disabled" value="SI" />
+                }
+                else
+                {
+                    <input type="text" id="InputSolicitud" class="form-control form-control-fonatel disabled" value="NO" />
+                }
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+
+            <div class="form-group">
+                <label for="inputDescripcion" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelDescripcion</label>
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control form-control-fonatel disabled",  id = "inputDescripcion" })
+
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+                <label for="inputFuenteIndicador" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelFuenteIndicador</label>
+                @Html.TextAreaFor(m => m.Fuente, new { @class = "form-control form-control-fonatel disabled",  id = "inputFuenteIndicador" })
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+                <label for="inputNota" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelNotas</label>
+                @Html.TextAreaFor(m => m.Nota, new { @class = "form-control form-control-fonatel disabled",  id = "inputNota" })
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <div class="form-group" style="display:none;"></div>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+                <label for="ddlTipoGrafico" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipoGrafico</label>
+                @Html.EditorFor(model => model.GraficoInforme.Nombre, new { htmlAttributes = new { @class = "form-control form-control-fonatel disabled", id = "inputGrafico" } })
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            <div class="form-group" style="display:none;"></div>
+        </div>
+
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-sm-12">
+            <div class="text-center">
+                <button type="button" id="btnSiguiente" class="btn btn-fonatel btn-next-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonSiguiente">@Etiquetas.BotonSiguiente</button>
+                <button type="button" id="btnCancelarIndicador" class="btn btn-fonatel btn-error-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCancelar">@Etiquetas.BotonCancelar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+

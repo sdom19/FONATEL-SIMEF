@@ -179,6 +179,12 @@ namespace GB.SIMEF.BL
 
                 DesencriptarObjReglasValidacion(objeto);
 
+                if (objeto.reglaSecuencial != null && !string.IsNullOrEmpty(objeto.reglaSecuencial.idCategoriaString))
+                {
+                    int.TryParse(Utilidades.Desencriptar(objeto.reglaSecuencial.idCategoriaString), out int temp);
+                    objeto.reglaSecuencial.idCategoriaDesagregacion = temp;
+                }
+
                 var BuscarDatos = clsDatos.ObtenerDatos(new DetalleReglaValidacion { idReglaValidacion = objeto.idReglaValidacion, Estado = true });
 
                 if (BuscarDatos.Where(x => x.idReglaValidacion == objeto.idReglaValidacion && x.idTipoReglaValidacion == objeto.idTipoReglaValidacion && x.idTipoReglaValidacion != (int)Constantes.TipoReglasDetalle.FormulaContraAtributosValidos && x.idTipoReglaValidacion != (int)Constantes.TipoReglasDetalle.FormulaActualizacionSecuencial && x.idDetalleIndicadorVariable == objeto.idDetalleIndicadorVariable && x.Estado == true).Count() > 0)
@@ -366,6 +372,8 @@ namespace GB.SIMEF.BL
                 int.TryParse(Utilidades.Desencriptar(detalleReglaValidacion.idIndicadorString), out int temp);
                 detalleReglaValidacion.idIndicador = temp;
             }
+
+            
         }
 
         private void DesencriptarReglaComparacionEntrada(DetalleReglaValidacion objeto)

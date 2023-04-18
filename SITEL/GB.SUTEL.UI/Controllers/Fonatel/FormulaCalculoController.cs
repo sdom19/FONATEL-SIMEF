@@ -710,6 +710,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> GuardadoDefinitivoFormulaCalculo(string pIdFormulaCalculo)
         {
+            modoFormulario = (string)Session[keyModoFormulario];
+
+            if (modoFormulario.Equals(((int)Accion.Visualizar).ToString()))
+            {
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulaCalculo>() { HayError = (int)Error.ErrorSistema });
+            }
+
             if (string.IsNullOrEmpty(pIdFormulaCalculo)) // id indicador requerido
             {
                 return JsonConvert.SerializeObject(
@@ -1060,6 +1067,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> CrearDetallesFormulaCalculo(FormulaCalculo pFormulaCalculo, List<ArgumentoConstruidoDTO> pListaArgumentos)
         {
+            modoFormulario = (string)Session[keyModoFormulario];
+
+            if (modoFormulario.Equals(((int)Accion.Visualizar).ToString()))
+            {
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulaCalculo>() { HayError = (int)Error.ErrorSistema });
+
+            }
             RespuestaConsulta<FormulaCalculo> resultado = new RespuestaConsulta<FormulaCalculo>();
 
             if (string.IsNullOrEmpty(pFormulaCalculo.id))
@@ -1149,21 +1163,17 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             ViewBag.CategoriasTipoFechaInicioModalFecha = Enumerable.Empty<SelectListItem>();
             ViewBag.TiposFechaFinalModalFecha = Enumerable.Empty<SelectListItem>();
             ViewBag.CategoriasTipoFechaFinalModalFecha = Enumerable.Empty<SelectListItem>();
+            ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { }).objetoRespuesta;
 
             // Modal detalle de agregación/agrupación
             ViewBag.CategoriasModalDetalle = Enumerable.Empty<SelectListItem>();
             ViewBag.CriteriosModalDetalle = Enumerable.Empty<SelectListItem>();
             ViewBag.DetallesModalDetalle = Enumerable.Empty<SelectListItem>();
 
-            ViewBag.FrecuenciaEnvio = frecuenciaEnvioBL.ObtenerDatos(new FrecuenciaEnvio() { }).objetoRespuesta;
+            string idFormula = pAccionPantalla == Accion.Editar || pAccionPantalla == Accion.Visualizar ? pFormulasDeCalculo.id : string.Empty; // en caso de editar/visualizar la opción debe estar disponible
 
-            List<Indicador> indicadoresDeSalida = indicadorFonatelBL.ObtenerDatos(new Indicador() { }).objetoRespuesta
-                .Where(y => (y.IdClasificacionIndicador == (int)ClasificacionIndicadorEnum.Salida || y.IdClasificacionIndicador == (int)ClasificacionIndicadorEnum.EntradaSalida) && y.IdEstadoRegistro == (int)EstadosRegistro.Activo)
-                .Select(x => new Indicador()
-                {
-                    id = x.id,
-                    Nombre = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre)
-                }).ToList();
+            // Indicador de salida
+            List<Indicador> indicadoresDeSalida = indicadorFonatelBL.ObtenerIndicadoresSalidaParaFormulasCalculo(idFormula).objetoRespuesta;
 
             if (indicadoresDeSalida != null && indicadoresDeSalida.Count > 0)
             {
@@ -1172,18 +1182,20 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             if (!string.IsNullOrEmpty(pFormulasDeCalculo.IdIndicadorSalidaString))
             {
+                // Variables dato de salida
                 List<DetalleIndicadorVariable> detalles = detalleIndicadorVariablesBL.ObtenerVariablesSinUsoEnFormula(new DetalleIndicadorVariable()
                 {
                     idIndicadorString = pFormulasDeCalculo.IdIndicadorSalidaString
                 }, 
-                pAccionPantalla == Accion.Editar || pAccionPantalla == Accion.Visualizar ? pFormulasDeCalculo.id : string.Empty // en caso de editar la opcion debe estar disponible
-                ).objetoRespuesta;
+                idFormula).objetoRespuesta;
 
                 if (detalles != null)
                 {
                     ViewBag.VariablesDato = detalles;
                 }
             }
+
+            // Nivel de cálculo
 
             if (!pFormulasDeCalculo.NivelCalculoTotal)
             {

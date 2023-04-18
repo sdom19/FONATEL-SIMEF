@@ -67,6 +67,29 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         }
 
         [HttpGet]
+        public ActionResult Visualiza(string id)
+        {
+
+            Indicador objIndicador = null;
+            if (!string.IsNullOrEmpty(id))
+            {
+                objIndicador = indicadorBL.ObtenerDatos(new Indicador() { id = id }).objetoRespuesta.FirstOrDefault();
+
+                objIndicador.DetalleIndicadorCategoria = detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
+                {
+                    idIndicadorString = objIndicador.id,
+                    DetallesAgrupados = true
+                }).objetoRespuesta.ToList();
+
+                objIndicador.DetalleIndicadorVariable = detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariable()
+                {
+                    idIndicadorString = objIndicador.id
+                }).objetoRespuesta.ToList();
+            }
+            return View(objIndicador);
+        }
+
+        [HttpGet]
         [ConsultasFonatelFilter]
         public ActionResult Detalle(int id)
         {
@@ -603,12 +626,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(
                     new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = mensajeValidacionIndicador });
             }
-
-            if (pIndicador.esGuardadoParcial)
-            {
-                PrepararObjetoIndicadorGuardadoParcial(pIndicador);
-            }
-
             pIndicador.IdEstadoRegistro = pIndicador.IdEstadoRegistro == (int)EstadosRegistro.Desactivado ? pIndicador.IdEstadoRegistro : (int)EstadosRegistro.EnProceso;
             pIndicador.UsuarioCreacion = usuario;
 
@@ -626,6 +643,11 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             await Task.Run(() =>
             {
+                if (pIndicador.esGuardadoParcial)
+                {
+                    PrepararObjetoIndicadorGuardadoParcial(pIndicador);
+                    pIndicador.IdEstadoRegistro = ValidarGuardadoParcialEstadocompleto(pIndicador).Result == true ? (int)EstadosRegistro.Activo : (int)EstadosRegistro.EnProceso;
+                }            
                 resultado = indicadorBL.InsertarDatos(pIndicador);
             });
             return JsonConvert.SerializeObject(resultado);
@@ -1089,7 +1111,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     pIndicador.TipoMedida == null               || string.IsNullOrEmpty(pIndicador.TipoMedida.id) ||
                     pIndicador.GrupoIndicadores == null         || string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id) ||
                     pIndicador.Interno == null ||
-                    pIndicador.Nota == null                    || string.IsNullOrEmpty(pIndicador.Nota.Trim()) ||
                     pIndicador.CantidadVariableDato == null ||
                     pIndicador.CantidadCategoriaDesagregacion == null ||
                     pIndicador.UnidadEstudio == null            || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id) ||
@@ -1240,6 +1261,39 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return null;
         }
+        /// <summary>
+        /// 18/04/2023
+        /// MIchael Hernández Cordero
+        /// Función que valida el estado completo cuando se realiza un guardado Parcial
+        /// </summary>
+        /// <param name="pIndicador"></param>
+        /// <returns></returns>
+        private async Task<bool> ValidarGuardadoParcialEstadocompleto(Indicador pIndicador)
+        {
+            return
+            await Task.Run(() =>
+            {
+                return detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariable()
+                {
+                    idIndicadorString=pIndicador.id
+                }).objetoRespuesta;
+            }).ContinueWith((pDetalleIndicadorVariable) => {
+                pIndicador.DetalleIndicadorVariable = pDetalleIndicadorVariable.Result==null
+                    ?new List<DetalleIndicadorVariable>(): pDetalleIndicadorVariable.Result;
+                return detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
+                {
+                    idIndicadorString = pIndicador.id
+                }).objetoRespuesta;
+            }).ContinueWith((pDetalleIndicadorCategoria)=> {
+                pIndicador.DetalleIndicadorCategoria = pDetalleIndicadorCategoria.Result == null
+                    ? new List<DetalleIndicadorCategoria>() : pDetalleIndicadorCategoria.Result; 
+                return pIndicador.CantidadCategoriaDesagregacion == pIndicador.DetalleIndicadorCategoria.Count()
+                && pIndicador.CantidadVariableDato == pIndicador.DetalleIndicadorVariable.Count
+                && string.IsNullOrEmpty(ValidarObjetoIndicador(pIndicador, false));
+            });
+        }
+
+
 
         /// <summary>
         /// 30/08/2022

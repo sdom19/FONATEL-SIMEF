@@ -474,6 +474,43 @@ namespace GB.SIMEF.BL
         }
 
         /// <summary>
+        /// 17/04/2023
+        /// José Navarro Acuña
+        /// Función que retorna todos los indicadores de salida que estén disponibles para usar en fórmulas.
+        /// Cada indicador tiene que estar en estado activo, con clasificacion Salida o Entrada/Salida 
+        /// y poseer al menos una variable dato disponible para almacenar un resultado de una fórmula
+        /// </summary>
+        /// <param name="pIdFormula"></param>
+        /// <returns></returns>
+        public RespuestaConsulta<List<Indicador>> ObtenerIndicadoresSalidaParaFormulasCalculo(string pIdFormula)
+        {
+            RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
+
+            try
+            {
+                resultado.Clase = modulo;
+                resultado.Accion = (int)Accion.Consultar;
+
+                int idFormula = 0;
+                if (!string.IsNullOrEmpty(pIdFormula))
+                {
+                    int.TryParse(Utilidades.Desencriptar(pIdFormula), out int number);
+                    idFormula = number;
+                }
+
+                var result = indicadorFonatelDAL.ObtenerIndicadoresSalidaParaFormulasCalculo(idFormula);
+                resultado.objetoRespuesta = result;
+                resultado.CantidadRegistros = result.Count();
+            }
+            catch (Exception ex)
+            {
+                resultado.HayError = (int)Error.ErrorSistema;
+                resultado.MensajeError = ex.Message;
+            }
+            return resultado;
+        }
+
+        /// <summary>
         /// 10/08/2022
         /// José Navarro Acuña
         /// Función que retorna todos los indicadores registrados en el sistema.
@@ -870,8 +907,7 @@ namespace GB.SIMEF.BL
                 pIndicador.IdFrecuenciaEnvio == 0 || pIndicador.IdFrecuenciaEnvio == defaultDropDownValue ||
                 pIndicador.Interno == null ||
                 pIndicador.Solicitud == null ||
-                pIndicador.Fuente == null || string.IsNullOrEmpty(pIndicador.Fuente.Trim()) ||
-                pIndicador.Nota == null || string.IsNullOrEmpty(pIndicador.Nota.Trim())
+                pIndicador.Fuente == null || string.IsNullOrEmpty(pIndicador.Fuente.Trim()) 
                 )
             {
                 return Errores.CamposIncompletos;

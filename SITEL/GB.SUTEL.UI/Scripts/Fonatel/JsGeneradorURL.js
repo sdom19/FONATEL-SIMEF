@@ -9,7 +9,8 @@
         "btnCancelar": "#btnCancelar",
     },
     Variables: {
-        listadoIndicadores:[],
+        listadoIndicadores: [],
+        rutaOriginalURL: "",
     },
     Mensajes: {
         preguntaCancelarAccion: "¿Desea cancelar la acción?",
@@ -49,13 +50,11 @@
             CargarDatasource();
         },
         CrearURL: function () {
-            debugger;
             $(jsGeneradorURL.Controles.txtURL).val($(jsGeneradorURL.Controles.txtRuta).val()+jsGeneradorURL.Variables.listadoIndicadores.join(","));
         }
     },
     Consultas: {
         ConsultaListaIndicadores: function () {
-            debugger;
             return execAjaxCall('/IndicadorFonatel/ObtenerListaIndicadoresparaGerarURl', 'GET');
         },
     }
@@ -63,10 +62,10 @@
 
 $(document).ready(function () {
     jsGeneradorURL.Metodos.CargarTablaIndicadores();
+    jsGeneradorURL.Variables.rutaOriginalURL = $(jsGeneradorURL.Controles.txtURL).val();
 });
 
 $(document).on("click", jsGeneradorURL.Controles.btnGenerarURL, function () {
-    debugger;
     jsGeneradorURL.Metodos.CrearURL();
 });
 
@@ -101,10 +100,6 @@ $(document).on("click", jsGeneradorURL.Controles.chkDatos, function () {
 
 
 $(document).on("click", jsGeneradorURL.Controles.btnCancelar, function (e) {
-    debugger;
     e.preventDefault();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
-        .set('onok', function (closeEvent) {
-            preguntarAntesDeSalir = false; window.location.href = "/Fonatel/GeneradorURL/Index";
-        });
+    $(jsGeneradorURL.Controles.txtURL).val(jsGeneradorURL.Variables.rutaOriginalURL);
 });

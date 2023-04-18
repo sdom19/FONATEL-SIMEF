@@ -10,7 +10,7 @@
         btnCloneFormula: "#tablaFormulasDetalle tbody tr td .btn-clone",
         btnEjecutarFormula: "#tablaFormulasDetalle tbody tr td .btn-reload",
 
-        IndexView: "#ansy7o9dc"
+        IndexView: "#ansy7o9dc" // ID random para identificar la vista
     },
 
     Variables: {
@@ -29,7 +29,15 @@
         exitoActivarFormula: "La Fórmula de Cálculo ha sido activada",
 
         preguntaDesactivarFormula: "¿Desea desactivar la Fórmula de Cálculo?",
-        exitoDesactivarFormula: "La Fórmula de Cálculo ha sido desactivada"
+        exitoDesactivarFormula: "La Fórmula de Cálculo ha sido desactivada",
+
+        tooltipEditarFormula: "Editar",
+        tooltipClonarFormula: "Clonar",
+        tooltipVisualizarFormula: "Visualizar fórmula",
+        tooltipDesactivarFormula: "Desactivar",
+        tooltipEjecutarFormula: "Ejecutar fórmula",
+        tooltipActivarFormula: "Activar",
+        tooltipEliminarFormula: "Eliminar"
     },
 
     Metodos: {
@@ -145,24 +153,24 @@
                 html += "<td>" + formula.Descripcion + "</td>";
                 html += "<td>" + formula.EstadoRegistro.Nombre + "</td>";
                 html += "<td>" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Editar' value='" + formula.id + "' class='btn-icon-base btn-edit'></button>" +
-                    "<button type = 'button' data - toggle='tooltip' data-placement='top' title = 'Clonar' value='" + formula.id + "' class='btn-icon-base btn-clone' ></button >" +
-                    "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar detalle' value='" + formula.id + "' class='btn-icon-base btn-view'></button>";
+                    `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipEditarFormula}' value='${formula.id}' class='btn-icon-base btn-edit'></button>` +
+                    `<button type = 'button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipClonarFormula}' value='${formula.id}' class='btn-icon-base btn-clone'></button>` +
+                    `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipVisualizarFormula}' value='${formula.id}' class='btn-icon-base btn-view'></button>`;
 
                 if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo) {
-                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Desactivar' data-original-title='Desactivar' value='" + formula.id + "' class='btn-icon-base btn-power-on'></button>";
-                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Ejecutar fórmula' data-original-title='Ejecutar fórmula' value='" + formula.id + "' class='btn-icon-base btn-reload'></button>";
+                    html += `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipDesactivarFormula}' data-original-title='${IndexView.Mensajes.tooltipDesactivarFormula}' value='${formula.id}' class='btn-icon-base btn-power-on'></button>`;
+                    html += `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipEjecutarFormula}' data-original-title='${IndexView.Mensajes.tooltipEjecutarFormula}' value='${formula.id}' class='btn-icon-base btn-reload'></button>`;
                 }
                 else if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
                     html += "<button type='button' class='btn-icon-base btn-power-on' disabled></button>";
                     html += "<button type='button' class='btn-icon-base btn-reload' disabled></button>";
                 }
                 else {
-                    html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Activar' data-original-title='Activar' value='" + formula.id + "' class='btn-icon-base btn-power-off'></button>";
+                    html += `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipActivarFormula}' data-original-title='${IndexView.Mensajes.tooltipActivarFormula}' value='${formula.id}' class='btn-icon-base btn-power-off'></button>`;
                     html += "<button type='button' class='btn-icon-base btn-reload' disabled></button>";
                 }
 
-                html += "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value='" + formula.id + "'  class='btn-icon-base btn-delete'></button>";
+                html += `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipEliminarFormula}' value='${formula.id}' class='btn-icon-base btn-delete'></button>`;
 
                 html += "</td></tr>";
             }
@@ -820,7 +828,6 @@ GestionFormulaView = {
             btnAgregarArgumento: "#tablaDetallesIndicador tbody tr td .btn-add",
 
             // construcción de fórmula
-
             inputFormulaCalculo: ".divFormulaCalculo input.editable",
 
             btnCalendario: "#btnCalendario",
@@ -986,6 +993,9 @@ GestionFormulaView = {
     Metodos: {
         CargarDatosStep2: function () {
             $("#loading").fadeIn();
+
+            //Se  habilita el boton de cancelar en el paso 2
+            $(GestionFormulaView.Controles.form.btnCancelar).prop("disabled", false);
 
             GestionFormulaView.Consultas.ConsultarFuentesIndicador()
                 .then(data => {
@@ -1593,7 +1603,6 @@ GestionFormulaView = {
             GestionFormulaView.Metodos.MostrarFormulaCalculo();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).focus();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
-            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", false);
         },
 
         AgregarFechaAFormula: function (pVariable) {
@@ -1671,13 +1680,6 @@ GestionFormulaView = {
                 return GestionFormulaView.Consultas.ConsultarArgumentosDeFormula(pIdFormula)
                     .then(data => {
                         GestionFormulaView.Variables.FormulaCalculo = data.objetoRespuesta;
-
-                        if (GestionFormulaView.Variables.FormulaCalculo.length == 0) {
-                            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", true);
-                        } else {
-                            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", false);
-                        }
-
                         GestionFormulaView.Variables.hizoCargaDeArgumentos = true;
                     })
                     .catch(error => { ManejoDeExcepciones(error); })
@@ -2797,6 +2799,11 @@ GestionFormulaView = {
             });
             return this;
         };
+
+        setInterval(function () { // observer para el campo de fórmula
+            let activarBotonFinalizar = GestionFormulaView.Variables.FormulaCalculo?.length > 0;
+            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", !activarBotonFinalizar);
+        }, 200);
     },
 
     Init: function () {

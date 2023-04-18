@@ -190,7 +190,7 @@
     <value>Variables</value>
   </data>
   <data name="TituloAgregarCategoria" xml:space="preserve">
-    <value>Agregar Categoría</value>
+    <value>Agregar Categoría de Desagregación</value>
   </data>
   <data name="TituloClonarIndicador" xml:space="preserve">
     <value>Clonar Indicador</value>
@@ -221,5 +221,14 @@
   </data>
   <data name="TituloModalUnidadEstudio" xml:space="preserve">
     <value>Unidad de Estudio</value>
+  </data>
+  <data name="TituloVistaCategoria" xml:space="preserve">
+    <value>Visualización Categoría de Desagregación</value>
+  </data>
+  <data name="TituloVistaVariableDato" xml:space="preserve">
+    <value>Visualización Variable Dato</value>
+  </data>
+  <data name="Visualizacion" xml:space="preserve">
+    <value>Visualización de Indicadores</value>
   </data>
 </root>

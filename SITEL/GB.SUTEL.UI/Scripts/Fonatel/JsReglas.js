@@ -1,7 +1,7 @@
 ﻿JsReglas = {
 
     "Controles": {
-
+        "dad1f560":"#dad1f560",
         "btnGuardarRegla": "#btnGuardarRegla",
         "btnCancelar": "#btnCancelarRegla",
         "btnSiguienteRegla": "#btnSiguienteRegla",
@@ -11,6 +11,7 @@
         "btnEditTipoRegla": "#TableTipoRegla tbody tr td .btn-edit",
         "btnEliminaTipoRegla": "#TableTipoRegla tbody tr td .btn-delete",
         "btnAddRegla": "#TableReglaDesagregacion tbody tr td .btn-add",
+        "btnViewRegla": "#TableReglaDesagregacion tbody tr td .btn-view",
         "btnAtrasRegla": "#btnAtrasTipoRegla",
         "btnGuardarReglaTipo": "#btnGuardarReglaTipo",
         "divFormulaCambioMensual": "#divFormulaCambioMensual",
@@ -164,7 +165,8 @@
                 } else {
                     html = html +"<button type='button' data-toggle='tooltip' data-placement='top' title='Clonar' value = '" + reglas.id + "' class='btn-icon-base btn-clone'></button>";
                 }
-                    html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value = '" + reglas.id + "' class='btn-icon-base btn-delete'></button></td>";
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Visualizar' value = '" + reglas.id + "' class='btn-icon-base btn-view'></button>";
+                html = html + "<button type='button' data-toggle='tooltip' data-placement='top' title='Eliminar' value = '" + reglas.id + "' class='btn-icon-base btn-delete'></button></td>";
                 html = html + "</tr>"
             }
             $(JsReglas.Controles.TablaReglas).html(html);
@@ -657,7 +659,7 @@
         },
 
         "EditarReglaValidacion": function () {
-
+            
             $("#loading").fadeIn();
             let objetoRegla = new Object()
             objetoRegla.id = ObtenerValorParametroUrl("id");
@@ -1135,8 +1137,9 @@
             }
             //REGLA CONTRA ACTUALIZACION SECUENCIAL
             if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
+                
                 objetoTipoRegla.reglaSecuencial = {};
-                objetoTipoRegla.reglaSecuencial.idCategoriaDesagregacion = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
+                objetoTipoRegla.reglaSecuencial.idCategoriaString = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
             }
             //REGLA CONTRA INDICADOR DE SALIDA
             if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaContraOtroIndicadorSalida) {
@@ -1217,6 +1220,7 @@
             }
             // REGLA CONTRA ACTUALIZACION SECUENCIAL
             if (objetoTipoRegla.idTipoReglaValidacion == jsUtilidades.Variables.TipoReglasDetalle.FormulaActualizacionSecuencial) {
+              
                 objetoTipoRegla.reglaSecuencial = {};
                 objetoTipoRegla.reglaSecuencial.IdReglaSecuencial= $(JsReglas.Controles.txtidCompara).val();
                 objetoTipoRegla.reglaSecuencial.idCategoriaDesagregacion = $(JsReglas.Controles.ddlCategoríaActualizableRegla).val();
@@ -1355,6 +1359,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
         if (modo == jsUtilidades.Variables.Acciones.Editar) {
 
             if (Estado == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+               
                 jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsReglas.Consultas.EditarReglaValidacion();
@@ -1363,6 +1368,7 @@ $(document).on("click", JsReglas.Controles.btnGuardarRegla, function (e) {
                         JsReglas.Metodos.ValidarControles();
                     });
             } else {
+              
                 jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Regla de Validación?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsReglas.Consultas.EditarReglaValidacion();
@@ -1447,6 +1453,12 @@ $(document).on("click", JsReglas.Controles.btnClonarRegla, function () {
     
             window.location.href = "/Fonatel/ReglasValidacion/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar
       
+});
+$(document).on("click", JsReglas.Controles.btnViewRegla, function () {
+    let id = $(this).val();
+
+    window.location.href = "/Fonatel/ReglasValidacion/Visualiza?id=" + id;
+
 });
 
 $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {
@@ -1616,6 +1628,9 @@ $(document).on("change", JsReglas.Controles.ddlVariableRegla, function () {
 
 $(function () {
 
+    if ($(JsReglas.Controles.dad1f560).length > 0) {
+        return;
+    }
 
     let indicadorHabilitado = $(JsReglas.Controles.ddlIndicadorRegla).val();
 

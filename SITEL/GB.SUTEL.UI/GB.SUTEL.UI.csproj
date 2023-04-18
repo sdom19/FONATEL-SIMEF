@@ -613,6 +613,8 @@
     <Content Include="Content\Images\sort_desc.png" />
     <Content Include="Content\Images\sort_desc_disabled.png" />
     <Content Include="Content\structure.css" />
+    <Content Include="Images\ico limpiar.png" />
+    <Content Include="Images\ico url.png" />
     <Content Include="Images\icon-add.svg" />
     <Content Include="Images\icon-arrow-back.svg" />
     <Content Include="Images\icon-calendar-disabled.svg" />
@@ -1467,6 +1469,13 @@
     <Content Include="Views\RelacionCategoria\_CrearVisualizacionRelacionCategoria.cshtml" />
     <Content Include="Views\RelacionCategoria\_TablaVisualizacionCategoriasAtributo.cshtml" />
     <Content Include="Views\RelacionCategoria\_TablaVisualizarDetalleRelacionCategoria.cshtml" />
+    <Content Include="Views\IndicadorFonatel\Visualiza.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_CrearVisualizaIndicador.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_TablaVisualizaDetalleVariable.cshtml" />
+    <Content Include="Views\IndicadorFonatel\_TablaVisualizaDetalleCategoria.cshtml" />
+    <Content Include="Views\ReglasValidacion\Visualiza.cshtml" />
+    <Content Include="Views\ReglasValidacion\_VisualizaRegla.cshtml" />
+    <Content Include="Views\ReglasValidacion\_TablaVisualizaTipoRegla.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

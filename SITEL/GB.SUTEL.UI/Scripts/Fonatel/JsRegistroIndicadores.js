@@ -65,7 +65,10 @@
             '7': 'Fórmula contra otro indicador'
         },
         "IndicadoresValidados": [],
-
+        "Url":
+        {
+            "ViewList": "/Fonatel/RegistroIndicadorFonatel/index"
+        }
     },
 
     "Metodos": {
@@ -437,7 +440,7 @@
                             CargarDatasourceV2("div.tab-pane .data-table-indicador.revisado");
                             let nombreFormulario = $(jsRegistroIndicadorFonatel.Controles.lblNombreFormulario).text().trim();
                             jsMensajes.Metodos.OkAlertModal(`El Formulario Web ${nombreFormulario} ha sido guardado`)
-                                .set('onok', function (closeEvent) { });
+                                .set('onok', function (closeEvent) { window.location = jsRegistroIndicadorFonatel.Variables.Url.ViewList });
                         }
                     },
                     error: function (obj) {
@@ -912,3 +915,20 @@ $(document).ready(function () {
 
     $(jsRegistroIndicadorFonatel.Controles.tabRegistroIndicador(1)).click();
 });
+
+  // Agrega un evento al documento que se activará cuando se presione una tecla
+document.addEventListener("keydown", (event) => {
+    // Verifica si la tecla presionada es Enter
+    if (event.keyCode === 13) {
+
+        // Determina a cuál campo se debe desplazar verticalmente
+        if (document.activeElement === jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador) {
+            jsRegistroIndicadorFonatel.Controles.txtNotasInformante.focus();
+        } else {
+            jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador.focus();
+        }
+    
+    // Evita el comportamiento predeterminado del botón Enter (que es enviar un formulario)
+    event.preventDefault();
+    }
+  });
