@@ -100,7 +100,16 @@
             </div>
 
             <div class="col-lg-12 text-center">
-                <button type="submit" id="btnFinalizarIndicador" class="btn btn-fonatel btn-info-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonFinalizar">@Etiquetas.BotonFinalizar</button>
+                @if (Constantes.Accion.Crear.Equals(ViewBag.ModoFormulario))
+                {
+                    
+                    <button type="submit" data-value="#dad1f550" id="btnFinalizarIndicador" class="btn btn-fonatel btn-info-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonFinalizar">@Etiquetas.BotonFinalizar</button>
+                }
+                else
+                {
+                    <button type="submit"  id="btnFinalizarIndicador" class="btn btn-fonatel btn-info-fonatel" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonFinalizar">@Etiquetas.BotonFinalizar</button>
+                }
+
             </div>
 
             <div class="col-12 pull-right mt-4">
