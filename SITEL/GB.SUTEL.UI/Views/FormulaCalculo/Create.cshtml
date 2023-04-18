@@ -85,9 +85,9 @@
     </div>
 
     <div class="col-sm-12 text-center mt-5">
-        <button type="submit" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonGuardar" id="btnGuardarGestionFormulaCalculo" class="btn btn-fonatel btn-success-fonatel" @Html.Raw(modoVisualizacion ? "disabled" : "")>@Etiquetas.BotonGuardar</button>
+        <button type="submit" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonGuardar" id="@Html.Raw(modoVisualizacion ? "" : "btnGuardarGestionFormulaCalculo")" class="btn btn-fonatel btn-success-fonatel" @Html.Raw(modoVisualizacion ? "disabled" : "")>@Etiquetas.BotonGuardar</button>
         <button type="submit" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonCancelar" id="btnCancelarGestionFormulaCalculo" class="btn btn-fonatel btn-error-fonatel" @Html.Raw(modoVisualizacion ? "disabled" : "")>@Etiquetas.BotonCancelar</button>
-        <button type="submit" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonFinalizar" id="btnFinalizarFormulaCalculo" class="btn btn-fonatel btn-info-fonatel" @Html.Raw(modoVisualizacion ? "disabled" : "")>@Etiquetas.BotonFinalizar</button>
+        <button type="submit" data-toggle="tooltip" data-placement="top" title="@Etiquetas.BotonFinalizar" id="@Html.Raw(modoVisualizacion ? "" : "btnFinalizarFormulaCalculo")" class="btn btn-fonatel btn-info-fonatel" @Html.Raw(modoVisualizacion ? "disabled" : "")>@Etiquetas.BotonFinalizar</button>
     </div>
 
     <div class="col-12 pull-right mt-4">
