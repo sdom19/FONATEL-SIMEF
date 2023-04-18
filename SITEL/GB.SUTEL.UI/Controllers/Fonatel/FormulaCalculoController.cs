@@ -710,6 +710,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [ConsultasFonatelFilter]
         public async Task<string> GuardadoDefinitivoFormulaCalculo(string pIdFormulaCalculo)
         {
+            modoFormulario = (string)Session[keyModoFormulario];
+
+            if (modoFormulario.Equals(((int)Accion.Visualizar).ToString()))
+            {
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulaCalculo>() { HayError = (int)Error.ErrorSistema });
+            }
+
             if (string.IsNullOrEmpty(pIdFormulaCalculo)) // id indicador requerido
             {
                 return JsonConvert.SerializeObject(
@@ -1060,6 +1067,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         [HttpPost]
         public async Task<string> CrearDetallesFormulaCalculo(FormulaCalculo pFormulaCalculo, List<ArgumentoConstruidoDTO> pListaArgumentos)
         {
+            modoFormulario = (string)Session[keyModoFormulario];
+
+            if (modoFormulario.Equals(((int)Accion.Visualizar).ToString()))
+            {
+                return JsonConvert.SerializeObject(new RespuestaConsulta<FormulaCalculo>() { HayError = (int)Error.ErrorSistema });
+
+            }
             RespuestaConsulta<FormulaCalculo> resultado = new RespuestaConsulta<FormulaCalculo>();
 
             if (string.IsNullOrEmpty(pFormulaCalculo.id))

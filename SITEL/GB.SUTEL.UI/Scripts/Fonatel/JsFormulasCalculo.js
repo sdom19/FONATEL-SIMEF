@@ -828,7 +828,6 @@ GestionFormulaView = {
             btnAgregarArgumento: "#tablaDetallesIndicador tbody tr td .btn-add",
 
             // construcción de fórmula
-
             inputFormulaCalculo: ".divFormulaCalculo input.editable",
 
             btnCalendario: "#btnCalendario",
@@ -1604,7 +1603,6 @@ GestionFormulaView = {
             GestionFormulaView.Metodos.MostrarFormulaCalculo();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).focus();
             $(GestionFormulaView.Controles.form.inputFormulaCalculo).setCursorPosition(newIndex);
-            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", false);
         },
 
         AgregarFechaAFormula: function (pVariable) {
@@ -1682,13 +1680,6 @@ GestionFormulaView = {
                 return GestionFormulaView.Consultas.ConsultarArgumentosDeFormula(pIdFormula)
                     .then(data => {
                         GestionFormulaView.Variables.FormulaCalculo = data.objetoRespuesta;
-
-                        if (GestionFormulaView.Variables.FormulaCalculo.length == 0) {
-                            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", true);
-                        } else {
-                            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", false);
-                        }
-
                         GestionFormulaView.Variables.hizoCargaDeArgumentos = true;
                     })
                     .catch(error => { ManejoDeExcepciones(error); })
@@ -2808,6 +2799,11 @@ GestionFormulaView = {
             });
             return this;
         };
+
+        setInterval(function () { // observer para el campo de fórmula
+            let activarBotonFinalizar = GestionFormulaView.Variables.FormulaCalculo?.length > 0;
+            $(GestionFormulaView.Controles.form.btnFinalizar).prop("disabled", !activarBotonFinalizar);
+        }, 200);
     },
 
     Init: function () {
