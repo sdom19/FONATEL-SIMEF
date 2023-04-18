@@ -168,17 +168,23 @@ input[type=number] {
 
 .btn-purple-fonatel {
     color: #ffffff;
+    background-color: var(--purple-fonatel);
+}
+
+.btn-limpiar-fonatel {
+    color: #ffffff;
     background-color: var(--skyblue-fonatel);
 }
 
-.btn-success-fonatel:hover, .btn-success-fonatel:focus,
-.btn-next-fonatel:hover, .btn-next-fonatel:focus,
-.btn-error-fonatel:hover, .btn-error-fonatel:focus,
-.btn-info-fonatel:hover, .btn-info-fonatel:focus,
-.btn-warning-fonatel:hover, .btn-warning-fonatel:focus,
-.btn-purple-fonatel:hover, .btn-purple-fonatel:focus {
-    color: #ffffff;
-}
+    .btn-success-fonatel:hover, .btn-success-fonatel:focus,
+    .btn-next-fonatel:hover, .btn-next-fonatel:focus,
+    .btn-error-fonatel:hover, .btn-error-fonatel:focus,
+    .btn-info-fonatel:hover, .btn-info-fonatel:focus,
+    .btn-warning-fonatel:hover, .btn-warning-fonatel:focus,
+    .btn-purple-fonatel:hover, .btn-purple-fonatel:focus,
+    .btn-limpiar-fonatel:hover, .btn-limpiar-fonatel.focus {
+        color: #ffffff;
+    }
 
 .btn-icon-base {
     width: 22px;
