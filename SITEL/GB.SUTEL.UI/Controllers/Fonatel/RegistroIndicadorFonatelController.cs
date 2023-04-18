@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -18,6 +19,7 @@ using GB.SUTEL.UI.Helpers;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using OfficeOpenXml;
+using Color = System.Drawing.Color;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
@@ -129,46 +131,71 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 package.Workbook.Protection.LockRevision = true;
                 package.Workbook.Protection.LockStructure = true;
+                package.Workbook.Protection.SetPassword(nombre);
 
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(result.objetoRespuesta[0].TituloHoja);
+                Color headColorFromHex = System.Drawing.ColorTranslator.FromHtml("#2f75b5");
+                Color fontColorFromHex = System.Drawing.ColorTranslator.FromHtml("#fff");
+                Color grayColorFromHex = System.Drawing.ColorTranslator.FromHtml("#e7e6e6");
+                Color greenColorFromHex = System.Drawing.ColorTranslator.FromHtml("#e2efda");
+                Color greenColorFromHex1 = System.Drawing.ColorTranslator.FromHtml("#f7f7f7");
+
+                worksheetInicio.Cells["A1:E8"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+
+                worksheetInicio.Cells["A1:E6"].Style.Fill.BackgroundColor.SetColor(fontColorFromHex);
+                worksheetInicio.Cells["A7:E7"].Style.Fill.BackgroundColor.SetColor(headColorFromHex);
+                worksheetInicio.Cells["A8:E8"].Style.Fill.BackgroundColor.SetColor(headColorFromHex);
+                worksheetInicio.Row(7).Height = 6;
+                worksheetInicio.Row(8).Height = 4;
+
+                // carga el logo
+                Image logo = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "Content\\Images\\logos\\logo-Sutel_11_3.png");
+                logo = (Image)(new Bitmap(logo, new Size(313, 90)));
+                var picture = worksheetInicio.Drawings.AddPicture("SUTEL", logo);
+                picture.SetPosition(1, 0, 0, 0);
+                //fin del logo
+                worksheetInicio.Protection.IsProtected = true;
+                worksheetInicio.Protection.SetPassword(nombre);
                 int celda = 1;
                 foreach (var item in listaVariable)
                 {
-                    worksheetInicio.Cells[1, celda].Value = item.NombreVariable;
-                    worksheetInicio.Cells[1, celda].Style.Font.Bold = true;
-                    worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
-                    worksheetInicio.Cells[1, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    worksheetInicio.Cells[1, celda].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(64, 152, 166));
-                    worksheetInicio.Cells[1, celda].Style.Font.Color.SetColor(System.Drawing.Color.White);
-                    worksheetInicio.Cells[1, celda].Style.Font.Bold = true;
-                    worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
-                    worksheetInicio.Cells[1, celda].AutoFitColumns();
+                    worksheetInicio.Cells[9, celda].Value = item.NombreVariable;
+                    worksheetInicio.Cells[9, celda].Style.Font.Bold = true;
+                    worksheetInicio.Cells[9, celda].Style.Font.Size = 12;
+                    worksheetInicio.Cells[9, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    worksheetInicio.Cells[9, celda].Style.Fill.BackgroundColor.SetColor(headColorFromHex);
+                    worksheetInicio.Cells[9, celda].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                    worksheetInicio.Cells[9, celda].Style.Font.Bold = true;
+                    worksheetInicio.Cells[9, celda].AutoFitColumns();
+                    //worksheetInicio.Cells[9, celda].Style.Locked = false;
                     worksheetInicio.Column(celda).Style.Numberformat.Format = "@";
-                    worksheetInicio.Cells[2, celda, detalleRegistroIndicadorFonatel.CantidadFila+1, celda].Value = "";
+                    worksheetInicio.Cells[10, celda, detalleRegistroIndicadorFonatel.CantidadFila+10, celda].Value = "";
 
                     celda++;
                 }
 
                 foreach (var item in listaCategoria)
                 {
-                    worksheetInicio.Cells[1, celda].Value = item.NombreCategoria;
-                    worksheetInicio.Cells[1, celda].Style.Font.Bold = true;
-                    worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
-                    worksheetInicio.Cells[1, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    worksheetInicio.Cells[1, celda].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(6, 113, 174));
-                    worksheetInicio.Cells[1, celda].Style.Font.Color.SetColor(System.Drawing.Color.White);
-                    worksheetInicio.Cells[1, celda].Style.Font.Bold = true;
-                    worksheetInicio.Cells[1, celda].Style.Font.Size = 12;
-                    worksheetInicio.Cells[1, celda].AutoFitColumns();
+                    worksheetInicio.Cells[9, celda].Value = item.NombreCategoria;
+                    worksheetInicio.Cells[9, celda].Style.Font.Bold = true;
+                    worksheetInicio.Cells[9, celda].Style.Font.Size = 12;
+                    worksheetInicio.Cells[9, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    worksheetInicio.Cells[9, celda].Style.Fill.BackgroundColor.SetColor(headColorFromHex);
+                    worksheetInicio.Cells[9, celda].Style.Font.Color.SetColor(System.Drawing.Color.White);
+                    worksheetInicio.Cells[9, celda].Style.Font.Bold = true;
+                    worksheetInicio.Cells[9, celda].AutoFitColumns();
+                   // worksheetInicio.Cells[9, celda].Style.Locked = false;
                     worksheetInicio.Column(celda).Style.Numberformat.Format = "@";
 
                     celda++;
                 }
 
 
-                worksheetInicio.Cells[2, 1, detalleRegistroIndicadorFonatel.CantidadFila+1, celda-1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                worksheetInicio.Cells[2, 1, detalleRegistroIndicadorFonatel.CantidadFila+1, celda-1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-                worksheetInicio.Cells[2, 1, detalleRegistroIndicadorFonatel.CantidadFila+1, celda-1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila+9, celda-1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila+9, celda-1].Style.Fill.BackgroundColor.SetColor(greenColorFromHex1);
+                worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila+9, celda-1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila +9, celda - 1].AutoFitColumns();
+                worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila +9, celda - 1].Style.Locked = false;
 
                 //89482 Llamado de metodo para bitacora al descargar 
                 registroIndicadorBL.BitacoraDescargar(registro.objetoRespuesta[0]);
