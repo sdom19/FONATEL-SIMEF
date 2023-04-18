@@ -691,7 +691,7 @@ CreateView = {
                 })
                 .then(data => {
                     let mensaje =
-                        $(CreateView.Controles.btnFinalizar).attr("data-value") == CreateView.Controles.CreateView
+                        jsUtilidades.Variables.Acciones.Insertar == $(CreateView.Controles.modoFormulario).val()
                 ? CreateView.Mensajes.exitoCrearIndicador : CreateView.Mensajes.exitoEditarIndicador;
 
                         jsMensajes.Metodos.OkAlertModal(mensaje)
