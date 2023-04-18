@@ -88,8 +88,8 @@
                         html = html + "<td>" + categoria.TipoCategoria.Nombre + "</td>";
                         html = html + "<td>" + categoria.EstadoRegistro.Nombre + "</td>";
                         html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Descargar Plantilla'  title='Descargar Plantilla' class='btn-icon-base btn-download'></button>" +
-                            "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Cargar Detalle' title='Cargar Detalle' class='btn-icon-base btn-upload'></button>" +
-                            "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Agregar Detalle' title='Agregar Detalle' class='btn-icon-base btn-add'></button></td>";
+                            "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Cargar plantilla con detalles' title='Cargar plantilla con detalles' class='btn-icon-base btn-upload'></button>" +
+                            "<button type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Agregar/Editar Detalles' title='Agregar/Editar Detalles' class='btn-icon-base btn-add'></button></td>";
                     }
                     html = html + "<td><button  type='button' data-toggle='tooltip' data-placement='top' value=" + categoria.id + " data-original-title='Editar' title='Editar' class='btn-icon-base btn-edit'></button>";
                     if (categoria.idEstadoRegistro != jsUtilidades.Variables.EstadoRegistros.EnProceso) {

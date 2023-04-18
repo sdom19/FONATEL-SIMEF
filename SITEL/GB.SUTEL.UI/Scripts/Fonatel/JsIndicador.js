@@ -690,8 +690,12 @@ CreateView = {
                     return CreateView.Consultas.GuardadoDefinitivoIndicador(pIdIndicador);
                 })
                 .then(data => {
-                    jsMensajes.Metodos.OkAlertModal(CreateView.Mensajes.exitoCrearIndicador)
-                        .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
+                    let mensaje =
+                        jsUtilidades.Variables.Acciones.Insertar == $(CreateView.Controles.modoFormulario).val()
+                ? CreateView.Mensajes.exitoCrearIndicador : CreateView.Mensajes.exitoEditarIndicador;
+
+                        jsMensajes.Metodos.OkAlertModal(mensaje)
+                            .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
                 })
                 .catch(error => { ManejoDeExcepciones(error); })
                 .finally(() => {
