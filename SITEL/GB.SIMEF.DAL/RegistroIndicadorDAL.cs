@@ -50,6 +50,7 @@ namespace GB.SIMEF.DAL
                 Anno = x.Anno,
                 IdMes = x.IdMes,
                 IdFuente = x.IdFuente,
+                CodigoFormulario=x.CodigoFormulario,
                 Fuente = ObtenerFuente(x.IdFuente),
                 Solicitudid = Utilidades.Encriptar(x.IdSolicitud.ToString()),
                 FormularioId = Utilidades.Encriptar(x.idFormularioWeb.ToString()),

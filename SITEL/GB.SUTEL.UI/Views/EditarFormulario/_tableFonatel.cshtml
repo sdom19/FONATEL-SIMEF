@@ -23,10 +23,10 @@
             {
             <tr>
                 <td>@item.Fuente.Fuente</td>
-                <td>@item.Nombre</td>
+                <td>@string.Format("{0}/{1}", item.Codigo,item.Nombre)</td>
                 <td>@item.Anno</td>
                 <th>@item.Mes</th>
-                <th>@item.Formulario</th>
+                <th>@string.Format("{0}/{1}", item.CodigoFormulario, item.Formulario)</th>
                 <td>@item.Estado</td>
                 @if (item.IdEstado == (int)Constantes.EstadosRegistro.Enviado)
                 {
