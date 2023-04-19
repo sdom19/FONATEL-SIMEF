@@ -75,6 +75,9 @@
             '6': 'Fórmula contra otro indicador',
             '7': 'Fórmula contra otro indicador'
         },
+        Url: {
+            "index":"/Fonatel/EditarFormulario/Index"
+        },
         "IndicadoresValidados": [],
     },
 
@@ -180,7 +183,7 @@
         "CargarExcel": function () {
 
             jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido descargado")
-                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
+                .set('onok', function (closeEvent) { window.location.href = jsRegistroIndicadorFonatelEdit.Variables.Url.index; });
         },
 
         "CargarDatosTablaIndicador": function (Listado) {
@@ -387,7 +390,7 @@
                         else {
                             CargarDatasourceV2("div.tab-pane .data-table-indicador.revisado");
                             jsMensajes.Metodos.OkAlertModal("Los Datos han sido guardados")
-                                .set('onok', function (closeEvent) { });
+                                .set('onok', function (closeEvent) { window.location.href = jsRegistroIndicadorFonatelEdit.Variables.Url.index;});
                         }
                     },
                     error: function (obj) {
@@ -443,7 +446,7 @@
 
                         if (jsRegistroIndicadorFonatelEdit.Variables.GuardadoTotal) {
                             jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido editado")
-                            .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index";});
+                                .set('onok', function (closeEvent) { window.location.href = jsRegistroIndicadorFonatelEdit.Variables.Url.index;});
                         }
 
                     }
@@ -495,7 +498,7 @@
 
                         if (guardadoTotal) {
                             jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido cargado")
-                                .set('onok', function (closeEvent) { window.location.href = "/EditarFormulario/Index"; });
+                                .set('onok', function (closeEvent) { window.location.href = jsRegistroIndicadorFonatelEdit.Variables.Url.index; });
                         }
 
                     }
@@ -708,7 +711,7 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnCancelar, fu
     e.preventDefault();
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
-            window.location.href = "/Fonatel/EditarFormulario/Index";
+            window.location.href = jsRegistroIndicadorFonatelEdit.Variables.Url.index;
         });
 });
 
@@ -727,6 +730,8 @@ $(document).on("click", jsRegistroIndicadorFonatelEdit.Controles.btnGuardarRegis
                 }
 
                 jsRegistroIndicadorFonatelEdit.Consultas.ActualizarDetalleRegistroIndicador();
+
+
 
             });
     
