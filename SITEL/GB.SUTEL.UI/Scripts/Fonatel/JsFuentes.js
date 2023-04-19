@@ -8,8 +8,6 @@
         "btnVisualizaFuente": "#TablaFuentes tbody tr td .btn-view",
         "btnBorrarDetalle": "#TableDetalleFuentes tbody tr td .btn-delete",
         "btnEditarDetalle": "#TableDetalleFuentes tbody tr td .btn-edit",
-        "btnAddFuente": "#TablaFuentes tbody tr td .btn-add",
-        "btnAtrasFuentes":"#btnAtrasFuentes",
         "divContenedor": ".divContenedor_fuentes",
         "btnGuardarDestinatario": "#btnGuardarDestinatario",
         "btnGuardarFuentesCompleto": "#btnGuardarFuentesCompleto",
@@ -522,9 +520,6 @@ $(document).on("click", JsFuentes.Controles.btnVisualizaFuente, function () {
 });
 
 
-$(document).on("click", JsFuentes.Controles.btnAtrasFuentes, function () {
-    window.location.href = "/Fonatel/Fuentes/Index";
-});
 
 $(document).on("paste", JsFuentes.Controles.txtCorreo, function (e) {
     e.preventDefault(); // previene el comportamiento predeterminado de pegar el texto en el input
