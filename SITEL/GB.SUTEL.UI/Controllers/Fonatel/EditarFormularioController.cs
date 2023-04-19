@@ -23,6 +23,7 @@ using OfficeOpenXml.Style;
 
 namespace GB.SUTEL.UI.Controllers.Fonatel
 {
+    [AuthorizeUserAttribute]
     public class EditarFormularioController : Controller
     {
 

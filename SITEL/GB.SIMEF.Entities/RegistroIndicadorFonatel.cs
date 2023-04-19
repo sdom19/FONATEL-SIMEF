@@ -23,6 +23,7 @@ namespace GB.SIMEF.Entities
         public int IdSolicitud { get; set; }
         [Key, Column(Order = 1)]
         public int idFormularioWeb { get; set; }
+        public string CodigoFormulario { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
         public int IdMes { get; set; }

@@ -1373,9 +1373,7 @@ $(document).on("click", JsSolicitud.Controles.btnViewSolicitud, function () {
     window.location.href = "/Fonatel/SolicitudFonatel/Visualizacion?id=" + id;
 });
 
-$(document).on("click", JsSolicitud.Controles.btnAtrasSolicitud, function () {
-    window.location.href = "/Fonatel/SolicitudFonatel/Index";
-});
+
 
 
 
