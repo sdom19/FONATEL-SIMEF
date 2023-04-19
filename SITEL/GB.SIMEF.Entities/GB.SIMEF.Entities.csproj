@@ -55,6 +55,8 @@
     <Compile Include="Anno.cs" />
     <Compile Include="ArgumentoFormula.cs" />
     <Compile Include="Bitacora.cs" />
+    <Compile Include="CatalogoPantallaSIGITEL.cs" />
+    <Compile Include="ContenidoPantallaSIGITEL.cs" />
     <Compile Include="DatoHistorico.cs" />
     <Compile Include="DetalleDatoHistoricoFila.cs" />
     <Compile Include="DetalleDatoHistoricoColumna.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="SolicitudDetalleFuentes.cs" />
     <Compile Include="SolicitudEnvioProgramado.cs" />
     <Compile Include="TipoCategoria.cs" />
+    <Compile Include="TipoContenidoTextoSIGITEL.cs" />
     <Compile Include="TipoIndicador.cs" />
     <Compile Include="TipoMedida.cs" />
     <Compile Include="TipoReglaValidacion.cs" />
