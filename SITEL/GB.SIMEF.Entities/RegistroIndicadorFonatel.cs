@@ -41,6 +41,8 @@ namespace GB.SIMEF.Entities
         public string Formulario { get; set; }
         public int IdEstado { get; set; }
         public string Estado { get; set; }
+
+        public Int64 RowId { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
 

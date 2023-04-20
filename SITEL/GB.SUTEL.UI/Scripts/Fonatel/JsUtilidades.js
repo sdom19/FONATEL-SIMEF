@@ -83,9 +83,18 @@ $(document).ready(function () {
 
     let bitacora = (typeof JsBitacora) != "undefined"
 
+    let registroIndicador = (typeof jsRegistroIndicadorFonatel) != "undefined"
+
+    let registroIndicadorEdit = (typeof jsRegistroIndicadorFonatelEdit) != "undefined"
+   
+
     if (bitacora) {
         CargarDatasourceBitacora();
-    } else {
+    }
+    else if (registroIndicador || registroIndicadorEdit) {
+        CargarDatasourceRegistroIndicador();
+    }
+    else {
         CargarDatasource();
     }
     
@@ -149,6 +158,8 @@ $(document).on("paste", 'input', function (e) {
 function EliminarDatasource(pDataTable = ".datatable_simef") {
     $(pDataTable).DataTable().destroy();
 }
+
+
 
 function CargarDatasourceV2 (table) {
     let t = $(table).DataTable({
@@ -430,6 +441,110 @@ function CargarDatasourceBitacora(pDataTable = ".datatable_simef") {
         columnDefs: [
             { "className": "dt-center", "targets": "_all" }
         ],
+        language: {
+            "decimal": "",
+            "emptyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "searchPlaceholder": "",
+            "zeroRecords": "Sin resultados encontrados",
+
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+        },
+        initComplete: function () {
+            this.api()
+                .columns()
+                .every(function () {
+                    var column = this;
+
+                    if ($(column.footer()).hasClass("select2-wrapper")) {
+                        var select = $('<select><option value="">Todos</option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                                column.search(val ? '^' + val + '$' : '', true, false).draw();
+                            });
+
+                        column
+                            .data()
+                            .unique()
+                            .sort()
+                            .each(function (d, j) {
+                                select.append('<option value="' + d + '">' + d + '</option>');
+                            });
+                    }
+                });
+        },
+
+
+    });
+
+    $('.table-wrapper-fonatel table tfoot th select').select2({
+        width: 'resolve'
+    });
+
+    $('.datatable_simef > tbody tr td button').tooltip();
+}
+
+function CargarDatasourceRegistroIndicador(pDataTable = ".datatable_simef") {
+
+    $(pDataTable).DataTable({
+        pageLength: 5,
+        lengthMenu: [[5, 25, 50, 100], [5, 25, 50, 100]],
+
+        "dom": '<"top-position"<"subtop"Bl>f>r<"content-table"t><"bottom-position"ip><"clear">',
+        buttons: [
+            {
+                extend: 'excel',
+                text: '<i class="fa fa-file-excel-o" style="color:green;"></i>',
+                titleAttr: 'Excel',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
+            },
+            {
+                extend: 'pdf',
+                text: '<i class="fa fa-file-pdf-o" style="color:brown;"></i>',
+                titleAttr: 'PDF',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
+            },
+            {
+                extend: 'print',
+                text: '<i class="fa fa-print" style="color:black;"></i>',
+                titleAttr: 'Imprimir',
+                autoPrint: false,
+                exportOptions: {
+                    columns: ':not(.noExport)'
+                },
+
+            },
+
+        ],
+        order: [[0, 'asc']],
+
+
+        columnDefs: [
+            { target: 0, visible: false, searchable: false },
+            { "className": "dt-center", "targets": "_all" }
+
+        ],
+
         language: {
             "decimal": "",
             "emptyTable": "No hay información",
