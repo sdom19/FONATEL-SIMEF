@@ -30,16 +30,15 @@
                                 let array = json[objeto];
                                 html = html + "<tr>"
                                 html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
-                                html = html + "<th>" + Bitacora.Codigo + "</th>";
+                                html = html + "<th>" + Bitacora.Usuario + "</th>";
                                 html = html + "<th>" + Bitacora.AccionNombre + "</th>";
+                                html = html + "<th>" + objeto + "</th>"; //Elemento Afectado
                                 html = html + "<th>" + moment(Bitacora.Fecha).format('MM/DD/YYYY') + "</th>";
                                 html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
-                                html = html + "<th>" + Bitacora.Usuario + "</th>";
-                                html = html + "<th>" + objeto + "</th>";
-                                html = html + "<th>N/A</th>";
-                                html = html + "<th>" + array[0] + "</th>";
-                                html = html + "<th>" + array[1] + "</th>";
-                            
+                                html = html + "<th>" + Bitacora.Codigo + "</th>";
+                                html = html + "<th>N/A</th>"; //Valor Inicial
+                                html = html + "<th>" + array[0] + "</th>"; // Valor Anterior 
+                                html = html + "<th>" + array[1] + "</th>"; // Valor Actual
                                 html = html + "</tr>";
                             }
                         }
@@ -53,12 +52,12 @@
                                 let array = json[objeto];
                                 html = html + "<tr>"
                                 html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
-                                html = html + "<th>" + Bitacora.Codigo + "</th>";
+                                html = html + "<th>" + Bitacora.Usuario + "</th>";
                                 html = html + "<th>" + Bitacora.AccionNombre + "</th>";
+                                html = html + "<th>" + objeto + "</th>";
                                 html = html + "<th>" + moment(Bitacora.Fecha).format('MM/DD/YYYY') + "</th>";
                                 html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
-                                html = html + "<th>" + Bitacora.Usuario + "</th>";
-                                html = html + "<th>" + objeto + "</th>";
+                                html = html + "<th>" + Bitacora.Codigo + "</th>";
                                 html = html + "<th>" + array + "</th>";
                                 html = html + "<th>N/A</th>";
                                 html = html + "<th>N/A</th>";
@@ -79,12 +78,12 @@
                             let array2 = jsonActual[objeto];
                             html = html + "<tr>"
                             html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
-                            html = html + "<th>" + Bitacora.Codigo + "</th>";
+                            html = html + "<th>" + Bitacora.Usuario + "</th>";
                             html = html + "<th>" + Bitacora.AccionNombre + "</th>";
+                            html = html + "<th>" + objeto + "</th>";
                             html = html + "<th>" + moment(Bitacora.Fecha).format('MM/DD/YYYY') + "</th>";
                             html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
-                            html = html + "<th>" + Bitacora.Usuario + "</th>";
-                            html = html + "<th>" + objeto + "</th>";
+                            html = html + "<th>" + Bitacora.Codigo + "</th>";
                             html = html + "<th>" + array + "</th>";
                             html = html + "<th>N/A</th>";
                             html = html + "<th>" + array2+"</th>";
@@ -101,12 +100,12 @@
                                     let array = json[objeto];
                                     html = html + "<tr>"
                                     html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
-                                    html = html + "<th>" + Bitacora.Codigo + "</th>";
+                                    html = html + "<th>" + Bitacora.Usuario + "</th>";
                                     html = html + "<th>" + Bitacora.AccionNombre + "</th>";
+                                    html = html + "<th>" + objeto + "</th>";
                                     html = html + "<th>" + moment(Bitacora.Fecha).format('MM/DD/YYYY') + "</th>";
                                     html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
-                                    html = html + "<th>" + Bitacora.Usuario + "</th>";
-                                    html = html + "<th>" + objeto + "</th>";
+                                    html = html + "<th>" + Bitacora.Codigo + "</th>";
                                     html = html + "<th>N/A</th>";
                                     html = html + "<th>" + array[0] + "</th>";
                                     html = html + "<th>" + array[1] + "</th>";
@@ -125,12 +124,12 @@
                                 let array = json[objeto];
                                 html = html + "<tr>"
                                 html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
-                                html = html + "<th>" + Bitacora.Codigo + "</th>";
+                                html = html + "<th>" + Bitacora.Usuario + "</th>";
                                 html = html + "<th>" + Bitacora.AccionNombre + "</th>";
+                                html = html + "<th>" + objeto + "</th>";
                                 html = html + "<th>" + moment(Bitacora.Fecha).format('MM/DD/YYYY') + "</th>";
                                 html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
-                                html = html + "<th>" + Bitacora.Usuario + "</th>";
-                                html = html + "<th>" + objeto + "</th>";
+                                html = html + "<th>" + Bitacora.Codigo + "</th>";
                                 html = html + "<th>N/A</th>";
                                 html = html + "<th>" + array[0] + "</th>";
                                 html = html + "<th>" + array[1] + "</th>";
@@ -144,12 +143,12 @@
                   
                     html = html + "<tr>"
                     html = html + "<th scope='row'>" + Bitacora.Pantalla + "</th>";
-                    html = html + "<th>" + Bitacora.Codigo + "</th>";
+                    html = html + "<th>" + Bitacora.Usuario + "</th>";
                     html = html + "<th>" + Bitacora.AccionNombre + "</th>";
+                    html = html + "<th>N/A</th>";
                     html = html + "<th>" + moment(Bitacora.Fecha).format('MM/DD/YYYY') + "</th>";
                     html = html + "<th>" + moment(Bitacora.Fecha).format('hh:mm a') + "</th>";
-                    html = html + "<th>" + Bitacora.Usuario + "</th>";
-                    html = html + "<th>N/A</th>";
+                    html = html + "<th>" + Bitacora.Codigo + "</th>";
                     html = html + "<th>N/A</th>";
                     html = html + "<th>N/A</th>";
                     html = html + "<th>N/A</th>";
