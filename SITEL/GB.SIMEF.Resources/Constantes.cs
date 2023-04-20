@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -229,6 +230,15 @@ namespace GB.SIMEF.Resources
 
         public static readonly string ParametrosReglaValidacionDispatch = "Unico";
         public static readonly string ParametrosReglaValidacionPeriodicity = "Solo";
+
+        public static readonly Color headColorFromHex = System.Drawing.ColorTranslator.FromHtml("#2f75b5");
+        public static readonly Color fontColorFromHex = System.Drawing.ColorTranslator.FromHtml("#fff");
+        public static readonly Color grayColorFromHex = System.Drawing.ColorTranslator.FromHtml("#e7e6e6");
+        public static readonly Color greenColorFromHex = System.Drawing.ColorTranslator.FromHtml("#e2efda");
+        public static readonly Color greenColorFromHex1 = System.Drawing.ColorTranslator.FromHtml("#f7f7f7");
+        public static readonly string Rutalogo = "Content\\Images\\logos\\logo-Sutel_11_3.png";
+        public static readonly string Nombrelogo = "SUTEL";
+
         public struct RespuestaEstadoReglasValidacion
         {
             public const string Finalizado = "Finalizado";

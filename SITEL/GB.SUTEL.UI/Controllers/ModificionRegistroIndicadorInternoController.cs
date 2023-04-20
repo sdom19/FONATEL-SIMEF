@@ -190,6 +190,9 @@ namespace GB.SUTEL.UI.Controllers
                 ExcelPackage package;
                 using (package = new ExcelPackage(stream))
                 {
+                    package.Workbook.Protection.LockRevision = true;
+                    package.Workbook.Protection.LockStructure = true;
+
                     ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add("DetalleRegistroIndicador");
 
                     var listaDetalleRegistroIndicador = refRegistroIndicadorInternoBL.gListadoModificacionMasiva(anno, Operador, Servicio, indicador).objObjeto;

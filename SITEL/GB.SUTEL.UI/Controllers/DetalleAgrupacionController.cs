@@ -267,6 +267,9 @@ namespace GB.SUTEL.UI.Controllers
 
                 using (ExcelPackage package = new ExcelPackage(stream))
                 {
+                    package.Workbook.Protection.LockRevision = true;
+                    package.Workbook.Protection.LockStructure = true;
+
                     ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add("Página inicial");
                     ExcelWorksheet worksheet1 = package.Workbook.Worksheets.Add("Agrupación");
                     ExcelWorksheet worksheet2 = package.Workbook.Worksheets.Add("Operador");

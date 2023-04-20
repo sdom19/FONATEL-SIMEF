@@ -85,6 +85,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 MemoryStream stream = new MemoryStream();
                 using (ExcelPackage package = new ExcelPackage(stream))
                 {
+                    package.Workbook.Protection.LockRevision = true;
+                    package.Workbook.Protection.LockStructure = true;
                     foreach (var worksheet in data.Result.objetoRespuesta)
                     {
                         ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(worksheet.NombrePrograma);
@@ -107,6 +109,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                                 int cell2 = fila.NumeroFila + 1;
                                 worksheetInicio.Cells[cell2, cell].Value = fila.Atributo;
                             }
+                            
                         }
                         //Bug 89482 se llama metodo para registrar bitacora cuando se descarga
                         historicoBl.BitacoraDescargar(worksheet);

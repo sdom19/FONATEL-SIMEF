@@ -384,6 +384,9 @@ namespace GB.SUTEL.UI.Controllers
                 
                 #region creacion del excel
                 var package = new ExcelPackage();
+                package.Workbook.Protection.LockRevision = true;
+                package.Workbook.Protection.LockStructure = true;
+
                 package.Workbook.Worksheets.Add("Hoja1");
                 package.Workbook.Worksheets.Add("Inmodificable");
                 ExcelWorksheet ws = package.Workbook.Worksheets[1];
@@ -573,6 +576,9 @@ namespace GB.SUTEL.UI.Controllers
                 {
                     var startRow = 8;
                     var package = new ExcelPackage(file.InputStream);
+                    package.Workbook.Protection.LockRevision = true;
+                    package.Workbook.Protection.LockStructure = true;
+
                     var ws = package.Workbook.Worksheets.FirstOrDefault();
                     var ws2 = package.Workbook.Worksheets[2];
                     if (ws != null)
@@ -708,6 +714,8 @@ namespace GB.SUTEL.UI.Controllers
                 if (archivo.ToUpper().Contains("XLSX"))
                 {
                     var package = new ExcelPackage(file.InputStream);
+                    package.Workbook.Protection.LockRevision = true;
+                    package.Workbook.Protection.LockStructure = true;
                     ExcelWorksheet ws = package.Workbook.Worksheets.FirstOrDefault();
                     ExcelWorksheet ws2 = package.Workbook.Worksheets[2];
                     
