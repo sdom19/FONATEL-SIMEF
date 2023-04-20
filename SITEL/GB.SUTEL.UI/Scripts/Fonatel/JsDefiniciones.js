@@ -26,6 +26,14 @@
         "DefinicionSeleccionada": new Object()
     },
 
+    Mensajes: {
+        tooltipTablaBtnAgregar: "Agregar",
+        tooltipTablaBtnEditar: "Editar",
+        tooltipTablaBtnClonar: "Clonar",
+        tooltipTablaBtnVisualizar: "Visualizar definición",
+        tooltipTablaBtnEliminar: "Eliminar Definición"
+    },
+
     "Metodos": {
         "ValidarControles": function () {
             let validar = true;
@@ -76,34 +84,35 @@
         "CargarTablaDefiniciones": function () {
             EliminarDatasource();
             let html = "";
+
             for (var i = 0; i < JsDefiniciones.Variables.ListadoDefiniciones.length; i++) {
                 let objDefiniciones = JsDefiniciones.Variables.ListadoDefiniciones[i];
 
-                let TieneDefinicion = objDefiniciones.Definicion== null ? "NO" : "SI";
+                let TieneDefinicion = objDefiniciones.Definicion == null ? "NO" : "SI";
 
-                html = html + "<tr><th scope='row'>" + objDefiniciones.Indicador.Codigo + "</th>" +
+                html += "<tr><th scope='row'>" + objDefiniciones.Indicador.Codigo + "</th>" +
                     "<td>" + objDefiniciones.Indicador.Nombre + "</td>" +
                     "<td>" + objDefiniciones.Indicador.GrupoIndicadores.Nombre + "</td>" +
                     "<td>" + objDefiniciones.Indicador.TipoIndicadores.Nombre + "</td>" +
                     "<td>" + TieneDefinicion + "</td>";
-                if (TieneDefinicion=="NO") {
-                    html = html + "<td><button type='button' data-toggle='tooltip' value=" + objDefiniciones.id+"  data-placement='top' title='Agregar' class='btn-icon-base btn-add'></button>" +
-                        "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Editar' class='btn-icon-base btn-edit'></button>" +
-                        "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Clonar' class='btn-icon-base btn-clone'></button>" +
-                        "<button type='button' data-toggle='tooltip' disabled  data-placement='top' title='Visualizar Detalle' class='btn-icon-base btn-view'></button>" +
-                        "<button type='button' data-toggle='tooltip' disabled data-placement='top' title='Eliminar Definición' class='btn-icon-base btn-delete'></button></td>";
+
+                if (TieneDefinicion == "NO") {
+                    html +=
+                        `<td><button type='button' data-toggle='tooltip' value="${objDefiniciones.id}"  data-placement='top' title='${JsDefiniciones.Mensajes.tooltipTablaBtnAgregar}' class='btn-icon-base btn-add'></button>` +
+                        `<button type='button' data-toggle='tooltip' disabled data-placement='top' title='${JsDefiniciones.Mensajes.tooltipTablaBtnEditar}' class='btn-icon-base btn-edit'></button>` +
+                        `<button type='button' data-toggle='tooltip' disabled data-placement='top' title='${JsDefiniciones.Mensajes.tooltipTablaBtnClonar}' class='btn-icon-base btn-clone'></button>` +
+                        `<button type='button' data-toggle='tooltip' disabled data-placement='top' title='${JsDefiniciones.Mensajes.tooltipTablaBtnVisualizar}' class='btn-icon-base btn-view'></button>` +
+                        `<button type='button' data-toggle='tooltip' disabled data-placement='top' title='${JsDefiniciones.Mensajes.tooltipTablaBtnEliminar}' class='btn-icon-base btn-delete'></button></td>`;
                 }
                 else {
-                    html = html + "<td><button type='button' data-toggle='tooltip' disabled data-placement='top' title='Agregar' class='btn-icon-base btn-add'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + objDefiniciones.id+" title='Editar' class='btn-icon-base btn-edit'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + objDefiniciones.id + " title='Clonar' class='btn-icon-base btn-clone'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + objDefiniciones.id + " title='Visualizar Detalle' class='btn-icon-base btn-view'></button>" +
-                        "<button type='button' data-toggle='tooltip' data-placement='top' value=" + objDefiniciones.id +" title='Eliminar Definición' class='btn-icon-base btn-delete'></button></td>";
+                    html +=
+                        `<td><button type='button' data-toggle='tooltip' disabled data-placement='top' title='${JsDefiniciones.Mensajes.tooltipTablaBtnAgregar}' class='btn-icon-base btn-add'></button>` +
+                        `<button type='button' data-toggle='tooltip' data-placement='top' value="${objDefiniciones.id}" title='${JsDefiniciones.Mensajes.tooltipTablaBtnEditar}' class='btn-icon-base btn-edit'></button>` +
+                        `<button type='button' data-toggle='tooltip' data-placement='top' value="${objDefiniciones.id}" title='${JsDefiniciones.Mensajes.tooltipTablaBtnClonar}' class='btn-icon-base btn-clone'></button>` +
+                        `<button type='button' data-toggle='tooltip' data-placement='top' value="${objDefiniciones.id}" title='${JsDefiniciones.Mensajes.tooltipTablaBtnVisualizar}' class='btn-icon-base btn-view'></button>` +
+                        `<button type='button' data-toggle='tooltip' data-placement='top' value="${objDefiniciones.id}" title='${JsDefiniciones.Mensajes.tooltipTablaBtnEliminar}' class='btn-icon-base btn-delete'></button></td>`;
                 }
-             
-
-
-                html = html + "</tr>"
+                html += "</tr>"
             }
             $(JsDefiniciones.Controles.TablaDefiniciones).html(html);
             CargarDatasource();

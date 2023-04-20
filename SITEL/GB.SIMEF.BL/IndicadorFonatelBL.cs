@@ -937,29 +937,23 @@ namespace GB.SIMEF.BL
                 pIndicador.IdTipoIndicador = number;
                 pIndicador.TipoIndicadores.IdTipoIndicador = pIndicador.TipoIndicadores != null ? number : 0;
             }
-            
-            if (!string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores?.id))
+
+            if (pIndicador.ClasificacionIndicadores != null && pIndicador.ClasificacionIndicadores?.IdClasificacionIndicador != 0)
             {
-                int.TryParse(Utilidades.Desencriptar(pIndicador.ClasificacionIndicadores.id), out int number);
-                pIndicador.IdClasificacionIndicador = number;
-                pIndicador.ClasificacionIndicadores.IdClasificacionIndicador = pIndicador.ClasificacionIndicadores != null ? number : 0;
+                pIndicador.IdClasificacionIndicador = pIndicador.ClasificacionIndicadores.IdClasificacionIndicador;
+
+                if (pIndicador.IdClasificacionIndicador == (int)ClasificacionIndicadorEnum.Entrada) // reestablecer el campo de gráfico
+                {
+                    pIndicador.GraficoInforme = new GraficoInforme() { IdGraficoInforme = (int)TipoGraficoInformeEnum.Estandar };
+                    pIndicador.IdGraficoInforme = (int)TipoGraficoInformeEnum.Estandar;
+                }
             }
 
             if (!string.IsNullOrEmpty(pIndicador.GraficoInforme?.id))
             {
-                if(pIndicador.GraficoInforme.id != "0")
-                {
-                    int.TryParse(Utilidades.Desencriptar(pIndicador.GraficoInforme.id), out int number);
-                    pIndicador.IdGraficoInforme = number;
-                    pIndicador.GraficoInforme.IdGraficoInforme = pIndicador.GraficoInforme != null ? number : 0;
-                }
-                else
-                {
-                    pIndicador.IdGraficoInforme = 0;
-                    pIndicador.GraficoInforme.IdGraficoInforme = pIndicador.GraficoInforme != null ? 0 : 0;
-                }
-
-                
+                int.TryParse(Utilidades.Desencriptar(pIndicador.GraficoInforme.id), out int number);
+                pIndicador.IdGraficoInforme = number;
+                pIndicador.GraficoInforme.IdGraficoInforme = pIndicador.GraficoInforme != null ? number : 0;
             }
 
             if (!string.IsNullOrEmpty(pIndicador.GrupoIndicadores?.id))

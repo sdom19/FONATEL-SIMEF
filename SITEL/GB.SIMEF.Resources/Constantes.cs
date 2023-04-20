@@ -100,7 +100,6 @@ namespace GB.SIMEF.Resources
         /// </summary>
         public enum ClasificacionIndicadorEnum : int
         {
-            SinDefinir = 1,
             Entrada = 4,
             Salida = 2,
             EntradaSalida = 3
@@ -168,6 +167,11 @@ namespace GB.SIMEF.Resources
             Cuatrimestre = 7,
             Semestral = 8,
             Anual = 9
+        }
+
+        public enum TipoGraficoInformeEnum : int
+        {
+            Estandar = 0
         }
 
         /// <summary>

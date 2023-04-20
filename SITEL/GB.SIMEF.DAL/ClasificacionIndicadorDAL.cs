@@ -38,6 +38,7 @@ namespace GB.SIMEF.DAL
             lista = lista.Select(x => new ClasificacionIndicador()
             {
                 id = Utilidades.Encriptar(x.IdClasificacionIndicador.ToString()),
+                IdClasificacionIndicador = x.IdClasificacionIndicador,
                 Nombre = x.Nombre,
                 Estado = x.Estado
             }).ToList();

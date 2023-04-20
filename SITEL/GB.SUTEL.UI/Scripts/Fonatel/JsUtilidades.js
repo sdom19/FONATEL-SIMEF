@@ -47,6 +47,12 @@
             'FormulaActualizacionSecuencial': 5,
             'FormulaContraOtroIndicadorSalida': 6,
             'FormulaContraOtroIndicadorEntradaSalida': 7
+        },
+        ClasificacionIndicador:
+        {
+            Salida: 2,
+            EntradaSalida: 3,
+            Entrada: 4
         }
     }
 }

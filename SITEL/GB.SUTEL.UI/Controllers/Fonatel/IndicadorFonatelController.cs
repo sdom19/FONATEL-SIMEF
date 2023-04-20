@@ -516,7 +516,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 resultado = tipoIndicadorBL.InsertarDatos(new TipoIndicador()
                 {
-                    id = "",
+                    id = string.Empty,
                     IdTipoIndicador = 0,
                     Nombre = pNombre.Trim(),
                     Estado = true // activo
@@ -557,7 +557,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 resultado = grupoIndicadorBL.InsertarDatos(new GrupoIndicador()
                 {
-                    id = "",
+                    id = string.Empty,
                     IdGrupoIndicador = 0,
                     Nombre = pNombre.Trim(),
                     Estado = true // activo
@@ -598,7 +598,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             {
                 resultado = unidadEstudioBL.InsertarDatos(new UnidadEstudio()
                 {
-                    id = "",
+                    id = string.Empty,
                     IdUnidadEstudio = 0,
                     Nombre = pNombre.Trim(),
                     Estado = true // activo
@@ -626,14 +626,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(
                     new RespuestaConsulta<List<Indicador>>() { HayError = (int)Error.ErrorControlado, MensajeError = mensajeValidacionIndicador });
             }
+
             pIndicador.IdEstadoRegistro = pIndicador.IdEstadoRegistro == (int)EstadosRegistro.Desactivado ? pIndicador.IdEstadoRegistro : (int)EstadosRegistro.EnProceso;
             pIndicador.UsuarioCreacion = usuario;
+
+            if (pIndicador.esGuardadoParcial)
+            {
+                PrepararObjetoIndicadorGuardadoParcial(pIndicador);
+                pIndicador.IdEstadoRegistro = ValidarGuardadoParcialEstadocompleto(pIndicador).Result == true ? (int)EstadosRegistro.Activo : (int)EstadosRegistro.EnProceso;
+            }
 
             // evitar datos indeseados en los ids
             pIndicador.IdIndicador = 0;
             pIndicador.IdTipoIndicador = 0;
             pIndicador.IdFrecuenciaEnvio = 0;
-            pIndicador.IdClasificacionIndicador = 0;
+            //pIndicador.IdClasificacionIndicador = 0;
             pIndicador.IdTipoIndicador = 0;
             pIndicador.IdGrupoIndicador = 0;
             pIndicador.IdUnidadEstudio = 0;
@@ -642,12 +649,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             RespuestaConsulta<List<Indicador>> resultado = new RespuestaConsulta<List<Indicador>>();
 
             await Task.Run(() =>
-            {
-                if (pIndicador.esGuardadoParcial)
-                {
-                    PrepararObjetoIndicadorGuardadoParcial(pIndicador);
-                    pIndicador.IdEstadoRegistro = ValidarGuardadoParcialEstadocompleto(pIndicador).Result == true ? (int)EstadosRegistro.Activo : (int)EstadosRegistro.EnProceso;
-                }            
+            {          
                 resultado = indicadorBL.InsertarDatos(pIndicador);
             });
             return JsonConvert.SerializeObject(resultado);
@@ -1107,7 +1109,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     pIndicador.TipoIndicadores == null          || string.IsNullOrEmpty(pIndicador.TipoIndicadores.id) ||
                     pIndicador.FrecuenciaEnvio == null          || string.IsNullOrEmpty(pIndicador.FrecuenciaEnvio.id) ||
                     pIndicador.Descripcion == null              || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()) ||
-                    pIndicador.ClasificacionIndicadores == null || string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id) ||
+                    pIndicador.ClasificacionIndicadores == null || pIndicador.ClasificacionIndicadores.IdClasificacionIndicador == 0 ||
                     pIndicador.TipoMedida == null               || string.IsNullOrEmpty(pIndicador.TipoMedida.id) ||
                     pIndicador.GrupoIndicadores == null         || string.IsNullOrEmpty(pIndicador.GrupoIndicadores.id) ||
                     pIndicador.Interno == null ||
@@ -1115,11 +1117,21 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     pIndicador.CantidadCategoriaDesagregacion == null ||
                     pIndicador.UnidadEstudio == null            || string.IsNullOrEmpty(pIndicador.UnidadEstudio.id) ||
                     pIndicador.Solicitud == null ||
-                    pIndicador.Fuente == null                   || string.IsNullOrEmpty(pIndicador.Fuente.Trim()) || 
-                    pIndicador.GraficoInforme == null || string.IsNullOrEmpty(pIndicador.GraficoInforme.id)
+                    pIndicador.Fuente == null                   || string.IsNullOrEmpty(pIndicador.Fuente.Trim())
                 )
                 {
                     return Errores.CamposIncompletos;
+                }
+
+                if (
+                    pIndicador.ClasificacionIndicadores.IdClasificacionIndicador == (int)ClasificacionIndicadorEnum.Salida ||
+                    pIndicador.ClasificacionIndicadores.IdClasificacionIndicador == (int)ClasificacionIndicadorEnum.EntradaSalida
+                    ) 
+                {
+                    if (pIndicador.GraficoInforme == null || string.IsNullOrEmpty(pIndicador.GraficoInforme.id))
+                    {
+                        return Errores.CamposIncompletos;
+                    }
                 }
             }
 
@@ -1173,7 +1185,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
 
             //Validacion de cantidad de variables dato y cateogrias no pueden ser menor a la cantidad actual
-
             if (!string.IsNullOrEmpty(pIndicador.id))
             {
                 pIndicador.CantidadVariableDato = pIndicador.CantidadVariableDato ?? 0;
@@ -1261,6 +1272,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
 
             return null;
         }
+
         /// <summary>
         /// 18/04/2023
         /// MIchael Hernández Cordero
@@ -1271,29 +1283,33 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         private async Task<bool> ValidarGuardadoParcialEstadocompleto(Indicador pIndicador)
         {
             return
-            await Task.Run(() =>
-            {
-                return detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariable()
+                await Task.Run(() =>
                 {
-                    idIndicadorString=pIndicador.id
-                }).objetoRespuesta;
-            }).ContinueWith((pDetalleIndicadorVariable) => {
-                pIndicador.DetalleIndicadorVariable = pDetalleIndicadorVariable.Result==null
-                    ?new List<DetalleIndicadorVariable>(): pDetalleIndicadorVariable.Result;
-                return detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
+                    return detalleIndicadorVariablesBL.ObtenerDatos(new DetalleIndicadorVariable()
+                    {
+                        idIndicadorString = pIndicador.id
+                    }).objetoRespuesta;
+                })
+                .ContinueWith((pDetalleIndicadorVariable) =>
                 {
-                    idIndicadorString = pIndicador.id
-                }).objetoRespuesta;
-            }).ContinueWith((pDetalleIndicadorCategoria)=> {
-                pIndicador.DetalleIndicadorCategoria = pDetalleIndicadorCategoria.Result == null
-                    ? new List<DetalleIndicadorCategoria>() : pDetalleIndicadorCategoria.Result; 
-                return pIndicador.CantidadCategoriaDesagregacion == pIndicador.DetalleIndicadorCategoria.Count()
-                && pIndicador.CantidadVariableDato == pIndicador.DetalleIndicadorVariable.Count
-                && string.IsNullOrEmpty(ValidarObjetoIndicador(pIndicador, false));
-            });
+                    pIndicador.DetalleIndicadorVariable = pDetalleIndicadorVariable.Result == null
+                        ? new List<DetalleIndicadorVariable>() : pDetalleIndicadorVariable.Result;
+
+                    return detalleIndicadorCategoriaBL.ObtenerDatosPorIndicador(new DetalleIndicadorCategoria()
+                    {
+                        idIndicadorString = pIndicador.id
+                    }).objetoRespuesta;
+                })
+                .ContinueWith((pDetalleIndicadorCategoria) =>
+                {
+                    pIndicador.DetalleIndicadorCategoria = pDetalleIndicadorCategoria.Result == null
+                        ? new List<DetalleIndicadorCategoria>() : pDetalleIndicadorCategoria.Result;
+
+                    return pIndicador.CantidadCategoriaDesagregacion == pIndicador.DetalleIndicadorCategoria.Count()
+                        && pIndicador.CantidadVariableDato == pIndicador.DetalleIndicadorVariable.Count
+                        && string.IsNullOrEmpty(ValidarObjetoIndicador(pIndicador, false));
+                });
         }
-
-
 
         /// <summary>
         /// 30/08/2022
@@ -1312,11 +1328,14 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             if (pIndicador.Descripcion == null || string.IsNullOrEmpty(pIndicador.Descripcion.Trim()))
                 pIndicador.Descripcion = defaultInputTextValue;
             
-            if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
-                pIndicador.ClasificacionIndicadores.id = defaultDropDownValue;
+            if (pIndicador.ClasificacionIndicadores.IdClasificacionIndicador == 0)
+                pIndicador.IdClasificacionIndicador = Constantes.defaultDropDownValue;
+
+            //if (string.IsNullOrEmpty(pIndicador.ClasificacionIndicadores.id))
+            //    pIndicador.ClasificacionIndicadores.id = defaultDropDownValue;
 
             if (string.IsNullOrEmpty(pIndicador.GraficoInforme.id))
-                pIndicador.GraficoInforme.id = "0";
+                pIndicador.GraficoInforme.id = Utilidades.Encriptar(((int)TipoGraficoInformeEnum.Estandar).ToString());
 
             if (string.IsNullOrEmpty(pIndicador.TipoMedida.id))
                 pIndicador.TipoMedida.id = defaultDropDownValue;

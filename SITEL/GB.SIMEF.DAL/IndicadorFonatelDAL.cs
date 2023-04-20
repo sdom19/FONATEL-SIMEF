@@ -595,7 +595,7 @@ namespace GB.SIMEF.DAL
             if (clasificacion != null)
             {
                 clasificacion.id = Utilidades.Encriptar(clasificacion.IdClasificacionIndicador.ToString());
-                clasificacion.IdClasificacionIndicador = 0;
+                //clasificacion.IdClasificacionIndicador = 0;
             }
             return clasificacion;
         }
