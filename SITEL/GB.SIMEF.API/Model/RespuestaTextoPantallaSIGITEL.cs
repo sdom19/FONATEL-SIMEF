@@ -8,7 +8,7 @@ namespace SIMEF.API.Models
 {
     public class RespuestaTextoPantallaSIGITEL
     {
-        public int IdTextoPantallaSIGITEL { get; set; }
+        public int IdContenidoPantallaSIGITEL { get; set; }
         public int IdCatalogoPantallaSIGITEL { get; set; }
         public int IdTipoContenidoTextoSIGITEL { get; set; }
         public string Texto { get; set; }
