@@ -79,6 +79,15 @@ namespace GB.SIMEF.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Detalle.
+        /// </summary>
+        public static string Detalle {
+            get {
+                return ResourceManager.GetString("Detalle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Editar detalle gestión de texto SIGITEL.
         /// </summary>
         public static string EditarDetalleGestionTexto {

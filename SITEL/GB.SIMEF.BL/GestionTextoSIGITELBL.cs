@@ -22,6 +22,11 @@ namespace GB.SIMEF.BL
             this.clsDatos = new GestionTextoSIGITELDAL();
         }
 
+        /// <summary>
+        /// Fecha 20/04/2022
+        /// Adolfo Cunquero
+        /// Obtiene el catalogo de pantallas
+        /// </summary>
         public RespuestaConsulta<List<CatalogoPantallaSIGITEL>> ObtenerPantallasSIGITEL()
         {
             var ResultadoConsulta = new RespuestaConsulta<List<CatalogoPantallaSIGITEL>>();
@@ -46,6 +51,11 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        /// <summary>
+        /// Fecha 20/04/2022
+        /// Adolfo Cunquero
+        /// Obtiene el catalogo de tipo de contenido
+        /// </summary>
         public RespuestaConsulta<List<TipoContenidoTextoSIGITEL>> ObtenerTipoContenido()
         {
             var ResultadoConsulta = new RespuestaConsulta<List<TipoContenidoTextoSIGITEL>>();
@@ -66,6 +76,11 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        /// <summary>
+        /// Fecha 20/04/2022
+        /// Adolfo Cunquero
+        /// Consulta los datos de contenido de la pantalla
+        /// </summary>
         public RespuestaConsulta<List<ContenidoPantallaSIGITEL>> ObtenerDatos(ContenidoPantallaSIGITEL obj)
         {
             var ResultadoConsulta = new RespuestaConsulta<List<ContenidoPantallaSIGITEL>>();
@@ -87,6 +102,11 @@ namespace GB.SIMEF.BL
             return ResultadoConsulta;
         }
 
+        /// <summary>
+        /// Fecha 20/04/2022
+        /// Adolfo Cunquero
+        /// Actualiza o inserta datos y guarda en bitácora
+        /// </summary>
         public RespuestaConsulta<List<ContenidoPantallaSIGITEL>> ActualizarDatos(ContenidoPantallaSIGITEL obj)
         {
             var ResultadoConsulta = new RespuestaConsulta<List<ContenidoPantallaSIGITEL>>();

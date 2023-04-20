@@ -17,7 +17,8 @@
             <div class="form-group row" id="seccion-descripcion">
                 <label for="txtDescripcion" class="col-sm-12 col-form-label">@EtiquetasViewGestionTextoSIGITEL.Descripcion</label>
                 <div class="col-sm-12">
-                    <input type="text" aria-label="Descripcion" class="form-control form-control-fonatel alfa_numerico" maxlength="250" id="txtDescripcion" aria-describedby="Descripción" placeholder="Descripción">
+                    @*<input type="text" aria-label="Descripcion" class="form-control form-control-fonatel alfa_numerico" maxlength="250" id="txtDescripcion" aria-describedby="Descripción" placeholder="Descripción">*@
+                    <textarea id="txtDescripcion" maxlength="1500" placeholder="Descripción" class="w-90 form-control form-control-fonatel alfa_numerico"></textarea>
                     <small id="descripcionHelp" class="form-text form-text-danger-fonatel hidden">@Etiquetas.CampoRequerido</small>
                 </div>
             </div>

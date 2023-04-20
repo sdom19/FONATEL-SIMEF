@@ -75,7 +75,7 @@
                     break;
 
                 case JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.Imagen:
-                    if (!imagen && !JsGestionTextoSIGITEL.Variables.ImagenCargada) {
+                    if (!JsGestionTextoSIGITEL.Variables.ImagenCargada) {
                         $(JsGestionTextoSIGITEL.Controles.imagenHelp).removeClass("hidden");
                         $(JsGestionTextoSIGITEL.Controles.imageFile).parent().addClass("has-error");
                         resultado = false;
@@ -99,13 +99,21 @@
         "MostrarDatosDetalleTabla": function (data) {
             JsGestionTextoSIGITEL.Variables.DatosTablaDetalle = data;
             EliminarDatasource();
+            $(JsGestionTextoSIGITEL.Controles.TablaDetalleTexto).html("");
             let html = "";
             for (var i = 0; i < data.length; i++) {
                 let item = data[i];
                 html = html + "<tr><th scope='row'>" + item.Orden + "</th><td>" + item.TipoContenidoTextoSIGITEL.NombreTipoContenido + "</td>";
+
+                if (item.IdTipoContenidoTextoSIGITEL == JsGestionTextoSIGITEL.Variables.TipoContenidoDetalle.Imagen) {
+                    html = html + "<td><img height='50' src='"+item.RutaImagen+"'/></td>";
+                } else {
+                    html = html + "<td>"+item.Texto.substring(0, 150)+"</td>";
+                }
+
                 html = html + "<td><button type='button' data-toggle='tooltip' data-placement='top' value=" + item.IdContenidoPantallaSIGITEL + " title='Editar' class='btn-icon-base btn-edit'></button>";
                 html = html + "<button type='button' data-toggle='tooltip' data-placement='top' value=" + item.IdContenidoPantallaSIGITEL + " title='Eliminar' class='btn-icon-base btn-delete '></button></td></tr>";
-                html = html + "</tr>"
+                //html = html + "</tr>"
             }
             $(JsGestionTextoSIGITEL.Controles.TablaDetalleTexto).html(html);
             CargarDatasource();
@@ -169,6 +177,11 @@
             objData.Texto = $(JsGestionTextoSIGITEL.Controles.txtDescripcion).val();
             objData.Estado = true;
 
+            if (objData.IdContenidoPantallaSIGITEL != "0") {
+                let itemEdit = JsGestionTextoSIGITEL.Variables.DatosTablaDetalle.find(item => item.IdContenidoPantallaSIGITEL == parseInt(objData.IdContenidoPantallaSIGITEL));
+                objData.RutaImagen = itemEdit.RutaImagen;
+            }
+
             data.append('datos', JSON.stringify({ datos: objData}));
             
             $.ajax({
@@ -210,6 +223,7 @@
             objData.IdCatalogoPantallaSIGITELString = ObtenerValorParametroUrl("id");
             objData.IdTipoContenidoTextoSIGITEL = itemEdit.IdTipoContenidoTextoSIGITEL;
             objData.IdContenidoPantallaSIGITEL = id;
+            objData.RutaImagen = itemEdit.RutaImagen;
             objData.Estado = false;
 
             data.append('datos', JSON.stringify({ datos: objData }));
@@ -278,7 +292,7 @@ $(document).on("click", JsGestionTextoSIGITEL.Controles.btnEditarDetalleTexto, f
 
 $(document).on("click", JsGestionTextoSIGITEL.Controles.btnEditarTexto, function () {
     let id = $(this).val();
-    window.location.href = "/Fonatel/GestionTextoSIGITEL/Create?id=" + id;
+    window.location.href = "/GestionTextoSIGITEL/Create?id=" + id;
 });
 
 $(document).on("change", JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle, function () {
@@ -311,6 +325,10 @@ $(document).on("change", JsGestionTextoSIGITEL.Controles.imageFile, function (ev
     } else {
         JsGestionTextoSIGITEL.Variables.ImagenCargada = false;
     }
+});
+
+$(document).on("click", JsGestionTextoSIGITEL.Controles.imageFile, function (evt) {
+    JsGestionTextoSIGITEL.Variables.ImagenCargada = false;
 });
 
 $(document).on("click", JsGestionTextoSIGITEL.Controles.btnGuardarDetalle, function (e) {
@@ -354,7 +372,7 @@ $(document).on("click", JsGestionTextoSIGITEL.Controles.btnFinalizarDetalle, fun
         });
     */
 
-    window.location.href = "/Fonatel/GestionTextoSIGITEL/Index";
+    window.location.href = "/GestionTextoSIGITEL/Index";
 });
 
 $(function () {

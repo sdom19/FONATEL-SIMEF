@@ -12,6 +12,11 @@ namespace GB.SIMEF.DAL
     {
         private SIGITELSIMEFContext db;
 
+        /// <summary>
+        /// Fecha 20/04/2022
+        /// Adolfo Cunquero
+        /// Obtiene el catalogo de pantallas
+        /// </summary>
         public List<CatalogoPantallaSIGITEL> ObtenerPantallasSIGITEL()
         {
             List<CatalogoPantallaSIGITEL> data = null;
@@ -22,6 +27,11 @@ namespace GB.SIMEF.DAL
             return data;
         }
 
+        /// <summary>
+        /// Fecha 20/04/2022
+        /// Adolfo Cunquero
+        /// Obtiene listado de tipo de contenido
+        /// </summary>
         public List<TipoContenidoTextoSIGITEL> ObtenerTipoContenido()
         {
             List<TipoContenidoTextoSIGITEL> data = null;
@@ -32,6 +42,11 @@ namespace GB.SIMEF.DAL
             return data;
         }
 
+        /// <summary>
+        /// Fecha 20/04/2022
+        /// Adolfo Cunquero
+        /// Actualiza o inserta datos detalle del contenido sigitel
+        /// </summary>
         public List<ContenidoPantallaSIGITEL> ActualizarDatos(ContenidoPantallaSIGITEL obj)
         {
             List<ContenidoPantallaSIGITEL> data = null;
@@ -53,6 +68,11 @@ namespace GB.SIMEF.DAL
             return data;
         }
 
+        /// <summary>
+        /// Fecha 20/04/2022
+        /// Adolfo Cunquero
+        /// Consulta datos de una pantalla o vista sigitel
+        /// </summary>
         public List<ContenidoPantallaSIGITEL> ObtenerDatos(ContenidoPantallaSIGITEL obj)
         {
             List<ContenidoPantallaSIGITEL> data = null;
@@ -68,6 +88,11 @@ namespace GB.SIMEF.DAL
             return data;
         }
 
+        /// <summary>
+        /// Fecha 20/04/2022
+        /// Adolfo Cunquero
+        /// Genera objeto completo con tipo de contnido y pantalla del detalle
+        /// </summary>
         private List<ContenidoPantallaSIGITEL> PrepararObjetoListado(List<ContenidoPantallaSIGITEL> data)
         {
             var result = data.Select(x => new ContenidoPantallaSIGITEL

@@ -848,6 +848,7 @@
     <Content Include="Content\Fonatel\fonts\SourceSansPro\SourceSansPro-BoldItalic.ttf" />
     <Content Include="Content\Fonatel\fonts\SourceSansPro\SourceSansPro-BoldItalic.woff" />
     <Content Include="Content\Fonatel\fonts\SourceSansPro\SourceSansPro-BoldItalic.woff2" />
+    <Content Include="Content\ImagesSIGITEL\default.json" />
     <None Include="Content\structure.scss" />
     <Content Include="Content\sweetalert2-7.32.2\package\dist\sweetalert2.all.js" />
     <Content Include="Content\sweetalert2-7.32.2\package\dist\sweetalert2.all.min.js" />

@@ -123,6 +123,9 @@
   <data name="Descripcion" xml:space="preserve">
     <value>Descripcion</value>
   </data>
+  <data name="Detalle" xml:space="preserve">
+    <value>Detalle</value>
+  </data>
   <data name="EditarDetalleGestionTexto" xml:space="preserve">
     <value>Editar detalle gestión de texto SIGITEL</value>
   </data>
