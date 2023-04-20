@@ -57,7 +57,8 @@
             <div class="form-group">
                 <label for="ddlClasificacion" class="col-form-label ">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelClasificacion</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownListFor(model => model.ClasificacionIndicadores.id, new SelectList(ViewBag.Clasificaciones, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlClasificacion" })
+
+                    @Html.DropDownListFor(model => model.ClasificacionIndicadores.IdClasificacionIndicador, new SelectList(ViewBag.Clasificaciones, "IdClasificacionIndicador", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlClasificacion" })
                 </div>
                 <small id="ddlClasificacionHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
@@ -120,7 +121,6 @@
             </div>
         </div>
 
-
     </div>
 
     <div class="row">
@@ -160,7 +160,7 @@
             <div class="form-group">
                 <label for="ddlTipoGrafico" class="col-form-label">@EtiquetasViewIndicadorFonatel.CrearIndicador_LabelTipoGrafico</label>
                 <div class="select2-wrapper">
-                    @Html.DropDownListFor(model => model.GraficoInforme.id, new SelectList(ViewBag.TiposGraficos, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipoGrafico", style = "width: 500px !important;" })
+                    @Html.DropDownListFor(model => model.GraficoInforme.id, new SelectList(ViewBag.TiposGraficos, "id", "Nombre"), "Seleccione", new { @class = "listasDesplegables", id = "ddlTipoGrafico" })
                 </div>
                 <small id="ddlTipoGraficoHelp" class="form-text form-text-danger-fonatel" style="display: none;">@Etiquetas.CampoRequerido</small>
             </div>
@@ -171,11 +171,6 @@
         </div>
 
     </div>
-
-
-
-
-
 
     <div class="row mt-5">
         <div class="col-sm-12">
