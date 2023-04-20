@@ -32,6 +32,7 @@
         },
         "DatosTablaDetalle": [],
         "ImagenCargada": false,
+        "FileTypes": [".png",".jpg"]
     },
     "Metodos": {
         "PreviewImage": function (event) {
@@ -318,8 +319,20 @@ $(document).on("change", JsGestionTextoSIGITEL.Controles.ddlTipoContenidoDetalle
 });
 
 $(document).on("change", JsGestionTextoSIGITEL.Controles.imageFile, function (evt) {
+
     $(JsGestionTextoSIGITEL.Controles.imgPreview)[0].src = "";
     JsGestionTextoSIGITEL.Metodos.PreviewImage(evt);
+
+    let filePath = event.target.value;
+    let fileType = filePath.substring(filePath.lastIndexOf(".")).toLowerCase();
+
+    if (!JsGestionTextoSIGITEL.Variables.FileTypes.includes(fileType)) {
+        $(JsGestionTextoSIGITEL.Controles.imageFile).val("");
+        jsMensajes.Metodos.OkAlertErrorModal("Debe seleccionar un archivo png o jpg")
+            .set('onok', function (closeEvent) {  });
+        return
+    }
+
     if ($(JsGestionTextoSIGITEL.Controles.imageFile)[0].files.length > 0) {
         JsGestionTextoSIGITEL.Variables.ImagenCargada = true;
     } else {
