@@ -167,26 +167,18 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 package.Workbook.Protection.SetPassword(id);
                 // se crea la hoja y se trabaja con ella
                 ExcelWorksheet worksheetInicio = package.Workbook.Worksheets.Add(categoria.Codigo);
-
-                Color headColorFromHex = System.Drawing.ColorTranslator.FromHtml("#2f75b5");
-                Color fontColorFromHex = System.Drawing.ColorTranslator.FromHtml("#fff");
-                Color grayColorFromHex = System.Drawing.ColorTranslator.FromHtml("#e7e6e6");
-                Color greenColorFromHex = System.Drawing.ColorTranslator.FromHtml("#e2efda");
-                Color greenColorFromHex1 = System.Drawing.ColorTranslator.FromHtml("#f7f7f7");
-
-
+                             
                 worksheetInicio.Cells["A1:E8"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-
-                worksheetInicio.Cells["A1:E6"].Style.Fill.BackgroundColor.SetColor(fontColorFromHex);
-                worksheetInicio.Cells["A7:E7"].Style.Fill.BackgroundColor.SetColor(headColorFromHex);
-                worksheetInicio.Cells["A8:E8"].Style.Fill.BackgroundColor.SetColor(headColorFromHex);
+                worksheetInicio.Cells["A1:E6"].Style.Fill.BackgroundColor.SetColor(Constantes.fontColorFromHex);
+                worksheetInicio.Cells["A7:E7"].Style.Fill.BackgroundColor.SetColor(Constantes.headColorFromHex);
+                worksheetInicio.Cells["A8:E8"].Style.Fill.BackgroundColor.SetColor(Constantes.headColorFromHex);
                 worksheetInicio.Row(7).Height = 6;
                 worksheetInicio.Row(8).Height = 4;
 
                 // carga el logo
-                Image logo = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "Content\\Images\\logos\\logo-Sutel_11_3.png");
+                Image logo = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + Constantes.Rutalogo);
                 logo = (Image)(new Bitmap(logo, new Size(313, 90)));
-                var picture = worksheetInicio.Drawings.AddPicture("SUTEL", logo);
+                var picture = worksheetInicio.Drawings.AddPicture(Constantes.Nombrelogo, logo);
                 picture.SetPosition(1, 0, 0, 0);
                 //fin del logo
                 worksheetInicio.Protection.IsProtected = true;
@@ -194,8 +186,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 worksheetInicio.Cells["A9"].LoadFromCollection(categoria.DetalleCategoriaTexto
 
                     .Select(i => new { i.Codigo, i.Etiqueta }), true);
-                worksheetInicio.Cells["A9"].Value = "Código";
-                worksheetInicio.Cells["B9"].Value = "Etiqueta";
+                worksheetInicio.Cells["A9"].Value = EtiquetasViewCategorias.Codigo;
+                worksheetInicio.Cells["B9"].Value = EtiquetasViewCategorias.Etiqueta;
                 worksheetInicio.Cells.Style.Locked = true;
 
                 worksheetInicio.Cells["A9:B9"].Style.Font.Bold = true;
@@ -211,10 +203,8 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     int j =10 ;
                     j = j + i;
                     string celdas = string.Format("A{0}:B{0}", j);
-
-
                     worksheetInicio.Cells[celdas].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    worksheetInicio.Cells[celdas].Style.Fill.BackgroundColor.SetColor(greenColorFromHex1);
+                    worksheetInicio.Cells[celdas].Style.Fill.BackgroundColor.SetColor(Constantes.greenColorFromHex1);
                     worksheetInicio.Cells[celdas].Style.Font.Color.SetColor(System.Drawing.Color.Black);
                     worksheetInicio.Cells[celdas].AutoFitColumns();
                     worksheetInicio.Cells[celdas].Style.Locked = false;
