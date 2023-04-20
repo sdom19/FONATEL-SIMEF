@@ -15,6 +15,12 @@ namespace GB.SIMEF.API.Controllers
     [ApiController]
     public class TextoPantallaController : Controller
     {
+        /// <summary>
+        /// Fecha 19/04/2022
+        /// Adolfo Cunquero
+        /// Metodo asyc para consumr desde el fornt-end que consulta los textos e imagenes por pantalla
+        /// </summary>
+        
         [HttpGet]
         [Route("ObtenerTextoPantalla/{idPantalla}")]
         public async Task<List<RespuestaTextoPantallaSIGITEL>> Get(int idPantalla)
@@ -22,6 +28,11 @@ namespace GB.SIMEF.API.Controllers
             return await ObtenerTextoPantalla(idPantalla);
         }
 
+        /// <summary>
+        /// Fecha 19/04/2022
+        /// Adolfo Cunquero
+        /// Consulta la BD para obtener los textos e imagenes por pantalla
+        /// </summary>
         internal async Task<List<RespuestaTextoPantallaSIGITEL>> ObtenerTextoPantalla(int idPantalla)
         {
             var SqlQuery = "execute pa_ObtenerTextoPantallaSIGITEL @IdCatalogoPantallaSIGITEL";
