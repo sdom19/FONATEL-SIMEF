@@ -21,7 +21,6 @@ namespace GB.SIMEF.API
         {
             Configuration = configuration;
             Connection.SIGITELDatabase = Configuration.GetConnectionString("SIGITELDatabase");
-            Connection.SIGITELSIMEFDatabase = Configuration.GetConnectionString("SIGITELSIMEFDatabase");
         }
 
         public IConfiguration Configuration { get; }

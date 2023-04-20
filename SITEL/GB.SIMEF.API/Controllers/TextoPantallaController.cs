@@ -28,7 +28,7 @@ namespace GB.SIMEF.API.Controllers
 
             List<RespuestaTextoPantallaSIGITEL> lista = null;
 
-            using (var connection = new SqlConnection(Connection.SIGITELSIMEFDatabase))
+            using (var connection = new SqlConnection(Connection.SIGITELDatabase))
             {
                 lista = (await connection.QueryAsync<RespuestaTextoPantallaSIGITEL>(SqlQuery, new { IdCatalogoPantallaSIGITEL = idPantalla })).ToList();
             }
