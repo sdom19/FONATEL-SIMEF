@@ -394,9 +394,13 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     registroIndicador.IdSolicitud = respuestaConsulta.IdSolicitud;
 
                     registroIndicador.idFormularioWeb = respuestaConsulta.idFormularioWeb;
+                    registroIndicador = registroIndicadorBL.ObtenerDatos(registroIndicador)
+                                .objetoRespuesta.SingleOrDefault();
+                    registroIndicador.IdEstado = (int)Constantes.EstadosRegistro.Completado;
+                    registroIndicador.Estado = Constantes.EstadosRegistro.Completado.ToString();
+                    registroIndicadorBL.ActualizarElemento(registroIndicador);
 
                     envioCorreo = registroIndicadorBL.EnvioCorreoInformante(registroIndicador);
-
                     envioCorreo = registroIndicadorBL.EnvioCorreoEncargado(registroIndicador);
 
                 }

@@ -141,9 +141,9 @@ namespace GB.SIMEF.BL
                     reg.IdSolicitud = objeto.IdSolicitud;
                     var BuscarRegistrosIndicador = registroIndicadorFonatelBl.ObtenerDatos(reg);
 
-                    if(BuscarRegistrosIndicador.objetoRespuesta[0].IdEstado == (int)Constantes.EstadosRegistro.Enviado)
+                    if(BuscarRegistrosIndicador.objetoRespuesta[0].IdEstado == (int)Constantes.EstadosRegistro.Completado)
                     {
-                        reg.IdEstado = (int)Constantes.EstadosRegistro.Enviado;
+                        reg.IdEstado = (int)Constantes.EstadosRegistro.Completado;
                     }
                     else
                     {
@@ -200,7 +200,7 @@ namespace GB.SIMEF.BL
                     RegistroIndicadorFonatel reg = new RegistroIndicadorFonatel();
                     reg.idFormularioWeb = objeto.idFormularioWeb;
                     reg.IdSolicitud = objeto.IdSolicitud;
-                    reg.IdEstado = (int)Constantes.EstadosRegistro.Enviado;
+                    reg.IdEstado = (int)Constantes.EstadosRegistro.Completado;
                     registroIndicadorFonatelBl.ActualizarElemento(reg);
 
                     result = result.Where(x => x.IdSolicitud == detalle.IdSolicitud).ToList();

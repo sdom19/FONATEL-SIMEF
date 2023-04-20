@@ -153,6 +153,9 @@
   <data name="FormatoVariableIncorrecto" xml:space="preserve">
     <value>El formato de la Variable Dato es incorrecto</value>
   </data>
+  <data name="GenerarFilas" xml:space="preserve">
+    <value>Generar</value>
+  </data>
   <data name="LLenadoWeb" xml:space="preserve">
     <value>Llenado Web</value>
   </data>
