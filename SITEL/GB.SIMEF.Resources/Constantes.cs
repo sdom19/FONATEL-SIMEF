@@ -50,7 +50,7 @@ namespace GB.SIMEF.Resources
             Desactivado = 3,
             Eliminado = 4,
             Pendiente = 5,
-            Enviado = 6,
+            Completado = 6,
         }
         /// <summary>
         /// TiposReglasDetalle

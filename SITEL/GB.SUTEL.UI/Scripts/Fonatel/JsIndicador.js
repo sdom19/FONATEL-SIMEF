@@ -684,8 +684,8 @@ CreateView = {
                 })
                 .then(data => {
                     let mensaje =
-                        jsUtilidades.Variables.Acciones.Insertar == $(CreateView.Controles.modoFormulario).val()
-                ? CreateView.Mensajes.exitoCrearIndicador : CreateView.Mensajes.exitoEditarIndicador;
+                        jsUtilidades.Variables.Acciones.Editar == $(CreateView.Controles.modoFormulario).val()
+                            ? CreateView.Mensajes.exitoEditarIndicador : CreateView.Mensajes.exitoCrearIndicador;
 
                         jsMensajes.Metodos.OkAlertModal(mensaje)
                             .set('onok', function (closeEvent) { window.location.href = CreateView.Variables.indexViewURL; });
