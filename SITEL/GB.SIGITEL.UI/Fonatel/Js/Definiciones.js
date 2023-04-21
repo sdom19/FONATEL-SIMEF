@@ -87,7 +87,7 @@ function changeTipoIndicador(tipoIndicador) {
                 Servicios.innerHTML = '<option value="-1" selected="true">(Selecciona)</option>';
                 for (let valor of datos) {
                     var nombre = valor.nombreIndicador;
-                    Servicios.innerHTML += `<option class="optionIndicador" value="${valor.idIndicador}"> ${valor.idIndicador} - ${nombre}</option>`
+                    Servicios.innerHTML += `<option class="optionIndicador" value="${valor.idIndicador}"> ${valor.idIndicador} - ${valor.nombreIndicador}</option>`
                 }
             })
 }
@@ -185,7 +185,7 @@ jQuery(document).ready(function () {
         .then(datos => {
             for (let valor of datos) {
                 if(valor.estado){
-                    html += '<li onclick="changeTipoIndicador('+valor.idTipoIdicador+');" style="text-align: center;padding-top: auto;"><a class="def-btn" style="height: 40px;margin-left: 10%;"><figure class="effect-bubba" style="height: 40px;margin-top: 0px !important;padding-top: 10px;background: #006671;">'+valor.nombre.substr(0,12)+'<figcaption class="navbar-rigth"></figcaption></figure></a></li>';
+                    html += '<li onclick="changeTipoIndicador('+valor.idTipoIndicador+');" style="text-align: center;padding-top: auto;"><a class="def-btn" style="height: 40px;margin-left: 10%;"><figure class="effect-bubba" style="height: 40px;margin-top: 0px !important;padding-top: 10px;background: #006671;">'+valor.nombre.substr(0,12)+'<figcaption class="navbar-rigth"></figcaption></figure></a></li>';
                 }
             }
             document.querySelector('.botonesTipo').innerHTML += html
