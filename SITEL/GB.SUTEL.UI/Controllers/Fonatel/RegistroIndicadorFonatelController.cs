@@ -150,8 +150,6 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 var picture = worksheetInicio.Drawings.AddPicture(Constantes.Nombrelogo, logo);
                 picture.SetPosition(1, 0, 0, 0);
                 //fin del logo
-                worksheetInicio.Protection.IsProtected = true;
-                worksheetInicio.Protection.SetPassword(nombre);
                 int celda = 1;
                 foreach (var item in listaVariable)
                 {
@@ -178,11 +176,32 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     worksheetInicio.Cells[9, celda].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                     worksheetInicio.Cells[9, celda].Style.Fill.BackgroundColor.SetColor(Constantes.headColorFromHex);
                     worksheetInicio.Cells[9, celda].Style.Font.Color.SetColor(System.Drawing.Color.White);
-                    worksheetInicio.Cells[9, celda].Style.Font.Bold = true;
-                    worksheetInicio.Cells[9, celda].AutoFitColumns();
-                   // worksheetInicio.Cells[9, celda].Style.Locked = false;
-                    worksheetInicio.Column(celda).Style.Numberformat.Format = "@";
+                    worksheetInicio.Column(celda).AutoFit(20,40);
 
+
+
+
+                    // worksheetInicio.Cells[9, celda].Style.Locked = false;
+
+                    switch (item.IdTipoCategoria)
+                    { 
+                        case 1:
+                            worksheetInicio.Column(celda).Style.Numberformat.Format = "####,##0";
+                            
+                            break;
+                        case 2:
+                            worksheetInicio.Column(celda).Style.Numberformat.Format = "@";
+                            
+                            break;
+                        case 4:
+                            worksheetInicio.Column(celda).Style.Numberformat.Format = "dd/MM/yyyy";
+                            
+                            break;
+                        case 5:
+                            worksheetInicio.Column(celda).Style.Numberformat.Format = "@";
+                            break;
+                    }
+                    
                     celda++;
                 }
 
@@ -190,8 +209,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila+9, celda-1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                 worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila+9, celda-1].Style.Fill.BackgroundColor.SetColor(Constantes.greenColorFromHex1);
                 worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila+9, celda-1].Style.Font.Color.SetColor(System.Drawing.Color.Black);
-                worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila +9, celda - 1].AutoFitColumns();
+               // worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila +9, celda - 1].AutoFitColumns();
                 worksheetInicio.Cells[10, 1, detalleRegistroIndicadorFonatel.CantidadFila +9, celda - 1].Style.Locked = false;
+                
+
+                worksheetInicio.Protection.IsProtected = true;
+                worksheetInicio.Protection.SetPassword(nombre);
 
                 //89482 Llamado de metodo para bitacora al descargar 
                 registroIndicadorBL.BitacoraDescargar(registro.objetoRespuesta[0]);
