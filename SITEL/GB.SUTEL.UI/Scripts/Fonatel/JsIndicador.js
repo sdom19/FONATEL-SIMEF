@@ -1853,6 +1853,10 @@ CreateView = {
             let validacion = ValidarFormulario(CreateView.Controles.formIndicador.inputs, CreateView.Variables.listaExcepciones);
             CreateView.Metodos.CambiarEstadoBtnSiguienteFormIndicador(!validacion.puedeContinuar);
         }
+        else if (jsUtilidades.Variables.Acciones.Clonar == modo) {
+            CreateView.Metodos.HabilitarControlesTipoGrafico();
+            CreateView.Metodos.ControlarExcepcionesFormularioIndicador();
+        }
     }
 },
 
