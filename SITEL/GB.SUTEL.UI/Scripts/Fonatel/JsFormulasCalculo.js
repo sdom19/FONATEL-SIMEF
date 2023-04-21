@@ -153,19 +153,23 @@
                 html += "<td>" + formula.Descripcion + "</td>";
                 html += "<td>" + formula.EstadoRegistro.Nombre + "</td>";
                 html += "<td>" +
-                    `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipEditarFormula}' value='${formula.id}' class='btn-icon-base btn-edit'></button>` +
-                    `<button type = 'button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipClonarFormula}' value='${formula.id}' class='btn-icon-base btn-clone'></button>` +
-                    `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipVisualizarFormula}' value='${formula.id}' class='btn-icon-base btn-view'></button>`;
+                    `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipEditarFormula}' value='${formula.id}' class='btn-icon-base btn-edit'></button>`;
 
                 if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.Activo) {
+                    html += `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipClonarFormula}' value='${formula.id}' class='btn-icon-base btn-clone'></button>`;
+                    html += `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipVisualizarFormula}' value='${formula.id}' class='btn-icon-base btn-view'></button>`;
                     html += `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipDesactivarFormula}' data-original-title='${IndexView.Mensajes.tooltipDesactivarFormula}' value='${formula.id}' class='btn-icon-base btn-power-on'></button>`;
                     html += `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipEjecutarFormula}' data-original-title='${IndexView.Mensajes.tooltipEjecutarFormula}' value='${formula.id}' class='btn-icon-base btn-reload'></button>`;
                 }
                 else if (formula.IdEstadoRegistro == jsUtilidades.Variables.EstadoRegistros.EnProceso) {
+                    html += `<button type='button' class='btn-icon-base btn-clone' disabled></button>`;
+                    html += `<button type='button' class='btn-icon-base btn-view' disabled></button>`;
                     html += "<button type='button' class='btn-icon-base btn-power-on' disabled></button>";
                     html += "<button type='button' class='btn-icon-base btn-reload' disabled></button>";
                 }
                 else {
+                    html += `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipClonarFormula}' value='${formula.id}' class='btn-icon-base btn-clone'></button>`;
+                    html += `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipVisualizarFormula}' value='${formula.id}' class='btn-icon-base btn-view'></button>`;
                     html += `<button type='button' data-toggle='tooltip' data-placement='top' title='${IndexView.Mensajes.tooltipActivarFormula}' data-original-title='${IndexView.Mensajes.tooltipActivarFormula}' value='${formula.id}' class='btn-icon-base btn-power-off'></button>`;
                     html += "<button type='button' class='btn-icon-base btn-reload' disabled></button>";
                 }

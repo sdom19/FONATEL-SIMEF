@@ -21,7 +21,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
     [AuthorizeUserAttribute]
     public class FormulaCalculoController : Controller
     {
-        #region Variables Públicas del controller
+        #region Variables públicas del controller
 
         private readonly FormulasCalculoBL formulaBL;
         private readonly FrecuenciaEnvioBL frecuenciaEnvioBL;
@@ -137,7 +137,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
             catch (Exception) { }
 
+            // formula no encontrada?
             if (objFormulaCalculo == null)
+                return View("Index");
+
+            // la formula no tiene que estar en proceso
+            if (objFormulaCalculo.IdEstadoRegistro == (int)EstadosRegistro.EnProceso)
                 return View("Index");
 
             objFormulaCalculo.Nombre = string.Empty;
@@ -166,7 +171,12 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
             }
             catch (Exception) { }
 
+            // formula no encontrada?
             if (objFormulaCalculo == null)
+                return View("Index");
+
+            // la formula no tiene que estar en proceso
+            if (objFormulaCalculo.IdEstadoRegistro == (int)EstadosRegistro.EnProceso)
                 return View("Index");
 
             CargarDatosEnVistas(Accion.Visualizar, objFormulaCalculo);
@@ -254,7 +264,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
-            FormulaCalculo formulaAEnviar = new FormulaCalculo()
+            FormulaCalculo formulaAEnviar = new FormulaCalculo();
+
+            await Task.Run(() => 
+            { 
+                formulaAEnviar = formulaBL.ObtenerDatos(new FormulaCalculo() { id = pFormulaCalculo.id }).objetoRespuesta.FirstOrDefault();
+            });
+
+            // la formula no tiene que estar en proceso
+            if (formulaAEnviar == null || formulaAEnviar.IdEstadoRegistro == (int)EstadosRegistro.EnProceso)
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            formulaAEnviar = new FormulaCalculo()
             {
                 id = pFormulaCalculo.id,
                 IdEstadoRegistro = (int)EstadosRegistro.Activo
@@ -291,7 +316,22 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(resultado);
             }
 
-            FormulaCalculo formulaAEnviar = new FormulaCalculo()
+            FormulaCalculo formulaAEnviar = new FormulaCalculo();
+
+            await Task.Run(() =>
+            {
+                formulaAEnviar = formulaBL.ObtenerDatos(new FormulaCalculo() { id = pFormulaCalculo.id }).objetoRespuesta.FirstOrDefault();
+            });
+
+            // la formula no tiene que estar en proceso
+            if (formulaAEnviar == null || formulaAEnviar.IdEstadoRegistro == (int)EstadosRegistro.EnProceso)
+            {
+                resultado.HayError = (int)Error.ErrorControlado;
+                resultado.MensajeError = Errores.NoRegistrosActualizar;
+                return JsonConvert.SerializeObject(resultado);
+            }
+
+            formulaAEnviar = new FormulaCalculo()
             {
                 id = pFormulaCalculo.id,
                 IdEstadoRegistro = (int)EstadosRegistro.Desactivado
