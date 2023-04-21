@@ -94,6 +94,7 @@
     <Compile Include="FuenteIndicadorBL.cs" />
     <Compile Include="FuentesRegistroBL.cs" />
     <Compile Include="FuentesRegistroDestinatariosBL.cs" />
+    <Compile Include="GestionTextoSIGITELBL.cs" />
     <Compile Include="GrupoIndicadorBL.cs" />
     <Compile Include="FormulasCalculoBL.cs" />
     <Compile Include="DetalleRegistroIndicadorFonatelBL .cs" />

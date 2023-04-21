@@ -83,6 +83,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EtiquetasViewFuentesRegistro.resx</DependentUpon>
     </Compile>
+    <Compile Include="EtiquetasViewGestionTextoSIGITEL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EtiquetasViewGestionTextoSIGITEL.resx</DependentUpon>
+    </Compile>
     <Compile Include="EtiquetasViewHistorico.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -176,6 +181,10 @@
     <EmbeddedResource Include="EtiquetasViewFuentesRegistro.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EtiquetasViewFuentesRegistro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EtiquetasViewGestionTextoSIGITEL.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EtiquetasViewGestionTextoSIGITEL.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="EtiquetasViewHistorico.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

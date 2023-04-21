@@ -78,6 +78,7 @@
     <Compile Include="FormulasDefinicionFechaDAL.cs" />
     <Compile Include="FormulasVariableDatoCriterioDAL.cs" />
     <Compile Include="FuenteIndicadorDAL.cs" />
+    <Compile Include="GestionTextoSIGITELDAL.cs" />
     <Compile Include="PlantillaHtmlDAL.cs" />
     <Compile Include="EditarRegistroIndicadorDAL.cs" />
     <Compile Include="ReglaComparacionConstanteDAL.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="CALIDADContext.cs" />
     <Compile Include="SIGITELContext.cs" />
     <Compile Include="BDHistoricoContext.cs" />
+    <Compile Include="SIGITELSIMEFContext.cs" />
     <Compile Include="SITELContext.cs" />
     <Compile Include="ServicioSitelDAL.cs" />
     <Compile Include="SolicitudEnvioProgramadoDAL.cs" />

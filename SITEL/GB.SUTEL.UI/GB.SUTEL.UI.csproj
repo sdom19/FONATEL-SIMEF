@@ -261,6 +261,7 @@
     <Compile Include="Controllers\Fonatel\DescargaFormularioController.cs" />
     <Compile Include="Controllers\Fonatel\EditarFormularioController.cs" />
     <Compile Include="Controllers\Fonatel\GeneradorURLController.cs" />
+    <Compile Include="Controllers\Fonatel\GestionTextoSIGITELController.cs" />
     <Compile Include="Controllers\Fonatel\RegistroIndicadorFonatelController.cs" />
     <Compile Include="Controllers\Fonatel\FormularioWebController.cs" />
     <Compile Include="Controllers\Fonatel\PublicacionIndicadoresController.cs" />
@@ -689,6 +690,7 @@
     <Content Include="Scripts\Fonatel\JsFormularios.min.js" />
     <Content Include="Scripts\Fonatel\JsFuentes.min.js" />
     <Content Include="Scripts\Fonatel\JsGeneradorURL.js" />
+    <Content Include="Scripts\Fonatel\JsGestionTextoSIGITEL.js" />
     <Content Include="Scripts\Fonatel\JsHistorico.js" />
     <Content Include="Scripts\Fonatel\JsHistorico.min.js" />
     <Content Include="Scripts\Fonatel\JsIndicador.js" />
@@ -848,6 +850,7 @@
     <Content Include="Content\Fonatel\fonts\SourceSansPro\SourceSansPro-BoldItalic.ttf" />
     <Content Include="Content\Fonatel\fonts\SourceSansPro\SourceSansPro-BoldItalic.woff" />
     <Content Include="Content\Fonatel\fonts\SourceSansPro\SourceSansPro-BoldItalic.woff2" />
+    <Content Include="Content\ImagesSIGITEL\default.json" />
     <None Include="Content\structure.scss" />
     <Content Include="Content\sweetalert2-7.32.2\package\dist\sweetalert2.all.js" />
     <Content Include="Content\sweetalert2-7.32.2\package\dist\sweetalert2.all.min.js" />
@@ -1476,6 +1479,11 @@
     <Content Include="Views\ReglasValidacion\Visualiza.cshtml" />
     <Content Include="Views\ReglasValidacion\_VisualizaRegla.cshtml" />
     <Content Include="Views\ReglasValidacion\_TablaVisualizaTipoRegla.cshtml" />
+    <Content Include="Views\GestionTextoSIGITEL\Index.cshtml" />
+    <Content Include="Views\GestionTextoSIGITEL\_TablaPantallas.cshtml" />
+    <Content Include="Views\GestionTextoSIGITEL\Create.cshtml" />
+    <Content Include="Views\GestionTextoSIGITEL\_CrearDetalle.cshtml" />
+    <Content Include="Views\GestionTextoSIGITEL\_TablaDetalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
