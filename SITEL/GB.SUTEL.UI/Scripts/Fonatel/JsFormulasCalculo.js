@@ -941,6 +941,12 @@ GestionFormulaView = {
             fecha: 2
         },
 
+        NivelCalculo: {
+            valorTotal: "Valor Total",
+            detalleCategoria: "Detalle Desagregación",
+            detalleAgrupacion: "Detalle Agrupación"
+        },
+
         attrCodigo: "data-codigo",
         attrIdentificador: "data-identificador",
         labelGrupo: "Grupo",
@@ -994,7 +1000,7 @@ GestionFormulaView = {
         CargarDatosStep2: function () {
             $("#loading").fadeIn();
 
-            //Se  habilita el boton de cancelar en el paso 2
+            //Se habilita el boton de cancelar en el paso 2
             $(GestionFormulaView.Controles.form.btnCancelar).prop("disabled", false);
 
             GestionFormulaView.Consultas.ConsultarFuentesIndicador()
@@ -1337,11 +1343,11 @@ GestionFormulaView = {
             if (pTipoArgumento == GestionFormulaView.Variables.TipoArgumento.criterio) {
                 let variableCriterio = $(GestionFormulaView.Variables.filaSeleccionadaTablaDetalles).attr("value");
                 let objDetalle = GestionFormulaView.Variables.listaConfigDetallesIndicador[variableCriterio];
-
+                
                 if (objDetalle != null) {
                     argumentoConstruido = this.CrearObjArgumento(
                         GestionFormulaView.Variables.TipoObjetoFormulaCalculo.Variable,
-                        this.ConstruirLabelArgumentoTipoVariableDatoCriterio(objDetalle.codigoIndicador, objDetalle.nombreVariable),
+                        this.ConstruirLabelArgumentoTipoVariableDatoCriterio(objDetalle.codigoIndicador, objDetalle.nombreVariable, objDetalle),
                         pTipoArgumento,
                         objDetalle
                     );
@@ -1363,8 +1369,32 @@ GestionFormulaView = {
             return argumentoConstruido;
         },
 
-        ConstruirLabelArgumentoTipoVariableDatoCriterio: function (pArgIzquierda, pArgDerecha) {
-            return `{${pArgIzquierda} - ${pArgDerecha}}`;
+        ConstruirLabelArgumentoTipoVariableDatoCriterio: function (pArgIzquierda, pArgDerecha, pObjDetalle = null) {
+            let GetFormatoConNivel = (pParametro1, pParametro2, pParametro3) => {
+                return `{${pParametro1} - ${pParametro2} - ${pParametro3}}`;
+            }
+
+            let GetFormatoSimple = (pParametro1, pParametro2) => {
+                return `{${pParametro1} - ${pParametro2}}`;
+            }
+
+            if (pObjDetalle != null) {
+                if (pObjDetalle.fuente_ == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGC) {
+                    return GetFormatoSimple($(GestionFormulaView.Controles.form.ddlIndicador).text(), pArgDerecha);
+                }
+                else if (pObjDetalle.valorTotal) {
+                    return GetFormatoConNivel(GestionFormulaView.Variables.NivelCalculo.valorTotal, pArgIzquierda, pArgDerecha);
+                }
+                else {
+                    if (pObjDetalle.fuente_ == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGM) {
+                        return GetFormatoConNivel(GestionFormulaView.Variables.NivelCalculo.detalleAgrupacion, pArgIzquierda, pArgDerecha);
+                    }
+                    else if (pObjDetalle.fuente_ == GestionFormulaView.Variables.FuenteIndicador.IndicadorDGF) {
+                        return GetFormatoConNivel(GestionFormulaView.Variables.NivelCalculo.detalleCategoria, pArgIzquierda, pArgDerecha);
+                    }
+                }
+            }
+            return GetFormatoSimple(pArgIzquierda, pArgDerecha);
         },
 
         ConstruirLabelArgumentoTipoFecha: function (pConfigDefinicionFecha) {
@@ -2390,7 +2420,6 @@ GestionFormulaView = {
                             $(GestionFormulaView.Controles.modalFechaCalculo.modal).modal('hide');
                         });
                 }
-
             }
         },
 
