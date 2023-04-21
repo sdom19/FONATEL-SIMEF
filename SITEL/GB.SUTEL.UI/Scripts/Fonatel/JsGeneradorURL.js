@@ -14,6 +14,7 @@
     },
     Mensajes: {
         preguntaCancelarAccion: "¿Desea cancelar la acción?",
+        ErrorAlCargarBitacora:"Se genero un error al cargar en bítacora"
     },
     Metodos: {
         CargarTablaIndicadores: function () {
@@ -50,12 +51,30 @@
             CargarDatasource();
         },
         CrearURL: function () {
-            $(jsGeneradorURL.Controles.txtURL).val($(jsGeneradorURL.Controles.txtRuta).val()+jsGeneradorURL.Variables.listadoIndicadores.join(","));
+
+            $("#loading").fadeIn();
+            $(jsGeneradorURL.Controles.txtURL).val($(jsGeneradorURL.Controles.txtRuta).val() + jsGeneradorURL.Variables.listadoIndicadores.join(","));
+            jsGeneradorURL.Consultas.RegistrarBitacoraIndicadores()
+                .then((data) => {
+                    if (obj.HayError != jsUtilidades.Variables.Error.NoError) {
+                        jsMensajes.Metodos.OkAlertErrorModal(jsGeneradorURL.Variables.Mensajes.ErrorAlCargarBitacora)
+                            .set('onok', function (closeEvent) { location.reload(); });
+                    }
+                }).catch((error) => {
+                    jsMensajes.Metodos.OkAlertErrorModal(jsGeneradorURL.Variables.Mensajes.ErrorAlCargarBitacora)
+                        .set('onok', function (closeEvent) { location.reload(); });
+                }).finally(() => {
+                    $("#loading").fadeOut();
+             });
         }
     },
     Consultas: {
         ConsultaListaIndicadores: function () {
             return execAjaxCall('/IndicadorFonatel/ObtenerListaIndicadoresparaGerarURl', 'GET');
+        },
+        RegistrarBitacoraIndicadores: function () {
+            let oListaIndicador = jsGeneradorURL.Variables.listadoIndicadores;
+            return execAjaxCall('/GeneradorURL/RegistarBitacora', 'POST', { oListaIndicador });
         },
     }
 }
@@ -66,7 +85,10 @@ $(document).ready(function () {
 });
 
 $(document).on("click", jsGeneradorURL.Controles.btnGenerarURL, function () {
-    jsGeneradorURL.Metodos.CrearURL();
+    if (jsGeneradorURL.Variables.listadoIndicadores.length>0) {
+        jsGeneradorURL.Metodos.CrearURL();
+    } 
+   
 });
 
 $(document).on("click", jsGeneradorURL.Controles.btnCopiar, function () {

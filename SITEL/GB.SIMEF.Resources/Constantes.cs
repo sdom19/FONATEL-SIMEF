@@ -50,7 +50,7 @@ namespace GB.SIMEF.Resources
             Desactivado = 3,
             Eliminado = 4,
             Pendiente = 5,
-            Completado = 6,
+            Completo = 6,
         }
         /// <summary>
         /// TiposReglasDetalle
@@ -231,7 +231,7 @@ namespace GB.SIMEF.Resources
             public const string Formulario = "Formulario";
             public const string Indicador = "Indicador";
         }
-
+        public static readonly string ValorNoApilca = "N/A";
         public static readonly string ParametrosReglaValidacionDispatch = "Unico";
         public static readonly string ParametrosReglaValidacionPeriodicity = "Solo";
 

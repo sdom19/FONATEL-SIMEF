@@ -218,10 +218,10 @@ namespace GB.SIMEF.BL
             switch (objeto.IdEstado)
             {
                 case 1:
-                    objeto.Estado = EtiquetasViewRegistroIndicadorFonatel.EstadoSolicitudProceso;
+                    objeto.Estado = Constantes.EstadosRegistro.EnProceso.ToString(); ;
                     break;
                 case 6:
-                    objeto.Estado = EtiquetasViewRegistroIndicadorFonatel.EstadoSolicitudEnviado;
+                    objeto.Estado = Constantes.EstadosRegistro.Completo.ToString();
                     break;
                 default:
                     break;
@@ -324,7 +324,7 @@ namespace GB.SIMEF.BL
             {
                 ResultadoConsulta.Clase = modulo;
                 ResultadoConsulta.Accion = (int)Accion.Consultar;
-                objeto.IdEstado = (int)Constantes.EstadosRegistro.Completado;
+                objeto.IdEstado = (int)Constantes.EstadosRegistro.Completo;
                 objeto.RangoFecha = false;
                 var resul = clsDatos.ObtenerDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;

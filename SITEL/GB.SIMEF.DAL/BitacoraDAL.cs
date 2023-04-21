@@ -21,7 +21,7 @@ namespace GB.SIMEF.DAL
             }
         }
 
-        public void RegistrarBitacora(int accion, string usuario, string pantalla, string codigo, string valorActual="", string ValorAnterior="", string ValorInicial="" )
+        public Bitacora RegistrarBitacora(int accion, string usuario, string pantalla, string codigo, string valorActual="", string ValorAnterior="", string ValorInicial="" )
         {
             Bitacora bitacora = new Bitacora()
             {
@@ -39,6 +39,7 @@ namespace GB.SIMEF.DAL
                 db.Bitacora.Add(bitacora);
                 db.SaveChanges();
             }
+            return bitacora;
         }
 
 
