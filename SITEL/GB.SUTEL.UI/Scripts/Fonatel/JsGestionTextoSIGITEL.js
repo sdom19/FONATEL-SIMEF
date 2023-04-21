@@ -371,7 +371,7 @@ $(document).on("click", JsGestionTextoSIGITEL.Controles.btnCancelarDetalle, func
     
     jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea cancelar la acción?", jsMensajes.Variables.actionType.cancelar)
         .set('onok', function (closeEvent) {
-            window.location.href = "/Fonatel/GestionTextoSIGITEL/Index";
+            window.location.href = "/GestionTextoSIGITEL/Index";
         });
 
 });
