@@ -9,6 +9,10 @@ namespace GB.SIMEF.Resources
 {
     public static class Constantes
     {
+        
+        
+        
+        
         /// <summary>
         /// 
         /// </summary>
@@ -175,6 +179,15 @@ namespace GB.SIMEF.Resources
             Estandar = 0
         }
 
+        /// <summary>
+        /// Valores para determinar desde que fila empieza un excel
+        /// </summary>
+
+        public struct Excel
+        {
+            public const int Columna  = 9;
+            public const int Valores = 10;
+        }
         /// <summary>
         /// Debido a la lógica de negocios, no se tienen registros fisicos respecto a los indicadores de calidad, sino columnas de una entidad en BD
         /// </summary>

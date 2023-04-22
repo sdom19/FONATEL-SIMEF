@@ -276,10 +276,12 @@ namespace GB.SIMEF.BL
 
                     List<DetalleRegistroIndicadorVariableValorFonatel> listaValores = new List<DetalleRegistroIndicadorVariableValorFonatel>();
 
-                    for (int i = 1; i < cantColumnas + 1; i++)
+                    for (int i = 1; i <= cantColumnas; i++)
                     {
-                        for (int j = 10; j < cantidadFilas + 10; j++)
+                        int numeroFila = 0;
+                        for (int j = Constantes.Excel.Valores; j < cantidadFilas + Constantes.Excel.Valores; j++)
                         {
+                            numeroFila++;
                             Regex Val = null;
                             var variableDato = worksheet.Cells[j, i].Value.ToString();
 
@@ -296,7 +298,7 @@ namespace GB.SIMEF.BL
                                 obj.idFormularioWeb = detalle.idFormularioWeb;
                                 obj.IdIndicador = detalle.IdIndicador;
                                 obj.IdSolicitud = detalle.IdSolicitud;
-                                obj.NumeroFila = j - 1;
+                                obj.NumeroFila = numeroFila;
                                 obj.IdVariable = listaDetalle[0].DetalleRegistroIndicadorVariableFonatel[i - 1].idVariable;
                                 listaValores.Add(obj);
                             }
@@ -370,18 +372,19 @@ namespace GB.SIMEF.BL
 
                     List<DetalleRegistroIndicadorCategoriaValorFonatel> listaValores = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
 
-                    for (int i = 1; i < cantColumnas + 1; i++)
+      
+                    for (int i = 1; i <= cantColumnas ; i++)
                     {
-                        if (worksheet.Cells[9, i].Value != null)
+                        if (worksheet.Cells[Constantes.Excel.Columna, i].Value != null)
                         {
-                            string desCategoria = worksheet.Cells[9, i].Value.ToString();
+                            string desCategoria = worksheet.Cells[Constantes.Excel.Columna, i].Value.ToString();
 
                             DetalleRegistroIndicadorCategoriaFonatel categoria = listaDetalle[0].DetalleRegistroIndicadorCategoriaFonatel.Where(x => x.NombreCategoria == desCategoria).FirstOrDefault();
 
                             if (categoria != null)
                             {
                                 int numFila = 0;
-                                for (int j = 10; j < cantidadFilas + 9; j++)
+                                for (int j = Constantes.Excel.Valores; j <cantidadFilas + Constantes.Excel.Valores; j++)
                                 {
                                     numFila++;
                                     if (worksheet.Cells[j, i].Value != null)
