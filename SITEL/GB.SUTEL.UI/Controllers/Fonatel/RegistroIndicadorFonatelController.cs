@@ -270,7 +270,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
         /// Cargar de los datos desde un Excel
         /// </summary>
         [HttpPost]
-        public async Task<string> CargarExcel(Object datos, int cantidadFilas)
+        public async Task<string> CargarExcel(Object datos, int cantidadFila)
         {
             //retonar un detalle registro indicador con result / resultVariable
 
@@ -294,7 +294,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 string path = Path.Combine(ruta, fileName);
                 await Task.Run(() =>
                 {
-                    result = detalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcel(file, obj, cantidadFilas);
+                    result = detalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcel(file, obj, cantidadFila);
                     resultDetalle.objetoRespuesta = new DetalleRegistroIndicadorFonatel();
                     if (result.HayError == 0)
                     {
@@ -310,7 +310,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     if (resultDetalle.HayError == 0)
                     {
-                        resultVariable = detalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcelVariable(file, obj, cantidadFilas);
+                        resultVariable = detalleRegistroIndicadorCategoriaValorFonatelBL.CargarExcelVariable(file, obj, cantidadFila);
                         if (resultVariable.HayError == 0)
                         {
                             resultDetalle.objetoRespuesta.DetalleRegistroIndicadorVariableValorFonatel = resultVariable.objetoRespuesta.ToList();
@@ -419,8 +419,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                     registroIndicador.idFormularioWeb = respuestaConsulta.idFormularioWeb;
                     registroIndicador = registroIndicadorBL.ObtenerDatos(registroIndicador)
                                 .objetoRespuesta.SingleOrDefault();
-                    registroIndicador.IdEstado = (int)Constantes.EstadosRegistro.Completado;
-                    registroIndicador.Estado = Constantes.EstadosRegistro.Completado.ToString();
+                    registroIndicador.IdEstado = (int)Constantes.EstadosRegistro.Completo;
                     registroIndicadorBL.ActualizarElemento(registroIndicador);
 
                     envioCorreo = registroIndicadorBL.EnvioCorreoInformante(registroIndicador);

@@ -5,6 +5,7 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -275,10 +276,12 @@ namespace GB.SIMEF.BL
 
                     List<DetalleRegistroIndicadorVariableValorFonatel> listaValores = new List<DetalleRegistroIndicadorVariableValorFonatel>();
 
-                    for (int i = 1; i < cantColumnas + 1; i++)
+                    for (int i = 1; i <= cantColumnas; i++)
                     {
-                        for (int j = 2; j < cantidadFilas + 2; j++)
+                        int numeroFila = 0;
+                        for (int j = Constantes.Excel.Valores; j < cantidadFilas + Constantes.Excel.Valores; j++)
                         {
+                            numeroFila++;
                             Regex Val = null;
                             var variableDato = worksheet.Cells[j, i].Value.ToString();
 
@@ -295,7 +298,7 @@ namespace GB.SIMEF.BL
                                 obj.idFormularioWeb = detalle.idFormularioWeb;
                                 obj.IdIndicador = detalle.IdIndicador;
                                 obj.IdSolicitud = detalle.IdSolicitud;
-                                obj.NumeroFila = j - 1;
+                                obj.NumeroFila = numeroFila;
                                 obj.IdVariable = listaDetalle[0].DetalleRegistroIndicadorVariableFonatel[i - 1].idVariable;
                                 listaValores.Add(obj);
                             }
@@ -369,18 +372,21 @@ namespace GB.SIMEF.BL
 
                     List<DetalleRegistroIndicadorCategoriaValorFonatel> listaValores = new List<DetalleRegistroIndicadorCategoriaValorFonatel>();
 
-                    for (int i = 1; i < cantColumnas + 1; i++)
+      
+                    for (int i = 1; i <= cantColumnas ; i++)
                     {
-                        if (worksheet.Cells[1, i].Value != null)
+                        if (worksheet.Cells[Constantes.Excel.Columna, i].Value != null)
                         {
-                            string desCategoria = worksheet.Cells[1, i].Value.ToString();
+                            string desCategoria = worksheet.Cells[Constantes.Excel.Columna, i].Value.ToString();
 
                             DetalleRegistroIndicadorCategoriaFonatel categoria = listaDetalle[0].DetalleRegistroIndicadorCategoriaFonatel.Where(x => x.NombreCategoria == desCategoria).FirstOrDefault();
 
                             if (categoria != null)
                             {
-                                for (int j = 2; j < cantidadFilas + 2; j++)
+                                int numFila = 0;
+                                for (int j = Constantes.Excel.Valores; j <cantidadFilas + Constantes.Excel.Valores; j++)
                                 {
+                                    numFila++;
                                     if (worksheet.Cells[j, i].Value != null)
                                     {
                                         String valor = "";
@@ -452,7 +458,15 @@ namespace GB.SIMEF.BL
                                                 DateTime outConvert;
 
 
-                                                bool isDate = DateTime.TryParse(worksheet.Cells[j, i].Value.ToString(), out outConvert);
+
+
+
+                                                double.TryParse( worksheet.Cells[j, i].Value.ToString(),out  double num) ;
+
+
+
+
+                                                bool isDate = DateTime.TryParse(DateTime.FromOADate(num).ToString("dd/MM/yyyy"), out outConvert);
 
                                                 if (!isDate)
                                                 {
@@ -462,7 +476,7 @@ namespace GB.SIMEF.BL
                                                 else
                                                 {
                                                    
-                                                    DateTime fechaValor = DateTime.Parse(worksheet.Cells[j, i].Value.ToString());
+                                                    DateTime fechaValor = DateTime.Parse(DateTime.FromOADate(num).ToString("dd/MM/yyyy"));
                                                     if ((DateTime.Parse(categoria.RangoMinimo) <= fechaValor) && (fechaValor <= DateTime.Parse(categoria.RangoMaximo)))
                                                     {
                                                         valor = fechaValor.ToString("yyyy-MM-dd");
@@ -487,7 +501,7 @@ namespace GB.SIMEF.BL
                                             obj.IdIndicador = detalle.IdIndicador;
                                             obj.IdSolicitud = detalle.IdSolicitud;
                                             obj.idCategoria = categoria.idCategoria;
-                                            obj.NumeroFila = j - 1;
+                                            obj.NumeroFila = numFila;
                                             listaValores.Add(obj);
                                         }
                                         else

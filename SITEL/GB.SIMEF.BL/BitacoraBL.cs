@@ -12,18 +12,24 @@ namespace GB.SIMEF.BL
 {
     public class BitacoraBL:IMetodos<Bitacora>
     {
-        private readonly CategoriasDesagregacionDAL clsDatos;
+        #region Variables Globales de la clase
+            private readonly BitacoraDAL clsDatos;
+
+            string modulo = "";
+
+            string user = "";
+
+            private RespuestaConsulta<List<Bitacora>> ResultadoConsulta;
+        #endregion
 
 
-
-        private RespuestaConsulta<List<Bitacora>> ResultadoConsulta;
-
-        public BitacoraBL()
+        public BitacoraBL(string modulo="", string user="")
         {
-            this.clsDatos = new CategoriasDesagregacionDAL();
+            this.clsDatos = new BitacoraDAL();
             this.ResultadoConsulta = new RespuestaConsulta<List<Bitacora>>();
+            this.user = user;
+            this.modulo = modulo;
         }
-
 
         #region Metodos sin Usar
         public RespuestaConsulta<List<Bitacora>> ValidarDatos(Bitacora objeto)
@@ -113,6 +119,23 @@ namespace GB.SIMEF.BL
             }
 
             return ind;
+        }
+
+
+        public RespuestaConsulta<List<Bitacora>> InsertarDatos(int accion, string codigo, string valorActual = "", string ValorAnterior = "", string ValorInicial = "")
+        {
+            ResultadoConsulta.objetoRespuesta = new List<Bitacora>();
+            try
+            {
+                var resultado = clsDatos.RegistrarBitacora(accion, user, modulo, codigo, valorActual, ValorAnterior, ValorInicial);
+                ResultadoConsulta.objetoRespuesta.Add(resultado);
+            }
+            catch (Exception ex)
+            {
+                ResultadoConsulta.HayError = (int)Constantes.Error.ErrorSistema;
+                ResultadoConsulta.MensajeError = ex.Message;
+            }
+            return ResultadoConsulta;
         }
 
     }

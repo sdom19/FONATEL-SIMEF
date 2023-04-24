@@ -228,6 +228,8 @@
         },
 
         "ImportarExcel": function () {
+            let cantidadFilas = $(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val();
+
             var data;
             data = new FormData();
             data.append('file', $(jsRegistroIndicadorFonatel.Controles.inputFileCargarPlantilla)[0].files[0]);
@@ -236,7 +238,7 @@
             registroIndicador.IdFormularioString = ObtenerValorParametroUrl("idFormulario");
             registroIndicador.IdIndicadorString = $(jsRegistroIndicadorFonatel.Controles.tabRgistroIndicadorActive).attr('data-Indicador');
             data.append('datos', JSON.stringify({ datos: registroIndicador }));
-            data.append('cantidadFila', $(jsRegistroIndicadorFonatel.Controles.tabActivoRegistroIndicador).find(jsRegistroIndicadorFonatel.Controles.txtCantidadRegistroIndicador).val());
+            data.append('cantidadFila', cantidadFilas);
             $.ajax({
                 url: jsUtilidades.Variables.urlOrigen + '/RegistroIndicadorFonatel/CargarExcel',
                 type: 'post',

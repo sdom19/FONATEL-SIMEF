@@ -13,15 +13,33 @@ namespace GB.SIMEF.Resources
     public static class Utilidades
     {
 
-        public static string RutaCarpeta(string rutaCapeta, string opcion="")
+        /// <summary>
+        /// Michael Hernandez Cordero
+        /// 21-04-2023
+        /// Metodo para generar el JSON enviado a bitacora
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        public static string GeneradorUrlJson(string indicadores)
         {
-            if (opcion==EtiquetasViewCategorias.Categorias)
+            return string.Format("{{\"Indicadores\":\"{0}\"}}", indicadores);
+        }
+
+
+
+        public static string RutaCarpeta(string rutaCapeta, string opcion = "")
+        {
+            if (opcion == EtiquetasViewCategorias.Categorias)
             {
                 return string.Format(@"{0}\Categorias", rutaCapeta);
             }
-            else
+            else if (opcion == EtiquetasViewRelacionCategoria.RelacionCategoria)
             {
                 return string.Format(@"{0}\Relaciones", rutaCapeta);
+            }
+            else
+            {
+                return string.Format(@"{0}\RegistroIndicador", rutaCapeta);
             }
             
         }

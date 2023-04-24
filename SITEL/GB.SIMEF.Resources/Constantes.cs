@@ -9,6 +9,10 @@ namespace GB.SIMEF.Resources
 {
     public static class Constantes
     {
+        
+        
+        
+        
         /// <summary>
         /// 
         /// </summary>
@@ -50,7 +54,7 @@ namespace GB.SIMEF.Resources
             Desactivado = 3,
             Eliminado = 4,
             Pendiente = 5,
-            Completado = 6,
+            Completo = 6,
         }
         /// <summary>
         /// TiposReglasDetalle
@@ -176,6 +180,15 @@ namespace GB.SIMEF.Resources
         }
 
         /// <summary>
+        /// Valores para determinar desde que fila empieza un excel
+        /// </summary>
+
+        public struct Excel
+        {
+            public const int Columna  = 9;
+            public const int Valores = 10;
+        }
+        /// <summary>
         /// Debido a la lógica de negocios, no se tienen registros fisicos respecto a los indicadores de calidad, sino columnas de una entidad en BD
         /// </summary>
         public struct CriteriosIndicadoresCalidad
@@ -231,7 +244,7 @@ namespace GB.SIMEF.Resources
             public const string Formulario = "Formulario";
             public const string Indicador = "Indicador";
         }
-
+        public static readonly string ValorNoApilca = "N/A";
         public static readonly string ParametrosReglaValidacionDispatch = "Unico";
         public static readonly string ParametrosReglaValidacionPeriodicity = "Solo";
 
