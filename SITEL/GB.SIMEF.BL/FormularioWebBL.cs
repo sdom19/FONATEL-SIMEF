@@ -186,7 +186,7 @@ namespace GB.SIMEF.BL
 
                 ResultadoConsulta.Clase = modulo;
                 objeto.UsuarioModificacion = user;
-                ResultadoConsulta.Accion = objeto.idEstadoRegistro == (int)EstadosRegistro.Activo ? (int)Accion.Activar : (int)Accion.Inactiva;
+                ResultadoConsulta.Accion = objeto.idEstadoRegistro == (int)EstadosRegistro.Activo ? (int)Accion.Activar : (int)Accion.Desactivar;
                 var resul = clsDatos.ActualizarDatos(objeto);
                 string jsonActual = resul.FirstOrDefault().ToString();
                 ResultadoConsulta.Usuario = user;

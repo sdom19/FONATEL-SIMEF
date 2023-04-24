@@ -229,7 +229,7 @@ namespace GB.SIMEF.BL
             {
                 objeto.UsuarioModificacion = user;
                 ResultadoConsulta.Usuario = user;
-                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.idEstadoRegistro ? (int)Accion.Activar : (int)Accion.Inactiva;
+                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.idEstadoRegistro ? (int)Accion.Activar : (int)Accion.Desactivar;
                 //if (objeto.CantidadDetalleDesagregacion!=objeto.DetalleCategoriaTexto.Count() && objeto.idEstado == (int)Accion.Activar)
                 //{
                 //    throw new Exception("No se cumple con la cantidad de atributos configurados");
