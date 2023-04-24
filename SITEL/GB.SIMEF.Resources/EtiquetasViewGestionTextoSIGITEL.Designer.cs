@@ -140,5 +140,23 @@ namespace GB.SIMEF.Resources {
                 return ResourceManager.GetString("TipoDetalle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Editar detalle gestión de texto SIGITEL.
+        /// </summary>
+        public static string TituloVistaCreate {
+            get {
+                return ResourceManager.GetString("TituloVistaCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Gestión de texto SIGITEL.
+        /// </summary>
+        public static string TituloVistaIndex {
+            get {
+                return ResourceManager.GetString("TituloVistaIndex", resourceCulture);
+            }
+        }
     }
 }

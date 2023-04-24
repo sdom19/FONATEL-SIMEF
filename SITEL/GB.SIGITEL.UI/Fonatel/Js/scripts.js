@@ -1,3 +1,11 @@
+jsconstantes={
+	"variables":{
+		"direccionApi":"https://20.62.1.2:44313/api/",
+		"direccionInformes":"http://20.62.1.2/SUTEL/Informes/Informes",
+		"direccionSITEL":"https://20.62.1.2"
+	}
+};
+
 (function (jQuery, document) {
 
 	// get tallest tab__content element
