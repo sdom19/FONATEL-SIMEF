@@ -144,4 +144,10 @@
   <data name="TipoDetalle" xml:space="preserve">
     <value>Tipo detalle</value>
   </data>
+  <data name="TituloVistaCreate" xml:space="preserve">
+    <value>Editar detalle gestión de texto SIGITEL</value>
+  </data>
+  <data name="TituloVistaIndex" xml:space="preserve">
+    <value>Gestión de texto SIGITEL</value>
+  </data>
 </root>
