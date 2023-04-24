@@ -60,6 +60,7 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 {
                     RangoFecha = true
                 }, nombreUsuario);
+                model.objetoRespuesta=model.objetoRespuesta.Where(x => x.FechaFin > System.DateTime.Now).ToList();
                 return View(model.objetoRespuesta);
             }
             else
