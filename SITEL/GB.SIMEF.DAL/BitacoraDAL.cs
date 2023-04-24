@@ -78,7 +78,7 @@ namespace GB.SIMEF.DAL
                     ValorInicial = x.ValorInicial,
                     ValorAnterior = x.ValorAnterior,
 
-                    ValorDiferencial = (x.Accion == (int)Accion.Editar || x.Accion == (int)Accion.Activar || x.Accion == (int)Accion.Inactiva) ? Utilidades.jsonDiff(x.ValorAnterior, x.ValorActual) : string.Empty,
+                    ValorDiferencial = (x.Accion == (int)Accion.Editar || x.Accion == (int)Accion.Activar || x.Accion == (int)Accion.Desactivar) ? Utilidades.jsonDiff(x.ValorAnterior, x.ValorActual) : string.Empty,
                     AccionNombre = Enum.GetName(typeof(Accion), x.Accion)
                 }).ToList();
             }

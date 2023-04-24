@@ -110,7 +110,7 @@ namespace GB.SIMEF.BL
                     case (int)EstadosRegistro.Activo:
                         accion = (int)Accion.Activar; break;
                     case (int)EstadosRegistro.Desactivado:
-                        accion = (int)Accion.Inactiva; break;
+                        accion = (int)Accion.Desactivar; break;
                     case (int)EstadosRegistro.EnProceso:
                         accion = (int)Accion.Editar; break;
                 }
@@ -863,7 +863,7 @@ namespace GB.SIMEF.BL
                 }
 
 
-                resultado.Accion = pIndicador.VisualizaSigitel == true ? (int)Accion.Publicado : (int)Accion.NoPublicado;
+                resultado.Accion = pIndicador.VisualizaSigitel == true ? (int)Accion.Publicar : (int)Accion.DejarDePublicar;
                 resultado.Clase = modulo;
                 resultado.Usuario = user;
                 resultado.CantidadRegistros = indicadorActualizado.Count();

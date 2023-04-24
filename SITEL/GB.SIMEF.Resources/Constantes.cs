@@ -85,14 +85,14 @@ namespace GB.SIMEF.Resources
             Eliminar = 4,
             Clonar = 5,
             Activar = 6,
-            Inactiva = 7,
+            Desactivar = 7,
             Descargar = 8,
             Visualizar = 9,
             EnviarSolicitud = 10,
             ProgramarEnvio = 11,
             EjecutarFormula = 12,
-            Publicado = 13,
-            NoPublicado = 14,
+            Publicar = 13,
+            DejarDePublicar = 14,
             EnviarCorreoInformante = 15,
             EnviarCorreoEncargado = 16
         }

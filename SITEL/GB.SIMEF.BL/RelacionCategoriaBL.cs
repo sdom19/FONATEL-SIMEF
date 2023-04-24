@@ -171,7 +171,7 @@ namespace GB.SIMEF.BL
 
                 string JsonAnterior = objeto.ToString();
 
-                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.IdEstadoRegistro ? (int)Accion.Activar : (int)Accion.Inactiva;
+                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.IdEstadoRegistro ? (int)Accion.Activar : (int)Accion.Desactivar;
                 resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
@@ -413,7 +413,7 @@ namespace GB.SIMEF.BL
                     
                
                 ResultadoConsulta.Clase = modulo;
-                ResultadoConsulta.Accion = objeto.IdEstadoRegistro ==(int)EstadosRegistro.Activo?(int)Accion.Activar:(int)Accion.Inactiva;
+                ResultadoConsulta.Accion = objeto.IdEstadoRegistro ==(int)EstadosRegistro.Activo?(int)Accion.Activar:(int)Accion.Desactivar;
                 ResultadoConsulta.Usuario = user;
                 objeto.UsuarioModificacion = user;
 

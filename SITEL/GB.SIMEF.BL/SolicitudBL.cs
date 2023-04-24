@@ -237,7 +237,7 @@ namespace GB.SIMEF.BL
                 objeto = resul.Single();
                 objeto.IdEstadoRegistro = nuevoEstado;
 
-                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.IdEstadoRegistro ? (int)Accion.Activar : (int)Accion.Inactiva;
+                ResultadoConsulta.Accion = (int)EstadosRegistro.Activo == objeto.IdEstadoRegistro ? (int)Accion.Activar : (int)Accion.Desactivar;
                 resul = clsDatos.ActualizarDatos(objeto);
                 ResultadoConsulta.objetoRespuesta = resul;
                 ResultadoConsulta.CantidadRegistros = resul.Count();
