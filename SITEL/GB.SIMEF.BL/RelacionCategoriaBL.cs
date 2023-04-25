@@ -724,21 +724,21 @@ namespace GB.SIMEF.BL
                     RelacionCategoria relacion = clsDatos.ObtenerDatos(new RelacionCategoria() { Codigo = Codigo }).SingleOrDefault();
                     int columna = 2;
                     relacionId.OpcionEliminar = true;
-                    relacion.CantidadFila=relacion.CantidadFila +2;
-                    for (int fila = 2; fila < relacion.CantidadFila; fila++)
+                    //relacion.CantidadFila=relacion.CantidadFila +2;
+                    for (int fila = Constantes.FilaDatosExcel.DetalleRelacionCategoria; fila < (Constantes.FilaDatosExcel.DetalleRelacionCategoria + relacion.CantidadFila); fila++)
                     {
                         numeroFila = fila;
                         if (worksheet.Cells[fila, 1].Value == null)
                         {
                             ResultadoConsulta.HayError = (int)Error.ErrorControlado;
-                            throw new Exception("El archivo no cuenta con el total de filas configuradas, en total se ingresaron " + (fila - 2) + " filas");
+                            throw new Exception("El archivo no cuenta con el total de filas configuradas, en total se ingresaron " + (fila - Constantes.FilaDatosExcel.DetalleRelacionCategoria) + " filas");
                         }
                         string valorId = worksheet.Cells[fila, 1].Value.ToString().Trim();
                         for (int temp= 2; temp<relacion.DetalleRelacionCategoria.Count()+2; temp++)
                         {
                             columna = temp;
                          
-                            string ValorColumna= worksheet.Cells[1,columna].Value.ToString().Trim().ToUpper();
+                            string ValorColumna= worksheet.Cells[(Constantes.FilaDatosExcel.DetalleRelacionCategoria - 1),columna].Value.ToString().Trim().ToUpper();
 
                             string celdaValor = worksheet.Cells[fila, columna].Value.ToString().Trim().ToUpper();
 
