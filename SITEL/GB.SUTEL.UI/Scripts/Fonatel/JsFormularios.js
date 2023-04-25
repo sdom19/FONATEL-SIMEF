@@ -832,7 +832,32 @@ $(document).on("click", JsFormulario.Controles.btnCloneFormulario, function () {
             window.location.href = "/Fonatel/FormularioWeb/Create?id=" + id + "&modo=" + jsUtilidades.Variables.Acciones.Clonar;
       
 });
-
+//CAMBIO DE FRECUENCIA
+$(document).on("change", JsFormulario.Controles.ddlFrecuanciaEnvio, function (e) {
+    let id = $(this).val();
+   // alert(id);
+    $.ajax({
+        url: jsUtilidades.Variables.urlOrigen + '/FormularioWeb/ObtenerIndicadoresxFrecuencia',
+        type: "GET",
+        dataType: "JSON",
+        beforeSend: function () {
+            //$("#loading").fadeIn();
+        },
+        data: { id },
+        success: function (obj) {
+            $("#loading").fadeOut();
+            //JsFormulario.Metodos.CargarIndicadores(obj);
+            var comboIndicador = document.getElementById("ddlIndicador");
+            comboIndicador.innerHTML = '';
+            comboIndicador.options[0] = new Option("", -1);
+            for (var i = 1; i <= obj.objetoRespuesta.length; i++) {
+                comboIndicador.options[i] = new Option(obj.objetoRespuesta[i - 1].Text, obj.objetoRespuesta[i - 1].Value);
+            }
+        }
+    }).fail(function (obj) {
+        $("#loading").fadeOut();
+    })
+});
 // GUARDAR FORMULARIO
 $(document).on("click", JsFormulario.Controles.btnGuardar, function (e) {
     e.preventDefault();
