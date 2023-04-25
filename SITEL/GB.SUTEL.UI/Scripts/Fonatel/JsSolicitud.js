@@ -612,7 +612,7 @@ JsSolicitud = {
                 .then((obj) => {
 
 
-                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido agregado")
+                    jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido agregado")
                         .set('onok', function (closeEvent) {
 
                             if (obj.objetoRespuesta[0].Completo) {
@@ -651,7 +651,7 @@ JsSolicitud = {
                     JsSolicitud.Metodos.Detalles();
                     JsSolicitud.Metodos.RemoverItemDataTable(JsSolicitud.Controles.TablaFormularioElemento, `button[value='${idFormularioWeb}']`)
 
-                    jsMensajes.Metodos.OkAlertModal("El Formulario ha sido eliminado")
+                    jsMensajes.Metodos.OkAlertModal("El Formulario Web ha sido eliminado")
                         .set('onok', function (closeEvent) {
                             JsSolicitud.Variables.ListadoFormulario = obj.objetoRespuesta;
                         })
@@ -847,7 +847,7 @@ JsSolicitud = {
             execAjaxCall("/SolicitudFonatel/CambiarEstadoActivado", "POST", Solicitud)
                 .then((obj) => {
 
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido creada")
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud de Información ha sido creada")
                         .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/Index"; })
 
                 }).catch((data) => {
@@ -1096,7 +1096,7 @@ $(document).on("click", JsSolicitud.Controles.btnDeleteFormulario, function (e) 
 
     let idFormularioWeb = $(this).val();
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Formulario Web?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
 
             JsSolicitud.Consultas.EliminarDetalleSolicitud(idSolicitud, idFormularioWeb);
