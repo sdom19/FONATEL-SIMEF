@@ -807,7 +807,7 @@ namespace GB.SIMEF.BL
                             ResultadoConsulta.objetoRespuesta = clsDatos.ActualizarRelacionAtributo(item, Accion.Crear);
                         }
                     }
-                    if (relacion.CantidadFila == (numeroFila - Constantes.FilaDatosExcel.DetalleRelacionCategoria))
+                    if (relacion.CantidadFila == (numeroFila - Constantes.FilaDatosExcel.DetalleRelacionCategoria + 1))
                     {
                         relacion.IdEstadoRegistro = (int)EstadosRegistro.Activo;
                         //relacion.CantidadFila = relacion.CantidadFila - 2;
