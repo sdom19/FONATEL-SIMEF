@@ -877,7 +877,7 @@ JsSolicitud = {
 
                     JsSolicitud.Metodos.RemoverItemDataTable(JsSolicitud.Controles.TablaSolicitudElemento, `button[value='${idSolicitud}']`)
 
-                    jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido eliminada")
+                    jsMensajes.Metodos.OkAlertModal("La Solicitud de Información ha sido eliminada")
                         .set('onok', function (closeEvent) {
                             JsSolicitud.Variables.ListadoSolicitudes = obj.objetoRespuesta;
                         });
@@ -975,7 +975,7 @@ JsSolicitud = {
             execAjaxCall("/SolicitudFonatel/EnvioSolicitud", "POST", objeto = objeto)
                 .then((obj) => {
                     if (obj.objetoRespuesta) {
-                        jsMensajes.Metodos.OkAlertModal("La Solicitud ha sido enviada")
+                        jsMensajes.Metodos.OkAlertModal("La Solicitud de Información ha sido enviada")
                             .set('onok', function (closeEvent) { window.location.href = "/Fonatel/SolicitudFonatel/index" });
                     } else {
 
@@ -1253,7 +1253,7 @@ $(document).on("click", JsSolicitud.Controles.btnDeleteSolicitud, function (e) {
 
     console.log(id);
 
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Solicitud?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Solicitud de Información?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsSolicitud.Consultas.ValidarExistenciaSolicitud(id);
         });
@@ -1264,7 +1264,7 @@ $(document).on("click", JsSolicitud.Controles.btnDeleteSolicitud, function (e) {
 $(document).on("click", JsSolicitud.Controles.btnsent, function (e) {
     if (consultasFonatel) { return; }
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea enviar la Solicitud?", null, "Enviar Registro")
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea enviar la Solicitud de Información?", null, "Enviar Registro")
         .set('onok', function (closeEvent) {
             
             JsSolicitud.Consultas.EnviarCorreo(id);
