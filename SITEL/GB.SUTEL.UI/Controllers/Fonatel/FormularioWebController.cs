@@ -431,6 +431,27 @@ namespace GB.SUTEL.UI.Controllers.Fonatel
                 return JsonConvert.SerializeObject(result);
                       
         }
+        [HttpGet]
+        public string ObtenerIndicadoresxFrecuencia(int id)
+        {
+            //async Task<string>
+            RespuestaConsulta<List<SelectListItem>> result = new RespuestaConsulta<List<SelectListItem>>();
+            // await Task.Run(() =>
+            //{
+            var indicadores = indicadorBL.ObtenerDatos(new Indicador() { IdEstadoRegistro = 2,IdFrecuenciaEnvio = id })
+            .objetoRespuesta.Where(x => x.IdClasificacionIndicador != (int)Constantes.ClasificacionIndicadorEnum.Salida && x.Solicitud == true);
+            //indicadores = indicadores.Where(x => x.IdFrecuenciaEnvio == id).ToList();
+            indicadores = indicadores.
+                Where(p => !detalleFormularioWebBL.ObtenerDatos(new DetalleFormularioWeb()).objetoRespuesta.Any(p2 => p2.idIndicador == p.IdIndicador && p2.Estado == true)).ToList();
+
+            var listaValores = indicadores.Select(x => new SelectListItem() { Selected = false, Value = x.IdIndicador.ToString(), Text = Utilidades.ConcatenadoCombos(x.Codigo, x.Nombre) }).ToList();
+
+            result.objetoRespuesta = listaValores;
+            //});
+
+            return JsonConvert.SerializeObject(result);
+
+        }
 
         /// <summary>
         /// 05/01/2023
