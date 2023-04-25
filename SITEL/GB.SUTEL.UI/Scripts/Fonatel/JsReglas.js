@@ -839,7 +839,7 @@
 
             execAjaxCall("/ReglasValidacion/EliminarDetalleRegla", "POST", objRegla)
                 .then((data) => {
-                    jsMensajes.Metodos.OkAlertModal("El Tipo de Regla ha sido eliminado")
+                    jsMensajes.Metodos.OkAlertModal("El Tipo de Regla de Validación ha sido eliminado")
                         .set('onok', function (closeEvent) {
 
                             JsReglas.Metodos.LimpiarCamposDetalles();
@@ -1464,7 +1464,7 @@ $(document).on("click", JsReglas.Controles.btnViewRegla, function () {
 $(document).on("click", JsReglas.Controles.btnBorrarRegla, function () {
     if (consultasFonatel) { return; }
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Regla?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar la Regla de Validación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsReglas.Consultas.ValidarExistenciaReglas(id);
         });
@@ -1539,7 +1539,7 @@ $(document).on("click", JsReglas.Controles.btnFinalizar, function (e) {
 
 $(document).on("click", JsReglas.Controles.btnEliminaTipoRegla, function (e) {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Tipo de Regla?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Tipo de Regla de Validación?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsReglas.Variables.esModoEdicion = false;
             JsReglas.Consultas.EliminarDetalleRegla(id);

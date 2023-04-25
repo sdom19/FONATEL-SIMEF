@@ -798,13 +798,13 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
         }
         else {
             if (JsRelacion.Metodos.HabilitarBotonSiguiente()) {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación entre Categorías?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsRelacion.Consultas.EditarRelacion();
                     });
             }
             else {
-                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación?", jsMensajes.Variables.actionType.agregar)
+                jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar la Relación entre Categorías?", jsMensajes.Variables.actionType.agregar)
                     .set('onok', function (closeEvent) {
                         JsRelacion.Consultas.EditarRelacion();
                     })
@@ -827,7 +827,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarRelacion, function (e) {
 
 $(document).on("click", JsRelacion.Controles.btnEliminarDetalleRelacion, function () {
     let id = $(this).val();
-    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el Detalle?", jsMensajes.Variables.actionType.eliminar)
+    jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea eliminar el detalle de la Relación entre Categorías?", jsMensajes.Variables.actionType.eliminar)
         .set('onok', function (closeEvent) {
             JsRelacion.Consultas.EliminarDetalleRelacionId(id);
         });
@@ -937,7 +937,7 @@ $(document).on("click", JsRelacion.Controles.btnGuardarDetalleEditar, function (
 
 
     if (JsRelacion.Metodos.ValidarFormularioDetalle()) {
-        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el detalle de la Relación?", jsMensajes.Variables.actionType.agregar)
+        jsMensajes.Metodos.ConfirmYesOrNoModal("¿Desea editar el detalle de la Relación entre Categorías?", jsMensajes.Variables.actionType.agregar)
             .set('onok', function (closeEvent) {
                 JsRelacion.Consultas.EditarDetalleRelacionId();
             });
